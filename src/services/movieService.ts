@@ -111,6 +111,11 @@ const movieModel = {
         const take = 5;
         const orderByObject: any = {};
 
+        const titleFinal = title
+            .split("")
+            .map((char) => (char === "-" ? " " : char))
+            .join("");
+
         if (sortBy && ascOrDesc) {
             orderByObject[sortBy] = ascOrDesc;
         } else {
@@ -119,7 +124,7 @@ const movieModel = {
 
         try {
             const movie = await prisma.movie.findFirst({
-                where: { title },
+                where: { title: titleFinal },
                 include: {
                     genres: { select: { genre: true } },
                     reviews: {
