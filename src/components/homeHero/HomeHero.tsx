@@ -29,19 +29,10 @@ const HomeHeroSection = () => {
                     backgroundImage: "url('/images/backgrounds/netflix.png')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    // filter: theme.palette.mode === "dark" ? "blur(2px) opacity(0.5)" : "blur(2px) opacity(0.8)",
                     zIndex: -1,
                 }}
             />
-            <Typography
-                variant="h1"
-                fontSize={[22, 30, 40, 55, 60]}
-                fontWeight={900}
-                letterSpacing={3}
-                // sx={{
-                //     color: theme.palette.mode === "dark" ? colors.primary[100] : colors.blueAccent[900],
-                // }}
-            >
+            <Typography variant="h1" fontSize={[22, 30, 40, 55, 60]} fontWeight={900} letterSpacing={3}>
                 Dive into MovieLandia24
             </Typography>
             <Typography
@@ -50,9 +41,6 @@ const HomeHeroSection = () => {
                 fontSize={[16, 22, 30, 35, 40]}
                 fontWeight={900}
                 letterSpacing={1}
-                // sx={{
-                //     color: theme.palette.mode === "dark" ? colors.primary[100] : colors.blueAccent[900],
-                // }}
             >
                 Your Gateway to the World of Cinema and Series!
             </Typography>
@@ -62,10 +50,9 @@ const HomeHeroSection = () => {
                     textAlign={"center"}
                     fontWeight={700}
                     letterSpacing={0.5}
-                    // sx={{
-                    //     fontSize: [12, 14, 16, 18, 20],
-                    //     color: theme.palette.mode === "dark" ? colors.primary[100] : colors.primary[400],
-                    // }}
+                    sx={{
+                        fontSize: [12, 14, 16, 18, 20],
+                    }}
                 >
                     Explore the latest blockbusters and timeless classics.
                 </Typography>
@@ -76,15 +63,10 @@ const HomeHeroSection = () => {
                         variant="contained"
                         sx={{
                             textTransform: "capitalize",
-                            // backgroundColor: colors.primary[900],
-                            // "&:hover": {
-                            //     backgroundColor: colors.greenAccent[800],
-                            // },
                         }}
                     >
                         <MovieIcon
                             sx={{
-                                // color: colors.primary[100],
                                 fontSize: [12, 14, 16, 18, 20],
                             }}
                         />
@@ -93,7 +75,6 @@ const HomeHeroSection = () => {
                             paddingLeft={1}
                             fontWeight={800}
                             sx={{
-                                // color: colors.primary[100],
                                 fontSize: [10, 12, 14, 16, 18],
                                 py: 0.5,
                             }}
@@ -107,15 +88,10 @@ const HomeHeroSection = () => {
                         variant="contained"
                         sx={{
                             textTransform: "capitalize",
-                            // backgroundColor: colors.primary[900],
-                            // "&:hover": {
-                            //     backgroundColor: colors.greenAccent[800],
-                            // },
                         }}
                     >
                         <LocalMoviesIcon
                             sx={{
-                                // color: colors.primary[100],
                                 fontSize: [12, 14, 16, 18, 20],
                             }}
                         />
@@ -124,7 +100,6 @@ const HomeHeroSection = () => {
                             paddingLeft={1}
                             fontWeight={700}
                             sx={{
-                                // color: colors.primary[100],
                                 fontSize: [10, 12, 14, 16, 18],
                                 py: 0.5,
                             }}
