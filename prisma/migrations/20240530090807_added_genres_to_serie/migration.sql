@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "SerieGenre" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "serieId" INTEGER NOT NULL,
+    "genreId" INTEGER NOT NULL,
+    CONSTRAINT "SerieGenre_serieId_fkey" FOREIGN KEY ("serieId") REFERENCES "Serie" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "SerieGenre_genreId_fkey" FOREIGN KEY ("genreId") REFERENCES "Genre" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
