@@ -6,14 +6,20 @@ import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import movieService from "@/services/movieService";
 
+// export const metadata: Metadata = {
+//     title: "Watch the Latest Movies | High-Quality and Always Updated",
+//     description:
+//         "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
+// };
+
 export default async function Movie({
     searchParams,
     params,
 }: {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
-    params: { movieTitle: string };
+    params: { title: string };
 }) {
-    const title = params?.movieTitle;
+    const title = params?.title;
     const ascOrDesc = searchParams?.moviesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
