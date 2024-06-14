@@ -1,19 +1,12 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import type { Metadata } from "next";
 import theme from "@/utils/theme";
-import "./globals.css";
 import Footer from "@/components/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
 import Header from "@/components/header/Header";
-
-export const metadata: Metadata = {
-    title: "MovieLand24 - Your Ultimate Destination for Movies",
-    description:
-        "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
-};
+import "./globals.css";
 
 export default function RootLayout({
     children,

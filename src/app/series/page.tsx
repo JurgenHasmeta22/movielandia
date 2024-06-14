@@ -19,9 +19,9 @@ export default async function Series({
 }: {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
 }) {
-    const ascOrDesc = searchParams && searchParams.seriesAscOrDesc! ? searchParams.seriesAscOrDesc! : "";
-    const page = searchParams && searchParams.page! ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams && searchParams.seriesSortBy! ? searchParams.seriesSortBy : "";
+    const ascOrDesc = searchParams?.seriesAscOrDesc ? searchParams?.seriesAscOrDesc : "";
+    const page = searchParams?.page ? Number(searchParams?.page) : 1;
+    const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
     const queryParams = {
         ascOrDesc,
         page,

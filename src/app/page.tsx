@@ -5,6 +5,13 @@ import movieService from "@/services/movieService";
 import genreService from "@/services/genreService";
 import serieService from "@/services/serieService";
 import { Genre, Movie, Serie } from "@prisma/client";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "MovieLand24 - Your Ultimate Destination for Movies",
+    description:
+        "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+};
 
 export default async function Home() {
     const queryParams = {
