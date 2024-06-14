@@ -11,18 +11,18 @@ export default async function Movie({
     params,
 }: {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
-    params: { title: string };
+    params: { movieTitle: string };
 }) {
-    const title = params && params.title! ? params.title! : "";
-    const ascOrDesc = searchParams && searchParams.moviesAscOrDesc! ? searchParams.moviesAscOrDesc! : "";
-    const page = searchParams && searchParams.page! ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams && searchParams.moviesSortBy! ? searchParams.moviesSortBy : "";
+    const title = params?.movieTitle;
+    const ascOrDesc = searchParams?.moviesAscOrDesc;
+    const page = searchParams?.page ? Number(searchParams!.page!) : 1;
+    const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
 
-    const movie = await movieService.getMovieByTitle(title, { page });
+    const movie = await movieService.getMovieByTitle(title, {});
     const latestMovies = await movieService.getLatestMovies();
     const relatedMovies = await movieService.getRelatedMovies(title);
 
-    const pageCount = Math.ceil(movie!.totalReviews! / 5);
+    const pageCount = Math.ceil(movie?.totalReviews / 5);
 
     return (
         <Container>
@@ -33,17 +33,15 @@ export default async function Movie({
                         display: "flex",
                         flexDirection: "column",
                         rowGap: 2,
-                        mb: movie!.reviews!.length! > 0 ? 4 : 0,
+                        mb: movie?.reviews!.length > 0 ? 4 : 0,
                     }}
                     component={"section"}
                 >
-                    {movie!.reviews!.length! > 0 && <Reviews data={movie} sortBy={sortBy!} ascOrDesc={ascOrDesc!} />}
-                    {movie!.reviews!.map((review: any, index: number) => (
+                    {movie?.reviews!.length > 0 && <Reviews data={movie} sortBy={sortBy!} ascOrDesc={ascOrDesc!} />}
+                    {movie?.reviews!.map((review: any, index: number) => (
                         <Review key={index} review={review} type="movie" data={movie} />
                     ))}
-                    {movie!.totalReviews! > 0 && (
-                        <PaginationControl currentPage={Number(page)!} pageCount={pageCount} />
-                    )}
+                    {movie?.totalReviews > 0 && <PaginationControl currentPage={Number(page)!} pageCount={pageCount} />}
                     {/* {user && (!movie.isReviewed) && <TextEditorForm review={review} rating={rating} />} */}
                 </Box>
                 <ListDetail data={latestMovies!} type="movie" roleData={"latest"} />
