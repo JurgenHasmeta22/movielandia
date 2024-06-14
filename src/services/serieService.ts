@@ -2,9 +2,9 @@ import { Prisma, Serie } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 interface SerieModelParams {
-    sortBy: string;
-    ascOrDesc: "asc" | "desc";
-    perPage: number;
+    sortBy?: string;
+    ascOrDesc?: "asc" | "desc";
+    perPage?: number;
     page: number;
     title?: string | null;
     filterValue?: number | string;

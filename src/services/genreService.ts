@@ -2,15 +2,15 @@ import { Genre, Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 interface GetGenresParams {
-    sortBy: string;
-    ascOrDesc: "asc" | "desc";
-    perPage: number;
+    sortBy?: string;
+    ascOrDesc?: "asc" | "desc";
+    perPage?: number;
     page: number;
-    name: string;
+    name?: string;
     type?: string;
     filterValue?: number;
-    filterNameString: string;
-    filterOperatorString: ">" | "=" | "<";
+    filterNameString?: string;
+    filterOperatorString?: ">" | "=" | "<";
 }
 
 const genreModel = {
