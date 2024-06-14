@@ -36,7 +36,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                     backgroundColor: "lightgray", // Fixed color for testing
                 }}
             >
-                <Image src={data.photoSrc} alt={data.title} width={220} height={320} />
+                <Image src={data?.photoSrc} alt={data?.title} width={220} height={320} />
                 <Box
                     sx={{
                         display: "flex",
@@ -44,7 +44,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                     }}
                 >
                     <Typography fontSize={[20, 24, 28, 32]} textAlign={"center"} component={"h1"}>
-                        {data.title}
+                        {data?.title}
                     </Typography>
                     <List
                         sx={{
@@ -55,7 +55,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                             mt: 1,
                         }}
                     >
-                        {data.genres?.map((genre: any, index: number) => (
+                        {data?.genres?.map((genre: any, index: number) => (
                             <Box key={index}>
                                 <ListItem key={index}>
                                     <Link
@@ -83,7 +83,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                                         </Typography>
                                     </Link>
                                 </ListItem>
-                                {index < data.genres!.length - 1 && (
+                                {index < data?.genres!.length - 1 && (
                                     <Divider orientation="vertical" flexItem color="error" />
                                 )}
                             </Box>
@@ -100,14 +100,14 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                             <ListItem>
                                 <AccessTimeIcon fontSize="medium" />
                                 <Typography component={"span"} width={"8ch"} paddingLeft={1}>
-                                    {data.duration}
+                                    {data?.duration}
                                 </Typography>
                             </ListItem>
                         )}
                         <ListItem>
                             <CalendarMonthIcon fontSize="medium" />
                             <Typography component={"span"} paddingLeft={1}>
-                                {data.releaseYear}
+                                {data?.releaseYear}
                             </Typography>
                         </ListItem>
                         <ListItem
@@ -126,7 +126,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                             >
                                 <Image src="/assets/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
                                 <Typography fontSize={12} component="span">
-                                    {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                    {data?.ratingImdb !== 0 ? `${data?.ratingImdb}` : "N/A"}
                                 </Typography>
                             </Box>
                         </ListItem>
@@ -146,16 +146,16 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                             >
                                 <StarRateIcon />
                                 <Typography fontSize={16} component="span">
-                                    {data.averageRating === 0 ? "N/A" : data.averageRating}
+                                    {data?.averageRating === 0 ? "N/A" : data?.averageRating}
                                 </Typography>
                                 <Typography fontSize={16} component="span">
-                                    ({data.totalReviews})
+                                    ({data?.totalReviews})
                                 </Typography>
                             </Box>
                         </ListItem>
                     </List>
                     <Typography textAlign={"center"} width={["45ch", "50ch", "55ch", "60ch"]}>
-                        {data.description}
+                        {data?.description}
                     </Typography>
                     <Button
                         href={data.trailerSrc}

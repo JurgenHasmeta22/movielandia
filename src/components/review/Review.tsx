@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, Box, Paper, Typography, IconButton, Rating, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 // import EditIcon from "@mui/icons-material/Edit";
