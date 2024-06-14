@@ -15,5 +15,5 @@ export default interface ISerie {
     isReviewed: boolean;
     episodes: IEpisode[];
     genres: IGenre[];
-    reviews?: any[];
+    // reviews?: any[];
 }

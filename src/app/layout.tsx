@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import type { Metadata } from "next";
+
 import theme from "@/utils/theme";
+import "./globals.css";
 
 export const metadata: Metadata = {
     title: "Create Next App",
