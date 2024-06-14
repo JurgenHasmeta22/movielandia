@@ -2,8 +2,8 @@ import { Movie, Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 interface MovieModelParams {
-    sortBy?: string;
-    ascOrDesc?: "asc" | "desc";
+    sortBy?: any;
+    ascOrDesc?: any;
     perPage?: number;
     page: number;
     title?: string | null;
