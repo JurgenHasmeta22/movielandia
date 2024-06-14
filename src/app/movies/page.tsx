@@ -10,11 +10,11 @@ import { Movie } from "@prisma/client";
 export default async function Movies({
     searchParams,
 }: {
-    searchParams?: { ascOrDesc?: string; page?: string; sortBy?: string };
+    searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
 }) {
-    const ascOrDesc = searchParams!.ascOrDesc!;
-    const page = Number(searchParams!.page!);
-    const sortBy = searchParams!.sortBy!;
+    const ascOrDesc = searchParams && searchParams.moviesAscOrDesc! ? searchParams.moviesAscOrDesc! : "";
+    const page = searchParams && searchParams.page! ? Number(searchParams!.page!) : 1;
+    const sortBy = searchParams && searchParams.moviesSortBy! ? searchParams.moviesSortBy : "";
     const queryParams = {
         ascOrDesc,
         page,
@@ -59,7 +59,7 @@ export default async function Movies({
                             <Divider sx={{ borderBottomWidth: 3, mt: 1 }} />
                         </Box>
                         <Box mr={1}>
-                            <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" />
+                            <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="movies" />
                         </Box>
                     </Stack>
                     <Box
@@ -84,11 +84,7 @@ export default async function Movies({
                                 <CardItem data={movie} type="movie" key={movie.id} />
                             ))}
                         </Stack>
-                        <PaginationControl
-                            currentPage={Number(page)!}
-                            pageCount={pageCount}
-                            // onPageChange={handlePageChange}
-                        />
+                        <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
                     </Box>
                     <Divider sx={{ borderBottomWidth: 3 }} />
                     <LatestList data={latestMovies} type="Movies" />

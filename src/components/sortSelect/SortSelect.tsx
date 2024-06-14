@@ -1,8 +1,10 @@
 "use client";
 
-import { Box, MenuItem, Select, SelectChangeEvent, SvgIcon, Typography } from "@mui/material";
+import React from "react";
+import { Box, MenuItem, Select, SvgIcon, Typography } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { toFirstWordUpperCase } from "@/utils/utils";
+import { useSorting } from "@/hooks/useSorting";
 
 const valueToLabelList: Record<string, string> = {
     none: "None",
@@ -20,13 +22,15 @@ const valueToLabelDetails: Record<string, string> = {
 };
 
 interface ISortSelectProps {
-    sortBy: any;
-    ascOrDesc: any;
+    sortBy: string;
+    ascOrDesc: string;
     type: string;
-    onChange?: (event: SelectChangeEvent<string>) => void;
+    dataType: string;
 }
 
-export default function SortSelect({ sortBy, ascOrDesc, onChange, type }: ISortSelectProps) {
+export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortSelectProps) {
+    const handleChangeSorting = useSorting(dataType);
+
     const getDefaultValue = () => {
         if (type === "list") {
             return "none";
@@ -39,14 +43,15 @@ export default function SortSelect({ sortBy, ascOrDesc, onChange, type }: ISortS
         if (sortBy && ascOrDesc) {
             return sortBy + toFirstWordUpperCase(ascOrDesc);
         }
+
         return getDefaultValue();
     };
 
     return (
         <Select
-            defaultValue={`${type === "list" ? "none" : "createdAtDesc"}`}
+            defaultValue={getDefaultValue()}
             value={getValue()}
-            onChange={onChange}
+            onChange={handleChangeSorting}
             renderValue={(value: string) => (
                 <Box sx={{ display: "flex", gap: 0.5 }}>
                     <SvgIcon fontSize="medium">
