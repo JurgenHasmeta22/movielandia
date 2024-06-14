@@ -4,6 +4,9 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
 import theme from "@/utils/theme";
 import "./globals.css";
+import Footer from "@/components/footer/Footer";
+import { Grid } from "@mui/material";
+import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
 
 export const metadata: Metadata = {
     title: "MovieLand24 - Your Ultimate Destination for Movies",
@@ -22,7 +25,13 @@ export default function RootLayout({
                 <AppRouterCacheProvider>
                     <ThemeProvider theme={theme}>
                         <CssBaseline />
-                        {children}
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <main>{children}</main>
+                                <ScrollToTop />
+                                <Footer />
+                            </Grid>
+                        </Grid>
                     </ThemeProvider>
                 </AppRouterCacheProvider>
             </body>
