@@ -6,6 +6,13 @@ import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/latestList/LatestList";
 import serieService from "@/services/serieService";
 import { Serie } from "@prisma/client";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Watch the Latest Series | High-Quality and Always Updated",
+    description:
+        "Discover and watch the latest and most amazing series in high quality. Our collection is always updated with the newest episodes and releases.",
+};
 
 export default async function Series({
     searchParams,
