@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int        @id @default(autoincrement())
+  userName       String     @unique
+  email          String     @unique
+  password       String
+  comments       Comment[]
+  favoriteMovies Favorite[]
+}
+
+model Movie {
+  id                  Int          @id @default(autoincrement())
+  title               String       @default("")
+  videoSrc            String       @default("")
+  photoSrc            String       @default("")
+  trailerSrc          String       @default("")
+  duration            String       @default("")
+  ratingImdb          Float        @default(5.0)
+  releaseYear         Int          @default(2020)
+  description         String       @default("")
+  views               Int          @default(0)
+  genres              MovieGenre[]
+  userWhoBookmarkedIt Favorite[]
+}
+
+model Serie {
+  id                  Int          @id @default(autoincrement())
+  title               String       @default("")
+  photoSrc            String       @default("")
+  releaseYear         Int          @default(2020)
+  ratingImdb          Float        @default(5.0)
+  episodes            Episode[]
+  // seasons             Season[]
+}
+
+// model Season {
+//   id                  Int          @id @default(autoincrement())
+//   title               String       @default("")
+//   photoSrc            String       @default("")
+//   releaseYear         Int          @default(2020)
+//   ratingImdb          Float        @default(5.0)
+//   serieId    Int
+//   serie      Serie     @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   episodes             Episode[]
+// }
+
+model Episode {
+  id                  Int          @id @default(autoincrement())
+  title               String       @default("")
+  photoSrc            String       @default("")
+  videoSrc            String       @default("")
+  description         String       @default("")
+  serieId    Int
+  serie      Serie    @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  // seasonId    Int
+  // season      Season     @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String   @default("")
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Genre {
+  id     Int          @id @default(autoincrement())
+  name   String       @default("")
+  movies MovieGenre[]
+}
+
+model Favorite {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  movieId Int
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model MovieGenre {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  genreId Int
+  movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
