@@ -1,0 +1,31 @@
+-- CreateTable
+CREATE TABLE "Serie" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL DEFAULT '',
+    "photoSrc" TEXT NOT NULL DEFAULT '',
+    "releaseYear" INTEGER NOT NULL DEFAULT 2020,
+    "ratingImdb" REAL NOT NULL DEFAULT 5.0
+);
+
+-- CreateTable
+CREATE TABLE "Season" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL DEFAULT '',
+    "photoSrc" TEXT NOT NULL DEFAULT '',
+    "releaseYear" INTEGER NOT NULL DEFAULT 2020,
+    "ratingImdb" REAL NOT NULL DEFAULT 5.0,
+    "serieId" INTEGER NOT NULL,
+    CONSTRAINT "Season_serieId_fkey" FOREIGN KEY ("serieId") REFERENCES "Serie" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Episode" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL DEFAULT '',
+    "photoSrc" TEXT NOT NULL DEFAULT '',
+    "ratingImdb" REAL NOT NULL DEFAULT 5.0,
+    "releaseYear" INTEGER NOT NULL DEFAULT 2020,
+    "description" TEXT NOT NULL DEFAULT '',
+    "seasonId" INTEGER NOT NULL,
+    CONSTRAINT "Episode_seasonId_fkey" FOREIGN KEY ("seasonId") REFERENCES "Season" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);

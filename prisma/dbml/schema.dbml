@@ -1,0 +1,343 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id Int [pk, increment]
+  userName String [not null]
+  email String [unique, not null]
+  password String [not null]
+  favMovies UserMovieFavorite [not null]
+  favSeries UserSerieFavorite [not null]
+  favGenres UserGenreFavorite [not null]
+  favSeasons UserSeasonFavorite [not null]
+  favEpisodes UserEpisodeFavorite [not null]
+  ratingsInMovie UserMovieRating [not null]
+  ratingsInSerie UserSerieRating [not null]
+  ratingsInSeason UserSeasonRating [not null]
+  ratingsInEpisode UserEpisodeRating [not null]
+  ratingsInGenre UserGenreRating [not null]
+  comments Comment [not null]
+  followers UserFollow [not null]
+  following UserFollow [not null]
+  chats UserChat [not null]
+  messagesSent Message [not null]
+  messagesReceived Message [not null]
+}
+
+Table UserFollow {
+  id Int [pk, increment]
+  state String [not null]
+  follower User [not null]
+  followerId Int [not null]
+  following User [not null]
+  followingId Int [not null]
+}
+
+Table UserChat {
+  id Int [pk, increment]
+  userId Int [not null]
+  chatId Int [not null]
+  user User [not null]
+  chat Chat [not null]
+}
+
+Table Chat {
+  id Int [pk, increment]
+  participants UserChat [not null]
+  messages Message [not null]
+}
+
+Table Message {
+  id Int [pk, increment]
+  text String [not null]
+  sender User [not null]
+  senderId Int [not null]
+  receiver User
+  receiverId Int
+  chat Chat [not null]
+  chatId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  status String [not null, default: 'Pending']
+}
+
+Table Movie {
+  id Int [pk, increment]
+  title String [not null, default: '']
+  photoSrc String [not null, default: '']
+  trailerSrc String [not null, default: '']
+  duration String [not null, default: '']
+  ratingImdb Float [not null, default: 5]
+  releaseYear Int [not null, default: 2023]
+  description String [not null, default: '']
+  cast CastMovie [not null]
+  genres MovieGenre [not null]
+  comments Comment [not null]
+  usersWhoBookmarkedIt UserMovieFavorite [not null]
+  usersWhoRatedIt UserMovieRating [not null]
+}
+
+Table CastMovie {
+  id Int [pk, increment]
+  movieId Int [not null]
+  actorId Int [not null]
+  movie Movie [not null]
+  actor Actor [not null]
+}
+
+Table CastSerie {
+  id Int [pk, increment]
+  serieId Int [not null]
+  actorId Int [not null]
+  serie Serie [not null]
+  actor Actor [not null]
+}
+
+Table Actor {
+  id Int [pk, increment]
+  name String [not null]
+  starredMovies CastMovie [not null]
+  starredSeries CastSerie [not null]
+}
+
+Table MovieGenre {
+  id Int [pk, increment]
+  movieId Int [not null]
+  genreId Int [not null]
+  movie Movie [not null]
+  genre Genre [not null]
+}
+
+Table Genre {
+  id Int [pk, increment]
+  name String [not null, default: '']
+  movies MovieGenre [not null]
+  comments Comment [not null]
+  usersWhoBookmarkedIt UserGenreFavorite [not null]
+  usersWhoRatedIt UserGenreRating [not null]
+}
+
+Table Serie {
+  id Int [pk, increment]
+  title String [not null, default: '']
+  photoSrc String [not null, default: '']
+  releaseYear Int [not null, default: 2020]
+  ratingImdb Float [not null, default: 5]
+  cast CastSerie [not null]
+  seasons Season [not null]
+  comments Comment [not null]
+  usersWhoBookmarkedIt UserSerieFavorite [not null]
+  usersWhoRatedIt UserSerieRating [not null]
+}
+
+Table Season {
+  id Int [pk, increment]
+  title String [not null, default: '']
+  photoSrc String [not null, default: '']
+  releaseYear Int [not null, default: 2020]
+  ratingImdb Float [not null, default: 5]
+  serieId Int [not null, default: 1]
+  serie Serie [not null]
+  episodes Episode [not null]
+  comments Comment [not null]
+  usersWhoBookmarkedIt UserSeasonFavorite [not null]
+  usersWhoRatedIt UserSeasonRating [not null]
+}
+
+Table Episode {
+  id Int [pk, increment]
+  title String [not null, default: '']
+  photoSrc String [not null, default: '']
+  videoSrc String [not null, default: '']
+  description String [not null, default: '']
+  seasonId Int [not null]
+  season Season [not null]
+  comments Comment [not null]
+  usersWhoBookmarkedIt UserEpisodeFavorite [not null]
+  usersWhoRatedIt UserEpisodeRating [not null]
+}
+
+Table Comment {
+  id Int [pk, increment]
+  content String [not null, default: '']
+  createdAt DateTime [default: `now()`, not null]
+  userId Int [not null]
+  user User [not null]
+  movieId Int
+  serieId Int
+  episodeId Int
+  genreId Int
+  seasonId Int
+  movie Movie
+  serie Serie
+  season Season
+  episode Episode
+  genre Genre
+}
+
+Table UserMovieRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  movieId Int [not null]
+  movie Movie [not null]
+}
+
+Table UserSerieRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  serieId Int [not null]
+  serie Serie [not null]
+}
+
+Table UserSeasonRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  seasonId Int [not null]
+  season Season [not null]
+}
+
+Table UserEpisodeRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  episodeId Int [not null]
+  episode Episode [not null]
+}
+
+Table UserGenreRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  genreId Int [not null]
+  genre Genre [not null]
+}
+
+Table UserMovieFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  movieId Int [not null]
+  user User [not null]
+  movie Movie [not null]
+}
+
+Table UserGenreFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  genreId Int [not null]
+  user User [not null]
+  genre Genre [not null]
+}
+
+Table UserSerieFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  serieId Int [not null]
+  user User [not null]
+  serie Serie [not null]
+}
+
+Table UserEpisodeFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  episodeId Int [not null]
+  user User [not null]
+  episode Episode [not null]
+}
+
+Table UserSeasonFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  seasonId Int [not null]
+  user User [not null]
+  season Season [not null]
+}
+
+Ref: UserFollow.followerId > User.id [delete: Cascade]
+
+Ref: UserFollow.followingId > User.id [delete: Cascade]
+
+Ref: UserChat.userId > User.id [delete: Cascade]
+
+Ref: UserChat.chatId > Chat.id [delete: Cascade]
+
+Ref: Message.senderId > User.id [delete: Cascade]
+
+Ref: Message.receiverId > User.id [delete: Cascade]
+
+Ref: Message.chatId > Chat.id [delete: Cascade]
+
+Ref: CastMovie.movieId > Movie.id [delete: Cascade]
+
+Ref: CastMovie.actorId > Actor.id [delete: Cascade]
+
+Ref: CastSerie.serieId > Serie.id [delete: Cascade]
+
+Ref: CastSerie.actorId > Actor.id [delete: Cascade]
+
+Ref: MovieGenre.movieId > Movie.id [delete: Cascade]
+
+Ref: MovieGenre.genreId > Genre.id [delete: Cascade]
+
+Ref: Season.serieId > Serie.id [delete: Cascade]
+
+Ref: Episode.seasonId > Season.id [delete: Cascade]
+
+Ref: Comment.userId > User.id [delete: Cascade]
+
+Ref: Comment.movieId > Movie.id [delete: Cascade]
+
+Ref: Comment.serieId > Serie.id [delete: Cascade]
+
+Ref: Comment.seasonId > Season.id [delete: Cascade]
+
+Ref: Comment.episodeId > Episode.id [delete: Cascade]
+
+Ref: Comment.genreId > Genre.id [delete: Cascade]
+
+Ref: UserMovieRating.userId > User.id [delete: Cascade]
+
+Ref: UserMovieRating.movieId > Movie.id [delete: Cascade]
+
+Ref: UserSerieRating.userId > User.id [delete: Cascade]
+
+Ref: UserSerieRating.serieId > Serie.id [delete: Cascade]
+
+Ref: UserSeasonRating.userId > User.id [delete: Cascade]
+
+Ref: UserSeasonRating.seasonId > Season.id [delete: Cascade]
+
+Ref: UserEpisodeRating.userId > User.id [delete: Cascade]
+
+Ref: UserEpisodeRating.episodeId > Episode.id [delete: Cascade]
+
+Ref: UserGenreRating.userId > User.id [delete: Cascade]
+
+Ref: UserGenreRating.genreId > Genre.id [delete: Cascade]
+
+Ref: UserMovieFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserMovieFavorite.movieId > Movie.id [delete: Cascade]
+
+Ref: UserGenreFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserGenreFavorite.genreId > Genre.id [delete: Cascade]
+
+Ref: UserSerieFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserSerieFavorite.serieId > Serie.id [delete: Cascade]
+
+Ref: UserEpisodeFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserEpisodeFavorite.episodeId > Episode.id [delete: Cascade]
+
+Ref: UserSeasonFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserSeasonFavorite.seasonId > Season.id [delete: Cascade]
