@@ -20,9 +20,9 @@ export default async function Movies({
 }: {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
 }) {
-    const ascOrDesc = searchParams && searchParams.moviesAscOrDesc! ? searchParams.moviesAscOrDesc! : "";
-    const page = searchParams && searchParams.page! ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams && searchParams.moviesSortBy! ? searchParams.moviesSortBy : "";
+    const ascOrDesc = searchParams?.moviesAscOrDesc ? searchParams?.moviesAscOrDesc : "";
+    const page = searchParams?.page ? Number(searchParams?.page) : 1;
+    const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
     const queryParams = {
         ascOrDesc,
         page,
