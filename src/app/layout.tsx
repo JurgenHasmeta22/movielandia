@@ -29,7 +29,7 @@ export default function RootLayout({
                         <Grid container>
                             <Grid item xs={12}>
                                 <Header />
-                                <main>{children}</main>
+                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
                                 <ScrollToTop />
                                 <Footer />
                             </Grid>
