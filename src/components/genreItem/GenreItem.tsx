@@ -1,11 +1,16 @@
+"use client";
+
 import { Card, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 interface IGenreItemProps {
     genre: Genre;
 }
 
 export default function GenreItem({ genre }: IGenreItemProps) {
+    const router = useRouter();
+
     return (
         <Card
             key={genre.id}
@@ -19,6 +24,9 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                 backgroundColor: `colors.secondary`,
             }}
             elevation={4}
+            onClick={() => {
+                router.push(`/genres/${genre.name}`);
+            }}
         >
             <Typography component={"span"}>{genre.name}</Typography>
         </Card>

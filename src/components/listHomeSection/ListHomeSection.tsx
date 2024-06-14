@@ -35,7 +35,6 @@ const ListHomeSection: React.FC<ListHomeSectionProps> = ({ data, type, link, lin
                         textDecoration: "none",
                         fontWeight: 900,
                         fontSize: 14,
-                        // color: colors.primary[100],
                     }}
                 >
                     {linkText}

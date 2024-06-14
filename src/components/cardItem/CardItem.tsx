@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
-import { Box, Card, CardContent, CardMedia, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface ICardItemProps {
@@ -11,9 +14,10 @@ interface ICardItemProps {
     type?: string;
 }
 
-const CardItem = ({ data }: ICardItemProps): React.JSX.Element => {
-    // const path =
-    //     type === "serie" ? `/series/${data.title.split(" ").join("-")}` : `/movies/${data.title.split(" ").join("-")}`;
+const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
+    const router = useRouter();
+    const path =
+        type === "serie" ? `/series/${data.title.split(" ").join("-")}` : `/movies/${data.title.split(" ").join("-")}`;
 
     return (
         <Card
@@ -32,17 +36,12 @@ const CardItem = ({ data }: ICardItemProps): React.JSX.Element => {
                 },
             }}
             elevation={6}
+            onClick={() => {
+                router.push(path);
+            }}
         >
             <Box sx={{ position: "relative" }}>
-                <CardMedia
-                    component="img"
-                    alt={`${data.description}`}
-                    image={data.photoSrc}
-                    sx={{
-                        height: "317px",
-                        width: "214px",
-                    }}
-                />
+                <Image alt={`${data.description}`} src={data.photoSrc} height={317} width={214} />
                 <Box
                     sx={{
                         position: "absolute",
@@ -188,7 +187,14 @@ const CardItem = ({ data }: ICardItemProps): React.JSX.Element => {
                         }}
                     >
                         {data?.genres?.map((genre: any, index: number) => (
-                            <Link href={`/genres/${genre.name}`} style={{ textDecoration: "none" }} key={index}>
+                            <Link
+                                href={`/genres/${genre.name}`}
+                                style={{ textDecoration: "none" }}
+                                key={index}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            >
                                 <Typography
                                     component={"span"}
                                     key={index}
