@@ -7,6 +7,7 @@ import "./globals.css";
 import Footer from "@/components/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
+import Header from "@/components/header/Header";
 
 export const metadata: Metadata = {
     title: "MovieLand24 - Your Ultimate Destination for Movies",
@@ -27,6 +28,7 @@ export default function RootLayout({
                         <CssBaseline />
                         <Grid container>
                             <Grid item xs={12}>
+                                <Header />
                                 <main>{children}</main>
                                 <ScrollToTop />
                                 <Footer />
