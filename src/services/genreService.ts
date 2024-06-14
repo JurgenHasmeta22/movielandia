@@ -5,7 +5,7 @@ interface GetGenresParams {
     sortBy?: string;
     ascOrDesc?: "asc" | "desc";
     perPage?: number;
-    page: number;
+    page?: number;
     name?: string;
     type?: string;
     filterValue?: number;
@@ -26,7 +26,7 @@ const genreModel = {
     }: GetGenresParams): Promise<any | null> {
         const filters: any = {};
         const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
-        const take = perPage || 20;
+        const take = perPage && page ? perPage : 100;
 
         if (name) filters.name = { contains: name };
 

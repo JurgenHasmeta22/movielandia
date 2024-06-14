@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 
 interface SerieModelParams {
     sortBy?: string;
-    ascOrDesc?: "asc" | "desc";
+    ascOrDesc?: string;
     perPage?: number;
     page: number;
     title?: string | null;

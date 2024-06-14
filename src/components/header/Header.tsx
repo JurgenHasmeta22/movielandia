@@ -42,7 +42,8 @@ const Header = () => (
                 >
                     <Box>
                         <Typography
-                            variant="h6"
+                            component={"a"}
+                            href={"/"}
                             style={{
                                 cursor: "pointer",
                                 textDecoration: "none",
