@@ -5,20 +5,25 @@ import { ListDetail } from "@/components/listDetail/ListDetail";
 import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.action";
+import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//     title: "Watch the Latest Movies | High-Quality and Always Updated",
-//     description:
-//         "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
-// };
-
-export default async function Movie({
-    searchParams,
-    params,
-}: {
+interface IMovieProps {
+    params: {
+        title: string;
+    };
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
-    params: { title: string };
-}) {
+}
+
+export async function generateMetadata({ params }: IMovieProps): Promise<Metadata> {
+    const { title } = params;
+
+    return {
+        title: `${title} | Watch the Latest Movies`,
+        description: `Discover and watch the latest and most amazing movies titled "${title}" in high quality. Our collection is always updated with the newest releases.`,
+    };
+}
+
+export default async function Movie({ searchParams, params }: IMovieProps) {
     const title = params?.title;
     const ascOrDesc = searchParams?.moviesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;

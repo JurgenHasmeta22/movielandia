@@ -5,20 +5,25 @@ import { ListDetail } from "@/components/listDetail/ListDetail";
 import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.action";
+import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//     title: "Watch the Latest Series | High-Quality and Always Updated",
-//     description:
-//         "Discover and watch the latest and most amazing series in high quality. Our collection is always updated with the newest episodes and releases.",
-// };
-
-export default async function Serie({
-    searchParams,
-    params,
-}: {
+interface ISerieProps {
+    params: {
+        title: string;
+    };
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
-    params: { title: string };
-}) {
+}
+
+export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
+    const { title } = params;
+
+    return {
+        title: `${title} | Watch the Latest Series`,
+        description: `Discover and watch the latest and most amazing series titled "${title}" in high quality. Our collection is always updated with the newest episodes and releases.`,
+    };
+}
+
+export default async function Serie({ searchParams, params }: ISerieProps) {
     const title = params?.title;
     const ascOrDesc = searchParams?.seriesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
