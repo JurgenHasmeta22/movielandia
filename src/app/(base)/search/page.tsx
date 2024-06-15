@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         "Discover and search the latest and most amazing series in high quality. Our collection is always updated with the newest episodes and releases.",
 };
 
-export async function Search({ searchParams }: ISearchProps) {
+export default async function Search({ searchParams }: ISearchProps) {
     const term = searchParams?.term;
 
     const pageMovies = Number(searchParams?.pageMovies) || 1;
@@ -210,5 +210,3 @@ export async function Search({ searchParams }: ISearchProps) {
         </Container>
     );
 }
-
-export default Search;
