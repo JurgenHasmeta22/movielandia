@@ -1,4 +1,4 @@
-"user server";
+"use server";
 
 import { Movie, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
