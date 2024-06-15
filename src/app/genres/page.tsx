@@ -1,5 +1,5 @@
 import GenreItem from "@/components/genreItem/GenreItem";
-import genreService from "@/services/genreService";
+import { getGenres } from "@/lib/actions/genre.action";
 import { Box, Container, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Genres() {
-    const genresData = await genreService.getGenres({});
+    const genresData = await getGenres({});
     const genres = genresData!.rows!;
 
     return (

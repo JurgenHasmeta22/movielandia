@@ -4,7 +4,7 @@ import PaginationControl from "@/components/paginationControl/PaginationControl"
 import { ListDetail } from "@/components/listDetail/ListDetail";
 import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
-import movieService from "@/services/movieService";
+import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.action";
 
 // export const metadata: Metadata = {
 //     title: "Watch the Latest Movies | High-Quality and Always Updated",
@@ -24,9 +24,9 @@ export default async function Movie({
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
 
-    const movie = await movieService.getMovieByTitle(title, {});
-    const latestMovies = await movieService.getLatestMovies();
-    const relatedMovies = await movieService.getRelatedMovies(title);
+    const movie = await getMovieByTitle(title, {});
+    const latestMovies = await getLatestMovies();
+    const relatedMovies = await getRelatedMovies(title);
 
     const pageCount = Math.ceil(movie?.totalReviews / 5);
 

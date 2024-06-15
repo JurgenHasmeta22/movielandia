@@ -4,10 +4,10 @@ import PaginationControl from "@/components/paginationControl/PaginationControl"
 import SortSelect from "@/components/sortSelect/SortSelect";
 import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/latestList/LatestList";
-import movieService from "@/services/movieService";
 import { Movie } from "@prisma/client";
 
 import type { Metadata } from "next";
+import { getMovies, getLatestMovies } from "@/lib/actions/movie.action";
 
 export const metadata: Metadata = {
     title: "Watch the Latest Movies | High-Quality and Always Updated",
@@ -29,8 +29,8 @@ export default async function Movies({
         sortBy,
     };
 
-    const moviesData = await movieService.getMovies(queryParams);
-    const latestMovies = await movieService.getLatestMovies();
+    const moviesData = await getMovies(queryParams);
+    const latestMovies = await getLatestMovies();
     const movies = moviesData?.movies;
     const moviesCount = moviesData?.count;
     const moviesCarouselImages: Movie[] = moviesData?.movies!.slice(0, 5);

@@ -4,7 +4,7 @@ import PaginationControl from "@/components/paginationControl/PaginationControl"
 import { ListDetail } from "@/components/listDetail/ListDetail";
 import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
-import serieService from "@/services/serieService";
+import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.action";
 
 // export const metadata: Metadata = {
 //     title: "Watch the Latest Series | High-Quality and Always Updated",
@@ -24,9 +24,9 @@ export default async function Serie({
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
 
-    const serie = await serieService.getSerieByTitle(title, {});
-    const latestSeries = await serieService.getLatestSeries();
-    const relatedSeries = await serieService.getRelatedSeries(title);
+    const serie = await getSerieByTitle(title, {});
+    const latestSeries = await getLatestSeries();
+    const relatedSeries = await getRelatedSeries(title);
 
     const pageCount = Math.ceil(serie?.totalReviews / 5);
 

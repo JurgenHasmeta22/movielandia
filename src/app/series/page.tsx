@@ -4,9 +4,9 @@ import PaginationControl from "@/components/paginationControl/PaginationControl"
 import SortSelect from "@/components/sortSelect/SortSelect";
 import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/latestList/LatestList";
-import serieService from "@/services/serieService";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
+import { getSeries, getLatestSeries } from "@/lib/actions/serie.action";
 
 export const metadata: Metadata = {
     title: "Watch the Latest Series | High-Quality and Always Updated",
@@ -28,8 +28,8 @@ export default async function Series({
         sortBy,
     };
 
-    const seriesData = await serieService.getSeries(queryParams);
-    const latestSeries = await serieService.getLatestSeries();
+    const seriesData = await getSeries(queryParams);
+    const latestSeries = await getLatestSeries();
     const series = seriesData?.rows;
     const seriesCount = seriesData?.count;
     const seriesCarouselImages: Serie[] = seriesData?.rows!.slice(0, 5);
