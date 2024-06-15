@@ -3,12 +3,15 @@ import { AppBar, Box, List, ListItem, Stack, Toolbar, Typography } from "@mui/ma
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import dynamic from "next/dynamic";
+import AuthButtons from "../authButtons/AuthButtons";
+import SearchField from "../searchField/SearchField";
+import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
+// import dynamic from "next/dynamic";
 
 // Dynamically import the client-side components
-const ThemeToggleButton = dynamic(() => import("@/components/themeToggleButton/ThemeToggleButton"), { ssr: false });
-const AuthButtons = dynamic(() => import("@/components/authButtons/AuthButtons"), { ssr: false });
-const SearchField = dynamic(() => import("@/components/searchField/SearchField"), { ssr: false });
+// const ThemeToggleButton = dynamic(() => import("@/components/themeToggleButton/ThemeToggleButton"), { ssr: false });
+// const AuthButtons = dynamic(() => import("@/components/authButtons/AuthButtons"), { ssr: false });
+// const SearchField = dynamic(() => import("@/components/searchField/SearchField"), { ssr: false });
 
 const Header = () => (
     <>
