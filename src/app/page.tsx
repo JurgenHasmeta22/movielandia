@@ -1,10 +1,10 @@
 import { Container, Stack } from "@mui/material";
 import HomeHeroSection from "@/components/homeHero/HomeHero";
 import ListHomeSection from "@/components/listHomeSection/ListHomeSection";
-import movieService from "@/services/movieService";
-import genreService from "@/services/genreService";
-import serieService from "@/services/serieService";
 import { Genre, Movie, Serie } from "@prisma/client";
+import { getGenres } from "@/lib/actions/genre.action";
+import { getMovies } from "@/lib/actions/movie.action";
+import { getSeries } from "@/lib/actions/serie.action";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,9 +22,9 @@ export default async function Home() {
         page: 1,
     };
 
-    const moviesData = await movieService.getMovies(queryParams);
-    const seriesData = await serieService.getSeries(queryParams);
-    const genresData = await genreService.getGenres(queryParamsGenres);
+    const moviesData = await getMovies(queryParams);
+    const seriesData = await getSeries(queryParams);
+    const genresData = await getGenres(queryParamsGenres);
 
     const movies: Movie = moviesData?.movies.slice(0, 5);
     const series: Serie = seriesData?.rows.slice(0, 5);
