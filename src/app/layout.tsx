@@ -1,11 +1,9 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import theme from "@/utils/theme";
 import Footer from "@/components/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
 import Header from "@/components/header/Header";
+import { CustomThemeProvider } from "@/utils/theme";
 import "./globals.css";
 
 export default function RootLayout({
@@ -17,8 +15,7 @@ export default function RootLayout({
         <html lang="en">
             <body>
                 <AppRouterCacheProvider>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline />
+                    <CustomThemeProvider>
                         <Grid container>
                             <Grid item xs={12}>
                                 <Header />
@@ -27,7 +24,7 @@ export default function RootLayout({
                                 <Footer />
                             </Grid>
                         </Grid>
-                    </ThemeProvider>
+                    </CustomThemeProvider>
                 </AppRouterCacheProvider>
             </body>
         </html>
