@@ -1,5 +1,11 @@
 import RegisterForm from "@/components/registerForm/RegisterForm";
 import { Box, Paper } from "@mui/material";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Register - MovieLandi24 - Your Ultimate Destination for Movies",
+    description: "Register to the page",
+};
 
 export default function Register() {
     return (
