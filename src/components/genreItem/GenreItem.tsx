@@ -1,8 +1,9 @@
 "use client";
 
-import { Card, Typography } from "@mui/material";
+import { Card } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface IGenreItemProps {
     genre: Genre;
@@ -28,7 +29,9 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                 router.push(`/genres/${genre.name}`);
             }}
         >
-            <Typography component={"span"}>{genre.name}</Typography>
+            <Link href={`/genres/${genre.name}`} style={{ textDecoration: "none" }}>
+                {genre.name}
+            </Link>
         </Card>
     );
 }
