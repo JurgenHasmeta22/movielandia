@@ -124,7 +124,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                                 alignItems={"center"}
                                 justifyContent={"start"}
                             >
-                                <Image src="/assets/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
+                                <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
                                 <Typography fontSize={12} component="span">
                                     {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
                                 </Typography>
