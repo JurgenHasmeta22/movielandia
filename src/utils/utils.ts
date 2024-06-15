@@ -1,5 +1,3 @@
-"use-server";
-
 export function toFirstWordUpperCase(str: string) {
     if (str) {
         const strFinal = str

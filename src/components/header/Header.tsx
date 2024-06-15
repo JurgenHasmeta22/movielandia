@@ -1,17 +1,12 @@
 import React from "react";
-import { AppBar, Box, List, ListItem, Stack, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, List, ListItem, Stack, Toolbar } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import AuthButtons from "../authButtons/AuthButtons";
 import SearchField from "../searchField/SearchField";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
-// import dynamic from "next/dynamic";
-
-// Dynamically import the client-side components
-// const ThemeToggleButton = dynamic(() => import("@/components/themeToggleButton/ThemeToggleButton"), { ssr: false });
-// const AuthButtons = dynamic(() => import("@/components/authButtons/AuthButtons"), { ssr: false });
-// const SearchField = dynamic(() => import("@/components/searchField/SearchField"), { ssr: false });
+import Link from "next/link";
 
 const Header = () => (
     <>
@@ -34,8 +29,7 @@ const Header = () => (
                     flexWrap={"wrap"}
                 >
                     <Box>
-                        <Typography
-                            component={"a"}
+                        <Link
                             href={"/"}
                             style={{
                                 cursor: "pointer",
@@ -47,13 +41,12 @@ const Header = () => (
                             }}
                         >
                             MovieLandia24
-                        </Typography>
+                        </Link>
                     </Box>
                     <Box>
                         <List sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
                             <ListItem>
-                                <Typography
-                                    component="a"
+                                <Link
                                     href="/movies"
                                     style={{
                                         fontSize: "16px",
@@ -65,11 +58,10 @@ const Header = () => (
                                 >
                                     <MovieIcon fontSize={"large"} />
                                     Movies
-                                </Typography>
+                                </Link>
                             </ListItem>
                             <ListItem>
-                                <Typography
-                                    component="a"
+                                <Link
                                     href="/genres"
                                     style={{
                                         fontSize: "16px",
@@ -81,11 +73,10 @@ const Header = () => (
                                 >
                                     <SubtitlesIcon fontSize={"large"} />
                                     Genres
-                                </Typography>
+                                </Link>
                             </ListItem>
                             <ListItem>
-                                <Typography
-                                    component="a"
+                                <Link
                                     href="/series"
                                     style={{
                                         fontSize: "16px",
@@ -97,7 +88,7 @@ const Header = () => (
                                 >
                                     <LocalMoviesIcon fontSize={"large"} />
                                     Series
-                                </Typography>
+                                </Link>
                             </ListItem>
                         </List>
                     </Box>
