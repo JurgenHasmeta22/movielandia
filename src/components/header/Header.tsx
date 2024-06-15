@@ -1,24 +1,14 @@
 import React from "react";
-import {
-    AppBar,
-    Box,
-    Button,
-    IconButton,
-    InputAdornment,
-    List,
-    ListItem,
-    Stack,
-    TextField,
-    Toolbar,
-    Typography,
-} from "@mui/material";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import { Clear, Search } from "@mui/icons-material";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import { AppBar, Box, List, ListItem, Stack, Toolbar, Typography } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
+import dynamic from "next/dynamic";
+
+// Dynamically import the client-side components
+const ThemeToggleButton = dynamic(() => import("@/components/themeToggleButton/ThemeToggleButton"), { ssr: false });
+const AuthButtons = dynamic(() => import("@/components/authButtons/AuthButtons"), { ssr: false });
+const SearchField = dynamic(() => import("@/components/searchField/SearchField"), { ssr: false });
 
 const Header = () => (
     <>
@@ -109,37 +99,9 @@ const Header = () => (
                         </List>
                     </Box>
                     <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
-                        <TextField
-                            placeholder="What are you going to watch today?"
-                            size="small"
-                            InputProps={{
-                                color: "secondary",
-                                sx: { py: 0.5 },
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <Search />
-                                    </InputAdornment>
-                                ),
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <Clear sx={{ cursor: "pointer" }} />
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                        <IconButton>
-                            <LightModeOutlinedIcon />
-                        </IconButton>
-                        <Box display={"flex"} flexDirection={"row"} columnGap={1}>
-                            <Button variant="text">
-                                <LockOpenIcon />
-                                Sign In
-                            </Button>
-                            <Button variant="text">
-                                <AppRegistrationIcon />
-                                Sign Up
-                            </Button>
-                        </Box>
+                        <SearchField />
+                        <ThemeToggleButton />
+                        <AuthButtons />
                     </Box>
                 </Stack>
             </Toolbar>
