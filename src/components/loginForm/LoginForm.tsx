@@ -151,7 +151,7 @@ export default function LoginForm() {
                                         textTransform: "capitalize",
                                     }}
                                 >
-                                    Don't have an account ?
+                                    Don&apos;t have an account ?
                                 </Typography>
                                 <Link
                                     style={{
