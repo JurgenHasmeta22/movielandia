@@ -11,6 +11,5 @@ export async function GET() {
         });
     }
 
-    console.log("GET API", session);
     return NextResponse.json({ authenticated: !!session });
 }

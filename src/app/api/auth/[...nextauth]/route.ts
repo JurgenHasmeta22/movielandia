@@ -15,8 +15,9 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
+
             async authorize(credentials) {
-                if (!credentials?.email || !credentials.password) {
+                if (!credentials?.email || !credentials?.password) {
                     return null;
                 }
 
@@ -34,14 +35,15 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                return { id: user.id.toString(), email: user.email };
+                return { id: user.id.toString(), email: user.email, userName: user.userName };
             },
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }: any) {
             if (user) {
                 token.id = user.id;
+                token.userName = user.userName;
             }
 
             return token;
@@ -49,7 +51,8 @@ export const authOptions: NextAuthOptions = {
 
         async session({ session, token }: any) {
             if (token) {
-                session!.user!.id! = token.id;
+                session.user.id = token.id;
+                session.user.userName = token.userName;
             }
 
             return session;

@@ -9,6 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { showToast } from "@/utils/toast";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
@@ -42,9 +43,8 @@ export default function LoginForm() {
                 });
 
                 if (result?.error) {
-                    console.error(result.error);
+                    showToast("error", "Your credentials are wrong!");
                 } else if (result?.url) {
-                    console.log(result);
                     router.push(result.url);
                 }
 

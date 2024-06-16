@@ -6,6 +6,7 @@ import Header from "@/components/header/Header";
 import { CustomThemeProvider } from "@/utils/theme";
 import { Providers } from "./providers";
 import "./globals.css";
+import ToastProvider from "@/lib/toastify/ToastProvider";
 
 export default function RootLayout({
     children,
@@ -18,14 +19,16 @@ export default function RootLayout({
                 <Providers>
                     <AppRouterCacheProvider>
                         <CustomThemeProvider>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <Header />
-                                    <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                                    <ScrollToTop />
-                                    <Footer />
+                            <ToastProvider>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <Header />
+                                        <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                                        <ScrollToTop />
+                                        <Footer />
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </ToastProvider>
                         </CustomThemeProvider>
                     </AppRouterCacheProvider>
                 </Providers>
