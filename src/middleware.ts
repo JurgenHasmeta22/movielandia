@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
     function middleware(request: NextRequestWithAuth) {
-        console.log("Inter");
+        console.log(request.nextauth.token);
 
         if (
             request.nextUrl.pathname.startsWith("/login") ||
             (request.nextUrl.pathname.startsWith("/register") && request.nextauth.token)
         ) {
-            return NextResponse.redirect(new URL("/", request.url));
+            console.log(request.nextauth.token);
+            // return NextResponse.redirect("/");
         }
 
         if (request.nextUrl.pathname.startsWith("/profile") && !request.nextauth.token) {
@@ -23,4 +24,4 @@ export default withAuth(
     },
 );
 
-export const config = { matcher: ["/login", "/register", "/"] };
+export const config = { matcher: ["/profile"] };
