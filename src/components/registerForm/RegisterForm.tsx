@@ -6,9 +6,10 @@ import { Form, Formik } from "formik";
 import * as yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
-// import * as CONSTANTS from "@/constants/Constants";
-// import { toast } from "react-toastify";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { showToast } from "@/utils/toast";
+import { signUp } from "@/lib/actions/auth.action";
 
 const registerSchema = yup.object().shape({
     userName: yup
@@ -35,21 +36,12 @@ const registerSchema = yup.object().shape({
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+    const router = useRouter();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
     const handleClickShowPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
     const handleMouseDownPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
-
-    // async function onSubmitLogin(values: any) {
-    //     const response = await onLogin(values.email, values.password);
-
-    //     if (response && !response.error) {
-    //         toast.success(CONSTANTS.LOGIN__SUCCESS);
-    //     } else {
-    //         toast.error(CONSTANTS.LOGIN__FAILURE);
-    //     }
-    // }
 
     return (
         <Formik
@@ -60,13 +52,26 @@ export default function LoginForm() {
                 confirmPassword: "",
             }}
             validationSchema={registerSchema}
-            onSubmit={(values: any) => {
-                // onSubmitLogin(values);
-                console.log(values);
+            onSubmit={async (values, { setSubmitting }) => {
+                const userData = {
+                    userName: values.userName,
+                    email: values.email,
+                    password: values.password,
+                };
+
+                const result = await signUp(userData);
+
+                if (!result) {
+                    showToast("error", "User already exists or something is wrong with the data you providede!");
+                } else {
+                    router.push("/login");
+                }
+
+                setSubmitting(false);
             }}
             enableReinitialize
         >
-            {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => {
+            {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => {
                 return (
                     <Form onSubmit={handleSubmit}>
                         <Box
@@ -100,7 +105,6 @@ export default function LoginForm() {
                                     size="small"
                                     InputProps={{ color: "secondary" }}
                                     InputLabelProps={{ color: "secondary" }}
-                                    // @ts-expect-error error
                                     helperText={touched["userName"] && errors["userName"]}
                                     error={touched["userName"] && !!errors["userName"]}
                                 />
@@ -121,7 +125,6 @@ export default function LoginForm() {
                                     size="small"
                                     InputProps={{ color: "secondary" }}
                                     InputLabelProps={{ color: "secondary" }}
-                                    // @ts-expect-error error
                                     helperText={touched["email"] && errors["email"]}
                                     error={touched["email"] && !!errors["email"]}
                                 />
@@ -159,7 +162,6 @@ export default function LoginForm() {
                                     }}
                                     size="small"
                                     InputLabelProps={{ color: "secondary" }}
-                                    // @ts-expect-error error
                                     helperText={touched["password"] && errors["password"]}
                                     error={touched["password"] && !!errors["password"]}
                                 />
@@ -197,7 +199,6 @@ export default function LoginForm() {
                                     }}
                                     size="small"
                                     InputLabelProps={{ color: "secondary" }}
-                                    // @ts-expect-error error
                                     helperText={touched["confirmPassword"] && errors["confirmPassword"]}
                                     error={touched["confirmPassword"] && !!errors["confirmPassword"]}
                                 />
@@ -210,6 +211,7 @@ export default function LoginForm() {
                                     fontWeight: 600,
                                     py: 1,
                                 }}
+                                disabled={isSubmitting}
                             >
                                 <LockOutlinedIcon />
                                 <Typography

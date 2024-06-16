@@ -23,6 +23,7 @@ const AuthButtons = () => {
     };
 
     const handleSignOut = async () => {
+        handleMenuClose();
         await signOut({ redirect: false });
         router.push("/login");
     };
