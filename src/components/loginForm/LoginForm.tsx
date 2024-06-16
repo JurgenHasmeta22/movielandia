@@ -6,9 +6,9 @@ import { Form, Formik } from "formik";
 import * as yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
-// import * as CONSTANTS from "@/constants/Constants";
-// import { toast } from "react-toastify";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
@@ -24,150 +24,126 @@ const loginSchema = yup.object().shape({
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-    // async function onSubmitLogin(values: any) {
-    //     const response = await onLogin(values.email, values.password);
-
-    //     if (response && !response.error) {
-    //         toast.success(CONSTANTS.LOGIN__SUCCESS);
-    //     } else {
-    //         toast.error(CONSTANTS.LOGIN__FAILURE);
-    //     }
-    // }
-
     return (
         <Formik
-            initialValues={{
-                email: "",
-                password: "",
-            }}
+            initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
-            onSubmit={(values: any) => {
-                // onSubmitLogin(values);
-                console.log(values);
+            onSubmit={async (values, { setSubmitting }) => {
+                const result = await signIn("credentials", {
+                    redirect: false,
+                    email: values.email,
+                    password: values.password,
+                    callbackUrl: "/",
+                });
+
+                if (result?.error) {
+                    console.error(result.error);
+                } else if (result?.url) {
+                    console.log(result);
+                    router.push(result.url);
+                }
+
+                setSubmitting(false);
             }}
-            enableReinitialize
         >
-            {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => {
-                return (
-                    <Form onSubmit={handleSubmit}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                rowGap: 2,
-                            }}
-                        >
-                            <Typography variant="h2">Sign In</Typography>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <FormLabel component={"label"}>Email</FormLabel>
-                                <TextField
-                                    type="text"
-                                    name="email"
-                                    aria-label="Email"
-                                    required
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    autoComplete="username"
-                                    hiddenLabel={true}
-                                    aria-autocomplete="both"
-                                    onBlur={handleBlur}
-                                    size="small"
-                                    InputProps={{ color: "secondary" }}
-                                    InputLabelProps={{ color: "secondary" }}
-                                    // @ts-expect-error helper
-                                    helperText={touched["email"] && errors["email"]}
-                                    error={touched["email"] && !!errors["email"]}
-                                />
-                            </Box>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <FormLabel component={"label"}>Password</FormLabel>
-                                <TextField
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    required
-                                    autoComplete="current-password"
-                                    aria-label="Current password"
-                                    aria-autocomplete="both"
-                                    hiddenLabel={true}
-                                    value={values.password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    InputProps={{
-                                        color: "secondary",
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                >
-                                                    {showPassword ? (
-                                                        <Visibility color="secondary" />
-                                                    ) : (
-                                                        <VisibilityOff color="secondary" />
-                                                    )}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    size="small"
-                                    InputLabelProps={{ color: "secondary" }}
-                                    // @ts-expect-error helper
-                                    helperText={touched["password"] && errors["password"]}
-                                    error={touched["password"] && !!errors["password"]}
-                                />
-                            </Box>
-                            <Button
-                                type="submit"
-                                color="secondary"
-                                variant="outlined"
-                                sx={{
-                                    fontWeight: 600,
-                                    py: 1,
-                                }}
-                            >
-                                <LockOutlinedIcon />
-                                <Typography
-                                    component={"span"}
-                                    style={{
-                                        fontSize: 14,
-                                        paddingLeft: 4,
-                                        textTransform: "capitalize",
-                                    }}
-                                >
-                                    Sign In
-                                </Typography>
-                            </Button>
-                            <Box>
-                                <Typography
-                                    component={"span"}
-                                    style={{
-                                        fontSize: 12,
-                                        paddingLeft: 4,
-                                        textTransform: "capitalize",
-                                    }}
-                                >
-                                    Don&apos;t have an account ?
-                                </Typography>
-                                <Link
-                                    style={{
-                                        textDecoration: "none",
-                                        paddingLeft: 4,
-                                        textTransform: "capitalize",
-                                    }}
-                                    href={"/register"}
-                                >
-                                    Sign Up
-                                </Link>
-                            </Box>
+            {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
+                <Form onSubmit={handleSubmit}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                        <Typography variant="h2">Sign In</Typography>
+                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                            <FormLabel component={"label"}>Email</FormLabel>
+                            <TextField
+                                type="text"
+                                name="email"
+                                aria-label="Email"
+                                required
+                                value={values.email}
+                                onChange={handleChange}
+                                autoComplete="username"
+                                hiddenLabel={true}
+                                aria-autocomplete="both"
+                                onBlur={handleBlur}
+                                size="small"
+                                InputProps={{ color: "secondary" }}
+                                InputLabelProps={{ color: "secondary" }}
+                                helperText={touched["email"] && errors["email"]}
+                                error={touched["email"] && !!errors["email"]}
+                            />
                         </Box>
-                    </Form>
-                );
-            }}
+                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                            <FormLabel component={"label"}>Password</FormLabel>
+                            <TextField
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                required
+                                autoComplete="current-password"
+                                aria-label="Current password"
+                                aria-autocomplete="both"
+                                hiddenLabel={true}
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                InputProps={{
+                                    color: "secondary",
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                            >
+                                                {showPassword ? (
+                                                    <Visibility color="secondary" />
+                                                ) : (
+                                                    <VisibilityOff color="secondary" />
+                                                )}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                size="small"
+                                InputLabelProps={{ color: "secondary" }}
+                                helperText={touched["password"] && errors["password"]}
+                                error={touched["password"] && !!errors["password"]}
+                            />
+                        </Box>
+                        <Button
+                            type="submit"
+                            color="secondary"
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1 }}
+                            disabled={isSubmitting}
+                        >
+                            <LockOutlinedIcon />
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 14, paddingLeft: 4, textTransform: "capitalize" }}
+                            >
+                                Sign In
+                            </Typography>
+                        </Button>
+                        <Box>
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 12, paddingLeft: 4, textTransform: "capitalize" }}
+                            >
+                                Don&apos;t have an account ?
+                            </Typography>
+                            <Link
+                                style={{ textDecoration: "none", paddingLeft: 4, textTransform: "capitalize" }}
+                                href={"/register"}
+                            >
+                                Sign Up
+                            </Link>
+                        </Box>
+                    </Box>
+                </Form>
+            )}
         </Formik>
     );
 }
