@@ -14,13 +14,13 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
         return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (req.nextUrl.pathname.startsWith("/profile") && !isAuthenticated) {
-        return NextResponse.redirect(new URL("/login", req.url));
-    }
+    // if (req.nextUrl.pathname.startsWith("/profile") && !isAuthenticated) {
+    //     return NextResponse.redirect(new URL("/login", req.url));
+    // }
 
-    if (req.nextUrl.pathname.startsWith("/admin") && !isAuthenticated) {
-        return NextResponse.redirect(new URL("/login", req.url));
-    }
+    // if (req.nextUrl.pathname.startsWith("/admin") && !isAuthenticated) {
+    //     return NextResponse.redirect(new URL("/login", req.url));
+    // }
 
     const authMiddleware = await withAuth({
         pages: {
@@ -33,5 +33,5 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
 }
 
 export const config = {
-    matcher: ["/login", "/register", "/profile", "/admin/*"],
+    matcher: ["/login", "/register"],
 };
