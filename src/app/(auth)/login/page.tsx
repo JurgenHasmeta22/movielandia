@@ -1,13 +1,22 @@
 import LoginForm from "@/components/loginForm/LoginForm";
 import { Box, Paper } from "@mui/material";
 import type { Metadata } from "next";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
     title: "Login - MovieLandi24 - Your Ultimate Destination for Movies",
     description: "Login to the page",
 };
 
-export default function Login() {
+export default async function Login() {
+    const session = await getServerSession(authOptions);
+
+    if (session?.user?.email) {
+        redirect("/");
+    }
+
     return (
         <Box
             sx={{
