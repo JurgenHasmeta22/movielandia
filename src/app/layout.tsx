@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
 import Header from "@/components/header/Header";
 import { CustomThemeProvider } from "@/utils/theme";
+import { Providers } from "./providers";
 import "./globals.css";
 
 export default function RootLayout({
@@ -14,18 +15,20 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <AppRouterCacheProvider>
-                    <CustomThemeProvider>
-                        <Grid container>
-                            <Grid item xs={12}>
-                                <Header />
-                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                                <ScrollToTop />
-                                <Footer />
+                <Providers>
+                    <AppRouterCacheProvider>
+                        <CustomThemeProvider>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Header />
+                                    <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                                    <ScrollToTop />
+                                    <Footer />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </CustomThemeProvider>
-                </AppRouterCacheProvider>
+                        </CustomThemeProvider>
+                    </AppRouterCacheProvider>
+                </Providers>
             </body>
         </html>
     );

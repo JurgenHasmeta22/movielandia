@@ -19,12 +19,14 @@
         "@mui/x-date-pickers": "^7.7.0",
         "@prisma/client": "^5.15.0",
         "axios": "^1.7.2",
+        "bcrypt": "^5.1.1",
         "date-fns": "^3.6.0",
         "dotenv": "^16.4.5",
         "formik": "^2.4.6",
         "framer-motion": "^11.2.10",
         "material-react-table": "^2.13.0",
         "next": "14.2.4",
+        "next-auth": "^4.24.7",
         "prisma": "^5.15.0",
         "react": "^18",
         "react-dom": "^18",
@@ -38,6 +40,7 @@
         "zustand": "^4.5.2"
     },
     "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
