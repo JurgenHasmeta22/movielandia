@@ -1,27 +1,37 @@
-import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { withAuth } from "next-auth/middleware";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
-export default withAuth(
-    function middleware(request: NextRequestWithAuth) {
-        console.log(request.nextauth.token);
+export default async function middleware(req: NextRequest, event: NextFetchEvent) {
+    const token = await getToken({ req });
+    const isAuthenticated = !!token;
 
-        if (
-            request.nextUrl.pathname.startsWith("/login") ||
-            (request.nextUrl.pathname.startsWith("/register") && request.nextauth.token)
-        ) {
-            console.log(request.nextauth.token);
-            // return NextResponse.redirect("/");
-        }
+    if (req.nextUrl.pathname.startsWith("/login") && isAuthenticated) {
+        return NextResponse.redirect(new URL("/", req.url));
+    }
 
-        if (request.nextUrl.pathname.startsWith("/profile") && !request.nextauth.token) {
-            return NextResponse.redirect(new URL("/login", request.url));
-        }
-    },
-    {
-        callbacks: {
-            authorized: ({ token }) => !!token,
+    if (req.nextUrl.pathname.startsWith("/register") && isAuthenticated) {
+        return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    if (req.nextUrl.pathname.startsWith("/profile") && !isAuthenticated) {
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    if (req.nextUrl.pathname.startsWith("/admin") && !isAuthenticated) {
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    const authMiddleware = await withAuth({
+        pages: {
+            signIn: req.nextUrl.pathname,
         },
-    },
-);
+    });
 
-export const config = { matcher: ["/profile"] };
+    // @ts-expect-error nextauth
+    return authMiddleware(req, event);
+}
+
+export const config = {
+    matcher: ["/login", "/register", "/profile", "/admin/*"],
+};
