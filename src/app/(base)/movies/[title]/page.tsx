@@ -20,6 +20,14 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
     return {
         title: `${title} | Watch the Latest Movies`,
         description: `Discover and watch the latest and most amazing movies titled "${title}" in high quality. Our collection is always updated with the newest releases.`,
+        // robots: {
+        //     index: indexable,
+        //     follow: indexable,
+        //     googleBot: {
+        //         index: indexable,
+        //         follow: indexable,
+        //     },
+        // },
     };
 }
 

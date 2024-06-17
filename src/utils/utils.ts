@@ -37,3 +37,6 @@ export function getRandomElements<T>(array: T[], count: number): T[] {
 
     return arr.slice(0, count);
 }
+
+export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
+    stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;

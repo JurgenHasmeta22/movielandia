@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["localhost"],
+        remotePatterns: [
+            {
+                hostname: "localhost",
+                port: "4000",
+            },
+        ],
     },
     typescript: {
         ignoreBuildErrors: true,
