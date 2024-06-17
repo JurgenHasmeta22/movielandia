@@ -1,10 +1,13 @@
+"use client";
+
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import { Box, Button, Divider, List, ListItem, Typography } from "@mui/material";
+import { Box, Button, Divider, List, ListItem, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
+import { tokens } from "@/utils/theme";
 
 interface IDetailsPageCardProps {
     data: any;
@@ -14,6 +17,9 @@ interface IDetailsPageCardProps {
 }
 
 export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     return (
         <Box
             sx={{
@@ -33,7 +39,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                     width: "100%",
                     columnGap: 6,
                     padding: 4,
-                    backgroundColor: "lightgray", // Fixed color for testing
+                    backgroundColor: `${colors.primary[400]}`,
                 }}
             >
                 <Image src={data.photoSrc} alt={data.title} width={220} height={320} />
@@ -67,15 +73,15 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                                         <Typography
                                             component={"span"}
                                             sx={{
-                                                backgroundColor: "white",
-                                                color: "black",
+                                                backgroundColor: colors.primary[100],
+                                                color: colors.primary[900],
                                                 borderRadius: "20px",
                                                 padding: "12px 14px",
                                                 fontWeight: "900",
                                                 cursor: "pointer",
                                                 fontSize: 12,
                                                 "&:hover": {
-                                                    backgroundColor: "green",
+                                                    backgroundColor: colors.greenAccent[500],
                                                 },
                                             }}
                                         >
@@ -170,7 +176,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                             columnGap: 1,
                             marginTop: 3,
                             "&:hover": {
-                                backgroundColor: "darkgray",
+                                backgroundColor: colors.primary[900],
                             },
                         }}
                     >
@@ -181,7 +187,7 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                         />
                         <Typography
                             component={"span"}
-                            color="white"
+                            color={colors.primary[100]}
                             fontWeight={700}
                             sx={{
                                 textTransform: "capitalize",

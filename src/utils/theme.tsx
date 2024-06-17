@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useMemo } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect, useMemo } from "react";
 import { createTheme, ThemeProvider as MuiThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -11,7 +11,7 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const tokens = (mode: string) => ({
+export const tokens = (mode: any) => ({
     ...(mode === "dark"
         ? {
               grey: {
@@ -24,6 +24,12 @@ const tokens = (mode: string) => ({
                   700: "#3d3d3d",
                   800: "#292929",
                   900: "#141414",
+                  1000: "#212529",
+                  1100: "#a3acb4",
+                  1200: "#e7e7e8",
+                  1300: "#90979f",
+                  1400: "#eef0ef",
+                  1500: "#9ba2a9",
               },
               primary: {
                   100: "#d0d1d5",
@@ -35,6 +41,8 @@ const tokens = (mode: string) => ({
                   700: "#868dfb",
                   800: "#080b12",
                   900: "#040509",
+                  1000: "#2c3033",
+                  1100: "#2a2a2a",
               },
               greenAccent: {
                   100: "#dbf5ee",
@@ -133,18 +141,50 @@ const themeSettings = (mode: any) => {
     const colors = tokens(mode);
 
     return {
+        transitions: {
+            easing: {
+                sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
+            },
+            duration: {
+                enteringScreen: 350,
+                leavingScreen: 350,
+            },
+        },
         palette: {
-            mode,
-            primary: {
-                main: colors.primary[500],
-            },
-            secondary: {
-                main: colors.greenAccent[500],
-            },
-            grey: colors.grey,
-            greenAccent: colors.greenAccent,
-            redAccent: colors.redAccent,
-            blueAccent: colors.blueAccent,
+            mode: mode,
+            ...(mode === "dark"
+                ? {
+                      primary: {
+                          main: colors.primary[500],
+                      },
+                      secondary: {
+                          main: colors.greenAccent[500],
+                      },
+                      neutral: {
+                          dark: colors.grey[700],
+                          main: colors.grey[500],
+                          light: colors.grey[100],
+                      },
+                      background: {
+                          default: colors.primary[500],
+                      },
+                  }
+                : {
+                      primary: {
+                          main: colors.primary[100],
+                      },
+                      secondary: {
+                          main: colors.greenAccent[500],
+                      },
+                      neutral: {
+                          dark: colors.grey[700],
+                          main: colors.grey[500],
+                          light: colors.grey[100],
+                      },
+                      background: {
+                          default: "#fcfcfc",
+                      },
+                  }),
         },
         typography: {
             fontFamily: ["Montserrat", "sans-serif"].join(","),
@@ -274,19 +314,14 @@ const themeSettings = (mode: any) => {
 };
 
 export function CustomThemeProvider({ children }: { children: ReactNode }) {
-    const [mode, setMode] = useState(() => {
-        if (typeof window !== "undefined") {
-            if (
-                localStorage.theme === "dark" ||
-                (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ) {
-                document.documentElement.classList.add("dark");
-                return "dark";
-            }
-            document.documentElement.classList.remove("dark");
-        }
-        return "light";
-    });
+    const [mode, setMode] = useState("light");
+
+    useEffect(() => {
+        const savedTheme =
+            localStorage.getItem("theme") ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        setMode(savedTheme);
+    }, []);
 
     const toggleMode = () => {
         setMode((prevMode) => {

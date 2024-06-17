@@ -1,17 +1,20 @@
 "use client";
 
 import React from "react";
-import { TextField, InputAdornment } from "@mui/material";
+import { TextField, InputAdornment, useTheme } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
+import { tokens } from "@/utils/theme";
 
 const SearchField = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     return (
         <TextField
             placeholder="What are you going to watch today?"
             size="small"
             InputProps={{
-                color: "secondary",
-                sx: { py: 0.5 },
+                sx: { py: 0.5, color: colors.primary[100] },
                 startAdornment: (
                     <InputAdornment position="start">
                         <Search />
