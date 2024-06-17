@@ -11,6 +11,44 @@ export const metadata: Metadata = {
     title: "MovieLand24 - Your Ultimate Destination for Movies",
     description:
         "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+    openGraph: {
+        type: "video.tv_show",
+        url: "https://movielandia24.com/",
+        title: "MovieLand24 - Your Ultimate Destination for Movies",
+        description:
+            "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+        // images: photoSrc
+        //     ? [
+        //           {
+        //               url: photoSrc,
+        //               width: 200,
+        //               height: 300,
+        //               alt: description,
+        //           },
+        //       ]
+        //     : [],
+        siteName: "MovieLandia24",
+    },
+    twitter: {
+        card: "summary_large_image",
+        site: "@movieLandia24",
+        creator: "movieLandia24",
+        title: "MovieLand24 - Your Ultimate Destination for Movies",
+        description:
+            "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+        // images: photoSrc
+        //     ? [
+        //           {
+        //               url: photoSrc,
+        //               alt: description,
+        //           },
+        //       ]
+        //     : [],
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
 };
 
 export default async function Home() {

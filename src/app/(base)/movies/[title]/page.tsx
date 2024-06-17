@@ -6,6 +6,8 @@ import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.action";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Movie as IMovie } from "@prisma/client";
 
 interface IMovieProps {
     params: {
@@ -16,18 +18,53 @@ interface IMovieProps {
 
 export async function generateMetadata({ params }: IMovieProps): Promise<Metadata> {
     const { title } = params;
+    const movie: IMovie = await getMovieByTitle(title, {});
+
+    if (!movie) return notFound();
+
+    const { description, photoSrc } = movie;
+    const siteUrl = "https://movielandia24.com";
+    const pageUrl = `${siteUrl}/movies/${title}`;
 
     return {
-        title: `${title} | Watch the Latest Movies`,
-        description: `Discover and watch the latest and most amazing movies titled "${title}" in high quality. Our collection is always updated with the newest releases.`,
-        // robots: {
-        //     index: indexable,
-        //     follow: indexable,
-        //     googleBot: {
-        //         index: indexable,
-        //         follow: indexable,
-        //     },
-        // },
+        title: `${title} | Movie`,
+        description: `${movie.description}`,
+        openGraph: {
+            type: "video.other",
+            url: pageUrl,
+            title: `${title} | Movie`,
+            description,
+            images: photoSrc
+                ? [
+                      {
+                          url: photoSrc,
+                          width: 200,
+                          height: 300,
+                          alt: description,
+                      },
+                  ]
+                : [],
+            siteName: "MovieLandia24",
+        },
+        twitter: {
+            card: "summary_large_image",
+            site: "@movieLandia24",
+            creator: "movieLandia24",
+            title: `${title} | Movie`,
+            description,
+            images: photoSrc
+                ? [
+                      {
+                          url: photoSrc,
+                          alt: description,
+                      },
+                  ]
+                : [],
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
     };
 }
 
