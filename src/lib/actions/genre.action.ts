@@ -26,8 +26,13 @@ export async function getGenres({
     filterOperatorString,
 }: GetGenresParams): Promise<any | null> {
     const filters: any = {};
-    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
-    const take = perPage && page ? perPage : 100;
+    let skip = 0;
+    let take = undefined;
+
+    if (page !== undefined) {
+        skip = perPage ? (page - 1) * perPage : 0;
+        take = perPage || 10;
+    }
 
     if (name) filters.name = { contains: name };
 

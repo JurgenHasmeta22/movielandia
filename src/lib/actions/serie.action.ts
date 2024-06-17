@@ -7,7 +7,7 @@ interface SerieModelParams {
     sortBy?: string;
     ascOrDesc?: string;
     perPage?: number;
-    page: number;
+    page?: number;
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
@@ -25,8 +25,13 @@ export async function getSeries({
     filterOperatorString,
 }: SerieModelParams): Promise<any | null> {
     const filters: any = {};
-    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 10 : 0;
-    const take = perPage || 10;
+    let skip = 0;
+    let take = undefined;
+
+    if (page !== undefined) {
+        skip = perPage ? (page - 1) * perPage : 0;
+        take = perPage || 10;
+    }
 
     if (title) filters.title = { contains: title };
 
