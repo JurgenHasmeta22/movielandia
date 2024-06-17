@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button, Divider } from "@mui/material";
+import { Box, Typography, IconButton, Stack, TextField, Button, Divider, useTheme } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -10,14 +12,20 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Link from "next/link";
+import { tokens } from "@/utils/theme";
 
 const Footer = (): React.JSX.Element => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     return (
         <Box
             sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                backgroundColor: colors.primary[900],
+                color: colors.primary[100],
                 justifyContent: "center",
                 py: 4,
                 gap: 2,
@@ -29,21 +37,21 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Explore
                     </Typography>
-                    <Divider sx={{ borderBottomWidth: 3 }} />
+                    <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} pt={1}>
-                        <Link href="/movies" style={{ textDecoration: "none" }}>
+                        <Link href="/movies" style={{ textDecoration: "none", color: colors.primary[100] }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
                             </Stack>
                         </Link>
-                        <Link href="/series" style={{ textDecoration: "none" }}>
+                        <Link href="/series" style={{ textDecoration: "none", color: colors.primary[100] }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
                             </Stack>
                         </Link>
-                        <Link href="/genres" style={{ textDecoration: "none" }}>
+                        <Link href="/genres" style={{ textDecoration: "none", color: colors.primary[100] }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
@@ -55,15 +63,15 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Account
                     </Typography>
-                    <Divider sx={{ borderBottomWidth: 3 }} />
+                    <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack spacing={1} mt={1}>
-                        <Link href="/login" style={{ textDecoration: "none" }}>
+                        <Link href="/login" style={{ textDecoration: "none", color: colors.primary[100] }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
                             </Stack>
                         </Link>
-                        <Link href="/register" style={{ textDecoration: "none" }}>
+                        <Link href="/register" style={{ textDecoration: "none", color: colors.primary[100] }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>
@@ -75,7 +83,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Follow Us
                     </Typography>
-                    <Divider sx={{ borderBottomWidth: 3 }} />
+                    <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack direction="row" spacing={2} mt={1}>
                         <IconButton href="https://facebook.com" target="_blank" rel="noopener">
                             <FacebookIcon />
@@ -95,7 +103,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Newsletter
                     </Typography>
-                    <Divider sx={{ borderBottomWidth: 3 }} />
+                    <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
                     <Stack direction="row" spacing={1} alignItems="center" mt={1}>
                         <TextField variant="outlined" size="small" placeholder="Email" />
                         <Button
@@ -111,7 +119,7 @@ const Footer = (): React.JSX.Element => {
                 </Box>
             </Stack>
             <Box width={"100%"}>
-                <Divider sx={{ borderBottomWidth: 3 }} />
+                <Divider sx={{ borderBottomWidth: 3, background: colors.primary[100] }} />
             </Box>
             <Box
                 sx={{
