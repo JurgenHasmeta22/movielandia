@@ -6,6 +6,8 @@ import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.action";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Serie as ISerie } from "@prisma/client";
 
 interface ISerieProps {
     params: {
@@ -16,10 +18,53 @@ interface ISerieProps {
 
 export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
     const { title } = params;
+    const serie: ISerie = await getSerieByTitle(title, {});
+
+    if (!serie) return notFound();
+
+    const { description, photoSrc } = serie;
+    const siteUrl = "https://movielandia24.com";
+    const pageUrl = `${siteUrl}/series/${title}`;
 
     return {
-        title: `${title} | Watch the Latest Series`,
-        description: `Discover and watch the latest and most amazing series titled "${title}" in high quality. Our collection is always updated with the newest episodes and releases.`,
+        title: `${title} | Serie`,
+        description: `${serie.description}`,
+        openGraph: {
+            type: "video.tv_show",
+            url: pageUrl,
+            title: `${title} | Serie`,
+            description,
+            images: photoSrc
+                ? [
+                      {
+                          url: photoSrc,
+                          width: 200,
+                          height: 300,
+                          alt: description,
+                      },
+                  ]
+                : [],
+            siteName: "MovieLandia24",
+        },
+        twitter: {
+            card: "summary_large_image",
+            site: "@movieLandia24",
+            creator: "movieLandia24",
+            title: `${title} | Serie`,
+            description,
+            images: photoSrc
+                ? [
+                      {
+                          url: photoSrc,
+                          alt: description,
+                      },
+                  ]
+                : [],
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
     };
 }
 

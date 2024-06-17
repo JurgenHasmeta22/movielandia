@@ -13,6 +13,44 @@ export const metadata: Metadata = {
     title: "Watch the Latest Movies | High-Quality and Always Updated",
     description:
         "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
+    openGraph: {
+        type: "video.other",
+        url: "https://movielandia24.com/movies",
+        title: "Watch the Latest Movies | High-Quality and Always Updated",
+        description:
+            "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
+        // images: photoSrc
+        //     ? [
+        //           {
+        //               url: photoSrc,
+        //               width: 200,
+        //               height: 300,
+        //               alt: description,
+        //           },
+        //       ]
+        //     : [],
+        siteName: "MovieLandia24",
+    },
+    twitter: {
+        card: "summary_large_image",
+        site: "@movieLandia24",
+        creator: "movieLandia24",
+        title: "Watch the Latest Movies | High-Quality and Always Updated",
+        description:
+            "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
+        // images: photoSrc
+        //     ? [
+        //           {
+        //               url: photoSrc,
+        //               alt: description,
+        //           },
+        //       ]
+        //     : [],
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
 };
 
 export default async function Movies({
