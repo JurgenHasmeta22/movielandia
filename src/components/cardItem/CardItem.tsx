@@ -191,33 +191,33 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                             }}
                         >
                             {data?.genres?.map((genre: any, index: number) => (
-                                <Link
-                                    href={`/genres/${genre.name}`}
-                                    style={{ textDecoration: "none" }}
+                                <Typography
+                                    component={"span"}
                                     key={index}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
+                                    sx={{
+                                        backgroundColor: "gold",
+                                        color: "black",
+                                        borderRadius: "12px",
+                                        padding: "4px 6px",
+                                        fontWeight: "700",
+                                        cursor: "pointer",
+                                        fontSize: 11,
+                                        "&:hover": {
+                                            backgroundColor: "#FFD700",
+                                        },
                                     }}
                                 >
-                                    <Typography
-                                        component={"span"}
+                                    <Link
+                                        href={`/genres/${genre.name}`}
+                                        style={{ textDecoration: "none" }}
                                         key={index}
-                                        sx={{
-                                            backgroundColor: "gold",
-                                            color: "black",
-                                            borderRadius: "12px",
-                                            padding: "4px 6px",
-                                            fontWeight: "700",
-                                            cursor: "pointer",
-                                            fontSize: 11,
-                                            "&:hover": {
-                                                backgroundColor: "#FFD700",
-                                            },
+                                        onClick={(e) => {
+                                            e.stopPropagation();
                                         }}
                                     >
                                         {genre.name}
-                                    </Typography>
-                                </Link>
+                                    </Link>
+                                </Typography>
                             ))}
                         </Stack>
                     )}

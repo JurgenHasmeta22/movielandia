@@ -64,30 +64,30 @@ export function DetailsPageCard({ data, type }: IDetailsPageCardProps) {
                         {data.genres.map((genre: any, index: number) => (
                             <Box key={index}>
                                 <ListItem key={index}>
-                                    <Link
-                                        href={`/genres/${genre.genre.name}`}
-                                        style={{
-                                            textDecoration: "none",
+                                    <Typography
+                                        component={"span"}
+                                        sx={{
+                                            backgroundColor: colors.primary[100],
+                                            color: colors.primary[900],
+                                            borderRadius: "20px",
+                                            padding: "12px 14px",
+                                            fontWeight: "900",
+                                            cursor: "pointer",
+                                            fontSize: 12,
+                                            "&:hover": {
+                                                backgroundColor: colors.greenAccent[500],
+                                            },
                                         }}
                                     >
-                                        <Typography
-                                            component={"span"}
-                                            sx={{
-                                                backgroundColor: colors.primary[100],
-                                                color: colors.primary[900],
-                                                borderRadius: "20px",
-                                                padding: "12px 14px",
-                                                fontWeight: "900",
-                                                cursor: "pointer",
-                                                fontSize: 12,
-                                                "&:hover": {
-                                                    backgroundColor: colors.greenAccent[500],
-                                                },
+                                        <Link
+                                            href={`/genres/${genre.genre.name}`}
+                                            style={{
+                                                textDecoration: "none",
                                             }}
                                         >
                                             {genre.genre.name}
-                                        </Typography>
-                                    </Link>
+                                        </Link>
+                                    </Typography>
                                 </ListItem>
                                 {index < data.genres.length - 1 && (
                                     <Divider orientation="vertical" flexItem color="error" />
