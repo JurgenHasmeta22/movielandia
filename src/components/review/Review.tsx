@@ -1,12 +1,13 @@
 "use client";
 
-import { Avatar, Box, Paper, Typography, IconButton, Rating, Button } from "@mui/material";
+import { Avatar, Box, Paper, Typography, IconButton, Rating, Button, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 // import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
+import { tokens } from "@/utils/theme";
 
 interface ReviewProps {
     review: {
@@ -31,6 +32,9 @@ interface ReviewProps {
 }
 
 const Review = ({ review }: ReviewProps) => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     const getRatingLabelAndColor = (rating: number) => {
         if (rating <= 2) {
             return { label: "Very Bad", color: "red" };
@@ -72,7 +76,7 @@ const Review = ({ review }: ReviewProps) => {
                     </IconButton>
                 </Box>
             </Box>
-            <Typography dangerouslySetInnerHTML={{ __html: review.content }} sx={{ wordWrap: "break-word" }} />
+            <Box dangerouslySetInnerHTML={{ __html: review.content }} sx={{ wordWrap: "break-word" }} />
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mt: 1 }}>
                 <Typography variant="body2" sx={{ mr: 1, color }}>
                     {label}
@@ -97,7 +101,14 @@ const Review = ({ review }: ReviewProps) => {
                             <ThumbUpIcon fontSize="medium" />
                         </IconButton>
                     </motion.div>
-                    <Button>
+                    <Button
+                        sx={{
+                            "&:hover": {
+                                backgroundColor: "transparent",
+                            },
+                            color: colors.primary[100],
+                        }}
+                    >
                         <Typography>{review._count.upvotes}</Typography>
                     </Button>
                 </Box>
@@ -107,7 +118,14 @@ const Review = ({ review }: ReviewProps) => {
                             <ThumbDownIcon fontSize="medium" />
                         </IconButton>
                     </motion.div>
-                    <Button>
+                    <Button
+                        color={"error"}
+                        sx={{
+                            "&:hover": {
+                                backgroundColor: "transparent",
+                            },
+                        }}
+                    >
                         <Typography>{review._count.downvotes}</Typography>
                     </Button>
                 </Box>
