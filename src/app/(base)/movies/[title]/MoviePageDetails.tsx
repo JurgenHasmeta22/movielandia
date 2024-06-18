@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { DetailsPageCard } from "@/components/detailsPageCard/DetailsPageCard";
