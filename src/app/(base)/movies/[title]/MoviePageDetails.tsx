@@ -289,7 +289,23 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                     />
                 )}
                 {movie?.reviews!.map((review: any, index: number) => (
-                    <Review key={index} review={review} type="movie" data={movie} />
+                    <Review
+                        key={index}
+                        review={review}
+                        handleRemoveReview={onSubmitRemoveReview}
+                        isEditMode={isEditMode}
+                        setIsEditMode={setIsEditMode}
+                        setReview={setReview}
+                        handleFocusTextEditor={handleFocusTextEditor}
+                        ref={reviewRef}
+                        setRating={setRating}
+                        handleUpvote={onUpvoteMovie}
+                        handleDownvote={onDownVoteMovie}
+                        type="movie"
+                        data={movie}
+                        handleOpenUpvotesModal={handleOpenUpvotesModal}
+                        handleOpenDownvotesModal={handleOpenDownvotesModal}
+                    />
                 ))}
                 {movie?.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />

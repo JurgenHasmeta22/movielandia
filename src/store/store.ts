@@ -14,11 +14,11 @@ export const useStore = create<AppStoreState>()(
                 setIsUserLoading: (data) => {
                     set({ isUserLoading: data });
                 },
-                mobileOpen: window.innerWidth < 768 ? true : false,
+                mobileOpen: false,
                 setMobileOpen: (data) => {
                     set({ mobileOpen: data });
                 },
-                isPageShrunk: window.innerWidth < 768 ? true : false,
+                isPageShrunk: false,
                 setIsPageShrunk: (data) => {
                     set({ isPageShrunk: data });
                 },

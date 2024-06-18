@@ -3,8 +3,9 @@ import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/action
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Movie as IMovie } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import MoviePageDetails from "./MoviePageDetails";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IMovieProps {
     params: {
@@ -77,10 +78,10 @@ export default async function Movie({ searchParams, params }: IMovieProps) {
         sortBy,
     };
 
-    const { data: session } = useSession();
+    const session = await getServerSession(authOptions);
+    console.log(session);
 
-    // @ts-expect-error session?.userType
-    const movie = await getMovieByTitle(title, { userId: session?.session?.user?.id });
+    const movie = await getMovieByTitle(title, { userId: Number(session?.user?.id) });
     const latestMovies = await getLatestMovies();
     const relatedMovies = await getRelatedMovies(title);
 
