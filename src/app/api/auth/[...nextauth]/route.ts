@@ -23,6 +23,16 @@ export const authOptions: NextAuthOptions = {
 
                 const user = await prisma.user.findUnique({
                     where: { email: credentials.email },
+                    include: {
+                        favMovies: { include: { movie: true } },
+                        favSeries: { include: { serie: true } },
+                        movieReviews: { include: { movie: true } },
+                        serieReviews: { include: { serie: true } },
+                        upvotedMovies: { include: { movieReview: true, movie: true } },
+                        downvotedMovies: { include: { movieReview: true, movie: true } },
+                        upvotedSeries: { include: { serieReview: true, serie: true } },
+                        downvotedSeries: { include: { serieReview: true, serie: true } },
+                    },
                 });
 
                 if (!user) {
@@ -35,7 +45,21 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                return { id: user.id.toString(), email: user.email, userName: user.userName };
+                return {
+                    id: user.id.toString(),
+                    email: user.email,
+                    userName: user.userName,
+                    userOtherInfo: {
+                        favMovies: user.favMovies,
+                        favSeries: user.favSeries,
+                        movieReviews: user.movieReviews,
+                        serieReviews: user.serieReviews,
+                        upvotedMovies: user.upvotedMovies,
+                        upvotedSeries: user.upvotedSeries,
+                        downvotedMovies: user.downvotedMovies,
+                        downvotedSeries: user.downvotedSeries,
+                    },
+                };
             },
         }),
     ],
@@ -44,6 +68,8 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.id = user.id;
                 token.userName = user.userName;
+                token.email = user.email;
+                token.userOtherInfo = user.userOtherInfo;
             }
 
             return token;
@@ -53,6 +79,8 @@ export const authOptions: NextAuthOptions = {
             if (token) {
                 session.user.id = token.id;
                 session.user.userName = token.userName;
+                session.user.email = token.email;
+                session.user.userOtherInfo = token.userOtherInfo;
             }
 
             return session;

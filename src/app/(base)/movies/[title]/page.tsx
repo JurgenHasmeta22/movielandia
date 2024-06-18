@@ -1,13 +1,10 @@
-import { Box, Container, Stack } from "@mui/material";
-import { DetailsPageCard } from "@/components/detailsPageCard/DetailsPageCard";
-import PaginationControl from "@/components/paginationControl/PaginationControl";
-import { ListDetail } from "@/components/listDetail/ListDetail";
-import Review from "@/components/review/Review";
-import Reviews from "@/components/reviews/Reviews";
+import { Container } from "@mui/material";
 import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.action";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Movie as IMovie } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import MoviePageDetails from "./MoviePageDetails";
 
 interface IMovieProps {
     params: {
@@ -70,11 +67,20 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
 
 export default async function Movie({ searchParams, params }: IMovieProps) {
     const title = params?.title;
+
     const ascOrDesc = searchParams?.moviesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
+    const searchParamsValues = {
+        ascOrDesc,
+        page,
+        sortBy,
+    };
 
-    const movie = await getMovieByTitle(title, {});
+    const { data: session } = useSession();
+
+    // @ts-expect-error session?.userType
+    const movie = await getMovieByTitle(title, { userId: session?.session?.user?.id });
     const latestMovies = await getLatestMovies();
     const relatedMovies = await getRelatedMovies(title);
 
@@ -82,27 +88,13 @@ export default async function Movie({ searchParams, params }: IMovieProps) {
 
     return (
         <Container>
-            <Stack flexDirection={"column"} rowGap={4}>
-                <DetailsPageCard data={movie} type="movie" />
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        rowGap: 2,
-                        mb: movie?.reviews!.length > 0 ? 4 : 0,
-                    }}
-                    component={"section"}
-                >
-                    {movie?.reviews!.length > 0 && <Reviews data={movie} sortBy={sortBy!} ascOrDesc={ascOrDesc!} />}
-                    {movie?.reviews!.map((review: any, index: number) => (
-                        <Review key={index} review={review} type="movie" data={movie} />
-                    ))}
-                    {movie?.totalReviews > 0 && <PaginationControl currentPage={Number(page)!} pageCount={pageCount} />}
-                    {/* {user && (!movie.isReviewed) && <TextEditorForm review={review} rating={rating} />} */}
-                </Box>
-                <ListDetail data={latestMovies!} type="movie" roleData={"latest"} />
-                <ListDetail data={relatedMovies!} type="movie" roleData="related" />
-            </Stack>
+            <MoviePageDetails
+                searchParamsValues={searchParamsValues}
+                movie={movie}
+                latestMovies={latestMovies}
+                relatedMovies={relatedMovies}
+                pageCount={pageCount}
+            />
         </Container>
     );
 }

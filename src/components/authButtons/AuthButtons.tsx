@@ -45,9 +45,9 @@ const AuthButtons = () => {
                         <Typography
                             variant="body1"
                             sx={{
-                                color: "white",
                                 cursor: "pointer",
                                 paddingLeft: 1,
+                                color: colors.primary[100],
                             }}
                         >
                             {/* @ts-expect-error session*/}

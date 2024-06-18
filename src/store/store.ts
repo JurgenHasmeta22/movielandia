@@ -54,6 +54,10 @@ export const useStore = create<AppStoreState>()(
                 setListModalDataType: (data) => {
                     set({ listModalDataType: data });
                 },
+                isEditModeReview: false,
+                setIsEditModeReview: (data) => {
+                    set({ isEditModeReview: data });
+                },
             }),
             {
                 name: "appStore-localStorage",

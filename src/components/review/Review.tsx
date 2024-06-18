@@ -2,12 +2,14 @@
 
 import { Avatar, Box, Paper, Typography, IconButton, Rating, Button, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-// import EditIcon from "@mui/icons-material/Edit";
+import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { tokens } from "@/utils/theme";
+import { useSession } from "next-auth/react";
+import { useStore } from "@/store/store";
 
 interface ReviewProps {
     review: {
@@ -34,7 +36,8 @@ interface ReviewProps {
 const Review = ({ review }: ReviewProps) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
+    const { data: session } = useSession();
+    const { isEditModeReview, setIsEditModeReview } = useStore();
     const getRatingLabelAndColor = (rating: number) => {
         if (rating <= 2) {
             return { label: "Very Bad", color: "red" };
@@ -71,9 +74,25 @@ const Review = ({ review }: ReviewProps) => {
                     <Typography variant="body2">
                         {review.updatedAt ? "Edited" : format(new Date(review.createdAt), "MMMM dd, yyyy HH:mm")}
                     </Typography>
-                    <IconButton size="medium">
-                        <CloseIcon fontSize="medium" />
-                    </IconButton>
+                    {/* @ts-expect-error session*/}
+                    {review.user.userName === session?.user?.userName && !isEditModeReview && (
+                        <IconButton
+                            size="medium"
+                            onClick={() => {
+                                setIsEditModeReview(true);
+                            }}
+                        >
+                            <EditIcon fontSize="medium" />
+                        </IconButton>
+                    )}
+                    {/* @ts-expect-error session*/}
+                    {review.user.userName === session?.user?.userName && (
+                        <Box>
+                            <IconButton size="medium" onClick={() => {}}>
+                                <CloseIcon fontSize="medium" />
+                            </IconButton>
+                        </Box>
+                    )}
                 </Box>
             </Box>
             <Box dangerouslySetInnerHTML={{ __html: review.content }} sx={{ wordWrap: "break-word" }} />
@@ -106,7 +125,7 @@ const Review = ({ review }: ReviewProps) => {
                             "&:hover": {
                                 backgroundColor: "transparent",
                             },
-                            color: colors.primary[100],
+                            color: colors.greenAccent[600],
                         }}
                     >
                         <Typography>{review._count.upvotes}</Typography>
