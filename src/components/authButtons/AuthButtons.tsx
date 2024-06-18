@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button, CircularProgress, Typography, Menu, MenuItem, useTheme } from "@mui/material";
+import { Button, CircularProgress, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 const AuthButtons = () => {
     const { data: session, status } = useSession();
@@ -39,17 +40,20 @@ const AuthButtons = () => {
         <>
             {session && session.user ? (
                 <>
-                    <Typography
-                        variant="body1"
-                        sx={{
-                            color: "white",
-                            cursor: "pointer",
-                        }}
-                        onClick={handleMenuOpen}
-                    >
-                        {/* @ts-expect-error session*/}
-                        Welcome, {session.user.userName}
-                    </Typography>
+                    <Box display={"flex"} flexDirection={"row"} onClick={handleMenuOpen}>
+                        <PersonOutlinedIcon color="action" fontSize="medium" />
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                color: "white",
+                                cursor: "pointer",
+                                paddingLeft: 1,
+                            }}
+                        >
+                            {/* @ts-expect-error session*/}
+                            {session.user.userName}
+                        </Typography>
+                    </Box>
                     <Menu
                         anchorEl={anchorEl}
                         open={Boolean(anchorEl)}
@@ -64,16 +68,12 @@ const AuthButtons = () => {
                         }}
                     >
                         <MenuItem onClick={() => handleMenuClose()} sx={{ color: colors.primary[100] }}>
-                            <Link href="/profile" passHref>
-                                <Typography variant="inherit" color="primary">
-                                    My Profile
-                                </Typography>
+                            <Link href="/profile" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                                <Typography variant="inherit">My Profile</Typography>
                             </Link>
                         </MenuItem>
                         <MenuItem onClick={() => handleSignOut()} sx={{ color: colors.primary[100] }}>
-                            <Typography variant="inherit" color="primary">
-                                Sign Out
-                            </Typography>
+                            <Typography variant="inherit">Sign Out</Typography>
                         </MenuItem>
                     </Menu>
                 </>
