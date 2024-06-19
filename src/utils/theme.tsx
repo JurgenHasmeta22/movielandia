@@ -327,6 +327,7 @@ export function CustomThemeProvider({ children }: { children: ReactNode }) {
         setMode((prevMode) => {
             const newMode = prevMode === "light" ? "dark" : "light";
             localStorage.setItem("theme", newMode);
+            
             if (newMode === "dark") {
                 document.documentElement.classList.add("dark");
             } else {

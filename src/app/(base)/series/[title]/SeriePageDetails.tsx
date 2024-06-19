@@ -59,11 +59,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         if (!session?.user || !serie) return;
 
         try {
-            const response = await addFavoriteSerieToUser(serie?.id, session?.user?.id);
-
-            if (response) {
-                setUser(response);
-            }
+            await addFavoriteSerieToUser(Number(session?.user?.id), serie?.id);
         } catch (error) {
             toast.error("An error occurred while adding the serie to favorites.");
         }
@@ -73,11 +69,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         if (!session?.user || !serie) return;
 
         try {
-            const response = await removeFavoriteSerieToUser(serie?.id, session?.user?.id);
-
-            if (response) {
-                setUser(response);
-            }
+            await removeFavoriteSerieToUser(Number(session?.user?.id), serie?.id);
         } catch (error) {
             toast.error("An error occurred while removing the serie from favorites.");
         }
@@ -280,7 +272,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
             <DetailsPageCard
                 data={serie}
                 type="serie"
-                isMovieBookmarked={serie.isBookmarked}
+                isSerieBookmarked={serie.isBookmarked}
                 onBookmarkSerie={onBookmarkSerie}
                 onRemoveBookmarkSerie={onRemoveBookmarkSerie}
             />
