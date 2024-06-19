@@ -81,7 +81,6 @@ export default function HeaderMenu({
                     <IconButton
                         onClick={() => {
                             setOpenDrawer(false);
-                            window.scrollTo(0, 0);
                         }}
                     >
                         <CloseOutlined />
@@ -111,7 +110,6 @@ export default function HeaderMenu({
                             href={"/"}
                             onClick={() => {
                                 setOpenDrawer(false);
-                                window.scrollTo(0, 0);
                             }}
                         >
                             MovieLandia24
@@ -132,7 +130,6 @@ export default function HeaderMenu({
                             href="/movies"
                             onClick={() => {
                                 setOpenDrawer(false);
-                                window.scrollTo(0, 0);
                             }}
                         >
                             <MovieIcon fontSize={"large"} />
@@ -180,7 +177,6 @@ export default function HeaderMenu({
                                         closeMenuGenres();
                                         router.push(`/genres/${genre.name}`);
                                         setOpenDrawer(false);
-                                        window.scrollTo(0, 0);
                                     }}
                                 >
                                     {genre.name}
@@ -203,7 +199,6 @@ export default function HeaderMenu({
                             href="/series"
                             onClick={() => {
                                 setOpenDrawer(false);
-                                window.scrollTo(0, 0);
                             }}
                         >
                             <LocalMoviesIcon fontSize={"large"} />
@@ -227,10 +222,8 @@ export default function HeaderMenu({
 
                                 if (value.length > 0) {
                                     router.push(`/movies?search=${value}`);
-                                    window.scrollTo(0, 0);
                                 } else {
                                     router.push("/movies");
-                                    window.scrollTo(0, 0);
                                 }
                             }}
                             InputProps={{
@@ -250,7 +243,6 @@ export default function HeaderMenu({
                                             onClick={() => {
                                                 if (searchParams.get("search")) {
                                                     router.push("/movies");
-                                                    window.scrollTo(0, 0);
                                                 }
                                             }}
                                         />
