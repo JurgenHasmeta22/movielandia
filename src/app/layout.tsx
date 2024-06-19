@@ -6,13 +6,12 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ToastProvider from "@/lib/toastify/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme";
 import { Providers } from "./providers";
-import "./globals.css";
 import { ensureStartsWith } from "@/utils/utils";
+import "./globals.css";
+import { ModalProvider } from "@/providers/ModalContext";
+import { RightPanelProvider } from "@/providers/RightPanelContext";
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
-// const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL
-//     ? `https://${process.env.NEXT_PUBLIC_PROJECT_URL}`
-//     : "http://localhost:4000";
 const baseUrl = "http://localhost:4000";
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, "@") : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, "https://") : undefined;
@@ -42,36 +41,25 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // const setInitialTheme = `
-    //     (function() {
-    //         const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-
-    //         if (theme === 'dark') {
-    //             document.documentElement.classList.add('dark');
-    //         } else {
-    //             document.documentElement.classList.remove('dark');
-    //         }
-    //     })();
-    // `;
-
     return (
         <html lang="en">
-            {/* <head>
-                <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
-            </head> */}
             <body>
                 <Providers>
                     <AppRouterCacheProvider>
                         <CustomThemeProvider>
                             <ToastProvider>
-                                <Grid container>
-                                    <Grid item xs={12}>
-                                        <Header />
-                                        <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                                        <ScrollToTop />
-                                        <Footer />
-                                    </Grid>
-                                </Grid>
+                                <ModalProvider>
+                                    <RightPanelProvider>
+                                        <Grid container>
+                                            <Grid item xs={12}>
+                                                <Header />
+                                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                                                <ScrollToTop />
+                                                <Footer />
+                                            </Grid>
+                                        </Grid>
+                                    </RightPanelProvider>
+                                </ModalProvider>
                             </ToastProvider>
                         </CustomThemeProvider>
                     </AppRouterCacheProvider>
