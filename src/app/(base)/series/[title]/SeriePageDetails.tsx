@@ -7,7 +7,6 @@ import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import { Box, Stack } from "@mui/material";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useState, useRef, useEffect } from "react";
 import { useStore } from "@/store/store";
@@ -25,6 +24,7 @@ import {
 import { useModal } from "@/providers/ModalContext";
 import { TextEditorForm } from "@/components/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
+import { showToast } from "@/utils/toast";
 
 export default function SeriePageDetails({ searchParamsValues, serie, latestSeries, relatedSeries, pageCount }: any) {
     const { data: session } = useSession();
@@ -59,14 +59,14 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
 
         try {
             await addFavoriteSerieToUser(Number(session.user.id), serie.id);
-            toast.success("Serie added to favorites!");
+            showToast("success", "Serie added to favorites!");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error adding serie to favorites: ${error.message}`);
-                toast.error(`An error occurred: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
             } else {
                 console.error("Unknown error adding serie to favorites.");
-                toast.error("An unexpected error occurred while adding the serie to favorites.");
+                showToast("error", "An unexpected error occurred while adding the serie to favorites.");
             }
         }
     }
@@ -76,14 +76,14 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
 
         try {
             await removeFavoriteSerieToUser(Number(session.user.id), serie.id);
-            toast.success("Serie removed from favorites!");
+            showToast("success", "Serie removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error removing serie from favorites: ${error.message}`);
-                toast.error(`An error occurred: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
             } else {
                 console.error("Unknown error removing serie from favorites.");
-                toast.error("An unexpected error occurred while removing the serie from favorites.");
+                showToast("error", "An unexpected error occurred while removing the serie from favorites.");
             }
         }
     }
@@ -103,12 +103,12 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
 
             setReview("");
             setRating(null);
-            toast.success("Review submitted successfully!");
+            showToast("success", "Review submitted successfully!");
         } catch (error) {
             if (error instanceof Error) {
-                toast.error(`Error: ${error.message}`);
+                showToast("error", `Error: ${error.message}`);
             } else {
-                toast.error("An unexpected error occurred while submitting the review.");
+                showToast("error", "An unexpected error occurred while submitting the review.");
             }
         }
     }
@@ -140,12 +140,12 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                             });
 
                             setReview("");
-                            toast.success("Review removed successfully!");
+                            showToast("success", "Review removed successfully!");
                         } catch (error) {
                             if (error instanceof Error) {
-                                toast.error(`Error: ${error.message}`);
+                                showToast("error", `Error: ${error.message}`);
                             } else {
-                                toast.error("An unexpected error occurred while deleting the review.");
+                                showToast("error", "An unexpected error occurred while deleting the review.");
                             }
                         }
                     },
@@ -177,12 +177,12 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
             setRating(null);
             setIsEditMode(false);
             handleFocusReview();
-            toast.success("Review updated successfully!");
+            showToast("success", "Review updated successfully!");
         } catch (error) {
             if (error instanceof Error) {
-                toast.error(`Error: ${error.message}`);
+                showToast("error", `Error: ${error.message}`);
             } else {
-                toast.error("An unexpected error occurred while updating the review.");
+                showToast("error", "An unexpected error occurred while updating the review.");
             }
         }
     }
@@ -200,7 +200,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                 await addUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
-            toast.error("An error occurred while adding the upvote to serie review.");
+            showToast("error", "An error occurred while adding the upvote to serie review.");
         }
     }
 
@@ -215,7 +215,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                 await addDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
-            toast.error("An error occurred while adding the downvoted to serie review.");
+            showToast("error", "An error occurred while adding the downvoted to serie review.");
         }
     }
     // #endregion

@@ -3,6 +3,7 @@
 import { Prisma, User } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 // #region "Interfaces"
 interface UserModelParams {
@@ -202,16 +203,19 @@ export async function addFavoriteSerieToUser(userId: number, serieId: number): P
         if (result) {
             const titleFinal = serie.title
                 .split("")
-                .map((char: string) => (char === "-" ? " " : char))
+                .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            console.log(titleFinal);
             redirect(`/series/${titleFinal}`);
         } else {
             throw new Error("Failed to add serie to favorites.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
@@ -244,17 +248,19 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
         if (result) {
             const titleFinal = movie.title
                 .split("")
-                .map((char: string) => (char === "-" ? " " : char))
+                .map((char: string) => (char === " " ? "-" : char))
                 .join("");
-
-            console.log(titleFinal);
 
             redirect(`/movies/${titleFinal}`);
         } else {
             throw new Error("Failed to add movie to favorites.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
@@ -280,17 +286,19 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
         if (result) {
             const titleFinal = existingFavorite.movie.title
                 .split("")
-                .map((char: string) => (char === "-" ? " " : char))
+                .map((char: string) => (char === " " ? "-" : char))
                 .join("");
-
-            console.log(titleFinal);
 
             redirect(`/movies/${titleFinal}`);
         } else {
             throw new Error("Failed to remove movie from favorites.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
@@ -316,16 +324,19 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
         if (result) {
             const titleFinal = existingFavorite.serie.title
                 .split("")
-                .map((char: string) => (char === "-" ? " " : char))
+                .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            console.log(titleFinal);
             redirect(`/series/${titleFinal}`);
         } else {
             throw new Error("Failed to remove serie from favorites.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 // #endregion
@@ -381,7 +392,11 @@ export const addReviewMovie = async ({
             throw new Error("You have already reviewed this movie.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 };
 
@@ -435,7 +450,11 @@ export const addReviewSerie = async ({
             throw new Error("You have already reviewed this serie.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 };
 
@@ -484,7 +503,11 @@ export const updateReviewMovie = async ({
             throw new Error("Review not found.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 };
 
@@ -533,7 +556,11 @@ export const updateReviewSerie = async ({
             throw new Error("Review not found.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 };
 
@@ -567,7 +594,11 @@ export const removeReviewMovie = async ({ userId, movieId }: RemoveReviewMoviePa
             throw new Error("Review not found.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 };
 
@@ -601,7 +632,11 @@ export const removeReviewSerie = async ({ userId, serieId }: RemoveReviewSeriePa
             throw new Error("Review not found.");
         }
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 };
 // #endregion
