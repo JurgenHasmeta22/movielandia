@@ -1,8 +1,9 @@
 import { User } from "@prisma/client";
 
 export default interface AppStoreState {
-    user: User | null;
-    setUser: (data: User | null) => void;
+    userDetails: User | null;
+    setUserDetails: (userDetails: User) => void;
+    clearUserDetails: () => void;
     isUserLoading: boolean;
     setIsUserLoading: (data: boolean) => void;
     mobileOpen: boolean | any;
