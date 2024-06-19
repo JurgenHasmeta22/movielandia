@@ -32,8 +32,7 @@ const Error: React.FC<ErrorProps> = ({ reset }) => {
                     Oops!
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                    There was an issue with our page or the page is not found. This could be a temporary issue, please
-                    try your action again.
+                    There was an issue with our page. This could be a temporary issue, please try your action again.
                 </Typography>
                 <Button
                     variant="contained"

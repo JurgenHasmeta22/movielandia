@@ -79,7 +79,6 @@ export default async function Movie({ searchParams, params }: IMovieProps) {
     };
 
     const session = await getServerSession(authOptions);
-    console.log(session);
 
     const movie = await getMovieByTitle(title, { userId: Number(session?.user?.id) });
     const latestMovies = await getLatestMovies();
