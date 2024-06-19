@@ -2,13 +2,13 @@
 
 import React from "react";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface ICardItemProps {
     data: any;
@@ -37,14 +37,19 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                         boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
                     },
                 }}
-                elevation={6}
                 onClick={() => {
                     router.push(path);
                 }}
+                elevation={6}
             >
                 <Box sx={{ position: "relative" }}>
-                    <Link href={path}>
-                        <Image alt={`${data.description}`} src={data.photoSrc} height={317} width={214} />
+                    <Link
+                        href={path}
+                        style={{
+                            textDecoration: "none",
+                        }}
+                    >
+                        <Image src={data.photoSrc} alt={`${data.description}`} width={214} height={317} />
                     </Link>
                     <Box
                         sx={{
@@ -191,33 +196,29 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                             }}
                         >
                             {data?.genres?.map((genre: any, index: number) => (
-                                <Typography
-                                    component={"span"}
-                                    key={index}
-                                    sx={{
-                                        backgroundColor: "gold",
-                                        color: "black",
-                                        borderRadius: "12px",
-                                        padding: "4px 6px",
-                                        fontWeight: "700",
-                                        cursor: "pointer",
-                                        fontSize: 11,
-                                        "&:hover": {
-                                            backgroundColor: "#FFD700",
-                                        },
-                                    }}
-                                >
-                                    <Link
-                                        href={`/genres/${genre.name}`}
-                                        style={{ textDecoration: "none" }}
+                                <Link href={`/genres/${genre.name}`} style={{ textDecoration: "none" }} key={index}>
+                                    <Typography
+                                        component={"span"}
                                         key={index}
-                                        onClick={(e) => {
+                                        onClick={function (e) {
                                             e.stopPropagation();
+                                        }}
+                                        sx={{
+                                            backgroundColor: "gold",
+                                            color: "black",
+                                            borderRadius: "12px",
+                                            padding: "4px 6px",
+                                            fontWeight: "700",
+                                            cursor: "pointer",
+                                            fontSize: 11,
+                                            "&:hover": {
+                                                backgroundColor: "#FFD700",
+                                            },
                                         }}
                                     >
                                         {genre.name}
-                                    </Link>
-                                </Typography>
+                                    </Typography>
+                                </Link>
                             ))}
                         </Stack>
                     )}

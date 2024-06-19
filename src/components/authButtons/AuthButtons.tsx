@@ -82,9 +82,6 @@ const AuthButtons = () => {
                     <Link href="/login" style={{ textDecoration: "none" }}>
                         <Button
                             variant="text"
-                            onClick={function () {
-                                window.scrollTo(0, 0);
-                            }}
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -122,9 +119,6 @@ const AuthButtons = () => {
                                     backgroundColor: colors.greenAccent[700],
                                     color: colors.grey[100],
                                 },
-                            }}
-                            onClick={function () {
-                                window.scrollTo(0, 0);
                             }}
                         >
                             <AppRegistrationIcon />
