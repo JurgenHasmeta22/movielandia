@@ -7,7 +7,6 @@ import Review from "@/components/review/Review";
 import Reviews from "@/components/reviews/Reviews";
 import { Box, Stack } from "@mui/material";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useState, useRef, useEffect } from "react";
 import { useStore } from "@/store/store";
@@ -25,6 +24,7 @@ import {
 import { useModal } from "@/providers/ModalContext";
 import * as CONSTANTS from "@/constants/Constants";
 import { TextEditorForm } from "@/components/textEditorForm/TextEditorForm";
+import { showToast } from "@/utils/toast";
 
 export default function MoviePageDetails({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
     const { data: session } = useSession();
@@ -59,14 +59,14 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
         try {
             await addFavoriteMovieToUser(Number(session.user.id), movie.id);
-            toast.success("Movie added to favorites!");
+            showToast("success", "Movie added to favorites!");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error adding movie to favorites: ${error.message}`);
-                toast.error(`An error occurred: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
             } else {
                 console.error("Unknown error adding movie to favorites.");
-                toast.error("An unexpected error occurred while adding the movie to favorites.");
+                showToast("error", "An unexpected error occurred while adding the movie to favorites.");
             }
         }
     }
@@ -76,14 +76,14 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
         try {
             await removeFavoriteMovieToUser(Number(session.user.id), movie.id);
-            toast.success("Movie removed from favorites!");
+            showToast("success", "Movie removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error removing movie from favorites: ${error.message}`);
-                toast.error(`An error occurred: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
             } else {
                 console.error("Unknown error removing movie from favorites.");
-                toast.error("An unexpected error occurred while removing the movie from favorites.");
+                showToast("error", "An unexpected error occurred while removing the movie from favorites.");
             }
         }
     }
@@ -103,12 +103,12 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
             setReview("");
             setRating(null);
-            toast.success("Review submitted successfully!");
+            showToast("success", "Review submitted successfully!");
         } catch (error) {
             if (error instanceof Error) {
-                toast.error(`Error: ${error.message}`);
+                showToast("error", `Error: ${error.message}`);
             } else {
-                toast.error("An unexpected error occurred while submitting the review.");
+                showToast("error", "An unexpected error occurred while submitting the review.");
             }
         }
     }
@@ -140,12 +140,12 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                             });
 
                             setReview("");
-                            toast.success("Review removed successfully!");
+                            showToast("success", "Review removed successfully!");
                         } catch (error) {
                             if (error instanceof Error) {
-                                toast.error(`Error: ${error.message}`);
+                                showToast("error", `Error: ${error.message}`);
                             } else {
-                                toast.error("An unexpected error occurred while deleting the review.");
+                                showToast("error", "An unexpected error occurred while deleting the review.");
                             }
                         }
                     },
@@ -177,12 +177,12 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
             setRating(null);
             setIsEditMode(false);
             handleFocusReview();
-            toast.success("Review updated successfully!");
+            showToast("success", "Review updated successfully!");
         } catch (error) {
             if (error instanceof Error) {
-                toast.error(`Error: ${error.message}`);
+                showToast("error", `Error: ${error.message}`);
             } else {
-                toast.error("An unexpected error occurred while updating the review.");
+                showToast("error", "An unexpected error occurred while updating the review.");
             }
         }
     }
@@ -200,7 +200,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                 await addUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
             }
         } catch (error) {
-            toast.error("An error occurred while adding the upvote to movie review.");
+            showToast("error", "An error occurred while adding the upvote to movie review.");
         }
     }
 
@@ -215,7 +215,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                 await addDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
             }
         } catch (error) {
-            toast.error("An error occurred while adding the downvoted to movie review.");
+            showToast("error", "An error occurred while adding the downvoted to movie review.");
         }
     }
     // #endregion
