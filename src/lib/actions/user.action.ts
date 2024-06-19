@@ -173,83 +173,103 @@ export async function searchUsersByUsername(username: string, page: number): Pro
 // #endregion
 
 // #region "Bookmarks"
-export async function addFavoriteSerieToUser(userId: number, serieId: number): Promise<User | null> {
-    const existingFavorite = await prisma.userSerieFavorite.findFirst({
-        where: {
-            AND: [{ userId }, { serieId }],
-        },
-    });
+export async function addFavoriteSerieToUser(userId: number, serieId: number): Promise<void> {
+    try {
+        const existingFavorite = await prisma.userSerieFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { serieId }],
+            },
+        });
 
-    if (existingFavorite) {
-        return null;
-    } else {
+        if (existingFavorite) {
+            throw new Error("This serie is already in your favorites.");
+        }
+
         const serie = await prisma.serie.findUnique({
             where: {
                 id: serieId,
             },
         });
 
+        if (!serie) {
+            throw new Error("Serie not found.");
+        }
+
         const result = await prisma.userSerieFavorite.create({
             data: { userId, serieId },
         });
 
         if (result) {
-            const titleFinal = serie?.title
+            const titleFinal = serie.title
                 .split("")
                 .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
             redirect(`/series/${titleFinal}`);
         } else {
-            return null;
+            throw new Error("Failed to add serie to favorites.");
         }
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 
-export async function addFavoriteMovieToUser(userId: number, movieId: number): Promise<User | null> {
-    const existingFavorite = await prisma.userMovieFavorite.findFirst({
-        where: {
-            AND: [{ userId }, { movieId }],
-        },
-    });
+export async function addFavoriteMovieToUser(userId: number, movieId: number): Promise<void> {
+    try {
+        const existingFavorite = await prisma.userMovieFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { movieId }],
+            },
+        });
 
-    if (existingFavorite) {
-        return null;
-    } else {
+        if (existingFavorite) {
+            throw new Error("This movie is already in your favorites.");
+        }
+
         const movie = await prisma.movie.findUnique({
             where: {
                 id: movieId,
             },
         });
 
+        if (!movie) {
+            throw new Error("Movie not found.");
+        }
+
         const result = await prisma.userMovieFavorite.create({
             data: { userId, movieId },
         });
 
         if (result) {
-            const titleFinal = movie?.title
+            const titleFinal = movie.title
                 .split("")
-                .map((char: string) => (char === " " ? "-" : char))
+                .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
             redirect(`/movies/${titleFinal}`);
         } else {
-            return null;
+            throw new Error("Failed to add movie to favorites.");
         }
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 
-export async function removeFavoriteMovieToUser(userId: number, movieId: number): Promise<User | null> {
-    const existingFavorite = await prisma.userMovieFavorite.findFirst({
-        where: {
-            AND: [{ userId }, { movieId }],
-        },
-        include: {
-            movie: true,
-        },
-    });
+export async function removeFavoriteMovieToUser(userId: number, movieId: number): Promise<void> {
+    try {
+        const existingFavorite = await prisma.userMovieFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { movieId }],
+            },
+            include: {
+                movie: true,
+            },
+        });
 
-    if (existingFavorite) {
+        if (!existingFavorite) {
+            throw new Error("Favorite movie not found.");
+        }
+
         const result = await prisma.userMovieFavorite.delete({
             where: { id: existingFavorite.id },
         });
@@ -257,29 +277,33 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
         if (result) {
             const titleFinal = existingFavorite.movie.title
                 .split("")
-                .map((char: string) => (char === " " ? "-" : char))
+                .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
             redirect(`/movies/${titleFinal}`);
         } else {
-            return null;
+            throw new Error("Failed to remove movie from favorites.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 
-export async function removeFavoriteSerieToUser(userId: number, serieId: number): Promise<User | null> {
-    const existingFavorite = await prisma.userSerieFavorite.findFirst({
-        where: {
-            AND: [{ userId }, { serieId }],
-        },
-        include: {
-            serie: true,
-        },
-    });
+export async function removeFavoriteSerieToUser(userId: number, serieId: number): Promise<void> {
+    try {
+        const existingFavorite = await prisma.userSerieFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { serieId }],
+            },
+            include: {
+                serie: true,
+            },
+        });
 
-    if (existingFavorite) {
+        if (!existingFavorite) {
+            throw new Error("Favorite serie not found.");
+        }
+
         const result = await prisma.userSerieFavorite.delete({
             where: { id: existingFavorite.id },
         });
@@ -287,15 +311,15 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
         if (result) {
             const titleFinal = existingFavorite.serie.title
                 .split("")
-                .map((char: string) => (char === " " ? "-" : char))
+                .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
             redirect(`/series/${titleFinal}`);
         } else {
-            return null;
+            throw new Error("Failed to remove serie from favorites.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 // #endregion

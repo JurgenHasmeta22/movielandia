@@ -58,9 +58,16 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         if (!session?.user || !serie) return;
 
         try {
-            await addFavoriteSerieToUser(Number(session?.user?.id), serie?.id);
+            await addFavoriteSerieToUser(Number(session.user.id), serie.id);
+            toast.success("Serie added to favorites!");
         } catch (error) {
-            toast.error("An error occurred while adding the serie to favorites.");
+            if (error instanceof Error) {
+                console.error(`Error adding serie to favorites: ${error.message}`);
+                toast.error(`An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error adding serie to favorites.");
+                toast.error("An unexpected error occurred while adding the serie to favorites.");
+            }
         }
     }
 
@@ -68,9 +75,16 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         if (!session?.user || !serie) return;
 
         try {
-            await removeFavoriteSerieToUser(Number(session?.user?.id), serie?.id);
+            await removeFavoriteSerieToUser(Number(session.user.id), serie.id);
+            toast.success("Serie removed from favorites!");
         } catch (error) {
-            toast.error("An error occurred while removing the serie from favorites.");
+            if (error instanceof Error) {
+                console.error(`Error removing serie from favorites: ${error.message}`);
+                toast.error(`An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error removing serie from favorites.");
+                toast.error("An unexpected error occurred while removing the serie from favorites.");
+            }
         }
     }
     // #endregion
