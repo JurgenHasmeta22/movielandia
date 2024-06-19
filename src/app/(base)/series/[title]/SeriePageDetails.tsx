@@ -31,19 +31,18 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
 
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(0);
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
-
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
 
     const {
-        setUser,
+        // setUser,
         setListModalDataType,
         setUpvotesPageModal,
         setDownvotesPageModal,
@@ -83,7 +82,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         try {
             const response = await addReviewSerie({
                 serieId: serie?.id,
-                userId: session?.user?.id,
+                userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
@@ -91,7 +90,6 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
             if (response) {
                 setReview("");
                 setRating(null);
-                setUser(response);
                 toast.success("Review submitted successfully!");
             } else {
                 toast.error("Review submission failed!");
@@ -122,11 +120,13 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            const response = await removeReviewSerie({ serieId: serie?.id, userId: session?.user?.id });
+                            const response = await removeReviewSerie({
+                                serieId: serie?.id,
+                                userId: Number(session?.user?.id),
+                            });
 
                             if (response && !response.error) {
                                 setReview("");
-                                setUser(response);
                                 toast.success("Review removed successfully!");
                             } else {
                                 toast.error("Review removal failed!");
@@ -154,16 +154,15 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         try {
             const response = await updateReviewSerie({
                 seriedId: serie?.id,
-                userId: session?.user?.id,
+                userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
 
-            if (response && !response.error) {
+            if (response && response.status === 303) {
                 setReview("");
                 setRating(null);
                 setIsEditMode(false);
-                setUser(response);
                 handleFocusReview();
                 toast.success("Review updated successfully!");
             } else {

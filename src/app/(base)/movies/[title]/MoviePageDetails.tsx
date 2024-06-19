@@ -43,7 +43,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     const reviewRef = useRef<any>(null);
 
     const {
-        setUser,
+        // setUser,
         setListModalDataType,
         setUpvotesPageModal,
         setDownvotesPageModal,
@@ -83,7 +83,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         try {
             const response = await addReviewMovie({
                 movieId: movie?.id,
-                userId: session?.user?.id,
+                userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
@@ -91,7 +91,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
             if (response) {
                 setReview("");
                 setRating(null);
-                setUser(response);
+                // setUser(response);
                 toast.success("Review submitted successfully!");
             } else {
                 toast.error("Review submission failed!");
@@ -122,11 +122,14 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            const response = await removeReviewMovie({ movieId: movie?.id, userId: session?.user?.id });
+                            const response = await removeReviewMovie({
+                                movieId: movie?.id,
+                                userId: Number(session?.user?.id),
+                            });
 
                             if (response && !response.error) {
                                 setReview("");
-                                setUser(response);
+                                // setUser(response);
                                 toast.success("Review removed successfully!");
                             } else {
                                 toast.error("Review removal failed!");
@@ -154,7 +157,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         try {
             const response = await updateReviewMovie({
                 moviedId: movie?.id,
-                userId: session?.user?.id,
+                userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
@@ -163,7 +166,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                 setReview("");
                 setRating(null);
                 setIsEditMode(false);
-                setUser(response);
+                // setUser(response);
                 handleFocusReview();
                 toast.success("Review updated successfully!");
             } else {
