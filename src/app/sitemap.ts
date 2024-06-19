@@ -21,23 +21,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const routesMap = [""].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
     }));
 
     const moviesPromise = getMovies({}).then((moviesData) =>
         moviesData.movies.map((movie: Movie) => ({
             url: `${baseUrl}/movies/${movie.title}`,
+            lastModified: new Date().toISOString(),
+            changeFrequency: "weekly",
         })),
     );
 
     const seriesPromise = getSeries({}).then((seriesData) =>
         seriesData.rows.map((serie: Serie) => ({
             url: `${baseUrl}/series/${serie.title}`,
+            lastModified: new Date().toISOString(),
+            changeFrequency: "weekly",
         })),
     );
 
     const genresPromise = getGenres({}).then((genresData) =>
         genresData.rows.map((genre: Genre) => ({
             url: `${baseUrl}/genres/${genre.name}`,
+            lastModified: new Date().toISOString(),
+            changeFrequency: "weekly",
         })),
     );
 
