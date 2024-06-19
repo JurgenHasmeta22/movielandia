@@ -6,10 +6,9 @@ export const useStore = create<AppStoreState>()(
     devtools(
         persist(
             (set): AppStoreState => ({
-                user: null,
-                setUser: (data) => {
-                    set({ user: data });
-                },
+                userDetails: null,
+                setUserDetails: (userDetails) => set({ userDetails }),
+                clearUserDetails: () => set({ userDetails: null }),
                 isUserLoading: true,
                 setIsUserLoading: (data) => {
                     set({ isUserLoading: data });

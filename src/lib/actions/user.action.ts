@@ -205,6 +205,7 @@ export async function addFavoriteSerieToUser(userId: number, serieId: number): P
                 .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
+            console.log(titleFinal);
             redirect(`/series/${titleFinal}`);
         } else {
             throw new Error("Failed to add serie to favorites.");
@@ -246,6 +247,8 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
                 .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
+            console.log(titleFinal);
+
             redirect(`/movies/${titleFinal}`);
         } else {
             throw new Error("Failed to add movie to favorites.");
@@ -279,6 +282,8 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
                 .split("")
                 .map((char: string) => (char === "-" ? " " : char))
                 .join("");
+
+            console.log(titleFinal);
 
             redirect(`/movies/${titleFinal}`);
         } else {
@@ -314,6 +319,7 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
                 .map((char: string) => (char === "-" ? " " : char))
                 .join("");
 
+            console.log(titleFinal);
             redirect(`/series/${titleFinal}`);
         } else {
             throw new Error("Failed to remove serie from favorites.");
