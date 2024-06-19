@@ -32,6 +32,7 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(0);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,7 +43,6 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
     const reviewRef = useRef<any>(null);
 
     const {
-        // setUser,
         setListModalDataType,
         setUpvotesPageModal,
         setDownvotesPageModal,
@@ -84,14 +84,18 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                 serieId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
-                rating,
+                rating: rating ? rating : 0,
             });
 
             setReview("");
             setRating(null);
             toast.success("Review submitted successfully!");
         } catch (error) {
-            toast.error("An error occurred while submitting the review.");
+            if (error instanceof Error) {
+                toast.error(`Error: ${error.message}`);
+            } else {
+                toast.error("An unexpected error occurred while submitting the review.");
+            }
         }
     }
 
@@ -124,7 +128,11 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                             setReview("");
                             toast.success("Review removed successfully!");
                         } catch (error) {
-                            toast.error("An error occurred while trying to remove the review.");
+                            if (error instanceof Error) {
+                                toast.error(`Error: ${error.message}`);
+                            } else {
+                                toast.error("An unexpected error occurred while deleting the review.");
+                            }
                         }
                     },
                     type: "submit",
@@ -145,10 +153,10 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
 
         try {
             await updateReviewSerie({
-                seriedId: serie?.id,
+                serieId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
-                rating,
+                rating: rating ? rating : 0,
             });
 
             setReview("");
@@ -157,12 +165,16 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
             handleFocusReview();
             toast.success("Review updated successfully!");
         } catch (error) {
-            toast.error("An error occurred while updating the review.");
+            if (error instanceof Error) {
+                toast.error(`Error: ${error.message}`);
+            } else {
+                toast.error("An unexpected error occurred while updating the review.");
+            }
         }
     }
     // #endregion
 
-    // #region "upvotes, downvotes"
+    // #region "Upvotes, Downvotes"
     async function onUpvoteSerie(serieReviewId: number, isAlreadyUpvoted: boolean) {
         if (!session?.user || !serieReviewId) return;
 

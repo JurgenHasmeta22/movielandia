@@ -4,6 +4,7 @@ import { Prisma, User } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
+// #region "Interfaces"
 interface UserModelParams {
     sortBy: string;
     ascOrDesc: "asc" | "desc";
@@ -15,6 +16,50 @@ interface UserModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
+interface AddReviewMovieParams {
+    content: string;
+    createdAt?: Date;
+    rating: number;
+    userId: number;
+    movieId: number;
+}
+
+interface AddReviewSerieParams {
+    content: string;
+    createdAt?: Date;
+    rating: number;
+    userId: number;
+    serieId: number;
+}
+
+interface UpdateReviewMovieParams {
+    content: string;
+    updatedAt?: Date;
+    rating: number;
+    userId: number;
+    movieId: number;
+}
+
+interface UpdateReviewSerieParams {
+    content: string;
+    updatedAt?: Date;
+    rating: number;
+    userId: number;
+    serieId: number;
+}
+
+interface RemoveReviewMovieParams {
+    userId: number;
+    movieId: number;
+}
+
+interface RemoveReviewSerieParams {
+    userId: number;
+    serieId: number;
+}
+// #endregion
+
+// #region "CRUD"
 export async function getUsers({
     sortBy,
     ascOrDesc,
@@ -125,6 +170,7 @@ export async function searchUsersByUsername(username: string, page: number): Pro
         return null;
     }
 }
+// #endregion
 
 // #region "Bookmarks"
 export async function addFavoriteSerieToUser(userId: number, serieId: number): Promise<User | null> {
@@ -255,223 +301,279 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
 // #endregion
 
 // #region "Reviews"
-export const addReviewMovie = async ({ content, createdAt, rating, userId, movieId }: any): Promise<any> => {
-    const existingReview = await prisma.movieReview.findFirst({
-        where: {
-            userId,
-            movieId,
-        },
-    });
-
-    if (!existingReview) {
-        const movie = await prisma.movie.findUnique({
+export const addReviewMovie = async ({
+    content,
+    createdAt = new Date(),
+    rating,
+    userId,
+    movieId,
+}: AddReviewMovieParams): Promise<void> => {
+    try {
+        const existingReview = await prisma.movieReview.findFirst({
             where: {
-                id: movieId,
-            },
-        });
-
-        const reviewAdded = await prisma.movieReview.create({
-            data: {
-                content,
-                createdAt,
-                rating,
                 userId,
                 movieId,
             },
         });
 
-        if (reviewAdded) {
-            const titleFinal = movie?.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
+        if (!existingReview) {
+            const movie = await prisma.movie.findUnique({
+                where: {
+                    id: movieId,
+                },
+            });
 
-            redirect(`/movies/${titleFinal}`);
+            if (!movie) {
+                throw new Error("Movie not found.");
+            }
+
+            const reviewAdded = await prisma.movieReview.create({
+                data: {
+                    content,
+                    createdAt,
+                    rating,
+                    userId,
+                    movieId,
+                },
+            });
+
+            if (reviewAdded) {
+                const titleFinal = movie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+
+                redirect(`/movies/${titleFinal}`);
+            } else {
+                throw new Error("Failed to add review.");
+            }
         } else {
-            return null;
+            throw new Error("You have already reviewed this movie.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 };
 
-export const addReviewSerie = async ({ content, createdAt, rating, userId, serieId }: any): Promise<User | null> => {
-    const existingReview = await prisma.serieReview.findFirst({
-        where: {
-            userId,
-            serieId,
-        },
-    });
-
-    if (!existingReview) {
-        const serie = await prisma.serie.findUnique({
+export const addReviewSerie = async ({
+    content,
+    createdAt = new Date(),
+    rating,
+    userId,
+    serieId,
+}: AddReviewSerieParams): Promise<void> => {
+    try {
+        const existingReview = await prisma.serieReview.findFirst({
             where: {
-                id: serieId,
-            },
-        });
-
-        const reviewAdded = await prisma.serieReview.create({
-            data: {
-                content,
-                createdAt,
-                rating,
                 userId,
                 serieId,
             },
         });
 
-        if (reviewAdded) {
-            const titleFinal = serie?.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
+        if (!existingReview) {
+            const serie = await prisma.serie.findUnique({
+                where: {
+                    id: serieId,
+                },
+            });
 
-            redirect(`/series/${titleFinal}`);
+            if (!serie) {
+                throw new Error("Serie not found.");
+            }
+
+            const reviewAdded = await prisma.serieReview.create({
+                data: {
+                    content,
+                    createdAt,
+                    rating,
+                    userId,
+                    serieId,
+                },
+            });
+
+            if (reviewAdded) {
+                const titleFinal = serie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+
+                redirect(`/series/${titleFinal}`);
+            } else {
+                throw new Error("Failed to add review.");
+            }
         } else {
-            return null;
+            throw new Error("You have already reviewed this serie.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 };
 
-export async function updateReviewMovie({ content, updatedAt, rating, userId, movieId }: any): Promise<any> {
-    const existingReview = await prisma.movieReview.findFirst({
-        where: {
-            AND: [{ userId }, { movieId }],
-        },
-        include: {
-            movie: true,
-        },
-    });
-
-    if (existingReview) {
-        const reviewUpdated = await prisma.movieReview.update({
-            data: {
-                content,
-                updatedAt,
-                rating,
-                userId,
-                movieId,
-            },
+export const updateReviewMovie = async ({
+    content,
+    updatedAt = new Date(),
+    rating,
+    userId,
+    movieId,
+}: UpdateReviewMovieParams): Promise<void> => {
+    try {
+        const existingReview = await prisma.movieReview.findFirst({
             where: {
-                id: existingReview.id,
+                AND: [{ userId }, { movieId }],
+            },
+            include: {
+                movie: true,
             },
         });
 
-        if (reviewUpdated) {
-            const titleFinal = existingReview?.movie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
+        if (existingReview) {
+            const reviewUpdated = await prisma.movieReview.update({
+                data: {
+                    content,
+                    updatedAt,
+                    rating,
+                    userId,
+                    movieId,
+                },
+                where: {
+                    id: existingReview.id,
+                },
+            });
 
-            redirect(`/movies/${titleFinal}`);
+            if (reviewUpdated) {
+                const titleFinal = existingReview.movie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+
+                redirect(`/movies/${titleFinal}`);
+            } else {
+                throw new Error("Failed to update review.");
+            }
         } else {
-            return null;
+            throw new Error("Review not found.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
-}
+};
 
-export async function updateReviewSerie({ content, updatedAt, rating, userId, serieId }: any): Promise<any> {
-    const existingReview = await prisma.serieReview.findFirst({
-        where: {
-            AND: [{ userId }, { serieId }],
-        },
-        include: {
-            serie: true,
-        },
-    });
-
-    if (existingReview) {
-        const reviewUpdated = await prisma.serieReview.update({
-            data: {
-                content,
-                updatedAt,
-                rating,
-                userId,
-                serieId,
-            },
+export const updateReviewSerie = async ({
+    content,
+    updatedAt = new Date(),
+    rating,
+    userId,
+    serieId,
+}: UpdateReviewSerieParams): Promise<void> => {
+    try {
+        const existingReview = await prisma.serieReview.findFirst({
             where: {
-                id: existingReview.id,
+                AND: [{ userId }, { serieId }],
+            },
+            include: {
+                serie: true,
             },
         });
 
-        if (reviewUpdated) {
-            const titleFinal = existingReview?.serie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
+        if (existingReview) {
+            const reviewUpdated = await prisma.serieReview.update({
+                data: {
+                    content,
+                    updatedAt,
+                    rating,
+                    userId,
+                    serieId,
+                },
+                where: {
+                    id: existingReview.id,
+                },
+            });
 
-            redirect(`/series/${titleFinal}`);
+            if (reviewUpdated) {
+                const titleFinal = existingReview.serie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+
+                redirect(`/series/${titleFinal}`);
+            } else {
+                throw new Error("Failed to update review.");
+            }
         } else {
-            return null;
+            throw new Error("Review not found.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
-}
+};
 
-export async function removeReviewMovie({ userId, movieId }: any): Promise<any> {
-    const existingReview = await prisma.movieReview.findFirst({
-        where: {
-            AND: [{ userId }, { movieId }],
-        },
-        include: {
-            movie: true,
-        },
-    });
-
-    if (existingReview) {
-        const result = await prisma.movieReview.delete({
-            where: { id: existingReview.id },
+export const removeReviewMovie = async ({ userId, movieId }: RemoveReviewMovieParams): Promise<void> => {
+    try {
+        const existingReview = await prisma.movieReview.findFirst({
+            where: {
+                AND: [{ userId }, { movieId }],
+            },
+            include: {
+                movie: true,
+            },
         });
 
-        if (result) {
-            const titleFinal = existingReview?.movie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
+        if (existingReview) {
+            const result = await prisma.movieReview.delete({
+                where: { id: existingReview.id },
+            });
 
-            redirect(`/movies/${titleFinal}`);
+            if (result) {
+                const titleFinal = existingReview.movie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+
+                redirect(`/movies/${titleFinal}`);
+            } else {
+                throw new Error("Failed to delete review.");
+            }
         } else {
-            return null;
+            throw new Error("Review not found.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
-}
+};
 
-export async function removeReviewSerie({ userId, serieId }: any): Promise<any> {
-    const existingReview = await prisma.serieReview.findFirst({
-        where: {
-            AND: [{ userId }, { serieId }],
-        },
-        include: {
-            serie: true,
-        },
-    });
-
-    if (existingReview) {
-        const result = await prisma.serieReview.delete({
-            where: { id: existingReview.id },
+export const removeReviewSerie = async ({ userId, serieId }: RemoveReviewSerieParams): Promise<void> => {
+    try {
+        const existingReview = await prisma.serieReview.findFirst({
+            where: {
+                AND: [{ userId }, { serieId }],
+            },
+            include: {
+                serie: true,
+            },
         });
 
-        if (result) {
-            const titleFinal = existingReview?.serie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
+        if (existingReview) {
+            const result = await prisma.serieReview.delete({
+                where: { id: existingReview.id },
+            });
 
-            redirect(`/series/${titleFinal}`);
+            if (result) {
+                const titleFinal = existingReview.serie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+
+                redirect(`/series/${titleFinal}`);
+            } else {
+                throw new Error("Failed to delete review.");
+            }
         } else {
-            return null;
+            throw new Error("Review not found.");
         }
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
-}
+};
 // #endregion
 
 // #region "Upvotes, Downvotes"

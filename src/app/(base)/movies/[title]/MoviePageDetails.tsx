@@ -30,8 +30,9 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
-    const [rating, setRating] = useState<number | null>(0);
+    const [rating, setRating] = useState<number | null>(null);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,7 +43,6 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     const reviewRef = useRef<any>(null);
 
     const {
-        // setUser,
         setListModalDataType,
         setUpvotesPageModal,
         setDownvotesPageModal,
@@ -81,18 +81,21 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
         try {
             await addReviewMovie({
-                movieId: movie?.id,
-                userId: Number(session?.user?.id),
+                movieId: movie.id,
+                userId: Number(session.user.id),
                 content: review,
-                rating,
+                rating: rating ? rating : 0,
             });
 
             setReview("");
             setRating(null);
-            // setUser(response);
             toast.success("Review submitted successfully!");
         } catch (error) {
-            toast.error("An error occurred while submitting the review.");
+            if (error instanceof Error) {
+                toast.error(`Error: ${error.message}`);
+            } else {
+                toast.error("An unexpected error occurred while submitting the review.");
+            }
         }
     }
 
@@ -123,10 +126,13 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                             });
 
                             setReview("");
-                            // setUser(response);
                             toast.success("Review removed successfully!");
                         } catch (error) {
-                            toast.error("An error occurred while trying to remove the review.");
+                            if (error instanceof Error) {
+                                toast.error(`Error: ${error.message}`);
+                            } else {
+                                toast.error("An unexpected error occurred while deleting the review.");
+                            }
                         }
                     },
                     type: "submit",
@@ -147,20 +153,23 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
         try {
             await updateReviewMovie({
-                moviedId: movie?.id,
+                movieId: movie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
-                rating,
+                rating: rating ? rating : 0,
             });
 
             setReview("");
             setRating(null);
             setIsEditMode(false);
-            // setUser(response);
             handleFocusReview();
             toast.success("Review updated successfully!");
         } catch (error) {
-            toast.error("An error occurred while updating the review.");
+            if (error instanceof Error) {
+                toast.error(`Error: ${error.message}`);
+            } else {
+                toast.error("An unexpected error occurred while updating the review.");
+            }
         }
     }
     // #endregion
