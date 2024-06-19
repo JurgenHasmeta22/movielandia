@@ -80,20 +80,16 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         if (!session?.user || !serie) return;
 
         try {
-            const response = await addReviewSerie({
+            await addReviewSerie({
                 serieId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
 
-            if (response) {
-                setReview("");
-                setRating(null);
-                toast.success("Review submitted successfully!");
-            } else {
-                toast.error("Review submission failed!");
-            }
+            setReview("");
+            setRating(null);
+            toast.success("Review submitted successfully!");
         } catch (error) {
             toast.error("An error occurred while submitting the review.");
         }
@@ -120,17 +116,13 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            const response = await removeReviewSerie({
+                            await removeReviewSerie({
                                 serieId: serie?.id,
                                 userId: Number(session?.user?.id),
                             });
 
-                            if (response && !response.error) {
-                                setReview("");
-                                toast.success("Review removed successfully!");
-                            } else {
-                                toast.error("Review removal failed!");
-                            }
+                            setReview("");
+                            toast.success("Review removed successfully!");
                         } catch (error) {
                             toast.error("An error occurred while trying to remove the review.");
                         }
@@ -152,22 +144,18 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
         if (!session?.user || !serie) return;
 
         try {
-            const response = await updateReviewSerie({
+            await updateReviewSerie({
                 seriedId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
 
-            if (response && response.status === 303) {
-                setReview("");
-                setRating(null);
-                setIsEditMode(false);
-                handleFocusReview();
-                toast.success("Review updated successfully!");
-            } else {
-                toast.error("Review updation failed!");
-            }
+            setReview("");
+            setRating(null);
+            setIsEditMode(false);
+            handleFocusReview();
+            toast.success("Review updated successfully!");
         } catch (error) {
             toast.error("An error occurred while updating the review.");
         }
