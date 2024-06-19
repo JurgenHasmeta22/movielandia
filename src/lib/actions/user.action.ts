@@ -1,5 +1,8 @@
+"use server";
+
 import { Prisma, User } from "@prisma/client";
-import { prisma } from "../prisma";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 interface UserModelParams {
     sortBy: string;
@@ -12,7 +15,7 @@ interface UserModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export const getUsers = async ({
+export async function getUsers({
     sortBy,
     ascOrDesc,
     perPage,
@@ -21,7 +24,7 @@ export const getUsers = async ({
     filterValue,
     filterNameString,
     filterOperatorString,
-}: UserModelParams): Promise<{ rows: User[]; count: number } | null> => {
+}: UserModelParams): Promise<any | null> {
     const filters: Prisma.UserWhereInput = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
     const take = perPage || 20;
@@ -36,7 +39,7 @@ export const getUsers = async ({
     const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
-        orderByObject[sortBy as keyof any] = ascOrDesc;
+        orderByObject[sortBy] = ascOrDesc;
     }
 
     const users = await prisma.user.findMany({
@@ -53,31 +56,46 @@ export const getUsers = async ({
     } else {
         return null;
     }
-};
+}
 
-export const getUserById = async (userId: number): Promise<User | null> => {
+export async function getUserById(userId: number): Promise<User | null> {
     const result = await prisma.user.findUnique({
         where: { id: userId },
     });
-    return result || null;
-};
 
-export const getUserByUsername = async (username: string): Promise<User | null> => {
+    if (result) {
+        return result;
+    } else {
+        return null;
+    }
+}
+
+export async function getUserByUsername(username: string): Promise<User | null> {
     const result = await prisma.user.findFirst({
         where: { userName: username },
     });
-    return result || null;
-};
 
-export const updateUserById = async (userParam: Prisma.UserUpdateInput, id: string): Promise<User | null> => {
+    if (result) {
+        return result;
+    } else {
+        return null;
+    }
+}
+
+export async function updateUserById(userParam: Prisma.UserUpdateInput, id: string): Promise<User | null> {
     const result = await prisma.user.update({
         where: { id: Number(id) },
         data: userParam,
     });
-    return result || null;
-};
 
-export const deleteUserById = async (id: number): Promise<string | null> => {
+    if (result) {
+        return result;
+    } else {
+        return null;
+    }
+}
+
+export async function deleteUserById(id: number): Promise<string | null> {
     const user = await prisma.user.findUnique({
         where: { id },
     });
@@ -90,9 +108,9 @@ export const deleteUserById = async (id: number): Promise<string | null> => {
     } else {
         return null;
     }
-};
+}
 
-export const searchUsersByUsername = async (username: string, page: number): Promise<User[] | null> => {
+export async function searchUsersByUsername(username: string, page: number): Promise<User[] | null> {
     const result = await prisma.user.findMany({
         where: {
             userName: { contains: username },
@@ -100,147 +118,140 @@ export const searchUsersByUsername = async (username: string, page: number): Pro
         skip: page ? (page - 1) * 20 : 0,
         take: 20,
     });
-    return result || null;
-};
+
+    if (result) {
+        return result;
+    } else {
+        return null;
+    }
+}
 
 // #region "Bookmarks"
-export const addFavoriteSerieToUser = async (userId: number, serieId: number): Promise<User | null> => {
+export async function addFavoriteSerieToUser(userId: number, serieId: number): Promise<User | null> {
     const existingFavorite = await prisma.userSerieFavorite.findFirst({
         where: {
-            userId,
-            serieId,
+            AND: [{ userId }, { serieId }],
         },
     });
 
     if (existingFavorite) {
         return null;
-    }
-
-    await prisma.userSerieFavorite.create({
-        data: {
-            userId,
-            serieId,
-        },
-    });
-
-    return (
-        prisma.user.findUnique({
-            where: { id: userId },
-            include: {
-                favMovies: true,
-                favSeries: true,
-                movieReviews: true,
-                serieReviews: true,
-                upvotedMovies: true,
-                downvotedMovies: true,
-                upvotedSeries: true,
-                downvotedSeries: true,
+    } else {
+        const serie = await prisma.serie.findUnique({
+            where: {
+                id: serieId,
             },
-        }) || null
-    );
-};
+        });
 
-export const addFavoriteMovieToUser = async (userId: number, movieId: number): Promise<User | null> => {
+        const result = await prisma.userSerieFavorite.create({
+            data: { userId, serieId },
+        });
+
+        if (result) {
+            const titleFinal = serie?.title
+                .split("")
+                .map((char: string) => (char === "-" ? " " : char))
+                .join("");
+
+            redirect(`/series/${titleFinal}`);
+        } else {
+            return null;
+        }
+    }
+}
+
+export async function addFavoriteMovieToUser(userId: number, movieId: number): Promise<User | null> {
     const existingFavorite = await prisma.userMovieFavorite.findFirst({
         where: {
-            userId,
-            movieId,
+            AND: [{ userId }, { movieId }],
         },
     });
 
     if (existingFavorite) {
         return null;
-    }
-
-    await prisma.userMovieFavorite.create({
-        data: {
-            userId,
-            movieId,
-        },
-    });
-
-    return (
-        prisma.user.findUnique({
-            where: { id: userId },
-            include: {
-                favMovies: true,
-                favSeries: true,
-                movieReviews: true,
-                serieReviews: true,
-                upvotedMovies: true,
-                downvotedMovies: true,
-                upvotedSeries: true,
-                downvotedSeries: true,
+    } else {
+        const movie = await prisma.movie.findUnique({
+            where: {
+                id: movieId,
             },
-        }) || null
-    );
-};
+        });
 
-export const removeFavoriteMovieToUser = async (userId: number, movieId: number): Promise<User | null> => {
+        const result = await prisma.userMovieFavorite.create({
+            data: { userId, movieId },
+        });
+
+        if (result) {
+            const titleFinal = movie?.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
+
+            redirect(`/movies/${titleFinal}`);
+        } else {
+            return null;
+        }
+    }
+}
+
+export async function removeFavoriteMovieToUser(userId: number, movieId: number): Promise<User | null> {
     const existingFavorite = await prisma.userMovieFavorite.findFirst({
         where: {
-            userId,
-            movieId,
+            AND: [{ userId }, { movieId }],
+        },
+        include: {
+            movie: true,
         },
     });
 
     if (existingFavorite) {
-        await prisma.userMovieFavorite.delete({
+        const result = await prisma.userMovieFavorite.delete({
             where: { id: existingFavorite.id },
         });
 
-        return (
-            prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    favMovies: true,
-                    favSeries: true,
-                    movieReviews: true,
-                    serieReviews: true,
-                    upvotedMovies: true,
-                    downvotedMovies: true,
-                    upvotedSeries: true,
-                    downvotedSeries: true,
-                },
-            }) || null
-        );
+        if (result) {
+            const titleFinal = existingFavorite.movie.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
+
+            redirect(`/movies/${titleFinal}`);
+        } else {
+            return null;
+        }
     } else {
         return null;
     }
-};
+}
 
-export const removeFavoriteSerieToUser = async (userId: number, serieId: number): Promise<User | null> => {
+export async function removeFavoriteSerieToUser(userId: number, serieId: number): Promise<User | null> {
     const existingFavorite = await prisma.userSerieFavorite.findFirst({
         where: {
-            userId,
-            serieId,
+            AND: [{ userId }, { serieId }],
+        },
+        include: {
+            serie: true,
         },
     });
 
     if (existingFavorite) {
-        await prisma.userSerieFavorite.delete({
+        const result = await prisma.userSerieFavorite.delete({
             where: { id: existingFavorite.id },
         });
 
-        return (
-            prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    favMovies: true,
-                    favSeries: true,
-                    movieReviews: true,
-                    serieReviews: true,
-                    upvotedMovies: true,
-                    downvotedMovies: true,
-                    upvotedSeries: true,
-                    downvotedSeries: true,
-                },
-            }) || null
-        );
+        if (result) {
+            const titleFinal = existingFavorite.serie.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
+
+            redirect(`/series/${titleFinal}`);
+        } else {
+            return null;
+        }
     } else {
         return null;
     }
-};
+}
 // #endregion
 
 // #region "Reviews"

@@ -22,15 +22,22 @@ import {
     removeUpvoteMovieReview,
     updateReviewMovie,
 } from "@/lib/actions/user.action";
+import { useModal } from "@/providers/ModalContext";
+import * as CONSTANTS from "@/constants/Constants";
+import { TextEditorForm } from "@/components/textEditorForm/TextEditorForm";
 
 export default function MoviePageDetails({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
+
+    const { openModal } = useModal();
 
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
@@ -52,11 +59,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         if (!session?.user || !movie) return;
 
         try {
-            const response = await addFavoriteMovieToUser(movie?.id, session?.user?.id);
-
-            if (response) {
-                setUser(response);
-            }
+            await addFavoriteMovieToUser(Number(session?.user?.id), movie?.id);
         } catch (error) {
             toast.error("An error occurred while adding the movie to favorites.");
         }
@@ -66,11 +69,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         if (!session?.user || !movie) return;
 
         try {
-            const response = await removeFavoriteMovieToUser(movie?.id, session?.user?.id);
-
-            if (response) {
-                setUser(response);
-            }
+            await removeFavoriteMovieToUser(Number(session?.user?.id), movie?.id);
         } catch (error) {
             toast.error("An error occurred while removing the movie from favorites.");
         }
@@ -105,48 +104,48 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     async function onSubmitRemoveReview() {
         if (!session?.user || !movie) return;
 
-        // openModal({
-        //     onClose: () => setOpen(false),
-        //     title: "Remove Review",
-        //     actions: [
-        //         {
-        //             label: CONSTANTS.MODAL__DELETE__NO,
-        //             onClick: () => setOpen(false),
-        //             color: "secondary",
-        //             variant: "contained",
-        //             sx: {
-        //                 bgcolor: "#ff5252",
-        //             },
-        //             icon: <WarningOutlined />,
-        //         },
-        //         {
-        //             label: CONSTANTS.MODAL__DELETE__YES,
-        //             onClick: async () => {
-        //                 try {
-        //                     const response = await removeReviewMovie({ movieId: movie?.id, userId: session?.user?.id });
+        openModal({
+            onClose: () => setOpen(false),
+            title: "Remove Review",
+            actions: [
+                {
+                    label: CONSTANTS.MODAL__DELETE__NO,
+                    onClick: () => setOpen(false),
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#ff5252",
+                    },
+                    icon: <WarningOutlined />,
+                },
+                {
+                    label: CONSTANTS.MODAL__DELETE__YES,
+                    onClick: async () => {
+                        try {
+                            const response = await removeReviewMovie({ movieId: movie?.id, userId: session?.user?.id });
 
-        //                     if (response && !response.error) {
-        //                         setReview("");
-        //                         setUser(response);
-        //                         toast.success("Review removed successfully!");
-        //                     } else {
-        //                         toast.error("Review removal failed!");
-        //                     }
-        //                 } catch (error) {
-        //                     toast.error("An error occurred while trying to remove the review.");
-        //                 }
-        //             },
-        //             type: "submit",
-        //             color: "secondary",
-        //             variant: "contained",
-        //             sx: {
-        //                 bgcolor: "#30969f",
-        //             },
-        //             icon: <CheckOutlined />,
-        //         },
-        //     ],
-        //     subTitle: "Are you sure that you want to delete this review ?",
-        // });
+                            if (response && !response.error) {
+                                setReview("");
+                                setUser(response);
+                                toast.success("Review removed successfully!");
+                            } else {
+                                toast.error("Review removal failed!");
+                            }
+                        } catch (error) {
+                            toast.error("An error occurred while trying to remove the review.");
+                        }
+                    },
+                    type: "submit",
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#30969f",
+                    },
+                    icon: <CheckOutlined />,
+                },
+            ],
+            subTitle: "Are you sure that you want to delete this review ?",
+        });
     }
 
     async function onSubmitUpdateReview() {
@@ -229,12 +228,12 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         setHasMoreDownvotesModal(hasMoreDownvotes);
         setSelectedReview(reviewData);
 
-        // openModal({
-        //     onClose: () => handleCloseModal(),
-        //     title: "Users who downvoted this review",
-        //     subTitle: "Users list",
-        //     hasList: true,
-        // });
+        openModal({
+            onClose: () => handleCloseModal(),
+            title: "Users who downvoted this review",
+            subTitle: "Users list",
+            hasList: true,
+        });
     };
 
     const handleCloseModal = () => {
@@ -270,7 +269,13 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
     return (
         <Stack flexDirection={"column"} rowGap={4}>
-            <DetailsPageCard data={movie} type="movie" />
+            <DetailsPageCard
+                data={movie}
+                type="movie"
+                isMovieBookmarked={movie.isBookmarked}
+                onBookmarkMovie={onBookmarkMovie}
+                onRemoveBookmarkMovie={onRemoveBookmarkMovie}
+            />
             <Box
                 sx={{
                     display: "flex",
@@ -309,7 +314,21 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                 {movie?.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
-                {/* {session?.user && (!movie.isReviewed) && <TextEditorForm review={review} rating={rating} />} */}
+                {session?.user && (!movie.isReviewed || isEditMode) && (
+                    <TextEditorForm
+                        review={review}
+                        setReview={setReview}
+                        rating={rating}
+                        setRating={setRating}
+                        isEditMode={isEditMode}
+                        setIsEditMode={setIsEditMode}
+                        setOpen={setOpen}
+                        textEditorRef={textEditorRef}
+                        handleFocusReview={handleFocusReview}
+                        onSubmitReview={onSubmitReview}
+                        onSubmitUpdateReview={onSubmitUpdateReview}
+                    />
+                )}
             </Box>
             <ListDetail data={latestMovies!} type="movie" roleData={"latest"} />
             <ListDetail data={relatedMovies!} type="movie" roleData="related" />
