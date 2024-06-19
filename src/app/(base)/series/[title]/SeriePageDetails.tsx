@@ -31,8 +31,10 @@ export default function SeriePageDetails({ searchParamsValues, serie, latestSeri
 
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
