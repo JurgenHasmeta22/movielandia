@@ -7,9 +7,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import { useStore } from "@/store/store";
 import { tokens } from "@/utils/theme";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 interface ReviewProps {
     review: {
@@ -88,9 +88,9 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
         const [isClickedUpvote, setIsClickedUpvote] = useState(false);
         const [isClickedDownvote, setIsClickedDownvote] = useState(false);
         const { label, color } = getRatingLabelAndColor(review.rating);
-        const { user } = useStore();
         const theme = useTheme();
         const colors = tokens(theme.palette.mode);
+        const { data: session } = useSession();
         // #endregion
 
         // #region "Event handlers"
@@ -133,7 +133,7 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                     p: 2,
                     mt: 2,
                     backgroundColor:
-                        review.user.userName === user?.userName ? colors.redAccent[700] : colors.primary[400],
+                        review.user.userName === session?.user?.userName ? colors.redAccent[700] : colors.primary[400],
                 }}
             >
                 <Box
@@ -157,16 +157,16 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                             variant="h6"
                             sx={{
                                 color:
-                                    review.user.userName === user?.userName
+                                    review.user.userName === session?.user?.userName
                                         ? colors.blueAccent[200]
                                         : colors.primary[100],
-                                fontWeight: review.user.userName === user?.userName ? 900 : 300,
+                                fontWeight: review.user.userName === session?.user?.userName ? 900 : 300,
                                 letterSpacing: 1,
                             }}
                         >
                             {review.user.userName}
                         </Typography>
-                        {review.user.userName === user?.userName && (
+                        {review.user.userName === session?.user?.userName && (
                             <Typography component={"span"} paddingLeft={1}>
                                 - You
                             </Typography>
@@ -196,20 +196,19 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                 </Typography>
                             )}
                         </Typography>
-                        {review.user.userName === user?.userName && !isEditMode && (
+                        {review.user.userName === session?.user?.userName && !isEditMode && (
                             <IconButton
                                 size="medium"
                                 onClick={() => {
                                     setIsEditMode(true);
                                     setReview(review.content);
                                     setRating(review.rating);
-                                    // handleFocusTextEditor();
                                 }}
                             >
                                 <EditIcon fontSize="medium" />
                             </IconButton>
                         )}
-                        {review.user.userName === user?.userName && (
+                        {review.user.userName === session?.user?.userName && (
                             <Box ref={ref} tabIndex={-1}>
                                 <IconButton size="medium" onClick={() => handleRemoveReview()}>
                                     <CloseIcon fontSize="medium" />
@@ -268,7 +267,9 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                         >
                             <IconButton
                                 size="medium"
-                                disabled={user && review.user.userName !== user?.userName ? false : true}
+                                disabled={
+                                    session?.user && review.user.userName !== session?.user?.userName ? false : true
+                                }
                                 onClick={async () => {
                                     handleClickUpVoteReview();
                                 }}
@@ -305,7 +306,9 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                         >
                             <IconButton
                                 size="medium"
-                                disabled={user && review.user.userName !== user?.userName ? false : true}
+                                disabled={
+                                    session?.user && review.user.userName !== session?.user?.userName ? false : true
+                                }
                                 onClick={async () => {
                                     handleClickDownVoteReview();
                                 }}

@@ -255,7 +255,7 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
 // #endregion
 
 // #region "Reviews"
-export const addReviewMovie = async ({ content, createdAt, rating, userId, movieId }: any): Promise<User | null> => {
+export const addReviewMovie = async ({ content, createdAt, rating, userId, movieId }: any): Promise<any> => {
     const existingReview = await prisma.movieReview.findFirst({
         where: {
             userId,
@@ -264,6 +264,12 @@ export const addReviewMovie = async ({ content, createdAt, rating, userId, movie
     });
 
     if (!existingReview) {
+        const movie = await prisma.movie.findUnique({
+            where: {
+                id: movieId,
+            },
+        });
+
         const reviewAdded = await prisma.movieReview.create({
             data: {
                 content,
@@ -275,21 +281,12 @@ export const addReviewMovie = async ({ content, createdAt, rating, userId, movie
         });
 
         if (reviewAdded) {
-            return (
-                prisma.user.findUnique({
-                    where: { id: userId },
-                    include: {
-                        favMovies: true,
-                        favSeries: true,
-                        movieReviews: true,
-                        serieReviews: true,
-                        upvotedMovies: true,
-                        downvotedMovies: true,
-                        upvotedSeries: true,
-                        downvotedSeries: true,
-                    },
-                }) || null
-            );
+            const titleFinal = movie?.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
+
+            redirect(`/movies/${titleFinal}`);
         } else {
             return null;
         }
@@ -307,6 +304,12 @@ export const addReviewSerie = async ({ content, createdAt, rating, userId, serie
     });
 
     if (!existingReview) {
+        const serie = await prisma.serie.findUnique({
+            where: {
+                id: serieId,
+            },
+        });
+
         const reviewAdded = await prisma.serieReview.create({
             data: {
                 content,
@@ -318,21 +321,12 @@ export const addReviewSerie = async ({ content, createdAt, rating, userId, serie
         });
 
         if (reviewAdded) {
-            return (
-                prisma.user.findUnique({
-                    where: { id: userId },
-                    include: {
-                        favMovies: true,
-                        favSeries: true,
-                        movieReviews: true,
-                        serieReviews: true,
-                        upvotedMovies: true,
-                        downvotedMovies: true,
-                        upvotedSeries: true,
-                        downvotedSeries: true,
-                    },
-                }) || null
-            );
+            const titleFinal = serie?.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
+
+            redirect(`/series/${titleFinal}`);
         } else {
             return null;
         }
@@ -345,6 +339,9 @@ export async function updateReviewMovie({ content, updatedAt, rating, userId, mo
     const existingReview = await prisma.movieReview.findFirst({
         where: {
             AND: [{ userId }, { movieId }],
+        },
+        include: {
+            movie: true,
         },
     });
 
@@ -363,25 +360,12 @@ export async function updateReviewMovie({ content, updatedAt, rating, userId, mo
         });
 
         if (reviewUpdated) {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    favMovies: { include: { movie: true } },
-                    favSeries: { include: { serie: true } },
-                    movieReviews: { include: { movie: true } },
-                    serieReviews: { include: { serie: true } },
-                    upvotedMovies: { include: { movieReview: true, movie: true } },
-                    downvotedMovies: { include: { movieReview: true, movie: true } },
-                    upvotedSeries: { include: { serieReview: true, serie: true } },
-                    downvotedSeries: { include: { serieReview: true, serie: true } },
-                },
-            });
+            const titleFinal = existingReview?.movie.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
 
-            if (user) {
-                return user;
-            } else {
-                return null;
-            }
+            redirect(`/movies/${titleFinal}`);
         } else {
             return null;
         }
@@ -394,6 +378,9 @@ export async function updateReviewSerie({ content, updatedAt, rating, userId, se
     const existingReview = await prisma.serieReview.findFirst({
         where: {
             AND: [{ userId }, { serieId }],
+        },
+        include: {
+            serie: true,
         },
     });
 
@@ -412,25 +399,12 @@ export async function updateReviewSerie({ content, updatedAt, rating, userId, se
         });
 
         if (reviewUpdated) {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    favMovies: { include: { movie: true } },
-                    favSeries: { include: { serie: true } },
-                    movieReviews: { include: { movie: true } },
-                    serieReviews: { include: { serie: true } },
-                    upvotedMovies: { include: { movieReview: true, movie: true } },
-                    downvotedMovies: { include: { movieReview: true, movie: true } },
-                    upvotedSeries: { include: { serieReview: true, serie: true } },
-                    downvotedSeries: { include: { serieReview: true, serie: true } },
-                },
-            });
+            const titleFinal = existingReview?.serie.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
 
-            if (user) {
-                return user;
-            } else {
-                return null;
-            }
+            redirect(`/series/${titleFinal}`);
         } else {
             return null;
         }
@@ -444,6 +418,9 @@ export async function removeReviewMovie({ userId, movieId }: any): Promise<any> 
         where: {
             AND: [{ userId }, { movieId }],
         },
+        include: {
+            movie: true,
+        },
     });
 
     if (existingReview) {
@@ -452,25 +429,12 @@ export async function removeReviewMovie({ userId, movieId }: any): Promise<any> 
         });
 
         if (result) {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    favMovies: { include: { movie: true } },
-                    favSeries: { include: { serie: true } },
-                    movieReviews: { include: { movie: true } },
-                    serieReviews: { include: { serie: true } },
-                    upvotedMovies: { include: { movieReview: true, movie: true } },
-                    downvotedMovies: { include: { movieReview: true, movie: true } },
-                    upvotedSeries: { include: { serieReview: true, serie: true } },
-                    downvotedSeries: { include: { serieReview: true, serie: true } },
-                },
-            });
+            const titleFinal = existingReview?.movie.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
 
-            if (user) {
-                return user;
-            } else {
-                return null;
-            }
+            redirect(`/movies/${titleFinal}`);
         } else {
             return null;
         }
@@ -484,6 +448,9 @@ export async function removeReviewSerie({ userId, serieId }: any): Promise<any> 
         where: {
             AND: [{ userId }, { serieId }],
         },
+        include: {
+            serie: true,
+        },
     });
 
     if (existingReview) {
@@ -492,25 +459,12 @@ export async function removeReviewSerie({ userId, serieId }: any): Promise<any> 
         });
 
         if (result) {
-            const user = await prisma.user.findUnique({
-                where: { id: userId },
-                include: {
-                    favMovies: { include: { movie: true } },
-                    favSeries: { include: { serie: true } },
-                    movieReviews: { include: { movie: true } },
-                    serieReviews: { include: { serie: true } },
-                    upvotedMovies: { include: { movieReview: true, movie: true } },
-                    downvotedMovies: { include: { movieReview: true, movie: true } },
-                    upvotedSeries: { include: { serieReview: true, serie: true } },
-                    downvotedSeries: { include: { serieReview: true, serie: true } },
-                },
-            });
+            const titleFinal = existingReview?.serie.title
+                .split("")
+                .map((char: string) => (char === " " ? "-" : char))
+                .join("");
 
-            if (user) {
-                return user;
-            } else {
-                return null;
-            }
+            redirect(`/series/${titleFinal}`);
         } else {
             return null;
         }
