@@ -31,14 +31,13 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(0);
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
-
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
 
@@ -81,21 +80,17 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         if (!session?.user || !movie) return;
 
         try {
-            const response = await addReviewMovie({
+            await addReviewMovie({
                 movieId: movie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
 
-            if (response) {
-                setReview("");
-                setRating(null);
-                // setUser(response);
-                toast.success("Review submitted successfully!");
-            } else {
-                toast.error("Review submission failed!");
-            }
+            setReview("");
+            setRating(null);
+            // setUser(response);
+            toast.success("Review submitted successfully!");
         } catch (error) {
             toast.error("An error occurred while submitting the review.");
         }
@@ -122,18 +117,14 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            const response = await removeReviewMovie({
+                            await removeReviewMovie({
                                 movieId: movie?.id,
                                 userId: Number(session?.user?.id),
                             });
 
-                            if (response && !response.error) {
-                                setReview("");
-                                // setUser(response);
-                                toast.success("Review removed successfully!");
-                            } else {
-                                toast.error("Review removal failed!");
-                            }
+                            setReview("");
+                            // setUser(response);
+                            toast.success("Review removed successfully!");
                         } catch (error) {
                             toast.error("An error occurred while trying to remove the review.");
                         }
@@ -155,23 +146,19 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         if (!session?.user || !movie) return;
 
         try {
-            const response = await updateReviewMovie({
+            await updateReviewMovie({
                 moviedId: movie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating,
             });
 
-            if (response && !response.error) {
-                setReview("");
-                setRating(null);
-                setIsEditMode(false);
-                // setUser(response);
-                handleFocusReview();
-                toast.success("Review updated successfully!");
-            } else {
-                toast.error("Review updation failed!");
-            }
+            setReview("");
+            setRating(null);
+            setIsEditMode(false);
+            // setUser(response);
+            handleFocusReview();
+            toast.success("Review updated successfully!");
         } catch (error) {
             toast.error("An error occurred while updating the review.");
         }
@@ -217,12 +204,12 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         setHasMoreUpvotesModal(hasMoreUpvotes);
         setSelectedReview(reviewData);
 
-        // openModal({
-        //     onClose: () => handleCloseModal(),
-        //     title: "Users who upvoted this review",
-        //     subTitle: "Users list",
-        //     hasList: true,
-        // });
+        openModal({
+            onClose: () => handleCloseModal(),
+            title: "Users who upvoted this review",
+            subTitle: "Users list",
+            hasList: true,
+        });
     };
 
     const handleOpenDownvotesModal = (reviewData: any) => {
