@@ -58,9 +58,16 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         if (!session?.user || !movie) return;
 
         try {
-            await addFavoriteMovieToUser(Number(session?.user?.id), movie?.id);
+            await addFavoriteMovieToUser(Number(session.user.id), movie.id);
+            toast.success("Movie added to favorites!");
         } catch (error) {
-            toast.error("An error occurred while adding the movie to favorites.");
+            if (error instanceof Error) {
+                console.error(`Error adding movie to favorites: ${error.message}`);
+                toast.error(`An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error adding movie to favorites.");
+                toast.error("An unexpected error occurred while adding the movie to favorites.");
+            }
         }
     }
 
@@ -68,9 +75,16 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         if (!session?.user || !movie) return;
 
         try {
-            await removeFavoriteMovieToUser(Number(session?.user?.id), movie?.id);
+            await removeFavoriteMovieToUser(Number(session.user.id), movie.id);
+            toast.success("Movie removed from favorites!");
         } catch (error) {
-            toast.error("An error occurred while removing the movie from favorites.");
+            if (error instanceof Error) {
+                console.error(`Error removing movie from favorites: ${error.message}`);
+                toast.error(`An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error removing movie from favorites.");
+                toast.error("An unexpected error occurred while removing the movie from favorites.");
+            }
         }
     }
     // #endregion
