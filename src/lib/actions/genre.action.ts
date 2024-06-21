@@ -250,7 +250,7 @@ export async function getGenreByName(
             return null;
         }
     } else {
-        return null;
+        throw new Error("Genre not found");
     }
 }
 

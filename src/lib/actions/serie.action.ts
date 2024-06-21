@@ -130,36 +130,40 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
         orderByObject["createdAt"] = "desc";
     }
 
-    const serie = await prisma.serie.findFirst({
-        where: { title: titleFinal },
-        include: {
-            genres: { select: { genre: true } },
-            reviews: {
-                include: {
-                    user: true,
-                    upvotes: {
-                        take: upvotesPage ? upvotesPage * 5 : 5,
-                        select: { user: true },
-                    },
-                    downvotes: {
-                        take: downvotesPage ? downvotesPage * 5 : 5,
-                        select: { user: true },
-                    },
-                    _count: {
-                        select: {
-                            upvotes: true,
-                            downvotes: true,
+    try {
+        const serie = await prisma.serie.findFirst({
+            where: { title: titleFinal },
+            include: {
+                genres: { select: { genre: true } },
+                reviews: {
+                    include: {
+                        user: true,
+                        upvotes: {
+                            take: upvotesPage ? upvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        downvotes: {
+                            take: downvotesPage ? downvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
                         },
                     },
+                    orderBy: orderByObject,
+                    skip: skip,
+                    take: take,
                 },
-                orderBy: orderByObject,
-                skip: skip,
-                take: take,
             },
-        },
-    });
+        });
 
-    if (serie) {
+        if (!serie) {
+            throw new Error("Movie not found");
+        }
+
         const totalReviews = await prisma.serieReview.count({
             where: { serieId: serie.id },
         });
@@ -216,8 +220,8 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
             totalReviews,
             ...(userId && { isBookmarked, isReviewed }),
         };
-    } else {
-        return null;
+    } catch (error) {
+        throw new Error("Serie not found");
     }
 }
 

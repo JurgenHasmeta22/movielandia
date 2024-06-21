@@ -2,7 +2,6 @@ import { Container } from "@mui/material";
 import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.action";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Serie as ISerie } from "@prisma/client";
 import SeriePageDetails from "./SeriePageDetails";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -16,9 +15,13 @@ interface ISerieProps {
 
 export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
     const { title } = params;
-    const serie: ISerie = await getSerieByTitle(title, {});
+    let serie = null;
 
-    if (!serie) return notFound();
+    try {
+        serie = await getSerieByTitle(title, {});
+    } catch (error) {
+        return notFound();
+    }
 
     const { description, photoSrc } = serie;
     const siteUrl = "https://movielandia24.com";
@@ -80,7 +83,14 @@ export default async function Serie({ searchParams, params }: ISerieProps) {
         userId: Number(session?.user?.id),
     };
 
-    const serie = await getSerieByTitle(title, searchParamsValues);
+    let serie = null;
+
+    try {
+        serie = await getSerieByTitle(title, searchParamsValues);
+    } catch (error) {
+        return notFound();
+    }
+
     const latestSeries = await getLatestSeries();
     const relatedSeries = await getRelatedSeries(title);
 
