@@ -18,6 +18,7 @@ import { signOut } from "next-auth/react";
 import LoadingSpinner from "../../ui/loadingSpinner/LoadingSpinner";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useStore } from "@/store/store";
+import { getGenres } from "@/lib/actions/genre.action";
 
 const Header = () => {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
@@ -34,9 +35,12 @@ const Header = () => {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                const response = await fetch("/api/genres");
-                const data = await response.json();
-                setGenres(data);
+                // Server action in fetching in client component instead of API route
+                ("use server");
+                const genresData = await getGenres({});
+                // const response = await fetch("/api/genres");
+                // const data = await response.json();
+                setGenres(genresData.rows);
             } catch (error) {
                 console.error("Failed to fetch genres:", error);
             }
