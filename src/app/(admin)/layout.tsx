@@ -5,36 +5,9 @@ import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ToastProvider from "@/lib/toast/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme";
-import { Providers } from "./providers";
-import { ensureStartsWith } from "@/utils/utils";
 import { ModalProvider } from "@/providers/ModalContext";
 import { RightPanelProvider } from "@/providers/RightPanelContext";
-import "./globals.css";
-
-const baseUrl = "http://localhost:4000";
-const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
-const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, "@") : undefined;
-const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, "https://") : undefined;
-
-export const metadata = {
-    metadataBase: new URL(baseUrl),
-    title: {
-        default: SITE_NAME!,
-        template: `%s | ${SITE_NAME}`,
-    },
-    robots: {
-        follow: true,
-        index: true,
-    },
-    ...(twitterCreator &&
-        twitterSite && {
-            twitter: {
-                card: "summary_large_image",
-                creator: twitterCreator,
-                site: twitterSite,
-            },
-        }),
-};
+import { Providers } from "../providers";
 
 export default function RootLayout({
     children,
