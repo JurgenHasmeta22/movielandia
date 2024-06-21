@@ -1,13 +1,13 @@
-import Header from "@/components/root/layout/header/Header";
-import Footer from "@/components/root/layout/footer/Footer";
 import { Grid } from "@mui/material";
-import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ToastProvider from "@/lib/toast/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme";
 import { ModalProvider } from "@/providers/ModalContext";
 import { RightPanelProvider } from "@/providers/RightPanelContext";
 import { Providers } from "../providers";
+import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
+import TopBar from "@/components/admin/layout/topBar/TopBar";
+import { sidebarItems } from "@/utils/sidebarItems";
 
 export default function RootLayout({
     children,
@@ -23,12 +23,13 @@ export default function RootLayout({
                             <ToastProvider>
                                 <ModalProvider>
                                     <RightPanelProvider>
-                                        <Grid container>
-                                            <Grid item xs={12}>
-                                                <Header />
-                                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                                                <ScrollToTop />
-                                                <Footer />
+                                        <Grid container component={"main"}>
+                                            <Grid item xs={12} md={2}>
+                                                <Sidebar sidebarItems={sidebarItems} />
+                                            </Grid>
+                                            <Grid item xs={12} md={10}>
+                                                <TopBar />
+                                                <main style={{ marginLeft: 3 }}>{children}</main>
                                             </Grid>
                                         </Grid>
                                     </RightPanelProvider>
