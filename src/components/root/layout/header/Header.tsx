@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { AppBar, Box, List, ListItem, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, List, ListItem, Menu, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
@@ -16,30 +16,34 @@ import { Genre } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import LoadingSpinner from "../../ui/loadingSpinner/LoadingSpinner";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useStore } from "@/store/store";
 
 const Header = () => {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const [options, setOptions] = useState<any>([]);
-    const router = useRouter();
-
     const [genres, setGenres] = useState<Genre[]>([]);
+
+    const router = useRouter();
+    const { mobileOpen, setOpenDrawer } = useStore();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    // useEffect(() => {
-    //     const fetchGenres = async () => {
-    //         try {
-    //             const response = await fetch("/api/genres");
-    //             const data = await response.json();
-    //             setGenres(data.rows);
-    //         } catch (error) {
-    //             console.error("Failed to fetch genres:", error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const response = await fetch("/api/genres");
+                const data = await response.json();
+                setGenres(data);
+            } catch (error) {
+                console.error("Failed to fetch genres:", error);
+            }
+        };
 
-    //     fetchGenres();
-    // }, []);
+        fetchGenres();
+    }, []);
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenres(event.currentTarget);
@@ -67,20 +71,16 @@ const Header = () => {
         router.push("/profile");
     }
 
-    // useEffect(() => {
-    //     for (const genre of genres) {
-    //         const option = {
-    //             value: genre.name,
-    //             label: genre.name,
-    //         };
+    useEffect(() => {
+        for (const genre of genres) {
+            const option = {
+                value: genre.name,
+                label: genre.name,
+            };
 
-    //         setOptions([...options, option]);
-    //     }
-    // }, [genres, options]);
-
-    // if (genres) {
-    //     return <LoadingSpinner />;
-    // }
+            setOptions([...options, option]);
+        }
+    }, []);
 
     return (
         <>
@@ -96,90 +96,154 @@ const Header = () => {
                     }}
                     component={"nav"}
                 >
-                    <Stack
-                        flexDirection={"row"}
-                        alignItems={"center"}
-                        justifyContent={"space-around"}
-                        columnGap={3}
-                        flexWrap={"wrap"}
-                    >
+                    {mobileOpen ? (
                         <Box>
-                            <Link
-                                href={"/"}
-                                style={{
-                                    cursor: "pointer",
-                                    textDecoration: "none",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    fontSize: 20,
-                                    color: colors.primary[100],
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                edge="start"
+                                onClick={() => {
+                                    setOpenDrawer(true);
                                 }}
                             >
-                                MovieLandia24
-                            </Link>
+                                <MenuIcon />
+                            </IconButton>
                         </Box>
-                        <Box>
-                            <List sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
-                                <ListItem>
-                                    <Link
-                                        href="/movies"
-                                        style={{
-                                            fontSize: "16px",
-                                            textDecoration: "none",
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            color: colors.primary[100],
-                                        }}
+                    ) : (
+                        <Stack
+                            flexDirection={"row"}
+                            alignItems={"center"}
+                            justifyContent={"space-around"}
+                            columnGap={3}
+                            flexWrap={"wrap"}
+                        >
+                            <Box>
+                                <Link
+                                    href={"/"}
+                                    style={{
+                                        cursor: "pointer",
+                                        textDecoration: "none",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        fontSize: 20,
+                                        color: colors.primary[100],
+                                    }}
+                                >
+                                    MovieLandia24
+                                </Link>
+                            </Box>
+                            <Box>
+                                <List sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
+                                    <ListItem>
+                                        <Link
+                                            href="/movies"
+                                            style={{
+                                                fontSize: "16px",
+                                                textDecoration: "none",
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                color: colors.primary[100],
+                                            }}
+                                        >
+                                            <MovieIcon fontSize={"large"} />
+                                            Movies
+                                        </Link>
+                                    </ListItem>
+                                    <ListItem
+                                        onMouseEnter={openMenuGenres}
+                                        onMouseLeave={closeMenuGenres}
+                                        sx={{ cursor: "pointer" }}
                                     >
-                                        <MovieIcon fontSize={"large"} />
-                                        Movies
-                                    </Link>
-                                </ListItem>
-                                <ListItem>
-                                    <Link
-                                        href="/genres"
-                                        style={{
-                                            fontSize: "16px",
-                                            textDecoration: "none",
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            color: colors.primary[100],
-                                        }}
-                                    >
-                                        <SubtitlesIcon fontSize={"large"} />
-                                        Genres
-                                    </Link>
-                                </ListItem>
-                                <ListItem>
-                                    <Link
-                                        href="/series"
-                                        style={{
-                                            fontSize: "16px",
-                                            textDecoration: "none",
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            color: colors.primary[100],
-                                        }}
-                                    >
-                                        <LocalMoviesIcon fontSize={"large"} />
-                                        Series
-                                    </Link>
-                                </ListItem>
-                            </List>
-                        </Box>
-                        <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
-                            <SearchField />
-                            <ThemeToggleButton />
-                            <AuthButtons />
-                        </Box>
-                    </Stack>
+                                        <Link
+                                            href="/genres"
+                                            style={{
+                                                fontSize: "16px",
+                                                textDecoration: "none",
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                color: colors.primary[100],
+                                            }}
+                                        >
+                                            <SubtitlesIcon fontSize={"large"} />
+                                            Genres
+                                        </Link>
+                                        <Menu
+                                            anchorEl={anchorElGenres}
+                                            open={Boolean(anchorElGenres)}
+                                            onClose={closeMenuGenres}
+                                            MenuListProps={{
+                                                onMouseLeave: closeMenuGenres,
+                                                sx: {
+                                                    display: "grid",
+                                                    height: "auto",
+                                                    width: "auto",
+                                                    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                                                    padding: 3,
+                                                },
+                                            }}
+                                        >
+                                            {genres.map((genre, index: number) => (
+                                                <Link
+                                                    key={index}
+                                                    href={`/genres/${genre.name}`}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        color: colors.primary[100],
+                                                    }}
+                                                >
+                                                    <Box
+                                                        key={genre.id}
+                                                        onClick={() => {
+                                                            closeMenuGenres();
+                                                            window.scrollTo(0, 0);
+                                                        }}
+                                                        sx={{
+                                                            cursor: "pointer",
+                                                            padding: 1.5,
+                                                            textAlign: "center",
+                                                            transition: "background-color 0.2s",
+                                                            "&:hover": {
+                                                                backgroundColor: colors.greenAccent[800],
+                                                            },
+                                                        }}
+                                                    >
+                                                        <Typography component={"span"}>{genre.name}</Typography>
+                                                    </Box>
+                                                </Link>
+                                            ))}
+                                        </Menu>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Link
+                                            href="/series"
+                                            style={{
+                                                fontSize: "16px",
+                                                textDecoration: "none",
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                color: colors.primary[100],
+                                            }}
+                                        >
+                                            <LocalMoviesIcon fontSize={"large"} />
+                                            Series
+                                        </Link>
+                                    </ListItem>
+                                </List>
+                            </Box>
+                            <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
+                                <SearchField />
+                                <ThemeToggleButton />
+                                <AuthButtons />
+                            </Box>
+                        </Stack>
+                    )}
                 </Toolbar>
             </AppBar>
-            {/* <HeaderMenu
+            <HeaderMenu
                 closeMenuGenres={closeMenuGenres}
                 genres={genres}
                 anchorElProfile={anchorElProfile}
@@ -187,7 +251,7 @@ const Header = () => {
                 openMenuProfile={openMenuProfile}
                 closeMenuProfile={closeMenuProfile}
                 handleLogout={handleLogout}
-            /> */}
+            />
         </>
     );
 };
