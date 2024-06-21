@@ -1,5 +1,6 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
+import DividerLine from "../dividerLine/DividerLine";
 
 interface ILatestList {
     data: any;
@@ -23,7 +24,7 @@ export function LatestList({ data, type }: ILatestList) {
                 <Typography fontSize={28} variant="h2">
                     Latest {type}
                 </Typography>
-                <Divider sx={{ borderBottomWidth: 3, mt: 1 }} />
+                <DividerLine />
             </Box>
             <Stack
                 direction="row"

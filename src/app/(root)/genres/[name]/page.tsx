@@ -1,11 +1,12 @@
 import React from "react";
-import { Box, Container, Divider, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import { Movie, Serie } from "@prisma/client";
 import { getGenreByName } from "@/lib/actions/genre.action";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
+import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 
 interface IGenreProps {
     params: {
@@ -93,7 +94,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 >
                                     {`Movies of genre ${name}`}
                                 </Typography>
-                                <Divider sx={{ borderBottomWidth: 3, mt: 1 }} />
+                                <DividerLine />
                             </Box>
                             <Box
                                 sx={{
@@ -127,7 +128,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                             pageCount={pageCountMovies}
                             dataType={"Movies"}
                         />
-                        <Divider sx={{ borderBottomWidth: 3 }} />
+                        <DividerLine />
                     </>
                 ) : (
                     <>
@@ -144,7 +145,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 No search result, no movie found with this genre.
                             </Typography>
                         </Box>
-                        <Divider sx={{ borderBottomWidth: 3 }} />
+                        <DividerLine />
                     </>
                 )}
                 {moviesByGenre.length !== 0 ? (
@@ -160,7 +161,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 >
                                     {`Series of genre ${params.name}`}
                                 </Typography>
-                                <Divider sx={{ borderBottomWidth: 3, mt: 1 }} />
+                                <DividerLine />
                             </Box>
                             <Box
                                 sx={{
@@ -210,7 +211,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 No search result, no serie found with this genre.
                             </Typography>
                         </Box>
-                        <Divider sx={{ borderBottomWidth: 3 }} />
+                        <DividerLine />
                     </>
                 )}
             </Box>

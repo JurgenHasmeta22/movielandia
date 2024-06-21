@@ -13,7 +13,7 @@ const Reviews = ({ data, sortBy, ascOrDesc }: IReviews) => {
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Box>
-                <Typography variant="h5" align="center">
+                <Typography variant="h3" align="center">
                     Reviews ({data.totalReviews})
                 </Typography>
             </Box>

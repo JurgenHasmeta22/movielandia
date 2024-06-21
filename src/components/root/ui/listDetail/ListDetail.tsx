@@ -1,5 +1,6 @@
-import { Box, Divider, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
+import DividerLine from "../dividerLine/DividerLine";
 
 interface IListDetail {
     data: any;
@@ -12,7 +13,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
         <>
             {data && data.length > 0 && (
                 <>
-                    <Divider sx={{ borderBottomWidth: 3, background: "lightgray" }} />
+                    <DividerLine />
                     <Box
                         sx={{
                             display: "flex",
@@ -29,7 +30,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                             <Typography fontSize={28}>
                                 {roleData === "latest" ? "Latest" : "Related"} {type === "movie" ? "Movies" : "Series"}
                             </Typography>
-                            <Divider sx={{ borderBottomWidth: 3, background: "lightgray" }} />
+                            <DividerLine />
                         </Box>
                         <Stack
                             direction="row"
