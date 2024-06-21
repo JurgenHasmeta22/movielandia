@@ -7,6 +7,7 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
 import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
+import { notFound } from "next/navigation";
 
 interface IGenreProps {
     params: {
@@ -61,7 +62,14 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
         queryParamsSeries.ascOrDesc = seriesAscOrDesc;
     }
 
-    const moviesByGenreData = await getGenreByName(name, queryParamsMovies);
+    let moviesByGenreData = [];
+
+    try {
+        moviesByGenreData = await getGenreByName(name, queryParamsMovies);
+    } catch (error) {
+        return notFound();
+    }
+
     const moviesByGenre: Movie[] = moviesByGenreData?.movies;
     const moviesByGenreCount: number = moviesByGenreData?.count;
     const pageCountMovies = Math.ceil(moviesByGenreCount / 10);

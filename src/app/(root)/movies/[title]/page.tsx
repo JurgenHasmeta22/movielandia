@@ -2,7 +2,6 @@ import { Container } from "@mui/material";
 import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.action";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Movie as IMovie } from "@prisma/client";
 import MoviePageDetails from "./MoviePageDetails";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -16,9 +15,13 @@ interface IMovieProps {
 
 export async function generateMetadata({ params }: IMovieProps): Promise<Metadata> {
     const { title } = params;
-    const movie: IMovie = await getMovieByTitle(title, {});
+    let movie = null;
 
-    if (!movie) return notFound();
+    try {
+        movie = await getMovieByTitle(title, {});
+    } catch (error) {
+        return notFound();
+    }
 
     const { description, photoSrc } = movie;
     const siteUrl = "https://movielandia24.com";
@@ -79,8 +82,14 @@ export default async function Movie({ searchParams, params }: IMovieProps) {
     };
 
     const session = await getServerSession(authOptions);
+    let movie = null;
 
-    const movie = await getMovieByTitle(title, { userId: Number(session?.user?.id) });
+    try {
+        movie = await getMovieByTitle(title, { userId: Number(session?.user?.id) });
+    } catch (error) {
+        return notFound();
+    }
+
     const latestMovies = await getLatestMovies();
     const relatedMovies = await getRelatedMovies(title);
 
