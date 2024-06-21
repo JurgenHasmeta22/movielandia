@@ -34,7 +34,9 @@
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "no-console": "off",
-        "no-debugger": "off"
+        "no-debugger": "off",
+        "no-unused-vars": "off",
+        "no-unused-imports": "off"
     },
     "settings": {
         "react": {
