@@ -1,18 +1,18 @@
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
+import Header from "@/components/root/layout/header/Header";
+import Footer from "@/components/root/layout/footer/Footer";
 import { Grid } from "@mui/material";
-import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
+import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ToastProvider from "@/lib/toastify/ToastProvider";
+import ToastProvider from "@/lib/toast/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme";
 import { Providers } from "./providers";
 import { ensureStartsWith } from "@/utils/utils";
-import "./globals.css";
 import { ModalProvider } from "@/providers/ModalContext";
 import { RightPanelProvider } from "@/providers/RightPanelContext";
+import "./globals.css";
 
-const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const baseUrl = "http://localhost:4000";
+const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, "@") : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, "https://") : undefined;
 
