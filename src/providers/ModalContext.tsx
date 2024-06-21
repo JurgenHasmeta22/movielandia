@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import Modal from "@/components/admin/modal/Modal";
+import Modal from "@/components/admin/ui/modal/Modal";
 
 type ModalContextType = {
     modalProps: any;

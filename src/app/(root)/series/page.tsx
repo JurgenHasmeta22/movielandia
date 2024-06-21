@@ -2,11 +2,12 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Container, Divider, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getSeries, getLatestSeries } from "@/lib/actions/serie.action";
+import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 
 interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
@@ -82,7 +83,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
                         <Typography fontSize={28} variant="h2">
                             Series
                         </Typography>
-                        <Divider sx={{ borderBottomWidth: 3, mt: 1 }} />
+                        <DividerLine />
                     </Box>
                     <Box mr={1}>
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
@@ -112,7 +113,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     </Stack>
                     <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
                 </Box>
-                <Divider sx={{ borderBottomWidth: 3 }} />
+                <DividerLine />
                 <LatestList data={latestSeries} type="Series" />
             </Box>
         </Container>

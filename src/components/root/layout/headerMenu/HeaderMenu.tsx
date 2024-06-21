@@ -28,6 +28,7 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 interface IHeaderMenu {
     genres: Genre[];
@@ -48,11 +49,15 @@ export default function HeaderMenu({
     redirectToProfile,
     handleLogout,
 }: IHeaderMenu) {
+    const { data: session } = useSession();
+
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
-    const { user, openDrawer, setOpenDrawer } = useStore();
+
+    const { openDrawer, setOpenDrawer } = useStore();
     const searchParams = useSearchParams();
     const router = useRouter();
     const theme = useTheme();
+
     const colors = tokens(theme.palette.mode);
 
     const openMenuGenresMobile = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -250,7 +255,7 @@ export default function HeaderMenu({
                                 ),
                             }}
                         />
-                        {user !== null ? (
+                        {session?.user !== null ? (
                             <Box>
                                 <IconButton
                                     id="buttonProfile"
@@ -265,7 +270,7 @@ export default function HeaderMenu({
                                     }}
                                 >
                                     <PersonOutlinedIcon color="action" fontSize="medium" />
-                                    {user?.userName}
+                                    {session?.user?.userName}
                                 </IconButton>
                                 <Menu
                                     id="menuProfile"

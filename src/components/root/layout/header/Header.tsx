@@ -5,11 +5,11 @@ import { AppBar, Box, List, ListItem, Stack, Toolbar, useTheme } from "@mui/mate
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import AuthButtons from "../authButtons/AuthButtons";
-import SearchField from "../searchField/SearchField";
-import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import Link from "next/link";
 import { tokens } from "@/utils/theme";
+import SearchField from "../../features/searchField/SearchField";
+import AuthButtons from "../../ui/authButtons/AuthButtons";
+import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
 
 const Header = () => {
     const theme = useTheme();
