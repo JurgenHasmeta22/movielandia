@@ -1,36 +1,14 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
-
-export async function getGenres(): Promise<any | null> {
-    const genres = await prisma.genre.findMany();
-    const count = await prisma.genre.count();
-
-    if (genres) {
-        return { rows: genres, count };
-    } else {
-        return null;
-    }
-}
-
-export default async function GET(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "GET") {
-        res.setHeader("Allow", ["GET"]);
-        res.status(405).end(`Method ${req.method} Not Allowed`);
-        return;
-    }
-
+export const GET = async () => {
     try {
-        const data = await getGenres();
+        const genres = await prisma.genre.findMany();
 
-        if (data) {
-            res.status(200).json(data);
-        } else {
-            res.status(404).json({ message: "No genres found" });
+        if (genres) {
+            return NextResponse.json(genres, { status: 200 });
         }
-    } catch (error) {
-        console.error("Error fetching genres:", error);
-        res.status(500).json({ message: "Internal server error" });
+    } catch (err) {
+        return new NextResponse("Internal Server Error", { status: 500 });
     }
-}
+};
