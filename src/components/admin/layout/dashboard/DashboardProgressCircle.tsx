@@ -1,5 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-import { tokens } from "~/utils/theme";
+import { tokens } from "@/utils/theme";
 
 export const DashboardProgressCircle = ({ progress = "0.75", size = "40" }: any) => {
     const theme = useTheme();
