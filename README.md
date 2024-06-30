@@ -8,7 +8,7 @@ MovieLandia Frontend is a modern web application for discovering and sharing mov
 
 -   **User Authentication**: Secure login and registration using NextAuth.js.
 -   **Movie and Series Database**: Browse, search, and filter movies and series.
--   **Genres and Categories**: Discover content by genres and categories.
+-   **Genres**: Discover content by genres.
 -   **Responsive Design**: Optimized for both desktop and mobile devices.
 -   **User Reviews and Ratings**: Share your thoughts and rate movies/series.
 -   **Infinite Scrolling**: Seamless content loading with infinite scroll.
