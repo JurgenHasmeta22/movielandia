@@ -1,4 +1,4 @@
-# MovieLandia Frontend
+# MovieLandia Full-Stack
 
 ## Description
 
@@ -72,23 +72,24 @@ movielandia/
 ├── next.config.js       # Next.js configuration
 ├── tsconfig.json        # TypeScript configuration
 └── package.json         # Project dependencies and scripts
+```
 
-+++
+## Environment Variables
 
-Environment Variables
 Ensure you set up the following environment variables in your .env file:
 
-DATABASE_URL: Connection string for your database.
+```DATABASE_URL: Connection string for your database.
 NEXTAUTH_URL: URL for NextAuth.js authentication.
 NEXT_PUBLIC_API_URL: Public API URL for the application.
 API Documentation
 For API interactions, refer to the backend's Swagger documentation available at http://localhost:4000/api-docs once the server is running.
+```
 
-Available Scripts
-yarn dev or npm run dev: Starts the development server.
+## Available Scripts
+
+```yarn dev or npm run dev: Starts the development server.
 yarn build or npm run build: Builds the application for production.
 yarn start or npm run start: Starts the production server.
 yarn lint or npm run lint: Lints the code with ESLint.
 yarn format or npm run format: Formats the code with Prettier.
-+++
 ```
