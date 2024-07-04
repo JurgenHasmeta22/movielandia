@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { AppBar, Box, IconButton, List, ListItem, Menu, Stack, Toolbar, Typography, useTheme } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -247,15 +247,17 @@ const Header = () => {
                     )}
                 </Toolbar>
             </AppBar>
-            <HeaderMenu
-                closeMenuGenres={closeMenuGenres}
-                genres={genres}
-                anchorElProfile={anchorElProfile}
-                redirectToProfile={redirectToProfile}
-                openMenuProfile={openMenuProfile}
-                closeMenuProfile={closeMenuProfile}
-                handleLogout={handleLogout}
-            />
+            <Suspense>
+                <HeaderMenu
+                    closeMenuGenres={closeMenuGenres}
+                    genres={genres}
+                    anchorElProfile={anchorElProfile}
+                    redirectToProfile={redirectToProfile}
+                    openMenuProfile={openMenuProfile}
+                    closeMenuProfile={closeMenuProfile}
+                    handleLogout={handleLogout}
+                />
+            </Suspense>
         </>
     );
 };
