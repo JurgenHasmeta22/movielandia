@@ -14,13 +14,15 @@ interface IMoviesProps {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+
 export const metadata: Metadata = {
     title: "Watch the Latest Movies | High-Quality and Always Updated",
     description:
         "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
     openGraph: {
         type: "video.other",
-        url: `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies`,
+        url: `${baseUrl}/movies`,
         title: "Watch the Latest Movies | High-Quality and Always Updated",
         description:
             "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",

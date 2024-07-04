@@ -11,8 +11,8 @@ import { ModalProvider } from "@/providers/ModalContext";
 import { RightPanelProvider } from "@/providers/RightPanelContext";
 import "../globals.css";
 
-const baseUrl =
-    process.env.NODE_ENV === "production" ? `${process.env.NEXT_PUBLIC_PROJECT_URL}` : "http://localhost:4000";
+const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
+
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, "@") : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, "https://") : undefined;

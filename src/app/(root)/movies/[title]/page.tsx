@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
     }
 
     const { description, photoSrc } = movie;
-    const siteUrl = "https://movielandia24.com";
-    const pageUrl = `${siteUrl}/movies/${title}`;
+
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${title}`;
 
     return {
         title: `${title} | Movie`,
