@@ -4,13 +4,15 @@ import { Box, Container, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
 
+const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+
 export const metadata: Metadata = {
     title: "Watch the Latest Genres | High-Quality and Always Updated",
     description:
         "Discover and watch the latest and most amazing genres in high quality. Our collection is always updated with the newest episodes and releases.",
     openGraph: {
         type: "video.tv_show",
-        url: `${process.env.NEXT_PUBLIC_PROJECT_URL}/genres`,
+        url: `${baseUrl}/genres`,
         title: "Watch the Latest Genres | High-Quality and Always Updated",
         description:
             "Discover and watch the latest and most amazing genres in high quality. Our collection is always updated with the newest episodes and releases.",

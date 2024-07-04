@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     }
 
     const { description, photoSrc } = serie;
-    const siteUrl = "https://movielandia24.com";
-    const pageUrl = `${siteUrl}/series/${title}`;
+
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`;
 
     return {
         title: `${title} | Serie`,
