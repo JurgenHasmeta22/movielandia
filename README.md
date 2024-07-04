@@ -1,6 +1,6 @@
-# MovieLandia Full-Stack
+# MovieLandia24 - Next.js Web App
 
-MovieLandia Frontend is a modern web application for discovering and sharing movies and TV series. Built using Next.js for a fast and efficient frontend, with a beautiful and responsive UI.
+MovieLandia24 is a modern web application for discovering and sharing movies and TV series. Built using Next.js for a fast and efficient frontend, with a beautiful and responsive UI.
 
 ## Features
 
