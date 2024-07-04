@@ -8,6 +8,7 @@ import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getMovies, getLatestMovies } from "@/lib/actions/movie.action";
 import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
+import { Suspense } from "react";
 
 interface IMoviesProps {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
@@ -111,7 +112,9 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                             <CardItem data={movie} type="movie" key={movie.id} />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
+                    <Suspense>
+                        <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
+                    </Suspense>
                 </Box>
                 <DividerLine />
                 <LatestList data={latestMovies} type="Movies" />

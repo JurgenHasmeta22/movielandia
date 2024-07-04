@@ -52,7 +52,9 @@ export default function RootLayout({
                                     <RightPanelProvider>
                                         <Grid container>
                                             <Grid item xs={12}>
+                                                {/* <Suspense> */}
                                                 <Header />
+                                                {/* </Suspense> */}
                                                 <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
                                                 <ScrollToTop />
                                                 <Footer />
