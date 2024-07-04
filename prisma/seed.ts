@@ -1,47 +1,52 @@
-import { prisma } from "@/lib/prisma";
-import { genres, movieGenres, movies, serieGenres, series } from "./data";
+import { PrismaClient } from "@prisma/client";
+import { genres, movieGenres, movies, serieGenres, series, users } from "./data";
+
+const prisma = new PrismaClient({
+    log: ["query", "info", "warn", "error"],
+});
 
 async function createStuff() {
-    await prisma.serie.deleteMany();
+    try {
+        await prisma.serieGenre.deleteMany();
+        await prisma.movieGenre.deleteMany();
+        await prisma.serie.deleteMany();
+        await prisma.movie.deleteMany();
+        await prisma.genre.deleteMany();
+        await prisma.user.deleteMany();
 
-    for (const serie of series) {
-        await prisma.serie.create({ data: serie });
-    }
+        for (const user of users) {
+            await prisma.user.create({ data: user });
+        }
 
-    await prisma.user.deleteMany();
+        for (const genre of genres) {
+            await prisma.genre.create({ data: genre });
+        }
 
-    for (const user of users) {
-        await prisma.user.create({ data: user });
-    }
+        for (const movie of movies) {
+            await prisma.movie.create({ data: movie });
+        }
 
-    await prisma.genre.deleteMany();
+        for (const serie of series) {
+            await prisma.serie.create({ data: serie });
+        }
 
-    for (const genre of genres) {
-        await prisma.genre.create({ data: genre });
-    }
+        for (const movieGenre of movieGenres) {
+            await prisma.movieGenre.create({
+                data: movieGenre,
+            });
+        }
 
-    await prisma.movie.deleteMany();
+        for (const serieGenre of serieGenres) {
+            await prisma.serieGenre.create({
+                data: serieGenre,
+            });
+        }
 
-    for (const movie of movies) {
-        await prisma.movie.create({
-            data: movie,
-        });
-    }
-
-    await prisma.movieGenre.deleteMany();
-
-    for (const movieGenre of movieGenres) {
-        await prisma.movieGenre.create({
-            data: { genreId: movieGenre.genreId, movieId: movieGenre.movieId },
-        });
-    }
-
-    await prisma.serieGenre.deleteMany();
-
-    for (const serieGenre of serieGenres) {
-        await prisma.serieGenre.create({
-            data: { genreId: serieGenre.genreId, serieId: serieGenre.serieId },
-        });
+        console.log("Database seeding completed successfully.");
+    } catch (error) {
+        console.error("Error seeding database:", error);
+    } finally {
+        await prisma.$disconnect();
     }
 }
 

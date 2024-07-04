@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",
     openGraph: {
         type: "video.other",
-        url: "https://movielandia24.com/movies",
+        url: `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies`,
         title: "Watch the Latest Movies | High-Quality and Always Updated",
         description:
             "Discover and watch the latest and most amazing movies in high quality. Our collection is always updated with the newest episodes and releases.",

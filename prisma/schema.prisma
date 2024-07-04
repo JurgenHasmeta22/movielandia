@@ -27,6 +27,7 @@ model User {
   userName        String
   email           String              @unique
   password        String
+  role            String              @default("User")
   favMovies       UserMovieFavorite[]
   favSeries       UserSerieFavorite[]
   // favGenres        UserGenreFavorite[]
@@ -246,6 +247,7 @@ model Movie {
   id                   Int                 @id @default(autoincrement())
   title                String              @default("")
   photoSrc             String              @default("")
+  photoSrcProd         String              @default("")
   trailerSrc           String              @default("")
   duration             String              @default("")
   ratingImdb           Float               @default(5.0)
@@ -312,9 +314,10 @@ model Genre {
 }
 
 model Serie {
-  id                   Int                 @id @default(autoincrement())
-  title                String              @default("")
-  photoSrc             String              @default("")
+  id           Int    @id @default(autoincrement())
+  title        String @default("")
+  photoSrc     String @default("")
+  photoSrcProd String @default("")
   trailerSrc           String              @default("")
   description          String              @default("")
   releaseYear          Int                 @default(2020)
