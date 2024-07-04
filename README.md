@@ -1,7 +1,5 @@
 # MovieLandia Full-Stack
 
-## Description
-
 MovieLandia Frontend is a modern web application for discovering and sharing movies and TV series. Built using Next.js for a fast and efficient frontend, with a beautiful and responsive UI.
 
 ## Features
@@ -11,7 +9,6 @@ MovieLandia Frontend is a modern web application for discovering and sharing mov
 -   **Genres**: Discover content by genres.
 -   **Responsive Design**: Optimized for both desktop and mobile devices.
 -   **User Reviews and Ratings**: Share your thoughts and rate movies/series.
--   **Infinite Scrolling**: Seamless content loading with infinite scroll.
 -   **Interactive UI**: Beautiful animations and transitions with Framer Motion.
 
 ## Installation
