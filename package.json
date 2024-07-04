@@ -39,6 +39,7 @@
         "react-toastify": "^10.0.5",
         "sharp": "^0.33.4",
         "slick-carousel": "^1.8.1",
+        "tsx": "^4.16.2",
         "yup": "^1.4.0",
         "zustand": "^4.5.2"
     },
