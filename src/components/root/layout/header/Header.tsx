@@ -36,7 +36,8 @@ const Header = () => {
         const fetchGenres = async () => {
             try {
                 // Server actions in fetching inside a client component instead of using a API route
-                ("use server");
+                // eslint-disable-next-line prettier/prettier
+                "use server";
                 const genresData = await getGenres({});
                 setGenres(genresData.rows);
 
