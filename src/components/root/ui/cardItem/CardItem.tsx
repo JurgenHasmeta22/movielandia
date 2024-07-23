@@ -49,12 +49,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                             textDecoration: "none",
                         }}
                     >
-                        <Image
-                            src={process.env.NODE_ENV === "development" ? data.photoSrc : data.photoSrcProd}
-                            alt={`${data.description}`}
-                            width={214}
-                            height={317}
-                        />
+                        <Image src={data.photoSrcProd} alt={`${data.description}`} width={214} height={317} />
                     </Link>
                     <Box
                         sx={{
