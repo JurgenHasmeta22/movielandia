@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
     images: {
         remotePatterns: [
@@ -6,6 +7,10 @@ const nextConfig = {
                 hostname: "localhost",
                 port: "4000",
             },
+            // {
+            //     protocol: "https",
+            //     hostname: "movielandia-avenger22s-projects.vercel.app",
+            // },
         ],
     },
     typescript: {
