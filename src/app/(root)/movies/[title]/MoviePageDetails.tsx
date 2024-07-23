@@ -21,10 +21,10 @@ import {
     removeUpvoteMovieReview,
     updateReviewMovie,
 } from "@/lib/actions/user.action";
-import { useModal } from "@/providers/ModalContext";
+import { useModal } from "@/contexts/ModalContext";
 import * as CONSTANTS from "@/constants/Constants";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
-import { showToast } from "@/utils/toast";
+import { showToast } from "@/lib/toast/toast";
 
 export default function MoviePageDetails({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
     const { data: session } = useSession();

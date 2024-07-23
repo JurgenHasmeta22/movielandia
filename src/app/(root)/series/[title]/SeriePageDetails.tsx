@@ -21,10 +21,10 @@ import {
     removeUpvoteSerieReview,
     updateReviewSerie,
 } from "@/lib/actions/user.action";
-import { useModal } from "@/providers/ModalContext";
+import { useModal } from "@/contexts/ModalContext";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
-import { showToast } from "@/utils/toast";
+import { showToast } from "@/lib/toast/toast";
 
 export default function SeriePageDetails({ searchParamsValues, serie, latestSeries, relatedSeries, pageCount }: any) {
     const { data: session } = useSession();

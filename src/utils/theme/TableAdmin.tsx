@@ -15,7 +15,7 @@ import {
 import { Box, Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } from "@mui/material";
 import { Edit, Delete, Add, CheckOutlined, WarningOutlined } from "@mui/icons-material";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { useModal } from "@/providers/ModalContext";
+import { useModal } from "@/contexts/ModalContext";
 import * as CONSTANTS from "@/constants/Constants";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
