@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev --port 4000",
-        "build": "prisma generate && prisma migrate deploy && tsx prisma/seed/seed.ts && next build",
+        "build": "prisma generate && prisma migrate deploy && next build",
         "buildDev": "next build",
         "start": "next start",
         "startDev": "next start --port 4000",
