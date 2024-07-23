@@ -210,8 +210,8 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
             let response: any;
 
             const queryParams = {
-                page: String(pagination?.pageIndex! + 1),
-                pageSize: String(pagination?.pageSize!),
+                page: Number(pagination?.pageIndex + 1),
+                pageSize: Number(pagination?.pageSize),
                 ...(sorting?.length > 0 && {
                     ascOrDesc: sorting[0].desc ? "desc" : "asc",
                     sortBy: sorting[0].id,

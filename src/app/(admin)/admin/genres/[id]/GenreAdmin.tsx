@@ -61,7 +61,7 @@ const GenreAdmin = () => {
             name: values.name,
         };
 
-        const response = await updateGenreById(payload, genre?.id!);
+        const response = await updateGenreById(payload, genre?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -138,7 +138,7 @@ const GenreAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteGenreById(genre?.id!);
+                                            const response = await deleteGenreById(genre?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

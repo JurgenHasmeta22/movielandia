@@ -14,24 +14,28 @@ interface SerieModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
+type RatingsMap = {
+    [key: number]: {
+        averageRating: number;
+        totalReviews: number;
+    };
+};
+
 export async function getSeries({
     sortBy,
     ascOrDesc,
-    perPage,
-    page,
+    perPage = 10,
+    page = 1,
     title,
     filterValue,
     filterNameString,
     filterOperatorString,
 }: SerieModelParams): Promise<any | null> {
     const filters: any = {};
-    let skip = 0;
-    let take = undefined;
+    const orderByObject: any = {};
 
-    if (page !== undefined) {
-        skip = perPage ? (page - 1) * perPage : 0;
-        take = perPage || 10;
-    }
+    const skip = (page - 1) * perPage;
+    const take = perPage;
 
     if (title) filters.title = { contains: title };
 
@@ -39,8 +43,6 @@ export async function getSeries({
         const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
         filters[filterNameString] = { [operator]: filterValue };
     }
-
-    const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
         orderByObject[sortBy] = ascOrDesc;
@@ -67,19 +69,11 @@ export async function getSeries({
         },
     });
 
-    type RatingsMap = {
-        [key: number]: {
-            averageRating: number;
-            totalReviews: number;
-        };
-    };
-
     const serieRatingsMap: RatingsMap = serieRatings.reduce((map, rating) => {
         map[rating.serieId] = {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
-
         return map;
     }, {} as RatingsMap);
 
@@ -87,7 +81,6 @@ export async function getSeries({
         const { genres, ...properties } = serie;
         const simplifiedGenres = genres.map((genre) => genre.genre);
         const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
-
         return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
     });
 
@@ -118,7 +111,6 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
-
     const titleFinal = title
         .split("")
         .map((char) => (char === "-" ? " " : char))
@@ -247,19 +239,11 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
         },
     });
 
-    type RatingsMap = {
-        [key: number]: {
-            averageRating: number;
-            totalReviews: number;
-        };
-    };
-
     const serieRatingsMap: RatingsMap = serieRatings.reduce((map, rating) => {
         map[rating.serieId] = {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
-
         return map;
     }, {} as RatingsMap);
 
@@ -267,7 +251,6 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
         const { genres, ...properties } = serie;
         const simplifiedGenres = genres.map((genre) => genre.genre);
         const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
-
         return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
     });
 

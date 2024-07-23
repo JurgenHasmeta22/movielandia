@@ -8,7 +8,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 // #region "Interfaces"
 interface UserModelParams {
     sortBy: string;
-    ascOrDesc: "asc" | "desc";
+    ascOrDesc: string;
     perPage: number;
     page: number;
     userName?: string | null;

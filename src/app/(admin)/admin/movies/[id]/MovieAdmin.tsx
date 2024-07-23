@@ -42,8 +42,8 @@ const MovieAdmin = () => {
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/movies/${params?.id!}`} style={{ textDecoration: "none" }}>
-            Movie {`${params?.id!}`}
+        <Link key="2" to={`/admin/movies/${params?.id}`} style={{ textDecoration: "none" }}>
+            Movie {`${params?.id}`}
         </Link>,
     ];
 
@@ -73,7 +73,7 @@ const MovieAdmin = () => {
             ratingImdb: Number(values.ratingImdb),
             releaseYear: Number(values.releaseYear),
         };
-        const response = await movieService.updateMovie(payload, movie?.id!);
+        const response = await movieService.updateMovie(payload, movie?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -192,7 +192,7 @@ const MovieAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await movieService.deleteMovie(movie?.id!);
+                                            const response = await movieService.deleteMovie(movie?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
