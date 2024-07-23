@@ -24,7 +24,11 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     }
 
     const { description, photoSrc } = serie;
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`;
+
+    const pageUrl =
+        process.env.NODE_ENV !== "development"
+            ? `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`
+            : `${process.env.NEXT_PUBLIC_LOCAL_URL}/series/${title}`;
 
     return {
         title: `${title} | Serie`,
