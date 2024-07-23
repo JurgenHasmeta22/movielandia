@@ -36,6 +36,7 @@
         "no-console": "off",
         "no-debugger": "off",
         "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "off",
         "no-unused-imports": "off"
     },
     "settings": {

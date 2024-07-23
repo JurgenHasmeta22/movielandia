@@ -27,15 +27,13 @@ import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEd
 import { showToast } from "@/lib/toast/toast";
 
 export default function MoviePageDetails({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
+    // #region "State, hooks etc"
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(null);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
@@ -50,6 +48,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = useStore();
+    // #endregion
 
     // #region "Handlers functions"
 

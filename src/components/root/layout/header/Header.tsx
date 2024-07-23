@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { Suspense, useEffect, useState } from "react";
@@ -36,8 +35,7 @@ const Header = () => {
         const fetchGenres = async () => {
             try {
                 // Server actions in fetching inside a client component instead of using a API route
-                // eslint-disable-next-line prettier/prettier
-                "use server";
+                ("use server");
                 const genresData = await getGenres({});
                 setGenres(genresData.rows);
 

@@ -59,7 +59,6 @@ const CustomPrevArrow = (props: any) => {
 const Carousel = ({ data, type }: ICarouselProps) => {
     const isMobile = useMediaQuery("(max-width:600px)");
     const isTablet = useMediaQuery("(max-width:960px)");
-
     const settings = {
         dots: false,
         infinite: true,
@@ -96,7 +95,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                             },
                         }}
                     >
-                        <Image src={element.photoSrc} alt={`Slide ${index}`} height={400} width={300} />
+                        <Image src={element.photoSrcProd} alt={`Slide ${index}`} height={400} width={300} />
                         <Box
                             className="carousel-content"
                             sx={{
