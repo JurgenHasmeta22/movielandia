@@ -15,10 +15,15 @@ const LoadingSpinner: React.FC = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100vh",
-                color: colors.primary[100],
             }}
         >
-            <CircularProgress />
+            <CircularProgress
+                size={60}
+                thickness={4}
+                sx={{
+                    color: colors.primary[100],
+                }}
+            />
         </Box>
     );
 };

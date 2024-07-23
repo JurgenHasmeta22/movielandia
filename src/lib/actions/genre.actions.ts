@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma/prisma";
 
 interface GetGenresParams {
     sortBy?: string;
-    ascOrDesc?: "asc" | "desc";
+    ascOrDesc?: string;
     perPage?: number;
     page?: number;
     name?: string;

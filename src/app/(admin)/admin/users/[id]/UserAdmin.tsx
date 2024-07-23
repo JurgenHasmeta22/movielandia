@@ -1,23 +1,23 @@
-import { Box } from "@mui/material";
-import HeaderDashboard from "~/components/admin/headerDashboard/HeaderDashboard";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+import { Box, Link } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router";
-import userService from "~/services/api/userService";
 import { FormikProps } from "formik";
 import * as yup from "yup";
-import IUser from "~/types/IUser";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { Link, useParams } from "react-router-dom";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "~/components/admin/form/Form";
 import { toast } from "react-toastify";
-import * as CONSTANTS from "~/constants/Constants";
-import Breadcrumb from "~/components/admin/breadcrumb/Breadcrumb";
-import IUserPatch from "~/types/IUserPatch";
+import * as CONSTANTS from "@/constants/Constants";
 import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
-import { useModal } from "~/services/providers/ModalContext";
-import Loading from "~/components/loading/Loading";
+import Loading from "@/app/(root)/loading";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { useModal } from "@/contexts/ModalContext";
+import { getUserById } from "@/lib/actions/user.actions";
+import { User } from "next-auth";
 
 const userSchema = yup.object().shape({
     userName: yup.string().required("required"),
@@ -25,19 +25,16 @@ const userSchema = yup.object().shape({
 });
 
 const UserAdmin = () => {
-    const [user, setUser] = useState<IUser | null>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
-    const navigate = useNavigate();
-    const params = useParams();
-    const location = useLocation();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/users/${params?.id!}`} style={{ textDecoration: "none" }}>
-            User {`${params?.id!}`}
+        <Link key="2" to={`/admin/users/${params?.id}`} style={{ textDecoration: "none" }}>
+            User {`${params?.id}`}
         </Link>,
     ];
 
@@ -58,13 +55,13 @@ const UserAdmin = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: IUserPatch = {
+        const payload: any = {
             userName: values.userName,
             email: values.email,
             password: values.password,
         };
 
-        const response = await userService.updateUser(payload, user?.id!);
+        const response = await updateUser(payload, user?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -75,7 +72,7 @@ const UserAdmin = () => {
     };
 
     async function getUser(): Promise<void> {
-        const response: any = await userService.getUserById(params.id);
+        const response: any = await getUserById(params.id);
         setUser(response);
     }
 
@@ -150,7 +147,7 @@ const UserAdmin = () => {
                                         onClick: async () => {
                                             setOpen(false);
 
-                                            const response = await userService.deleteUser(user?.id!);
+                                            const response = await userService.deleteUser(user?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

@@ -39,8 +39,8 @@ const SerieAdmin = () => {
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/series/${params?.id!}`} style={{ textDecoration: "none" }}>
-            Serie {`${params?.id!}`}
+        <Link key="2" to={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
+            Serie {`${params?.id}`}
         </Link>,
     ];
 

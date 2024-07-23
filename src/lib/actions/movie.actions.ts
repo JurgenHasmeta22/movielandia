@@ -14,24 +14,28 @@ interface MovieModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
+type RatingsMap = {
+    [key: number]: {
+        averageRating: number;
+        totalReviews: number;
+    };
+};
+
 export async function getMovies({
     sortBy,
     ascOrDesc,
-    perPage,
-    page,
+    perPage = 10,
+    page = 1,
     title,
     filterValue,
     filterNameString,
     filterOperatorString,
 }: MovieModelParams): Promise<any | null> {
     const filters: any = {};
-    let skip = 0;
-    let take = undefined;
+    const orderByObject: any = {};
 
-    if (page !== undefined) {
-        skip = perPage ? (page - 1) * perPage : 0;
-        take = perPage || 10;
-    }
+    const skip = (page - 1) * perPage;
+    const take = perPage;
 
     if (title) filters.title = { contains: title };
 
@@ -39,8 +43,6 @@ export async function getMovies({
         const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
         filters[filterNameString] = { [operator]: filterValue };
     }
-
-    const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
         orderByObject[sortBy] = ascOrDesc;
@@ -67,19 +69,11 @@ export async function getMovies({
         },
     });
 
-    type RatingsMap = {
-        [key: number]: {
-            averageRating: number;
-            totalReviews: number;
-        };
-    };
-
     const movieRatingsMap: RatingsMap = movieRatings.reduce((map, rating) => {
         map[rating.movieId] = {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
-
         return map;
     }, {} as RatingsMap);
 
@@ -87,7 +81,6 @@ export async function getMovies({
         const { genres, ...properties } = movie;
         const simplifiedGenres = genres.map((genre) => genre.genre);
         const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
-
         return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
     });
 
@@ -115,10 +108,11 @@ export async function getMovieById(movieId: number): Promise<Movie | null> {
 
 export async function getMovieByTitle(title: string, queryParams: any): Promise<Movie | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
-    const skip = page ? (page - 1) * 5 : 0;
-    const take = 5;
-    const orderByObject: any = {};
 
+    const skip = (page - 1) * 5;
+    const take = 5;
+
+    const orderByObject: any = {};
     const titleFinal = title
         .split("")
         .map((char) => (char === "-" ? " " : char))
@@ -246,13 +240,6 @@ export async function getLatestMovies(): Promise<Movie[] | null> {
             rating: true,
         },
     });
-
-    type RatingsMap = {
-        [key: number]: {
-            averageRating: number;
-            totalReviews: number;
-        };
-    };
 
     const movieRatingsMap: RatingsMap = movieRatings.reduce((map, rating) => {
         map[rating.movieId] = {
@@ -418,7 +405,6 @@ export async function searchMoviesByTitle(title: string, queryParams: any): Prom
 
     const movies = await prisma.movie.findMany(query);
     const movieIds = movies.map((movie: Movie) => movie.id);
-
     const movieRatings = await prisma.movieReview.groupBy({
         by: ["movieId"],
         where: { movieId: { in: movieIds } },
@@ -429,13 +415,6 @@ export async function searchMoviesByTitle(title: string, queryParams: any): Prom
             rating: true,
         },
     });
-
-    type RatingsMap = {
-        [key: number]: {
-            averageRating: number;
-            totalReviews: number;
-        };
-    };
 
     const movieRatingsMap: RatingsMap = movieRatings.reduce((map, rating) => {
         map[rating.movieId] = {

@@ -1,10 +1,14 @@
 "use client";
 
 import { KeyboardArrowUp } from "@mui/icons-material";
-import { Box, Fab, Zoom, useScrollTrigger } from "@mui/material";
+import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
 import { useCallback } from "react";
+import { tokens } from "@/utils/theme/theme";
 
 function ScrollToTop() {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     const trigger = useScrollTrigger({
         threshold: 150,
     });
@@ -24,7 +28,15 @@ function ScrollToTop() {
                     zIndex: 1,
                 }}
             >
-                <Fab onClick={scrollToTop} size="large" aria-label="Scroll back to top">
+                <Fab
+                    onClick={scrollToTop}
+                    size="large"
+                    aria-label="Scroll back to top"
+                    sx={{
+                        color: colors.primary[900],
+                        backgroundColor: colors.primary[100],
+                    }}
+                >
                     <KeyboardArrowUp fontSize="large" />
                 </Fab>
             </Box>
