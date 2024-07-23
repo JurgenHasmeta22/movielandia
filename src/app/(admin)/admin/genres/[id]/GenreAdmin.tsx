@@ -12,7 +12,7 @@ import FormAdvanced from "@/components/admin/ui/form/Form";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
-import { useModal } from "@/providers/ModalContext";
+import { useModal } from "@/contexts/ModalContext";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
 import { useParams, useRouter } from "next/navigation";

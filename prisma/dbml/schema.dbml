@@ -10,8 +10,10 @@ Table User {
   role String [not null, default: 'User']
   favMovies UserMovieFavorite [not null]
   favSeries UserSerieFavorite [not null]
+  favEpisodes UserEpisodeFavorite [not null]
   ratingsInMovie UserMovieRating [not null]
   ratingsInSerie UserSerieRating [not null]
+  ratingsInEpisode UserEpisodeRating [not null]
   movieReviews MovieReview [not null]
   serieReviews SerieReview [not null]
   upvotedMovies UpvoteMovie [not null]
@@ -38,6 +40,15 @@ Table UserSerieRating {
   serie Serie [not null]
 }
 
+Table UserEpisodeRating {
+  id Int [pk, increment]
+  rating Float [not null]
+  userId Int [not null]
+  user User [not null]
+  episodeId Int [not null]
+  episode Episode [not null]
+}
+
 Table UserMovieFavorite {
   id Int [pk, increment]
   userId Int [not null]
@@ -52,6 +63,14 @@ Table UserSerieFavorite {
   serieId Int [not null]
   user User [not null]
   serie Serie [not null]
+}
+
+Table UserEpisodeFavorite {
+  id Int [pk, increment]
+  userId Int [not null]
+  episodeId Int [not null]
+  user User [not null]
+  episode Episode [not null]
 }
 
 Table SerieReview {
@@ -180,6 +199,16 @@ Table Serie {
   usersDownvotes DownvoteSerie [not null]
 }
 
+Table Episode {
+  id Int [pk, increment]
+  title String [not null, default: '']
+  photoSrc String [not null, default: '']
+  videoSrc String [not null, default: '']
+  description String [not null, default: '']
+  usersWhoBookmarkedIt UserEpisodeFavorite [not null]
+  usersWhoRatedIt UserEpisodeRating [not null]
+}
+
 Ref: UserMovieRating.userId > User.id [delete: Cascade]
 
 Ref: UserMovieRating.movieId > Movie.id [delete: Cascade]
@@ -188,6 +217,10 @@ Ref: UserSerieRating.userId > User.id [delete: Cascade]
 
 Ref: UserSerieRating.serieId > Serie.id [delete: Cascade]
 
+Ref: UserEpisodeRating.userId > User.id [delete: Cascade]
+
+Ref: UserEpisodeRating.episodeId > Episode.id [delete: Cascade]
+
 Ref: UserMovieFavorite.userId > User.id [delete: Cascade]
 
 Ref: UserMovieFavorite.movieId > Movie.id [delete: Cascade]
@@ -195,6 +228,10 @@ Ref: UserMovieFavorite.movieId > Movie.id [delete: Cascade]
 Ref: UserSerieFavorite.userId > User.id [delete: Cascade]
 
 Ref: UserSerieFavorite.serieId > Serie.id [delete: Cascade]
+
+Ref: UserEpisodeFavorite.userId > User.id [delete: Cascade]
+
+Ref: UserEpisodeFavorite.episodeId > Episode.id [delete: Cascade]
 
 Ref: SerieReview.userId > User.id [delete: Cascade]
 

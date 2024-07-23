@@ -7,7 +7,7 @@ import { RightPanelProvider } from "@/contexts/RightPanelContext";
 import { AuthProvider } from "../AuthProvider";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
-import { SidebarItems } from "@/utils/other/SidebarItems";
+import { SidebarItems } from "@/utils/other/sidebarItems";
 
 export default function RootLayout({
     children,
