@@ -4,15 +4,14 @@ import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ToastProvider from "@/lib/toast/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme";
-import { Providers } from "../providers";
-import { ensureStartsWith } from "@/utils/utils";
-import { ModalProvider } from "@/providers/ModalContext";
-import { RightPanelProvider } from "@/providers/RightPanelContext";
+import { CustomThemeProvider } from "@/utils/theme/theme";
+import { AuthProvider } from "../AuthProvider";
+import { ensureStartsWith } from "@/utils/functions/utils";
+import { ModalProvider } from "@/contexts/ModalContext";
+import { RightPanelProvider } from "@/contexts/RightPanelContext";
 import "../globals.css";
 
 const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
-
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, "@") : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, "https://") : undefined;
@@ -45,7 +44,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Providers>
+                <AuthProvider>
                     <AppRouterCacheProvider>
                         <CustomThemeProvider>
                             <ToastProvider>
@@ -66,7 +65,7 @@ export default function RootLayout({
                             </ToastProvider>
                         </CustomThemeProvider>
                     </AppRouterCacheProvider>
-                </Providers>
+                </AuthProvider>
             </body>
         </html>
     );

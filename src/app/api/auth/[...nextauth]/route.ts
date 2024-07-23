@@ -1,7 +1,7 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 // eslint-disable-next-line import/no-named-as-default
 import CredentialsProvider from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 import { compare } from "bcrypt";
 
 export const authOptions: NextAuthOptions = {

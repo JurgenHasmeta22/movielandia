@@ -22,7 +22,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useState } from "react";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useRouter, useSearchParams } from "next/navigation";

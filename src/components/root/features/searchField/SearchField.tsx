@@ -3,7 +3,7 @@
 import React from "react";
 import { TextField, InputAdornment, useTheme } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 const SearchField = () => {
     const theme = useTheme();

@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Typography, Button, useTheme } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 export default function Custom404() {
     const theme = useTheme();

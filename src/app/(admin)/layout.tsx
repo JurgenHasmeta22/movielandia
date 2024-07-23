@@ -1,13 +1,13 @@
 import { Grid } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ToastProvider from "@/lib/toast/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme";
-import { ModalProvider } from "@/providers/ModalContext";
-import { RightPanelProvider } from "@/providers/RightPanelContext";
-import { Providers } from "../providers";
+import { CustomThemeProvider } from "@/utils/theme/theme";
+import { ModalProvider } from "@/contexts/ModalContext";
+import { RightPanelProvider } from "@/contexts/RightPanelContext";
+import { AuthProvider } from "../AuthProvider";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
-import { sidebarItems } from "@/utils/sidebarItems";
+import { SidebarItems } from "@/utils/other/SidebarItems";
 
 export default function RootLayout({
     children,
@@ -17,7 +17,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Providers>
+                <AuthProvider>
                     <AppRouterCacheProvider>
                         <CustomThemeProvider>
                             <ToastProvider>
@@ -25,7 +25,7 @@ export default function RootLayout({
                                     <RightPanelProvider>
                                         <Grid container component={"main"}>
                                             <Grid item xs={12} md={2}>
-                                                <Sidebar sidebarItems={sidebarItems} />
+                                                <Sidebar sidebarItems={SidebarItems} />
                                             </Grid>
                                             <Grid item xs={12} md={10}>
                                                 <TopBar />
@@ -37,7 +37,7 @@ export default function RootLayout({
                             </ToastProvider>
                         </CustomThemeProvider>
                     </AppRouterCacheProvider>
-                </Providers>
+                </AuthProvider>
             </body>
         </html>
     );

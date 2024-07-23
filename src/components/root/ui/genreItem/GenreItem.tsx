@@ -5,7 +5,7 @@ import { Genre } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 interface IGenreItemProps {
     genre: Genre;

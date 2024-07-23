@@ -1,7 +1,7 @@
 "use server";
 
 import { Genre, Prisma } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma/prisma";
 
 interface GetGenresParams {
     sortBy?: string;

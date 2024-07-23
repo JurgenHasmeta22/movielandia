@@ -12,7 +12,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Link from "next/link";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();

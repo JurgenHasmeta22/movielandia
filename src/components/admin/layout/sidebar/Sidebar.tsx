@@ -17,7 +17,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import { useStore } from "@/store/store";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 import { SidebarItem } from "./components/SidebarItem";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
