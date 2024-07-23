@@ -20,7 +20,7 @@ import {
     removeReviewMovie,
     removeUpvoteMovieReview,
     updateReviewMovie,
-} from "@/lib/actions/user.action";
+} from "@/lib/actions/user.actions";
 import { useModal } from "@/contexts/ModalContext";
 import * as CONSTANTS from "@/constants/Constants";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";

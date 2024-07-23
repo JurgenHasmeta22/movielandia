@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/lib/toast/toast";
-import { signUp } from "@/lib/actions/auth.action";
+import { signUp } from "@/lib/actions/auth.actions";
 
 const registerSchema = yup.object().shape({
     userName: yup

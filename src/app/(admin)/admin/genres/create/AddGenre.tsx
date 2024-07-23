@@ -11,7 +11,7 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
-import { addGenre } from "@/lib/actions/genre.action";
+import { addGenre } from "@/lib/actions/genre.actions";
 
 const genreSchema = yup.object().shape({
     name: yup.string().required("required"),

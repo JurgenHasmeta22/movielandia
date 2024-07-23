@@ -6,7 +6,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getMovies, getLatestMovies } from "@/lib/actions/movie.action";
+import { getMovies, getLatestMovies } from "@/lib/actions/movie.actions";
 import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 import { Suspense } from "react";
 

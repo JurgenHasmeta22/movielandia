@@ -18,7 +18,7 @@ import { signOut } from "next-auth/react";
 import LoadingSpinner from "../../ui/loadingSpinner/LoadingSpinner";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useStore } from "@/store/store";
-import { getGenres } from "@/lib/actions/genre.action";
+import { getGenres } from "@/lib/actions/genre.actions";
 
 const Header = () => {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
