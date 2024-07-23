@@ -1,6 +1,6 @@
 import React from "react";
 import NotFoundPage from "../NotFoundPage";
 
-export default function NotFound404() {
+export default function NotFound() {
     return <NotFoundPage />;
 }

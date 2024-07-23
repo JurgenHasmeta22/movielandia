@@ -109,7 +109,7 @@ export async function getMovieById(movieId: number): Promise<Movie | null> {
 export async function getMovieByTitle(title: string, queryParams: any): Promise<Movie | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
-    const skip = (page - 1) * 5;
+    const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
 
     const orderByObject: any = {};
