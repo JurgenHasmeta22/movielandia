@@ -4,7 +4,7 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalContext";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 interface ITextEditorButtons {
     isEditMode: boolean;

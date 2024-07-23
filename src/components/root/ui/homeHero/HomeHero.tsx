@@ -4,7 +4,7 @@ import { Typography, Button, Box, useTheme } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 import { motion } from "framer-motion";
 
 const containerVariants = {

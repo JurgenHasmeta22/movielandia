@@ -7,7 +7,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { Box, Button, Divider, List, ListItem, Typography, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";

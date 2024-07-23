@@ -7,7 +7,7 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 const AuthButtons = () => {

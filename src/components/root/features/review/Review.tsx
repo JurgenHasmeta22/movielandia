@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 

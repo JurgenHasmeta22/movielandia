@@ -1,7 +1,7 @@
 "use client";
 
 import { Divider, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 export default function DividerLine() {
     const theme = useTheme();

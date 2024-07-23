@@ -26,7 +26,7 @@ import { Formik, Form, FormikProps } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 type FieldConfig = {
     name: string;

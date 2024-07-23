@@ -2,7 +2,7 @@
 
 import React from "react";
 import { CircularProgress, Box, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme";
+import { tokens } from "@/utils/theme/theme";
 
 const LoadingSpinner: React.FC = () => {
     const theme = useTheme();
