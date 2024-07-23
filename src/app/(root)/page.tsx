@@ -13,7 +13,10 @@ export const metadata: Metadata = {
         "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
     openGraph: {
         type: "video.tv_show",
-        url: process.env.NEXT_PUBLIC_PROJECT_URL,
+        url:
+            process.env.NODE_ENV !== "development"
+                ? process.env.NEXT_PUBLIC_PROJECT_URL
+                : process.env.NEXT_PUBLIC_LOCAL_URL,
         title: "MovieLand24 - Your Ultimate Destination for Movies",
         description:
             "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",

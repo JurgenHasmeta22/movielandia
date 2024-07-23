@@ -14,7 +14,8 @@ interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+const baseUrl =
+    process.env.NODE_ENV !== "development" ? process.env.NEXT_PUBLIC_PROJECT_URL : process.env.NEXT_PUBLIC_LOCAL_URL;
 
 export const metadata: Metadata = {
     title: "Watch the Latest Series | High-Quality and Always Updated",
