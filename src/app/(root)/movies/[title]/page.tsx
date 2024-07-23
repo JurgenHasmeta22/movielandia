@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.action";
+import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import MoviePageDetails from "./MoviePageDetails";
@@ -24,7 +24,6 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
     }
 
     const { description, photoSrc } = movie;
-
     const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${title}`;
 
     return {
@@ -70,8 +69,9 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
 }
 
 export default async function Movie({ searchParams, params }: IMovieProps) {
-    const title = params?.title;
+    const session = await getServerSession(authOptions);
 
+    const title = params?.title;
     const ascOrDesc = searchParams?.moviesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
@@ -81,7 +81,6 @@ export default async function Movie({ searchParams, params }: IMovieProps) {
         sortBy,
     };
 
-    const session = await getServerSession(authOptions);
     let movie = null;
 
     try {

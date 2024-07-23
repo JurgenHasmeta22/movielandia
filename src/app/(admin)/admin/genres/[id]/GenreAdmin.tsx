@@ -16,7 +16,7 @@ import { useModal } from "@/contexts/ModalContext";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
 import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.action";
+import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
 import { Genre } from "@prisma/client";
 
 const genreSchema = yup.object().shape({

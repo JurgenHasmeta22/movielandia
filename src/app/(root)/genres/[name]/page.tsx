@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import { Movie, Serie } from "@prisma/client";
-import { getGenreByName } from "@/lib/actions/genre.action";
+import { getGenreByName } from "@/lib/actions/genre.actions";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
@@ -34,7 +34,6 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
 
 export default async function Genre({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
     const name = params?.name;
-
     const pageMovies = Number(searchParams?.pageMovies) || 1;
     const moviesSortBy = searchParams?.moviesSortBy;
     const moviesAscOrDesc = searchParams?.moviesAscOrDesc;

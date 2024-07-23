@@ -1,8 +1,8 @@
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { searchMoviesByTitle } from "@/lib/actions/movie.action";
-import { searchSeriesByTitle } from "@/lib/actions/serie.action";
+import { searchMoviesByTitle } from "@/lib/actions/movie.actions";
+import { searchSeriesByTitle } from "@/lib/actions/serie.actions";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";
@@ -28,7 +28,6 @@ export const metadata: Metadata = {
 
 export default async function Search({ searchParams }: ISearchProps) {
     const term = searchParams?.term;
-
     const pageMovies = Number(searchParams?.pageMovies) || 1;
     const moviesSortBy = searchParams?.moviesSortBy;
     const moviesAscOrDesc = searchParams?.moviesAscOrDesc;
