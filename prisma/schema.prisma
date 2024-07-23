@@ -246,6 +246,7 @@ model Movie {
     id                   Int                 @id @default(autoincrement())
     title                String              @default("")
     photoSrc             String              @default("")
+    photoSrcProd         String              @default("")
     trailerSrc           String              @default("")
     duration             String              @default("")
     ratingImdb           Float               @default(5.0)
@@ -311,9 +312,10 @@ model Genre {
 }
 
 model Serie {
-    id                   Int                 @id @default(autoincrement())
-    title                String              @default("")
-    photoSrc             String              @default("")
+    id           Int    @id @default(autoincrement())
+    title        String @default("")
+    photoSrc     String @default("")
+    photoSrcProd String @default("")
     trailerSrc           String              @default("")
     description          String              @default("")
     releaseYear          Int                 @default(2020)
@@ -332,6 +334,7 @@ model Season {
     id                   Int                  @id @default(autoincrement())
     title                String               @default("")
     photoSrc             String               @default("")
+    photoSrcProd         String               @default("")
     releaseYear          Int                  @default(2020)
     ratingImdb           Float                @default(5.0)
     serieId              Int                  @default(1)
@@ -345,14 +348,12 @@ model Episode {
     id                   Int                   @id @default(autoincrement())
     title                String                @default("")
     photoSrc             String                @default("")
-    videoSrc             String                @default("")
+    photoSrcProd         String                @default("")
     description          String                @default("")
-    //   seasonId             Int
-    //   season               Season                @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    seasonId             Int
+    season               Season                @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     usersWhoBookmarkedIt UserEpisodeFavorite[]
     usersWhoRatedIt      UserEpisodeRating[]
-    Season               Season?               @relation(fields: [seasonId], references: [id])
-    seasonId             Int?
 }
 
 // #endregion
