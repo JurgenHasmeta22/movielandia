@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev --port 4000",
-        "build": "prisma migrate dev && tsx prisma/seed/seed.ts && next build",
+        "build": "prisma generate && prisma migrate deploy && tsx prisma/seed/seed.ts && next build",
         "buildDev": "next build",
         "start": "next start",
         "startDev": "next start --port 4000",
@@ -20,6 +20,7 @@
         "@mui/material-nextjs": "^5.15.11",
         "@mui/x-date-pickers": "^7.7.0",
         "@prisma/client": "^5.15.0",
+        "@vercel/postgres": "^0.9.0",
         "axios": "^1.7.2",
         "bcrypt": "^5.1.1",
         "date-fns": "^3.6.0",
