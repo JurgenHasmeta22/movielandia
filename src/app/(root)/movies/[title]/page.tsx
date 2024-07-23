@@ -25,10 +25,7 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
 
     const { description, photoSrc } = movie;
 
-    const pageUrl =
-        process.env.NODE_ENV !== "development"
-            ? `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${title}`
-            : `${process.env.NEXT_PUBLIC_LOCAL_URL}/movies/${title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${title}`;
 
     return {
         title: `${title} | Movie`,

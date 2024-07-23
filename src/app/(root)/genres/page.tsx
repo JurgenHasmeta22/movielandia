@@ -4,8 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
 
-const baseUrl =
-    process.env.NODE_ENV !== "development" ? process.env.NEXT_PUBLIC_PROJECT_URL : process.env.NEXT_PUBLIC_LOCAL_URL;
+const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
 export const metadata: Metadata = {
     title: "Watch the Latest Genres | High-Quality and Always Updated",
