@@ -59,7 +59,7 @@ export function DetailsPageCard({
                     backgroundColor: `${colors.primary[400]}`,
                 }}
             >
-                <Image src={data.photoSrc} alt={data.title} width={220} height={300} />
+                <Image src={data.photoSrcProd} alt={data.title} width={220} height={300} />
                 <Box
                     sx={{
                         display: "flex",
@@ -123,7 +123,6 @@ export function DetailsPageCard({
                             <ListItem>
                                 <AccessTimeIcon fontSize="medium" />
                                 <Typography component={"span"} width={"8ch"} paddingLeft={1}>
-                                    {/* @ts-expect-error jooho */}
                                     {data.duration}
                                 </Typography>
                             </ListItem>
