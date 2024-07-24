@@ -1,6 +1,6 @@
-import { getGenres } from "@/lib/actions/genre.actions";
-import { getMovies, getMoviesAll } from "@/lib/actions/movie.actions";
-import { getSeries, getSeriesAll } from "@/lib/actions/serie.actions";
+import { getGenresAll } from "@/lib/actions/genre.actions";
+import { getMoviesAll } from "@/lib/actions/movie.actions";
+import { getSeriesAll } from "@/lib/actions/serie.actions";
 import { Genre, Movie, Serie } from "@prisma/client";
 import { MetadataRoute } from "next";
 
@@ -36,8 +36,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })),
     );
 
-    const genresPromise = getGenres({}).then((genresData) =>
-        genresData.rows.map((genre: Genre) => ({
+    const genresPromise = getGenresAll().then((genres) =>
+        genres.map((genre: Genre) => ({
             url: `${baseUrl}/genres/${genre.name}`,
             lastModified: new Date().toISOString(),
             changeFrequency: "weekly",
