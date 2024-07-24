@@ -9,5 +9,5 @@ export const prisma =
         errorFormat: "pretty",
     });
 
-// if (process.env.VERCEL_ENV !== "production") globalForPrisma.prisma = prisma;
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+if (process.env.VERCEL_ENV !== "production") globalForPrisma.prisma = prisma;
+// if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
