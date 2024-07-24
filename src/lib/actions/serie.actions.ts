@@ -93,6 +93,16 @@ export async function getSeries({
     }
 }
 
+export async function getSeriesAll(): Promise<any | null> {
+    const seriesAll = await prisma.serie.findMany();
+
+    if (seriesAll) {
+        return seriesAll;
+    } else {
+        return null;
+    }
+}
+
 export async function getSerieById(serieId: number): Promise<Serie | null> {
     const result = await prisma.serie.findFirst({
         where: { id: serieId },

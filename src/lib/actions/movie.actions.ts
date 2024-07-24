@@ -93,6 +93,16 @@ export async function getMovies({
     }
 }
 
+export async function getMoviesAll(): Promise<any | null> {
+    const moviesAll = await prisma.movie.findMany();
+
+    if (moviesAll) {
+        return moviesAll;
+    } else {
+        return null;
+    }
+}
+
 export async function getMovieById(movieId: number): Promise<Movie | null> {
     const result = await prisma.movie.findFirst({
         where: { id: movieId },
