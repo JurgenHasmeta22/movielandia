@@ -6,19 +6,19 @@ generator client {
     provider = "prisma-client-js"
 }
 
-generator erd {
-    provider = "prisma-erd-generator"
-}
+// generator erd {
+//     provider = "prisma-erd-generator"
+// }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL")
+    directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-generator dbml {
-    provider = "prisma-dbml-generator"
-}
+// generator dbml {
+//     provider = "prisma-dbml-generator"
+// }
 // #endregion
 
 // #region "User relationships"
