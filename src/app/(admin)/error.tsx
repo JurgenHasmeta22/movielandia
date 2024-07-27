@@ -4,7 +4,7 @@ import React from "react";
 import { Button, Typography, Container, Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 
-const Error: React.FC = () => {
+const ErrorPage: React.FC = () => {
     const router = useRouter();
 
     return (
@@ -51,4 +51,4 @@ const Error: React.FC = () => {
     );
 };
 
-export default Error;
+export default ErrorPage;

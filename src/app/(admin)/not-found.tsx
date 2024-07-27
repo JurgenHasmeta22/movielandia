@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function NotFoundPage() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    // const router = useRouter();
+    const router = useRouter();
 
     return (
         <Box
@@ -31,7 +31,7 @@ export default function NotFoundPage() {
                 <Button
                     variant="contained"
                     onClick={() => {
-                        // router.push("/");
+                        router.push("/");
                     }}
                     sx={{ mt: 4, color: colors.primary[100], backgroundColor: colors.greenAccent[600] }}
                 >

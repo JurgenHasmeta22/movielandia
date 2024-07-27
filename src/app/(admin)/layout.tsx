@@ -1,13 +1,13 @@
 import { Grid } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ToastProvider from "@/lib/toast/ToastProvider";
+import ToastProvider from "@/providers/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme/theme";
-import { ModalProvider } from "@/contexts/ModalContext";
-import { RightPanelProvider } from "@/contexts/RightPanelContext";
-import { AuthProvider } from "../AuthProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { RightPanelProvider } from "@/providers/RightPanelProvider";
+import { AuthProvider } from "../../providers/AuthProvider";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
-import { SidebarItems } from "@/utils/other/SidebarItems";
+import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
 
 export default function RootLayout({
     children,

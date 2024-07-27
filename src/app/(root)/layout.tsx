@@ -3,12 +3,12 @@ import Footer from "@/components/root/layout/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ToastProvider from "@/lib/toast/ToastProvider";
+import ToastProvider from "@/providers/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme/theme";
-import { AuthProvider } from "../AuthProvider";
-import { ensureStartsWith } from "@/utils/functions/utils";
-import { ModalProvider } from "@/contexts/ModalContext";
-import { RightPanelProvider } from "@/contexts/RightPanelContext";
+import { AuthProvider } from "../../providers/AuthProvider";
+import { ensureStartsWith } from "@/utils/helpers/utils";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import "../globals.css";
 
 const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";

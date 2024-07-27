@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, MenuItem, Select, SvgIcon, Typography } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
-import { toFirstWordUpperCase } from "@/utils/functions/utils";
+import { toFirstWordUpperCase } from "@/utils/helpers/utils";
 import { useSorting } from "@/hooks/useSorting";
 
 const valueToLabelList: Record<string, string> = {

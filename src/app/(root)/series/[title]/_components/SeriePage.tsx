@@ -11,29 +11,31 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useState, useRef, useEffect } from "react";
 import { useStore } from "@/store/store";
 import {
-    addDownvoteMovieReview,
-    addFavoriteMovieToUser,
-    addReviewMovie,
-    addUpvoteMovieReview,
-    removeDownvoteMovieReview,
-    removeFavoriteMovieToUser,
-    removeReviewMovie,
-    removeUpvoteMovieReview,
-    updateReviewMovie,
+    addDownvoteSerieReview,
+    addFavoriteSerieToUser,
+    addReviewSerie,
+    addUpvoteSerieReview,
+    removeDownvoteSerieReview,
+    removeFavoriteSerieToUser,
+    removeReviewSerie,
+    removeUpvoteSerieReview,
+    updateReviewSerie,
 } from "@/lib/actions/user.actions";
-import { useModal } from "@/contexts/ModalContext";
-import * as CONSTANTS from "@/constants/Constants";
+import { useModal } from "@/providers/ModalProvider";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
+import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/lib/toast/toast";
 
-export default function MoviePageDetails({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
-    // #region "State, hooks etc"
+export default function SeriePage({ searchParamsValues, serie, latestSeries, relatedSeries, pageCount }: any) {
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
-    const [rating, setRating] = useState<number | null>(null);
+    const [rating, setRating] = useState<number | null>(0);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
@@ -48,41 +50,40 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = useStore();
-    // #endregion
 
     // #region "Handlers functions"
 
     // #region "Bookmarks"
-    async function onBookmarkMovie() {
-        if (!session?.user || !movie) return;
+    async function onBookmarkSerie() {
+        if (!session?.user || !serie) return;
 
         try {
-            await addFavoriteMovieToUser(Number(session.user.id), movie.id);
-            showToast("success", "Movie added to favorites!");
+            await addFavoriteSerieToUser(Number(session.user.id), serie.id);
+            showToast("success", "Serie added to favorites!");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error adding movie to favorites: ${error.message}`);
+                console.error(`Error adding serie to favorites: ${error.message}`);
                 showToast("error", `An error occurred: ${error.message}`);
             } else {
-                console.error("Unknown error adding movie to favorites.");
-                showToast("error", "An unexpected error occurred while adding the movie to favorites.");
+                console.error("Unknown error adding serie to favorites.");
+                showToast("error", "An unexpected error occurred while adding the serie to favorites.");
             }
         }
     }
 
-    async function onRemoveBookmarkMovie() {
-        if (!session?.user || !movie) return;
+    async function onRemoveBookmarkSerie() {
+        if (!session?.user || !serie) return;
 
         try {
-            await removeFavoriteMovieToUser(Number(session.user.id), movie.id);
-            showToast("success", "Movie removed from favorites!");
+            await removeFavoriteSerieToUser(Number(session.user.id), serie.id);
+            showToast("success", "Serie removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error removing movie from favorites: ${error.message}`);
+                console.error(`Error removing serie from favorites: ${error.message}`);
                 showToast("error", `An error occurred: ${error.message}`);
             } else {
-                console.error("Unknown error removing movie from favorites.");
-                showToast("error", "An unexpected error occurred while removing the movie from favorites.");
+                console.error("Unknown error removing serie from favorites.");
+                showToast("error", "An unexpected error occurred while removing the serie from favorites.");
             }
         }
     }
@@ -90,12 +91,12 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
 
     // #region "Reviews"
     async function onSubmitReview() {
-        if (!session?.user || !movie) return;
+        if (!session?.user || !serie) return;
 
         try {
-            await addReviewMovie({
-                movieId: movie.id,
-                userId: Number(session.user.id),
+            await addReviewSerie({
+                serieId: serie?.id,
+                userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
             });
@@ -113,7 +114,7 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     }
 
     async function onSubmitRemoveReview() {
-        if (!session?.user || !movie) return;
+        if (!session?.user || !serie) return;
 
         openModal({
             onClose: () => setOpen(false),
@@ -133,8 +134,8 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            await removeReviewMovie({
-                                movieId: movie?.id,
+                            await removeReviewSerie({
+                                serieId: serie?.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -162,11 +163,11 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     }
 
     async function onSubmitUpdateReview() {
-        if (!session?.user || !movie) return;
+        if (!session?.user || !serie) return;
 
         try {
-            await updateReviewMovie({
-                movieId: movie?.id,
+            await updateReviewSerie({
+                serieId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -187,34 +188,34 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     }
     // #endregion
 
-    // #region "upvotes, downvotes"
-    async function onUpvoteMovie(movieReviewId: number, isAlreadyUpvoted: boolean) {
-        if (!session?.user || !movieReviewId) return;
+    // #region "Upvotes, Downvotes"
+    async function onUpvoteSerie(serieReviewId: number, isAlreadyUpvoted: boolean) {
+        if (!session?.user || !serieReviewId) return;
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
             } else {
-                await removeDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
-                await addUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
+                await addUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the upvote to movie review.");
+            showToast("error", "An error occurred while adding the upvote to serie review.");
         }
     }
 
-    async function onDownVoteMovie(movieReviewId: number, isAlreadyDownvoted: boolean) {
-        if (!session?.user || (!movie && !movieReviewId)) return;
+    async function onDownVoteSerie(serieReviewId: number, isAlreadyDownvoted: boolean) {
+        if (!session?.user || (!serie && !serieReviewId)) return;
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
             } else {
-                await removeUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
-                await addDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
+                await addDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the downvoted to movie review.");
+            showToast("error", "An error occurred while adding the downvoted to serie review.");
         }
     }
     // #endregion
@@ -282,29 +283,29 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
     return (
         <Stack flexDirection={"column"} rowGap={4}>
             <DetailsPageCard
-                data={movie}
-                type="movie"
-                isMovieBookmarked={movie.isBookmarked}
-                onBookmarkMovie={onBookmarkMovie}
-                onRemoveBookmarkMovie={onRemoveBookmarkMovie}
+                data={serie}
+                type="serie"
+                isSerieBookmarked={serie.isBookmarked}
+                onBookmarkSerie={onBookmarkSerie}
+                onRemoveBookmarkSerie={onRemoveBookmarkSerie}
             />
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: movie?.reviews!.length > 0 ? 4 : 0,
+                    mb: serie?.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {movie?.reviews!.length > 0 && (
+                {serie?.reviews!.length > 0 && (
                     <Reviews
-                        data={movie}
+                        data={serie}
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {movie?.reviews!.map((review: any, index: number) => (
+                {serie?.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -315,18 +316,18 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                         handleFocusTextEditor={handleFocusTextEditor}
                         ref={reviewRef}
                         setRating={setRating}
-                        handleUpvote={onUpvoteMovie}
-                        handleDownvote={onDownVoteMovie}
-                        type="movie"
-                        data={movie}
+                        handleUpvote={onUpvoteSerie}
+                        handleDownvote={onDownVoteSerie}
+                        type="serie"
+                        data={serie}
                         handleOpenUpvotesModal={handleOpenUpvotesModal}
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {movie?.totalReviews > 0 && (
+                {serie?.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
-                {session?.user && (!movie.isReviewed || isEditMode) && (
+                {session?.user && (!serie.isReviewed || isEditMode) && (
                     <TextEditorForm
                         review={review}
                         setReview={setReview}
@@ -342,8 +343,8 @@ export default function MoviePageDetails({ searchParamsValues, movie, latestMovi
                     />
                 )}
             </Box>
-            <ListDetail data={latestMovies!} type="movie" roleData={"latest"} />
-            <ListDetail data={relatedMovies!} type="movie" roleData="related" />
+            <ListDetail data={latestSeries!} type="serie" roleData={"latest"} />
+            <ListDetail data={relatedSeries!} type="serie" roleData="related" />
         </Stack>
     );
 }
