@@ -34,13 +34,15 @@ const Header = () => {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
+                // This sometimes broken when going to not-foundpage
                 // Server actions in fetching inside a client component instead of using a API route
-                ("use server");
-                const genresData = await getGenres({});
-                setGenres(genresData.rows);
+                // ("use server");
+                // const genresData = await getGenres({});
+                // setGenres(genresData.rows);
 
-                // const response = await fetch("/api/genres");
-                // const data = await response.json();
+                const response = await fetch("/api/genres");
+                const genres: Genre[] = await response.json();
+                setGenres(genres);
             } catch (error) {
                 console.error("Failed to fetch genres:", error);
             }
