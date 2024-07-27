@@ -2,13 +2,7 @@ import Header from "@/components/root/layout/header/Header";
 import Footer from "@/components/root/layout/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ToastProvider from "@/providers/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme/theme";
-import { AuthProvider } from "../../providers/AuthProvider";
 import { ensureStartsWith } from "@/utils/helpers/utils";
-import { ModalProvider } from "@/providers/ModalProvider";
-import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import "../globals.css";
 
 const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
@@ -36,37 +30,19 @@ export const metadata = {
         }),
 };
 
-export default function RootLayout({
+export default function BaseLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body>
-                <AuthProvider>
-                    <AppRouterCacheProvider>
-                        <CustomThemeProvider>
-                            <ToastProvider>
-                                <ModalProvider>
-                                    <RightPanelProvider>
-                                        <Grid container>
-                                            <Grid item xs={12}>
-                                                {/* <Suspense> */}
-                                                <Header />
-                                                {/* </Suspense> */}
-                                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                                                <ScrollToTop />
-                                                <Footer />
-                                            </Grid>
-                                        </Grid>
-                                    </RightPanelProvider>
-                                </ModalProvider>
-                            </ToastProvider>
-                        </CustomThemeProvider>
-                    </AppRouterCacheProvider>
-                </AuthProvider>
-            </body>
-        </html>
+        <Grid container>
+            <Grid item xs={12}>
+                <Header />
+                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                <ScrollToTop />
+                <Footer />
+            </Grid>
+        </Grid>
     );
 }
