@@ -1,29 +1,34 @@
 export const users = [
     {
+        id: 1,
         userName: "admin",
         email: "admin@example.com",
         password: "admin123",
         role: "Admin",
     },
     {
+        id: 2,
         userName: "john_doe",
         email: "john.doe@example.com",
         password: "password123",
         role: "User",
     },
     {
+        id: 3,
         userName: "jane_doe",
         email: "jane.doe@example.com",
         password: "password123",
         role: "User",
     },
     {
+        id: 4,
         userName: "alice_smith",
         email: "alice.smith@example.com",
         password: "password123",
         role: "User",
     },
     {
+        id: 5,
         userName: "bob_jones",
         email: "bob.jones@example.com",
         password: "password123",
@@ -238,7 +243,7 @@ export const movies = [
     },
     {
         id: 17,
-        title: "14 Peaks: Nothing Is Impossible (2021)",
+        title: "14 Peaks Nothing Is Impossible (2021)",
         trailerSrc: "https://www.youtube.com/embed/8QH5hBOoz08",
         duration: "101 min",
         releaseYear: 2021,
@@ -444,7 +449,7 @@ export const series = [
     },
     {
         id: 16,
-        title: "Power Book IV: Force",
+        title: "Power Book IV Force",
         trailerSrc: "https://www.youtube.com/embed/uiGzLrJSk8E",
         description:
             'Power Book IV: Force is an American drama series created by Courtney A. Kemp for Starz. The series follows the life of Tommy Egan, a character first introduced in the series "Power", as he becomes involved in the world of organized crime in Chicago.',
