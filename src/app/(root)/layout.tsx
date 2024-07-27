@@ -4,6 +4,12 @@ import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { ensureStartsWith } from "@/utils/helpers/utils";
 import "../globals.css";
+import { AuthProvider } from "@/providers/AuthProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { RightPanelProvider } from "@/providers/RightPanelProvider";
+import ToastProvider from "@/providers/ToastProvider";
+import { CustomThemeProvider } from "@/utils/theme/theme";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 
 const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -30,19 +36,35 @@ export const metadata = {
         }),
 };
 
-export default function BaseLayout({
+export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <Grid container>
-            <Grid item xs={12}>
-                <Header />
-                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                <ScrollToTop />
-                <Footer />
-            </Grid>
-        </Grid>
+        <html suppressHydrationWarning lang="en">
+            <body>
+                <AuthProvider>
+                    <AppRouterCacheProvider>
+                        <CustomThemeProvider>
+                            <ToastProvider>
+                                <ModalProvider>
+                                    <RightPanelProvider>
+                                        <Grid container>
+                                            <Grid item xs={12}>
+                                                <Header />
+                                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                                                <ScrollToTop />
+                                                <Footer />
+                                            </Grid>
+                                        </Grid>
+                                    </RightPanelProvider>
+                                </ModalProvider>
+                            </ToastProvider>
+                        </CustomThemeProvider>
+                    </AppRouterCacheProvider>
+                </AuthProvider>
+            </body>
+        </html>
     );
 }

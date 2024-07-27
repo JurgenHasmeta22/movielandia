@@ -1,10 +1,9 @@
 "use client";
 
 import { tokens } from "@/utils/theme/theme";
-import { Box, Typography, useTheme } from "@mui/material";
-import Link from "next/link";
+import { Box, colors, Link, Typography, useTheme } from "@mui/material";
 
-export default function NotFound() {
+export default function NotFoundPage() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
