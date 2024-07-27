@@ -1,5 +1,3 @@
-"use client";
-
 import NotFoundPage from "@/app/_components/NotFoundPage";
 
 export default function NotFound() {
