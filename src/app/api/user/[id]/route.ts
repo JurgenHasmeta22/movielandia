@@ -1,15 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma/prisma";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { id } = req.query;
-
-    if (typeof id !== "string") {
-        return res.status(400).json({ error: "Invalid user ID" });
-    }
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+    const id = Number(params.id);
 
     const user = await prisma.user.findUnique({
-        where: { id: parseInt(id, 10) },
+        where: { id },
         include: {
             favMovies: { include: { movie: true } },
             favSeries: { include: { serie: true } },
@@ -23,22 +18,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        return Response.json({ error: "User not found" }, { status: 404 });
+    } else {
+        const userDetails = {
+            id: user.id,
+            email: user.email,
+            userName: user.userName,
+            favMovies: user.favMovies,
+            favSeries: user.favSeries,
+            movieReviews: user.movieReviews,
+            serieReviews: user.serieReviews,
+            upvotedMovies: user.upvotedMovies,
+            downvotedMovies: user.downvotedMovies,
+            upvotedSeries: user.upvotedSeries,
+            downvotedSeries: user.downvotedSeries,
+        };
+
+        return Response.json(userDetails, { status: 200 });
     }
-
-    const userDetails = {
-        id: user.id,
-        email: user.email,
-        userName: user.userName,
-        favMovies: user.favMovies,
-        favSeries: user.favSeries,
-        movieReviews: user.movieReviews,
-        serieReviews: user.serieReviews,
-        upvotedMovies: user.upvotedMovies,
-        downvotedMovies: user.downvotedMovies,
-        upvotedSeries: user.upvotedSeries,
-        downvotedSeries: user.downvotedSeries,
-    };
-
-    res.status(200).json(userDetails);
 }

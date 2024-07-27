@@ -11,11 +11,11 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
-import Loading from "@/app/(root)/loading";
+import Loading from "@/app/loading";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
-import { useModal } from "@/contexts/ModalContext";
+import { useModal } from "@/providers/ModalProvider";
 import { getUserById } from "@/lib/actions/user.actions";
 import { User } from "next-auth";
 

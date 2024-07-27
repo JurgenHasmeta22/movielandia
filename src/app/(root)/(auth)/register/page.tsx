@@ -1,6 +1,6 @@
-import RegisterForm from "@/components/root/features/registerForm/RegisterForm";
 import { Box, Paper } from "@mui/material";
 import type { Metadata } from "next";
+import RegisterForm from "./_components/RegisterForm";
 
 export const metadata: Metadata = {
     title: "Register - MovieLandi24 - Your Ultimate Destination for Movies",

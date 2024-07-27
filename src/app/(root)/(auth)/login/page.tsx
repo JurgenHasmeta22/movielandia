@@ -1,6 +1,6 @@
-import LoginForm from "@/components/root/features/loginForm/LoginForm";
 import { Box, Paper } from "@mui/material";
 import type { Metadata } from "next";
+import LoginForm from "./_components/LoginForm";
 
 export const metadata: Metadata = {
     title: "Login - MovieLandi24 - Your Ultimate Destination for Movies",
