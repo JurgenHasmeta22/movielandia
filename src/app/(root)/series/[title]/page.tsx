@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SeriePageDetails from "./SeriePageDetails";
+import SeriePageDetails from "./_components/SeriePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -72,7 +72,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
 export default async function Serie({ searchParams, params }: ISerieProps) {
     const session = await getServerSession(authOptions);
 
-    const title = params?.title;
+    const title = params.title;
     const ascOrDesc = searchParams?.seriesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";

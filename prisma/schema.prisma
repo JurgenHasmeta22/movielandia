@@ -2,6 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // #region "Generators settings"
+
 generator client {
     provider = "prisma-client-js"
 }
@@ -12,13 +13,15 @@ generator client {
 
 datasource db {
     provider  = "postgresql"
-    url       = env("POSTGRES_PRISMA_URL")
+    // url      = env("POSTGRES_PRISMA_URL")
+    url       = env("POSTGRES_URL")
     directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 // generator dbml {
 //     provider = "prisma-dbml-generator"
 // }
+
 // #endregion
 
 // #region "User relationships"

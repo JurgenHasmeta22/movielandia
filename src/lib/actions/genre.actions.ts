@@ -63,6 +63,16 @@ export async function getGenres({
     }
 }
 
+export async function getGenresAll(): Promise<any | null> {
+    const genres = await prisma.genre.findMany();
+
+    if (genres) {
+        return genres;
+    } else {
+        return null;
+    }
+}
+
 export async function getGenreById(id: number): Promise<Genre | null> {
     const result = await prisma.genre.findUnique({
         where: {
