@@ -8,6 +8,7 @@
         "buildDev": "next build",
         "start": "next start",
         "startDev": "next start --port 4000",
+        "seed": "npx prisma migrate dev && tsx prisma/seed/seed.ts",
         "lint": "next lint",
         "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss} --config ./.prettierrc"
     },
