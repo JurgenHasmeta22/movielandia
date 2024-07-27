@@ -1,7 +1,5 @@
-"use client";
-
-import NotFoundPage from "@/app/_components/NotFoundPage";
+import NotFoundDynamicPage from "@/app/_components/NotFoundDynamicPage";
 
 export default function NotFound() {
-    return <NotFoundPage />;
+    return <NotFoundDynamicPage />;
 }
