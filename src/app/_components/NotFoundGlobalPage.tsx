@@ -3,7 +3,7 @@
 import { tokens } from "@/utils/theme/theme";
 import { Box, colors, Link, Typography, useTheme } from "@mui/material";
 
-export default function NotFoundPage() {
+export default function NotFoundGlobalPage() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -29,9 +29,11 @@ export default function NotFoundPage() {
                 <Typography variant="h4" component="p" sx={{ color: colors.primary[100] }}>
                     The page you are looking for might have been removed, or is temporarily unavailable.
                 </Typography>
-                <Link href={"/"} style={{ marginTop: 8, textDecoration: "none" }}>
+                {/* <Box marginTop={8}> */}
+                <Link href={"/"} style={{ textDecoration: "none", color: colors.primary[100] }}>
                     Go back home
                 </Link>
+                {/* </Box> */}
             </Box>
         </Box>
     );
