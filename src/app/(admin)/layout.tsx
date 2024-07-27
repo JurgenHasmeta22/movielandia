@@ -1,13 +1,20 @@
 import { Grid } from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ToastProvider from "@/lib/toast/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme/theme";
-import { ModalProvider } from "@/contexts/ModalContext";
-import { RightPanelProvider } from "@/contexts/RightPanelContext";
-import { AuthProvider } from "../AuthProvider";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
-import { SidebarItems } from "@/utils/other/SidebarItems";
+import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
+import { AuthProvider } from "@/providers/AuthProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { RightPanelProvider } from "@/providers/RightPanelProvider";
+import ToastProvider from "@/providers/ToastProvider";
+import { CustomThemeProvider } from "@/utils/theme/theme";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+
+export const metadata = {
+    robots: {
+        follow: false,
+        index: false,
+    },
+};
 
 export default function RootLayout({
     children,
@@ -15,7 +22,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html suppressHydrationWarning lang="en">
             <body>
                 <AuthProvider>
                     <AppRouterCacheProvider>

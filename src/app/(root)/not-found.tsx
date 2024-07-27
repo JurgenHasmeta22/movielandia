@@ -1,6 +1,5 @@
-import React from "react";
-import NotFoundPage from "../NotFoundPage";
+import NotFoundGlobalPage from "../_components/NotFoundGlobalPage";
 
 export default function NotFound() {
-    return <NotFoundPage />;
+    return <NotFoundGlobalPage />;
 }

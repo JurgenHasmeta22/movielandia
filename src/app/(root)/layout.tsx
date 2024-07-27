@@ -2,14 +2,14 @@ import Header from "@/components/root/layout/header/Header";
 import Footer from "@/components/root/layout/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ToastProvider from "@/lib/toast/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme/theme";
-import { AuthProvider } from "../AuthProvider";
-import { ensureStartsWith } from "@/utils/functions/utils";
-import { ModalProvider } from "@/contexts/ModalContext";
-import { RightPanelProvider } from "@/contexts/RightPanelContext";
+import { ensureStartsWith } from "@/utils/helpers/utils";
 import "../globals.css";
+import { AuthProvider } from "@/providers/AuthProvider";
+import { ModalProvider } from "@/providers/ModalProvider";
+import { RightPanelProvider } from "@/providers/RightPanelProvider";
+import ToastProvider from "@/providers/ToastProvider";
+import { CustomThemeProvider } from "@/utils/theme/theme";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 
 const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -42,7 +42,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html suppressHydrationWarning lang="en">
             <body>
                 <AuthProvider>
                     <AppRouterCacheProvider>
@@ -52,9 +52,7 @@ export default function RootLayout({
                                     <RightPanelProvider>
                                         <Grid container>
                                             <Grid item xs={12}>
-                                                {/* <Suspense> */}
                                                 <Header />
-                                                {/* </Suspense> */}
                                                 <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
                                                 <ScrollToTop />
                                                 <Footer />

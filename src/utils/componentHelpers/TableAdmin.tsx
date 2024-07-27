@@ -15,7 +15,7 @@ import {
 import { Box, Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } from "@mui/material";
 import { Edit, Delete, Add, CheckOutlined, WarningOutlined } from "@mui/icons-material";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { useModal } from "@/contexts/ModalContext";
+import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -210,8 +210,8 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
             let response: any;
 
             const queryParams = {
-                page: String(pagination?.pageIndex! + 1),
-                pageSize: String(pagination?.pageSize!),
+                page: Number(pagination?.pageIndex + 1),
+                pageSize: Number(pagination?.pageSize),
                 ...(sorting?.length > 0 && {
                     ascOrDesc: sorting[0].desc ? "desc" : "asc",
                     sortBy: sorting[0].id,
