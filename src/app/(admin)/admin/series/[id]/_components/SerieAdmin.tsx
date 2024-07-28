@@ -1,55 +1,46 @@
-import { Box } from "@mui/material";
-import HeaderDashboard from "~/components/admin/headerDashboard/HeaderDashboard";
+import { Box, Link } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router";
-import movieService from "~/services/api/movieService";
 import { FormikProps } from "formik";
 import * as yup from "yup";
-import IMovie from "~/types/IMovie";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { Link, useParams } from "react-router-dom";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "~/components/admin/form/Form";
 import { toast } from "react-toastify";
-import * as CONSTANTS from "~/constants/Constants";
-import Breadcrumb from "~/components/admin/breadcrumb/Breadcrumb";
-import IMoviePatch from "~/types/IMoviePatch";
-import { useModal } from "~/services/providers/ModalContext";
+import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import Loading from "~/components/loading/Loading";
+import { Serie } from "@prisma/client";
+import Loading from "@/app/(admin)/loading";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { useModal } from "@/providers/ModalProvider";
+import { updateSerieById, getSerieById, deleteSerieById } from "@/lib/actions/serie.actions";
 
-const movieSchema = yup.object().shape({
+const serieSchema = yup.object().shape({
     title: yup.string().required("required"),
     photoSrc: yup.string().required("required"),
-    trailerSrc: yup.string().required("required"),
-    duration: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
     ratingImdb: yup.string().required("required"),
-    description: yup.string().required("required"),
+    releaseYear: yup.string().required("required"),
 });
 
-const MovieAdmin = () => {
-    const [movie, setMovie] = useState<IMovie | null>(null);
+const SerieAdminPage = () => {
+    const [serie, setSerie] = useState<Serie | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
 
-    const navigate = useNavigate();
-    const params = useParams();
-    const location = useLocation();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/movies/${params?.id}`} style={{ textDecoration: "none" }}>
-            Movie {`${params?.id}`}
+        <Link key="2" to={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
+            Serie {`${params?.id}`}
         </Link>,
     ];
 
     if (location?.state?.from) {
-        breadcrumbs.unshift(
-            <Link key="1" to={"/admin/movies"} style={{ textDecoration: "none" }}>
+        breadcrumbs.push(
+            <Link key="1" to={"/admin/series"} style={{ textDecoration: "none" }}>
                 {location.state.from}
             </Link>,
         );
@@ -64,33 +55,30 @@ const MovieAdmin = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: IMoviePatch = {
+        const payload: ISeriePatch = {
             title: values.title,
-            description: values.description,
-            duration: values.duration,
             photoSrc: values.photoSrc,
-            trailerSrc: values.trailerSrc,
             ratingImdb: Number(values.ratingImdb),
             releaseYear: Number(values.releaseYear),
         };
-        const response = await movieService.updateMovie(payload, movie?.id);
+        const response = await updateSerieById(payload, serie?.id!);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getMovie();
+            getSerie();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getMovie(): Promise<void> {
-        const response: IMovie = await movieService.getMovieById(params.id);
-        setMovie(response);
+    async function getSerie(): Promise<void> {
+        const response = await getSerieById(params.id);
+        setSerie(response);
     }
 
     useEffect(() => {
         async function fetchData() {
-            await getMovie();
+            await getSerie();
             setLoading(false);
         }
 
@@ -101,23 +89,20 @@ const MovieAdmin = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
-            <HeaderDashboard title={CONSTANTS.MOVIE__EDIT__TITLE} subtitle={CONSTANTS.MOVIE__EDIT__SUBTITLE} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
+            <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    id: movie?.id,
-                    title: movie?.title,
-                    trailerSrc: movie?.trailerSrc,
-                    photoSrc: movie?.photoSrc,
-                    description: movie?.description,
-                    releaseYear: movie?.releaseYear,
-                    ratingImdb: movie?.ratingImdb,
-                    duration: movie?.duration,
+                    id: serie?.id,
+                    title: serie?.title,
+                    photoSrc: serie?.photoSrc,
+                    releaseYear: serie?.releaseYear,
+                    ratingImdb: serie?.ratingImdb,
                 }}
                 fields={[
                     {
                         name: "id",
-                        label: "Id",
+                        label: "Serie id",
                         disabled: true,
                         variant: "filled",
                         type: "text",
@@ -135,18 +120,6 @@ const MovieAdmin = () => {
                         type: "text",
                     },
                     {
-                        name: "description",
-                        label: "Description",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "trailerSrc",
-                        label: "Trailer src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
                         name: "releaseYear",
                         label: "Release year",
                         variant: "filled",
@@ -154,13 +127,7 @@ const MovieAdmin = () => {
                     },
                     {
                         name: "ratingImdb",
-                        label: "Rating imdb",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "duration",
-                        label: "Duration",
+                        label: "RatingImdb",
                         variant: "filled",
                         type: "text",
                     },
@@ -169,7 +136,7 @@ const MovieAdmin = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={movieSchema}
+                validationSchema={serieSchema}
                 formRef={formikRef}
                 actions={[
                     {
@@ -177,7 +144,7 @@ const MovieAdmin = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected movie ${formData.title}`,
+                                title: `Delete selected serie ${formData.title}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -192,11 +159,11 @@ const MovieAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await movieService.deleteMovie(movie?.id);
+                                            const response = await deleteSerieById(serie?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/movies");
+                                                navigate("/admin/series");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -249,4 +216,4 @@ const MovieAdmin = () => {
     );
 };
 
-export default MovieAdmin;
+export default SerieAdminPage;

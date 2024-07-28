@@ -14,10 +14,8 @@ import HeaderMenu from "../headerMenu/HeaderMenu";
 import { Genre } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import LoadingSpinner from "../../ui/loadingSpinner/LoadingSpinner";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useStore } from "@/store/store";
-import { getGenres } from "@/lib/actions/genre.actions";
 
 const Header = () => {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
@@ -34,12 +32,6 @@ const Header = () => {
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                // This sometimes broken when going to not-foundpage
-                // Server actions in fetching inside a client component instead of using a API route
-                // ("use server");
-                // const genresData = await getGenres({});
-                // setGenres(genresData.rows);
-
                 const response = await fetch("/api/genres");
                 const genres: Genre[] = await response.json();
                 setGenres(genres);

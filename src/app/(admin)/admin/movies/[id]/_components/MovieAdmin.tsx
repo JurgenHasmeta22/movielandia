@@ -1,48 +1,55 @@
 "use client";
 
 import { Box, Link } from "@mui/material";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "@/components/admin/ui/form/Form";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
-import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
-import { Genre } from "@prisma/client";
+import { Movie } from "@prisma/client";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import { useParams } from "next/navigation";
+import { deleteMovieById, getMovieById, updateMovieById } from "@/lib/actions/movie.actions";
 
-const genreSchema = yup.object().shape({
-    name: yup.string().required("required"),
+const movieSchema = yup.object().shape({
+    title: yup.string().required("required"),
+    photoSrc: yup.string().required("required"),
+    trailerSrc: yup.string().required("required"),
+    duration: yup.string().required("required"),
+    releaseYear: yup.string().required("required"),
+    ratingImdb: yup.string().required("required"),
+    description: yup.string().required("required"),
 });
 
-const GenreAdmin = () => {
-    const [genre, setGenre] = useState<Genre | null>(null);
+const MovieAdmin = () => {
+    const [movie, setMovie] = useState<Movie | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
 
-    const router = useRouter();
+    const navigate = useNavigate();
     const params = useParams();
+    const location = useLocation();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
-            Genre {`${params?.id}`}
+        <Link key="2" to={`/admin/movies/${params?.id}`} style={{ textDecoration: "none" }}>
+            Movie {`${params?.id}`}
         </Link>,
     ];
 
     if (location?.state?.from) {
-        breadcrumbs.push(
-            <Link key="1" to={"/admin/genres"} style={{ textDecoration: "none" }}>
+        breadcrumbs.unshift(
+            <Link key="1" to={"/admin/movies"} style={{ textDecoration: "none" }}>
                 {location.state.from}
             </Link>,
         );
@@ -58,27 +65,32 @@ const GenreAdmin = () => {
 
     const handleFormSubmit = async (values: any) => {
         const payload = {
-            name: values.name,
+            title: values.title,
+            description: values.description,
+            duration: values.duration,
+            photoSrc: values.photoSrc,
+            trailerSrc: values.trailerSrc,
+            ratingImdb: Number(values.ratingImdb),
+            releaseYear: Number(values.releaseYear),
         };
-
-        const response = await updateGenreById(payload, genre?.id);
+        const response = await updateMovieById(payload, movie?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getGenre();
+            getMovie();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getGenre(): Promise<void> {
-        const response = await getGenreById(params.id);
-        setGenre(response);
+    async function getMovie(): Promise<void> {
+        const response: Movie = await getMovieById(params.id);
+        setMovie(response);
     }
 
     useEffect(() => {
         async function fetchData() {
-            await getGenre();
+            await getMovie();
             setLoading(false);
         }
 
@@ -89,24 +101,66 @@ const GenreAdmin = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
-            <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
+            <HeaderDashboard title={CONSTANTS.MOVIE__EDIT__TITLE} subtitle={CONSTANTS.MOVIE__EDIT__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    id: genre?.id,
-                    name: genre?.name,
+                    id: movie?.id,
+                    title: movie?.title,
+                    trailerSrc: movie?.trailerSrc,
+                    photoSrc: movie?.photoSrc,
+                    description: movie?.description,
+                    releaseYear: movie?.releaseYear,
+                    ratingImdb: movie?.ratingImdb,
+                    duration: movie?.duration,
                 }}
                 fields={[
                     {
                         name: "id",
-                        label: "Genre id",
+                        label: "Id",
                         disabled: true,
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "name",
-                        label: "Name",
+                        name: "title",
+                        label: "Title",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrc",
+                        label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "description",
+                        label: "Description",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "trailerSrc",
+                        label: "Trailer src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "releaseYear",
+                        label: "Release year",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "ratingImdb",
+                        label: "Rating imdb",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "duration",
+                        label: "Duration",
                         variant: "filled",
                         type: "text",
                     },
@@ -115,7 +169,7 @@ const GenreAdmin = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={genreSchema}
+                validationSchema={movieSchema}
                 formRef={formikRef}
                 actions={[
                     {
@@ -123,7 +177,7 @@ const GenreAdmin = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected genre ${formData.name}`,
+                                title: `Delete selected movie ${formData.title}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -138,11 +192,11 @@ const GenreAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteGenreById(genre?.id);
+                                            const response = await deleteMovieById(movie?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                router.push("/admin/genres");
+                                                navigate("/admin/movies");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -195,4 +249,4 @@ const GenreAdmin = () => {
     );
 };
 
-export default GenreAdmin;
+export default MovieAdmin;
