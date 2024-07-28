@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Link } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
@@ -9,12 +11,12 @@ import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { Serie } from "@prisma/client";
-import Loading from "@/app/(admin)/loading";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
 import { updateSerieById, getSerieById, deleteSerieById } from "@/lib/actions/serie.actions";
+import { useRouter } from "next/navigation";
 
 const serieSchema = yup.object().shape({
     title: yup.string().required("required"),
@@ -27,20 +29,21 @@ const SerieAdminPage = () => {
     const [serie, setSerie] = useState<Serie | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
-
-    const formikRef = useRef<FormikProps<any>>(null);
-    const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
+    const router = useRouter();
+    const formikRef = useRef<FormikProps<any>>(null);
+    const { openModal } = useModal();
+
     const breadcrumbs = [
-        <Link key="2" to={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
+        <Link key="2" href={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
             Serie {`${params?.id}`}
         </Link>,
     ];
 
     if (location?.state?.from) {
         breadcrumbs.push(
-            <Link key="1" to={"/admin/series"} style={{ textDecoration: "none" }}>
+            <Link key="1" href={"/admin/series"} style={{ textDecoration: "none" }}>
                 {location.state.from}
             </Link>,
         );
@@ -55,7 +58,7 @@ const SerieAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: ISeriePatch = {
+        const payload = {
             title: values.title,
             photoSrc: values.photoSrc,
             ratingImdb: Number(values.ratingImdb),
@@ -84,8 +87,6 @@ const SerieAdminPage = () => {
 
         fetchData();
     }, []);
-
-    if (loading) return <Loading />;
 
     return (
         <Box m="20px">
@@ -163,7 +164,7 @@ const SerieAdminPage = () => {
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/series");
+                                                router.push("/admin/series");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }

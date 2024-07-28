@@ -20,7 +20,7 @@ const serieSchema = yup.object().shape({
     ratingImdb: yup.string().required("required"),
 });
 
-const AddSerie = () => {
+const AddSerieAdminPage = () => {
     const formikRef = useRef<FormikProps<any>>(null);
     const router = useRouter();
 
@@ -120,4 +120,4 @@ const AddSerie = () => {
     );
 };
 
-export default AddSerie;
+export default AddSerieAdminPage;

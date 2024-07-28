@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+"use client";
 
 import { Box, Link } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
@@ -11,13 +10,13 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
-import Loading from "@/app/loading";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
-import { getUserById } from "@/lib/actions/user.actions";
+import { deleteUserById, getUserById, updateUserById } from "@/lib/actions/user.actions";
 import { User } from "next-auth";
+import { useRouter } from "next/navigation";
 
 const userSchema = yup.object().shape({
     userName: yup.string().required("required"),
@@ -28,9 +27,11 @@ const UserAdmin = () => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
+    const [open, setOpen] = useState(false);
+
+    const router = useRouter();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
-    const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
         <Link key="2" to={`/admin/users/${params?.id}`} style={{ textDecoration: "none" }}>
@@ -61,7 +62,7 @@ const UserAdmin = () => {
             password: values.password,
         };
 
-        const response = await updateUser(payload, user?.id);
+        const response = await updateUserById(payload, user?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -84,8 +85,6 @@ const UserAdmin = () => {
 
         fetchData();
     }, []);
-
-    if (loading) return <Loading />;
 
     return (
         <Box m="20px">
@@ -147,11 +146,11 @@ const UserAdmin = () => {
                                         onClick: async () => {
                                             setOpen(false);
 
-                                            const response = await userService.deleteUser(user?.id);
+                                            const response = await deleteUserById(user?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/users");
+                                                router.push("/admin/users");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
