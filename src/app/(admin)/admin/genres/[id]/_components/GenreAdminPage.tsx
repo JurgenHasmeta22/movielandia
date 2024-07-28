@@ -35,15 +35,15 @@ const GenreAdminPage = () => {
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
+        <Link key="2" href={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
             Genre {`${params?.id}`}
         </Link>,
     ];
 
     if (location?.state?.from) {
         breadcrumbs.push(
-            <Link key="1" to={"/admin/genres"} style={{ textDecoration: "none" }}>
-                {location.state.from}
+            <Link key="1" href={"/admin/genres"} style={{ textDecoration: "none" }}>
+                {/* {location.state.from} */}
             </Link>,
         );
     }

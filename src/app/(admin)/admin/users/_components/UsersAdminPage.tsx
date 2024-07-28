@@ -1,4 +1,4 @@
-" use client";
+"use client";
 
 import { Box } from "@mui/material";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
@@ -7,7 +7,7 @@ import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import TableAdmin from "@/utils/componentHelpers/TableAdmin";
 
-const UsersAdmin = () => {
+const UsersAdminPage = () => {
     const router = useRouter();
     const columns = useMemo<MRT_ColumnDef<any>[]>(
         () => [
@@ -48,4 +48,4 @@ const UsersAdmin = () => {
     );
 };
 
-export default UsersAdmin;
+export default UsersAdminPage;
