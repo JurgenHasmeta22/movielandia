@@ -1,25 +1,28 @@
 "use client";
 
 import { Box } from "@mui/material";
-import Header from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import FormAdvanced from "@/components/admin/ui/form/Form";
 import { FormikProps } from "formik";
 import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useRouter } from "next/navigation";
-import { addGenre } from "@/lib/actions/genre.actions";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { addSerie } from "@/lib/actions/serie.actions";
 
-const genreSchema = yup.object().shape({
-    name: yup.string().required("required"),
+const serieSchema = yup.object().shape({
+    title: yup.string().required("required"),
+    photoSrc: yup.string().required("required"),
+    releaseYear: yup.string().required("required"),
+    ratingImdb: yup.string().required("required"),
 });
 
-const AddGenre = () => {
-    const router = useRouter();
+const AddSerie = () => {
     const formikRef = useRef<FormikProps<any>>(null);
+    const router = useRouter();
 
     const handleResetFromParent = () => {
         formikRef.current?.resetForm();
@@ -27,14 +30,16 @@ const AddGenre = () => {
 
     const handleFormSubmit = async (values: any) => {
         const payload = {
-            name: values.name,
+            title: values.title,
+            photoSrc: values.photoSrc,
+            ratingImdb: Number(values.ratingImdb),
+            releaseYear: Number(values.releaseYear),
         };
-
-        const response = await addGenre(payload);
+        const response = await addSerie(payload);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            router.push(`/admin/genres/${response.id}`);
+            router.push(`/admin/series/${response.id}`);
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
@@ -42,15 +47,36 @@ const AddGenre = () => {
 
     return (
         <Box m="20px">
-            <Header title={CONSTANTS.GENRE__ADD__TITLE} subtitle={CONSTANTS.GENRE__ADD__SUBTITLE} />
+            <HeaderDashboard title={CONSTANTS.SERIE__ADD__TITLE} subtitle={CONSTANTS.SERIE__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    name: "",
+                    title: "",
+                    photoSrc: "",
+                    releaseYear: "",
+                    ratingImdb: "",
                 }}
                 fields={[
                     {
-                        name: "name",
-                        label: "Name",
+                        name: "title",
+                        label: "Title",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrc",
+                        label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "releaseYear",
+                        label: "Release year",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "ratingImdb",
+                        label: "Rating imdb",
                         variant: "filled",
                         type: "text",
                     },
@@ -87,11 +113,11 @@ const AddGenre = () => {
                     },
                 ]}
                 onSubmit={handleFormSubmit}
-                validationSchema={genreSchema}
+                validationSchema={serieSchema}
                 formRef={formikRef}
             />
         </Box>
     );
 };
 
-export default AddGenre;
+export default AddSerie;

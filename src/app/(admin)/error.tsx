@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
-import { Button, Typography, Container, Box } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Link from "next/link";
+import { Box, Button, Container, Typography } from "@mui/material";
 
-const ErrorPage: React.FC = () => {
-    const router = useRouter();
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+    useEffect(() => {
+        console.error(error);
+    }, [error]);
 
     return (
         <Container maxWidth="sm">
@@ -24,31 +26,17 @@ const ErrorPage: React.FC = () => {
                     transition: "background-color 0.5s ease",
                 }}
             >
-                <Typography variant="body1" gutterBottom>
-                    There was an issue with our page. This could be a temporary issue.
+                <Typography variant="h1" gutterBottom>
+                    Oops! Something went wrong.
                 </Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                        router.push("/");
-                    }}
-                    sx={{
-                        mt: 2,
-                        borderRadius: "9999px",
-                        py: 1,
-                        px: 4,
-                        textTransform: "none",
-                        "&:hover": {
-                            opacity: 0.9,
-                        },
-                    }}
-                >
-                    Go To Home
+                <Typography variant="h2" gutterBottom>
+                    Please try again now or later..
+                </Typography>
+                <Button onClick={reset} className="text-accent-blue">
+                    Try again
                 </Button>
+                <Link href={"/"}>Go back home</Link>
             </Box>
         </Container>
     );
-};
-
-export default ErrorPage;
+}

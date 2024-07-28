@@ -1,16 +1,17 @@
+"use client";
+
 import { Box } from "@mui/material";
-import Header from "~/components/admin/headerDashboard/HeaderDashboard";
-import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import FormAdvanced from "~/components/admin/form/Form";
 import { FormikProps } from "formik";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import * as CONSTANTS from "~/constants/Constants";
-import userService from "~/services/api/userService";
-import authenticationService from "~/services/api/authenticationService";
+import * as CONSTANTS from "@/constants/Constants";
+import { useRouter } from "next/navigation";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { signUp } from "@/lib/actions/auth.actions";
 
 const userSchema = yup.object().shape({
     userName: yup.string().required("required"),
@@ -18,25 +19,20 @@ const userSchema = yup.object().shape({
     password: yup.string().required("required"),
 });
 
-const AddUser = () => {
-    // const [formData, setFormData] = useState({});
-    const navigate = useNavigate();
+const AddUserAdminPage = () => {
+    const router = useRouter();
     const formikRef = useRef<FormikProps<any>>(null);
-
-    // const handleDataChange = (values: any) => {
-    //     setFormData(values);
-    // };
 
     const handleResetFromParent = () => {
         formikRef.current?.resetForm();
     };
 
     const handleFormSubmit = async (values: any) => {
-        const response = await authenticationService.onRegister(values.userName, values.email, values.password);
+        const response = await signUp({ userName: values.userName, email: values.email, password: values.password });
 
         if (response) {
             toast.success(CONSTANTS.ADD__SUCCESS);
-            navigate(`/admin/users/${response.user.id}`);
+            // router.push(`/admin/users/${response.user.id}`);
         } else {
             toast.error(CONSTANTS.ADD__FAILURE);
         }
@@ -44,7 +40,7 @@ const AddUser = () => {
 
     return (
         <Box m="20px">
-            <Header title={CONSTANTS.USER__ADD__TITLE} subtitle={CONSTANTS.USER__ADD__SUBTITLE} />
+            <HeaderDashboard title={CONSTANTS.USER__ADD__TITLE} subtitle={CONSTANTS.USER__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
                     userName: "",
@@ -102,9 +98,6 @@ const AddUser = () => {
                         icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
                     },
                 ]}
-                // onDataChange={(values: any) => {
-                //     handleDataChange(values);
-                // }}
                 onSubmit={handleFormSubmit}
                 validationSchema={userSchema}
                 formRef={formikRef}
@@ -113,4 +106,4 @@ const AddUser = () => {
     );
 };
 
-export default AddUser;
+export default AddUserAdminPage;

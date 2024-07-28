@@ -1,52 +1,48 @@
-import { Box } from "@mui/material";
-import HeaderDashboard from "~/components/admin/headerDashboard/HeaderDashboard";
+"use client";
+
+import { Box, Link } from "@mui/material";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router";
-import serieService from "~/services/api/serieService";
 import { FormikProps } from "formik";
 import * as yup from "yup";
-import ISerie from "~/types/ISerie";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { Link, useParams } from "react-router-dom";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "~/components/admin/form/Form";
+import FormAdvanced from "@/components/admin/ui/form/Form";
 import { toast } from "react-toastify";
-import * as CONSTANTS from "~/constants/Constants";
-import Breadcrumb from "~/components/admin/breadcrumb/Breadcrumb";
-import ISeriePatch from "~/types/ISeriePatch";
-import { useModal } from "~/services/providers/ModalContext";
+import * as CONSTANTS from "@/constants/Constants";
+import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import Loading from "~/components/loading/Loading";
+import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
+import { useParams, useRouter } from "next/navigation";
+import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
+import { Genre } from "@prisma/client";
 
-const serieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
+const genreSchema = yup.object().shape({
+    name: yup.string().required("required"),
 });
 
-const SerieAdmin = () => {
-    const [serie, setSerie] = useState<ISerie | null>(null);
+const GenreAdminPage = () => {
+    const [genre, setGenre] = useState<Genre | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
 
-    const navigate = useNavigate();
+    const router = useRouter();
     const params = useParams();
-    const location = useLocation();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
-            Serie {`${params?.id}`}
+        <Link key="2" to={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
+            Genre {`${params?.id}`}
         </Link>,
     ];
 
     if (location?.state?.from) {
         breadcrumbs.push(
-            <Link key="1" to={"/admin/series"} style={{ textDecoration: "none" }}>
+            <Link key="1" to={"/admin/genres"} style={{ textDecoration: "none" }}>
                 {location.state.from}
             </Link>,
         );
@@ -61,30 +57,28 @@ const SerieAdmin = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: ISeriePatch = {
-            title: values.title,
-            photoSrc: values.photoSrc,
-            ratingImdb: Number(values.ratingImdb),
-            releaseYear: Number(values.releaseYear),
+        const payload = {
+            name: values.name,
         };
-        const response = await serieService.updateSerie(payload, serie?.id!);
+
+        const response = await updateGenreById(payload, genre?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getSerie();
+            getGenre();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getSerie(): Promise<void> {
-        const response: ISerie = await serieService.getSerieById(params.id);
-        setSerie(response);
+    async function getGenre(): Promise<void> {
+        const response = await getGenreById(params.id);
+        setGenre(response);
     }
 
     useEffect(() => {
         async function fetchData() {
-            await getSerie();
+            await getGenre();
             setLoading(false);
         }
 
@@ -95,45 +89,24 @@ const SerieAdmin = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    id: serie?.id,
-                    title: serie?.title,
-                    photoSrc: serie?.photoSrc,
-                    releaseYear: serie?.releaseYear,
-                    ratingImdb: serie?.ratingImdb,
+                    id: genre?.id,
+                    name: genre?.name,
                 }}
                 fields={[
                     {
                         name: "id",
-                        label: "Serie id",
+                        label: "Genre id",
                         disabled: true,
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "title",
-                        label: "Title",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "photoSrc",
-                        label: "Photo src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "releaseYear",
-                        label: "Release year",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "ratingImdb",
-                        label: "RatingImdb",
+                        name: "name",
+                        label: "Name",
                         variant: "filled",
                         type: "text",
                     },
@@ -142,7 +115,7 @@ const SerieAdmin = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={serieSchema}
+                validationSchema={genreSchema}
                 formRef={formikRef}
                 actions={[
                     {
@@ -150,7 +123,7 @@ const SerieAdmin = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected serie ${formData.title}`,
+                                title: `Delete selected genre ${formData.name}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -165,11 +138,11 @@ const SerieAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await serieService.deleteSerie(serie?.id!);
+                                            const response = await deleteGenreById(genre?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/series");
+                                                router.push("/admin/genres");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -222,4 +195,4 @@ const SerieAdmin = () => {
     );
 };
 
-export default SerieAdmin;
+export default GenreAdminPage;
