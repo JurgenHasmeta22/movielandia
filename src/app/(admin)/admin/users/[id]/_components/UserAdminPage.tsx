@@ -15,9 +15,9 @@ import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
 import { deleteUserById, getUserById, updateUserById } from "@/lib/actions/user.actions";
-import { User } from "next-auth";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { Prisma, User } from "@prisma/client";
 
 const userSchema = yup.object().shape({
     userName: yup.string().required("required"),
@@ -31,22 +31,23 @@ const UserAdmin = () => {
     const [open, setOpen] = useState(false);
 
     const router = useRouter();
+    const params = useParams();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/users/${params?.id}`} style={{ textDecoration: "none" }}>
+        <Link key="2" href={`/admin/users/${Number(params?.id)}`} style={{ textDecoration: "none" }}>
             User {`${params?.id}`}
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.unshift(
-            <Link key="1" to={"/admin/users"} style={{ textDecoration: "none" }}>
-                {location.state.from}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.unshift(
+        <Link key="1" href={"/admin/users"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -57,13 +58,13 @@ const UserAdmin = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: any = {
+        const payload: Prisma.UserUpdateInput = {
             userName: values.userName,
             email: values.email,
             password: values.password,
         };
 
-        const response = await updateUserById(payload, user?.id);
+        const response: User | null = await updateUserById(payload, user?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -74,8 +75,8 @@ const UserAdmin = () => {
     };
 
     async function getUser(): Promise<void> {
-        const response: any = await getUserById(params.id);
-        setUser(response);
+        const response: User | null = await getUserById(Number(params.id));
+        if (response) setUser(response);
     }
 
     useEffect(() => {
