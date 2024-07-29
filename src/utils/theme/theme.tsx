@@ -314,21 +314,23 @@ const themeSettings = (mode: any) => {
 };
 
 export function CustomThemeProvider({ children }: { children: ReactNode }) {
-    const [mode, setMode] = useState("light");
+    const [mode, setMode] = useState<"light" | "dark">("light");
 
     useEffect(() => {
-        const savedTheme =
-            localStorage.getItem("theme") ||
-            (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
 
-        setMode(savedTheme);
+        if (savedTheme) {
+            setMode(savedTheme);
+        } else if (typeof window !== "undefined") {
+            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            setMode(systemPrefersDark ? "dark" : "light");
+        }
     }, []);
 
     const toggleMode = () => {
         setMode((prevMode) => {
             const newMode = prevMode === "light" ? "dark" : "light";
             localStorage.setItem("theme", newMode);
-
             return newMode;
         });
     };
