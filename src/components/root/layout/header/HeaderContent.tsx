@@ -9,33 +9,48 @@ import { tokens } from "@/utils/theme/theme";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLinks } from "./HeaderLinks";
 import { Genre } from "@prisma/client";
-import { useEffect, useState } from "react";
 import { Session } from "next-auth";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 interface IHeaderContent {
     session: Session | null;
+    genres: Genre[];
 }
 
-export function HeaderContent({ session }: IHeaderContent) {
-    const [genres, setGenres] = useState<Genre[]>([]);
+export function HeaderContent({ session, genres }: IHeaderContent) {
+    const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
+    const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const { mobileOpen, setOpenDrawer } = useStore();
+
+    const router = useRouter();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    useEffect(() => {
-        const fetchGenres = async () => {
-            try {
-                const response = await fetch("/api/genres");
-                const genres: Genre[] = await response.json();
-                setGenres(genres);
-            } catch (error) {
-                console.error("Failed to fetch genres:", error);
-            }
-        };
+    const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
+        setAnchorElGenres(event.currentTarget);
+    };
 
-        fetchGenres();
-    }, []);
+    const closeMenuGenres = () => {
+        setAnchorElGenres(null);
+    };
+
+    const openMenuProfile = (event: any) => {
+        setAnchorElProfile(event.currentTarget);
+    };
+
+    const closeMenuProfile = () => {
+        setAnchorElProfile(null);
+    };
+
+    const handleSignOut = async () => {
+        closeMenuProfile();
+        await signOut({ redirect: false });
+        router.push("/login");
+        router.refresh();
+    };
 
     return (
         <>
@@ -72,11 +87,22 @@ export function HeaderContent({ session }: IHeaderContent) {
                             columnGap={3}
                             flexWrap={"wrap"}
                         >
-                            <HeaderLinks genres={genres} />
+                            <HeaderLinks
+                                genres={genres}
+                                openMenuGenres={openMenuGenres}
+                                closeMenuGenres={closeMenuGenres}
+                                anchorElGenres={anchorElGenres}
+                            />
                             <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
                                 <SearchField />
                                 <ThemeToggleButton />
-                                <AuthButtons session={session} />
+                                <AuthButtons
+                                    session={session}
+                                    anchorElProfile={anchorElProfile}
+                                    closeMenuProfile={closeMenuProfile}
+                                    openMenuProfile={openMenuProfile}
+                                    handleSignOut={handleSignOut}
+                                />
                             </Box>
                         </Stack>
                     )}
