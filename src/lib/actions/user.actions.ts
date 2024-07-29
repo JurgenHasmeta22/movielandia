@@ -9,10 +9,10 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 interface UserModelParams {
     sortBy: string;
     ascOrDesc: string;
-    perPage: number;
+    perPage?: number;
     page: number;
     userName?: string | null;
-    filterValue?: number | string;
+    filterValue?: any;
     filterNameString?: string | null;
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }

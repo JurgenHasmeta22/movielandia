@@ -1,5 +1,5 @@
 import DashboardAdminPage from "./_components/DashboardAdminPage";
 
-export default async function DashboardAdmin() {
+export default function DashboardAdmin() {
     return <DashboardAdminPage />;
 }

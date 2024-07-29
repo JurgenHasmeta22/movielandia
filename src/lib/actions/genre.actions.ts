@@ -10,7 +10,7 @@ interface GetGenresParams {
     page?: number;
     name?: string;
     type?: string;
-    filterValue?: number;
+    filterValue?: any;
     filterNameString?: string;
     filterOperatorString?: ">" | "=" | "<";
 }

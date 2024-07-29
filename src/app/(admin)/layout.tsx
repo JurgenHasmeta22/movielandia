@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
 import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
@@ -13,6 +13,9 @@ export const metadata = {
     robots: {
         follow: false,
         index: false,
+    },
+    title: {
+        default: "Admin Panel",
     },
 };
 
@@ -36,7 +39,9 @@ export default function RootLayout({
                                             </Grid>
                                             <Grid item xs={12} md={10}>
                                                 <TopBar />
-                                                <main style={{ marginLeft: 3 }}>{children}</main>
+                                                {/* <main> */}
+                                                <Box ml={4}>{children}</Box>
+                                                {/* </main> */}
                                             </Grid>
                                         </Grid>
                                     </RightPanelProvider>
