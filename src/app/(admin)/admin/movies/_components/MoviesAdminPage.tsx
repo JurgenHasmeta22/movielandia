@@ -1,11 +1,13 @@
+"use client";
+
 import { Box } from "@mui/material";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useMemo } from "react";
-import TableAdmin from "@/utils/TableAdmin";
 import { useRouter } from "next/navigation";
+import TableAdmin from "@/utils/componentHelpers/TableAdmin";
 
-const SeriesAdmin = () => {
+const MoviesAdminPage = () => {
     const router = useRouter();
     const columns = useMemo<MRT_ColumnDef<any>[]>(
         () => [
@@ -15,6 +17,14 @@ const SeriesAdmin = () => {
                 accessorKey: "title",
             },
             {
+                header: "TrailerSrc",
+                accessorKey: "trailerSrc",
+            },
+            {
+                header: "Duration",
+                accessorKey: "duration",
+            },
+            {
                 accessorKey: "ratingImdb",
                 header: "RatingImdb",
             },
@@ -22,26 +32,32 @@ const SeriesAdmin = () => {
                 accessorKey: "releaseYear",
                 header: "ReleaseYear",
             },
+            {
+                accessorKey: "description",
+                header: "Description",
+            },
         ],
         [],
     );
 
-    function handleAddSerie() {
-        router.push("/admin/series/add");
+    function handleAddMovie() {
+        router.push("/admin/movies/create");
     }
 
     const { table } = TableAdmin({
         columns,
-        page: "series",
-        handleAddItem: handleAddSerie,
+        page: "movies",
+        handleAddItem: handleAddMovie,
     });
 
     return (
-        <Box m="20px">
-            <HeaderDashboard title="Series" subtitle="List of Series" />
-            <MaterialReactTable table={table} />
-        </Box>
+        <>
+            <Box m="20px" component={"main"}>
+                <HeaderDashboard title="Movies" subtitle="List of Movies" />
+                <MaterialReactTable table={table} />
+            </Box>
+        </>
     );
 };
 
-export default SeriesAdmin;
+export default MoviesAdminPage;

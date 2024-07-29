@@ -1,16 +1,17 @@
+"use client";
+
 import { Box } from "@mui/material";
-import Header from "~/components/admin/headerDashboard/HeaderDashboard";
-import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import FormAdvanced from "~/components/admin/form/Form";
 import { FormikProps } from "formik";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import * as CONSTANTS from "~/constants/Constants";
-import IMoviePost from "~/types/IMoviePost";
-import movieService from "~/services/api/movieService";
+import * as CONSTANTS from "@/constants/Constants";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { addMovie } from "@/lib/actions/movie.actions";
+import { useRouter } from "next/navigation";
 
 const movieSchema = yup.object().shape({
     title: yup.string().required("required"),
@@ -22,21 +23,16 @@ const movieSchema = yup.object().shape({
     description: yup.string().required("required"),
 });
 
-const AddMovie = () => {
-    // const [formData, setFormData] = useState({});
-    const navigate = useNavigate();
+const AddMovieAdminPage = () => {
+    const router = useRouter();
     const formikRef = useRef<FormikProps<any>>(null);
-
-    // const handleDataChange = (values: any) => {
-    //     setFormData(values);
-    // };
 
     const handleResetFromParent = () => {
         formikRef.current?.resetForm();
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: IMoviePost = {
+        const payload = {
             title: values.title,
             description: values.description,
             duration: values.duration,
@@ -45,11 +41,12 @@ const AddMovie = () => {
             ratingImdb: Number(values.ratingImdb),
             releaseYear: Number(values.releaseYear),
         };
-        const response = await movieService.addMovie(payload);
+
+        const response = await addMovie(payload);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            navigate(`/admin/movies/${response.id}`);
+            router.push(`/admin/movies/${response.id}`);
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
@@ -57,7 +54,7 @@ const AddMovie = () => {
 
     return (
         <Box m="20px">
-            <Header title={CONSTANTS.MOVIE__ADD__TITLE} subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE} />
+            <HeaderDashboard title={CONSTANTS.MOVIE__ADD__TITLE} subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
                     title: "",
@@ -143,9 +140,6 @@ const AddMovie = () => {
                         icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
                     },
                 ]}
-                // onDataChange={(values: any) => {
-                //     handleDataChange(values);
-                // }}
                 onSubmit={handleFormSubmit}
                 validationSchema={movieSchema}
                 formRef={formikRef}
@@ -154,4 +148,4 @@ const AddMovie = () => {
     );
 };
 
-export default AddMovie;
+export default AddMovieAdminPage;

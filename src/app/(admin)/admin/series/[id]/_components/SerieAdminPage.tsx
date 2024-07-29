@@ -1,52 +1,55 @@
 "use client";
 
-import { Box, Link } from "@mui/material";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import { Box } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "@/components/admin/ui/form/Form";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
-import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
+import { Prisma, Serie } from "@prisma/client";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { useModal } from "@/providers/ModalProvider";
+import { updateSerieById, getSerieById, deleteSerieById } from "@/lib/actions/serie.actions";
 import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
-import { Genre } from "@prisma/client";
+import Link from "next/link";
 
-const genreSchema = yup.object().shape({
-    name: yup.string().required("required"),
+const serieSchema = yup.object().shape({
+    title: yup.string().required("required"),
+    photoSrc: yup.string().required("required"),
+    ratingImdb: yup.string().required("required"),
+    releaseYear: yup.string().required("required"),
 });
 
-const GenreAdmin = () => {
-    const [genre, setGenre] = useState<Genre | null>(null);
-    const [loading, setLoading] = useState(true);
+const SerieAdminPage = () => {
+    const [serie, setSerie] = useState<Serie | null>(null);
     const [formData, setFormData] = useState<any>({});
+    const [open, setOpen] = useState(false);
 
     const router = useRouter();
     const params = useParams();
+
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
-    const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
-        <Link key="2" to={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
-            Genre {`${params?.id}`}
+        <Link key="2" href={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
+            Serie {`${Number(params?.id)}`}
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.push(
-            <Link key="1" to={"/admin/genres"} style={{ textDecoration: "none" }}>
-                {location.state.from}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.push(
+        <Link key="1" href={"/admin/series"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -57,56 +60,80 @@ const GenreAdmin = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload = {
-            name: values.name,
+        const payload: Prisma.SerieUpdateInput = {
+            title: values.title,
+            photoSrc: values.photoSrc,
+            ratingImdb: Number(values.ratingImdb),
+            releaseYear: Number(values.releaseYear),
         };
 
-        const response = await updateGenreById(payload, genre?.id);
+        const response: Serie | null = await updateSerieById(payload, String(serie?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getGenre();
+            getSerie();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getGenre(): Promise<void> {
-        const response = await getGenreById(params.id);
-        setGenre(response);
+    async function getSerie(): Promise<void> {
+        const response: Serie | null = await getSerieById(Number(params.id));
+
+        if (response) {
+            setSerie(response);
+        }
     }
 
     useEffect(() => {
         async function fetchData() {
-            await getGenre();
-            setLoading(false);
+            await getSerie();
         }
 
         fetchData();
     }, []);
 
-    if (loading) return <Loading />;
-
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    id: genre?.id,
-                    name: genre?.name,
+                    id: serie?.id,
+                    title: serie?.title,
+                    photoSrc: serie?.photoSrc,
+                    releaseYear: serie?.releaseYear,
+                    ratingImdb: serie?.ratingImdb,
                 }}
                 fields={[
                     {
                         name: "id",
-                        label: "Genre id",
+                        label: "Serie id",
                         disabled: true,
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "name",
-                        label: "Name",
+                        name: "title",
+                        label: "Title",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrc",
+                        label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "releaseYear",
+                        label: "Release year",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "ratingImdb",
+                        label: "RatingImdb",
                         variant: "filled",
                         type: "text",
                     },
@@ -115,7 +142,7 @@ const GenreAdmin = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={genreSchema}
+                validationSchema={serieSchema}
                 formRef={formikRef}
                 actions={[
                     {
@@ -123,7 +150,7 @@ const GenreAdmin = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected genre ${formData.name}`,
+                                title: `Delete selected serie ${formData.title}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -138,11 +165,12 @@ const GenreAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteGenreById(genre?.id);
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteSerieById(serie?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                router.push("/admin/genres");
+                                                router.push("/admin/series");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -195,4 +223,4 @@ const GenreAdmin = () => {
     );
 };
 
-export default GenreAdmin;
+export default SerieAdminPage;

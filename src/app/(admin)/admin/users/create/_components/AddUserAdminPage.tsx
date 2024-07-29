@@ -1,86 +1,73 @@
+"use client";
+
 import { Box } from "@mui/material";
-import Header from "~/components/admin/headerDashboard/HeaderDashboard";
-import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import FormAdvanced from "~/components/admin/form/Form";
 import { FormikProps } from "formik";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import * as CONSTANTS from "~/constants/Constants";
-import serieService from "~/services/api/serieService";
-import ISeriePost from "~/types/ISeriePost";
+import * as CONSTANTS from "@/constants/Constants";
+import { useRouter } from "next/navigation";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { signUp } from "@/lib/actions/auth.actions";
+import { User } from "@prisma/client";
 
-const serieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
+const userSchema = yup.object().shape({
+    userName: yup.string().required("required"),
+    email: yup.string().required("required"),
+    password: yup.string().required("required"),
 });
 
-const AddSerie = () => {
-    // const [formData, setFormData] = useState({});
-    const navigate = useNavigate();
+const AddUserAdminPage = () => {
+    const router = useRouter();
     const formikRef = useRef<FormikProps<any>>(null);
-
-    // const handleDataChange = (values: any) => {
-    //     setFormData(values);
-    // };
 
     const handleResetFromParent = () => {
         formikRef.current?.resetForm();
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: ISeriePost = {
-            title: values.title,
-            photoSrc: values.photoSrc,
-            ratingImdb: Number(values.ratingImdb),
-            releaseYear: Number(values.releaseYear),
-        };
-        const response = await serieService.addSerie(payload);
+        const response: User | null | undefined = await signUp({
+            userName: values.userName,
+            email: values.email,
+            password: values.password,
+        });
 
         if (response) {
-            toast.success(CONSTANTS.UPDATE__SUCCESS);
-            navigate(`/admin/series/${response.id}`);
+            toast.success(CONSTANTS.ADD__SUCCESS);
+            router.push(`/admin/users/${response.id}`);
         } else {
-            toast.error(CONSTANTS.UPDATE__FAILURE);
+            toast.error(CONSTANTS.ADD__FAILURE);
         }
     };
 
     return (
         <Box m="20px">
-            <Header title={CONSTANTS.SERIE__ADD__TITLE} subtitle={CONSTANTS.SERIE__ADD__SUBTITLE} />
+            <HeaderDashboard title={CONSTANTS.USER__ADD__TITLE} subtitle={CONSTANTS.USER__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    title: "",
-                    photoSrc: "",
-                    releaseYear: "",
-                    ratingImdb: "",
+                    userName: "",
+                    email: "",
+                    password: "",
                 }}
                 fields={[
                     {
-                        name: "title",
-                        label: "Title",
+                        name: "userName",
+                        label: "Username",
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "photoSrc",
-                        label: "Photo src",
+                        name: "email",
+                        label: "Email",
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "releaseYear",
-                        label: "Release year",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "ratingImdb",
-                        label: "Rating imdb",
+                        name: "password",
+                        label: "Password",
                         variant: "filled",
                         type: "text",
                     },
@@ -116,15 +103,12 @@ const AddSerie = () => {
                         icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
                     },
                 ]}
-                // onDataChange={(values: any) => {
-                //     handleDataChange(values);
-                // }}
                 onSubmit={handleFormSubmit}
-                validationSchema={serieSchema}
+                validationSchema={userSchema}
                 formRef={formikRef}
             />
         </Box>
     );
 };
 
-export default AddSerie;
+export default AddUserAdminPage;

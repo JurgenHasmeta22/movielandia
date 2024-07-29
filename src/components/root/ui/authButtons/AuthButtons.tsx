@@ -1,46 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button, CircularProgress, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
+import React from "react";
+import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { Session } from "next-auth";
 
-const AuthButtons = () => {
-    const { data: session, status } = useSession();
-    const loading = status === "loading";
-    const [anchorEl, setAnchorEl] = useState(null);
+interface IAuthButtons {
+    session: Session | null;
+    anchorElProfile: HTMLElement | null;
+    openMenuProfile: (event: any) => void;
+    closeMenuProfile: () => void;
+    handleSignOut: () => Promise<void>;
+}
+
+const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
     const router = useRouter();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
-    const handleMenuOpen = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleSignOut = async () => {
-        handleMenuClose();
-        await signOut({ redirect: false });
-        router.push("/login");
-    };
-
-    if (loading) {
-        return <CircularProgress size={20} thickness={4} color="error" />;
-    }
 
     return (
         <>
             {session && session.user ? (
                 <>
-                    <Box display={"flex"} flexDirection={"row"} onClick={handleMenuOpen}>
+                    <Box display={"flex"} flexDirection={"row"} onClick={openMenuProfile}>
                         <PersonOutlinedIcon color="action" fontSize="medium" />
                         <Typography
                             variant="body1"
@@ -50,14 +38,13 @@ const AuthButtons = () => {
                                 color: colors.primary[100],
                             }}
                         >
-                            {/* @ts-expect-error session*/}
                             {session.user.userName}
                         </Typography>
                     </Box>
                     <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
+                        anchorEl={anchorElProfile}
+                        open={Boolean(anchorElProfile)}
+                        onClose={closeMenuProfile}
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "left",
@@ -67,7 +54,7 @@ const AuthButtons = () => {
                             horizontal: "left",
                         }}
                     >
-                        <MenuItem onClick={() => handleMenuClose()} sx={{ color: colors.primary[100] }}>
+                        <MenuItem onClick={() => closeMenuProfile()} sx={{ color: colors.primary[100] }}>
                             <Link href="/profile" style={{ textDecoration: "none", color: colors.primary[100] }}>
                                 <Typography variant="inherit">My Profile</Typography>
                             </Link>
@@ -79,58 +66,60 @@ const AuthButtons = () => {
                 </>
             ) : (
                 <>
-                    <Link href="/login" style={{ textDecoration: "none" }}>
-                        <Button
-                            variant="text"
+                    <Button
+                        variant="text"
+                        onClick={() => {
+                            router.push("/login");
+                        }}
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            columnGap: 1,
+                            px: 2,
+                            py: 1,
+                            color: colors.primary[100],
+                            "&:hover": {
+                                backgroundColor: colors.greenAccent[700],
+                                color: colors.grey[100],
+                            },
+                        }}
+                    >
+                        <LockOpenIcon />
+                        <Typography
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                px: 2,
-                                py: 1,
-                                color: colors.primary[100],
-                                "&:hover": {
-                                    backgroundColor: colors.greenAccent[700],
-                                    color: colors.grey[100],
-                                },
+                                textTransform: "capitalize",
                             }}
                         >
-                            <LockOpenIcon />
-                            <Typography
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Sign In
-                            </Typography>
-                        </Button>
-                    </Link>
-                    <Link href="/register" style={{ textDecoration: "none" }}>
-                        <Button
-                            variant="text"
+                            Sign In
+                        </Typography>
+                    </Button>
+                    <Button
+                        variant="text"
+                        onClick={() => {
+                            router.push("register");
+                        }}
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            columnGap: 1,
+                            px: 2,
+                            py: 1,
+                            color: colors.primary[100],
+                            "&:hover": {
+                                backgroundColor: colors.greenAccent[700],
+                                color: colors.grey[100],
+                            },
+                        }}
+                    >
+                        <AppRegistrationIcon />
+                        <Typography
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                px: 2,
-                                py: 1,
-                                color: colors.primary[100],
-                                "&:hover": {
-                                    backgroundColor: colors.greenAccent[700],
-                                    color: colors.grey[100],
-                                },
+                                textTransform: "capitalize",
                             }}
                         >
-                            <AppRegistrationIcon />
-                            <Typography
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Sign Up
-                            </Typography>
-                        </Button>
-                    </Link>
+                            Sign Up
+                        </Typography>
+                    </Button>
                 </>
             )}
         </>

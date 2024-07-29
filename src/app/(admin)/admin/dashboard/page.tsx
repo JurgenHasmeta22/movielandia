@@ -1,5 +1,5 @@
-import Dashboard from "./Dashboard";
+import DashboardAdminPage from "./_components/DashboardAdminPage";
 
-export default async function Genres() {
-    return <Dashboard />;
+export default function DashboardAdmin() {
+    return <DashboardAdminPage />;
 }

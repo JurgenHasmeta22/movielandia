@@ -10,7 +10,7 @@ interface GetGenresParams {
     page?: number;
     name?: string;
     type?: string;
-    filterValue?: number;
+    filterValue?: any;
     filterNameString?: string;
     filterOperatorString?: ">" | "=" | "<";
 }
@@ -265,7 +265,7 @@ export async function getGenreByName(
 }
 
 export async function addGenre(genreData: Prisma.GenreCreateInput): Promise<Genre | null> {
-    const result = await prisma.genre.create({
+    const genre = await prisma.genre.create({
         data: genreData,
         include: {
             movies: {
@@ -276,15 +276,15 @@ export async function addGenre(genreData: Prisma.GenreCreateInput): Promise<Genr
         },
     });
 
-    if (result) {
-        return result;
+    if (genre) {
+        return genre;
     } else {
         return null;
     }
 }
 
 export async function updateGenreById(genreData: Prisma.GenreUpdateInput, id: string): Promise<Genre | null> {
-    const result = await prisma.genre.update({
+    const genreUpdated = await prisma.genre.update({
         where: {
             id: parseInt(id),
         },
@@ -298,8 +298,8 @@ export async function updateGenreById(genreData: Prisma.GenreUpdateInput, id: st
         },
     });
 
-    if (result) {
-        return result;
+    if (genreUpdated) {
+        return genreUpdated;
     } else {
         return null;
     }
@@ -307,13 +307,13 @@ export async function updateGenreById(genreData: Prisma.GenreUpdateInput, id: st
 
 export async function deleteGenreById(id: number): Promise<string | null> {
     try {
-        const result = await prisma.genre.delete({
+        const genreDeleted = await prisma.genre.delete({
             where: {
                 id,
             },
         });
 
-        if (result) {
+        if (genreDeleted) {
             return "Genre deleted successfully";
         } else {
             return null;

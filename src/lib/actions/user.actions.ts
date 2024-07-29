@@ -4,15 +4,16 @@ import { Prisma, User } from "@prisma/client";
 import { prisma } from "@/lib/prisma/prisma";
 import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { headers } from "next/headers";
 
 // #region "Interfaces"
 interface UserModelParams {
     sortBy: string;
     ascOrDesc: string;
-    perPage: number;
+    perPage?: number;
     page: number;
     userName?: string | null;
-    filterValue?: number | string;
+    filterValue?: any;
     filterNameString?: string | null;
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
@@ -107,6 +108,16 @@ export async function getUsers({
 export async function getUserById(userId: number): Promise<User | null> {
     const result = await prisma.user.findUnique({
         where: { id: userId },
+        include: {
+            favMovies: { include: { movie: true } },
+            favSeries: { include: { serie: true } },
+            movieReviews: { include: { movie: true } },
+            serieReviews: { include: { serie: true } },
+            upvotedMovies: { include: { movieReview: true, movie: true } },
+            downvotedMovies: { include: { movieReview: true, movie: true } },
+            upvotedSeries: { include: { serieReview: true, serie: true } },
+            downvotedSeries: { include: { serieReview: true, serie: true } },
+        },
     });
 
     if (result) {
@@ -119,6 +130,16 @@ export async function getUserById(userId: number): Promise<User | null> {
 export async function getUserByUsername(username: string): Promise<User | null> {
     const result = await prisma.user.findFirst({
         where: { userName: username },
+        include: {
+            favMovies: { include: { movie: true } },
+            favSeries: { include: { serie: true } },
+            movieReviews: { include: { movie: true } },
+            serieReviews: { include: { serie: true } },
+            upvotedMovies: { include: { movieReview: true, movie: true } },
+            downvotedMovies: { include: { movieReview: true, movie: true } },
+            upvotedSeries: { include: { serieReview: true, serie: true } },
+            downvotedSeries: { include: { serieReview: true, serie: true } },
+        },
     });
 
     if (result) {
@@ -129,13 +150,13 @@ export async function getUserByUsername(username: string): Promise<User | null> 
 }
 
 export async function updateUserById(userParam: Prisma.UserUpdateInput, id: string): Promise<User | null> {
-    const result = await prisma.user.update({
+    const updatedUser = await prisma.user.update({
         where: { id: Number(id) },
         data: userParam,
     });
 
-    if (result) {
-        return result;
+    if (updatedUser) {
+        return updatedUser;
     } else {
         return null;
     }
@@ -264,7 +285,7 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
     }
 }
 
-export async function removeFavoriteMovieToUser(userId: number, movieId: number): Promise<void> {
+export async function removeFavoriteMovieToUser(userId: number, movieId: number, pathFrom: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userMovieFavorite.findFirst({
             where: {
@@ -289,7 +310,11 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
                 .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            redirect(`/movies/${titleFinal}`);
+            if (pathFrom === "/profile?tab=favMovies") {
+                redirect("/profile?tab=favMovies");
+            } else {
+                redirect(`/movies/${titleFinal}`);
+            }
         } else {
             throw new Error("Failed to remove movie from favorites.");
         }
@@ -302,7 +327,7 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
     }
 }
 
-export async function removeFavoriteSerieToUser(userId: number, serieId: number): Promise<void> {
+export async function removeFavoriteSerieToUser(userId: number, serieId: number, pathFrom: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userSerieFavorite.findFirst({
             where: {
@@ -327,7 +352,11 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
                 .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            redirect(`/series/${titleFinal}`);
+            if (pathFrom === "/profile?tab=favSeries") {
+                redirect("/profile?tab=favSeries");
+            } else {
+                redirect(`/series/${titleFinal}`);
+            }
         } else {
             throw new Error("Failed to remove serie from favorites.");
         }

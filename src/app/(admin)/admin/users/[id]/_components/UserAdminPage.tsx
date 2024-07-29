@@ -1,59 +1,54 @@
+"use client";
+
 import { Box } from "@mui/material";
-import HeaderDashboard from "~/components/admin/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router";
-import movieService from "~/services/api/movieService";
 import { FormikProps } from "formik";
 import * as yup from "yup";
-import IMovie from "~/types/IMovie";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { Link, useParams } from "react-router-dom";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "~/components/admin/form/Form";
 import { toast } from "react-toastify";
-import * as CONSTANTS from "~/constants/Constants";
-import Breadcrumb from "~/components/admin/breadcrumb/Breadcrumb";
-import IMoviePatch from "~/types/IMoviePatch";
-import { useModal } from "~/services/providers/ModalContext";
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import Loading from "~/components/loading/Loading";
+import * as CONSTANTS from "@/constants/Constants";
+import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import FormAdvanced from "@/components/admin/ui/form/Form";
+import { useModal } from "@/providers/ModalProvider";
+import { deleteUserById, getUserById, updateUserById } from "@/lib/actions/user.actions";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { Prisma, User } from "@prisma/client";
 
-const movieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    trailerSrc: yup.string().required("required"),
-    duration: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
-    description: yup.string().required("required"),
+const userSchema = yup.object().shape({
+    userName: yup.string().required("required"),
+    email: yup.string().required("required"),
 });
 
-const MovieAdmin = () => {
-    const [movie, setMovie] = useState<IMovie | null>(null);
+const UserAdmin = () => {
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
-
-    const navigate = useNavigate();
-    const params = useParams();
-    const location = useLocation();
-    const formikRef = useRef<FormikProps<any>>(null);
-    const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
+    const router = useRouter();
+    const params = useParams();
+
+    const formikRef = useRef<FormikProps<any>>(null);
+    const { openModal } = useModal();
+
     const breadcrumbs = [
-        <Link key="2" to={`/admin/movies/${params?.id}`} style={{ textDecoration: "none" }}>
-            Movie {`${params?.id}`}
+        <Link key="2" href={`/admin/users/${Number(params?.id)}`} style={{ textDecoration: "none" }}>
+            User {`${params?.id}`}
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.unshift(
-            <Link key="1" to={"/admin/movies"} style={{ textDecoration: "none" }}>
-                {location.state.from}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.unshift(
+        <Link key="1" href={"/admin/users"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -64,103 +59,63 @@ const MovieAdmin = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: IMoviePatch = {
-            title: values.title,
-            description: values.description,
-            duration: values.duration,
-            photoSrc: values.photoSrc,
-            trailerSrc: values.trailerSrc,
-            ratingImdb: Number(values.ratingImdb),
-            releaseYear: Number(values.releaseYear),
+        const payload: Prisma.UserUpdateInput = {
+            userName: values.userName,
+            email: values.email,
+            password: values.password,
         };
-        const response = await movieService.updateMovie(payload, movie?.id);
+
+        const response: User | null = await updateUserById(payload, String(user?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getMovie();
+            getUser();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getMovie(): Promise<void> {
-        const response: IMovie = await movieService.getMovieById(params.id);
-        setMovie(response);
+    async function getUser(): Promise<void> {
+        const response: User | null = await getUserById(Number(params.id));
+        if (response) setUser(response);
     }
 
     useEffect(() => {
         async function fetchData() {
-            await getMovie();
+            await getUser();
             setLoading(false);
         }
 
         fetchData();
     }, []);
 
-    if (loading) return <Loading />;
-
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
-            <HeaderDashboard title={CONSTANTS.MOVIE__EDIT__TITLE} subtitle={CONSTANTS.MOVIE__EDIT__SUBTITLE} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/users"} />
+            <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    id: movie?.id,
-                    title: movie?.title,
-                    trailerSrc: movie?.trailerSrc,
-                    photoSrc: movie?.photoSrc,
-                    description: movie?.description,
-                    releaseYear: movie?.releaseYear,
-                    ratingImdb: movie?.ratingImdb,
-                    duration: movie?.duration,
+                    id: user?.id,
+                    userName: user?.userName,
+                    email: user?.email,
                 }}
                 fields={[
                     {
                         name: "id",
-                        label: "Id",
+                        label: "User id",
                         disabled: true,
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "title",
-                        label: "Title",
+                        name: "userName",
+                        label: "Username",
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "photoSrc",
-                        label: "Photo src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "description",
-                        label: "Description",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "trailerSrc",
-                        label: "Trailer src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "releaseYear",
-                        label: "Release year",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "ratingImdb",
-                        label: "Rating imdb",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "duration",
-                        label: "Duration",
+                        name: "email",
+                        label: "Email",
                         variant: "filled",
                         type: "text",
                     },
@@ -169,7 +124,7 @@ const MovieAdmin = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={movieSchema}
+                validationSchema={userSchema}
                 formRef={formikRef}
                 actions={[
                     {
@@ -177,7 +132,7 @@ const MovieAdmin = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected movie ${formData.title}`,
+                                title: `Delete selected user ${formData.userName}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -192,11 +147,14 @@ const MovieAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await movieService.deleteMovie(movie?.id);
+                                            setOpen(false);
+
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteUserById(user?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/movies");
+                                                router.push("/admin/users");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -249,4 +207,4 @@ const MovieAdmin = () => {
     );
 };
 
-export default MovieAdmin;
+export default UserAdmin;

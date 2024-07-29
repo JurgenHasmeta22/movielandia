@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     List,
@@ -26,9 +26,12 @@ import { signOut, useSession } from "next-auth/react";
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();
 
-    const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
-    const router = useRouter();
     const [selectedLabel, setSelectedLabel] = useState("");
+    const [height, setHeight] = useState(0);
+    const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
+
+    const router = useRouter();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -36,7 +39,7 @@ const Sidebar = ({ sidebarItems }: any) => {
         setSelectedLabel(title);
         router.push(to);
 
-        if (window.innerWidth < 768) {
+        if (height < 768) {
             setIsOpenSidebarAdmin(false);
         }
     };
@@ -44,6 +47,10 @@ const Sidebar = ({ sidebarItems }: any) => {
     const onClose = () => {
         setIsOpenSidebarAdmin(false);
     };
+
+    useEffect(() => {
+        setHeight(window.innerHeight);
+    }, []);
 
     return (
         <Drawer
@@ -67,7 +74,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                         <AccountCircleIcon />
                     </Avatar>
                     <Box ml={2}>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
                             {session?.user && `@${session?.user?.userName}`}
                         </Typography>
                     </Box>
@@ -85,7 +92,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                     <ListItem
                         value={"logout"}
                         sx={{
-                            py: 6,
+                            py: 3,
                             px: 3,
                         }}
                     >
