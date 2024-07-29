@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
@@ -17,6 +17,7 @@ import { useModal } from "@/providers/ModalProvider";
 import { deleteUserById, getUserById, updateUserById } from "@/lib/actions/user.actions";
 import { User } from "next-auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const userSchema = yup.object().shape({
     userName: yup.string().required("required"),

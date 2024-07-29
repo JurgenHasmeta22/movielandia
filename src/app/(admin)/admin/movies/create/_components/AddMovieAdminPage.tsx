@@ -23,7 +23,7 @@ const movieSchema = yup.object().shape({
     description: yup.string().required("required"),
 });
 
-const AddMovie = () => {
+const AddMovieAdminPage = () => {
     const router = useRouter();
     const formikRef = useRef<FormikProps<any>>(null);
 
@@ -41,6 +41,7 @@ const AddMovie = () => {
             ratingImdb: Number(values.ratingImdb),
             releaseYear: Number(values.releaseYear),
         };
+
         const response = await addMovie(payload);
 
         if (response) {
@@ -147,4 +148,4 @@ const AddMovie = () => {
     );
 };
 
-export default AddMovie;
+export default AddMovieAdminPage;

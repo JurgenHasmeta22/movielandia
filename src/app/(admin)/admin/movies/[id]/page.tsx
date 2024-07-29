@@ -1,5 +1,5 @@
-import MovieAdmin from "./_components/MovieAdmin";
+import MovieAdminPage from "./_components/MovieAdminPage";
 
-export default async function MoviesAdmin() {
-    return <MovieAdmin />;
+export default async function MovieAdmin() {
+    return <MovieAdminPage />;
 }
