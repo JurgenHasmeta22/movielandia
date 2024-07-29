@@ -285,7 +285,7 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
     }
 }
 
-export async function removeFavoriteMovieToUser(userId: number, movieId: number): Promise<void> {
+export async function removeFavoriteMovieToUser(userId: number, movieId: number, pathFrom: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userMovieFavorite.findFirst({
             where: {
@@ -310,10 +310,7 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
                 .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            const referrer = headers().get("referrer");
-            console.log(referrer)
-            
-            if (referrer && referrer.includes("/profile?tab=favMovies")) {
+            if (pathFrom === "/profile?tab=favMovies") {
                 redirect("/profile?tab=favMovies");
             } else {
                 redirect(`/movies/${titleFinal}`);
@@ -330,7 +327,7 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
     }
 }
 
-export async function removeFavoriteSerieToUser(userId: number, serieId: number): Promise<void> {
+export async function removeFavoriteSerieToUser(userId: number, serieId: number, pathFrom: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userSerieFavorite.findFirst({
             where: {
@@ -355,7 +352,11 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number)
                 .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            redirect(`/series/${titleFinal}`);
+            if (pathFrom === "/profile?tab=favSeries") {
+                redirect("/profile?tab=favSeries");
+            } else {
+                redirect(`/series/${titleFinal}`);
+            }
         } else {
             throw new Error("Failed to remove serie from favorites.");
         }

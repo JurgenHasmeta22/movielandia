@@ -32,10 +32,7 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(0);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [open, setOpen] = useState<boolean>(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
@@ -75,7 +72,7 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
         if (!session?.user || !serie) return;
 
         try {
-            await removeFavoriteSerieToUser(Number(session.user.id), serie.id);
+            await removeFavoriteSerieToUser(Number(session.user.id), serie.id, `/series/${serie.title}`);
             showToast("success", "Serie removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {
