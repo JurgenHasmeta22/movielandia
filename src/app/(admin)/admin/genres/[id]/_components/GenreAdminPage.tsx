@@ -30,7 +30,6 @@ const genreSchema = yup.object().shape({
 
 const GenreAdminPage = () => {
     const [genre, setGenre] = useState<Genre | null>(null);
-    const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
     const [open, setOpen] = useState(false);
 
@@ -66,7 +65,7 @@ const GenreAdminPage = () => {
             name: values.name,
         };
 
-        const response: Genre | null = await updateGenreById(payload, genre?.id);
+        const response: Genre | null = await updateGenreById(payload, String(genre?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -85,13 +84,10 @@ const GenreAdminPage = () => {
     useEffect(() => {
         async function fetchData() {
             await getGenre();
-            // setLoading(false);
         }
 
         fetchData();
     }, []);
-
-    // if (loading) return <Loading />;
 
     return (
         <Box m="20px">
@@ -144,7 +140,8 @@ const GenreAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteGenreById(genre?.id);
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteGenreById(genre?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

@@ -28,7 +28,6 @@ const serieSchema = yup.object().shape({
 
 const SerieAdminPage = () => {
     const [serie, setSerie] = useState<Serie | null>(null);
-    // const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
     const [open, setOpen] = useState(false);
 
@@ -68,7 +67,7 @@ const SerieAdminPage = () => {
             releaseYear: Number(values.releaseYear),
         };
 
-        const response: Serie | null = await updateSerieById(payload, serie?.id);
+        const response: Serie | null = await updateSerieById(payload, String(serie?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -89,7 +88,6 @@ const SerieAdminPage = () => {
     useEffect(() => {
         async function fetchData() {
             await getSerie();
-            // setLoading(false);
         }
 
         fetchData();
@@ -167,7 +165,8 @@ const SerieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteSerieById(serie?.id);
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteSerieById(serie?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
