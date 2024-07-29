@@ -5,6 +5,7 @@ import { NextFetchEvent, NextResponse } from "next/server";
 export default async function middleware(req: NextRequestWithAuth, event: NextFetchEvent) {
     const token = await getToken({ req });
     const isAuthenticated = !!token;
+    const userRole = token?.role;
 
     if (req.nextUrl.pathname.startsWith("/login") && isAuthenticated) {
         return NextResponse.redirect(new URL("/", req.url));
@@ -14,13 +15,13 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
         return NextResponse.redirect(new URL("/", req.url));
     }
 
-    // if (req.nextUrl.pathname.startsWith("/profile") && !isAuthenticated) {
-    //     return NextResponse.redirect(new URL("/login", req.url));
-    // }
+    if (req.nextUrl.pathname.startsWith("/profile") && !isAuthenticated) {
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
 
-    // if (req.nextUrl.pathname.startsWith("/admin") && !isAuthenticated) {
-    //     return NextResponse.redirect(new URL("/login", req.url));
-    // }
+    if (req.nextUrl.pathname.startsWith("/admin") && (!isAuthenticated || userRole !== "Admin")) {
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
 
     const authMiddleware = await withAuth({
         pages: {
@@ -32,5 +33,5 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
 }
 
 export const config = {
-    matcher: ["/login", "/register"],
+    matcher: ["/login", "/register", "/profile", "/admin/:path*"],
 };

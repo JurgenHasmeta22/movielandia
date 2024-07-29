@@ -43,14 +43,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                 elevation={6}
             >
                 <Box sx={{ position: "relative" }}>
-                    <Link
-                        href={path}
-                        style={{
-                            textDecoration: "none",
-                        }}
-                    >
-                        <Image src={data.photoSrcProd} alt={`${data.description}`} width={214} height={317} />
-                    </Link>
+                    <Image src={data.photoSrcProd} alt={`${data.description}`} width={214} height={317} />
                     <Box
                         sx={{
                             position: "absolute",

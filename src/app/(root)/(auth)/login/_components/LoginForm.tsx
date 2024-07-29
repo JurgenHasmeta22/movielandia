@@ -45,7 +45,6 @@ export default function LoginForm() {
                 if (result?.error) {
                     showToast("error", "Your credentials are wrong!");
                 } else if (result?.url) {
-                    console.log(result?.url);
                     router.push(result.url);
                 }
 
