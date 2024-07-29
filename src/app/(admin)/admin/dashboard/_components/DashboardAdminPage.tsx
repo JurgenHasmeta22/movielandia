@@ -8,7 +8,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
 
-const DashboardPage = () => {
+const DashboardAdminPage = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -89,4 +89,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+export default DashboardAdminPage;

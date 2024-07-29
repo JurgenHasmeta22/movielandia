@@ -12,6 +12,14 @@ import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDas
 import { useRouter } from "next/navigation";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { addSerie } from "@/lib/actions/serie.actions";
+import { Serie } from "@prisma/client";
+
+interface IAddSerie {
+    title: string;
+    photoSrc: string;
+    releaseYear: string | number;
+    ratingImdb: string | number;
+}
 
 const serieSchema = yup.object().shape({
     title: yup.string().required("required"),
@@ -28,14 +36,15 @@ const AddSerieAdminPage = () => {
         formikRef.current?.resetForm();
     };
 
-    const handleFormSubmit = async (values: any) => {
+    const handleFormSubmit = async (values: IAddSerie) => {
         const payload = {
             title: values.title,
             photoSrc: values.photoSrc,
             ratingImdb: Number(values.ratingImdb),
             releaseYear: Number(values.releaseYear),
         };
-        const response = await addSerie(payload);
+
+        const response: Serie | null = await addSerie(payload);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);

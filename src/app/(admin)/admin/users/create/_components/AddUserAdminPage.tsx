@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { signUp } from "@/lib/actions/auth.actions";
+import { User } from "@prisma/client";
 
 const userSchema = yup.object().shape({
     userName: yup.string().required("required"),
@@ -28,11 +29,15 @@ const AddUserAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const response = await signUp({ userName: values.userName, email: values.email, password: values.password });
+        const response: User | null | undefined = await signUp({
+            userName: values.userName,
+            email: values.email,
+            password: values.password,
+        });
 
         if (response) {
             toast.success(CONSTANTS.ADD__SUCCESS);
-            // router.push(`/admin/users/${response.user.id}`);
+            router.push(`/admin/users/${response.id}`);
         } else {
             toast.error(CONSTANTS.ADD__FAILURE);
         }

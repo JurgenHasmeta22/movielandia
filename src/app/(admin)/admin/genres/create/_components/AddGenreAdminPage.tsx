@@ -12,6 +12,11 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { addGenre } from "@/lib/actions/genre.actions";
+import { Genre } from "@prisma/client";
+
+interface IGenreAdd {
+    name: string;
+}
 
 const genreSchema = yup.object().shape({
     name: yup.string().required("required"),
@@ -25,12 +30,12 @@ const AddGenreAdminPage = () => {
         formikRef.current?.resetForm();
     };
 
-    const handleFormSubmit = async (values: any) => {
-        const payload = {
+    const handleFormSubmit = async (values: IGenreAdd) => {
+        const payload: IGenreAdd = {
             name: values.name,
         };
 
-        const response = await addGenre(payload);
+        const response: Genre | null = await addGenre(payload);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);

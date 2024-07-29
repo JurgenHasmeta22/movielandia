@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
@@ -18,6 +18,12 @@ import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
 import { useParams, useRouter } from "next/navigation";
 import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
 import { Genre } from "@prisma/client";
+import Link from "next/link";
+
+interface IGenreEdit {
+    id?: string;
+    name: string;
+}
 
 const genreSchema = yup.object().shape({
     name: yup.string().required("required"),
@@ -27,12 +33,12 @@ const GenreAdminPage = () => {
     const [genre, setGenre] = useState<Genre | null>(null);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
+    const [open, setOpen] = useState(false);
 
     const router = useRouter();
     const params = useParams();
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
-    const [open, setOpen] = useState(false);
 
     const breadcrumbs = [
         <Link key="2" href={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
@@ -56,12 +62,12 @@ const GenreAdminPage = () => {
         formikRef.current?.resetForm();
     };
 
-    const handleFormSubmit = async (values: any) => {
-        const payload = {
+    const handleFormSubmit = async (values: IGenreEdit) => {
+        const payload: IGenreEdit = {
             name: values.name,
         };
 
-        const response = await updateGenreById(payload, genre?.id);
+        const response: Genre | null = await updateGenreById(payload, genre?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -79,13 +85,13 @@ const GenreAdminPage = () => {
     useEffect(() => {
         async function fetchData() {
             await getGenre();
-            setLoading(false);
+            // setLoading(false);
         }
 
         fetchData();
     }, []);
 
-    if (loading) return <Loading />;
+    // if (loading) return <Loading />;
 
     return (
         <Box m="20px">
