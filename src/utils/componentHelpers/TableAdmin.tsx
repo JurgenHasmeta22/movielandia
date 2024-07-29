@@ -46,8 +46,8 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
         pageIndex: 0,
         pageSize: 10,
     });
-
     const [open, setOpen] = useState(false);
+
     const router = useRouter();
     const { openModal } = useModal();
 

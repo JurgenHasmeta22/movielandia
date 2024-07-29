@@ -10,13 +10,13 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import { Serie } from "@prisma/client";
+import { Prisma, Serie } from "@prisma/client";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
 import { updateSerieById, getSerieById, deleteSerieById } from "@/lib/actions/serie.actions";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 
 const serieSchema = yup.object().shape({
@@ -33,22 +33,24 @@ const SerieAdminPage = () => {
     const [open, setOpen] = useState(false);
 
     const router = useRouter();
+    const params = useParams();
+
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
 
     const breadcrumbs = [
         <Link key="2" href={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
-            Serie {`${params?.id}`}
+            Serie {`${Number(params?.id)}`}
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.push(
-            <Link key="1" href={"/admin/series"} style={{ textDecoration: "none" }}>
-                {location.state.from}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.push(
+        <Link key="1" href={"/admin/series"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -59,14 +61,14 @@ const SerieAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload = {
+        const payload: Prisma.SerieUpdateInput = {
             title: values.title,
             photoSrc: values.photoSrc,
             ratingImdb: Number(values.ratingImdb),
             releaseYear: Number(values.releaseYear),
         };
 
-        const response = await updateSerieById(payload, serie?.id!);
+        const response: Serie | null = await updateSerieById(payload, serie?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -77,8 +79,11 @@ const SerieAdminPage = () => {
     };
 
     async function getSerie(): Promise<void> {
-        const response = await getSerieById(params.id);
-        setSerie(response);
+        const response: Serie | null = await getSerieById(Number(params.id));
+
+        if (response) {
+            setSerie(response);
+        }
     }
 
     useEffect(() => {
@@ -162,7 +167,7 @@ const SerieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteSerieById(serie?.id!);
+                                            const response = await deleteSerieById(serie?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

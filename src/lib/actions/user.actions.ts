@@ -129,13 +129,13 @@ export async function getUserByUsername(username: string): Promise<User | null> 
 }
 
 export async function updateUserById(userParam: Prisma.UserUpdateInput, id: string): Promise<User | null> {
-    const result = await prisma.user.update({
+    const updatedUser = await prisma.user.update({
         where: { id: Number(id) },
         data: userParam,
     });
 
-    if (result) {
-        return result;
+    if (updatedUser) {
+        return updatedUser;
     } else {
         return null;
     }

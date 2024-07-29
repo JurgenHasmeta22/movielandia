@@ -12,7 +12,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
-import { Movie } from "@prisma/client";
+import { Movie, Prisma } from "@prisma/client";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
@@ -47,13 +47,13 @@ const MovieAdminPage = () => {
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.unshift(
-            <Link key="1" href={"/admin/movies"} style={{ textDecoration: "none" }}>
-                {location.state.from}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.unshift(
+        <Link key="1" href={"/admin/movies"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -64,7 +64,7 @@ const MovieAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload = {
+        const payload: Prisma.MovieUpdateInput = {
             title: values.title,
             description: values.description,
             duration: values.duration,
@@ -74,7 +74,7 @@ const MovieAdminPage = () => {
             releaseYear: Number(values.releaseYear),
         };
 
-        const response = await updateMovieById(payload, movie?.id);
+        const response: Movie | null = await updateMovieById(payload, movie?.id);
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -85,8 +85,9 @@ const MovieAdminPage = () => {
     };
 
     async function getMovie(): Promise<void> {
-        const response: Movie | null = await getMovieById(params.id);
-        setMovie(response);
+        const response: Movie | null = await getMovieById(Number(params.id));
+
+        if (response) setMovie(response);
     }
 
     useEffect(() => {
@@ -197,7 +198,7 @@ const MovieAdminPage = () => {
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/movies");
+                                                router.push("/admin/movies");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }

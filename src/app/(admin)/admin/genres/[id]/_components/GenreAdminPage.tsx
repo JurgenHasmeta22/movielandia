@@ -14,10 +14,9 @@ import * as CONSTANTS from "@/constants/Constants";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
 import { useParams, useRouter } from "next/navigation";
 import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
-import { Genre } from "@prisma/client";
+import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
 
 interface IGenreEdit {
@@ -46,13 +45,13 @@ const GenreAdminPage = () => {
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.push(
-            <Link key="1" href={"/admin/genres"} style={{ textDecoration: "none" }}>
-                {/* {location.state.from} */}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.push(
+        <Link key="1" href={"/admin/genres"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -63,7 +62,7 @@ const GenreAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: IGenreEdit) => {
-        const payload: IGenreEdit = {
+        const payload: Prisma.GenreUpdateInput = {
             name: values.name,
         };
 
@@ -78,8 +77,9 @@ const GenreAdminPage = () => {
     };
 
     async function getGenre(): Promise<void> {
-        const response = await getGenreById(params.id);
-        setGenre(response);
+        const response: Genre | null = await getGenreById(Number(params.id));
+
+        if (response) setGenre(response);
     }
 
     useEffect(() => {
