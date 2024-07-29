@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
@@ -13,36 +12,23 @@ import { Session } from "next-auth";
 
 interface IAuthButtons {
     session: Session | null;
+    anchorElProfile: HTMLElement | null;
+    openMenuProfile: (event: any) => void;
+    closeMenuProfile: () => void;
+    handleSignOut: () => Promise<void>;
 }
 
-const AuthButtons = ({ session }: IAuthButtons) => {
-    const [anchorEl, setAnchorEl] = useState(null);
-
+const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
     const router = useRouter();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const handleMenuOpen = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleSignOut = async () => {
-        handleMenuClose();
-        await signOut({ redirect: false });
-        router.push("/login");
-        router.refresh();
-    };
-
     return (
         <>
             {session && session.user ? (
                 <>
-                    <Box display={"flex"} flexDirection={"row"} onClick={handleMenuOpen}>
+                    <Box display={"flex"} flexDirection={"row"} onClick={openMenuProfile}>
                         <PersonOutlinedIcon color="action" fontSize="medium" />
                         <Typography
                             variant="body1"
@@ -56,9 +42,9 @@ const AuthButtons = ({ session }: IAuthButtons) => {
                         </Typography>
                     </Box>
                     <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
+                        anchorEl={anchorElProfile}
+                        open={Boolean(anchorElProfile)}
+                        onClose={closeMenuProfile}
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "left",
@@ -68,7 +54,7 @@ const AuthButtons = ({ session }: IAuthButtons) => {
                             horizontal: "left",
                         }}
                     >
-                        <MenuItem onClick={() => handleMenuClose()} sx={{ color: colors.primary[100] }}>
+                        <MenuItem onClick={() => closeMenuProfile()} sx={{ color: colors.primary[100] }}>
                             <Link href="/profile" style={{ textDecoration: "none", color: colors.primary[100] }}>
                                 <Typography variant="inherit">My Profile</Typography>
                             </Link>

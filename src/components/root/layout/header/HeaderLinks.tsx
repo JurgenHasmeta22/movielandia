@@ -3,7 +3,6 @@
 import { Box, colors, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { tokens } from "@/utils/theme/theme";
-import { useState } from "react";
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -11,21 +10,14 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 
 interface IHeaderLinks {
     genres: Genre[];
+    openMenuGenres: (event: React.MouseEvent<HTMLLIElement>) => void;
+    closeMenuGenres: () => void;
+    anchorElGenres: HTMLElement | null;
 }
 
-export function HeaderLinks({ genres }: IHeaderLinks) {
-    const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
-
+export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
-    const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
-        setAnchorElGenres(event.currentTarget);
-    };
-
-    const closeMenuGenres = () => {
-        setAnchorElGenres(null);
-    };
 
     return (
         <>
