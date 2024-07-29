@@ -74,7 +74,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
         if (!session?.user || !movie) return;
 
         try {
-            await removeFavoriteMovieToUser(Number(session.user.id), movie.id);
+            await removeFavoriteMovieToUser(Number(session.user.id), movie.id, `/movies/${movie.title}`);
             showToast("success", "Movie removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {

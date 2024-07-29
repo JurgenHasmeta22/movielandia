@@ -27,7 +27,7 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
         if (!user || !movie) return;
 
         try {
-            await removeFavoriteMovieToUser(user?.id, movie?.id);
+            await removeFavoriteMovieToUser(user?.id, movie?.id, "/profile?tab=favMovies");
             showToast("success", "Movie unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -42,7 +42,7 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
         if (!user || !serie) return;
 
         try {
-            await removeFavoriteSerieToUser(user.id, serie.id);
+            await removeFavoriteSerieToUser(user.id, serie.id, "/profile?tab=favSeries");
             showToast("success", "Serie unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
