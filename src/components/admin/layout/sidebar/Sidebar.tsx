@@ -28,7 +28,6 @@ const Sidebar = ({ sidebarItems }: any) => {
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
     const [selectedLabel, setSelectedLabel] = useState("");
 
-    console.log(session);
     const router = useRouter();
 
     const theme = useTheme();
