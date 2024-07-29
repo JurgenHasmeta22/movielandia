@@ -4,6 +4,7 @@ import { Prisma, User } from "@prisma/client";
 import { prisma } from "@/lib/prisma/prisma";
 import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { headers } from "next/headers";
 
 // #region "Interfaces"
 interface UserModelParams {
@@ -107,6 +108,16 @@ export async function getUsers({
 export async function getUserById(userId: number): Promise<User | null> {
     const result = await prisma.user.findUnique({
         where: { id: userId },
+        include: {
+            favMovies: { include: { movie: true } },
+            favSeries: { include: { serie: true } },
+            movieReviews: { include: { movie: true } },
+            serieReviews: { include: { serie: true } },
+            upvotedMovies: { include: { movieReview: true, movie: true } },
+            downvotedMovies: { include: { movieReview: true, movie: true } },
+            upvotedSeries: { include: { serieReview: true, serie: true } },
+            downvotedSeries: { include: { serieReview: true, serie: true } },
+        },
     });
 
     if (result) {
@@ -119,6 +130,16 @@ export async function getUserById(userId: number): Promise<User | null> {
 export async function getUserByUsername(username: string): Promise<User | null> {
     const result = await prisma.user.findFirst({
         where: { userName: username },
+        include: {
+            favMovies: { include: { movie: true } },
+            favSeries: { include: { serie: true } },
+            movieReviews: { include: { movie: true } },
+            serieReviews: { include: { serie: true } },
+            upvotedMovies: { include: { movieReview: true, movie: true } },
+            downvotedMovies: { include: { movieReview: true, movie: true } },
+            upvotedSeries: { include: { serieReview: true, serie: true } },
+            downvotedSeries: { include: { serieReview: true, serie: true } },
+        },
     });
 
     if (result) {
@@ -289,7 +310,14 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number)
                 .map((char: string) => (char === " " ? "-" : char))
                 .join("");
 
-            redirect(`/movies/${titleFinal}`);
+            const referrer = headers().get("referrer");
+            console.log(referrer)
+            
+            if (referrer && referrer.includes("/profile?tab=favMovies")) {
+                redirect("/profile?tab=favMovies");
+            } else {
+                redirect(`/movies/${titleFinal}`);
+            }
         } else {
             throw new Error("Failed to remove movie from favorites.");
         }
