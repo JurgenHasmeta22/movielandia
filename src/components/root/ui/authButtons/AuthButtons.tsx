@@ -1,20 +1,25 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button, CircularProgress, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
+import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { Session } from "next-auth";
 
-const AuthButtons = () => {
-    const { data: session, status } = useSession();
-    const loading = status === "loading";
+interface IAuthButtons {
+    session: Session | null;
+}
+
+const AuthButtons = ({ session }: IAuthButtons) => {
     const [anchorEl, setAnchorEl] = useState(null);
+
     const router = useRouter();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -30,11 +35,8 @@ const AuthButtons = () => {
         handleMenuClose();
         await signOut({ redirect: false });
         router.push("/login");
+        router.refresh();
     };
-
-    if (loading) {
-        return <CircularProgress size={20} thickness={4} color="error" />;
-    }
 
     return (
         <>
@@ -50,7 +52,6 @@ const AuthButtons = () => {
                                 color: colors.primary[100],
                             }}
                         >
-                            {/* @ts-expect-error session*/}
                             {session.user.userName}
                         </Typography>
                     </Box>
@@ -79,58 +80,60 @@ const AuthButtons = () => {
                 </>
             ) : (
                 <>
-                    <Link href="/login" style={{ textDecoration: "none" }}>
-                        <Button
-                            variant="text"
+                    <Button
+                        variant="text"
+                        onClick={() => {
+                            router.push("/login");
+                        }}
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            columnGap: 1,
+                            px: 2,
+                            py: 1,
+                            color: colors.primary[100],
+                            "&:hover": {
+                                backgroundColor: colors.greenAccent[700],
+                                color: colors.grey[100],
+                            },
+                        }}
+                    >
+                        <LockOpenIcon />
+                        <Typography
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                px: 2,
-                                py: 1,
-                                color: colors.primary[100],
-                                "&:hover": {
-                                    backgroundColor: colors.greenAccent[700],
-                                    color: colors.grey[100],
-                                },
+                                textTransform: "capitalize",
                             }}
                         >
-                            <LockOpenIcon />
-                            <Typography
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Sign In
-                            </Typography>
-                        </Button>
-                    </Link>
-                    <Link href="/register" style={{ textDecoration: "none" }}>
-                        <Button
-                            variant="text"
+                            Sign In
+                        </Typography>
+                    </Button>
+                    <Button
+                        variant="text"
+                        onClick={() => {
+                            router.push("register");
+                        }}
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            columnGap: 1,
+                            px: 2,
+                            py: 1,
+                            color: colors.primary[100],
+                            "&:hover": {
+                                backgroundColor: colors.greenAccent[700],
+                                color: colors.grey[100],
+                            },
+                        }}
+                    >
+                        <AppRegistrationIcon />
+                        <Typography
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                px: 2,
-                                py: 1,
-                                color: colors.primary[100],
-                                "&:hover": {
-                                    backgroundColor: colors.greenAccent[700],
-                                    color: colors.grey[100],
-                                },
+                                textTransform: "capitalize",
                             }}
                         >
-                            <AppRegistrationIcon />
-                            <Typography
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Sign Up
-                            </Typography>
-                        </Button>
-                    </Link>
+                            Sign Up
+                        </Typography>
+                    </Button>
                 </>
             )}
         </>
