@@ -10,9 +10,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLinks } from "./HeaderLinks";
 import { Genre } from "@prisma/client";
 import { Session } from "next-auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import HeaderMenu from "../headerMenu/HeaderMenu";
+import { useResizeWindow } from "@/hooks/useResizeWindow";
 
 interface IHeaderContent {
     session: Session | null;
@@ -22,12 +24,14 @@ interface IHeaderContent {
 export function HeaderContent({ session, genres }: IHeaderContent) {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
-    const { mobileOpen, setOpenDrawer } = useStore();
+    const { mobileOpen, setOpenDrawer, setMobileOpen } = useStore();
 
     const router = useRouter();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    const isPageShrunk = useResizeWindow();
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenres(event.currentTarget);
@@ -52,6 +56,15 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
         router.refresh();
     };
 
+    useEffect(() => {
+        if (isPageShrunk) {
+            setMobileOpen(true);
+        } else {
+            setMobileOpen(false);
+            setOpenDrawer(false);
+        }
+    }, [isPageShrunk]);
+
     return (
         <>
             <AppBar position="fixed" component={"header"}>
@@ -59,7 +72,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: "space-around",
+                        justifyContent: `${mobileOpen ? "start" : "space-around"}`,
                         flexWrap: "wrap",
                         py: 2,
                         backgroundColor: colors.primary[900],
@@ -108,15 +121,15 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                     )}
                 </Toolbar>
             </AppBar>
-            {/* <HeaderMenu
+            <HeaderMenu
                 closeMenuGenres={closeMenuGenres}
                 genres={genres}
                 anchorElProfile={anchorElProfile}
-                redirectToProfile={redirectToProfile}
                 openMenuProfile={openMenuProfile}
                 closeMenuProfile={closeMenuProfile}
-                handleLogout={handleLogout}
-            /> */}
+                handleLogout={handleSignOut}
+                session={session}
+            />
         </>
     );
 }

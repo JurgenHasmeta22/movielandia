@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     List,
@@ -25,8 +25,10 @@ import { signOut, useSession } from "next-auth/react";
 
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();
-    const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
+
     const [selectedLabel, setSelectedLabel] = useState("");
+    const [height, setHeight] = useState(0);
+    const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
 
     const router = useRouter();
 
@@ -37,7 +39,7 @@ const Sidebar = ({ sidebarItems }: any) => {
         setSelectedLabel(title);
         router.push(to);
 
-        if (window.innerWidth < 768) {
+        if (height < 768) {
             setIsOpenSidebarAdmin(false);
         }
     };
@@ -45,6 +47,10 @@ const Sidebar = ({ sidebarItems }: any) => {
     const onClose = () => {
         setIsOpenSidebarAdmin(false);
     };
+
+    useEffect(() => {
+        setHeight(window.innerHeight);
+    }, []);
 
     return (
         <Drawer
