@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import Loading from "@/components/root/ui/loadingSpinner/LoadingSpinner";
 import { Movie, Prisma } from "@prisma/client";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/ui/form/Form";
@@ -32,12 +31,12 @@ const movieSchema = yup.object().shape({
 
 const MovieAdminPage = () => {
     const [movie, setMovie] = useState<Movie | null>(null);
-    // const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
     const [open, setOpen] = useState(false);
 
     const router = useRouter();
     const params = useParams();
+
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
 
@@ -74,7 +73,7 @@ const MovieAdminPage = () => {
             releaseYear: Number(values.releaseYear),
         };
 
-        const response: Movie | null = await updateMovieById(payload, movie?.id);
+        const response: Movie | null = await updateMovieById(payload, String(movie?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -93,13 +92,10 @@ const MovieAdminPage = () => {
     useEffect(() => {
         async function fetchData() {
             await getMovie();
-            // setLoading(false);
         }
 
         fetchData();
     }, []);
-
-    // if (loading) return <Loading />;
 
     return (
         <Box m="20px">
@@ -194,7 +190,8 @@ const MovieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteMovieById(movie?.id);
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteMovieById(movie?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

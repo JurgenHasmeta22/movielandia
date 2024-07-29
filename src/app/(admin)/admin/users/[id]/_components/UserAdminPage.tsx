@@ -32,6 +32,7 @@ const UserAdmin = () => {
 
     const router = useRouter();
     const params = useParams();
+
     const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
 
@@ -64,7 +65,7 @@ const UserAdmin = () => {
             password: values.password,
         };
 
-        const response: User | null = await updateUserById(payload, user?.id);
+        const response: User | null = await updateUserById(payload, String(user?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -148,7 +149,8 @@ const UserAdmin = () => {
                                         onClick: async () => {
                                             setOpen(false);
 
-                                            const response = await deleteUserById(user?.id);
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteUserById(user?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
