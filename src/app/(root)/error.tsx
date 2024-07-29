@@ -30,7 +30,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
                     Oops! Something went wrong.
                 </Typography>
                 <Typography variant="h2" gutterBottom>
-                    Please try again or contact support if the problem persists..
+                    Please try again now or later..
                 </Typography>
                 <Button onClick={reset} className="text-accent-blue">
                     Try again

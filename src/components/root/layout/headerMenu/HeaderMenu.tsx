@@ -28,15 +28,15 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 interface IHeaderMenu {
     genres: Genre[];
     anchorElProfile: null | HTMLElement;
+    session: Session | null;
     closeMenuGenres: () => void;
     openMenuProfile: (event: any) => void;
     closeMenuProfile: () => void;
-    redirectToProfile: () => void;
     handleLogout: () => void;
 }
 
@@ -46,18 +46,16 @@ export default function HeaderMenu({
     anchorElProfile,
     openMenuProfile,
     closeMenuProfile,
-    redirectToProfile,
     handleLogout,
+    session,
 }: IHeaderMenu) {
-    const { data: session } = useSession();
-
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
-
     const { openDrawer, setOpenDrawer } = useStore();
+
     const searchParams = useSearchParams();
     const router = useRouter();
-    const theme = useTheme();
 
+    const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const openMenuGenresMobile = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -281,7 +279,12 @@ export default function HeaderMenu({
                                         "aria-labelledby": "buttonProfile",
                                     }}
                                 >
-                                    <MenuItem onClick={redirectToProfile} style={{ color: colors.primary[100] }}>
+                                    <MenuItem
+                                        onClick={() => {
+                                            router.push("/profile");
+                                        }}
+                                        style={{ color: colors.primary[100] }}
+                                    >
                                         My Profile
                                     </MenuItem>
                                     <MenuItem onClick={handleLogout} style={{ color: colors.primary[100] }}>

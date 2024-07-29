@@ -48,6 +48,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
     });
 
     const [open, setOpen] = useState(false);
+
     const router = useRouter();
     const { openModal } = useModal();
 
@@ -75,7 +76,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                             case "series":
                                 response = await deleteSerieById(Number(id));
 
-                                if (response && response.msg) {
+                                if (response) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
                                     await fetchData();
                                 }
@@ -83,7 +84,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                             case "movies":
                                 response = await deleteMovieById(Number(id));
 
-                                if (response && response.msg) {
+                                if (response) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
                                     await fetchData();
                                 }
@@ -91,7 +92,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                             case "genres":
                                 response = await deleteGenreById(Number(id));
 
-                                if (response && response.msg) {
+                                if (response) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
                                     await fetchData();
                                 }
@@ -99,7 +100,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                             case "users":
                                 response = await deleteUserById(Number(id));
 
-                                if (response && response.msg) {
+                                if (response) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
                                     await fetchData();
                                 }
@@ -150,7 +151,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                 case "series":
                                     response = await deleteSerieById(Number(id));
 
-                                    if (response && response.msg) {
+                                    if (response) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
                                         await fetchData();
                                     }
@@ -158,7 +159,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                 case "movies":
                                     response = await deleteMovieById(Number(id));
 
-                                    if (response && response.msg) {
+                                    if (response) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
                                         await fetchData();
                                     }
@@ -166,7 +167,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                 case "genres":
                                     response = await deleteGenreById(Number(id));
 
-                                    if (response && response.msg) {
+                                    if (response) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
                                         await fetchData();
                                     }
@@ -174,7 +175,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                                 case "users":
                                     response = await deleteUserById(Number(id));
 
-                                    if (response && response.msg) {
+                                    if (response) {
                                         toast.success(`Item with id ${id} deleted succesfully`);
                                         await fetchData();
                                     }
@@ -239,6 +240,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                     setRowsCount(response.count);
                     break;
                 case "users":
+                    // @ts-expect-error typeError
                     response = await getUsers(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);

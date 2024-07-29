@@ -1,50 +1,56 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
+"use client";
 
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
+import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
+import FormAdvanced from "@/components/admin/ui/form/Form";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
-import Loading from "@/app/loading";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
-import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
-import { getUserById } from "@/lib/actions/user.actions";
-import { User } from "next-auth";
+import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { useParams, useRouter } from "next/navigation";
+import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
+import { Genre, Prisma } from "@prisma/client";
+import Link from "next/link";
 
-const userSchema = yup.object().shape({
-    userName: yup.string().required("required"),
-    email: yup.string().required("required"),
+interface IGenreEdit {
+    id?: string;
+    name: string;
+}
+
+const genreSchema = yup.object().shape({
+    name: yup.string().required("required"),
 });
 
-const UserAdmin = () => {
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
+const GenreAdminPage = () => {
+    const [genre, setGenre] = useState<Genre | null>(null);
     const [formData, setFormData] = useState<any>({});
-    const formikRef = useRef<FormikProps<any>>(null);
-    const { openModal } = useModal();
     const [open, setOpen] = useState(false);
 
+    const router = useRouter();
+    const params = useParams();
+    const formikRef = useRef<FormikProps<any>>(null);
+    const { openModal } = useModal();
+
     const breadcrumbs = [
-        <Link key="2" to={`/admin/users/${params?.id}`} style={{ textDecoration: "none" }}>
-            User {`${params?.id}`}
+        <Link key="2" href={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
+            Genre {`${params?.id}`}
         </Link>,
     ];
 
-    if (location?.state?.from) {
-        breadcrumbs.unshift(
-            <Link key="1" to={"/admin/users"} style={{ textDecoration: "none" }}>
-                {location.state.from}
-            </Link>,
-        );
-    }
+    // if (location?.state?.from) {
+    breadcrumbs.push(
+        <Link key="1" href={"/admin/genres"} style={{ textDecoration: "none" }}>
+            {/* {location.state.from} */}
+        </Link>,
+    );
+    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
@@ -54,66 +60,55 @@ const UserAdmin = () => {
         formikRef.current?.resetForm();
     };
 
-    const handleFormSubmit = async (values: any) => {
-        const payload: any = {
-            userName: values.userName,
-            email: values.email,
-            password: values.password,
+    const handleFormSubmit = async (values: IGenreEdit) => {
+        const payload: Prisma.GenreUpdateInput = {
+            name: values.name,
         };
 
-        const response = await updateUser(payload, user?.id);
+        const response: Genre | null = await updateGenreById(payload, String(genre?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getUser();
+            getGenre();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getUser(): Promise<void> {
-        const response: any = await getUserById(params.id);
-        setUser(response);
+    async function getGenre(): Promise<void> {
+        const response: Genre | null = await getGenreById(Number(params.id));
+
+        if (response) setGenre(response);
     }
 
     useEffect(() => {
         async function fetchData() {
-            await getUser();
-            setLoading(false);
+            await getGenre();
         }
 
         fetchData();
     }, []);
 
-    if (loading) return <Loading />;
-
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/users"} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
-                    id: user?.id,
-                    userName: user?.userName,
-                    email: user?.email,
+                    id: genre?.id,
+                    name: genre?.name,
                 }}
                 fields={[
                     {
                         name: "id",
-                        label: "User id",
+                        label: "Genre id",
                         disabled: true,
                         variant: "filled",
                         type: "text",
                     },
                     {
-                        name: "userName",
-                        label: "Username",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "email",
-                        label: "Email",
+                        name: "name",
+                        label: "Name",
                         variant: "filled",
                         type: "text",
                     },
@@ -122,7 +117,7 @@ const UserAdmin = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={userSchema}
+                validationSchema={genreSchema}
                 formRef={formikRef}
                 actions={[
                     {
@@ -130,7 +125,7 @@ const UserAdmin = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected user ${formData.userName}`,
+                                title: `Delete selected genre ${formData.name}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -145,13 +140,12 @@ const UserAdmin = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            setOpen(false);
-
-                                            const response = await userService.deleteUser(user?.id);
+                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+                                            const response = await deleteGenreById(genre?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                navigate("/admin/users");
+                                                router.push("/admin/genres");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -204,4 +198,4 @@ const UserAdmin = () => {
     );
 };
 
-export default UserAdmin;
+export default GenreAdminPage;

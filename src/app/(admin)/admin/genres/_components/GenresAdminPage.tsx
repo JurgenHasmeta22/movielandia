@@ -4,10 +4,10 @@ import { Box } from "@mui/material";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useMemo } from "react";
-import TableAdmin from "@/utils/other/TableAdmin";
 import { useRouter } from "next/navigation";
+import TableAdmin from "@/utils/componentHelpers/TableAdmin";
 
-const GenresAdmin = () => {
+const GenresAdminPage = () => {
     const router = useRouter();
     const columns = useMemo<MRT_ColumnDef<any>[]>(
         () => [
@@ -38,4 +38,4 @@ const GenresAdmin = () => {
     );
 };
 
-export default GenresAdmin;
+export default GenresAdminPage;
