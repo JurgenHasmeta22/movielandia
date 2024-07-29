@@ -25,10 +25,12 @@ import { signOut, useSession } from "next-auth/react";
 
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();
-
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
-    const router = useRouter();
     const [selectedLabel, setSelectedLabel] = useState("");
+
+    console.log(session);
+    const router = useRouter();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -67,7 +69,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                         <AccountCircleIcon />
                     </Avatar>
                     <Box ml={2}>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
                             {session?.user && `@${session?.user?.userName}`}
                         </Typography>
                     </Box>
@@ -85,7 +87,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                     <ListItem
                         value={"logout"}
                         sx={{
-                            py: 6,
+                            py: 3,
                             px: 3,
                         }}
                     >
