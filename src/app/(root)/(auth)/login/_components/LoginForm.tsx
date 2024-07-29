@@ -46,6 +46,7 @@ export default function LoginForm() {
                     showToast("error", "Your credentials are wrong!");
                 } else if (result?.url) {
                     router.push(result.url);
+                    router.refresh();
                 }
 
                 setSubmitting(false);
