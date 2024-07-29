@@ -33,12 +33,11 @@ import { Session } from "next-auth";
 interface IHeaderMenu {
     genres: Genre[];
     anchorElProfile: null | HTMLElement;
+    session: Session | null;
     closeMenuGenres: () => void;
     openMenuProfile: (event: any) => void;
     closeMenuProfile: () => void;
-    redirectToProfile: () => void;
     handleLogout: () => void;
-    session: Session | null;
 }
 
 export default function HeaderMenu({
@@ -47,7 +46,6 @@ export default function HeaderMenu({
     anchorElProfile,
     openMenuProfile,
     closeMenuProfile,
-    redirectToProfile,
     handleLogout,
     session,
 }: IHeaderMenu) {

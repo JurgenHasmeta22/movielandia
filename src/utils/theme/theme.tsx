@@ -320,6 +320,7 @@ export function CustomThemeProvider({ children }: { children: ReactNode }) {
         const savedTheme =
             localStorage.getItem("theme") ||
             (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
         setMode(savedTheme);
     }, []);
 
@@ -327,6 +328,7 @@ export function CustomThemeProvider({ children }: { children: ReactNode }) {
         setMode((prevMode) => {
             const newMode = prevMode === "light" ? "dark" : "light";
             localStorage.setItem("theme", newMode);
+
             return newMode;
         });
     };

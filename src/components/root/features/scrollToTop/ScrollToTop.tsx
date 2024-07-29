@@ -2,7 +2,7 @@
 
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { tokens } from "@/utils/theme/theme";
 
 function ScrollToTop() {
