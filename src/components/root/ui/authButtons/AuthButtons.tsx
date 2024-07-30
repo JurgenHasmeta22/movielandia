@@ -96,7 +96,7 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                     <Button
                         variant="text"
                         onClick={() => {
-                            router.push("register");
+                            router.push("/register");
                         }}
                         sx={{
                             display: "flex",

@@ -159,6 +159,7 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
                     skip: skip,
                     take: take,
                 },
+                seasons: true,
             },
         });
 

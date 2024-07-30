@@ -28,7 +28,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                     >
                         <Box>
                             <Typography fontSize={28}>
-                                {roleData === "latest" ? "Latest" : "Related"}
+                                {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : "All"}
                                 {type === "movie"
                                     ? " Movies"
                                     : type === "serie"

@@ -10,9 +10,9 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 
 interface IHeaderLinks {
     genres: Genre[];
+    anchorElGenres: HTMLElement | null;
     openMenuGenres: (event: React.MouseEvent<HTMLLIElement>) => void;
     closeMenuGenres: () => void;
-    anchorElGenres: HTMLElement | null;
 }
 
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
