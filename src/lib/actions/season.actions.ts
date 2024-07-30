@@ -14,7 +14,7 @@ interface SeasonModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-type RatingsMap = {
+export type RatingsMap = {
     [key: number]: {
         averageRating: number;
         totalReviews: number;

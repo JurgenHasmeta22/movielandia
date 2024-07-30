@@ -307,6 +307,7 @@ Table Episode {
   description String [not null, default: '']
   duration Int [not null, default: 20]
   dateAired String [not null, default: '01/01/1990']
+  ratingImdb Float [not null, default: 5]
   seasonId Int [not null]
   season Season [not null]
   usersWhoBookmarkedIt UserEpisodeFavorite [not null]

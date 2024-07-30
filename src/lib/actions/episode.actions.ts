@@ -2,6 +2,7 @@
 
 import { Episode, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma/prisma";
+import { RatingsMap } from "./season.actions";
 
 interface EpisodeModelParams {
     sortBy: string;
@@ -67,16 +68,211 @@ export async function getEpisodeById(episodeId: number): Promise<Episode | null>
     }
 }
 
-export async function getEpisodeByTitle(title: string): Promise<Episode | null> {
-    const result = await prisma.episode.findFirst({
-        where: { title },
+export async function getEpisodeByTitle(title: string, queryParams: any): Promise<Episode | any | null> {
+    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+
+    const skip = page ? (page - 1) * 5 : 0;
+    const take = 5;
+
+    const orderByObject: any = {};
+    const titleFinal = title
+        .split("")
+        .map((char) => (char === "-" ? " " : char))
+        .join("");
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
+    } else {
+        orderByObject["createdAt"] = "desc";
+    }
+
+    try {
+        const episode = await prisma.episode.findFirst({
+            where: { title: titleFinal },
+            include: {
+                season: true,
+                reviews: {
+                    include: {
+                        user: true,
+                        upvotes: {
+                            take: upvotesPage ? upvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        downvotes: {
+                            take: downvotesPage ? downvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
+                        },
+                    },
+                    orderBy: orderByObject,
+                    skip: skip,
+                    take: take,
+                },
+            },
+        });
+
+        if (episode) {
+            const totalReviews = await prisma.episodeReview.count({
+                where: { episodeId: episode.id },
+            });
+
+            const ratings = await prisma.episodeReview.findMany({
+                where: { episodeId: episode.id },
+                select: { rating: true },
+            });
+
+            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+            let isBookmarked = false;
+            let isReviewed = false;
+
+            if (userId) {
+                for (const review of episode.reviews) {
+                    const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                        },
+                    });
+
+                    const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                        },
+                    });
+
+                    // @ts-expect-error dunno
+                    review.isUpvoted = !!existingUpvote;
+                    // @ts-expect-error dunno
+                    review.isDownvoted = !!existingDownvote;
+                }
+
+                const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }],
+                    },
+                });
+                isBookmarked = !!existingFavorite;
+
+                const existingReview = await prisma.episodeReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }],
+                    },
+                });
+                isReviewed = !!existingReview;
+            }
+
+            return {
+                ...episode,
+                averageRating,
+                totalReviews,
+                ...(userId && { isBookmarked, isReviewed }),
+            };
+        } else {
+            throw new Error("Episode not found");
+        }
+    } catch (error) {
+        throw new Error("Episode not found");
+    }
+}
+
+export async function getLatestEpisodes(): Promise<Episode[] | null> {
+    const episodesWithEpisodes = await prisma.episode.findMany({
+        orderBy: {
+            dateAired: "desc",
+        },
+        take: 10,
+        include: { season: true },
     });
 
-    if (result) {
-        return result;
+    const episodeIds = episodesWithEpisodes.map((episode) => episode.id);
+
+    const episodeRatings = await prisma.episodeReview.groupBy({
+        by: ["episodeId"],
+        where: { episodeId: { in: episodeIds } },
+        _avg: {
+            rating: true,
+        },
+        _count: {
+            rating: true,
+        },
+    });
+
+    const episodeRatingsMap: RatingsMap = episodeRatings.reduce((map, rating) => {
+        map[rating.episodeId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    const episodes = episodesWithEpisodes.map((episode) => {
+        const { ...properties } = episode;
+        const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
+
+        return { ...properties, ...ratingsInfo };
+    });
+
+    if (episodes) {
+        return episodes;
     } else {
         return null;
     }
+}
+
+export async function getRelatedEpisodes(title: string): Promise<Episode[] | null> {
+    const episode = await prisma.episode.findFirst({
+        where: { title },
+    });
+
+    const episodes = await prisma.episode.findMany({
+        where: { NOT: { id: episode?.id } },
+        include: { season: true },
+    });
+
+    if (!episodes.length) {
+        return null;
+    }
+
+    const relatedEpisodeIds = episodes.map((rm) => rm.id);
+
+    if (!relatedEpisodeIds.length) {
+        return null;
+    }
+
+    const episodeRatings = await prisma.episodeReview.groupBy({
+        by: ["episodeId"],
+        where: { episodeId: { in: relatedEpisodeIds } },
+        _avg: { rating: true },
+        _count: { rating: true },
+    });
+
+    const ratingsMap = episodeRatings.reduce(
+        (acc, rating) => {
+            acc[rating.episodeId] = {
+                averageRating: rating._avg.rating || 0,
+                totalReviews: rating._count.rating,
+            };
+
+            return acc;
+        },
+        {} as { [key: number]: { averageRating: number; totalReviews: number } },
+    );
+
+    const episodesFinal = episodes.map((relatedEpisode) => {
+        const { ...episodeDetails } = relatedEpisode;
+        const ratingsInfo = ratingsMap[relatedEpisode.id] || { averageRating: 0, totalReviews: 0 };
+
+        return { ...episodeDetails, episodes, ...ratingsInfo };
+    });
+
+    return episodesFinal.length > 0 ? episodesFinal : null;
 }
 
 export async function updateEpisodeById(episodeParam: Prisma.EpisodeUpdateInput, id: string): Promise<Episode | null> {
