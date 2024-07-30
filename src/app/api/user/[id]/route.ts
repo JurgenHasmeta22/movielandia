@@ -10,10 +10,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
             favSeries: { include: { serie: true } },
             movieReviews: { include: { movie: true } },
             serieReviews: { include: { serie: true } },
-            upvotedMovies: { include: { movieReview: true, movie: true } },
-            downvotedMovies: { include: { movieReview: true, movie: true } },
-            upvotedSeries: { include: { serieReview: true, serie: true } },
-            downvotedSeries: { include: { serieReview: true, serie: true } },
+            movieReviewsUpvoted: { include: { movieReview: true, movie: true } },
+            movieReviewsDownvoted: { include: { movieReview: true, movie: true } },
+            serieReviewsUpvoted: { include: { serieReview: true, serie: true } },
+            serieReviewsDownvoted: { include: { serieReview: true, serie: true } },
         },
     });
 
@@ -28,10 +28,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
             favSeries: user.favSeries,
             movieReviews: user.movieReviews,
             serieReviews: user.serieReviews,
-            upvotedMovies: user.upvotedMovies,
-            downvotedMovies: user.downvotedMovies,
-            upvotedSeries: user.upvotedSeries,
-            downvotedSeries: user.downvotedSeries,
+            upvotedMovies: user.movieReviewsUpvoted,
+            downvotedMovies: user.movieReviewsDownvoted,
+            upvotedSeries: user.serieReviewsUpvoted,
+            downvotedSeries: user.serieReviewsDownvoted,
         };
 
         return Response.json(userDetails, { status: 200 });

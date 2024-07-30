@@ -74,14 +74,18 @@ export async function getSeasonById(seasonId: number): Promise<Season | null> {
     }
 }
 
-export async function getSeasonByTitle(title: string, queryParams: any): Promise<Season | any | null> {
+export async function getSeasonByTitle(
+    seasonTitle: string,
+    serieId: number,
+    queryParams: any,
+): Promise<Season | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
 
     const orderByObject: any = {};
-    const titleFinal = title
+    const titleFinal = seasonTitle
         .split("")
         .map((char) => (char === "-" ? " " : char))
         .join("");
@@ -94,7 +98,9 @@ export async function getSeasonByTitle(title: string, queryParams: any): Promise
 
     try {
         const season = await prisma.season.findFirst({
-            where: { title: titleFinal },
+            where: {
+                AND: [{ title: titleFinal }, { serieId }],
+            },
             include: {
                 episodes: true,
                 reviews: {
@@ -187,13 +193,14 @@ export async function getSeasonByTitle(title: string, queryParams: any): Promise
     }
 }
 
-export async function getLatestSeasons(): Promise<Season[] | null> {
+export async function getLatestSeasons(serieId: number): Promise<Season[] | null> {
     const seasonsWithEpisodes = await prisma.season.findMany({
         orderBy: {
             dateAired: "desc",
         },
         take: 10,
         include: { episodes: true },
+        where: { serieId },
     });
 
     const seasonIds = seasonsWithEpisodes.map((season) => season.id);
@@ -232,13 +239,20 @@ export async function getLatestSeasons(): Promise<Season[] | null> {
     }
 }
 
-export async function getRelatedSeasons(title: string): Promise<Season[] | null> {
+export async function getRelatedSeasons(title: string, serieId: number): Promise<Season[] | null> {
+    const titleFinal = title
+        .split("")
+        .map((char) => (char === "-" ? " " : char))
+        .join("");
+
     const season = await prisma.season.findFirst({
-        where: { title },
+        where: {
+            AND: [{ title: titleFinal }, { serieId }],
+        },
     });
 
     const seasons = await prisma.season.findMany({
-        where: { NOT: { id: season?.id } },
+        where: { NOT: { id: season?.id }, AND: [{ serieId }] },
         include: { episodes: true },
     });
 
