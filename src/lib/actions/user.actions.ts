@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { Prisma, User } from "@prisma/client";
 import { prisma } from "@/lib/prisma/prisma";
 import { redirect } from "next/navigation";
@@ -321,12 +322,9 @@ export async function addFavoriteSeasonToUser(userId: number, seasonId: number):
         });
 
         if (result) {
-            const titleFinal = season.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
-            redirect(`/season/${titleFinal}`);
+            const headersList = headers();
+            const referer = headersList.get("referer");
+            redirect(`${referer}`);
         } else {
             throw new Error("Failed to add season to favorites.");
         }
@@ -366,12 +364,9 @@ export async function addFavoriteEpisodeToUser(userId: number, episodeId: number
         });
 
         if (result) {
-            const titleFinal = episode.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
-            redirect(`/episodes/${titleFinal}`);
+            const headersList = headers();
+            const referer = headersList.get("referer");
+            redirect(`${referer}`);
         } else {
             throw new Error("Failed to add episode to favorites.");
         }
@@ -496,7 +491,9 @@ export async function removeFavoriteSeasonToUser(userId: number, seasonId: numbe
             if (pathFrom === "/profile?tab=favSeasons") {
                 redirect("/profile?tab=favSeasons");
             } else {
-                redirect(`/seasons/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             }
         } else {
             throw new Error("Failed to remove season from favorites.");
@@ -538,7 +535,9 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
             if (pathFrom === "/profile?tab=favEpisodes") {
                 redirect("/profile?tab=favEpisodes");
             } else {
-                redirect(`/episodes/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             }
         } else {
             throw new Error("Failed to remove episode from favorites.");
@@ -709,12 +708,9 @@ export const addReviewSeason = async ({
             });
 
             if (reviewAdded) {
-                const titleFinal = season.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/seasons/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -767,12 +763,9 @@ export const addReviewEpisode = async ({
             });
 
             if (reviewAdded) {
-                const titleFinal = episode.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/episodes/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -928,12 +921,9 @@ export const updateReviewSeason = async ({
             });
 
             if (reviewUpdated) {
-                const titleFinal = existingReview.season.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/seasons/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -981,12 +971,9 @@ export const updateReviewEpisode = async ({
             });
 
             if (reviewUpdated) {
-                const titleFinal = existingReview.episode.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/episodes/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1097,12 +1084,9 @@ export const removeReviewSeason = async ({ userId, seasonId }: RemoveReviewSeaso
             });
 
             if (result) {
-                const titleFinal = existingReview.season.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/seasons/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1135,12 +1119,9 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
             });
 
             if (result) {
-                const titleFinal = existingReview.episode.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/episodes/${titleFinal}`);
+                const headersList = headers();
+                const referer = headersList.get("referer");
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to delete review.");
             }
