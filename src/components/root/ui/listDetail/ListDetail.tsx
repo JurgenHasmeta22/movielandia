@@ -35,7 +35,9 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                       ? " Series"
                                       : type === "season"
                                         ? " Seasons"
-                                        : ""}
+                                        : type === "episode"
+                                          ? " Episodes"
+                                          : ""}
                             </Typography>
                             <DividerLine />
                         </Box>

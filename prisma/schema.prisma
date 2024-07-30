@@ -370,14 +370,15 @@ model DownvoteSeasonReview {
 
 // #region "Episode relationships"
 model Episode {
-    id                     Int                     @id @default(autoincrement())
-    title                  String                  @default("")
-    photoSrc               String                  @default("")
-    photoSrcProd           String                  @default("")
-    trailerSrc             String                  @default("")
-    description            String                  @default("")
-    duration               Int                     @default(20)
-    dateAired              String                  @default("01/01/1990")
+    id           Int    @id @default(autoincrement())
+    title        String @default("")
+    photoSrc     String @default("")
+    photoSrcProd String @default("")
+    trailerSrc   String @default("")
+    description  String @default("")
+    duration     Int    @default(20)
+    dateAired    String @default("01/01/1990")
+    ratingImdb   Float  @default(5.0)
     seasonId               Int
     season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     usersWhoBookmarkedIt   UserEpisodeFavorite[]
