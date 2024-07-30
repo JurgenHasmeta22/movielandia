@@ -30,11 +30,11 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                             <Typography fontSize={28}>
                                 {roleData === "latest" ? "Latest" : "Related"}
                                 {type === "movie"
-                                    ? "Movies"
+                                    ? " Movies"
                                     : type === "serie"
-                                      ? "Series"
+                                      ? " Series"
                                       : type === "season"
-                                        ? "Season"
+                                        ? " Seasons"
                                         : ""}
                             </Typography>
                             <DividerLine />

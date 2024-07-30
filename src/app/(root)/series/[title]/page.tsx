@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SeriePageDetails from "./_components/SeriePage";
+import SeriePage from "./_components/SeriePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
         return notFound();
     }
 
-    const { description, photoSrc } = serie;
+    const { description, photoSrcProd } = serie;
 
     const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`;
 
@@ -35,10 +35,10 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             url: pageUrl,
             title: `${title} | Serie`,
             description,
-            images: photoSrc
+            images: photoSrcProd
                 ? [
                       {
-                          url: photoSrc,
+                          url: photoSrcProd,
                           width: 200,
                           height: 300,
                           alt: description,
@@ -53,10 +53,10 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             creator: "movieLandia24",
             title: `${title} | Serie`,
             description,
-            images: photoSrc
+            images: photoSrcProd
                 ? [
                       {
-                          url: photoSrc,
+                          url: photoSrcProd,
                           alt: description,
                       },
                   ]
@@ -98,7 +98,7 @@ export default async function Serie({ searchParams, params }: ISerieProps) {
 
     return (
         <Container>
-            <SeriePageDetails
+            <SeriePage
                 searchParamsValues={searchParamsValues}
                 serie={serie}
                 latestSeries={latestSeries}

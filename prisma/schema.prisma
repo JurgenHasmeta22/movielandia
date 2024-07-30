@@ -318,6 +318,8 @@ model Season {
     title                String                 @default("")
     photoSrc             String                 @default("")
     photoSrcProd         String                 @default("")
+    trailerSrc           String                 @default("")
+    description          String                 @default("")
     dateAired            String                 @default("01/01/1990")
     ratingImdb           Float                  @default(5.0)
     serieId              Int                    @default(1)
@@ -372,7 +374,9 @@ model Episode {
     title                  String                  @default("")
     photoSrc               String                  @default("")
     photoSrcProd           String                  @default("")
+    trailerSrc             String                  @default("")
     description            String                  @default("")
+    duration               Int                     @default(20)
     dateAired              String                  @default("01/01/1990")
     seasonId               Int
     season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)

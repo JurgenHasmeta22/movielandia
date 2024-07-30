@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
         return notFound();
     }
 
-    const { description, photoSrc } = season;
+    const { description, photoSrcProd } = season;
 
     const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${seasonTitle}`;
 
@@ -37,10 +37,10 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
             url: pageUrl,
             title: `${seasonTitle} | Season`,
             description,
-            images: photoSrc
+            images: photoSrcProd
                 ? [
                       {
-                          url: photoSrc,
+                          url: photoSrcProd,
                           width: 200,
                           height: 300,
                           alt: description,
@@ -55,10 +55,10 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
             creator: "movieLandia24",
             title: `${seasonTitle} | Season`,
             description,
-            images: photoSrc
+            images: photoSrcProd
                 ? [
                       {
-                          url: photoSrc,
+                          url: photoSrcProd,
                           alt: description,
                       },
                   ]
