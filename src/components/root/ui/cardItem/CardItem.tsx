@@ -17,8 +17,18 @@ interface ICardItemProps {
 
 const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
     const router = useRouter();
-    const path =
-        type === "serie" ? `/series/${data.title.split(" ").join("-")}` : `/movies/${data.title.split(" ").join("-")}`;
+
+    let path;
+
+    if (type === "serie") {
+        path = `/series/${data.title.split(" ").join("-")}`;
+    } else if (type === "movie") {
+        path = `/movies/${data.title.split(" ").join("-")}`;
+    } else if (type === "season") {
+        path = `seasons/${data.title.split(" ").join("-")}`;
+    } else {
+        path = "/";
+    }
 
     return (
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
@@ -38,7 +48,9 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                     },
                 }}
                 onClick={() => {
+                    // if (type == "season") {
                     router.push(path);
+                    // }
                 }}
                 elevation={6}
             >
@@ -158,7 +170,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                                 }}
                             />
                             <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
-                                {data.averageRating !== 0 ? `${data.averageRating}` : "N/A"}
+                                {data.averageRating && data.averageRating !== 0 ? `${data.averageRating}` : "N/A"}
                             </Typography>
                         </Box>
                     </Box>

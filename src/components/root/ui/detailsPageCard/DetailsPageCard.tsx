@@ -267,7 +267,10 @@ export function DetailsPageCard({
                                 },
                             }}
                         >
-                            {(type === "movie" && !isMovieBookmarked) || (type === "serie" && !isSerieBookmarked) ? (
+                            {(type === "movie" && !isMovieBookmarked) ||
+                            (type === "serie" && !isSerieBookmarked) ||
+                            (type === "season" && !isSeasonBookmarked) ||
+                            (type === "episode" && !isEpisodeBookmarked) ? (
                                 <BookmarkAddIcon color="success" fontSize="medium" />
                             ) : (
                                 <BookmarkRemoveIcon color="error" fontSize="medium" />
