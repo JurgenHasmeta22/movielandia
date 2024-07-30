@@ -183,13 +183,13 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
 
         if (userId) {
             for (const review of serie.reviews) {
-                const existingUpvote = await prisma.upvoteSerie.findFirst({
+                const existingUpvote = await prisma.upvoteSerieReview.findFirst({
                     where: {
                         AND: [{ userId }, { serieId: serie.id }, { serieReviewId: review.id }],
                     },
                 });
 
-                const existingDownvote = await prisma.downvoteSerie.findFirst({
+                const existingDownvote = await prisma.downvoteSerieReview.findFirst({
                     where: {
                         AND: [{ userId }, { serieId: serie.id }, { serieReviewId: review.id }],
                     },
@@ -230,7 +230,7 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
 export async function getLatestSeries(): Promise<Serie[] | null> {
     const seriesWithGenres = await prisma.serie.findMany({
         orderBy: {
-            releaseYear: "desc",
+            dateAired: "desc",
         },
         take: 10,
         include: { genres: { select: { genre: true } } },

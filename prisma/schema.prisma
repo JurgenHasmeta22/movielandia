@@ -248,7 +248,7 @@ model Serie {
     photoSrcProd         String                @default("")
     trailerSrc           String                @default("")
     description          String                @default("")
-    releaseYear          Int                   @default(2020)
+    dateAired            String                @default("01/01/2020")
     ratingImdb           Float                 @default(5.0)
     cast                 CastSerie[]
     seasons              Season[]
@@ -318,7 +318,7 @@ model Season {
     title                String                 @default("")
     photoSrc             String                 @default("")
     photoSrcProd         String                 @default("")
-    dateAired            DateTime               @default(now())
+    dateAired            String                 @default("01/01/1990")
     ratingImdb           Float                  @default(5.0)
     serieId              Int                    @default(1)
     serie                Serie                  @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -373,7 +373,7 @@ model Episode {
     photoSrc               String                  @default("")
     photoSrcProd           String                  @default("")
     description            String                  @default("")
-    dateAired              DateTime                @default(now())
+    dateAired              String                  @default("01/01/1990")
     seasonId               Int
     season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     usersWhoBookmarkedIt   UserEpisodeFavorite[]
