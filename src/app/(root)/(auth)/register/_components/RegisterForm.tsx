@@ -62,7 +62,7 @@ export default function LoginForm() {
                 const result = await signUp(userData);
 
                 if (!result) {
-                    showToast("error", "User already exists or something is wrong with the data you providede!");
+                    showToast("error", "User already exists or something is wrong with the data you provided!");
                 } else {
                     router.push("/login");
                 }

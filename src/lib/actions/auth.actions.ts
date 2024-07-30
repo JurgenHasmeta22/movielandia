@@ -4,11 +4,13 @@ import { hashSync } from "bcrypt";
 import { prisma } from "@/lib/prisma/prisma";
 import { User } from "@prisma/client";
 
-export async function signUp(userData: {
+interface IRegister {
     email: string;
     password: string;
     userName: string;
-}): Promise<User | null | undefined> {
+}
+
+export async function signUp(userData: IRegister): Promise<User | null | undefined> {
     try {
         const { email, password, userName } = userData;
 
@@ -28,10 +30,10 @@ export async function signUp(userData: {
                     favSeries: { include: { serie: true } },
                     movieReviews: { include: { movie: true } },
                     serieReviews: { include: { serie: true } },
-                    upvotedMovies: { include: { movieReview: true, movie: true } },
-                    downvotedMovies: { include: { movieReview: true, movie: true } },
-                    upvotedSeries: { include: { serieReview: true, serie: true } },
-                    downvotedSeries: { include: { serieReview: true, serie: true } },
+                    movieReviewsUpvoted: { include: { movieReview: true, movie: true } },
+                    movieReviewsDownvoted: { include: { movieReview: true, movie: true } },
+                    serieReviewsUpvoted: { include: { serieReview: true, serie: true } },
+                    serieReviewsDownvoted: { include: { serieReview: true, serie: true } },
                 },
             });
 

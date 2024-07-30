@@ -8,32 +8,32 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface ISerieProps {
     params: {
-        title: string;
+        serieTitle: string;
     };
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
 }
 
 export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
-    const { title } = params;
+    const { serieTitle } = params;
     let serie = null;
 
     try {
-        serie = await getSerieByTitle(title, {});
+        serie = await getSerieByTitle(serieTitle, {});
     } catch (error) {
         return notFound();
     }
 
     const { description, photoSrcProd } = serie;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${serieTitle}`;
 
     return {
-        title: `${title} | Serie`,
+        title: `${serieTitle} | Serie`,
         description: `${serie.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${title} | Serie`,
+            title: `${serieTitle} | Serie`,
             description,
             images: photoSrcProd
                 ? [
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${title} | Serie`,
+            title: `${serieTitle} | Serie`,
             description,
             images: photoSrcProd
                 ? [
@@ -72,7 +72,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
 export default async function Serie({ searchParams, params }: ISerieProps) {
     const session = await getServerSession(authOptions);
 
-    const title = params.title;
+    const title = params.serieTitle;
     const ascOrDesc = searchParams?.seriesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
