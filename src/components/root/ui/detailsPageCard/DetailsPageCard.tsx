@@ -17,10 +17,16 @@ interface IDetailsPageCardProps {
     type: string;
     isMovieBookmarked?: boolean;
     isSerieBookmarked?: boolean;
+    isSeasonBookmarked?: boolean;
+    isEpisodeBookmarked?: boolean;
     onBookmarkMovie?(): Promise<void>;
     onRemoveBookmarkMovie?(): Promise<void>;
     onBookmarkSerie?(): Promise<void>;
     onRemoveBookmarkSerie?(): Promise<void>;
+    onBookmarkSeason?(): Promise<void>;
+    onRemoveBookmarkSeason?(): Promise<void>;
+    onBookmarkEpisode?(): Promise<void>;
+    onRemoveBookmarkEpisode?(): Promise<void>;
 }
 
 export function DetailsPageCard({
@@ -28,10 +34,16 @@ export function DetailsPageCard({
     type,
     onBookmarkMovie,
     onBookmarkSerie,
+    onBookmarkSeason,
+    onBookmarkEpisode,
     onRemoveBookmarkMovie,
     onRemoveBookmarkSerie,
+    onRemoveBookmarkSeason,
+    onRemoveBookmarkEpisode,
     isMovieBookmarked,
     isSerieBookmarked,
+    isSeasonBookmarked,
+    isEpisodeBookmarked,
 }: IDetailsPageCardProps) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -130,7 +142,7 @@ export function DetailsPageCard({
                         <ListItem>
                             <CalendarMonthIcon fontSize="medium" />
                             <Typography component={"span"} paddingLeft={1}>
-                                {data.releaseYear}
+                                {data.dateAired}
                             </Typography>
                         </ListItem>
                         <ListItem
@@ -222,11 +234,23 @@ export function DetailsPageCard({
                                     } else {
                                         onRemoveBookmarkMovie ? await onRemoveBookmarkMovie() : {};
                                     }
-                                } else {
+                                } else if (type === "serie") {
                                     if (!isSerieBookmarked) {
                                         onBookmarkSerie ? await onBookmarkSerie() : {};
                                     } else {
                                         onRemoveBookmarkSerie ? await onRemoveBookmarkSerie() : {};
+                                    }
+                                } else if (type === "episode") {
+                                    if (!isEpisodeBookmarked) {
+                                        onBookmarkEpisode ? await onBookmarkEpisode() : {};
+                                    } else {
+                                        onRemoveBookmarkEpisode ? await onRemoveBookmarkEpisode() : {};
+                                    }
+                                } else {
+                                    if (!isSeasonBookmarked) {
+                                        onBookmarkSeason ? await onBookmarkSeason() : {};
+                                    } else {
+                                        onRemoveBookmarkSeason ? await onRemoveBookmarkSeason() : {};
                                     }
                                 }
                             }}

@@ -1,39 +1,41 @@
 import { Container } from "@mui/material";
-import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SeriePage from "./_components/SeriePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import SeasonPage from "./_components/SeasonPage";
+import { getSeasonByTitle, getLatestSeasons, getRelatedSeasons } from "@/lib/actions/season.actions";
 
-interface ISerieProps {
+interface ISeasonProps {
     params: {
-        title: string;
+        seasonTitle: string;
     };
-    searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
+    searchParams?: { seasonsAscOrDesc?: string; page?: string; seasonsSortBy?: string };
 }
 
-export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
-    const { title } = params;
-    let serie = null;
+export async function generateMetadata({ params }: ISeasonProps): Promise<Metadata> {
+    const { seasonTitle } = params;
+    let season = null;
 
     try {
-        serie = await getSerieByTitle(title, {});
+        season = await getSeasonByTitle(seasonTitle, {});
+        console.log(season);
     } catch (error) {
+        console.log(error);
         return notFound();
     }
 
-    const { description, photoSrcProd } = serie;
+    const { description, photoSrcProd } = season;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${seasonTitle}`;
 
     return {
-        title: `${title} | Serie`,
-        description: `${serie.description}`,
+        title: `${seasonTitle} | Season`,
+        description: `${season.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${title} | Serie`,
+            title: `${seasonTitle} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -51,7 +53,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${title} | Serie`,
+            title: `${seasonTitle} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -69,13 +71,13 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     };
 }
 
-export default async function Serie({ searchParams, params }: ISerieProps) {
+export default async function Season({ searchParams, params }: ISeasonProps) {
     const session = await getServerSession(authOptions);
 
-    const title = params.title;
-    const ascOrDesc = searchParams?.seriesAscOrDesc;
+    const title = params.seasonTitle;
+    const ascOrDesc = searchParams?.seasonsAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
+    const sortBy = searchParams?.seasonsSortBy ? searchParams?.seasonsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -83,26 +85,27 @@ export default async function Serie({ searchParams, params }: ISerieProps) {
         userId: Number(session?.user?.id),
     };
 
-    let serie = null;
+    let season = null;
 
     try {
-        serie = await getSerieByTitle(title, searchParamsValues);
+        season = await getSeasonByTitle(title, searchParamsValues);
+        console.log(season);
     } catch (error) {
         return notFound();
     }
 
-    const latestSeries = await getLatestSeries();
-    const relatedSeries = await getRelatedSeries(title);
+    const latestSeasons = await getLatestSeasons();
+    const relatedSeasons = await getRelatedSeasons(title);
 
-    const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(season?.totalReviews / 5);
 
     return (
         <Container>
-            <SeriePage
+            <SeasonPage
                 searchParamsValues={searchParamsValues}
-                serie={serie}
-                latestSeries={latestSeries}
-                relatedSeries={relatedSeries}
+                season={season}
+                latestSeasons={latestSeasons}
+                relatedSeasons={relatedSeasons}
                 pageCount={pageCountReviews}
             />
         </Container>

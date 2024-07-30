@@ -1,39 +1,39 @@
 import { Container } from "@mui/material";
-import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SeriePage from "./_components/SeriePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getEpisodeByTitle, getLatestEpisodes, getRelatedEpisodes } from "@/lib/actions/episode.actions";
+import EpisodePage from "../_components/EpisodePage";
 
-interface ISerieProps {
+interface IEpisodeProps {
     params: {
-        title: string;
+        episodeTitle: string;
     };
-    searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
+    searchParams?: { episodesAscOrDesc?: string; page?: string; episodesSortBy?: string };
 }
 
-export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
-    const { title } = params;
-    let serie = null;
+export async function generateMetadata({ params }: IEpisodeProps): Promise<Metadata> {
+    const { episodeTitle } = params;
+    let episode = null;
 
     try {
-        serie = await getSerieByTitle(title, {});
+        episode = await getEpisodeByTitle(episodeTitle, {});
     } catch (error) {
         return notFound();
     }
 
-    const { description, photoSrcProd } = serie;
+    const { description, photoSrcProd } = episode;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/episodes/${episodeTitle}`;
 
     return {
-        title: `${title} | Serie`,
-        description: `${serie.description}`,
+        title: `${episodeTitle} | Episode`,
+        description: `${episode.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${title} | Serie`,
+            title: `${episodeTitle} | Episode`,
             description,
             images: photoSrcProd
                 ? [
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${title} | Serie`,
+            title: `${episodeTitle} | Episode`,
             description,
             images: photoSrcProd
                 ? [
@@ -69,13 +69,13 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     };
 }
 
-export default async function Serie({ searchParams, params }: ISerieProps) {
+export default async function Episode({ searchParams, params }: IEpisodeProps) {
     const session = await getServerSession(authOptions);
 
-    const title = params.title;
-    const ascOrDesc = searchParams?.seriesAscOrDesc;
+    const title = params.episodeTitle;
+    const ascOrDesc = searchParams?.episodesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
+    const sortBy = searchParams?.episodesSortBy ? searchParams?.episodesSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -83,26 +83,27 @@ export default async function Serie({ searchParams, params }: ISerieProps) {
         userId: Number(session?.user?.id),
     };
 
-    let serie = null;
+    let episode = null;
 
     try {
-        serie = await getSerieByTitle(title, searchParamsValues);
+        episode = await getEpisodeByTitle(title, searchParamsValues);
+        console.log(episode);
     } catch (error) {
         return notFound();
     }
 
-    const latestSeries = await getLatestSeries();
-    const relatedSeries = await getRelatedSeries(title);
+    const latestEpisodes = await getLatestEpisodes();
+    const relatedEpisodes = await getRelatedEpisodes(title);
 
-    const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(episode?.totalReviews / 5);
 
     return (
         <Container>
-            <SeriePage
+            <EpisodePage
                 searchParamsValues={searchParamsValues}
-                serie={serie}
-                latestSeries={latestSeries}
-                relatedSeries={relatedSeries}
+                episode={episode}
+                latestEpisodes={latestEpisodes}
+                relatedEpisodes={relatedEpisodes}
                 pageCount={pageCountReviews}
             />
         </Container>

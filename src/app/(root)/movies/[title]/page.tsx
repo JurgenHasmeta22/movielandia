@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import { getLatestMovies, getMovieByTitle, getRelatedMovies } from "@/lib/actions/movie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MoviePageDetails from "./_components/MoviePage";
+import MoviePage from "./_components/MoviePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
         return notFound();
     }
 
-    const { description, photoSrc } = movie;
+    const { description, photoSrcProd } = movie;
 
     const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${title}`;
 
@@ -35,10 +35,10 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
             url: pageUrl,
             title: `${title} | Movie`,
             description,
-            images: photoSrc
+            images: photoSrcProd
                 ? [
                       {
-                          url: photoSrc,
+                          url: photoSrcProd,
                           width: 200,
                           height: 300,
                           alt: description,
@@ -53,10 +53,10 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
             creator: "movieLandia24",
             title: `${title} | Movie`,
             description,
-            images: photoSrc
+            images: photoSrcProd
                 ? [
                       {
-                          url: photoSrc,
+                          url: photoSrcProd,
                           alt: description,
                       },
                   ]
@@ -97,7 +97,7 @@ export default async function Movie({ searchParams, params }: IMovieProps) {
 
     return (
         <Container>
-            <MoviePageDetails
+            <MoviePage
                 searchParamsValues={searchParamsValues}
                 movie={movie}
                 latestMovies={latestMovies}
