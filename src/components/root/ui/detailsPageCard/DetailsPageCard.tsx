@@ -130,7 +130,7 @@ export function DetailsPageCard({
                         <ListItem>
                             <CalendarMonthIcon fontSize="medium" />
                             <Typography component={"span"} paddingLeft={1}>
-                                {data.releaseYear}
+                                {data.dateAired}
                             </Typography>
                         </ListItem>
                         <ListItem

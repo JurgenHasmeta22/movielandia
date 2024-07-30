@@ -17,14 +17,14 @@ import { Serie } from "@prisma/client";
 interface IAddSerie {
     title: string;
     photoSrc: string;
-    releaseYear: string | number;
+    dateAired: string;
     ratingImdb: string | number;
 }
 
 const serieSchema = yup.object().shape({
     title: yup.string().required("required"),
     photoSrc: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
+    dateAired: yup.string().required("required"),
     ratingImdb: yup.string().required("required"),
 });
 
@@ -41,7 +41,7 @@ const AddSerieAdminPage = () => {
             title: values.title,
             photoSrc: values.photoSrc,
             ratingImdb: Number(values.ratingImdb),
-            releaseYear: Number(values.releaseYear),
+            dateAired: values.dateAired,
         };
 
         const response: Serie | null = await addSerie(payload);
@@ -61,7 +61,7 @@ const AddSerieAdminPage = () => {
                 initialValues={{
                     title: "",
                     photoSrc: "",
-                    releaseYear: "",
+                    dateAired: "",
                     ratingImdb: "",
                 }}
                 fields={[
@@ -78,8 +78,8 @@ const AddSerieAdminPage = () => {
                         type: "text",
                     },
                     {
-                        name: "releaseYear",
-                        label: "Release year",
+                        name: "dateAired",
+                        label: "Date aired",
                         variant: "filled",
                         type: "text",
                     },

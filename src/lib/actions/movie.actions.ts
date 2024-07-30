@@ -182,13 +182,13 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
 
             if (userId) {
                 for (const review of movie.reviews) {
-                    const existingUpvote = await prisma.upvoteMovie.findFirst({
+                    const existingUpvote = await prisma.upvoteMovieReview.findFirst({
                         where: {
                             AND: [{ userId }, { movieId: movie.id }, { movieReviewId: review.id }],
                         },
                     });
 
-                    const existingDownvote = await prisma.downvoteMovie.findFirst({
+                    const existingDownvote = await prisma.downvoteMovieReview.findFirst({
                         where: {
                             AND: [{ userId }, { movieId: movie.id }, { movieReviewId: review.id }],
                         },
@@ -232,7 +232,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
 export async function getLatestMovies(): Promise<Movie[] | null> {
     const moviesWithGenres = await prisma.movie.findMany({
         orderBy: {
-            releaseYear: "desc",
+            dateAired: "desc",
         },
         take: 10,
         include: { genres: { select: { genre: true } } },

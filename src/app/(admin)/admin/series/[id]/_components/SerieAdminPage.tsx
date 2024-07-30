@@ -23,7 +23,7 @@ const serieSchema = yup.object().shape({
     title: yup.string().required("required"),
     photoSrc: yup.string().required("required"),
     ratingImdb: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
+    dateAired: yup.string().required("required"),
 });
 
 const SerieAdminPage = () => {
@@ -64,7 +64,7 @@ const SerieAdminPage = () => {
             title: values.title,
             photoSrc: values.photoSrc,
             ratingImdb: Number(values.ratingImdb),
-            releaseYear: Number(values.releaseYear),
+            dateAired: values.dateAired,
         };
 
         const response: Serie | null = await updateSerieById(payload, String(serie?.id));
@@ -102,7 +102,7 @@ const SerieAdminPage = () => {
                     id: serie?.id,
                     title: serie?.title,
                     photoSrc: serie?.photoSrc,
-                    releaseYear: serie?.releaseYear,
+                    dateAired: serie?.dateAired,
                     ratingImdb: serie?.ratingImdb,
                 }}
                 fields={[
@@ -126,8 +126,8 @@ const SerieAdminPage = () => {
                         type: "text",
                     },
                     {
-                        name: "releaseYear",
-                        label: "Release year",
+                        name: "dateAired",
+                        label: "Date aired",
                         variant: "filled",
                         type: "text",
                     },

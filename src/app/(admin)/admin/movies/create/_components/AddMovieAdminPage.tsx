@@ -18,7 +18,7 @@ const movieSchema = yup.object().shape({
     photoSrc: yup.string().required("required"),
     trailerSrc: yup.string().required("required"),
     duration: yup.string().required("required"),
-    releaseYear: yup.string().required("required"),
+    dateAired: yup.string().required("required"),
     ratingImdb: yup.string().required("required"),
     description: yup.string().required("required"),
 });
@@ -39,7 +39,7 @@ const AddMovieAdminPage = () => {
             photoSrc: values.photoSrc,
             trailerSrc: values.trailerSrc,
             ratingImdb: Number(values.ratingImdb),
-            releaseYear: Number(values.releaseYear),
+            dateAired: values.dateAired,
         };
 
         const response = await addMovie(payload);
@@ -62,7 +62,7 @@ const AddMovieAdminPage = () => {
                     trailerSrc: "",
                     duration: "",
                     ratingImdb: "",
-                    releaseYear: "",
+                    dateAired: "",
                     description: "",
                 }}
                 fields={[
@@ -97,8 +97,8 @@ const AddMovieAdminPage = () => {
                         type: "text",
                     },
                     {
-                        name: "releaseYear",
-                        label: "Release year",
+                        name: "dateAired",
+                        label: "Date aired",
                         variant: "filled",
                         type: "text",
                     },
