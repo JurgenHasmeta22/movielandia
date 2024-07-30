@@ -17,10 +17,13 @@ interface IDetailsPageCardProps {
     type: string;
     isMovieBookmarked?: boolean;
     isSerieBookmarked?: boolean;
+    isSeasonBookmarked?: boolean;
     onBookmarkMovie?(): Promise<void>;
     onRemoveBookmarkMovie?(): Promise<void>;
     onBookmarkSerie?(): Promise<void>;
     onRemoveBookmarkSerie?(): Promise<void>;
+    onBookmarkSeason?(): Promise<void>;
+    onRemoveBookmarkSeason?(): Promise<void>;
 }
 
 export function DetailsPageCard({
@@ -28,10 +31,13 @@ export function DetailsPageCard({
     type,
     onBookmarkMovie,
     onBookmarkSerie,
+    onBookmarkSeason,
     onRemoveBookmarkMovie,
     onRemoveBookmarkSerie,
+    onRemoveBookmarkSeason,
     isMovieBookmarked,
     isSerieBookmarked,
+    isSeasonBookmarked,
 }: IDetailsPageCardProps) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -222,11 +228,17 @@ export function DetailsPageCard({
                                     } else {
                                         onRemoveBookmarkMovie ? await onRemoveBookmarkMovie() : {};
                                     }
-                                } else {
+                                } else if (type === "serie") {
                                     if (!isSerieBookmarked) {
                                         onBookmarkSerie ? await onBookmarkSerie() : {};
                                     } else {
                                         onRemoveBookmarkSerie ? await onRemoveBookmarkSerie() : {};
+                                    }
+                                } else {
+                                    if (!isSeasonBookmarked) {
+                                        onBookmarkSeason ? await onBookmarkSeason() : {};
+                                    } else {
+                                        onRemoveBookmarkSeason ? await onRemoveBookmarkSeason() : {};
                                     }
                                 }
                             }}
