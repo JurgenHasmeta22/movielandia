@@ -1,10 +1,9 @@
 "use server";
 
-import { Episode, Prisma } from "@prisma/client";
+import { Season, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma/prisma";
-import { RatingsMap } from "./season.actions";
 
-interface EpisodeModelParams {
+interface SeasonModelParams {
     sortBy: string;
     ascOrDesc: "asc" | "desc";
     perPage: number;
@@ -15,7 +14,14 @@ interface EpisodeModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export async function getEpisodes({
+export type RatingsMap = {
+    [key: number]: {
+        averageRating: number;
+        totalReviews: number;
+    };
+};
+
+export async function getSeasons({
     sortBy,
     ascOrDesc,
     perPage,
@@ -24,7 +30,7 @@ export async function getEpisodes({
     filterValue,
     filterNameString,
     filterOperatorString,
-}: EpisodeModelParams): Promise<Episode[] | null> {
+}: SeasonModelParams): Promise<Season[] | null> {
     const filters: any = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
     const take = perPage || 20;
@@ -42,23 +48,23 @@ export async function getEpisodes({
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const episodes = await prisma.episode.findMany({
+    const seasons = await prisma.season.findMany({
         where: filters,
         orderBy: orderByObject,
         skip,
         take,
     });
 
-    if (episodes) {
-        return episodes;
+    if (seasons) {
+        return seasons;
     } else {
         return null;
     }
 }
 
-export async function getEpisodeById(episodeId: number): Promise<Episode | null> {
-    const result = await prisma.episode.findFirst({
-        where: { id: episodeId },
+export async function getSeasonById(seasonId: number): Promise<Season | null> {
+    const result = await prisma.season.findFirst({
+        where: { id: seasonId },
     });
 
     if (result) {
@@ -68,7 +74,7 @@ export async function getEpisodeById(episodeId: number): Promise<Episode | null>
     }
 }
 
-export async function getEpisodeByTitle(title: string, queryParams: any): Promise<Episode | any | null> {
+export async function getSeasonByTitle(title: string, queryParams: any): Promise<Season | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
     const skip = page ? (page - 1) * 5 : 0;
@@ -87,10 +93,10 @@ export async function getEpisodeByTitle(title: string, queryParams: any): Promis
     }
 
     try {
-        const episode = await prisma.episode.findFirst({
+        const season = await prisma.season.findFirst({
             where: { title: titleFinal },
             include: {
-                season: true,
+                episodes: true,
                 reviews: {
                     include: {
                         user: true,
@@ -116,13 +122,13 @@ export async function getEpisodeByTitle(title: string, queryParams: any): Promis
             },
         });
 
-        if (episode) {
-            const totalReviews = await prisma.episodeReview.count({
-                where: { episodeId: episode.id },
+        if (season) {
+            const totalReviews = await prisma.seasonReview.count({
+                where: { seasonId: season.id },
             });
 
-            const ratings = await prisma.episodeReview.findMany({
-                where: { episodeId: episode.id },
+            const ratings = await prisma.seasonReview.findMany({
+                where: { seasonId: season.id },
                 select: { rating: true },
             });
 
@@ -133,16 +139,16 @@ export async function getEpisodeByTitle(title: string, queryParams: any): Promis
             let isReviewed = false;
 
             if (userId) {
-                for (const review of episode.reviews) {
-                    const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
+                for (const review of season.reviews) {
+                    const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
                         where: {
-                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                            AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
                         },
                     });
 
-                    const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
+                    const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
                         where: {
-                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                            AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
                         },
                     });
 
@@ -152,49 +158,49 @@ export async function getEpisodeByTitle(title: string, queryParams: any): Promis
                     review.isDownvoted = !!existingDownvote;
                 }
 
-                const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                const existingFavorite = await prisma.userSeasonFavorite.findFirst({
                     where: {
-                        AND: [{ userId }, { episodeId: episode.id }],
+                        AND: [{ userId }, { seasonId: season.id }],
                     },
                 });
                 isBookmarked = !!existingFavorite;
 
-                const existingReview = await prisma.episodeReview.findFirst({
+                const existingReview = await prisma.seasonReview.findFirst({
                     where: {
-                        AND: [{ userId }, { episodeId: episode.id }],
+                        AND: [{ userId }, { seasonId: season.id }],
                     },
                 });
                 isReviewed = !!existingReview;
             }
 
             return {
-                ...episode,
+                ...season,
                 averageRating,
                 totalReviews,
                 ...(userId && { isBookmarked, isReviewed }),
             };
         } else {
-            throw new Error("Episode not found");
+            throw new Error("Season not found");
         }
     } catch (error) {
-        throw new Error("Episode not found");
+        throw new Error("Season not found");
     }
 }
 
-export async function getLatestEpisodes(): Promise<Episode[] | null> {
-    const episodesWithEpisodes = await prisma.episode.findMany({
+export async function getLatestSeasons(): Promise<Season[] | null> {
+    const seasonsWithEpisodes = await prisma.season.findMany({
         orderBy: {
             dateAired: "desc",
         },
         take: 10,
-        include: { season: true },
+        include: { episodes: true },
     });
 
-    const episodeIds = episodesWithEpisodes.map((episode) => episode.id);
+    const seasonIds = seasonsWithEpisodes.map((season) => season.id);
 
-    const episodeRatings = await prisma.episodeReview.groupBy({
-        by: ["episodeId"],
-        where: { episodeId: { in: episodeIds } },
+    const seasonRatings = await prisma.seasonReview.groupBy({
+        by: ["seasonId"],
+        where: { seasonId: { in: seasonIds } },
         _avg: {
             rating: true,
         },
@@ -203,8 +209,8 @@ export async function getLatestEpisodes(): Promise<Episode[] | null> {
         },
     });
 
-    const episodeRatingsMap: RatingsMap = episodeRatings.reduce((map, rating) => {
-        map[rating.episodeId] = {
+    const seasonRatingsMap: RatingsMap = seasonRatings.reduce((map, rating) => {
+        map[rating.seasonId] = {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
@@ -212,50 +218,50 @@ export async function getLatestEpisodes(): Promise<Episode[] | null> {
         return map;
     }, {} as RatingsMap);
 
-    const episodes = episodesWithEpisodes.map((episode) => {
-        const { ...properties } = episode;
-        const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
+    const seasons = seasonsWithEpisodes.map((season) => {
+        const { episodes, ...properties } = season;
+        const ratingsInfo = seasonRatingsMap[season.id] || { averageRating: 0, totalReviews: 0 };
 
         return { ...properties, ...ratingsInfo };
     });
 
-    if (episodes) {
-        return episodes;
+    if (seasons) {
+        return seasons;
     } else {
         return null;
     }
 }
 
-export async function getRelatedEpisodes(title: string): Promise<Episode[] | null> {
-    const episode = await prisma.episode.findFirst({
+export async function getRelatedSeasons(title: string): Promise<Season[] | null> {
+    const season = await prisma.season.findFirst({
         where: { title },
     });
 
-    const episodes = await prisma.episode.findMany({
-        where: { NOT: { id: episode?.id } },
-        include: { season: true },
+    const seasons = await prisma.season.findMany({
+        where: { NOT: { id: season?.id } },
+        include: { episodes: true },
     });
 
-    if (!episodes.length) {
+    if (!seasons.length) {
         return null;
     }
 
-    const relatedEpisodeIds = episodes.map((rm) => rm.id);
+    const relatedSeasonIds = seasons.map((rm) => rm.id);
 
-    if (!relatedEpisodeIds.length) {
+    if (!relatedSeasonIds.length) {
         return null;
     }
 
-    const episodeRatings = await prisma.episodeReview.groupBy({
-        by: ["episodeId"],
-        where: { episodeId: { in: relatedEpisodeIds } },
+    const seasonRatings = await prisma.seasonReview.groupBy({
+        by: ["seasonId"],
+        where: { seasonId: { in: relatedSeasonIds } },
         _avg: { rating: true },
         _count: { rating: true },
     });
 
-    const ratingsMap = episodeRatings.reduce(
+    const ratingsMap = seasonRatings.reduce(
         (acc, rating) => {
-            acc[rating.episodeId] = {
+            acc[rating.seasonId] = {
                 averageRating: rating._avg.rating || 0,
                 totalReviews: rating._count.rating,
             };
@@ -265,29 +271,29 @@ export async function getRelatedEpisodes(title: string): Promise<Episode[] | nul
         {} as { [key: number]: { averageRating: number; totalReviews: number } },
     );
 
-    const episodesFinal = episodes.map((relatedEpisode) => {
-        const { ...episodeDetails } = relatedEpisode;
-        const ratingsInfo = ratingsMap[relatedEpisode.id] || { averageRating: 0, totalReviews: 0 };
+    const seasonsFinal = seasons.map((relatedSeason) => {
+        const { episodes, ...seasonDetails } = relatedSeason;
+        const ratingsInfo = ratingsMap[relatedSeason.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...episodeDetails, episodes, ...ratingsInfo };
+        return { ...seasonDetails, episodes, ...ratingsInfo };
     });
 
-    return episodesFinal.length > 0 ? episodesFinal : null;
+    return seasonsFinal.length > 0 ? seasonsFinal : null;
 }
 
-export async function updateEpisodeById(episodeParam: Prisma.EpisodeUpdateInput, id: string): Promise<Episode | null> {
-    const episode: Episode | null = await prisma.episode.findUnique({
+export async function updateSeasonById(seasonParam: Prisma.SeasonUpdateInput, id: string): Promise<Season | null> {
+    const season: Season | null = await prisma.season.findUnique({
         where: { id: Number(id) },
     });
 
-    if (episode) {
-        const episodeUpdated = await prisma.episode.update({
+    if (season) {
+        const seasonUpdated = await prisma.season.update({
             where: { id: Number(id) },
-            data: episodeParam,
+            data: seasonParam,
         });
 
-        if (episodeUpdated) {
-            return episodeUpdated;
+        if (seasonUpdated) {
+            return seasonUpdated;
         } else {
             return null;
         }
@@ -296,30 +302,30 @@ export async function updateEpisodeById(episodeParam: Prisma.EpisodeUpdateInput,
     }
 }
 
-export async function addEpisode(episodeParam: Episode): Promise<Episode | null> {
-    const episodeCreated = await prisma.episode.create({
-        data: episodeParam,
+export async function addSeason(seasonParam: Season): Promise<Season | null> {
+    const seasonCreated = await prisma.season.create({
+        data: seasonParam,
     });
 
-    if (episodeCreated) {
-        return episodeCreated;
+    if (seasonCreated) {
+        return seasonCreated;
     } else {
         return null;
     }
 }
 
-export async function deleteEpisodeById(id: number): Promise<string | null> {
-    const episode: Episode | null = await prisma.episode.findUnique({
+export async function deleteSeasonById(id: number): Promise<string | null> {
+    const season: Season | null = await prisma.season.findUnique({
         where: { id },
     });
 
-    if (episode) {
-        const result = await prisma.episode.delete({
+    if (season) {
+        const result = await prisma.season.delete({
             where: { id },
         });
 
         if (result) {
-            return "Episode deleted successfully";
+            return "Season deleted successfully";
         } else {
             return null;
         }
@@ -328,7 +334,7 @@ export async function deleteEpisodeById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchEpisodesByTitle(title: string, page: number): Promise<Episode[] | null> {
+export async function searchSeasonsByTitle(title: string, page: number): Promise<Season[] | null> {
     const query = {
         where: {
             title: { contains: title },
@@ -337,10 +343,10 @@ export async function searchEpisodesByTitle(title: string, page: number): Promis
         take: 20,
     };
 
-    const episodes = await prisma.episode.findMany(query);
+    const seasons = await prisma.season.findMany(query);
 
-    if (episodes) {
-        return episodes;
+    if (seasons) {
+        return seasons;
     } else {
         return null;
     }

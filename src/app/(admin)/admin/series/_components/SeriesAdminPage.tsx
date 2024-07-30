@@ -21,8 +21,8 @@ const SeriesAdminPage = () => {
                 header: "RatingImdb",
             },
             {
-                accessorKey: "releaseYear",
-                header: "ReleaseYear",
+                accessorKey: "dateAired",
+                header: "Date aired",
             },
         ],
         [],

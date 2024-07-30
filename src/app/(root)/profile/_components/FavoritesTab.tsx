@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { tokens } from "@/utils/theme/theme";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useRouter } from "next/navigation";
-import { Movie, Prisma, Serie, User } from "@prisma/client";
+import { Movie, Serie } from "@prisma/client";
 import { removeFavoriteMovieToUser, removeFavoriteSerieToUser } from "@/lib/actions/user.actions";
 import Image from "next/image";
 import { showToast } from "@/lib/toast/toast";
@@ -87,7 +87,7 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
                             }}
                         >
                             <Image
-                                src={type === "Movies" ? favItem.movie.photoSrc : favItem.serie.photoSrc}
+                                src={type === "Movies" ? favItem.movie.photoSrcProd : favItem.serie.photoSrcProd}
                                 alt={type === "Movies" ? favItem.movie.title : favItem.serie.title}
                                 height={200}
                                 width={150}
