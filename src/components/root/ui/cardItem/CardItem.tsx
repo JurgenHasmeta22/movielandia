@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import StarIcon from "@mui/icons-material/Star";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,18 +17,27 @@ interface ICardItemProps {
 
 const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
     const router = useRouter();
+    const params = useParams();
 
-    let path;
+    const getPath = () => {
+        switch (type) {
+            case "serie":
+                return `/series/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+            case "movie":
+                return `/movies/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+            case "season":
+                return `/series/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+            case "episode":
+                return `/series/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${typeof params.seasonTitle === "string" ? encodeURIComponent(params.seasonTitle.split(" ").join("-")) : ""}/episodes/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+            default:
+                return "/";
+        }
+    };
 
-    if (type === "serie") {
-        path = `/series/${data.title.split(" ").join("-")}`;
-    } else if (type === "movie") {
-        path = `/movies/${data.title.split(" ").join("-")}`;
-    } else if (type === "season") {
-        path = `seasons/${data.title.split(" ").join("-")}`;
-    } else {
-        path = "/";
-    }
+    const handleGoTo = () => {
+        const path = getPath();
+        router.push(path);
+    };
 
     return (
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
@@ -47,11 +56,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                         boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
                     },
                 }}
-                onClick={() => {
-                    // if (type == "season") {
-                    router.push(path);
-                    // }
-                }}
+                onClick={handleGoTo}
                 elevation={6}
             >
                 <Box sx={{ position: "relative" }}>

@@ -130,28 +130,30 @@ export function DetailsPageCard({
                     <List
                         sx={{
                             display: "flex",
-                            flexDirection: { xs: "column", sm: "row" },
-                            alignItems: { xs: "flex-start", sm: "center" },
-                            justifyContent: { xs: "flex-start", sm: "space-between" },
-                            gap: { xs: 2, sm: 4 },
-                            width: "100%",
-                            pl: 4,
-                            pr: 4,
+                            flexDirection: { xs: "column", md: "row" },
+                            alignItems: { xs: "flex-start", md: "center" },
+                            justifyContent: { xs: "flex-start", md: "space-between" },
+                            gap: { xs: 2, sm: 4, md: 6 },
+                            pl: { xs: 10, md: 6 },
+                            pr: { xs: 10, md: 6 },
+                            pt: { xs: 4, md: 3 },
                         }}
                     >
                         {type !== "serie" && type !== "season" && (
-                            <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                            <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
                                 <Grid container alignItems="center" spacing={1}>
                                     <Grid item>
                                         <AccessTimeIcon fontSize="medium" />
                                     </Grid>
                                     <Grid item>
-                                        <Typography component="span">{data.duration} min</Typography>
+                                        <Typography component="span">
+                                            {data.duration} {type === "movie" && "min"}
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </ListItem>
                         )}
-                        <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                        <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
                             <Grid container alignItems="center" spacing={1}>
                                 <Grid item>
                                     <CalendarMonthIcon fontSize="medium" />
@@ -161,7 +163,7 @@ export function DetailsPageCard({
                                 </Grid>
                             </Grid>
                         </ListItem>
-                        <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                        <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
                             <Box display="flex" alignItems="center" gap={0.5}>
                                 <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
                                 <Typography component="span">
@@ -169,7 +171,7 @@ export function DetailsPageCard({
                                 </Typography>
                             </Box>
                         </ListItem>
-                        <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                        <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
                             <Box display="flex" alignItems="center" gap={0.5}>
                                 <StarRateIcon />
                                 <Typography component="span">

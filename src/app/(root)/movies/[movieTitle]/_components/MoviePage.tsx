@@ -27,7 +27,7 @@ import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEd
 import { showToast } from "@/lib/toast/toast";
 
 export default function MoviePage({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
-    // #region "State, hooks etc"
+    // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
