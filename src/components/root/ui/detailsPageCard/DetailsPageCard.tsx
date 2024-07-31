@@ -6,7 +6,7 @@ import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import { Box, Button, Divider, List, ListItem, Typography, useTheme } from "@mui/material";
+import { Box, Button, Divider, Grid, List, ListItem, Typography, useTheme } from "@mui/material";
 import { tokens } from "@/utils/theme/theme";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,10 +45,10 @@ export function DetailsPageCard({
     isSeasonBookmarked,
     isEpisodeBookmarked,
 }: IDetailsPageCardProps) {
+    const { data: session } = useSession();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
-    const { data: session } = useSession();
 
     return (
         <Box
@@ -79,7 +79,7 @@ export function DetailsPageCard({
                         flexDirection: "column",
                     }}
                 >
-                    <Typography fontSize={[20, 24, 28, 32]} textAlign={"center"} component={"h1"}>
+                    <Typography fontSize={[20, 24, 28, 32]} textAlign={"center"} component={"h1"} pt={2}>
                         {data.title}
                     </Typography>
                     <List
@@ -130,47 +130,47 @@ export function DetailsPageCard({
                     <List
                         sx={{
                             display: "flex",
-                            flexDirection: "row",
-                            placeItems: "center",
-                            justifyContent: "start",
+                            flexDirection: { xs: "column", sm: "row" },
+                            alignItems: { xs: "flex-start", sm: "center" },
+                            justifyContent: { xs: "flex-start", sm: "space-between" },
+                            gap: { xs: 2, sm: 4 },
+                            width: "100%",
+                            pl: 4,
+                            pr: 4,
                         }}
                     >
-                        {type === "movie" && (
-                            <ListItem>
-                                <AccessTimeIcon fontSize="medium" />
-                                <Typography component={"span"} paddingLeft={1}>
-                                    {data.duration}
-                                </Typography>
+                        {type !== "serie" && type !== "season" && (
+                            <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                                <Grid container alignItems="center" spacing={1}>
+                                    <Grid item>
+                                        <AccessTimeIcon fontSize="medium" />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography component="span">{data.duration} min</Typography>
+                                    </Grid>
+                                </Grid>
                             </ListItem>
                         )}
-                        <ListItem>
-                            <CalendarMonthIcon fontSize="medium" />
-                            <Typography component={"span"} paddingLeft={1}>
-                                {data.dateAired}
-                            </Typography>
+                        <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                            <Grid container alignItems="center" spacing={1}>
+                                <Grid item>
+                                    <CalendarMonthIcon fontSize="medium" />
+                                </Grid>
+                                <Grid item>
+                                    <Typography component="span">{data.dateAired}</Typography>
+                                </Grid>
+                            </Grid>
                         </ListItem>
-                        <ListItem
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 0.5,
-                            }}
-                        >
-                            <Box display="flex" flexDirection="row" columnGap={0.5} alignItems={"center"}>
+                        <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                            <Box display="flex" alignItems="center" gap={0.5}>
                                 <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
                                 <Typography component="span">
                                     {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
                                 </Typography>
                             </Box>
                         </ListItem>
-                        <ListItem
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 0.5,
-                            }}
-                        >
-                            <Box display="flex" flexDirection="row" columnGap={0.5}>
+                        <ListItem sx={{ padding: 0, width: { xs: "100%", sm: "auto" } }}>
+                            <Box display="flex" alignItems="center" gap={0.5}>
                                 <StarRateIcon />
                                 <Typography component="span">
                                     {data.averageRating === 0 ? "N/A" : data.averageRating}
@@ -179,7 +179,7 @@ export function DetailsPageCard({
                             </Box>
                         </ListItem>
                     </List>
-                    <Box display={"flex"} justifyContent={"center"}>
+                    <Box display={"flex"} justifyContent={"center"} pt={2}>
                         <Typography textAlign={"center"} width={["40ch", "45ch", "50ch", "55ch", "60ch"]}>
                             {data.description}
                         </Typography>

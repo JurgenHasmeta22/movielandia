@@ -80,16 +80,18 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
             type,
             handleOpenUpvotesModal,
             handleOpenDownvotesModal,
-            // handleFocusTextEditor,
         },
         ref,
     ) => {
         // #region "State, hooks, theme"
         const [isClickedUpvote, setIsClickedUpvote] = useState(false);
         const [isClickedDownvote, setIsClickedDownvote] = useState(false);
+
         const { label, color } = getRatingLabelAndColor(review.rating);
+
         const theme = useTheme();
         const colors = tokens(theme.palette.mode);
+
         const { data: session } = useSession();
         // #endregion
 
@@ -109,6 +111,10 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                 handleUpvote(review.id, true);
             } else if (type === "serie" && review.isUpvoted) {
                 handleUpvote(review.id, true);
+            } else if (type === "season" && review.isUpvoted) {
+                handleUpvote(review.id, true);
+            } else if (type === "episode" && review.isUpvoted) {
+                handleUpvote(review.id, true);
             } else {
                 handleUpvote(review.id, false);
             }
@@ -120,6 +126,10 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
             if (type === "movie" && review.isDownvoted) {
                 handleDownvote(review.id, true);
             } else if (type === "serie" && review.isDownvoted) {
+                handleDownvote(review.id, true);
+            } else if (type === "season" && review.isDownvoted) {
+                handleDownvote(review.id, true);
+            } else if (type === "episode" && review.isDownvoted) {
                 handleDownvote(review.id, true);
             } else {
                 handleDownvote(review.id, false);
@@ -275,7 +285,10 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                 }}
                                 sx={{
                                     color:
-                                        (type === "movie" && review.isUpvoted) || (type === "serie" && review.isUpvoted)
+                                        (type === "movie" && review.isUpvoted) ||
+                                        (type === "serie" && review.isUpvoted) ||
+                                        (type === "season" && review.isUpvoted) ||
+                                        (type === "episode" && review.isUpvoted)
                                             ? colors.greenAccent[700]
                                             : colors.primary[100],
                                 }}
@@ -315,7 +328,9 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                 sx={{
                                     color:
                                         (type === "movie" && review.isDownvoted) ||
-                                        (type === "serie" && review.isDownvoted)
+                                        (type === "serie" && review.isDownvoted) ||
+                                        (type === "season" && review.isDownvoted) ||
+                                        (type === "episode" && review.isDownvoted)
                                             ? colors.redAccent[700]
                                             : colors.primary[100],
                                 }}
