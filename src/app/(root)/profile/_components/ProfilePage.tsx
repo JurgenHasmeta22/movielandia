@@ -15,7 +15,6 @@ import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRightPanel } from "@/providers/RightPanelProvider";
 import { useRouter } from "next/navigation";
 import { updateUserById } from "@/lib/actions/user.actions";
-// import { User } from "@prisma/client";
 import FavoritesTab from "./FavoritesTab";
 
 interface IProfileProps {
@@ -41,13 +40,39 @@ export default function Profile({ tabValue, user }: IProfileProps) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const tabValueFinal = tabValue === "favMovies" ? 0 : tabValue === "favSeries" ? 1 : 0;
+    const tabValueFinal =
+        tabValue === "favMovies"
+            ? 0
+            : tabValue === "favSeries"
+              ? 1
+              : tabValue === "favActors"
+                ? 2
+                : tabValue === "favSeasons"
+                  ? 3
+                  : tabValue === "favEpisodes"
+                    ? 4
+                    : 0;
 
     const handleChange = (event: any, newValue: number) => {
-        if (newValue === 0) {
-            router.push("/profile?tab=favMovies");
-        } else if (newValue === 1) {
-            router.push("/profile?tab=favSeries");
+        switch (newValue) {
+            case 0:
+                router.push("/profile?tab=favMovies");
+                break;
+            case 1:
+                router.push("/profile?tab=favSeries");
+                break;
+            case 2:
+                router.push("/profile?tab=favActors");
+                break;
+            case 3:
+                router.push("/profile?tab=favSeasons");
+                break;
+            case 4:
+                router.push("/profile?tab=favEpisodes");
+                break;
+            default:
+                console.warn("Unknown tab index:", newValue);
+                break;
         }
     };
 
@@ -226,6 +251,39 @@ export default function Profile({ tabValue, user }: IProfileProps) {
                             fontSize: [12, 14, 16, 18],
                         }}
                     >
+                        Favorite Actors: {user?.favActors?.length}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography
+                        color="inherit"
+                        component={"span"}
+                        sx={{
+                            fontSize: [12, 14, 16, 18],
+                        }}
+                    >
+                        Favorite Episodes: {user?.favEpisodes?.length}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography
+                        color="inherit"
+                        component={"span"}
+                        sx={{
+                            fontSize: [12, 14, 16, 18],
+                        }}
+                    >
+                        Favorite Seasons: {user?.favSeasons?.length}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography
+                        color="inherit"
+                        component={"span"}
+                        sx={{
+                            fontSize: [12, 14, 16, 18],
+                        }}
+                    >
                         Movies Reviews: {user?.movieReviews?.length}
                     </Typography>
                 </Box>
@@ -238,6 +296,39 @@ export default function Profile({ tabValue, user }: IProfileProps) {
                         }}
                     >
                         Series Reviews: {user?.serieReviews?.length}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography
+                        color="inherit"
+                        component={"span"}
+                        sx={{
+                            fontSize: [12, 14, 16, 18],
+                        }}
+                    >
+                        Actor Reviews: {user?.actorReviews?.length}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography
+                        color="inherit"
+                        component={"span"}
+                        sx={{
+                            fontSize: [12, 14, 16, 18],
+                        }}
+                    >
+                        Season Reviews: {user?.seasonReviews?.length}
+                    </Typography>
+                </Box>
+                <Box>
+                    <Typography
+                        color="inherit"
+                        component={"span"}
+                        sx={{
+                            fontSize: [12, 14, 16, 18],
+                        }}
+                    >
+                        Episode Reviews: {user?.episodeReviews?.length}
                     </Typography>
                 </Box>
                 <Box>
@@ -294,12 +385,54 @@ export default function Profile({ tabValue, user }: IProfileProps) {
                             textTransform: "capitalize",
                         }}
                     />
+                    <Tab
+                        label="Favorite Actors"
+                        tabIndex={0}
+                        sx={{
+                            backgroundColor: colors.blueAccent[700],
+                            color: colors.primary[100],
+                            fontWeight: "600",
+                            fontSize: 14,
+                            textTransform: "capitalize",
+                        }}
+                    />
+                    <Tab
+                        label="Favorite Seasons"
+                        tabIndex={0}
+                        sx={{
+                            backgroundColor: colors.blueAccent[700],
+                            color: colors.primary[100],
+                            fontWeight: "600",
+                            fontSize: 14,
+                            textTransform: "capitalize",
+                        }}
+                    />
+                    <Tab
+                        label="Favorite Episodes"
+                        tabIndex={0}
+                        sx={{
+                            backgroundColor: colors.blueAccent[700],
+                            color: colors.primary[100],
+                            fontWeight: "600",
+                            fontSize: 14,
+                            textTransform: "capitalize",
+                        }}
+                    />
                 </Tabs>
                 <TabPanel value={tabValueFinal} index={0}>
                     <FavoritesTab type={"Movies"} user={user} />
                 </TabPanel>
                 <TabPanel value={tabValueFinal} index={1}>
                     <FavoritesTab type={"Series"} user={user} />
+                </TabPanel>
+                <TabPanel value={tabValueFinal} index={2}>
+                    <FavoritesTab type={"Actors"} user={user} />
+                </TabPanel>
+                <TabPanel value={tabValueFinal} index={3}>
+                    <FavoritesTab type={"Seasons"} user={user} />
+                </TabPanel>
+                <TabPanel value={tabValueFinal} index={4}>
+                    <FavoritesTab type={"Episodes"} user={user} />
                 </TabPanel>
             </Box>
         </Stack>

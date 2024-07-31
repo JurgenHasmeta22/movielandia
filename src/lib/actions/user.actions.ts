@@ -132,12 +132,24 @@ export async function getUserById(userId: number): Promise<User | null> {
         include: {
             favMovies: { include: { movie: true } },
             favSeries: { include: { serie: true } },
+            favActors: { include: { actor: true } },
+            favEpisodes: { include: { episode: true } },
+            favSeasons: { include: { season: true } },
             movieReviews: { include: { movie: true } },
             serieReviews: { include: { serie: true } },
+            seasonReviews: { include: { season: true } },
+            episodeReviews: { include: { episode: true } },
+            actorReviews: { include: { actor: true } },
             movieReviewsUpvoted: { include: { movieReview: true, movie: true } },
             movieReviewsDownvoted: { include: { movieReview: true, movie: true } },
             serieReviewsUpvoted: { include: { serieReview: true, serie: true } },
             serieReviewsDownvoted: { include: { serieReview: true, serie: true } },
+            seasonReviewsUpvoted: { include: { seasonReview: true, season: true } },
+            seasonReviewsDownvoted: { include: { seasonReview: true, season: true } },
+            episodeReviewsUpvoted: { include: { episodeReview: true, episode: true } },
+            episodeReviewsDownvoted: { include: { episodeReview: true, episode: true } },
+            actorReviewsUpvoted: { include: { actorReview: true, actor: true } },
+            actorReviewsDownvoted: { include: { actorReview: true, actor: true } },
         },
     });
 
@@ -533,11 +545,6 @@ export async function removeFavoriteSeasonToUser(userId: number, seasonId: numbe
         });
 
         if (result) {
-            const titleFinal = existingFavorite.season.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
             if (pathFrom === "/profile?tab=favSeasons") {
                 redirect("/profile?tab=favSeasons");
             } else {
@@ -576,11 +583,6 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
         });
 
         if (result) {
-            const titleFinal = existingFavorite.episode.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
             if (pathFrom === "/profile?tab=favEpisodes") {
                 redirect("/profile?tab=favEpisodes");
             } else {
