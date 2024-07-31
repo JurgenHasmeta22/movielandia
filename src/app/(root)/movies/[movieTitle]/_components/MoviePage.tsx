@@ -342,7 +342,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
                     />
                 )}
             </Box>
-            <ListDetail data={latestMovies!} type="movie" roleData={"latest"} />
+            <ListDetail data={latestMovies!} type="movie" roleData="latest" />
             <ListDetail data={relatedMovies!} type="movie" roleData="related" />
         </Stack>
     );

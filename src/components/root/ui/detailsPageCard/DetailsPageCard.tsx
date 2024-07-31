@@ -47,6 +47,7 @@ export function DetailsPageCard({
 }: IDetailsPageCardProps) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
     const { data: session } = useSession();
 
     return (
@@ -87,6 +88,8 @@ export function DetailsPageCard({
                             flexDirection: "row",
                             placeSelf: "center",
                             placeItems: "center",
+                            flexWrap: "wrap",
+                            rowGap: 3,
                             mt: 1,
                         }}
                     >
@@ -128,13 +131,14 @@ export function DetailsPageCard({
                         sx={{
                             display: "flex",
                             flexDirection: "row",
-                            placeSelf: "center",
+                            placeItems: "center",
+                            justifyContent: "start",
                         }}
                     >
                         {type === "movie" && (
                             <ListItem>
                                 <AccessTimeIcon fontSize="medium" />
-                                <Typography component={"span"} width={"8ch"} paddingLeft={1}>
+                                <Typography component={"span"} paddingLeft={1}>
                                     {data.duration}
                                 </Typography>
                             </ListItem>
@@ -152,15 +156,9 @@ export function DetailsPageCard({
                                 columnGap: 0.5,
                             }}
                         >
-                            <Box
-                                display="flex"
-                                flexDirection="row"
-                                columnGap={0.5}
-                                alignItems={"center"}
-                                justifyContent={"start"}
-                            >
+                            <Box display="flex" flexDirection="row" columnGap={0.5} alignItems={"center"}>
                                 <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
-                                <Typography fontSize={12} component="span">
+                                <Typography component="span">
                                     {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
                                 </Typography>
                             </Box>
@@ -172,26 +170,20 @@ export function DetailsPageCard({
                                 columnGap: 0.5,
                             }}
                         >
-                            <Box
-                                display="flex"
-                                flexDirection="row"
-                                columnGap={0.5}
-                                alignItems={"center"}
-                                justifyContent={"start"}
-                            >
+                            <Box display="flex" flexDirection="row" columnGap={0.5}>
                                 <StarRateIcon />
-                                <Typography fontSize={16} component="span">
+                                <Typography component="span">
                                     {data.averageRating === 0 ? "N/A" : data.averageRating}
                                 </Typography>
-                                <Typography fontSize={16} component="span">
-                                    ({data.totalReviews})
-                                </Typography>
+                                <Typography component="span">({data.totalReviews})</Typography>
                             </Box>
                         </ListItem>
                     </List>
-                    <Typography textAlign={"center"} width={["45ch", "50ch", "55ch", "60ch"]}>
-                        {data.description}
-                    </Typography>
+                    <Box display={"flex"} justifyContent={"center"}>
+                        <Typography textAlign={"center"} width={["40ch", "45ch", "50ch", "55ch", "60ch"]}>
+                            {data.description}
+                        </Typography>
+                    </Box>
                     <Button
                         href={data.trailerSrc}
                         target="_blank"
@@ -201,9 +193,10 @@ export function DetailsPageCard({
                             display: "flex",
                             flexDirection: "row",
                             placeSelf: "center",
-                            width: "30%",
+                            width: "50%",
                             columnGap: 1,
                             marginTop: 3,
+                            padding: 1,
                             "&:hover": {
                                 backgroundColor: colors.primary[900],
                             },
@@ -258,9 +251,10 @@ export function DetailsPageCard({
                             sx={{
                                 display: "flex",
                                 placeSelf: "center",
-                                width: "30%",
+                                width: "50%",
                                 columnGap: 1,
                                 marginTop: 1,
+                                padding: 1,
                                 color: colors.primary[100],
                                 "&:hover": {
                                     backgroundColor: colors.primary[900],
