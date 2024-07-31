@@ -29,10 +29,12 @@ const Footer = (): React.JSX.Element => {
                 justifyContent: "center",
                 py: 4,
                 gap: 2,
+                pl: 2,
+                pr: 2,
             }}
             component="footer"
         >
-            <Stack direction="row" spacing={8} sx={{ flexWrap: "wrap", justifyContent: "center", mb: 1 }}>
+            <Stack direction="row" rowGap={8} columnGap={4} sx={{ flexWrap: "wrap", justifyContent: "center", mb: 1 }}>
                 <Box>
                     <Typography variant="h4" gutterBottom>
                         Explore

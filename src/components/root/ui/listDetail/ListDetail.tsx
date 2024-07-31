@@ -1,6 +1,9 @@
+"use client";
+
 import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 import DividerLine from "../dividerLine/DividerLine";
+import { useStore } from "@/store/store";
 
 interface IListDetail {
     data: any;
@@ -9,6 +12,8 @@ interface IListDetail {
 }
 
 export function ListDetail({ data, type, roleData }: IListDetail) {
+    const { mobileOpen } = useStore();
+
     return (
         <>
             {data && data.length > 0 && (
@@ -18,8 +23,8 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                         sx={{
                             display: "flex",
                             flexDirection: "column",
-                            justifyContent: "start",
-                            alignItems: "start",
+                            justifyContent: `${mobileOpen ? "center" : "start"}`,
+                            alignItems: `${mobileOpen ? "center" : "start"}`,
                             rowGap: 2,
                             marginBottom: 2,
                             marginTop: 2,
@@ -46,7 +51,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                             flexWrap="wrap"
                             columnGap={3}
                             rowGap={3}
-                            justifyContent="flex-start"
+                            justifyContent={`${mobileOpen ? "center" : "start"}`}
                             alignContent="center"
                             mt={1}
                             mb={4}

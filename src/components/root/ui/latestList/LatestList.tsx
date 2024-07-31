@@ -1,6 +1,9 @@
+"use client";
+
 import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 import DividerLine from "../dividerLine/DividerLine";
+import { useStore } from "@/store/store";
 
 interface ILatestList {
     data: any;
@@ -8,14 +11,16 @@ interface ILatestList {
 }
 
 export function LatestList({ data, type }: ILatestList) {
+    const { mobileOpen } = useStore();
+
     return (
         <Box
             component={"section"}
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "start",
-                alignItems: "start",
+                justifyContent: `${mobileOpen ? "center" : "start"}`,
+                alignItems: `${mobileOpen ? "center" : "start"}`,
                 rowGap: 2,
                 marginBottom: 4,
             }}
@@ -31,7 +36,7 @@ export function LatestList({ data, type }: ILatestList) {
                 flexWrap="wrap"
                 rowGap={8}
                 columnGap={4}
-                justifyContent={"start"}
+                justifyContent={`${mobileOpen ? "center" : "start"}`}
                 alignContent={"center"}
                 marginTop={3}
                 mb={4}

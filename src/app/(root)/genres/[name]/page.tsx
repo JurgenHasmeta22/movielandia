@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
 
 export default async function Genre({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
     const name = params.name;
+
     const pageMovies = Number(searchParams?.pageMovies) || 1;
     const moviesSortBy = searchParams?.moviesSortBy;
     const moviesAscOrDesc = searchParams?.moviesAscOrDesc;
@@ -85,7 +86,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
-                    paddingTop: 4,
+                    paddingTop: 6,
                 }}
             >
                 {moviesByGenre.length !== 0 ? (
@@ -94,7 +95,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                             <Box>
                                 <Typography
                                     sx={{
-                                        fontSize: [16, 18, 20, 24, 26],
+                                        fontSize: [20, 22, 24, 26, 30],
                                     }}
                                     variant="h2"
                                     textAlign={"center"}
@@ -121,7 +122,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                         <Stack
                             direction="row"
                             flexWrap="wrap"
-                            justifyContent={"start"}
+                            justifyContent={"center"}
                             alignContent={"center"}
                             rowGap={8}
                             columnGap={4}
@@ -188,7 +189,7 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                         <Stack
                             direction="row"
                             flexWrap="wrap"
-                            justifyContent={"start"}
+                            justifyContent={"center"}
                             alignContent={"center"}
                             rowGap={8}
                             columnGap={4}
