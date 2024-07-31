@@ -259,7 +259,7 @@ export function DetailsPageCard({
                                         onRemoveBookmarkEpisode ? await onRemoveBookmarkEpisode() : {};
                                     }
                                 } else if (type === "actor") {
-                                    if (!isEpisodeBookmarked) {
+                                    if (!isActorBookmarked) {
                                         onBookmarkActor ? await onBookmarkActor() : {};
                                     } else {
                                         onRemoveBookmarkActor ? await onRemoveBookmarkActor() : {};
