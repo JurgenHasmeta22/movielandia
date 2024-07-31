@@ -139,6 +139,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
             where: { title: titleFinal },
             include: {
                 genres: { select: { genre: true } },
+                cast: { include: { actor: true } },
                 reviews: {
                     include: {
                         user: true,

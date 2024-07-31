@@ -33,7 +33,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                     >
                         <Box>
                             <Typography fontSize={28}>
-                                {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : "All"}
+                                {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
                                 {type === "movie"
                                     ? " Movies"
                                     : type === "serie"
@@ -44,6 +44,10 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                           ? " Episodes"
                                           : ""}
                             </Typography>
+                            {type === "actor" && roleData !== "cast" && (
+                                <Typography fontSize={28}>Starred {roleData}</Typography>
+                            )}
+                            {type === "actor" && roleData === "cast" && <Typography fontSize={28}>Cast</Typography>}
                             <DividerLine />
                         </Box>
                         <Stack
@@ -62,7 +66,26 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 data
                                     .slice(0, 5)
                                     .map((item: any, index: number) => (
-                                        <CardItem data={item} key={index} type={type} />
+                                        <CardItem
+                                            data={
+                                                type === "actor" && roleData === "Movies"
+                                                    ? item.movie
+                                                    : type === "actor" && roleData === "Series"
+                                                      ? item.serie
+                                                      : type === "actor" && roleData === "cast"
+                                                        ? item.actor
+                                                        : item
+                                            }
+                                            key={index}
+                                            type={type}
+                                            path={
+                                                type === "actor" && roleData !== "cast"
+                                                    ? "movies"
+                                                    : type === "actor" && roleData === "cast"
+                                                      ? "actors"
+                                                      : null
+                                            }
+                                        />
                                     ))}
                         </Stack>
                     </Box>

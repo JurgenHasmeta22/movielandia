@@ -11,27 +11,27 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useState, useRef, useEffect } from "react";
 import { useStore } from "@/store/store";
 import {
-    addDownvoteMovieReview,
-    addFavoriteMovieToUser,
-    addReviewMovie,
-    addUpvoteMovieReview,
-    removeDownvoteMovieReview,
-    removeFavoriteMovieToUser,
-    removeReviewMovie,
-    removeUpvoteMovieReview,
-    updateReviewMovie,
+    addDownvoteActorReview,
+    addFavoriteActorToUser,
+    addReviewActor,
+    addUpvoteActorReview,
+    removeDownvoteActorReview,
+    removeFavoriteActorToUser,
+    removeReviewActor,
+    removeUpvoteActorReview,
+    updateReviewActor,
 } from "@/lib/actions/user.actions";
 import { useModal } from "@/providers/ModalProvider";
-import * as CONSTANTS from "@/constants/Constants";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
+import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/lib/toast/toast";
 
-export default function MoviePage({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
+export default function ActorPage({ searchParamsValues, actor, pageCount }: any) {
     // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
-    const [rating, setRating] = useState<number | null>(null);
+    const [rating, setRating] = useState<number | null>(0);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
     const [open, setOpen] = useState<boolean>(false);
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
@@ -53,36 +53,36 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     // #region "Handlers functions"
 
     // #region "Bookmarks"
-    async function onBookmarkMovie() {
-        if (!session?.user || !movie) return;
+    async function onBookmarkActor() {
+        if (!session?.user || !actor) return;
 
         try {
-            await addFavoriteMovieToUser(Number(session.user.id), movie.id);
-            showToast("success", "Movie added to favorites!");
+            await addFavoriteActorToUser(Number(session.user.id), actor.id);
+            showToast("success", "Actor added to favorites!");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error adding movie to favorites: ${error.message}`);
+                console.error(`Error adding actor to favorites: ${error.message}`);
                 showToast("error", `An error occurred: ${error.message}`);
             } else {
-                console.error("Unknown error adding movie to favorites.");
-                showToast("error", "An unexpected error occurred while adding the movie to favorites.");
+                console.error("Unknown error adding actor to favorites.");
+                showToast("error", "An unexpected error occurred while adding the actor to favorites.");
             }
         }
     }
 
-    async function onRemoveBookmarkMovie() {
-        if (!session?.user || !movie) return;
+    async function onRemoveBookmarkActor() {
+        if (!session?.user || !actor) return;
 
         try {
-            await removeFavoriteMovieToUser(Number(session.user.id), movie.id, `/movies/${movie.title}`);
-            showToast("success", "Movie removed from favorites!");
+            await removeFavoriteActorToUser(Number(session.user.id), actor.id, `/actors/${actor.title}`);
+            showToast("success", "Actor removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error removing movie from favorites: ${error.message}`);
+                console.error(`Error removing actor from favorites: ${error.message}`);
                 showToast("error", `An error occurred: ${error.message}`);
             } else {
-                console.error("Unknown error removing movie from favorites.");
-                showToast("error", "An unexpected error occurred while removing the movie from favorites.");
+                console.error("Unknown error removing actor from favorites.");
+                showToast("error", "An unexpected error occurred while removing the actor from favorites.");
             }
         }
     }
@@ -90,12 +90,12 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
 
     // #region "Reviews"
     async function onSubmitReview() {
-        if (!session?.user || !movie) return;
+        if (!session?.user || !actor) return;
 
         try {
-            await addReviewMovie({
-                movieId: movie.id,
-                userId: Number(session.user.id),
+            await addReviewActor({
+                actorId: actor?.id,
+                userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
             });
@@ -113,7 +113,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     }
 
     async function onSubmitRemoveReview() {
-        if (!session?.user || !movie) return;
+        if (!session?.user || !actor) return;
 
         openModal({
             onClose: () => setOpen(false),
@@ -133,8 +133,8 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            await removeReviewMovie({
-                                movieId: movie?.id,
+                            await removeReviewActor({
+                                actorId: actor?.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -162,11 +162,11 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     }
 
     async function onSubmitUpdateReview() {
-        if (!session?.user || !movie) return;
+        if (!session?.user || !actor) return;
 
         try {
-            await updateReviewMovie({
-                movieId: movie?.id,
+            await updateReviewActor({
+                actorId: actor?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -187,50 +187,67 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     }
     // #endregion
 
-    // #region "upvotes, downvotes Movie"
-    async function onUpvoteMovie(movieReviewId: number, isAlreadyUpvoted: boolean) {
-        if (!session?.user || !movieReviewId) return;
+    // #region "Upvotes, Downvotes"
+    async function onUpvoteActor(actorReviewId: number, isAlreadyUpvoted: boolean) {
+        if (!session?.user || !actorReviewId) return;
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
-            } else {
-                await removeDownvoteMovieReview({
+                await removeUpvoteActorReview({
                     userId: Number(session?.user?.id),
-                    movieId: movie?.id,
-                    movieReviewId,
+                    actorId: actor?.id,
+                    actorReviewId,
+                });
+            } else {
+                await removeDownvoteActorReview({
+                    userId: Number(session?.user?.id),
+                    actorId: actor?.id,
+                    actorReviewId,
                 });
 
-                await addUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
+                await addUpvoteActorReview({
+                    userId: Number(session?.user?.id),
+                    actorId: actor?.id,
+                    actorReviewId,
+                });
             }
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
-                showToast("error", "An unexpected error occurred while upvoting the movie.");
+                showToast("error", "An unexpected error occurred while upvoting the actor.");
             }
         }
     }
 
-    async function onDownVoteMovie(movieReviewId: number, isAlreadyDownvoted: boolean) {
-        if (!session?.user || (!movie && !movieReviewId)) return;
+    async function onDownVoteActor(actorReviewId: number, isAlreadyDownvoted: boolean) {
+        if (!session?.user || (!actor && !actorReviewId)) return;
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteMovieReview({
+                await removeDownvoteActorReview({
                     userId: Number(session?.user?.id),
-                    movieId: movie?.id,
-                    movieReviewId,
+                    actorId: actor?.id,
+                    actorReviewId,
                 });
             } else {
-                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
-                await addDownvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
+                await removeUpvoteActorReview({
+                    userId: Number(session?.user?.id),
+                    actorId: actor?.id,
+                    actorReviewId,
+                });
+
+                await addDownvoteActorReview({
+                    userId: Number(session?.user?.id),
+                    actorId: actor?.id,
+                    actorReviewId,
+                });
             }
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
-                showToast("error", "An unexpected error occurred while downvoting the movie.");
+                showToast("error", "An unexpected error occurred while downvoting the actor.");
             }
         }
     }
@@ -299,29 +316,29 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     return (
         <Stack flexDirection={"column"} rowGap={4}>
             <DetailsPageCard
-                data={movie}
-                type="movie"
-                isMovieBookmarked={movie.isBookmarked}
-                onBookmarkMovie={onBookmarkMovie}
-                onRemoveBookmarkMovie={onRemoveBookmarkMovie}
+                data={actor}
+                type="actor"
+                isActorBookmarked={actor.isBookmarked}
+                onBookmarkActor={onBookmarkActor}
+                onRemoveBookmarkActor={onRemoveBookmarkActor}
             />
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: movie?.reviews!.length > 0 ? 4 : 0,
+                    mb: actor?.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {movie?.reviews!.length > 0 && (
+                {actor?.reviews!.length > 0 && (
                     <Reviews
-                        data={movie}
+                        data={actor}
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {movie?.reviews!.map((review: any, index: number) => (
+                {actor?.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -332,18 +349,18 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
                         handleFocusTextEditor={handleFocusTextEditor}
                         ref={reviewRef}
                         setRating={setRating}
-                        handleUpvote={onUpvoteMovie}
-                        handleDownvote={onDownVoteMovie}
-                        type="movie"
-                        data={movie}
+                        handleUpvote={onUpvoteActor}
+                        handleDownvote={onDownVoteActor}
+                        type="actor"
+                        data={actor}
                         handleOpenUpvotesModal={handleOpenUpvotesModal}
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {movie?.totalReviews > 0 && (
+                {actor?.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
-                {session?.user && (!movie.isReviewed || isEditMode) && (
+                {session?.user && (!actor.isReviewed || isEditMode) && (
                     <TextEditorForm
                         review={review}
                         setReview={setReview}
@@ -359,9 +376,8 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
                     />
                 )}
             </Box>
-            <ListDetail data={latestMovies!} type="movie" roleData="latest" />
-            <ListDetail data={relatedMovies!} type="movie" roleData="related" />
-            <ListDetail data={movie.cast} type="actor" roleData="cast" />
+            <ListDetail data={actor.starredMovies!} type="actor" roleData="Movies" />
+            <ListDetail data={actor.starredSeries!} type="actor" roleData="Series" />
         </Stack>
     );
 }
