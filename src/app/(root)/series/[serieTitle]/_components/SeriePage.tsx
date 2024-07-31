@@ -191,13 +191,22 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
+                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
             } else {
-                await removeDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
-                await addUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
+                await removeDownvoteSerieReview({
+                    userId: Number(session?.user?.id),
+                    serieId: serie?.id,
+                    serieReviewId,
+                });
+
+                await addUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the upvote to serie review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while upvoting the serie.");
+            }
         }
     }
 
@@ -206,13 +215,21 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
+                await removeDownvoteSerieReview({
+                    userId: Number(session?.user?.id),
+                    serieId: serie?.id,
+                    serieReviewId,
+                });
             } else {
-                await removeUpvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
-                await addDownvoteSerieReview({ userId: session?.user?.id, serieId: serie?.id, serieReviewId });
+                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
+                await addDownvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the downvoted to serie review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while downvoting the serie.");
+            }
         }
     }
     // #endregion

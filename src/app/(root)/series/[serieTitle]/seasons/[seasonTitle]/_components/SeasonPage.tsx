@@ -191,13 +191,30 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteSeasonReview({ userId: session?.user?.id, seasonId: season?.id, seasonReviewId });
+                await removeUpvoteSeasonReview({
+                    userId: Number(session?.user?.id),
+                    seasonId: season?.id,
+                    seasonReviewId,
+                });
             } else {
-                await removeDownvoteSeasonReview({ userId: session?.user?.id, seasonId: season?.id, seasonReviewId });
-                await addUpvoteSeasonReview({ userId: session?.user?.id, seasonId: season?.id, seasonReviewId });
+                await removeDownvoteSeasonReview({
+                    userId: Number(session?.user?.id),
+                    seasonId: season?.id,
+                    seasonReviewId,
+                });
+
+                await addUpvoteSeasonReview({
+                    userId: Number(session?.user?.id),
+                    seasonId: season?.id,
+                    seasonReviewId,
+                });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the upvote to season review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while upvoting the season.");
+            }
         }
     }
 
@@ -206,13 +223,30 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteSeasonReview({ userId: session?.user?.id, seasonId: season?.id, seasonReviewId });
+                await removeDownvoteSeasonReview({
+                    userId: Number(session?.user?.id),
+                    seasonId: season?.id,
+                    seasonReviewId,
+                });
             } else {
-                await removeUpvoteSeasonReview({ userId: session?.user?.id, seasonId: season?.id, seasonReviewId });
-                await addDownvoteSeasonReview({ userId: session?.user?.id, seasonId: season?.id, seasonReviewId });
+                await removeUpvoteSeasonReview({
+                    userId: Number(session?.user?.id),
+                    seasonId: season?.id,
+                    seasonReviewId,
+                });
+
+                await addDownvoteSeasonReview({
+                    userId: Number(session?.user?.id),
+                    seasonId: season?.id,
+                    seasonReviewId,
+                });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the downvoted to season review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while downvoting the season.");
+            }
         }
     }
     // #endregion

@@ -187,19 +187,28 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     }
     // #endregion
 
-    // #region "upvotes, downvotes"
+    // #region "upvotes, downvotes Movie"
     async function onUpvoteMovie(movieReviewId: number, isAlreadyUpvoted: boolean) {
         if (!session?.user || !movieReviewId) return;
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
             } else {
-                await removeDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
-                await addUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeDownvoteMovieReview({
+                    userId: Number(session?.user?.id),
+                    movieId: movie?.id,
+                    movieReviewId,
+                });
+
+                await addUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the upvote to movie review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while upvoting the movie.");
+            }
         }
     }
 
@@ -208,13 +217,21 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeDownvoteMovieReview({
+                    userId: Number(session?.user?.id),
+                    movieId: movie?.id,
+                    movieReviewId,
+                });
             } else {
-                await removeUpvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
-                await addDownvoteMovieReview({ userId: session?.user?.id, movieId: movie?.id, movieReviewId });
+                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
+                await addDownvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the downvoted to movie review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while downvoting the movie.");
+            }
         }
     }
     // #endregion

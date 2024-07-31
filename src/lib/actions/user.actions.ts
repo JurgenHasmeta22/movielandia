@@ -71,6 +71,17 @@ interface RemoveReviewEpisodeParams {
 }
 // #endregion
 
+function getReferer() {
+    const headersList = headers();
+    const referer = headersList.get("referer");
+
+    if (referer) {
+        return referer;
+    } else {
+        return "/";
+    }
+}
+
 // #region "CRUD for Users"
 export async function getUsers({
     sortBy,
@@ -322,8 +333,7 @@ export async function addFavoriteSeasonToUser(userId: number, seasonId: number):
         });
 
         if (result) {
-            const headersList = headers();
-            const referer = headersList.get("referer");
+            const referer = getReferer();
             redirect(`${referer}`);
         } else {
             throw new Error("Failed to add season to favorites.");
@@ -364,8 +374,7 @@ export async function addFavoriteEpisodeToUser(userId: number, episodeId: number
         });
 
         if (result) {
-            const headersList = headers();
-            const referer = headersList.get("referer");
+            const referer = getReferer();
             redirect(`${referer}`);
         } else {
             throw new Error("Failed to add episode to favorites.");
@@ -491,8 +500,7 @@ export async function removeFavoriteSeasonToUser(userId: number, seasonId: numbe
             if (pathFrom === "/profile?tab=favSeasons") {
                 redirect("/profile?tab=favSeasons");
             } else {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             }
         } else {
@@ -535,8 +543,7 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
             if (pathFrom === "/profile?tab=favEpisodes") {
                 redirect("/profile?tab=favEpisodes");
             } else {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             }
         } else {
@@ -708,8 +715,7 @@ export const addReviewSeason = async ({
             });
 
             if (reviewAdded) {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             } else {
                 throw new Error("Failed to add review.");
@@ -763,8 +769,7 @@ export const addReviewEpisode = async ({
             });
 
             if (reviewAdded) {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             } else {
                 throw new Error("Failed to add review.");
@@ -921,8 +926,7 @@ export const updateReviewSeason = async ({
             });
 
             if (reviewUpdated) {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             } else {
                 throw new Error("Failed to update review.");
@@ -971,8 +975,7 @@ export const updateReviewEpisode = async ({
             });
 
             if (reviewUpdated) {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             } else {
                 throw new Error("Failed to update review.");
@@ -1084,8 +1087,7 @@ export const removeReviewSeason = async ({ userId, seasonId }: RemoveReviewSeaso
             });
 
             if (result) {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             } else {
                 throw new Error("Failed to delete review.");
@@ -1119,8 +1121,7 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
             });
 
             if (result) {
-                const headersList = headers();
-                const referer = headersList.get("referer");
+                const referer = getReferer();
                 redirect(`${referer}`);
             } else {
                 throw new Error("Failed to delete review.");
@@ -1144,388 +1145,504 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
 
 // #region "Upvotes"
 export async function addUpvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
-    const existingUpvoteMovieReview = await prisma.upvoteMovieReview.findFirst({
-        where: {
-            AND: [{ userId }, { movieId }, { movieReviewId }],
-        },
-    });
-
-    if (!existingUpvoteMovieReview) {
-        const upvoteAdded = await prisma.upvoteMovieReview.create({
-            data: {
-                userId,
-                movieId,
-                movieReviewId,
+    try {
+        const existingUpvoteMovieReview = await prisma.upvoteMovieReview.findFirst({
+            where: {
+                AND: [{ userId }, { movieId }, { movieReviewId }],
             },
         });
 
-        if (upvoteAdded) {
-            return upvoteAdded;
+        if (!existingUpvoteMovieReview) {
+            const upvoteAdded = await prisma.upvoteMovieReview.create({
+                data: {
+                    userId,
+                    movieId,
+                    movieReviewId,
+                },
+            });
+
+            if (upvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to upvote movie");
+            }
         } else {
-            return null;
+            throw new Error("Failed to upvote movie");
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function addUpvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
-    const existingUpvoteSerieReview = await prisma.upvoteSerieReview.findFirst({
-        where: {
-            AND: [{ userId }, { serieId }, { serieReviewId }],
-        },
-    });
-
-    if (!existingUpvoteSerieReview) {
-        const upvoteAdded = await prisma.upvoteSerieReview.create({
-            data: {
-                userId,
-                serieId,
-                serieReviewId,
+    try {
+        const existingUpvoteSerieReview = await prisma.upvoteSerieReview.findFirst({
+            where: {
+                AND: [{ userId }, { serieId }, { serieReviewId }],
             },
         });
 
-        if (upvoteAdded) {
-            return upvoteAdded;
-        } else {
-            return null;
+        if (!existingUpvoteSerieReview) {
+            const upvoteAdded = await prisma.upvoteSerieReview.create({
+                data: {
+                    userId,
+                    serieId,
+                    serieReviewId,
+                },
+            });
+
+            if (upvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to upvote serie");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function addUpvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
-    const existingUpvoteSeasonReview = await prisma.upvoteSeasonReview.findFirst({
-        where: {
-            AND: [{ userId }, { seasonId }, { seasonReviewId }],
-        },
-    });
-
-    if (!existingUpvoteSeasonReview) {
-        const upvoteAdded = await prisma.upvoteSeasonReview.create({
-            data: {
-                userId,
-                seasonId,
-                seasonReviewId,
+    try {
+        const existingUpvoteSeasonReview = await prisma.upvoteSeasonReview.findFirst({
+            where: {
+                AND: [{ userId }, { seasonId }, { seasonReviewId }],
             },
         });
 
-        if (upvoteAdded) {
-            return upvoteAdded;
-        } else {
-            return null;
+        if (!existingUpvoteSeasonReview) {
+            const upvoteAdded = await prisma.upvoteSeasonReview.create({
+                data: {
+                    userId,
+                    seasonId,
+                    seasonReviewId,
+                },
+            });
+
+            if (upvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to upvote season");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function addUpvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
-    const existingUpvoteEpisodeReview = await prisma.upvoteEpisodeReview.findFirst({
-        where: {
-            AND: [{ userId }, { episodeId }, { episodeReviewId }],
-        },
-    });
-
-    if (!existingUpvoteEpisodeReview) {
-        const upvoteAdded = await prisma.upvoteEpisodeReview.create({
-            data: {
-                userId,
-                episodeId,
-                episodeReviewId,
+    try {
+        const existingUpvoteEpisodeReview = await prisma.upvoteEpisodeReview.findFirst({
+            where: {
+                AND: [{ userId }, { episodeId }, { episodeReviewId }],
             },
         });
 
-        if (upvoteAdded) {
-            return upvoteAdded;
-        } else {
-            return null;
+        if (!existingUpvoteEpisodeReview) {
+            const upvoteAdded = await prisma.upvoteEpisodeReview.create({
+                data: {
+                    userId,
+                    episodeId,
+                    episodeReviewId,
+                },
+            });
+
+            if (upvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to upvote episode");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
-    const existingUpvote = await prisma.upvoteMovieReview.findFirst({
-        where: {
-            AND: [{ userId }, { movieReviewId }, { movieId }],
-        },
-    });
-
-    if (existingUpvote) {
-        const result = await prisma.upvoteMovieReview.delete({
-            where: { id: existingUpvote.id },
+    try {
+        const existingUpvote = await prisma.upvoteMovieReview.findFirst({
+            where: {
+                AND: [{ userId }, { movieReviewId }, { movieId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingUpvote) {
+            const result = await prisma.upvoteMovieReview.delete({
+                where: { id: existingUpvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove upvote movie");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeUpvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
-    const existingUpvote = await prisma.upvoteSerieReview.findFirst({
-        where: {
-            AND: [{ userId }, { serieReviewId }, { serieId }],
-        },
-    });
-
-    if (existingUpvote) {
-        const result = await prisma.upvoteSerieReview.delete({
-            where: { id: existingUpvote.id },
+    try {
+        const existingUpvote = await prisma.upvoteSerieReview.findFirst({
+            where: {
+                AND: [{ userId }, { serieReviewId }, { serieId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingUpvote) {
+            const result = await prisma.upvoteSerieReview.delete({
+                where: { id: existingUpvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove upvote serie");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeUpvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
-    const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
-        where: {
-            AND: [{ userId }, { seasonReviewId }, { seasonId }],
-        },
-    });
-
-    if (existingUpvote) {
-        const result = await prisma.upvoteSeasonReview.delete({
-            where: { id: existingUpvote.id },
+    try {
+        const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
+            where: {
+                AND: [{ userId }, { seasonReviewId }, { seasonId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingUpvote) {
+            const result = await prisma.upvoteSeasonReview.delete({
+                where: { id: existingUpvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove upvote season");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeUpvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
-    const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
-        where: {
-            AND: [{ userId }, { episodeReviewId }, { episodeId }],
-        },
-    });
-
-    if (existingUpvote) {
-        const result = await prisma.upvoteEpisodeReview.delete({
-            where: { id: existingUpvote.id },
+    try {
+        const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
+            where: {
+                AND: [{ userId }, { episodeReviewId }, { episodeId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingUpvote) {
+            const result = await prisma.upvoteEpisodeReview.delete({
+                where: { id: existingUpvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove upvote episode");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 // #endregion
 
 // #region "Downvotes"
 export async function addDownvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
-    const existingDownvoteMovieReview = await prisma.downvoteMovieReview.findFirst({
-        where: {
-            AND: [{ userId }, { movieId }, { movieReviewId }],
-        },
-    });
-
-    if (!existingDownvoteMovieReview) {
-        const downvoteAdded = await prisma.downvoteMovieReview.create({
-            data: {
-                userId,
-                movieId,
-                movieReviewId,
+    try {
+        const existingDownvoteMovieReview = await prisma.downvoteMovieReview.findFirst({
+            where: {
+                AND: [{ userId }, { movieId }, { movieReviewId }],
             },
         });
 
-        if (downvoteAdded) {
-            return downvoteAdded;
+        if (!existingDownvoteMovieReview) {
+            const downvoteAdded = await prisma.downvoteMovieReview.create({
+                data: {
+                    userId,
+                    movieId,
+                    movieReviewId,
+                },
+            });
+
+            if (downvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to downvote movie");
+            }
         } else {
-            return null;
+            throw new Error("Failed to downvote movie");
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function addDownvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
-    const existingDownvoteSerieReview = await prisma.downvoteSerieReview.findFirst({
-        where: {
-            AND: [{ userId }, { serieId }, { serieReviewId }],
-        },
-    });
-
-    if (!existingDownvoteSerieReview) {
-        const downvoteAdded = await prisma.downvoteSerieReview.create({
-            data: {
-                userId,
-                serieId,
-                serieReviewId,
+    try {
+        const existingDownvoteSerieReview = await prisma.downvoteSerieReview.findFirst({
+            where: {
+                AND: [{ userId }, { serieId }, { serieReviewId }],
             },
         });
 
-        if (downvoteAdded) {
-            return downvoteAdded;
-        } else {
-            return null;
+        if (!existingDownvoteSerieReview) {
+            const downvoteAdded = await prisma.downvoteSerieReview.create({
+                data: {
+                    userId,
+                    serieId,
+                    serieReviewId,
+                },
+            });
+
+            if (downvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to downvote serie");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function addDownvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
-    const existingDownvoteSeasonReview = await prisma.downvoteSeasonReview.findFirst({
-        where: {
-            AND: [{ userId }, { seasonId }, { seasonReviewId }],
-        },
-    });
-
-    if (!existingDownvoteSeasonReview) {
-        const downvoteAdded = await prisma.downvoteSeasonReview.create({
-            data: {
-                userId,
-                seasonId,
-                seasonReviewId,
+    try {
+        const existingDownvoteSeasonReview = await prisma.downvoteSeasonReview.findFirst({
+            where: {
+                AND: [{ userId }, { seasonId }, { seasonReviewId }],
             },
         });
 
-        if (downvoteAdded) {
-            return downvoteAdded;
-        } else {
-            return null;
+        if (!existingDownvoteSeasonReview) {
+            const downvoteAdded = await prisma.downvoteSeasonReview.create({
+                data: {
+                    userId,
+                    seasonId,
+                    seasonReviewId,
+                },
+            });
+
+            if (downvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to downvote season");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function addDownvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
-    const existingDownvoteEpisodeReview = await prisma.downvoteEpisodeReview.findFirst({
-        where: {
-            AND: [{ userId }, { episodeId }, { episodeReviewId }],
-        },
-    });
-
-    if (!existingDownvoteEpisodeReview) {
-        const downvoteAdded = await prisma.downvoteEpisodeReview.create({
-            data: {
-                userId,
-                episodeId,
-                episodeReviewId,
+    try {
+        const existingDownvoteEpisodeReview = await prisma.downvoteEpisodeReview.findFirst({
+            where: {
+                AND: [{ userId }, { episodeId }, { episodeReviewId }],
             },
         });
 
-        if (downvoteAdded) {
-            return downvoteAdded;
-        } else {
-            return null;
+        if (!existingDownvoteEpisodeReview) {
+            const downvoteAdded = await prisma.downvoteEpisodeReview.create({
+                data: {
+                    userId,
+                    episodeId,
+                    episodeReviewId,
+                },
+            });
+
+            if (downvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to downvote episode");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeDownvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
-    const existingDownvote = await prisma.downvoteMovieReview.findFirst({
-        where: {
-            AND: [{ userId }, { movieReviewId }, { movieId }],
-        },
-    });
-
-    if (existingDownvote) {
-        const result = await prisma.downvoteMovieReview.delete({
-            where: { id: existingDownvote.id },
+    try {
+        const existingDownvote = await prisma.downvoteMovieReview.findFirst({
+            where: {
+                AND: [{ userId }, { movieReviewId }, { movieId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingDownvote) {
+            const result = await prisma.downvoteMovieReview.delete({
+                where: { id: existingDownvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove downvote movie");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeDownvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
-    const existingDownvote = await prisma.downvoteSerieReview.findFirst({
-        where: {
-            AND: [{ userId }, { serieReviewId }, { serieId }],
-        },
-    });
-
-    if (existingDownvote) {
-        const result = await prisma.downvoteSerieReview.delete({
-            where: { id: existingDownvote.id },
+    try {
+        const existingDownvote = await prisma.downvoteSerieReview.findFirst({
+            where: {
+                AND: [{ userId }, { serieReviewId }, { serieId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingDownvote) {
+            const result = await prisma.downvoteSerieReview.delete({
+                where: { id: existingDownvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove downvote serie");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeDownvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
-    const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
-        where: {
-            AND: [{ userId }, { seasonReviewId }, { seasonId }],
-        },
-    });
-
-    if (existingDownvote) {
-        const result = await prisma.downvoteSeasonReview.delete({
-            where: { id: existingDownvote.id },
+    try {
+        const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
+            where: {
+                AND: [{ userId }, { seasonReviewId }, { seasonId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingDownvote) {
+            const result = await prisma.downvoteSeasonReview.delete({
+                where: { id: existingDownvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove downvote season");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
 export async function removeDownvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
-    const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
-        where: {
-            AND: [{ userId }, { episodeReviewId }, { episodeId }],
-        },
-    });
-
-    if (existingDownvote) {
-        const result = await prisma.downvoteEpisodeReview.delete({
-            where: { id: existingDownvote.id },
+    try {
+        const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
+            where: {
+                AND: [{ userId }, { episodeReviewId }, { episodeId }],
+            },
         });
 
-        if (result) {
-            return result;
-        } else {
-            return null;
+        if (existingDownvote) {
+            const result = await prisma.downvoteEpisodeReview.delete({
+                where: { id: existingDownvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove downvote episode");
+            }
         }
-    } else {
-        return null;
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 //#endregion
