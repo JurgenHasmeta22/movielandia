@@ -27,6 +27,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/lib/toast/toast";
 
 export default function SeasonPage({ searchParamsValues, season, latestSeasons, relatedSeasons, pageCount }: any) {
+    // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
@@ -47,6 +48,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = useStore();
+    // #endregion
 
     // #region "Handlers functions"
 
@@ -376,6 +378,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
             </Box>
             <ListDetail data={latestSeasons!} type="season" roleData="latest" />
             <ListDetail data={relatedSeasons!} type="season" roleData="related" />
+            <ListDetail data={season?.episodes} type="episode" roleData="episode" />
         </Stack>
     );
 }

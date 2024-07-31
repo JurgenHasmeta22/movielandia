@@ -27,6 +27,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/lib/toast/toast";
 
 export default function EpisodePage({ searchParamsValues, episode, latestEpisodes, relatedEpisodes, pageCount }: any) {
+    // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
     const [review, setReview] = useState<string>("");
@@ -47,6 +48,7 @@ export default function EpisodePage({ searchParamsValues, episode, latestEpisode
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = useStore();
+    // #endregion
 
     // #region "Handlers functions"
 
