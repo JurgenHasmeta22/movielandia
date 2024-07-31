@@ -7,6 +7,7 @@ import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
+import { useStore } from "@/store/store";
 
 interface IHeaderLinks {
     genres: Genre[];
@@ -16,6 +17,8 @@ interface IHeaderLinks {
 }
 
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
+    const { mobileOpen } = useStore();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -30,15 +33,17 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        fontSize: 20,
+                        fontSize: 24,
                         color: colors.primary[100],
+                        marginLeft: mobileOpen ? 8 : 0,
+                        marginBottom: mobileOpen ? 3 : 0,
                     }}
                 >
                     MovieLandia24
                 </Link>
             </Box>
             <Box>
-                <List sx={{ display: "flex", flexDirection: "row", columnGap: 2 }}>
+                <List sx={{ display: "flex", flexDirection: `${mobileOpen ? "column" : "row"}`, columnGap: 2 }}>
                     <ListItem>
                         <Link
                             href="/movies"
@@ -48,6 +53,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
+                                columnGap: 3,
                                 color: colors.primary[100],
                             }}
                         >
@@ -64,6 +70,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
+                                columnGap: 3,
                                 color: colors.primary[100],
                             }}
                         >
@@ -124,6 +131,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
+                                columnGap: 3,
                                 color: colors.primary[100],
                             }}
                         >
