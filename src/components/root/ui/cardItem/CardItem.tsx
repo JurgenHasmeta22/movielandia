@@ -13,9 +13,10 @@ import Image from "next/image";
 interface ICardItemProps {
     data: any;
     type?: string;
+    path?: string | null;
 }
 
-const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
+const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
     const router = useRouter();
     const params = useParams();
 
@@ -25,6 +26,14 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                 return `/series/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             case "movie":
                 return `/movies/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+            case "actor":
+                if (path && path === "movies") {
+                    return `/movies/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                } else if (path && path === "actors") {
+                    return `/actors/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
+                } else {
+                    return `/series/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                }
             case "season":
                 return `/series/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             case "episode":
@@ -73,24 +82,26 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                             rowGap: 0.5,
                         }}
                     >
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                                borderRadius: 10,
-                                padding: "2px 8px",
-                                "&:hover": {
-                                    backgroundColor: "rgba(0, 0, 0, 0.9)",
-                                },
-                            }}
-                        >
-                            <Image src="/icons/imdb.svg" alt="IMDb Icon" width={20} height={20} />
-                            <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
-                                {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                            </Typography>
-                        </Box>
+                        {path !== "actors" && (
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    backgroundColor: "rgba(0, 0, 0, 0.8)",
+                                    borderRadius: 10,
+                                    padding: "2px 8px",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(0, 0, 0, 0.9)",
+                                    },
+                                }}
+                            >
+                                <Image src="/icons/imdb.svg" alt="IMDb Icon" width={20} height={20} />
+                                <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
+                                    {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                </Typography>
+                            </Box>
+                        )}
                         <Box
                             sx={{
                                 display: "flex",
@@ -112,7 +123,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                                 }}
                             />
                             <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
-                                {data.dateAired}
+                                {path !== "actors" ? data.dateAired : data.debut}
                             </Typography>
                         </Box>
                     </Box>
@@ -128,7 +139,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                             rowGap: 0.5,
                         }}
                     >
-                        {data.duration && (
+                        {data.duration && path !== "actors" && (
                             <Box
                                 sx={{
                                     display: "flex",
@@ -191,7 +202,7 @@ const CardItem = ({ data, type }: ICardItemProps): React.JSX.Element => {
                     }}
                 >
                     <Typography variant="body1" fontWeight={600} fontSize={16}>
-                        {data.title}
+                        {path === "actors" ? data.fullname : data.title}
                     </Typography>
                     {data.genres && data.genres.length > 0 && (
                         <Stack

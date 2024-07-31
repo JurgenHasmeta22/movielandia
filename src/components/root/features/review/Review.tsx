@@ -115,6 +115,8 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                 handleUpvote(review.id, true);
             } else if (type === "episode" && review.isUpvoted) {
                 handleUpvote(review.id, true);
+            } else if (type === "actor" && review.isUpvoted) {
+                handleUpvote(review.id, true);
             } else {
                 handleUpvote(review.id, false);
             }
@@ -130,6 +132,8 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
             } else if (type === "season" && review.isDownvoted) {
                 handleDownvote(review.id, true);
             } else if (type === "episode" && review.isDownvoted) {
+                handleDownvote(review.id, true);
+            } else if (type === "actor" && review.isDownvoted) {
                 handleDownvote(review.id, true);
             } else {
                 handleDownvote(review.id, false);
@@ -288,7 +292,8 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                         (type === "movie" && review.isUpvoted) ||
                                         (type === "serie" && review.isUpvoted) ||
                                         (type === "season" && review.isUpvoted) ||
-                                        (type === "episode" && review.isUpvoted)
+                                        (type === "episode" && review.isUpvoted) ||
+                                        (type === "actor" && review.isUpvoted)
                                             ? colors.greenAccent[700]
                                             : colors.primary[100],
                                 }}
@@ -330,7 +335,8 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                         (type === "movie" && review.isDownvoted) ||
                                         (type === "serie" && review.isDownvoted) ||
                                         (type === "season" && review.isDownvoted) ||
-                                        (type === "episode" && review.isDownvoted)
+                                        (type === "episode" && review.isDownvoted) ||
+                                        (type === "actor" && review.isDownvoted)
                                             ? colors.redAccent[700]
                                             : colors.primary[100],
                                 }}

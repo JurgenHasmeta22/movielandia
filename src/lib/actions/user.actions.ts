@@ -388,6 +388,47 @@ export async function addFavoriteEpisodeToUser(userId: number, episodeId: number
     }
 }
 
+export async function addFavoriteActorToUser(userId: number, actorId: number): Promise<void> {
+    try {
+        const existingFavorite = await prisma.userActorFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { actorId }],
+            },
+        });
+
+        if (existingFavorite) {
+            throw new Error("This actor is already in your favorites.");
+        }
+
+        const actor = await prisma.actor.findUnique({
+            where: {
+                id: actorId,
+            },
+        });
+
+        if (!actor) {
+            throw new Error("Actor not found.");
+        }
+
+        const result = await prisma.userActorFavorite.create({
+            data: { userId, actorId },
+        });
+
+        if (result) {
+            const referer = getReferer();
+            redirect(`${referer}`);
+        } else {
+            throw new Error("Failed to add actor to favorites.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
 export async function removeFavoriteMovieToUser(userId: number, movieId: number, pathFrom: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userMovieFavorite.findFirst({
@@ -548,6 +589,44 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
             }
         } else {
             throw new Error("Failed to remove episode from favorites.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function removeFavoriteActorToUser(userId: number, actorId: number, pathFrom: string): Promise<void> {
+    try {
+        const existingFavorite = await prisma.userActorFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { actorId }],
+            },
+            include: {
+                actor: true,
+            },
+        });
+
+        if (!existingFavorite) {
+            throw new Error("Favorite actor not found.");
+        }
+
+        const result = await prisma.userActorFavorite.delete({
+            where: { id: existingFavorite.id },
+        });
+
+        if (result) {
+            if (pathFrom === "/profile?tab=favActors") {
+                redirect("/profile?tab=favActors");
+            } else {
+                const referer = getReferer();
+                redirect(`${referer}`);
+            }
+        } else {
+            throw new Error("Failed to remove actor from favorites.");
         }
     } catch (error) {
         if (isRedirectError(error)) {
@@ -785,6 +864,60 @@ export const addReviewEpisode = async ({
         }
     }
 };
+
+export const addReviewActor = async ({
+    content,
+    createdAt = new Date(),
+    rating,
+    userId,
+    actorId,
+}: Prisma.ActorReviewCreateManyInput): Promise<void> => {
+    try {
+        const existingReview = await prisma.actorReview.findFirst({
+            where: {
+                userId,
+                actorId,
+            },
+        });
+
+        if (!existingReview) {
+            const actor = await prisma.actor.findUnique({
+                where: {
+                    id: actorId,
+                },
+            });
+
+            if (!actor) {
+                throw new Error("Actor not found.");
+            }
+
+            const reviewAdded = await prisma.actorReview.create({
+                data: {
+                    content,
+                    createdAt,
+                    rating,
+                    userId,
+                    actorId,
+                },
+            });
+
+            if (reviewAdded) {
+                const referer = getReferer();
+                redirect(`${referer}`);
+            } else {
+                throw new Error("Failed to add review.");
+            }
+        } else {
+            throw new Error("You have already reviewed this actor.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+};
 // #endregion
 
 // #region "Update Review"
@@ -991,6 +1124,55 @@ export const updateReviewEpisode = async ({
         }
     }
 };
+
+export const updateReviewActor = async ({
+    content,
+    updatedAt = new Date(),
+    rating,
+    userId,
+    actorId,
+}: Prisma.ActorReviewCreateManyInput): Promise<void> => {
+    try {
+        const existingReview = await prisma.actorReview.findFirst({
+            where: {
+                AND: [{ userId }, { actorId }],
+            },
+            include: {
+                actor: true,
+            },
+        });
+
+        if (existingReview) {
+            const reviewUpdated = await prisma.actorReview.update({
+                data: {
+                    content,
+                    updatedAt,
+                    rating,
+                    userId,
+                    actorId,
+                },
+                where: {
+                    id: existingReview.id,
+                },
+            });
+
+            if (reviewUpdated) {
+                const referer = getReferer();
+                redirect(`${referer}`);
+            } else {
+                throw new Error("Failed to update review.");
+            }
+        } else {
+            throw new Error("Actor not found.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+};
 // #endregion
 
 // #region "Remove Review"
@@ -1117,6 +1299,40 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
 
         if (existingReview) {
             const result = await prisma.episodeReview.delete({
+                where: { id: existingReview.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(`${referer}`);
+            } else {
+                throw new Error("Failed to delete review.");
+            }
+        } else {
+            throw new Error("Review not found.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+};
+
+export const removeReviewActor = async ({ userId, actorId }: any): Promise<void> => {
+    try {
+        const existingReview = await prisma.actorReview.findFirst({
+            where: {
+                AND: [{ userId }, { actorId }],
+            },
+            include: {
+                actor: true,
+            },
+        });
+
+        if (existingReview) {
+            const result = await prisma.actorReview.delete({
                 where: { id: existingReview.id },
             });
 
@@ -1278,6 +1494,39 @@ export async function addUpvoteEpisodeReview({ userId, episodeId, episodeReviewI
     }
 }
 
+export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+    try {
+        const existingUpvoteActorReview = await prisma.upvoteActorReview.findFirst({
+            where: {
+                AND: [{ userId }, { actorId }, { actorReviewId }],
+            },
+        });
+
+        if (!existingUpvoteActorReview) {
+            const upvoteAdded = await prisma.upvoteActorReview.create({
+                data: {
+                    userId,
+                    actorId,
+                    actorReviewId,
+                },
+            });
+
+            if (upvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to upvote actor");
+            }
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
 export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteMovieReview.findFirst({
@@ -1383,6 +1632,35 @@ export async function removeUpvoteEpisodeReview({ userId, episodeId, episodeRevi
                 redirect(referer);
             } else {
                 throw new Error("Failed to remove upvote episode");
+            }
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+    try {
+        const existingUpvote = await prisma.upvoteActorReview.findFirst({
+            where: {
+                AND: [{ userId }, { actorReviewId }, { actorId }],
+            },
+        });
+
+        if (existingUpvote) {
+            const result = await prisma.upvoteActorReview.delete({
+                where: { id: existingUpvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove upvote actor");
             }
         }
     } catch (error) {
@@ -1530,6 +1808,39 @@ export async function addDownvoteEpisodeReview({ userId, episodeId, episodeRevie
     }
 }
 
+export async function addDownvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+    try {
+        const existingDownvoteActorReview = await prisma.downvoteActorReview.findFirst({
+            where: {
+                AND: [{ userId }, { actorId }, { actorReviewId }],
+            },
+        });
+
+        if (!existingDownvoteActorReview) {
+            const downvoteAdded = await prisma.downvoteActorReview.create({
+                data: {
+                    userId,
+                    actorId,
+                    actorReviewId,
+                },
+            });
+
+            if (downvoteAdded) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to downvote actor");
+            }
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
 export async function removeDownvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteMovieReview.findFirst({
@@ -1635,6 +1946,35 @@ export async function removeDownvoteEpisodeReview({ userId, episodeId, episodeRe
                 redirect(referer);
             } else {
                 throw new Error("Failed to remove downvote episode");
+            }
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function removeDownvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+    try {
+        const existingDownvote = await prisma.downvoteActorReview.findFirst({
+            where: {
+                AND: [{ userId }, { actorReviewId }, { actorId }],
+            },
+        });
+
+        if (existingDownvote) {
+            const result = await prisma.downvoteActorReview.delete({
+                where: { id: existingDownvote.id },
+            });
+
+            if (result) {
+                const referer = getReferer();
+                redirect(referer);
+            } else {
+                throw new Error("Failed to remove downvote actor");
             }
         }
     } catch (error) {

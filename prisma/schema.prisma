@@ -9,7 +9,7 @@ generator client {
 
 datasource db {
     provider  = "postgresql"
-    url      = env("POSTGRES_PRISMA_URL")
+    url       = env("POSTGRES_PRISMA_URL")
     // url       = env("POSTGRES_URL")
     directUrl = env("POSTGRES_URL_NON_POOLING")
 }
@@ -32,14 +32,17 @@ model User {
     favGenres               UserGenreFavorite[]
     favSeasons              UserSeasonFavorite[]
     favEpisodes             UserEpisodeFavorite[]
+    favActors               UserActorFavorite[]
     ratingsInMovie          UserMovieRating[]
     ratingsInSerie          UserSerieRating[]
     ratingsInSeason         UserSeasonRating[]
     ratingsInEpisode        UserEpisodeRating[]
+    ratingsInActor          UserActorRating[]
     movieReviews            MovieReview[]
     serieReviews            SerieReview[]
     seasonReviews           SeasonReview[]
     episodeReviews          EpisodeReview[]
+    actorReviews            ActorReview[]
     movieReviewsUpvoted     UpvoteMovieReview[]
     movieReviewsDownvoted   DownvoteMovieReview[]
     serieReviewsUpvoted     UpvoteSerieReview[]
@@ -48,6 +51,8 @@ model User {
     seasonReviewsDownvoted  DownvoteSeasonReview[]
     episodeReviewsUpvoted   UpvoteEpisodeReview[]
     episodeReviewsDownvoted DownvoteEpisodeReview[]
+    actorReviewsUpvoted     UpvoteActorReview[]
+    actorReviewsDownvoted   DownvoteActorReview[]
     // followers        UserFollow[]          @relation("Followers")
     // following        UserFollow[]          @relation("Following")
     // chats            UserChat[]
@@ -108,6 +113,15 @@ model UserEpisodeRating {
     episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
+model UserActorRating {
+    id      Int   @id @default(autoincrement())
+    rating  Float
+    userId  Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    actorId Int
+    actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
 model UserMovieFavorite {
     id      Int   @id @default(autoincrement())
     userId  Int
@@ -146,6 +160,14 @@ model UserSeasonFavorite {
     seasonId Int
     user     User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserActorFavorite {
+    id      Int   @id @default(autoincrement())
+    userId  Int
+    actorId Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 // model Chat {
@@ -370,15 +392,15 @@ model DownvoteSeasonReview {
 
 // #region "Episode relationships"
 model Episode {
-    id           Int    @id @default(autoincrement())
-    title        String @default("")
-    photoSrc     String @default("")
-    photoSrcProd String @default("")
-    trailerSrc   String @default("")
-    description  String @default("")
-    duration     Int    @default(20)
-    dateAired    String @default("01/01/1990")
-    ratingImdb   Float  @default(5.0)
+    id                     Int                     @id @default(autoincrement())
+    title                  String                  @default("")
+    photoSrc               String                  @default("")
+    photoSrcProd           String                  @default("")
+    trailerSrc             String                  @default("")
+    description            String                  @default("")
+    duration               Int                     @default(20)
+    dateAired              String                  @default("01/01/1990")
+    ratingImdb             Float                   @default(5.0)
     seasonId               Int
     season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     usersWhoBookmarkedIt   UserEpisodeFavorite[]
@@ -424,6 +446,60 @@ model DownvoteEpisodeReview {
 
 // #endregion
 
+// #region "Actor relationships"
+model Actor {
+    id                   Int                   @id @default(autoincrement())
+    fullname             String
+    role                 String                @default("Actor")
+    photoSrc             String                @default("")
+    photoSrcProd         String                @default("")
+    description          String                @default("")
+    debut                String                @default("")
+    starredMovies        CastMovie[]
+    starredSeries        CastSerie[]
+    reviews              ActorReview[]
+    usersWhoRatedIt      UserActorRating[]
+    usersWhoBookmarkedIt UserActorFavorite[]
+    upvoteActorReviews   UpvoteActorReview[]
+    downvoteActorReviews DownvoteActorReview[]
+}
+
+model ActorReview {
+    id        Int                   @id @default(autoincrement())
+    content   String                @default("")
+    rating    Float?
+    createdAt DateTime              @default(now())
+    updatedAt DateTime?
+    userId    Int
+    actorId   Int
+    user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    actor     Actor                 @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    upvotes   UpvoteActorReview[]
+    downvotes DownvoteActorReview[]
+}
+
+model UpvoteActorReview {
+    id            Int          @id @default(autoincrement())
+    userId        Int
+    actorId       Int
+    actorReviewId Int
+    user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    actor         Actor        @relation(fields: [actorId], references: [id], onDelete: Cascade)
+    actorReview   ActorReview? @relation(fields: [actorReviewId], references: [id], onDelete: Cascade)
+}
+
+model DownvoteActorReview {
+    id            Int          @id @default(autoincrement())
+    userId        Int
+    actorId       Int
+    actorReviewId Int
+    user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+    actor         Actor        @relation(fields: [actorId], references: [id], onDelete: Cascade)
+    actorReview   ActorReview? @relation(fields: [actorReviewId], references: [id], onDelete: Cascade)
+}
+
+// #endregion
+
 // #region "Other"
 model Genre {
     id                   Int                 @id @default(autoincrement())
@@ -431,14 +507,6 @@ model Genre {
     movies               MovieGenre[]
     series               SerieGenre[]
     usersWhoBookmarkedIt UserGenreFavorite[]
-}
-
-model Actor {
-    id            Int         @id @default(autoincrement())
-    fullname      String
-    role          String      @default("Actor")
-    starredMovies CastMovie[]
-    starredSeries CastSerie[]
 }
 
 // #endregion

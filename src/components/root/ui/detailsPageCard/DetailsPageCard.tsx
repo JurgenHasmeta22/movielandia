@@ -19,6 +19,7 @@ interface IDetailsPageCardProps {
     isSerieBookmarked?: boolean;
     isSeasonBookmarked?: boolean;
     isEpisodeBookmarked?: boolean;
+    isActorBookmarked?: boolean;
     onBookmarkMovie?(): Promise<void>;
     onRemoveBookmarkMovie?(): Promise<void>;
     onBookmarkSerie?(): Promise<void>;
@@ -27,6 +28,8 @@ interface IDetailsPageCardProps {
     onRemoveBookmarkSeason?(): Promise<void>;
     onBookmarkEpisode?(): Promise<void>;
     onRemoveBookmarkEpisode?(): Promise<void>;
+    onBookmarkActor?(): Promise<void>;
+    onRemoveBookmarkActor?(): Promise<void>;
 }
 
 export function DetailsPageCard({
@@ -36,14 +39,17 @@ export function DetailsPageCard({
     onBookmarkSerie,
     onBookmarkSeason,
     onBookmarkEpisode,
+    onBookmarkActor,
     onRemoveBookmarkMovie,
     onRemoveBookmarkSerie,
     onRemoveBookmarkSeason,
     onRemoveBookmarkEpisode,
+    onRemoveBookmarkActor,
     isMovieBookmarked,
     isSerieBookmarked,
     isSeasonBookmarked,
     isEpisodeBookmarked,
+    isActorBookmarked,
 }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
@@ -72,7 +78,12 @@ export function DetailsPageCard({
                     backgroundColor: `${colors.primary[400]}`,
                 }}
             >
-                <Image src={data.photoSrcProd} alt={data.title} width={220} height={300} />
+                <Image
+                    src={data.photoSrcProd}
+                    alt={type !== "actor" ? data.title : data.fullname}
+                    width={220}
+                    height={300}
+                />
                 <Box
                     sx={{
                         display: "flex",
@@ -139,7 +150,7 @@ export function DetailsPageCard({
                             pt: { xs: 4, md: 3 },
                         }}
                     >
-                        {type !== "serie" && type !== "season" && (
+                        {type !== "serie" && type !== "season" && type !== "actor" && (
                             <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
                                 <Grid container alignItems="center" spacing={1}>
                                     <Grid item>
@@ -159,18 +170,22 @@ export function DetailsPageCard({
                                     <CalendarMonthIcon fontSize="medium" />
                                 </Grid>
                                 <Grid item>
-                                    <Typography component="span">{data.dateAired}</Typography>
+                                    <Typography component="span">
+                                        {type !== "actor" ? data.dateAired : data.debut}
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </ListItem>
-                        <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
-                            <Box display="flex" alignItems="center" gap={0.5}>
-                                <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
-                                <Typography component="span">
-                                    {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                                </Typography>
-                            </Box>
-                        </ListItem>
+                        {type !== "actor" && (
+                            <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
+                                <Box display="flex" alignItems="center" gap={0.5}>
+                                    <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
+                                    <Typography component="span">
+                                        {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                    </Typography>
+                                </Box>
+                            </ListItem>
+                        )}
                         <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
                             <Box display="flex" alignItems="center" gap={0.5}>
                                 <StarRateIcon />
@@ -186,40 +201,42 @@ export function DetailsPageCard({
                             {data.description}
                         </Typography>
                     </Box>
-                    <Button
-                        href={data.trailerSrc}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variant="text"
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            placeSelf: "center",
-                            width: "50%",
-                            columnGap: 1,
-                            marginTop: 3,
-                            padding: 1,
-                            "&:hover": {
-                                backgroundColor: colors.primary[900],
-                            },
-                        }}
-                    >
-                        <YouTubeIcon
+                    {type !== "actor" && (
+                        <Button
+                            href={data.trailerSrc}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variant="text"
                             sx={{
-                                color: colors.primary[100],
-                            }}
-                        />
-                        <Typography
-                            component={"span"}
-                            color={colors.primary[100]}
-                            fontWeight={700}
-                            sx={{
-                                textTransform: "capitalize",
+                                display: "flex",
+                                flexDirection: "row",
+                                placeSelf: "center",
+                                width: "50%",
+                                columnGap: 1,
+                                marginTop: 3,
+                                padding: 1,
+                                "&:hover": {
+                                    backgroundColor: colors.primary[900],
+                                },
                             }}
                         >
-                            Watch Trailer
-                        </Typography>
-                    </Button>
+                            <YouTubeIcon
+                                sx={{
+                                    color: colors.primary[100],
+                                }}
+                            />
+                            <Typography
+                                component={"span"}
+                                color={colors.primary[100]}
+                                fontWeight={700}
+                                sx={{
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Watch Trailer
+                            </Typography>
+                        </Button>
+                    )}
                     {session?.user?.userName && (
                         <Button
                             onClick={async () => {
@@ -240,6 +257,12 @@ export function DetailsPageCard({
                                         onBookmarkEpisode ? await onBookmarkEpisode() : {};
                                     } else {
                                         onRemoveBookmarkEpisode ? await onRemoveBookmarkEpisode() : {};
+                                    }
+                                } else if (type === "actor") {
+                                    if (!isEpisodeBookmarked) {
+                                        onBookmarkActor ? await onBookmarkActor() : {};
+                                    } else {
+                                        onRemoveBookmarkActor ? await onRemoveBookmarkActor() : {};
                                     }
                                 } else {
                                     if (!isSeasonBookmarked) {
@@ -266,7 +289,8 @@ export function DetailsPageCard({
                             {(type === "movie" && !isMovieBookmarked) ||
                             (type === "serie" && !isSerieBookmarked) ||
                             (type === "season" && !isSeasonBookmarked) ||
-                            (type === "episode" && !isEpisodeBookmarked) ? (
+                            (type === "episode" && !isEpisodeBookmarked) ||
+                            (type === "actor" && !isActorBookmarked) ? (
                                 <BookmarkAddIcon color="success" fontSize="medium" />
                             ) : (
                                 <BookmarkRemoveIcon color="error" fontSize="medium" />
@@ -278,7 +302,13 @@ export function DetailsPageCard({
                                 }}
                                 fontWeight={700}
                             >
-                                {isMovieBookmarked || isSerieBookmarked ? "Bookmarked" : "Bookmark"}
+                                {isMovieBookmarked ||
+                                isSerieBookmarked ||
+                                isSeasonBookmarked ||
+                                isEpisodeBookmarked ||
+                                isActorBookmarked
+                                    ? "Bookmarked"
+                                    : "Bookmark"}
                             </Typography>
                         </Button>
                     )}
