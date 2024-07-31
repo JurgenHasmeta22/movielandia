@@ -13,8 +13,8 @@ import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import HeaderMenu from "../headerMenu/HeaderMenu";
 import { useResizeWindow } from "@/hooks/useResizeWindow";
+import HeaderMobile from "../headerMobile/HeaderMobile";
 
 interface IHeaderContent {
     session: Session | null;
@@ -121,13 +121,12 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                     )}
                 </Toolbar>
             </AppBar>
-            <HeaderMenu
-                closeMenuGenres={closeMenuGenres}
+            <HeaderMobile
                 genres={genres}
                 anchorElProfile={anchorElProfile}
                 openMenuProfile={openMenuProfile}
                 closeMenuProfile={closeMenuProfile}
-                handleLogout={handleSignOut}
+                handleSignOut={handleSignOut}
                 session={session}
             />
         </>
