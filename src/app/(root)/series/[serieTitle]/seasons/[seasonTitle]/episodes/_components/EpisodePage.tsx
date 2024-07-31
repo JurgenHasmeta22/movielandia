@@ -191,17 +191,30 @@ export default function EpisodePage({ searchParamsValues, episode, latestEpisode
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteEpisodeReview({ userId: session?.user?.id, episodeId: episode?.id, episodeReviewId });
-            } else {
-                await removeDownvoteEpisodeReview({
-                    userId: session?.user?.id,
+                await removeUpvoteEpisodeReview({
+                    userId: Number(session?.user?.id),
                     episodeId: episode?.id,
                     episodeReviewId,
                 });
-                await addUpvoteEpisodeReview({ userId: session?.user?.id, episodeId: episode?.id, episodeReviewId });
+            } else {
+                await removeDownvoteEpisodeReview({
+                    userId: Number(session?.user?.id),
+                    episodeId: episode?.id,
+                    episodeReviewId,
+                });
+
+                await addUpvoteEpisodeReview({
+                    userId: Number(session?.user?.id),
+                    episodeId: episode?.id,
+                    episodeReviewId,
+                });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the upvote to episode review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while upvoting the episode.");
+            }
         }
     }
 
@@ -211,16 +224,29 @@ export default function EpisodePage({ searchParamsValues, episode, latestEpisode
         try {
             if (isAlreadyDownvoted) {
                 await removeDownvoteEpisodeReview({
-                    userId: session?.user?.id,
+                    userId: Number(session?.user?.id),
                     episodeId: episode?.id,
                     episodeReviewId,
                 });
             } else {
-                await removeUpvoteEpisodeReview({ userId: session?.user?.id, episodeId: episode?.id, episodeReviewId });
-                await addDownvoteEpisodeReview({ userId: session?.user?.id, episodeId: episode?.id, episodeReviewId });
+                await removeUpvoteEpisodeReview({
+                    userId: Number(session?.user?.id),
+                    episodeId: episode?.id,
+                    episodeReviewId,
+                });
+
+                await addDownvoteEpisodeReview({
+                    userId: Number(session?.user?.id),
+                    episodeId: episode?.id,
+                    episodeReviewId,
+                });
             }
         } catch (error) {
-            showToast("error", "An error occurred while adding the downvoted to episode review.");
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while downvoting the episode.");
+            }
         }
     }
     // #endregion
