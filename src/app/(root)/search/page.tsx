@@ -6,7 +6,6 @@ import { searchSeriesByTitle } from "@/lib/actions/serie.actions";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";
-import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 
 interface ISearchProps {
     searchParams?: {
@@ -125,7 +124,6 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 />
                             </Box>
                         </Box>
-                        <DividerLine />
                     </>
                 ) : (
                     <>
@@ -142,7 +140,6 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 No search result, no movie found with that criteria.
                             </Typography>
                         </Box>
-                        <DividerLine />
                     </>
                 )}
                 {series.length !== 0 ? (

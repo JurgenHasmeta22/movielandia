@@ -98,50 +98,42 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             transition: "opacity 0.3s ease-in-out",
                             display: "flex",
                             flexDirection: "column",
-                            justifyContent: "flex-start",
+                            justifyContent: "space-between",
                             padding: 2,
                         }}
                     >
-                        <Typography variant="body2" color="white" fontWeight={600} sx={{ fontSize: "1rem" }}>
+                        <Typography color="white" sx={{ fontSize: "0.8rem" }}>
                             {path === "actors" ? data.fullname : data.title} ({new Date(data.dateAired).getFullYear()})
                         </Typography>
-                        <Stack flexDirection={"row"} columnGap={"10px"}>
+                        <Stack
+                            flexDirection={"row"}
+                            columnGap={"40px"}
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
                             <Box
                                 sx={{
                                     display: "flex",
-                                    flexDirection: "row",
                                     alignItems: "center",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    marginTop: 0.5,
+                                    color: "gold",
+                                    fontSize: "0.8rem",
                                 }}
                             >
-                                <Typography
-                                    sx={{
-                                        color: "gold",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        fontSize: "0.8rem",
-                                    }}
-                                >
-                                    <Image
-                                        src="/icons/imdb.svg"
-                                        alt="IMDb Icon"
-                                        width={14}
-                                        height={14}
-                                        style={{ marginRight: 2 }}
-                                    />
-                                    {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                                </Typography>
+                                <Image
+                                    src="/icons/imdb.svg"
+                                    alt="IMDb Icon"
+                                    width={14}
+                                    height={14}
+                                    style={{ marginRight: 2 }}
+                                />
+                                {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
                             </Box>
                             <Box
                                 sx={{
                                     display: "flex",
-                                    flexDirection: "row",
                                     alignItems: "center",
-                                    marginTop: 0.5,
-                                    fontSize: "0.8rem",
                                     color: "gold",
+                                    fontSize: "0.8rem",
                                 }}
                             >
                                 <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />

@@ -6,7 +6,6 @@ import { getGenreByName } from "@/lib/actions/genre.actions";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 import { notFound } from "next/navigation";
 
 interface IGenreProps {
@@ -135,7 +134,6 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                             pageCount={pageCountMovies}
                             dataType={"Movies"}
                         />
-                        <DividerLine />
                     </>
                 ) : (
                     <>
@@ -152,7 +150,6 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 No search result, no movie found with this genre.
                             </Typography>
                         </Box>
-                        <DividerLine />
                     </>
                 )}
                 {moviesByGenre.length !== 0 ? (
@@ -217,7 +214,6 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 No search result, no serie found with this genre.
                             </Typography>
                         </Box>
-                        <DividerLine />
                     </>
                 )}
             </Box>

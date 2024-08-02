@@ -7,7 +7,6 @@ import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getSeries, getLatestSeries } from "@/lib/actions/serie.actions";
-import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 import { Suspense } from "react";
 
 interface ISeriesProps {
@@ -116,7 +115,6 @@ export default async function Series({ searchParams }: ISeriesProps) {
                         <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
                     </Suspense>
                 </Box>
-                <DividerLine />
                 <LatestList data={latestSeries} type="Series" />
             </Box>
         </Container>
