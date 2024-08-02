@@ -7,7 +7,6 @@ import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getMovies, getLatestMovies } from "@/lib/actions/movie.actions";
-import DividerLine from "@/components/root/ui/dividerLine/DividerLine";
 import { Suspense } from "react";
 
 interface IMoviesProps {
@@ -117,7 +116,6 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                         <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
                     </Suspense>
                 </Box>
-                <DividerLine />
                 <LatestList data={latestMovies} type="Movies" />
             </Box>
         </Container>

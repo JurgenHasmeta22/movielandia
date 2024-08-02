@@ -2,7 +2,6 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
-import DividerLine from "../dividerLine/DividerLine";
 import { useStore } from "@/store/store";
 
 interface IListDetail {
@@ -18,7 +17,6 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
         <>
             {data && data.length > 0 && (
                 <>
-                    <DividerLine />
                     <Box
                         sx={{
                             display: "flex",
@@ -48,7 +46,6 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 <Typography fontSize={28}>Starred {roleData}</Typography>
                             )}
                             {type === "actor" && roleData === "cast" && <Typography fontSize={28}>Cast</Typography>}
-                            <DividerLine />
                         </Box>
                         <Stack
                             direction="row"
