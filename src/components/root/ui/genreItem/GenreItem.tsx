@@ -17,7 +17,7 @@ export default function GenreItem({ genre }: IGenreItemProps) {
     const colors = tokens(theme.palette.mode);
 
     return (
-        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
+        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
             <Card
                 key={genre.id}
                 sx={{
@@ -25,8 +25,8 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                     placeItems: "center",
                     placeContent: "center",
                     cursor: "pointer",
-                    height: "200px",
-                    width: "200px",
+                    height: "230px",
+                    width: "150px",
                     backgroundColor: `colors.secondary`,
                 }}
                 elevation={4}

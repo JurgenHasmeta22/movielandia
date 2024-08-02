@@ -49,18 +49,17 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
     };
 
     return (
-        <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
+        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
             <Card
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     backgroundColor: "transparent",
-                    maxWidth: "200px",
+                    maxWidth: "150px",
                     cursor: "pointer",
                     height: "100%",
                     width: "100%",
                     position: "relative",
-                    borderRadius: 4,
                     "&:hover": {
                         boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
                     },
@@ -69,7 +68,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                 elevation={6}
             >
                 <Box sx={{ position: "relative" }}>
-                    <Image src={data.photoSrcProd} alt={`${data.description}`} width={214} height={317} />
+                    <Image src={data.photoSrcProd} alt={`${data.description}`} width={150} height={230} />
                     <Box
                         sx={{
                             position: "absolute",
@@ -201,48 +200,9 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                         letterSpacing: 0.3,
                     }}
                 >
-                    <Typography variant="body1" fontWeight={600} fontSize={16}>
+                    <Typography variant="body2" fontWeight={600} fontSize={14}>
                         {path === "actors" ? data.fullname : data.title}
                     </Typography>
-                    {data.genres && data.genres.length > 0 && (
-                        <Stack
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                                columnGap: 1,
-                                rowGap: 1,
-                                pt: 0.5,
-                                pb: 0.5,
-                            }}
-                        >
-                            {data?.genres?.map((genre: any, index: number) => (
-                                <Link href={`/genres/${genre.name}`} style={{ textDecoration: "none" }} key={index}>
-                                    <Typography
-                                        component={"span"}
-                                        key={index}
-                                        onClick={function (e) {
-                                            e.stopPropagation();
-                                        }}
-                                        sx={{
-                                            backgroundColor: "gold",
-                                            color: "black",
-                                            borderRadius: "12px",
-                                            padding: "4px 6px",
-                                            fontWeight: "700",
-                                            cursor: "pointer",
-                                            fontSize: 11,
-                                            "&:hover": {
-                                                backgroundColor: "#FFD700",
-                                            },
-                                        }}
-                                    >
-                                        {genre.name}
-                                    </Typography>
-                                </Link>
-                            ))}
-                        </Stack>
-                    )}
                 </CardContent>
             </Card>
         </motion.div>

@@ -82,13 +82,13 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     alignItems="center"
                     component="section"
                 >
-                    <Box ml={1}>
+                    <Box>
                         <Typography fontSize={28} variant="h2">
                             Series
                         </Typography>
                         <DividerLine />
                     </Box>
-                    <Box mr={1}>
+                    <Box>
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
                     </Box>
                 </Stack>
@@ -97,20 +97,19 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        placeItems: "center",
-                        placeContent: "center",
                         rowGap: 4,
                     }}
                 >
                     <Stack
                         direction="row"
                         flexWrap="wrap"
-                        justifyContent={"center"}
+                        // justifyContent={{ xs: "center", sm: "center", md: "center", lg: "center" }}
+                        justifyContent="center"
                         alignContent={"center"}
                         rowGap={8}
                         columnGap={4}
                     >
-                        {series.map((serie: any) => (
+                        {series.map((serie: Serie) => (
                             <CardItem data={serie} type="serie" key={serie.id} />
                         ))}
                     </Stack>
