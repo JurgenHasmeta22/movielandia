@@ -86,7 +86,6 @@ export default async function Search({ searchParams }: ISearchProps) {
                                     <Typography fontSize={28} variant="h2">
                                         Movies
                                     </Typography>
-                                    <DividerLine />
                                 </Box>
                                 <Box
                                     sx={{
@@ -153,7 +152,6 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 <Typography fontSize={28} variant="h2">
                                     Series
                                 </Typography>
-                                <DividerLine />
                             </Box>
                             <Box
                                 sx={{

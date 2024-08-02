@@ -86,7 +86,6 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                         <Typography fontSize={28} variant="h2">
                             Movies
                         </Typography>
-                        <DividerLine />
                     </Box>
                     <Box mr={1}>
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="movies" />

@@ -19,9 +19,7 @@ export function LatestList({ data, type }: ILatestList) {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                // justifyContent: `${mobileOpen ? "center" : "start"}`,
                 justifyContent: "center",
-                // alignItems: `${mobileOpen ? "center" : "start"}`,
                 alignItems: "center",
                 rowGap: 2,
                 marginBottom: 4,

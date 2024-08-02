@@ -102,7 +102,6 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 >
                                     {`Movies of genre ${name}`}
                                 </Typography>
-                                <DividerLine />
                             </Box>
                             <Box
                                 sx={{
@@ -169,7 +168,6 @@ export default async function Genre({ searchParams, params }: IGenreProps): Prom
                                 >
                                     {`Series of genre ${params.name}`}
                                 </Typography>
-                                <DividerLine />
                             </Box>
                             <Box
                                 sx={{

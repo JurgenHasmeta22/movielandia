@@ -86,7 +86,6 @@ export default async function Series({ searchParams }: ISeriesProps) {
                         <Typography fontSize={28} variant="h2">
                             Series
                         </Typography>
-                        <DividerLine />
                     </Box>
                     <Box>
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
