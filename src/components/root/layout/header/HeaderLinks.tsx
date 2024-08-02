@@ -95,7 +95,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             {genres.map((genre, index: number) => (
                                 <Link
                                     key={index}
-                                    href={`/genres/${genre.name}`}
+                                    href={`/genres/${genre.id}/${genre.name}`}
                                     style={{
                                         textDecoration: "none",
                                         color: colors.primary[100],
