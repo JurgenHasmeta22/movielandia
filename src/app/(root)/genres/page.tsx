@@ -1,6 +1,6 @@
 import GenreItem from "@/components/root/ui/genreItem/GenreItem";
 import { getGenres } from "@/lib/actions/genre.actions";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
 
@@ -37,32 +37,34 @@ export default async function Genres() {
     const genres = genresData!.rows!;
 
     return (
-        <Container>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    placeItems: "center",
-                    paddingTop: 4,
-                }}
-                component={"section"}
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                placeItems: "center",
+                paddingTop: 4,
+            }}
+            mt={4}
+            mb={4}
+            mr={3}
+            ml={3}
+            component={"section"}
+        >
+            <Typography mt={4} fontSize={"26px"}>
+                Choose your favorite genre
+            </Typography>
+            <Stack
+                direction="row"
+                flexWrap="wrap"
+                justifyContent={"flex-start"}
+                alignItems={"start"}
+                rowGap={4}
+                columnGap={3}
+                marginTop={3}
+                mb={4}
             >
-                <Typography mt={4} fontSize={"30px"}>
-                    Choose your favorite genre
-                </Typography>
-                <Box
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                        rowGap: 6,
-                        columnGap: 4,
-                    }}
-                    mb={6}
-                    mt={4}
-                >
-                    {genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)}
-                </Box>
-            </Box>
-        </Container>
+                {genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)}
+            </Stack>
+        </Box>
     );
 }

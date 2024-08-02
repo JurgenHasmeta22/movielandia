@@ -2,12 +2,11 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getSeries, getLatestSeries } from "@/lib/actions/serie.actions";
-import { Suspense } from "react";
 
 interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
@@ -60,63 +59,61 @@ export default async function Series({ searchParams }: ISeriesProps) {
     const pageCount = Math.ceil(seriesCount / 10);
 
     return (
-        <Container>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: 4,
+                paddingTop: 4,
+            }}
+            component={"section"}
+        >
+            <Box mt={4} component={"section"}>
+                <Carousel data={seriesCarouselImages} type="series" />
+            </Box>
+            <Stack
+                display="flex"
+                flexDirection="row"
+                justifyContent={"space-between"}
+                alignItems="center"
+                component="section"
+                ml={3}
+                mr={3}
+            >
+                <Box>
+                    <Typography fontSize={22} variant="h2">
+                        All series
+                    </Typography>
+                </Box>
+                <Box>
+                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
+                </Box>
+            </Stack>
             <Box
+                component={"section"}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
                     rowGap: 4,
-                    paddingTop: 4,
                 }}
-                component={"section"}
+                pl={3}
+                pr={3}
             >
-                <Box mt={4} component={"section"}>
-                    <Carousel data={seriesCarouselImages} type="series" />
-                </Box>
                 <Stack
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent={"space-between"}
-                    alignItems="center"
-                    component="section"
+                    direction="row"
+                    flexWrap="wrap"
+                    justifyContent={"flex-start"}
+                    alignItems={"start"}
+                    rowGap={4}
+                    columnGap={3}
                 >
-                    <Box>
-                        <Typography fontSize={28} variant="h2">
-                            Series
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
-                    </Box>
+                    {series.map((serie: Serie) => (
+                        <CardItem data={serie} type="serie" key={serie.id} />
+                    ))}
                 </Stack>
-                <Box
-                    component={"section"}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        rowGap: 4,
-                    }}
-                >
-                    <Stack
-                        direction="row"
-                        flexWrap="wrap"
-                        // justifyContent={{ xs: "center", sm: "center", md: "center", lg: "center" }}
-                        justifyContent="center"
-                        alignContent={"center"}
-                        rowGap={8}
-                        columnGap={4}
-                    >
-                        {series.map((serie: Serie) => (
-                            <CardItem data={serie} type="serie" key={serie.id} />
-                        ))}
-                    </Stack>
-                    <Suspense>
-                        <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
-                    </Suspense>
-                </Box>
-                <LatestList data={latestSeries} type="Series" />
+                <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
             </Box>
-        </Container>
+            <LatestList data={latestSeries} type="Series" />
+        </Box>
     );
 }

@@ -13,25 +13,24 @@ export function LatestList({ data, type }: ILatestList) {
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
                 rowGap: 2,
                 marginBottom: 4,
+                pl: 3,
+                pr: 3,
             }}
         >
             <Box>
-                <Typography fontSize={28} variant="h2">
-                    Latest {type}
+                <Typography fontSize={22} variant="h2">
+                    Latest {type.toLowerCase()}
                 </Typography>
             </Box>
             <Stack
                 direction="row"
                 flexWrap="wrap"
-                rowGap={8}
-                columnGap={4}
-                // justifyContent={`${mobileOpen ? "center" : "start"}`}
-                justifyContent="center"
-                alignContent={"center"}
+                justifyContent={"flex-start"}
+                alignItems={"start"}
+                rowGap={4}
+                columnGap={3}
                 marginTop={3}
                 mb={4}
             >

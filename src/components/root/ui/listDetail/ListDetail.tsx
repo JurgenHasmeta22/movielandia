@@ -16,68 +16,66 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                         sx={{
                             display: "flex",
                             flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
                             rowGap: 2,
                             marginBottom: 2,
                             marginTop: 2,
                         }}
                         component={"section"}
                     >
-                        <Box>
+                        <Box ml={3} mr={3}>
                             <Typography fontSize={28}>
                                 {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
                                 {type === "movie"
-                                    ? " Movies"
+                                    ? " movies"
                                     : type === "serie"
-                                      ? " Series"
+                                      ? " series"
                                       : type === "season"
                                         ? " Seasons"
                                         : type === "episode"
-                                          ? " Episodes"
+                                          ? " episodes"
                                           : ""}
                             </Typography>
                             {type === "actor" && roleData !== "cast" && (
-                                <Typography fontSize={28}>Starred {roleData}</Typography>
+                                <Typography fontSize={22}>Starred {roleData}</Typography>
                             )}
-                            {type === "actor" && roleData === "cast" && <Typography fontSize={28}>Cast</Typography>}
+                            {type === "actor" && roleData === "cast" && <Typography fontSize={22}>Cast</Typography>}
                         </Box>
-                        <Stack
-                            direction="row"
-                            flexWrap="wrap"
-                            columnGap={3}
-                            rowGap={3}
-                            justifyContent="center"
-                            alignContent="center"
-                            mt={1}
-                            mb={4}
-                        >
-                            {data &&
-                                data.length > 0 &&
-                                !data.error &&
-                                data.map((item: any, index: number) => (
-                                    <CardItem
-                                        data={
-                                            type === "actor" && roleData === "Movies"
-                                                ? item.movie
-                                                : type === "actor" && roleData === "Series"
-                                                  ? item.serie
-                                                  : type === "actor" && roleData === "cast"
-                                                    ? item.actor
-                                                    : item
-                                        }
-                                        key={index}
-                                        type={type}
-                                        path={
-                                            type === "actor" && roleData !== "cast"
-                                                ? "movies"
-                                                : type === "actor" && roleData === "cast"
-                                                  ? "actors"
-                                                  : null
-                                        }
-                                    />
-                                ))}
-                        </Stack>
+                        <Box pl={3} pr={3}>
+                            <Stack
+                                direction="row"
+                                flexWrap="wrap"
+                                justifyContent={"flex-start"}
+                                alignItems={"start"}
+                                rowGap={4}
+                                columnGap={3}
+                            >
+                                {data &&
+                                    data.length > 0 &&
+                                    !data.error &&
+                                    data.map((item: any, index: number) => (
+                                        <CardItem
+                                            data={
+                                                type === "actor" && roleData === "Movies"
+                                                    ? item.movie
+                                                    : type === "actor" && roleData === "Series"
+                                                      ? item.serie
+                                                      : type === "actor" && roleData === "cast"
+                                                        ? item.actor
+                                                        : item
+                                            }
+                                            key={index}
+                                            type={type}
+                                            path={
+                                                type === "actor" && roleData !== "cast"
+                                                    ? "movies"
+                                                    : type === "actor" && roleData === "cast"
+                                                      ? "actors"
+                                                      : null
+                                            }
+                                        />
+                                    ))}
+                            </Stack>
+                        </Box>
                     </Box>
                 </>
             )}

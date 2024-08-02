@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import { getLatestSeries, getRelatedSeries, getSerieById, getSerieByTitle } from "@/lib/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -99,14 +98,12 @@ export default async function SerieDetails({ searchParams, params }: ISerieProps
     const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
 
     return (
-        <Container>
-            <SeriePage
-                searchParamsValues={searchParamsValues}
-                serie={serie}
-                latestSeries={latestSeries}
-                relatedSeries={relatedSeries}
-                pageCount={pageCountReviews}
-            />
-        </Container>
+        <SeriePage
+            searchParamsValues={searchParamsValues}
+            serie={serie}
+            latestSeries={latestSeries}
+            relatedSeries={relatedSeries}
+            pageCount={pageCountReviews}
+        />
     );
 }

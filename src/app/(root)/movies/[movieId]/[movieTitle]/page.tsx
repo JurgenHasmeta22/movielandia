@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import { getLatestMovies, getMovieById, getRelatedMovies } from "@/lib/actions/movie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -98,14 +97,12 @@ export default async function MovieDetails({ searchParams, params }: IMovieProps
     const pageCount = Math.ceil(movie?.totalReviews / 5);
 
     return (
-        <Container>
-            <MoviePage
-                searchParamsValues={searchParamsValues}
-                movie={movie}
-                latestMovies={latestMovies}
-                relatedMovies={relatedMovies}
-                pageCount={pageCount}
-            />
-        </Container>
+        <MoviePage
+            searchParamsValues={searchParamsValues}
+            movie={movie}
+            latestMovies={latestMovies}
+            relatedMovies={relatedMovies}
+            pageCount={pageCount}
+        />
     );
 }

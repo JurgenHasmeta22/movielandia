@@ -48,15 +48,14 @@ export async function getSeries({
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const seriesWithGenres = await prisma.serie.findMany({
+    const series = await prisma.serie.findMany({
         where: filters,
-        include: { genres: { select: { genre: true } } },
         orderBy: orderByObject,
         skip,
         take,
     });
 
-    const serieIds = seriesWithGenres.map((serie) => serie.id);
+    const serieIds = series.map((serie) => serie.id);
 
     const serieRatings = await prisma.serieReview.groupBy({
         by: ["serieId"],
@@ -74,20 +73,21 @@ export async function getSeries({
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
+
         return map;
     }, {} as RatingsMap);
 
-    const series = seriesWithGenres.map((serie) => {
-        const { genres, ...properties } = serie;
-        const simplifiedGenres = genres.map((genre) => genre.genre);
+    const seriesFinal = series.map((serie) => {
+        const { ...properties } = serie;
         const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
-        return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
+
+        return { ...properties, ...ratingsInfo };
     });
 
     const count = await prisma.serie.count();
 
-    if (series) {
-        return { rows: series, count };
+    if (seriesFinal) {
+        return { rows: seriesFinal, count };
     } else {
         return null;
     }
@@ -326,15 +326,14 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
 }
 
 export async function getLatestSeries(): Promise<Serie[] | null> {
-    const seriesWithGenres = await prisma.serie.findMany({
+    const series = await prisma.serie.findMany({
         orderBy: {
             dateAired: "desc",
         },
-        take: 10,
-        include: { genres: { select: { genre: true } } },
+        take: 5,
     });
 
-    const serieIds = seriesWithGenres.map((serie) => serie.id);
+    const serieIds = series.map((serie) => serie.id);
 
     const serieRatings = await prisma.serieReview.groupBy({
         by: ["serieId"],
@@ -352,18 +351,19 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
+
         return map;
     }, {} as RatingsMap);
 
-    const series = seriesWithGenres.map((serie) => {
-        const { genres, ...properties } = serie;
-        const simplifiedGenres = genres.map((genre) => genre.genre);
+    const seriesFinal = series.map((serie) => {
+        const { ...properties } = serie;
         const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
-        return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
+
+        return { ...properties, ...ratingsInfo };
     });
 
-    if (series) {
-        return series;
+    if (seriesFinal) {
+        return seriesFinal;
     } else {
         return null;
     }
@@ -401,7 +401,6 @@ export async function getRelatedSeries(id: number): Promise<Serie[] | null> {
 
     const relatedSeries = await prisma.serie.findMany({
         where: { id: { in: relatedSerieIds } },
-        include: { genres: { select: { genre: true } } },
     });
 
     const serieRatings = await prisma.serieReview.groupBy({
@@ -424,11 +423,10 @@ export async function getRelatedSeries(id: number): Promise<Serie[] | null> {
     );
 
     const series = relatedSeries.map((relatedSerie) => {
-        const { genres, ...serieDetails } = relatedSerie;
-        const simplifiedGenres = genres.map((genre) => genre.genre);
+        const { ...serieDetails } = relatedSerie;
         const ratingsInfo = ratingsMap[relatedSerie.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...serieDetails, genres: simplifiedGenres, ...ratingsInfo };
+        return { ...serieDetails, ...ratingsInfo };
     });
 
     return series.length > 0 ? series : null;

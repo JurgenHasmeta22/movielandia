@@ -2,12 +2,11 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getMovies, getLatestMovies } from "@/lib/actions/movie.actions";
-import { Suspense } from "react";
 
 interface IMoviesProps {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
@@ -60,64 +59,63 @@ export default async function Movies({ searchParams }: IMoviesProps) {
     const pageCount = Math.ceil(moviesCount / 10);
 
     return (
-        <Container>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: 4,
+                paddingTop: 4,
+            }}
+            component={"section"}
+        >
+            <Box mt={4} component={"section"}>
+                <Carousel data={moviesCarouselImages} type="movies" />
+            </Box>
+            <Stack
+                display="flex"
+                flexDirection="row"
+                justifyContent={"space-between"}
+                alignItems="center"
+                component="section"
+                ml={3}
+                mr={3}
+            >
+                <Box>
+                    <Typography fontSize={22} variant="h2">
+                        All movies
+                    </Typography>
+                </Box>
+                <Box>
+                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="movies" />
+                </Box>
+            </Stack>
             <Box
+                component={"section"}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
                     rowGap: 4,
-                    paddingTop: 4,
                 }}
-                component={"section"}
+                pl={3}
+                pr={3}
             >
-                <Box mt={4} component={"section"}>
-                    <Carousel data={moviesCarouselImages} type="movies" />
-                </Box>
                 <Stack
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent={"space-between"}
-                    alignItems="center"
-                    component="section"
+                    direction="row"
+                    flexWrap="wrap"
+                    justifyContent={"flex-start"}
+                    alignItems={"start"}
+                    rowGap={4}
+                    columnGap={3}
                 >
-                    <Box ml={1}>
-                        <Typography fontSize={28} variant="h2">
-                            Movies
-                        </Typography>
-                    </Box>
-                    <Box mr={1}>
-                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="movies" />
-                    </Box>
+                    {movies.map((movie: Movie) => (
+                        <Box key={movie.id}>
+                            <CardItem data={movie} type="movie" />
+                        </Box>
+                    ))}
                 </Stack>
-                <Box
-                    component={"section"}
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        rowGap: 4,
-                    }}
-                >
-                    <Stack
-                        direction="row"
-                        flexWrap="wrap"
-                        // justifyContent={{ xs: "center", sm: "center", md: "start", lg: "start" }}
-                        justifyContent="center"
-                        alignItems={"start"}
-                        alignContent={"start"}
-                        rowGap={8}
-                        columnGap={4}
-                    >
-                        {movies.map((movie: Movie) => (
-                            <CardItem data={movie} type="movie" key={movie.id} />
-                        ))}
-                    </Stack>
-                    <Suspense>
-                        <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
-                    </Suspense>
-                </Box>
-                <LatestList data={latestMovies} type="Movies" />
+                <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
             </Box>
-        </Container>
+            <LatestList data={latestMovies} type="Movies" />
+        </Box>
     );
 }
