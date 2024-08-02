@@ -13,8 +13,8 @@ interface ListHomeSectionProps {
 
 const ListHomeSection: React.FC<ListHomeSectionProps> = ({ data, type, link, linkText }) => {
     return (
-        <Box display={"flex"} flexDirection={"column"} rowGap={3} component={"section"}>
-            <Stack flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"} mr={1} ml={1}>
+        <Box display={"flex"} flexDirection={"column"} rowGap={2} component={"section"}>
+            <Stack flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"} ml={3} mr={5}>
                 <Typography
                     sx={{
                         fontWeight: 700,
@@ -35,30 +35,31 @@ const ListHomeSection: React.FC<ListHomeSectionProps> = ({ data, type, link, lin
                         textDecoration: "none",
                         fontWeight: 900,
                         fontSize: 14,
-                        // color: "secondary",
                     }}
                 >
                     {linkText}
                 </Link>
             </Stack>
-            <Stack
-                direction="row"
-                flexWrap="wrap"
-                justifyContent={"center"}
-                alignContent={"center"}
-                rowGap={4}
-                columnGap={4}
-            >
-                {data &&
-                    data.length > 0 &&
-                    data.map((item: any) =>
-                        type === "genre" ? (
-                            <GenreItem key={item.id} genre={item as Genre} />
-                        ) : (
-                            <CardItem data={item} key={item.id} type={type} />
-                        ),
-                    )}
-            </Stack>
+            <Box pr={3} pl={3}>
+                <Stack
+                    direction="row"
+                    flexWrap="wrap"
+                    justifyContent={"flex-start"}
+                    alignItems={"start"}
+                    rowGap={4}
+                    columnGap={3}
+                >
+                    {data &&
+                        data.length > 0 &&
+                        data.map((item: any) =>
+                            type === "genre" ? (
+                                <GenreItem key={item.id} genre={item as Genre} />
+                            ) : (
+                                <CardItem data={item} key={item.id} type={type} />
+                            ),
+                        )}
+                </Stack>
+            </Box>
         </Box>
     );
 };

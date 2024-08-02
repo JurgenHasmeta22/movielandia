@@ -15,7 +15,7 @@ export async function generateMetadata({
     let genreData: any = null;
 
     try {
-        genreData = await getGenreById(Number(genreId), {});
+        genreData = await getGenreById(Number(genreId), { type: "movie" });
         genre = genreData.genre;
     } catch (error) {
         return notFound();
