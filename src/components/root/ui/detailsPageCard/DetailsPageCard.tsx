@@ -88,6 +88,7 @@ export function DetailsPageCard({
                     sx={{
                         display: "flex",
                         flexDirection: "column",
+                        alignItems: "center", // Centering the content
                     }}
                 >
                     <Typography fontSize={[20, 24, 28, 32]} textAlign={"center"} component={"h1"} pt={2}>
@@ -108,7 +109,7 @@ export function DetailsPageCard({
                             <Box key={index}>
                                 <ListItem key={index}>
                                     <Link
-                                        href={`/genres/${genre.genre.name}`}
+                                        href={`/genres/${genre.genre.id}/${genre.genre.name}`}
                                         style={{
                                             textDecoration: "none",
                                         }}
@@ -138,64 +139,62 @@ export function DetailsPageCard({
                             </Box>
                         ))}
                     </List>
-                    <List
-                        sx={{
-                            display: "flex",
-                            flexDirection: { xs: "column", md: "row" },
-                            alignItems: { xs: "flex-start", md: "center" },
-                            justifyContent: { xs: "flex-start", md: "space-between" },
-                            gap: { xs: 2, sm: 4, md: 6 },
-                            pl: { xs: 10, md: 6 },
-                            pr: { xs: 10, md: 6 },
-                            pt: { xs: 4, md: 3 },
-                        }}
+                    <Grid
+                        container
+                        rowGap={1}
+                        justifyContent="start"
+                        alignContent="center"
+                        alignItems="center"
+                        pt={2}
+                        pb={2}
                     >
                         {type !== "serie" && type !== "season" && type !== "actor" && (
-                            <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
-                                <Grid container alignItems="center" spacing={1}>
-                                    <Grid item>
-                                        <AccessTimeIcon fontSize="medium" />
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography component="span">
-                                            {data.duration} {type === "movie" && "min"}
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </ListItem>
-                        )}
-                        <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
-                            <Grid container alignItems="center" spacing={1}>
-                                <Grid item>
-                                    <CalendarMonthIcon fontSize="medium" />
-                                </Grid>
-                                <Grid item>
+                            <Grid
+                                item
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                display="flex"
+                                justifyContent="center"
+                                alignContent={"center"}
+                            >
+                                <Box display="flex" alignItems="center" gap={1}>
+                                    <AccessTimeIcon fontSize="medium" />
                                     <Typography component="span">
-                                        {type !== "actor" ? data.dateAired : data.debut}
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                        </ListItem>
-                        {type !== "actor" && (
-                            <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
-                                <Box display="flex" alignItems="center" gap={0.5}>
-                                    <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
-                                    <Typography component="span">
-                                        {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                        Duration: {data.duration} min ({Math.floor(data.duration / 60)} hr{" "}
+                                        {data.duration % 60} min)
                                     </Typography>
                                 </Box>
-                            </ListItem>
+                            </Grid>
                         )}
-                        <ListItem sx={{ padding: 0, width: { xs: "100%", md: "auto" } }}>
-                            <Box display="flex" alignItems="center" gap={0.5}>
+                        <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="center">
+                            <Box display="flex" alignItems="center" gap={1}>
+                                <CalendarMonthIcon fontSize="medium" />
+                                <Typography component="span">
+                                    Date aired: {type !== "actor" ? data.dateAired : data.debut}
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        {type !== "actor" && (
+                            <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="center">
+                                <Box display="flex" alignItems="center" gap={1}>
+                                    <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
+                                    <Typography component="span">
+                                        Rating IMDb: {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                        )}
+                        <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="center">
+                            <Box display="flex" alignItems="center" gap={1}>
                                 <StarRateIcon />
                                 <Typography component="span">
-                                    {data.averageRating === 0 ? "N/A" : data.averageRating}
+                                    Average rating: {data.averageRating === 0 ? "N/A" : data.averageRating}
                                 </Typography>
                                 <Typography component="span">({data.totalReviews})</Typography>
                             </Box>
-                        </ListItem>
-                    </List>
+                        </Grid>
+                    </Grid>
                     <Box display={"flex"} justifyContent={"center"} pt={2}>
                         <Typography textAlign={"center"} width={["40ch", "45ch", "50ch", "55ch", "60ch"]}>
                             {data.description}

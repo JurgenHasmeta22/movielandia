@@ -46,38 +46,36 @@ export default async function Home() {
     const seriesData = await getSeries(queryParams);
     const genresData = await getGenres(queryParamsGenres);
 
-    const movies: Movie = moviesData?.movies.slice(0, 5);
-    const series: Serie = seriesData?.rows.slice(0, 5);
-    const genres: Genre = genresData?.rows.slice(0, 5);
+    const movies: Movie = moviesData?.movies.slice(0, 6);
+    const series: Serie = seriesData?.rows.slice(0, 6);
+    const genres: Genre = genresData?.rows.slice(0, 6);
 
     return (
         <>
             <HomeHeroSection />
-            <Container>
-                <Stack flexDirection={"column"} rowGap={10} mb={6} mt={6}>
-                    <ListHomeSection
-                        key={"movie"}
-                        data={movies}
-                        type="movie"
-                        link="/movies"
-                        linkText="Explore All Movies"
-                    />
-                    <ListHomeSection
-                        key={"serie"}
-                        data={series}
-                        type="serie"
-                        link="/series"
-                        linkText="Explore All Series"
-                    />
-                    <ListHomeSection
-                        key={"genre"}
-                        data={genres}
-                        type="genre"
-                        link="/genres"
-                        linkText="Explore All Genres"
-                    />
-                </Stack>
-            </Container>
+            <Stack flexDirection={"column"} rowGap={6} mb={6} mt={6}>
+                <ListHomeSection
+                    key={"movie"}
+                    data={movies}
+                    type="movie"
+                    link="/movies"
+                    linkText="Explore All Movies"
+                />
+                <ListHomeSection
+                    key={"serie"}
+                    data={series}
+                    type="serie"
+                    link="/series"
+                    linkText="Explore All Series"
+                />
+                <ListHomeSection
+                    key={"genre"}
+                    data={genres}
+                    type="genre"
+                    link="/genres"
+                    linkText="Explore All Genres"
+                />
+            </Stack>
         </>
     );
 }

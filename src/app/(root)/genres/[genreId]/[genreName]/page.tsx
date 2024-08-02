@@ -24,11 +24,21 @@ interface IGenreProps {
 }
 
 export async function generateMetadata({ params }: IGenreProps): Promise<Metadata> {
-    const { genreId, genreName } = params;
+    const { genreId } = params;
+
+    let genre: Genre | null = null;
+    let genreData: any = null;
+
+    try {
+        genreData = await getGenreById(Number(genreId), { type: "movie" });
+        genre = genreData.genre;
+    } catch (error) {
+        return notFound();
+    }
 
     return {
-        title: `${genreName} | Watch the Latest Movies and Series of the genre`,
-        description: `Discover and watch the latest and most amazing movies and series of genre titled "${name}" in high quality. Our collection is always updated with the newest releases.`,
+        title: `${genre?.name} | Watch the Latest Movies and Series of the genre`,
+        description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
     };
 }
 

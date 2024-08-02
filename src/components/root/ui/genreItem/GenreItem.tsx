@@ -1,9 +1,8 @@
 "use client";
 
-import { Card, useTheme } from "@mui/material";
+import { Card, Typography, useTheme } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { tokens } from "@/utils/theme/theme";
 
@@ -31,12 +30,10 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                 }}
                 elevation={4}
                 onClick={() => {
-                    router.push(`/genres/${genre.name}`);
+                    router.push(`/genres/${genre.id}/${genre.name}`);
                 }}
             >
-                <Link href={`/genres/${genre.name}`} style={{ textDecoration: "none", color: colors.primary[100] }}>
-                    {genre.name}
-                </Link>
+                <Typography sx={{ textDecoration: "none", color: colors.primary[100] }}>{genre.name}</Typography>
             </Card>
         </motion.div>
     );
