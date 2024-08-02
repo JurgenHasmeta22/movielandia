@@ -25,8 +25,8 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                     placeItems: "center",
                     placeContent: "center",
                     cursor: "pointer",
-                    height: "230px",
-                    width: "150px",
+                    height: "250px",
+                    width: "180px",
                     backgroundColor: `colors.secondary`,
                 }}
                 elevation={4}
