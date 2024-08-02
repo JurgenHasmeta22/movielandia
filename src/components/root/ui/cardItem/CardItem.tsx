@@ -3,11 +3,8 @@
 import React from "react";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import StarIcon from "@mui/icons-material/Star";
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 
 interface ICardItemProps {
@@ -23,21 +20,21 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
     const getPath = () => {
         switch (type) {
             case "serie":
-                return `/series/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             case "movie":
-                return `/movies/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             case "actor":
                 if (path && path === "movies") {
-                    return `/movies/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                    return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
                 } else if (path && path === "actors") {
-                    return `/actors/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
+                    return `/actors/${data.id}/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
                 } else {
-                    return `/series/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                    return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
                 }
             case "season":
-                return `/series/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                return `/series/${typeof params.serieId === "string" ? params.serieId : ""}/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             case "episode":
-                return `/series/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${typeof params.seasonTitle === "string" ? encodeURIComponent(params.seasonTitle.split(" ").join("-")) : ""}/episodes/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                return `/series/${typeof params.serieId === "string" ? params.serieId : ""}/${data.id}/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${typeof params.seasonId === "string" ? params.seasonId : ""}/${typeof params.seasonTitle === "string" ? encodeURIComponent(params.seasonTitle.split(" ").join("-")) : ""}/episodes/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             default:
                 return "/";
         }
@@ -103,45 +100,51 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                         }}
                     >
                         <Typography color="white" sx={{ fontSize: "0.8rem" }}>
-                            {path === "actors" ? data.fullname : data.title} ({new Date(data.dateAired).getFullYear()})
+                            {path === "actors"
+                                ? data.fullname
+                                : data.title + " " + "(" + new Date(data.dateAired).getFullYear() + ")"}
                         </Typography>
-                        <Stack
-                            flexDirection={"row"}
-                            columnGap={"40px"}
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    color: "gold",
-                                    fontSize: "0.8rem",
-                                }}
+                        {type !== "actor" && (
+                            <Stack
+                                flexDirection={"row"}
+                                columnGap={"40px"}
+                                justifyContent="space-between"
+                                alignItems="center"
                             >
-                                <Image
-                                    src="/icons/imdb.svg"
-                                    alt="IMDb Icon"
-                                    width={14}
-                                    height={14}
-                                    style={{ marginRight: 2 }}
-                                />
-                                {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    color: "gold",
-                                    fontSize: "0.8rem",
-                                }}
-                            >
-                                <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
-                                <Typography color={"white"} fontSize="0.8rem" component="span" width={"30ch"}>
-                                    {data.duration}
-                                </Typography>
-                            </Box>
-                        </Stack>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        color: "gold",
+                                        fontSize: "0.8rem",
+                                    }}
+                                >
+                                    <Image
+                                        src="/icons/imdb.svg"
+                                        alt="IMDb Icon"
+                                        width={14}
+                                        height={14}
+                                        style={{ marginRight: 2 }}
+                                    />
+                                    {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                </Box>
+                                {type !== "serie" && type !== "season" && (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            color: "gold",
+                                            fontSize: "0.8rem",
+                                        }}
+                                    >
+                                        <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
+                                        <Typography color={"white"} fontSize="0.8rem" component="span" width={"30ch"}>
+                                            {data.duration} min
+                                        </Typography>
+                                    </Box>
+                                )}
+                            </Stack>
+                        )}
                     </Box>
                 </Box>
                 <CardContent

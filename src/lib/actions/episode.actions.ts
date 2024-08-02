@@ -56,15 +56,113 @@ export async function getEpisodes({
     }
 }
 
-export async function getEpisodeById(episodeId: number): Promise<Episode | null> {
-    const result = await prisma.episode.findFirst({
-        where: { id: episodeId },
-    });
+export async function getEpisodeById(episodeId: number, queryParams: any): Promise<Episode | any | null> {
+    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
-    if (result) {
-        return result;
+    const skip = page ? (page - 1) * 5 : 0;
+    const take = 5;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
     } else {
-        return null;
+        orderByObject["createdAt"] = "desc";
+    }
+
+    try {
+        const episode = await prisma.episode.findFirst({
+            where: {
+                id: episodeId,
+            },
+            include: {
+                season: true,
+                reviews: {
+                    include: {
+                        user: true,
+                        upvotes: {
+                            take: upvotesPage ? upvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        downvotes: {
+                            take: downvotesPage ? downvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
+                        },
+                    },
+                    orderBy: orderByObject,
+                    skip: skip,
+                    take: take,
+                },
+            },
+        });
+
+        if (episode) {
+            const totalReviews = await prisma.episodeReview.count({
+                where: { episodeId: episode.id },
+            });
+
+            const ratings = await prisma.episodeReview.findMany({
+                where: { episodeId: episode.id },
+                select: { rating: true },
+            });
+
+            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+            let isBookmarked = false;
+            let isReviewed = false;
+
+            if (userId) {
+                for (const review of episode.reviews) {
+                    const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                        },
+                    });
+
+                    const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                        },
+                    });
+
+                    // @ts-expect-error dunno
+                    review.isUpvoted = !!existingUpvote;
+                    // @ts-expect-error dunno
+                    review.isDownvoted = !!existingDownvote;
+                }
+
+                const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }],
+                    },
+                });
+                isBookmarked = !!existingFavorite;
+
+                const existingReview = await prisma.episodeReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }],
+                    },
+                });
+                isReviewed = !!existingReview;
+            }
+
+            return {
+                ...episode,
+                averageRating,
+                totalReviews,
+                ...(userId && { isBookmarked, isReviewed }),
+            };
+        } else {
+            throw new Error("Episode not found");
+        }
+    } catch (error) {
+        throw new Error("Episode not found");
     }
 }
 
@@ -233,15 +331,10 @@ export async function getLatestEpisodes(seasonId: number): Promise<Episode[] | n
     }
 }
 
-export async function getRelatedEpisodes(title: string, seasonId: number): Promise<Episode[] | null> {
-    const titleFinal = title
-        .split("")
-        .map((char) => (char === "-" ? " " : char))
-        .join("");
-
+export async function getRelatedEpisodes(id: number, seasonId: number): Promise<Episode[] | null> {
     const episode = await prisma.episode.findFirst({
         where: {
-            AND: [{ title: titleFinal }, { seasonId }],
+            AND: [{ id }, { seasonId }],
         },
     });
 

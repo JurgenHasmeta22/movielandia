@@ -1,39 +1,41 @@
 import { Container } from "@mui/material";
-import { getLatestSeries, getRelatedSeries, getSerieByTitle } from "@/lib/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SeriePage from "./_components/SeriePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getActorById } from "@/lib/actions/actor.actions";
+import ActorPage from "./_components/ActorPage";
+import { Actor } from "@prisma/client";
 
-interface ISerieProps {
+interface IActorProps {
     params: {
-        serieTitle: string;
+        actorId: string;
     };
-    searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
+    searchParams?: { actorsAscOrDesc?: string; page?: string; actorsSortBy?: string };
 }
 
-export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
-    const { serieTitle } = params;
-    let serie = null;
+export async function generateMetadata({ params }: IActorProps): Promise<Metadata> {
+    const { actorId } = params;
+
+    let actor: Actor | null = null;
 
     try {
-        serie = await getSerieByTitle(serieTitle, {});
+        actor = await getActorById(Number(actorId), {});
     } catch (error) {
         return notFound();
     }
 
-    const { description, photoSrcProd } = serie;
+    const { description, photoSrcProd } = actor!;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${serieTitle}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/actors/${actor?.fullname}`;
 
     return {
-        title: `${serieTitle} | Serie`,
-        description: `${serie.description}`,
+        title: `${actor?.fullname} | Actor`,
+        description: `${actor?.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${serieTitle} | Serie`,
+            title: `${actor?.fullname} | Actor`,
             description,
             images: photoSrcProd
                 ? [
@@ -51,7 +53,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${serieTitle} | Serie`,
+            title: `${actor?.fullname} | Actor`,
             description,
             images: photoSrcProd
                 ? [
@@ -69,13 +71,13 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     };
 }
 
-export default async function Serie({ searchParams, params }: ISerieProps) {
+export default async function ActorDetails({ searchParams, params }: IActorProps) {
     const session = await getServerSession(authOptions);
 
-    const title = params.serieTitle;
-    const ascOrDesc = searchParams?.seriesAscOrDesc;
+    const { actorId } = params;
+    const ascOrDesc = searchParams?.actorsAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
+    const sortBy = searchParams?.actorsSortBy ? searchParams?.actorsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -83,28 +85,19 @@ export default async function Serie({ searchParams, params }: ISerieProps) {
         userId: Number(session?.user?.id),
     };
 
-    let serie = null;
+    let actor = null;
 
     try {
-        serie = await getSerieByTitle(title, searchParamsValues);
+        actor = await getActorById(Number(actorId), searchParamsValues);
     } catch (error) {
         return notFound();
     }
 
-    const latestSeries = await getLatestSeries();
-    const relatedSeries = await getRelatedSeries(title);
-
-    const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(actor?.totalReviews / 5);
 
     return (
         <Container>
-            <SeriePage
-                searchParamsValues={searchParamsValues}
-                serie={serie}
-                latestSeries={latestSeries}
-                relatedSeries={relatedSeries}
-                pageCount={pageCountReviews}
-            />
+            <ActorPage searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />
         </Container>
     );
 }

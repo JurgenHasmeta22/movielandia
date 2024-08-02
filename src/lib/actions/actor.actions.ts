@@ -56,15 +56,114 @@ export async function getActors({
     }
 }
 
-export async function getActorById(actorId: number): Promise<Actor | null> {
-    const result = await prisma.actor.findFirst({
-        where: { id: actorId },
-    });
+export async function getActorById(actorId: number, queryParams: any): Promise<Actor | any | null> {
+    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
-    if (result) {
-        return result;
+    const skip = page ? (page - 1) * 5 : 0;
+    const take = 5;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
     } else {
-        return null;
+        orderByObject["createdAt"] = "desc";
+    }
+
+    try {
+        const actor = await prisma.actor.findFirst({
+            where: {
+                id: actorId,
+            },
+            include: {
+                starredMovies: { include: { movie: true } },
+                starredSeries: { include: { serie: true } },
+                reviews: {
+                    include: {
+                        user: true,
+                        upvotes: {
+                            take: upvotesPage ? upvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        downvotes: {
+                            take: downvotesPage ? downvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
+                        },
+                    },
+                    orderBy: orderByObject,
+                    skip: skip,
+                    take: take,
+                },
+            },
+        });
+
+        if (actor) {
+            const totalReviews = await prisma.actorReview.count({
+                where: { actorId: actor.id },
+            });
+
+            const ratings = await prisma.actorReview.findMany({
+                where: { actorId: actor.id },
+                select: { rating: true },
+            });
+
+            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+            let isBookmarked = false;
+            let isReviewed = false;
+
+            if (userId) {
+                for (const review of actor.reviews) {
+                    const existingUpvote = await prisma.upvoteActorReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { actorId: actor.id }, { actorReviewId: review.id }],
+                        },
+                    });
+
+                    const existingDownvote = await prisma.downvoteActorReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { actorId: actor.id }, { actorReviewId: review.id }],
+                        },
+                    });
+
+                    // @ts-expect-error dunno
+                    review.isUpvoted = !!existingUpvote;
+                    // @ts-expect-error dunno
+                    review.isDownvoted = !!existingDownvote;
+                }
+
+                const existingFavorite = await prisma.userActorFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { actorId: actor.id }],
+                    },
+                });
+                isBookmarked = !!existingFavorite;
+
+                const existingReview = await prisma.actorReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { actorId: actor.id }],
+                    },
+                });
+                isReviewed = !!existingReview;
+            }
+
+            return {
+                ...actor,
+                averageRating,
+                totalReviews,
+                ...(userId && { isBookmarked, isReviewed }),
+            };
+        } else {
+            throw new Error("Actor not found");
+        }
+    } catch (error) {
+        throw new Error("Actor not found");
     }
 }
 
