@@ -62,15 +62,113 @@ export async function getSeasons({
     }
 }
 
-export async function getSeasonById(seasonId: number): Promise<Season | null> {
-    const result = await prisma.season.findFirst({
-        where: { id: seasonId },
-    });
+export async function getSeasonById(seasonId: number, queryParams: any): Promise<Season | any | null> {
+    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
-    if (result) {
-        return result;
+    const skip = page ? (page - 1) * 5 : 0;
+    const take = 5;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
     } else {
-        return null;
+        orderByObject["createdAt"] = "desc";
+    }
+
+    try {
+        const season = await prisma.season.findFirst({
+            where: {
+                id: seasonId,
+            },
+            include: {
+                episodes: true,
+                reviews: {
+                    include: {
+                        user: true,
+                        upvotes: {
+                            take: upvotesPage ? upvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        downvotes: {
+                            take: downvotesPage ? downvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
+                        },
+                    },
+                    orderBy: orderByObject,
+                    skip: skip,
+                    take: take,
+                },
+            },
+        });
+
+        if (season) {
+            const totalReviews = await prisma.seasonReview.count({
+                where: { seasonId: season.id },
+            });
+
+            const ratings = await prisma.seasonReview.findMany({
+                where: { seasonId: season.id },
+                select: { rating: true },
+            });
+
+            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+            let isBookmarked = false;
+            let isReviewed = false;
+
+            if (userId) {
+                for (const review of season.reviews) {
+                    const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
+                        },
+                    });
+
+                    const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
+                        where: {
+                            AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
+                        },
+                    });
+
+                    // @ts-expect-error dunno
+                    review.isUpvoted = !!existingUpvote;
+                    // @ts-expect-error dunno
+                    review.isDownvoted = !!existingDownvote;
+                }
+
+                const existingFavorite = await prisma.userSeasonFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { seasonId: season.id }],
+                    },
+                });
+                isBookmarked = !!existingFavorite;
+
+                const existingReview = await prisma.seasonReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { seasonId: season.id }],
+                    },
+                });
+                isReviewed = !!existingReview;
+            }
+
+            return {
+                ...season,
+                averageRating,
+                totalReviews,
+                ...(userId && { isBookmarked, isReviewed }),
+            };
+        } else {
+            throw new Error("Season not found");
+        }
+    } catch (error) {
+        throw new Error("Season not found");
     }
 }
 
@@ -239,15 +337,10 @@ export async function getLatestSeasons(serieId: number): Promise<Season[] | null
     }
 }
 
-export async function getRelatedSeasons(title: string, serieId: number): Promise<Season[] | null> {
-    const titleFinal = title
-        .split("")
-        .map((char) => (char === "-" ? " " : char))
-        .join("");
-
+export async function getRelatedSeasons(seasonId: number, serieId: number): Promise<Season[] | null> {
     const season = await prisma.season.findFirst({
         where: {
-            AND: [{ title: titleFinal }, { serieId }],
+            AND: [{ id: seasonId }, { serieId }],
         },
     });
 

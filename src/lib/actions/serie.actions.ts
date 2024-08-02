@@ -103,16 +103,112 @@ export async function getSeriesAll(): Promise<any | null> {
     }
 }
 
-export async function getSerieById(serieId: number): Promise<Serie | null> {
-    const result = await prisma.serie.findFirst({
-        where: { id: serieId },
-        include: { genres: { select: { genre: true } } },
-    });
+export async function getSerieById(id: number, queryParams: any): Promise<Serie | any | null> {
+    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const skip = page ? (page - 1) * 5 : 0;
+    const take = 5;
+    const orderByObject: any = {};
 
-    if (result) {
-        return result;
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
     } else {
-        return null;
+        orderByObject["createdAt"] = "desc";
+    }
+
+    try {
+        const serie = await prisma.serie.findFirst({
+            where: { id },
+            include: {
+                genres: { select: { genre: true } },
+                cast: { include: { actor: true } },
+                reviews: {
+                    include: {
+                        user: true,
+                        upvotes: {
+                            take: upvotesPage ? upvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        downvotes: {
+                            take: downvotesPage ? downvotesPage * 5 : 5,
+                            select: { user: true },
+                        },
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
+                        },
+                    },
+                    orderBy: orderByObject,
+                    skip: skip,
+                    take: take,
+                },
+                seasons: true,
+            },
+        });
+
+        if (!serie) {
+            throw new Error("Serie not found");
+        }
+
+        const totalReviews = await prisma.serieReview.count({
+            where: { serieId: serie.id },
+        });
+
+        const ratings = await prisma.serieReview.findMany({
+            where: { serieId: serie.id },
+            select: { rating: true },
+        });
+
+        const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+        const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+        let isBookmarked = false;
+        let isReviewed = false;
+
+        if (userId) {
+            for (const review of serie.reviews) {
+                const existingUpvote = await prisma.upvoteSerieReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { serieId: serie.id }, { serieReviewId: review.id }],
+                    },
+                });
+
+                const existingDownvote = await prisma.downvoteSerieReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { serieId: serie.id }, { serieReviewId: review.id }],
+                    },
+                });
+
+                // @ts-expect-error dunno
+                review.isUpvoted = !!existingUpvote;
+                // @ts-expect-error dunno
+                review.isDownvoted = !!existingDownvote;
+            }
+
+            const existingFavorite = await prisma.userSerieFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { serieId: serie.id }],
+                },
+            });
+            isBookmarked = !!existingFavorite;
+
+            const existingReview = await prisma.serieReview.findFirst({
+                where: {
+                    AND: [{ userId }, { serieId: serie.id }],
+                },
+            });
+            isReviewed = !!existingReview;
+        }
+
+        return {
+            ...serie,
+            averageRating,
+            totalReviews,
+            ...(userId && { isBookmarked, isReviewed }),
+        };
+    } catch (error) {
+        throw new Error("Serie not found");
     }
 }
 
@@ -165,7 +261,7 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
         });
 
         if (!serie) {
-            throw new Error("Movie not found");
+            throw new Error("Serie not found");
         }
 
         const totalReviews = await prisma.serieReview.count({
@@ -273,9 +369,9 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
     }
 }
 
-export async function getRelatedSeries(title: string): Promise<Serie[] | null> {
+export async function getRelatedSeries(id: number): Promise<Serie[] | null> {
     const serie = await prisma.serie.findFirst({
-        where: { title },
+        where: { id },
     });
 
     const seriesGenres = await prisma.serieGenre.findMany({

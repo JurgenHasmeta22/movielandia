@@ -360,7 +360,9 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
                 )}
             </Box>
             <ListDetail data={latestSeries!} type="serie" roleData="latest" />
-            <ListDetail data={relatedSeries!} type="serie" roleData="related" />
+            {relatedSeries && relatedSeries.length !== 0 && (
+                <ListDetail data={relatedSeries} type="serie" roleData="related" />
+            )}
             <ListDetail data={serie?.seasons} type="season" roleData="season" />
             <ListDetail data={serie.cast} type="actor" roleData="cast" />
         </Stack>

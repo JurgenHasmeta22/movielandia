@@ -1,8 +1,5 @@
-// "use client";
-
 import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
-// import { useStore } from "@/store/store";
 
 interface ILatestList {
     data: any;
@@ -10,8 +7,6 @@ interface ILatestList {
 }
 
 export function LatestList({ data, type }: ILatestList) {
-    // const { mobileOpen } = useStore();
-
     return (
         <Box
             component={"section"}
@@ -40,11 +35,9 @@ export function LatestList({ data, type }: ILatestList) {
                 marginTop={3}
                 mb={4}
             >
-                {data
-                    ?.slice(0, 5)
-                    .map((item: any) => (
-                        <CardItem data={item} key={item.id} type={`${type === "Movies" ? "movie" : "serie"}`} />
-                    ))}
+                {data?.map((item: any) => (
+                    <CardItem data={item} key={item.id} type={`${type === "Movies" ? "movie" : "serie"}`} />
+                ))}
             </Stack>
         </Box>
     );

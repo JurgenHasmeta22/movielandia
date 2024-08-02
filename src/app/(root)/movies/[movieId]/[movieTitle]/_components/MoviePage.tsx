@@ -359,8 +359,10 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
                     />
                 )}
             </Box>
-            <ListDetail data={latestMovies!} type="movie" roleData="latest" />
-            <ListDetail data={relatedMovies!} type="movie" roleData="related" />
+            <ListDetail data={latestMovies} type="movie" roleData="latest" />
+            {relatedMovies && relatedMovies.length !== 0 && (
+                <ListDetail data={relatedMovies} type="movie" roleData="related" />
+            )}
             <ListDetail data={movie.cast} type="actor" roleData="cast" />
         </Stack>
     );

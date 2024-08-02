@@ -4,43 +4,39 @@ import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SeasonPage from "./_components/SeasonPage";
-import { getSeasonByTitle, getLatestSeasons, getRelatedSeasons } from "@/lib/actions/season.actions";
-import { getSerieByTitle } from "@/lib/actions/serie.actions";
-import { Serie } from "@prisma/client";
+import { getLatestSeasons, getRelatedSeasons, getSeasonById } from "@/lib/actions/season.actions";
+import { Season } from "@prisma/client";
 
 interface ISeasonProps {
     params: {
-        seasonTitle: string;
-        serieTitle: string;
+        seasonId: string;
+        serieId: string;
     };
     searchParams?: { seasonsAscOrDesc?: string; page?: string; seasonsSortBy?: string };
 }
 
 export async function generateMetadata({ params }: ISeasonProps): Promise<Metadata> {
-    const { seasonTitle, serieTitle } = params;
+    const { seasonId } = params;
 
-    const serieOfSeason: Serie | null = await getSerieByTitle(serieTitle, {});
-
-    let season = null;
+    let season: Season | null = null;
 
     try {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        season = await getSeasonByTitle(seasonTitle, serieOfSeason?.id!, {});
+        season = await getSeasonById(Number(seasonId), {});
     } catch (error) {
         return notFound();
     }
 
-    const { description, photoSrcProd } = season;
+    const { description, photoSrcProd } = season!;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${seasonTitle}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${season?.title}`;
 
     return {
-        title: `${seasonTitle} | Season`,
-        description: `${season.description}`,
+        title: `${season?.title} | Season`,
+        description: `${season?.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${seasonTitle} | Season`,
+            title: `${season?.title} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -58,7 +54,7 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${seasonTitle} | Season`,
+            title: `${season?.title} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -76,13 +72,10 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
     };
 }
 
-export default async function Season({ searchParams, params }: ISeasonProps) {
+export default async function SeasonDetails({ searchParams, params }: ISeasonProps) {
     const session = await getServerSession(authOptions);
 
-    const { seasonTitle, serieTitle } = params;
-
-    const serieOfSeason = await getSerieByTitle(serieTitle, {});
-
+    const { seasonId, serieId } = params;
     const ascOrDesc = searchParams?.seasonsAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.seasonsSortBy ? searchParams?.seasonsSortBy : "";
@@ -96,13 +89,13 @@ export default async function Season({ searchParams, params }: ISeasonProps) {
     let season = null;
 
     try {
-        season = await getSeasonByTitle(seasonTitle, serieOfSeason?.id, searchParamsValues);
+        season = await getSeasonById(Number(seasonId), searchParamsValues);
     } catch (error) {
         return notFound();
     }
 
-    const latestSeasons = await getLatestSeasons(serieOfSeason?.id);
-    const relatedSeasons = await getRelatedSeasons(seasonTitle, serieOfSeason?.id);
+    const latestSeasons = await getLatestSeasons(Number(serieId));
+    const relatedSeasons = await getRelatedSeasons(Number(seasonId), Number(serieId));
 
     const pageCountReviews = Math.ceil(season?.totalReviews / 5);
 
