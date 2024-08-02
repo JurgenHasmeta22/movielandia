@@ -1,13 +1,18 @@
+import React from "react";
+import { Box, Stack, Typography } from "@mui/material";
+import { Metadata } from "next";
+import { Genre, Movie, Serie } from "@prisma/client";
+import { getGenreById } from "@/lib/actions/genre.actions";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { searchMoviesByTitle } from "@/lib/actions/movie.actions";
-import { searchSeriesByTitle } from "@/lib/actions/serie.actions";
-import { Box, Container, Stack, Typography } from "@mui/material";
-import { Movie, Serie } from "@prisma/client";
-import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-interface ISearchProps {
+interface IGenreProps {
+    params: {
+        genreId: string;
+        genreName: string;
+    };
     searchParams?: {
         moviesAscOrDesc?: string;
         pageMovies?: string;
@@ -15,18 +20,21 @@ interface ISearchProps {
         seriesAscOrDesc?: string;
         pageSeries?: string;
         seriesSortBy?: string;
-        term?: string;
     };
 }
 
-export const metadata: Metadata = {
-    title: "Search the Latest Series | High-Quality and Always Updated",
-    description:
-        "Discover and search the latest and most amazing series in high quality. Our collection is always updated with the newest episodes and releases.",
-};
+export async function generateMetadata({ params }: IGenreProps): Promise<Metadata> {
+    const { genreId, genreName } = params;
 
-export default async function Search({ searchParams }: ISearchProps) {
-    const term = searchParams?.term;
+    return {
+        title: `${genreName} | Watch the Latest Movies and Series of the genre`,
+        description: `Discover and watch the latest and most amazing movies and series of genre titled "${name}" in high quality. Our collection is always updated with the newest releases.`,
+    };
+}
+
+export default async function GenreDetails({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
+    const genreId = params.genreId;
+
     const pageMovies = Number(searchParams?.pageMovies) || 1;
     const moviesSortBy = searchParams?.moviesSortBy;
     const moviesAscOrDesc = searchParams?.moviesAscOrDesc;
@@ -35,8 +43,8 @@ export default async function Search({ searchParams }: ISearchProps) {
     const seriesSortBy = searchParams?.seriesSortBy;
     const seriesAscOrDesc = searchParams?.seriesAscOrDesc;
 
-    const queryParamsMovies: any = { page: pageMovies };
-    const queryParamsSeries: any = { page: pageSeries };
+    const queryParamsMovies: any = { page: pageMovies, type: "movie" };
+    const queryParamsSeries: any = { page: pageSeries, type: "serie" };
 
     if (moviesSortBy) {
         queryParamsMovies.sortBy = moviesSortBy;
@@ -54,34 +62,47 @@ export default async function Search({ searchParams }: ISearchProps) {
         queryParamsSeries.ascOrDesc = seriesAscOrDesc;
     }
 
-    const moviesData = await searchMoviesByTitle(term!, queryParamsMovies);
-    const movies: Movie[] = moviesData?.movies;
-    const moviesCount: number = moviesData?.count;
-    const pageCountMovies = Math.ceil(moviesCount / 10);
+    let moviesByGenreData = [];
+    let seriesByGenreData = [];
 
-    const seriesData = await searchSeriesByTitle(term!, queryParamsSeries);
-    const series: Serie[] = seriesData?.rows;
-    const seriesCount: number = seriesData?.count;
-    const pageCountSeries = Math.ceil(seriesCount / 10);
+    try {
+        moviesByGenreData = await getGenreById(Number(genreId), queryParamsMovies);
+        seriesByGenreData = await getGenreById(Number(genreId), queryParamsSeries);
+    } catch (error) {
+        return notFound();
+    }
+
+    const genre: Genre = moviesByGenreData.genre;
+
+    const moviesByGenre: Movie[] = moviesByGenreData?.movies;
+    const moviesByGenreCount: number = moviesByGenreData?.count;
+    const pageCountMovies = Math.ceil(moviesByGenreCount / 10);
+
+    const seriesByGenre: Serie[] = seriesByGenreData?.series;
+    const seriesByGenreCount: number = seriesByGenreData?.count;
+    const pageCountSeries = Math.ceil(seriesByGenreCount / 10);
 
     return (
         <Box
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                rowGap: 2,
-                marginTop: 4,
-                marginBottom: 4,
+                rowGap: 4,
+                paddingTop: 6,
             }}
-            component={"section"}
         >
-            {movies.length !== 0 ? (
-                <Box display={"flex"} flexDirection={"column"} rowGap={3}>
+            {moviesByGenre.length !== 0 ? (
+                <>
                     <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
                         <Box>
-                            <Typography fontSize={22} variant="h2">
-                                Movies
+                            <Typography
+                                sx={{
+                                    fontSize: [16, 17, 20, 22, 24],
+                                }}
+                                variant="h2"
+                                textAlign={"center"}
+                            >
+                                {`All movies of genre ${genre?.name}`}
                             </Typography>
                         </Box>
                         <Box
@@ -116,44 +137,45 @@ export default async function Search({ searchParams }: ISearchProps) {
                             alignItems={"start"}
                             rowGap={4}
                             columnGap={3}
-                            sx={{
-                                marginTop: `${term} ? 2.5 : 0.2}rem`,
-                            }}
                         >
-                            {movies.map((movie: Movie) => (
-                                <CardItem data={movie} type="movie" key={movie.id} />
+                            {moviesByGenre.map((movie: any, index: number) => (
+                                <CardItem data={movie} key={index} type="movie" />
                             ))}
                         </Stack>
                         <PaginationControl
                             currentPage={Number(pageMovies)!}
                             pageCount={pageCountMovies}
-                            dataType="Movies"
+                            dataType={"Movies"}
                         />
                     </Box>
-                </Box>
-            ) : (
-                <>
-                    <Box
-                        sx={{
-                            height: "50vh",
-                            display: "flex",
-                            placeItems: "center",
-                            placeContent: "center",
-                        }}
-                        component={"section"}
-                    >
-                        <Typography component={"h1"} fontSize={24} textAlign={"center"}>
-                            No search result, no movie found with that criteria.
-                        </Typography>
-                    </Box>
                 </>
+            ) : (
+                <Box
+                    sx={{
+                        height: "50vh",
+                        display: "flex",
+                        placeItems: "center",
+                        placeContent: "center",
+                    }}
+                    component={"section"}
+                >
+                    <Typography component={"p"} fontSize={22} textAlign={"center"}>
+                        No search result, no movie found with this genre.
+                    </Typography>
+                </Box>
             )}
-            {series.length !== 0 ? (
-                <Box display={"flex"} flexDirection={"column"} rowGap={3}>
+            {moviesByGenre.length !== 0 ? (
+                <>
                     <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
                         <Box>
-                            <Typography fontSize={22} variant="h2">
-                                Series
+                            <Typography
+                                sx={{
+                                    fontSize: [16, 17, 18, 22, 24],
+                                }}
+                                variant="h2"
+                                textAlign={"center"}
+                            >
+                                {`All series of genre ${params.genreName}`}
                             </Typography>
                         </Box>
                         <Box
@@ -188,21 +210,18 @@ export default async function Search({ searchParams }: ISearchProps) {
                             alignItems={"start"}
                             rowGap={4}
                             columnGap={3}
-                            sx={{
-                                marginTop: `${term} ? 2.5 : 0.2}rem`,
-                            }}
                         >
-                            {series.map((serie: Serie) => (
-                                <CardItem data={serie} type="serie" key={serie.id} />
+                            {seriesByGenre.map((serie: Serie, index: number) => (
+                                <CardItem data={serie} key={index} type="serie" />
                             ))}
                         </Stack>
                         <PaginationControl
                             currentPage={Number(pageSeries)!}
                             pageCount={pageCountSeries}
-                            dataType="Series"
+                            dataType={"Series"}
                         />
                     </Box>
-                </Box>
+                </>
             ) : (
                 <Box
                     sx={{
@@ -214,7 +233,7 @@ export default async function Search({ searchParams }: ISearchProps) {
                     component={"section"}
                 >
                     <Typography component={"p"} fontSize={22} textAlign={"center"}>
-                        No search result, no serie found with that criteria.
+                        No search result, no serie found with this genre.
                     </Typography>
                 </Box>
             )}

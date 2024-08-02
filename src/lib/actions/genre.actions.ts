@@ -3,6 +3,13 @@
 import { Genre, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma/prisma";
 
+type RatingsMap = {
+    [key: number]: {
+        averageRating: number;
+        totalReviews: number;
+    };
+};
+
 interface GetGenresParams {
     sortBy?: string;
     ascOrDesc?: string;
@@ -73,24 +80,157 @@ export async function getGenresAll(): Promise<any | null> {
     }
 }
 
-export async function getGenreById(id: number): Promise<Genre | null> {
-    const result = await prisma.genre.findUnique({
+export async function getGenreById(
+    genreId: number,
+    {
+        sortBy,
+        ascOrDesc,
+        perPage,
+        page,
+        name,
+        type,
+        filterValue,
+        filterNameString,
+        filterOperatorString,
+    }: GetGenresParams,
+): Promise<any | null> {
+    const filters: any = {};
+    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
+    const take = perPage || 20;
+
+    if (name) filters.name = { contains: name };
+
+    if (filterValue !== undefined && filterNameString && filterOperatorString) {
+        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+        filters[filterNameString] = { [operator]: filterValue };
+    }
+
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
+    }
+
+    const genre = await prisma.genre.findFirst({
         where: {
-            id,
-        },
-        include: {
-            movies: {
-                select: {
-                    movie: true,
-                },
-            },
+            id: genreId,
         },
     });
 
-    if (result) {
-        return result;
+    if (genre) {
+        if (type === "movie") {
+            const result = await prisma.movieGenre.findMany({
+                where: {
+                    genreId: genre?.id,
+                },
+                orderBy: {
+                    movie: orderByObject,
+                },
+                skip,
+                take,
+                select: {
+                    movie: true,
+                },
+            });
+
+            const count = await prisma.movieGenre.count({
+                where: {
+                    genreId: genre?.id,
+                },
+            });
+
+            if (result) {
+                const movies = result.map((item) => item.movie);
+                const movieIds = movies.map((movie) => movie.id);
+
+                const movieRatings = await prisma.movieReview.groupBy({
+                    by: ["movieId"],
+                    where: { movieId: { in: movieIds } },
+                    _avg: {
+                        rating: true,
+                    },
+                    _count: {
+                        rating: true,
+                    },
+                });
+
+                const movieRatingsMap: RatingsMap = movieRatings.reduce((map, rating) => {
+                    map[rating.movieId] = {
+                        averageRating: rating._avg.rating || 0,
+                        totalReviews: rating._count.rating,
+                    };
+
+                    return map;
+                }, {} as RatingsMap);
+
+                const formattedMovies = movies.map((movie) => {
+                    const { ...properties } = movie;
+                    const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
+
+                    return { ...properties, ...ratingsInfo };
+                });
+
+                return { genre, movies: formattedMovies, count };
+            }
+        } else if (type === "serie") {
+            const result = await prisma.serieGenre.findMany({
+                where: {
+                    genreId: genre?.id,
+                },
+                orderBy: {
+                    serie: orderByObject,
+                },
+                skip,
+                take,
+                select: {
+                    serie: true,
+                },
+            });
+
+            const count = await prisma.serieGenre.count({
+                where: {
+                    genreId: genre?.id,
+                },
+            });
+
+            if (result) {
+                const series = result.map((item) => item.serie);
+                const serieIds = series.map((serie) => serie.id);
+
+                const serieRatings = await prisma.serieReview.groupBy({
+                    by: ["serieId"],
+                    where: { serieId: { in: serieIds } },
+                    _avg: {
+                        rating: true,
+                    },
+                    _count: {
+                        rating: true,
+                    },
+                });
+
+                const serieRatingsMap: RatingsMap = serieRatings.reduce((map, rating) => {
+                    map[rating.serieId] = {
+                        averageRating: rating._avg.rating || 0,
+                        totalReviews: rating._count.rating,
+                    };
+
+                    return map;
+                }, {} as RatingsMap);
+
+                const formattedSeries = series.map((serie) => {
+                    const { ...properties } = serie;
+                    const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+
+                    return { ...properties, ...ratingsInfo };
+                });
+
+                return { series: formattedSeries, count };
+            }
+        } else {
+            return null;
+        }
     } else {
-        return null;
+        throw new Error("Genre not found");
     }
 }
 
