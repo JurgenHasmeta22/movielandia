@@ -41,9 +41,9 @@ export const users = [
 export const movies = [
     {
         id: 1,
-        title: "Freaks Out (2021)",
+        title: "Freaks Out",
         trailerSrc: "https://www.youtube.com/embed/D8La5G1DzCM",
-        duration: "141 min",
+        duration: 141,
         dateAired: "01/01/2022",
         ratingImdb: 7.4,
         description:
@@ -54,9 +54,9 @@ export const movies = [
     },
     {
         id: 2,
-        title: "My Father's Violin (2022)",
+        title: "My Father's Violin",
         trailerSrc: "https://www.youtube.com/embed/GAmo87Ep-tI",
-        duration: "112 min",
+        duration: 112,
         dateAired: "01/01/2022",
         ratingImdb: 6.5,
         description:
@@ -66,9 +66,9 @@ export const movies = [
     },
     {
         id: 3,
-        title: "The Invisible Guest (2016)",
+        title: "The Invisible Guest",
         trailerSrc: "https://www.youtube.com/embed/epCg2RbyF80",
-        duration: "126 min",
+        duration: 126,
         dateAired: "01/01/2022",
         ratingImdb: 8.1,
         description:
@@ -79,9 +79,9 @@ export const movies = [
     },
     {
         id: 4,
-        title: "Blood and Bone (2009)",
+        title: "Blood and Bone",
         trailerSrc: "https://www.youtube.com/embed/KyOtQr5u-uY",
-        duration: "93 min",
+        duration: 93,
         dateAired: "01/01/2022",
         ratingImdb: 6.7,
         description:
@@ -92,9 +92,9 @@ export const movies = [
     },
     {
         id: 5,
-        title: "SpiderMan No Way Home (2021)",
+        title: "SpiderMan No Way Home",
         trailerSrc: "https://www.youtube.com/embed/JfVOs4VSpmA",
-        duration: "148 min",
+        duration: 148,
         dateAired: "01/01/2022",
         ratingImdb: 8.7,
         description:
@@ -105,9 +105,9 @@ export const movies = [
     },
     {
         id: 6,
-        title: "Iron Will (1994)",
+        title: "Iron Will",
         trailerSrc: "https://www.youtube.com/embed/giLeHfkJeXU",
-        duration: "108 min",
+        duration: 108,
         dateAired: "01/01/2022",
         ratingImdb: 6.6,
         description:
@@ -118,9 +118,9 @@ export const movies = [
     },
     {
         id: 7,
-        title: "Panama (2022)",
+        title: "Panama",
         trailerSrc: "https://www.youtube.com/embed/2GSzkfe1aAY",
-        duration: "94 min",
+        duration: 94,
         dateAired: "01/01/2022",
         ratingImdb: 0,
         description:
@@ -131,9 +131,9 @@ export const movies = [
     },
     {
         id: 8,
-        title: "Eternals (2021)",
+        title: "Eternals",
         trailerSrc: "https://www.youtube.com/embed/x_me3xsvDgk",
-        duration: "156 min",
+        duration: 156,
         dateAired: "01/01/2022",
         ratingImdb: 6.8,
         description:
@@ -144,9 +144,9 @@ export const movies = [
     },
     {
         id: 9,
-        title: "Money Trap (2019)",
+        title: "Money Trap",
         trailerSrc: "https://www.youtube.com/embed/gcH0KPQVVH4",
-        duration: "121 min",
+        duration: 121,
         dateAired: "01/01/2022",
         ratingImdb: 6,
         description:
@@ -157,9 +157,9 @@ export const movies = [
     },
     {
         id: 10,
-        title: "Inch'Allah (2012)",
+        title: "Inch'Allah",
         trailerSrc: "https://www.youtube.com/embed/53XLPquQD6Q",
-        duration: "102 min",
+        duration: 102,
         dateAired: "01/01/2022",
         ratingImdb: 6.8,
         description:
@@ -170,9 +170,9 @@ export const movies = [
     },
     {
         id: 11,
-        title: "Mobile Suit Gundam: Hathaway (2021)",
+        title: "Mobile Suit Gundam: Hathaway",
         trailerSrc: "https://www.youtube.com/embed/MzxnPP5TLeU",
-        duration: "95 min",
+        duration: 95,
         dateAired: "01/01/2022",
         ratingImdb: 6.6,
         description:
@@ -183,9 +183,9 @@ export const movies = [
     },
     {
         id: 12,
-        title: "Rescued by Ruby (2022)",
+        title: "Rescued by Ruby",
         trailerSrc: "https://www.youtube.com/embed/-Pwxr307O4w",
-        duration: "90 min",
+        duration: 90,
         dateAired: "01/01/2022",
         ratingImdb: 7.3,
         description:
@@ -195,9 +195,9 @@ export const movies = [
     },
     {
         id: 13,
-        title: "The Girl on the Mountain (2022)",
+        title: "The Girl on the Mountain",
         trailerSrc: "https://www.youtube.com/embed/Y0vh8jQ7HMQ",
-        duration: "94 min",
+        duration: 94,
         dateAired: "01/01/2022",
         ratingImdb: 6.4,
         description:
@@ -208,9 +208,9 @@ export const movies = [
     },
     {
         id: 14,
-        title: "The Weekend Away (2022)",
+        title: "The Weekend Away",
         trailerSrc: "https://www.youtube.com/embed/XpfjN-7Hf-8",
-        duration: "89 min",
+        duration: 89,
         dateAired: "01/01/2022",
         ratingImdb: 5.6,
         description:
@@ -221,9 +221,9 @@ export const movies = [
     },
     {
         id: 15,
-        title: "Black Crab (2022)",
+        title: "Black Crab",
         trailerSrc: "https://www.youtube.com/embed/fmjKsL_-rfw",
-        duration: "114 min",
+        duration: 114,
         dateAired: "01/01/2022",
         ratingImdb: 5.7,
         description:
@@ -233,9 +233,9 @@ export const movies = [
     },
     {
         id: 16,
-        title: "The Extra Man (2010)",
+        title: "The Extra Man",
         trailerSrc: "https://www.youtube.com/embed/etxKmplTT9Q",
-        duration: "108 min",
+        duration: 108,
         dateAired: "01/01/2022",
         ratingImdb: 5.8,
         description: "A man who escorts wealthy women in Manhattan takes a young man under his wing.",
@@ -245,9 +245,9 @@ export const movies = [
     },
     {
         id: 17,
-        title: "14 Peaks Nothing Is Impossible (2021)",
+        title: "14 Peaks Nothing Is Impossible",
         trailerSrc: "https://www.youtube.com/embed/8QH5hBOoz08",
-        duration: "101 min",
+        duration: 101,
         dateAired: "01/01/2022",
         ratingImdb: 7.8,
         description:
@@ -257,9 +257,9 @@ export const movies = [
     },
     {
         id: 18,
-        title: "The Innocents (2021)",
+        title: "The Innocents",
         trailerSrc: "https://www.youtube.com/embed/T8HR-zTRrCM",
-        duration: "117 min",
+        duration: 117,
         dateAired: "01/01/2022",
         ratingImdb: 7,
         description:
@@ -270,9 +270,9 @@ export const movies = [
     },
     {
         id: 19,
-        title: "Mean Dreams (2016)",
+        title: "Mean Dreams",
         trailerSrc: "https://www.youtube.com/embed/jNOAVTX8PPE",
-        duration: "108 min",
+        duration: 108,
         dateAired: "01/01/2022",
         ratingImdb: 6.1,
         description:
@@ -479,8 +479,8 @@ export const series = [
             'The Last Kingdom is a British historical series created by Stephen Butchard. Based on the "Saxon Stories" novels by Bernard Cornwell, the series follows the adventures of Uhtred Ragnarson, a Saxon boy who attempts to defend and reclaim his territory in Middle Britain in the 9th century.',
         dateAired: "11/12/2015",
         ratingImdb: 8.5,
-        photoSrc: "http://localhost:4000/images/series/thelastkingdom.png",
-        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/series/thelastkingdom.png",
+        photoSrc: "http://localhost:4000/images/series/kingdom.png",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/series/kingdom.png",
     },
     {
         id: 19,

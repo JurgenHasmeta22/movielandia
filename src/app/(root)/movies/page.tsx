@@ -55,9 +55,9 @@ export default async function Movies({ searchParams }: IMoviesProps) {
     const moviesData = await getMovies(queryParams);
     const latestMovies = await getLatestMovies();
     const movies = moviesData?.movies;
-    const moviesCount = moviesData?.count;
     const moviesCarouselImages: Movie[] = moviesData?.movies!.slice(0, 5);
 
+    const moviesCount = moviesData?.count;
     const pageCount = Math.ceil(moviesCount / 10);
 
     return (
@@ -97,20 +97,20 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        placeItems: "center",
-                        placeContent: "center",
                         rowGap: 4,
                     }}
                 >
                     <Stack
                         direction="row"
                         flexWrap="wrap"
-                        justifyContent={"center"}
-                        alignContent={"center"}
+                        // justifyContent={{ xs: "center", sm: "center", md: "start", lg: "start" }}
+                        justifyContent="center"
+                        alignItems={"start"}
+                        alignContent={"start"}
                         rowGap={8}
                         columnGap={4}
                     >
-                        {movies.map((movie: any) => (
+                        {movies.map((movie: Movie) => (
                             <CardItem data={movie} type="movie" key={movie.id} />
                         ))}
                     </Stack>

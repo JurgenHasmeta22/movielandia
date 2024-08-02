@@ -197,7 +197,7 @@ model Movie {
     photoSrc             String                @default("")
     photoSrcProd         String                @default("")
     trailerSrc           String                @default("")
-    duration             String                @default("")
+    duration             Int                   @default(100)
     ratingImdb           Float                 @default(5.0)
     dateAired            String                @default("11/12/2005")
     description          String                @default("")
