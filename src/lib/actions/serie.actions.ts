@@ -24,7 +24,7 @@ type RatingsMap = {
 export async function getSeries({
     sortBy,
     ascOrDesc,
-    perPage = 12,
+    perPage = 10,
     page = 1,
     title,
     filterValue,

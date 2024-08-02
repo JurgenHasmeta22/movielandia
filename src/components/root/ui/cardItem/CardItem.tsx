@@ -54,156 +54,110 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    backgroundColor: "transparent",
-                    maxWidth: "150px",
+                    maxWidth: "180px",
                     cursor: "pointer",
-                    height: "100%",
+                    height: "auto",
                     width: "100%",
                     position: "relative",
+                    borderRadius: 2,
+                    overflow: "hidden",
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
                     "&:hover": {
-                        boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+                        boxShadow: "0 8px 16px rgba(0,0,0,0.3)",
                     },
                 }}
                 onClick={handleGoTo}
-                elevation={6}
             >
-                <Box sx={{ position: "relative" }}>
-                    <Image src={data.photoSrcProd} alt={`${data.description}`} width={150} height={230} />
+                <Box
+                    sx={{
+                        position: "relative",
+                        height: "250px",
+                        overflow: "hidden",
+                        "&:hover .hoverOverlay": {
+                            opacity: 1,
+                        },
+                    }}
+                >
+                    <Image
+                        src={data.photoSrcProd}
+                        alt={`${data.description}`}
+                        objectFit="cover"
+                        height={250}
+                        width={180}
+                    />
                     <Box
+                        className="hoverOverlay"
                         sx={{
                             position: "absolute",
-                            bottom: 8,
-                            left: 8,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            opacity: 0,
+                            transition: "opacity 0.3s ease-in-out",
                             display: "flex",
                             flexDirection: "column",
-                            alignItems: "start",
-                            justifyContent: "start",
-                            rowGap: 0.5,
+                            justifyContent: "flex-start",
+                            padding: 2,
                         }}
                     >
-                        {path !== "actors" && (
+                        <Typography variant="body2" color="white" fontWeight={600} sx={{ fontSize: "1rem" }}>
+                            {path === "actors" ? data.fullname : data.title} ({new Date(data.dateAired).getFullYear()})
+                        </Typography>
+                        <Stack flexDirection={"row"} columnGap={"10px"}>
                             <Box
                                 sx={{
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",
-                                    backgroundColor: "rgba(0, 0, 0, 0.8)",
-                                    borderRadius: 10,
-                                    padding: "2px 8px",
-                                    "&:hover": {
-                                        backgroundColor: "rgba(0, 0, 0, 0.9)",
-                                    },
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    marginTop: 0.5,
                                 }}
                             >
-                                <Image src="/icons/imdb.svg" alt="IMDb Icon" width={20} height={20} />
-                                <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
+                                <Typography
+                                    sx={{
+                                        color: "gold",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        fontSize: "0.8rem",
+                                    }}
+                                >
+                                    <Image
+                                        src="/icons/imdb.svg"
+                                        alt="IMDb Icon"
+                                        width={14}
+                                        height={14}
+                                        style={{ marginRight: 2 }}
+                                    />
                                     {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
                                 </Typography>
                             </Box>
-                        )}
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                                borderRadius: 10,
-                                padding: "2px 8px",
-                                "&:hover": {
-                                    backgroundColor: "rgba(0, 0, 0, 0.9)",
-                                },
-                            }}
-                        >
-                            <CalendarMonthIcon
-                                sx={{
-                                    width: "20px",
-                                    height: "20px",
-                                    color: "gold",
-                                }}
-                            />
-                            <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
-                                {path !== "actors" ? data.dateAired : data.debut}
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            bottom: 8,
-                            right: 8,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "end",
-                            justifyContent: "start",
-                            rowGap: 0.5,
-                        }}
-                    >
-                        {data.duration && path !== "actors" && (
                             <Box
                                 sx={{
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",
-                                    backgroundColor: "rgba(0, 0, 0, 0.8)",
-                                    borderRadius: 10,
-                                    padding: "2px 8px",
-                                    "&:hover": {
-                                        backgroundColor: "rgba(0, 0, 0, 0.9)",
-                                    },
+                                    marginTop: 0.5,
+                                    fontSize: "0.8rem",
+                                    color: "gold",
                                 }}
                             >
-                                <AccessTimeIcon
-                                    sx={{
-                                        width: "20px",
-                                        height: "20px",
-                                        color: "gold",
-                                    }}
-                                />
-                                <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
+                                <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
+                                <Typography color={"white"} fontSize="0.8rem" component="span" width={"30ch"}>
                                     {data.duration}
                                 </Typography>
                             </Box>
-                        )}
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                                borderRadius: 10,
-                                padding: "2px 8px",
-                                "&:hover": {
-                                    backgroundColor: "rgba(0, 0, 0, 0.9)",
-                                },
-                            }}
-                        >
-                            <StarIcon
-                                sx={{
-                                    width: "20px",
-                                    height: "20px",
-                                    color: "gold",
-                                }}
-                            />
-                            <Typography color={"gold"} fontSize={12} component="span" sx={{ ml: 0.5 }}>
-                                {data.averageRating && data.averageRating !== 0 ? `${data.averageRating}` : "N/A"}
-                            </Typography>
-                        </Box>
+                        </Stack>
                     </Box>
                 </Box>
                 <CardContent
                     sx={{
                         flexGrow: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "start",
-                        justifyContent: "start",
-                        letterSpacing: 0.3,
+                        display: "none",
                     }}
-                >
-                    <Typography variant="body2" fontWeight={600} fontSize={14}>
-                        {path === "actors" ? data.fullname : data.title}
-                    </Typography>
-                </CardContent>
+                />
             </Card>
         </motion.div>
     );
