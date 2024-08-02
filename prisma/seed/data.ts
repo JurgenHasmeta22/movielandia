@@ -532,7 +532,7 @@ export const genres = [
 export const seasons = [
     {
         id: 1,
-        title: "Season 1",
+        title: "Rebelde S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Rebelde.",
@@ -543,7 +543,7 @@ export const seasons = [
     },
     {
         id: 2,
-        title: "Season 1",
+        title: "Snowfall S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Snowfall.",
@@ -554,7 +554,7 @@ export const seasons = [
     },
     {
         id: 3,
-        title: "Season 1",
+        title: "Man vs Bee S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Man vs Bee.",
@@ -565,7 +565,7 @@ export const seasons = [
     },
     {
         id: 4,
-        title: "Season 2",
+        title: "Man vs Bee S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Man vs Bee.",
@@ -576,7 +576,7 @@ export const seasons = [
     },
     {
         id: 5,
-        title: "Season 1",
+        title: "Moonknight S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Moonknight.",
@@ -587,7 +587,7 @@ export const seasons = [
     },
     {
         id: 6,
-        title: "Season 2",
+        title: "Moonknight S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Moonknight.",
@@ -598,7 +598,7 @@ export const seasons = [
     },
     {
         id: 7,
-        title: "Season 1",
+        title: "Peacemaker S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Peacemaker.",
@@ -609,7 +609,7 @@ export const seasons = [
     },
     {
         id: 8,
-        title: "Season 2",
+        title: "Peacemaker S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Peacemaker.",
@@ -620,7 +620,7 @@ export const seasons = [
     },
     {
         id: 9,
-        title: "Season 1",
+        title: "Top Boy S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Top Boy.",
@@ -631,7 +631,7 @@ export const seasons = [
     },
     {
         id: 10,
-        title: "Season 1",
+        title: "Ganglands S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Ganglands.",
@@ -642,7 +642,7 @@ export const seasons = [
     },
     {
         id: 11,
-        title: "Season 2",
+        title: "Ganglands S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Ganglands.",
@@ -653,7 +653,7 @@ export const seasons = [
     },
     {
         id: 12,
-        title: "Season 1",
+        title: "Ozark S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Ozark.",
@@ -664,7 +664,7 @@ export const seasons = [
     },
     {
         id: 13,
-        title: "Season 1",
+        title: "Resident Alien S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Resident Alien.",
@@ -675,7 +675,7 @@ export const seasons = [
     },
     {
         id: 14,
-        title: "Season 1",
+        title: "Bridgerton S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Bridgerton.",
@@ -686,7 +686,7 @@ export const seasons = [
     },
     {
         id: 15,
-        title: "Season 2",
+        title: "Bridgerton S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Bridgerton.",
@@ -697,7 +697,7 @@ export const seasons = [
     },
     {
         id: 16,
-        title: "Season 1",
+        title: "Superman & Lois S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Superman & Lois.",
@@ -708,7 +708,7 @@ export const seasons = [
     },
     {
         id: 17,
-        title: "Season 2",
+        title: "Superman & Lois S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Superman & Lois.",
@@ -719,7 +719,7 @@ export const seasons = [
     },
     {
         id: 18,
-        title: "Season 1",
+        title: "Attack on Titan S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Attack on Titan.",
@@ -730,7 +730,7 @@ export const seasons = [
     },
     {
         id: 19,
-        title: "Season 1",
+        title: "Kengan Ashura S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Kengan Ashura.",
@@ -741,7 +741,7 @@ export const seasons = [
     },
     {
         id: 20,
-        title: "Season 1",
+        title: "Elite S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Elite.",
@@ -752,7 +752,7 @@ export const seasons = [
     },
     {
         id: 21,
-        title: "Season 2",
+        title: "Elite S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Elite.",
@@ -763,7 +763,7 @@ export const seasons = [
     },
     {
         id: 22,
-        title: "Season 1",
+        title: "The Flash S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in The Flash.",
@@ -774,7 +774,7 @@ export const seasons = [
     },
     {
         id: 23,
-        title: "Season 1",
+        title: "Power Book IV Force S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Power Book IV Force.",
@@ -785,7 +785,7 @@ export const seasons = [
     },
     {
         id: 24,
-        title: "Season 2",
+        title: "Power Book IV Force S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Power Book IV Force.",
@@ -796,7 +796,7 @@ export const seasons = [
     },
     {
         id: 25,
-        title: "Season 1",
+        title: "Halo S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Halo.",
@@ -807,7 +807,7 @@ export const seasons = [
     },
     {
         id: 26,
-        title: "Season 1",
+        title: "The Last Kingdom S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in The Last Kingdom.",
@@ -818,7 +818,7 @@ export const seasons = [
     },
     {
         id: 27,
-        title: "Season 1",
+        title: "Knightfall S01",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 1 in Knightfall.",
@@ -829,7 +829,7 @@ export const seasons = [
     },
     {
         id: 28,
-        title: "Season 2",
+        title: "Knightfall S02",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         description: "Description for Season 2 in Knightfall.",

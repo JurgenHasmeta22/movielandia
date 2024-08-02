@@ -24,7 +24,7 @@ type RatingsMap = {
 export async function getSeries({
     sortBy,
     ascOrDesc,
-    perPage = 10,
+    perPage = 12,
     page = 1,
     title,
     filterValue,
@@ -330,7 +330,7 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
         orderBy: {
             dateAired: "desc",
         },
-        take: 5,
+        take: 6,
     });
 
     const serieIds = series.map((serie) => serie.id);
