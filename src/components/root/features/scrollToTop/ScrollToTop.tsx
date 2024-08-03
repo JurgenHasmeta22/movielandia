@@ -2,7 +2,7 @@
 
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { tokens } from "@/utils/theme/theme";
 
 function ScrollToTop() {
@@ -11,10 +11,13 @@ function ScrollToTop() {
 
     const trigger = useScrollTrigger({
         threshold: 150,
+        disableHysteresis: true,
     });
 
     const scrollToTop = useCallback(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (typeof window !== "undefined") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
     }, []);
 
     return (

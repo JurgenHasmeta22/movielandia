@@ -29,11 +29,9 @@ export default function NotFoundGlobalPage() {
                 <Typography variant="h4" component="p" sx={{ color: colors.primary[100] }}>
                     The page you are looking for might have been removed, or is temporarily unavailable.
                 </Typography>
-                {/* <Box marginTop={8}> */}
                 <Link href={"/"} style={{ textDecoration: "none", color: colors.primary[100] }}>
                     Go back home
                 </Link>
-                {/* </Box> */}
             </Box>
         </Box>
     );

@@ -5,9 +5,10 @@ import { Box, colors, Link, Typography, useTheme } from "@mui/material";
 import { usePathname } from "next/navigation";
 
 export default function NotFoundDynamicPage() {
+    const pathname = usePathname();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const pathname = usePathname();
 
     return (
         <Box
@@ -31,7 +32,7 @@ export default function NotFoundDynamicPage() {
                 <Typography variant="h4" component="p" sx={{ color: colors.primary[100] }}>
                     The page you are looking for might have been removed, or is temporarily unavailable.
                 </Typography>
-                <Link href={"/"} style={{ textDecoration: "none", color: colors.primary[100] }}>
+                <Link href={pathname} style={{ textDecoration: "none", color: colors.primary[100] }}>
                     Go back to {pathname}
                 </Link>
             </Box>

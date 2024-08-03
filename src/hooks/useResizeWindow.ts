@@ -8,15 +8,19 @@ export function useResizeWindow() {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsPageShrunk(window.innerWidth < 768);
+            if (typeof window !== "undefined") {
+                setIsPageShrunk(window.innerWidth < 768);
+            }
         };
+
+        handleResize();
 
         window.addEventListener("resize", handleResize);
 
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [setIsPageShrunk]);
 
     return isPageShrunk;
 }

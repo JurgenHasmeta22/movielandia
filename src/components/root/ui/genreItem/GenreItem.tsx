@@ -12,6 +12,7 @@ interface IGenreItemProps {
 
 export default function GenreItem({ genre }: IGenreItemProps) {
     const router = useRouter();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 

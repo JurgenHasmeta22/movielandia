@@ -3,13 +3,13 @@ import Footer from "@/components/root/layout/footer/Footer";
 import { Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 import { ensureStartsWith } from "@/utils/helpers/utils";
-import "../globals.css";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme/theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import "../globals.css";
 
 const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;

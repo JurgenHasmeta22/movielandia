@@ -8,24 +8,24 @@ import { getSeries } from "@/lib/actions/serie.actions";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "MovieLand24 - Your Ultimate Destination for Movies",
+    title: "MovieLandia24 - Your Ultimate Destination for Movies",
     description:
-        "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+        "Welcome to MovieLandia24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
     openGraph: {
         type: "video.tv_show",
         url: process.env.NEXT_PUBLIC_PROJECT_URL,
-        title: "MovieLand24 - Your Ultimate Destination for Movies",
+        title: "MovieLandia24 - Your Ultimate Destination for Movies",
         description:
-            "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+            "Welcome to MovieLandia24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
         siteName: "MovieLandia24",
     },
     twitter: {
         card: "summary_large_image",
         site: "@movieLandia24",
         creator: "movieLandia24",
-        title: "MovieLand24 - Your Ultimate Destination for Movies",
+        title: "MovieLandia24 - Your Ultimate Destination for Movies",
         description:
-            "Welcome to MovieLand24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
+            "Welcome to MovieLandia24 - your ultimate destination for movies. Discover a vast collection of movies and enjoy streaming your favorites.",
     },
     robots: {
         index: true,
