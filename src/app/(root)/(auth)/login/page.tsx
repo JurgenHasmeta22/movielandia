@@ -18,7 +18,6 @@ export default async function Login() {
                 placeItems: "center",
                 paddingTop: 10,
                 paddingBottom: 10,
-                height: "100vh",
             }}
             component="section"
         >

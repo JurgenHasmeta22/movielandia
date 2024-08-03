@@ -23,7 +23,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                         component={"section"}
                     >
                         <Box ml={3} mr={3}>
-                            <Typography fontSize={28}>
+                            <Typography variant={"h2"} fontSize={28}>
                                 {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
                                 {type === "movie"
                                     ? " movies"
@@ -36,9 +36,15 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                           : ""}
                             </Typography>
                             {type === "actor" && roleData !== "cast" && (
-                                <Typography fontSize={22}>Starred {roleData}</Typography>
+                                <Typography variant={"h2"} fontSize={28}>
+                                    Starred {roleData}
+                                </Typography>
                             )}
-                            {type === "actor" && roleData === "cast" && <Typography fontSize={22}>Cast</Typography>}
+                            {type === "actor" && roleData === "cast" && (
+                                <Typography variant={"h2"} fontSize={28}>
+                                    Cast
+                                </Typography>
+                            )}
                         </Box>
                         <Box pl={3} pr={3}>
                             <Stack
