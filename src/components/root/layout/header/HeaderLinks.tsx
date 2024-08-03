@@ -17,7 +17,7 @@ interface IHeaderLinks {
 }
 
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
-    const { mobileOpen } = useStore();
+    const { mobileOpen, openDrawer, setOpenDrawer } = useStore();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -38,6 +38,11 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         marginLeft: mobileOpen ? 8 : 0,
                         marginBottom: mobileOpen ? 3 : 0,
                     }}
+                    onClick={() => {
+                        if (openDrawer) {
+                            setOpenDrawer(false);
+                        }
+                    }}
                 >
                     MovieLandia24
                 </Link>
@@ -56,6 +61,11 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 columnGap: 3,
                                 color: colors.primary[100],
                             }}
+                            onClick={() => {
+                                if (openDrawer) {
+                                    setOpenDrawer(false);
+                                }
+                            }}
                         >
                             <MovieIcon fontSize={"large"} />
                             Movies
@@ -72,6 +82,11 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 alignItems: "center",
                                 columnGap: 3,
                                 color: colors.primary[100],
+                            }}
+                            onClick={() => {
+                                if (openDrawer) {
+                                    setOpenDrawer(false);
+                                }
                             }}
                         >
                             <SubtitlesIcon fontSize={"large"} />
@@ -99,6 +114,11 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                     style={{
                                         textDecoration: "none",
                                         color: colors.primary[100],
+                                    }}
+                                    onClick={() => {
+                                        if (openDrawer) {
+                                            setOpenDrawer(false);
+                                        }
                                     }}
                                 >
                                     <Box
@@ -133,6 +153,11 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 alignItems: "center",
                                 columnGap: 3,
                                 color: colors.primary[100],
+                            }}
+                            onClick={() => {
+                                if (openDrawer) {
+                                    setOpenDrawer(false);
+                                }
                             }}
                         >
                             <LocalMoviesIcon fontSize={"large"} />
