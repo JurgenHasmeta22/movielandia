@@ -53,6 +53,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
         closeMenuProfile();
         await signOut({ redirect: false });
         router.push("/login");
+        // this does a full server component rerender too not only client so is very useful here
         router.refresh();
     };
 

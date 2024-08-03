@@ -74,6 +74,7 @@ export default async function SerieDetails({ searchParams, params }: ISerieProps
     const session = await getServerSession(authOptions);
 
     const serieId = params.serieId;
+
     const ascOrDesc = searchParams?.seriesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";

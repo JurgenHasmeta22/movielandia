@@ -88,7 +88,7 @@ export function DetailsPageCard({
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center", // Centering the content
+                        alignItems: "center",
                     }}
                 >
                     <Typography fontSize={[20, 24, 28, 32]} textAlign={"center"} component={"h1"} pt={2}>

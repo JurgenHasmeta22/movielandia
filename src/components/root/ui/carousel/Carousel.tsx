@@ -6,10 +6,10 @@ import { Box, Button, IconButton, Typography, useMediaQuery } from "@mui/materia
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import Image from "next/image";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 interface ICarouselProps {
     data: any;
@@ -59,6 +59,7 @@ const CustomPrevArrow = (props: any) => {
 const Carousel = ({ data, type }: ICarouselProps) => {
     const isMobile = useMediaQuery("(max-width:600px)");
     const isTablet = useMediaQuery("(max-width:960px)");
+
     const settings = {
         dots: false,
         infinite: true,

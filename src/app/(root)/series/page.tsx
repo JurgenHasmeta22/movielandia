@@ -51,8 +51,9 @@ export default async function Series({ searchParams }: ISeriesProps) {
     };
 
     const seriesData = await getSeries(queryParams);
-    const latestSeries = await getLatestSeries();
     const series = seriesData?.rows;
+
+    const latestSeries = await getLatestSeries();
     const seriesCount = seriesData?.count;
     const seriesCarouselImages: Serie[] = seriesData?.rows!.slice(0, 5);
 

@@ -26,6 +26,7 @@ export function TextEditorButtons({
     onSubmitUpdateReview,
 }: ITextEditorButtons) {
     const { openModal } = useModal();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
