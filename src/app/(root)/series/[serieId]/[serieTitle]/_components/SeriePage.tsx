@@ -4,7 +4,6 @@ import { DetailsPageCard } from "@/components/root/ui/detailsPageCard/DetailsPag
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/ui/listDetail/ListDetail";
 import Review from "@/components/root/features/review/Review";
-import Reviews from "@/components/root/features/reviews/Reviews";
 import { Box, Stack } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
@@ -25,6 +24,7 @@ import { useModal } from "@/providers/ModalProvider";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/lib/toast/toast";
+import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 
 export default function SeriePage({ searchParamsValues, serie, latestSeries, relatedSeries, pageCount }: any) {
     // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
@@ -315,7 +315,7 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
                 component={"section"}
             >
                 {serie?.reviews!.length > 0 && (
-                    <Reviews
+                    <ReviewsHeader
                         data={serie}
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}

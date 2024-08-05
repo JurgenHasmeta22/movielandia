@@ -9,7 +9,7 @@ interface IReviews {
     ascOrDesc: string;
 }
 
-const Reviews = ({ data, sortBy, ascOrDesc }: IReviews) => {
+const ReviewsHeader = ({ data, sortBy, ascOrDesc }: IReviews) => {
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
             <Box>
@@ -24,4 +24,4 @@ const Reviews = ({ data, sortBy, ascOrDesc }: IReviews) => {
     );
 };
 
-export default Reviews;
+export default ReviewsHeader;
