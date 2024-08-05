@@ -56,6 +56,16 @@ export async function getEpisodes({
     }
 }
 
+export async function getEpisodesAll(): Promise<any | null> {
+    const episodesAll = await prisma.episode.findMany();
+
+    if (episodesAll) {
+        return episodesAll;
+    } else {
+        return null;
+    }
+}
+
 export async function getEpisodeById(episodeId: number, queryParams: any): Promise<Episode | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 

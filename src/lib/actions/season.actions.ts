@@ -62,6 +62,16 @@ export async function getSeasons({
     }
 }
 
+export async function getSeasonsAll(): Promise<any | null> {
+    const seasonsAll = await prisma.season.findMany();
+
+    if (seasonsAll) {
+        return seasonsAll;
+    } else {
+        return null;
+    }
+}
+
 export async function getSeasonById(seasonId: number, queryParams: any): Promise<Season | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
