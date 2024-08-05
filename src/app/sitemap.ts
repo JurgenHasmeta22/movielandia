@@ -1,7 +1,10 @@
+import { getActorsAll } from "@/lib/actions/actor.actions";
+import { getEpisodesAll } from "@/lib/actions/episode.actions";
 import { getGenresAll } from "@/lib/actions/genre.actions";
 import { getMoviesAll } from "@/lib/actions/movie.actions";
+import { getSeasonsAll } from "@/lib/actions/season.actions";
 import { getSeriesAll } from "@/lib/actions/serie.actions";
-import { Genre, Movie, Serie } from "@prisma/client";
+import { Actor, Episode, Genre, Movie, Season, Serie } from "@prisma/client";
 import { MetadataRoute } from "next";
 
 type Route = {
@@ -44,10 +47,43 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })),
     );
 
+    const seasonsPromise = getSeasonsAll().then((seasons) =>
+        seasons.map((season: Season) => ({
+            url: `${baseUrl}/seasons/${season.title}`,
+            lastModified: new Date().toISOString(),
+            changeFrequency: "weekly",
+        })),
+    );
+
+    const episodesPromise = getEpisodesAll().then((episodes) =>
+        episodes.map((episode: Episode) => ({
+            url: `${baseUrl}/episodes/${episode.title}`,
+            lastModified: new Date().toISOString(),
+            changeFrequency: "weekly",
+        })),
+    );
+
+    const actorsPromise = getActorsAll().then((actors) =>
+        actors.map((actor: Actor) => ({
+            url: `${baseUrl}/actors/${actor.fullname}`,
+            lastModified: new Date().toISOString(),
+            changeFrequency: "weekly",
+        })),
+    );
+
     let fetchedRoutes: Route[] = [];
 
     try {
-        fetchedRoutes = (await Promise.all([moviesPromise, seriesPromise, genresPromise])).flat();
+        fetchedRoutes = (
+            await Promise.all([
+                moviesPromise,
+                seriesPromise,
+                genresPromise,
+                seasonsPromise,
+                episodesPromise,
+                actorsPromise,
+            ])
+        ).flat();
     } catch (error) {
         throw JSON.stringify(error, null, 2);
     }

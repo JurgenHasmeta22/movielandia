@@ -56,6 +56,16 @@ export async function getActors({
     }
 }
 
+export async function getActorsAll(): Promise<any | null> {
+    const actorsAll = await prisma.actor.findMany();
+
+    if (actorsAll) {
+        return actorsAll;
+    } else {
+        return null;
+    }
+}
+
 export async function getActorById(actorId: number, queryParams: any): Promise<Actor | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
