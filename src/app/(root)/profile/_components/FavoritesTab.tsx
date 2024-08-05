@@ -4,7 +4,6 @@ import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { tokens } from "@/utils/theme/theme";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useRouter } from "next/navigation";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
 import {
     removeFavoriteActorToUser,
@@ -15,6 +14,7 @@ import {
 } from "@/lib/actions/user.actions";
 import Image from "next/image";
 import { showToast } from "@/lib/toast/toast";
+import Link from "next/link";
 
 interface FavoritesTabProps {
     type: string;
@@ -22,8 +22,6 @@ interface FavoritesTabProps {
 }
 
 export default function FavoritesTab({ type, user }: FavoritesTabProps) {
-    const router = useRouter();
-
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -125,6 +123,54 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
         }
     }
 
+    function getItemUrl(favItem: any) {
+        let urlPath;
+        let formattedTitle;
+
+        switch (type) {
+            case "Movies":
+                urlPath = "movies";
+                formattedTitle = favItem.movie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+                break;
+            case "Series":
+                urlPath = "series";
+                formattedTitle = favItem.serie.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+                break;
+            case "Actors":
+                urlPath = "actors";
+                formattedTitle = favItem.actor.fullname
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+                break;
+            case "Seasons":
+                urlPath = "seasons";
+                formattedTitle = favItem.season.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+                break;
+            case "Episodes":
+                urlPath = "episodes";
+                formattedTitle = favItem.episode.title
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+                break;
+            default:
+                console.warn("Unknown type:", type);
+                return;
+        }
+
+        return `/${urlPath}/${favItem.id}/${formattedTitle}`;
+    }
+
     return (
         <Box
             component={"section"}
@@ -139,93 +185,57 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
                         transition={{ duration: 0.2, ease: "easeInOut" }}
                         style={{ position: "relative" }}
                     >
-                        <Box
-                            onClick={() => {
-                                let urlPath;
-                                let formattedTitle;
-
-                                switch (type) {
-                                    case "Movies":
-                                        urlPath = "movies";
-                                        formattedTitle = favItem.movie.title
-                                            .split("")
-                                            .map((char: string) => (char === " " ? "-" : char))
-                                            .join("");
-                                        break;
-                                    case "Series":
-                                        urlPath = "series";
-                                        formattedTitle = favItem.serie.title
-                                            .split("")
-                                            .map((char: string) => (char === " " ? "-" : char))
-                                            .join("");
-                                        break;
-                                    case "Actors":
-                                        urlPath = "actors";
-                                        formattedTitle = favItem.actor.fullname
-                                            .split("")
-                                            .map((char: string) => (char === " " ? "-" : char))
-                                            .join("");
-                                        break;
-                                    case "Seasons":
-                                        urlPath = "seasons";
-                                        formattedTitle = favItem.season.title
-                                            .split("")
-                                            .map((char: string) => (char === " " ? "-" : char))
-                                            .join("");
-                                        break;
-                                    case "Episodes":
-                                        urlPath = "episodes";
-                                        formattedTitle = favItem.episode.title
-                                            .split("")
-                                            .map((char: string) => (char === " " ? "-" : char))
-                                            .join("");
-                                        break;
-                                    default:
-                                        console.warn("Unknown type:", type);
-                                        return;
-                                }
-
-                                router.push(`/${urlPath}/${formattedTitle}`);
+                        <Link
+                            href={getItemUrl(favItem)!}
+                            style={{
+                                textDecoration: "none",
                             }}
                         >
-                            <Image
-                                src={
-                                    type === "Movies"
-                                        ? favItem.movie.photoSrcProd
-                                        : type === "Series"
-                                          ? favItem.serie.photoSrcProd
-                                          : type === "Actors"
-                                            ? favItem.actor.photoSrcProd
-                                            : type === "Seasons"
-                                              ? favItem.season.photoSrcProd
-                                              : favItem.episode.photoSrcProd
-                                }
-                                alt={
-                                    type === "Movies"
+                            <Box>
+                                <Image
+                                    src={
+                                        type === "Movies"
+                                            ? favItem.movie.photoSrcProd
+                                            : type === "Series"
+                                              ? favItem.serie.photoSrcProd
+                                              : type === "Actors"
+                                                ? favItem.actor.photoSrcProd
+                                                : type === "Seasons"
+                                                  ? favItem.season.photoSrcProd
+                                                  : favItem.episode.photoSrcProd
+                                    }
+                                    alt={
+                                        type === "Movies"
+                                            ? favItem.movie.title
+                                            : type === "Series"
+                                              ? favItem.serie.title
+                                              : type === "Actors"
+                                                ? favItem.actor.name
+                                                : type === "Seasons"
+                                                  ? favItem.season.name
+                                                  : favItem.episode.title
+                                    }
+                                    height={200}
+                                    width={150}
+                                />
+                                <Typography
+                                    component={"h3"}
+                                    sx={{
+                                        color: colors.primary[100],
+                                    }}
+                                >
+                                    {type === "Movies"
                                         ? favItem.movie.title
                                         : type === "Series"
                                           ? favItem.serie.title
                                           : type === "Actors"
-                                            ? favItem.actor.name
+                                            ? favItem.actor.fullname
                                             : type === "Seasons"
-                                              ? favItem.season.name
-                                              : favItem.episode.title
-                                }
-                                height={200}
-                                width={150}
-                            />
-                            <Typography component={"h4"} fontSize={14}>
-                                {type === "Movies"
-                                    ? favItem.movie.title
-                                    : type === "Series"
-                                      ? favItem.serie.title
-                                      : type === "Actors"
-                                        ? favItem.actor.fullname
-                                        : type === "Seasons"
-                                          ? favItem.season.title
-                                          : favItem.episode.title}
-                            </Typography>
-                        </Box>
+                                              ? favItem.season.title
+                                              : favItem.episode.title}
+                                </Typography>
+                            </Box>
+                        </Link>
                         <Box
                             sx={{
                                 position: "absolute",

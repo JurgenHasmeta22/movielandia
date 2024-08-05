@@ -11,26 +11,28 @@ import { tokens } from "@/utils/theme/theme";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 
-interface ReviewProps {
-    review: {
-        id: number;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        rating: number;
-        upvotes: any[];
-        downvotes: any[];
-        isUpvoted: boolean;
-        isDownvoted: boolean;
-        _count: {
-            upvotes: number;
-            downvotes: number;
-        };
-        user: {
-            userName: string;
-            avatar: string;
-        };
+interface Review {
+    id: number;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    rating: number;
+    upvotes: any[];
+    downvotes: any[];
+    isUpvoted: boolean;
+    isDownvoted: boolean;
+    _count: {
+        upvotes: number;
+        downvotes: number;
     };
+    user: {
+        userName: string;
+        avatar: string;
+    };
+}
+
+interface IReviewProps {
+    review: Review;
     setRating: React.Dispatch<React.SetStateAction<number | null>>;
     ref: any;
     setIsEditMode: Dispatch<SetStateAction<boolean>>;
@@ -66,7 +68,7 @@ const getRatingLabelAndColor = (rating: number) => {
     return { label: "Very Good", color: "success.main" };
 };
 
-const Review = forwardRef<HTMLElement, ReviewProps>(
+const Review = forwardRef<HTMLElement, IReviewProps>(
     (
         {
             review,
@@ -84,15 +86,15 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
         ref,
     ) => {
         // #region "State, hooks, theme"
+        const { data: session } = useSession();
+
         const [isClickedUpvote, setIsClickedUpvote] = useState(false);
         const [isClickedDownvote, setIsClickedDownvote] = useState(false);
-
-        const { label, color } = getRatingLabelAndColor(review.rating);
 
         const theme = useTheme();
         const colors = tokens(theme.palette.mode);
 
-        const { data: session } = useSession();
+        const { label, color } = getRatingLabelAndColor(review.rating);
         // #endregion
 
         // #region "Event handlers"
@@ -107,15 +109,7 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
         async function handleClickUpVoteReview() {
             setIsClickedUpvote(true);
 
-            if (type === "movie" && review.isUpvoted) {
-                handleUpvote(review.id, true);
-            } else if (type === "serie" && review.isUpvoted) {
-                handleUpvote(review.id, true);
-            } else if (type === "season" && review.isUpvoted) {
-                handleUpvote(review.id, true);
-            } else if (type === "episode" && review.isUpvoted) {
-                handleUpvote(review.id, true);
-            } else if (type === "actor" && review.isUpvoted) {
+            if (review.isUpvoted) {
                 handleUpvote(review.id, true);
             } else {
                 handleUpvote(review.id, false);
@@ -125,15 +119,7 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
         async function handleClickDownVoteReview() {
             setIsClickedDownvote(true);
 
-            if (type === "movie" && review.isDownvoted) {
-                handleDownvote(review.id, true);
-            } else if (type === "serie" && review.isDownvoted) {
-                handleDownvote(review.id, true);
-            } else if (type === "season" && review.isDownvoted) {
-                handleDownvote(review.id, true);
-            } else if (type === "episode" && review.isDownvoted) {
-                handleDownvote(review.id, true);
-            } else if (type === "actor" && review.isDownvoted) {
+            if (review.isDownvoted) {
                 handleDownvote(review.id, true);
             } else {
                 handleDownvote(review.id, false);
@@ -144,8 +130,9 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
         return (
             <Paper
                 sx={{
-                    p: 2,
+                    p: 3,
                     mt: 2,
+                    mx: 3,
                     backgroundColor:
                         review.user.userName === session?.user?.userName ? colors.redAccent[700] : colors.primary[400],
                 }}
@@ -288,14 +275,7 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                     handleClickUpVoteReview();
                                 }}
                                 sx={{
-                                    color:
-                                        (type === "movie" && review.isUpvoted) ||
-                                        (type === "serie" && review.isUpvoted) ||
-                                        (type === "season" && review.isUpvoted) ||
-                                        (type === "episode" && review.isUpvoted) ||
-                                        (type === "actor" && review.isUpvoted)
-                                            ? colors.greenAccent[700]
-                                            : colors.primary[100],
+                                    color: review.isUpvoted ? colors.greenAccent[700] : colors.primary[100],
                                 }}
                             >
                                 <ThumbUpIcon fontSize="medium" />
@@ -331,14 +311,7 @@ const Review = forwardRef<HTMLElement, ReviewProps>(
                                     handleClickDownVoteReview();
                                 }}
                                 sx={{
-                                    color:
-                                        (type === "movie" && review.isDownvoted) ||
-                                        (type === "serie" && review.isDownvoted) ||
-                                        (type === "season" && review.isDownvoted) ||
-                                        (type === "episode" && review.isDownvoted) ||
-                                        (type === "actor" && review.isDownvoted)
-                                            ? colors.redAccent[700]
-                                            : colors.primary[100],
+                                    color: review.isDownvoted ? colors.redAccent[700] : colors.primary[100],
                                 }}
                             >
                                 <ThumbDownIcon fontSize="medium" />

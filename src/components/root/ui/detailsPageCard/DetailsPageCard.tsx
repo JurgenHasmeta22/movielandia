@@ -10,18 +10,12 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 interface IDetailsPageCardProps {
     data: any;
     type: string;
-    isBookmarked?: boolean;
+    isBookmarked: boolean;
     onBookmark: () => Promise<void>;
     onRemoveBookmark?: () => Promise<void>;
 }
 
-export function DetailsPageCard({
-    data,
-    type,
-    isBookmarked = false,
-    onBookmark,
-    onRemoveBookmark,
-}: IDetailsPageCardProps) {
+export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
     const theme = useTheme();
@@ -88,10 +82,12 @@ export function DetailsPageCard({
                         ))}
                     </Box>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 2 }}>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <AccessTime fontSize="small" />
-                            <Typography variant="body1">Duration: {data.duration} mins</Typography>
-                        </Box>
+                        {type !== "season" && type !== "serie" && (
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <AccessTime fontSize="small" />
+                                <Typography variant="body1">Duration: {data.duration} mins</Typography>
+                            </Box>
+                        )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <CalendarToday fontSize="small" />
                             <Typography variant="body1">Aired on : {data.dateAired}</Typography>
@@ -122,7 +118,7 @@ export function DetailsPageCard({
                                 bgcolor: colors.redAccent[500],
                                 color: colors.primary[100],
                                 "&:hover": {
-                                    bgcolor: colors.redAccent[600],
+                                    bgcolor: colors.redAccent[900],
                                 },
                                 textTransform: "capitalize",
                                 fontSize: 16,
@@ -139,7 +135,7 @@ export function DetailsPageCard({
                                     color: colors.primary[100],
                                     bgcolor: isBookmarked ? colors.redAccent[500] : colors.greenAccent[500],
                                     "&:hover": {
-                                        bgcolor: colors.redAccent[100],
+                                        bgcolor: colors.redAccent[900],
                                     },
                                     textTransform: "capitalize",
                                     fontSize: 16,

@@ -45,7 +45,7 @@ export function TextEditorButtons({
                             padding: 1.5,
                             textTransform: "capitalize",
                             border: "none",
-                            backgroundColor: colors.primary[100],
+                            backgroundColor: colors.greenAccent[500],
                             color: colors.primary[900],
                             "&:hover": {
                                 backgroundColor: colors.greenAccent[700],
