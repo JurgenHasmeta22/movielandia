@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
                 ? [
                       {
                           url: photoSrcProd,
-                          width: 200,
-                          height: 300,
+                          width: 160,
+                          height: 200,
                           alt: description,
                       },
                   ]
