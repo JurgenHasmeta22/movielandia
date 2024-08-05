@@ -7,86 +7,143 @@ import { getSeriesAll } from "@/lib/actions/serie.actions";
 import { Actor, Episode, Genre, Movie, Season, Serie } from "@prisma/client";
 import { MetadataRoute } from "next";
 
-type Route = {
-    url: string;
-    lastModified: string;
-};
-
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const routesMap = [""].map((route) => ({
-        url: `${baseUrl}/${route}`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-    }));
+    const urls: any[] = [];
 
-    const moviesPromise = getMoviesAll().then((movies) =>
-        movies.map((movie: Movie) => ({
-            url: `${baseUrl}/movies/${movie.title}`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: "weekly",
-        })),
-    );
+    const movies = await getMoviesAll();
+    const series = await getSeriesAll();
+    const genres = await getGenresAll();
+    const seasons = await getSeasonsAll();
+    const episodes = await getEpisodesAll();
+    const actors = await getActorsAll();
 
-    const seriesPromise = getSeriesAll().then((series) =>
-        series.map((serie: Serie) => ({
-            url: `${baseUrl}/series/${serie.title}`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: "weekly",
-        })),
-    );
+    urls.push({
+        url: `${baseUrl}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+    });
 
-    const genresPromise = getGenresAll().then((genres) =>
-        genres.map((genre: Genre) => ({
-            url: `${baseUrl}/genres/${genre.name}`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: "weekly",
-        })),
-    );
+    urls.push({
+        url: `${baseUrl}/movies`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+    });
 
-    const seasonsPromise = getSeasonsAll().then((seasons) =>
-        seasons.map((season: Season) => ({
-            url: `${baseUrl}/seasons/${season.title}`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: "weekly",
-        })),
-    );
+    urls.push({
+        url: `${baseUrl}/series`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+    });
 
-    const episodesPromise = getEpisodesAll().then((episodes) =>
-        episodes.map((episode: Episode) => ({
-            url: `${baseUrl}/episodes/${episode.title}`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: "weekly",
-        })),
-    );
+    urls.push({
+        url: `${baseUrl}/seasons`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+    });
 
-    const actorsPromise = getActorsAll().then((actors) =>
-        actors.map((actor: Actor) => ({
-            url: `${baseUrl}/actors/${actor.fullname}`,
-            lastModified: new Date().toISOString(),
-            changeFrequency: "weekly",
-        })),
-    );
+    urls.push({
+        url: `${baseUrl}/genres`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+    });
 
-    let fetchedRoutes: Route[] = [];
+    urls.push({
+        url: `${baseUrl}/episodes`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 1,
+    });
 
-    try {
-        fetchedRoutes = (
-            await Promise.all([
-                moviesPromise,
-                seriesPromise,
-                genresPromise,
-                seasonsPromise,
-                episodesPromise,
-                actorsPromise,
-            ])
-        ).flat();
-    } catch (error) {
-        throw JSON.stringify(error, null, 2);
-    }
+    urls.push({
+        url: `${baseUrl}/login`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.5,
+    });
 
-    return [...routesMap, ...fetchedRoutes];
+    urls.push({
+        url: `${baseUrl}/register`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.5,
+    });
+
+    urls.push({
+        url: `${baseUrl}/profile`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.5,
+    });
+
+    urls.push({
+        url: `${baseUrl}/search`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.5,
+    });
+
+    movies.forEach((movie: Movie) => {
+        urls.push({
+            url: `${baseUrl}/movies/${movie.id}/${movie.title}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    series.forEach((serie: Serie) => {
+        urls.push({
+            url: `${baseUrl}/series/${serie.id}/${serie.title}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    genres.forEach((genre: Genre) => {
+        urls.push({
+            url: `${baseUrl}/genres/${genre.id}/${genre.name}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    seasons.forEach((season: Season) => {
+        urls.push({
+            url: `${baseUrl}/seasons/${season.id}/${season.title}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    episodes.forEach((episode: Episode) => {
+        urls.push({
+            url: `${baseUrl}/episodes/${episode.id}/${episode.title}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    actors.forEach((actor: Actor) => {
+        urls.push({
+            url: `${baseUrl}/actors/${actor.id}/${actor.fullname}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    return urls;
 }
