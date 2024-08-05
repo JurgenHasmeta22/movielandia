@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Profile({ searchParams }: IProfileProps) {
-    const tabValue = searchParams?.tab ? searchParams?.tab : "";
+    const tabValue = searchParams?.tab ? searchParams?.tab : "favMovies";
 
     const session = await getServerSession(authOptions);
     const userSession = (session && session.user) || null;

@@ -48,6 +48,7 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
             break;
     }
 
+    // #region "Remvoing bookmark serie, season, episode, actor"
     async function onRemoveBookmarkMovie(movie: Movie) {
         if (!user || !movie) return;
 
@@ -122,6 +123,7 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
             }
         }
     }
+    // #endregion
 
     function getItemUrl(favItem: any) {
         let urlPath;
@@ -172,26 +174,20 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
     }
 
     return (
-        <Box
-            component={"section"}
-            height={`${user?.favMovies?.length > 0 || user?.favSeries?.length > 0 ? "auto" : "100vh"}`}
-        >
-            <Typography variant="h4">Bookmarked {type}</Typography>
-            <Stack flexDirection={"row"} flexWrap={"wrap"} columnGap={6} rowGap={4} mt={4}>
-                {favorites?.map((favItem: any, index: number) => (
+        <Box component="section" minHeight={`${favorites.length > 0 ? "auto" : "70vh"}`} padding={4}>
+            <Typography variant="h4" color={colors.primary[100]} mb={4}>
+                Bookmarked {type}
+            </Typography>
+            <Stack flexDirection="row" flexWrap="wrap" columnGap={3} rowGap={3} justifyContent="start">
+                {favorites.map((favItem: any, index: number) => (
                     <motion.div
                         key={index}
-                        whileHover={{ scale: 1.03 }}
+                        whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.2, ease: "easeInOut" }}
-                        style={{ position: "relative" }}
+                        style={{ position: "relative", width: 150, borderRadius: "8px", overflow: "hidden" }}
                     >
-                        <Link
-                            href={getItemUrl(favItem)!}
-                            style={{
-                                textDecoration: "none",
-                            }}
-                        >
-                            <Box>
+                        <Link href={getItemUrl(favItem)!} style={{ textDecoration: "none" }}>
+                            <Box sx={{ position: "relative", overflow: "hidden" }}>
                                 <Image
                                     src={
                                         type === "Movies"
@@ -210,18 +206,25 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
                                             : type === "Series"
                                               ? favItem.serie.title
                                               : type === "Actors"
-                                                ? favItem.actor.name
+                                                ? favItem.actor.fullname
                                                 : type === "Seasons"
-                                                  ? favItem.season.name
+                                                  ? favItem.season.title
                                                   : favItem.episode.title
                                     }
+                                    layout="responsive"
                                     height={200}
                                     width={150}
+                                    style={{ borderRadius: "8px" }}
                                 />
                                 <Typography
-                                    component={"h3"}
+                                    variant="h6"
+                                    component="h3"
                                     sx={{
                                         color: colors.primary[100],
+                                        mt: 1,
+                                        textAlign: "center",
+                                        fontWeight: "bold",
+                                        fontSize: "1rem",
                                     }}
                                 >
                                     {type === "Movies"
@@ -239,17 +242,18 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
                         <Box
                             sx={{
                                 position: "absolute",
-                                top: 0,
-                                right: 0,
-                                padding: "6px 6px",
+                                top: 8,
+                                right: 8,
+                                padding: "4px",
                                 cursor: "pointer",
-                                backgroundColor: colors.primary[100],
+                                backgroundColor: colors.primary[200],
                                 borderRadius: "50%",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
                             }}
                             onClick={async (e) => {
+                                e.preventDefault();
                                 e.stopPropagation();
 
                                 switch (type) {
@@ -274,11 +278,7 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
                                 }
                             }}
                         >
-                            <ClearIcon
-                                sx={{
-                                    color: colors.primary[900],
-                                }}
-                            />
+                            <ClearIcon sx={{ color: colors.primary[900] }} />
                         </Box>
                     </motion.div>
                 ))}
