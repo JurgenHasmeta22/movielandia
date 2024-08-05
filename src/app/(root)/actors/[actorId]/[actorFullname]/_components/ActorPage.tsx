@@ -318,9 +318,9 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
             <DetailsPageCard
                 data={actor}
                 type="actor"
-                isActorBookmarked={actor.isBookmarked}
-                onBookmarkActor={onBookmarkActor}
-                onRemoveBookmarkActor={onRemoveBookmarkActor}
+                isBookmarked={actor.isBookmarked}
+                onBookmark={onBookmarkActor}
+                onRemoveBookmark={onRemoveBookmarkActor}
             />
             <Box
                 sx={{

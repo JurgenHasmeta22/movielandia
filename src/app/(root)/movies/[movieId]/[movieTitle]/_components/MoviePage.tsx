@@ -301,9 +301,9 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
             <DetailsPageCard
                 data={movie}
                 type="movie"
-                isMovieBookmarked={movie.isBookmarked}
-                onBookmarkMovie={onBookmarkMovie}
-                onRemoveBookmarkMovie={onRemoveBookmarkMovie}
+                isBookmarked={movie.isBookmarked}
+                onBookmark={onBookmarkMovie}
+                onRemoveBookmark={onRemoveBookmarkMovie}
             />
             <Box
                 sx={{

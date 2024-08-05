@@ -64,11 +64,10 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 display: "flex",
                 flexDirection: "column",
                 rowGap: 4,
-                paddingTop: 4,
             }}
             component={"section"}
         >
-            <Box mt={4} component={"section"}>
+            <Box component={"section"}>
                 <Carousel data={moviesCarouselImages} type="movies" />
             </Box>
             <Stack
