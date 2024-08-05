@@ -53,6 +53,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
 
             if (quillEditor) {
                 const images = quillEditor.container.querySelectorAll("img");
+
                 images.forEach((img: HTMLImageElement) => {
                     img.style.maxWidth = "50%";
                     img.style.maxHeight = "auto";

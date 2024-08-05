@@ -255,12 +255,8 @@ export async function addFavoriteSerieToUser(userId: number, serieId: number): P
         });
 
         if (result) {
-            const titleFinal = serie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
-            redirect(`/series/${titleFinal}`);
+            const referer = getReferer();
+            redirect(`${referer}`);
         } else {
             throw new Error("Failed to add serie to favorites.");
         }
@@ -300,12 +296,8 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
         });
 
         if (result) {
-            const titleFinal = movie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
-            redirect(`/movies/${titleFinal}`);
+            const referer = getReferer();
+            redirect(`${referer}`);
         } else {
             throw new Error("Failed to add movie to favorites.");
         }
@@ -461,15 +453,11 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number,
         });
 
         if (result) {
-            const titleFinal = existingFavorite.movie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
             if (pathFrom === "/profile?tab=favMovies") {
                 redirect("/profile?tab=favMovies");
             } else {
-                redirect(`/movies/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             }
         } else {
             throw new Error("Failed to remove movie from favorites.");
@@ -503,15 +491,11 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number,
         });
 
         if (result) {
-            const titleFinal = existingFavorite.serie.title
-                .split("")
-                .map((char: string) => (char === " " ? "-" : char))
-                .join("");
-
             if (pathFrom === "/profile?tab=favSeries") {
                 redirect("/profile?tab=favSeries");
             } else {
-                redirect(`/series/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             }
         } else {
             throw new Error("Failed to remove serie from favorites.");
@@ -680,12 +664,8 @@ export const addReviewMovie = async ({
             });
 
             if (reviewAdded) {
-                const titleFinal = movie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/movies/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -738,12 +718,8 @@ export const addReviewSerie = async ({
             });
 
             if (reviewAdded) {
-                const titleFinal = serie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/series/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -955,12 +931,8 @@ export const updateReviewMovie = async ({
             });
 
             if (reviewUpdated) {
-                const titleFinal = existingReview.movie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/movies/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1008,12 +980,8 @@ export const updateReviewSerie = async ({
             });
 
             if (reviewUpdated) {
-                const titleFinal = existingReview.serie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/series/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1195,12 +1163,8 @@ export const removeReviewMovie = async ({ userId, movieId }: RemoveReviewMoviePa
             });
 
             if (result) {
-                const titleFinal = existingReview.movie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/movies/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1233,12 +1197,8 @@ export const removeReviewSerie = async ({ userId, serieId }: RemoveReviewSeriePa
             });
 
             if (result) {
-                const titleFinal = existingReview.serie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-
-                redirect(`/series/${titleFinal}`);
+                const referer = getReferer();
+                redirect(`${referer}`);
             } else {
                 throw new Error("Failed to delete review.");
             }

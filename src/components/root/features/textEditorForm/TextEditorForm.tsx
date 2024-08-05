@@ -32,7 +32,7 @@ export function TextEditorForm({
     onSubmitUpdateReview,
 }: ITextEditorForm) {
     return (
-        <Box marginTop={4}>
+        <Box marginTop={4} px={4}>
             <Box marginBottom={1}>
                 <TextEditor
                     value={review}

@@ -11,7 +11,7 @@ interface IReviews {
 
 const Reviews = ({ data, sortBy, ascOrDesc }: IReviews) => {
     return (
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
             <Box>
                 <Typography variant="h3" align="center">
                     Reviews ({data.totalReviews})
