@@ -396,7 +396,7 @@ export const series = [
     },
     {
         id: 11,
-        title: "Superman & Lois",
+        title: "Superman and Lois",
         trailerSrc: "https://www.youtube.com/embed/SJPJPUpNvDw",
         description:
             "Superman & Lois is an American superhero television series based on the DC Comics characters Superman and Lois Lane. The series follows the lives of Superman and Lois Lane after their marriage, facing challenges in both their personal lives and their profession as superheroes.",
