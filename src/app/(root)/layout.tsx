@@ -11,7 +11,7 @@ import { CustomThemeProvider } from "@/utils/theme/theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import "../globals.css";
 
-const baseUrl = "https://movielandia-fgyorwoem-avenger22s-projects.vercel.app";
+const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL!;
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, "@") : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, "https://") : undefined;

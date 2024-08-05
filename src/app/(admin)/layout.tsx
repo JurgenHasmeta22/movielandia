@@ -39,9 +39,7 @@ export default function RootLayout({
                                             </Grid>
                                             <Grid item xs={12} md={10}>
                                                 <TopBar />
-                                                {/* <main> */}
                                                 <Box ml={4}>{children}</Box>
-                                                {/* </main> */}
                                             </Grid>
                                         </Grid>
                                     </RightPanelProvider>
