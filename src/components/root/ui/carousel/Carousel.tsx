@@ -2,17 +2,17 @@
 
 import React from "react";
 import Slider from "react-slick";
-import { Box, Button, IconButton, Typography, useMediaQuery } from "@mui/material";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import { Box, Button, Typography, IconButton, useTheme } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
 import Image from "next/image";
+import { tokens } from "@/utils/theme/theme";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 interface ICarouselProps {
-    data: any;
+    data: any[];
     type: string;
 }
 
@@ -25,13 +25,17 @@ const CustomNextArrow = (props: any) => {
             sx={{
                 position: "absolute",
                 top: "50%",
-                right: "-25px",
-                zIndex: 1,
+                right: "10px",
                 transform: "translateY(-50%)",
-                fontSize: "1.3rem",
+                zIndex: 2,
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                "&:hover": {
+                    backgroundColor: "rgba(0, 0, 0, 0.7)",
+                },
             }}
         >
-            <NavigateNextIcon fontSize="inherit" />
+            <NavigateNextIcon fontSize="large" />
         </IconButton>
     );
 };
@@ -45,106 +49,95 @@ const CustomPrevArrow = (props: any) => {
             sx={{
                 position: "absolute",
                 top: "50%",
-                left: "-25px",
-                zIndex: 1,
+                left: "10px",
                 transform: "translateY(-50%)",
-                fontSize: "1.3rem",
+                zIndex: 2,
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                "&:hover": {
+                    backgroundColor: "rgba(0, 0, 0, 0.7)",
+                },
             }}
         >
-            <NavigateBeforeIcon fontSize="inherit" />
+            <NavigateBeforeIcon fontSize="large" />
         </IconButton>
     );
 };
 
 const Carousel = ({ data, type }: ICarouselProps) => {
-    const isMobile = useMediaQuery("(max-width:600px)");
-    const isTablet = useMediaQuery("(max-width:960px)");
+    // const isMobile = useMediaQuery("(max-width:600px)");
+    // const isTablet = useMediaQuery("(max-width:960px)");
+
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     const settings = {
         dots: false,
         infinite: true,
-        speed: 500,
-        slidesToShow: isMobile ? 1 : isTablet ? 2 : 3,
+        speed: 1000,
+        slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 5000,
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />,
     };
 
     return (
-        <Box
-            sx={{
-                px: isMobile ? 2 : 6,
-                py: 4,
-            }}
-        >
+        <Box sx={{ position: "relative", height: "95vh", overflow: "hidden" }}>
             <Slider {...settings}>
-                {data.map((element: any, index: number) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            position: "relative",
-                            px: 2,
-                            "&:hover img": {
-                                filter: "blur(2px) opacity(0.7)",
-                            },
-                            "&:hover .carousel-content": {
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            },
-                        }}
-                    >
-                        <Image src={element.photoSrcProd} alt={`Slide ${index}`} height={400} width={300} />
+                {data.map((element, index) => (
+                    <Box key={index} sx={{ position: "relative", height: "95vh" }}>
+                        <Image
+                            src={element.photoSrcProd}
+                            alt={`Slide ${index}`}
+                            layout="fill"
+                            objectFit="fill"
+                            quality={100}
+                            priority
+                            style={{ objectPosition: "center" }}
+                        />
                         <Box
-                            className="carousel-content"
                             sx={{
                                 position: "absolute",
-                                top: 0,
+                                bottom: 0,
                                 left: 0,
                                 width: "100%",
-                                height: "100%",
-                                display: "none",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                height: "40%",
+                                backgroundImage: "linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))",
                                 color: "white",
-                                padding: 2,
-                                textAlign: "center",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "flex-end",
+                                p: 4,
                             }}
                         >
-                            <Typography variant="h6" sx={{ mb: 1 }}>
+                            <Typography variant="h1" gutterBottom>
                                 {element.title}
                             </Typography>
-                            <Typography variant="body2" sx={{ mb: 2 }}>
+                            <Typography variant="body1" sx={{ mb: 2 }}>
                                 {element.description}
                             </Typography>
-                            <Link
-                                href={
-                                    `/${type}/${element.id}/${element.title
-                                        .split("")
-                                        .map((char: string) => (char === " " ? "-" : char))
-                                        .join("")}` || "#"
-                                }
-                            >
-                                <Button
-                                    variant="text"
-                                    color="primary"
-                                    className="carousel-button"
-                                    size="medium"
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        bgcolor: "rgba(0, 0, 0, 0.5)",
-                                        borderRadius: "20%",
-                                        p: 1.5,
-                                    }}
-                                >
-                                    <PlayCircleIcon fontSize="large" color="secondary" />
-                                </Button>
-                            </Link>
+                            <Box>
+                                <Link href={`/${type}/${element.id}`} passHref>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        sx={{
+                                            bgcolor: colors.redAccent[500],
+                                            "&:hover": { bgcolor: colors.greenAccent[500], color: colors.primary[100] },
+                                            textTransform: "capitalize",
+                                            color: colors.grey[900],
+                                            fontSize: 16,
+                                            fontWeight: 700,
+                                            px: 4,
+                                            py: 1,
+                                        }}
+                                    >
+                                        See Details
+                                    </Button>
+                                </Link>
+                            </Box>
                         </Box>
                     </Box>
                 ))}

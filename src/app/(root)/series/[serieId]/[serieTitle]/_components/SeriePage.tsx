@@ -301,9 +301,9 @@ export default function SeriePage({ searchParamsValues, serie, latestSeries, rel
             <DetailsPageCard
                 data={serie}
                 type="serie"
-                isSerieBookmarked={serie.isBookmarked}
-                onBookmarkSerie={onBookmarkSerie}
-                onRemoveBookmarkSerie={onRemoveBookmarkSerie}
+                isBookmarked={serie.isBookmarked}
+                onBookmark={onBookmarkSerie}
+                onRemoveBookmark={onRemoveBookmarkSerie}
             />
             <Box
                 sx={{

@@ -1,4 +1,4 @@
-import { Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
 import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
 import { Genre, Movie, Serie } from "@prisma/client";

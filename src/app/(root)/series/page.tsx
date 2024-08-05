@@ -65,11 +65,10 @@ export default async function Series({ searchParams }: ISeriesProps) {
                 display: "flex",
                 flexDirection: "column",
                 rowGap: 4,
-                paddingTop: 4,
             }}
             component={"section"}
         >
-            <Box mt={4} component={"section"}>
+            <Box component={"section"}>
                 <Carousel data={seriesCarouselImages} type="series" />
             </Box>
             <Stack

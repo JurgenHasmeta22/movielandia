@@ -1,316 +1,154 @@
-"use client";
-
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import StarRateIcon from "@mui/icons-material/StarRate";
-import { Box, Button, Divider, Grid, List, ListItem, Typography, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme/theme";
-import Link from "next/link";
+import React from "react";
+import { Box, Typography, Chip, Button, useTheme, useMediaQuery } from "@mui/material";
+import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
+import Link from "next/link";
+import { tokens } from "@/utils/theme/theme";
 import { useSession } from "next-auth/react";
+import StarRateIcon from "@mui/icons-material/StarRate";
 
 interface IDetailsPageCardProps {
     data: any;
     type: string;
-    isMovieBookmarked?: boolean;
-    isSerieBookmarked?: boolean;
-    isSeasonBookmarked?: boolean;
-    isEpisodeBookmarked?: boolean;
-    isActorBookmarked?: boolean;
-    onBookmarkMovie?(): Promise<void>;
-    onRemoveBookmarkMovie?(): Promise<void>;
-    onBookmarkSerie?(): Promise<void>;
-    onRemoveBookmarkSerie?(): Promise<void>;
-    onBookmarkSeason?(): Promise<void>;
-    onRemoveBookmarkSeason?(): Promise<void>;
-    onBookmarkEpisode?(): Promise<void>;
-    onRemoveBookmarkEpisode?(): Promise<void>;
-    onBookmarkActor?(): Promise<void>;
-    onRemoveBookmarkActor?(): Promise<void>;
+    isBookmarked?: boolean;
+    onBookmark: () => Promise<void>;
+    onRemoveBookmark?: () => Promise<void>;
 }
 
 export function DetailsPageCard({
     data,
     type,
-    onBookmarkMovie,
-    onBookmarkSerie,
-    onBookmarkSeason,
-    onBookmarkEpisode,
-    onBookmarkActor,
-    onRemoveBookmarkMovie,
-    onRemoveBookmarkSerie,
-    onRemoveBookmarkSeason,
-    onRemoveBookmarkEpisode,
-    onRemoveBookmarkActor,
-    isMovieBookmarked,
-    isSerieBookmarked,
-    isSeasonBookmarked,
-    isEpisodeBookmarked,
-    isActorBookmarked,
+    isBookmarked = false,
+    onBookmark,
+    onRemoveBookmark,
 }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <Box
             sx={{
-                pt: 8,
-                pb: 4,
+                display: "flex",
+                flexDirection: "column",
+                bgcolor: colors.primary[400],
+                color: colors.primary[100],
+                width: "100%",
+                maxWidth: "1200px",
+                margin: "auto",
+                p: { xs: 1, sm: 2, md: 4 },
+                borderRadius: 6,
+                mt: 10,
             }}
-            component={"section"}
         >
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100%",
-                    width: "100%",
-                    columnGap: 6,
-                    padding: 4,
-                    backgroundColor: `${colors.primary[400]}`,
-                }}
-            >
-                <Image
-                    src={data.photoSrcProd}
-                    alt={type !== "actor" ? data.title : data.fullname}
-                    width={220}
-                    height={300}
-                />
+            <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 3, mb: 3 }}>
                 <Box
                     sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        flexShrink: 0,
+                        width: { xs: "100%", md: "100%" },
+                        maxWidth: "220px",
+                        height: { xs: "300px", md: "315px" },
+                        position: "relative",
+                        alignSelf: "center",
                     }}
                 >
-                    <Typography fontSize={[20, 24, 28, 32]} textAlign={"center"} component={"h1"} pt={2}>
-                        {data.title}
+                    <Image
+                        src={data.photoSrcProd}
+                        alt={type !== "actor" ? data.title : data.fullname}
+                        layout="fill"
+                        objectFit="cover"
+                        style={{ borderRadius: "8px" }}
+                    />
+                </Box>
+                <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                    <Typography variant="h3" component="h1" gutterBottom fontWeight="bold" color={colors.primary[100]}>
+                        {type !== "actor" ? data.title : data.fullname}
                     </Typography>
-                    <List
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            placeSelf: "center",
-                            placeItems: "center",
-                            flexWrap: "wrap",
-                            rowGap: 3,
-                            mt: 1,
-                        }}
-                    >
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
                         {data.genres?.map((genre: any, index: number) => (
-                            <Box key={index}>
-                                <ListItem key={index}>
-                                    <Link
-                                        href={`/genres/${genre.genre.id}/${genre.genre.name}`}
-                                        style={{
-                                            textDecoration: "none",
-                                        }}
-                                    >
-                                        <Typography
-                                            component={"span"}
-                                            sx={{
-                                                backgroundColor: colors.primary[100],
-                                                color: colors.primary[900],
-                                                borderRadius: "20px",
-                                                padding: "12px 14px",
-                                                fontWeight: "900",
-                                                cursor: "pointer",
-                                                fontSize: 12,
-                                                "&:hover": {
-                                                    backgroundColor: colors.greenAccent[500],
-                                                },
-                                            }}
-                                        >
-                                            {genre.genre.name}
-                                        </Typography>
-                                    </Link>
-                                </ListItem>
-                                {index < data.genres!.length - 1 && (
-                                    <Divider orientation="vertical" flexItem color="error" />
-                                )}
-                            </Box>
+                            <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
+                                <Chip
+                                    label={genre.genre.name}
+                                    component="a"
+                                    clickable
+                                    sx={{
+                                        bgcolor: colors.primary[600],
+                                        color: colors.primary[100],
+                                        fontSize: "0.9rem",
+                                        fontWeight: "bold",
+                                        "&:hover": {
+                                            bgcolor: colors.greenAccent[500],
+                                        },
+                                    }}
+                                />
+                            </Link>
                         ))}
-                    </List>
-                    <Grid
-                        container
-                        rowGap={1}
-                        justifyContent="start"
-                        alignContent="center"
-                        alignItems="center"
-                        pt={2}
-                        pb={2}
-                    >
-                        {type !== "serie" && type !== "season" && type !== "actor" && (
-                            <Grid
-                                item
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                display="flex"
-                                justifyContent="center"
-                                alignContent={"center"}
-                            >
-                                <Box display="flex" alignItems="center" gap={1}>
-                                    <AccessTimeIcon fontSize="medium" />
-                                    <Typography component="span">
-                                        Duration: {data.duration} min ({Math.floor(data.duration / 60)} hr{" "}
-                                        {data.duration % 60} min)
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                        )}
-                        <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="center">
-                            <Box display="flex" alignItems="center" gap={1}>
-                                <CalendarMonthIcon fontSize="medium" />
-                                <Typography component="span">
-                                    Date aired: {type !== "actor" ? data.dateAired : data.debut}
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        {type !== "actor" && (
-                            <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="center">
-                                <Box display="flex" alignItems="center" gap={1}>
-                                    <Image src="/icons/imdb.svg" alt="IMDb Icon" width={25} height={25} />
-                                    <Typography component="span">
-                                        Rating IMDb: {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                                    </Typography>
-                                </Box>
-                            </Grid>
-                        )}
-                        <Grid item xs={12} sm={12} md={12} display="flex" justifyContent="center">
-                            <Box display="flex" alignItems="center" gap={1}>
-                                <StarRateIcon />
-                                <Typography component="span">
-                                    Average rating: {data.averageRating === 0 ? "N/A" : data.averageRating}
-                                </Typography>
-                                <Typography component="span">({data.totalReviews})</Typography>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                    <Box display={"flex"} justifyContent={"center"} pt={2}>
-                        <Typography textAlign={"center"} width={["40ch", "45ch", "50ch", "55ch", "60ch"]}>
-                            {data.description}
-                        </Typography>
                     </Box>
-                    {type !== "actor" && (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 2 }}>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <AccessTime fontSize="small" />
+                            <Typography variant="body1">Duration: {data.duration} mins</Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <CalendarToday fontSize="small" />
+                            <Typography variant="body1">Aired on : {data.dateAired}</Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <Star fontSize="small" />
+                            <Typography variant="body1">Imdb rating: {data.ratingImdb}</Typography>
+                        </Box>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                            <StarRateIcon />
+                            <Typography component="span" variant="body1">
+                                Average rating: {data.averageRating === 0 ? "N/A" : data.averageRating}
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Typography variant="body1" paragraph color={colors.primary[200]}>
+                        {data.description}
+                    </Typography>
+                    <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
                         <Button
+                            variant="contained"
+                            startIcon={<YouTube />}
                             href={data.trailerSrc}
                             target="_blank"
                             rel="noopener noreferrer"
-                            variant="text"
+                            fullWidth={isMobile}
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                placeSelf: "center",
-                                width: "50%",
-                                columnGap: 1,
-                                marginTop: 3,
-                                padding: 1,
-                                "&:hover": {
-                                    backgroundColor: colors.primary[900],
-                                },
-                            }}
-                        >
-                            <YouTubeIcon
-                                sx={{
-                                    color: colors.primary[100],
-                                }}
-                            />
-                            <Typography
-                                component={"span"}
-                                color={colors.primary[100]}
-                                fontWeight={700}
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Watch Trailer
-                            </Typography>
-                        </Button>
-                    )}
-                    {session?.user?.userName && (
-                        <Button
-                            onClick={async () => {
-                                if (type === "movie") {
-                                    if (!isMovieBookmarked) {
-                                        onBookmarkMovie ? await onBookmarkMovie() : {};
-                                    } else {
-                                        onRemoveBookmarkMovie ? await onRemoveBookmarkMovie() : {};
-                                    }
-                                } else if (type === "serie") {
-                                    if (!isSerieBookmarked) {
-                                        onBookmarkSerie ? await onBookmarkSerie() : {};
-                                    } else {
-                                        onRemoveBookmarkSerie ? await onRemoveBookmarkSerie() : {};
-                                    }
-                                } else if (type === "episode") {
-                                    if (!isEpisodeBookmarked) {
-                                        onBookmarkEpisode ? await onBookmarkEpisode() : {};
-                                    } else {
-                                        onRemoveBookmarkEpisode ? await onRemoveBookmarkEpisode() : {};
-                                    }
-                                } else if (type === "actor") {
-                                    if (!isActorBookmarked) {
-                                        onBookmarkActor ? await onBookmarkActor() : {};
-                                    } else {
-                                        onRemoveBookmarkActor ? await onRemoveBookmarkActor() : {};
-                                    }
-                                } else {
-                                    if (!isSeasonBookmarked) {
-                                        onBookmarkSeason ? await onBookmarkSeason() : {};
-                                    } else {
-                                        onRemoveBookmarkSeason ? await onRemoveBookmarkSeason() : {};
-                                    }
-                                }
-                            }}
-                            variant="text"
-                            sx={{
-                                display: "flex",
-                                placeSelf: "center",
-                                width: "50%",
-                                columnGap: 1,
-                                marginTop: 1,
-                                padding: 1,
+                                bgcolor: colors.redAccent[500],
                                 color: colors.primary[100],
                                 "&:hover": {
-                                    backgroundColor: colors.primary[900],
+                                    bgcolor: colors.redAccent[600],
                                 },
+                                textTransform: "capitalize",
+                                fontSize: 16,
                             }}
                         >
-                            {(type === "movie" && !isMovieBookmarked) ||
-                            (type === "serie" && !isSerieBookmarked) ||
-                            (type === "season" && !isSeasonBookmarked) ||
-                            (type === "episode" && !isEpisodeBookmarked) ||
-                            (type === "actor" && !isActorBookmarked) ? (
-                                <BookmarkAddIcon color="success" fontSize="medium" />
-                            ) : (
-                                <BookmarkRemoveIcon color="error" fontSize="medium" />
-                            )}
-                            <Typography
-                                component="span"
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                                fontWeight={700}
-                            >
-                                {isMovieBookmarked ||
-                                isSerieBookmarked ||
-                                isSeasonBookmarked ||
-                                isEpisodeBookmarked ||
-                                isActorBookmarked
-                                    ? "Bookmarked"
-                                    : "Bookmark"}
-                            </Typography>
+                            Watch trailer
                         </Button>
-                    )}
+                        {session?.user?.userName && (
+                            <Button
+                                variant="outlined"
+                                onClick={isBookmarked ? onRemoveBookmark : onBookmark}
+                                fullWidth={isMobile}
+                                sx={{
+                                    color: colors.primary[100],
+                                    bgcolor: isBookmarked ? colors.redAccent[500] : colors.greenAccent[500],
+                                    "&:hover": {
+                                        bgcolor: colors.redAccent[100],
+                                    },
+                                    textTransform: "capitalize",
+                                    fontSize: 16,
+                                }}
+                            >
+                                {isBookmarked ? "Bookmarked" : "Bookmark"}
+                            </Button>
+                        )}
+                    </Box>
                 </Box>
             </Box>
         </Box>

@@ -318,9 +318,9 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
             <DetailsPageCard
                 data={season}
                 type="season"
-                isSeasonBookmarked={season.isBookmarked}
-                onBookmarkSeason={onBookmarkSeason}
-                onRemoveBookmarkSeason={onRemoveBookmarkSeason}
+                isBookmarked={season.isBookmarked}
+                onBookmark={onBookmarkSeason}
+                onRemoveBookmark={onRemoveBookmarkSeason}
             />
             <Box
                 sx={{

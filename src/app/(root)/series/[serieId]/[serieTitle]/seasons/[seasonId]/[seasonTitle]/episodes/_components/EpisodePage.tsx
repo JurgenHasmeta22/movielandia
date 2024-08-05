@@ -318,9 +318,9 @@ export default function EpisodePage({ searchParamsValues, episode, latestEpisode
             <DetailsPageCard
                 data={episode}
                 type="episode"
-                isEpisodeBookmarked={episode.isBookmarked}
-                onBookmarkEpisode={onBookmarkEpisode}
-                onRemoveBookmarkEpisode={onRemoveBookmarkEpisode}
+                isBookmarked={episode.isBookmarked}
+                onBookmark={onBookmarkEpisode}
+                onRemoveBookmark={onRemoveBookmarkEpisode}
             />
             <Box
                 sx={{
