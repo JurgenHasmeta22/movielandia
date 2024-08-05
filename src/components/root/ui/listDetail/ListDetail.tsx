@@ -26,13 +26,13 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                             <Typography variant={"h2"} fontSize={28}>
                                 {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
                                 {type === "movie"
-                                    ? " movies"
+                                    ? " Movies"
                                     : type === "serie"
-                                      ? " series"
+                                      ? " Series"
                                       : type === "season"
                                         ? " Seasons"
                                         : type === "episode"
-                                          ? " episodes"
+                                          ? " Episodes"
                                           : ""}
                             </Typography>
                             {type === "actor" && roleData !== "cast" && (

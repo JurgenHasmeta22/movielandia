@@ -36,9 +36,29 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
         return notFound();
     }
 
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/genres/${genre?.id}/${genre?.name}}`;
+
     return {
         title: `${genre?.name} | Watch the Latest Movies and Series of the genre`,
         description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
+        openGraph: {
+            type: "video.tv_show",
+            url: pageUrl,
+            title: `${genre?.name} | Genre`,
+            description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
+            siteName: "MovieLandia24",
+        },
+        twitter: {
+            card: "summary_large_image",
+            site: "@movieLandia24",
+            creator: "movieLandia24",
+            title: `${genre?.name} | Genre`,
+            description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
+        },
+        robots: {
+            index: true,
+            follow: true,
+        },
     };
 }
 
