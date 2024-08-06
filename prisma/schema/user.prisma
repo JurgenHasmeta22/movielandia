@@ -1,0 +1,176 @@
+model User {
+    id                      Int                     @id @default(autoincrement())
+    userName                String
+    email                   String                  @unique
+    password                String
+    role                    String                  @default("User")
+    bio                     String                  @default("")
+    favMovies               UserMovieFavorite[]
+    favSeries               UserSerieFavorite[]
+    favGenres               UserGenreFavorite[]
+    favSeasons              UserSeasonFavorite[]
+    favEpisodes             UserEpisodeFavorite[]
+    favActors               UserActorFavorite[]
+    ratingsInMovie          UserMovieRating[]
+    ratingsInSerie          UserSerieRating[]
+    ratingsInSeason         UserSeasonRating[]
+    ratingsInEpisode        UserEpisodeRating[]
+    ratingsInActor          UserActorRating[]
+    movieReviews            MovieReview[]
+    serieReviews            SerieReview[]
+    seasonReviews           SeasonReview[]
+    episodeReviews          EpisodeReview[]
+    actorReviews            ActorReview[]
+    movieReviewsUpvoted     UpvoteMovieReview[]
+    movieReviewsDownvoted   DownvoteMovieReview[]
+    serieReviewsUpvoted     UpvoteSerieReview[]
+    serieReviewsDownvoted   DownvoteSerieReview[]
+    seasonReviewsUpvoted    UpvoteSeasonReview[]
+    seasonReviewsDownvoted  DownvoteSeasonReview[]
+    episodeReviewsUpvoted   UpvoteEpisodeReview[]
+    episodeReviewsDownvoted DownvoteEpisodeReview[]
+    actorReviewsUpvoted     UpvoteActorReview[]
+    actorReviewsDownvoted   DownvoteActorReview[]
+    avatar                  Avatar?
+    followers               UserFollow[]            @relation("Followers")
+    following               UserFollow[]            @relation("Following")
+    inboxs                   UserInbox[]
+    messagesSent            Message[]               @relation("Sender")
+    messagesReceived        Message[]               @relation("Reciever")
+}
+
+model Avatar {
+    id       Int    @id @default(autoincrement())
+    photoSrc String
+    userId   Int    @unique
+    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserFollow {
+    id          Int    @id @default(autoincrement())
+    state       String
+    follower    User   @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    followerId  Int
+    following   User   @relation("Following", fields: [followingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    followingId Int
+}
+
+model UserInbox {
+    id      Int   @id @default(autoincrement())
+    userId  Int
+    inboxId Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    inbox   Inbox @relation(fields: [inboxId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Inbox {
+    id           Int         @id @default(autoincrement())
+    participants UserInbox[]
+    messages     Message[]
+}
+
+model Message {
+    id         Int      @id @default(autoincrement())
+    text       String
+    sender     User     @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    senderId   Int
+    receiver   User?    @relation("Reciever", fields: [receiverId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    receiverId Int?
+    inbox      Inbox    @relation(fields: [inboxId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    inboxId    Int
+    createdAt  DateTime @default(now())
+    status     String   @default("Pending")
+}
+
+model UserMovieRating {
+    id      Int   @id @default(autoincrement())
+    rating  Float
+    userId  Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    movieId Int
+    movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserSerieRating {
+    id      Int   @id @default(autoincrement())
+    rating  Float
+    userId  Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    serieId Int
+    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserSeasonRating {
+    id       Int    @id @default(autoincrement())
+    rating   Float
+    userId   Int
+    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    seasonId Int
+    season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserEpisodeRating {
+    id        Int     @id @default(autoincrement())
+    rating    Float
+    userId    Int
+    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    episodeId Int
+    episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserActorRating {
+    id      Int   @id @default(autoincrement())
+    rating  Float
+    userId  Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    actorId Int
+    actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserMovieFavorite {
+    id      Int   @id @default(autoincrement())
+    userId  Int
+    movieId Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserGenreFavorite {
+    id      Int   @id @default(autoincrement())
+    userId  Int
+    genreId Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserSerieFavorite {
+    id      Int   @id @default(autoincrement())
+    userId  Int
+    serieId Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserEpisodeFavorite {
+    id        Int     @id @default(autoincrement())
+    userId    Int
+    episodeId Int
+    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserSeasonFavorite {
+    id       Int    @id @default(autoincrement())
+    userId   Int
+    seasonId Int
+    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model UserActorFavorite {
+    id      Int   @id @default(autoincrement())
+    userId  Int
+    actorId Int
+    user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
