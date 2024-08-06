@@ -18,10 +18,11 @@ import Link from "next/link";
 
 interface FavoritesTabProps {
     type: string;
-    user: any | null;
+    userLoggedIn: any | null;
+    userInPage: any | null;
 }
 
-export default function FavoritesTab({ type, user }: FavoritesTabProps) {
+export default function FavoritesTab({ type, userLoggedIn, userInPage }: FavoritesTabProps) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -29,19 +30,19 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
 
     switch (type) {
         case "Movies":
-            favorites = user?.favMovies;
+            favorites = userInPage?.favMovies;
             break;
         case "Series":
-            favorites = user?.favSeries;
+            favorites = userInPage?.favSeries;
             break;
         case "Actors":
-            favorites = user?.favActors;
+            favorites = userInPage?.favActors;
             break;
         case "Seasons":
-            favorites = user?.favSeasons;
+            favorites = userInPage?.favSeasons;
             break;
         case "Episodes":
-            favorites = user?.favEpisodes;
+            favorites = userInPage?.favEpisodes;
             break;
         default:
             favorites = [];
@@ -50,10 +51,14 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
 
     // #region "Remvoing bookmark serie, season, episode, actor"
     async function onRemoveBookmarkMovie(movie: Movie) {
-        if (!user || !movie) return;
+        if (!userLoggedIn || !movie) return;
 
         try {
-            await removeFavoriteMovieToUser(user?.id, movie?.id, "/profile?tab=favMovies");
+            await removeFavoriteMovieToUser(
+                userLoggedIn?.id,
+                movie?.id,
+                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favMovies`,
+            );
             showToast("success", "Movie unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -65,10 +70,14 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
     }
 
     async function onRemoveBookmarkSerie(serie: Serie) {
-        if (!user || !serie) return;
+        if (!userLoggedIn || !serie) return;
 
         try {
-            await removeFavoriteSerieToUser(user.id, serie.id, "/profile?tab=favSeries");
+            await removeFavoriteSerieToUser(
+                userLoggedIn.id,
+                serie.id,
+                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favSeries`,
+            );
             showToast("success", "Serie unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -80,10 +89,14 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
     }
 
     async function onRemoveBookmarkSeason(season: Season) {
-        if (!user || !season) return;
+        if (!userLoggedIn || !season) return;
 
         try {
-            await removeFavoriteSeasonToUser(user?.id, season?.id, "/profile?tab=favSeason");
+            await removeFavoriteSeasonToUser(
+                userLoggedIn?.id,
+                season?.id,
+                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favSeason`,
+            );
             showToast("success", "Season unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -95,10 +108,14 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
     }
 
     async function onRemoveBookmarkEpisode(episode: Episode) {
-        if (!user || !episode) return;
+        if (!userLoggedIn || !episode) return;
 
         try {
-            await removeFavoriteEpisodeToUser(user?.id, episode?.id, "/profile?tab=favEpisodes");
+            await removeFavoriteEpisodeToUser(
+                userLoggedIn?.id,
+                episode?.id,
+                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favEpisodes`,
+            );
             showToast("success", "Episode unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -110,10 +127,14 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
     }
 
     async function onRemoveBookmarkActor(actor: Actor) {
-        if (!user || !actor) return;
+        if (!userLoggedIn || !actor) return;
 
         try {
-            await removeFavoriteActorToUser(user?.id, actor?.id, "/profile?tab=favActors");
+            await removeFavoriteActorToUser(
+                userLoggedIn?.id,
+                actor?.id,
+                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favActors`,
+            );
             showToast("success", "Actor unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -239,47 +260,49 @@ export default function FavoritesTab({ type, user }: FavoritesTabProps) {
                                 </Typography>
                             </Box>
                         </Link>
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: 8,
-                                right: 8,
-                                padding: "4px",
-                                cursor: "pointer",
-                                backgroundColor: colors.primary[200],
-                                borderRadius: "50%",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                            onClick={async (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
+                        {userLoggedIn.id === userInPage.id && (
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    top: 8,
+                                    right: 8,
+                                    padding: "4px",
+                                    cursor: "pointer",
+                                    backgroundColor: colors.primary[200],
+                                    borderRadius: "50%",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                onClick={async (e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
 
-                                switch (type) {
-                                    case "Movies":
-                                        await onRemoveBookmarkMovie(favItem.movie);
-                                        break;
-                                    case "Series":
-                                        await onRemoveBookmarkSerie(favItem.serie);
-                                        break;
-                                    case "Actors":
-                                        await onRemoveBookmarkActor(favItem.actor);
-                                        break;
-                                    case "Seasons":
-                                        await onRemoveBookmarkSeason(favItem.season);
-                                        break;
-                                    case "Episodes":
-                                        await onRemoveBookmarkEpisode(favItem.episode);
-                                        break;
-                                    default:
-                                        console.warn("Unknown type:", type);
-                                        break;
-                                }
-                            }}
-                        >
-                            <ClearIcon sx={{ color: colors.primary[900] }} />
-                        </Box>
+                                    switch (type) {
+                                        case "Movies":
+                                            await onRemoveBookmarkMovie(favItem.movie);
+                                            break;
+                                        case "Series":
+                                            await onRemoveBookmarkSerie(favItem.serie);
+                                            break;
+                                        case "Actors":
+                                            await onRemoveBookmarkActor(favItem.actor);
+                                            break;
+                                        case "Seasons":
+                                            await onRemoveBookmarkSeason(favItem.season);
+                                            break;
+                                        case "Episodes":
+                                            await onRemoveBookmarkEpisode(favItem.episode);
+                                            break;
+                                        default:
+                                            console.warn("Unknown type:", type);
+                                            break;
+                                    }
+                                }}
+                            >
+                                <ClearIcon sx={{ color: colors.primary[900] }} />
+                            </Box>
+                        )}
                     </motion.div>
                 ))}
             </Stack>

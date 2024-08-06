@@ -1,19 +1,9 @@
 import { Metadata } from "next";
-import ProfilePage from "./_components/UserPage";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getUserById } from "@/lib/actions/user.actions";
-import { User } from "@prisma/client";
 import { notFound } from "next/navigation";
+import UserDetails from "./[userName]/page";
+import { getUserById } from "@/lib/actions/user.actions";
 
-interface IUserDetailsProps {
-    params: {
-        userId: string;
-    };
-    searchParams?: { tab?: string };
-}
-
-export async function generateMetadata({ params }: IUserDetailsProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { userId: string } }): Promise<Metadata> {
     const { userId } = params;
 
     let user: any | null = null;
@@ -68,21 +58,6 @@ export async function generateMetadata({ params }: IUserDetailsProps): Promise<M
     };
 }
 
-export default async function UserDetails({ searchParams, params }: IUserDetailsProps) {
-    const tabValue = searchParams?.tab ? searchParams?.tab : "favMovies";
-
-    const userId = params.userId;
-    let userInPage = null;
-
-    const session = await getServerSession(authOptions);
-    const userSession = (session && session.user) || null;
-    const userLoggedIn = await getUserById(Number(userSession?.id));
-
-    try {
-        userInPage = await getUserById(Number(userId));
-    } catch (error) {
-        return notFound();
-    }
-
-    return <ProfilePage userLoggedIn={userLoggedIn} userInPage={userInPage} tabValue={tabValue} />;
+export default function Page({ params }: { params: { userId: string } }) {
+    return <UserDetails params={params} />;
 }

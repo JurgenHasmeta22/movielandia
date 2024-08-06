@@ -55,7 +55,10 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                         }}
                     >
                         <MenuItem onClick={() => closeMenuProfile()} sx={{ color: colors.primary[100] }}>
-                            <Link href="/profile" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                            <Link
+                                href={`/users/${session?.user?.id}/${session?.user?.userName}`}
+                                style={{ textDecoration: "none", color: colors.primary[100] }}
+                            >
                                 <Typography variant="inherit">My Profile</Typography>
                             </Link>
                         </MenuItem>
