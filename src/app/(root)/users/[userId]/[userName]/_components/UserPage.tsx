@@ -32,7 +32,7 @@ import { showToast } from "@/lib/toast/toast";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { on } from "stream";
+import Image from "next/image";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -50,7 +50,7 @@ const userSchema = Yup.object().shape({
 });
 
 export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
-    const [followersExpanded, setFollowersExpanded] = useState<boolean>(true);
+    const [followersExpanded, setFollowersExpanded] = useState<boolean>(false);
 
     const router = useRouter();
     const { openRightPanel } = useRightPanel();
@@ -513,13 +513,25 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             flexWrap: "wrap",
                         }}
                     >
-                        <PersonOutlinedIcon
-                            sx={{
-                                fontSize: 24,
-                                mr: 1,
-                                color: colors.primary[700],
-                            }}
-                        />
+                        {userInPage?.avatar?.photoSrc ? (
+                            <Image
+                                alt={userInPage?.userName}
+                                height={50}
+                                width={50}
+                                style={{
+                                    borderRadius: 20,
+                                }}
+                                src={userInPage?.avatar?.photoSrc}
+                            />
+                        ) : (
+                            <PersonOutlinedIcon
+                                sx={{
+                                    fontSize: 24,
+                                    mr: 1,
+                                    color: colors.primary[700],
+                                }}
+                            />
+                        )}
                         <Typography
                             variant="h3"
                             component="span"

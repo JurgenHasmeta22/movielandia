@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, forwardRef, useState } from "react";
 import { format } from "date-fns";
-import { Avatar, Box, Paper, Typography, IconButton, useTheme, Rating, Button } from "@mui/material";
+import { Box, Paper, Typography, IconButton, useTheme, Rating, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -10,6 +10,9 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { tokens } from "@/utils/theme/theme";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 interface Review {
     id: number;
@@ -26,8 +29,9 @@ interface Review {
         downvotes: number;
     };
     user: {
+        id: number;
         userName: string;
-        avatar: string;
+        avatar: any;
     };
 }
 
@@ -79,7 +83,6 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
             setRating,
             handleUpvote,
             handleDownvote,
-            type,
             handleOpenUpvotesModal,
             handleOpenDownvotesModal,
         },
@@ -90,6 +93,8 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
 
         const [isClickedUpvote, setIsClickedUpvote] = useState(false);
         const [isClickedDownvote, setIsClickedDownvote] = useState(false);
+
+        const router = useRouter();
 
         const theme = useTheme();
         const colors = tokens(theme.palette.mode);
@@ -151,9 +156,31 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             alignItems: "center",
                             flexWrap: "wrap",
                             gap: 1,
+                            cursor: "pointer",
+                        }}
+                        onClick={() => {
+                            router.push(`/users/${review.user.id}/${review.user.userName}`);
                         }}
                     >
-                        <Avatar alt={review.user.userName} src={review.user.avatar} />
+                        {review.user.avatar?.photoSrc ? (
+                            <Image
+                                alt={review.user.userName}
+                                height={50}
+                                width={50}
+                                style={{
+                                    borderRadius: 20,
+                                }}
+                                src={review.user.avatar?.photoSrc}
+                            />
+                        ) : (
+                            <PersonOutlinedIcon
+                                sx={{
+                                    fontSize: 24,
+                                    mr: 1,
+                                    color: colors.primary[500],
+                                }}
+                            />
+                        )}
                         <Typography
                             variant="h6"
                             sx={{
