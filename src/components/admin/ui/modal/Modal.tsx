@@ -20,7 +20,6 @@ import {
     List,
     ListItem,
     ListItemAvatar,
-    Avatar,
     ListItemText,
     CircularProgress,
     Box,
@@ -29,8 +28,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Formik, Form, Field, FormikProps } from "formik";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useStore } from "@/store/store";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 type FieldConfig = {
     name: string;
@@ -153,7 +153,24 @@ const Modal: React.FC<ModalProps> = ({
                                               }}
                                           >
                                               <ListItemAvatar>
-                                                  <Avatar alt={item.user.userName} src={item.user.avatar} />
+                                                  {item.user.avatar?.photoSrc ? (
+                                                      <Image
+                                                          alt={item.user.userName}
+                                                          height={50}
+                                                          width={50}
+                                                          style={{
+                                                              borderRadius: 20,
+                                                          }}
+                                                          src={item.user.avatar?.photoSrc}
+                                                      />
+                                                  ) : (
+                                                      <PersonOutlinedIcon
+                                                          sx={{
+                                                              fontSize: 24,
+                                                              mr: 1,
+                                                          }}
+                                                      />
+                                                  )}
                                               </ListItemAvatar>
                                               <ListItemText primary={item.user.userName} />
                                           </ListItem>
@@ -172,7 +189,24 @@ const Modal: React.FC<ModalProps> = ({
                                               }}
                                           >
                                               <ListItemAvatar>
-                                                  <Avatar alt={item.user.userName} src={item.user.avatar} />
+                                                  {item.user.avatar?.photoSrc ? (
+                                                      <Image
+                                                          alt={item.user.userName}
+                                                          height={50}
+                                                          width={50}
+                                                          style={{
+                                                              borderRadius: 20,
+                                                          }}
+                                                          src={item.user.avatar?.photoSrc}
+                                                      />
+                                                  ) : (
+                                                      <PersonOutlinedIcon
+                                                          sx={{
+                                                              fontSize: 24,
+                                                              mr: 1,
+                                                          }}
+                                                      />
+                                                  )}
                                               </ListItemAvatar>
                                               <ListItemText primary={item.user.userName} />
                                           </ListItem>
@@ -191,12 +225,6 @@ const Modal: React.FC<ModalProps> = ({
                         innerRef={formRef ? formRef : null}
                     >
                         {({ errors, touched, values }) => {
-                            // if (onDataChange) {
-                            //     useEffect(() => {
-                            //         onDataChange(values);
-                            //     }, [values]);
-                            // }
-
                             return (
                                 <Form>
                                     <Grid container spacing={4} mt={"15px"}>
