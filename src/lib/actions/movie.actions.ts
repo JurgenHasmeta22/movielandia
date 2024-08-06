@@ -180,6 +180,7 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
 
                     // @ts-expect-error dunno
                     review.isUpvoted = !!existingUpvote;
+
                     // @ts-expect-error dunno
                     review.isDownvoted = !!existingDownvote;
                 }
@@ -189,6 +190,7 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
                         AND: [{ userId }, { movieId: movie.id }],
                     },
                 });
+
                 isBookmarked = !!existingFavorite;
 
                 const existingReview = await prisma.movieReview.findFirst({
@@ -196,6 +198,7 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
                         AND: [{ userId }, { movieId: movie.id }],
                     },
                 });
+
                 isReviewed = !!existingReview;
             }
 
@@ -218,7 +221,6 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
 
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
-
     const orderByObject: any = {};
     const titleFinal = title
         .split("")
@@ -294,6 +296,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
 
                     // @ts-expect-error dunno
                     review.isUpvoted = !!existingUpvote;
+
                     // @ts-expect-error dunno
                     review.isDownvoted = !!existingDownvote;
                 }
@@ -303,6 +306,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
                         AND: [{ userId }, { movieId: movie.id }],
                     },
                 });
+
                 isBookmarked = !!existingFavorite;
 
                 const existingReview = await prisma.movieReview.findFirst({
@@ -310,6 +314,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
                         AND: [{ userId }, { movieId: movie.id }],
                     },
                 });
+
                 isReviewed = !!existingReview;
             }
 

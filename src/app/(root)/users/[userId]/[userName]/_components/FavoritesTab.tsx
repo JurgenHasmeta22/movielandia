@@ -55,9 +55,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
         try {
             await removeFavoriteMovieToUser(
-                userLoggedIn?.id,
+                Number(userLoggedIn?.id),
                 movie?.id,
-                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favMovies`,
+                `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favMovies`,
             );
             showToast("success", "Movie unbookmarked successfully!");
         } catch (error) {
@@ -74,9 +74,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
         try {
             await removeFavoriteSerieToUser(
-                userLoggedIn.id,
+                Number(userLoggedIn.id),
                 serie.id,
-                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favSeries`,
+                `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favSeries`,
             );
             showToast("success", "Serie unbookmarked successfully!");
         } catch (error) {
@@ -93,9 +93,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
         try {
             await removeFavoriteSeasonToUser(
-                userLoggedIn?.id,
+                Number(userLoggedIn?.id),
                 season?.id,
-                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favSeason`,
+                `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favSeason`,
             );
             showToast("success", "Season unbookmarked successfully!");
         } catch (error) {
@@ -112,9 +112,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
         try {
             await removeFavoriteEpisodeToUser(
-                userLoggedIn?.id,
+                Number(userLoggedIn?.id),
                 episode?.id,
-                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favEpisodes`,
+                `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favEpisodes`,
             );
             showToast("success", "Episode unbookmarked successfully!");
         } catch (error) {
@@ -131,9 +131,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
         try {
             await removeFavoriteActorToUser(
-                userLoggedIn?.id,
+                Number(userLoggedIn?.id),
                 actor?.id,
-                `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favActors`,
+                `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favActors`,
             );
             showToast("success", "Actor unbookmarked successfully!");
         } catch (error) {
@@ -260,7 +260,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                 </Typography>
                             </Box>
                         </Link>
-                        {userLoggedIn.id === userInPage.id && (
+                        {Number(userLoggedIn.id) === userInPage.id && (
                             <Box
                                 sx={{
                                     position: "absolute",
