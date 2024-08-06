@@ -1,0 +1,7 @@
+model Genre {
+    id                   Int                 @id @default(autoincrement())
+    name                 String              @default("")
+    movies               MovieGenre[]
+    series               SerieGenre[]
+    usersWhoBookmarkedIt UserGenreFavorite[]
+}

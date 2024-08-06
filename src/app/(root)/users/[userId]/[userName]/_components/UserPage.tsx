@@ -17,8 +17,9 @@ import { tokens } from "@/utils/theme/theme";
 import FavoritesTab from "./FavoritesTab";
 import { updateUserById } from "@/lib/actions/user.actions";
 
-interface IProfileProps {
-    user: any | null;
+interface IUserPageProps {
+    userLoggedIn: any | null;
+    userInPage: any | null;
     tabValue: string;
 }
 
@@ -31,7 +32,7 @@ const userSchema = Yup.object().shape({
     email: Yup.string().required("Email is a required field").email("Invalid email format"),
 });
 
-export default function Profile({ tabValue, user }: IProfileProps) {
+export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
     const router = useRouter();
 
     const { openRightPanel } = useRightPanel();
@@ -57,9 +58,9 @@ export default function Profile({ tabValue, user }: IProfileProps) {
         openRightPanel({
             formRef: formikRef,
             initialValues: {
-                id: user?.id,
-                userName: user?.userName,
-                email: user?.email,
+                id: userInPage?.id,
+                userName: userInPage?.userName,
+                email: userInPage?.email,
             },
             fields: [
                 {
@@ -126,7 +127,7 @@ export default function Profile({ tabValue, user }: IProfileProps) {
             ],
             subTitle: "Enter the details of the user you want to edit",
         });
-    }, [user, openRightPanel]);
+    }, [userInPage, openRightPanel]);
 
     return (
         <Stack
@@ -169,7 +170,7 @@ export default function Profile({ tabValue, user }: IProfileProps) {
                         }}
                     />
                     <Typography variant="h6" component="span" sx={{ fontWeight: "bold", color: colors.primary[100] }}>
-                        {user?.userName}
+                        {userInPage?.userName}
                     </Typography>
                 </Box>
                 <Box
@@ -183,42 +184,42 @@ export default function Profile({ tabValue, user }: IProfileProps) {
                 >
                     <EmailIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
                     <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                        {user?.email}
+                        {userInPage?.email}
                     </Typography>
                 </Box>
                 <Box mt={2} display={"flex"} rowGap={4} flexDirection={"column"}>
                     <Box display={"flex"} rowGap={1} flexDirection={"column"}>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Favorite Movies:</strong> {user?.favMovies?.length}
+                            <strong>Favorite Movies:</strong> {userInPage?.favMovies?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Favorite Series:</strong> {user?.favSeries?.length}
+                            <strong>Favorite Series:</strong> {userInPage?.favSeries?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Favorite Actors:</strong> {user?.favActors?.length}
+                            <strong>Favorite Actors:</strong> {userInPage?.favActors?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Favorite Episodes:</strong> {user?.favEpisodes?.length}
+                            <strong>Favorite Episodes:</strong> {userInPage?.favEpisodes?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Favorite Seasons:</strong> {user?.favSeasons?.length}
+                            <strong>Favorite Seasons:</strong> {userInPage?.favSeasons?.length}
                         </Typography>
                     </Box>
                     <Box display={"flex"} rowGap={1} flexDirection={"column"}>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Movie Reviews:</strong> {user?.movieReviews?.length}
+                            <strong>Movie Reviews:</strong> {userInPage?.movieReviews?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Series Reviews:</strong> {user?.serieReviews?.length}
+                            <strong>Series Reviews:</strong> {userInPage?.serieReviews?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Actor Reviews:</strong> {user?.actorReviews?.length}
+                            <strong>Actor Reviews:</strong> {userInPage?.actorReviews?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Season Reviews:</strong> {user?.seasonReviews?.length}
+                            <strong>Season Reviews:</strong> {userInPage?.seasonReviews?.length}
                         </Typography>
                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                            <strong>Episode Reviews:</strong> {user?.episodeReviews?.length}
+                            <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
                         </Typography>
                     </Box>
                 </Box>
@@ -295,19 +296,19 @@ export default function Profile({ tabValue, user }: IProfileProps) {
                     />
                 </Tabs>
                 <TabPanel value={tabValueFinal} index={0}>
-                    <FavoritesTab type="Movies" user={user} />
+                    <FavoritesTab type="Movies" user={userInPage} />
                 </TabPanel>
                 <TabPanel value={tabValueFinal} index={1}>
-                    <FavoritesTab type="Series" user={user} />
+                    <FavoritesTab type="Series" user={userInPage} />
                 </TabPanel>
                 <TabPanel value={tabValueFinal} index={2}>
-                    <FavoritesTab type="Actors" user={user} />
+                    <FavoritesTab type="Actors" user={userInPage} />
                 </TabPanel>
                 <TabPanel value={tabValueFinal} index={3}>
-                    <FavoritesTab type="Seasons" user={user} />
+                    <FavoritesTab type="Seasons" user={userInPage} />
                 </TabPanel>
                 <TabPanel value={tabValueFinal} index={4}>
-                    <FavoritesTab type="Episodes" user={user} />
+                    <FavoritesTab type="Episodes" user={userInPage} />
                 </TabPanel>
             </Box>
         </Stack>
