@@ -4,6 +4,7 @@ import { NextFetchEvent, NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequestWithAuth, event: NextFetchEvent) {
     const token = await getToken({ req });
+
     const isAuthenticated = !!token;
     const userRole = token?.role;
 
@@ -33,5 +34,5 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
 }
 
 export const config = {
-    matcher: ["/login", "/register", "/users/:path", "/admin/:path*"],
+    matcher: ["/login", "/register", "/users/:path*", "/admin/:path*"],
 };
