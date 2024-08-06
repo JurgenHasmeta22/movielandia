@@ -15,7 +15,7 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
         return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (req.nextUrl.pathname.startsWith("/profile") && !isAuthenticated) {
+    if (req.nextUrl.pathname.startsWith("/users") && !isAuthenticated) {
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
@@ -33,5 +33,5 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
 }
 
 export const config = {
-    matcher: ["/login", "/register", "/profile", "/admin/:path*"],
+    matcher: ["/login", "/register", "/users/:path", "/admin/:path*"],
 };

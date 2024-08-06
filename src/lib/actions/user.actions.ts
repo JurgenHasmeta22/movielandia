@@ -130,6 +130,7 @@ export async function getUserById(userId: number): Promise<User | null> {
     const result = await prisma.user.findUnique({
         where: { id: userId },
         include: {
+            avatar: true,
             favMovies: { include: { movie: true } },
             favSeries: { include: { serie: true } },
             favActors: { include: { actor: true } },
@@ -150,6 +151,9 @@ export async function getUserById(userId: number): Promise<User | null> {
             episodeReviewsDownvoted: { include: { episodeReview: true, episode: true } },
             actorReviewsUpvoted: { include: { actorReview: true, actor: true } },
             actorReviewsDownvoted: { include: { actorReview: true, actor: true } },
+            messagesReceived: { include: { receiver: true, sender: true } },
+            messagesSent: { include: { receiver: true, sender: true } },
+            inboxs: true,
         },
     });
 
