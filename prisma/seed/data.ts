@@ -4,42 +4,26 @@ export const users = [
     {
         id: 1,
         userName: "admin",
-        email: "admin@example.com",
-        password: "Admin22%",
+        email: "admin@yahoo.com",
+        password: "$2b$10$UBuJtW2y/o43uOoMTVQah.AjA43SPQvG.w18g2P2Xxly6WWvhiMP2", // Encrypted version of "Admin22%"
         role: "Admin",
         bio: "Admin bio test",
     },
     {
         id: 2,
-        userName: "john_doe",
-        email: "john.doe@example.com",
-        password: "User22%",
+        userName: "sasuke22",
+        email: "sasuke@yahoo.com",
+        password: "$2b$10$99kD1L0U7I1o0LRsqAOPoe6oU9I0rIRLMlTx5uqTZ2CF7wErRovOW", // Encrypted version of "Sasuke22%"
         role: "User",
-        bio: "User bio test",
+        bio: "Sasuke bio test",
     },
     {
         id: 3,
-        userName: "jane_doe",
-        email: "jane.doe@example.com",
-        password: "User22%",
+        userName: "naruto22",
+        email: "naruto@yahoo.com",
+        password: "$2b$10$t2I/N7Iq6VpYMBMzR/UH1.Odf6tSCDWpuIicL/OacRL1eiw/64w0a", // Encrypted version of "Naruto22%"
         role: "User",
-        bio: "User bio test",
-    },
-    {
-        id: 4,
-        userName: "alice_smith",
-        email: "alice.smith@example.com",
-        password: "User22%",
-        role: "User",
-        bio: "User bio test",
-    },
-    {
-        id: 5,
-        userName: "bob_jones",
-        email: "bob.jones@example.com",
-        password: "User22%",
-        role: "User",
-        bio: "User bio test",
+        bio: "Naruto bio test",
     },
 ];
 

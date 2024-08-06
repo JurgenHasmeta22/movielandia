@@ -32,9 +32,9 @@ model User {
     actorReviewsUpvoted     UpvoteActorReview[]
     actorReviewsDownvoted   DownvoteActorReview[]
     avatar                  Avatar?
-    followers               UserFollow[]            @relation("Followers")
-    following               UserFollow[]            @relation("Following")
-    inboxs                   UserInbox[]
+    followers               UserFollow[]            @relation("UserFollowing")
+    following               UserFollow[]            @relation("UserFollowers")
+    inboxs                  UserInbox[]
     messagesSent            Message[]               @relation("Sender")
     messagesReceived        Message[]               @relation("Reciever")
 }
@@ -49,9 +49,9 @@ model Avatar {
 model UserFollow {
     id          Int    @id @default(autoincrement())
     state       String
-    follower    User   @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    follower    User   @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     followerId  Int
-    following   User   @relation("Following", fields: [followingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    following   User   @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     followingId Int
 }
 

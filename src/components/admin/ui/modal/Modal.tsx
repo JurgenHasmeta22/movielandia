@@ -29,6 +29,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Formik, Form, Field, FormikProps } from "formik";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useStore } from "@/store/store";
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 type FieldConfig = {
     name: string;
@@ -86,6 +88,8 @@ const Modal: React.FC<ModalProps> = ({
         listModalDataType,
     } = useStore();
 
+    const router = useRouter();
+
     return (
         <Dialog open={true} onClose={onClose ? onClose : () => {}} fullWidth>
             <DialogTitle fontSize={"22px"}>
@@ -141,13 +145,15 @@ const Modal: React.FC<ModalProps> = ({
                                               alignItems="center"
                                               sx={{
                                                   justifyContent: "flex-start",
+                                                  cursor: "pointer",
+                                              }}
+                                              onClick={() => {
+                                                  router.push(`/users/${item.user.id}/${item.user.userName}`);
+                                                  onClose && onClose();
                                               }}
                                           >
                                               <ListItemAvatar>
-                                                  <Avatar
-                                                  // alt={item.user.userName}
-                                                  // src={item.user.avatar}
-                                                  />
+                                                  <Avatar alt={item.user.userName} src={item.user.avatar} />
                                               </ListItemAvatar>
                                               <ListItemText primary={item.user.userName} />
                                           </ListItem>
@@ -158,13 +164,15 @@ const Modal: React.FC<ModalProps> = ({
                                               alignItems="center"
                                               sx={{
                                                   justifyContent: "flex-start",
+                                                  cursor: "pointer",
+                                              }}
+                                              onClick={() => {
+                                                  router.push(`/users/${item.user.id}/${item.user.userName}`);
+                                                  onClose && onClose();
                                               }}
                                           >
                                               <ListItemAvatar>
-                                                  <Avatar
-                                                  // alt={item.user.userName}
-                                                  // src={item.user.avatar}
-                                                  />
+                                                  <Avatar alt={item.user.userName} src={item.user.avatar} />
                                               </ListItemAvatar>
                                               <ListItemText primary={item.user.userName} />
                                           </ListItem>

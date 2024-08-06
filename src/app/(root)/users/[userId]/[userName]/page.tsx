@@ -3,7 +3,6 @@ import ProfilePage from "./_components/UserPage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getUserById } from "@/lib/actions/user.actions";
-import { User } from "@prisma/client";
 import { notFound } from "next/navigation";
 
 interface IUserDetailsProps {
@@ -16,31 +15,31 @@ interface IUserDetailsProps {
 export async function generateMetadata({ params }: IUserDetailsProps): Promise<Metadata> {
     const { userId } = params;
 
-    let user: any | null = null;
+    let userInPage: any | null = null;
 
     try {
-        user = await getUserById(Number(userId));
+        userInPage = await getUserById(Number(userId));
     } catch (error) {
         return notFound();
     }
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/users/${user?.id}/${user?.userName}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/users/${userInPage?.id}/${userInPage?.userName}`;
 
     return {
-        title: `${user?.userName} | User`,
-        description: `${user?.bio}`,
+        title: `${userInPage?.userName} | User`,
+        description: `${userInPage?.bio}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${user?.userName} | User`,
-            description: user?.bio,
-            images: user?.avatar?.photoSrc
+            title: `${userInPage?.userName} | User`,
+            description: userInPage?.bio,
+            images: userInPage?.avatar?.photoSrc
                 ? [
                       {
-                          url: user?.avatar?.photoSrc,
+                          url: userInPage?.avatar?.photoSrc,
                           width: 160,
                           height: 200,
-                          alt: user?.bio,
+                          alt: userInPage?.bio,
                       },
                   ]
                 : [],
@@ -50,13 +49,13 @@ export async function generateMetadata({ params }: IUserDetailsProps): Promise<M
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${user?.userName} | User`,
-            description: user?.bio,
-            images: user?.avatar?.photoSrc
+            title: `${userInPage?.userName} | User`,
+            description: userInPage?.bio,
+            images: userInPage?.avatar?.photoSrc
                 ? [
                       {
-                          url: user?.avatar?.photoSrc,
-                          alt: user?.bio,
+                          url: userInPage?.avatar?.photoSrc,
+                          alt: userInPage?.bio,
                       },
                   ]
                 : [],
@@ -70,19 +69,18 @@ export async function generateMetadata({ params }: IUserDetailsProps): Promise<M
 
 export default async function UserDetails({ searchParams, params }: IUserDetailsProps) {
     const tabValue = searchParams?.tab ? searchParams?.tab : "favMovies";
-
     const userId = params.userId;
-    let userInPage = null;
 
     const session = await getServerSession(authOptions);
     const userSession = (session && session.user) || null;
-    const userLoggedIn = await getUserById(Number(userSession?.id));
+
+    let userInPage = null;
 
     try {
-        userInPage = await getUserById(Number(userId));
+        userInPage = await getUserById(Number(userId), Number(userSession?.id));
     } catch (error) {
         return notFound();
     }
 
-    return <ProfilePage userLoggedIn={userLoggedIn} userInPage={userInPage} tabValue={tabValue} />;
+    return <ProfilePage userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />;
 }

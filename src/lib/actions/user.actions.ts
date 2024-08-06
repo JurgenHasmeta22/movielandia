@@ -71,6 +71,7 @@ interface RemoveReviewEpisodeParams {
 }
 // #endregion
 
+// #region "Utils"
 function getReferer() {
     const headersList = headers();
     const referer = headersList.get("referer");
@@ -81,6 +82,7 @@ function getReferer() {
         return "/";
     }
 }
+// #endregion
 
 // #region "CRUD for Users"
 export async function getUsers({
@@ -126,8 +128,8 @@ export async function getUsers({
     }
 }
 
-export async function getUserById(userId: number): Promise<User | null> {
-    const result = await prisma.user.findUnique({
+export async function getUserById(userId: number, userLoggedInId?: number): Promise<User | null> {
+    const user = await prisma.user.findUnique({
         where: { id: userId },
         include: {
             avatar: true,
@@ -154,33 +156,93 @@ export async function getUserById(userId: number): Promise<User | null> {
             messagesReceived: { include: { receiver: true, sender: true } },
             messagesSent: { include: { receiver: true, sender: true } },
             inboxs: true,
+            followers: {
+                include: { follower: true },
+            },
+            following: {
+                include: { following: true },
+            },
         },
     });
 
-    if (result) {
-        return result;
+    if (user) {
+        let isFollowed: boolean = false;
+        let isFollowedStatus: string | null = null;
+
+        if (userLoggedInId) {
+            const existingFollow = await prisma.userFollow.findFirst({
+                where: {
+                    followerId: userLoggedInId,
+                },
+            });
+
+            if (existingFollow) {
+                isFollowed = true;
+                isFollowedStatus = existingFollow.state;
+            }
+        }
+
+        return { ...user, ...(userLoggedInId && { isFollowed, isFollowedStatus }) };
     } else {
         return null;
     }
 }
 
-export async function getUserByUsername(username: string): Promise<User | null> {
-    const result = await prisma.user.findFirst({
-        where: { userName: username },
+export async function getUserByUsername(userName: string, userLoggedInId: number): Promise<User | null> {
+    const user = await prisma.user.findFirst({
+        where: { userName },
         include: {
+            avatar: true,
             favMovies: { include: { movie: true } },
             favSeries: { include: { serie: true } },
+            favActors: { include: { actor: true } },
+            favEpisodes: { include: { episode: true } },
+            favSeasons: { include: { season: true } },
             movieReviews: { include: { movie: true } },
             serieReviews: { include: { serie: true } },
+            seasonReviews: { include: { season: true } },
+            episodeReviews: { include: { episode: true } },
+            actorReviews: { include: { actor: true } },
             movieReviewsUpvoted: { include: { movieReview: true, movie: true } },
             movieReviewsDownvoted: { include: { movieReview: true, movie: true } },
             serieReviewsUpvoted: { include: { serieReview: true, serie: true } },
             serieReviewsDownvoted: { include: { serieReview: true, serie: true } },
+            seasonReviewsUpvoted: { include: { seasonReview: true, season: true } },
+            seasonReviewsDownvoted: { include: { seasonReview: true, season: true } },
+            episodeReviewsUpvoted: { include: { episodeReview: true, episode: true } },
+            episodeReviewsDownvoted: { include: { episodeReview: true, episode: true } },
+            actorReviewsUpvoted: { include: { actorReview: true, actor: true } },
+            actorReviewsDownvoted: { include: { actorReview: true, actor: true } },
+            messagesReceived: { include: { receiver: true, sender: true } },
+            messagesSent: { include: { receiver: true, sender: true } },
+            inboxs: true,
+            followers: {
+                include: { follower: true },
+            },
+            following: {
+                include: { following: true },
+            },
         },
     });
 
-    if (result) {
-        return result;
+    if (user) {
+        let isFollowed: boolean = false;
+        let isFollowedStatus: string | null = null;
+
+        if (userLoggedInId) {
+            const existingFollow = await prisma.userFollow.findFirst({
+                where: {
+                    followerId: userLoggedInId,
+                },
+            });
+
+            if (existingFollow) {
+                isFollowed = true;
+                isFollowedStatus = existingFollow.state;
+            }
+        }
+
+        return { ...user, ...(userLoggedInId && { isFollowed, isFollowedStatus }) };
     } else {
         return null;
     }
@@ -1953,4 +2015,151 @@ export async function removeDownvoteActorReview({ userId, actorId, actorReviewId
 }
 //#endregion
 
+// #endregion
+
+// #region "Follow, Unfollow Users"
+export async function follow(followerId: number, followingId: number): Promise<void> {
+    try {
+        if (followerId === followingId) {
+            throw new Error("You cannot follow yourself.");
+        }
+
+        const existingFollow = await prisma.userFollow.findFirst({
+            where: {
+                AND: [{ followerId }, { followingId }],
+            },
+        });
+
+        if (existingFollow) {
+            throw new Error("You already follow this user.");
+        }
+
+        const result = await prisma.userFollow.create({
+            data: {
+                followerId,
+                followingId,
+                state: "pending",
+            },
+        });
+
+        if (result) {
+            const referer = getReferer();
+            redirect(`${referer}`);
+        } else {
+            throw new Error("Failed to follow user.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function unfollow(followerId: number, followingId: number): Promise<void> {
+    try {
+        if (followerId === followingId) {
+            throw new Error("You cannot unfollow yourself.");
+        }
+
+        const existingFollow = await prisma.userFollow.findFirst({
+            where: {
+                AND: [{ followerId }, { followingId }],
+            },
+        });
+
+        if (!existingFollow) {
+            throw new Error("You do not follow this user.");
+        }
+
+        const result = await prisma.userFollow.delete({
+            where: {
+                id: existingFollow.id,
+            },
+        });
+
+        if (result) {
+            const referer = getReferer();
+            redirect(`${referer}`);
+        } else {
+            throw new Error("Failed to unfollow user.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function acceptFollowRequest(followerId: number, followingId: number): Promise<void> {
+    try {
+        const followRequest = await prisma.userFollow.findFirst({
+            where: {
+                AND: [{ followerId }, { followingId }, { state: "pending" }],
+            },
+        });
+
+        if (!followRequest) {
+            throw new Error("No pending follow request found.");
+        }
+
+        const result = await prisma.userFollow.update({
+            where: {
+                id: followRequest.id,
+            },
+            data: {
+                state: "accepted",
+            },
+        });
+
+        if (result) {
+            const referer = getReferer();
+            redirect(`${referer}`);
+        } else {
+            throw new Error("Failed to accept follow request.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function refuseFollowRequest(followerId: number, followingId: number): Promise<void> {
+    try {
+        const followRequest = await prisma.userFollow.findFirst({
+            where: {
+                AND: [{ followerId }, { followingId }, { state: "pending" }],
+            },
+        });
+
+        if (!followRequest) {
+            throw new Error("No pending follow request found.");
+        }
+
+        const result = await prisma.userFollow.delete({
+            where: {
+                id: followRequest.id,
+            },
+        });
+
+        if (result) {
+            const referer = getReferer();
+            redirect(`${referer}`);
+        } else {
+            throw new Error("Failed to refuse follow request.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
 // #endregion

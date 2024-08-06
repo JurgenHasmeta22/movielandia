@@ -1,11 +1,23 @@
 "use client";
 
-import { Box, Button, Stack, Tab, Tabs, Typography, useTheme } from "@mui/material";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box,
+    Button,
+    IconButton,
+    Stack,
+    Tab,
+    Tabs,
+    Typography,
+    useTheme,
+} from "@mui/material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import * as Yup from "yup";
@@ -15,7 +27,12 @@ import { useRightPanel } from "@/providers/RightPanelProvider";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
 import FavoritesTab from "./FavoritesTab";
-import { updateUserById } from "@/lib/actions/user.actions";
+import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/lib/actions/user.actions";
+import { showToast } from "@/lib/toast/toast";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import { on } from "stream";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -33,17 +50,18 @@ const userSchema = Yup.object().shape({
 });
 
 export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
-    const router = useRouter();
+    const [followersExpanded, setFollowersExpanded] = useState<boolean>(true);
 
+    const router = useRouter();
     const { openRightPanel } = useRightPanel();
 
     const formikRef = useRef<FormikProps<any>>(null);
-
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const tabValueFinal = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"].indexOf(tabValue);
 
+    // #region "Edit profile handler, tab change handler"
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         const tabRoutes = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"];
 
@@ -129,9 +147,84 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
         });
     }, [userInPage, openRightPanel]);
 
+    // #endregion
+
+    // #region "Follow, Unfollow, accept refuse follow handlers"
+    async function onFollowUser() {
+        if (!userLoggedIn || !userInPage) return;
+
+        try {
+            await follow(Number(userLoggedIn.id), Number(userInPage.id));
+            showToast("success", "The follow request was succesfully made !");
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error making the follow request: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error making a follow request.");
+                showToast("error", "An unexpected error occurred making the follow request.");
+            }
+        }
+    }
+
+    async function onUnfollowser() {
+        if (!userLoggedIn || !userInPage) return;
+
+        try {
+            await unfollow(Number(userLoggedIn.id), Number(userInPage.id));
+            showToast("success", "The follow was succesfully removed!");
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error removing the follow request: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error removing a follow request.");
+                showToast("error", "An unexpected error occurred removing the follow request.");
+            }
+        }
+    }
+
+    async function onAcceptFollowUser(followerId: number) {
+        if (!userLoggedIn || !userInPage) return;
+
+        try {
+            await acceptFollowRequest(followerId, Number(userLoggedIn.id));
+            showToast("success", "The follow was succesfully accepted!");
+            setFollowersExpanded(false);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error accepting the follow request: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error accepting the follow request.");
+                showToast("error", "An unexpected error occurred accepting the follow request.");
+            }
+        }
+    }
+
+    async function onRefuseFollowUser(followerId: number) {
+        if (!userLoggedIn || !userInPage) return;
+
+        try {
+            await refuseFollowRequest(followerId, Number(userLoggedIn.id));
+            showToast("success", "The follow was succesfully refused!");
+            setFollowersExpanded(false);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error refusing the follow request: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error refusing the follow request.");
+                showToast("error", "An unexpected error occurred regusing the follow request.");
+            }
+        }
+    }
+    // #endregion
+
     return (
         <>
-            {userLoggedIn.id === userInPage.id ? (
+            {Number(userLoggedIn.id) === userInPage.id ||
+            (userInPage.isFollowed && userInPage.isFollowedStatus === "accepted") ? (
                 <Stack
                     flexDirection="row"
                     px={4}
@@ -178,6 +271,31 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             >
                                 {userInPage?.userName}
                             </Typography>
+                            {Number(userLoggedIn.id) !== userInPage.id && (
+                                <Button
+                                    variant="outlined"
+                                    onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowser}
+                                    // fullWidth={isMobile}
+                                    sx={{
+                                        color: colors.primary[100],
+                                        bgcolor: !userInPage.isFollowed
+                                            ? colors.redAccent[500]
+                                            : colors.greenAccent[500],
+                                        "&:hover": {
+                                            bgcolor: colors.redAccent[900],
+                                        },
+                                        textTransform: "capitalize",
+                                        fontSize: 16,
+                                        ml: 4,
+                                    }}
+                                >
+                                    {!userInPage.isFollowed
+                                        ? "Follow"
+                                        : userInPage.isFollowed && userInPage.isFollowedStatus === "pending"
+                                          ? "Requested"
+                                          : "Unfollow"}
+                                </Button>
+                            )}
                         </Box>
                         <Box
                             sx={{
@@ -228,16 +346,75 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
                                 </Typography>
                             </Box>
+                            {Number(userLoggedIn.id) === userInPage.id && (
+                                <Box>
+                                    <Accordion
+                                        expanded={followersExpanded}
+                                        onClick={() => setFollowersExpanded(!followersExpanded)}
+                                    >
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                            <Typography variant="body1">
+                                                Follower Requests (
+                                                {
+                                                    userInPage?.followers.filter(
+                                                        (userFollow: any) => userFollow.state === "pending",
+                                                    ).length
+                                                }
+                                                )
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            {userInPage?.followers
+                                                .filter((userFollow: any) => userFollow.state === "pending")
+                                                .map((userFollow: any, index: number) => (
+                                                    <Box
+                                                        key={index}
+                                                        display="flex"
+                                                        alignItems="center"
+                                                        justifyContent="space-between"
+                                                        mb={1}
+                                                    >
+                                                        <Typography variant="body1">
+                                                            {userFollow.follower.userName}
+                                                        </Typography>
+                                                        <Box>
+                                                            <IconButton
+                                                                color="success"
+                                                                aria-label="accept"
+                                                                onClick={() =>
+                                                                    onAcceptFollowUser(userFollow.follower.id)
+                                                                }
+                                                            >
+                                                                <CheckIcon />
+                                                            </IconButton>
+                                                            <IconButton
+                                                                color="error"
+                                                                aria-label="refuse"
+                                                                onClick={() =>
+                                                                    onRefuseFollowUser(userFollow.follower.id)
+                                                                }
+                                                            >
+                                                                <CloseIcon />
+                                                            </IconButton>
+                                                        </Box>
+                                                    </Box>
+                                                ))}
+                                        </AccordionDetails>
+                                    </Accordion>
+                                </Box>
+                            )}
                         </Box>
-                        <Button
-                            onClick={handleEditProfile}
-                            color="secondary"
-                            variant="contained"
-                            sx={{ mt: 2, textTransform: "capitalize", fontSize: 16, fontWeight: 600 }}
-                            size="large"
-                        >
-                            Edit Profile
-                        </Button>
+                        {Number(userLoggedIn.id) === userInPage.id && (
+                            <Button
+                                onClick={handleEditProfile}
+                                color="secondary"
+                                variant="contained"
+                                sx={{ mt: 2, textTransform: "capitalize", fontSize: 16, fontWeight: 600 }}
+                                size="large"
+                            >
+                                Edit Profile
+                            </Button>
+                        )}
                     </Stack>
                     <Box
                         component="section"
@@ -323,20 +500,58 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                     display={"flex"}
                     justifyContent={"center"}
                     alignItems={"center"}
+                    alignContent={"center"}
                     flexDirection="column"
                     rowGap={2}
                     height={"100vh"}
                 >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "start",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <PersonOutlinedIcon
+                            sx={{
+                                fontSize: 24,
+                                mr: 1,
+                                color: colors.primary[700],
+                            }}
+                        />
+                        <Typography
+                            variant="h3"
+                            component="span"
+                            sx={{ fontWeight: "bold", color: colors.primary[100] }}
+                        >
+                            {userInPage?.userName}
+                        </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "start",
+                            columnGap: 0.5,
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <EmailIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
+                        <Typography variant="body1" sx={{ color: colors.primary[100] }}>
+                            {userInPage?.email}
+                        </Typography>
+                    </Box>
                     <Typography variant="body1">
                         You cannot see anything from this user, you have to follow him first
                     </Typography>
                     <Button
                         variant="outlined"
-                        // onClick={isFollowed ? onUnfollow : onFollow}
+                        onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowser}
                         // fullWidth={isMobile}
                         sx={{
                             color: colors.primary[100],
-                            // bgcolor: isFollowed ? colors.redAccent[500] : colors.greenAccent[500],
+                            bgcolor: !userInPage.isFollowed ? colors.redAccent[500] : colors.greenAccent[500],
                             "&:hover": {
                                 bgcolor: colors.redAccent[900],
                             },
@@ -344,8 +559,11 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             fontSize: 16,
                         }}
                     >
-                        Follow
-                        {/* {isFollowed ? "Followed" : "Follow"} */}
+                        {!userInPage.isFollowed
+                            ? "Follow"
+                            : userInPage.isFollowed && userInPage.isFollowedStatus === "pending"
+                              ? "Requested"
+                              : "Unfollow"}
                     </Button>
                 </Box>
             )}
