@@ -14,7 +14,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
@@ -57,6 +57,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    // useEffect(() => {
+    //     setBio(userInPage?.bio || "");
+    //     setUserName(userInPage?.userName || "");
+    //     setEmail(userInPage?.email || "");
+    // }, [userInPage]);
     // #endregion
 
     // #region "Tab logic"
@@ -249,7 +255,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <Box display="flex" flexDirection="row">
                                         <IconButton
                                             onClick={handleSaveEditUserName}
-                                            sx={{ color: colors.primary[100] }}
+                                            sx={{
+                                                color: colors.primary[100],
+                                                "&:hover": {
+                                                    color: colors.greenAccent[700],
+                                                },
+                                            }}
                                         >
                                             <SaveIcon sx={{ pr: 1 }} />
                                             Save
@@ -259,10 +270,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                                 setIsUserNameEditing(false);
                                                 setUserName(userInPage?.userName);
                                             }}
-                                            sx={{ color: colors.primary[100] }}
+                                            sx={{
+                                                color: colors.primary[100],
+                                                "&:hover": {
+                                                    color: colors.greenAccent[700],
+                                                },
+                                            }}
                                         >
                                             <CancelIcon sx={{ pr: 1 }} />
-                                            Cancel
+                                            Discard
                                         </IconButton>
                                     </Box>
                                 </>
@@ -336,7 +352,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         sx={{ marginTop: 2, color: colors.primary[100] }}
                                     />
                                     <Box display="flex" flexDirection="row">
-                                        <IconButton onClick={handleSaveEditEmail} sx={{ color: colors.primary[100] }}>
+                                        <IconButton
+                                            onClick={handleSaveEditEmail}
+                                            sx={{
+                                                color: colors.primary[100],
+                                                "&:hover": {
+                                                    color: colors.greenAccent[700],
+                                                },
+                                            }}
+                                        >
                                             <SaveIcon sx={{ pr: 1 }} />
                                             Save
                                         </IconButton>
@@ -345,10 +369,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                                 setIsEmailEditing(false);
                                                 setEmail(userInPage?.email);
                                             }}
-                                            sx={{ color: colors.primary[100] }}
+                                            sx={{
+                                                color: colors.primary[100],
+                                                "&:hover": {
+                                                    color: colors.greenAccent[700],
+                                                },
+                                            }}
                                         >
                                             <CancelIcon sx={{ pr: 1 }} />
-                                            Cancel
+                                            Discard
                                         </IconButton>
                                     </Box>
                                 </>
@@ -396,7 +425,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         sx={{ marginTop: 2, color: colors.primary[100] }}
                                     />
                                     <Box display="flex" flexDirection="row">
-                                        <IconButton onClick={handleSaveEditBio} sx={{ color: colors.primary[100] }}>
+                                        <IconButton
+                                            onClick={handleSaveEditBio}
+                                            sx={{
+                                                color: colors.primary[100],
+                                                "&:hover": {
+                                                    color: colors.greenAccent[700],
+                                                },
+                                            }}
+                                        >
                                             <SaveIcon sx={{ pr: 1 }} />
                                             Save
                                         </IconButton>
@@ -405,10 +442,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                                 setIsBioEditing(false);
                                                 setBio(userInPage?.bio);
                                             }}
-                                            sx={{ color: colors.primary[100] }}
+                                            sx={{
+                                                color: colors.primary[100],
+                                                "&:hover": {
+                                                    color: colors.greenAccent[700],
+                                                },
+                                            }}
                                         >
                                             <CancelIcon sx={{ pr: 1 }} />
-                                            Cancel
+                                            Discard
                                         </IconButton>
                                     </Box>
                                 </>
@@ -443,98 +485,109 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                 </Box>
                             )}
                         </Box>
-                        <Box mt={2} display={"flex"} rowGap={4} flexDirection={"column"}>
-                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
-                                <Typography variant={"h3"} mb={1}>
-                                    Bookmarks
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Favorite Movies:</strong> {userInPage?.favMovies?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Favorite Series:</strong> {userInPage?.favSeries?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Favorite Actors:</strong> {userInPage?.favActors?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Favorite Episodes:</strong> {userInPage?.favEpisodes?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Favorite Seasons:</strong> {userInPage?.favSeasons?.length}
-                                </Typography>
-                            </Box>
-                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
-                                <Typography variant={"h3"} mb={1}>
-                                    Reviews
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Movie Reviews:</strong> {userInPage?.movieReviews?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Series Reviews:</strong> {userInPage?.serieReviews?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Actor Reviews:</strong> {userInPage?.actorReviews?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Season Reviews:</strong> {userInPage?.seasonReviews?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
-                                </Typography>
-                            </Box>
-                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
-                                <Typography variant={"h3"} mb={1}>
-                                    Upvotes
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Upvoted Movies:</strong> {userInPage?.movieReviewsUpvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Upvoted Series:</strong> {userInPage?.serieReviewsUpvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Upvoted Actors:</strong> {userInPage?.actorReviewsUpvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Upvoted Episodes:</strong> {userInPage?.episodeReviewsUpvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Upvoted Seasons:</strong> {userInPage?.seasonReviewsUpvoted?.length}
-                                </Typography>
-                            </Box>
-                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
-                                <Typography variant={"h3"} mb={1}>
-                                    Downvotes
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Downvoted Movies:</strong> {userInPage?.movieReviewsDownvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Downvoted Series:</strong> {userInPage?.serieReviewsDownvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Downvoted Actors:</strong> {userInPage?.actorReviewsDownvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Downvoted Episodes:</strong> {userInPage?.episodeReviewsDownvoted?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Downvoted Seasons:</strong> {userInPage?.seasonReviewsDownvoted?.length}
-                                </Typography>
-                            </Box>
-                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
-                                <Typography variant={"h3"} mb={1}>
-                                    Social
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Followers:</strong> {userInPage?.followers?.length}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                    <strong>Following:</strong> {userInPage?.following?.length}
-                                </Typography>
-                            </Box>
+                        <Box mt={2} display={"flex"} rowGap={2} flexDirection={"column"}>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography variant="h5">Bookmarks</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Favorite Movies:</strong> {userInPage?.favMovies?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Favorite Series:</strong> {userInPage?.favSeries?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Favorite Actors:</strong> {userInPage?.favActors?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Favorite Episodes:</strong> {userInPage?.favEpisodes?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Favorite Seasons:</strong> {userInPage?.favSeasons?.length}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography variant="h5">Reviews</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Movie Reviews:</strong> {userInPage?.movieReviews?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Series Reviews:</strong> {userInPage?.serieReviews?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Actor Reviews:</strong> {userInPage?.actorReviews?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Season Reviews:</strong> {userInPage?.seasonReviews?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography variant="h5">Upvotes</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Upvoted Movies:</strong> {userInPage?.movieReviewsUpvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Upvoted Series:</strong> {userInPage?.serieReviewsUpvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Upvoted Actors:</strong> {userInPage?.actorReviewsUpvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Upvoted Episodes:</strong> {userInPage?.episodeReviewsUpvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Upvoted Seasons:</strong> {userInPage?.seasonReviewsUpvoted?.length}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography variant="h5">Downvotes</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Downvoted Movies:</strong> {userInPage?.movieReviewsDownvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Downvoted Series:</strong> {userInPage?.serieReviewsDownvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Downvoted Actors:</strong> {userInPage?.actorReviewsDownvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Downvoted Episodes:</strong>{" "}
+                                        {userInPage?.episodeReviewsDownvoted?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Downvoted Seasons:</strong> {userInPage?.seasonReviewsDownvoted?.length}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                            <Accordion>
+                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography variant="h5">Social</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Followers:</strong> {userInPage?.followers?.length}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <strong>Following:</strong> {userInPage?.following?.length}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
                             {Number(userLoggedIn.id) === userInPage.id && (
                                 <Box>
                                     <Accordion
@@ -542,7 +595,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         onClick={() => setFollowersExpanded(!followersExpanded)}
                                     >
                                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                            <Typography variant="body1">
+                                            <Typography variant="h5">
                                                 Follower Requests (
                                                 {
                                                     userInPage?.followers.filter(
