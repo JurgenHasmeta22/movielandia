@@ -14,29 +14,23 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import ClearAllIcon from "@mui/icons-material/ClearAll";
-import SaveAsIcon from "@mui/icons-material/SaveAs";
-import { useCallback, useRef, useState } from "react";
-import { toast } from "react-toastify";
-import * as CONSTANTS from "@/constants/Constants";
-import * as Yup from "yup";
-import { FormikProps } from "formik";
+import { useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
-import { useRightPanel } from "@/providers/RightPanelProvider";
 import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
 import FavoritesTab from "./FavoritesTab";
 import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/lib/actions/user.actions";
 import { showToast } from "@/lib/toast/toast";
+import Image from "next/image";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
 import DescriptionIcon from "@mui/icons-material/Description";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
+import EditIcon from "@mui/icons-material/Edit";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -44,35 +38,29 @@ interface IUserPageProps {
     tabValue: string;
 }
 
-const userSchema = Yup.object().shape({
-    userName: Yup.string()
-        .required("Username is a required field")
-        .min(3, "Username must be at least 3 characters")
-        .max(20, "Username can't be longer than 20 characters")
-        .matches(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
-    email: Yup.string().required("Email is a required field").email("Invalid email format"),
-});
-
 export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
+    // #region "State, hooks, router, theme usage call"
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(
         userInPage?.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,
     );
+
     const [bio, setBio] = useState<string>(userInPage?.bio || "");
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
 
-    const router = useRouter();
-    const { openRightPanel } = useRightPanel();
+    const [userName, setUserName] = useState<string>(userInPage?.userName || "");
+    const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
 
-    const formikRef = useRef<FormikProps<any>>(null);
+    const [email, setEmail] = useState<string>(userInPage?.email || "");
+    const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
+
+    const router = useRouter();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    // #endregion
 
+    // #region "Tab logic"
     const tabValueFinal = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"].indexOf(tabValue);
-
-    // #region "Edit profile handler, tab change handler"
-    const handleBioChange = (event: any) => {
-        setBio(event.target.value);
-    };
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         const tabRoutes = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"];
@@ -83,81 +71,20 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
             console.warn("Unknown tab index:", newValue);
         }
     };
+    // #endregion
 
-    const handleEditProfile = useCallback(() => {
-        openRightPanel({
-            formRef: formikRef,
-            initialValues: {
-                id: userInPage?.id,
-                userName: userInPage?.userName,
-                email: userInPage?.email,
-            },
-            fields: [
-                {
-                    name: "userName",
-                    label: "Username",
-                    variant: "filled",
-                    type: "text",
-                },
-                {
-                    name: "email",
-                    label: "Email",
-                    variant: "filled",
-                    type: "text",
-                },
-            ],
-            validationSchema: userSchema,
-            onSave: async (values: any) => {
-                const payload = {
-                    userName: values.userName,
-                    email: values.email,
-                };
+    // #region "Edit bio, username, email handlers"
+    const handleBioChange = (event: any) => {
+        setBio(event.target.value);
+    };
 
-                const response = await updateUserById(payload, values.id);
+    const handleUserNameChange = (event: any) => {
+        setUserName(event.target.value);
+    };
 
-                if (response) {
-                    toast.success(CONSTANTS.UPDATE__SUCCESS);
-                    router.push("/profile");
-                    router.refresh();
-                } else {
-                    toast.error(CONSTANTS.UPDATE__FAILURE);
-                }
-            },
-            title: "Edit Profile",
-            actions: [
-                {
-                    label: CONSTANTS.FORM__RESET__BUTTON,
-                    onClick: () => {
-                        formikRef.current?.resetForm();
-                    },
-                    type: "reset",
-                    color: "secondary",
-                    variant: "contained",
-                    sx: {
-                        border: "1px solid #000",
-                        bgcolor: "#ff5252",
-                        fontSize: "15px",
-                        fontWeight: "700",
-                    },
-                    icon: <ClearAllIcon />,
-                },
-                {
-                    label: CONSTANTS.FORM__UPDATE__BUTTON,
-                    type: "submit",
-                    color: "secondary",
-                    variant: "contained",
-                    sx: {
-                        border: "1px solid #000",
-                        bgcolor: "#30969f",
-                        fontSize: "15px",
-                        fontWeight: "700",
-                    },
-                    icon: <SaveAsIcon />,
-                },
-            ],
-            subTitle: "Enter the details of the user you want to edit",
-        });
-    }, [userInPage, openRightPanel]);
+    const handleEmailChange = (event: any) => {
+        setEmail(event.target.value);
+    };
 
     async function handleSaveEditBio() {
         try {
@@ -171,6 +98,38 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
             } else {
                 console.error("Unknown error updating bio of user.");
                 showToast("error", "An unexpected error occurred while updating bio of user.");
+            }
+        }
+    }
+
+    async function handleSaveEditUserName() {
+        try {
+            await updateUserById({ userName }, Number(userInPage?.id));
+            showToast("success", "Username updated succesfully");
+            setIsUserNameEditing(false);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error updating the username of user: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error updating username of user.");
+                showToast("error", "An unexpected error occurred while updating username of user.");
+            }
+        }
+    }
+
+    async function handleSaveEditEmail() {
+        try {
+            await updateUserById({ email }, Number(userInPage?.id));
+            showToast("success", "Email updated succesfully");
+            setIsEmailEditing(false);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error updating the email of user: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error updating email of user.");
+                showToast("error", "An unexpected error occurred while updating email of user.");
             }
         }
     }
@@ -194,7 +153,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
         }
     }
 
-    async function onUnfollowser() {
+    async function onUnfollowUser() {
         if (!userLoggedIn || !userInPage) return;
 
         try {
@@ -272,32 +231,77 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             display: "flex",
                             flexDirection: "column",
                             boxShadow: 6,
-                            rowGap: 1,
                             width: ["100%", "100%", "30%", "30%"],
                         }}
                     >
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                flexWrap: "wrap",
-                            }}
-                        >
-                            <PersonOutlinedIcon
-                                sx={{
-                                    fontSize: 24,
-                                    color: colors.primary[700],
-                                }}
-                            />
-                            <Typography variant="h6" component="span" sx={{ color: colors.primary[100] }}>
-                                Username: {userInPage?.userName}
-                            </Typography>
+                        <Box>
+                            {isUserNameEditing ? (
+                                <>
+                                    <TextField
+                                        variant="outlined"
+                                        fullWidth
+                                        value={userName}
+                                        onChange={handleUserNameChange}
+                                        multiline
+                                        rows={2}
+                                        sx={{ marginTop: 2, color: colors.primary[100] }}
+                                    />
+                                    <Box display="flex" flexDirection="row">
+                                        <IconButton
+                                            onClick={handleSaveEditUserName}
+                                            sx={{ color: colors.primary[100] }}
+                                        >
+                                            <SaveIcon sx={{ pr: 1 }} />
+                                            Save
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => {
+                                                setIsUserNameEditing(false);
+                                                setUserName(userInPage?.userName);
+                                            }}
+                                            sx={{ color: colors.primary[100] }}
+                                        >
+                                            <CancelIcon sx={{ pr: 1 }} />
+                                            Cancel
+                                        </IconButton>
+                                    </Box>
+                                </>
+                            ) : (
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        alignItems="center"
+                                        columnGap={0.5}
+                                        flexWrap="wrap"
+                                    >
+                                        <PersonIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                            Username: {userName}
+                                        </Typography>
+                                    </Box>
+                                    {Number(userLoggedIn.id) === userInPage.id && (
+                                        <Button
+                                            variant="text"
+                                            onClick={() => setIsUserNameEditing(true)}
+                                            sx={{
+                                                "&:hover": {
+                                                    bgcolor: colors.greenAccent[700],
+                                                },
+                                                ml: 2,
+                                            }}
+                                        >
+                                            <EditIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                        </Button>
+                                    )}
+                                </Box>
+                            )}
+                        </Box>
+                        <Box>
                             {Number(userLoggedIn.id) !== userInPage.id && (
                                 <Button
                                     variant="outlined"
-                                    onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowser}
-                                    // fullWidth={isMobile}
+                                    onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowUser}
                                     sx={{
                                         color: colors.primary[100],
                                         bgcolor: !userInPage.isFollowed
@@ -307,7 +311,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             bgcolor: colors.redAccent[900],
                                         },
                                         textTransform: "capitalize",
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         ml: 4,
                                     }}
                                 >
@@ -319,21 +323,67 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                 </Button>
                             )}
                         </Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                columnGap: 0.5,
-                                flexWrap: "wrap",
-                            }}
-                        >
-                            <EmailIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
-                            <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                Email: {userInPage?.email}
-                            </Typography>
+                        <Box>
+                            {isEmailEditing ? (
+                                <>
+                                    <TextField
+                                        variant="outlined"
+                                        fullWidth
+                                        value={email}
+                                        onChange={handleEmailChange}
+                                        multiline
+                                        rows={2}
+                                        sx={{ marginTop: 2, color: colors.primary[100] }}
+                                    />
+                                    <Box display="flex" flexDirection="row">
+                                        <IconButton onClick={handleSaveEditEmail} sx={{ color: colors.primary[100] }}>
+                                            <SaveIcon sx={{ pr: 1 }} />
+                                            Save
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => {
+                                                setIsEmailEditing(false);
+                                                setEmail(userInPage?.email);
+                                            }}
+                                            sx={{ color: colors.primary[100] }}
+                                        >
+                                            <CancelIcon sx={{ pr: 1 }} />
+                                            Cancel
+                                        </IconButton>
+                                    </Box>
+                                </>
+                            ) : (
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                    <Box
+                                        display="flex"
+                                        flexDirection="row"
+                                        alignItems="center"
+                                        columnGap={0.5}
+                                        flexWrap="wrap"
+                                    >
+                                        <EmailIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                            Email: {email}
+                                        </Typography>
+                                    </Box>
+                                    {Number(userLoggedIn.id) === userInPage.id && (
+                                        <Button
+                                            variant="text"
+                                            onClick={() => setIsEmailEditing(true)}
+                                            sx={{
+                                                "&:hover": {
+                                                    bgcolor: colors.greenAccent[700],
+                                                },
+                                                ml: 2,
+                                            }}
+                                        >
+                                            <EditIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                        </Button>
+                                    )}
+                                </Box>
+                            )}
                         </Box>
-                        <>
+                        <Box>
                             {isBioEditing ? (
                                 <>
                                     <TextField
@@ -342,19 +392,20 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         value={bio}
                                         onChange={handleBioChange}
                                         multiline
-                                        rows={4}
+                                        rows={2}
                                         sx={{ marginTop: 2, color: colors.primary[100] }}
                                     />
-                                    <Box display={"flex"} flexDirection={"row"}>
-                                        <IconButton onClick={handleSaveEditBio} sx={{ color: colors.primary[700] }}>
+                                    <Box display="flex" flexDirection="row">
+                                        <IconButton onClick={handleSaveEditBio} sx={{ color: colors.primary[100] }}>
                                             <SaveIcon sx={{ pr: 1 }} />
                                             Save
                                         </IconButton>
                                         <IconButton
                                             onClick={() => {
                                                 setIsBioEditing(false);
+                                                setBio(userInPage?.bio);
                                             }}
-                                            sx={{ color: colors.primary[700] }}
+                                            sx={{ color: colors.primary[100] }}
                                         >
                                             <CancelIcon sx={{ pr: 1 }} />
                                             Cancel
@@ -362,45 +413,36 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     </Box>
                                 </>
                             ) : (
-                                <Box display="flex" flexDirection="column">
+                                <Box display="flex" justifyContent="space-between" alignItems="center">
                                     <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            columnGap: 0.5,
-                                            flexWrap: "wrap",
-                                        }}
+                                        display="flex"
+                                        flexDirection="row"
+                                        alignItems="center"
+                                        columnGap={0.5}
+                                        flexWrap="wrap"
                                     >
-                                        <DescriptionIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
+                                        <DescriptionIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
                                         <Typography variant="body2" sx={{ color: colors.primary[100] }}>
                                             Bio: {bio}
                                         </Typography>
                                     </Box>
-                                    <Button
-                                        variant="outlined"
-                                        onClick={() => {
-                                            setIsBioEditing(true);
-                                        }}
-                                        sx={{
-                                            color: colors.primary[100],
-                                            bgcolor: !userInPage.isFollowed
-                                                ? colors.redAccent[500]
-                                                : colors.greenAccent[500],
-                                            "&:hover": {
-                                                bgcolor: colors.redAccent[900],
-                                            },
-                                            textTransform: "capitalize",
-                                            fontSize: 14,
-                                            mt: 2,
-                                            width: "50%",
-                                        }}
-                                    >
-                                        Edit Bio
-                                    </Button>
+                                    {Number(userLoggedIn.id) === userInPage.id && (
+                                        <Button
+                                            variant="text"
+                                            onClick={() => setIsBioEditing(true)}
+                                            sx={{
+                                                "&:hover": {
+                                                    bgcolor: colors.greenAccent[700],
+                                                },
+                                                ml: 2,
+                                            }}
+                                        >
+                                            <EditIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                        </Button>
+                                    )}
                                 </Box>
                             )}
-                        </>
+                        </Box>
                         <Box mt={2} display={"flex"} rowGap={4} flexDirection={"column"}>
                             <Box display={"flex"} rowGap={1} flexDirection={"column"}>
                                 <Typography variant={"h3"} mb={1}>
@@ -551,17 +593,6 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                 </Box>
                             )}
                         </Box>
-                        {Number(userLoggedIn.id) === userInPage.id && (
-                            <Button
-                                onClick={handleEditProfile}
-                                color="secondary"
-                                variant="contained"
-                                sx={{ mt: 2, textTransform: "capitalize", fontSize: 16, fontWeight: 600 }}
-                                size="large"
-                            >
-                                Edit Profile
-                            </Button>
-                        )}
                     </Stack>
                     <Box
                         component="section"
@@ -671,10 +702,10 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                 src={userInPage?.avatar?.photoSrc}
                             />
                         ) : (
-                            <PersonOutlinedIcon
+                            <PersonIcon
                                 sx={{
-                                    fontSize: 24,
-                                    color: colors.primary[700],
+                                    fontSize: 18,
+                                    color: colors.primary[100],
                                 }}
                             />
                         )}
@@ -691,7 +722,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             flexWrap: "wrap",
                         }}
                     >
-                        <EmailIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
+                        <EmailIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
                         <Typography variant="body1" sx={{ color: colors.primary[100] }}>
                             {userInPage?.email}
                         </Typography>
@@ -705,7 +736,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             flexWrap: "wrap",
                         }}
                     >
-                        <DescriptionIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
+                        <DescriptionIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
                         <Typography variant="body1">{userInPage?.bio}</Typography>
                     </Box>
                     <Typography variant="body1">
@@ -713,8 +744,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                     </Typography>
                     <Button
                         variant="outlined"
-                        onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowser}
-                        // fullWidth={isMobile}
+                        onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowUser}
                         sx={{
                             color: colors.primary[100],
                             bgcolor: !userInPage.isFollowed ? colors.redAccent[500] : colors.greenAccent[500],
