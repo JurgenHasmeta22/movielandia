@@ -74,6 +74,11 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                         style={{
                             textDecoration: "none",
                         }}
+                        onClick={() => {
+                            if (openDrawer) {
+                                setOpenDrawer(false);
+                            }
+                        }}
                     >
                         <Button
                             variant="text"
@@ -88,11 +93,6 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                     backgroundColor: colors.greenAccent[700],
                                     color: colors.grey[100],
                                 },
-                            }}
-                            onClick={() => {
-                                if (openDrawer) {
-                                    setOpenDrawer(false);
-                                }
                             }}
                         >
                             <LockOpenIcon />
@@ -110,6 +110,11 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                         style={{
                             textDecoration: "none",
                         }}
+                        onClick={() => {
+                            if (openDrawer) {
+                                setOpenDrawer(false);
+                            }
+                        }}
                     >
                         <Button
                             variant="text"
@@ -124,11 +129,6 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                     backgroundColor: colors.greenAccent[700],
                                     color: colors.grey[100],
                                 },
-                            }}
-                            onClick={() => {
-                                if (openDrawer) {
-                                    setOpenDrawer(false);
-                                }
                             }}
                         >
                             <AppRegistrationIcon />

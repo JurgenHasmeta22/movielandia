@@ -24,7 +24,7 @@ interface IHeaderContent {
 export function HeaderContent({ session, genres }: IHeaderContent) {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
-    const { mobileOpen, setOpenDrawer, setMobileOpen } = useStore();
+    const { mobileOpen, openDrawer, setOpenDrawer, setMobileOpen } = useStore();
 
     const router = useRouter();
 
@@ -52,8 +52,13 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
     const handleSignOut = async () => {
         closeMenuProfile();
         await signOut({ redirect: false });
-        router.push("/login");
+
+        if (openDrawer) {
+            setOpenDrawer(false);
+        }
+
         // this does a full server component rerender too not only client so is very useful here
+        router.push("/login");
         router.refresh();
     };
 
