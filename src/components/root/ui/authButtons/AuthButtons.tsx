@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
+import { Button, Typography, Menu, MenuItem, useTheme, Box, colors } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { tokens } from "@/utils/theme/theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
+import { useStore } from "@/store/store";
 
 interface IAuthButtons {
     session: Session | null;
@@ -19,7 +19,7 @@ interface IAuthButtons {
 }
 
 const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
-    const router = useRouter();
+    const { openDrawer, setOpenDrawer } = useStore();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -89,6 +89,11 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                     color: colors.grey[100],
                                 },
                             }}
+                            onClick={() => {
+                                if (openDrawer) {
+                                    setOpenDrawer(false);
+                                }
+                            }}
                         >
                             <LockOpenIcon />
                             <Typography
@@ -119,6 +124,11 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                     backgroundColor: colors.greenAccent[700],
                                     color: colors.grey[100],
                                 },
+                            }}
+                            onClick={() => {
+                                if (openDrawer) {
+                                    setOpenDrawer(false);
+                                }
                             }}
                         >
                             <AppRegistrationIcon />
