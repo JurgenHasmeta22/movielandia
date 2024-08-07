@@ -10,6 +10,7 @@ import {
     Stack,
     Tab,
     Tabs,
+    TextField,
     Typography,
     useTheme,
 } from "@mui/material";
@@ -33,6 +34,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
+import DescriptionIcon from "@mui/icons-material/Description";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -50,7 +54,11 @@ const userSchema = Yup.object().shape({
 });
 
 export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
-    const [followersExpanded, setFollowersExpanded] = useState<boolean>(false);
+    const [followersExpanded, setFollowersExpanded] = useState<boolean>(
+        userInPage?.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,
+    );
+    const [bio, setBio] = useState<string>(userInPage?.bio || "");
+    const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
 
     const router = useRouter();
     const { openRightPanel } = useRightPanel();
@@ -62,7 +70,11 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
     const tabValueFinal = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"].indexOf(tabValue);
 
     // #region "Edit profile handler, tab change handler"
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleBioChange = (event: any) => {
+        setBio(event.target.value);
+    };
+
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         const tabRoutes = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"];
 
         if (newValue >= 0 && newValue < tabRoutes.length) {
@@ -147,6 +159,21 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
         });
     }, [userInPage, openRightPanel]);
 
+    async function handleSaveEditBio() {
+        try {
+            await updateUserById({ bio }, Number(userInPage?.id));
+            showToast("success", "Bio updated succesfully");
+            setIsBioEditing(false);
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error(`Error updating the bio of user: ${error.message}`);
+                showToast("error", `An error occurred: ${error.message}`);
+            } else {
+                console.error("Unknown error updating bio of user.");
+                showToast("error", "An unexpected error occurred while updating bio of user.");
+            }
+        }
+    }
     // #endregion
 
     // #region "Follow, Unfollow, accept refuse follow handlers"
@@ -260,16 +287,11 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <PersonOutlinedIcon
                                 sx={{
                                     fontSize: 24,
-                                    mr: 1,
                                     color: colors.primary[700],
                                 }}
                             />
-                            <Typography
-                                variant="h6"
-                                component="span"
-                                sx={{ fontWeight: "bold", color: colors.primary[100] }}
-                            >
-                                {userInPage?.userName}
+                            <Typography variant="h6" component="span" sx={{ color: colors.primary[100] }}>
+                                Username: {userInPage?.userName}
                             </Typography>
                             {Number(userLoggedIn.id) !== userInPage.id && (
                                 <Button
@@ -308,11 +330,82 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                         >
                             <EmailIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
                             <Typography variant="body2" sx={{ color: colors.primary[100] }}>
-                                {userInPage?.email}
+                                Email: {userInPage?.email}
                             </Typography>
                         </Box>
+                        <>
+                            {isBioEditing ? (
+                                <>
+                                    <TextField
+                                        variant="outlined"
+                                        fullWidth
+                                        value={bio}
+                                        onChange={handleBioChange}
+                                        multiline
+                                        rows={4}
+                                        sx={{ marginTop: 2, color: colors.primary[100] }}
+                                    />
+                                    <Box display={"flex"} flexDirection={"row"}>
+                                        <IconButton onClick={handleSaveEditBio} sx={{ color: colors.primary[700] }}>
+                                            <SaveIcon sx={{ pr: 1 }} />
+                                            Save
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => {
+                                                setIsBioEditing(false);
+                                            }}
+                                            sx={{ color: colors.primary[700] }}
+                                        >
+                                            <CancelIcon sx={{ pr: 1 }} />
+                                            Cancel
+                                        </IconButton>
+                                    </Box>
+                                </>
+                            ) : (
+                                <Box display="flex" flexDirection="column">
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            columnGap: 0.5,
+                                            flexWrap: "wrap",
+                                        }}
+                                    >
+                                        <DescriptionIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
+                                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                            Bio: {bio}
+                                        </Typography>
+                                    </Box>
+                                    <Button
+                                        variant="outlined"
+                                        onClick={() => {
+                                            setIsBioEditing(true);
+                                        }}
+                                        sx={{
+                                            color: colors.primary[100],
+                                            bgcolor: !userInPage.isFollowed
+                                                ? colors.redAccent[500]
+                                                : colors.greenAccent[500],
+                                            "&:hover": {
+                                                bgcolor: colors.redAccent[900],
+                                            },
+                                            textTransform: "capitalize",
+                                            fontSize: 14,
+                                            mt: 2,
+                                            width: "50%",
+                                        }}
+                                    >
+                                        Edit Bio
+                                    </Button>
+                                </Box>
+                            )}
+                        </>
                         <Box mt={2} display={"flex"} rowGap={4} flexDirection={"column"}>
                             <Box display={"flex"} rowGap={1} flexDirection={"column"}>
+                                <Typography variant={"h3"} mb={1}>
+                                    Bookmarks
+                                </Typography>
                                 <Typography variant="body2" sx={{ color: colors.primary[100] }}>
                                     <strong>Favorite Movies:</strong> {userInPage?.favMovies?.length}
                                 </Typography>
@@ -330,6 +423,9 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                 </Typography>
                             </Box>
                             <Box display={"flex"} rowGap={1} flexDirection={"column"}>
+                                <Typography variant={"h3"} mb={1}>
+                                    Reviews
+                                </Typography>
                                 <Typography variant="body2" sx={{ color: colors.primary[100] }}>
                                     <strong>Movie Reviews:</strong> {userInPage?.movieReviews?.length}
                                 </Typography>
@@ -344,6 +440,57 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                 </Typography>
                                 <Typography variant="body2" sx={{ color: colors.primary[100] }}>
                                     <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
+                                </Typography>
+                            </Box>
+                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
+                                <Typography variant={"h3"} mb={1}>
+                                    Upvotes
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Upvoted Movies:</strong> {userInPage?.movieReviewsUpvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Upvoted Series:</strong> {userInPage?.serieReviewsUpvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Upvoted Actors:</strong> {userInPage?.actorReviewsUpvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Upvoted Episodes:</strong> {userInPage?.episodeReviewsUpvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Upvoted Seasons:</strong> {userInPage?.seasonReviewsUpvoted?.length}
+                                </Typography>
+                            </Box>
+                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
+                                <Typography variant={"h3"} mb={1}>
+                                    Downvotes
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Downvoted Movies:</strong> {userInPage?.movieReviewsDownvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Downvoted Series:</strong> {userInPage?.serieReviewsDownvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Downvoted Actors:</strong> {userInPage?.actorReviewsDownvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Downvoted Episodes:</strong> {userInPage?.episodeReviewsDownvoted?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Downvoted Seasons:</strong> {userInPage?.seasonReviewsDownvoted?.length}
+                                </Typography>
+                            </Box>
+                            <Box display={"flex"} rowGap={1} flexDirection={"column"}>
+                                <Typography variant={"h3"} mb={1}>
+                                    Social
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Followers:</strong> {userInPage?.followers?.length}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <strong>Following:</strong> {userInPage?.following?.length}
                                 </Typography>
                             </Box>
                             {Number(userLoggedIn.id) === userInPage.id && (
@@ -426,7 +573,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             width: ["100%", "100%", "65%", "65%"],
                         }}
                     >
-                        <Tabs value={tabValueFinal} onChange={handleChange} variant="fullWidth">
+                        <Tabs value={tabValueFinal} onChange={handleTabChange} variant="fullWidth">
                             <Tab
                                 label="Favorite Movies"
                                 sx={{
@@ -527,16 +674,11 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <PersonOutlinedIcon
                                 sx={{
                                     fontSize: 24,
-                                    mr: 1,
                                     color: colors.primary[700],
                                 }}
                             />
                         )}
-                        <Typography
-                            variant="h3"
-                            component="span"
-                            sx={{ fontWeight: "bold", color: colors.primary[100] }}
-                        >
+                        <Typography variant="h3" component="span" sx={{ color: colors.primary[100] }}>
                             {userInPage?.userName}
                         </Typography>
                     </Box>
@@ -553,6 +695,18 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                         <Typography variant="body1" sx={{ color: colors.primary[100] }}>
                             {userInPage?.email}
                         </Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "start",
+                            columnGap: 0.5,
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <DescriptionIcon sx={{ fontSize: 20, color: colors.primary[700] }} />
+                        <Typography variant="body1">{userInPage?.bio}</Typography>
                     </Box>
                     <Typography variant="body1">
                         You cannot see anything from this user, you have to follow him first

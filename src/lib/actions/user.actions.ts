@@ -248,16 +248,25 @@ export async function getUserByUsername(userName: string, userLoggedInId: number
     }
 }
 
-export async function updateUserById(userParam: Prisma.UserUpdateInput, id: string): Promise<User | null> {
-    const updatedUser = await prisma.user.update({
-        where: { id: Number(id) },
-        data: userParam,
-    });
+export async function updateUserById(userParam: Prisma.UserUpdateInput, id: number): Promise<User | null> {
+    try {
+        const updatedUser = await prisma.user.update({
+            where: { id },
+            data: userParam,
+        });
 
-    if (updatedUser) {
-        return updatedUser;
-    } else {
-        return null;
+        if (updatedUser) {
+            const referer = getReferer();
+            redirect(`${referer}`);
+        } else {
+            throw new Error("Failed to update user.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
     }
 }
 
