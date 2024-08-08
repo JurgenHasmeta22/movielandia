@@ -43,7 +43,12 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
 
     return (
         <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
-            <Link href={getPath()}>
+            <Link
+                href={getPath()}
+                onClick={(e: any) => {
+                    e.stopPropagation();
+                }}
+            >
                 <Card
                     sx={{
                         display: "flex",
@@ -71,15 +76,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             },
                         }}
                     >
-                        <Image
-                            src={data.photoSrcProd}
-                            alt={`${data.description}`}
-                            height={280}
-                            width={180}
-                            style={{
-                                objectFit: "cover",
-                            }}
-                        />
+                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={280} width={180} />
                         <Box
                             className="hoverOverlay"
                             sx={{
