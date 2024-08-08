@@ -39,10 +39,12 @@ const HomeHeroSection = () => {
                 <Image
                     src="/images/backgrounds/netflix.png"
                     alt="Background Image"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
                     quality={100}
                     priority
+                    style={{
+                        objectFit: "cover",
+                    }}
                 />
                 <Box
                     sx={{

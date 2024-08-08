@@ -232,7 +232,6 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                                   ? favItem.season.title
                                                   : favItem.episode.title
                                     }
-                                    layout="responsive"
                                     height={200}
                                     width={150}
                                     style={{ borderRadius: "8px" }}
