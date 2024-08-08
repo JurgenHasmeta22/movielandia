@@ -52,9 +52,8 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                     <Image
                         src={data.photoSrcProd}
                         alt={type !== "actor" ? data.title : data.fullname}
-                        layout="fill"
-                        objectFit="cover"
-                        style={{ borderRadius: "8px" }}
+                        fill
+                        style={{ borderRadius: "8px", objectFit: "cover" }}
                     />
                 </Box>
                 <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>

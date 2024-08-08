@@ -74,9 +74,11 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                         <Image
                             src={data.photoSrcProd}
                             alt={`${data.description}`}
-                            objectFit="cover"
                             height={250}
                             width={180}
+                            style={{
+                                objectFit: "cover",
+                            }}
                         />
                         <Box
                             className="hoverOverlay"

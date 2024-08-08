@@ -88,11 +88,10 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                         <Image
                             src={element.photoSrcProd}
                             alt={`Slide ${index}`}
-                            layout="fill"
-                            objectFit="fill"
+                            fill
                             quality={100}
                             priority
-                            style={{ objectPosition: "center" }}
+                            style={{ objectPosition: "center", objectFit: "fill" }}
                         />
                         <Box
                             sx={{
