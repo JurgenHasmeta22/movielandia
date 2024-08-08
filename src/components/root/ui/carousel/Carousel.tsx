@@ -82,7 +82,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
     };
 
     return (
-        <Box sx={{ position: "relative", height: isMobile ? "130vh" : "90vh", overflow: "hidden" }} mt={4}>
+        <Box sx={{ position: "relative", height: isMobile ? "130vh" : "90vh", overflow: "hidden" }} mt={6}>
             <Slider {...settings}>
                 {data.map((element, index) => (
                     <Box
@@ -127,7 +127,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "flex-end",
-                                    p: 4,
+                                    p: 6,
                                 }}
                             >
                                 <Typography variant="h1" gutterBottom>

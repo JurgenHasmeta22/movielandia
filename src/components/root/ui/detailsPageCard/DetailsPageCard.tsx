@@ -53,7 +53,9 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                     <Image
                         src={data.photoSrcProd}
                         alt={type !== "actor" ? data.title : data.fullname}
-                        fill
+                        height={317}
+                        width={220}
+                        priority={true}
                         style={{ borderRadius: "8px", objectFit: "cover" }}
                     />
                 </Box>
@@ -66,7 +68,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
                                 <Chip
                                     label={genre.genre.name}
-                                    component="a"
+                                    component="div"
                                     clickable
                                     sx={{
                                         bgcolor: colors.primary[600],
@@ -90,7 +92,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <CalendarToday fontSize="small" />
-                            <Typography variant="body1">Aired on : {formatDate(data.dateAired)}</Typography>
+                            <Typography variant="body1">Aired on: {formatDate(data.dateAired)}</Typography>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <Star fontSize="small" />
