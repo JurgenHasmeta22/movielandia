@@ -76,7 +76,7 @@ const GenreAdminPage = () => {
     };
 
     async function getGenre(): Promise<void> {
-        const response: Genre | null = await getGenreById(Number(params.id));
+        const response: Genre | null = await getGenreById(Number(params.id), {});
 
         if (response) setGenre(response);
     }
@@ -140,7 +140,6 @@ const GenreAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                                             const response = await deleteGenreById(genre?.id!);
 
                                             if (response) {

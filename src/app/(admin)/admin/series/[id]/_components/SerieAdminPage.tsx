@@ -78,7 +78,7 @@ const SerieAdminPage = () => {
     };
 
     async function getSerie(): Promise<void> {
-        const response: Serie | null = await getSerieById(Number(params.id));
+        const response: Serie | null = await getSerieById(Number(params.id), {});
 
         if (response) {
             setSerie(response);
@@ -165,7 +165,6 @@ const SerieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                                             const response = await deleteSerieById(serie?.id!);
 
                                             if (response) {
