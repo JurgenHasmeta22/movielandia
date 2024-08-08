@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
@@ -13,7 +13,6 @@ import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useResizeWindow } from "@/hooks/useResizeWindow";
 import HeaderMobile from "../headerMobile/HeaderMobile";
 
 interface IHeaderContent {
@@ -24,14 +23,13 @@ interface IHeaderContent {
 export function HeaderContent({ session, genres }: IHeaderContent) {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
-    const { mobileOpen, openDrawer, setOpenDrawer, setMobileOpen } = useStore();
+    const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const router = useRouter();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
-    const isPageShrunk = useResizeWindow();
+    const isMobile = useMediaQuery("(max-width:768px)");
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenres(event.currentTarget);
@@ -51,25 +49,17 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
 
     const handleSignOut = async () => {
         closeMenuProfile();
+
         await signOut({ redirect: false });
 
-        if (openDrawer) {
-            setOpenDrawer(false);
+        if (isDrawerOpen) {
+            setIsDrawerOpen(false);
         }
 
         // this does a full server component rerender too not only client so is very useful here
         router.push("/login");
         router.refresh();
     };
-
-    useEffect(() => {
-        if (isPageShrunk) {
-            setMobileOpen(true);
-        } else {
-            setMobileOpen(false);
-            setOpenDrawer(false);
-        }
-    }, [isPageShrunk]);
 
     return (
         <>
@@ -78,21 +68,21 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: `${mobileOpen ? "start" : "space-around"}`,
+                        justifyContent: `${isMobile ? "start" : "space-around"}`,
                         flexWrap: "wrap",
                         py: 2,
                         backgroundColor: colors.primary[900],
                     }}
                     component={"nav"}
                 >
-                    {mobileOpen ? (
+                    {isMobile ? (
                         <Box>
                             <IconButton
                                 color="inherit"
                                 aria-label="open drawer"
                                 edge="start"
                                 onClick={() => {
-                                    setOpenDrawer(true);
+                                    setIsDrawerOpen(true);
                                 }}
                             >
                                 <MenuIcon />
