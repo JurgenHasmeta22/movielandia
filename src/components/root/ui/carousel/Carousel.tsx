@@ -65,9 +65,6 @@ const CustomPrevArrow = (props: any) => {
 };
 
 const Carousel = ({ data, type }: ICarouselProps) => {
-    // const isMobile = useMediaQuery("(max-width:600px)");
-    // const isTablet = useMediaQuery("(max-width:960px)");
-
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 

@@ -19,7 +19,7 @@ interface IAuthButtons {
 }
 
 const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
-    const { openDrawer, setOpenDrawer } = useStore();
+    const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -75,8 +75,8 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                             textDecoration: "none",
                         }}
                         onClick={() => {
-                            if (openDrawer) {
-                                setOpenDrawer(false);
+                            if (isDrawerOpen) {
+                                setIsDrawerOpen(false);
                             }
                         }}
                     >
@@ -111,8 +111,8 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                             textDecoration: "none",
                         }}
                         onClick={() => {
-                            if (openDrawer) {
-                                setOpenDrawer(false);
+                            if (isDrawerOpen) {
+                                setIsDrawerOpen(false);
                             }
                         }}
                     >

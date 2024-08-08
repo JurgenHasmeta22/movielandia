@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, colors, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
+import { Box, colors, List, ListItem, Menu, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
 import { tokens } from "@/utils/theme/theme";
 import { Genre } from "@prisma/client";
@@ -17,10 +17,11 @@ interface IHeaderLinks {
 }
 
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
-    const { mobileOpen, openDrawer, setOpenDrawer } = useStore();
+    const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const isMobile = useMediaQuery("(max-width:768px)");
 
     return (
         <>
@@ -35,12 +36,12 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         alignItems: "center",
                         fontSize: 24,
                         color: colors.primary[100],
-                        marginLeft: mobileOpen ? 8 : 0,
-                        marginBottom: mobileOpen ? 3 : 0,
+                        marginLeft: isMobile ? 8 : 0,
+                        marginBottom: isMobile ? 3 : 0,
                     }}
                     onClick={() => {
-                        if (openDrawer) {
-                            setOpenDrawer(false);
+                        if (isDrawerOpen) {
+                            setIsDrawerOpen(false);
                         }
                     }}
                 >
@@ -48,7 +49,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                 </Link>
             </Box>
             <Box>
-                <List sx={{ display: "flex", flexDirection: `${mobileOpen ? "column" : "row"}`, columnGap: 2 }}>
+                <List sx={{ display: "flex", flexDirection: `${isMobile ? "column" : "row"}`, columnGap: 2 }}>
                     <ListItem>
                         <Link
                             href="/movies"
@@ -62,8 +63,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 color: colors.primary[100],
                             }}
                             onClick={() => {
-                                if (openDrawer) {
-                                    setOpenDrawer(false);
+                                if (isDrawerOpen) {
+                                    setIsDrawerOpen(false);
                                 }
                             }}
                         >
@@ -84,8 +85,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 color: colors.primary[100],
                             }}
                             onClick={() => {
-                                if (openDrawer) {
-                                    setOpenDrawer(false);
+                                if (isDrawerOpen) {
+                                    setIsDrawerOpen(false);
                                 }
                             }}
                         >
@@ -116,8 +117,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                         color: colors.primary[100],
                                     }}
                                     onClick={() => {
-                                        if (openDrawer) {
-                                            setOpenDrawer(false);
+                                        if (isDrawerOpen) {
+                                            setIsDrawerOpen(false);
                                         }
                                     }}
                                 >
@@ -155,8 +156,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 color: colors.primary[100],
                             }}
                             onClick={() => {
-                                if (openDrawer) {
-                                    setOpenDrawer(false);
+                                if (isDrawerOpen) {
+                                    setIsDrawerOpen(false);
                                 }
                             }}
                         >

@@ -28,7 +28,7 @@ export default function HeaderMobile({
     session,
 }: IHeaderMenu) {
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
-    const { openDrawer, setOpenDrawer } = useStore();
+    const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const openMenuGenresMobile = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenresMobile(event.currentTarget);
@@ -39,11 +39,11 @@ export default function HeaderMobile({
     };
 
     const handleDrawerToggle = () => {
-        setOpenDrawer(false);
+        setIsDrawerOpen(false);
     };
 
     return (
-        <Drawer variant="persistent" open={openDrawer} onClose={handleDrawerToggle} component={"aside"}>
+        <Drawer variant="persistent" open={isDrawerOpen} onClose={handleDrawerToggle} component={"aside"}>
             <Box>
                 <Box
                     sx={{
@@ -55,7 +55,7 @@ export default function HeaderMobile({
                 >
                     <IconButton
                         onClick={() => {
-                            setOpenDrawer(false);
+                            setIsDrawerOpen(false);
                         }}
                     >
                         <CloseOutlined />
