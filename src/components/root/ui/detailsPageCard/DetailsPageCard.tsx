@@ -6,6 +6,7 @@ import Link from "next/link";
 import { tokens } from "@/utils/theme/theme";
 import { useSession } from "next-auth/react";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import { formatDate } from "@/utils/helpers/utils";
 
 interface IDetailsPageCardProps {
     data: any;
@@ -89,7 +90,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <CalendarToday fontSize="small" />
-                            <Typography variant="body1">Aired on : {data.dateAired}</Typography>
+                            <Typography variant="body1">Aired on : {formatDate(data.dateAired)}</Typography>
                         </Box>
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <Star fontSize="small" />

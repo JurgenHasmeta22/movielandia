@@ -1,3 +1,5 @@
+import { parse, format } from "date-fns";
+
 export function toFirstWordUpperCase(str: string) {
     if (str) {
         const strFinal = str
@@ -40,3 +42,8 @@ export function getRandomElements<T>(array: T[], count: number): T[] {
 
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
     stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
+
+export const formatDate = (dateString: string) => {
+    const date = parse(dateString, "dd/MM/yyyy", new Date());
+    return format(date, "dd MMMM, yyyy");
+};
