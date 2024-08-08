@@ -1984,6 +1984,7 @@ export const castSeries = [
     { id: 40, serieId: 14, actorId: 16 },
 ];
 
+// #region "Custom script for writting in file and generating stuff"
 // const seasons: any = [];
 // const episodes: any = [];
 
@@ -2050,3 +2051,4 @@ export const castSeries = [
 //         console.log("data.ts file has been written successfully.");
 //     }
 // });
+// #endregion

@@ -38,7 +38,9 @@
         "no-debugger": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "off",
-        "no-unused-imports": "off"
+        "no-unused-imports": "off",
+        "import/no-named-as-default": "off",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off"
     },
     "settings": {
         "react": {

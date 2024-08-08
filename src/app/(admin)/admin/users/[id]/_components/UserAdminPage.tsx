@@ -65,7 +65,7 @@ const UserAdmin = () => {
             password: values.password,
         };
 
-        const response: User | null = await updateUserById(payload, String(user?.id));
+        const response: User | null = await updateUserById(payload, Number(user?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
@@ -149,7 +149,6 @@ const UserAdmin = () => {
                                         onClick: async () => {
                                             setOpen(false);
 
-                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                                             const response = await deleteUserById(user?.id!);
 
                                             if (response) {

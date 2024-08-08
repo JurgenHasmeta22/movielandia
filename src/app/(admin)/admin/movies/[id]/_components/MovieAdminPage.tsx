@@ -84,7 +84,7 @@ const MovieAdminPage = () => {
     };
 
     async function getMovie(): Promise<void> {
-        const response: Movie | null = await getMovieById(Number(params.id));
+        const response: Movie | null = await getMovieById(Number(params.id), {});
 
         if (response) setMovie(response);
     }
@@ -190,7 +190,6 @@ const MovieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
                                             const response = await deleteMovieById(movie?.id!);
 
                                             if (response) {
