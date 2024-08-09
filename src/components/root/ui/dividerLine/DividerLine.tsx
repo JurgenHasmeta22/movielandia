@@ -1,11 +1,9 @@
 "use client";
 
 import { Divider, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme/theme";
 
 export default function DividerLine() {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
-    return <Divider sx={{ borderBottomWidth: 3, mt: 1, background: colors.primary[100] }} />;
+    return <Divider sx={{ borderBottomWidth: 3, mt: 1, background: theme.vars.palette.primary.main }} />;
 }

@@ -17,7 +17,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import { useStore } from "@/store/store";
-import { tokens } from "@/utils/theme/theme";
+
 import { SidebarItem } from "./components/SidebarItem";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
@@ -32,8 +32,7 @@ const Sidebar = ({ sidebarItems }: any) => {
 
     const router = useRouter();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     const handleItemClick = (title: string, to: string) => {
         setSelectedLabel(title);
@@ -74,7 +73,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                         <AccountCircleIcon />
                     </Avatar>
                     <Box ml={2}>
-                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                             {session?.user && `@${session?.user?.userName}`}
                         </Typography>
                     </Box>
