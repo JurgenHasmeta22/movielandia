@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { Button, Typography, Menu, MenuItem, useTheme, Box, colors } from "@mui/material";
+import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
+
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
@@ -21,8 +21,7 @@ interface IAuthButtons {
 const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <>
@@ -35,7 +34,7 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                             sx={{
                                 cursor: "pointer",
                                 paddingLeft: 1,
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                             }}
                         >
                             {session.user.userName}
@@ -54,15 +53,15 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                             horizontal: "left",
                         }}
                     >
-                        <MenuItem onClick={() => closeMenuProfile()} sx={{ color: colors.primary[100] }}>
+                        <MenuItem onClick={() => closeMenuProfile()} sx={{ color: theme.vars.palette.primary.main }}>
                             <Link
                                 href={`/users/${session?.user?.id}/${session?.user?.userName}`}
-                                style={{ textDecoration: "none", color: colors.primary[100] }}
+                                style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}
                             >
                                 <Typography variant="inherit">My Profile</Typography>
                             </Link>
                         </MenuItem>
-                        <MenuItem onClick={() => handleSignOut()} sx={{ color: colors.primary[100] }}>
+                        <MenuItem onClick={() => handleSignOut()} sx={{ color: theme.vars.palette.primary.main }}>
                             <Typography variant="inherit">Sign Out</Typography>
                         </MenuItem>
                     </Menu>
@@ -88,10 +87,10 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                 columnGap: 1,
                                 px: 2,
                                 py: 1,
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    backgroundColor: colors.greenAccent[700],
-                                    color: colors.grey[100],
+                                    backgroundColor: theme.vars.palette.secondary["100"],
+                                    color: theme.vars.palette.secondary["400"],
                                 },
                             }}
                         >
@@ -124,10 +123,10 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                 columnGap: 1,
                                 px: 2,
                                 py: 1,
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    backgroundColor: colors.greenAccent[700],
-                                    color: colors.grey[100],
+                                    backgroundColor: theme.vars.palette.secondary["100"],
+                                    color: theme.vars.palette.secondary["400"],
                                 },
                             }}
                         >

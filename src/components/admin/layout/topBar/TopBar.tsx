@@ -5,7 +5,7 @@ import { useState } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import { tokens } from "@/utils/theme/theme";
+
 import { useStore } from "@/store/store";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
@@ -18,8 +18,7 @@ const TopBar = () => {
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
     const router = useRouter();
     const open = Boolean(anchorEl);
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -45,7 +44,7 @@ const TopBar = () => {
                 sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    backgroundColor: colors.primary[900],
+                    backgroundColor: theme.vars.palette.secondary["700"],
                 }}
                 component={"nav"}
             >
@@ -91,18 +90,18 @@ const TopBar = () => {
                             "aria-labelledby": "buttonProfile",
                         }}
                     >
-                        <MenuItem onClick={handleRedirectToProfile} style={{ color: colors.primary[100] }}>
+                        <MenuItem onClick={handleRedirectToProfile} style={{ color: theme.vars.palette.primary.main }}>
                             My profile
                         </MenuItem>
                         {/* <MenuItem>
                             <Link
                                 to="/changePassword"
-                                style={{ color: colors.primary[100], textDecoration: "none" }}
+                                style={{ color: theme.vars.palette.primary.main, textDecoration: "none" }}
                             >
                                 Change password
                             </Link>
                         </MenuItem> */}
-                        <MenuItem onClick={handleLogout} style={{ color: colors.primary[100] }}>
+                        <MenuItem onClick={handleLogout} style={{ color: theme.vars.palette.primary.main }}>
                             Log out
                         </MenuItem>
                     </Menu>

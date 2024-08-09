@@ -6,6 +6,7 @@ import {
     AccordionSummary,
     Box,
     Button,
+    CssVarsTheme,
     IconButton,
     Stack,
     Tab,
@@ -17,7 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRouter } from "next/navigation";
-import { tokens } from "@/utils/theme/theme";
+
 import FavoritesTab from "./FavoritesTab";
 import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/lib/actions/user.actions";
 import { showToast } from "@/lib/toast/toast";
@@ -55,8 +56,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
 
     const router = useRouter();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     // useEffect(() => {
     //     setBio(userInPage?.bio || "");
@@ -231,7 +231,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                     <Stack
                         component="section"
                         sx={{
-                            backgroundColor: colors.primary[400],
+                            backgroundColor: theme.vars.palette.background,
                             borderRadius: "18px",
                             padding: 4,
                             display: "flex",
@@ -250,15 +250,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         onChange={handleUserNameChange}
                                         multiline
                                         rows={2}
-                                        sx={{ marginTop: 2, color: colors.primary[100] }}
+                                        sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
                                     <Box display="flex" flexDirection="row">
                                         <IconButton
                                             onClick={handleSaveEditUserName}
                                             sx={{
-                                                color: colors.primary[100],
+                                                color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: colors.greenAccent[700],
+                                                    color: theme.vars.palette.secondary["100"],
                                                 },
                                             }}
                                         >
@@ -271,9 +271,9 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                                 setUserName(userInPage?.userName);
                                             }}
                                             sx={{
-                                                color: colors.primary[100],
+                                                color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: colors.greenAccent[700],
+                                                    color: theme.vars.palette.secondary["100"],
                                                 },
                                             }}
                                         >
@@ -291,8 +291,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         columnGap={0.5}
                                         flexWrap="wrap"
                                     >
-                                        <PersonIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
-                                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <PersonIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
+                                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                             Username: {userName}
                                         </Typography>
                                     </Box>
@@ -302,12 +302,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             onClick={() => setIsUserNameEditing(true)}
                                             sx={{
                                                 "&:hover": {
-                                                    bgcolor: colors.greenAccent[700],
+                                                    bgcolor: theme.vars.palette.secondary["100"],
                                                 },
                                                 ml: 2,
                                             }}
                                         >
-                                            <EditIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                            <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                                         </Button>
                                     )}
                                 </Box>
@@ -319,12 +319,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     variant="outlined"
                                     onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowUser}
                                     sx={{
-                                        color: colors.primary[100],
+                                        color: theme.vars.palette.primary.main,
                                         bgcolor: !userInPage.isFollowed
-                                            ? colors.redAccent[500]
-                                            : colors.greenAccent[500],
+                                            ? theme.vars.palette.secondary["300"]
+                                            : theme.vars.palette.secondary["900"],
                                         "&:hover": {
-                                            bgcolor: colors.redAccent[900],
+                                            bgcolor: theme.vars.palette.secondary["300"],
                                         },
                                         textTransform: "capitalize",
                                         fontSize: 18,
@@ -349,15 +349,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         onChange={handleEmailChange}
                                         multiline
                                         rows={2}
-                                        sx={{ marginTop: 2, color: colors.primary[100] }}
+                                        sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
                                     <Box display="flex" flexDirection="row">
                                         <IconButton
                                             onClick={handleSaveEditEmail}
                                             sx={{
-                                                color: colors.primary[100],
+                                                color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: colors.greenAccent[700],
+                                                    color: theme.vars.palette.secondary["100"],
                                                 },
                                             }}
                                         >
@@ -370,9 +370,9 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                                 setEmail(userInPage?.email);
                                             }}
                                             sx={{
-                                                color: colors.primary[100],
+                                                color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: colors.greenAccent[700],
+                                                    color: theme.vars.palette.secondary["100"],
                                                 },
                                             }}
                                         >
@@ -390,8 +390,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         columnGap={0.5}
                                         flexWrap="wrap"
                                     >
-                                        <EmailIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
-                                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <EmailIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
+                                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                             Email: {email}
                                         </Typography>
                                     </Box>
@@ -401,12 +401,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             onClick={() => setIsEmailEditing(true)}
                                             sx={{
                                                 "&:hover": {
-                                                    bgcolor: colors.greenAccent[700],
+                                                    bgcolor: theme.vars.palette.secondary["100"],
                                                 },
                                                 ml: 2,
                                             }}
                                         >
-                                            <EditIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                            <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                                         </Button>
                                     )}
                                 </Box>
@@ -422,15 +422,15 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         onChange={handleBioChange}
                                         multiline
                                         rows={2}
-                                        sx={{ marginTop: 2, color: colors.primary[100] }}
+                                        sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
                                     <Box display="flex" flexDirection="row">
                                         <IconButton
                                             onClick={handleSaveEditBio}
                                             sx={{
-                                                color: colors.primary[100],
+                                                color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: colors.greenAccent[700],
+                                                    color: theme.vars.palette.secondary["100"],
                                                 },
                                             }}
                                         >
@@ -443,9 +443,9 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                                 setBio(userInPage?.bio);
                                             }}
                                             sx={{
-                                                color: colors.primary[100],
+                                                color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: colors.greenAccent[700],
+                                                    color: theme.vars.palette.secondary["100"],
                                                 },
                                             }}
                                         >
@@ -463,8 +463,10 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                         columnGap={0.5}
                                         flexWrap="wrap"
                                     >
-                                        <DescriptionIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
-                                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                        <DescriptionIcon
+                                            sx={{ fontSize: 18, color: theme.vars.palette.primary.main }}
+                                        />
+                                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                             Bio: {bio}
                                         </Typography>
                                     </Box>
@@ -474,12 +476,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             onClick={() => setIsBioEditing(true)}
                                             sx={{
                                                 "&:hover": {
-                                                    bgcolor: colors.greenAccent[700],
+                                                    bgcolor: theme.vars.palette.secondary["100"],
                                                 },
                                                 ml: 2,
                                             }}
                                         >
-                                            <EditIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                                            <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                                         </Button>
                                     )}
                                 </Box>
@@ -491,19 +493,19 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <Typography variant="h5">Bookmarks</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Favorite Movies:</strong> {userInPage?.favMovies?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Favorite Series:</strong> {userInPage?.favSeries?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Favorite Actors:</strong> {userInPage?.favActors?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Favorite Episodes:</strong> {userInPage?.favEpisodes?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Favorite Seasons:</strong> {userInPage?.favSeasons?.length}
                                     </Typography>
                                 </AccordionDetails>
@@ -513,19 +515,19 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <Typography variant="h5">Reviews</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Movie Reviews:</strong> {userInPage?.movieReviews?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Series Reviews:</strong> {userInPage?.serieReviews?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Actor Reviews:</strong> {userInPage?.actorReviews?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Season Reviews:</strong> {userInPage?.seasonReviews?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
                                     </Typography>
                                 </AccordionDetails>
@@ -535,19 +537,19 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <Typography variant="h5">Upvotes</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Upvoted Movies:</strong> {userInPage?.movieReviewsUpvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Upvoted Series:</strong> {userInPage?.serieReviewsUpvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Upvoted Actors:</strong> {userInPage?.actorReviewsUpvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Upvoted Episodes:</strong> {userInPage?.episodeReviewsUpvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Upvoted Seasons:</strong> {userInPage?.seasonReviewsUpvoted?.length}
                                     </Typography>
                                 </AccordionDetails>
@@ -557,20 +559,20 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <Typography variant="h5">Downvotes</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Downvoted Movies:</strong> {userInPage?.movieReviewsDownvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Downvoted Series:</strong> {userInPage?.serieReviewsDownvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Downvoted Actors:</strong> {userInPage?.actorReviewsDownvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Downvoted Episodes:</strong>{" "}
                                         {userInPage?.episodeReviewsDownvoted?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Downvoted Seasons:</strong> {userInPage?.seasonReviewsDownvoted?.length}
                                     </Typography>
                                 </AccordionDetails>
@@ -580,10 +582,10 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     <Typography variant="h5">Social</Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Followers:</strong> {userInPage?.followers?.length}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                                         <strong>Following:</strong> {userInPage?.following?.length}
                                     </Typography>
                                 </AccordionDetails>
@@ -650,7 +652,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                     <Box
                         component="section"
                         sx={{
-                            backgroundColor: colors.primary[400],
+                            backgroundColor: theme.vars.palette.background,
                             borderRadius: "18px",
                             padding: 4,
                             boxShadow: 6,
@@ -661,8 +663,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Movies"
                                 sx={{
-                                    backgroundColor: colors.blueAccent[700],
-                                    color: colors.primary[100],
+                                    backgroundColor: theme.vars.palette.secondary["200"],
+                                    color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
                                     textTransform: "capitalize",
@@ -671,8 +673,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Series"
                                 sx={{
-                                    backgroundColor: colors.blueAccent[700],
-                                    color: colors.primary[100],
+                                    backgroundColor: theme.vars.palette.secondary["200"],
+                                    color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
                                     textTransform: "capitalize",
@@ -681,8 +683,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Actors"
                                 sx={{
-                                    backgroundColor: colors.blueAccent[700],
-                                    color: colors.primary[100],
+                                    backgroundColor: theme.vars.palette.secondary["200"],
+                                    color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
                                     textTransform: "capitalize",
@@ -691,8 +693,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Seasons"
                                 sx={{
-                                    backgroundColor: colors.blueAccent[700],
-                                    color: colors.primary[100],
+                                    backgroundColor: theme.vars.palette.secondary["200"],
+                                    color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
                                     textTransform: "capitalize",
@@ -701,8 +703,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Episodes"
                                 sx={{
-                                    backgroundColor: colors.blueAccent[700],
-                                    color: colors.primary[100],
+                                    backgroundColor: theme.vars.palette.secondary["200"],
+                                    color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
                                     textTransform: "capitalize",
@@ -758,11 +760,11 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <PersonIcon
                                 sx={{
                                     fontSize: 18,
-                                    color: colors.primary[100],
+                                    color: theme.vars.palette.primary.main,
                                 }}
                             />
                         )}
-                        <Typography variant="h3" component="span" sx={{ color: colors.primary[100] }}>
+                        <Typography variant="h3" component="span" sx={{ color: theme.vars.palette.primary.main }}>
                             {userInPage?.userName}
                         </Typography>
                     </Box>
@@ -775,8 +777,8 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             flexWrap: "wrap",
                         }}
                     >
-                        <EmailIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
-                        <Typography variant="body1" sx={{ color: colors.primary[100] }}>
+                        <EmailIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
+                        <Typography variant="body1" sx={{ color: theme.vars.palette.primary.main }}>
                             {userInPage?.email}
                         </Typography>
                     </Box>
@@ -789,7 +791,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             flexWrap: "wrap",
                         }}
                     >
-                        <DescriptionIcon sx={{ fontSize: 18, color: colors.primary[100] }} />
+                        <DescriptionIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                         <Typography variant="body1">{userInPage?.bio}</Typography>
                     </Box>
                     <Typography variant="body1">
@@ -799,10 +801,12 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                         variant="outlined"
                         onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowUser}
                         sx={{
-                            color: colors.primary[100],
-                            bgcolor: !userInPage.isFollowed ? colors.redAccent[500] : colors.greenAccent[500],
+                            color: theme.vars.palette.primary.main,
+                            bgcolor: !userInPage.isFollowed
+                                ? theme.vars.palette.secondary["300"]
+                                : theme.vars.palette.secondary["900"],
                             "&:hover": {
-                                bgcolor: colors.redAccent[900],
+                                bgcolor: theme.vars.palette.secondary["300"],
                             },
                             textTransform: "capitalize",
                             fontSize: 16,

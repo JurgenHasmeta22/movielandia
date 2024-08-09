@@ -5,11 +5,9 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";
 import Image from "next/image";
-import { tokens } from "@/utils/theme/theme";
 
 const HomeHeroSection = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <Box
@@ -104,21 +102,21 @@ const HomeHeroSection = () => {
                         variant="contained"
                         sx={{
                             textTransform: "capitalize",
-                            backgroundColor: colors.primary[900],
+                            backgroundColor: theme.vars.palette.secondary["700"],
                             "&:hover": {
-                                backgroundColor: colors.greenAccent[800],
+                                backgroundColor: theme.vars.palette.secondary["100"],
                             },
                             display: "flex",
                             alignItems: "center",
                             padding: "10px 20px",
                         }}
                     >
-                        <MovieIcon sx={{ color: colors.primary[100], fontSize: 20 }} />
+                        <MovieIcon sx={{ color: theme.vars.palette.primary.main, fontSize: 20 }} />
                         <Typography
                             component="span"
                             paddingLeft={1}
                             fontWeight={800}
-                            sx={{ color: colors.primary[100], fontSize: 16 }}
+                            sx={{ color: theme.vars.palette.primary.main, fontSize: 16 }}
                         >
                             Start Watching Movies
                         </Typography>
@@ -129,21 +127,21 @@ const HomeHeroSection = () => {
                         variant="contained"
                         sx={{
                             textTransform: "capitalize",
-                            backgroundColor: colors.primary[900],
+                            backgroundColor: theme.vars.palette.secondary["700"],
                             "&:hover": {
-                                backgroundColor: colors.greenAccent[800],
+                                backgroundColor: theme.vars.palette.secondary["100"],
                             },
                             display: "flex",
                             alignItems: "center",
                             padding: "10px 20px",
                         }}
                     >
-                        <LocalMoviesIcon sx={{ color: colors.primary[100], fontSize: 20 }} />
+                        <LocalMoviesIcon sx={{ color: theme.vars.palette.primary.main, fontSize: 20 }} />
                         <Typography
                             component="span"
                             paddingLeft={1}
                             fontWeight={700}
-                            sx={{ color: colors.primary[100], fontSize: 16 }}
+                            sx={{ color: theme.vars.palette.primary.main, fontSize: 16 }}
                         >
                             Start Watching Series
                         </Typography>

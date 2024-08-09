@@ -5,7 +5,7 @@ import { AppBar, Box, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
-import { tokens } from "@/utils/theme/theme";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLinks } from "./HeaderLinks";
 import { Genre } from "@prisma/client";
@@ -27,8 +27,8 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
 
     const router = useRouter();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
+
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -71,7 +71,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                         justifyContent: `${isMobile ? "start" : "space-around"}`,
                         flexWrap: "wrap",
                         py: 2,
-                        backgroundColor: colors.primary[900],
+                        backgroundColor: theme.vars.palette.secondary["700"],
                     }}
                     component={"nav"}
                 >

@@ -1,12 +1,10 @@
 "use client";
 
 import React from "react";
-import { CircularProgress, Box, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme/theme";
+import { CircularProgress, Box, useTheme, CssVarsTheme } from "@mui/material";
 
 const LoadingSpinner: React.FC = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <Box
@@ -21,7 +19,7 @@ const LoadingSpinner: React.FC = () => {
                 size={60}
                 thickness={4}
                 sx={{
-                    color: colors.primary[100],
+                    color: theme.vars.palette.primary.main,
                 }}
             />
         </Box>

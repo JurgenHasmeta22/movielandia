@@ -1,11 +1,9 @@
 "use client";
 
-import { tokens } from "@/utils/theme/theme";
-import { Box, colors, Link, Typography, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, Link, Typography, useTheme } from "@mui/material";
 
 export default function NotFoundGlobalPage() {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <Box
@@ -20,16 +18,16 @@ export default function NotFoundGlobalPage() {
             }}
         >
             <Box>
-                <Typography variant="h1" component="h1" gutterBottom sx={{ color: colors.primary[100] }}>
+                <Typography variant="h1" component="h1" gutterBottom sx={{ color: theme.vars.palette.primary.main }}>
                     404
                 </Typography>
-                <Typography variant="h2" component="h2" gutterBottom sx={{ color: colors.primary[100] }}>
+                <Typography variant="h2" component="h2" gutterBottom sx={{ color: theme.vars.palette.primary.main }}>
                     Ooops, page not found.
                 </Typography>
-                <Typography variant="h4" component="p" sx={{ color: colors.primary[100] }}>
+                <Typography variant="h4" component="p" sx={{ color: theme.vars.palette.primary.main }}>
                     The page you are looking for might have been removed, or is temporarily unavailable.
                 </Typography>
-                <Link href={"/"} style={{ textDecoration: "none", color: colors.primary[100] }}>
+                <Link href={"/"} style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
                     Go back home
                 </Link>
             </Box>

@@ -1,16 +1,15 @@
 "use client";
 
-import { Box, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { tokens } from "@/utils/theme/theme";
+
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
 
 const DashboardAdminPage = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <Box m="20px" component={"main"}>
@@ -19,7 +18,7 @@ const DashboardAdminPage = () => {
             </Box>
             <Box display="grid" gridTemplateColumns="repeat(9, 1fr)" gridAutoRows="250px" gap="30px">
                 <Box
-                    sx={{ backgroundColor: colors.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.background }}
                     gridColumn="span 3"
                     display="flex"
                     alignItems="center"
@@ -33,7 +32,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <AccountTreeIcon
                                 sx={{
-                                    color: colors.greenAccent[600],
+                                    color: theme.vars.palette.secondary["900"],
                                     fontSize: "26px",
                                 }}
                             />
@@ -42,7 +41,7 @@ const DashboardAdminPage = () => {
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: colors.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.background }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -55,7 +54,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <PersonAddIcon
                                 sx={{
-                                    color: colors.greenAccent[600],
+                                    color: theme.vars.palette.secondary["900"],
                                     fontSize: "26px",
                                 }}
                             />
@@ -64,7 +63,7 @@ const DashboardAdminPage = () => {
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: colors.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.background }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -77,7 +76,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <EventNoteIcon
                                 sx={{
-                                    color: colors.greenAccent[600],
+                                    color: theme.vars.palette.secondary["900"],
                                     fontSize: "26px",
                                 }}
                             />
