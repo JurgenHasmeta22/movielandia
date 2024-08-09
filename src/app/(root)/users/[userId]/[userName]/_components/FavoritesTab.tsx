@@ -266,7 +266,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                     right: 8,
                                     padding: "4px",
                                     cursor: "pointer",
-                                    backgroundColor: theme.vars.palette.secondary["800"],
+                                    backgroundColor: theme.vars.palette.secondary[800],
                                     borderRadius: "50%",
                                     display: "flex",
                                     alignItems: "center",
@@ -298,7 +298,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                     }
                                 }}
                             >
-                                <ClearIcon sx={{ color: theme.vars.palette.secondary["700"] }} />
+                                <ClearIcon sx={{ color: theme.vars.palette.secondary[700] }} />
                             </Box>
                         )}
                     </motion.div>

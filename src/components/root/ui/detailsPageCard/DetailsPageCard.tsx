@@ -76,12 +76,12 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                     component="div"
                                     clickable
                                     sx={{
-                                        bgcolor: theme.vars.palette.secondary["600"],
+                                        bgcolor: theme.vars.palette.secondary[600],
                                         color: theme.vars.palette.primary.main,
                                         fontSize: "0.9rem",
                                         fontWeight: "bold",
                                         "&:hover": {
-                                            bgcolor: theme.vars.palette.secondary["900"],
+                                            bgcolor: theme.vars.palette.secondary[900],
                                         },
                                     }}
                                 />
@@ -110,7 +110,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography variant="body1" paragraph color={theme.vars.palette.secondary["800"]}>
+                    <Typography variant="body1" paragraph color={theme.vars.palette.secondary[800]}>
                         {data.description}
                     </Typography>
                     <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
@@ -122,10 +122,10 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             rel="noopener noreferrer"
                             fullWidth={isMobile}
                             sx={{
-                                bgcolor: theme.vars.palette.secondary["300"],
+                                bgcolor: theme.vars.palette.secondary[300],
                                 color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    bgcolor: theme.vars.palette.secondary["300"],
+                                    bgcolor: theme.vars.palette.secondary[300],
                                 },
                                 textTransform: "capitalize",
                                 fontSize: 16,
@@ -141,10 +141,10 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                 sx={{
                                     color: theme.vars.palette.primary.main,
                                     bgcolor: isBookmarked
-                                        ? theme.vars.palette.secondary["300"]
-                                        : theme.vars.palette.secondary["900"],
+                                        ? theme.vars.palette.secondary[300]
+                                        : theme.vars.palette.secondary[900],
                                     "&:hover": {
-                                        bgcolor: theme.vars.palette.secondary["300"],
+                                        bgcolor: theme.vars.palette.secondary[300],
                                     },
                                     textTransform: "capitalize",
                                     fontSize: 16,

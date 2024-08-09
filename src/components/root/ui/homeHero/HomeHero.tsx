@@ -102,9 +102,9 @@ const HomeHeroSection = () => {
                         variant="contained"
                         sx={{
                             textTransform: "capitalize",
-                            backgroundColor: theme.vars.palette.secondary["700"],
+                            backgroundColor: theme.vars.palette.secondary[700],
                             "&:hover": {
-                                backgroundColor: theme.vars.palette.secondary["100"],
+                                backgroundColor: theme.vars.palette.secondary[100],
                             },
                             display: "flex",
                             alignItems: "center",
@@ -127,9 +127,9 @@ const HomeHeroSection = () => {
                         variant="contained"
                         sx={{
                             textTransform: "capitalize",
-                            backgroundColor: theme.vars.palette.secondary["700"],
+                            backgroundColor: theme.vars.palette.secondary[700],
                             "&:hover": {
-                                backgroundColor: theme.vars.palette.secondary["100"],
+                                backgroundColor: theme.vars.palette.secondary[100],
                             },
                             display: "flex",
                             alignItems: "center",

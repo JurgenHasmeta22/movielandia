@@ -32,7 +32,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <AccountTreeIcon
                                 sx={{
-                                    color: theme.vars.palette.secondary["900"],
+                                    color: theme.vars.palette.secondary[900],
                                     fontSize: "26px",
                                 }}
                             />
@@ -54,7 +54,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <PersonAddIcon
                                 sx={{
-                                    color: theme.vars.palette.secondary["900"],
+                                    color: theme.vars.palette.secondary[900],
                                     fontSize: "26px",
                                 }}
                             />
@@ -76,7 +76,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <EventNoteIcon
                                 sx={{
-                                    color: theme.vars.palette.secondary["900"],
+                                    color: theme.vars.palette.secondary[900],
                                     fontSize: "26px",
                                 }}
                             />

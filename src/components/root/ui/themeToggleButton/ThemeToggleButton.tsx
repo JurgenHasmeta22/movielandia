@@ -1,13 +1,19 @@
 "use client";
 
 import React from "react";
-import { IconButton } from "@mui/material";
-import { Brightness4, Brightness7 } from "@mui/icons-material";
+import { IconButton, useColorScheme } from "@mui/material";
+import { DarkMode, LightMode } from "@mui/icons-material";
 
-const ThemeToggleButton = () => {
-    const { mode, toggleMode } = useTheme();
+const SwitchThemeButton = () => {
+    const { colorScheme, setColorScheme } = useColorScheme();
 
-    return <IconButton onClick={toggleMode}>{mode === "dark" ? <Brightness7 /> : <Brightness4 />}</IconButton>;
+    const alternativeScheme = colorScheme === "light" ? "dark" : "light";
+
+    return (
+        <IconButton onClick={() => setColorScheme(alternativeScheme)}>
+            {colorScheme === "dark" ? <DarkMode /> : <LightMode />}
+        </IconButton>
+    );
 };
 
-export default ThemeToggleButton;
+export default SwitchThemeButton;
