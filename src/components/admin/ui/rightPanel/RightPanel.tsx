@@ -26,7 +26,7 @@ import { Formik, Form, FormikProps } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
-import { tokens } from "@/utils/theme/theme";
+
 
 type FieldConfig = {
     name: string;
@@ -87,8 +87,7 @@ const RightPanel: React.FC<DrawerProps> = ({
 }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);

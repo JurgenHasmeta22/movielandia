@@ -1,11 +1,10 @@
 "use client";
 
-import { tokens } from "@/utils/theme/theme";
+
 import { Box, colors, Link, Typography, useTheme } from "@mui/material";
 
 export default function NotFoundGlobalPage() {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <Box

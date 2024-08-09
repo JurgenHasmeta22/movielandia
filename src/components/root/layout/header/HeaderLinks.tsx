@@ -2,7 +2,7 @@
 
 import { Box, colors, List, ListItem, Menu, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
+
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -19,8 +19,7 @@ interface IHeaderLinks {
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
     const isMobile = useMediaQuery("(max-width:768px)");
 
     return (

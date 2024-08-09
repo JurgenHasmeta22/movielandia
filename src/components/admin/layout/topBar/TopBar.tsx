@@ -5,7 +5,7 @@ import { useState } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import { tokens } from "@/utils/theme/theme";
+
 import { useStore } from "@/store/store";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
@@ -18,8 +18,7 @@ const TopBar = () => {
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
     const router = useRouter();
     const open = Boolean(anchorEl);
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);

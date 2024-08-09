@@ -4,7 +4,7 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
-import { tokens } from "@/utils/theme/theme";
+
 
 interface ITextEditorButtons {
     isEditMode: boolean;
@@ -27,8 +27,7 @@ export function TextEditorButtons({
 }: ITextEditorButtons) {
     const { openModal } = useModal();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <>

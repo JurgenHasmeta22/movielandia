@@ -2,16 +2,12 @@
 
 import { Box, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { tokens } from "@/utils/theme/theme";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
 
 const DashboardAdminPage = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-
     return (
         <Box m="20px" component={"main"}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -32,10 +28,10 @@ const DashboardAdminPage = () => {
                         increase="+14%"
                         icon={
                             <AccountTreeIcon
-                                sx={{
-                                    color: colors.greenAccent[600],
+                                sx={(theme: any) => ({
+                                    color: theme.vars.palette.greenAccent[600],
                                     fontSize: "26px",
-                                }}
+                                })}
                             />
                         }
                     />

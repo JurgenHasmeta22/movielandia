@@ -5,11 +5,10 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";
 import Image from "next/image";
-import { tokens } from "@/utils/theme/theme";
+
 
 const HomeHeroSection = () => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <Box

@@ -7,7 +7,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
 import Image from "next/image";
-import { tokens } from "@/utils/theme/theme";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -65,8 +65,7 @@ const CustomPrevArrow = (props: any) => {
 };
 
 const Carousel = ({ data, type }: ICarouselProps) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const settings = {

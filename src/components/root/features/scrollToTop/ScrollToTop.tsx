@@ -3,11 +3,10 @@
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
 import { useCallback } from "react";
-import { tokens } from "@/utils/theme/theme";
+
 
 function ScrollToTop() {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     const trigger = useScrollTrigger({
         threshold: 150,

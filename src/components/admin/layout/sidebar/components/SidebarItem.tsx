@@ -2,11 +2,10 @@
 
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
 import React from "react";
-import { tokens } from "@/utils/theme/theme";
+
 
 export const SidebarItem = ({ index, item, selectedLabel, handleItemClick, isEmployee }: any) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <React.Fragment key={index}>

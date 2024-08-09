@@ -3,3 +3,11 @@
     padding: 0;
     margin: 0;
 }
+
+[data-mui-color-scheme="light"] {
+    color-scheme: light;
+}
+
+[data-mui-color-scheme="dark"] {
+    color-scheme: dark;
+}

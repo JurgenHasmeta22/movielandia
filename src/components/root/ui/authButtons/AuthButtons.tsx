@@ -5,7 +5,7 @@ import { Button, Typography, Menu, MenuItem, useTheme, Box, colors } from "@mui/
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
+
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
@@ -21,8 +21,7 @@ interface IAuthButtons {
 const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <>

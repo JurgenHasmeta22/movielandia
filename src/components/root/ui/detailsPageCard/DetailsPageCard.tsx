@@ -3,7 +3,7 @@ import { Box, Typography, Chip, Button, useTheme, useMediaQuery } from "@mui/mat
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
+
 import { useSession } from "next-auth/react";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { formatDate } from "@/utils/helpers/utils";
@@ -19,8 +19,7 @@ interface IDetailsPageCardProps {
 export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 

@@ -1,10 +1,9 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme/theme";
+
 import { DashboardProgressCircle } from "./DashboardProgressCircle";
 
 export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: any) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <Box width="100%" m="0 30px">

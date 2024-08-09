@@ -3,7 +3,7 @@
 import { Card, Typography, useTheme } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { motion } from "framer-motion";
-import { tokens } from "@/utils/theme/theme";
+
 import Link from "next/link";
 
 interface IGenreItemProps {
@@ -11,8 +11,7 @@ interface IGenreItemProps {
 }
 
 export default function GenreItem({ genre }: IGenreItemProps) {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     return (
         <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>

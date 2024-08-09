@@ -2,7 +2,7 @@
 
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { tokens } from "@/utils/theme/theme";
+
 import ClearIcon from "@mui/icons-material/Clear";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
 import {
@@ -23,8 +23,7 @@ interface FavoritesTabProps {
 }
 
 export default function FavoritesTab({ type, userLoggedIn, userInPage }: FavoritesTabProps) {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     let favorites;
 

@@ -6,8 +6,9 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme/theme";
+import { ThemeProvider } from "@/utils/theme/theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 export const metadata = {
     robots: {
@@ -29,7 +30,8 @@ export default function RootLayout({
             <body>
                 <AuthProvider>
                     <AppRouterCacheProvider>
-                        <CustomThemeProvider>
+                        <InitColorSchemeScript defaultMode="dark" modeStorageKey="theme" />
+                        <ThemeProvider>
                             <ToastProvider>
                                 <ModalProvider>
                                     <RightPanelProvider>
@@ -45,7 +47,7 @@ export default function RootLayout({
                                     </RightPanelProvider>
                                 </ModalProvider>
                             </ToastProvider>
-                        </CustomThemeProvider>
+                        </ThemeProvider>
                     </AppRouterCacheProvider>
                 </AuthProvider>
             </body>

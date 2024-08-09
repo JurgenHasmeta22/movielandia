@@ -3,15 +3,14 @@
 import React from "react";
 import { TextField, InputAdornment, useTheme } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
-import { tokens } from "@/utils/theme/theme";
+
 import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchField = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     const handleSearch = (value: string) => {
         if (value.length > 0) {

@@ -17,7 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRouter } from "next/navigation";
-import { tokens } from "@/utils/theme/theme";
+
 import FavoritesTab from "./FavoritesTab";
 import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/lib/actions/user.actions";
 import { showToast } from "@/lib/toast/toast";
@@ -55,8 +55,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
 
     const router = useRouter();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    
 
     // useEffect(() => {
     //     setBio(userInPage?.bio || "");
