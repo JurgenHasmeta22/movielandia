@@ -14,6 +14,9 @@ export const useStore = create<AppStoreState>()(
                 isDrawerOpen: false,
                 setIsDrawerOpen: (data) => set({ isDrawerOpen: data }),
 
+                isDarkMode: true,
+                setIsDarkMode: (data) => set({ isDarkMode: data }),
+
                 selectedReview: null,
                 setSelectedReview: (data) => set({ selectedReview: data }),
 

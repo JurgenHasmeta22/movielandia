@@ -1,15 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useEffect, useMemo } from "react";
+import React, { useState, ReactNode, useEffect, useMemo } from "react";
 import { createTheme, ThemeProvider as MuiThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-
-interface ThemeContextType {
-    mode: string;
-    toggleMode: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+import { useStore } from "@/store/store";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { IS_SERVER } from "../helpers/utils";
+import { localStorageGet } from "../helpers/localStorage";
+import LoadingSpinner from "@/components/root/ui/loadingSpinner/LoadingSpinner";
 
 export const tokens = (mode: any) => ({
     ...(mode === "dark"
@@ -314,46 +312,32 @@ const themeSettings = (mode: any) => {
 };
 
 export function CustomThemeProvider({ children }: { children: ReactNode }) {
-    const [mode, setMode] = useState<"light" | "dark">("light");
+    const { isDarkMode, setIsDarkMode } = useStore();
+
+    const prefersDarkMode = IS_SERVER ? false : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const previousDarkMode = IS_SERVER ? false : Boolean(localStorageGet("darkMode", false));
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+        setIsDarkMode(previousDarkMode || prefersDarkMode);
+    }, [isDarkMode]);
 
-        if (savedTheme) {
-            setMode(savedTheme);
-        } else if (typeof window !== "undefined") {
-            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            setMode(systemPrefersDark ? "dark" : "light");
-        }
-    }, []);
+    const theme = useMemo(
+        () => responsiveFontSizes(createTheme(themeSettings(isDarkMode ? "dark" : "light"))),
+        [isDarkMode],
+    );
 
-    const toggleMode = () => {
-        setMode((prevMode) => {
-            const newMode = prevMode === "light" ? "dark" : "light";
-            localStorage.setItem("theme", newMode);
+    useEffect(() => setLoading(false), []);
 
-            return newMode;
-        });
-    };
-
-    const theme = useMemo(() => responsiveFontSizes(createTheme(themeSettings(mode))), [mode]);
+    if (loading) return <LoadingSpinner />;
 
     return (
-        <ThemeContext.Provider value={{ mode, toggleMode }}>
+        <AppRouterCacheProvider>
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
                 {children}
             </MuiThemeProvider>
-        </ThemeContext.Provider>
+        </AppRouterCacheProvider>
     );
-}
-
-export function useTheme() {
-    const context = useContext(ThemeContext);
-
-    if (context === undefined) {
-        throw new Error("useTheme must be used within a CustomThemeProvider");
-    }
-
-    return context;
 }

@@ -5,6 +5,9 @@ export default interface AppStoreState {
     isDrawerOpen: boolean | any;
     setIsDrawerOpen: (data: any) => void;
 
+    isDarkMode: boolean | any;
+    setIsDarkMode: (data: any) => void;
+
     selectedReview: any;
     setSelectedReview: (data: any) => void;
 
