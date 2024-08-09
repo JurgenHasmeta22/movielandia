@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
@@ -8,6 +8,8 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
 
 const DashboardAdminPage = () => {
+    const theme: CssVarsTheme = useTheme();
+
     return (
         <Box m="20px" component={"main"}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -28,17 +30,17 @@ const DashboardAdminPage = () => {
                         increase="+14%"
                         icon={
                             <AccountTreeIcon
-                                sx={(theme: any) => ({
+                                sx={{
                                     color: theme.vars.palette.greenAccent[600],
                                     fontSize: "26px",
-                                })}
+                                }}
                             />
                         }
                     />
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: colors.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.primary[400] }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
