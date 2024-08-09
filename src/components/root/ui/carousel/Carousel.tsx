@@ -2,7 +2,7 @@
 
 import React from "react";
 import Slider from "react-slick";
-import { Box, Button, Typography, IconButton, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, IconButton, useTheme, useMediaQuery, CssVarsTheme } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
@@ -65,7 +65,8 @@ const CustomPrevArrow = (props: any) => {
 };
 
 const Carousel = ({ data, type }: ICarouselProps) => {
-    
+    const theme: CssVarsTheme = useTheme();
+
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const settings = {
@@ -141,13 +142,13 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                             variant="contained"
                                             color="secondary"
                                             sx={{
-                                                bgcolor: colors.redAccent[500],
+                                                bgcolor: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    bgcolor: colors.greenAccent[500],
-                                                    color: colors.primary[100],
+                                                    bgcolor: theme.vars.palette.primary.main,
+                                                    color: theme.vars.palette.primary.main,
                                                 },
                                                 textTransform: "capitalize",
-                                                color: colors.grey[900],
+                                                color: theme.vars.palette.primary.main,
                                                 fontSize: 16,
                                                 fontWeight: 700,
                                                 px: 4,

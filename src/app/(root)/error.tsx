@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Box, Button, Container, Typography } from "@mui/material";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {

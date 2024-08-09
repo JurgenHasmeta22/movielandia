@@ -79,13 +79,13 @@ export const theme = responsiveFontSizes(
             light: {
                 palette: {
                     primary: {
-                        main: colorTokens.primary[100],
+                        main: colorTokens.primary[700],
                     },
                     secondary: {
                         main: colorTokens.greenAccent[500],
                     },
                     background: {
-                        default: "#fcfcfc",
+                        default: colorTokens.primary[100],
                     },
                 },
             },

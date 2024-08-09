@@ -30,7 +30,7 @@ export default function RootLayout({
             <body>
                 <AuthProvider>
                     <AppRouterCacheProvider>
-                        <InitColorSchemeScript defaultMode="dark" modeStorageKey="theme" />
+                        <InitColorSchemeScript />
                         <ThemeProvider>
                             <ToastProvider>
                                 <ModalProvider>

@@ -1,10 +1,9 @@
 "use client";
 
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, CssVarsTheme, Typography, useTheme } from "@mui/material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
-
 
 interface ITextEditorButtons {
     isEditMode: boolean;
@@ -27,7 +26,7 @@ export function TextEditorButtons({
 }: ITextEditorButtons) {
     const { openModal } = useModal();
 
-    
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <>
@@ -44,11 +43,11 @@ export function TextEditorButtons({
                             padding: 1.5,
                             textTransform: "capitalize",
                             border: "none",
-                            backgroundColor: colors.greenAccent[500],
-                            color: colors.primary[900],
+                            backgroundColor: theme.vars.palette.primary.main,
+                            color: theme.vars.palette.primary.main,
                             "&:hover": {
-                                backgroundColor: colors.greenAccent[700],
-                                color: colors.grey[100],
+                                backgroundColor: theme.vars.palette.primary.main,
+                                color: theme.vars.palette.primary.main,
                             },
                         }}
                     >

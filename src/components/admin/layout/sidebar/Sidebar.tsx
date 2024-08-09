@@ -13,6 +13,7 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    CssVarsTheme,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
@@ -32,7 +33,7 @@ const Sidebar = ({ sidebarItems }: any) => {
 
     const router = useRouter();
 
-    
+    const theme: CssVarsTheme = useTheme();
 
     const handleItemClick = (title: string, to: string) => {
         setSelectedLabel(title);
@@ -59,7 +60,7 @@ const Sidebar = ({ sidebarItems }: any) => {
             component={"aside"}
             onClose={onClose}
             PaperProps={{
-                sx: { backgroundColor: colors.grey[1000], paddingLeft: 2, paddingRight: 2 },
+                sx: { backgroundColor: theme.vars.palette.primary.main, paddingLeft: 2, paddingRight: 2 },
             }}
         >
             <Box mt={2}>
@@ -73,7 +74,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                         <AccountCircleIcon />
                     </Avatar>
                     <Box ml={2}>
-                        <Typography variant="body2" sx={{ color: colors.primary[100] }}>
+                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                             {session?.user && `@${session?.user?.userName}`}
                         </Typography>
                     </Box>
@@ -97,14 +98,14 @@ const Sidebar = ({ sidebarItems }: any) => {
                     >
                         <ListItemButton
                             sx={{
-                                color: colors.grey[1500],
+                                color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    backgroundColor: colors.primary[1000],
+                                    backgroundColor: theme.vars.palette.primary.main,
                                     "& .MuiListItemIcon-root": {
-                                        color: colors.grey[1400],
+                                        color: theme.vars.palette.primary.main,
                                     },
                                     "& .MuiListItemText-primary": {
-                                        color: colors.grey[1400],
+                                        color: theme.vars.palette.primary.main,
                                     },
                                 },
                             }}

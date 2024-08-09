@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { TextField, InputAdornment, useTheme } from "@mui/material";
+import { TextField, InputAdornment, useTheme, CssVarsTheme } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +10,7 @@ const SearchField = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    
+    const theme: CssVarsTheme = useTheme();
 
     const handleSearch = (value: string) => {
         if (value.length > 0) {
@@ -34,7 +34,7 @@ const SearchField = () => {
                 handleSearch(value);
             }}
             InputProps={{
-                sx: { py: 0.5, color: colors.primary[100] },
+                sx: { py: 0.5, color: theme.vars.palette.primary.main },
                 startAdornment: (
                     <InputAdornment position="start">
                         <Search />

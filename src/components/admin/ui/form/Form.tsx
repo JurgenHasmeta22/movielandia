@@ -64,15 +64,7 @@ type ActionConfig = {
     onClick?: () => void;
 };
 
-const FormAdvanced: React.FC<FormProps> = ({
-    initialValues,
-    onSubmit,
-    validationSchema,
-    fields,
-    // onDataChange,
-    formRef,
-    actions,
-}) => {
+const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validationSchema, fields, formRef, actions }) => {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -88,10 +80,6 @@ const FormAdvanced: React.FC<FormProps> = ({
             enableReinitialize
         >
             {({ values, errors, touched, handleBlur, handleChange, dirty }) => {
-                // useEffect(() => {
-                //     onDataChange ? onDataChange(values) : () => {};
-                // }, [values]);
-
                 return (
                     <Form>
                         <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>

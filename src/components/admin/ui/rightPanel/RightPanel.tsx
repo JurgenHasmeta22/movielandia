@@ -21,12 +21,12 @@ import {
     SxProps,
     FormLabel,
     InputAdornment,
+    CssVarsTheme,
 } from "@mui/material";
 import { Formik, Form, FormikProps } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
-
 
 type FieldConfig = {
     name: string;
@@ -87,7 +87,8 @@ const RightPanel: React.FC<DrawerProps> = ({
 }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
-    
+
+    const theme: CssVarsTheme = useTheme();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -114,7 +115,7 @@ const RightPanel: React.FC<DrawerProps> = ({
                     height: "100%",
                     px: 2,
                     py: 4,
-                    bgcolor: colors.primary[400],
+                    bgcolor: theme.vars.palette.primary.main,
                 }}
             >
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
@@ -197,7 +198,6 @@ const RightPanel: React.FC<DrawerProps> = ({
                                                         value={values[field.name]}
                                                         type={showPassword ? "text" : "password"}
                                                         autoComplete={"on"}
-                                                        // @ts-expect-error nonoeffe
                                                         helperText={touched[field.name] && errors[field.name]}
                                                         error={touched[field.name] && !!errors[field.name]}
                                                         InputProps={{
@@ -234,7 +234,6 @@ const RightPanel: React.FC<DrawerProps> = ({
                                                         disabled={field.disabled}
                                                         sx={{ ...field.sx }}
                                                         size="small"
-                                                        // @ts-expect-error nonoefe
                                                         helperText={touched[field.name] && errors[field.name]}
                                                         error={touched[field.name] && !!errors[field.name]}
                                                     />

@@ -1,11 +1,10 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, Box, CssVarsTheme, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
-import ThemeToggleButton from "../../ui/switchThemeButton/ThemeToggleButton";
-
+import SwitchThemeButton from "../../ui/switchThemeButton/SwitchThemeButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLinks } from "./HeaderLinks";
 import { Genre } from "@prisma/client";
@@ -27,7 +26,8 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
 
     const router = useRouter();
 
-    
+    const theme: CssVarsTheme = useTheme();
+
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -70,7 +70,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                         justifyContent: `${isMobile ? "start" : "space-around"}`,
                         flexWrap: "wrap",
                         py: 2,
-                        backgroundColor: colors.primary[900],
+                        backgroundColor: theme.vars.palette.primary.main,
                     }}
                     component={"nav"}
                 >
@@ -103,7 +103,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                             />
                             <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
                                 <SearchField />
-                                <ThemeToggleButton />
+                                <SwitchThemeButton />
                                 <AuthButtons
                                     session={session}
                                     anchorElProfile={anchorElProfile}

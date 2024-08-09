@@ -17,7 +17,7 @@ const DashboardAdminPage = () => {
             </Box>
             <Box display="grid" gridTemplateColumns="repeat(9, 1fr)" gridAutoRows="250px" gap="30px">
                 <Box
-                    sx={{ backgroundColor: colors.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.primary.main }}
                     gridColumn="span 3"
                     display="flex"
                     alignItems="center"
@@ -31,7 +31,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <AccountTreeIcon
                                 sx={{
-                                    color: theme.vars.palette.greenAccent[600],
+                                    color: theme.vars.palette.primary.main,
                                     fontSize: "26px",
                                 }}
                             />
@@ -40,7 +40,7 @@ const DashboardAdminPage = () => {
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: theme.vars.palette.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.primary.main }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -53,7 +53,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <PersonAddIcon
                                 sx={{
-                                    color: colors.greenAccent[600],
+                                    color: theme.vars.palette.primary.main,
                                     fontSize: "26px",
                                 }}
                             />
@@ -62,7 +62,7 @@ const DashboardAdminPage = () => {
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: colors.primary[400] }}
+                    sx={{ backgroundColor: theme.vars.palette.primary.main }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -75,7 +75,7 @@ const DashboardAdminPage = () => {
                         icon={
                             <EventNoteIcon
                                 sx={{
-                                    color: colors.greenAccent[600],
+                                    color: theme.vars.palette.primary.main,
                                     fontSize: "26px",
                                 }}
                             />
