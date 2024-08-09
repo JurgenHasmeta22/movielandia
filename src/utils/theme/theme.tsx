@@ -140,15 +140,15 @@ export const theme = responsiveFontSizes(
                         main: lightColorTokens.primary[100],
                     },
                     secondary: {
-                        "100": lightColorTokens.greenAccent[700],
-                        "200": lightColorTokens.blueAccent[700],
-                        "300": lightColorTokens.redAccent[500],
-                        "400": lightColorTokens.grey[100],
-                        "500": lightColorTokens.primary[500],
-                        "600": lightColorTokens.primary[600],
-                        "700": lightColorTokens.primary[900],
-                        "800": lightColorTokens.primary[200],
-                        "900": lightColorTokens.greenAccent[400],
+                        100: lightColorTokens.greenAccent[700],
+                        200: lightColorTokens.blueAccent[700],
+                        300: lightColorTokens.redAccent[500],
+                        400: lightColorTokens.grey[100],
+                        500: lightColorTokens.primary[500],
+                        600: lightColorTokens.primary[600],
+                        700: lightColorTokens.primary[900],
+                        800: lightColorTokens.primary[200],
+                        900: lightColorTokens.greenAccent[400],
                     },
                     background: {
                         default: lightColorTokens.primary[400],
@@ -161,15 +161,15 @@ export const theme = responsiveFontSizes(
                         main: darkColorTokens.primary[100],
                     },
                     secondary: {
-                        "100": darkColorTokens.greenAccent[700],
-                        "200": darkColorTokens.blueAccent[700],
-                        "300": darkColorTokens.redAccent[500],
-                        "400": darkColorTokens.grey[100],
-                        "500": darkColorTokens.primary[500],
-                        "600": darkColorTokens.primary[600],
-                        "700": darkColorTokens.primary[900],
-                        "800": darkColorTokens.primary[200],
-                        "900": darkColorTokens.greenAccent[400],
+                        100: darkColorTokens.greenAccent[700],
+                        200: darkColorTokens.blueAccent[700],
+                        300: darkColorTokens.redAccent[500],
+                        400: darkColorTokens.grey[100],
+                        500: darkColorTokens.primary[500],
+                        600: darkColorTokens.primary[600],
+                        700: darkColorTokens.primary[900],
+                        800: darkColorTokens.primary[200],
+                        900: darkColorTokens.greenAccent[400],
                     },
                     background: {
                         default: darkColorTokens.primary[400],
@@ -313,6 +313,6 @@ export const theme = responsiveFontSizes(
     }),
 );
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export function CustomThemeProvider({ children }: { children: ReactNode }) {
     return <CssVarsProvider theme={theme}>{children}</CssVarsProvider>;
 }

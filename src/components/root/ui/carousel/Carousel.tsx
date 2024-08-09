@@ -142,13 +142,13 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                             variant="contained"
                                             color="secondary"
                                             sx={{
-                                                bgcolor: theme.vars.palette.secondary["300"],
+                                                bgcolor: theme.vars.palette.secondary[300],
                                                 "&:hover": {
-                                                    bgcolor: theme.vars.palette.secondary["900"],
+                                                    bgcolor: theme.vars.palette.secondary[900],
                                                     color: theme.vars.palette.primary.main,
                                                 },
                                                 textTransform: "capitalize",
-                                                color: theme.vars.palette.secondary["400"],
+                                                color: theme.vars.palette.secondary[400],
                                                 fontSize: 16,
                                                 fontWeight: 700,
                                                 px: 4,
