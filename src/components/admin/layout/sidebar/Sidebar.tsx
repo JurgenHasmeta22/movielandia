@@ -13,11 +13,11 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    CssVarsTheme,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import { useStore } from "@/store/store";
-
 import { SidebarItem } from "./components/SidebarItem";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
@@ -59,7 +59,7 @@ const Sidebar = ({ sidebarItems }: any) => {
             component={"aside"}
             onClose={onClose}
             PaperProps={{
-                sx: { backgroundColor: colors.grey[1000], paddingLeft: 2, paddingRight: 2 },
+                sx: { backgroundColor: theme.vars.palette.greyAccent.main, paddingLeft: 2, paddingRight: 2 },
             }}
         >
             <Box mt={2}>
@@ -97,14 +97,14 @@ const Sidebar = ({ sidebarItems }: any) => {
                     >
                         <ListItemButton
                             sx={{
-                                color: colors.grey[1500],
+                                color: theme.vars.palette.greyAccent.main,
                                 "&:hover": {
-                                    backgroundColor: colors.primary[1000],
+                                    backgroundColor: theme.vars.palette.primary.dark,
                                     "& .MuiListItemIcon-root": {
-                                        color: colors.grey[1400],
+                                        color: theme.vars.palette.greyAccent.main,
                                     },
                                     "& .MuiListItemText-primary": {
-                                        color: colors.grey[1400],
+                                        color: theme.vars.palette.greyAccent.main,
                                     },
                                 },
                             }}

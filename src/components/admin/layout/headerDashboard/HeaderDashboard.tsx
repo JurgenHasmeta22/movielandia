@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, Box, useTheme } from "@mui/material";
+import { Typography, Box, useTheme, CssVarsTheme } from "@mui/material";
 
 const HeaderDashboard = ({ title, subtitle }: any) => {
     const theme: CssVarsTheme = useTheme();

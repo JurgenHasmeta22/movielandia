@@ -18,7 +18,7 @@ const DashboardAdminPage = () => {
             </Box>
             <Box display="grid" gridTemplateColumns="repeat(9, 1fr)" gridAutoRows="250px" gap="30px">
                 <Box
-                    sx={{ backgroundColor: theme.vars.palette.background }}
+                    sx={{ backgroundColor: theme.vars.palette.background.default }}
                     gridColumn="span 3"
                     display="flex"
                     alignItems="center"
@@ -41,7 +41,7 @@ const DashboardAdminPage = () => {
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: theme.vars.palette.background }}
+                    sx={{ backgroundColor: theme.vars.palette.background.default }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -63,7 +63,7 @@ const DashboardAdminPage = () => {
                 </Box>
                 <Box
                     gridColumn="span 3"
-                    sx={{ backgroundColor: theme.vars.palette.background }}
+                    sx={{ backgroundColor: theme.vars.palette.background.default }}
                     display="flex"
                     alignItems="center"
                     justifyContent="center"

@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
+import { AppBar, Box, CssVarsTheme, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -16,8 +16,10 @@ const TopBar = () => {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
+
     const router = useRouter();
     const open = Boolean(anchorEl);
+
     const theme: CssVarsTheme = useTheme();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
+import { CssVarsTheme, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
 import React from "react";
 
 export const SidebarItem = ({ index, item, selectedLabel, handleItemClick, isEmployee }: any) => {
@@ -12,21 +12,21 @@ export const SidebarItem = ({ index, item, selectedLabel, handleItemClick, isEmp
                 <ListItemButton
                     disabled={isEmployee && item.label === "Perdoruesit"}
                     sx={{
-                        color: colors.grey[1500],
+                        color: theme.vars.palette.greyAccent.main,
                         "&.Mui-selected": {
-                            backgroundColor: colors.primary[1000],
-                            color: colors.grey[1400],
+                            backgroundColor: theme.vars.palette.primary.dark,
+                            color: theme.vars.palette.greyAccent.main,
                             "&:hover": {
-                                backgroundColor: colors.primary[1100],
+                                backgroundColor: theme.vars.palette.primary.dark,
                             },
                         },
                         "&:hover": {
-                            backgroundColor: colors.primary[1000],
+                            backgroundColor: theme.vars.palette.primary.dark,
                             "& .MuiListItemIcon-root": {
-                                color: colors.grey[1400],
+                                color: theme.vars.palette.greyAccent.main,
                             },
                             "& .MuiListItemText-primary": {
-                                color: colors.grey[1400],
+                                color: theme.vars.palette.greyAccent.main,
                             },
                         },
                     }}

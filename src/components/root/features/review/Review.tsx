@@ -140,7 +140,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                     backgroundColor:
                         review.user.userName === session?.user?.userName
                             ? theme.vars.palette.red.main
-                            : theme.vars.palette.background,
+                            : theme.vars.palette.background.default,
                 }}
             >
                 <Box

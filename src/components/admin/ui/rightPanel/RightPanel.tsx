@@ -113,7 +113,7 @@ const RightPanel: React.FC<DrawerProps> = ({
                     height: "100%",
                     px: 2,
                     py: 4,
-                    bgcolor: theme.vars.palette.background,
+                    bgcolor: theme.vars.palette.background.default,
                 }}
             >
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>

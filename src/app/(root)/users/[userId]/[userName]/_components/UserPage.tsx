@@ -231,7 +231,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                     <Stack
                         component="section"
                         sx={{
-                            backgroundColor: theme.vars.palette.background,
+                            backgroundColor: theme.vars.palette.background.default,
                             borderRadius: "18px",
                             padding: 4,
                             display: "flex",
@@ -652,7 +652,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                     <Box
                         component="section"
                         sx={{
-                            backgroundColor: theme.vars.palette.background,
+                            backgroundColor: theme.vars.palette.background.default,
                             borderRadius: "18px",
                             padding: 4,
                             boxShadow: 6,
