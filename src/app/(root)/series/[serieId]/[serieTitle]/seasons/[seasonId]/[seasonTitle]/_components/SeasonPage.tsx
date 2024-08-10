@@ -19,11 +19,11 @@ import {
     removeReviewSeason,
     removeUpvoteSeasonReview,
     updateReviewSeason,
-} from "@/lib/actions/user.actions";
+} from "@/actions/user.actions";
 import { useModal } from "@/providers/ModalProvider";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
-import { showToast } from "@/lib/toast/toast";
+import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 
 export default function SeasonPage({ searchParamsValues, season, latestSeasons, relatedSeasons, pageCount }: any) {

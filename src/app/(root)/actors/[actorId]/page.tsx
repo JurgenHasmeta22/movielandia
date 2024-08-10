@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import ActorDetails from "./[actorFullname]/page";
-import { getActorById } from "@/lib/actions/actor.actions";
+import { getActorById } from "@/actions/actor.actions";
 import { Actor } from "@prisma/client";
 import { notFound } from "next/navigation";
 

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ProfilePage from "./_components/UserPage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getUserById } from "@/lib/actions/user.actions";
+import { getUserById } from "@/actions/user.actions";
 import { notFound } from "next/navigation";
 
 interface IUserDetailsProps {

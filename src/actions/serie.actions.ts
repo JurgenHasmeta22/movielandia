@@ -1,7 +1,7 @@
 "use server";
 
 import { Prisma, Serie } from "@prisma/client";
-import { prisma } from "@/lib/prisma/prisma";
+import { prisma } from "../../prisma/config/prisma";
 
 interface SerieModelParams {
     sortBy?: string;

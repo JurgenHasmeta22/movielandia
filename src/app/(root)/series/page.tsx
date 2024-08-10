@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getSeries, getLatestSeries } from "@/lib/actions/serie.actions";
+import { getSeries, getLatestSeries } from "@/actions/serie.actions";
 
 interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };

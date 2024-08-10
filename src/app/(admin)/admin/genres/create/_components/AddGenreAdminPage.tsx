@@ -11,7 +11,7 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
-import { addGenre } from "@/lib/actions/genre.actions";
+import { addGenre } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
 
 interface IGenreAdd {

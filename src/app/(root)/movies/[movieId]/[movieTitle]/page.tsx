@@ -1,4 +1,4 @@
-import { getLatestMovies, getMovieById, getRelatedMovies } from "@/lib/actions/movie.actions";
+import { getLatestMovies, getMovieById, getRelatedMovies } from "@/actions/movie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import MoviePage from "./_components/MoviePage";

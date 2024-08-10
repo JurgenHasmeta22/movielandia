@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getEpisodeById, getLatestEpisodes, getRelatedEpisodes } from "@/lib/actions/episode.actions";
+import { getEpisodeById, getLatestEpisodes, getRelatedEpisodes } from "@/actions/episode.actions";
 import EpisodePage from "../../_components/EpisodePage";
 import { Episode } from "@prisma/client";
 

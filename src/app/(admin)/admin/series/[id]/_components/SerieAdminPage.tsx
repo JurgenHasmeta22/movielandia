@@ -15,7 +15,7 @@ import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDas
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
-import { updateSerieById, getSerieById, deleteSerieById } from "@/lib/actions/serie.actions";
+import { updateSerieById, getSerieById, deleteSerieById } from "@/actions/serie.actions";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 

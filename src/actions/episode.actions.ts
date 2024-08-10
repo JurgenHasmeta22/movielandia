@@ -1,8 +1,8 @@
 "use server";
 
 import { Episode, Prisma } from "@prisma/client";
-import { prisma } from "@/lib/prisma/prisma";
 import { RatingsMap } from "./season.actions";
+import { prisma } from "../../prisma/config/prisma";
 
 interface EpisodeModelParams {
     sortBy: string;

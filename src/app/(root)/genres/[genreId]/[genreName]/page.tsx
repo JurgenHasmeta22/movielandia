@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { Metadata } from "next";
 import { Genre, Movie, Serie } from "@prisma/client";
-import { getGenreById } from "@/lib/actions/genre.actions";
+import { getGenreById } from "@/actions/genre.actions";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";

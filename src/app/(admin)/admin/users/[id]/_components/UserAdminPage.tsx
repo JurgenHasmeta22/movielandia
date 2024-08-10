@@ -14,7 +14,7 @@ import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDas
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
-import { deleteUserById, getUserById, updateUserById } from "@/lib/actions/user.actions";
+import { deleteUserById, getUserById, updateUserById } from "@/actions/user.actions";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Prisma, User } from "@prisma/client";

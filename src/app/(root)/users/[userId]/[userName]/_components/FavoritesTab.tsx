@@ -11,9 +11,9 @@ import {
     removeFavoriteMovieToUser,
     removeFavoriteSeasonToUser,
     removeFavoriteSerieToUser,
-} from "@/lib/actions/user.actions";
+} from "@/actions/user.actions";
 import Image from "next/image";
-import { showToast } from "@/lib/toast/toast";
+import { showToast } from "@/utils/helpers/toast";
 import Link from "next/link";
 
 interface FavoritesTabProps {

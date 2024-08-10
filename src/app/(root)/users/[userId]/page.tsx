@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import UserDetails from "./[userName]/page";
-import { getUserById } from "@/lib/actions/user.actions";
+import { getUserById } from "@/actions/user.actions";
 
 export async function generateMetadata({ params }: { params: { userId: string } }): Promise<Metadata> {
     const { userId } = params;

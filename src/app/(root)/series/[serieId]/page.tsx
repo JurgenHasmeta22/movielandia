@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Serie } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { getSerieById } from "@/lib/actions/serie.actions";
+import { getSerieById } from "@/actions/serie.actions";
 import SerieDetails from "./[serieTitle]/page";
 
 export async function generateMetadata({ params }: { params: { serieId: string } }): Promise<Metadata> {

@@ -10,7 +10,7 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/ui/form/Form";
-import { addMovie } from "@/lib/actions/movie.actions";
+import { addMovie } from "@/actions/movie.actions";
 import { useRouter } from "next/navigation";
 
 const movieSchema = yup.object().shape({

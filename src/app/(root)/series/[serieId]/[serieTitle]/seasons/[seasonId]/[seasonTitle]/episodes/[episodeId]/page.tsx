@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Episode } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { getEpisodeById } from "@/lib/actions/episode.actions";
+import { getEpisodeById } from "@/actions/episode.actions";
 import EpisodeDetails from "./[episodeTitle]/page";
 
 export async function generateMetadata({

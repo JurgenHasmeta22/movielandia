@@ -19,10 +19,10 @@ import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { deleteGenreById, getGenres } from "@/lib/actions/genre.actions";
-import { deleteUserById, getUsers } from "@/lib/actions/user.actions";
-import { deleteMovieById, getMovies } from "@/lib/actions/movie.actions";
-import { deleteSerieById, getSeries } from "@/lib/actions/serie.actions";
+import { deleteGenreById, getGenres } from "@/actions/genre.actions";
+import { deleteUserById, getUsers } from "@/actions/user.actions";
+import { deleteMovieById, getMovies } from "@/actions/movie.actions";
+import { deleteSerieById, getSeries } from "@/actions/serie.actions";
 
 type TableAdminProps = {
     columns: MRT_ColumnDef<any>[];

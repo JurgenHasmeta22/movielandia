@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getGenreById } from "@/lib/actions/genre.actions";
+import { getGenreById } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
 import { notFound } from "next/navigation";
 import GenreDetails from "./[genreName]/page";
