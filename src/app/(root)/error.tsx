@@ -1,14 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import Link from "next/link";
 import { Box, Button, Container, Typography } from "@mui/material";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-    useEffect(() => {
-        console.error(error);
-    }, [error]);
-
     return (
         <Container maxWidth="sm">
             <Box
@@ -35,7 +29,6 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
                 <Button onClick={reset} className="text-accent-blue">
                     Try again
                 </Button>
-                <Link href={"/"}>Go back home</Link>
             </Box>
         </Container>
     );

@@ -7,7 +7,7 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme/theme";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import "../globals.css";
 
@@ -45,11 +45,11 @@ export default function RootLayout({
         <html suppressHydrationWarning lang="en">
             <body>
                 <AuthProvider>
-                    <InitColorSchemeScript />
-                    <CustomThemeProvider>
+                    <ThemeProvider>
                         <ToastProvider>
                             <ModalProvider>
                                 <RightPanelProvider>
+                                    <InitColorSchemeScript />
                                     <Grid container>
                                         <Grid item xs={12}>
                                             <Header />
@@ -61,7 +61,7 @@ export default function RootLayout({
                                 </RightPanelProvider>
                             </ModalProvider>
                         </ToastProvider>
-                    </CustomThemeProvider>
+                    </ThemeProvider>
                 </AuthProvider>
             </body>
         </html>

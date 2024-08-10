@@ -6,7 +6,8 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
-import { CustomThemeProvider } from "@/utils/theme/theme";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 export const metadata = {
     robots: {
@@ -27,7 +28,8 @@ export default function RootLayout({
         <html suppressHydrationWarning lang="en">
             <body>
                 <AuthProvider>
-                    <CustomThemeProvider>
+                    <InitColorSchemeScript />
+                    <ThemeProvider>
                         <ToastProvider>
                             <ModalProvider>
                                 <RightPanelProvider>
@@ -43,7 +45,7 @@ export default function RootLayout({
                                 </RightPanelProvider>
                             </ModalProvider>
                         </ToastProvider>
-                    </CustomThemeProvider>
+                    </ThemeProvider>
                 </AuthProvider>
             </body>
         </html>
