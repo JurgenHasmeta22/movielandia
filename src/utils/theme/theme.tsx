@@ -155,6 +155,7 @@ export const theme = responsiveFontSizes(
                     },
                     secondary: {
                         main: lightColorTokens.primary[500],
+                        light: lightColorTokens.primary[400],
                         dark: lightColorTokens.primary[600],
                     },
                     background: {
@@ -184,6 +185,7 @@ export const theme = responsiveFontSizes(
                     },
                     secondary: {
                         main: darkColorTokens.primary[500],
+                        light: darkColorTokens.primary[400],
                         dark: darkColorTokens.primary[600],
                     },
                     background: {

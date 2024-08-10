@@ -28,7 +28,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                bgcolor: theme.vars.palette.background.default,
+                bgcolor: theme.vars.palette.secondary.light,
                 color: theme.vars.palette.primary.main,
                 width: "100%",
                 maxWidth: "1200px",
@@ -77,7 +77,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                     clickable
                                     sx={{
                                         bgcolor: theme.vars.palette.secondary.dark,
-                                        color: theme.vars.palette.primary.main,
+                                        color: theme.vars.palette.green.main,
                                         fontSize: "0.9rem",
                                         fontWeight: "bold",
                                         "&:hover": {
