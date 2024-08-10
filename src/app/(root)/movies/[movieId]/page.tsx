@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Movie } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { getMovieById } from "@/lib/actions/movie.actions";
+import { getMovieById } from "@/actions/movie.actions";
 import MovieDetails from "./[movieTitle]/page";
 
 export async function generateMetadata({ params }: { params: { movieId: string } }): Promise<Metadata> {

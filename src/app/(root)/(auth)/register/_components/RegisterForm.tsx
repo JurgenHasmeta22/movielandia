@@ -8,8 +8,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { showToast } from "@/lib/toast/toast";
-import { signUp } from "@/lib/actions/auth.actions";
+import { showToast } from "@/utils/helpers/toast";
+import { signUp } from "@/actions/auth.actions";
 
 const registerSchema = yup.object().shape({
     userName: yup

@@ -2,9 +2,9 @@
 
 import { headers } from "next/headers";
 import { Prisma, User } from "@prisma/client";
-import { prisma } from "@/lib/prisma/prisma";
 import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { prisma } from "../../prisma/config/prisma";
 
 // #region "Interfaces"
 interface UserModelParams {

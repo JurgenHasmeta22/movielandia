@@ -15,7 +15,7 @@ import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreById, updateGenreById } from "@/lib/actions/genre.actions";
+import { deleteGenreById, getGenreById, updateGenreById } from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
 

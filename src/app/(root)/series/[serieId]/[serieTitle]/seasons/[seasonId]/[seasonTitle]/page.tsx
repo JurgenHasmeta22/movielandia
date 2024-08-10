@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SeasonPage from "./_components/SeasonPage";
-import { getLatestSeasons, getRelatedSeasons, getSeasonById } from "@/lib/actions/season.actions";
+import { getLatestSeasons, getRelatedSeasons, getSeasonById } from "@/actions/season.actions";
 import { Season } from "@prisma/client";
 
 interface ISeasonProps {

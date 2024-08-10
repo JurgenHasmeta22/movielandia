@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getMovies, getLatestMovies } from "@/lib/actions/movie.actions";
+import { getMovies, getLatestMovies } from "@/actions/movie.actions";
 
 interface IMoviesProps {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Season } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { getSeasonById } from "@/lib/actions/season.actions";
+import { getSeasonById } from "@/actions/season.actions";
 import SeasonDetails from "./[seasonTitle]/page";
 
 export async function generateMetadata({

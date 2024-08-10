@@ -1,7 +1,7 @@
 "use server";
 
 import { Season, Prisma } from "@prisma/client";
-import { prisma } from "@/lib/prisma/prisma";
+import { prisma } from "../../prisma/config/prisma";
 
 interface SeasonModelParams {
     sortBy: string;

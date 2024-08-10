@@ -1,7 +1,7 @@
 "use server";
 
 import { Genre, Prisma } from "@prisma/client";
-import { prisma } from "@/lib/prisma/prisma";
+import { prisma } from "../../prisma/config/prisma";
 
 type RatingsMap = {
     [key: number]: {

@@ -1,8 +1,8 @@
 "use server";
 
 import { hashSync } from "bcrypt";
-import { prisma } from "@/lib/prisma/prisma";
 import { User } from "@prisma/client";
+import { prisma } from "../../prisma/config/prisma";
 
 interface IRegister {
     email: string;

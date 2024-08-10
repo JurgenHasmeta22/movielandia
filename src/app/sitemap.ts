@@ -1,9 +1,9 @@
-import { getActorsAll } from "@/lib/actions/actor.actions";
-import { getEpisodesAll } from "@/lib/actions/episode.actions";
-import { getGenresAll } from "@/lib/actions/genre.actions";
-import { getMoviesAll } from "@/lib/actions/movie.actions";
-import { getSeasonsAll } from "@/lib/actions/season.actions";
-import { getSeriesAll } from "@/lib/actions/serie.actions";
+import { getActorsAll } from "@/actions/actor.actions";
+import { getEpisodesAll } from "@/actions/episode.actions";
+import { getGenresAll } from "@/actions/genre.actions";
+import { getMoviesAll } from "@/actions/movie.actions";
+import { getSeasonsAll } from "@/actions/season.actions";
+import { getSeriesAll } from "@/actions/serie.actions";
 import { Actor, Episode, Genre, Movie, Season, Serie } from "@prisma/client";
 import { MetadataRoute } from "next";
 

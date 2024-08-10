@@ -20,8 +20,8 @@ import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRouter } from "next/navigation";
 
 import FavoritesTab from "./FavoritesTab";
-import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/lib/actions/user.actions";
-import { showToast } from "@/lib/toast/toast";
+import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/actions/user.actions";
+import { showToast } from "@/utils/helpers/toast";
 import Image from "next/image";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";

@@ -11,7 +11,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useRouter } from "next/navigation";
 import FormAdvanced from "@/components/admin/ui/form/Form";
-import { addSerie } from "@/lib/actions/serie.actions";
+import { addSerie } from "@/actions/serie.actions";
 import { Serie } from "@prisma/client";
 
 interface IAddSerie {

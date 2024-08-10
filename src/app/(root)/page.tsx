@@ -2,9 +2,9 @@ import { Stack } from "@mui/material";
 import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
 import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
 import { Genre, Movie, Serie } from "@prisma/client";
-import { getGenres } from "@/lib/actions/genre.actions";
-import { getMovies } from "@/lib/actions/movie.actions";
-import { getSeries } from "@/lib/actions/serie.actions";
+import { getGenres } from "@/actions/genre.actions";
+import { getMovies } from "@/actions/movie.actions";
+import { getSeries } from "@/actions/serie.actions";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

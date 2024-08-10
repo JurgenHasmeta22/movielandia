@@ -1,8 +1,8 @@
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { searchMoviesByTitle } from "@/lib/actions/movie.actions";
-import { searchSeriesByTitle } from "@/lib/actions/serie.actions";
+import { searchMoviesByTitle } from "@/actions/movie.actions";
+import { searchSeriesByTitle } from "@/actions/serie.actions";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";

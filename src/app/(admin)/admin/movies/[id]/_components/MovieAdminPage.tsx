@@ -16,7 +16,7 @@ import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDas
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
-import { deleteMovieById, getMovieById, updateMovieById } from "@/lib/actions/movie.actions";
+import { deleteMovieById, getMovieById, updateMovieById } from "@/actions/movie.actions";
 import Link from "next/link";
 
 const movieSchema = yup.object().shape({

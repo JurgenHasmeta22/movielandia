@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { showToast } from "@/lib/toast/toast";
+import { showToast } from "@/utils/helpers/toast";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),

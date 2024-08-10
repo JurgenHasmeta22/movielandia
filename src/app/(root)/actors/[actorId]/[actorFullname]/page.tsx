@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getActorById } from "@/lib/actions/actor.actions";
+import { getActorById } from "@/actions/actor.actions";
 import ActorPage from "./_components/ActorPage";
 import { Actor } from "@prisma/client";
 

@@ -11,7 +11,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/ui/form/Form";
-import { signUp } from "@/lib/actions/auth.actions";
+import { signUp } from "@/actions/auth.actions";
 import { User } from "@prisma/client";
 
 const userSchema = yup.object().shape({
