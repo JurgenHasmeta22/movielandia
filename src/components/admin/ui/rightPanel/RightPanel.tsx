@@ -273,7 +273,6 @@ const RightPanel: React.FC<DrawerProps> = ({
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
                                             variant="contained"
-                                            color="secondary"
                                         >
                                             Mbrapa
                                         </Button>

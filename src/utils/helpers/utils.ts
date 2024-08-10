@@ -32,6 +32,10 @@ export function toCamelCase(str: string) {
     }
 }
 
+export const ensureStartsWith = (stringToCheck: string, startsWith: string) => {
+    stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
+};
+
 export function getRandomElements<T>(array: T[], count: number): T[] {
     const arr = array.slice();
 
@@ -42,9 +46,6 @@ export function getRandomElements<T>(array: T[], count: number): T[] {
 
     return arr.slice(0, count);
 }
-
-export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
-    stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
 export const formatDate = (dateString: string) => {
     const date = parse(dateString, "dd/mm/yyyy", new Date());

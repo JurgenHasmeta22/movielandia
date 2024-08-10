@@ -2,12 +2,11 @@
 
 import React from "react";
 import Slider from "react-slick";
-import { Box, Button, Typography, IconButton, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Button, Typography, IconButton, useTheme, useMediaQuery, CssVarsTheme } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
 import Image from "next/image";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -109,7 +108,6 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                             <Image
                                 src={element.photoSrcProd}
                                 alt={`Slide ${index}`}
-                                quality={100}
                                 height={320}
                                 width={220}
                                 priority
@@ -140,7 +138,6 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                     <Link href={`/${type}/${element.id}`} passHref>
                                         <Button
                                             variant="contained"
-                                            color="secondary"
                                             sx={{
                                                 bgcolor: theme.vars.palette.red.main,
                                                 "&:hover": {

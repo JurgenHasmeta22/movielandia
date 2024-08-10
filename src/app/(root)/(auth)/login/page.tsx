@@ -35,7 +35,6 @@ export default async function Login() {
                     src="/images/backgrounds/netflix.png"
                     alt="Background Image"
                     fill
-                    quality={100}
                     priority
                     style={{
                         objectFit: "cover",
