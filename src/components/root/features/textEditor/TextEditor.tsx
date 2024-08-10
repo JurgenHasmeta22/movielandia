@@ -2,11 +2,11 @@
 
 import React, { forwardRef, useEffect } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { CssVarsTheme, useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import "react-quill/dist/quill.snow.css";
 
 interface ITextEditorProps {
     value: string;
@@ -87,8 +87,8 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                 // @ts-expect-error nono
                 ref={ref}
                 style={{
-                    backgroundColor: theme.palette.mode === "dark" ? theme.palette.primary.main : "white",
-                    color: theme.palette.mode === "dark" ? "white" : "black",
+                    backgroundColor: theme.vars.palette.primary.main,
+                    color: theme.vars.palette.primary.main,
                     marginBottom: "10px",
                 }}
             />
