@@ -6,6 +6,8 @@ import {
     responsiveFontSizes,
     Experimental_CssVarsProvider as CssVarsProvider,
 } from "@mui/material/styles";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const darkColorTokens = {
     grey: {
@@ -138,20 +140,28 @@ export const theme = responsiveFontSizes(
                 palette: {
                     primary: {
                         main: lightColorTokens.primary[100],
+                        dark: lightColorTokens.primary[900],
+                        light: lightColorTokens.primary[200],
+                    },
+                    blue: {
+                        main: lightColorTokens.blueAccent[700],
+                    },
+                    red: {
+                        main: lightColorTokens.redAccent[500],
+                    },
+                    green: {
+                        main: lightColorTokens.greenAccent[700],
+                        light: lightColorTokens.greenAccent[400],
                     },
                     secondary: {
-                        100: lightColorTokens.greenAccent[700],
-                        200: lightColorTokens.blueAccent[700],
-                        300: lightColorTokens.redAccent[500],
-                        400: lightColorTokens.grey[100],
-                        500: lightColorTokens.primary[500],
-                        600: lightColorTokens.primary[600],
-                        700: lightColorTokens.primary[900],
-                        800: lightColorTokens.primary[200],
-                        900: lightColorTokens.greenAccent[400],
+                        main: lightColorTokens.primary[500],
+                        dark: lightColorTokens.primary[600],
                     },
                     background: {
                         default: lightColorTokens.primary[400],
+                    },
+                    greyAccent: {
+                        main: lightColorTokens.grey[100],
                     },
                 },
             },
@@ -159,20 +169,28 @@ export const theme = responsiveFontSizes(
                 palette: {
                     primary: {
                         main: darkColorTokens.primary[100],
+                        dark: darkColorTokens.primary[900],
+                        light: darkColorTokens.primary[200],
+                    },
+                    blue: {
+                        main: darkColorTokens.blueAccent[700],
+                    },
+                    red: {
+                        main: darkColorTokens.redAccent[500],
+                    },
+                    green: {
+                        main: darkColorTokens.greenAccent[700],
+                        light: darkColorTokens.greenAccent[400],
                     },
                     secondary: {
-                        100: darkColorTokens.greenAccent[700],
-                        200: darkColorTokens.blueAccent[700],
-                        300: darkColorTokens.redAccent[500],
-                        400: darkColorTokens.grey[100],
-                        500: darkColorTokens.primary[500],
-                        600: darkColorTokens.primary[600],
-                        700: darkColorTokens.primary[900],
-                        800: darkColorTokens.primary[200],
-                        900: darkColorTokens.greenAccent[400],
+                        main: darkColorTokens.primary[500],
+                        dark: darkColorTokens.primary[600],
                     },
                     background: {
                         default: darkColorTokens.primary[400],
+                    },
+                    greyAccent: {
+                        main: darkColorTokens.grey[100],
                     },
                 },
             },
@@ -314,5 +332,12 @@ export const theme = responsiveFontSizes(
 );
 
 export function CustomThemeProvider({ children }: { children: ReactNode }) {
-    return <CssVarsProvider theme={theme}>{children}</CssVarsProvider>;
+    return (
+        <AppRouterCacheProvider>
+            <CssVarsProvider theme={theme}>
+                <CssBaseline />
+                {children}
+            </CssVarsProvider>
+        </AppRouterCacheProvider>
+    );
 }

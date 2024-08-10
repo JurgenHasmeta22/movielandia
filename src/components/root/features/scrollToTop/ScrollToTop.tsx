@@ -34,7 +34,7 @@ function ScrollToTop() {
                     size="large"
                     aria-label="Scroll back to top"
                     sx={{
-                        color: theme.vars.palette.secondary[700],
+                        color: theme.vars.palette.primary.dark,
                         backgroundColor: theme.vars.palette.primary.main,
                     }}
                 >

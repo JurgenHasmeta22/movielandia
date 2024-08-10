@@ -10,7 +10,7 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
             <Box display="flex" justifyContent="space-between">
                 <Box>
                     {icon}
-                    <Typography variant="h4" fontWeight="bold" sx={{ color: theme.vars.palette.secondary[400] }}>
+                    <Typography variant="h4" fontWeight="bold" sx={{ color: theme.vars.palette.greyAccent.main }}>
                         {title}
                     </Typography>
                 </Box>
@@ -19,10 +19,10 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
                 </Box>
             </Box>
             <Box display="flex" justifyContent="space-between" mt="2px">
-                <Typography variant="h5" sx={{ color: theme.vars.palette.secondary[900] }}>
+                <Typography variant="h5" sx={{ color: theme.vars.palette.green.light }}>
                     {subtitle}
                 </Typography>
-                <Typography variant="h5" fontStyle="italic" sx={{ color: theme.vars.palette.secondary[900] }}>
+                <Typography variant="h5" fontStyle="italic" sx={{ color: theme.vars.palette.green.light }}>
                     {increase}
                 </Typography>
             </Box>

@@ -44,7 +44,7 @@ const TopBar = () => {
                 sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    backgroundColor: theme.vars.palette.secondary[700],
+                    backgroundColor: theme.vars.palette.primary.dark,
                 }}
                 component={"nav"}
             >

@@ -7,7 +7,6 @@ import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme/theme";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 
 export const metadata = {
     robots: {
@@ -28,25 +27,23 @@ export default function RootLayout({
         <html suppressHydrationWarning lang="en">
             <body>
                 <AuthProvider>
-                    <AppRouterCacheProvider>
-                        <CustomThemeProvider>
-                            <ToastProvider>
-                                <ModalProvider>
-                                    <RightPanelProvider>
-                                        <Grid container component={"main"}>
-                                            <Grid item xs={12} md={2}>
-                                                <Sidebar sidebarItems={SidebarItems} />
-                                            </Grid>
-                                            <Grid item xs={12} md={10}>
-                                                <TopBar />
-                                                <Box ml={4}>{children}</Box>
-                                            </Grid>
+                    <CustomThemeProvider>
+                        <ToastProvider>
+                            <ModalProvider>
+                                <RightPanelProvider>
+                                    <Grid container component={"main"}>
+                                        <Grid item xs={12} md={2}>
+                                            <Sidebar sidebarItems={SidebarItems} />
                                         </Grid>
-                                    </RightPanelProvider>
-                                </ModalProvider>
-                            </ToastProvider>
-                        </CustomThemeProvider>
-                    </AppRouterCacheProvider>
+                                        <Grid item xs={12} md={10}>
+                                            <TopBar />
+                                            <Box ml={4}>{children}</Box>
+                                        </Grid>
+                                    </Grid>
+                                </RightPanelProvider>
+                            </ModalProvider>
+                        </ToastProvider>
+                    </CustomThemeProvider>
                 </AuthProvider>
             </body>
         </html>

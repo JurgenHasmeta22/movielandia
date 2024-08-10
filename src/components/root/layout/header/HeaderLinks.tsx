@@ -133,7 +133,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                             textAlign: "center",
                                             transition: "background-color 0.2s",
                                             "&:hover": {
-                                                backgroundColor: theme.vars.palette.secondary[100],
+                                                backgroundColor: theme.vars.palette.green.main,
                                             },
                                         }}
                                     >

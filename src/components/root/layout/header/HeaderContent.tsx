@@ -71,7 +71,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                         justifyContent: `${isMobile ? "start" : "space-around"}`,
                         flexWrap: "wrap",
                         py: 2,
-                        backgroundColor: theme.vars.palette.secondary[700],
+                        backgroundColor: theme.vars.palette.primary.dark,
                     }}
                     component={"nav"}
                 >
