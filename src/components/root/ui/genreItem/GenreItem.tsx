@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Typography, useTheme } from "@mui/material";
+import { Card, CssVarsTheme, Typography, useTheme } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { motion } from "framer-motion";
 

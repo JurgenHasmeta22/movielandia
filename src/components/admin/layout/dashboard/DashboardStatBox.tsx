@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, Typography, useTheme } from "@mui/material";
 
 import { DashboardProgressCircle } from "./DashboardProgressCircle";
 

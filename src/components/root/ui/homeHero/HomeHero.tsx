@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, Button, Box, useTheme } from "@mui/material";
+import { Typography, Button, Box, useTheme, CssVarsTheme } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";

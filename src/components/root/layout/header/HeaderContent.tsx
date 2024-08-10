@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, Box, CssVarsTheme, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";

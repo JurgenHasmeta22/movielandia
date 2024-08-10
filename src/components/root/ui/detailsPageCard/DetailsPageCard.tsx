@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Chip, Button, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, Chip, Button, useTheme, useMediaQuery, CssVarsTheme } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                bgcolor: theme.vars.palette.background,
+                bgcolor: theme.vars.palette.background.default,
                 color: theme.vars.palette.primary.main,
                 width: "100%",
                 maxWidth: "1200px",
