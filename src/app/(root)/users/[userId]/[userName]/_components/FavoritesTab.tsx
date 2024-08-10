@@ -1,8 +1,8 @@
 "use client";
 
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { tokens } from "@/utils/theme/theme";
+
 import ClearIcon from "@mui/icons-material/Clear";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
 import {
@@ -23,8 +23,7 @@ interface FavoritesTabProps {
 }
 
 export default function FavoritesTab({ type, userLoggedIn, userInPage }: FavoritesTabProps) {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     let favorites;
 
@@ -196,7 +195,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
     return (
         <Box component="section" minHeight={`${favorites.length > 0 ? "auto" : "70vh"}`} padding={4}>
-            <Typography variant="h4" color={colors.primary[100]} mb={4}>
+            <Typography variant="h4" color={theme.vars.palette.primary.main} mb={4}>
                 Bookmarked {type}
             </Typography>
             <Stack flexDirection="row" flexWrap="wrap" columnGap={3} rowGap={3} justifyContent="start">
@@ -240,7 +239,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                     variant="h6"
                                     component="h3"
                                     sx={{
-                                        color: colors.primary[100],
+                                        color: theme.vars.palette.primary.main,
                                         mt: 1,
                                         textAlign: "center",
                                         fontWeight: "bold",
@@ -267,7 +266,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                     right: 8,
                                     padding: "4px",
                                     cursor: "pointer",
-                                    backgroundColor: colors.primary[200],
+                                    backgroundColor: theme.vars.palette.primary.light,
                                     borderRadius: "50%",
                                     display: "flex",
                                     alignItems: "center",
@@ -299,7 +298,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                     }
                                 }}
                             >
-                                <ClearIcon sx={{ color: colors.primary[900] }} />
+                                <ClearIcon sx={{ color: theme.vars.palette.primary.dark }} />
                             </Box>
                         )}
                     </motion.div>

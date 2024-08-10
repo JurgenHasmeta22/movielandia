@@ -2,12 +2,12 @@
 
 import React, { Dispatch, SetStateAction, forwardRef, useState } from "react";
 import { format } from "date-fns";
-import { Box, Paper, Typography, IconButton, useTheme, Rating, Button } from "@mui/material";
+import { Box, Paper, Typography, IconButton, useTheme, Rating, Button, CssVarsTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import { tokens } from "@/utils/theme/theme";
+
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -96,8 +96,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
 
         const router = useRouter();
 
-        const theme = useTheme();
-        const colors = tokens(theme.palette.mode);
+        const theme: CssVarsTheme = useTheme();
 
         const { label, color } = getRatingLabelAndColor(review.rating);
         // #endregion
@@ -139,7 +138,9 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                     mt: 2,
                     mx: 3,
                     backgroundColor:
-                        review.user.userName === session?.user?.userName ? colors.redAccent[700] : colors.primary[400],
+                        review.user.userName === session?.user?.userName
+                            ? theme.vars.palette.red.main
+                            : theme.vars.palette.background.default,
                 }}
             >
                 <Box
@@ -177,7 +178,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                 sx={{
                                     fontSize: 24,
                                     mr: 1,
-                                    color: colors.primary[500],
+                                    color: theme.vars.palette.secondary.main,
                                 }}
                             />
                         )}
@@ -186,8 +187,8 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             sx={{
                                 color:
                                     review.user.userName === session?.user?.userName
-                                        ? colors.blueAccent[200]
-                                        : colors.primary[100],
+                                        ? theme.vars.palette.blue.main
+                                        : theme.vars.palette.primary.main,
                                 fontWeight: review.user.userName === session?.user?.userName ? 900 : 300,
                                 letterSpacing: 1,
                             }}
@@ -302,7 +303,9 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                     handleClickUpVoteReview();
                                 }}
                                 sx={{
-                                    color: review.isUpvoted ? colors.greenAccent[700] : colors.primary[100],
+                                    color: review.isUpvoted
+                                        ? theme.vars.palette.green.main
+                                        : theme.vars.palette.primary.main,
                                 }}
                             >
                                 <ThumbUpIcon fontSize="medium" />
@@ -317,7 +320,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                 "&:hover": {
                                     backgroundColor: "transparent",
                                 },
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                             }}
                         >
                             <Typography>{review._count.upvotes}</Typography>
@@ -338,7 +341,9 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                     handleClickDownVoteReview();
                                 }}
                                 sx={{
-                                    color: review.isDownvoted ? colors.redAccent[700] : colors.primary[100],
+                                    color: review.isDownvoted
+                                        ? theme.vars.palette.red.main
+                                        : theme.vars.palette.primary.main,
                                 }}
                             >
                                 <ThumbDownIcon fontSize="medium" />

@@ -3,8 +3,6 @@
 import { Box, Button, Typography } from "@mui/material";
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
-    console.log("Global Error", error);
-
     return (
         <Box>
             <Typography component="h2" variant="h2">

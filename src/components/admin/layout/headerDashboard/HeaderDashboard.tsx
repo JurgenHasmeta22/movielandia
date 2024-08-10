@@ -1,18 +1,21 @@
 "use client";
 
-import { Typography, Box, useTheme } from "@mui/material";
-import { tokens } from "@/utils/theme/theme";
+import { Typography, Box, useTheme, CssVarsTheme } from "@mui/material";
 
 const HeaderDashboard = ({ title, subtitle }: any) => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <Box mb="30px" component={"nav"}>
-            <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "0 0 5px 0" }}>
+            <Typography
+                variant="h2"
+                color={theme.vars.palette.greyAccent.main}
+                fontWeight="bold"
+                sx={{ m: "0 0 5px 0" }}
+            >
                 {title}
             </Typography>
-            <Typography variant="h5" color={colors.greenAccent[400]}>
+            <Typography variant="h5" color={theme.vars.palette.green.light}>
                 {subtitle}
             </Typography>
         </Box>
