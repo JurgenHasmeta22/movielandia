@@ -10,6 +10,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import { signUp } from "@/actions/auth.actions";
+import EmailIcon from "@mui/icons-material/Email";
+import PasswordIcon from "@mui/icons-material/Password";
+import PersonIcon from "@mui/icons-material/Person";
 
 const registerSchema = yup.object().shape({
     userName: yup
@@ -41,9 +44,34 @@ export default function LoginForm() {
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
-
     const handleClickShowPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
     const handleMouseDownPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
+
+    async function handleSubmitRegister(
+        values: {
+            userName: string;
+            email: string;
+            password: string;
+            confirmPassword: string;
+        },
+        setSubmitting: (isSubmitting: boolean) => void,
+    ) {
+        const userData = {
+            userName: values.userName,
+            email: values.email,
+            password: values.password,
+        };
+
+        const result = await signUp(userData);
+
+        if (!result) {
+            showToast("error", "User already exists or something is wrong with the data you provided!");
+        } else {
+            router.push("/login");
+        }
+
+        setSubmitting(false);
+    }
 
     return (
         <Formik
@@ -54,22 +82,8 @@ export default function LoginForm() {
                 confirmPassword: "",
             }}
             validationSchema={registerSchema}
-            onSubmit={async (values, { setSubmitting }) => {
-                const userData = {
-                    userName: values.userName,
-                    email: values.email,
-                    password: values.password,
-                };
-
-                const result = await signUp(userData);
-
-                if (!result) {
-                    showToast("error", "User already exists or something is wrong with the data you provided!");
-                } else {
-                    router.push("/login");
-                }
-
-                setSubmitting(false);
+            onSubmit={(values, { setSubmitting }) => {
+                handleSubmitRegister(values, setSubmitting);
             }}
             enableReinitialize
         >
@@ -83,16 +97,28 @@ export default function LoginForm() {
                                 rowGap: 2,
                             }}
                         >
-                            <Typography
-                                variant="h2"
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
+                            <Box
+                                display={"flex"}
+                                flexDirection="row"
+                                columnGap={1}
+                                alignItems={"center"}
+                                justifyContent={"center"}
                             >
-                                Sign Up
-                            </Typography>
+                                <LockOutlinedIcon fontSize="large" />
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        textTransform: "capitalize",
+                                    }}
+                                >
+                                    Sign Up
+                                </Typography>
+                            </Box>
                             <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <FormLabel component={"label"}>Username</FormLabel>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <PersonIcon />
+                                    <FormLabel component={"label"}>Username</FormLabel>
+                                </Box>
                                 <TextField
                                     type="text"
                                     name="userName"
@@ -105,14 +131,15 @@ export default function LoginForm() {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     size="small"
-                                    InputProps={{ color: "secondary" }}
-                                    InputLabelProps={{ color: "secondary" }}
                                     helperText={touched["userName"] && errors["userName"]}
                                     error={touched["userName"] && !!errors["userName"]}
                                 />
                             </Box>
                             <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <FormLabel component={"label"}>Email</FormLabel>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <EmailIcon />
+                                    <FormLabel component={"label"}>Email</FormLabel>
+                                </Box>
                                 <TextField
                                     type="text"
                                     name="email"
@@ -125,14 +152,15 @@ export default function LoginForm() {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     size="small"
-                                    InputProps={{ color: "secondary" }}
-                                    InputLabelProps={{ color: "secondary" }}
                                     helperText={touched["email"] && errors["email"]}
                                     error={touched["email"] && !!errors["email"]}
                                 />
                             </Box>
                             <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <FormLabel component={"label"}>Password</FormLabel>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <PasswordIcon />
+                                    <FormLabel component={"label"}>Password</FormLabel>
+                                </Box>
                                 <TextField
                                     type={showPassword ? "text" : "password"}
                                     name="password"
@@ -145,7 +173,6 @@ export default function LoginForm() {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     InputProps={{
-                                        color: "secondary",
                                         endAdornment: (
                                             <InputAdornment position="end">
                                                 <IconButton
@@ -153,23 +180,21 @@ export default function LoginForm() {
                                                     onClick={handleClickShowPassword}
                                                     onMouseDown={handleMouseDownPassword}
                                                 >
-                                                    {showPassword ? (
-                                                        <Visibility color="secondary" />
-                                                    ) : (
-                                                        <VisibilityOff color="secondary" />
-                                                    )}
+                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
                                     }}
                                     size="small"
-                                    InputLabelProps={{ color: "secondary" }}
                                     helperText={touched["password"] && errors["password"]}
                                     error={touched["password"] && !!errors["password"]}
                                 />
                             </Box>
                             <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <FormLabel component={"label"}>Confirm password</FormLabel>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <PasswordIcon />
+                                    <FormLabel component={"label"}>Confirm password</FormLabel>
+                                </Box>
                                 <TextField
                                     type={showPasswordConfirm ? "text" : "password"}
                                     name="confirmPassword"
@@ -182,7 +207,6 @@ export default function LoginForm() {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     InputProps={{
-                                        color: "secondary",
                                         endAdornment: (
                                             <InputAdornment position="end">
                                                 <IconButton
@@ -190,24 +214,18 @@ export default function LoginForm() {
                                                     onClick={handleClickShowPasswordConfirm}
                                                     onMouseDown={handleMouseDownPasswordConfirm}
                                                 >
-                                                    {showPasswordConfirm ? (
-                                                        <Visibility color="secondary" />
-                                                    ) : (
-                                                        <VisibilityOff color="secondary" />
-                                                    )}
+                                                    {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
                                     }}
                                     size="small"
-                                    InputLabelProps={{ color: "secondary" }}
                                     helperText={touched["confirmPassword"] && errors["confirmPassword"]}
                                     error={touched["confirmPassword"] && !!errors["confirmPassword"]}
                                 />
                             </Box>
                             <Button
                                 type="submit"
-                                color="secondary"
                                 variant="outlined"
                                 sx={{
                                     fontWeight: 600,
@@ -219,9 +237,9 @@ export default function LoginForm() {
                                 <Typography
                                     component={"span"}
                                     style={{
-                                        paddingLeft: 4,
+                                        paddingLeft: 1,
                                         textTransform: "capitalize",
-                                        fontSize: 14,
+                                        fontSize: 16,
                                     }}
                                 >
                                     Sign Up

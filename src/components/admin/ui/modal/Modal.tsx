@@ -126,7 +126,7 @@ const Modal: React.FC<ModalProps> = ({
                             }
                             loader={
                                 <Box display={"flex"} alignItems={"center"} justifyContent={"center"} mt={1}>
-                                    <CircularProgress size={20} thickness={2} color="secondary" />
+                                    <CircularProgress size={20} thickness={2} />
                                 </Box>
                             }
                             height={"auto"}

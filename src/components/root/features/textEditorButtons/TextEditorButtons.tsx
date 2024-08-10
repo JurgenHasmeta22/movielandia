@@ -112,7 +112,6 @@ export function TextEditorButtons({
                     </Button>
                     <Button
                         onClick={onSubmitUpdateReview}
-                        color="secondary"
                         variant="contained"
                         sx={{
                             display: "flex",

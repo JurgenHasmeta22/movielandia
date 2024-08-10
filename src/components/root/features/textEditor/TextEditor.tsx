@@ -99,7 +99,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                     justifyContent: "flex-start",
                 }}
             >
-                <Typography variant="body2" color="secondary" fontSize={14} fontWeight={700} sx={{ mr: 1 }}>
+                <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ mr: 1 }}>
                     {rating?.toFixed(1)}
                 </Typography>
                 <Rating

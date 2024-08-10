@@ -16,7 +16,6 @@ const Breadcrumb = ({ breadcrumbs, navigateTo }: BreadcrumbProps) => {
     return (
         <Box mb={"30px"} display={"flex"} component={"nav"} flexDirection={"row"} alignItems={"center"} gap={"20px"}>
             <Button
-                color="secondary"
                 variant="contained"
                 onClick={() => {
                     router.push(navigateTo);
