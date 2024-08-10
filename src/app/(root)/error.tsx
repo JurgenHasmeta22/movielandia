@@ -20,11 +20,11 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
                     transition: "background-color 0.5s ease",
                 }}
             >
-                <Typography variant="h1" gutterBottom>
-                    Oops! Something went wrong.
+                <Typography variant="h3" gutterBottom>
+                    Something went wrong.
                 </Typography>
-                <Typography variant="h2" gutterBottom>
-                    Please try again now or later..
+                <Typography variant="h5" gutterBottom>
+                    Please try again now or later
                 </Typography>
                 <Button onClick={reset} className="text-accent-blue">
                     Try again

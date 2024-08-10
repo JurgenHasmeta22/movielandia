@@ -4,7 +4,6 @@ import { NextFetchEvent, NextResponse } from "next/server";
 
 export default async function middleware(req: NextRequestWithAuth, event: NextFetchEvent) {
     const token = await getToken({ req });
-
     const isAuthenticated = !!token;
     const userRole = token?.role;
 
