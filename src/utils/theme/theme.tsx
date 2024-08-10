@@ -1,13 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
-import {
-    experimental_extendTheme as extendTheme,
-    responsiveFontSizes,
-    Experimental_CssVarsProvider as CssVarsProvider,
-} from "@mui/material/styles";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import CssBaseline from "@mui/material/CssBaseline";
+import { experimental_extendTheme as extendTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const darkColorTokens = {
     grey: {
@@ -332,14 +325,3 @@ export const theme = responsiveFontSizes(
         },
     }),
 );
-
-export function CustomThemeProvider({ children }: { children: ReactNode }) {
-    return (
-        <AppRouterCacheProvider>
-            <CssVarsProvider theme={theme}>
-                <CssBaseline />
-                {children}
-            </CssVarsProvider>
-        </AppRouterCacheProvider>
-    );
-}
