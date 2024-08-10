@@ -5,12 +5,11 @@ import { AppBar, Box, CssVarsTheme, IconButton, Stack, Toolbar, useMediaQuery, u
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLinks } from "./HeaderLinks";
 import { Genre } from "@prisma/client";
 import { Session } from "next-auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import HeaderMobile from "../headerMobile/HeaderMobile";
@@ -28,7 +27,6 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
     const router = useRouter();
 
     const theme: CssVarsTheme = useTheme();
-
     const isMobile = useMediaQuery("(max-width:768px)");
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -49,7 +47,6 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
 
     const handleSignOut = async () => {
         closeMenuProfile();
-
         await signOut({ redirect: false });
 
         if (isDrawerOpen) {
@@ -78,7 +75,6 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                     {isMobile ? (
                         <Box>
                             <IconButton
-                                color="inherit"
                                 aria-label="open drawer"
                                 edge="start"
                                 onClick={() => {

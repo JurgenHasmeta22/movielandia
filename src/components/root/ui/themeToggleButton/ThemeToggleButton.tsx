@@ -10,7 +10,7 @@ const SwitchThemeButton = () => {
 
     return (
         <IconButton onClick={() => setColorScheme(alternativeScheme)}>
-            {colorScheme === "dark" ? <DarkMode /> : <LightMode />}
+            {colorScheme === "dark" ? <LightMode /> : <DarkMode />}
         </IconButton>
     );
 };

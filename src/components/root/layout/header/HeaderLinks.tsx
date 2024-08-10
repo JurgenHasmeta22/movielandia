@@ -20,7 +20,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const theme: CssVarsTheme = useTheme();
-
     const isMobile = useMediaQuery("(max-width:768px)");
 
     return (
