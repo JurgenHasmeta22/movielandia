@@ -158,7 +158,7 @@ export const theme = responsiveFontSizes(
                         dark: lightColorTokens.primary[600],
                     },
                     background: {
-                        default: lightColorTokens.primary[400],
+                        default: "#fcfcfc",
                     },
                     greyAccent: {
                         main: lightColorTokens.grey[100],
@@ -187,7 +187,7 @@ export const theme = responsiveFontSizes(
                         dark: darkColorTokens.primary[600],
                     },
                     background: {
-                        default: darkColorTokens.primary[400],
+                        default: darkColorTokens.primary[500],
                     },
                     greyAccent: {
                         main: darkColorTokens.grey[100],
