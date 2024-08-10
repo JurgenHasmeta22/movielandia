@@ -9,6 +9,7 @@ import { Session } from "next-auth";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
+import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
 
 interface IHeaderMenu {
     genres: Genre[];
@@ -75,6 +76,15 @@ export default function HeaderMobile({
                     }}
                 >
                     <SearchField />
+                </Box>
+                <Box
+                    sx={{
+                        marginTop: 2,
+                        ml: 2,
+                        mr: 2,
+                    }}
+                >
+                    <ThemeToggleButton />
                 </Box>
                 <Box
                     sx={{
