@@ -89,8 +89,8 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                 py: 1,
                                 color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    backgroundColor: theme.vars.palette.secondary[100],
-                                    color: theme.vars.palette.secondary[400],
+                                    backgroundColor: theme.vars.palette.green.main,
+                                    color: theme.vars.palette.greyAccent.main,
                                 },
                             }}
                         >
@@ -125,8 +125,8 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                                 py: 1,
                                 color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    backgroundColor: theme.vars.palette.secondary[100],
-                                    color: theme.vars.palette.secondary[400],
+                                    backgroundColor: theme.vars.palette.green.main,
+                                    color: theme.vars.palette.greyAccent.main,
                                 },
                             }}
                         >

@@ -139,7 +139,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                     mx: 3,
                     backgroundColor:
                         review.user.userName === session?.user?.userName
-                            ? theme.vars.palette.secondary[300]
+                            ? theme.vars.palette.red.main
                             : theme.vars.palette.background,
                 }}
             >
@@ -178,7 +178,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                 sx={{
                                     fontSize: 24,
                                     mr: 1,
-                                    color: theme.vars.palette.secondary[500],
+                                    color: theme.vars.palette.secondary.main,
                                 }}
                             />
                         )}
@@ -187,7 +187,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             sx={{
                                 color:
                                     review.user.userName === session?.user?.userName
-                                        ? theme.vars.palette.secondary[200]
+                                        ? theme.vars.palette.blue.main
                                         : theme.vars.palette.primary.main,
                                 fontWeight: review.user.userName === session?.user?.userName ? 900 : 300,
                                 letterSpacing: 1,
@@ -304,7 +304,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                 }}
                                 sx={{
                                     color: review.isUpvoted
-                                        ? theme.vars.palette.secondary[100]
+                                        ? theme.vars.palette.green.main
                                         : theme.vars.palette.primary.main,
                                 }}
                             >
@@ -342,7 +342,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                 }}
                                 sx={{
                                     color: review.isDownvoted
-                                        ? theme.vars.palette.secondary[300]
+                                        ? theme.vars.palette.red.main
                                         : theme.vars.palette.primary.main,
                                 }}
                             >

@@ -22,7 +22,7 @@ const Footer = (): React.JSX.Element => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                backgroundColor: theme.vars.palette.secondary[700],
+                backgroundColor: theme.vars.palette.primary.dark,
                 color: theme.vars.palette.primary.main,
                 justifyContent: "center",
                 py: 4,

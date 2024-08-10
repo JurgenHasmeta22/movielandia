@@ -8,7 +8,7 @@ import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
 import { CustomThemeProvider } from "@/utils/theme/theme";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import "../globals.css";
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL!;
@@ -45,24 +45,23 @@ export default function RootLayout({
         <html suppressHydrationWarning lang="en">
             <body>
                 <AuthProvider>
-                    <AppRouterCacheProvider>
-                        <CustomThemeProvider>
-                            <ToastProvider>
-                                <ModalProvider>
-                                    <RightPanelProvider>
-                                        <Grid container>
-                                            <Grid item xs={12}>
-                                                <Header />
-                                                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                                                <ScrollToTop />
-                                                <Footer />
-                                            </Grid>
+                    <InitColorSchemeScript />
+                    <CustomThemeProvider>
+                        <ToastProvider>
+                            <ModalProvider>
+                                <RightPanelProvider>
+                                    <Grid container>
+                                        <Grid item xs={12}>
+                                            <Header />
+                                            <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                                            <ScrollToTop />
+                                            <Footer />
                                         </Grid>
-                                    </RightPanelProvider>
-                                </ModalProvider>
-                            </ToastProvider>
-                        </CustomThemeProvider>
-                    </AppRouterCacheProvider>
+                                    </Grid>
+                                </RightPanelProvider>
+                            </ModalProvider>
+                        </ToastProvider>
+                    </CustomThemeProvider>
                 </AuthProvider>
             </body>
         </html>

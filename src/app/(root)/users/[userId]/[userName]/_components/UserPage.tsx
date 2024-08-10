@@ -258,7 +258,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: theme.vars.palette.secondary[100],
+                                                    color: theme.vars.palette.green.main,
                                                 },
                                             }}
                                         >
@@ -273,7 +273,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: theme.vars.palette.secondary[100],
+                                                    color: theme.vars.palette.green.main,
                                                 },
                                             }}
                                         >
@@ -302,7 +302,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             onClick={() => setIsUserNameEditing(true)}
                                             sx={{
                                                 "&:hover": {
-                                                    bgcolor: theme.vars.palette.secondary[100],
+                                                    bgcolor: theme.vars.palette.green.main,
                                                 },
                                                 ml: 2,
                                             }}
@@ -321,10 +321,10 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                     sx={{
                                         color: theme.vars.palette.primary.main,
                                         bgcolor: !userInPage.isFollowed
-                                            ? theme.vars.palette.secondary[300]
-                                            : theme.vars.palette.secondary[900],
+                                            ? theme.vars.palette.red.main
+                                            : theme.vars.palette.green.light,
                                         "&:hover": {
-                                            bgcolor: theme.vars.palette.secondary[300],
+                                            bgcolor: theme.vars.palette.red.main,
                                         },
                                         textTransform: "capitalize",
                                         fontSize: 18,
@@ -357,7 +357,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: theme.vars.palette.secondary[100],
+                                                    color: theme.vars.palette.green.main,
                                                 },
                                             }}
                                         >
@@ -372,7 +372,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: theme.vars.palette.secondary[100],
+                                                    color: theme.vars.palette.green.main,
                                                 },
                                             }}
                                         >
@@ -401,7 +401,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             onClick={() => setIsEmailEditing(true)}
                                             sx={{
                                                 "&:hover": {
-                                                    bgcolor: theme.vars.palette.secondary[100],
+                                                    bgcolor: theme.vars.palette.green.main,
                                                 },
                                                 ml: 2,
                                             }}
@@ -430,7 +430,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: theme.vars.palette.secondary[100],
+                                                    color: theme.vars.palette.green.main,
                                                 },
                                             }}
                                         >
@@ -445,7 +445,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
                                                 "&:hover": {
-                                                    color: theme.vars.palette.secondary[100],
+                                                    color: theme.vars.palette.green.main,
                                                 },
                                             }}
                                         >
@@ -476,7 +476,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                                             onClick={() => setIsBioEditing(true)}
                                             sx={{
                                                 "&:hover": {
-                                                    bgcolor: theme.vars.palette.secondary[100],
+                                                    bgcolor: theme.vars.palette.green.main,
                                                 },
                                                 ml: 2,
                                             }}
@@ -663,7 +663,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Movies"
                                 sx={{
-                                    backgroundColor: theme.vars.palette.secondary[200],
+                                    backgroundColor: theme.vars.palette.blue.main,
                                     color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
@@ -673,7 +673,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Series"
                                 sx={{
-                                    backgroundColor: theme.vars.palette.secondary[200],
+                                    backgroundColor: theme.vars.palette.blue.main,
                                     color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
@@ -683,7 +683,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Actors"
                                 sx={{
-                                    backgroundColor: theme.vars.palette.secondary[200],
+                                    backgroundColor: theme.vars.palette.blue.main,
                                     color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
@@ -693,7 +693,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Seasons"
                                 sx={{
-                                    backgroundColor: theme.vars.palette.secondary[200],
+                                    backgroundColor: theme.vars.palette.blue.main,
                                     color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
@@ -703,7 +703,7 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                             <Tab
                                 label="Favorite Episodes"
                                 sx={{
-                                    backgroundColor: theme.vars.palette.secondary[200],
+                                    backgroundColor: theme.vars.palette.blue.main,
                                     color: theme.vars.palette.primary.main,
                                     fontWeight: "bold",
                                     fontSize: 14,
@@ -803,10 +803,10 @@ export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPa
                         sx={{
                             color: theme.vars.palette.primary.main,
                             bgcolor: !userInPage.isFollowed
-                                ? theme.vars.palette.secondary[300]
-                                : theme.vars.palette.secondary[900],
+                                ? theme.vars.palette.red.main
+                                : theme.vars.palette.green.light,
                             "&:hover": {
-                                bgcolor: theme.vars.palette.secondary[300],
+                                bgcolor: theme.vars.palette.red.main,
                             },
                             textTransform: "capitalize",
                             fontSize: 16,

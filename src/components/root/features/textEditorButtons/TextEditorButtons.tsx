@@ -43,11 +43,11 @@ export function TextEditorButtons({
                             padding: 1.5,
                             textTransform: "capitalize",
                             border: "none",
-                            backgroundColor: theme.vars.palette.secondary[900],
-                            color: theme.vars.palette.secondary[700],
+                            backgroundColor: theme.vars.palette.green.light,
+                            color: theme.vars.palette.primary.dark,
                             "&:hover": {
-                                backgroundColor: theme.vars.palette.secondary[100],
-                                color: theme.vars.palette.secondary[400],
+                                backgroundColor: theme.vars.palette.green.main,
+                                color: theme.vars.palette.greyAccent.main,
                             },
                         }}
                     >
