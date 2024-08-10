@@ -7,7 +7,7 @@ import { theme } from "@/utils/theme/theme";
 export function ThemeProvider({ children }: { children: ReactNode }) {
     return (
         <AppRouterCacheProvider>
-            <CssVarsProvider theme={theme}>
+            <CssVarsProvider defaultMode="dark" theme={theme}>
                 <CssBaseline />
                 {children}
             </CssVarsProvider>
