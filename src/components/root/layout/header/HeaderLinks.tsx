@@ -1,8 +1,8 @@
 "use client";
 
-import { Box, colors, List, ListItem, Menu, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, List, ListItem, Menu, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
+
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -19,8 +19,7 @@ interface IHeaderLinks {
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
     const isMobile = useMediaQuery("(max-width:768px)");
 
     return (
@@ -35,7 +34,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         flexDirection: "row",
                         alignItems: "center",
                         fontSize: 24,
-                        color: colors.primary[100],
+                        color: theme.vars.palette.primary.main,
                         marginLeft: isMobile ? 8 : 0,
                         marginBottom: isMobile ? 3 : 0,
                     }}
@@ -60,7 +59,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                             }}
                             onClick={() => {
                                 if (isDrawerOpen) {
@@ -82,7 +81,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                             }}
                             onClick={() => {
                                 if (isDrawerOpen) {
@@ -114,7 +113,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                     href={`/genres/${genre.id}/${genre.name}`}
                                     style={{
                                         textDecoration: "none",
-                                        color: colors.primary[100],
+                                        color: theme.vars.palette.primary.main,
                                     }}
                                     onClick={() => {
                                         if (isDrawerOpen) {
@@ -133,7 +132,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                             textAlign: "center",
                                             transition: "background-color 0.2s",
                                             "&:hover": {
-                                                backgroundColor: colors.greenAccent[800],
+                                                backgroundColor: theme.vars.palette.green.main,
                                             },
                                         }}
                                     >
@@ -153,7 +152,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
-                                color: colors.primary[100],
+                                color: theme.vars.palette.primary.main,
                             }}
                             onClick={() => {
                                 if (isDrawerOpen) {

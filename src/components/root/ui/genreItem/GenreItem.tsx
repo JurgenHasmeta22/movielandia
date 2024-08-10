@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, Typography, useTheme } from "@mui/material";
+import { Card, CssVarsTheme, Typography, useTheme } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { motion } from "framer-motion";
-import { tokens } from "@/utils/theme/theme";
+
 import Link from "next/link";
 
 interface IGenreItemProps {
@@ -11,8 +11,7 @@ interface IGenreItemProps {
 }
 
 export default function GenreItem({ genre }: IGenreItemProps) {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
@@ -30,7 +29,9 @@ export default function GenreItem({ genre }: IGenreItemProps) {
                     }}
                     elevation={4}
                 >
-                    <Typography sx={{ textDecoration: "none", color: colors.primary[100] }}>{genre.name}</Typography>
+                    <Typography sx={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
+                        {genre.name}
+                    </Typography>
                 </Card>
             </Link>
         </motion.div>

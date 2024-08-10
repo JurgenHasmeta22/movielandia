@@ -44,6 +44,6 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
             }
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }

@@ -1,13 +1,12 @@
 "use client";
 
+import { IS_BROWSER } from "@/utils/helpers/utils";
 import { KeyboardArrowUp } from "@mui/icons-material";
-import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
 import { useCallback } from "react";
-import { tokens } from "@/utils/theme/theme";
 
 function ScrollToTop() {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     const trigger = useScrollTrigger({
         threshold: 150,
@@ -15,7 +14,7 @@ function ScrollToTop() {
     });
 
     const scrollToTop = useCallback(() => {
-        if (typeof window !== "undefined") {
+        if (IS_BROWSER) {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
     }, []);
@@ -36,8 +35,8 @@ function ScrollToTop() {
                     size="large"
                     aria-label="Scroll back to top"
                     sx={{
-                        color: colors.primary[900],
-                        backgroundColor: colors.primary[100],
+                        color: theme.vars.palette.green.main,
+                        backgroundColor: theme.vars.palette.primary.main,
                     }}
                 >
                     <KeyboardArrowUp fontSize="large" />

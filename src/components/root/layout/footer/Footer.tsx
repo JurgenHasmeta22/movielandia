@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button, useTheme } from "@mui/material";
+import { Box, Typography, IconButton, Stack, TextField, Button, useTheme, CssVarsTheme } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -12,11 +12,9 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
 
 const Footer = (): React.JSX.Element => {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     return (
         <Box
@@ -24,8 +22,8 @@ const Footer = (): React.JSX.Element => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                backgroundColor: colors.primary[900],
-                color: colors.primary[100],
+                backgroundColor: theme.vars.palette.primary.dark,
+                color: theme.vars.palette.primary.main,
                 justifyContent: "center",
                 py: 4,
                 gap: 2,
@@ -40,19 +38,19 @@ const Footer = (): React.JSX.Element => {
                         Explore
                     </Typography>
                     <Stack spacing={1} pt={1}>
-                        <Link href="/movies" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link href="/movies" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
                             </Stack>
                         </Link>
-                        <Link href="/series" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link href="/series" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
                             </Stack>
                         </Link>
-                        <Link href="/genres" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link href="/genres" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
@@ -65,13 +63,16 @@ const Footer = (): React.JSX.Element => {
                         Account
                     </Typography>
                     <Stack spacing={1} mt={1}>
-                        <Link href="/login" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link href="/login" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
                             </Stack>
                         </Link>
-                        <Link href="/register" style={{ textDecoration: "none", color: colors.primary[100] }}>
+                        <Link
+                            href="/register"
+                            style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}
+                        >
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>

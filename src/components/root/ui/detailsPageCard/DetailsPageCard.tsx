@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Typography, Chip, Button, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, Chip, Button, useTheme, useMediaQuery, CssVarsTheme } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
-import { tokens } from "@/utils/theme/theme";
+
 import { useSession } from "next-auth/react";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { formatDate } from "@/utils/helpers/utils";
@@ -19,8 +19,7 @@ interface IDetailsPageCardProps {
 export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
+    const theme: CssVarsTheme = useTheme();
 
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -29,8 +28,8 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                bgcolor: colors.primary[400],
-                color: colors.primary[100],
+                bgcolor: theme.vars.palette.secondary.light,
+                color: theme.vars.palette.primary.main,
                 width: "100%",
                 maxWidth: "1200px",
                 margin: "auto",
@@ -60,7 +59,13 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                     />
                 </Box>
                 <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                    <Typography variant="h3" component="h1" gutterBottom fontWeight="bold" color={colors.primary[100]}>
+                    <Typography
+                        variant="h3"
+                        component="h1"
+                        gutterBottom
+                        fontWeight="bold"
+                        color={theme.vars.palette.primary.main}
+                    >
                         {type !== "actor" ? data.title : data.fullname}
                     </Typography>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
@@ -71,12 +76,12 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                     component="div"
                                     clickable
                                     sx={{
-                                        bgcolor: colors.primary[600],
-                                        color: colors.primary[100],
+                                        bgcolor: theme.vars.palette.secondary.dark,
+                                        color: theme.vars.palette.green.main,
                                         fontSize: "0.9rem",
                                         fontWeight: "bold",
                                         "&:hover": {
-                                            bgcolor: colors.greenAccent[500],
+                                            bgcolor: theme.vars.palette.green.light,
                                         },
                                     }}
                                 />
@@ -105,7 +110,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography variant="body1" paragraph color={colors.primary[200]}>
+                    <Typography variant="body1" paragraph color={theme.vars.palette.primary.light}>
                         {data.description}
                     </Typography>
                     <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
@@ -117,10 +122,10 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             rel="noopener noreferrer"
                             fullWidth={isMobile}
                             sx={{
-                                bgcolor: colors.redAccent[500],
-                                color: colors.primary[100],
+                                bgcolor: theme.vars.palette.red.main,
+                                color: theme.vars.palette.primary.main,
                                 "&:hover": {
-                                    bgcolor: colors.redAccent[900],
+                                    bgcolor: theme.vars.palette.red.main,
                                 },
                                 textTransform: "capitalize",
                                 fontSize: 16,
@@ -134,10 +139,12 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                 onClick={isBookmarked ? onRemoveBookmark : onBookmark}
                                 fullWidth={isMobile}
                                 sx={{
-                                    color: colors.primary[100],
-                                    bgcolor: isBookmarked ? colors.redAccent[500] : colors.greenAccent[500],
+                                    color: theme.vars.palette.primary.main,
+                                    bgcolor: isBookmarked
+                                        ? theme.vars.palette.red.main
+                                        : theme.vars.palette.green.light,
                                     "&:hover": {
-                                        bgcolor: colors.redAccent[900],
+                                        bgcolor: theme.vars.palette.red.main,
                                     },
                                     textTransform: "capitalize",
                                     fontSize: 16,
