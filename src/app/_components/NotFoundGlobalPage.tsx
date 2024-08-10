@@ -22,7 +22,7 @@ export default function NotFoundGlobalPage() {
                     404
                 </Typography>
                 <Typography variant="h2" component="h2" gutterBottom sx={{ color: theme.vars.palette.primary.main }}>
-                    Ooops, page not found.
+                    Page not found.
                 </Typography>
                 <Typography variant="h4" component="p" sx={{ color: theme.vars.palette.primary.main }}>
                     The page you are looking for might have been removed, or is temporarily unavailable.

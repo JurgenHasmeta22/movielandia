@@ -6,7 +6,15 @@ import ToastProvider from "@/providers/ToastProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import MainLayout from "@/layouts/MainLayout";
+import { Montserrat } from "next/font/google";
 import "../globals.css";
+
+const montserrat = Montserrat({
+    weight: ["300", "400", "500", "700"],
+    subsets: ["latin"],
+    display: "swap",
+    fallback: ["Arial", "sans-serif"],
+});
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL!;
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -23,14 +31,13 @@ export const metadata = {
         follow: true,
         index: true,
     },
-    ...(twitterCreator &&
-        twitterSite && {
-            twitter: {
-                card: "summary_large_image",
-                creator: twitterCreator,
-                site: twitterSite,
-            },
-        }),
+    ...{
+        twitter: {
+            card: "summary_large_image",
+            creator: twitterCreator,
+            site: twitterSite,
+        },
+    },
 };
 
 export default function RootLayout({
@@ -40,7 +47,7 @@ export default function RootLayout({
 }>) {
     return (
         <html suppressHydrationWarning lang="en">
-            <body>
+            <body className={montserrat.className}>
                 <AuthProvider>
                     <InitColorSchemeScript defaultMode="dark" />
                     <ThemeProvider>

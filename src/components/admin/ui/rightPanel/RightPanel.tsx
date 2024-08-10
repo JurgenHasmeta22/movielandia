@@ -21,6 +21,7 @@ import {
     SxProps,
     FormLabel,
     InputAdornment,
+    CssVarsTheme,
 } from "@mui/material";
 import { Formik, Form, FormikProps } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
@@ -79,13 +80,13 @@ const RightPanel: React.FC<DrawerProps> = ({
     onSave,
     actions,
     formRef,
-    // onDataChange,
     subTitle,
     steps,
     title,
 }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
+
     const theme: CssVarsTheme = useTheme();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -196,7 +197,6 @@ const RightPanel: React.FC<DrawerProps> = ({
                                                         value={values[field.name]}
                                                         type={showPassword ? "text" : "password"}
                                                         autoComplete={"on"}
-                                                        // @ts-expect-error nonoeffe
                                                         helperText={touched[field.name] && errors[field.name]}
                                                         error={touched[field.name] && !!errors[field.name]}
                                                         InputProps={{
@@ -233,7 +233,6 @@ const RightPanel: React.FC<DrawerProps> = ({
                                                         disabled={field.disabled}
                                                         sx={{ ...field.sx }}
                                                         size="small"
-                                                        // @ts-expect-error nonoefe
                                                         helperText={touched[field.name] && errors[field.name]}
                                                         error={touched[field.name] && !!errors[field.name]}
                                                     />
@@ -269,11 +268,7 @@ const RightPanel: React.FC<DrawerProps> = ({
                                 </Box>
                                 {steps && (
                                     <Box mt={12} display="flex" justifyContent="space-between">
-                                        <Button
-                                            disabled={activeStep === 0}
-                                            onClick={handleBack}
-                                            variant="contained"
-                                        >
+                                        <Button disabled={activeStep === 0} onClick={handleBack} variant="contained">
                                             Mbrapa
                                         </Button>
                                         {!isLastStep() && (
