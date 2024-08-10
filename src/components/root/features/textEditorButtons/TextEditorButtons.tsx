@@ -25,7 +25,6 @@ export function TextEditorButtons({
     onSubmitUpdateReview,
 }: ITextEditorButtons) {
     const { openModal } = useModal();
-
     const theme: CssVarsTheme = useTheme();
 
     return (
