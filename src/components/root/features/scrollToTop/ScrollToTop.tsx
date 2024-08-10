@@ -1,5 +1,6 @@
 "use client";
 
+import { IS_BROWSER } from "@/utils/helpers/utils";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Box, CssVarsTheme, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
 import { useCallback } from "react";
@@ -13,7 +14,7 @@ function ScrollToTop() {
     });
 
     const scrollToTop = useCallback(() => {
-        if (typeof window !== "undefined") {
+        if (IS_BROWSER) {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
     }, []);

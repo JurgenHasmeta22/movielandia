@@ -22,6 +22,7 @@ import { SidebarItem } from "./components/SidebarItem";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { IS_BROWSER } from "@/utils/helpers/utils";
 
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();
@@ -48,7 +49,9 @@ const Sidebar = ({ sidebarItems }: any) => {
     };
 
     useEffect(() => {
-        setHeight(window.innerHeight);
+        if (IS_BROWSER) {
+            setHeight(window.innerHeight);
+        }
     }, []);
 
     return (
