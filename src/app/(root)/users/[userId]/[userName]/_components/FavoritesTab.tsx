@@ -2,7 +2,6 @@
 
 import { Box, CssVarsTheme, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-
 import ClearIcon from "@mui/icons-material/Clear";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
 import {
