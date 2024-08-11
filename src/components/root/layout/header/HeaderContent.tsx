@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import HeaderMobile from "../headerMobile/HeaderMobile";
+import { showToast } from "@/utils/helpers/toast";
 
 interface IHeaderContent {
     session: Session | null;
@@ -24,10 +25,10 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const router = useRouter();
-
     const theme: CssVarsTheme = useTheme();
     const isMobile = useMediaQuery("(max-width:768px)");
+
+    const router = useRouter();
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenres(event.currentTarget);
@@ -56,6 +57,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
         // this does a full server component rerender too not only client so is very useful here
         router.push("/login");
         router.refresh();
+        showToast("success", "You are succesfully logged out!");
     };
 
     return (

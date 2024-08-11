@@ -43,13 +43,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(
         userInPage?.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,
     );
-
     const [bio, setBio] = useState<string>(userInPage?.bio || "");
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
-
     const [userName, setUserName] = useState<string>(userInPage?.userName || "");
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
-
     const [email, setEmail] = useState<string>(userInPage?.email || "");
     const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
 
@@ -88,8 +85,8 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     async function handleSaveEditBio() {
         try {
             await updateUserById({ bio }, Number(userInPage?.id));
-            showToast("success", "Bio updated succesfully");
             setIsBioEditing(false);
+            showToast("success", "Bio updated succesfully");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error updating the bio of user: ${error.message}`);
@@ -104,8 +101,8 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     async function handleSaveEditUserName() {
         try {
             await updateUserById({ userName }, Number(userInPage?.id));
-            showToast("success", "Username updated succesfully");
             setIsUserNameEditing(false);
+            showToast("success", "Username updated succesfully");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error updating the username of user: ${error.message}`);
@@ -120,8 +117,8 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     async function handleSaveEditEmail() {
         try {
             await updateUserById({ email }, Number(userInPage?.id));
-            showToast("success", "Email updated succesfully");
             setIsEmailEditing(false);
+            showToast("success", "Email updated succesfully");
         } catch (error) {
             if (error instanceof Error) {
                 console.error(`Error updating the email of user: ${error.message}`);
@@ -224,7 +221,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                     <Stack
                         component="section"
                         sx={{
-                            backgroundColor: theme.vars.palette.background.default,
+                            bgcolor: theme.vars.palette.secondary.light,
                             borderRadius: "18px",
                             padding: 4,
                             display: "flex",
@@ -645,7 +642,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                     <Box
                         component="section"
                         sx={{
-                            backgroundColor: theme.vars.palette.background.default,
+                            bgcolor: theme.vars.palette.secondary.light,
                             borderRadius: "18px",
                             padding: 4,
                             boxShadow: 6,
