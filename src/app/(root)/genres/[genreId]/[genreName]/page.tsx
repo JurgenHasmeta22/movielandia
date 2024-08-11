@@ -23,6 +23,13 @@ interface IGenreProps {
     };
 }
 
+interface IQueryParams {
+    page: number;
+    type: string;
+    ascOrDesc?: string;
+    sortBy?: string;
+}
+
 export async function generateMetadata({ params }: IGenreProps): Promise<Metadata> {
     const { genreId } = params;
 
@@ -73,8 +80,8 @@ export default async function GenreDetails({ searchParams, params }: IGenreProps
     const seriesSortBy = searchParams?.seriesSortBy;
     const seriesAscOrDesc = searchParams?.seriesAscOrDesc;
 
-    const queryParamsMovies: any = { page: pageMovies, type: "movie" };
-    const queryParamsSeries: any = { page: pageSeries, type: "serie" };
+    const queryParamsMovies: IQueryParams = { page: pageMovies, type: "movie" };
+    const queryParamsSeries: IQueryParams = { page: pageSeries, type: "serie" };
 
     if (moviesSortBy) {
         queryParamsMovies.sortBy = moviesSortBy;

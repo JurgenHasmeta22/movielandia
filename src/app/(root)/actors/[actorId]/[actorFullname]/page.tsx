@@ -75,6 +75,7 @@ export default async function ActorDetails({ searchParams, params }: IActorProps
     const session = await getServerSession(authOptions);
 
     const { actorId } = params;
+
     const ascOrDesc = searchParams?.actorsAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.actorsSortBy ? searchParams?.actorsSortBy : "";
@@ -95,9 +96,5 @@ export default async function ActorDetails({ searchParams, params }: IActorProps
 
     const pageCountReviews = Math.ceil(actor?.totalReviews / 5);
 
-    return (
-        <Container>
-            <ActorPage searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />
-        </Container>
-    );
+    return <ActorPage searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />;
 }

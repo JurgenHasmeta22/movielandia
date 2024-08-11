@@ -74,6 +74,7 @@ export default async function MovieDetails({ searchParams, params }: IMovieProps
     const session = await getServerSession(authOptions);
 
     const movieId = params.movieId;
+
     const ascOrDesc = searchParams?.moviesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";

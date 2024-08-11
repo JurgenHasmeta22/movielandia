@@ -43,8 +43,8 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                     sx={{
                         flexShrink: 0,
                         width: { xs: "100%", md: "100%" },
-                        maxWidth: "220px",
-                        height: { xs: "300px", md: "315px" },
+                        maxWidth: "214px",
+                        height: { xs: "300px", md: "317px" },
                         position: "relative",
                         alignSelf: "center",
                     }}
@@ -53,8 +53,8 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         src={data.photoSrcProd}
                         alt={type !== "actor" ? data.title : data.fullname}
                         height={317}
-                        width={220}
-                        priority={true}
+                        width={214}
+                        priority
                         style={{ borderRadius: "8px", objectFit: "cover" }}
                     />
                 </Box>
@@ -89,7 +89,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         ))}
                     </Box>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 2 }}>
-                        {type !== "season" && type !== "serie" && (
+                        {type !== "season" && type !== "serie" && type !== "actor" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <AccessTime fontSize="small" />
                                 <Typography variant="body1">Duration: {data.duration} mins</Typography>
@@ -97,12 +97,18 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <CalendarToday fontSize="small" />
-                            <Typography variant="body1">Aired on: {formatDate(data.dateAired)}</Typography>
+                            <Typography variant="body1">
+                                {type !== "actor"
+                                    ? `Aired on: ${formatDate(data.dateAired)}`
+                                    : `Debut year:${data.debut}`}
+                            </Typography>
                         </Box>
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <Star fontSize="small" />
-                            <Typography variant="body1">Imdb rating: {data.ratingImdb}</Typography>
-                        </Box>
+                        {type !== "actor" && (
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <Star fontSize="small" />
+                                <Typography variant="body1">Imdb rating: {data.ratingImdb}</Typography>
+                            </Box>
+                        )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <StarRateIcon />
                             <Typography component="span" variant="body1">
@@ -114,25 +120,27 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         {data.description}
                     </Typography>
                     <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
-                        <Button
-                            variant="contained"
-                            startIcon={<YouTube />}
-                            href={data.trailerSrc}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            fullWidth={isMobile}
-                            sx={{
-                                bgcolor: theme.vars.palette.red.main,
-                                color: theme.vars.palette.primary.main,
-                                "&:hover": {
+                        {type !== "actor" && (
+                            <Button
+                                variant="contained"
+                                startIcon={<YouTube />}
+                                href={data.trailerSrc}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                fullWidth={isMobile}
+                                sx={{
                                     bgcolor: theme.vars.palette.red.main,
-                                },
-                                textTransform: "capitalize",
-                                fontSize: 16,
-                            }}
-                        >
-                            Watch trailer
-                        </Button>
+                                    color: theme.vars.palette.primary.main,
+                                    "&:hover": {
+                                        bgcolor: theme.vars.palette.red.main,
+                                    },
+                                    textTransform: "capitalize",
+                                    fontSize: 16,
+                                }}
+                            >
+                                Watch trailer
+                            </Button>
+                        )}
                         {session?.user?.userName && (
                             <Button
                                 variant="outlined"

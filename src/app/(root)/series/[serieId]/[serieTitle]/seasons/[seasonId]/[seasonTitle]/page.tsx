@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
@@ -100,14 +99,12 @@ export default async function SeasonDetails({ searchParams, params }: ISeasonPro
     const pageCountReviews = Math.ceil(season?.totalReviews / 5);
 
     return (
-        <Container>
-            <SeasonPage
-                searchParamsValues={searchParamsValues}
-                season={season}
-                latestSeasons={latestSeasons}
-                relatedSeasons={relatedSeasons}
-                pageCount={pageCountReviews}
-            />
-        </Container>
+        <SeasonPage
+            searchParamsValues={searchParamsValues}
+            season={season}
+            latestSeasons={latestSeasons}
+            relatedSeasons={relatedSeasons}
+            pageCount={pageCountReviews}
+        />
     );
 }
