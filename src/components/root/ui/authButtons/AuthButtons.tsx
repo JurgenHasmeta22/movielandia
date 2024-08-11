@@ -44,7 +44,7 @@ const AuthButtons = ({
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            {session.user.userName}
+                            {userName}
                         </Typography>
                     </Box>
                     <Menu

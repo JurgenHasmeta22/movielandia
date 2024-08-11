@@ -7,7 +7,13 @@ import { getUserById, getUsernameByUserId } from "@/actions/user.actions";
 
 const Header = async () => {
     const session = await getServerSession(authOptions);
-    const userName: string = await getUsernameByUserId(Number(session?.user?.id!));
+
+    let userName: string = "";
+
+    if (session && session.user && session.user.id) {
+        userName = await getUsernameByUserId(Number(session.user.id));
+    }
+
     const genres = await getGenresAll();
 
     return <HeaderContent session={session} genres={genres} userName={userName} />;
