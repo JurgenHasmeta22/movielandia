@@ -1,11 +1,12 @@
 import { Stack } from "@mui/material";
 import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
 import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
-import { Genre, Movie, Serie } from "@prisma/client";
+import { Actor, Genre, Movie, Serie } from "@prisma/client";
 import { getGenres } from "@/actions/genre.actions";
 import { getMovies } from "@/actions/movie.actions";
 import { getSeries } from "@/actions/serie.actions";
 import type { Metadata } from "next";
+import { getActors } from "@/actions/actor.actions";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -38,17 +39,17 @@ export default async function Home() {
         page: 1,
     };
 
-    const queryParamsGenres = {
-        page: 1,
-    };
-
     const moviesData = await getMovies(queryParams);
-    const seriesData = await getSeries(queryParams);
-    const genresData = await getGenres(queryParamsGenres);
+    const movies: Movie[] = moviesData?.movies.slice(0, 6);
 
-    const movies: Movie = moviesData?.movies.slice(0, 6);
-    const series: Serie = seriesData?.rows.slice(0, 6);
-    const genres: Genre = genresData?.rows.slice(0, 6);
+    const seriesData = await getSeries(queryParams);
+    const series: Serie[] = seriesData?.rows.slice(0, 6);
+
+    const genresData = await getGenres(queryParams);
+    const genres: Genre[] = genresData?.rows.slice(0, 6);
+
+    const actorsData = await getActors(queryParams);
+    const actors: Actor[] = actorsData?.actors.slice(0, 6);
 
     return (
         <>
@@ -74,6 +75,14 @@ export default async function Home() {
                     type="genre"
                     link="/genres"
                     linkText="Explore All Genres"
+                />
+                <ListHomeSection
+                    key={"actor"}
+                    data={actors}
+                    type="actor"
+                    link="/actors"
+                    linkText="Explore All Actors"
+                    path="actors"
                 />
             </Stack>
         </>

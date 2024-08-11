@@ -5,11 +5,11 @@ import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
 
 interface ActorModelParams {
-    sortBy: string;
-    ascOrDesc: "asc" | "desc";
-    perPage: number;
-    page: number;
-    title?: string | null;
+    sortBy?: string;
+    ascOrDesc?: string;
+    perPage?: number;
+    page?: number;
+    fullname?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
@@ -18,25 +18,25 @@ interface ActorModelParams {
 export async function getActors({
     sortBy,
     ascOrDesc,
-    perPage,
-    page,
-    title,
+    perPage = 12,
+    page = 1,
+    fullname,
     filterValue,
     filterNameString,
     filterOperatorString,
-}: ActorModelParams): Promise<Actor[] | null> {
+}: ActorModelParams): Promise<any | null> {
     const filters: any = {};
-    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
-    const take = perPage || 20;
+    const orderByObject: any = {};
 
-    if (title) filters.title = { contains: title };
+    const skip = (page - 1) * perPage;
+    const take = perPage;
+
+    if (fullname) filters.fullname = { contains: fullname };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
         const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
         filters[filterNameString] = { [operator]: filterValue };
     }
-
-    const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
         orderByObject[sortBy] = ascOrDesc;
@@ -49,8 +49,39 @@ export async function getActors({
         take,
     });
 
-    if (actors) {
-        return actors;
+    const actorIds = actors.map((actor: Actor) => actor.id);
+
+    const actorRatings = await prisma.actorReview.groupBy({
+        by: ["actorId"],
+        where: { actorId: { in: actorIds } },
+        _avg: {
+            rating: true,
+        },
+        _count: {
+            rating: true,
+        },
+    });
+
+    const actorRatingsMap: RatingsMap = actorRatings.reduce((map, rating) => {
+        map[rating.actorId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    const actorsFinal = actors.map((actor) => {
+        const { ...properties } = actor;
+        const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+
+        return { ...properties, ...ratingsInfo };
+    });
+
+    const actorsCount = await prisma.actor.count();
+
+    if (actorsFinal) {
+        return { actors: actorsFinal, count: actorsCount };
     } else {
         return null;
     }
