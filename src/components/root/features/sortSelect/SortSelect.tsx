@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Box, MenuItem, Select, SvgIcon, Typography } from "@mui/material";
+import { Box, Select, SvgIcon, Typography } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { toFirstWordUpperCase } from "@/utils/helpers/utils";
 import { useSorting } from "@/hooks/useSorting";
+import { getSortOptions } from "@/utils/componentHelpers/getSortingOptions";
 
 const valueToLabelList: Record<string, string> = {
     none: "None",
@@ -12,6 +13,8 @@ const valueToLabelList: Record<string, string> = {
     ratingImdbDesc: "Imdb rating (Desc)",
     titleAsc: "Title (Asc)",
     titleDesc: "Title (Desc)",
+    durationAsc: "Duration (Asc)",
+    durationDesc: "Duration (Desc)",
 };
 
 const valueToLabelDetails: Record<string, string> = {
@@ -31,6 +34,22 @@ interface ISortSelectProps {
 export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortSelectProps) {
     const handleChangeSorting = useSorting(dataType);
 
+    if (dataType === "actors") {
+        delete valueToLabelList.ratingImdbAsc;
+        delete valueToLabelList.ratingImdbDesc;
+        delete valueToLabelList.durationAsc;
+        delete valueToLabelList.durationDesc;
+        delete valueToLabelList.titleAsc;
+        delete valueToLabelList.titleDesc;
+        valueToLabelList.fullnameAsc = "Fullname (Asc)";
+        valueToLabelList.fullnameDesc = "Fullname (Desc)";
+    }
+
+    if (dataType === "seasons") {
+        delete valueToLabelList.durationAsc;
+        delete valueToLabelList.durationDesc;
+    }
+
     const getDefaultValue = () => {
         if (type === "list") {
             return "none";
@@ -48,69 +67,33 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
     };
 
     return (
-        <>
-            {/* <InputLabel id="sortBy">Sort by</InputLabel> */}
-            <Select
-                defaultValue={getDefaultValue()}
-                value={getValue()}
-                onChange={handleChangeSorting}
-                // labelId="sortBy"
-                // label={"Sort by"}
-                autoWidth
-                sx={{
-                    border: "1px solid",
-                }} // bug when is opened the upper border is removed
-                renderValue={(value: string) => (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            gap: 0.5,
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <SvgIcon fontSize="small">
-                            <SwapVertIcon />
-                        </SvgIcon>
-                        <Typography fontSize={"15px"}>
-                            {type === "list" ? valueToLabelList[value] : valueToLabelDetails[value]}
-                        </Typography>
-                    </Box>
-                )}
-            >
-                {type === "list"
-                    ? [
-                          <MenuItem key="none" value="none">
-                              None
-                          </MenuItem>,
-                          <MenuItem key="ratingImdbAsc" value="ratingImdbAsc">
-                              Imdb rating (Asc)
-                          </MenuItem>,
-                          <MenuItem key="ratingImdbDesc" value="ratingImdbDesc">
-                              Imdb rating (Desc)
-                          </MenuItem>,
-                          <MenuItem key="titleAsc" value="titleAsc">
-                              Title (Asc)
-                          </MenuItem>,
-                          <MenuItem key="titleDesc" value="titleDesc">
-                              Title (Desc)
-                          </MenuItem>,
-                      ]
-                    : [
-                          <MenuItem key="createdAtAsc" value="createdAtAsc">
-                              Created At (Asc)
-                          </MenuItem>,
-                          <MenuItem key="createdAtDesc" value="createdAtDesc">
-                              Created At (Desc)
-                          </MenuItem>,
-                          <MenuItem key="ratingAsc" value="ratingAsc">
-                              Rating (Asc)
-                          </MenuItem>,
-                          <MenuItem key="ratingDesc" value="ratingDesc">
-                              Rating (Desc)
-                          </MenuItem>,
-                      ]}
-            </Select>
-        </>
+        <Select
+            defaultValue={getDefaultValue()}
+            value={getValue()}
+            onChange={handleChangeSorting}
+            autoWidth
+            sx={{
+                border: "1px solid",
+            }}
+            renderValue={(value: string) => (
+                <Box
+                    sx={{
+                        display: "flex",
+                        gap: 0.5,
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    <SvgIcon fontSize="small">
+                        <SwapVertIcon />
+                    </SvgIcon>
+                    <Typography fontSize={"15px"}>
+                        {type === "list" ? valueToLabelList[value] : valueToLabelDetails[value]}
+                    </Typography>
+                </Box>
+            )}
+        >
+            {getSortOptions(type, dataType)}
+        </Select>
     );
 }
