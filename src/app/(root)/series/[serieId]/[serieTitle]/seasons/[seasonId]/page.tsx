@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Season } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { getSeasonById } from "@/actions/season.actions";
-import SeasonDetails from "./[seasonTitle]/page";
+import SeasonPage from "./[seasonTitle]/page";
 
 export async function generateMetadata({
     params,
@@ -66,5 +66,5 @@ export async function generateMetadata({
 }
 
 export default function Page({ params }: { params: { seasonId: string; serieId: string } }) {
-    return <SeasonDetails params={params} />;
+    return <SeasonPage params={params} />;
 }

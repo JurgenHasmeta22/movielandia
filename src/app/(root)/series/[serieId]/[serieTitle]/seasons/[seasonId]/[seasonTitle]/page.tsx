@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import SeasonPage from "./_components/SeasonPage";
 import { getLatestSeasons, getRelatedSeasons, getSeasonById } from "@/actions/season.actions";
 import { Season } from "@prisma/client";
+import SeasonPageConent from "./_components/SeasonPageContent";
 
 interface ISeasonProps {
     params: {
@@ -71,10 +71,11 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
     };
 }
 
-export default async function SeasonDetails({ searchParams, params }: ISeasonProps) {
+export default async function SeasonPage({ searchParams, params }: ISeasonProps) {
     const session = await getServerSession(authOptions);
 
     const { seasonId, serieId } = params;
+
     const ascOrDesc = searchParams?.seasonsAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.seasonsSortBy ? searchParams?.seasonsSortBy : "";
@@ -99,7 +100,7 @@ export default async function SeasonDetails({ searchParams, params }: ISeasonPro
     const pageCountReviews = Math.ceil(season?.totalReviews / 5);
 
     return (
-        <SeasonPage
+        <SeasonPageConent
             searchParamsValues={searchParamsValues}
             season={season}
             latestSeasons={latestSeasons}

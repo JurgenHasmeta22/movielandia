@@ -18,7 +18,6 @@ import {
 import { useEffect, useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRouter } from "next/navigation";
-
 import FavoritesTab from "./FavoritesTab";
 import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/actions/user.actions";
 import { showToast } from "@/utils/helpers/toast";
@@ -39,7 +38,7 @@ interface IUserPageProps {
     tabValue: string;
 }
 
-export default function UserPage({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
+export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
     // #region "State, hooks, router, theme usage call"
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(
         userInPage?.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,

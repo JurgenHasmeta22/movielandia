@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getGenreById } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
 import { notFound } from "next/navigation";
-import GenreDetails from "./[genreName]/page";
+import GenrePage from "./[genreName]/page";
 
 export async function generateMetadata({
     params,
@@ -46,5 +46,5 @@ export async function generateMetadata({
 }
 
 export default function Page({ params }: { params: { genreId: string; genreName: string } }) {
-    return <GenreDetails params={params} />;
+    return <GenrePage params={params} />;
 }

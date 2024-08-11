@@ -26,7 +26,7 @@ import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEd
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 
-export default function MoviePage({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
+export default function MoviePageContent({ searchParamsValues, movie, latestMovies, relatedMovies, pageCount }: any) {
     // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
@@ -37,6 +37,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
+
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
 
@@ -52,7 +53,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
 
     // #region "Handlers functions"
 
-    // #region "Bookmarks"
+    // #region "Bookmark"
     async function onBookmarkMovie() {
         if (!session?.user || !movie) return;
 
@@ -88,7 +89,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     }
     // #endregion
 
-    // #region "Reviews"
+    // #region "Review"
     async function onSubmitReview() {
         if (!session?.user || !movie) return;
 
@@ -187,7 +188,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     }
     // #endregion
 
-    // #region "upvotes, downvotes Movie"
+    // #region "Upvote, Downvote"
     async function onUpvoteMovie(movieReviewId: number, isAlreadyUpvoted: boolean) {
         if (!session?.user || !movieReviewId) return;
 
@@ -239,6 +240,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     // #region "Modal handlers"
     const handleOpenUpvotesModal = (reviewData: any) => {
         setListModalDataType("upvotes");
+
         const hasMoreUpvotes = reviewData?._count?.upvotes !== reviewData?.upvotes?.length;
         setHasMoreUpvotesModal(hasMoreUpvotes);
         setSelectedReview(reviewData);
@@ -253,6 +255,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
 
     const handleOpenDownvotesModal = (reviewData: any) => {
         setListModalDataType("downvotes");
+
         const hasMoreDownvotes = reviewData?._count?.downvotes !== reviewData?.downvotes?.length;
         setHasMoreDownvotesModal(hasMoreDownvotes);
         setSelectedReview(reviewData);
@@ -274,7 +277,7 @@ export default function MoviePage({ searchParamsValues, movie, latestMovies, rel
     };
     // #endregion
 
-    // #region "Focus functions"
+    // #region "Focus handlers"
     const handleFocusTextEditor = () => {
         if (textEditorRef.current) {
             textEditorRef.current.focus();

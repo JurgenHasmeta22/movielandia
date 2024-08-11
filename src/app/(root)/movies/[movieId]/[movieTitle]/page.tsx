@@ -1,10 +1,10 @@
 import { getLatestMovies, getMovieById, getRelatedMovies } from "@/actions/movie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MoviePage from "./_components/MoviePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Movie } from "@prisma/client";
+import MoviePageContent from "./_components/MoviePageContent";
 
 interface IMovieProps {
     params: {
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
     };
 }
 
-export default async function MovieDetails({ searchParams, params }: IMovieProps) {
+export default async function MoviePage({ searchParams, params }: IMovieProps) {
     const session = await getServerSession(authOptions);
 
     const movieId = params.movieId;
@@ -98,7 +98,7 @@ export default async function MovieDetails({ searchParams, params }: IMovieProps
     const pageCount = Math.ceil(movie?.totalReviews / 5);
 
     return (
-        <MoviePage
+        <MoviePageContent
             searchParamsValues={searchParamsValues}
             movie={movie}
             latestMovies={latestMovies}
