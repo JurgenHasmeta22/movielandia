@@ -506,7 +506,6 @@ export async function searchMoviesByTitle(title: string, queryParams: any): Prom
         where: {
             title: { contains: title },
         },
-        include: { genres: { select: { genre: true } } },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 10 : 0,
         take: 10,
@@ -514,6 +513,7 @@ export async function searchMoviesByTitle(title: string, queryParams: any): Prom
 
     const movies = await prisma.movie.findMany(query);
     const movieIds = movies.map((movie: Movie) => movie.id);
+
     const movieRatings = await prisma.movieReview.groupBy({
         by: ["movieId"],
         where: { movieId: { in: movieIds } },
@@ -535,11 +535,10 @@ export async function searchMoviesByTitle(title: string, queryParams: any): Prom
     }, {} as RatingsMap);
 
     const moviesFinal = movies.map((movie: any) => {
-        const { genres, ...properties } = movie;
-        const simplifiedGenres = genres.map((genre: any) => genre.genre);
+        const { ...properties } = movie;
         const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
+        return { ...properties, ...ratingsInfo };
     });
     const count = await prisma.movie.count({
         where: {
