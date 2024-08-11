@@ -1,36 +1,64 @@
 "use client";
 
-import { Box, CssVarsTheme, Link, Typography, useTheme } from "@mui/material";
+import { Box, Container, CssVarsTheme, Link, Typography, useTheme } from "@mui/material";
 
 export default function NotFoundGlobalPage() {
     const theme: CssVarsTheme = useTheme();
 
     return (
-        <Box
-            sx={{
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-                py: 4,
-            }}
-        >
-            <Box>
-                <Typography variant="h1" component="h1" gutterBottom sx={{ color: theme.vars.palette.primary.main }}>
-                    404
-                </Typography>
-                <Typography variant="h2" component="h2" gutterBottom sx={{ color: theme.vars.palette.primary.main }}>
-                    Page not found.
-                </Typography>
-                <Typography variant="h4" component="p" sx={{ color: theme.vars.palette.primary.main }}>
-                    The page you are looking for might have been removed, or is temporarily unavailable.
-                </Typography>
-                <Link href={"/"} style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
-                    Go back home
-                </Link>
+        <Container maxWidth="sm">
+            <Box
+                sx={{
+                    my: 20,
+                    display: "flex",
+                    flexDirection: "column",
+                    placeItems: "center",
+                    placeContent: "center",
+                    borderRadius: 2,
+                    border: 1,
+                    borderColor: "neutral.200",
+                    bgcolor: "background.paper",
+                    p: 6,
+                    boxShadow: 3,
+                    transition: "background-color 0.5s ease",
+                }}
+            >
+                <Box>
+                    <Typography
+                        component="h1"
+                        fontSize={60}
+                        sx={{ color: theme.vars.palette.primary.main }}
+                        textAlign={"center"}
+                    >
+                        404
+                    </Typography>
+                    <Typography
+                        variant="h2"
+                        component="h2"
+                        gutterBottom
+                        sx={{ color: theme.vars.palette.primary.main }}
+                    >
+                        Page not found.
+                    </Typography>
+                    <Typography variant="h5" component="p" sx={{ color: theme.vars.palette.primary.main }}>
+                        The page you are looking for might have been removed, or is temporarily unavailable.
+                    </Typography>
+                    <Box mt={4}>
+                        <Link
+                            href={"/"}
+                            style={{
+                                textDecoration: "none",
+                                color: theme.vars.palette.primary.main,
+                                padding: 12,
+                                borderRadius: 20,
+                                border: "1px solid",
+                            }}
+                        >
+                            Go back home
+                        </Link>
+                    </Box>
+                </Box>
             </Box>
-        </Box>
+        </Container>
     );
 }

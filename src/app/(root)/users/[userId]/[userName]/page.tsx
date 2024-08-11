@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import ProfilePage from "./_components/UserPage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getUserById } from "@/actions/user.actions";
 import { notFound } from "next/navigation";
+import UserPageContent from "./_components/UserPageContent";
 
 interface IUserDetailsProps {
     params: {
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: IUserDetailsProps): Promise<M
     };
 }
 
-export default async function UserDetails({ searchParams, params }: IUserDetailsProps) {
+export default async function UserPage({ searchParams, params }: IUserDetailsProps) {
     const tabValue = searchParams?.tab ? searchParams?.tab : "favMovies";
     const userId = params.userId;
 
@@ -82,5 +82,5 @@ export default async function UserDetails({ searchParams, params }: IUserDetails
         return notFound();
     }
 
-    return <ProfilePage userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />;
+    return <UserPageContent userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />;
 }

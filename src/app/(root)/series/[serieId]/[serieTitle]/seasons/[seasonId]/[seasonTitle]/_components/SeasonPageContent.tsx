@@ -26,7 +26,13 @@ import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 
-export default function SeasonPage({ searchParamsValues, season, latestSeasons, relatedSeasons, pageCount }: any) {
+export default function SeasonPageConent({
+    searchParamsValues,
+    season,
+    latestSeasons,
+    relatedSeasons,
+    pageCount,
+}: any) {
     // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
@@ -37,6 +43,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
+
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
 
@@ -52,7 +59,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
 
     // #region "Handlers functions"
 
-    // #region "Bookmarks"
+    // #region "Bookmark"
     async function onBookmarkSeason() {
         if (!session?.user || !season) return;
 
@@ -88,7 +95,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
     }
     // #endregion
 
-    // #region "Reviews"
+    // #region "Review"
     async function onSubmitReview() {
         if (!session?.user || !season) return;
 
@@ -187,7 +194,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
     }
     // #endregion
 
-    // #region "Upvotes, Downvotes"
+    // #region "Upvote, Downvote"
     async function onUpvoteSeason(seasonReviewId: number, isAlreadyUpvoted: boolean) {
         if (!session?.user || !seasonReviewId) return;
 
@@ -291,7 +298,7 @@ export default function SeasonPage({ searchParamsValues, season, latestSeasons, 
     };
     // #endregion
 
-    // #region "Focus functions"
+    // #region "Focus handlers"
     const handleFocusTextEditor = () => {
         if (textEditorRef.current) {
             textEditorRef.current.focus();

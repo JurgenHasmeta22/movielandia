@@ -10,15 +10,15 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useState, useRef, useEffect } from "react";
 import { useStore } from "@/store/store";
 import {
-    addDownvoteActorReview,
-    addFavoriteActorToUser,
-    addReviewActor,
-    addUpvoteActorReview,
-    removeDownvoteActorReview,
-    removeFavoriteActorToUser,
-    removeReviewActor,
-    removeUpvoteActorReview,
-    updateReviewActor,
+    addDownvoteSerieReview,
+    addFavoriteSerieToUser,
+    addReviewSerie,
+    addUpvoteSerieReview,
+    removeDownvoteSerieReview,
+    removeFavoriteSerieToUser,
+    removeReviewSerie,
+    removeUpvoteSerieReview,
+    updateReviewSerie,
 } from "@/actions/user.actions";
 import { useModal } from "@/providers/ModalProvider";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
@@ -26,7 +26,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 
-export default function ActorPage({ searchParamsValues, actor, pageCount }: any) {
+export default function SeriePageContent({ searchParamsValues, serie, latestSeries, relatedSeries, pageCount }: any) {
     // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
     const { data: session } = useSession();
 
@@ -37,6 +37,7 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
+
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
 
@@ -52,49 +53,49 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
 
     // #region "Handlers functions"
 
-    // #region "Bookmarks"
-    async function onBookmarkActor() {
-        if (!session?.user || !actor) return;
+    // #region "Bookmark"
+    async function onBookmarkSerie() {
+        if (!session?.user || !serie) return;
 
         try {
-            await addFavoriteActorToUser(Number(session.user.id), actor.id);
-            showToast("success", "Actor added to favorites!");
+            await addFavoriteSerieToUser(Number(session.user.id), serie.id);
+            showToast("success", "Serie added to favorites!");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error adding actor to favorites: ${error.message}`);
+                console.error(`Error adding serie to favorites: ${error.message}`);
                 showToast("error", `An error occurred: ${error.message}`);
             } else {
-                console.error("Unknown error adding actor to favorites.");
-                showToast("error", "An unexpected error occurred while adding the actor to favorites.");
+                console.error("Unknown error adding serie to favorites.");
+                showToast("error", "An unexpected error occurred while adding the serie to favorites.");
             }
         }
     }
 
-    async function onRemoveBookmarkActor() {
-        if (!session?.user || !actor) return;
+    async function onRemoveBookmarkSerie() {
+        if (!session?.user || !serie) return;
 
         try {
-            await removeFavoriteActorToUser(Number(session.user.id), actor.id, `/actors/${actor.title}`);
-            showToast("success", "Actor removed from favorites!");
+            await removeFavoriteSerieToUser(Number(session.user.id), serie.id, `/series/${serie.title}`);
+            showToast("success", "Serie removed from favorites!");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error removing actor from favorites: ${error.message}`);
+                console.error(`Error removing serie from favorites: ${error.message}`);
                 showToast("error", `An error occurred: ${error.message}`);
             } else {
-                console.error("Unknown error removing actor from favorites.");
-                showToast("error", "An unexpected error occurred while removing the actor from favorites.");
+                console.error("Unknown error removing serie from favorites.");
+                showToast("error", "An unexpected error occurred while removing the serie from favorites.");
             }
         }
     }
     // #endregion
 
-    // #region "Reviews"
+    // #region "Review"
     async function onSubmitReview() {
-        if (!session?.user || !actor) return;
+        if (!session?.user || !serie) return;
 
         try {
-            await addReviewActor({
-                actorId: actor?.id,
+            await addReviewSerie({
+                serieId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -113,7 +114,7 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
     }
 
     async function onSubmitRemoveReview() {
-        if (!session?.user || !actor) return;
+        if (!session?.user || !serie) return;
 
         openModal({
             onClose: () => setOpen(false),
@@ -133,8 +134,8 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            await removeReviewActor({
-                                actorId: actor?.id,
+                            await removeReviewSerie({
+                                serieId: serie?.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -162,11 +163,11 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
     }
 
     async function onSubmitUpdateReview() {
-        if (!session?.user || !actor) return;
+        if (!session?.user || !serie) return;
 
         try {
-            await updateReviewActor({
-                actorId: actor?.id,
+            await updateReviewSerie({
+                serieId: serie?.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -187,67 +188,50 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
     }
     // #endregion
 
-    // #region "Upvotes, Downvotes"
-    async function onUpvoteActor(actorReviewId: number, isAlreadyUpvoted: boolean) {
-        if (!session?.user || !actorReviewId) return;
+    // #region "Upvote, Downvote"
+    async function onUpvoteSerie(serieReviewId: number, isAlreadyUpvoted: boolean) {
+        if (!session?.user || !serieReviewId) return;
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteActorReview({
-                    userId: Number(session?.user?.id),
-                    actorId: actor?.id,
-                    actorReviewId,
-                });
+                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
             } else {
-                await removeDownvoteActorReview({
+                await removeDownvoteSerieReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
-                    actorReviewId,
+                    serieId: serie?.id,
+                    serieReviewId,
                 });
 
-                await addUpvoteActorReview({
-                    userId: Number(session?.user?.id),
-                    actorId: actor?.id,
-                    actorReviewId,
-                });
+                await addUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
-                showToast("error", "An unexpected error occurred while upvoting the actor.");
+                showToast("error", "An unexpected error occurred while upvoting the serie.");
             }
         }
     }
 
-    async function onDownVoteActor(actorReviewId: number, isAlreadyDownvoted: boolean) {
-        if (!session?.user || (!actor && !actorReviewId)) return;
+    async function onDownVoteSerie(serieReviewId: number, isAlreadyDownvoted: boolean) {
+        if (!session?.user || (!serie && !serieReviewId)) return;
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteActorReview({
+                await removeDownvoteSerieReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
-                    actorReviewId,
+                    serieId: serie?.id,
+                    serieReviewId,
                 });
             } else {
-                await removeUpvoteActorReview({
-                    userId: Number(session?.user?.id),
-                    actorId: actor?.id,
-                    actorReviewId,
-                });
-
-                await addDownvoteActorReview({
-                    userId: Number(session?.user?.id),
-                    actorId: actor?.id,
-                    actorReviewId,
-                });
+                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
+                await addDownvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
             }
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
-                showToast("error", "An unexpected error occurred while downvoting the actor.");
+                showToast("error", "An unexpected error occurred while downvoting the serie.");
             }
         }
     }
@@ -291,7 +275,7 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
     };
     // #endregion
 
-    // #region "Focus functions"
+    // #region "Focus handlers"
     const handleFocusTextEditor = () => {
         if (textEditorRef.current) {
             textEditorRef.current.focus();
@@ -316,29 +300,29 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
     return (
         <Stack flexDirection={"column"} rowGap={4}>
             <DetailsPageCard
-                data={actor}
-                type="actor"
-                isBookmarked={actor.isBookmarked}
-                onBookmark={onBookmarkActor}
-                onRemoveBookmark={onRemoveBookmarkActor}
+                data={serie}
+                type="serie"
+                isBookmarked={serie.isBookmarked}
+                onBookmark={onBookmarkSerie}
+                onRemoveBookmark={onRemoveBookmarkSerie}
             />
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: actor?.reviews!.length > 0 ? 4 : 0,
+                    mb: serie?.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {actor?.reviews!.length > 0 && (
+                {serie?.reviews!.length > 0 && (
                     <ReviewsHeader
-                        data={actor}
+                        data={serie}
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {actor?.reviews!.map((review: any, index: number) => (
+                {serie?.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -349,18 +333,18 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
                         handleFocusTextEditor={handleFocusTextEditor}
                         ref={reviewRef}
                         setRating={setRating}
-                        handleUpvote={onUpvoteActor}
-                        handleDownvote={onDownVoteActor}
-                        type="actor"
-                        data={actor}
+                        handleUpvote={onUpvoteSerie}
+                        handleDownvote={onDownVoteSerie}
+                        type="serie"
+                        data={serie}
                         handleOpenUpvotesModal={handleOpenUpvotesModal}
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {actor?.totalReviews > 0 && (
+                {serie?.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
-                {session?.user && (!actor.isReviewed || isEditMode) && (
+                {session?.user && (!serie.isReviewed || isEditMode) && (
                     <TextEditorForm
                         review={review}
                         setReview={setReview}
@@ -376,8 +360,12 @@ export default function ActorPage({ searchParamsValues, actor, pageCount }: any)
                     />
                 )}
             </Box>
-            <ListDetail data={actor.starredMovies!} type="actor" roleData="Movies" />
-            <ListDetail data={actor.starredSeries!} type="actor" roleData="Series" />
+            <ListDetail data={latestSeries!} type="serie" roleData="latest" />
+            {relatedSeries && relatedSeries.length !== 0 && (
+                <ListDetail data={relatedSeries} type="serie" roleData="related" />
+            )}
+            <ListDetail data={serie?.seasons} type="season" roleData="season" />
+            <ListDetail data={serie.cast} type="actor" roleData="cast" />
         </Stack>
     );
 }

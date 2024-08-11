@@ -1,11 +1,10 @@
-import { Container } from "@mui/material";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getActorById } from "@/actions/actor.actions";
-import ActorPage from "./_components/ActorPage";
 import { Actor } from "@prisma/client";
+import ActorPageContent from "./_components/ActorPageContent";
 
 interface IActorProps {
     params: {
@@ -71,7 +70,7 @@ export async function generateMetadata({ params }: IActorProps): Promise<Metadat
     };
 }
 
-export default async function ActorDetails({ searchParams, params }: IActorProps) {
+export default async function ActorPage({ searchParams, params }: IActorProps) {
     const session = await getServerSession(authOptions);
 
     const { actorId } = params;
@@ -96,5 +95,5 @@ export default async function ActorDetails({ searchParams, params }: IActorProps
 
     const pageCountReviews = Math.ceil(actor?.totalReviews / 5);
 
-    return <ActorPage searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />;
+    return <ActorPageContent searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />;
 }

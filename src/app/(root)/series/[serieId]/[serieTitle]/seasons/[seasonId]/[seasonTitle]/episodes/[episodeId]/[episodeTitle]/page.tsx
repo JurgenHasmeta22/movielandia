@@ -1,11 +1,10 @@
-import { Container } from "@mui/material";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getEpisodeById, getLatestEpisodes, getRelatedEpisodes } from "@/actions/episode.actions";
-import EpisodePage from "../../_components/EpisodePage";
 import { Episode } from "@prisma/client";
+import EpisodePageContent from "../../_components/EpisodePageContent";
 
 interface IEpisodeProps {
     params: {
@@ -72,7 +71,7 @@ export async function generateMetadata({ params }: IEpisodeProps): Promise<Metad
     };
 }
 
-export default async function EpisodeDetails({ searchParams, params }: IEpisodeProps) {
+export default async function EpisodePage({ searchParams, params }: IEpisodeProps) {
     const session = await getServerSession(authOptions);
 
     const { episodeId, seasonId } = params;
@@ -101,7 +100,7 @@ export default async function EpisodeDetails({ searchParams, params }: IEpisodeP
     const pageCountReviews = Math.ceil(episode?.totalReviews / 5);
 
     return (
-        <EpisodePage
+        <EpisodePageContent
             searchParamsValues={searchParamsValues}
             episode={episode}
             latestEpisodes={latestEpisodes}

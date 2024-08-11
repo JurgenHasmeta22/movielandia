@@ -1,10 +1,10 @@
 import { getLatestSeries, getRelatedSeries, getSerieById, getSerieByTitle } from "@/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SeriePage from "./_components/SeriePage";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Serie } from "@prisma/client";
+import SeriePageContent from "./_components/SeriePageContent";
 
 interface ISerieProps {
     params: {
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     };
 }
 
-export default async function SerieDetails({ searchParams, params }: ISerieProps) {
+export default async function SeriePage({ searchParams, params }: ISerieProps) {
     const session = await getServerSession(authOptions);
 
     const serieId = params.serieId;
@@ -99,7 +99,7 @@ export default async function SerieDetails({ searchParams, params }: ISerieProps
     const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
 
     return (
-        <SeriePage
+        <SeriePageContent
             searchParamsValues={searchParamsValues}
             serie={serie}
             latestSeries={latestSeries}

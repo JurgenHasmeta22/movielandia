@@ -135,7 +135,10 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                     {element.description}
                                 </Typography>
                                 <Box>
-                                    <Link href={`/${type}/${element.id}`} passHref>
+                                    <Link
+                                        href={`/${type}/${element.id}/${encodeURIComponent(element.title.split(" ").join("-"))}`}
+                                        passHref
+                                    >
                                         <Button
                                             variant="contained"
                                             sx={{

@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
     };
 }
 
-export default async function GenreDetails({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
+export default async function GenrePage({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
     const genreId = params.genreId;
 
     const pageMovies = Number(searchParams?.pageMovies) || 1;
