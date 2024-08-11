@@ -336,6 +336,7 @@ export default function MoviePageContent({
                 {movie?.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={movie}
+                        sortingDataType="reviews"
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />

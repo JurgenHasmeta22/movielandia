@@ -6,14 +6,14 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Movie } from "@prisma/client";
 import MoviePageContent from "./_components/MoviePageContent";
 
-interface IMovieProps {
+interface IMoviePageProps {
     params: {
         movieId: string;
     };
-    searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
+    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
 }
 
-export async function generateMetadata({ params }: IMovieProps): Promise<Metadata> {
+export async function generateMetadata({ params }: IMoviePageProps): Promise<Metadata> {
     const { movieId } = params;
 
     let movie: Movie | null = null;
@@ -70,14 +70,14 @@ export async function generateMetadata({ params }: IMovieProps): Promise<Metadat
     };
 }
 
-export default async function MoviePage({ searchParams, params }: IMovieProps) {
+export default async function MoviePage({ searchParams, params }: IMoviePageProps) {
     const session = await getServerSession(authOptions);
 
     const movieId = params.movieId;
 
-    const ascOrDesc = searchParams?.moviesAscOrDesc;
-    const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
+    const ascOrDesc = searchParams?.reviewsAscOrDesc;
+    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
+    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,

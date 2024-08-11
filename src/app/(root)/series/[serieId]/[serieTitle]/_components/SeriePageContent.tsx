@@ -334,6 +334,7 @@ export default function SeriePageContent({
                 {serie?.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={serie}
+                        sortingDataType="reviews"
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />

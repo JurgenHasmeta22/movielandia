@@ -7,9 +7,10 @@ interface IReviews {
     };
     sortBy: string;
     ascOrDesc: string;
+    sortingDataType: string;
 }
 
-const ReviewsHeader = ({ data, sortBy, ascOrDesc }: IReviews) => {
+const ReviewsHeader = ({ data, sortBy, ascOrDesc, sortingDataType }: IReviews) => {
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
             <Box>
@@ -18,7 +19,7 @@ const ReviewsHeader = ({ data, sortBy, ascOrDesc }: IReviews) => {
                 </Typography>
             </Box>
             <Box>
-                <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="details" dataType="movie" />
+                <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="details" dataType={sortingDataType} />
             </Box>
         </Stack>
     );

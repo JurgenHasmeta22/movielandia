@@ -48,7 +48,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
 
     useEffect(() => {
         const resizeImages = () => {
-            // @ts-expect-error nono
+            // @ts-expect-error editorError
             const quillEditor = ref?.current?.getEditor?.();
 
             if (quillEditor) {
@@ -61,7 +61,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
             }
         };
 
-        // @ts-expect-error nono
+        // @ts-expect-error instanceError
         const editorInstance = ref?.current?.getEditor?.();
 
         if (editorInstance) {
@@ -84,11 +84,11 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                 onChange={onChange}
                 modules={modules}
                 formats={formats}
-                // @ts-expect-error nono
+                // @ts-expect-error refError
                 ref={ref}
                 style={{
-                    backgroundColor: theme.vars.palette.primary.main,
-                    color: theme.vars.palette.primary.main,
+                    backgroundColor: theme.vars.palette.blue.dark,
+                    color: theme.vars.palette.primary.light,
                     marginBottom: "10px",
                 }}
             />
@@ -99,7 +99,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                     justifyContent: "flex-start",
                 }}
             >
-                <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ mr: 1 }}>
+                <Typography variant="body2" fontSize={16} fontWeight={900} sx={{ mr: 1 }}>
                     {rating?.toFixed(1)}
                 </Typography>
                 <Rating
@@ -108,6 +108,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                     onChange={(event, newValue) => {
                         setRating(newValue);
                     }}
+                    size="medium"
                     max={10}
                     precision={0.5}
                 />
