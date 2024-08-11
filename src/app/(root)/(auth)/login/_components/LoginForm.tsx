@@ -1,7 +1,17 @@
 "use client";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, FormLabel, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormHelperText,
+    FormLabel,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -49,6 +59,7 @@ export default function LoginForm() {
         } else if (result?.url) {
             router.push(result.url);
             router.refresh();
+            showToast("success", "You are succesfully logged in!");
         }
 
         setSubmitting(false);
@@ -64,13 +75,14 @@ export default function LoginForm() {
         >
             {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
                 <Form onSubmit={handleSubmit}>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
                         <Box
                             display={"flex"}
                             flexDirection="row"
                             columnGap={1}
                             alignItems={"center"}
                             justifyContent={"center"}
+                            pb={4}
                         >
                             <LockOutlinedIcon fontSize="large" />
                             <Typography variant="h2" textAlign={"center"}>
@@ -103,34 +115,51 @@ export default function LoginForm() {
                                 <PasswordIcon />
                                 <FormLabel component={"label"}>Password</FormLabel>
                             </Box>
-                            <TextField
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                required
-                                autoComplete="current-password"
-                                aria-label="Current password"
-                                aria-autocomplete="both"
-                                hiddenLabel={true}
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onClick={handleClickShowPassword}
-                                                onMouseDown={handleMouseDownPassword}
-                                            >
-                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                size="small"
-                                helperText={touched["password"] && errors["password"]}
-                                error={touched["password"] && !!errors["password"]}
-                            />
+                            <FormControl variant="outlined" fullWidth size="small">
+                                <Box sx={{ minHeight: "100px" }}>
+                                    <TextField
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        required
+                                        autoComplete="current-password"
+                                        aria-label="Current password"
+                                        hiddenLabel={true}
+                                        aria-autocomplete="both"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        size="small"
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        error={touched.password && !!errors.password}
+                                    />
+                                    {touched.password && errors.password && (
+                                        <FormHelperText
+                                            error
+                                            sx={{
+                                                whiteSpace: "normal",
+                                                overflowWrap: "break-word",
+                                                wordWrap: "break-word",
+                                                maxWidth: "200px",
+                                            }}
+                                        >
+                                            {errors.password}
+                                        </FormHelperText>
+                                    )}
+                                </Box>
+                            </FormControl>
                         </Box>
                         <Button
                             type="submit"
