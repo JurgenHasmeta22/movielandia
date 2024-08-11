@@ -1,17 +1,18 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Genre } from "@prisma/client";
+import { Actor, Genre, Movie, Serie } from "@prisma/client";
 import Link from "next/link";
 import CardItem from "../cardItem/CardItem";
 import GenreItem from "../genreItem/GenreItem";
 
-interface ListHomeSectionProps {
-    data: any;
-    type: "genre" | "movie" | "serie";
+interface IListHomeSectionProps {
+    data: Array<Movie | Serie | Actor | Genre>;
+    type: "genre" | "movie" | "serie" | "actor";
     link: string;
     linkText: string;
+    path?: string;
 }
 
-const ListHomeSection: React.FC<ListHomeSectionProps> = ({ data, type, link, linkText }) => {
+const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, linkText, path }) => {
     return (
         <Box display={"flex"} flexDirection={"column"} rowGap={2} component={"section"}>
             <Stack flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"} ml={3} mr={5}>
@@ -27,7 +28,9 @@ const ListHomeSection: React.FC<ListHomeSectionProps> = ({ data, type, link, lin
                           ? "Trending Movies"
                           : type === "serie"
                             ? "Trending Series"
-                            : ""}
+                            : type === "actor"
+                              ? "Trending Actors"
+                              : ""}
                 </Typography>
                 <Link
                     href={link}
@@ -55,7 +58,7 @@ const ListHomeSection: React.FC<ListHomeSectionProps> = ({ data, type, link, lin
                             type === "genre" ? (
                                 <GenreItem key={item.id} genre={item as Genre} />
                             ) : (
-                                <CardItem data={item} key={item.id} type={type} />
+                                <CardItem data={item} key={item.id} type={type} path={path!} />
                             ),
                         )}
                 </Stack>

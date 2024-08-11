@@ -80,6 +80,14 @@ const Carousel = ({ data, type }: ICarouselProps) => {
         prevArrow: <CustomPrevArrow />,
     };
 
+    const getTitleOrName = (type: string, element: any) => {
+        return type === "actors" ? element.fullname : element.title;
+    };
+
+    const generateSlug = (text: string) => {
+        return encodeURIComponent(text.split(" ").join("-"));
+    };
+
     return (
         <Box sx={{ position: "relative", height: isMobile ? "130vh" : "90vh", overflow: "hidden" }} mt={6}>
             <Slider {...settings}>
@@ -129,14 +137,14 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                 }}
                             >
                                 <Typography variant="h1" gutterBottom>
-                                    {element.title}
+                                    {getTitleOrName(type, element)}
                                 </Typography>
                                 <Typography variant="body1" sx={{ mb: 2 }}>
                                     {element.description}
                                 </Typography>
                                 <Box>
                                     <Link
-                                        href={`/${type}/${element.id}/${encodeURIComponent(element.title.split(" ").join("-"))}`}
+                                        href={`/${type}/${element.id}/${generateSlug(getTitleOrName(type, element))}`}
                                         passHref
                                     >
                                         <Button
