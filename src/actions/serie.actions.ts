@@ -499,7 +499,6 @@ export async function searchSeriesByTitle(title: string, queryParams: any): Prom
         where: {
             title: { contains: title },
         },
-        include: { genres: { select: { genre: true } } },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 10 : 0,
         take: 10,
@@ -519,13 +518,6 @@ export async function searchSeriesByTitle(title: string, queryParams: any): Prom
         },
     });
 
-    type RatingsMap = {
-        [key: number]: {
-            averageRating: number;
-            totalReviews: number;
-        };
-    };
-
     const serieRatingsMap: RatingsMap = serieRatings.reduce((map, rating) => {
         map[rating.serieId] = {
             averageRating: rating._avg.rating || 0,
@@ -536,11 +528,10 @@ export async function searchSeriesByTitle(title: string, queryParams: any): Prom
     }, {} as RatingsMap);
 
     const seriesFinal = series.map((serie) => {
-        const { genres, ...properties } = serie;
-        const simplifiedGenres = genres.map((genre) => genre.genre);
+        const { ...properties } = serie;
         const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, genres: simplifiedGenres, ...ratingsInfo };
+        return { ...properties, ...ratingsInfo };
     });
 
     const count = await prisma.serie.count({
