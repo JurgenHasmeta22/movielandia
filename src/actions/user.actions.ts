@@ -188,6 +188,27 @@ export async function getUserById(userId: number, userLoggedInId?: number): Prom
     }
 }
 
+export async function getUsernameByUserId(userId: number): Promise<string> {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { userName: true },
+    });
+
+    try {
+        if (user) {
+            return user.userName;
+        } else {
+            throw new Error("User not found.");
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
 export async function getUserByUsername(userName: string, userLoggedInId: number): Promise<User | null> {
     const user = await prisma.user.findFirst({
         where: { userName },

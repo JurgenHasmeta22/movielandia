@@ -12,12 +12,20 @@ import { useStore } from "@/store/store";
 interface IAuthButtons {
     session: Session | null;
     anchorElProfile: HTMLElement | null;
+    userName: string;
     openMenuProfile: (event: any) => void;
     closeMenuProfile: () => void;
     handleSignOut: () => Promise<void>;
 }
 
-const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfile, handleSignOut }: IAuthButtons) => {
+const AuthButtons = ({
+    session,
+    anchorElProfile,
+    openMenuProfile,
+    closeMenuProfile,
+    handleSignOut,
+    userName,
+}: IAuthButtons) => {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const theme: CssVarsTheme = useTheme();
@@ -54,7 +62,7 @@ const AuthButtons = ({ session, anchorElProfile, openMenuProfile, closeMenuProfi
                     >
                         <MenuItem onClick={() => closeMenuProfile()} sx={{ color: theme.vars.palette.primary.main }}>
                             <Link
-                                href={`/users/${session?.user?.id}/${session?.user?.userName}`}
+                                href={`/users/${session?.user?.id}/${userName}`}
                                 style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}
                             >
                                 <Typography variant="inherit">My Profile</Typography>

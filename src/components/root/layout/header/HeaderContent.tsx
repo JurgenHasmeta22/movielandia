@@ -18,9 +18,10 @@ import { showToast } from "@/utils/helpers/toast";
 interface IHeaderContent {
     session: Session | null;
     genres: Genre[];
+    userName: string;
 }
 
-export function HeaderContent({ session, genres }: IHeaderContent) {
+export function HeaderContent({ session, genres, userName }: IHeaderContent) {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
@@ -105,6 +106,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                                 <ThemeToggleButton />
                                 <AuthButtons
                                     session={session}
+                                    userName={userName}
                                     anchorElProfile={anchorElProfile}
                                     closeMenuProfile={closeMenuProfile}
                                     openMenuProfile={openMenuProfile}
@@ -122,6 +124,7 @@ export function HeaderContent({ session, genres }: IHeaderContent) {
                 closeMenuProfile={closeMenuProfile}
                 handleSignOut={handleSignOut}
                 session={session}
+                userName={userName}
             />
         </>
     );

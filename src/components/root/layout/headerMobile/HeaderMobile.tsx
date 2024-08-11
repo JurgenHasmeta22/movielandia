@@ -15,6 +15,7 @@ interface IHeaderMenu {
     genres: Genre[];
     anchorElProfile: null | HTMLElement;
     session: Session | null;
+    userName: string;
     openMenuProfile: (event: any) => void;
     closeMenuProfile: () => void;
     handleSignOut: () => Promise<void>;
@@ -26,6 +27,7 @@ export default function HeaderMobile({
     openMenuProfile,
     closeMenuProfile,
     handleSignOut,
+    userName,
     session,
 }: IHeaderMenu) {
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
@@ -102,6 +104,7 @@ export default function HeaderMobile({
                         closeMenuProfile={closeMenuProfile}
                         handleSignOut={handleSignOut}
                         openMenuProfile={openMenuProfile}
+                        userName={userName}
                     />
                 </Box>
             </Box>
