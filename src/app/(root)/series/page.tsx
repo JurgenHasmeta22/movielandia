@@ -80,9 +80,12 @@ export default async function Series({ searchParams }: ISeriesProps) {
                 ml={3}
                 mr={3}
             >
-                <Box>
+                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography fontSize={22} variant="h2">
-                        All series
+                        All Series
+                    </Typography>
+                    <Typography variant="h5">
+                        (showing {series.length} of {seriesCount})
                     </Typography>
                 </Box>
                 <Box>

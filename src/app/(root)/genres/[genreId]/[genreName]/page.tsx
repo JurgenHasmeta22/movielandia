@@ -72,16 +72,12 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
 export default async function GenrePage({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
     const genreId = params.genreId;
 
+    // #region "Movies data"
     const pageMovies = Number(searchParams?.pageMovies) || 1;
     const moviesSortBy = searchParams?.moviesSortBy;
     const moviesAscOrDesc = searchParams?.moviesAscOrDesc;
 
-    const pageSeries = Number(searchParams?.pageSeries) || 1;
-    const seriesSortBy = searchParams?.seriesSortBy;
-    const seriesAscOrDesc = searchParams?.seriesAscOrDesc;
-
     const queryParamsMovies: IQueryParams = { page: pageMovies, type: "movie" };
-    const queryParamsSeries: IQueryParams = { page: pageSeries, type: "serie" };
 
     if (moviesSortBy) {
         queryParamsMovies.sortBy = moviesSortBy;
@@ -91,20 +87,10 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
         queryParamsMovies.ascOrDesc = moviesAscOrDesc;
     }
 
-    if (seriesSortBy) {
-        queryParamsSeries.sortBy = seriesSortBy;
-    }
-
-    if (seriesAscOrDesc) {
-        queryParamsSeries.ascOrDesc = seriesAscOrDesc;
-    }
-
     let moviesByGenreData = [];
-    let seriesByGenreData = [];
 
     try {
         moviesByGenreData = await getGenreById(Number(genreId), queryParamsMovies);
-        seriesByGenreData = await getGenreById(Number(genreId), queryParamsSeries);
     } catch (error) {
         return notFound();
     }
@@ -114,10 +100,35 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
     const moviesByGenre: Movie[] = moviesByGenreData?.movies;
     const moviesByGenreCount: number = moviesByGenreData?.count;
     const pageCountMovies = Math.ceil(moviesByGenreCount / 10);
+    // #endregion
+
+    // #region "Series data"
+    const pageSeries = Number(searchParams?.pageSeries) || 1;
+    const seriesSortBy = searchParams?.seriesSortBy;
+    const seriesAscOrDesc = searchParams?.seriesAscOrDesc;
+
+    const queryParamsSeries: IQueryParams = { page: pageSeries, type: "serie" };
+
+    if (seriesSortBy) {
+        queryParamsSeries.sortBy = seriesSortBy;
+    }
+
+    if (seriesAscOrDesc) {
+        queryParamsSeries.ascOrDesc = seriesAscOrDesc;
+    }
+
+    let seriesByGenreData = [];
+
+    try {
+        seriesByGenreData = await getGenreById(Number(genreId), queryParamsSeries);
+    } catch (error) {
+        return notFound();
+    }
 
     const seriesByGenre: Serie[] = seriesByGenreData?.series;
     const seriesByGenreCount: number = seriesByGenreData?.count;
     const pageCountSeries = Math.ceil(seriesByGenreCount / 10);
+    // #endregion
 
     return (
         <Box
@@ -131,7 +142,7 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
             {moviesByGenre.length !== 0 ? (
                 <>
                     <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
-                        <Box>
+                        <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                             <Typography
                                 sx={{
                                     fontSize: [16, 17, 20, 22, 24],
@@ -139,7 +150,10 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
                                 variant="h2"
                                 textAlign={"center"}
                             >
-                                {`All movies of genre ${genre?.name}`}
+                                {`All Movies of Genre ${genre?.name}`}
+                            </Typography>
+                            <Typography variant="h5">
+                                (showing {moviesByGenre.length} of {moviesByGenreCount})
                             </Typography>
                         </Box>
                         <Box
@@ -201,10 +215,10 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
                     </Typography>
                 </Box>
             )}
-            {moviesByGenre.length !== 0 ? (
+            {seriesByGenre.length !== 0 ? (
                 <>
                     <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
-                        <Box>
+                        <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                             <Typography
                                 sx={{
                                     fontSize: [16, 17, 18, 22, 24],
@@ -212,7 +226,10 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
                                 variant="h2"
                                 textAlign={"center"}
                             >
-                                {`All series of genre ${params.genreName}`}
+                                {`All Series of Genre ${params.genreName}`}
+                            </Typography>
+                            <Typography variant="h5">
+                                (showing {seriesByGenre.length} of {seriesByGenreCount})
                             </Typography>
                         </Box>
                         <Box

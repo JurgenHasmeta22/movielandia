@@ -160,7 +160,7 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 Movies found
                             </Typography>
                             <Typography variant="h5">
-                                {movies.length} of {moviesCount}
+                                (showing {movies.length} of {moviesCount})
                             </Typography>
                         </Box>
                         <Box
@@ -233,7 +233,7 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 Series found
                             </Typography>
                             <Typography variant="h5">
-                                {series.length} of {seriesCount}
+                                (showing {series.length} of {seriesCount})
                             </Typography>
                         </Box>
                         <Box
@@ -306,7 +306,7 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 Actors found
                             </Typography>
                             <Typography variant="h5">
-                                {actors.length} of {actorsCount}
+                                (showing {actors.length} of {actorsCount})
                             </Typography>
                         </Box>
                         <Box
@@ -381,7 +381,7 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 Seasons found
                             </Typography>
                             <Typography variant="h5">
-                                {seasons.length} of {seasonsCount}
+                                (showing {seasons.length} of {seasonsCount})
                             </Typography>
                         </Box>
                         <Box
@@ -454,7 +454,7 @@ export default async function Search({ searchParams }: ISearchProps) {
                                 Episodes found
                             </Typography>
                             <Typography variant="h5">
-                                {episodes.length} of {episodesCount}
+                                (showing {episodes.length} of {episodesCount})
                             </Typography>
                         </Box>
                         <Box

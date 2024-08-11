@@ -79,9 +79,12 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 ml={3}
                 mr={3}
             >
-                <Box>
+                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography fontSize={22} variant="h2">
-                        All movies
+                        All Movies
+                    </Typography>
+                    <Typography variant="h5">
+                        (showing {movies.length} of {moviesCount})
                     </Typography>
                 </Box>
                 <Box>
