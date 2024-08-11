@@ -277,8 +277,7 @@ export async function updateUserById(userParam: Prisma.UserUpdateInput, id: numb
         });
 
         if (updatedUser) {
-            const referer = getReferer();
-            redirect(`${referer}`);
+            redirect(`/users/${updatedUser.id}/${updatedUser.userName}`);
         } else {
             throw new Error("Failed to update user.");
         }

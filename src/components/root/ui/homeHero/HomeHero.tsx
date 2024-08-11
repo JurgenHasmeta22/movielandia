@@ -80,7 +80,7 @@ const HomeHeroSection = () => {
                     mt: 1,
                 }}
             >
-                Your Gateway to the World of Cinema and Series!
+                Your Gateway to the World of Cinema!
             </Typography>
             <Box sx={{ zIndex: 1, marginTop: 1 }}>
                 <Typography

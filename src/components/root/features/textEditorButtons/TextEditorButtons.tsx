@@ -71,7 +71,7 @@ export function TextEditorButtons({
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
                                         onClick: () => setOpen(false),
-                                        color: "secondary",
+                                        color: "error",
                                         variant: "contained",
                                         sx: {
                                             bgcolor: "#ff5252",
@@ -86,7 +86,7 @@ export function TextEditorButtons({
                                             handleFocusReview();
                                         },
                                         type: "submit",
-                                        color: "secondary",
+                                        color: "success",
                                         variant: "contained",
                                         sx: {
                                             bgcolor: "#30969f",
@@ -112,6 +112,7 @@ export function TextEditorButtons({
                     </Button>
                     <Button
                         onClick={onSubmitUpdateReview}
+                        color="success"
                         variant="contained"
                         sx={{
                             display: "flex",

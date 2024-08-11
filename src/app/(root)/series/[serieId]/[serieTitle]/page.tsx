@@ -10,7 +10,7 @@ interface ISerieProps {
     params: {
         serieId: string;
     };
-    searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
+    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
 }
 
 export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
@@ -75,9 +75,9 @@ export default async function SeriePage({ searchParams, params }: ISerieProps) {
 
     const serieId = params.serieId;
 
-    const ascOrDesc = searchParams?.seriesAscOrDesc;
-    const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
+    const ascOrDesc = searchParams?.reviewsAscOrDesc;
+    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
+    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
