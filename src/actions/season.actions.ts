@@ -451,19 +451,61 @@ export async function deleteSeasonById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchSeasonsByTitle(title: string, page: number): Promise<Season[] | null> {
+export async function searchSeasonsByTitle(title: string, queryParams: any): Promise<any | null> {
+    const { page, ascOrDesc, sortBy } = queryParams;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
+    }
+
     const query = {
         where: {
             title: { contains: title },
         },
-        skip: page ? (page - 1) * 20 : 0,
-        take: 20,
+        orderBy: orderByObject,
+        skip: page ? (page - 1) * 10 : 0,
+        take: 10,
     };
 
     const seasons = await prisma.season.findMany(query);
+    const seasonIds = seasons.map((season: Season) => season.id);
+
+    const seasonRatings = await prisma.seasonReview.groupBy({
+        by: ["seasonId"],
+        where: { seasonId: { in: seasonIds } },
+        _avg: {
+            rating: true,
+        },
+        _count: {
+            rating: true,
+        },
+    });
+
+    const seasonRatingsMap: RatingsMap = seasonRatings.reduce((map, rating) => {
+        map[rating.seasonId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    const seasonsFinal = seasons.map((season: any) => {
+        const { ...properties } = season;
+        const ratingsInfo = seasonRatingsMap[season.id] || { averageRating: 0, totalReviews: 0 };
+
+        return { ...properties, ...ratingsInfo };
+    });
+
+    const count = await prisma.season.count({
+        where: {
+            title: { contains: title },
+        },
+    });
 
     if (seasons) {
-        return seasons;
+        return { seasons: seasonsFinal, count };
     } else {
         return null;
     }

@@ -95,7 +95,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             }}
                         >
                             <Typography color="white" sx={{ fontSize: "0.8rem" }}>
-                                {type === "actor"
+                                {path === "actors"
                                     ? data.fullname + " " + "(" + data.debut + ")"
                                     : data.title + " (" + data.dateAired.split("/")[2] + ")"}
                             </Typography>

@@ -5,10 +5,8 @@ import PaginationControl from "@/components/root/features/paginationControl/Pagi
 import { ListDetail } from "@/components/root/ui/listDetail/ListDetail";
 import Review from "@/components/root/features/review/Review";
 import { Box, Stack } from "@mui/material";
-import { useSession } from "next-auth/react";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import { useState, useRef, useEffect } from "react";
-import { useStore } from "@/store/store";
+import { useEffect } from "react";
 import {
     addDownvoteSeasonReview,
     addFavoriteSeasonToUser,
@@ -20,11 +18,24 @@ import {
     removeUpvoteSeasonReview,
     updateReviewSeason,
 } from "@/actions/user.actions";
-import { useModal } from "@/providers/ModalProvider";
 import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
+import { usePageDetailsData } from "@/hooks/usePageDetailsData";
+import { Season } from "@prisma/client";
+
+interface ISeasonPageContentProps {
+    searchParamsValues: {
+        ascOrDesc: string | undefined;
+        page: number;
+        sortBy: string;
+    };
+    season: any;
+    latestSeasons: Season[] | null;
+    relatedSeasons: Season[] | null;
+    pageCount: number;
+}
 
 export default function SeasonPageConent({
     searchParamsValues,
@@ -32,29 +43,28 @@ export default function SeasonPageConent({
     latestSeasons,
     relatedSeasons,
     pageCount,
-}: any) {
-    // #region "Data for the page, session hook, state, refs, custom hooks, zustand"
-    const { data: session } = useSession();
-
-    const [review, setReview] = useState<string>("");
-    const [rating, setRating] = useState<number | null>(0);
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
-    const [open, setOpen] = useState<boolean>(false);
-    const [openVotesModal, setIsOpenVotesModal] = useState(false);
-
-    const { openModal } = useModal();
-
-    const textEditorRef = useRef<any>(null);
-    const reviewRef = useRef<any>(null);
-
+}: ISeasonPageContentProps) {
+    // #region "Data for the page"
     const {
+        session,
+        review,
+        setReview,
+        rating,
+        setRating,
+        isEditMode,
+        setIsEditMode,
+        setOpen,
+        setIsOpenVotesModal,
+        openModal,
+        textEditorRef,
+        reviewRef,
         setListModalDataType,
         setUpvotesPageModal,
         setDownvotesPageModal,
         setSelectedReview,
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
-    } = useStore();
+    } = usePageDetailsData();
     // #endregion
 
     // #region "Handlers functions"

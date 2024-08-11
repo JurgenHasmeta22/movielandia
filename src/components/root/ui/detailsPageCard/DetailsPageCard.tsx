@@ -55,7 +55,6 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         height={317}
                         width={214}
                         priority
-                        style={{ borderRadius: "8px", objectFit: "cover" }}
                     />
                 </Box>
                 <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
