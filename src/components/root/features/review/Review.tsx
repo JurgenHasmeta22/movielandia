@@ -138,7 +138,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                     mt: 2,
                     mx: 3,
                     backgroundColor:
-                        review.user.userName === session?.user?.userName
+                        review.user.id === session?.user?.id
                             ? theme.vars.palette.red.main
                             : theme.vars.palette.background.default,
                 }}
@@ -186,16 +186,16 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             variant="h6"
                             sx={{
                                 color:
-                                    review.user.userName === session?.user?.userName
+                                    review.user.id === session?.user?.id
                                         ? theme.vars.palette.blue.main
                                         : theme.vars.palette.primary.main,
-                                fontWeight: review.user.userName === session?.user?.userName ? 900 : 300,
+                                fontWeight: review.user.id === session?.user?.id ? 900 : 300,
                                 letterSpacing: 1,
                             }}
                         >
                             {review.user.userName}
                         </Typography>
-                        {review.user.userName === session?.user?.userName && (
+                        {review.user.id === session?.user?.id && (
                             <Typography component={"span"} paddingLeft={1}>
                                 - You
                             </Typography>
@@ -225,7 +225,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                                 </Typography>
                             )}
                         </Typography>
-                        {review.user.userName === session?.user?.userName && !isEditMode && (
+                        {review.user.id === session?.user?.id && !isEditMode && (
                             <IconButton
                                 size="medium"
                                 onClick={() => {
@@ -296,9 +296,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                         >
                             <IconButton
                                 size="medium"
-                                disabled={
-                                    session?.user && review.user.userName !== session?.user?.userName ? false : true
-                                }
+                                disabled={session?.user && review.user.id !== session?.user?.id ? false : true}
                                 onClick={async () => {
                                     handleClickUpVoteReview();
                                 }}
@@ -334,9 +332,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                         >
                             <IconButton
                                 size="medium"
-                                disabled={
-                                    session?.user && review.user.userName !== session?.user?.userName ? false : true
-                                }
+                                disabled={session?.user && review.user.id !== session?.user?.id ? false : true}
                                 onClick={async () => {
                                     handleClickDownVoteReview();
                                 }}
