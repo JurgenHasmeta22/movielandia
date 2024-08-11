@@ -99,7 +99,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             <Typography variant="body1">
                                 {type !== "actor"
                                     ? `Aired on: ${formatDate(data.dateAired)}`
-                                    : `Debut year:${data.debut}`}
+                                    : `Debut year: ${data.debut}`}
                             </Typography>
                         </Box>
                         {type !== "actor" && (

@@ -56,7 +56,7 @@ export default async function Register() {
             <Paper
                 sx={{
                     px: 8,
-                    py: 6,
+                    py: 4,
                     borderRadius: 4,
                     position: "relative",
                     zIndex: 1,

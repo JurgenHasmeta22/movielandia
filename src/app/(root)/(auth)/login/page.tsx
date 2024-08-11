@@ -38,6 +38,7 @@ export default async function Login() {
                     priority
                     style={{
                         objectFit: "cover",
+                        // backgroundPosition: "fixed",
                     }}
                 />
                 <Box
@@ -54,8 +55,8 @@ export default async function Login() {
             </Box>
             <Paper
                 sx={{
-                    px: 8,
-                    py: 6,
+                    px: 10,
+                    py: 4,
                     borderRadius: 4,
                     position: "relative",
                     zIndex: 1,
