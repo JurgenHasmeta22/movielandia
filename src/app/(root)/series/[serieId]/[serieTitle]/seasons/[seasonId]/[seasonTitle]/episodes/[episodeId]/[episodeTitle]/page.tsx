@@ -76,6 +76,7 @@ export default async function EpisodeDetails({ searchParams, params }: IEpisodeP
     const session = await getServerSession(authOptions);
 
     const { episodeId, seasonId } = params;
+
     const ascOrDesc = searchParams?.episodesAscOrDesc;
     const page = searchParams?.page ? Number(searchParams!.page!) : 1;
     const sortBy = searchParams?.episodesSortBy ? searchParams?.episodesSortBy : "";
@@ -100,14 +101,12 @@ export default async function EpisodeDetails({ searchParams, params }: IEpisodeP
     const pageCountReviews = Math.ceil(episode?.totalReviews / 5);
 
     return (
-        <Container>
-            <EpisodePage
-                searchParamsValues={searchParamsValues}
-                episode={episode}
-                latestEpisodes={latestEpisodes}
-                relatedEpisodes={relatedEpisodes}
-                pageCount={pageCountReviews}
-            />
-        </Container>
+        <EpisodePage
+            searchParamsValues={searchParamsValues}
+            episode={episode}
+            latestEpisodes={latestEpisodes}
+            relatedEpisodes={relatedEpisodes}
+            pageCount={pageCountReviews}
+        />
     );
 }

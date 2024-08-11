@@ -95,64 +95,73 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             }}
                         >
                             <Typography color="white" sx={{ fontSize: "0.8rem" }}>
-                                {path === "actors"
-                                    ? data.fullname
-                                    : data.title + " " + "(" + new Date(data.dateAired).getFullYear() + ")"}
+                                {type === "actor"
+                                    ? data.fullname + " " + "(" + data.debut + ")"
+                                    : data.title + " (" + data.dateAired.split("/")[2] + ")"}
                             </Typography>
                             {type !== "actor" && (
-                                <Stack
-                                    flexDirection={"row"}
-                                    columnGap={"40px"}
-                                    justifyContent="space-between"
-                                    alignItems="center"
-                                >
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                        }}
+                                <Box>
+                                    <Stack
+                                        flexDirection={"row"}
+                                        columnGap={"40px"}
+                                        justifyContent="space-between"
+                                        alignItems="center"
                                     >
-                                        <Image
-                                            src="/icons/imdb.svg"
-                                            alt="IMDb Icon"
-                                            width={14}
-                                            height={14}
-                                            style={{ marginRight: 2 }}
-                                        />
-                                        {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                                    </Box>
-                                    {type !== "serie" && type !== "season" && (
                                         <Box
                                             sx={{
                                                 display: "flex",
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
-                                            <Typography
-                                                color={"white"}
-                                                fontSize="0.8rem"
-                                                component="span"
-                                                width={"30ch"}
+                                            <Image
+                                                src="/icons/imdb.svg"
+                                                alt="IMDb Icon"
+                                                width={14}
+                                                height={14}
+                                                style={{ marginRight: 2 }}
+                                            />
+                                            {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                        </Box>
+                                        {type !== "serie" && type !== "season" && (
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                }}
                                             >
-                                                {data.duration} min
+                                                <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
+                                                <Typography
+                                                    color={"white"}
+                                                    fontSize="0.8rem"
+                                                    component="span"
+                                                    width={"30ch"}
+                                                >
+                                                    {data.duration} min
+                                                </Typography>
+                                            </Box>
+                                        )}
+                                    </Stack>
+                                    <Stack
+                                        flexDirection={"row"}
+                                        columnGap={"40px"}
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                    >
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                alignContent: "center",
+                                                alignSelf: "center",
+                                            }}
+                                        >
+                                            <StarRateIcon sx={{ color: "gold", mr: 0.5, fontSize: "1rem" }} />
+                                            <Typography color={"white"} fontSize="0.9rem" component="span">
+                                                {data.averageRating ? data.averageRating : "N/A"}
                                             </Typography>
                                         </Box>
-                                    )}
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            alignContent: "center",
-                                            alignSelf: "center",
-                                        }}
-                                    >
-                                        <StarRateIcon sx={{ color: "gold", mr: 0.5, fontSize: "1rem" }} />
-                                        <Typography color={"white"} fontSize="0.9rem" component="span">
-                                            {data.averageRating ? data.averageRating : "N/A"}
-                                        </Typography>
-                                    </Box>
-                                </Stack>
+                                    </Stack>
+                                </Box>
                             )}
                         </Box>
                     </Box>
