@@ -2,6 +2,7 @@
 
 import { Actor, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
+import { RatingsMap } from "./season.actions";
 
 interface ActorModelParams {
     sortBy: string;
@@ -345,19 +346,61 @@ export async function deleteActorById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchActorsByTitle(fullname: string, page: number): Promise<Actor[] | null> {
+export async function searchActorsByTitle(fullname: string, queryParams: any): Promise<any | null> {
+    const { page, ascOrDesc, sortBy } = queryParams;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
+    }
+
     const query = {
         where: {
             fullname: { contains: fullname },
         },
-        skip: page ? (page - 1) * 20 : 0,
-        take: 20,
+        orderBy: orderByObject,
+        skip: page ? (page - 1) * 10 : 0,
+        take: 10,
     };
 
     const actors = await prisma.actor.findMany(query);
+    const actorIds = actors.map((actor: Actor) => actor.id);
+
+    const actorRatings = await prisma.actorReview.groupBy({
+        by: ["actorId"],
+        where: { actorId: { in: actorIds } },
+        _avg: {
+            rating: true,
+        },
+        _count: {
+            rating: true,
+        },
+    });
+
+    const actorRatingsMap: RatingsMap = actorRatings.reduce((map, rating) => {
+        map[rating.actorId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    const actorsFinal = actors.map((actor: any) => {
+        const { ...properties } = actor;
+        const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+
+        return { ...properties, ...ratingsInfo };
+    });
+
+    const count = await prisma.actor.count({
+        where: {
+            fullname: { contains: fullname },
+        },
+    });
 
     if (actors) {
-        return actors;
+        return { actors: actorsFinal, count };
     } else {
         return null;
     }

@@ -445,19 +445,61 @@ export async function deleteEpisodeById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchEpisodesByTitle(title: string, page: number): Promise<Episode[] | null> {
+export async function searchEpisodesByTitle(title: string, queryParams: any): Promise<any | null> {
+    const { page, ascOrDesc, sortBy } = queryParams;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
+    }
+
     const query = {
         where: {
             title: { contains: title },
         },
-        skip: page ? (page - 1) * 20 : 0,
-        take: 20,
+        orderBy: orderByObject,
+        skip: page ? (page - 1) * 10 : 0,
+        take: 10,
     };
 
     const episodes = await prisma.episode.findMany(query);
+    const episodeIds = episodes.map((episode: Episode) => episode.id);
+
+    const episodeRatings = await prisma.episodeReview.groupBy({
+        by: ["episodeId"],
+        where: { episodeId: { in: episodeIds } },
+        _avg: {
+            rating: true,
+        },
+        _count: {
+            rating: true,
+        },
+    });
+
+    const episodeRatingsMap: RatingsMap = episodeRatings.reduce((map, rating) => {
+        map[rating.episodeId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    const episodesFinal = episodes.map((episode: any) => {
+        const { ...properties } = episode;
+        const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
+
+        return { ...properties, ...ratingsInfo };
+    });
+
+    const count = await prisma.episode.count({
+        where: {
+            title: { contains: title },
+        },
+    });
 
     if (episodes) {
-        return episodes;
+        return { episodes: episodesFinal, count };
     } else {
         return null;
     }

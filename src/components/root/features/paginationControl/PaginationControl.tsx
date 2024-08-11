@@ -21,6 +21,12 @@ const PaginationControl: React.FC<IPaginationControl> = ({ pageCount, currentPag
             newSearchParams.set("pageMovies", String(value));
         } else if (dataType === "Series") {
             newSearchParams.set("pageSeries", String(value));
+        } else if (dataType === "Actors") {
+            newSearchParams.set("pageActors", String(value));
+        } else if (dataType === "Seasons") {
+            newSearchParams.set("pageSeasons", String(value));
+        } else if (dataType === "Episodes") {
+            newSearchParams.set("pageEpisodes", String(value));
         } else {
             newSearchParams.set("page", String(value));
         }

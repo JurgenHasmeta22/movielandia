@@ -15,7 +15,7 @@ import {
     Typography,
     useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
 import { useRouter } from "next/navigation";
 import FavoritesTab from "./FavoritesTab";
@@ -56,12 +56,6 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     const router = useRouter();
 
     const theme: CssVarsTheme = useTheme();
-
-    // useEffect(() => {
-    //     setBio(userInPage?.bio || "");
-    //     setUserName(userInPage?.userName || "");
-    //     setEmail(userInPage?.email || "");
-    // }, [userInPage]);
     // #endregion
 
     // #region "Tab logic"
