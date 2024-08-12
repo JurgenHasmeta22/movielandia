@@ -104,10 +104,17 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 <Stack
                     direction="row"
                     flexWrap="wrap"
-                    justifyContent={"flex-start"}
                     alignItems={"start"}
                     rowGap={4}
                     columnGap={3}
+                    sx={{
+                        justifyContent: {
+                            xs: "center",
+                            sm: "center",
+                            md: "start",
+                            lg: "start",
+                        },
+                    }}
                 >
                     {movies.map((movie: Movie) => (
                         <Box key={movie.id}>

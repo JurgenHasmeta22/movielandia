@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, CssVarsTheme, IconButton, Stack, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, Box, CssVarsTheme, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
@@ -26,10 +26,9 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme: CssVarsTheme = useTheme();
-    const isMobile = useMediaQuery("(max-width:768px)");
-
     const router = useRouter();
+
+    const theme: CssVarsTheme = useTheme();
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenres(event.currentTarget);
@@ -68,55 +67,77 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: `${isMobile ? "start" : "space-around"}`,
+                        justifyContent: {
+                            xs: "flex-start",
+                            sm: "flex-start",
+                            md: "space-around",
+                            lg: "space-around",
+                        },
                         flexWrap: "wrap",
                         py: 2,
                         backgroundColor: theme.vars.palette.primary.dark,
                     }}
                     component={"nav"}
                 >
-                    {isMobile ? (
-                        <Box>
-                            <IconButton
-                                aria-label="open drawer"
-                                edge="start"
-                                onClick={() => {
-                                    setIsDrawerOpen(true);
-                                }}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                        </Box>
-                    ) : (
-                        <Stack
-                            flexDirection={"row"}
-                            alignItems={"center"}
-                            justifyContent={"space-around"}
-                            columnGap={3}
-                            flexWrap={"wrap"}
+                    {/* Mobile Header */}
+                    <Box
+                        sx={{
+                            display: {
+                                xs: "block",
+                                sm: "block",
+                                md: "none",
+                                lg: "none",
+                            },
+                        }}
+                    >
+                        <IconButton
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={() => {
+                                setIsDrawerOpen(true);
+                            }}
                         >
-                            <HeaderLinks
-                                genres={genres}
-                                openMenuGenres={openMenuGenres}
-                                closeMenuGenres={closeMenuGenres}
-                                anchorElGenres={anchorElGenres}
+                            <MenuIcon />
+                        </IconButton>
+                    </Box>
+                    {/* Dekstop Header */}
+                    <Stack
+                        flexDirection={"row"}
+                        alignItems={"center"}
+                        justifyContent={"space-around"}
+                        columnGap={3}
+                        flexWrap={"wrap"}
+                        sx={{
+                            display: {
+                                xs: "none",
+                                sm: "none",
+                                md: "flex",
+                                lg: "flex",
+                            },
+                        }}
+                    >
+                        <HeaderLinks
+                            genres={genres}
+                            openMenuGenres={openMenuGenres}
+                            closeMenuGenres={closeMenuGenres}
+                            anchorElGenres={anchorElGenres}
+                        />
+                        <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
+                            <SearchField />
+                            <ThemeToggleButton />
+                            <AuthButtons
+                                session={session}
+                                userName={userName}
+                                anchorElProfile={anchorElProfile}
+                                closeMenuProfile={closeMenuProfile}
+                                openMenuProfile={openMenuProfile}
+                                handleSignOut={handleSignOut}
                             />
-                            <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
-                                <SearchField />
-                                <ThemeToggleButton />
-                                <AuthButtons
-                                    session={session}
-                                    userName={userName}
-                                    anchorElProfile={anchorElProfile}
-                                    closeMenuProfile={closeMenuProfile}
-                                    openMenuProfile={openMenuProfile}
-                                    handleSignOut={handleSignOut}
-                                />
-                            </Box>
-                        </Stack>
-                    )}
+                        </Box>
+                    </Stack>
                 </Toolbar>
             </AppBar>
+            {/* Mobile Header Menu */}
             <HeaderMobile
                 genres={genres}
                 anchorElProfile={anchorElProfile}

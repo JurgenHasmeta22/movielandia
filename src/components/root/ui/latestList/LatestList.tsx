@@ -1,8 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
+import { Movie, Serie } from "@prisma/client";
 
 interface ILatestList {
-    data: any;
+    data: Array<Movie | Serie> | null;
     type: string;
 }
 
@@ -27,14 +28,21 @@ export function LatestList({ data, type }: ILatestList) {
             <Stack
                 direction="row"
                 flexWrap="wrap"
-                justifyContent={"flex-start"}
                 alignItems={"start"}
                 rowGap={4}
                 columnGap={3}
                 marginTop={3}
                 mb={4}
+                sx={{
+                    justifyContent: {
+                        xs: "center",
+                        sm: "center",
+                        md: "start",
+                        lg: "start",
+                    },
+                }}
             >
-                {data?.map((item: any) => (
+                {data?.map((item: Movie | Serie) => (
                     <CardItem data={item} key={item.id} type={`${type === "Movies" ? "movie" : "serie"}`} />
                 ))}
             </Stack>

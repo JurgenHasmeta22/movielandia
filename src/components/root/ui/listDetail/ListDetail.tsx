@@ -23,41 +23,97 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                         component={"section"}
                     >
                         <Box ml={3} mr={3}>
-                            <Typography variant={"h2"} fontSize={28}>
-                                {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
-                                {type === "movie"
-                                    ? " Movies"
-                                    : type === "serie"
-                                      ? " Series"
-                                      : type === "season"
-                                        ? " Seasons"
-                                        : type === "episode"
-                                          ? " Episodes"
-                                          : ""}
-                            </Typography>
+                            {type !== "actor" && (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: {
+                                            xs: "center",
+                                            sm: "center",
+                                            md: "start",
+                                            lg: "start",
+                                        },
+                                    }}
+                                >
+                                    <Typography
+                                        variant={"h2"}
+                                        fontSize={28}
+                                        sx={{
+                                            display: "flex",
+                                            justifySelf: {
+                                                xs: "center",
+                                                sm: "center",
+                                                md: "start",
+                                                lg: "start",
+                                            },
+                                        }}
+                                    >
+                                        {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
+                                        {type === "movie"
+                                            ? " Movies"
+                                            : type === "serie"
+                                              ? " Series"
+                                              : type === "season"
+                                                ? " Seasons"
+                                                : type === "episode"
+                                                  ? " Episodes"
+                                                  : ""}
+                                    </Typography>
+                                </Box>
+                            )}
                             {type === "actor" && roleData !== "cast" && (
-                                <Typography variant={"h2"} fontSize={28}>
-                                    Starred {roleData}
-                                </Typography>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: {
+                                            xs: "center",
+                                            sm: "center",
+                                            md: "start",
+                                            lg: "start",
+                                        },
+                                    }}
+                                >
+                                    <Typography variant={"h2"} fontSize={28}>
+                                        Starred {roleData}
+                                    </Typography>
+                                </Box>
                             )}
                             {type === "actor" && roleData === "cast" && (
-                                <Typography variant={"h2"} fontSize={28}>
-                                    Cast
-                                </Typography>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: {
+                                            xs: "center",
+                                            sm: "center",
+                                            md: "start",
+                                            lg: "start",
+                                        },
+                                    }}
+                                >
+                                    <Typography variant={"h2"} fontSize={28}>
+                                        Cast
+                                    </Typography>
+                                </Box>
                             )}
                         </Box>
                         <Box pl={3} pr={3}>
                             <Stack
                                 direction="row"
                                 flexWrap="wrap"
-                                justifyContent={"flex-start"}
                                 alignItems={"start"}
                                 rowGap={4}
                                 columnGap={3}
+                                sx={{
+                                    justifyContent: {
+                                        xs: "center",
+                                        sm: "center",
+                                        md: "start",
+                                        lg: "start",
+                                    },
+                                }}
                             >
                                 {data &&
                                     data.length > 0 &&
-                                    !data.error &&
                                     data.map((item: any, index: number) => (
                                         <CardItem
                                             data={

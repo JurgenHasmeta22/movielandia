@@ -351,6 +351,7 @@ export default function EpisodePage({
                 {episode?.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={episode}
+                        sortingDataType="reviews"
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />

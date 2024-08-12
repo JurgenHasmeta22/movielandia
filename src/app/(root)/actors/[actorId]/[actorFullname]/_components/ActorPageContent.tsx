@@ -345,6 +345,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                         data={actor}
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortingDataType="reviews"
                     />
                 )}
                 {actor?.reviews!.map((review: any, index: number) => (

@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Typography, Chip, Button, useTheme, useMediaQuery, CssVarsTheme } from "@mui/material";
+import { Box, Typography, Chip, Button, useTheme, CssVarsTheme } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
-
 import { useSession } from "next-auth/react";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { formatDate } from "@/utils/helpers/utils";
@@ -21,8 +20,6 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
 
     const theme: CssVarsTheme = useTheme();
 
-    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
     return (
         <Box
             sx={{
@@ -33,7 +30,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                 width: "100%",
                 maxWidth: "1200px",
                 margin: "auto",
-                p: { xs: 1, sm: 2, md: 4 },
+                p: { xs: 2, sm: 3, md: 4 },
                 borderRadius: 6,
                 mt: 10,
             }}
@@ -126,7 +123,6 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                 href={data.trailerSrc}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                fullWidth={isMobile}
                                 sx={{
                                     bgcolor: theme.vars.palette.red.main,
                                     color: theme.vars.palette.primary.main,
@@ -144,7 +140,6 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             <Button
                                 variant="outlined"
                                 onClick={isBookmarked ? onRemoveBookmark : onBookmark}
-                                fullWidth={isMobile}
                                 sx={{
                                     color: theme.vars.palette.primary.main,
                                     bgcolor: isBookmarked

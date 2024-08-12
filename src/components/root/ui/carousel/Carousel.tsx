@@ -2,7 +2,7 @@
 
 import React from "react";
 import Slider from "react-slick";
-import { Box, Button, Typography, IconButton, useTheme, useMediaQuery, CssVarsTheme } from "@mui/material";
+import { Box, Button, Typography, IconButton, useTheme, CssVarsTheme } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
@@ -66,8 +66,6 @@ const CustomPrevArrow = (props: any) => {
 const Carousel = ({ data, type }: ICarouselProps) => {
     const theme: CssVarsTheme = useTheme();
 
-    const isMobile = useMediaQuery("(max-width:768px)");
-
     const settings = {
         dots: false,
         infinite: true,
@@ -89,14 +87,29 @@ const Carousel = ({ data, type }: ICarouselProps) => {
     };
 
     return (
-        <Box sx={{ position: "relative", height: isMobile ? "130vh" : "90vh", overflow: "hidden" }} mt={6}>
+        <Box
+            sx={{
+                position: "relative",
+                height: {
+                    xs: "130vh",
+                    sm: "130vh",
+                    md: "90vh",
+                },
+                overflow: "hidden",
+                mt: 6,
+            }}
+        >
             <Slider {...settings}>
                 {data.map((element, index) => (
                     <Box
                         key={index}
                         sx={{
                             position: "relative",
-                            height: isMobile ? "130vh" : "90vh",
+                            height: {
+                                xs: "130vh",
+                                sm: "130vh",
+                                md: "90vh",
+                            },
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",

@@ -99,10 +99,17 @@ export default async function Actors({ searchParams }: IActorsProps) {
                 <Stack
                     direction="row"
                     flexWrap="wrap"
-                    justifyContent={"flex-start"}
                     alignItems={"start"}
                     rowGap={4}
                     columnGap={3}
+                    sx={{
+                        justifyContent: {
+                            xs: "center",
+                            sm: "center",
+                            md: "start",
+                            lg: "start",
+                        },
+                    }}
                 >
                     {actors.map((actor: Actor) => (
                         <Box key={actor.id}>
