@@ -11,7 +11,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import Link from "next/link";
+import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
 const Footer = (): React.JSX.Element => {
     const theme: CssVarsTheme = useTheme();
@@ -38,53 +39,110 @@ const Footer = (): React.JSX.Element => {
                         Explore
                     </Typography>
                     <Stack spacing={1} pt={1}>
-                        <Link href="/movies" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
+                        <Button
+                            component={MuiNextLink}
+                            href="/movies"
+                            prefetch={false}
+                            style={{
+                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
                             </Stack>
-                        </Link>
-                        <Link href="/series" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
+                        </Button>
+                        <Button
+                            component={MuiNextLink}
+                            href="/series"
+                            prefetch={false}
+                            style={{
+                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
                             </Stack>
-                        </Link>
-                        <Link href="/genres" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
+                        </Button>
+                        <Button
+                            component={MuiNextLink}
+                            href="/genres"
+                            prefetch={false}
+                            style={{
+                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
                             </Stack>
-                        </Link>
+                        </Button>
+                        <Button
+                            component={MuiNextLink}
+                            href="/actors"
+                            prefetch={false}
+                            style={{
+                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
+                            <Stack direction="row" alignItems="center" spacing={1}>
+                                <RecentActorsIcon />
+                                <Typography>Actors</Typography>
+                            </Stack>
+                        </Button>
                     </Stack>
                 </Box>
                 <Box>
                     <Typography variant="h4" gutterBottom>
                         Account
                     </Typography>
-                    <Stack spacing={1} mt={1}>
-                        <Link href="/login" style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}>
+                    <Stack spacing={1} pt={1}>
+                        <Button
+                            component={MuiNextLink}
+                            href="/login"
+                            prefetch={false}
+                            style={{
+                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
                             </Stack>
-                        </Link>
-                        <Link
+                        </Button>
+                        <Button
+                            component={MuiNextLink}
                             href="/register"
-                            style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}
+                            prefetch={false}
+                            style={{
+                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                color: theme.vars.palette.primary.main,
+                            }}
                         >
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>
                             </Stack>
-                        </Link>
+                        </Button>
                     </Stack>
                 </Box>
                 <Box>
                     <Typography variant="h4" gutterBottom>
                         Follow Us
                     </Typography>
-                    <Stack direction="row" spacing={2} mt={1}>
+                    <Stack direction="row" spacing={1} pt={1}>
                         <IconButton href="https://facebook.com" target="_blank" rel="noopener">
                             <FacebookIcon />
                         </IconButton>
@@ -94,16 +152,13 @@ const Footer = (): React.JSX.Element => {
                         <IconButton href="https://instagram.com" target="_blank" rel="noopener">
                             <InstagramIcon />
                         </IconButton>
-                        <IconButton href="https://youtube.com" target="_blank" rel="noopener">
-                            <YouTubeIcon />
-                        </IconButton>
                     </Stack>
                 </Box>
                 <Box>
                     <Typography variant="h4" gutterBottom>
                         Newsletter
                     </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" mt={1}>
+                    <Stack direction="row" spacing={1} alignItems="center" pt={1}>
                         <TextField variant="outlined" size="small" placeholder="Email" />
                         <Button
                             variant="contained"

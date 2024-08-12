@@ -1,15 +1,16 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, Drawer, IconButton } from "@mui/material";
+import { Box, CssVarsTheme, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import { useStore } from "@/store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Genre } from "@prisma/client";
 import { Session } from "next-auth";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
+import { theme } from "@/utils/theme/theme";
 
 interface IHeaderMenu {
     genres: Genre[];
@@ -33,6 +34,8 @@ export default function HeaderMobile({
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
+    const theme: CssVarsTheme = useTheme();
+
     const openMenuGenresMobile = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenresMobile(event.currentTarget);
     };
@@ -44,6 +47,14 @@ export default function HeaderMobile({
     const handleDrawerToggle = () => {
         setIsDrawerOpen(false);
     };
+
+    const isFullScreen = useMediaQuery(theme.breakpoints.up("md"));
+
+    useEffect(() => {
+        if (isFullScreen && isDrawerOpen) {
+            setIsDrawerOpen(false);
+        }
+    }, [isFullScreen, isDrawerOpen, setIsDrawerOpen]);
 
     return (
         <Drawer variant="persistent" open={isDrawerOpen} onClose={handleDrawerToggle} component={"aside"}>
@@ -87,6 +98,7 @@ export default function HeaderMobile({
                     }}
                 >
                     <ThemeToggleButton />
+                    Switch Mode
                 </Box>
                 <Box
                     sx={{

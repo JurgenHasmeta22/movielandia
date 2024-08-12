@@ -1,12 +1,13 @@
 "use client";
 
-import { Box, CssVarsTheme, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
+import { Box, Button, CssVarsTheme, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
+import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 
 interface IHeaderLinks {
     genres: Genre[];
@@ -36,15 +37,18 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                     },
                 }}
             >
-                <Link
+                <Button
+                    component={MuiNextLink}
                     href={"/"}
+                    prefetch={false}
                     style={{
-                        cursor: "pointer",
-                        textDecoration: "none",
+                        fontSize: "18px",
+                        fontWeight: 700,
+                        textTransform: "capitalize",
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        fontSize: 24,
+                        columnGap: 1,
                         color: theme.vars.palette.primary.main,
                     }}
                     onClick={() => {
@@ -54,7 +58,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                     }}
                 >
                     MovieLandia24
-                </Link>
+                </Button>
             </Box>
             <Box>
                 <List
@@ -65,15 +69,17 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             sm: "column",
                             md: "row",
                         },
-                        columnGap: 2,
+                        columnGap: 1,
                     }}
                 >
                     <ListItem>
-                        <Link
+                        <Button
+                            component={MuiNextLink}
                             href="/movies"
+                            prefetch={false}
                             style={{
                                 fontSize: "16px",
-                                textDecoration: "none",
+                                textTransform: "capitalize",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
@@ -88,14 +94,40 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         >
                             <MovieIcon fontSize={"large"} />
                             Movies
-                        </Link>
+                        </Button>
                     </ListItem>
-                    <ListItem onMouseEnter={openMenuGenres} onMouseLeave={closeMenuGenres} sx={{ cursor: "pointer" }}>
-                        <Link
-                            href="/genres"
+                    <ListItem>
+                        <Button
+                            component={MuiNextLink}
+                            href="/series"
+                            prefetch={false}
                             style={{
                                 fontSize: "16px",
-                                textDecoration: "none",
+                                textTransform: "capitalize",
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                columnGap: 3,
+                                color: theme.vars.palette.primary.main,
+                            }}
+                            onClick={() => {
+                                if (isDrawerOpen) {
+                                    setIsDrawerOpen(false);
+                                }
+                            }}
+                        >
+                            <LocalMoviesIcon fontSize={"large"} />
+                            Series
+                        </Button>
+                    </ListItem>
+                    <ListItem onMouseEnter={openMenuGenres} onMouseLeave={closeMenuGenres} sx={{ cursor: "pointer" }}>
+                        <Button
+                            component={MuiNextLink}
+                            href="/genres"
+                            prefetch={false}
+                            style={{
+                                fontSize: "16px",
+                                textTransform: "capitalize",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
@@ -110,7 +142,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         >
                             <SubtitlesIcon fontSize={"large"} />
                             Genres
-                        </Link>
+                        </Button>
                         <Menu
                             anchorEl={anchorElGenres}
                             open={Boolean(anchorElGenres)}
@@ -160,28 +192,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                                 </Link>
                             ))}
                         </Menu>
-                    </ListItem>
-                    <ListItem>
-                        <Link
-                            href="/series"
-                            style={{
-                                fontSize: "16px",
-                                textDecoration: "none",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                columnGap: 3,
-                                color: theme.vars.palette.primary.main,
-                            }}
-                            onClick={() => {
-                                if (isDrawerOpen) {
-                                    setIsDrawerOpen(false);
-                                }
-                            }}
-                        >
-                            <LocalMoviesIcon fontSize={"large"} />
-                            Series
-                        </Link>
                     </ListItem>
                 </List>
             </Box>

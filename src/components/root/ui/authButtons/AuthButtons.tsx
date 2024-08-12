@@ -8,6 +8,7 @@ import Link from "next/link";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
+import MuiNextLink from "../muiNextLink/MuiNextLink";
 
 interface IAuthButtons {
     session: Session | null;
@@ -75,10 +76,22 @@ const AuthButtons = ({
                 </>
             ) : (
                 <>
-                    <Link
-                        href={"/login"}
-                        style={{
-                            textDecoration: "none",
+                    <Button
+                        component={MuiNextLink}
+                        href="/login"
+                        prefetch={false}
+                        variant="text"
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            columnGap: 1,
+                            px: 2,
+                            py: 1,
+                            color: theme.vars.palette.primary.main,
+                            "&:hover": {
+                                backgroundColor: theme.vars.palette.green.main,
+                                color: theme.vars.palette.greyAccent.main,
+                            },
                         }}
                         onClick={() => {
                             if (isDrawerOpen) {
@@ -86,35 +99,31 @@ const AuthButtons = ({
                             }
                         }}
                     >
-                        <Button
-                            variant="text"
+                        <LockOpenIcon />
+                        <Typography
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                px: 2,
-                                py: 1,
-                                color: theme.vars.palette.primary.main,
-                                "&:hover": {
-                                    backgroundColor: theme.vars.palette.green.main,
-                                    color: theme.vars.palette.greyAccent.main,
-                                },
+                                textTransform: "capitalize",
                             }}
                         >
-                            <LockOpenIcon />
-                            <Typography
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Sign In
-                            </Typography>
-                        </Button>
-                    </Link>
-                    <Link
-                        href={"/register"}
-                        style={{
-                            textDecoration: "none",
+                            Sign In
+                        </Typography>
+                    </Button>
+                    <Button
+                        component={MuiNextLink}
+                        href="/register"
+                        prefetch={false}
+                        variant="text"
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            columnGap: 1,
+                            px: 2,
+                            py: 1,
+                            color: theme.vars.palette.primary.main,
+                            "&:hover": {
+                                backgroundColor: theme.vars.palette.green.main,
+                                color: theme.vars.palette.greyAccent.main,
+                            },
                         }}
                         onClick={() => {
                             if (isDrawerOpen) {
@@ -122,31 +131,15 @@ const AuthButtons = ({
                             }
                         }}
                     >
-                        <Button
-                            variant="text"
+                        <AppRegistrationIcon />
+                        <Typography
                             sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                columnGap: 1,
-                                px: 2,
-                                py: 1,
-                                color: theme.vars.palette.primary.main,
-                                "&:hover": {
-                                    backgroundColor: theme.vars.palette.green.main,
-                                    color: theme.vars.palette.greyAccent.main,
-                                },
+                                textTransform: "capitalize",
                             }}
                         >
-                            <AppRegistrationIcon />
-                            <Typography
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Sign Up
-                            </Typography>
-                        </Button>
-                    </Link>
+                            Sign Up
+                        </Typography>
+                    </Button>
                 </>
             )}
         </>
