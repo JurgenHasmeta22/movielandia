@@ -26,13 +26,13 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
             <Box
                 sx={{
                     marginLeft: {
-                        xs: 8,
-                        sm: 8,
+                        xs: 2,
+                        sm: 2,
                         md: 0,
                     },
                     marginBottom: {
-                        xs: 3,
-                        sm: 3,
+                        xs: 1,
+                        sm: 1,
                         md: 0,
                     },
                 }}
@@ -45,10 +45,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         fontSize: "18px",
                         fontWeight: 700,
                         textTransform: "capitalize",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        columnGap: 1,
                         color: theme.vars.palette.primary.main,
                     }}
                     onClick={() => {
