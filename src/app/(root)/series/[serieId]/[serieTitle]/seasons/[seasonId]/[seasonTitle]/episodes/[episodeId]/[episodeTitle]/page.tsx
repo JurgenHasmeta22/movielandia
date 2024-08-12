@@ -11,7 +11,7 @@ interface IEpisodeProps {
         episodeId: string;
         seasonId: string;
     };
-    searchParams?: { episodesAscOrDesc?: string; page?: string; episodesSortBy?: string };
+    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
 }
 
 export async function generateMetadata({ params }: IEpisodeProps): Promise<Metadata> {
@@ -76,9 +76,9 @@ export default async function EpisodePage({ searchParams, params }: IEpisodeProp
 
     const { episodeId, seasonId } = params;
 
-    const ascOrDesc = searchParams?.episodesAscOrDesc;
-    const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.episodesSortBy ? searchParams?.episodesSortBy : "";
+    const ascOrDesc = searchParams?.reviewsAscOrDesc;
+    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
+    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,

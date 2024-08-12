@@ -10,7 +10,7 @@ interface IActorProps {
     params: {
         actorId: string;
     };
-    searchParams?: { actorsAscOrDesc?: string; page?: string; actorsSortBy?: string };
+    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
 }
 
 export async function generateMetadata({ params }: IActorProps): Promise<Metadata> {
@@ -75,9 +75,9 @@ export default async function ActorPage({ searchParams, params }: IActorProps) {
 
     const { actorId } = params;
 
-    const ascOrDesc = searchParams?.actorsAscOrDesc;
-    const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.actorsSortBy ? searchParams?.actorsSortBy : "";
+    const ascOrDesc = searchParams?.reviewsAscOrDesc;
+    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
+    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
