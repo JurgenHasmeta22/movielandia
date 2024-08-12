@@ -1,12 +1,13 @@
 import { searchMoviesByTitle } from "@/actions/movie.actions";
 import { searchSeriesByTitle } from "@/actions/serie.actions";
 import { Box } from "@mui/material";
-import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
+import { Actor, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import type { Metadata } from "next";
 import { searchActorsByTitle } from "@/actions/actor.actions";
 import { searchSeasonsByTitle } from "@/actions/season.actions";
 import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import SearchList from "./_components/SearchList";
+import { searchUsersByUsername } from "@/actions/user.actions";
 
 interface ISearchProps {
     searchParams?: {
@@ -25,6 +26,9 @@ interface ISearchProps {
         episodesAscOrDesc?: string;
         pageEpisodes?: string;
         episodesSortBy?: string;
+        usersAscOrDesc?: string;
+        pageUsers?: string;
+        usersSortBy?: string;
         term?: string;
     };
 }
@@ -138,6 +142,26 @@ export default async function Search({ searchParams }: ISearchProps) {
     const pageCountSeasons = Math.ceil(seasonsCount / 10);
     // #endregion
 
+    // #region "users data"
+    const pageUsers = Number(searchParams?.pageUsers) || 1;
+    const usersSortBy = searchParams?.usersSortBy;
+    const usersAscOrDesc = searchParams?.usersAscOrDesc;
+    const queryParamsUsers: any = { page: pageUsers };
+
+    if (usersSortBy) {
+        queryParamsUsers.sortBy = usersSortBy;
+    }
+
+    if (usersAscOrDesc) {
+        queryParamsUsers.ascOrDesc = usersAscOrDesc;
+    }
+
+    const usersData = await searchUsersByUsername(term!, queryParamsUsers);
+    const users: User[] = usersData?.users;
+    const usersCount: number = usersData?.count;
+    const pageCountUsers = Math.ceil(usersCount / 10);
+    // #endregion
+
     return (
         <Box
             sx={{
@@ -207,6 +231,18 @@ export default async function Search({ searchParams }: ISearchProps) {
                 dataType="Episodes"
                 cardType="episode"
                 path="episodes"
+            />
+            <SearchList
+                title="Users found"
+                data={users}
+                count={usersCount}
+                sortBy={usersSortBy!}
+                ascOrDesc={usersAscOrDesc!}
+                page={Number(pageUsers)}
+                pageCount={pageCountUsers}
+                dataType="Users"
+                cardType="user"
+                path="users"
             />
         </Box>
     );

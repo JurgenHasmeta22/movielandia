@@ -2,18 +2,18 @@ import PaginationControl from "@/components/root/features/paginationControl/Pagi
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import { Box, Typography, Stack } from "@mui/material";
-import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
+import { Actor, Episode, Movie, Season, Serie, User } from "@prisma/client";
 
 interface MediaListProps {
     title: string;
-    data: Array<Movie | Serie | Actor | Season | Episode>;
+    data: Array<Movie | Serie | Actor | Season | Episode | User>;
     count: number;
     sortBy: string;
     ascOrDesc: string;
     page: number;
     pageCount: number;
-    dataType: "Movies" | "Series" | "Actors" | "Seasons" | "Episodes";
-    cardType: "movie" | "serie" | "actor" | "season" | "episode";
+    dataType: "Movies" | "Series" | "Actors" | "Seasons" | "Episodes" | "Users";
+    cardType: "movie" | "serie" | "actor" | "season" | "episode" | "user";
     path?: string;
 }
 

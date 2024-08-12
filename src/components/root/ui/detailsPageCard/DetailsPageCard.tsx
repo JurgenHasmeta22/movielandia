@@ -69,15 +69,14 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
                                 <Chip
                                     label={genre.genre.name}
-                                    component="div"
                                     clickable
                                     sx={{
-                                        bgcolor: theme.vars.palette.secondary.dark,
-                                        color: theme.vars.palette.green.main,
+                                        bgcolor: theme.vars.palette.secondary.light,
+                                        color: theme.vars.palette.red.main,
                                         fontSize: "0.9rem",
                                         fontWeight: "bold",
                                         "&:hover": {
-                                            bgcolor: theme.vars.palette.green.light,
+                                            bgcolor: theme.vars.palette.blue.light,
                                         },
                                     }}
                                 />
@@ -141,15 +140,14 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                 variant="outlined"
                                 onClick={isBookmarked ? onRemoveBookmark : onBookmark}
                                 sx={{
-                                    color: theme.vars.palette.primary.main,
-                                    bgcolor: isBookmarked
-                                        ? theme.vars.palette.red.main
-                                        : theme.vars.palette.green.light,
+                                    color: theme.vars.palette.primary.light,
+                                    bgcolor: isBookmarked ? theme.vars.palette.red.main : theme.vars.palette.green.main,
                                     "&:hover": {
-                                        bgcolor: theme.vars.palette.red.main,
+                                        bgcolor: theme.vars.palette.secondary.light,
                                     },
                                     textTransform: "capitalize",
                                     fontSize: 16,
+                                    fontWeight: 700,
                                 }}
                             >
                                 {isBookmarked ? "Bookmarked" : "Bookmark"}

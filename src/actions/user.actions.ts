@@ -5,6 +5,7 @@ import { Prisma, User } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { prisma } from "../../prisma/config/prisma";
+import { RatingsMap } from "./season.actions";
 
 // #region "Interfaces"
 interface UserModelParams {
@@ -305,17 +306,33 @@ export async function deleteUserById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchUsersByUsername(username: string, page: number): Promise<User[] | null> {
-    const result = await prisma.user.findMany({
+export async function searchUsersByUsername(userName: string, queryParams: any): Promise<any | null> {
+    const { page, ascOrDesc, sortBy } = queryParams;
+    const orderByObject: any = {};
+
+    if (sortBy && ascOrDesc) {
+        orderByObject[sortBy] = ascOrDesc;
+    }
+
+    const query = {
         where: {
-            userName: { contains: username },
+            userName: { contains: userName },
         },
-        skip: page ? (page - 1) * 20 : 0,
-        take: 20,
+        orderBy: orderByObject,
+        skip: page ? (page - 1) * 10 : 0,
+        take: 10,
+    };
+
+    const users = await prisma.user.findMany(query);
+
+    const count = await prisma.user.count({
+        where: {
+            userName: { contains: userName },
+        },
     });
 
-    if (result) {
-        return result;
+    if (users) {
+        return { users, count };
     } else {
         return null;
     }

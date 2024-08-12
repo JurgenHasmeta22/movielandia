@@ -36,6 +36,8 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                 return `/series/${typeof params.serieId === "string" ? params.serieId : ""}/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
             case "episode":
                 return `/series/${typeof params.serieId === "string" ? params.serieId : ""}/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${typeof params.seasonId === "string" ? params.seasonId : ""}/${typeof params.seasonTitle === "string" ? encodeURIComponent(params.seasonTitle.split(" ").join("-")) : ""}/episodes/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+            case "user":
+                return `/users/${data.id}/${encodeURIComponent(data.userName.split(" ").join("-"))}`;
             default:
                 return "/";
         }
@@ -97,9 +99,11 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             <Typography color="white" sx={{ fontSize: "0.8rem" }}>
                                 {path === "actors"
                                     ? data.fullname + " " + "(" + data.debut + ")"
-                                    : data.title + " (" + data.dateAired.split("/")[2] + ")"}
+                                    : path === "users"
+                                      ? data.userName
+                                      : data.title + " (" + data.dateAired.split("/")[2] + ")"}
                             </Typography>
-                            {type !== "actor" && (
+                            {type !== "user" && (
                                 <Box>
                                     <Stack
                                         flexDirection={"row"}
@@ -107,22 +111,24 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                         justifyContent="space-between"
                                         alignItems="center"
                                     >
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <Image
-                                                src="/icons/imdb.svg"
-                                                alt="IMDb Icon"
-                                                width={14}
-                                                height={14}
-                                                style={{ marginRight: 2 }}
-                                            />
-                                            {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                                        </Box>
-                                        {type !== "serie" && type !== "season" && (
+                                        {type !== "actor" && (
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                }}
+                                            >
+                                                <Image
+                                                    src="/icons/imdb.svg"
+                                                    alt="IMDb Icon"
+                                                    width={14}
+                                                    height={14}
+                                                    style={{ marginRight: 2 }}
+                                                />
+                                                {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
+                                            </Box>
+                                        )}
+                                        {type !== "serie" && type !== "season" && type !== "actor" && (
                                             <Box
                                                 sx={{
                                                     display: "flex",

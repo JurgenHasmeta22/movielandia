@@ -45,6 +45,17 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
         valueToLabelList.fullnameDesc = "Fullname (Desc)";
     }
 
+    if (dataType === "users") {
+        delete valueToLabelList.ratingImdbAsc;
+        delete valueToLabelList.ratingImdbDesc;
+        delete valueToLabelList.durationAsc;
+        delete valueToLabelList.durationDesc;
+        delete valueToLabelList.titleAsc;
+        delete valueToLabelList.titleDesc;
+        valueToLabelList.userNameAsc = "Username (Asc)";
+        valueToLabelList.userNameDesc = "Username (Desc)";
+    }
+
     if (dataType === "seasons") {
         delete valueToLabelList.durationAsc;
         delete valueToLabelList.durationDesc;

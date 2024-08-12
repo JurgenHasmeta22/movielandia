@@ -15,6 +15,20 @@ export const getSortOptions = (type: string, dataType: string) => {
         ];
     }
 
+    if (dataType === "users") {
+        return [
+            <MenuItem key="none" value="none">
+                None
+            </MenuItem>,
+            <MenuItem key="userNameAsc" value="userNameAsc">
+                Username (Asc)
+            </MenuItem>,
+            <MenuItem key="userNameDesc" value="userNameDesc">
+                Username (Desc)
+            </MenuItem>,
+        ];
+    }
+
     const commonOptions = [
         <MenuItem key="none" value="none">
             None
