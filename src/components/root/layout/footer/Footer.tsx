@@ -165,6 +165,12 @@ const Footer = (): React.JSX.Element => {
                             sx={{
                                 py: 1.2,
                                 px: 3,
+                                color: theme.vars.palette.secondary.light,
+                                bgcolor: theme.vars.palette.red.main,
+                                "&:hover": {
+                                    color: theme.vars.palette.blue.main,
+                                    bgcolor: theme.vars.palette.primary.light,
+                                },
                             }}
                         >
                             Subscribe

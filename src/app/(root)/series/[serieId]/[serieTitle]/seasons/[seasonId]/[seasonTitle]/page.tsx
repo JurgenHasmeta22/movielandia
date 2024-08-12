@@ -11,7 +11,7 @@ interface ISeasonProps {
         seasonId: string;
         serieId: string;
     };
-    searchParams?: { seasonsAscOrDesc?: string; page?: string; seasonsSortBy?: string };
+    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
 }
 
 export async function generateMetadata({ params }: ISeasonProps): Promise<Metadata> {
@@ -76,9 +76,9 @@ export default async function SeasonPage({ searchParams, params }: ISeasonProps)
 
     const { seasonId, serieId } = params;
 
-    const ascOrDesc = searchParams?.seasonsAscOrDesc;
-    const page = searchParams?.page ? Number(searchParams!.page!) : 1;
-    const sortBy = searchParams?.seasonsSortBy ? searchParams?.seasonsSortBy : "";
+    const ascOrDesc = searchParams?.reviewsAscOrDesc;
+    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
+    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,

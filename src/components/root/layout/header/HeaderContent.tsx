@@ -74,7 +74,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                             lg: "space-around",
                         },
                         flexWrap: "wrap",
-                        py: 2,
+                        py: 1,
                         backgroundColor: theme.vars.palette.primary.dark,
                     }}
                     component={"nav"}
@@ -105,7 +105,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                         flexDirection={"row"}
                         alignItems={"center"}
                         justifyContent={"space-around"}
-                        columnGap={3}
+                        columnGap={2}
                         flexWrap={"wrap"}
                         sx={{
                             display: {
