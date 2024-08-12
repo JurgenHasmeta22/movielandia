@@ -47,14 +47,21 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                 <Stack
                     direction="row"
                     flexWrap="wrap"
-                    justifyContent={"flex-start"}
                     alignItems={"start"}
                     rowGap={4}
                     columnGap={3}
+                    sx={{
+                        justifyContent: {
+                            xs: "center",
+                            sm: "center",
+                            md: "start",
+                            lg: "start",
+                        },
+                    }}
                 >
                     {data &&
                         data.length > 0 &&
-                        data.map((item: any) =>
+                        data.map((item: Movie | Genre | Serie | Actor) =>
                             type === "genre" ? (
                                 <GenreItem key={item.id} genre={item as Genre} />
                             ) : (

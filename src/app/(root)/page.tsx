@@ -60,28 +60,28 @@ export default async function Home() {
                     data={movies}
                     type="movie"
                     link="/movies"
-                    linkText="Explore All Movies"
+                    linkText="Explore all Movies"
                 />
                 <ListHomeSection
                     key={"serie"}
                     data={series}
                     type="serie"
                     link="/series"
-                    linkText="Explore All Series"
+                    linkText="Explore all Series"
                 />
                 <ListHomeSection
                     key={"genre"}
                     data={genres}
                     type="genre"
                     link="/genres"
-                    linkText="Explore All Genres"
+                    linkText="Explore all Genres"
                 />
                 <ListHomeSection
                     key={"actor"}
                     data={actors}
                     type="actor"
                     link="/actors"
-                    linkText="Explore All Actors"
+                    linkText="Explore all Actors"
                     path="actors"
                 />
             </Stack>

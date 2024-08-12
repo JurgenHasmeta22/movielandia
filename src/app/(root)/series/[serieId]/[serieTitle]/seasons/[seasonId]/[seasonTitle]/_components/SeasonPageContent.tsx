@@ -351,6 +351,7 @@ export default function SeasonPageConent({
                 {season?.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={season}
+                        sortingDataType="reviews"
                         sortBy={searchParamsValues.sortBy!}
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />

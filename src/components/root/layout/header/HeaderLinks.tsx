@@ -1,8 +1,7 @@
 "use client";
 
-import { Box, CssVarsTheme, List, ListItem, Menu, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, CssVarsTheme, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
-
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -20,11 +19,23 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const theme: CssVarsTheme = useTheme();
-    const isMobile = useMediaQuery("(max-width:768px)");
 
     return (
         <>
-            <Box>
+            <Box
+                sx={{
+                    marginLeft: {
+                        xs: 8,
+                        sm: 8,
+                        md: 0,
+                    },
+                    marginBottom: {
+                        xs: 3,
+                        sm: 3,
+                        md: 0,
+                    },
+                }}
+            >
                 <Link
                     href={"/"}
                     style={{
@@ -35,8 +46,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         alignItems: "center",
                         fontSize: 24,
                         color: theme.vars.palette.primary.main,
-                        marginLeft: isMobile ? 8 : 0,
-                        marginBottom: isMobile ? 3 : 0,
                     }}
                     onClick={() => {
                         if (isDrawerOpen) {
@@ -48,7 +57,17 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                 </Link>
             </Box>
             <Box>
-                <List sx={{ display: "flex", flexDirection: `${isMobile ? "column" : "row"}`, columnGap: 2 }}>
+                <List
+                    sx={{
+                        display: "flex",
+                        flexDirection: {
+                            xs: "column",
+                            sm: "column",
+                            md: "row",
+                        },
+                        columnGap: 2,
+                    }}
+                >
                     <ListItem>
                         <Link
                             href="/movies"

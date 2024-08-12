@@ -67,10 +67,17 @@ const GenreList: React.FC<GenreListProps> = ({
                 <Stack
                     direction="row"
                     flexWrap="wrap"
-                    justifyContent={"flex-start"}
                     alignItems={"start"}
                     rowGap={4}
                     columnGap={3}
+                    sx={{
+                        justifyContent: {
+                            xs: "center",
+                            sm: "center",
+                            md: "start",
+                            lg: "start",
+                        },
+                    }}
                 >
                     {data.map((item, index) => (
                         <CardItem data={item} key={index} type={cardType} />

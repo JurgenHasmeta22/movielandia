@@ -56,12 +56,19 @@ export default async function Genres() {
             <Stack
                 direction="row"
                 flexWrap="wrap"
-                justifyContent={"flex-start"}
                 alignItems={"start"}
                 rowGap={4}
                 columnGap={3}
                 marginTop={3}
                 mb={4}
+                sx={{
+                    justifyContent: {
+                        xs: "center",
+                        sm: "center",
+                        md: "start",
+                        lg: "start",
+                    },
+                }}
             >
                 {genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)}
             </Stack>

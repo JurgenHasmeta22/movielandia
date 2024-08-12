@@ -105,10 +105,17 @@ export default async function Series({ searchParams }: ISeriesProps) {
                 <Stack
                     direction="row"
                     flexWrap="wrap"
-                    justifyContent={"flex-start"}
                     alignItems={"start"}
                     rowGap={4}
                     columnGap={3}
+                    sx={{
+                        justifyContent: {
+                            xs: "center",
+                            sm: "center",
+                            md: "start",
+                            lg: "start",
+                        },
+                    }}
                 >
                     {series.map((serie: Serie) => (
                         <CardItem data={serie} type="serie" key={serie.id} />
