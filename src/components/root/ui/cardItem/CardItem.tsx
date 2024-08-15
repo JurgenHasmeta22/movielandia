@@ -147,30 +147,32 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                           ? data.userName
                                           : data.title + " (" + data.dateAired.split("/")[2] + ")"}
                                 </Typography>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "start",
-                                    }}
-                                >
-                                    <IconButton
+                                {session?.user?.userName && (
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "start",
+                                        }}
                                         onClick={handleBookmarkClick}
-                                        sx={{
-                                            color: data.isBookmarked ? "red" : "green",
-                                        }}
                                     >
-                                        {data.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-                                    </IconButton>
-                                    <Typography
-                                        variant="body2"
-                                        sx={{
-                                            color: "white",
-                                        }}
-                                    >
-                                        {data.isBookmarked ? "Unbookmark" : "Bookmark"}
-                                    </Typography>
-                                </Box>
+                                        <IconButton
+                                            sx={{
+                                                color: data.isBookmarked ? "red" : "green",
+                                            }}
+                                        >
+                                            {data.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                                        </IconButton>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                color: "white",
+                                            }}
+                                        >
+                                            {data.isBookmarked ? "Unbookmark" : "Bookmark"}
+                                        </Typography>
+                                    </Box>
+                                )}
                             </Box>
                             {type !== "user" && (
                                 <Box>

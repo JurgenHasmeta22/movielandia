@@ -7,6 +7,8 @@ import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getSeries, getLatestSeries } from "@/actions/serie.actions";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 
 interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
@@ -41,6 +43,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Series({ searchParams }: ISeriesProps) {
+    const session = await getServerSession(authOptions);
+
     const ascOrDesc = searchParams?.seriesAscOrDesc ? searchParams?.seriesAscOrDesc : "";
     const page = searchParams?.page ? Number(searchParams?.page) : 1;
     const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
@@ -50,7 +54,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
         sortBy,
     };
 
-    const seriesData = await getSeries(queryParams);
+    const seriesData = await getSeries(queryParams, Number(session?.user?.id));
     const series = seriesData?.rows;
 
     const latestSeries = await getLatestSeries();

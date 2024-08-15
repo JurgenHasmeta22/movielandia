@@ -6,6 +6,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
 import type { Metadata } from "next";
 import { getActors } from "@/actions/actor.actions";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IActorsProps {
     searchParams?: { actorsAscOrDesc?: string; page?: string; actorsSortBy?: string };
@@ -37,6 +39,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Actors({ searchParams }: IActorsProps) {
+    const session = await getServerSession(authOptions);
+
     const ascOrDesc = searchParams?.actorsAscOrDesc ? searchParams?.actorsAscOrDesc : "";
     const page = searchParams?.page ? Number(searchParams?.page) : 1;
     const sortBy = searchParams?.actorsSortBy ? searchParams?.actorsSortBy : "";
@@ -46,7 +50,7 @@ export default async function Actors({ searchParams }: IActorsProps) {
         sortBy,
     };
 
-    const actorsData = await getActors(queryParams);
+    const actorsData = await getActors(queryParams, Number(session?.user?.id));
     const actors = actorsData?.actors;
     const actorsCarouselImages: Actor[] = actorsData?.actors!.slice(0, 5);
 
