@@ -1,32 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Box, Select, SvgIcon, Typography } from "@mui/material";
+import React from "react";
+import { Box, Select, MenuItem, SvgIcon, Typography, FormControl, InputLabel } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
-import { toFirstWordUpperCase } from "@/utils/helpers/utils";
 import { useSorting } from "@/hooks/useSorting";
 import { getSortOptions } from "@/utils/componentHelpers/getSortingOptions";
-
-const valueToLabelList: Record<string, string> = {
-    none: "None",
-    ratingImdbAsc: "Imdb rating (Asc)",
-    ratingImdbDesc: "Imdb rating (Desc)",
-    titleAsc: "Title (Asc)",
-    titleDesc: "Title (Desc)",
-    durationAsc: "Duration (Asc)",
-    durationDesc: "Duration (Desc)",
-    fullnameAsc: "Fullname (Asc)",
-    fullnameDesc: "Fullname (Desc)",
-    userNameAsc: "Username (Asc)",
-    userNameDesc: "Username (Desc)",
-};
-
-const valueToLabelDetails: Record<string, string> = {
-    createdAtAsc: "Created At (Asc)",
-    createdAtDesc: "Created At (Desc)",
-    ratingAsc: "Rating (Asc)",
-    ratingDesc: "Rating (Desc)",
-};
 
 interface ISortSelectProps {
     sortBy: string;
@@ -37,64 +15,86 @@ interface ISortSelectProps {
 
 export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortSelectProps) {
     const handleChangeSorting = useSorting(dataType);
+    const sortOptions = getSortOptions(type, dataType);
 
-    const getDefaultValue = () => {
-        if (type === "list") {
-            return "none";
-        }
-
-        return "createdAtDesc";
+    const handleSortTypeChange = (event: any) => {
+        const newSortBy = event.target.value as string;
+        handleChangeSorting({ sortBy: newSortBy, ascOrDesc: newSortBy === "none" ? "" : ascOrDesc || "asc" });
     };
 
-    const getValue = () => {
-        if (sortBy && ascOrDesc) {
-            return sortBy + toFirstWordUpperCase(ascOrDesc);
-        }
-
-        return getDefaultValue();
-    };
-
-    const [value, setValue] = useState(getValue());
-
-    useEffect(() => {
-        setValue(getValue());
-    }, [sortBy, ascOrDesc]);
-
-    const handleChange = (event: any) => {
-        const newValue = event.target.value as string;
-        setValue(newValue);
-        handleChangeSorting(event);
-    };
-
-    const getLabel = (value: string) => {
-        return type === "list" ? valueToLabelList[value] : valueToLabelDetails[value];
+    const handleOrderChange = (event: any) => {
+        const newAscOrDesc = event.target.value as string;
+        handleChangeSorting({ sortBy, ascOrDesc: newAscOrDesc });
     };
 
     return (
-        <Select
-            value={value}
-            onChange={handleChange}
-            autoWidth
-            sx={{
-                border: "1px solid",
-            }}
-            renderValue={(value: string) => (
-                <Box
+        <Box sx={{ display: "flex", alignItems: "start", gap: 2 }}>
+            <FormControl
+            // sx={{
+            //     display: "flex",
+            //     justifyContent: "start",
+            //     justifyItems: "center",
+            // }}
+            >
+                <InputLabel
+                    id="sort-by-label"
                     sx={{
-                        display: "flex",
-                        gap: 0.5,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        fontSize: 20,
                     }}
                 >
-                    <SvgIcon fontSize="small">
-                        <SwapVertIcon />
-                    </SvgIcon>
-                    <Typography fontSize={"15px"}>{getLabel(value)}</Typography>
-                </Box>
+                    Sort By
+                </InputLabel>
+                <Select
+                    labelId="sort-by-label"
+                    value={sortBy || "none"}
+                    sx={{
+                        mt: 2,
+                    }}
+                    onChange={handleSortTypeChange}
+                    displayEmpty
+                    renderValue={(value) => (
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                            <SvgIcon fontSize="small">
+                                <SwapVertIcon />
+                            </SvgIcon>
+                            <Typography fontSize="15px">
+                                {value !== "none"
+                                    ? sortOptions.find((option) => option.value === value)?.label
+                                    : "None"}
+                            </Typography>
+                        </Box>
+                    )}
+                >
+                    {sortOptions.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            {sortBy !== "none" && (
+                <FormControl>
+                    <InputLabel
+                        id="ordering-label"
+                        sx={{
+                            fontSize: 20,
+                        }}
+                    >
+                        Ordering
+                    </InputLabel>
+                    <Select
+                        labelId="ordering-label"
+                        value={ascOrDesc || "asc"}
+                        onChange={handleOrderChange}
+                        sx={{
+                            mt: 2,
+                        }}
+                    >
+                        <MenuItem value="asc">Ascending</MenuItem>
+                        <MenuItem value="desc">Descending</MenuItem>
+                    </Select>
+                </FormControl>
             )}
-        >
-            {getSortOptions(type, dataType)}
-        </Select>
+        </Box>
     );
 }

@@ -1,77 +1,39 @@
-import { MenuItem } from "@mui/material";
+interface SortOption {
+    value: string;
+    label: string;
+}
 
-export const getSortOptions = (type: string, dataType: string) => {
+export const getSortOptions = (type: string, dataType: string): SortOption[] => {
+    const commonOptions: SortOption[] = [{ value: "none", label: "None" }];
+
     if (dataType === "actors") {
-        return [
-            <MenuItem key="none" value="none">
-                None
-            </MenuItem>,
-            <MenuItem key="fullnameAsc" value="fullnameAsc">
-                Full Name (Asc)
-            </MenuItem>,
-            <MenuItem key="fullnameDesc" value="fullnameDesc">
-                Full Name (Desc)
-            </MenuItem>,
-        ];
+        return [...commonOptions, { value: "fullname", label: "Full Name" }];
     }
 
     if (dataType === "users") {
+        return [...commonOptions, { value: "userName", label: "Username" }];
+    }
+
+    if (dataType === "seasons") {
+        return [...commonOptions, { value: "title", label: "Title" }, { value: "ratingImdb", label: "Rating Imdb" }];
+    }
+
+    if (dataType === "movies" || dataType === "series" || dataType === "episodes") {
         return [
-            <MenuItem key="none" value="none">
-                None
-            </MenuItem>,
-            <MenuItem key="userNameAsc" value="userNameAsc">
-                Username (Asc)
-            </MenuItem>,
-            <MenuItem key="userNameDesc" value="userNameDesc">
-                Username (Desc)
-            </MenuItem>,
+            ...commonOptions,
+            { value: "title", label: "Title" },
+            { value: "ratingImdb", label: "Rating Imdb" },
+            { value: "duration", label: "Duration" },
         ];
     }
 
-    const commonOptions = [
-        <MenuItem key="none" value="none">
-            None
-        </MenuItem>,
-        <MenuItem key="ratingImdbAsc" value="ratingImdbAsc">
-            Imdb rating (Asc)
-        </MenuItem>,
-        <MenuItem key="ratingImdbDesc" value="ratingImdbDesc">
-            Imdb rating (Desc)
-        </MenuItem>,
-        <MenuItem key="titleAsc" value="titleAsc">
-            Title (Asc)
-        </MenuItem>,
-        <MenuItem key="titleDesc" value="titleDesc">
-            Title (Desc)
-        </MenuItem>,
-    ];
-
-    const durationOptions = [
-        <MenuItem key="durationAsc" value="durationAsc">
-            Duration (Asc)
-        </MenuItem>,
-        <MenuItem key="durationDesc" value="durationDesc">
-            Duration (Desc)
-        </MenuItem>,
-    ];
-
     if (type === "list") {
-        return dataType === "seasons" ? commonOptions : [...commonOptions, ...durationOptions];
+        const listOptions = [...commonOptions];
+        return listOptions;
     } else {
         return [
-            <MenuItem key="createdAtAsc" value="createdAtAsc">
-                Created At (Asc)
-            </MenuItem>,
-            <MenuItem key="createdAtDesc" value="createdAtDesc">
-                Created At (Desc)
-            </MenuItem>,
-            <MenuItem key="ratingAsc" value="ratingAsc">
-                Rating (Asc)
-            </MenuItem>,
-            <MenuItem key="ratingDesc" value="ratingDesc">
-                Rating (Desc)
-            </MenuItem>,
+            { value: "createdAt", label: "Created At" },
+            { value: "rating", label: "Rating" },
         ];
     }
 };

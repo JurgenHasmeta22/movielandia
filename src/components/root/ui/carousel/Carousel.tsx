@@ -91,8 +91,8 @@ const Carousel = ({ data, type }: ICarouselProps) => {
             sx={{
                 position: "relative",
                 height: {
-                    xs: "130vh",
-                    sm: "130vh",
+                    xs: "140vh",
+                    sm: "140vh",
                     md: "90vh",
                 },
                 overflow: "hidden",
