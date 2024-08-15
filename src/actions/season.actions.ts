@@ -451,7 +451,7 @@ export async function deleteSeasonById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchSeasonsByTitle(title: string, queryParams: any): Promise<any | null> {
+export async function searchSeasonsByTitle(title: string, queryParams: any, userId?: number): Promise<any | null> {
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
@@ -491,11 +491,22 @@ export async function searchSeasonsByTitle(title: string, queryParams: any): Pro
         return map;
     }, {} as RatingsMap);
 
-    const seasonsFinal = seasons.map((season: any) => {
+    const seasonsFinal = seasons.map(async (season) => {
         const { ...properties } = season;
+
+        let isBookmarked = false;
+
+        const existingFavorite = await prisma.userSeasonFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { seasonId: season.id }],
+            },
+        });
+
+        isBookmarked = !!existingFavorite;
+
         const ratingsInfo = seasonRatingsMap[season.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, ...ratingsInfo };
+        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
     });
 
     const count = await prisma.season.count({

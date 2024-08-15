@@ -9,11 +9,9 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {
     addDownvoteSeasonReview,
-    addFavoriteSeasonToUser,
     addReviewSeason,
     addUpvoteSeasonReview,
     removeDownvoteSeasonReview,
-    removeFavoriteSeasonToUser,
     removeReviewSeason,
     removeUpvoteSeasonReview,
     updateReviewSeason,
@@ -24,6 +22,7 @@ import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Season } from "@prisma/client";
+import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/componentHelpers/features/seasonFeaturesUtils";
 
 interface ISeasonPageContentProps {
     searchParamsValues: {
@@ -68,42 +67,6 @@ export default function SeasonPageConent({
     // #endregion
 
     // #region "Handlers functions"
-
-    // #region "Bookmark"
-    async function onBookmarkSeason() {
-        if (!session?.user || !season) return;
-
-        try {
-            await addFavoriteSeasonToUser(Number(session.user.id), season.id);
-            showToast("success", "Season added to favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error adding season to favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error adding season to favorites.");
-                showToast("error", "An unexpected error occurred while adding the season to favorites.");
-            }
-        }
-    }
-
-    async function onRemoveBookmarkSeason() {
-        if (!session?.user || !season) return;
-
-        try {
-            await removeFavoriteSeasonToUser(Number(session.user.id), season.id, `/seasons/${season.title}`);
-            showToast("success", "Season removed from favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error removing season from favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error removing season from favorites.");
-                showToast("error", "An unexpected error occurred while removing the season from favorites.");
-            }
-        }
-    }
-    // #endregion
 
     // #region "Review"
     async function onSubmitReview() {
@@ -336,8 +299,8 @@ export default function SeasonPageConent({
                 data={season}
                 type="season"
                 isBookmarked={season.isBookmarked}
-                onBookmark={onBookmarkSeason}
-                onRemoveBookmark={onRemoveBookmarkSeason}
+                onBookmark={() => onBookmarkSeason(session!, season)}
+                onRemoveBookmark={() => onRemoveBookmarkSeason(session!, season)}
             />
             <Box
                 sx={{

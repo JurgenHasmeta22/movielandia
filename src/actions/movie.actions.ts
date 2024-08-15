@@ -21,16 +21,19 @@ type RatingsMap = {
     };
 };
 
-export async function getMovies({
-    sortBy,
-    ascOrDesc,
-    perPage = 10,
-    page = 1,
-    title,
-    filterValue,
-    filterNameString,
-    filterOperatorString,
-}: MovieModelParams): Promise<any | null> {
+export async function getMovies(
+    {
+        sortBy,
+        ascOrDesc,
+        perPage = 10,
+        page = 1,
+        title,
+        filterValue,
+        filterNameString,
+        filterOperatorString,
+    }: MovieModelParams,
+    userId?: number,
+): Promise<any | null> {
     const filters: any = {};
     const orderByObject: any = {};
 
@@ -77,16 +80,28 @@ export async function getMovies({
         return map;
     }, {} as RatingsMap);
 
-    const moviesFinal = movies.map((movie) => {
+    const moviesFinal = movies.map(async (movie) => {
         const { ...properties } = movie;
+
+        let isBookmarked = false;
+
+        const existingFavorite = await prisma.userMovieFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { movieId: movie.id }],
+            },
+        });
+
+        isBookmarked = !!existingFavorite;
+
         const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, ...ratingsInfo };
+        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
     });
 
     const moviesCount = await prisma.movie.count();
 
     if (moviesFinal) {
+        console.log(moviesFinal);
         return { movies: moviesFinal, count: moviesCount };
     } else {
         return null;

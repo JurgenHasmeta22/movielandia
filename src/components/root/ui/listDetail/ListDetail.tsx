@@ -96,13 +96,13 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 </Box>
                             )}
                         </Box>
-                        <Box pl={3} pr={3}>
+                        <Box pl={5} pr={3}>
                             <Stack
                                 direction="row"
                                 flexWrap="wrap"
                                 alignItems={"start"}
-                                rowGap={4}
-                                columnGap={3}
+                                rowGap={5}
+                                columnGap={5}
                                 sx={{
                                     justifyContent: {
                                         xs: "center",
