@@ -330,7 +330,7 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
         orderBy: {
             dateAired: "desc",
         },
-        take: 6,
+        take: 5,
     });
 
     const serieIds = series.map((serie) => serie.id);
