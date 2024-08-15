@@ -1,17 +1,20 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { SelectChangeEvent } from "@mui/material";
+
+interface SortingOptions {
+    sortBy: string;
+    ascOrDesc: string;
+}
 
 export function useSorting(type: string) {
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    function handleChangeSorting(event: SelectChangeEvent<string>) {
-        const selectedValue = event.target.value;
+    function handleChangeSorting({ sortBy, ascOrDesc }: SortingOptions) {
         const newSearchParams = new URLSearchParams(searchParams.toString());
 
-        if (selectedValue === "none") {
+        if (sortBy === "none" || !sortBy) {
             if (type !== "details") {
                 newSearchParams.delete(`${type}SortBy`);
                 newSearchParams.delete(`${type}AscOrDesc`);
@@ -20,14 +23,12 @@ export function useSorting(type: string) {
                 newSearchParams.delete("ascOrDesc");
             }
         } else {
-            const [, sortByValue, ascOrDesc] = selectedValue.match(/(\w+)(Asc|Desc)/) || [];
-
             if (type !== "details") {
-                newSearchParams.set(`${type}SortBy`, sortByValue);
-                newSearchParams.set(`${type}AscOrDesc`, ascOrDesc.toLowerCase());
+                newSearchParams.set(`${type}SortBy`, sortBy);
+                newSearchParams.set(`${type}AscOrDesc`, ascOrDesc);
             } else {
-                newSearchParams.set("sortBy", sortByValue);
-                newSearchParams.set("ascOrDesc", ascOrDesc.toLowerCase());
+                newSearchParams.set("sortBy", sortBy);
+                newSearchParams.set("ascOrDesc", ascOrDesc);
             }
         }
 
