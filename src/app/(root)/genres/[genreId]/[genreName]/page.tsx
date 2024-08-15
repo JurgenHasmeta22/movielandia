@@ -5,6 +5,8 @@ import { Genre, Movie, Serie } from "@prisma/client";
 import { getGenreById } from "@/actions/genre.actions";
 import { notFound } from "next/navigation";
 import GenreList from "./_components/GenreList";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IGenreProps {
     params: {
@@ -68,6 +70,8 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
 }
 
 export default async function GenrePage({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
+    const session = await getServerSession(authOptions);
+
     const genreId = params.genreId;
 
     // #region "Movies data"
@@ -88,7 +92,7 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
     let moviesByGenreData = [];
 
     try {
-        moviesByGenreData = await getGenreById(Number(genreId), queryParamsMovies);
+        moviesByGenreData = await getGenreById(Number(genreId), queryParamsMovies, Number(session?.user?.id));
     } catch (error) {
         return notFound();
     }
@@ -118,7 +122,7 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
     let seriesByGenreData = [];
 
     try {
-        seriesByGenreData = await getGenreById(Number(genreId), queryParamsSeries);
+        seriesByGenreData = await getGenreById(Number(genreId), queryParamsSeries, Number(session?.user?.id));
     } catch (error) {
         return notFound();
     }

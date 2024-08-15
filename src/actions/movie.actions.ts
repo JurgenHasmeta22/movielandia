@@ -346,7 +346,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
     }
 }
 
-export async function getLatestMovies(): Promise<Movie[] | null> {
+export async function getLatestMovies(userId?: number): Promise<Movie[] | null> {
     const movies = await prisma.movie.findMany({
         orderBy: {
             dateAired: "desc",
@@ -376,12 +376,27 @@ export async function getLatestMovies(): Promise<Movie[] | null> {
         return map;
     }, {} as RatingsMap);
 
-    const moviesFinal = movies.map((movie) => {
-        const { ...properties } = movie;
-        const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
+    const moviesFinal = await Promise.all(
+        movies.map(async (movie) => {
+            const { ...properties } = movie;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            if (userId) {
+                const existingFavorite = await prisma.userMovieFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { movieId: movie.id }],
+                    },
+                });
+
+                isBookmarked = !!existingFavorite;
+            }
+
+            const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     if (moviesFinal) {
         return moviesFinal;
@@ -390,7 +405,7 @@ export async function getLatestMovies(): Promise<Movie[] | null> {
     }
 }
 
-export async function getRelatedMovies(id: number): Promise<Movie[] | null> {
+export async function getRelatedMovies(id: number, userId?: number): Promise<Movie[] | null> {
     const movie = await prisma.movie.findFirst({
         where: { id },
     });
@@ -443,12 +458,27 @@ export async function getRelatedMovies(id: number): Promise<Movie[] | null> {
         {} as { [key: number]: { averageRating: number; totalReviews: number } },
     );
 
-    const movies = relatedMovies.map((relatedMovie) => {
-        const { ...movieDetails } = relatedMovie;
-        const ratingsInfo = ratingsMap[relatedMovie.id] || { averageRating: 0, totalReviews: 0 };
+    const movies = await Promise.all(
+        relatedMovies.map(async (movie) => {
+            const { ...properties } = movie;
 
-        return { ...movieDetails, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            if (userId) {
+                const existingFavorite = await prisma.userMovieFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { movieId: movie.id }],
+                    },
+                });
+
+                isBookmarked = !!existingFavorite;
+            }
+
+            const ratingsInfo = ratingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     return movies.length > 0 ? movies : null;
 }

@@ -92,8 +92,8 @@ export default async function MoviePage({ searchParams, params }: IMoviePageProp
         return notFound();
     }
 
-    const latestMovies = await getLatestMovies();
-    const relatedMovies = await getRelatedMovies(Number(movieId));
+    const latestMovies = await getLatestMovies(Number(session?.user?.id));
+    const relatedMovies = await getRelatedMovies(Number(movieId), Number(session?.user?.id));
 
     const pageCount = Math.ceil(movie?.totalReviews / 5);
 
