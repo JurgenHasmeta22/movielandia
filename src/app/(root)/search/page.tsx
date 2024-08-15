@@ -8,6 +8,8 @@ import { searchSeasonsByTitle } from "@/actions/season.actions";
 import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import SearchList from "./_components/SearchList";
 import { searchUsersByUsername } from "@/actions/user.actions";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 
 interface ISearchProps {
     searchParams?: {
@@ -40,6 +42,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Search({ searchParams }: ISearchProps) {
+    const session = await getServerSession(authOptions);
+
     const term = searchParams?.term;
 
     // #region "Movies data"
@@ -56,7 +60,7 @@ export default async function Search({ searchParams }: ISearchProps) {
         queryParamsMovies.ascOrDesc = moviesAscOrDesc;
     }
 
-    const moviesData = await searchMoviesByTitle(term!, queryParamsMovies);
+    const moviesData = await searchMoviesByTitle(term!, queryParamsMovies, Number(Number(session?.user?.id)));
     const movies: Movie[] = moviesData?.movies;
     const moviesCount: number = moviesData?.count;
     const pageCountMovies = Math.ceil(moviesCount / 10);
@@ -76,7 +80,7 @@ export default async function Search({ searchParams }: ISearchProps) {
         queryParamsSeries.ascOrDesc = seriesAscOrDesc;
     }
 
-    const seriesData = await searchSeriesByTitle(term!, queryParamsSeries);
+    const seriesData = await searchSeriesByTitle(term!, queryParamsSeries, Number(session?.user?.id));
     const series: Serie[] = seriesData?.rows;
     const seriesCount: number = seriesData?.count;
     const pageCountSeries = Math.ceil(seriesCount / 10);
@@ -96,7 +100,7 @@ export default async function Search({ searchParams }: ISearchProps) {
         queryParamsActors.ascOrDesc = actorsAscOrDesc;
     }
 
-    const actorsData = await searchActorsByTitle(term!, queryParamsActors);
+    const actorsData = await searchActorsByTitle(term!, queryParamsActors, Number(session?.user?.id));
     const actors: Actor[] = actorsData?.actors;
     const actorsCount: number = actorsData?.count;
     const pageCountActors = Math.ceil(actorsCount / 10);
@@ -116,7 +120,7 @@ export default async function Search({ searchParams }: ISearchProps) {
         queryParamsEpisodes.ascOrDesc = episodesAscOrDesc;
     }
 
-    const episodesData = await searchEpisodesByTitle(term!, queryParamsEpisodes);
+    const episodesData = await searchEpisodesByTitle(term!, queryParamsEpisodes, Number(session?.user?.id));
     const episodes: Episode[] = episodesData?.episodes;
     const episodesCount: number = episodesData?.count;
     const pageCountEpisodes = Math.ceil(episodesCount / 10);
@@ -136,7 +140,7 @@ export default async function Search({ searchParams }: ISearchProps) {
         queryParamsSeasons.ascOrDesc = seasonsAscOrDesc;
     }
 
-    const seasonsData = await searchSeasonsByTitle(term!, queryParamsSeasons);
+    const seasonsData = await searchSeasonsByTitle(term!, queryParamsSeasons, Number(session?.user?.id));
     const seasons: Season[] = seasonsData?.seasons;
     const seasonsCount: number = seasonsData?.count;
     const pageCountSeasons = Math.ceil(seasonsCount / 10);

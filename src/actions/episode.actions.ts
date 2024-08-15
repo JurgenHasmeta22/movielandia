@@ -15,19 +15,16 @@ interface EpisodeModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export async function getEpisodes(
-    {
-        sortBy,
-        ascOrDesc,
-        perPage,
-        page,
-        title,
-        filterValue,
-        filterNameString,
-        filterOperatorString,
-    }: EpisodeModelParams,
-    userId?: number,
-): Promise<Episode[] | null> {
+export async function getEpisodes({
+    sortBy,
+    ascOrDesc,
+    perPage,
+    page,
+    title,
+    filterValue,
+    filterNameString,
+    filterOperatorString,
+}: EpisodeModelParams): Promise<Episode[] | null> {
     const filters: any = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
     const take = perPage || 20;
@@ -488,23 +485,25 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
         return map;
     }, {} as RatingsMap);
 
-    const episodesFinal = episodes.map(async (episode: any) => {
-        const { ...properties } = episode;
+    const episodesFinal = await Promise.all(
+        episodes.map(async (episode) => {
+            const { ...properties } = episode;
 
-        let isBookmarked = false;
+            let isBookmarked = false;
 
-        const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
-            where: {
-                AND: [{ userId }, { episodeId: episode.id }],
-            },
-        });
+            const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { episodeId: episode.id }],
+                },
+            });
 
-        isBookmarked = !!existingFavorite;
+            isBookmarked = !!existingFavorite;
 
-        const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
+            const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
-    });
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     const count = await prisma.episode.count({
         where: {
