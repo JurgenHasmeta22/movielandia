@@ -18,7 +18,7 @@ interface ActorModelParams {
 export async function getActors({
     sortBy,
     ascOrDesc,
-    perPage = 12,
+    perPage = 10,
     page = 1,
     fullname,
     filterValue,

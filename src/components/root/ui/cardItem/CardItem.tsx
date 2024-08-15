@@ -55,7 +55,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        maxWidth: "180px",
+                        maxWidth: "214px",
                         cursor: "pointer",
                         height: "auto",
                         width: "100%",
@@ -78,7 +78,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             },
                         }}
                     >
-                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={280} width={180} />
+                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={280} width={214} />
                         <Box
                             className="hoverOverlay"
                             sx={{

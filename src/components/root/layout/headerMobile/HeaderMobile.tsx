@@ -98,7 +98,6 @@ export default function HeaderMobile({
                     }}
                 >
                     <ThemeToggleButton />
-                    Switch Mode
                 </Box>
                 <Box
                     sx={{

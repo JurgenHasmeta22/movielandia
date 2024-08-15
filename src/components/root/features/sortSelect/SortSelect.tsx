@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Select, SvgIcon, Typography } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { toFirstWordUpperCase } from "@/utils/helpers/utils";
@@ -15,6 +15,10 @@ const valueToLabelList: Record<string, string> = {
     titleDesc: "Title (Desc)",
     durationAsc: "Duration (Asc)",
     durationDesc: "Duration (Desc)",
+    fullnameAsc: "Fullname (Asc)",
+    fullnameDesc: "Fullname (Desc)",
+    userNameAsc: "Username (Asc)",
+    userNameDesc: "Username (Desc)",
 };
 
 const valueToLabelDetails: Record<string, string> = {
@@ -34,33 +38,6 @@ interface ISortSelectProps {
 export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortSelectProps) {
     const handleChangeSorting = useSorting(dataType);
 
-    if (dataType === "actors") {
-        delete valueToLabelList.ratingImdbAsc;
-        delete valueToLabelList.ratingImdbDesc;
-        delete valueToLabelList.durationAsc;
-        delete valueToLabelList.durationDesc;
-        delete valueToLabelList.titleAsc;
-        delete valueToLabelList.titleDesc;
-        valueToLabelList.fullnameAsc = "Fullname (Asc)";
-        valueToLabelList.fullnameDesc = "Fullname (Desc)";
-    }
-
-    if (dataType === "users") {
-        delete valueToLabelList.ratingImdbAsc;
-        delete valueToLabelList.ratingImdbDesc;
-        delete valueToLabelList.durationAsc;
-        delete valueToLabelList.durationDesc;
-        delete valueToLabelList.titleAsc;
-        delete valueToLabelList.titleDesc;
-        valueToLabelList.userNameAsc = "Username (Asc)";
-        valueToLabelList.userNameDesc = "Username (Desc)";
-    }
-
-    if (dataType === "seasons") {
-        delete valueToLabelList.durationAsc;
-        delete valueToLabelList.durationDesc;
-    }
-
     const getDefaultValue = () => {
         if (type === "list") {
             return "none";
@@ -77,11 +54,26 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
         return getDefaultValue();
     };
 
+    const [value, setValue] = useState(getValue());
+
+    useEffect(() => {
+        setValue(getValue());
+    }, [sortBy, ascOrDesc]);
+
+    const handleChange = (event: any) => {
+        const newValue = event.target.value as string;
+        setValue(newValue);
+        handleChangeSorting(event);
+    };
+
+    const getLabel = (value: string) => {
+        return type === "list" ? valueToLabelList[value] : valueToLabelDetails[value];
+    };
+
     return (
         <Select
-            defaultValue={getDefaultValue()}
-            value={getValue()}
-            onChange={handleChangeSorting}
+            value={value}
+            onChange={handleChange}
             autoWidth
             sx={{
                 border: "1px solid",
@@ -98,9 +90,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     <SvgIcon fontSize="small">
                         <SwapVertIcon />
                     </SvgIcon>
-                    <Typography fontSize={"15px"}>
-                        {type === "list" ? valueToLabelList[value] : valueToLabelDetails[value]}
-                    </Typography>
+                    <Typography fontSize={"15px"}>{getLabel(value)}</Typography>
                 </Box>
             )}
         >
