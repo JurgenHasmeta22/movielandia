@@ -29,6 +29,10 @@ const SearchList: React.FC<MediaListProps> = ({
     cardType,
     path = "",
 }) => {
+    const itemsPerPage = 10;
+    const startIndex = (page - 1) * itemsPerPage + 1;
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, count);
+
     return data.length !== 0 ? (
         <Box display={"flex"} flexDirection={"column"} rowGap={3}>
             <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
@@ -37,7 +41,7 @@ const SearchList: React.FC<MediaListProps> = ({
                         {title}
                     </Typography>
                     <Typography variant="h5">
-                        (showing {data.length} of {count})
+                        {startIndex} – {endIndex} of {count} {dataType.toLowerCase()}
                     </Typography>
                 </Box>
                 <Box
