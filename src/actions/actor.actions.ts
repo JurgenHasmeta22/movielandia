@@ -15,16 +15,19 @@ interface ActorModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export async function getActors({
-    sortBy,
-    ascOrDesc,
-    perPage = 10,
-    page = 1,
-    fullname,
-    filterValue,
-    filterNameString,
-    filterOperatorString,
-}: ActorModelParams): Promise<any | null> {
+export async function getActors(
+    {
+        sortBy,
+        ascOrDesc,
+        perPage = 10,
+        page = 1,
+        fullname,
+        filterValue,
+        filterNameString,
+        filterOperatorString,
+    }: ActorModelParams,
+    userId?: number,
+): Promise<any | null> {
     const filters: any = {};
     const orderByObject: any = {};
 
@@ -71,12 +74,25 @@ export async function getActors({
         return map;
     }, {} as RatingsMap);
 
-    const actorsFinal = actors.map((actor) => {
-        const { ...properties } = actor;
-        const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+    const actorsFinal = await Promise.all(
+        actors.map(async (actor) => {
+            const { ...properties } = actor;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            const existingFavorite = await prisma.userActorFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { actorId: actor.id }],
+                },
+            });
+
+            isBookmarked = !!existingFavorite;
+
+            const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     const actorsCount = await prisma.actor.count();
 
@@ -377,7 +393,7 @@ export async function deleteActorById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchActorsByTitle(fullname: string, queryParams: any): Promise<any | null> {
+export async function searchActorsByTitle(fullname: string, queryParams: any, userId?: number): Promise<any | null> {
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
@@ -417,12 +433,25 @@ export async function searchActorsByTitle(fullname: string, queryParams: any): P
         return map;
     }, {} as RatingsMap);
 
-    const actorsFinal = actors.map((actor: any) => {
-        const { ...properties } = actor;
-        const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+    const actorsFinal = await Promise.all(
+        actors.map(async (actor) => {
+            const { ...properties } = actor;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            const existingFavorite = await prisma.userActorFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { actorId: actor.id }],
+                },
+            });
+
+            isBookmarked = !!existingFavorite;
+
+            const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     const count = await prisma.actor.count({
         where: {

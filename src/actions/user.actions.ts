@@ -697,7 +697,7 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
     }
 }
 
-export async function removeFavoriteActorToUser(userId: number, actorId: number, pathFrom: string): Promise<void> {
+export async function removeFavoriteActorToUser(userId: number, actorId: number, pathFrom?: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userActorFavorite.findFirst({
             where: {
@@ -717,7 +717,7 @@ export async function removeFavoriteActorToUser(userId: number, actorId: number,
         });
 
         if (result) {
-            if (pathFrom === "/profile?tab=favActors") {
+            if (pathFrom && pathFrom === "/profile?tab=favActors") {
                 redirect("/profile?tab=favActors");
             } else {
                 const referer = getReferer();

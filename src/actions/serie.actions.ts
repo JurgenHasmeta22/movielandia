@@ -21,16 +21,19 @@ type RatingsMap = {
     };
 };
 
-export async function getSeries({
-    sortBy,
-    ascOrDesc,
-    perPage = 10,
-    page = 1,
-    title,
-    filterValue,
-    filterNameString,
-    filterOperatorString,
-}: SerieModelParams): Promise<any | null> {
+export async function getSeries(
+    {
+        sortBy,
+        ascOrDesc,
+        perPage = 10,
+        page = 1,
+        title,
+        filterValue,
+        filterNameString,
+        filterOperatorString,
+    }: SerieModelParams,
+    userId?: number,
+): Promise<any | null> {
     const filters: any = {};
     const orderByObject: any = {};
 
@@ -77,12 +80,27 @@ export async function getSeries({
         return map;
     }, {} as RatingsMap);
 
-    const seriesFinal = series.map((serie) => {
-        const { ...properties } = serie;
-        const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+    const seriesFinal = await Promise.all(
+        series.map(async (serie) => {
+            const { ...properties } = serie;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            if (userId) {
+                const existingFavorite = await prisma.userSerieFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { serieId: serie.id }],
+                    },
+                });
+
+                isBookmarked = !!existingFavorite;
+            }
+
+            const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     const count = await prisma.serie.count();
 
@@ -325,7 +343,7 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
     }
 }
 
-export async function getLatestSeries(): Promise<Serie[] | null> {
+export async function getLatestSeries(userId?: number): Promise<Serie[] | null> {
     const series = await prisma.serie.findMany({
         orderBy: {
             dateAired: "desc",
@@ -355,12 +373,27 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
         return map;
     }, {} as RatingsMap);
 
-    const seriesFinal = series.map((serie) => {
-        const { ...properties } = serie;
-        const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+    const seriesFinal = await Promise.all(
+        series.map(async (serie) => {
+            const { ...properties } = serie;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            if (userId) {
+                const existingFavorite = await prisma.userSerieFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { serieId: serie.id }],
+                    },
+                });
+
+                isBookmarked = !!existingFavorite;
+            }
+
+            const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     if (seriesFinal) {
         return seriesFinal;
@@ -369,7 +402,7 @@ export async function getLatestSeries(): Promise<Serie[] | null> {
     }
 }
 
-export async function getRelatedSeries(id: number): Promise<Serie[] | null> {
+export async function getRelatedSeries(id: number, userId?: number): Promise<Serie[] | null> {
     const serie = await prisma.serie.findFirst({
         where: { id },
     });
@@ -422,12 +455,27 @@ export async function getRelatedSeries(id: number): Promise<Serie[] | null> {
         {} as { [key: number]: { averageRating: number; totalReviews: number } },
     );
 
-    const series = relatedSeries.map((relatedSerie) => {
-        const { ...serieDetails } = relatedSerie;
-        const ratingsInfo = ratingsMap[relatedSerie.id] || { averageRating: 0, totalReviews: 0 };
+    const series = await Promise.all(
+        relatedSeries.map(async (serie) => {
+            const { ...properties } = serie;
 
-        return { ...serieDetails, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            if (userId) {
+                const existingFavorite = await prisma.userSerieFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { serieId: serie.id }],
+                    },
+                });
+
+                isBookmarked = !!existingFavorite;
+            }
+
+            const ratingsInfo = ratingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     return series.length > 0 ? series : null;
 }
@@ -487,7 +535,7 @@ export async function deleteSerieById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchSeriesByTitle(title: string, queryParams: any): Promise<any | null> {
+export async function searchSeriesByTitle(title: string, queryParams: any, userId?: number): Promise<any | null> {
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
@@ -527,12 +575,27 @@ export async function searchSeriesByTitle(title: string, queryParams: any): Prom
         return map;
     }, {} as RatingsMap);
 
-    const seriesFinal = series.map((serie) => {
-        const { ...properties } = serie;
-        const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+    const seriesFinal = await Promise.all(
+        series.map(async (serie) => {
+            const { ...properties } = serie;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            if (userId) {
+                const existingFavorite = await prisma.userSerieFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { serieId: serie.id }],
+                    },
+                });
+
+                isBookmarked = !!existingFavorite;
+            }
+
+            const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     const count = await prisma.serie.count({
         where: {

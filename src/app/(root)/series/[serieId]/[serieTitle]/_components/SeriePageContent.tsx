@@ -9,11 +9,9 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {
     addDownvoteSerieReview,
-    addFavoriteSerieToUser,
     addReviewSerie,
     addUpvoteSerieReview,
     removeDownvoteSerieReview,
-    removeFavoriteSerieToUser,
     removeReviewSerie,
     removeUpvoteSerieReview,
     updateReviewSerie,
@@ -24,6 +22,7 @@ import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Serie } from "@prisma/client";
+import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/componentHelpers/features/serieFeaturesUtils";
 
 interface ISeriePageContentProps {
     searchParamsValues: {
@@ -68,42 +67,6 @@ export default function SeriePageContent({
     // #endregion
 
     // #region "Handlers functions"
-
-    // #region "Bookmark"
-    async function onBookmarkSerie() {
-        if (!session?.user || !serie) return;
-
-        try {
-            await addFavoriteSerieToUser(Number(session.user.id), serie.id);
-            showToast("success", "Serie added to favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error adding serie to favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error adding serie to favorites.");
-                showToast("error", "An unexpected error occurred while adding the serie to favorites.");
-            }
-        }
-    }
-
-    async function onRemoveBookmarkSerie() {
-        if (!session?.user || !serie) return;
-
-        try {
-            await removeFavoriteSerieToUser(Number(session.user.id), serie.id, `/series/${serie.title}`);
-            showToast("success", "Serie removed from favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error removing serie from favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error removing serie from favorites.");
-                showToast("error", "An unexpected error occurred while removing the serie from favorites.");
-            }
-        }
-    }
-    // #endregion
 
     // #region "Review"
     async function onSubmitReview() {
@@ -319,8 +282,8 @@ export default function SeriePageContent({
                 data={serie}
                 type="serie"
                 isBookmarked={serie.isBookmarked}
-                onBookmark={onBookmarkSerie}
-                onRemoveBookmark={onRemoveBookmarkSerie}
+                onBookmark={() => onBookmarkSerie(session!, serie)}
+                onRemoveBookmark={() => onRemoveBookmarkSerie(session!, serie)}
             />
             <Box
                 sx={{

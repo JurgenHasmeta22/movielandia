@@ -9,11 +9,9 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {
     addDownvoteMovieReview,
-    addFavoriteMovieToUser,
     addReviewMovie,
     addUpvoteMovieReview,
     removeDownvoteMovieReview,
-    removeFavoriteMovieToUser,
     removeReviewMovie,
     removeUpvoteMovieReview,
     updateReviewMovie,
@@ -24,6 +22,7 @@ import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Movie } from "@prisma/client";
+import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/componentHelpers/features/movieFeaturesUtils";
 
 interface IMoviePageContentProps {
     searchParamsValues: {
@@ -68,42 +67,6 @@ export default function MoviePageContent({
     // #endregion
 
     // #region "Handlers functions"
-
-    // #region "Bookmark"
-    async function onBookmarkMovie() {
-        if (!session?.user || !movie) return;
-
-        try {
-            await addFavoriteMovieToUser(Number(session.user.id), movie.id);
-            showToast("success", "Movie added to favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error adding movie to favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error adding movie to favorites.");
-                showToast("error", "An unexpected error occurred while adding the movie to favorites.");
-            }
-        }
-    }
-
-    async function onRemoveBookmarkMovie() {
-        if (!session?.user || !movie) return;
-
-        try {
-            await removeFavoriteMovieToUser(Number(session.user.id), movie.id, `/movies/${movie.title}`);
-            showToast("success", "Movie removed from favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error removing movie from favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error removing movie from favorites.");
-                showToast("error", "An unexpected error occurred while removing the movie from favorites.");
-            }
-        }
-    }
-    // #endregion
 
     // #region "Review"
     async function onSubmitReview() {
@@ -321,8 +284,8 @@ export default function MoviePageContent({
                 data={movie}
                 type="movie"
                 isBookmarked={movie.isBookmarked}
-                onBookmark={onBookmarkMovie}
-                onRemoveBookmark={onRemoveBookmarkMovie}
+                onBookmark={() => onBookmarkMovie(session!, movie)}
+                onRemoveBookmark={() => onRemoveBookmarkMovie(session!, movie)}
             />
             <Box
                 sx={{
