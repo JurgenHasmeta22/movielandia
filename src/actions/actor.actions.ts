@@ -80,13 +80,15 @@ export async function getActors(
 
             let isBookmarked = false;
 
-            const existingFavorite = await prisma.userActorFavorite.findFirst({
-                where: {
-                    AND: [{ userId }, { actorId: actor.id }],
-                },
-            });
+            if (userId) {
+                const existingFavorite = await prisma.userActorFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { actorId: actor.id }],
+                    },
+                });
 
-            isBookmarked = !!existingFavorite;
+                isBookmarked = !!existingFavorite;
+            }
 
             const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
 
@@ -439,13 +441,15 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
 
             let isBookmarked = false;
 
-            const existingFavorite = await prisma.userActorFavorite.findFirst({
-                where: {
-                    AND: [{ userId }, { actorId: actor.id }],
-                },
-            });
+            if (userId) {
+                const existingFavorite = await prisma.userActorFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { actorId: actor.id }],
+                    },
+                });
 
-            isBookmarked = !!existingFavorite;
+                isBookmarked = !!existingFavorite;
+            }
 
             const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
 
