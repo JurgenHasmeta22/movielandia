@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { formatDate } from "@/utils/helpers/utils";
-
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 interface IDetailsPageCardProps {
     data: any;
     type: string;
@@ -126,7 +127,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                     bgcolor: theme.vars.palette.red.main,
                                     color: theme.vars.palette.primary.main,
                                     "&:hover": {
-                                        bgcolor: theme.vars.palette.red.main,
+                                        bgcolor: theme.vars.palette.secondary.light,
                                     },
                                     textTransform: "capitalize",
                                     fontSize: 16,
@@ -137,17 +138,23 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         )}
                         {session?.user?.userName && (
                             <Button
-                                variant="outlined"
+                                variant="contained"
                                 onClick={isBookmarked ? onRemoveBookmark : onBookmark}
+                                startIcon={
+                                    data.isBookmarked ? (
+                                        <BookmarkIcon color={data.isBookmarked ? "error" : "success"} />
+                                    ) : (
+                                        <BookmarkBorderIcon color={data.isBookmarked ? "error" : "success"} />
+                                    )
+                                }
                                 sx={{
-                                    color: theme.vars.palette.primary.light,
+                                    color: theme.vars.palette.primary.main,
                                     bgcolor: isBookmarked ? theme.vars.palette.red.main : theme.vars.palette.green.main,
                                     "&:hover": {
                                         bgcolor: theme.vars.palette.secondary.light,
                                     },
                                     textTransform: "capitalize",
                                     fontSize: 16,
-                                    fontWeight: 700,
                                 }}
                             >
                                 {isBookmarked ? "Bookmarked" : "Bookmark"}
