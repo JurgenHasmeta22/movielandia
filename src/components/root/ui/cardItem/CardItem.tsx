@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Card, Stack, Typography, IconButton } from "@mui/material";
+import { Box, Card, Stack, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useParams } from "next/navigation";
@@ -45,7 +45,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
     };
 
     const handleBookmarkClick = async (e: React.MouseEvent) => {
-        e.stopPropagation();
+        e.preventDefault();
 
         const bookmarkFunc = bookmarkFunctions[type || ""];
         const removeBookmarkFunc = removeBookmarkFunctions[type || ""];
@@ -88,12 +88,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
 
     return (
         <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
-            <Link
-                href={getPath()}
-                onClick={(e: any) => {
-                    e.stopPropagation();
-                }}
-            >
+            <Link href={getPath()}>
                 <Card
                     sx={{
                         display: "flex",
@@ -156,21 +151,21 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                         }}
                                         onClick={handleBookmarkClick}
                                     >
-                                        <IconButton
-                                            sx={{
-                                                color: data.isBookmarked ? "red" : "green",
-                                            }}
-                                        >
-                                            {data.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-                                        </IconButton>
-                                        <Typography
-                                            variant="body2"
-                                            sx={{
-                                                color: "white",
-                                            }}
-                                        >
-                                            {data.isBookmarked ? "Unbookmark" : "Bookmark"}
-                                        </Typography>
+                                        <Button variant="outlined">
+                                            {data.isBookmarked ? (
+                                                <BookmarkIcon color={data.isBookmarked ? "error" : "success"} />
+                                            ) : (
+                                                <BookmarkBorderIcon color={data.isBookmarked ? "error" : "success"} />
+                                            )}
+                                            <Typography
+                                                variant="body2"
+                                                sx={{
+                                                    textTransform: "capitalize",
+                                                }}
+                                            >
+                                                {data.isBookmarked ? "Unbookmark" : "Bookmark"}
+                                            </Typography>
+                                        </Button>
                                     </Box>
                                 )}
                             </Box>
