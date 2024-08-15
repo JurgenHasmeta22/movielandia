@@ -491,13 +491,15 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
 
             let isBookmarked = false;
 
-            const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
-                where: {
-                    AND: [{ userId }, { episodeId: episode.id }],
-                },
-            });
+            if (userId) {
+                const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }],
+                    },
+                });
 
-            isBookmarked = !!existingFavorite;
+                isBookmarked = !!existingFavorite;
+            }
 
             const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
 

@@ -128,11 +128,13 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                             key={index}
                                             type={type}
                                             path={
-                                                type === "actor" && roleData !== "cast"
+                                                type === "actor" && roleData === "Movies"
                                                     ? "movies"
-                                                    : type === "actor" && roleData === "cast"
-                                                      ? "actors"
-                                                      : null
+                                                    : type === "actor" && roleData === "Series"
+                                                      ? "series"
+                                                      : type === "actor" && roleData === "cast"
+                                                        ? "actors"
+                                                        : null
                                             }
                                         />
                                     ))}
