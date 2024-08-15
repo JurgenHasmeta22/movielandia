@@ -59,6 +59,10 @@ export default async function Series({ searchParams }: ISeriesProps) {
 
     const pageCount = Math.ceil(seriesCount / 10);
 
+    const itemsPerPage = 10;
+    const startIndex = (page - 1) * itemsPerPage + 1;
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, seriesCount);
+
     return (
         <Box
             sx={{
@@ -82,10 +86,10 @@ export default async function Series({ searchParams }: ISeriesProps) {
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography fontSize={22} variant="h2">
-                        All Series
+                        Series
                     </Typography>
-                    <Typography variant="h5">
-                        (showing {series.length} of {seriesCount})
+                    <Typography variant="h5" pt={0.5}>
+                        {startIndex} – {endIndex} of {seriesCount} series
                     </Typography>
                 </Box>
                 <Box>
@@ -99,7 +103,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     flexDirection: "column",
                     rowGap: 4,
                 }}
-                pl={3}
+                pl={5}
                 pr={3}
             >
                 <Stack

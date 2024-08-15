@@ -16,11 +16,10 @@ export function LatestList({ data, type }: ILatestList) {
                 flexDirection: "column",
                 rowGap: 2,
                 marginBottom: 4,
-                pl: 3,
                 pr: 3,
             }}
         >
-            <Box>
+            <Box pl={3}>
                 <Typography fontSize={22} variant="h2">
                     Latest {type.toLowerCase()}
                 </Typography>
@@ -33,6 +32,7 @@ export function LatestList({ data, type }: ILatestList) {
                 columnGap={3}
                 marginTop={3}
                 mb={4}
+                pl={5}
                 sx={{
                     justifyContent: {
                         xs: "center",

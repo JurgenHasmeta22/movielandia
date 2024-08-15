@@ -337,7 +337,7 @@ export async function getLatestMovies(): Promise<Movie[] | null> {
         orderBy: {
             dateAired: "desc",
         },
-        take: 6,
+        take: 5,
     });
 
     const movieIds = movies.map((movie) => movie.id);

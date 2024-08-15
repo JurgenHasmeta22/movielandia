@@ -10,7 +10,6 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
 import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
