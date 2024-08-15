@@ -28,8 +28,8 @@ export function LatestList({ data, type }: ILatestList) {
                 direction="row"
                 flexWrap="wrap"
                 alignItems={"start"}
-                rowGap={4}
-                columnGap={3}
+                columnGap={5}
+                rowGap={5}
                 marginTop={3}
                 mb={4}
                 pl={5}

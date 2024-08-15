@@ -110,8 +110,8 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     direction="row"
                     flexWrap="wrap"
                     alignItems={"start"}
-                    rowGap={4}
-                    columnGap={3}
+                    columnGap={5}
+                    rowGap={5}
                     sx={{
                         justifyContent: {
                             xs: "center",

@@ -61,15 +61,15 @@ const SearchList: React.FC<MediaListProps> = ({
                     flexDirection: "column",
                     rowGap: 4,
                 }}
-                pl={3}
+                pl={5}
                 pr={3}
             >
                 <Stack
                     direction="row"
                     flexWrap="wrap"
                     alignItems={"start"}
-                    rowGap={4}
-                    columnGap={3}
+                    columnGap={5}
+                    rowGap={5}
                     sx={{
                         justifyContent: {
                             xs: "center",
