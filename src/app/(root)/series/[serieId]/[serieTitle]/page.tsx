@@ -93,8 +93,8 @@ export default async function SeriePage({ searchParams, params }: ISerieProps) {
         return notFound();
     }
 
-    const latestSeries = await getLatestSeries();
-    const relatedSeries = await getRelatedSeries(Number(serieId));
+    const latestSeries = await getLatestSeries(Number(session?.user?.id));
+    const relatedSeries = await getRelatedSeries(Number(serieId), Number(session?.user?.id));
 
     const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
 

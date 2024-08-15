@@ -445,7 +445,7 @@ export async function deleteEpisodeById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchEpisodesByTitle(title: string, queryParams: any): Promise<any | null> {
+export async function searchEpisodesByTitle(title: string, queryParams: any, userId?: number): Promise<any | null> {
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
@@ -485,12 +485,25 @@ export async function searchEpisodesByTitle(title: string, queryParams: any): Pr
         return map;
     }, {} as RatingsMap);
 
-    const episodesFinal = episodes.map((episode: any) => {
-        const { ...properties } = episode;
-        const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
+    const episodesFinal = await Promise.all(
+        episodes.map(async (episode) => {
+            const { ...properties } = episode;
 
-        return { ...properties, ...ratingsInfo };
-    });
+            let isBookmarked = false;
+
+            const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { episodeId: episode.id }],
+                },
+            });
+
+            isBookmarked = !!existingFavorite;
+
+            const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
+
+            return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
+        }),
+    );
 
     const count = await prisma.episode.count({
         where: {
