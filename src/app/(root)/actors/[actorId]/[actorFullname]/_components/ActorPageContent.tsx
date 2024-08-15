@@ -9,11 +9,9 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {
     addDownvoteActorReview,
-    addFavoriteActorToUser,
     addReviewActor,
     addUpvoteActorReview,
     removeDownvoteActorReview,
-    removeFavoriteActorToUser,
     removeReviewActor,
     removeUpvoteActorReview,
     updateReviewActor,
@@ -23,7 +21,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
-import { Actor } from "@prisma/client";
+import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/componentHelpers/features/actorFeaturesUtils";
 
 interface IActorPageContentProps {
     searchParamsValues: {
@@ -60,42 +58,6 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
     // #endregion
 
     // #region "Handlers functions"
-
-    // #region "Bookmark"
-    async function onBookmarkActor() {
-        if (!session?.user || !actor) return;
-
-        try {
-            await addFavoriteActorToUser(Number(session.user.id), actor.id);
-            showToast("success", "Actor added to favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error adding actor to favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error adding actor to favorites.");
-                showToast("error", "An unexpected error occurred while adding the actor to favorites.");
-            }
-        }
-    }
-
-    async function onRemoveBookmarkActor() {
-        if (!session?.user || !actor) return;
-
-        try {
-            await removeFavoriteActorToUser(Number(session.user.id), actor.id, `/actors/${actor.title}`);
-            showToast("success", "Actor removed from favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error removing actor from favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error removing actor from favorites.");
-                showToast("error", "An unexpected error occurred while removing the actor from favorites.");
-            }
-        }
-    }
-    // #endregion
 
     // #region "Review"
     async function onSubmitReview() {
@@ -328,8 +290,8 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                 data={actor}
                 type="actor"
                 isBookmarked={actor.isBookmarked}
-                onBookmark={onBookmarkActor}
-                onRemoveBookmark={onRemoveBookmarkActor}
+                onBookmark={() => onBookmarkActor(session!, actor)}
+                onRemoveBookmark={() => onRemoveBookmarkActor(session!, actor)}
             />
             <Box
                 sx={{

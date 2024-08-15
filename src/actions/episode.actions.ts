@@ -15,16 +15,19 @@ interface EpisodeModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export async function getEpisodes({
-    sortBy,
-    ascOrDesc,
-    perPage,
-    page,
-    title,
-    filterValue,
-    filterNameString,
-    filterOperatorString,
-}: EpisodeModelParams): Promise<Episode[] | null> {
+export async function getEpisodes(
+    {
+        sortBy,
+        ascOrDesc,
+        perPage,
+        page,
+        title,
+        filterValue,
+        filterNameString,
+        filterOperatorString,
+    }: EpisodeModelParams,
+    userId?: number,
+): Promise<Episode[] | null> {
     const filters: any = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
     const take = perPage || 20;
@@ -445,7 +448,7 @@ export async function deleteEpisodeById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchEpisodesByTitle(title: string, queryParams: any): Promise<any | null> {
+export async function searchEpisodesByTitle(title: string, queryParams: any, userId?: number): Promise<any | null> {
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
@@ -485,11 +488,22 @@ export async function searchEpisodesByTitle(title: string, queryParams: any): Pr
         return map;
     }, {} as RatingsMap);
 
-    const episodesFinal = episodes.map((episode: any) => {
+    const episodesFinal = episodes.map(async (episode: any) => {
         const { ...properties } = episode;
+
+        let isBookmarked = false;
+
+        const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { episodeId: episode.id }],
+            },
+        });
+
+        isBookmarked = !!existingFavorite;
+
         const ratingsInfo = episodeRatingsMap[episode.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, ...ratingsInfo };
+        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
     });
 
     const count = await prisma.episode.count({

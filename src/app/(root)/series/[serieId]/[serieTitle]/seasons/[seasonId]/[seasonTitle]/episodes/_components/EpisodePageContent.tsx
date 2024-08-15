@@ -9,11 +9,9 @@ import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {
     addDownvoteEpisodeReview,
-    addFavoriteEpisodeToUser,
     addReviewEpisode,
     addUpvoteEpisodeReview,
     removeDownvoteEpisodeReview,
-    removeFavoriteEpisodeToUser,
     removeReviewEpisode,
     removeUpvoteEpisodeReview,
     updateReviewEpisode,
@@ -24,6 +22,7 @@ import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Episode } from "@prisma/client";
+import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/componentHelpers/features/episodeFeaturesUtils";
 
 interface IEpisodePageContentProps {
     searchParamsValues: {
@@ -68,42 +67,6 @@ export default function EpisodePage({
     // #endregion
 
     // #region "Handlers functions"
-
-    // #region "Bookmarks"
-    async function onBookmarkEpisode() {
-        if (!session?.user || !episode) return;
-
-        try {
-            await addFavoriteEpisodeToUser(Number(session.user.id), episode.id);
-            showToast("success", "Episode added to favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error adding episode to favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error adding episode to favorites.");
-                showToast("error", "An unexpected error occurred while adding the episode to favorites.");
-            }
-        }
-    }
-
-    async function onRemoveBookmarkEpisode() {
-        if (!session?.user || !episode) return;
-
-        try {
-            await removeFavoriteEpisodeToUser(Number(session.user.id), episode.id, `/episodes/${episode.title}`);
-            showToast("success", "Episode removed from favorites!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error removing episode from favorites: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error removing episode from favorites.");
-                showToast("error", "An unexpected error occurred while removing the episode from favorites.");
-            }
-        }
-    }
-    // #endregion
 
     // #region "Reviews"
     async function onSubmitReview() {
@@ -336,8 +299,8 @@ export default function EpisodePage({
                 data={episode}
                 type="episode"
                 isBookmarked={episode.isBookmarked}
-                onBookmark={onBookmarkEpisode}
-                onRemoveBookmark={onRemoveBookmarkEpisode}
+                onBookmark={() => onBookmarkEpisode(session!, episode)}
+                onRemoveBookmark={() => onRemoveBookmarkEpisode(session!, episode)}
             />
             <Box
                 sx={{

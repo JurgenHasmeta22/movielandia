@@ -21,16 +21,19 @@ type RatingsMap = {
     };
 };
 
-export async function getSeries({
-    sortBy,
-    ascOrDesc,
-    perPage = 10,
-    page = 1,
-    title,
-    filterValue,
-    filterNameString,
-    filterOperatorString,
-}: SerieModelParams): Promise<any | null> {
+export async function getSeries(
+    {
+        sortBy,
+        ascOrDesc,
+        perPage = 10,
+        page = 1,
+        title,
+        filterValue,
+        filterNameString,
+        filterOperatorString,
+    }: SerieModelParams,
+    userId?: number,
+): Promise<any | null> {
     const filters: any = {};
     const orderByObject: any = {};
 
@@ -77,11 +80,22 @@ export async function getSeries({
         return map;
     }, {} as RatingsMap);
 
-    const seriesFinal = series.map((serie) => {
+    const seriesFinal = series.map(async (serie) => {
         const { ...properties } = serie;
+
+        let isBookmarked = false;
+
+        const existingFavorite = await prisma.userSerieFavorite.findFirst({
+            where: {
+                AND: [{ userId }, { serieId: serie.id }],
+            },
+        });
+
+        isBookmarked = !!existingFavorite;
+
         const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
 
-        return { ...properties, ...ratingsInfo };
+        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
     });
 
     const count = await prisma.serie.count();

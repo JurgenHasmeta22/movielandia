@@ -1,13 +1,21 @@
 "use client";
 
 import React from "react";
-import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography, IconButton } from "@mui/material";
 import { motion } from "framer-motion";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Link from "next/link";
+import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/componentHelpers/features/episodeFeaturesUtils";
+import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/componentHelpers/features/seasonFeaturesUtils";
+import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/componentHelpers/features/movieFeaturesUtils";
+import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/componentHelpers/features/serieFeaturesUtils";
+import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/componentHelpers/features/actorFeaturesUtils";
+import { useSession } from "next-auth/react";
 
 interface ICardItemProps {
     data: any;
@@ -16,7 +24,42 @@ interface ICardItemProps {
 }
 
 const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
+    const { data: session } = useSession();
+
     const params = useParams();
+
+    const bookmarkFunctions: any = {
+        movie: onBookmarkMovie,
+        serie: onBookmarkSerie,
+        season: onBookmarkSeason,
+        episode: onBookmarkEpisode,
+        actor: onBookmarkActor,
+    };
+
+    const removeBookmarkFunctions: any = {
+        movie: onRemoveBookmarkMovie,
+        serie: onRemoveBookmarkSerie,
+        season: onRemoveBookmarkSeason,
+        episode: onRemoveBookmarkEpisode,
+        actor: onRemoveBookmarkActor,
+    };
+
+    const handleBookmarkClick = async (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        const bookmarkFunc = bookmarkFunctions[type || ""];
+        const removeBookmarkFunc = removeBookmarkFunctions[type || ""];
+
+        if (data.isBookmarked) {
+            if (removeBookmarkFunc) {
+                await removeBookmarkFunc(session, data);
+            }
+        } else {
+            if (bookmarkFunc) {
+                await bookmarkFunc(session, data);
+            }
+        }
+    };
 
     const getPath = () => {
         switch (type) {
@@ -96,13 +139,39 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                 padding: 2,
                             }}
                         >
-                            <Typography color="white" sx={{ fontSize: "0.8rem" }}>
-                                {path === "actors"
-                                    ? data.fullname + " " + "(" + data.debut + ")"
-                                    : path === "users"
-                                      ? data.userName
-                                      : data.title + " (" + data.dateAired.split("/")[2] + ")"}
-                            </Typography>
+                            <Box>
+                                <Typography color="white" sx={{ fontSize: "0.8rem" }}>
+                                    {path === "actors"
+                                        ? data.fullname + " " + "(" + data.debut + ")"
+                                        : path === "users"
+                                          ? data.userName
+                                          : data.title + " (" + data.dateAired.split("/")[2] + ")"}
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "start",
+                                    }}
+                                >
+                                    <IconButton
+                                        onClick={handleBookmarkClick}
+                                        sx={{
+                                            color: data.isBookmarked ? "red" : "green",
+                                        }}
+                                    >
+                                        {data.isBookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                                    </IconButton>
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            color: "white",
+                                        }}
+                                    >
+                                        {data.isBookmarked ? "Unbookmark" : "Bookmark"}
+                                    </Typography>
+                                </Box>
+                            </Box>
                             {type !== "user" && (
                                 <Box>
                                     <Stack
@@ -171,12 +240,6 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             )}
                         </Box>
                     </Box>
-                    <CardContent
-                        sx={{
-                            flexGrow: 1,
-                            display: "none",
-                        }}
-                    />
                 </Card>
             </Link>
         </motion.div>
