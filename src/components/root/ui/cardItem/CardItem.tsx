@@ -142,7 +142,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                           ? data.userName
                                           : data.title + " (" + data.dateAired.split("/")[2] + ")"}
                                 </Typography>
-                                {session?.user?.userName && (
+                                {session?.user?.userName && type !== "user" && (
                                     <Box
                                         sx={{
                                             display: "flex",
