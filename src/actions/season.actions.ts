@@ -497,13 +497,15 @@ export async function searchSeasonsByTitle(title: string, queryParams: any, user
 
             let isBookmarked = false;
 
-            const existingFavorite = await prisma.userSeasonFavorite.findFirst({
-                where: {
-                    AND: [{ userId }, { seasonId: season.id }],
-                },
-            });
+            if (userId) {
+                const existingFavorite = await prisma.userSeasonFavorite.findFirst({
+                    where: {
+                        AND: [{ userId }, { seasonId: season.id }],
+                    },
+                });
 
-            isBookmarked = !!existingFavorite;
+                isBookmarked = !!existingFavorite;
+            }
 
             const ratingsInfo = seasonRatingsMap[season.id] || { averageRating: 0, totalReviews: 0 };
 
