@@ -44,16 +44,16 @@ export default async function Home() {
     };
 
     const moviesData = await getMovies(queryParams, Number(session?.user?.id));
-    const movies: Movie[] = moviesData?.movies;
+    const movies: Movie[] = moviesData.movies;
 
     const seriesData = await getSeries(queryParams, Number(session?.user?.id));
-    const series: Serie[] = seriesData?.rows;
+    const series: Serie[] = seriesData.rows;
 
     const genresData = await getGenres(queryParams);
-    const genres: Genre[] = genresData?.rows;
+    const genres: Genre[] = genresData.rows;
 
     const actorsData = await getActors(queryParams, Number(session?.user?.id));
-    const actors: Actor[] = actorsData?.actors;
+    const actors: Actor[] = actorsData.actors;
 
     return (
         <>

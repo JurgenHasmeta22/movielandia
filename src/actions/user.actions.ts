@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
+import { revalidatePath } from "next/cache";
+import { type } from "os";
 
 // #region "Interfaces"
 interface UserModelParams {
@@ -270,7 +272,7 @@ export async function getUserByUsername(userName: string, userLoggedInId: number
     }
 }
 
-export async function updateUserById(userParam: Prisma.UserUpdateInput, id: number): Promise<User | null> {
+export async function updateUserById(userParam: Prisma.UserUpdateInput, id: number): Promise<void> {
     try {
         const updatedUser = await prisma.user.update({
             where: { id },
@@ -278,7 +280,7 @@ export async function updateUserById(userParam: Prisma.UserUpdateInput, id: numb
         });
 
         if (updatedUser) {
-            redirect(`/users/${updatedUser.id}/${updatedUser.userName}`);
+            revalidatePath(`/users/${updatedUser.id}/${updatedUser.userName}`, "page");
         } else {
             throw new Error("Failed to update user.");
         }
@@ -368,7 +370,7 @@ export async function addFavoriteSerieToUser(userId: number, serieId: number): P
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to add serie to favorites.");
         }
@@ -409,7 +411,7 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to add movie to favorites.");
         }
@@ -450,7 +452,7 @@ export async function addFavoriteSeasonToUser(userId: number, seasonId: number):
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to add season to favorites.");
         }
@@ -491,7 +493,7 @@ export async function addFavoriteEpisodeToUser(userId: number, episodeId: number
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to add episode to favorites.");
         }
@@ -532,7 +534,7 @@ export async function addFavoriteActorToUser(userId: number, actorId: number): P
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to add actor to favorites.");
         }
@@ -566,10 +568,10 @@ export async function removeFavoriteMovieToUser(userId: number, movieId: number,
 
         if (result) {
             if (pathFrom === "/profile?tab=favMovies") {
-                redirect("/profile?tab=favMovies");
+                revalidatePath("/profile?tab=favMovies");
             } else {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             }
         } else {
             throw new Error("Failed to remove movie from favorites.");
@@ -604,10 +606,10 @@ export async function removeFavoriteSerieToUser(userId: number, serieId: number,
 
         if (result) {
             if (pathFrom === "/profile?tab=favSeries") {
-                redirect("/profile?tab=favSeries");
+                revalidatePath("/profile?tab=favSeries");
             } else {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             }
         } else {
             throw new Error("Failed to remove serie from favorites.");
@@ -642,10 +644,10 @@ export async function removeFavoriteSeasonToUser(userId: number, seasonId: numbe
 
         if (result) {
             if (pathFrom === "/profile?tab=favSeasons") {
-                redirect("/profile?tab=favSeasons");
+                revalidatePath("/profile?tab=favSeasons");
             } else {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             }
         } else {
             throw new Error("Failed to remove season from favorites.");
@@ -680,10 +682,10 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
 
         if (result) {
             if (pathFrom === "/profile?tab=favEpisodes") {
-                redirect("/profile?tab=favEpisodes");
+                revalidatePath("/profile?tab=favEpisodes");
             } else {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             }
         } else {
             throw new Error("Failed to remove episode from favorites.");
@@ -718,10 +720,10 @@ export async function removeFavoriteActorToUser(userId: number, actorId: number,
 
         if (result) {
             if (pathFrom && pathFrom === "/profile?tab=favActors") {
-                redirect("/profile?tab=favActors");
+                revalidatePath("/profile?tab=favActors");
             } else {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             }
         } else {
             throw new Error("Failed to remove actor from favorites.");
@@ -777,7 +779,7 @@ export const addReviewMovie = async ({
 
             if (reviewAdded) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -831,7 +833,7 @@ export const addReviewSerie = async ({
 
             if (reviewAdded) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -885,7 +887,7 @@ export const addReviewSeason = async ({
 
             if (reviewAdded) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -939,7 +941,7 @@ export const addReviewEpisode = async ({
 
             if (reviewAdded) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -993,7 +995,7 @@ export const addReviewActor = async ({
 
             if (reviewAdded) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to add review.");
             }
@@ -1044,7 +1046,7 @@ export const updateReviewMovie = async ({
 
             if (reviewUpdated) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1093,7 +1095,7 @@ export const updateReviewSerie = async ({
 
             if (reviewUpdated) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1142,7 +1144,7 @@ export const updateReviewSeason = async ({
 
             if (reviewUpdated) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1191,7 +1193,7 @@ export const updateReviewEpisode = async ({
 
             if (reviewUpdated) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1240,7 +1242,7 @@ export const updateReviewActor = async ({
 
             if (reviewUpdated) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to update review.");
             }
@@ -1276,7 +1278,7 @@ export const removeReviewMovie = async ({ userId, movieId }: RemoveReviewMoviePa
 
             if (result) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1310,7 +1312,7 @@ export const removeReviewSerie = async ({ userId, serieId }: RemoveReviewSeriePa
 
             if (result) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1344,7 +1346,7 @@ export const removeReviewSeason = async ({ userId, seasonId }: RemoveReviewSeaso
 
             if (result) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1378,7 +1380,7 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
 
             if (result) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1412,7 +1414,7 @@ export const removeReviewActor = async ({ userId, actorId }: any): Promise<void>
 
             if (result) {
                 const referer = getReferer();
-                redirect(`${referer}`);
+                revalidatePath(`${referer}`, "page");
             } else {
                 throw new Error("Failed to delete review.");
             }
@@ -1453,7 +1455,7 @@ export async function addUpvoteMovieReview({ userId, movieId, movieReviewId }: a
 
             if (upvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote movie");
             }
@@ -1488,7 +1490,7 @@ export async function addUpvoteSerieReview({ userId, serieId, serieReviewId }: a
 
             if (upvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote serie");
             }
@@ -1521,7 +1523,7 @@ export async function addUpvoteSeasonReview({ userId, seasonId, seasonReviewId }
 
             if (upvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote season");
             }
@@ -1554,7 +1556,7 @@ export async function addUpvoteEpisodeReview({ userId, episodeId, episodeReviewI
 
             if (upvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote episode");
             }
@@ -1587,7 +1589,7 @@ export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: a
 
             if (upvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote actor");
             }
@@ -1616,7 +1618,7 @@ export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote movie");
             }
@@ -1645,7 +1647,7 @@ export async function removeUpvoteSerieReview({ userId, serieId, serieReviewId }
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote serie");
             }
@@ -1674,7 +1676,7 @@ export async function removeUpvoteSeasonReview({ userId, seasonId, seasonReviewI
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote season");
             }
@@ -1703,7 +1705,7 @@ export async function removeUpvoteEpisodeReview({ userId, episodeId, episodeRevi
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote episode");
             }
@@ -1732,7 +1734,7 @@ export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote actor");
             }
@@ -1767,7 +1769,7 @@ export async function addDownvoteMovieReview({ userId, movieId, movieReviewId }:
 
             if (downvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote movie");
             }
@@ -1802,7 +1804,7 @@ export async function addDownvoteSerieReview({ userId, serieId, serieReviewId }:
 
             if (downvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote serie");
             }
@@ -1835,7 +1837,7 @@ export async function addDownvoteSeasonReview({ userId, seasonId, seasonReviewId
 
             if (downvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote season");
             }
@@ -1868,7 +1870,7 @@ export async function addDownvoteEpisodeReview({ userId, episodeId, episodeRevie
 
             if (downvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote episode");
             }
@@ -1901,7 +1903,7 @@ export async function addDownvoteActorReview({ userId, actorId, actorReviewId }:
 
             if (downvoteAdded) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote actor");
             }
@@ -1930,7 +1932,7 @@ export async function removeDownvoteMovieReview({ userId, movieId, movieReviewId
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote movie");
             }
@@ -1959,7 +1961,7 @@ export async function removeDownvoteSerieReview({ userId, serieId, serieReviewId
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote serie");
             }
@@ -1988,7 +1990,7 @@ export async function removeDownvoteSeasonReview({ userId, seasonId, seasonRevie
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote season");
             }
@@ -2017,7 +2019,7 @@ export async function removeDownvoteEpisodeReview({ userId, episodeId, episodeRe
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote episode");
             }
@@ -2046,7 +2048,7 @@ export async function removeDownvoteActorReview({ userId, actorId, actorReviewId
 
             if (result) {
                 const referer = getReferer();
-                redirect(referer);
+                revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote actor");
             }
@@ -2090,7 +2092,7 @@ export async function follow(followerId: number, followingId: number): Promise<v
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to follow user.");
         }
@@ -2127,7 +2129,7 @@ export async function unfollow(followerId: number, followingId: number): Promise
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to unfollow user.");
         }
@@ -2163,7 +2165,7 @@ export async function acceptFollowRequest(followerId: number, followingId: numbe
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to accept follow request.");
         }
@@ -2196,7 +2198,7 @@ export async function refuseFollowRequest(followerId: number, followingId: numbe
 
         if (result) {
             const referer = getReferer();
-            redirect(`${referer}`);
+            revalidatePath(`${referer}`, "page");
         } else {
             throw new Error("Failed to refuse follow request.");
         }
