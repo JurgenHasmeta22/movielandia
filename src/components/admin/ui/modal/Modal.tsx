@@ -125,7 +125,14 @@ const Modal: React.FC<ModalProps> = ({
                                       : false
                             }
                             loader={
-                                <Box display={"flex"} alignItems={"center"} justifyContent={"center"} mt={1}>
+                                <Box
+                                    display={"flex"}
+                                    alignItems={"center"}
+                                    justifyContent={"center"}
+                                    sx={{
+                                        mt: 1,
+                                    }}
+                                >
                                     <CircularProgress size={20} thickness={2} />
                                 </Box>
                             }
@@ -227,7 +234,13 @@ const Modal: React.FC<ModalProps> = ({
                         {({ errors, touched, values }) => {
                             return (
                                 <Form>
-                                    <Grid container spacing={4} mt={"15px"}>
+                                    <Grid
+                                        container
+                                        spacing={4}
+                                        sx={{
+                                            mt: 2,
+                                        }}
+                                    >
                                         {fields &&
                                             fields!.map((field, index: number) => (
                                                 <Grid item xs={6} key={index}>

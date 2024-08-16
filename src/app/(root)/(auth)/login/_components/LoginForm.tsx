@@ -82,7 +82,7 @@ export default function LoginForm() {
                             columnGap={1}
                             alignItems={"center"}
                             justifyContent={"center"}
-                            pb={4}
+                            sx={{ pb: 4 }}
                         >
                             <LockOutlinedIcon fontSize="large" />
                             <Typography variant="h2" textAlign={"center"}>

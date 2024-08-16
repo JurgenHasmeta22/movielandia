@@ -37,7 +37,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Explore
                     </Typography>
-                    <Stack spacing={1} pt={1}>
+                    <Stack spacing={1} sx={{ pt: 1 }}>
                         <Button
                             component={MuiNextLink}
                             href="/movies"
@@ -104,7 +104,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Account
                     </Typography>
-                    <Stack spacing={1} pt={1}>
+                    <Stack spacing={1} sx={{ pt: 1 }}>
                         <Button
                             component={MuiNextLink}
                             href="/login"
@@ -141,7 +141,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Follow Us
                     </Typography>
-                    <Stack direction="row" spacing={1} pt={1}>
+                    <Stack direction="row" spacing={1} sx={{ pt: 1 }}>
                         <IconButton href="https://facebook.com" target="_blank" rel="noopener">
                             <FacebookIcon />
                         </IconButton>
@@ -157,7 +157,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Newsletter
                     </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" pt={1}>
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 1 }}>
                         <TextField variant="outlined" size="small" placeholder="Email" />
                         <Button
                             variant="contained"

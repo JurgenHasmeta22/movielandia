@@ -15,7 +15,15 @@ interface IListHomeSectionProps {
 const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, linkText, path }) => {
     return (
         <Box display={"flex"} flexDirection={"column"} rowGap={2} component={"section"}>
-            <Stack flexDirection={"row"} justifyContent={"space-between"} alignItems={"center"} ml={3} mr={5}>
+            <Stack
+                flexDirection={"row"}
+                justifyContent={"space-between"}
+                alignItems={"center"}
+                sx={{
+                    ml: 3,
+                    mr: 5,
+                }}
+            >
                 <Typography
                     sx={{
                         fontWeight: 700,
@@ -43,7 +51,7 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                     {linkText}
                 </Link>
             </Stack>
-            <Box pr={3} pl={5}>
+            <Box sx={{ pl: 5, pr: 3 }}>
                 <Stack
                     direction="row"
                     flexWrap="wrap"

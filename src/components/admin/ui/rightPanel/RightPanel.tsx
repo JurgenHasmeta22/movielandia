@@ -117,14 +117,27 @@ const RightPanel: React.FC<DrawerProps> = ({
                     bgcolor: theme.vars.palette.background.default,
                 }}
             >
-                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    sx={{
+                        mb: 2,
+                    }}
+                >
                     {title && <Typography variant="h3">{title}</Typography>}
                     <IconButton onClick={() => onClose && onClose()}>
                         <CloseIcon color="action" />
                     </IconButton>
                 </Box>
                 {subTitle && (
-                    <Typography variant="subtitle1" color="textSecondary" mb={4}>
+                    <Typography
+                        variant="subtitle1"
+                        color="textSecondary"
+                        sx={{
+                            mb: 4,
+                        }}
+                    >
                         {subTitle}
                     </Typography>
                 )}
@@ -159,7 +172,13 @@ const RightPanel: React.FC<DrawerProps> = ({
 
                         return (
                             <Form>
-                                <Grid container spacing={3} mt={3}>
+                                <Grid
+                                    container
+                                    spacing={3}
+                                    sx={{
+                                        mt: 3,
+                                    }}
+                                >
                                     {(steps! ? steps[activeStep].fields : fields!).map((field, index: number) => (
                                         <Grid item xs={6} key={index}>
                                             {field.type === "select" ? (
@@ -241,7 +260,14 @@ const RightPanel: React.FC<DrawerProps> = ({
                                         </Grid>
                                     ))}
                                 </Grid>
-                                <Box mt={3} display={"flex"} gap={"10px"} justifyContent={"end"}>
+                                <Box
+                                    display={"flex"}
+                                    gap={"10px"}
+                                    justifyContent={"end"}
+                                    sx={{
+                                        mt: 3,
+                                    }}
+                                >
                                     {(steps ? steps[activeStep].actions! : actions!).map((action, index) => (
                                         <Button
                                             key={index}
@@ -267,7 +293,13 @@ const RightPanel: React.FC<DrawerProps> = ({
                                     ))}
                                 </Box>
                                 {steps && (
-                                    <Box mt={12} display="flex" justifyContent="space-between">
+                                    <Box
+                                        display="flex"
+                                        justifyContent="space-between"
+                                        sx={{
+                                            mt: 12,
+                                        }}
+                                    >
                                         <Button disabled={activeStep === 0} onClick={handleBack} variant="contained">
                                             Mbrapa
                                         </Button>

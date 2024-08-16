@@ -6,7 +6,12 @@ const HeaderDashboard = ({ title, subtitle }: any) => {
     const theme: CssVarsTheme = useTheme();
 
     return (
-        <Box mb="30px" component={"nav"}>
+        <Box
+            component={"nav"}
+            sx={{
+                mb: "30px",
+            }}
+        >
             <Typography
                 variant="h2"
                 color={theme.vars.palette.greyAccent.main}

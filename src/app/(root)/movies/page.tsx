@@ -86,14 +86,16 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 justifyContent={"space-between"}
                 alignItems="center"
                 component="section"
-                ml={3}
-                mr={3}
+                sx={{
+                    ml: 3,
+                    mr: 3,
+                }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography fontSize={22} variant="h2">
                         Movies
                     </Typography>
-                    <Typography variant="h5" pt={0.5}>
+                    <Typography variant="h5" sx={{ pt: 0.5 }}>
                         {startIndex} – {endIndex} of {moviesCount} movies
                     </Typography>
                 </Box>
@@ -107,9 +109,9 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
+                    pl: 5,
+                    pr: 3,
                 }}
-                pl={5}
-                pr={3}
             >
                 <Stack
                     direction="row"

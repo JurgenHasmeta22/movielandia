@@ -58,7 +58,14 @@ export default async function Home() {
     return (
         <>
             <HomeHeroSection />
-            <Stack flexDirection={"column"} rowGap={6} mb={6} mt={6}>
+            <Stack
+                flexDirection={"column"}
+                rowGap={6}
+                sx={{
+                    mb: 6,
+                    mt: 6,
+                }}
+            >
                 <ListHomeSection
                     key={"movie"}
                     data={movies}

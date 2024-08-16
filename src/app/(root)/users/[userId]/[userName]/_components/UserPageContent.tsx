@@ -477,7 +477,14 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 </Box>
                             )}
                         </Box>
-                        <Box mt={2} display={"flex"} rowGap={2} flexDirection={"column"}>
+                        <Box
+                            display={"flex"}
+                            rowGap={2}
+                            flexDirection={"column"}
+                            sx={{
+                                mt: 2,
+                            }}
+                        >
                             <Accordion>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                     <Typography variant="h5">Bookmarks</Typography>
@@ -605,7 +612,9 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                         display="flex"
                                                         alignItems="center"
                                                         justifyContent="space-between"
-                                                        mb={1}
+                                                        sx={{
+                                                            mb: 1,
+                                                        }}
                                                     >
                                                         <Typography variant="body1">
                                                             {userFollow.follower.userName}

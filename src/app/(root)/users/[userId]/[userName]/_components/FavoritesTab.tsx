@@ -194,7 +194,13 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
 
     return (
         <Box component="section" minHeight={`${favorites.length > 0 ? "auto" : "70vh"}`} padding={4}>
-            <Typography variant="h4" color={theme.vars.palette.primary.main} mb={4}>
+            <Typography
+                variant="h4"
+                color={theme.vars.palette.primary.main}
+                sx={{
+                    mb: 4,
+                }}
+            >
                 Bookmarked {type}
             </Typography>
             <Stack flexDirection="row" flexWrap="wrap" columnGap={3} rowGap={3} justifyContent="start">
