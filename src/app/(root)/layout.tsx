@@ -1,3 +1,4 @@
+import "@mui/material-pigment-css/styles.css";
 import { ensureStartsWith } from "@/utils/helpers/utils";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
