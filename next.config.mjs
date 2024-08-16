@@ -1,3 +1,6 @@
+import { withPigment } from "@pigment-css/nextjs-plugin";
+import { experimental_extendTheme as extendTheme } from "@mui/material";
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -21,4 +24,9 @@ const nextConfig = {
     },
 };
 
-export default nextConfig;
+/**
+ * @type {import('@pigment-css/nextjs-plugin').PigmentOptions}
+ */
+const pigmentConfig = { theme: extendTheme() };
+
+export default withPigment(nextConfig, pigmentConfig);
