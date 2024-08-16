@@ -74,7 +74,7 @@ export default function SeasonPageConent({
 
         try {
             await addReviewSeason({
-                seasonId: season?.id,
+                seasonId: season.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -114,7 +114,7 @@ export default function SeasonPageConent({
                     onClick: async () => {
                         try {
                             await removeReviewSeason({
-                                seasonId: season?.id,
+                                seasonId: season.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -146,7 +146,7 @@ export default function SeasonPageConent({
 
         try {
             await updateReviewSeason({
-                seasonId: season?.id,
+                seasonId: season.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -175,19 +175,19 @@ export default function SeasonPageConent({
             if (isAlreadyUpvoted) {
                 await removeUpvoteSeasonReview({
                     userId: Number(session?.user?.id),
-                    seasonId: season?.id,
+                    seasonId: season.id,
                     seasonReviewId,
                 });
             } else {
                 await removeDownvoteSeasonReview({
                     userId: Number(session?.user?.id),
-                    seasonId: season?.id,
+                    seasonId: season.id,
                     seasonReviewId,
                 });
 
                 await addUpvoteSeasonReview({
                     userId: Number(session?.user?.id),
-                    seasonId: season?.id,
+                    seasonId: season.id,
                     seasonReviewId,
                 });
             }
@@ -207,19 +207,19 @@ export default function SeasonPageConent({
             if (isAlreadyDownvoted) {
                 await removeDownvoteSeasonReview({
                     userId: Number(session?.user?.id),
-                    seasonId: season?.id,
+                    seasonId: season.id,
                     seasonReviewId,
                 });
             } else {
                 await removeUpvoteSeasonReview({
                     userId: Number(session?.user?.id),
-                    seasonId: season?.id,
+                    seasonId: season.id,
                     seasonReviewId,
                 });
 
                 await addDownvoteSeasonReview({
                     userId: Number(session?.user?.id),
-                    seasonId: season?.id,
+                    seasonId: season.id,
                     seasonReviewId,
                 });
             }
@@ -307,11 +307,11 @@ export default function SeasonPageConent({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: season?.reviews!.length > 0 ? 4 : 0,
+                    mb: season.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {season?.reviews!.length > 0 && (
+                {season.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={season}
                         sortingDataType="reviews"
@@ -319,7 +319,7 @@ export default function SeasonPageConent({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {season?.reviews!.map((review: any, index: number) => (
+                {season.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -338,7 +338,7 @@ export default function SeasonPageConent({
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {season?.totalReviews > 0 && (
+                {season.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
                 {session?.user && (!season.isReviewed || isEditMode) && (
@@ -359,7 +359,7 @@ export default function SeasonPageConent({
             </Box>
             <ListDetail data={latestSeasons!} type="season" roleData="latest" />
             <ListDetail data={relatedSeasons!} type="season" roleData="related" />
-            <ListDetail data={season?.episodes} type="episode" roleData="episode" />
+            <ListDetail data={season.episodes} type="episode" roleData="episode" />
         </Stack>
     );
 }

@@ -45,9 +45,10 @@ export const metadata: Metadata = {
 export default async function Movies({ searchParams }: IMoviesProps) {
     const session = await getServerSession(authOptions);
 
-    const ascOrDesc = searchParams?.moviesAscOrDesc ? searchParams?.moviesAscOrDesc : "";
-    const page = searchParams?.page ? Number(searchParams?.page) : 1;
-    const sortBy = searchParams?.moviesSortBy ? searchParams?.moviesSortBy : "";
+    const ascOrDesc = searchParams && searchParams.moviesAscOrDesc ? searchParams.moviesAscOrDesc : "";
+    const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
+    const sortBy = searchParams && searchParams.moviesSortBy ? searchParams.moviesSortBy : "";
+
     const queryParams = {
         ascOrDesc,
         page,
@@ -55,11 +56,12 @@ export default async function Movies({ searchParams }: IMoviesProps) {
     };
 
     const moviesData = await getMovies(queryParams, Number(session?.user?.id));
-    const latestMovies = await getLatestMovies();
-    const movies = moviesData?.movies;
-    const moviesCarouselImages: Movie[] = moviesData?.movies!.slice(0, 5);
+    const movies = moviesData.movies;
+    const moviesCarouselImages: Movie[] = moviesData.movies.slice(0, 5);
 
-    const moviesCount = moviesData?.count;
+    const latestMovies = await getLatestMovies();
+
+    const moviesCount = moviesData.count;
     const pageCount = Math.ceil(moviesCount / 10);
 
     const itemsPerPage = 10;

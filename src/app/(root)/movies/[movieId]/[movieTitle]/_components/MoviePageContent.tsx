@@ -114,7 +114,7 @@ export default function MoviePageContent({
                     onClick: async () => {
                         try {
                             await removeReviewMovie({
-                                movieId: movie?.id,
+                                movieId: movie.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -146,7 +146,7 @@ export default function MoviePageContent({
 
         try {
             await updateReviewMovie({
-                movieId: movie?.id,
+                movieId: movie.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -173,15 +173,15 @@ export default function MoviePageContent({
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
+                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie.id, movieReviewId });
             } else {
                 await removeDownvoteMovieReview({
                     userId: Number(session?.user?.id),
-                    movieId: movie?.id,
+                    movieId: movie.id,
                     movieReviewId,
                 });
 
-                await addUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
+                await addUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie.id, movieReviewId });
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -199,12 +199,12 @@ export default function MoviePageContent({
             if (isAlreadyDownvoted) {
                 await removeDownvoteMovieReview({
                     userId: Number(session?.user?.id),
-                    movieId: movie?.id,
+                    movieId: movie.id,
                     movieReviewId,
                 });
             } else {
-                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
-                await addDownvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie?.id, movieReviewId });
+                await removeUpvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie.id, movieReviewId });
+                await addDownvoteMovieReview({ userId: Number(session?.user?.id), movieId: movie.id, movieReviewId });
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -292,11 +292,11 @@ export default function MoviePageContent({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: movie?.reviews!.length > 0 ? 4 : 0,
+                    mb: movie.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {movie?.reviews!.length > 0 && (
+                {movie.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={movie}
                         sortingDataType="reviews"
@@ -304,7 +304,7 @@ export default function MoviePageContent({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {movie?.reviews!.map((review: any, index: number) => (
+                {movie.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -323,7 +323,7 @@ export default function MoviePageContent({
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {movie?.totalReviews > 0 && (
+                {movie.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
                 {session?.user && (!movie.isReviewed || isEditMode) && (

@@ -16,7 +16,7 @@ interface ISerieProps {
 export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
     const { serieId } = params;
 
-    let serie: Serie | null = null;
+    let serie: Serie;
 
     try {
         serie = await getSerieById(Number(serieId), {});
@@ -26,15 +26,15 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
 
     const { description, photoSrcProd } = serie!;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${serie?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${serie.title}`;
 
     return {
-        title: `${serie?.title} | Serie`,
-        description: `${serie?.description}`,
+        title: `${serie.title} | Serie`,
+        description: `${serie.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${serie?.title} | Serie`,
+            title: `${serie.title} | Serie`,
             description,
             images: photoSrcProd
                 ? [
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${serie?.title} | Serie`,
+            title: `${serie.title} | Serie`,
             description,
             images: photoSrcProd
                 ? [
@@ -75,9 +75,9 @@ export default async function SeriePage({ searchParams, params }: ISerieProps) {
 
     const serieId = params.serieId;
 
-    const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
-    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
+    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -96,7 +96,7 @@ export default async function SeriePage({ searchParams, params }: ISerieProps) {
     const latestSeries = await getLatestSeries(Number(session?.user?.id));
     const relatedSeries = await getRelatedSeries(Number(serieId), Number(session?.user?.id));
 
-    const pageCountReviews = Math.ceil(serie?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(serie.totalReviews / 5);
 
     return (
         <SeriePageContent

@@ -7,7 +7,7 @@ import MoviePage from "./[movieTitle]/page";
 export async function generateMetadata({ params }: { params: { movieId: string } }): Promise<Metadata> {
     const { movieId } = params;
 
-    let movie: Movie | null = null;
+    let movie: Movie;
 
     try {
         movie = await getMovieById(Number(movieId), {});
@@ -15,17 +15,17 @@ export async function generateMetadata({ params }: { params: { movieId: string }
         return notFound();
     }
 
-    const { description, photoSrcProd } = movie!;
+    const { description, photoSrcProd } = movie;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${movie?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/movies/${movie.title}`;
 
     return {
-        title: `${movie?.title} | Movie`,
-        description: `${movie?.description}`,
+        title: `${movie.title} | Movie`,
+        description: `${movie.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${movie?.title} | Movie`,
+            title: `${movie.title} | Movie`,
             description,
             images: photoSrcProd
                 ? [
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: { movieId: string }
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${movie?.title} | Movie`,
+            title: `${movie.title} | Movie`,
             description,
             images: photoSrcProd
                 ? [

@@ -17,7 +17,7 @@ interface IEpisodeProps {
 export async function generateMetadata({ params }: IEpisodeProps): Promise<Metadata> {
     const { episodeId } = params;
 
-    let episode: Episode | null = null;
+    let episode: Episode;
 
     try {
         episode = await getEpisodeById(Number(episodeId), {});
@@ -25,17 +25,17 @@ export async function generateMetadata({ params }: IEpisodeProps): Promise<Metad
         return notFound();
     }
 
-    const { description, photoSrcProd } = episode!;
+    const { description, photoSrcProd } = episode;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/episodes/${episode?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/episodes/${episode.title}`;
 
     return {
-        title: `${episode?.title} | Episode`,
-        description: `${episode?.description}`,
+        title: `${episode.title} | Episode`,
+        description: `${episode.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${episode?.title} | Episode`,
+            title: `${episode.title} | Episode`,
             description,
             images: photoSrcProd
                 ? [
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: IEpisodeProps): Promise<Metad
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${episode?.title} | Episode`,
+            title: `${episode.title} | Episode`,
             description,
             images: photoSrcProd
                 ? [
@@ -76,9 +76,9 @@ export default async function EpisodePage({ searchParams, params }: IEpisodeProp
 
     const { episodeId, seasonId } = params;
 
-    const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
-    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
+    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -86,7 +86,7 @@ export default async function EpisodePage({ searchParams, params }: IEpisodeProp
         userId: Number(session?.user?.id),
     };
 
-    let episode = null;
+    let episode;
 
     try {
         episode = await getEpisodeById(Number(episodeId), searchParamsValues);
@@ -97,7 +97,7 @@ export default async function EpisodePage({ searchParams, params }: IEpisodeProp
     const latestEpisodes = await getLatestEpisodes(Number(seasonId));
     const relatedEpisodes = await getRelatedEpisodes(Number(episodeId), Number(seasonId));
 
-    const pageCountReviews = Math.ceil(episode?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(episode.totalReviews / 5);
 
     return (
         <EpisodePageContent

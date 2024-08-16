@@ -65,7 +65,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
 
         try {
             await addReviewActor({
-                actorId: actor?.id,
+                actorId: actor.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -105,7 +105,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                     onClick: async () => {
                         try {
                             await removeReviewActor({
-                                actorId: actor?.id,
+                                actorId: actor.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -137,7 +137,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
 
         try {
             await updateReviewActor({
-                actorId: actor?.id,
+                actorId: actor.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -166,19 +166,19 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
             if (isAlreadyUpvoted) {
                 await removeUpvoteActorReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
+                    actorId: actor.id,
                     actorReviewId,
                 });
             } else {
                 await removeDownvoteActorReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
+                    actorId: actor.id,
                     actorReviewId,
                 });
 
                 await addUpvoteActorReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
+                    actorId: actor.id,
                     actorReviewId,
                 });
             }
@@ -198,19 +198,19 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
             if (isAlreadyDownvoted) {
                 await removeDownvoteActorReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
+                    actorId: actor.id,
                     actorReviewId,
                 });
             } else {
                 await removeUpvoteActorReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
+                    actorId: actor.id,
                     actorReviewId,
                 });
 
                 await addDownvoteActorReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor?.id,
+                    actorId: actor.id,
                     actorReviewId,
                 });
             }
@@ -298,11 +298,11 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: actor?.reviews!.length > 0 ? 4 : 0,
+                    mb: actor.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {actor?.reviews!.length > 0 && (
+                {actor.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={actor}
                         sortBy={searchParamsValues.sortBy!}
@@ -310,7 +310,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                         sortingDataType="reviews"
                     />
                 )}
-                {actor?.reviews!.map((review: any, index: number) => (
+                {actor.reviews.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -329,7 +329,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {actor?.totalReviews > 0 && (
+                {actor.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
                 {session?.user && (!actor.isReviewed || isEditMode) && (
@@ -348,8 +348,8 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                     />
                 )}
             </Box>
-            <ListDetail data={actor.starredMovies!} type="actor" roleData="Movies" />
-            <ListDetail data={actor.starredSeries!} type="actor" roleData="Series" />
+            <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />
+            <ListDetail data={actor.starredSeries} type="actor" roleData="Series" />
         </Stack>
     );
 }

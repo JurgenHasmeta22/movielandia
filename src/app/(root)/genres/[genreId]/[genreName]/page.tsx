@@ -33,8 +33,8 @@ interface IQueryParams {
 export async function generateMetadata({ params }: IGenreProps): Promise<Metadata> {
     const { genreId } = params;
 
-    let genre: Genre | null = null;
-    let genreData: any = null;
+    let genre: Genre;
+    let genreData: any;
 
     try {
         genreData = await getGenreById(Number(genreId), { type: "movie" });
@@ -43,24 +43,24 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
         return notFound();
     }
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/genres/${genre?.id}/${genre?.name}}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/genres/${genre.id}/${genre.name}}`;
 
     return {
-        title: `${genre?.name} | Watch the Latest Movies and Series of the genre`,
-        description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
+        title: `${genre.name} | Watch the Latest Movies and Series of the genre`,
+        description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre.name}" in high quality. Our collection is always updated with the newest releases.`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${genre?.name} | Genre`,
-            description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
+            title: `${genre.name} | Genre`,
+            description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre.name}" in high quality. Our collection is always updated with the newest releases.`,
             siteName: "MovieLandia24",
         },
         twitter: {
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${genre?.name} | Genre`,
-            description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre?.name}" in high quality. Our collection is always updated with the newest releases.`,
+            title: `${genre.name} | Genre`,
+            description: `Discover and watch the latest and most amazing movies and series of genre titled "${genre.name}" in high quality. Our collection is always updated with the newest releases.`,
         },
         robots: {
             index: true,
@@ -75,9 +75,9 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
     const genreId = params.genreId;
 
     // #region "Movies data"
-    const pageMovies = Number(searchParams?.pageMovies) || 1;
-    const moviesSortBy = searchParams?.moviesSortBy;
-    const moviesAscOrDesc = searchParams?.moviesAscOrDesc;
+    const pageMovies = Number(searchParams && searchParams.pageMovies) || 1;
+    const moviesSortBy = searchParams && searchParams.moviesSortBy;
+    const moviesAscOrDesc = searchParams && searchParams.moviesAscOrDesc;
 
     const queryParamsMovies: IQueryParams = { page: pageMovies, type: "movie" };
 
@@ -99,15 +99,15 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
 
     const genre: Genre = moviesByGenreData.genre;
 
-    const moviesByGenre: Movie[] = moviesByGenreData?.movies;
-    const moviesByGenreCount: number = moviesByGenreData?.count;
+    const moviesByGenre: Movie[] = moviesByGenreData.movies;
+    const moviesByGenreCount: number = moviesByGenreData.count;
     const pageCountMovies = Math.ceil(moviesByGenreCount / 10);
     // #endregion
 
     // #region "Series data"
-    const pageSeries = Number(searchParams?.pageSeries) || 1;
-    const seriesSortBy = searchParams?.seriesSortBy;
-    const seriesAscOrDesc = searchParams?.seriesAscOrDesc;
+    const pageSeries = Number(searchParams && searchParams.pageSeries) || 1;
+    const seriesSortBy = searchParams && searchParams.seriesSortBy;
+    const seriesAscOrDesc = searchParams && searchParams.seriesAscOrDesc;
 
     const queryParamsSeries: IQueryParams = { page: pageSeries, type: "serie" };
 
@@ -127,8 +127,8 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
         return notFound();
     }
 
-    const seriesByGenre: Serie[] = seriesByGenreData?.series;
-    const seriesByGenreCount: number = seriesByGenreData?.count;
+    const seriesByGenre: Serie[] = seriesByGenreData.series;
+    const seriesByGenreCount: number = seriesByGenreData.count;
     const pageCountSeries = Math.ceil(seriesByGenreCount / 10);
     // #endregion
 
@@ -142,7 +142,7 @@ export default async function GenrePage({ searchParams, params }: IGenreProps): 
             }}
         >
             <GenreList
-                title={`All Movies of Genre ${genre?.name}`}
+                title={`All Movies of Genre ${genre.name}`}
                 data={moviesByGenre}
                 count={moviesByGenreCount}
                 sortBy={moviesSortBy!}
