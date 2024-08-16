@@ -43,7 +43,11 @@ export default function NotFoundGlobalPage() {
                     <Typography variant="h5" component="p" sx={{ color: theme.vars.palette.primary.main }}>
                         The page you are looking for might have been removed, or is temporarily unavailable.
                     </Typography>
-                    <Box mt={4}>
+                    <Box
+                        sx={{
+                            mt: 4,
+                        }}
+                    >
                         <Link
                             href={"/"}
                             style={{

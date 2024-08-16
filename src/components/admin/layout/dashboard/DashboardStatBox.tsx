@@ -18,7 +18,13 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
                     <DashboardProgressCircle progress={progress} />
                 </Box>
             </Box>
-            <Box display="flex" justifyContent="space-between" mt="2px">
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                sx={{
+                    mt: 2,
+                }}
+            >
                 <Typography variant="h5" sx={{ color: theme.vars.palette.green.light }}>
                     {subtitle}
                 </Typography>

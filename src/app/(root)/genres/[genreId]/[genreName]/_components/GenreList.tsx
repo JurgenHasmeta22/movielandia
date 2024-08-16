@@ -33,7 +33,16 @@ const GenreList: React.FC<GenreListProps> = ({
 
     return data.length !== 0 ? (
         <>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{
+                    mt: 4,
+                    ml: 3,
+                    mr: 3,
+                }}
+            >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography
                         sx={{
@@ -64,9 +73,9 @@ const GenreList: React.FC<GenreListProps> = ({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
+                    pl: 5,
+                    pr: 3,
                 }}
-                pl={5}
-                pr={3}
             >
                 <Stack
                     direction="row"

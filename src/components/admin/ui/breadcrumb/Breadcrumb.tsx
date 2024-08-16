@@ -14,7 +14,16 @@ const Breadcrumb = ({ breadcrumbs, navigateTo }: BreadcrumbProps) => {
     const router = useRouter();
 
     return (
-        <Box mb={"30px"} display={"flex"} component={"nav"} flexDirection={"row"} alignItems={"center"} gap={"20px"}>
+        <Box
+            display={"flex"}
+            component={"nav"}
+            flexDirection={"row"}
+            alignItems={"center"}
+            gap={"20px"}
+            sx={{
+                mb: "30px",
+            }}
+        >
             <Button
                 variant="contained"
                 onClick={() => {

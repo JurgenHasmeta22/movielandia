@@ -65,17 +65,39 @@ const Sidebar = ({ sidebarItems }: any) => {
                 sx: { backgroundColor: theme.vars.palette.greyAccent.main, paddingLeft: 2, paddingRight: 2 },
             }}
         >
-            <Box mt={2}>
-                <Box display="flex" justifyContent="end" alignItems="center" mb={2}>
+            <Box
+                sx={{
+                    mt: 2,
+                }}
+            >
+                <Box
+                    display="flex"
+                    justifyContent="end"
+                    alignItems="center"
+                    sx={{
+                        mb: 2,
+                    }}
+                >
                     <IconButton onClick={onClose}>
                         <CloseIcon color="action" />
                     </IconButton>
                 </Box>
-                <Box display="flex" alignItems="center" mb={2} ml={2}>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    sx={{
+                        mb: 2,
+                        ml: 2,
+                    }}
+                >
                     <Avatar>
                         <AccountCircleIcon />
                     </Avatar>
-                    <Box ml={2}>
+                    <Box
+                        sx={{
+                            ml: 2,
+                        }}
+                    >
                         <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
                             {session?.user && `@${session?.user?.userName}`}
                         </Typography>

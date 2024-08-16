@@ -35,7 +35,16 @@ const SearchList: React.FC<MediaListProps> = ({
 
     return data.length !== 0 ? (
         <Box display={"flex"} flexDirection={"column"} rowGap={3}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mt={4} ml={3} mr={3}>
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{
+                    mt: 4,
+                    ml: 3,
+                    mr: 3,
+                }}
+            >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography fontSize={22} variant="h2">
                         {title}
@@ -60,9 +69,9 @@ const SearchList: React.FC<MediaListProps> = ({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
+                    pl: 5,
+                    pr: 3,
                 }}
-                pl={5}
-                pr={3}
             >
                 <Stack
                     direction="row"

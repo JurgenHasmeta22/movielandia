@@ -19,7 +19,11 @@ export function LatestList({ data, type }: ILatestList) {
                 pr: 3,
             }}
         >
-            <Box pl={3}>
+            <Box
+                sx={{
+                    pl: 3,
+                }}
+            >
                 <Typography fontSize={22} variant="h2">
                     Latest {type.toLowerCase()}
                 </Typography>
@@ -30,10 +34,10 @@ export function LatestList({ data, type }: ILatestList) {
                 alignItems={"start"}
                 columnGap={5}
                 rowGap={5}
-                marginTop={3}
-                mb={4}
-                pl={5}
                 sx={{
+                    mb: 4,
+                    pl: 5,
+                    mt: 3,
                     justifyContent: {
                         xs: "center",
                         sm: "center",

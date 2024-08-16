@@ -16,7 +16,13 @@ export default function AdminLayout({
             </Grid>
             <Grid item xs={12} md={10}>
                 <TopBar />
-                <Box ml={4}>{children}</Box>
+                <Box
+                    sx={{
+                        ml: 4,
+                    }}
+                >
+                    {children}
+                </Box>
             </Grid>
         </Grid>
     );

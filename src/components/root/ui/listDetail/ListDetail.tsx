@@ -22,7 +22,12 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                         }}
                         component={"section"}
                     >
-                        <Box ml={3} mr={3}>
+                        <Box
+                            sx={{
+                                ml: 3,
+                                mr: 3,
+                            }}
+                        >
                             {type !== "actor" && (
                                 <Box
                                     sx={{
@@ -96,7 +101,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 </Box>
                             )}
                         </Box>
-                        <Box pl={5} pr={3}>
+                        <Box sx={{ pl: 5, pr: 3 }}>
                             <Stack
                                 direction="row"
                                 flexWrap="wrap"

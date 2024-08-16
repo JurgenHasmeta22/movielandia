@@ -42,15 +42,20 @@ export default async function Genres() {
                 display: "flex",
                 flexDirection: "column",
                 placeItems: "center",
-                paddingTop: 4,
+                pt: 4,
+                mt: 4,
+                mb: 4,
+                mr: 3,
+                ml: 3,
             }}
-            mt={4}
-            mb={4}
-            mr={3}
-            ml={3}
             component={"section"}
         >
-            <Typography mt={4} fontSize={"26px"}>
+            <Typography
+                sx={{
+                    mt: 4,
+                }}
+                fontSize={"26px"}
+            >
                 Choose your favorite genre
             </Typography>
             <Stack
@@ -59,9 +64,9 @@ export default async function Genres() {
                 alignItems={"start"}
                 rowGap={4}
                 columnGap={3}
-                marginTop={3}
-                mb={4}
                 sx={{
+                    mt: 3,
+                    mb: 4,
                     justifyContent: {
                         xs: "center",
                         sm: "center",
