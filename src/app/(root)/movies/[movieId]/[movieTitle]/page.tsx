@@ -75,9 +75,10 @@ export default async function MoviePage({ searchParams, params }: IMoviePageProp
 
     const movieId = params.movieId;
 
-    const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
-    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
+    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -95,7 +96,7 @@ export default async function MoviePage({ searchParams, params }: IMoviePageProp
     const latestMovies = await getLatestMovies(Number(session?.user?.id));
     const relatedMovies = await getRelatedMovies(Number(movieId), Number(session?.user?.id));
 
-    const pageCount = Math.ceil(movie?.totalReviews / 5);
+    const pageCount = Math.ceil(movie.totalReviews / 5);
 
     return (
         <MoviePageContent

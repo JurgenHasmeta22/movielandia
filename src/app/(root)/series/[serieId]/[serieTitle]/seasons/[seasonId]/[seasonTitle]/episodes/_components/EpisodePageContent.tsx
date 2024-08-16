@@ -74,7 +74,7 @@ export default function EpisodePage({
 
         try {
             await addReviewEpisode({
-                episodeId: episode?.id,
+                episodeId: episode.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -114,7 +114,7 @@ export default function EpisodePage({
                     onClick: async () => {
                         try {
                             await removeReviewEpisode({
-                                episodeId: episode?.id,
+                                episodeId: episode.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -146,7 +146,7 @@ export default function EpisodePage({
 
         try {
             await updateReviewEpisode({
-                episodeId: episode?.id,
+                episodeId: episode.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -175,19 +175,19 @@ export default function EpisodePage({
             if (isAlreadyUpvoted) {
                 await removeUpvoteEpisodeReview({
                     userId: Number(session?.user?.id),
-                    episodeId: episode?.id,
+                    episodeId: episode.id,
                     episodeReviewId,
                 });
             } else {
                 await removeDownvoteEpisodeReview({
                     userId: Number(session?.user?.id),
-                    episodeId: episode?.id,
+                    episodeId: episode.id,
                     episodeReviewId,
                 });
 
                 await addUpvoteEpisodeReview({
                     userId: Number(session?.user?.id),
-                    episodeId: episode?.id,
+                    episodeId: episode.id,
                     episodeReviewId,
                 });
             }
@@ -207,19 +207,19 @@ export default function EpisodePage({
             if (isAlreadyDownvoted) {
                 await removeDownvoteEpisodeReview({
                     userId: Number(session?.user?.id),
-                    episodeId: episode?.id,
+                    episodeId: episode.id,
                     episodeReviewId,
                 });
             } else {
                 await removeUpvoteEpisodeReview({
                     userId: Number(session?.user?.id),
-                    episodeId: episode?.id,
+                    episodeId: episode.id,
                     episodeReviewId,
                 });
 
                 await addDownvoteEpisodeReview({
                     userId: Number(session?.user?.id),
-                    episodeId: episode?.id,
+                    episodeId: episode.id,
                     episodeReviewId,
                 });
             }
@@ -307,11 +307,11 @@ export default function EpisodePage({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: episode?.reviews!.length > 0 ? 4 : 0,
+                    mb: episode.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {episode?.reviews!.length > 0 && (
+                {episode.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={episode}
                         sortingDataType="reviews"
@@ -319,7 +319,7 @@ export default function EpisodePage({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {episode?.reviews!.map((review: any, index: number) => (
+                {episode.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -338,7 +338,7 @@ export default function EpisodePage({
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {episode?.totalReviews > 0 && (
+                {episode.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
                 {session?.user && (!episode.isReviewed || isEditMode) && (

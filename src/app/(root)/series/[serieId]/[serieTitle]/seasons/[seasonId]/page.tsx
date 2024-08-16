@@ -11,7 +11,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { seasonId } = params;
 
-    let season: Season | null = null;
+    let season: Season;
 
     try {
         season = await getSeasonById(Number(seasonId), {});
@@ -19,17 +19,17 @@ export async function generateMetadata({
         return notFound();
     }
 
-    const { description, photoSrcProd } = season!;
+    const { description, photoSrcProd } = season;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${season?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${season.title}`;
 
     return {
-        title: `${season?.title} | Season`,
-        description: `${season?.description}`,
+        title: `${season.title} | Season`,
+        description: `${season.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${season?.title} | Season`,
+            title: `${season.title} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -47,7 +47,7 @@ export async function generateMetadata({
             card: "summary_large_image",
             site: "@seasonLandia24",
             creator: "seasonLandia24",
-            title: `${season?.title} | Season`,
+            title: `${season.title} | Season`,
             description,
             images: photoSrcProd
                 ? [

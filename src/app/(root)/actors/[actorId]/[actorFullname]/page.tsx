@@ -16,7 +16,7 @@ interface IActorProps {
 export async function generateMetadata({ params }: IActorProps): Promise<Metadata> {
     const { actorId } = params;
 
-    let actor: Actor | null = null;
+    let actor: Actor;
 
     try {
         actor = await getActorById(Number(actorId), {});
@@ -24,17 +24,17 @@ export async function generateMetadata({ params }: IActorProps): Promise<Metadat
         return notFound();
     }
 
-    const { description, photoSrcProd } = actor!;
+    const { description, photoSrcProd } = actor;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/actors/${actor?.fullname}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/actors/${actor.fullname}`;
 
     return {
-        title: `${actor?.fullname} | Actor`,
-        description: `${actor?.description}`,
+        title: `${actor.fullname} | Actor`,
+        description: `${actor.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${actor?.fullname} | Actor`,
+            title: `${actor.fullname} | Actor`,
             description,
             images: photoSrcProd
                 ? [
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: IActorProps): Promise<Metadat
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${actor?.fullname} | Actor`,
+            title: `${actor.fullname} | Actor`,
             description,
             images: photoSrcProd
                 ? [
@@ -75,9 +75,10 @@ export default async function ActorPage({ searchParams, params }: IActorProps) {
 
     const { actorId } = params;
 
-    const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
-    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
+    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -85,7 +86,7 @@ export default async function ActorPage({ searchParams, params }: IActorProps) {
         userId: Number(session?.user?.id),
     };
 
-    let actor = null;
+    let actor;
 
     try {
         actor = await getActorById(Number(actorId), searchParamsValues);
@@ -93,7 +94,7 @@ export default async function ActorPage({ searchParams, params }: IActorProps) {
         return notFound();
     }
 
-    const pageCountReviews = Math.ceil(actor?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(actor.totalReviews / 5);
 
     return <ActorPageContent searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />;
 }

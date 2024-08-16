@@ -41,9 +41,10 @@ export const metadata: Metadata = {
 export default async function Actors({ searchParams }: IActorsProps) {
     const session = await getServerSession(authOptions);
 
-    const ascOrDesc = searchParams?.actorsAscOrDesc ? searchParams?.actorsAscOrDesc : "";
-    const page = searchParams?.page ? Number(searchParams?.page) : 1;
-    const sortBy = searchParams?.actorsSortBy ? searchParams?.actorsSortBy : "";
+    const ascOrDesc = searchParams && searchParams.actorsAscOrDesc ? searchParams.actorsAscOrDesc : "";
+    const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
+    const sortBy = searchParams && searchParams.actorsSortBy ? searchParams.actorsSortBy : "";
+
     const queryParams = {
         ascOrDesc,
         page,
@@ -51,10 +52,9 @@ export default async function Actors({ searchParams }: IActorsProps) {
     };
 
     const actorsData = await getActors(queryParams, Number(session?.user?.id));
-    const actors = actorsData?.actors;
-    const actorsCarouselImages: Actor[] = actorsData?.actors!.slice(0, 5);
-
-    const actorsCount = actorsData?.count;
+    const actors = actorsData.actors;
+    const actorsCarouselImages: Actor[] = actorsData.actors.slice(0, 5);
+    const actorsCount = actorsData.count;
     const pageCount = Math.ceil(actorsCount / 10);
 
     const itemsPerPage = 10;

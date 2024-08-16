@@ -11,8 +11,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { genreId } = params;
 
-    let genre: Genre | null = null;
-    let genreData: any = null;
+    let genre: Genre;
+    let genreData: any;
 
     try {
         genreData = await getGenreById(Number(genreId), { type: "movie" });
@@ -21,22 +21,22 @@ export async function generateMetadata({
         return notFound();
     }
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/genres/${genre?.name}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/genres/${genre.name}`;
 
     return {
-        title: `${genre?.name} | Genre`,
-        description: `${genre?.name}`,
+        title: `${genre.name} | Genre`,
+        description: `${genre.name}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${genre?.name} | Genre`,
+            title: `${genre.name} | Genre`,
             siteName: "MovieLandia24",
         },
         twitter: {
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${genre?.name} | Genre`,
+            title: `${genre.name} | Genre`,
         },
         robots: {
             index: true,

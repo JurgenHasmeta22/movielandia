@@ -44,12 +44,12 @@ export const metadata: Metadata = {
 export default async function Search({ searchParams }: ISearchProps) {
     const session = await getServerSession(authOptions);
 
-    const term = searchParams?.term;
+    const term = searchParams && searchParams.term;
 
     // #region "Movies data"
-    const pageMovies = Number(searchParams?.pageMovies) || 1;
-    const moviesSortBy = searchParams?.moviesSortBy;
-    const moviesAscOrDesc = searchParams?.moviesAscOrDesc;
+    const pageMovies = Number(searchParams && searchParams.pageMovies) || 1;
+    const moviesSortBy = searchParams && searchParams.moviesSortBy;
+    const moviesAscOrDesc = searchParams && searchParams.moviesAscOrDesc;
     const queryParamsMovies: any = { page: pageMovies };
 
     if (moviesSortBy) {
@@ -61,15 +61,15 @@ export default async function Search({ searchParams }: ISearchProps) {
     }
 
     const moviesData = await searchMoviesByTitle(term!, queryParamsMovies, Number(Number(session?.user?.id)));
-    const movies: Movie[] = moviesData?.movies;
-    const moviesCount: number = moviesData?.count;
+    const movies: Movie[] = moviesData.movies;
+    const moviesCount: number = moviesData.count;
     const pageCountMovies = Math.ceil(moviesCount / 10);
     // #endregion
 
     // #region "Series data"
-    const pageSeries = Number(searchParams?.pageSeries) || 1;
-    const seriesSortBy = searchParams?.seriesSortBy;
-    const seriesAscOrDesc = searchParams?.seriesAscOrDesc;
+    const pageSeries = Number(searchParams && searchParams.pageSeries) || 1;
+    const seriesSortBy = searchParams && searchParams.seriesSortBy;
+    const seriesAscOrDesc = searchParams && searchParams.seriesAscOrDesc;
     const queryParamsSeries: any = { page: pageSeries };
 
     if (seriesSortBy) {
@@ -81,15 +81,15 @@ export default async function Search({ searchParams }: ISearchProps) {
     }
 
     const seriesData = await searchSeriesByTitle(term!, queryParamsSeries, Number(session?.user?.id));
-    const series: Serie[] = seriesData?.rows;
-    const seriesCount: number = seriesData?.count;
+    const series: Serie[] = seriesData.rows;
+    const seriesCount: number = seriesData.count;
     const pageCountSeries = Math.ceil(seriesCount / 10);
     // #endregion
 
     // #region "Actors data"
-    const pageActors = Number(searchParams?.pageActors) || 1;
-    const actorsSortBy = searchParams?.actorsSortBy;
-    const actorsAscOrDesc = searchParams?.actorsAscOrDesc;
+    const pageActors = Number(searchParams && searchParams.pageActors) || 1;
+    const actorsSortBy = searchParams && searchParams.actorsSortBy;
+    const actorsAscOrDesc = searchParams && searchParams.actorsAscOrDesc;
     const queryParamsActors: any = { page: pageActors };
 
     if (actorsSortBy) {
@@ -101,15 +101,15 @@ export default async function Search({ searchParams }: ISearchProps) {
     }
 
     const actorsData = await searchActorsByTitle(term!, queryParamsActors, Number(session?.user?.id));
-    const actors: Actor[] = actorsData?.actors;
-    const actorsCount: number = actorsData?.count;
+    const actors: Actor[] = actorsData.actors;
+    const actorsCount: number = actorsData.count;
     const pageCountActors = Math.ceil(actorsCount / 10);
     // #endregion
 
     // #region "Episodes data"
-    const pageEpisodes = Number(searchParams?.pageEpisodes) || 1;
-    const episodesSortBy = searchParams?.episodesSortBy;
-    const episodesAscOrDesc = searchParams?.episodesAscOrDesc;
+    const pageEpisodes = Number(searchParams && searchParams.pageEpisodes) || 1;
+    const episodesSortBy = searchParams && searchParams.episodesSortBy;
+    const episodesAscOrDesc = searchParams && searchParams.episodesAscOrDesc;
     const queryParamsEpisodes: any = { page: pageEpisodes };
 
     if (episodesSortBy) {
@@ -121,15 +121,15 @@ export default async function Search({ searchParams }: ISearchProps) {
     }
 
     const episodesData = await searchEpisodesByTitle(term!, queryParamsEpisodes, Number(session?.user?.id));
-    const episodes: Episode[] = episodesData?.episodes;
-    const episodesCount: number = episodesData?.count;
+    const episodes: Episode[] = episodesData.episodes;
+    const episodesCount: number = episodesData.count;
     const pageCountEpisodes = Math.ceil(episodesCount / 10);
     // #endregion
 
     // #region "Seasons data"
-    const pageSeasons = Number(searchParams?.pageSeasons) || 1;
-    const seasonsSortBy = searchParams?.seasonsSortBy;
-    const seasonsAscOrDesc = searchParams?.seasonsAscOrDesc;
+    const pageSeasons = Number(searchParams && searchParams.pageSeasons) || 1;
+    const seasonsSortBy = searchParams && searchParams.seasonsSortBy;
+    const seasonsAscOrDesc = searchParams && searchParams.seasonsAscOrDesc;
     const queryParamsSeasons: any = { page: pageSeasons };
 
     if (seasonsSortBy) {
@@ -141,15 +141,15 @@ export default async function Search({ searchParams }: ISearchProps) {
     }
 
     const seasonsData = await searchSeasonsByTitle(term!, queryParamsSeasons, Number(session?.user?.id));
-    const seasons: Season[] = seasonsData?.seasons;
-    const seasonsCount: number = seasonsData?.count;
+    const seasons: Season[] = seasonsData.seasons;
+    const seasonsCount: number = seasonsData.count;
     const pageCountSeasons = Math.ceil(seasonsCount / 10);
     // #endregion
 
     // #region "users data"
-    const pageUsers = Number(searchParams?.pageUsers) || 1;
-    const usersSortBy = searchParams?.usersSortBy;
-    const usersAscOrDesc = searchParams?.usersAscOrDesc;
+    const pageUsers = Number(searchParams && searchParams.pageUsers) || 1;
+    const usersSortBy = searchParams && searchParams.usersSortBy;
+    const usersAscOrDesc = searchParams && searchParams.usersAscOrDesc;
     const queryParamsUsers: any = { page: pageUsers };
 
     if (usersSortBy) {
@@ -161,8 +161,8 @@ export default async function Search({ searchParams }: ISearchProps) {
     }
 
     const usersData = await searchUsersByUsername(term!, queryParamsUsers);
-    const users: User[] = usersData?.users;
-    const usersCount: number = usersData?.count;
+    const users: User[] = usersData.users;
+    const usersCount: number = usersData.count;
     const pageCountUsers = Math.ceil(usersCount / 10);
     // #endregion
 

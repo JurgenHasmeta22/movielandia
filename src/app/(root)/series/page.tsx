@@ -45,9 +45,10 @@ export const metadata: Metadata = {
 export default async function Series({ searchParams }: ISeriesProps) {
     const session = await getServerSession(authOptions);
 
-    const ascOrDesc = searchParams?.seriesAscOrDesc ? searchParams?.seriesAscOrDesc : "";
-    const page = searchParams?.page ? Number(searchParams?.page) : 1;
-    const sortBy = searchParams?.seriesSortBy ? searchParams?.seriesSortBy : "";
+    const ascOrDesc = searchParams && searchParams.seriesAscOrDesc ? searchParams.seriesAscOrDesc : "";
+    const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
+    const sortBy = searchParams && searchParams.seriesSortBy ? searchParams.seriesSortBy : "";
+
     const queryParams = {
         ascOrDesc,
         page,
@@ -55,12 +56,11 @@ export default async function Series({ searchParams }: ISeriesProps) {
     };
 
     const seriesData = await getSeries(queryParams, Number(session?.user?.id));
-    const series = seriesData?.rows;
+    const series = seriesData.rows;
 
     const latestSeries = await getLatestSeries();
-    const seriesCount = seriesData?.count;
-    const seriesCarouselImages: Serie[] = seriesData?.rows!.slice(0, 5);
-
+    const seriesCount = seriesData.count;
+    const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
     const pageCount = Math.ceil(seriesCount / 10);
 
     const itemsPerPage = 10;

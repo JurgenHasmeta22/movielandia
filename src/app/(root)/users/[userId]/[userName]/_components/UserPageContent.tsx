@@ -41,13 +41,13 @@ interface IUserPageProps {
 export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
     // #region "State, hooks, router, theme usage call"
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(
-        userInPage?.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,
+        userInPage.followers.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,
     );
-    const [bio, setBio] = useState<string>(userInPage?.bio || "");
+    const [bio, setBio] = useState<string>(userInPage.bio || "");
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
-    const [userName, setUserName] = useState<string>(userInPage?.userName || "");
+    const [userName, setUserName] = useState<string>(userInPage.userName || "");
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>(userInPage?.email || "");
+    const [email, setEmail] = useState<string>(userInPage.email || "");
     const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
 
     const router = useRouter();
@@ -84,7 +84,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
 
     async function handleSaveEditBio() {
         try {
-            await updateUserById({ bio }, Number(userInPage?.id));
+            await updateUserById({ bio }, Number(userInPage.id));
             setIsBioEditing(false);
             showToast("success", "Bio updated succesfully");
         } catch (error) {
@@ -100,7 +100,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
 
     async function handleSaveEditUserName() {
         try {
-            await updateUserById({ userName }, Number(userInPage?.id));
+            await updateUserById({ userName }, Number(userInPage.id));
             setIsUserNameEditing(false);
             showToast("success", "Username updated succesfully");
         } catch (error) {
@@ -116,7 +116,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
 
     async function handleSaveEditEmail() {
         try {
-            await updateUserById({ email }, Number(userInPage?.id));
+            await updateUserById({ email }, Number(userInPage.id));
             setIsEmailEditing(false);
             showToast("success", "Email updated succesfully");
         } catch (error) {
@@ -258,7 +258,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         <IconButton
                                             onClick={() => {
                                                 setIsUserNameEditing(false);
-                                                setUserName(userInPage?.userName);
+                                                setUserName(userInPage.userName);
                                             }}
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
@@ -357,7 +357,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         <IconButton
                                             onClick={() => {
                                                 setIsEmailEditing(false);
-                                                setEmail(userInPage?.email);
+                                                setEmail(userInPage.email);
                                             }}
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
@@ -430,7 +430,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         <IconButton
                                             onClick={() => {
                                                 setIsBioEditing(false);
-                                                setBio(userInPage?.bio);
+                                                setBio(userInPage.bio);
                                             }}
                                             sx={{
                                                 color: theme.vars.palette.primary.main,
@@ -484,19 +484,19 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Movies:</strong> {userInPage?.favMovies?.length}
+                                        <strong>Favorite Movies:</strong> {userInPage.favMovies.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Series:</strong> {userInPage?.favSeries?.length}
+                                        <strong>Favorite Series:</strong> {userInPage.favSeries.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Actors:</strong> {userInPage?.favActors?.length}
+                                        <strong>Favorite Actors:</strong> {userInPage.favActors.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Episodes:</strong> {userInPage?.favEpisodes?.length}
+                                        <strong>Favorite Episodes:</strong> {userInPage.favEpisodes.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Seasons:</strong> {userInPage?.favSeasons?.length}
+                                        <strong>Favorite Seasons:</strong> {userInPage.favSeasons.length}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -506,19 +506,19 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Movie Reviews:</strong> {userInPage?.movieReviews?.length}
+                                        <strong>Movie Reviews:</strong> {userInPage.movieReviews.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Series Reviews:</strong> {userInPage?.serieReviews?.length}
+                                        <strong>Series Reviews:</strong> {userInPage.serieReviews.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Actor Reviews:</strong> {userInPage?.actorReviews?.length}
+                                        <strong>Actor Reviews:</strong> {userInPage.actorReviews.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Season Reviews:</strong> {userInPage?.seasonReviews?.length}
+                                        <strong>Season Reviews:</strong> {userInPage.seasonReviews.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Episode Reviews:</strong> {userInPage?.episodeReviews?.length}
+                                        <strong>Episode Reviews:</strong> {userInPage.episodeReviews.length}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -528,19 +528,19 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Movies:</strong> {userInPage?.movieReviewsUpvoted?.length}
+                                        <strong>Upvoted Movies:</strong> {userInPage.movieReviewsUpvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Series:</strong> {userInPage?.serieReviewsUpvoted?.length}
+                                        <strong>Upvoted Series:</strong> {userInPage.serieReviewsUpvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Actors:</strong> {userInPage?.actorReviewsUpvoted?.length}
+                                        <strong>Upvoted Actors:</strong> {userInPage.actorReviewsUpvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Episodes:</strong> {userInPage?.episodeReviewsUpvoted?.length}
+                                        <strong>Upvoted Episodes:</strong> {userInPage.episodeReviewsUpvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Seasons:</strong> {userInPage?.seasonReviewsUpvoted?.length}
+                                        <strong>Upvoted Seasons:</strong> {userInPage.seasonReviewsUpvoted.length}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -550,20 +550,19 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Movies:</strong> {userInPage?.movieReviewsDownvoted?.length}
+                                        <strong>Downvoted Movies:</strong> {userInPage.movieReviewsDownvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Series:</strong> {userInPage?.serieReviewsDownvoted?.length}
+                                        <strong>Downvoted Series:</strong> {userInPage.serieReviewsDownvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Actors:</strong> {userInPage?.actorReviewsDownvoted?.length}
+                                        <strong>Downvoted Actors:</strong> {userInPage.actorReviewsDownvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Episodes:</strong>{" "}
-                                        {userInPage?.episodeReviewsDownvoted?.length}
+                                        <strong>Downvoted Episodes:</strong> {userInPage.episodeReviewsDownvoted.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Seasons:</strong> {userInPage?.seasonReviewsDownvoted?.length}
+                                        <strong>Downvoted Seasons:</strong> {userInPage.seasonReviewsDownvoted.length}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -573,10 +572,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Followers:</strong> {userInPage?.followers?.length}
+                                        <strong>Followers:</strong> {userInPage.followers.length}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Following:</strong> {userInPage?.following?.length}
+                                        <strong>Following:</strong> {userInPage.following.length}
                                     </Typography>
                                 </AccordionDetails>
                             </Accordion>
@@ -590,7 +589,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                             <Typography variant="h5">
                                                 Follower Requests (
                                                 {
-                                                    userInPage?.followers.filter(
+                                                    userInPage.followers.filter(
                                                         (userFollow: any) => userFollow.state === "pending",
                                                     ).length
                                                 }
@@ -598,7 +597,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                             </Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
-                                            {userInPage?.followers
+                                            {userInPage.followers
                                                 .filter((userFollow: any) => userFollow.state === "pending")
                                                 .map((userFollow: any, index: number) => (
                                                     <Box
@@ -736,15 +735,15 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             flexWrap: "wrap",
                         }}
                     >
-                        {userInPage?.avatar?.photoSrc ? (
+                        {userInPage.avatar!.photoSrc ? (
                             <Image
-                                alt={userInPage?.userName}
+                                alt={userInPage.userName}
                                 height={50}
                                 width={50}
                                 style={{
                                     borderRadius: 20,
                                 }}
-                                src={userInPage?.avatar?.photoSrc}
+                                src={userInPage.avatar!.photoSrc}
                             />
                         ) : (
                             <PersonIcon
@@ -755,7 +754,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             />
                         )}
                         <Typography variant="h3" component="span" sx={{ color: theme.vars.palette.primary.main }}>
-                            {userInPage?.userName}
+                            {userInPage.userName}
                         </Typography>
                     </Box>
                     <Box
@@ -769,7 +768,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                     >
                         <EmailIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                         <Typography variant="body1" sx={{ color: theme.vars.palette.primary.main }}>
-                            {userInPage?.email}
+                            {userInPage.email}
                         </Typography>
                     </Box>
                     <Box
@@ -782,7 +781,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                         }}
                     >
                         <DescriptionIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                        <Typography variant="body1">{userInPage?.bio}</Typography>
+                        <Typography variant="body1">{userInPage.bio}</Typography>
                     </Box>
                     <Typography variant="body1">
                         You cannot see anything from this user, you have to follow him first

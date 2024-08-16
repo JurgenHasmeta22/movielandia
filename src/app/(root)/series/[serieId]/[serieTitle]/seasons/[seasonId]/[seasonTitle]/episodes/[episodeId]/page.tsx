@@ -11,7 +11,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { episodeId } = params;
 
-    let episode: Episode | null = null;
+    let episode: Episode;
 
     try {
         episode = await getEpisodeById(Number(episodeId), {});
@@ -19,17 +19,17 @@ export async function generateMetadata({
         return notFound();
     }
 
-    const { description, photoSrcProd } = episode!;
+    const { description, photoSrcProd } = episode;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/episodes/${episode?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/episodes/${episode.title}`;
 
     return {
-        title: `${episode?.title} | Episode`,
-        description: `${episode?.description}`,
+        title: `${episode.title} | Episode`,
+        description: `${episode.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${episode?.title} | Episode`,
+            title: `${episode.title} | Episode`,
             description,
             images: photoSrcProd
                 ? [
@@ -47,7 +47,7 @@ export async function generateMetadata({
             card: "summary_large_image",
             site: "@episodeLandia24",
             creator: "episodeLandia24",
-            title: `${episode?.title} | Episode`,
+            title: `${episode.title} | Episode`,
             description,
             images: photoSrcProd
                 ? [

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
 export default async function Genres() {
     const genresData = await getGenres({});
-    const genres = genresData!.rows!;
+    const genres = genresData.rows;
 
     return (
         <Box
@@ -70,7 +70,9 @@ export default async function Genres() {
                     },
                 }}
             >
-                {genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)}
+                {genres.map((genre: Genre, index: number) => (
+                    <GenreItem key={index} genre={genre} />
+                ))}
             </Stack>
         </Box>
     );

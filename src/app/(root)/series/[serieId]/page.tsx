@@ -7,7 +7,7 @@ import SeriePage from "./[serieTitle]/page";
 export async function generateMetadata({ params }: { params: { serieId: string } }): Promise<Metadata> {
     const { serieId } = params;
 
-    let serie: Serie | null = null;
+    let serie: Serie;
 
     try {
         serie = await getSerieById(Number(serieId), {});
@@ -15,17 +15,17 @@ export async function generateMetadata({ params }: { params: { serieId: string }
         return notFound();
     }
 
-    const { description, photoSrcProd } = serie!;
+    const { description, photoSrcProd } = serie;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${serie?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/series/${serie.title}`;
 
     return {
-        title: `${serie?.title} | Serie`,
-        description: `${serie?.description}`,
+        title: `${serie.title} | Serie`,
+        description: `${serie.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${serie?.title} | Serie`,
+            title: `${serie.title} | Serie`,
             description,
             images: photoSrcProd
                 ? [
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: { serieId: string }
             card: "summary_large_image",
             site: "@serieLandia24",
             creator: "serieLandia24",
-            title: `${serie?.title} | Serie`,
+            title: `${serie.title} | Serie`,
             description,
             images: photoSrcProd
                 ? [

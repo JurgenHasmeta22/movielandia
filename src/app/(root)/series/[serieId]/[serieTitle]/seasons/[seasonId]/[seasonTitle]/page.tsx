@@ -17,7 +17,7 @@ interface ISeasonProps {
 export async function generateMetadata({ params }: ISeasonProps): Promise<Metadata> {
     const { seasonId } = params;
 
-    let season: Season | null = null;
+    let season: Season;
 
     try {
         season = await getSeasonById(Number(seasonId), {});
@@ -25,17 +25,17 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
         return notFound();
     }
 
-    const { description, photoSrcProd } = season!;
+    const { description, photoSrcProd } = season;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${season?.title}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${season.title}`;
 
     return {
-        title: `${season?.title} | Season`,
-        description: `${season?.description}`,
+        title: `${season.title} | Season`,
+        description: `${season.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${season?.title} | Season`,
+            title: `${season.title} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${season?.title} | Season`,
+            title: `${season.title} | Season`,
             description,
             images: photoSrcProd
                 ? [
@@ -76,9 +76,9 @@ export default async function SeasonPage({ searchParams, params }: ISeasonProps)
 
     const { seasonId, serieId } = params;
 
-    const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const page = searchParams?.reviewsPage ? Number(searchParams!.reviewsPage!) : 1;
-    const sortBy = searchParams?.reviewsSortBy ? searchParams?.reviewsSortBy : "";
+    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -86,7 +86,7 @@ export default async function SeasonPage({ searchParams, params }: ISeasonProps)
         userId: Number(session?.user?.id),
     };
 
-    let season = null;
+    let season;
 
     try {
         season = await getSeasonById(Number(seasonId), searchParamsValues);
@@ -97,7 +97,7 @@ export default async function SeasonPage({ searchParams, params }: ISeasonProps)
     const latestSeasons = await getLatestSeasons(Number(serieId));
     const relatedSeasons = await getRelatedSeasons(Number(seasonId), Number(serieId));
 
-    const pageCountReviews = Math.ceil(season?.totalReviews / 5);
+    const pageCountReviews = Math.ceil(season.totalReviews / 5);
 
     return (
         <SeasonPageConent

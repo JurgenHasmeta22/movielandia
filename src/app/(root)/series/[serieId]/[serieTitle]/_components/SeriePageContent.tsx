@@ -74,7 +74,7 @@ export default function SeriePageContent({
 
         try {
             await addReviewSerie({
-                serieId: serie?.id,
+                serieId: serie.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -114,7 +114,7 @@ export default function SeriePageContent({
                     onClick: async () => {
                         try {
                             await removeReviewSerie({
-                                serieId: serie?.id,
+                                serieId: serie.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -146,7 +146,7 @@ export default function SeriePageContent({
 
         try {
             await updateReviewSerie({
-                serieId: serie?.id,
+                serieId: serie.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -173,15 +173,15 @@ export default function SeriePageContent({
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
+                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie.id, serieReviewId });
             } else {
                 await removeDownvoteSerieReview({
                     userId: Number(session?.user?.id),
-                    serieId: serie?.id,
+                    serieId: serie.id,
                     serieReviewId,
                 });
 
-                await addUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
+                await addUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie.id, serieReviewId });
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -199,12 +199,12 @@ export default function SeriePageContent({
             if (isAlreadyDownvoted) {
                 await removeDownvoteSerieReview({
                     userId: Number(session?.user?.id),
-                    serieId: serie?.id,
+                    serieId: serie.id,
                     serieReviewId,
                 });
             } else {
-                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
-                await addDownvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie?.id, serieReviewId });
+                await removeUpvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie.id, serieReviewId });
+                await addDownvoteSerieReview({ userId: Number(session?.user?.id), serieId: serie.id, serieReviewId });
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -290,11 +290,11 @@ export default function SeriePageContent({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: serie?.reviews!.length > 0 ? 4 : 0,
+                    mb: serie.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >
-                {serie?.reviews!.length > 0 && (
+                {serie.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={serie}
                         sortingDataType="reviews"
@@ -302,7 +302,7 @@ export default function SeriePageContent({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {serie?.reviews!.map((review: any, index: number) => (
+                {serie.reviews!.map((review: any, index: number) => (
                     <Review
                         key={index}
                         review={review}
@@ -321,7 +321,7 @@ export default function SeriePageContent({
                         handleOpenDownvotesModal={handleOpenDownvotesModal}
                     />
                 ))}
-                {serie?.totalReviews > 0 && (
+                {serie.totalReviews > 0 && (
                     <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
                 {session?.user && (!serie.isReviewed || isEditMode) && (
@@ -344,7 +344,7 @@ export default function SeriePageContent({
             {relatedSeries && relatedSeries.length !== 0 && (
                 <ListDetail data={relatedSeries} type="serie" roleData="related" />
             )}
-            <ListDetail data={serie?.seasons} type="season" roleData="season" />
+            <ListDetail data={serie.seasons} type="season" roleData="season" />
             <ListDetail data={serie.cast} type="actor" roleData="cast" />
         </Stack>
     );
