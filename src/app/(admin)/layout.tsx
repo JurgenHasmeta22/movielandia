@@ -1,4 +1,3 @@
-import "@mui/material-pigment-css/styles.css";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
