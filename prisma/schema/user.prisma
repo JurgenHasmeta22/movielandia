@@ -5,6 +5,8 @@ model User {
     password                String
     role                    String                  @default("User")
     bio                     String                  @default("")
+    active                  Boolean                 @default(false)
+    activateTokens          ActivateToken[]
     favMovies               UserMovieFavorite[]
     favSeries               UserSerieFavorite[]
     favGenres               UserGenreFavorite[]
@@ -37,6 +39,15 @@ model User {
     inboxs                  UserInbox[]
     messagesSent            Message[]               @relation("Sender")
     messagesReceived        Message[]               @relation("Reciever")
+}
+
+model ActivateToken {
+    id          Int       @id @default(autoincrement())
+    token       String    @unique
+    createdAt   DateTime  @default(now())
+    activatedAt DateTime?
+    userId      Int
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Avatar {

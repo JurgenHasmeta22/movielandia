@@ -17,7 +17,6 @@ import * as yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import { signUp } from "@/actions/auth.actions";
 import EmailIcon from "@mui/icons-material/Email";
@@ -50,10 +49,9 @@ export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
-    const router = useRouter();
-
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
     const handleClickShowPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
     const handleMouseDownPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
 
@@ -72,16 +70,17 @@ export default function LoginForm() {
             password: values.password,
         };
 
-        const result = await signUp(userData);
-
-        if (!result) {
-            showToast("error", "User already exists or something is wrong with the data you provided!");
-        } else {
-            router.push("/login");
+        try {
+            await signUp(userData);
+            setSubmitting(false);
             showToast("success", "You are succesfully registered!");
+        } catch (error) {
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while registering the user.");
+            }
         }
-
-        setSubmitting(false);
     }
 
     return (
