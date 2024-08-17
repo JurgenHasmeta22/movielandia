@@ -73,7 +73,6 @@ export default function LoginForm() {
         try {
             await signUp(userData);
             setSubmitting(false);
-            showToast("success", "You are succesfully registered!");
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
