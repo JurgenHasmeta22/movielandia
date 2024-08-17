@@ -8,25 +8,37 @@ export async function GET(request: Request) {
     const email = searchParams.get("email");
 
     if (!token || !email) {
-        return NextResponse.redirect("/error");
+        return NextResponse.json({ message: "Invalid or missing token/email" }, { status: 400 });
     }
 
-    const userToken = await prisma.activateToken.findFirst({
-        where: { token, user: { email } },
-    });
+    try {
+        const activateToken = await prisma.activateToken.findFirst({
+            where: {
+                token,
+                activatedAt: null,
+            },
+            include: {
+                user: true,
+            },
+        });
 
-    if (!userToken) {
-        return NextResponse.redirect("/error");
+        if (!activateToken || activateToken.user.email !== email) {
+            return NextResponse.json({ message: "Invalid token or email" }, { status: 400 });
+        }
+
+        await prisma.user.update({
+            where: { id: activateToken.userId },
+            data: { active: true },
+        });
+
+        await prisma.activateToken.update({
+            where: { id: activateToken.id },
+            data: { activatedAt: new Date() },
+        });
+
+        return NextResponse.json({ message: "Email verified successfully." });
+    } catch (error) {
+        // console.error("Verification error:", error);
+        return NextResponse.json({ message: "An error occurred during verification." }, { status: 500 });
     }
-
-    await prisma.user.update({
-        where: { id: userToken.userId },
-        data: { active: true },
-    });
-
-    await prisma.activateToken.delete({
-        where: { id: userToken.id },
-    });
-
-    return NextResponse.redirect("/login");
 }

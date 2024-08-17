@@ -1,3 +1,5 @@
+"use server";
+
 import { hashSync } from "bcrypt";
 import { User } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
@@ -47,7 +49,7 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
                     react: RegistrationEmail({ userName, email, token: token.token }),
                 });
 
-                redirect("/login");
+                redirect(`/verification-sent?email=${encodeURIComponent(email)}`);
             } else {
                 throw new Error("Failed to register user.");
             }
