@@ -1,18 +1,18 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, CircularProgress } from "@mui/material";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function VerifyPage() {
+    const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState("");
+
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const email = searchParams.get("email");
     const token = searchParams.get("token");
-
-    const [loading, setLoading] = useState(true);
-    const [message, setMessage] = useState("");
 
     useEffect(() => {
         const verifyToken = async () => {
@@ -29,9 +29,8 @@ export default function VerifyPage() {
 
                 if (res.ok) {
                     setMessage("Your email has been successfully verified. Redirecting to login...");
-                    setTimeout(() => {
-                        router.push("/login");
-                    }, 3000);
+                    router.push("/login");
+                    router.refresh();
                 } else {
                     const data = await res.json();
                     setMessage(data.message || "Verification failed.");
@@ -44,7 +43,7 @@ export default function VerifyPage() {
         };
 
         verifyToken();
-    }, [email, token, router]);
+    }, [email, token]);
 
     return (
         <Container
@@ -66,12 +65,23 @@ export default function VerifyPage() {
                     backgroundColor: "background.paper",
                 }}
             >
-                <Typography variant="h4" component="h1" gutterBottom>
-                    {loading ? "Verifying Your Email..." : "Verification Result"}
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 3 }}>
-                    {message}
-                </Typography>
+                {loading ? (
+                    <>
+                        <CircularProgress sx={{ mb: 2 }} />
+                        <Typography variant="h5" component="p">
+                            Verifying your email...
+                        </Typography>
+                    </>
+                ) : (
+                    <>
+                        <Typography variant="h4" component="h1" gutterBottom>
+                            Verification Result
+                        </Typography>
+                        <Typography variant="body1" sx={{ mb: 3 }}>
+                            {message}
+                        </Typography>
+                    </>
+                )}
             </Box>
         </Container>
     );
