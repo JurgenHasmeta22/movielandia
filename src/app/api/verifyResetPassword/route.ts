@@ -26,6 +26,11 @@ export async function GET(request: Request) {
             return NextResponse.json({ message: "Invalid token or email" }, { status: 400 });
         }
 
+        await prisma.user.update({
+            where: { id: resetPasswordToken.userId },
+            data: { canResetPassword: true },
+        });
+
         await prisma.resetPasswordToken.update({
             where: { id: resetPasswordToken.id },
             data: { resetPasswordAt: new Date() },
