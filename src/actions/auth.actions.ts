@@ -54,7 +54,7 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
                     react: RegistrationEmail({ userName, email, token: token.token }),
                 });
 
-                redirect(`/verification-sent?email=${encodeURIComponent(email)}`);
+                redirect(`/register-verification-sent?email=${encodeURIComponent(email)}`);
             } else {
                 throw new Error("Failed to register user.");
             }

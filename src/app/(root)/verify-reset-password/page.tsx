@@ -1,7 +1,11 @@
 import { Box, Container, Typography } from "@mui/material";
 import Link from "next/link";
 
-export default async function VerifyPage({ searchParams }: { searchParams: { token: string; email: string } }) {
+export default async function VerifyResetPasswordPage({
+    searchParams,
+}: {
+    searchParams: { token: string; email: string };
+}) {
     const { token, email } = searchParams;
 
     let message = "";
@@ -9,7 +13,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: { tok
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verify?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`,
+            `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verifyResetPassword?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`,
         );
 
         if (!res.ok) {
@@ -17,10 +21,10 @@ export default async function VerifyPage({ searchParams }: { searchParams: { tok
             throw new Error(data.message || "Verification failed.");
         }
 
-        message = "Your email has been successfully verified. Now you can freely login.";
+        message = "Your email has been successfully verified. Now you can change the passowrd.";
     } catch (error: any) {
         isError = true;
-        message = error.message || "Verification failed. Go back and try registering again";
+        message = error.message || "Verification failed. Go back and check the email";
     }
 
     return (

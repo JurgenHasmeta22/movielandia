@@ -7,7 +7,7 @@ interface IRegistrationEmailProps {
 }
 
 export default function RegistrationEmail({ userName, email, token }: IRegistrationEmailProps) {
-    const verificationLink = `https://movielandia-avenger22s-projects.vercel.app/verify?token=${token}&email=${email}`;
+    const verificationLink = `https://movielandia-avenger22s-projects.vercel.app/verify-register?token=${token}&email=${email}`;
 
     return (
         <Html>
