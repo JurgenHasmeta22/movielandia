@@ -3,12 +3,7 @@ import { prisma } from "../../../../prisma/config/prisma";
 import { hashSync } from "bcrypt";
 
 export async function POST(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get("email");
-
-    const { newPassword } = await request.json();
-
-    // console.log(searchParams, newPassword)
+    const { newPassword, email } = await request.json();
 
     if (!email || !newPassword) {
         return NextResponse.json({ message: "Invalid or missing email or password" }, { status: 400 });
@@ -45,6 +40,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ message: "Password is changed successfully." });
     } catch (error) {
+        // console.error("Error occurred:", error);
         return NextResponse.json({ message: "An error occurred during changing the password." }, { status: 500 });
     }
 }
