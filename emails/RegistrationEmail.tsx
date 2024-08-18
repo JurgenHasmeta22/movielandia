@@ -1,5 +1,4 @@
 import { Html, Head, Preview, Body, Container, Heading, Text, Button, Link } from "@react-email/components";
-import * as React from "react";
 
 interface IRegistrationEmailProps {
     userName: string;

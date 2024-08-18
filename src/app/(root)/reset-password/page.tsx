@@ -4,24 +4,32 @@ import { Box, Button, FormLabel, TextField, Typography } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import EmailIcon from "@mui/icons-material/Email";
-import { useState } from "react";
 import { showToast } from "@/utils/helpers/toast";
+import { resetPassword } from "@/actions/auth.actions";
 
 const resetPasswordSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
 });
 
 export default function ResetPasswordPage() {
-    const [isSubmitting, setSubmitting] = useState(false);
-
     async function handleSubmitResetPassword(
         values: { email: string },
         setSubmitting: (isSubmitting: boolean) => void,
     ) {
-        setSubmitting(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        showToast("success", "If an account exists for this email, you will receive a password reset link.");
-        setSubmitting(false);
+        const userData = {
+            email: values.email,
+        };
+
+        try {
+            await resetPassword(userData);
+            setSubmitting(false);
+        } catch (error) {
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while resetting the password.");
+            }
+        }
     }
 
     return (
@@ -47,7 +55,7 @@ export default function ResetPasswordPage() {
                     handleSubmitResetPassword(values, setSubmitting);
                 }}
             >
-                {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
+                {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
                     <Form onSubmit={handleSubmit}>
                         <Box
                             sx={{
