@@ -11,6 +11,7 @@ import {
     InputAdornment,
     TextField,
     Typography,
+    Link as MuiLink,
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
@@ -59,7 +60,7 @@ export default function LoginForm() {
         } else if (result?.url) {
             router.push(result.url);
             router.refresh();
-            showToast("success", "You are succesfully logged in!");
+            showToast("success", "You are successfully logged in!");
         }
 
         setSubmitting(false);
@@ -176,18 +177,27 @@ export default function LoginForm() {
                             </Typography>
                         </Button>
                         <Box>
-                            <Typography
-                                component={"span"}
-                                sx={{ fontSize: 12, paddingLeft: 4, textTransform: "capitalize" }}
+                            <MuiLink
+                                component={Link}
+                                href="/reset-password"
+                                underline="none"
+                                sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
                             >
-                                Don&apos;t have an account ?
+                                Forgot Password?
+                            </MuiLink>
+                        </Box>
+                        <Box>
+                            <Typography component={"span"} sx={{ fontSize: 14, pl: 4, textTransform: "capitalize" }}>
+                                Don&apos;t have an account?
                             </Typography>
-                            <Link
-                                style={{ textDecoration: "none", paddingLeft: 4, textTransform: "capitalize" }}
-                                href={"/register"}
+                            <MuiLink
+                                component={Link}
+                                href="/register"
+                                underline="none"
+                                sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4, textTransform: "capitalize" }}
                             >
                                 Sign Up
-                            </Link>
+                            </MuiLink>
                         </Box>
                     </Box>
                 </Form>
