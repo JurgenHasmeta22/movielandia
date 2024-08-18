@@ -2,10 +2,8 @@
 
 import { headers } from "next/headers";
 import { Prisma, User } from "@prisma/client";
-import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { prisma } from "../../prisma/config/prisma";
-import { RatingsMap } from "./season.actions";
 import { revalidatePath } from "next/cache";
 import { type } from "os";
 
