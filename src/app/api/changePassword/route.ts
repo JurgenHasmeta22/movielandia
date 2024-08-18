@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "../../../../prisma/config/prisma";
-import bcrypt, { hashSync } from "bcrypt";
+import { hashSync } from "bcrypt";
 
 export async function POST(request: Request) {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get("email");
 
     const { newPassword } = await request.json();
+
+    // console.log(searchParams, newPassword)
 
     if (!email || !newPassword) {
         return NextResponse.json({ message: "Invalid or missing email or password" }, { status: 400 });

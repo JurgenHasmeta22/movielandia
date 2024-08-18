@@ -59,7 +59,7 @@ export default function ChangePasswordForm() {
 
             if (response.ok) {
                 showToast("success", "Your password has been changed successfully.");
-                router.push("/");
+                router.push("/login");
             } else {
                 const data = await response.json();
                 showToast("error", data.message || "An error occurred. Please try again.");
@@ -81,119 +81,123 @@ export default function ChangePasswordForm() {
         >
             {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
                 <Form onSubmit={handleSubmit}>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
-                        <Box
-                            display={"flex"}
-                            flexDirection="row"
-                            columnGap={1}
-                            alignItems={"center"}
-                            justifyContent={"center"}
-                            sx={{ pb: 4 }}
-                        >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: 6,
+                            height: "100vh",
+                        }}
+                    >
+                        <Box display={"flex"} flexDirection="row" columnGap={1} sx={{ pb: 4 }}>
                             <LockOutlinedIcon fontSize="large" />
                             <Typography variant="h2" textAlign={"center"}>
                                 Change Password
                             </Typography>
                         </Box>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel component={"label"}>New Password</FormLabel>
-                            </Box>
-                            <FormControl variant="outlined" fullWidth size="small">
-                                <Box sx={{ minHeight: "100px" }}>
-                                    <TextField
-                                        type={showNewPassword ? "text" : "password"}
-                                        name="newPassword"
-                                        required
-                                        autoComplete="new-password"
-                                        aria-label="New password"
-                                        hiddenLabel={true}
-                                        aria-autocomplete="both"
-                                        value={values.newPassword}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        size="small"
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle new password visibility"
-                                                        onClick={handleClickShowNewPassword}
-                                                        edge="end"
-                                                    >
-                                                        {showNewPassword ? <Visibility /> : <VisibilityOff />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        error={touched.newPassword && !!errors.newPassword}
-                                    />
-                                    {touched.newPassword && errors.newPassword && (
-                                        <FormHelperText
-                                            error
-                                            sx={{
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "200px",
-                                            }}
-                                        >
-                                            {errors.newPassword}
-                                        </FormHelperText>
-                                    )}
+                        <Box display={"flex"} flexDirection={"row"} columnGap={3}>
+                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <PasswordIcon />
+                                    <FormLabel component={"label"}>New Password</FormLabel>
                                 </Box>
-                            </FormControl>
-                        </Box>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel component={"label"}>Confirm New Password</FormLabel>
-                            </Box>
-                            <FormControl variant="outlined" fullWidth size="small">
-                                <Box sx={{ minHeight: "100px" }}>
-                                    <TextField
-                                        type={showConfirmPassword ? "text" : "password"}
-                                        name="confirmPassword"
-                                        required
-                                        autoComplete="new-password"
-                                        aria-label="Confirm new password"
-                                        hiddenLabel={true}
-                                        aria-autocomplete="both"
-                                        value={values.confirmPassword}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        size="small"
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle confirm password visibility"
-                                                        onClick={handleClickShowConfirmPassword}
-                                                        edge="end"
-                                                    >
-                                                        {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        error={touched.confirmPassword && !!errors.confirmPassword}
-                                    />
-                                    {touched.confirmPassword && errors.confirmPassword && (
-                                        <FormHelperText
-                                            error
-                                            sx={{
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "200px",
+                                <FormControl variant="outlined" fullWidth size="small">
+                                    <Box sx={{ minHeight: "100px" }}>
+                                        <TextField
+                                            type={showNewPassword ? "text" : "password"}
+                                            name="newPassword"
+                                            required
+                                            autoComplete="new-password"
+                                            aria-label="New password"
+                                            hiddenLabel={true}
+                                            aria-autocomplete="both"
+                                            value={values.newPassword}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            size="small"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle new password visibility"
+                                                            onClick={handleClickShowNewPassword}
+                                                            edge="end"
+                                                        >
+                                                            {showNewPassword ? <Visibility /> : <VisibilityOff />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
                                             }}
-                                        >
-                                            {errors.confirmPassword}
-                                        </FormHelperText>
-                                    )}
+                                            error={touched.newPassword && !!errors.newPassword}
+                                        />
+                                        {touched.newPassword && errors.newPassword && (
+                                            <FormHelperText
+                                                error
+                                                sx={{
+                                                    whiteSpace: "normal",
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
+                                                }}
+                                            >
+                                                {errors.newPassword}
+                                            </FormHelperText>
+                                        )}
+                                    </Box>
+                                </FormControl>
+                            </Box>
+                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <PasswordIcon />
+                                    <FormLabel component={"label"}>Confirm New Password</FormLabel>
                                 </Box>
-                            </FormControl>
+                                <FormControl variant="outlined" fullWidth size="small">
+                                    <Box sx={{ minHeight: "100px" }}>
+                                        <TextField
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            name="confirmPassword"
+                                            required
+                                            autoComplete="new-password"
+                                            aria-label="Confirm new password"
+                                            hiddenLabel={true}
+                                            aria-autocomplete="both"
+                                            value={values.confirmPassword}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            size="small"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle confirm password visibility"
+                                                            onClick={handleClickShowConfirmPassword}
+                                                            edge="end"
+                                                        >
+                                                            {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            error={touched.confirmPassword && !!errors.confirmPassword}
+                                        />
+                                        {touched.confirmPassword && errors.confirmPassword && (
+                                            <FormHelperText
+                                                error
+                                                sx={{
+                                                    whiteSpace: "normal",
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
+                                                }}
+                                            >
+                                                {errors.confirmPassword}
+                                            </FormHelperText>
+                                        )}
+                                    </Box>
+                                </FormControl>
+                            </Box>
                         </Box>
                         <Button
                             type="submit"
