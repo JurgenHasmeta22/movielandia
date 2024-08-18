@@ -20,6 +20,10 @@ import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import PasswordIcon from "@mui/icons-material/Password";
 
+interface IChangePassword {
+    email: string;
+}
+
 const changePasswordSchema = yup.object().shape({
     newPassword: yup
         .string()
@@ -35,7 +39,7 @@ const changePasswordSchema = yup.object().shape({
         .oneOf([yup.ref("newPassword")], "Passwords must match"),
 });
 
-export default function ChangePasswordForm() {
+export default function ChangePasswordForm({ email }: IChangePassword) {
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -54,7 +58,7 @@ export default function ChangePasswordForm() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ newPassword: values.newPassword }),
+                body: JSON.stringify({ newPassword: values.newPassword, email }),
             });
 
             if (response.ok) {
