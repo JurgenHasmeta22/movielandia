@@ -6,6 +6,7 @@ model User {
     role                    String                  @default("User")
     bio                     String                  @default("")
     active                  Boolean                 @default(false)
+    resetPassowrdTokens     ResetPasswordToken[]
     activateTokens          ActivateToken[]
     favMovies               UserMovieFavorite[]
     favSeries               UserSerieFavorite[]
@@ -47,7 +48,16 @@ model ActivateToken {
     createdAt   DateTime  @default(now())
     activatedAt DateTime?
     userId      Int
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model ResetPasswordToken {
+    id              Int       @id @default(autoincrement())
+    token           String    @unique
+    createdAt       DateTime  @default(now())
+    resetPasswordAt DateTime?
+    userId          Int
+    user            User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Avatar {
