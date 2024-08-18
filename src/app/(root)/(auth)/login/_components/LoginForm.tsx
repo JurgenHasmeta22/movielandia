@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
@@ -178,6 +179,19 @@ export default function LoginForm() {
                                 sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
                             >
                                 Sign In
+                            </Typography>
+                        </Button>
+                        <Button
+                            onClick={() => signIn("google", { callbackUrl: "/" })}
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1 }}
+                        >
+                            <GoogleIcon />
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            >
+                                Continue with Google
                             </Typography>
                         </Button>
                         <Box>
