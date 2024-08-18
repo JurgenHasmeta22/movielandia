@@ -130,7 +130,6 @@ export default function LoginForm() {
                                         <PersonIcon />
                                         <FormLabel component={"label"}>Username</FormLabel>
                                     </Box>
-                                    {/* <Box sx={{ minHeight: "40px" }}> */}
                                     <TextField
                                         type="text"
                                         name="userName"
@@ -149,14 +148,12 @@ export default function LoginForm() {
                                         error={touched.userName && !!errors.userName}
                                         helperText={touched.userName && errors.userName}
                                     />
-                                    {/* </Box> */}
                                 </FormControl>
                                 <FormControl fullWidth variant="outlined" size="small">
                                     <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                                         <EmailIcon />
                                         <FormLabel component={"label"}>Email</FormLabel>
                                     </Box>
-                                    {/* <Box sx={{ minHeight: "80px" }}> */}
                                     <TextField
                                         type="text"
                                         name="email"
@@ -175,7 +172,6 @@ export default function LoginForm() {
                                         error={touched.email && !!errors.email}
                                         helperText={touched.email && errors.email}
                                     />
-                                    {/* </Box> */}
                                 </FormControl>
                             </Box>
                             <Box display={"flex"} flexDirection={"row"} columnGap={2}>

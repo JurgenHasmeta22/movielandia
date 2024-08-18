@@ -38,10 +38,10 @@ const loginSchema = yup.object().shape({
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
 
-    const router = useRouter();
-
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+    const router = useRouter();
 
     async function handleSubmitLogin(
         values: { email: string; password: string },
@@ -55,7 +55,7 @@ export default function LoginForm() {
         });
 
         if (result?.error) {
-            showToast("error", "Your credentials are wrong!");
+            showToast("error", result?.error);
         } else if (result?.url) {
             router.push(result.url);
             router.refresh();
