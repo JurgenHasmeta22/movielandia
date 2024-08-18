@@ -29,7 +29,7 @@ export default function ResetPasswordVerifyPage() {
                     }}
                 >
                     <Typography variant="body1" sx={{ mb: 3 }}>
-                        We have sent a reset passoword verification link to <strong>{email}</strong>.
+                        We have sent a reset password verification link to <strong>{email}</strong>.
                     </Typography>
                     <Typography variant="body2">
                         Please check your email and follow the instructions to reset your password.
