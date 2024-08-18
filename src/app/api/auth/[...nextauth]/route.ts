@@ -1,4 +1,5 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import { prisma } from "../../../../../prisma/config/prisma";
@@ -8,16 +9,19 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        }),
         CredentialsProvider({
             name: "Credentials",
             credentials: {
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
-
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
-                    return null;
+                    throw new Error("Missing credentials");
                 }
 
                 const user = await prisma.user.findUnique({
@@ -25,13 +29,17 @@ export const authOptions: NextAuthOptions = {
                 });
 
                 if (!user) {
-                    return null;
+                    throw new Error("No user found with this email");
+                }
+
+                if (!user.active) {
+                    throw new Error("User is not active. Please verify your email.");
                 }
 
                 const isPasswordValid = await compare(credentials.password, user.password);
 
                 if (!isPasswordValid) {
-                    return null;
+                    throw new Error("Invalid credentials");
                 }
 
                 return {

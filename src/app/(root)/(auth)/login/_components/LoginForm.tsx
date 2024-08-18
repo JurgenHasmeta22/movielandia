@@ -11,6 +11,7 @@ import {
     InputAdornment,
     TextField,
     Typography,
+    Link as MuiLink,
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as yup from "yup";
@@ -22,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
@@ -38,10 +40,10 @@ const loginSchema = yup.object().shape({
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
 
-    const router = useRouter();
-
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+    const router = useRouter();
 
     async function handleSubmitLogin(
         values: { email: string; password: string },
@@ -55,11 +57,11 @@ export default function LoginForm() {
         });
 
         if (result?.error) {
-            showToast("error", "Your credentials are wrong!");
+            showToast("error", result?.error);
         } else if (result?.url) {
             router.push(result.url);
             router.refresh();
-            showToast("success", "You are succesfully logged in!");
+            showToast("success", "You are successfully logged in!");
         }
 
         setSubmitting(false);
@@ -89,77 +91,81 @@ export default function LoginForm() {
                                 Sign In
                             </Typography>
                         </Box>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <EmailIcon />
-                                <FormLabel component={"label"}>Email</FormLabel>
-                            </Box>
-                            <TextField
-                                type="text"
-                                name="email"
-                                aria-label="Email"
-                                required
-                                value={values.email}
-                                onChange={handleChange}
-                                autoComplete="username"
-                                hiddenLabel={true}
-                                aria-autocomplete="both"
-                                onBlur={handleBlur}
-                                size="small"
-                                helperText={touched["email"] && errors["email"]}
-                                error={touched["email"] && !!errors["email"]}
-                            />
-                        </Box>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel component={"label"}>Password</FormLabel>
-                            </Box>
-                            <FormControl variant="outlined" fullWidth size="small">
-                                <Box sx={{ minHeight: "100px" }}>
-                                    <TextField
-                                        type={showPassword ? "text" : "password"}
-                                        name="password"
-                                        required
-                                        autoComplete="current-password"
-                                        aria-label="Current password"
-                                        hiddenLabel={true}
-                                        aria-autocomplete="both"
-                                        value={values.password}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        size="small"
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle password visibility"
-                                                        onClick={handleClickShowPassword}
-                                                        onMouseDown={handleMouseDownPassword}
-                                                        edge="end"
-                                                    >
-                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        error={touched.password && !!errors.password}
-                                    />
-                                    {touched.password && errors.password && (
-                                        <FormHelperText
-                                            error
-                                            sx={{
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "200px",
-                                            }}
-                                        >
-                                            {errors.password}
-                                        </FormHelperText>
-                                    )}
+                        <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <EmailIcon />
+                                    <FormLabel component={"label"}>Email</FormLabel>
                                 </Box>
-                            </FormControl>
+                                <TextField
+                                    type="text"
+                                    name="email"
+                                    aria-label="Email"
+                                    required
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    autoComplete="username"
+                                    hiddenLabel={true}
+                                    aria-autocomplete="both"
+                                    onBlur={handleBlur}
+                                    size="small"
+                                    helperText={touched["email"] && errors["email"]}
+                                    error={touched["email"] && !!errors["email"]}
+                                    fullWidth
+                                />
+                            </Box>
+                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                    <PasswordIcon />
+                                    <FormLabel component={"label"}>Password</FormLabel>
+                                </Box>
+                                <FormControl variant="outlined" fullWidth size="small">
+                                    <Box sx={{ minHeight: "100px" }}>
+                                        <TextField
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            required
+                                            autoComplete="current-password"
+                                            aria-label="Current password"
+                                            hiddenLabel={true}
+                                            aria-autocomplete="both"
+                                            value={values.password}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            size="small"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                        >
+                                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            error={touched.password && !!errors.password}
+                                            fullWidth
+                                        />
+                                        {touched.password && errors.password && (
+                                            <FormHelperText
+                                                error
+                                                sx={{
+                                                    whiteSpace: "normal",
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
+                                                }}
+                                            >
+                                                {errors.password}
+                                            </FormHelperText>
+                                        )}
+                                    </Box>
+                                </FormControl>
+                            </Box>
                         </Box>
                         <Button
                             type="submit"
@@ -175,19 +181,41 @@ export default function LoginForm() {
                                 Sign In
                             </Typography>
                         </Button>
-                        <Box>
+                        <Button
+                            onClick={() => signIn("google", { callbackUrl: "/" })}
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1 }}
+                        >
+                            <GoogleIcon />
                             <Typography
                                 component={"span"}
-                                sx={{ fontSize: 12, paddingLeft: 4, textTransform: "capitalize" }}
+                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
                             >
-                                Don&apos;t have an account ?
+                                Continue with Google
                             </Typography>
-                            <Link
-                                style={{ textDecoration: "none", paddingLeft: 4, textTransform: "capitalize" }}
-                                href={"/register"}
+                        </Button>
+                        <Box>
+                            <MuiLink
+                                component={Link}
+                                href="/reset-password"
+                                underline="none"
+                                sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
+                            >
+                                Forgot Password?
+                            </MuiLink>
+                        </Box>
+                        <Box>
+                            <Typography component={"span"} sx={{ fontSize: 14, pl: 4, textTransform: "capitalize" }}>
+                                Don&apos;t have an account?
+                            </Typography>
+                            <MuiLink
+                                component={Link}
+                                href="/register"
+                                underline="none"
+                                sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4, textTransform: "capitalize" }}
                             >
                                 Sign Up
-                            </Link>
+                            </MuiLink>
                         </Box>
                     </Box>
                 </Form>
