@@ -38,7 +38,6 @@ export async function GET(request: Request) {
 
         return NextResponse.json({ message: "Email verified successfully." });
     } catch (error) {
-        // console.error("Verification error:", error);
         return NextResponse.json({ message: "An error occurred during verification." }, { status: 500 });
     }
 }

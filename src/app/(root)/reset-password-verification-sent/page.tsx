@@ -28,14 +28,11 @@ export default function ResetPasswordVerifyPage() {
                         backgroundColor: "background.paper",
                     }}
                 >
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        We have sent a link to reset your password !
-                    </Typography>
                     <Typography variant="body1" sx={{ mb: 3 }}>
-                        We have sent a reset passowrd verification link to <strong>{email}</strong>.
+                        We have sent a reset passoword verification link to <strong>{email}</strong>.
                     </Typography>
                     <Typography variant="body2">
-                        Please check your email and follow the instructions to verify your account.
+                        Please check your email and follow the instructions to reset your password.
                     </Typography>
                 </Box>
             ) : (

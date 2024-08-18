@@ -3,7 +3,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 
-export default function VerifyPage() {
+export default function VerifyRegisterPage() {
     const searchParams = useSearchParams();
     const email = searchParams.get("email");
 

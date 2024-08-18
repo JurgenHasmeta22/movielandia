@@ -7,7 +7,7 @@ interface IResetPasswordEmailProps {
 }
 
 const ResetPasswordEmail = ({ userName, email, token }: IResetPasswordEmailProps) => {
-    const verificationLink = `https://movielandia-avenger22s-projects.vercel.app/verify?token=${token}&email=${email}`;
+    const verificationLink = `https://movielandia-avenger22s-projects.vercel.app/verify-reset-password?token=${token}&email=${email}`;
 
     return (
         <Html>
