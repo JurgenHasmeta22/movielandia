@@ -71,7 +71,7 @@ export default async function VerifyResetPasswordPage({
                 ) : (
                     <Box>
                         <Link
-                            href={"/login"}
+                            href={`/change-password?email=${encodeURIComponent(email)}`}
                             prefetch={false}
                             style={{
                                 fontSize: "18px",
@@ -80,7 +80,7 @@ export default async function VerifyResetPasswordPage({
                                 textDecoration: "none",
                             }}
                         >
-                            Sign In
+                            Change Password
                         </Link>
                     </Box>
                 )}

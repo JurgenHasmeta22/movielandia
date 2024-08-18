@@ -72,13 +72,14 @@ export default function LoginForm() {
 
         try {
             await signUp(userData);
-            setSubmitting(false);
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
                 showToast("error", "An unexpected error occurred while registering the user.");
             }
+        } finally {
+            setSubmitting(false);
         }
     }
 
