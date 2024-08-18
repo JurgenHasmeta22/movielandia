@@ -125,70 +125,152 @@ export default function LoginForm() {
                                     Sign Up
                                 </Typography>
                             </Box>
-                            <Box display={"flex"} flexDirection={"row"} columnGap={2}>
-                                <FormControl fullWidth variant="outlined" size="small">
-                                    <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                        <PersonIcon />
-                                        <FormLabel component={"label"}>Username</FormLabel>
-                                    </Box>
-                                    <TextField
-                                        type="text"
-                                        name="userName"
-                                        required
-                                        value={values.userName}
-                                        autoComplete="username"
-                                        aria-label="Username"
-                                        hiddenLabel={true}
-                                        aria-autocomplete="both"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
+                            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 4 }}>
+                                <Box display={"flex"} flexDirection={"row"} columnGap={4}>
+                                    <FormControl
+                                        fullWidth
+                                        variant="outlined"
                                         size="small"
-                                        InputProps={{
-                                            sx: { flexGrow: 1 },
+                                        sx={{
+                                            display: "flex",
+                                            rowGap: 1,
                                         }}
-                                        error={touched.userName && !!errors.userName}
-                                        helperText={touched.userName && errors.userName}
-                                    />
-                                </FormControl>
-                                <FormControl fullWidth variant="outlined" size="small">
-                                    <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                        <EmailIcon />
-                                        <FormLabel component={"label"}>Email</FormLabel>
-                                    </Box>
-                                    <TextField
-                                        type="text"
-                                        name="email"
-                                        required
-                                        value={values.email}
-                                        autoComplete="email"
-                                        aria-label="Email"
-                                        hiddenLabel={true}
-                                        aria-autocomplete="both"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        size="small"
-                                        InputProps={{
-                                            sx: { flexGrow: 1 },
-                                        }}
-                                        error={touched.email && !!errors.email}
-                                        helperText={touched.email && errors.email}
-                                    />
-                                </FormControl>
-                            </Box>
-                            <Box display={"flex"} flexDirection={"row"} columnGap={2}>
-                                <FormControl fullWidth variant="outlined" size="small">
-                                    <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                        <PasswordIcon />
-                                        <FormLabel component={"label"}>Password</FormLabel>
-                                    </Box>
-                                    <Box sx={{ minHeight: "100px" }}>
+                                    >
+                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                            <PersonIcon />
+                                            <FormLabel component={"label"}>Username</FormLabel>
+                                        </Box>
                                         <TextField
-                                            type={showPassword ? "text" : "password"}
-                                            name="password"
+                                            type="text"
+                                            name="userName"
                                             required
-                                            value={values.password}
+                                            value={values.userName}
+                                            autoComplete="username"
+                                            aria-label="Username"
+                                            hiddenLabel={true}
+                                            aria-autocomplete="both"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            size="small"
+                                            InputProps={{
+                                                sx: { flexGrow: 1 },
+                                            }}
+                                            error={touched.userName && !!errors.userName}
+                                            helperText={touched.userName && errors.userName}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        fullWidth
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                            display: "flex",
+                                            rowGap: 1,
+                                        }}
+                                    >
+                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                            <EmailIcon />
+                                            <FormLabel component={"label"}>Email</FormLabel>
+                                        </Box>
+                                        <TextField
+                                            type="text"
+                                            name="email"
+                                            required
+                                            value={values.email}
+                                            autoComplete="email"
+                                            aria-label="Email"
+                                            hiddenLabel={true}
+                                            aria-autocomplete="both"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            size="small"
+                                            InputProps={{
+                                                sx: { flexGrow: 1 },
+                                            }}
+                                            error={touched.email && !!errors.email}
+                                            helperText={touched.email && errors.email}
+                                        />
+                                    </FormControl>
+                                </Box>
+                                <Box display={"flex"} flexDirection={"row"} columnGap={4}>
+                                    <FormControl
+                                        fullWidth
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                            display: "flex",
+                                            rowGap: 1,
+                                        }}
+                                    >
+                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                            <PasswordIcon />
+                                            <FormLabel component={"label"}>Password</FormLabel>
+                                        </Box>
+                                        <Box sx={{ minHeight: "100px" }}>
+                                            <TextField
+                                                type={showPassword ? "text" : "password"}
+                                                name="password"
+                                                required
+                                                value={values.password}
+                                                autoComplete="current-password"
+                                                aria-label="Password"
+                                                hiddenLabel={true}
+                                                aria-autocomplete="both"
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                size="small"
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}
+                                                                edge="end"
+                                                            >
+                                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                    sx: { flexGrow: 1 },
+                                                }}
+                                                error={touched.password && !!errors.password}
+                                            />
+                                            {touched.password && errors.password && (
+                                                <FormHelperText
+                                                    error
+                                                    sx={{
+                                                        whiteSpace: "normal",
+                                                        overflowWrap: "break-word",
+                                                        wordWrap: "break-word",
+                                                        maxWidth: "220px",
+                                                    }}
+                                                >
+                                                    {errors.password}
+                                                </FormHelperText>
+                                            )}
+                                        </Box>
+                                    </FormControl>
+                                    <FormControl
+                                        fullWidth
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                            display: "flex",
+                                            rowGap: 1,
+                                        }}
+                                    >
+                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                            <PasswordIcon />
+                                            <FormLabel component={"label"}>Confirm Password</FormLabel>
+                                        </Box>
+                                        <TextField
+                                            type={showPasswordConfirm ? "text" : "password"}
+                                            name="confirmPassword"
+                                            required
+                                            value={values.confirmPassword}
                                             autoComplete="current-password"
-                                            aria-label="Password"
+                                            aria-label="Confirm password"
                                             hiddenLabel={true}
                                             aria-autocomplete="both"
                                             onChange={handleChange}
@@ -199,81 +281,33 @@ export default function LoginForm() {
                                                     <InputAdornment position="end">
                                                         <IconButton
                                                             aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
+                                                            onClick={handleClickShowPasswordConfirm}
+                                                            onMouseDown={handleMouseDownPasswordConfirm}
                                                             edge="end"
                                                         >
-                                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                            {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),
                                                 sx: { flexGrow: 1 },
                                             }}
-                                            error={touched.password && !!errors.password}
+                                            error={touched.confirmPassword && !!errors.confirmPassword}
                                         />
-                                        {touched.password && errors.password && (
+                                        {touched.confirmPassword && errors.confirmPassword && (
                                             <FormHelperText
                                                 error
                                                 sx={{
                                                     whiteSpace: "normal",
                                                     overflowWrap: "break-word",
                                                     wordWrap: "break-word",
-                                                    maxWidth: "220px",
+                                                    maxWidth: "100%",
                                                 }}
                                             >
-                                                {errors.password}
+                                                {errors.confirmPassword}
                                             </FormHelperText>
                                         )}
-                                    </Box>
-                                </FormControl>
-                                <FormControl fullWidth variant="outlined" size="small">
-                                    <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                        <PasswordIcon />
-                                        <FormLabel component={"label"}>Confirm Password</FormLabel>
-                                    </Box>
-                                    <TextField
-                                        type={showPasswordConfirm ? "text" : "password"}
-                                        name="confirmPassword"
-                                        required
-                                        value={values.confirmPassword}
-                                        autoComplete="current-password"
-                                        aria-label="Confirm password"
-                                        hiddenLabel={true}
-                                        aria-autocomplete="both"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        size="small"
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="toggle password visibility"
-                                                        onClick={handleClickShowPasswordConfirm}
-                                                        onMouseDown={handleMouseDownPasswordConfirm}
-                                                        edge="end"
-                                                    >
-                                                        {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                            sx: { flexGrow: 1 },
-                                        }}
-                                        error={touched.confirmPassword && !!errors.confirmPassword}
-                                    />
-                                    {touched.confirmPassword && errors.confirmPassword && (
-                                        <FormHelperText
-                                            error
-                                            sx={{
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "100%",
-                                            }}
-                                        >
-                                            {errors.confirmPassword}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
+                                    </FormControl>
+                                </Box>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "center" }}>
                                 <Button
