@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_extendTheme as extendTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const darkColorTokens = {
     grey: {
@@ -127,7 +127,7 @@ const lightColorTokens = {
 };
 
 export const theme = responsiveFontSizes(
-    extendTheme({
+    createTheme({
         colorSchemes: {
             light: {
                 palette: {
@@ -189,6 +189,9 @@ export const theme = responsiveFontSizes(
                     },
                 },
             },
+        },
+        cssVariables: {
+            colorSchemeSelector: "class",
         },
         typography: {
             fontSize: 12,

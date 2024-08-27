@@ -2,7 +2,7 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { ModalProvider } from "@/providers/ModalProvider";
 import { RightPanelProvider } from "@/providers/RightPanelProvider";
 import ToastProvider from "@/providers/ToastProvider";
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import { MUIThemeProvider } from "@/providers/ThemeProvider";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import AdminLayout from "@/layouts/AdminLayout";
 import { Montserrat } from "next/font/google";
@@ -34,17 +34,16 @@ export default function RootLayout({
         <html suppressHydrationWarning lang="en">
             <body className={montserrat.className}>
                 <AuthProvider>
-                    <InitColorSchemeScript defaultMode="dark" />
-                    <ThemeProvider>
+                    <InitColorSchemeScript attribute="class" />
+                    <MUIThemeProvider>
                         <ToastProvider>
                             <ModalProvider>
                                 <RightPanelProvider>
-                                    <InitColorSchemeScript defaultMode="dark" />
                                     <AdminLayout>{children}</AdminLayout>
                                 </RightPanelProvider>
                             </ModalProvider>
                         </ToastProvider>
-                    </ThemeProvider>
+                    </MUIThemeProvider>
                 </AuthProvider>
             </body>
         </html>
