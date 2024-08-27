@@ -23,8 +23,7 @@ const nextConfig = {
     },
 };
 
-// #region "Tokens colors"
-export const darkColorTokens = {
+const darkColorTokens = {
     grey: {
         100: "#e0e0e0",
         200: "#c2c2c2",
@@ -90,7 +89,7 @@ export const darkColorTokens = {
     },
 };
 
-export const lightColorTokens = {
+const lightColorTokens = {
     grey: {
         100: "#141414",
         200: "#292929",
@@ -147,178 +146,173 @@ export const lightColorTokens = {
         900: "#e1e2fe",
     },
 };
-// #endregion
-
-// #region "Theme palette"
-export const theme = responsiveFontSizes(
-    extendTheme({
-        colorSchemes: {
-            light: {
-                palette: {
-                    primary: {
-                        main: lightColorTokens.primary[100],
-                        dark: lightColorTokens.primary[900],
-                        light: lightColorTokens.primary[200],
-                    },
-                    blue: {
-                        main: lightColorTokens.blueAccent[700],
-                    },
-                    red: {
-                        main: lightColorTokens.redAccent[500],
-                    },
-                    green: {
-                        main: lightColorTokens.greenAccent[700],
-                        light: lightColorTokens.greenAccent[400],
-                    },
-                    secondary: {
-                        main: lightColorTokens.primary[500],
-                        light: lightColorTokens.primary[400],
-                        dark: lightColorTokens.primary[600],
-                    },
-                    background: {
-                        default: "#fcfcfc",
-                    },
-                    greyAccent: {
-                        main: lightColorTokens.grey[100],
-                    },
-                },
-            },
-            dark: {
-                palette: {
-                    primary: {
-                        main: darkColorTokens.primary[100],
-                        dark: darkColorTokens.primary[900],
-                        light: darkColorTokens.primary[200],
-                    },
-                    blue: {
-                        main: darkColorTokens.blueAccent[700],
-                    },
-                    red: {
-                        main: darkColorTokens.redAccent[500],
-                    },
-                    green: {
-                        main: darkColorTokens.greenAccent[700],
-                        light: darkColorTokens.greenAccent[400],
-                    },
-                    secondary: {
-                        main: darkColorTokens.primary[500],
-                        light: darkColorTokens.primary[400],
-                        dark: darkColorTokens.primary[600],
-                    },
-                    background: {
-                        default: darkColorTokens.primary[500],
-                    },
-                    greyAccent: {
-                        main: darkColorTokens.grey[100],
-                    },
-                },
-            },
-        },
-        cssVariables: {
-            colorSchemeSelector: "class",
-        },
-        typography: {
-            fontSize: 12,
-            h1: {
-                fontSize: 45,
-                "@media (max-width:600px)": {
-                    fontSize: "42px",
-                },
-            },
-            h2: {
-                fontSize: 35,
-                "@media (max-width:600px)": {
-                    fontSize: "32px",
-                },
-            },
-            h3: {
-                fontSize: 24,
-                "@media (max-width:600px)": {
-                    fontSize: "20px",
-                },
-            },
-            h4: {
-                fontSize: 20,
-                "@media (max-width:600px)": {
-                    fontSize: "18px",
-                },
-            },
-            h5: {
-                fontSize: 16,
-                "@media (max-width:600px)": {
-                    fontSize: "14px",
-                },
-            },
-            h6: {
-                fontSize: 14,
-                "@media (max-width:600px)": {
-                    fontSize: "12px",
-                },
-            },
-            body1: {
-                fontSize: 16,
-                "@media (max-width:600px)": {
-                    fontSize: "14px",
-                },
-            },
-            body2: {
-                fontSize: 14,
-                "@media (max-width:600px)": {
-                    fontSize: "12px",
-                },
-            },
-        },
-        components: {
-            MuiButton: {
-                defaultProps: {
-                    disableRipple: true,
-                    disableFocusRipple: true,
-                    disableTouchRipple: true,
-                },
-            },
-            MuiListItemButton: {
-                defaultProps: {
-                    disableRipple: true,
-                    disableTouchRipple: true,
-                },
-            },
-            MuiIconButton: {
-                defaultProps: {
-                    disableRipple: true,
-                    disableFocusRipple: true,
-                    disableTouchRipple: true,
-                },
-            },
-            MuiTab: {
-                defaultProps: {
-                    disableRipple: true,
-                    disableFocusRipple: true,
-                    disableTouchRipple: true,
-                },
-            },
-            MuiTypography: {
-                styleOverrides: {
-                    root: {
-                        span: {
-                            fontSize: "12px",
-                            "@media (max-width:600px)": {
-                                fontSize: "10px",
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    }),
-);
-// #endregion
 
 /**
  * @type {import('@pigment-css/nextjs-plugin').PigmentOptions}
  */
 const pigmentConfig = {
     transformLibraries: ["@mui/material"],
-    theme,
+    theme: responsiveFontSizes(
+        extendTheme({
+            colorSchemes: {
+                light: {
+                    palette: {
+                        primary: {
+                            main: lightColorTokens.primary[100],
+                            dark: lightColorTokens.primary[900],
+                            light: lightColorTokens.primary[200],
+                        },
+                        blue: {
+                            main: lightColorTokens.blueAccent[700],
+                        },
+                        red: {
+                            main: lightColorTokens.redAccent[500],
+                        },
+                        green: {
+                            main: lightColorTokens.greenAccent[700],
+                            light: lightColorTokens.greenAccent[400],
+                        },
+                        secondary: {
+                            main: lightColorTokens.primary[500],
+                            light: lightColorTokens.primary[400],
+                            dark: lightColorTokens.primary[600],
+                        },
+                        background: {
+                            default: "#fcfcfc",
+                        },
+                        greyAccent: {
+                            main: lightColorTokens.grey[100],
+                        },
+                    },
+                },
+                dark: {
+                    palette: {
+                        primary: {
+                            main: darkColorTokens.primary[100],
+                            dark: darkColorTokens.primary[900],
+                            light: darkColorTokens.primary[200],
+                        },
+                        blue: {
+                            main: darkColorTokens.blueAccent[700],
+                        },
+                        red: {
+                            main: darkColorTokens.redAccent[500],
+                        },
+                        green: {
+                            main: darkColorTokens.greenAccent[700],
+                            light: darkColorTokens.greenAccent[400],
+                        },
+                        secondary: {
+                            main: darkColorTokens.primary[500],
+                            light: darkColorTokens.primary[400],
+                            dark: darkColorTokens.primary[600],
+                        },
+                        background: {
+                            default: darkColorTokens.primary[500],
+                        },
+                        greyAccent: {
+                            main: darkColorTokens.grey[100],
+                        },
+                    },
+                },
+            },
+            cssVariables: {
+                colorSchemeSelector: "class",
+            },
+            typography: {
+                fontSize: 12,
+                h1: {
+                    fontSize: 45,
+                    "@media (max-width:600px)": {
+                        fontSize: "42px",
+                    },
+                },
+                h2: {
+                    fontSize: 35,
+                    "@media (max-width:600px)": {
+                        fontSize: "32px",
+                    },
+                },
+                h3: {
+                    fontSize: 24,
+                    "@media (max-width:600px)": {
+                        fontSize: "20px",
+                    },
+                },
+                h4: {
+                    fontSize: 20,
+                    "@media (max-width:600px)": {
+                        fontSize: "18px",
+                    },
+                },
+                h5: {
+                    fontSize: 16,
+                    "@media (max-width:600px)": {
+                        fontSize: "14px",
+                    },
+                },
+                h6: {
+                    fontSize: 14,
+                    "@media (max-width:600px)": {
+                        fontSize: "12px",
+                    },
+                },
+                body1: {
+                    fontSize: 16,
+                    "@media (max-width:600px)": {
+                        fontSize: "14px",
+                    },
+                },
+                body2: {
+                    fontSize: 14,
+                    "@media (max-width:600px)": {
+                        fontSize: "12px",
+                    },
+                },
+            },
+            components: {
+                MuiButton: {
+                    defaultProps: {
+                        disableRipple: true,
+                        disableFocusRipple: true,
+                        disableTouchRipple: true,
+                    },
+                },
+                MuiListItemButton: {
+                    defaultProps: {
+                        disableRipple: true,
+                        disableTouchRipple: true,
+                    },
+                },
+                MuiIconButton: {
+                    defaultProps: {
+                        disableRipple: true,
+                        disableFocusRipple: true,
+                        disableTouchRipple: true,
+                    },
+                },
+                MuiTab: {
+                    defaultProps: {
+                        disableRipple: true,
+                        disableFocusRipple: true,
+                        disableTouchRipple: true,
+                    },
+                },
+                MuiTypography: {
+                    styleOverrides: {
+                        root: {
+                            span: {
+                                fontSize: "12px",
+                                "@media (max-width:600px)": {
+                                    fontSize: "10px",
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        }),
+    ),
 };
 
 export default withPigment(nextConfig, pigmentConfig);
