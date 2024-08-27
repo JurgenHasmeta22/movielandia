@@ -21,12 +21,12 @@ import {
     SxProps,
     FormLabel,
     InputAdornment,
-    CssVarsTheme,
 } from "@mui/material";
 import { Formik, Form, FormikProps } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 type FieldConfig = {
     name: string;
@@ -87,7 +87,7 @@ const RightPanel: React.FC<DrawerProps> = ({
     const [activeStep, setActiveStep] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);

@@ -6,7 +6,6 @@ import {
     AccordionSummary,
     Box,
     Button,
-    CssVarsTheme,
     IconButton,
     Stack,
     Tab,
@@ -31,6 +30,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -52,7 +52,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
 
     const router = useRouter();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
     // #endregion
 
     // #region "Tab logic"

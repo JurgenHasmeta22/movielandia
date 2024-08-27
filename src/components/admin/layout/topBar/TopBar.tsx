@@ -1,15 +1,15 @@
 "use client";
 
-import { AppBar, Box, CssVarsTheme, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-
 import { useStore } from "@/store/store";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const TopBar = () => {
     const { data: session } = useSession();
@@ -20,7 +20,7 @@ const TopBar = () => {
     const router = useRouter();
     const open = Boolean(anchorEl);
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);

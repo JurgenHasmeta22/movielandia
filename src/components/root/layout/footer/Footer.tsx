@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button, useTheme, CssVarsTheme } from "@mui/material";
+import { Box, Typography, IconButton, Stack, TextField, Button, useTheme } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -12,9 +12,10 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const Footer = (): React.JSX.Element => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Box
