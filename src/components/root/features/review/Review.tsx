@@ -2,17 +2,17 @@
 
 import React, { Dispatch, SetStateAction, forwardRef, useState } from "react";
 import { format } from "date-fns";
-import { Box, Paper, Typography, IconButton, useTheme, Rating, Button, CssVarsTheme } from "@mui/material";
+import { Box, Paper, Typography, IconButton, useTheme, Rating, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface Review {
     id: number;
@@ -96,7 +96,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
 
         const router = useRouter();
 
-        const theme: CssVarsTheme = useTheme();
+        const theme = useTheme();
 
         const { label, color } = getRatingLabelAndColor(review.rating);
         // #endregion

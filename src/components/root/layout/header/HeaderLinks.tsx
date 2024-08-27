@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, CssVarsTheme, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
+import { Box, Button, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
@@ -8,6 +8,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IHeaderLinks {
     genres: Genre[];
@@ -19,7 +20,7 @@ interface IHeaderLinks {
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <>

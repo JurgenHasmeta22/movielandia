@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button, Typography, Menu, MenuItem, useTheme, Box, CssVarsTheme } from "@mui/material";
+import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IAuthButtons {
     session: Session | null;
@@ -29,7 +30,7 @@ const AuthButtons = ({
 }: IAuthButtons) => {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <>

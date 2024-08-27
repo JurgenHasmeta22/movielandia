@@ -1,9 +1,9 @@
-import { Box, CssVarsTheme, Typography, useTheme } from "@mui/material";
-
+import { Box, Typography, useTheme } from "@mui/material";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 import { DashboardProgressCircle } from "./DashboardProgressCircle";
 
 export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: any) => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Box width="100%" m="0 30px">

@@ -13,7 +13,6 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    CssVarsTheme,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,6 +22,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { IS_BROWSER } from "@/utils/helpers/utils";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();
@@ -33,7 +33,7 @@ const Sidebar = ({ sidebarItems }: any) => {
 
     const router = useRouter();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const handleItemClick = (title: string, to: string) => {
         setSelectedLabel(title);

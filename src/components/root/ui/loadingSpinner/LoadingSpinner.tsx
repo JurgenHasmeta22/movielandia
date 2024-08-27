@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { CircularProgress, Box, useTheme, CssVarsTheme } from "@mui/material";
+import { CircularProgress, Box, useTheme } from "@mui/material";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const LoadingSpinner: React.FC = () => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Box
