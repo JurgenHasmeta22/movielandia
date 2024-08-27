@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/root/layout/header/Header";
 import Footer from "@/components/root/layout/footer/Footer";
-import { Grid } from "@mui/material";
+import { Grid2 as Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 
 export default function MainLayout({
@@ -11,7 +11,7 @@ export default function MainLayout({
 }>) {
     return (
         <Grid container>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
                 <Header />
                 <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
                 <ScrollToTop />
