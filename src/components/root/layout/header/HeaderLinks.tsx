@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
+import { Box, Button, List, ListItem, Menu, Typography } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
@@ -9,6 +9,7 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface IHeaderLinks {
     genres: Genre[];

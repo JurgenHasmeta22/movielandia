@@ -1,7 +1,7 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Drawer, IconButton, useMediaQuery } from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import { Genre } from "@prisma/client";
@@ -10,6 +10,7 @@ import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface IHeaderMenu {
     genres: Genre[];

@@ -2,11 +2,11 @@
 
 import React, { forwardRef, useEffect } from "react";
 import ReactQuill from "react-quill";
-import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface ITextEditorProps {
     value: string;

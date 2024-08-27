@@ -1,6 +1,7 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { DashboardProgressCircle } from "./DashboardProgressCircle";
+import { useTheme } from "@mui/material-pigment-css";
 
 export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: any) => {
     const theme = useTheme();

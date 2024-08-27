@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, forwardRef, useState } from "react";
 import { format } from "date-fns";
-import { Box, Paper, Typography, IconButton, useTheme, Rating, Button } from "@mui/material";
+import { Box, Paper, Typography, IconButton, Rating, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface Review {
     id: number;

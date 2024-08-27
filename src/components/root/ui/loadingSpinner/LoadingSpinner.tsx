@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { CircularProgress, Box, useTheme } from "@mui/material";
+import { CircularProgress, Box } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 const LoadingSpinner: React.FC = () => {
     const theme = useTheme();

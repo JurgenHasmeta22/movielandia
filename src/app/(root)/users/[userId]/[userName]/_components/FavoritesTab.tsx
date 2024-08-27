@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
@@ -15,6 +15,7 @@ import Image from "next/image";
 import { showToast } from "@/utils/helpers/toast";
 import Link from "next/link";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface FavoritesTabProps {
     type: string;

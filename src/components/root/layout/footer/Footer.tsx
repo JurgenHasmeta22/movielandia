@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button, useTheme } from "@mui/material";
+import { Box, Typography, IconButton, Stack, TextField, Button } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -13,6 +13,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();

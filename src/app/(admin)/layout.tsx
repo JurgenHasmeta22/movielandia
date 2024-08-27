@@ -7,6 +7,7 @@ import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import AdminLayout from "@/layouts/AdminLayout";
 import { Montserrat } from "next/font/google";
 import "../globals.css";
+import "@mui/material-pigment-css/styles.css";
 
 const montserrat = Montserrat({
     weight: ["300", "400", "500", "700"],

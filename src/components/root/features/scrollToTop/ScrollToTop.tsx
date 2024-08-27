@@ -2,9 +2,10 @@
 
 import { IS_BROWSER } from "@/utils/helpers/utils";
 import { KeyboardArrowUp } from "@mui/icons-material";
-import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
+import { Box, Fab, Zoom, useScrollTrigger } from "@mui/material";
 import { useCallback } from "react";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 function ScrollToTop() {
     const theme = useTheme();

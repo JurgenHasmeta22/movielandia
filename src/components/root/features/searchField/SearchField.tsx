@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { TextField, InputAdornment, useTheme } from "@mui/material";
+import { TextField, InputAdornment } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
 import { useRouter, useSearchParams } from "next/navigation";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 const SearchField = () => {
     const router = useRouter();

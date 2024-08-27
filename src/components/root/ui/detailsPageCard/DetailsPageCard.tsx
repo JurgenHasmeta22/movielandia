@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Chip, Button, useTheme } from "@mui/material";
+import { Box, Typography, Chip, Button } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { formatDate } from "@/utils/helpers/utils";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface IDetailsPageCardProps {
     data: any;

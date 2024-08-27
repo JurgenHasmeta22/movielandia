@@ -1,10 +1,11 @@
 "use client";
 
-import { Card, Typography, useTheme } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { motion } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Link from "next/link";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface IGenreItemProps {
     genre: Genre;

@@ -2,12 +2,13 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
 import type { Metadata } from "next";
 import { getActors } from "@/actions/actor.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IActorsProps {
     searchParams?: { actorsAscOrDesc?: string; page?: string; actorsSortBy?: string };
@@ -74,14 +75,14 @@ export default async function Actors({ searchParams }: IActorsProps) {
                 <Carousel data={actorsCarouselImages} type="actors" />
             </Box>
             <Stack
-                display="flex"
-                flexDirection="row"
-                justifyContent={"space-between"}
-                alignItems="center"
                 component="section"
                 sx={{
-                    ml: 3,
-                    mr: 3,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginLeft: 3,
+                    marginRight: 3,
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
@@ -107,18 +108,20 @@ export default async function Actors({ searchParams }: IActorsProps) {
                 }}
             >
                 <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    columnGap={5}
-                    rowGap={5}
                     sx={{
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        alignItems: "start",
+                        columnGap: 5,
+                        rowGap: 5,
+                        // justifyContent: {
+                        //     xs: "center",
+                        //     sm: "center",
+                        //     md: "start",
+                        //     lg: "start",
+                        // },
+                        justifyContent: "start",
                     }}
                 >
                     {actors.map((actor: Actor) => (

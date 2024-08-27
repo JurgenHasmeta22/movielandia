@@ -8,7 +8,6 @@ import {
     Avatar,
     Drawer,
     IconButton,
-    useTheme,
     ListItem,
     ListItemButton,
     ListItemIcon,
@@ -23,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { IS_BROWSER } from "@/utils/helpers/utils";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();

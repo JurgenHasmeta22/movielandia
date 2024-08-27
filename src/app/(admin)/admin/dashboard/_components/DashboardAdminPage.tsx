@@ -1,12 +1,13 @@
 "use client";
 
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
+import { useTheme } from "@mui/material-pigment-css";
 
 const DashboardAdminPage = () => {
     const theme = useTheme();

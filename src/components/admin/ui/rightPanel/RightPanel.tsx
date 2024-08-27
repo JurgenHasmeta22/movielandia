@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import {
     Button,
-    Grid2 as Grid,
     TextField,
     Select,
     MenuItem,
@@ -14,7 +13,6 @@ import {
     Typography,
     Step,
     StepLabel,
-    useTheme,
     Stepper,
     StepButton,
     IconButton,
@@ -27,6 +25,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import Grid from "@mui/material-pigment-css/Grid";
+import { useTheme } from "@mui/material-pigment-css";
 
 type FieldConfig = {
     name: string;
@@ -170,9 +170,9 @@ const RightPanel: React.FC<DrawerProps> = ({
                             <Form>
                                 <Grid
                                     container
-                                    spacing={3}
                                     sx={{
-                                        mt: 3,
+                                        gap: 3,
+                                        marginTop: 3,
                                     }}
                                 >
                                     {(steps! ? steps[activeStep].fields : fields!).map((field, index: number) => (

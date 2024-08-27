@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "@/components/root/layout/header/Header";
 import Footer from "@/components/root/layout/footer/Footer";
-import { Grid2 as Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
+import Grid from "@mui/material-pigment-css/Grid";
 
 export default function MainLayout({
     children,

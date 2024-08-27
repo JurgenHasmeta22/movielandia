@@ -9,7 +9,6 @@ import {
     DialogContentText,
     DialogTitle,
     IconButton,
-    Grid2 as Grid,
     TextField,
     Select,
     MenuItem,
@@ -31,6 +30,7 @@ import { useStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import Grid from "@mui/material-pigment-css/Grid";
 
 type FieldConfig = {
     name: string;

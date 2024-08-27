@@ -12,7 +12,6 @@ import {
     Tabs,
     TextField,
     Typography,
-    useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import TabPanel from "@/components/root/ui/tab/Tab";
@@ -31,6 +30,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface IUserPageProps {
     userLoggedIn: any | null;

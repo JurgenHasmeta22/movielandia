@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Grid2 as Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
 import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
+import Grid from "@mui/material-pigment-css/Grid";
 
 export default function AdminLayout({
     children,

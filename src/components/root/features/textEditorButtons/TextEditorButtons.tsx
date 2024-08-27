@@ -1,10 +1,11 @@
 "use client";
 
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface ITextEditorButtons {
     isEditMode: boolean;

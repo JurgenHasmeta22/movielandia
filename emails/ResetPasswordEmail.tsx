@@ -1,4 +1,5 @@
-import { Html, Head, Preview, Body, Container, Heading, Text, Button, Link } from "@react-email/components";
+import { Html, Head, Preview, Body, Heading, Text, Button, Link } from "@react-email/components";
+import Container from "@mui/material-pigment-css/Container";
 
 interface IResetPasswordEmailProps {
     userName: string;

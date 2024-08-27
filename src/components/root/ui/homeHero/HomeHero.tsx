@@ -1,11 +1,12 @@
 "use client";
 
-import { Typography, Button, Box, useTheme } from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";
 import Image from "next/image";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 const HomeHeroSection = () => {
     const theme = useTheme();

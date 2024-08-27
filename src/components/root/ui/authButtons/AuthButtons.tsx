@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
+import { Button, Typography, Menu, MenuItem, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 interface IAuthButtons {
     session: Session | null;

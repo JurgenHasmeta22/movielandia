@@ -20,6 +20,7 @@
         "@mui/icons-material": "^6.0.0",
         "@mui/material": "^6.0.0",
         "@mui/material-nextjs": "^6.0.0",
+        "@mui/material-pigment-css": "^6.0.0",
         "@mui/x-date-pickers": "^7.14.0",
         "@next-auth/prisma-adapter": "^1.0.7",
         "@next/bundle-analyzer": "^14.2.6",
@@ -52,6 +53,7 @@
         "zustand": "^4.5.5"
     },
     "devDependencies": {
+        "@pigment-css/nextjs-plugin": "^0.0.20",
         "@types/bcrypt": "^5.0.2",
         "@types/node": "^22.5.0",
         "@types/react": "^18.3.4",

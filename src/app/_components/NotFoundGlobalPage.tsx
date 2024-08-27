@@ -1,7 +1,9 @@
 "use client";
 
-import { Box, Container, Link, Typography, useTheme } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import Container from "@mui/material-pigment-css/Container";
+import { useTheme } from "@mui/material-pigment-css";
 
 export default function NotFoundGlobalPage() {
     const theme = useTheme();

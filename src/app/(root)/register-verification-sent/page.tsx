@@ -1,7 +1,8 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useSearchParams } from "next/navigation";
+import Container from "@mui/material-pigment-css/Container";
 
 export default function VerifyRegisterPage() {
     const searchParams = useSearchParams();

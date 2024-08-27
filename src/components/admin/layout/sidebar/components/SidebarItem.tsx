@@ -1,8 +1,9 @@
 "use client";
 
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 export const SidebarItem = ({ index, item, selectedLabel, handleItemClick, isEmployee }: any) => {
     const theme = useTheme();

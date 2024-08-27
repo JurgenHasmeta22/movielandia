@@ -1,5 +1,6 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Link from "next/link";
+import Container from "@mui/material-pigment-css/Container";
 
 export default async function VerifyResetPasswordPage({
     searchParams,

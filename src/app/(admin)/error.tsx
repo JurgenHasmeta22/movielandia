@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import Container from "@mui/material-pigment-css/Container";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     return (

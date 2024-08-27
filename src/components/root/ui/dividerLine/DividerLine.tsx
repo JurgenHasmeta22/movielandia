@@ -1,7 +1,8 @@
 "use client";
 
-import { Divider, useTheme } from "@mui/material";
+import { Divider } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useTheme } from "@mui/material-pigment-css";
 
 export default function DividerLine() {
     const theme = useTheme();

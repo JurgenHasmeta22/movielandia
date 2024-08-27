@@ -12,7 +12,6 @@ import {
     InputAdornment,
     IconButton,
     Stack,
-    Grid2 as Grid,
     Box,
     FormLabel,
     Typography,
@@ -21,6 +20,7 @@ import { Formik, FormikProps, Form } from "formik";
 import * as yup from "yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
+import Grid from "@mui/material-pigment-css/Grid";
 
 type FieldOption = {
     label: string;
@@ -84,7 +84,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                 return (
                     <Form>
                         <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>
-                            <Grid container alignItems={"center"}>
+                            <Grid container sx={{ alignItems: "center" }}>
                                 <Stack rowGap={4} columnGap={2} flexDirection={"row"} flexWrap={"wrap"}>
                                     {fields.map((field: FieldConfig, index: number) => {
                                         switch (field.type) {
@@ -225,9 +225,9 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                             </Grid>
                             <Grid
                                 container
-                                justifyContent={"end"}
                                 sx={{
-                                    mt: 2,
+                                    marginTop: 2,
+                                    justifyContent: "end",
                                 }}
                             >
                                 <Stack

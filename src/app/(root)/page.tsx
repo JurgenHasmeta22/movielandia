@@ -1,4 +1,3 @@
-import { Stack } from "@mui/material";
 import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
 import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
@@ -9,6 +8,7 @@ import type { Metadata } from "next";
 import { getActors } from "@/actions/actor.actions";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
+import Stack from "@mui/material-pigment-css/Stack";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -59,11 +59,11 @@ export default async function Home() {
         <>
             <HomeHeroSection />
             <Stack
-                flexDirection={"column"}
-                rowGap={6}
                 sx={{
-                    mb: 6,
-                    mt: 6,
+                    rowGap: 6,
+                    flexDirection: "column",
+                    marginBottom: 6,
+                    marginTop: 6,
                 }}
             >
                 <ListHomeSection
