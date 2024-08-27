@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid2 as Grid } from "@mui/material";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
 import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
@@ -11,10 +11,10 @@ export default function AdminLayout({
 }>) {
     return (
         <Grid container component={"main"}>
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
                 <Sidebar sidebarItems={SidebarItems} />
             </Grid>
-            <Grid item xs={12} md={10}>
+            <Grid size={{ xs: 12, md: 10 }}>
                 <TopBar />
                 <Box
                     sx={{
