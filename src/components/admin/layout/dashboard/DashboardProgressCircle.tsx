@@ -1,8 +1,8 @@
-import { Box, CssVarsTheme, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 export const DashboardProgressCircle = ({ progress = "0.75", size = "40" }: any) => {
-    const theme: CssVarsTheme = useTheme();
-
+    const theme = useTheme();
     const angle = progress * 360;
 
     return (

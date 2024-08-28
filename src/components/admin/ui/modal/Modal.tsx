@@ -9,7 +9,7 @@ import {
     DialogContentText,
     DialogTitle,
     IconButton,
-    Grid,
+    Grid2 as Grid,
     TextField,
     Select,
     MenuItem,
@@ -243,7 +243,7 @@ const Modal: React.FC<ModalProps> = ({
                                     >
                                         {fields &&
                                             fields!.map((field, index: number) => (
-                                                <Grid item xs={6} key={index}>
+                                                <Grid size={{ xs: 6 }} key={index}>
                                                     {field.type === "select" ? (
                                                         <FormControl fullWidth size="medium">
                                                             <InputLabel id={`${field.name}-label`}>

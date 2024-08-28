@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Chip, Button, useTheme, CssVarsTheme } from "@mui/material";
+import { Box, Typography, Chip, Button, useTheme } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,8 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import { formatDate } from "@/utils/helpers/utils";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import type {} from "@mui/material/themeCssVarsAugmentation";
+
 interface IDetailsPageCardProps {
     data: any;
     type: string;
@@ -19,7 +21,7 @@ interface IDetailsPageCardProps {
 export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Box

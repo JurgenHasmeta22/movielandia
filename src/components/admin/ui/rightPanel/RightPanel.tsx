@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import {
     Button,
-    Grid,
+    Grid2 as Grid,
     TextField,
     Select,
     MenuItem,
@@ -21,12 +21,12 @@ import {
     SxProps,
     FormLabel,
     InputAdornment,
-    CssVarsTheme,
 } from "@mui/material";
 import { Formik, Form, FormikProps } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 type FieldConfig = {
     name: string;
@@ -87,7 +87,7 @@ const RightPanel: React.FC<DrawerProps> = ({
     const [activeStep, setActiveStep] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -166,10 +166,6 @@ const RightPanel: React.FC<DrawerProps> = ({
                     innerRef={formRef}
                 >
                     {({ errors, touched, values, handleBlur, handleChange, dirty }: any) => {
-                        // useEffect(() => {
-                        //     onDataChange && onDataChange(values);
-                        // }, [values]);
-
                         return (
                             <Form>
                                 <Grid
@@ -180,7 +176,7 @@ const RightPanel: React.FC<DrawerProps> = ({
                                     }}
                                 >
                                     {(steps! ? steps[activeStep].fields : fields!).map((field, index: number) => (
-                                        <Grid item xs={6} key={index}>
+                                        <Grid size={{ xs: 6 }} key={index}>
                                             {field.type === "select" ? (
                                                 <FormControl>
                                                     <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>

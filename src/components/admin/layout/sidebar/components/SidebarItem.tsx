@@ -1,10 +1,11 @@
 "use client";
 
-import { CssVarsTheme, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material";
 import React from "react";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 export const SidebarItem = ({ index, item, selectedLabel, handleItemClick, isEmployee }: any) => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <React.Fragment key={index}>
