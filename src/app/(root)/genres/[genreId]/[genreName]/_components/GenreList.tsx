@@ -1,8 +1,10 @@
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
-import { Box, Typography, Stack } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
+import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface GenreListProps {
     title: string;
@@ -34,16 +36,23 @@ const GenreList: React.FC<GenreListProps> = ({
     return data.length !== 0 ? (
         <>
             <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
                 sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                     marginTop: 4,
                     marginLeft: 3,
                     marginRight: 3,
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        columnGap: 1,
+                        alignItems: "center",
+                    }}
+                >
                     <Typography
                         sx={{
                             fontSize: [16, 17, 20, 22, 24],
@@ -78,12 +87,12 @@ const GenreList: React.FC<GenreListProps> = ({
                 }}
             >
                 <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    columnGap={5}
-                    rowGap={5}
                     sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "start",
+                        columnGap: 5,
+                        rowGap: 5,
                         justifyContent: {
                             xs: "center",
                             sm: "center",

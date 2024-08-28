@@ -2,13 +2,14 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getSeries, getLatestSeries } from "@/actions/serie.actions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
@@ -90,7 +91,14 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     marginRight: 3,
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        columnGap: 1,
+                        alignItems: "center",
+                    }}
+                >
                     <Typography fontSize={22} variant="h2">
                         Series
                     </Typography>

@@ -1,11 +1,12 @@
 "use client";
 
-import { Box, Button, FormLabel, TextField, Typography } from "@mui/material";
+import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import EmailIcon from "@mui/icons-material/Email";
 import { showToast } from "@/utils/helpers/toast";
 import { resetPassword } from "@/actions/auth.actions";
+import Box from "@mui/material-pigment-css/Box";
 
 const resetPasswordSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
@@ -44,11 +45,13 @@ export default function ResetPasswordPage() {
             }}
         >
             <Box
-                display={"flex"}
-                flexDirection="row"
-                alignItems={"center"}
-                justifyContent={"center"}
-                sx={{ paddingBottom: 2 }}
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    paddingBottom: 2,
+                }}
             >
                 <Typography variant="h2" textAlign={"center"}>
                     Reset Password
@@ -72,7 +75,13 @@ export default function ResetPasswordPage() {
                                 maxWidth: "100%",
                             }}
                         >
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    columnGap: 1,
+                                }}
+                            >
                                 <EmailIcon />
                                 <FormLabel component={"label"}>Email</FormLabel>
                             </Box>

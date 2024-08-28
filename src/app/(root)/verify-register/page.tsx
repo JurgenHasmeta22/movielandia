@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Link from "next/link";
 import Container from "@mui/material-pigment-css/Container";
+import Box from "@mui/material-pigment-css/Box";
 
 export default async function VerifyRegisterPage({ searchParams }: { searchParams: { token: string; email: string } }) {
     const { token, email } = searchParams;
@@ -38,8 +39,8 @@ export default async function VerifyRegisterPage({ searchParams }: { searchParam
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    p: 8,
-                    boxShadow: 6,
+                    padding: 8,
+                    boxShadow: "6px",
                     borderRadius: 4,
                     backgroundColor: "background.paper",
                 }}

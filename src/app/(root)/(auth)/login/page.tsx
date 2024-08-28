@@ -1,7 +1,8 @@
-import { Box, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import type { Metadata } from "next";
 import LoginForm from "./_components/LoginForm";
 import Image from "next/image";
+import Box from "@mui/material-pigment-css/Box";
 
 export const metadata: Metadata = {
     title: "Login - MovieLandia24 - Your Ultimate Destination for Movies",
@@ -38,7 +39,6 @@ export default async function Login() {
                     priority
                     style={{
                         objectFit: "cover",
-                        // backgroundPosition: "fixed",
                     }}
                 />
                 <Box

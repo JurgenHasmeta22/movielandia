@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Card, Stack, Typography, Button } from "@mui/material";
+import { Card, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useParams } from "next/navigation";
@@ -17,6 +17,7 @@ import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/componentHelpers
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/componentHelpers/features/actorFeaturesUtils";
 import { useSession } from "next-auth/react";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface ICardItemProps {
     data: any;
@@ -173,10 +174,13 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             {type !== "user" && (
                                 <Box>
                                     <Stack
-                                        flexDirection={"row"}
-                                        columnGap={"40px"}
-                                        justifyContent="space-between"
-                                        alignItems="center"
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                            columnGap: "40px",
+                                        }}
                                     >
                                         {type !== "actor" && (
                                             <Box
@@ -217,10 +221,13 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                         )}
                                     </Stack>
                                     <Stack
-                                        flexDirection={"row"}
-                                        columnGap={"40px"}
-                                        justifyContent="space-between"
-                                        alignItems="center"
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                            columnGap: "40px",
+                                        }}
                                     >
                                         <Box
                                             sx={{

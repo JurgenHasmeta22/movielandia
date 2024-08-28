@@ -2,7 +2,6 @@
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-    Box,
     Button,
     FormControl,
     FormHelperText,
@@ -24,6 +23,7 @@ import { showToast } from "@/utils/helpers/toast";
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import GoogleIcon from "@mui/icons-material/Google";
+import Box from "@mui/material-pigment-css/Box";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Email is a required field").email("Invalid email format"),
@@ -79,12 +79,14 @@ export default function LoginForm() {
                 <Form onSubmit={handleSubmit}>
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
                         <Box
-                            display={"flex"}
-                            flexDirection="row"
-                            columnGap={1}
-                            alignItems={"center"}
-                            justifyContent={"center"}
-                            sx={{ paddingBottom: 4 }}
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                columnGap: 1,
+                                alignItems: "center",
+                                justifyContent: "center",
+                                paddingBottom: 4,
+                            }}
                         >
                             <LockOutlinedIcon fontSize="large" />
                             <Typography variant="h2" textAlign={"center"}>
@@ -92,8 +94,20 @@ export default function LoginForm() {
                             </Typography>
                         </Box>
                         <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    rowGap: 1,
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        columnGap: 1,
+                                    }}
+                                >
                                     <EmailIcon />
                                     <FormLabel component={"label"}>Email</FormLabel>
                                 </Box>
@@ -114,8 +128,20 @@ export default function LoginForm() {
                                     fullWidth
                                 />
                             </Box>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    rowGap: 1,
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        columnGap: 1,
+                                    }}
+                                >
                                     <PasswordIcon />
                                     <FormLabel component={"label"}>Password</FormLabel>
                                 </Box>

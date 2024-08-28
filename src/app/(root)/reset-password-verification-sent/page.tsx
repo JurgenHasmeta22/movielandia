@@ -1,8 +1,9 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import Container from "@mui/material-pigment-css/Container";
+import Box from "@mui/material-pigment-css/Box";
 
 export default function ResetPasswordVerifyPage() {
     const searchParams = useSearchParams();
@@ -23,8 +24,8 @@ export default function ResetPasswordVerifyPage() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        p: 4,
-                        boxShadow: 6,
+                        padding: 4,
+                        boxShadow: "6px",
                         borderRadius: 4,
                         backgroundColor: "background.paper",
                     }}
@@ -42,8 +43,8 @@ export default function ResetPasswordVerifyPage() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        p: 4,
-                        boxShadow: 6,
+                        padding: 4,
+                        boxShadow: "6px",
                         borderRadius: 4,
                         backgroundColor: "background.paper",
                     }}

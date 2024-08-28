@@ -1,4 +1,4 @@
-import { getLatestSeries, getRelatedSeries, getSerieById, getSerieByTitle } from "@/actions/serie.actions";
+import { getLatestSeries, getRelatedSeries, getSerieById } from "@/actions/serie.actions";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";

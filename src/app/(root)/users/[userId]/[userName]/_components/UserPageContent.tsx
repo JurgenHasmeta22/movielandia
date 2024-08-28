@@ -4,7 +4,6 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
-    Box,
     Button,
     IconButton,
     Stack,
@@ -31,6 +30,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -242,7 +242,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         rows={2}
                                         sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
-                                    <Box display="flex" flexDirection="row">
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
                                         <IconButton
                                             onClick={handleSaveEditUserName}
                                             sx={{
@@ -273,13 +278,21 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                     </Box>
                                 </>
                             ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                    }}
+                                >
                                     <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        columnGap={0.5}
-                                        flexWrap="wrap"
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            flexWrap: "wrap",
+                                            columnGap: 0.5,
+                                        }}
                                     >
                                         <PersonIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                                         <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
@@ -341,7 +354,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         rows={2}
                                         sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
-                                    <Box display="flex" flexDirection="row">
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
                                         <IconButton
                                             onClick={handleSaveEditEmail}
                                             sx={{
@@ -372,13 +390,21 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                     </Box>
                                 </>
                             ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                    }}
+                                >
                                     <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        columnGap={0.5}
-                                        flexWrap="wrap"
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            columnGap: 0.5,
+                                            alignItems: "center",
+                                            flexWrap: "wrap",
+                                        }}
                                     >
                                         <EmailIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
                                         <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
@@ -414,7 +440,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         rows={2}
                                         sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
-                                    <Box display="flex" flexDirection="row">
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                        }}
+                                    >
                                         <IconButton
                                             onClick={handleSaveEditBio}
                                             sx={{
@@ -445,13 +476,21 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                     </Box>
                                 </>
                             ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                    }}
+                                >
                                     <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        columnGap={0.5}
-                                        flexWrap="wrap"
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            columnGap: 0.5,
+                                            flexWrap: "wrap",
+                                        }}
                                     >
                                         <DescriptionIcon
                                             sx={{ fontSize: 18, color: theme.vars.palette.primary.main }}
@@ -478,10 +517,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             )}
                         </Box>
                         <Box
-                            display={"flex"}
-                            rowGap={2}
-                            flexDirection={"column"}
                             sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                rowGap: 2,
                                 marginTop: 2,
                             }}
                         >
@@ -609,10 +648,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 .map((userFollow: any, index: number) => (
                                                     <Box
                                                         key={index}
-                                                        display="flex"
-                                                        alignItems="center"
-                                                        justifyContent="space-between"
                                                         sx={{
+                                                            display: "flex",
+                                                            alignItems: "center",
+                                                            justifyContent: "space-between",
                                                             marginBottom: 1,
                                                         }}
                                                     >
@@ -650,10 +689,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                     <Box
                         component="section"
                         sx={{
-                            bgcolor: theme.vars.palette.secondary.light,
+                            backgroundColor: theme.vars.palette.secondary.light,
                             borderRadius: "18px",
                             padding: 4,
-                            boxShadow: 6,
+                            boxShadow: "6px",
                             width: ["100%", "100%", "65%", "65%"],
                         }}
                     >
@@ -728,13 +767,15 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                 </Stack>
             ) : (
                 <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    alignContent={"center"}
-                    flexDirection="column"
-                    rowGap={2}
-                    height={"100vh"}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        alignContent: "center",
+                        flexDirection: "column",
+                        rowGap: 2,
+                        height: "100vh",
+                    }}
                 >
                     <Box
                         sx={{

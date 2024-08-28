@@ -2,13 +2,14 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
 import { getMovies, getLatestMovies } from "@/actions/movie.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IMoviesProps {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
@@ -91,7 +92,14 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                     marginRight: 3,
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        columnGap: 1,
+                        alignItems: "center",
+                    }}
+                >
                     <Typography fontSize={22} variant="h2">
                         Movies
                     </Typography>

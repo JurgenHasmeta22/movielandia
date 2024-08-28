@@ -1,10 +1,11 @@
 "use client";
 
+import Box from "@mui/material-pigment-css/Box";
 import { DetailsPageCard } from "@/components/root/ui/detailsPageCard/DetailsPageCard";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/ui/listDetail/ListDetail";
 import Review from "@/components/root/features/review/Review";
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {

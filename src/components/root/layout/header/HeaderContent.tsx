@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, IconButton, Stack, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
@@ -17,6 +17,7 @@ import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IHeaderContent {
     session: Session | null;
@@ -105,11 +106,6 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     </Box>
                     {/* Dekstop Header */}
                     <Stack
-                        flexDirection={"row"}
-                        alignItems={"center"}
-                        justifyContent={"space-around"}
-                        columnGap={2}
-                        flexWrap={"wrap"}
                         sx={{
                             display: {
                                 xs: "none",
@@ -117,6 +113,11 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                                 md: "flex",
                                 lg: "flex",
                             },
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-around",
+                            columnGap: 2,
+                            flexWrap: "wrap",
                         }}
                     >
                         <HeaderLinks

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Typography, IconButton, Stack, TextField, Button } from "@mui/material";
+import { Typography, IconButton, TextField, Button } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -15,6 +15,7 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
@@ -37,10 +38,15 @@ const Footer = (): React.JSX.Element => {
             component="footer"
         >
             <Stack
-                direction="row"
-                rowGap={8}
-                columnGap={4}
-                sx={{ flexWrap: "wrap", justifyContent: "center", marginBottom: 1 }}
+                sx={{
+                    display: "flex",
+                    rowGap: 8,
+                    columnGap: 4,
+                    flexDirection: "row",
+                    lexWrap: "wrap",
+                    justifyContent: "center",
+                    marginBottom: 1,
+                }}
             >
                 <Box>
                     <Typography variant="h4" gutterBottom>
@@ -57,7 +63,14 @@ const Footer = (): React.JSX.Element => {
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <MovieIcon />
                                 <Typography>Movies</Typography>
                             </Stack>
@@ -72,7 +85,14 @@ const Footer = (): React.JSX.Element => {
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <LocalMoviesIcon />
                                 <Typography>Series</Typography>
                             </Stack>
@@ -87,7 +107,14 @@ const Footer = (): React.JSX.Element => {
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <SubtitlesIcon />
                                 <Typography>Genres</Typography>
                             </Stack>
@@ -102,7 +129,14 @@ const Footer = (): React.JSX.Element => {
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <RecentActorsIcon />
                                 <Typography>Actors</Typography>
                             </Stack>
@@ -118,13 +152,20 @@ const Footer = (): React.JSX.Element => {
                             component={MuiNextLink}
                             href="/login"
                             prefetch={false}
-                            style={{
+                            sx={{
                                 textDecoration: "none",
                                 textTransform: "capitalize",
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <LockOpenIcon />
                                 <Typography>Sign In</Typography>
                             </Stack>
@@ -139,7 +180,14 @@ const Footer = (): React.JSX.Element => {
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            <Stack direction="row" alignItems="center" spacing={1}>
+                            <Stack
+                                spacing={1}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
                                 <AppRegistrationIcon />
                                 <Typography>Sign Up</Typography>
                             </Stack>
@@ -166,7 +214,10 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Newsletter
                     </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ paddingTop: 1 }}>
+                    <Stack
+                        spacing={1}
+                        sx={{ display: "flex", flexDirection: "row", alignItems: "center", paddingTop: 1 }}
+                    >
                         <TextField variant="outlined" size="small" placeholder="Email" />
                         <Button
                             variant="contained"

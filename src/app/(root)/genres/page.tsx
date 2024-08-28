@@ -1,8 +1,9 @@
 import GenreItem from "@/components/root/ui/genreItem/GenreItem";
 import { getGenres } from "@/actions/genre.actions";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
+import Box from "@mui/material-pigment-css/Box";
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 

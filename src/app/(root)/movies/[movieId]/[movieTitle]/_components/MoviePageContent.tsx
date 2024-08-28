@@ -4,7 +4,7 @@ import { DetailsPageCard } from "@/components/root/ui/detailsPageCard/DetailsPag
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/ui/listDetail/ListDetail";
 import Review from "@/components/root/features/review/Review";
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import {
@@ -23,6 +23,7 @@ import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeade
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Movie } from "@prisma/client";
 import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/componentHelpers/features/movieFeaturesUtils";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IMoviePageContentProps {
     searchParamsValues: {

@@ -12,7 +12,7 @@ import {
     MRT_ToggleFullScreenButton,
     useMaterialReactTable,
 } from "material-react-table";
-import { Box, Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } from "@mui/material";
+import { Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } from "@mui/material";
 import { Edit, Delete, Add, CheckOutlined, WarningOutlined } from "@mui/icons-material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useModal } from "@/providers/ModalProvider";
@@ -23,6 +23,7 @@ import { deleteGenreById, getGenres } from "@/actions/genre.actions";
 import { deleteUserById, getUsers } from "@/actions/user.actions";
 import { deleteMovieById, getMovies } from "@/actions/movie.actions";
 import { deleteSerieById, getSeries } from "@/actions/serie.actions";
+import Box from "@mui/material-pigment-css/Box";
 
 type TableAdminProps = {
     columns: MRT_ColumnDef<any>[];

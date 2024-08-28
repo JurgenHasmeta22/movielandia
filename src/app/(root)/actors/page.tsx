@@ -2,13 +2,14 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
 import type { Metadata } from "next";
 import { getActors } from "@/actions/actor.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Stack from "@mui/material-pigment-css/Stack";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IActorsProps {
     searchParams?: { actorsAscOrDesc?: string; page?: string; actorsSortBy?: string };
@@ -85,7 +86,14 @@ export default async function Actors({ searchParams }: IActorsProps) {
                     marginRight: 3,
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        columnGap: 1,
+                    }}
+                >
                     <Typography fontSize={22} variant="h2">
                         Actors
                     </Typography>

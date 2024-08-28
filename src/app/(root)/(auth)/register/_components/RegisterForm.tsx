@@ -2,7 +2,6 @@
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-    Box,
     Button,
     FormControl,
     FormHelperText,
@@ -22,6 +21,7 @@ import { signUp } from "@/actions/auth.actions";
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import PersonIcon from "@mui/icons-material/Person";
+import Box from "@mui/material-pigment-css/Box";
 
 const registerSchema = yup.object().shape({
     userName: yup
@@ -108,12 +108,14 @@ export default function LoginForm() {
                             }}
                         >
                             <Box
-                                display={"flex"}
-                                flexDirection="row"
-                                columnGap={1}
-                                alignItems={"center"}
-                                justifyContent={"center"}
-                                sx={{ paddingBottom: 1 }}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    columnGap: 1,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    paddingBottom: 1,
+                                }}
                             >
                                 <LockOutlinedIcon fontSize="large" />
                                 <Typography
@@ -126,7 +128,13 @@ export default function LoginForm() {
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", flexDirection: "column", rowGap: 4 }}>
-                                <Box display={"flex"} flexDirection={"row"} columnGap={4}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        columnGap: 4,
+                                    }}
+                                >
                                     <FormControl
                                         fullWidth
                                         variant="outlined"
@@ -136,7 +144,14 @@ export default function LoginForm() {
                                             rowGap: 1,
                                         }}
                                     >
-                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                columnGap: 1,
+                                                alignItems: "center",
+                                            }}
+                                        >
                                             <PersonIcon />
                                             <FormLabel component={"label"}>Username</FormLabel>
                                         </Box>
@@ -168,7 +183,14 @@ export default function LoginForm() {
                                             rowGap: 1,
                                         }}
                                     >
-                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                columnGap: 1,
+                                                alignItems: "center",
+                                            }}
+                                        >
                                             <EmailIcon />
                                             <FormLabel component={"label"}>Email</FormLabel>
                                         </Box>
@@ -192,7 +214,13 @@ export default function LoginForm() {
                                         />
                                     </FormControl>
                                 </Box>
-                                <Box display={"flex"} flexDirection={"row"} columnGap={4}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        columnGap: 4,
+                                    }}
+                                >
                                     <FormControl
                                         fullWidth
                                         variant="outlined"
@@ -202,7 +230,14 @@ export default function LoginForm() {
                                             rowGap: 1,
                                         }}
                                     >
-                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                columnGap: 1,
+                                                alignItems: "center",
+                                            }}
+                                        >
                                             <PasswordIcon />
                                             <FormLabel component={"label"}>Password</FormLabel>
                                         </Box>
@@ -260,7 +295,14 @@ export default function LoginForm() {
                                             rowGap: 1,
                                         }}
                                     >
-                                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                columnGap: 1,
+                                                alignItems: "center",
+                                            }}
+                                        >
                                             <PasswordIcon />
                                             <FormLabel component={"label"}>Confirm Password</FormLabel>
                                         </Box>

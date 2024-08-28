@@ -1,7 +1,8 @@
-import { Box, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import type { Metadata } from "next";
 import RegisterForm from "./_components/RegisterForm";
 import Image from "next/image";
+import Box from "@mui/material-pigment-css/Box";
 
 export const metadata: Metadata = {
     title: "Register - MovieLandia24 - Your Ultimate Destination for Movies",

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
@@ -16,6 +16,7 @@ import { showToast } from "@/utils/helpers/toast";
 import Link from "next/link";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface FavoritesTabProps {
     type: string;
@@ -195,7 +196,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
     }
 
     return (
-        <Box component="section" minHeight={`${favorites.length > 0 ? "auto" : "70vh"}`} padding={4}>
+        <Box component="section" sx={{ padding: 4, minHeight: `${favorites.length > 0 ? "auto" : "70vh"}` }}>
             <Typography
                 variant="h4"
                 color={theme.vars.palette.primary.main}
