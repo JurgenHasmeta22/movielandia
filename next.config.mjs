@@ -1,27 +1,5 @@
 import { withPigment } from "@pigment-css/nextjs-plugin";
-import { extendTheme, responsiveFontSizes } from "@mui/material";
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    images: {
-        remotePatterns: [
-            {
-                hostname: "localhost",
-                port: "4000",
-            },
-            {
-                protocol: "https",
-                hostname: "movielandia-avenger22s-projects.vercel.app",
-            },
-        ],
-    },
-    typescript: {
-        ignoreBuildErrors: true,
-    },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
-};
+import { createTheme, extendTheme, responsiveFontSizes } from "@mui/material";
 
 const darkColorTokens = {
     grey: {
@@ -152,167 +130,193 @@ const lightColorTokens = {
  */
 const pigmentConfig = {
     transformLibraries: ["@mui/material"],
-    theme: responsiveFontSizes(
-        extendTheme({
-            colorSchemes: {
-                light: {
-                    palette: {
-                        primary: {
-                            main: lightColorTokens.primary[100],
-                            dark: lightColorTokens.primary[900],
-                            light: lightColorTokens.primary[200],
-                        },
-                        blue: {
-                            main: lightColorTokens.blueAccent[700],
-                        },
-                        red: {
-                            main: lightColorTokens.redAccent[500],
-                        },
-                        green: {
-                            main: lightColorTokens.greenAccent[700],
-                            light: lightColorTokens.greenAccent[400],
-                        },
-                        secondary: {
-                            main: lightColorTokens.primary[500],
-                            light: lightColorTokens.primary[400],
-                            dark: lightColorTokens.primary[600],
-                        },
-                        background: {
-                            default: "#fcfcfc",
-                        },
-                        greyAccent: {
-                            main: lightColorTokens.grey[100],
-                        },
+    // sourceMap: true,
+    theme: createTheme({
+        colorSchemes: {
+            light: {
+                palette: {
+                    primary: {
+                        main: lightColorTokens.primary[100],
+                        dark: lightColorTokens.primary[900],
+                        light: lightColorTokens.primary[200],
                     },
-                },
-                dark: {
-                    palette: {
-                        primary: {
-                            main: darkColorTokens.primary[100],
-                            dark: darkColorTokens.primary[900],
-                            light: darkColorTokens.primary[200],
-                        },
-                        blue: {
-                            main: darkColorTokens.blueAccent[700],
-                        },
-                        red: {
-                            main: darkColorTokens.redAccent[500],
-                        },
-                        green: {
-                            main: darkColorTokens.greenAccent[700],
-                            light: darkColorTokens.greenAccent[400],
-                        },
-                        secondary: {
-                            main: darkColorTokens.primary[500],
-                            light: darkColorTokens.primary[400],
-                            dark: darkColorTokens.primary[600],
-                        },
-                        background: {
-                            default: darkColorTokens.primary[500],
-                        },
-                        greyAccent: {
-                            main: darkColorTokens.grey[100],
-                        },
+                    blue: {
+                        main: lightColorTokens.blueAccent[700],
+                    },
+                    red: {
+                        main: lightColorTokens.redAccent[500],
+                    },
+                    green: {
+                        main: lightColorTokens.greenAccent[700],
+                        light: lightColorTokens.greenAccent[400],
+                    },
+                    secondary: {
+                        main: lightColorTokens.primary[500],
+                        light: lightColorTokens.primary[400],
+                        dark: lightColorTokens.primary[600],
+                    },
+                    background: {
+                        default: "#fcfcfc",
+                    },
+                    greyAccent: {
+                        main: lightColorTokens.grey[100],
                     },
                 },
             },
-            cssVariables: {
-                colorSchemeSelector: "class",
-            },
-            typography: {
-                fontSize: 12,
-                h1: {
-                    fontSize: 45,
-                    "@media (max-width:600px)": {
-                        fontSize: "42px",
+            dark: {
+                palette: {
+                    primary: {
+                        main: darkColorTokens.primary[100],
+                        dark: darkColorTokens.primary[900],
+                        light: darkColorTokens.primary[200],
                     },
-                },
-                h2: {
-                    fontSize: 35,
-                    "@media (max-width:600px)": {
-                        fontSize: "32px",
+                    blue: {
+                        main: darkColorTokens.blueAccent[700],
                     },
-                },
-                h3: {
-                    fontSize: 24,
-                    "@media (max-width:600px)": {
-                        fontSize: "20px",
+                    red: {
+                        main: darkColorTokens.redAccent[500],
                     },
-                },
-                h4: {
-                    fontSize: 20,
-                    "@media (max-width:600px)": {
-                        fontSize: "18px",
+                    green: {
+                        main: darkColorTokens.greenAccent[700],
+                        light: darkColorTokens.greenAccent[400],
                     },
-                },
-                h5: {
-                    fontSize: 16,
-                    "@media (max-width:600px)": {
-                        fontSize: "14px",
+                    secondary: {
+                        main: darkColorTokens.primary[500],
+                        light: darkColorTokens.primary[400],
+                        dark: darkColorTokens.primary[600],
                     },
-                },
-                h6: {
-                    fontSize: 14,
-                    "@media (max-width:600px)": {
-                        fontSize: "12px",
+                    background: {
+                        default: darkColorTokens.primary[500],
                     },
-                },
-                body1: {
-                    fontSize: 16,
-                    "@media (max-width:600px)": {
-                        fontSize: "14px",
-                    },
-                },
-                body2: {
-                    fontSize: 14,
-                    "@media (max-width:600px)": {
-                        fontSize: "12px",
+                    greyAccent: {
+                        main: darkColorTokens.grey[100],
                     },
                 },
             },
-            components: {
-                MuiButton: {
-                    defaultProps: {
-                        disableRipple: true,
-                        disableFocusRipple: true,
-                        disableTouchRipple: true,
-                    },
+        },
+        cssVariables: {
+            colorSchemeSelector: "class",
+        },
+        typography: {
+            fontSize: 12,
+            h1: {
+                fontSize: 45,
+                "@media (max-width:600px)": {
+                    fontSize: "42px",
                 },
-                MuiListItemButton: {
-                    defaultProps: {
-                        disableRipple: true,
-                        disableTouchRipple: true,
-                    },
+            },
+            h2: {
+                fontSize: 35,
+                "@media (max-width:600px)": {
+                    fontSize: "32px",
                 },
-                MuiIconButton: {
-                    defaultProps: {
-                        disableRipple: true,
-                        disableFocusRipple: true,
-                        disableTouchRipple: true,
-                    },
+            },
+            h3: {
+                fontSize: 24,
+                "@media (max-width:600px)": {
+                    fontSize: "20px",
                 },
-                MuiTab: {
-                    defaultProps: {
-                        disableRipple: true,
-                        disableFocusRipple: true,
-                        disableTouchRipple: true,
-                    },
+            },
+            h4: {
+                fontSize: 20,
+                "@media (max-width:600px)": {
+                    fontSize: "18px",
                 },
-                MuiTypography: {
-                    styleOverrides: {
-                        root: {
-                            span: {
-                                fontSize: "12px",
-                                "@media (max-width:600px)": {
-                                    fontSize: "10px",
-                                },
+            },
+            h5: {
+                fontSize: 16,
+                "@media (max-width:600px)": {
+                    fontSize: "14px",
+                },
+            },
+            h6: {
+                fontSize: 14,
+                "@media (max-width:600px)": {
+                    fontSize: "12px",
+                },
+            },
+            body1: {
+                fontSize: 16,
+                "@media (max-width:600px)": {
+                    fontSize: "14px",
+                },
+            },
+            body2: {
+                fontSize: 14,
+                "@media (max-width:600px)": {
+                    fontSize: "12px",
+                },
+            },
+        },
+        components: {
+            MuiButton: {
+                defaultProps: {
+                    disableRipple: true,
+                    disableFocusRipple: true,
+                    disableTouchRipple: true,
+                },
+            },
+            MuiListItemButton: {
+                defaultProps: {
+                    disableRipple: true,
+                    disableTouchRipple: true,
+                },
+            },
+            MuiIconButton: {
+                defaultProps: {
+                    disableRipple: true,
+                    disableFocusRipple: true,
+                    disableTouchRipple: true,
+                },
+            },
+            MuiTab: {
+                defaultProps: {
+                    disableRipple: true,
+                    disableFocusRipple: true,
+                    disableTouchRipple: true,
+                },
+            },
+            MuiTypography: {
+                styleOverrides: {
+                    root: {
+                        span: {
+                            fontSize: "12px",
+                            "@media (max-width:600px)": {
+                                fontSize: "10px",
                             },
                         },
                     },
                 },
             },
-        }),
-    ),
+        },
+    }),
+};
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                hostname: "localhost",
+                port: "4000",
+            },
+            {
+                protocol: "https",
+                hostname: "movielandia-avenger22s-projects.vercel.app",
+            },
+        ],
+    },
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    // output: "export",
+    // devIndicators: {
+    //     buildActivity: true,
+    //     buildActivityPosition: "bottom-right",
+    // },
 };
 
 export default withPigment(nextConfig, pigmentConfig);

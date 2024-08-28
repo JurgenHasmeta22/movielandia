@@ -60,6 +60,7 @@ export default async function Home() {
             <HomeHeroSection />
             <Stack
                 sx={{
+                    display: "flex",
                     rowGap: 6,
                     flexDirection: "column",
                     marginBottom: 6,
