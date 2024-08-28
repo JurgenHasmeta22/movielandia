@@ -87,15 +87,15 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 alignItems="center"
                 component="section"
                 sx={{
-                    ml: 3,
-                    mr: 3,
+                    marginLeft: 3,
+                    marginRight: 3,
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
                     <Typography fontSize={22} variant="h2">
                         Movies
                     </Typography>
-                    <Typography variant="h5" sx={{ pt: 0.5 }}>
+                    <Typography variant="h5" sx={{ paddingTop: 0.5 }}>
                         {startIndex} – {endIndex} of {moviesCount} movies
                     </Typography>
                 </Box>
@@ -109,8 +109,8 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
-                    pl: 5,
-                    pr: 3,
+                    paddingLeft: 5,
+                    paddingRight: 3,
                 }}
             >
                 <Stack

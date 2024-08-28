@@ -307,7 +307,7 @@ export default function SeasonPageConent({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: season.reviews!.length > 0 ? 4 : 0,
+                    marginBottom: season.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >

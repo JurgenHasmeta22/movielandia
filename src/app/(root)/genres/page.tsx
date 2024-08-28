@@ -42,17 +42,17 @@ export default async function Genres() {
                 display: "flex",
                 flexDirection: "column",
                 placeItems: "center",
-                pt: 4,
-                mt: 4,
-                mb: 4,
-                mr: 3,
-                ml: 3,
+                paddingTop: 4,
+                marginTop: 4,
+                marginBottom: 4,
+                marginRight: 3,
+                marginLeft: 3,
             }}
             component={"section"}
         >
             <Typography
                 sx={{
-                    mt: 4,
+                    marginTop: 4,
                 }}
                 fontSize={"26px"}
             >
@@ -65,8 +65,8 @@ export default async function Genres() {
                 rowGap={4}
                 columnGap={3}
                 sx={{
-                    mt: 3,
-                    mb: 4,
+                    marginTop: 3,
+                    marginBottom: 4,
                     justifyContent: {
                         xs: "center",
                         sm: "center",

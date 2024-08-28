@@ -40,9 +40,9 @@ const SearchList: React.FC<MediaListProps> = ({
                 justifyContent="space-between"
                 alignItems="center"
                 sx={{
-                    mt: 4,
-                    ml: 3,
-                    mr: 3,
+                    marginTop: 4,
+                    marginLeft: 3,
+                    marginRight: 3,
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
@@ -69,8 +69,8 @@ const SearchList: React.FC<MediaListProps> = ({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
-                    pl: 5,
-                    pr: 3,
+                    paddingLeft: 5,
+                    paddingRight: 3,
                 }}
             >
                 <Stack

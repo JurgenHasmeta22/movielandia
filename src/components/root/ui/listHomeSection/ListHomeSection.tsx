@@ -1,8 +1,9 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
 import Link from "next/link";
 import CardItem from "../cardItem/CardItem";
 import GenreItem from "../genreItem/GenreItem";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IListHomeSectionProps {
     data: Array<Movie | Serie | Actor | Genre>;
@@ -14,14 +15,21 @@ interface IListHomeSectionProps {
 
 const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, linkText, path }) => {
     return (
-        <Box display={"flex"} flexDirection={"column"} rowGap={2} component={"section"}>
+        <Box
+            component={"section"}
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: 2,
+            }}
+        >
             <Stack
                 flexDirection={"row"}
                 justifyContent={"space-between"}
                 alignItems={"center"}
                 sx={{
-                    ml: 3,
-                    mr: 5,
+                    marginLeft: 3,
+                    marginRight: 5,
                 }}
             >
                 <Typography
@@ -51,7 +59,7 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                     {linkText}
                 </Link>
             </Stack>
-            <Box sx={{ pl: 5, pr: 3 }}>
+            <Box sx={{ paddingLeft: 5, paddingRight: 3 }}>
                 <Stack
                     direction="row"
                     flexWrap="wrap"

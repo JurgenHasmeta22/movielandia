@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button, Typography, Menu, MenuItem, Box } from "@mui/material";
+import { Button, Typography, Menu, MenuItem } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IAuthButtons {
     session: Session | null;
@@ -37,7 +38,13 @@ const AuthButtons = ({
         <>
             {session && session.user ? (
                 <>
-                    <Box display={"flex"} flexDirection={"row"} onClick={openMenuProfile}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                        }}
+                        onClick={openMenuProfile}
+                    >
                         <PersonOutlinedIcon color="action" fontSize="medium" />
                         <Typography
                             variant="body1"

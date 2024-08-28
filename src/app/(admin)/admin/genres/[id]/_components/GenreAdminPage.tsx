@@ -1,6 +1,5 @@
 "use client";
 
-import { Box } from "@mui/material";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
@@ -18,6 +17,7 @@ import { useParams, useRouter } from "next/navigation";
 import { deleteGenreById, getGenreById, updateGenreById } from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IGenreEdit {
     id?: string;
@@ -90,7 +90,11 @@ const GenreAdminPage = () => {
     }, []);
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
@@ -166,7 +170,7 @@ const GenreAdminPage = () => {
                         sx: {
                             bgcolor: "#ff5252",
                         },
-                        icon: <ClearOutlinedIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearOutlinedIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                     {
                         label: CONSTANTS.FORM__RESET__BUTTON,
@@ -179,7 +183,7 @@ const GenreAdminPage = () => {
                         sx: {
                             bgcolor: "#00bfff",
                         },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearAllIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                     {
                         label: CONSTANTS.FORM__UPDATE__BUTTON,
@@ -189,7 +193,7 @@ const GenreAdminPage = () => {
                         sx: {
                             bgcolor: "#30969f",
                         },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+                        icon: <SaveAsIcon sx={{ marginLeft: "10px" }} color="action" />,
                     },
                 ]}
             />

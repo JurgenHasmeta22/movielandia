@@ -84,7 +84,7 @@ export default function LoginForm() {
                             columnGap={1}
                             alignItems={"center"}
                             justifyContent={"center"}
-                            sx={{ pb: 4 }}
+                            sx={{ paddingBottom: 4 }}
                         >
                             <LockOutlinedIcon fontSize="large" />
                             <Typography variant="h2" textAlign={"center"}>
@@ -199,20 +199,29 @@ export default function LoginForm() {
                                 component={Link}
                                 href="/reset-password"
                                 underline="none"
-                                sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
+                                sx={{ textAlign: "right", marginTop: 1, fontSize: 12, paddingLeft: 4 }}
                             >
                                 Forgot Password?
                             </MuiLink>
                         </Box>
                         <Box>
-                            <Typography component={"span"} sx={{ fontSize: 14, pl: 4, textTransform: "capitalize" }}>
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 14, paddingLeft: 4, textTransform: "capitalize" }}
+                            >
                                 Don&apos;t have an account?
                             </Typography>
                             <MuiLink
                                 component={Link}
                                 href="/register"
                                 underline="none"
-                                sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4, textTransform: "capitalize" }}
+                                sx={{
+                                    textAlign: "right",
+                                    marginTop: 1,
+                                    fontSize: 14,
+                                    paddingLeft: 4,
+                                    textTransform: "capitalize",
+                                }}
                             >
                                 Sign Up
                             </MuiLink>

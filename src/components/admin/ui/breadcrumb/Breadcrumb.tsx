@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Button, Breadcrumbs } from "@mui/material";
+import { Button, Breadcrumbs } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useRouter } from "next/navigation";
+import Box from "@mui/material-pigment-css/Box";
 
 type BreadcrumbProps = {
     breadcrumbs: JSX.Element[];
@@ -15,13 +16,13 @@ const Breadcrumb = ({ breadcrumbs, navigateTo }: BreadcrumbProps) => {
 
     return (
         <Box
-            display={"flex"}
             component={"nav"}
-            flexDirection={"row"}
-            alignItems={"center"}
-            gap={"20px"}
             sx={{
-                mb: "30px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "20px",
+                marginBottom: "30px",
             }}
         >
             <Button

@@ -1,11 +1,11 @@
 "use client";
 
-import { Box } from "@mui/material";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import TableAdmin from "@/utils/componentHelpers/TableAdmin";
+import Box from "@mui/material-pigment-css/Box";
 
 const GenresAdminPage = () => {
     const router = useRouter();
@@ -31,7 +31,11 @@ const GenresAdminPage = () => {
     });
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <HeaderDashboard title="Genres" subtitle="List of Genres" />
             <MaterialReactTable table={table} />
         </Box>

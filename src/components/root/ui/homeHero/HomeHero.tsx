@@ -1,24 +1,25 @@
 "use client";
 
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";
 import Image from "next/image";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 const HomeHeroSection = () => {
     const theme = useTheme();
 
     return (
         <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
             component="section"
             sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
                 height: "100vh",
                 position: "relative",
                 textAlign: "center",
@@ -79,7 +80,7 @@ const HomeHeroSection = () => {
                     zIndex: 1,
                     color: "#fff",
                     paddingX: 2,
-                    mt: 1,
+                    marginTop: 1,
                 }}
             >
                 Your Gateway to the World of Cinema!
@@ -97,7 +98,7 @@ const HomeHeroSection = () => {
                     Explore the latest blockbusters and timeless classics.
                 </Typography>
             </Box>
-            <Box display="flex" justifyContent="center" marginTop={3} columnGap={2} sx={{ zIndex: 1 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3, columnGap: 2, zIndex: 1 }}>
                 <Link href="/movies" passHref style={{ textDecoration: "none" }}>
                     <Button
                         variant="contained"

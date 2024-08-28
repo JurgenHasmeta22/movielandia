@@ -12,7 +12,6 @@ import {
     InputAdornment,
     IconButton,
     Stack,
-    Box,
     FormLabel,
     Typography,
 } from "@mui/material";
@@ -21,6 +20,7 @@ import * as yup from "yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import Grid from "@mui/material-pigment-css/Grid";
+import Box from "@mui/material-pigment-css/Box";
 
 type FieldOption = {
     label: string;
@@ -162,7 +162,13 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                                 );
                                             case "password":
                                                 return (
-                                                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            rowGap: 1,
+                                                        }}
+                                                    >
                                                         <FormLabel>{field.label}</FormLabel>
                                                         <TextField
                                                             key={index}
@@ -200,7 +206,13 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                                 );
                                             default:
                                                 return (
-                                                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            rowGap: 1,
+                                                        }}
+                                                    >
                                                         <FormLabel>{field.label}</FormLabel>
                                                         <TextField
                                                             key={index}
@@ -235,7 +247,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                     flexDirection={"row"}
                                     flexWrap={"wrap"}
                                     sx={{
-                                        mt: "20px",
+                                        marginTop: "20px",
                                     }}
                                 >
                                     {actions!.map((action, index) => (

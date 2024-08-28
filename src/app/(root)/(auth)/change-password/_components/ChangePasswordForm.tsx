@@ -2,7 +2,6 @@
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-    Box,
     Button,
     FormControl,
     FormHelperText,
@@ -19,6 +18,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import PasswordIcon from "@mui/icons-material/Password";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IChangePassword {
     email: string;
@@ -95,15 +95,15 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                             height: "100vh",
                         }}
                     >
-                        <Box display={"flex"} flexDirection="row" columnGap={1} sx={{ pb: 4 }}>
+                        <Box sx={{ display: "flex", flexDirection: "row", columnGap: 1, paddingBottom: 4 }}>
                             <LockOutlinedIcon fontSize="large" />
                             <Typography variant="h2" textAlign={"center"}>
                                 Change Password
                             </Typography>
                         </Box>
-                        <Box display={"flex"} flexDirection={"row"} columnGap={3}>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                        <Box sx={{ display: "flex", flexDirection: "row", columnGap: 3 }}>
+                            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                                <Box sx={{ display: "flex", flexDirection: "row", columnGap: 1 }}>
                                     <PasswordIcon />
                                     <FormLabel component={"label"}>New Password</FormLabel>
                                 </Box>
@@ -152,8 +152,8 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                     </Box>
                                 </FormControl>
                             </Box>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                                <Box sx={{ display: "flex", flexDirection: "row", columnGap: 1 }}>
                                     <PasswordIcon />
                                     <FormLabel component={"label"}>Confirm New Password</FormLabel>
                                 </Box>

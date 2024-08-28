@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 import React from "react";
 import { HeaderContent } from "./HeaderContent";
 import { getGenresAll } from "@/actions/genre.actions";
-import { getUserById, getUsernameByUserId } from "@/actions/user.actions";
+import { getUsernameByUserId } from "@/actions/user.actions";
 
 const Header = async () => {
     const session = await getServerSession(authOptions);

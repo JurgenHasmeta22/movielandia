@@ -252,7 +252,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 },
                                             }}
                                         >
-                                            <SaveIcon sx={{ pr: 1 }} />
+                                            <SaveIcon sx={{ paddingRight: 1 }} />
                                             Save
                                         </IconButton>
                                         <IconButton
@@ -267,7 +267,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 },
                                             }}
                                         >
-                                            <CancelIcon sx={{ pr: 1 }} />
+                                            <CancelIcon sx={{ paddingRight: 1 }} />
                                             Discard
                                         </IconButton>
                                     </Box>
@@ -294,7 +294,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 "&:hover": {
                                                     bgcolor: theme.vars.palette.green.main,
                                                 },
-                                                ml: 2,
+                                                marginLeft: 2,
                                             }}
                                         >
                                             <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
@@ -318,7 +318,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         },
                                         textTransform: "capitalize",
                                         fontSize: 18,
-                                        ml: 4,
+                                        marginLeft: 4,
                                     }}
                                 >
                                     {!userInPage.isFollowed
@@ -351,7 +351,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 },
                                             }}
                                         >
-                                            <SaveIcon sx={{ pr: 1 }} />
+                                            <SaveIcon sx={{ paddingRight: 1 }} />
                                             Save
                                         </IconButton>
                                         <IconButton
@@ -366,7 +366,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 },
                                             }}
                                         >
-                                            <CancelIcon sx={{ pr: 1 }} />
+                                            <CancelIcon sx={{ paddingRight: 1 }} />
                                             Discard
                                         </IconButton>
                                     </Box>
@@ -393,7 +393,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 "&:hover": {
                                                     bgcolor: theme.vars.palette.green.main,
                                                 },
-                                                ml: 2,
+                                                marginLeft: 2,
                                             }}
                                         >
                                             <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
@@ -424,7 +424,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 },
                                             }}
                                         >
-                                            <SaveIcon sx={{ pr: 1 }} />
+                                            <SaveIcon sx={{ paddingRight: 1 }} />
                                             Save
                                         </IconButton>
                                         <IconButton
@@ -439,7 +439,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 },
                                             }}
                                         >
-                                            <CancelIcon sx={{ pr: 1 }} />
+                                            <CancelIcon sx={{ paddingRight: 1 }} />
                                             Discard
                                         </IconButton>
                                     </Box>
@@ -468,7 +468,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                 "&:hover": {
                                                     bgcolor: theme.vars.palette.green.main,
                                                 },
-                                                ml: 2,
+                                                marginLeft: 2,
                                             }}
                                         >
                                             <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
@@ -482,7 +482,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             rowGap={2}
                             flexDirection={"column"}
                             sx={{
-                                mt: 2,
+                                marginTop: 2,
                             }}
                         >
                             <Accordion>
@@ -613,7 +613,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                                         alignItems="center"
                                                         justifyContent="space-between"
                                                         sx={{
-                                                            mb: 1,
+                                                            marginBottom: 1,
                                                         }}
                                                     >
                                                         <Typography variant="body1">

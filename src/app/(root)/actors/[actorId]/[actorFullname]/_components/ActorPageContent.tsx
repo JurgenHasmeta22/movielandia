@@ -298,7 +298,7 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: actor.reviews!.length > 0 ? 4 : 0,
+                    marginBottom: actor.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >

@@ -113,7 +113,7 @@ export default function LoginForm() {
                                 columnGap={1}
                                 alignItems={"center"}
                                 justifyContent={"center"}
-                                sx={{ pb: 1 }}
+                                sx={{ paddingBottom: 1 }}
                             >
                                 <LockOutlinedIcon fontSize="large" />
                                 <Typography

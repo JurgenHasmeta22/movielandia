@@ -1,6 +1,7 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 import { Movie, Serie } from "@prisma/client";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ILatestList {
     data: Array<Movie | Serie> | null;
@@ -16,12 +17,12 @@ export function LatestList({ data, type }: ILatestList) {
                 flexDirection: "column",
                 rowGap: 2,
                 marginBottom: 4,
-                pr: 3,
+                paddingRight: 3,
             }}
         >
             <Box
                 sx={{
-                    pl: 3,
+                    paddingLeft: 3,
                 }}
             >
                 <Typography fontSize={22} variant="h2">
@@ -35,9 +36,9 @@ export function LatestList({ data, type }: ILatestList) {
                 columnGap={5}
                 rowGap={5}
                 sx={{
-                    mb: 4,
-                    pl: 5,
-                    mt: 3,
+                    marginBottom: 4,
+                    paddingLeft: 5,
+                    marginTop: 3,
                     justifyContent: {
                         xs: "center",
                         sm: "center",

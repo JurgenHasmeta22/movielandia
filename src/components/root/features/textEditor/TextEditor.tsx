@@ -3,10 +3,10 @@
 import React, { forwardRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import Rating from "@mui/material/Rating";
-import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ITextEditorProps {
     value: string;
@@ -99,7 +99,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                     justifyContent: "flex-start",
                 }}
             >
-                <Typography variant="body2" fontSize={16} fontWeight={700} sx={{ mr: 1 }}>
+                <Typography variant="body2" fontSize={16} fontWeight={700} sx={{ marginRight: 1 }}>
                     {rating?.toFixed(1)}
                 </Typography>
                 <Rating

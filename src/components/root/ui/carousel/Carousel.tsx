@@ -2,7 +2,7 @@
 
 import React from "react";
 import Slider from "react-slick";
-import { Box, Button, Typography, IconButton } from "@mui/material";
+import { Button, Typography, IconButton } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ICarouselProps {
     data: any[];
@@ -98,7 +99,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                     md: "90vh",
                 },
                 overflow: "hidden",
-                mt: 6,
+                marginTop: 6,
             }}
         >
             <Slider {...settings}>
@@ -148,13 +149,13 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "flex-end",
-                                    p: 6,
+                                    padding: 6,
                                 }}
                             >
                                 <Typography variant="h1" gutterBottom>
                                     {getTitleOrName(type, element)}
                                 </Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>
+                                <Typography variant="body1" sx={{ marginBottom: 2 }}>
                                     {element.description}
                                 </Typography>
                                 <Box>

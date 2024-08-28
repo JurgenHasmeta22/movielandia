@@ -51,7 +51,7 @@ export default async function VerifyResetPasswordPage({
                 <Typography variant="h4" component="h1" gutterBottom>
                     {isError ? "Verification Failed" : "Verification Successful"}
                 </Typography>
-                <Typography variant="body1" sx={{ mb: 3 }}>
+                <Typography variant="body1" sx={{ marginBottom: 3 }}>
                     {message}
                 </Typography>
                 {isError ? (

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Card, Stack, Typography, Button } from "@mui/material";
+import { Card, Stack, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useParams } from "next/navigation";
@@ -16,6 +16,7 @@ import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/componentHelpers
 import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/componentHelpers/features/serieFeaturesUtils";
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/componentHelpers/features/actorFeaturesUtils";
 import { useSession } from "next-auth/react";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ICardItemProps {
     data: any;
@@ -201,7 +202,9 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                                     alignItems: "center",
                                                 }}
                                             >
-                                                <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
+                                                <AccessTimeIcon
+                                                    sx={{ color: "gold", marginRight: 0.5, fontSize: "0.8rem" }}
+                                                />
                                                 <Typography
                                                     color={"white"}
                                                     fontSize="0.8rem"
@@ -227,7 +230,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                                 alignSelf: "center",
                                             }}
                                         >
-                                            <StarRateIcon sx={{ color: "gold", mr: 0.5, fontSize: "1rem" }} />
+                                            <StarRateIcon sx={{ color: "gold", marginRight: 0.5, fontSize: "1rem" }} />
                                             <Typography color={"white"} fontSize="0.9rem" component="span">
                                                 {data.averageRating ? data.averageRating : "N/A"}
                                             </Typography>

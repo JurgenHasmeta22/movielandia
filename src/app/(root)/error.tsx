@@ -1,23 +1,25 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Container from "@mui/material-pigment-css/Container";
+import Box from "@mui/material-pigment-css/Box";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     return (
         <Container maxWidth="sm">
             <Box
                 sx={{
-                    my: 20,
+                    marginTop: 10,
+                    marginBottom: 10,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     borderRadius: 2,
                     border: 1,
                     borderColor: "neutral.200",
-                    bgcolor: "background.paper",
-                    p: 4,
-                    boxShadow: 3,
+                    backgroundColor: "background.paper",
+                    padding: 4,
+                    boxShadow: "3px",
                     transition: "background-color 0.5s ease",
                 }}
             >

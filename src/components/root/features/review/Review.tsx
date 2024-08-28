@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, forwardRef, useState } from "react";
 import { format } from "date-fns";
-import { Box, Paper, Typography, IconButton, Rating, Button } from "@mui/material";
+import { Paper, Typography, IconButton, Rating, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -14,6 +14,7 @@ import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface Review {
     id: number;
@@ -136,7 +137,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
             <Paper
                 sx={{
                     p: 3,
-                    mt: 2,
+                    marginTop: 2,
                     mx: 3,
                     backgroundColor:
                         review.user.id === Number(session?.user?.id)
@@ -149,7 +150,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        mb: 1,
+                        marginBottom: 1,
                     }}
                 >
                     <Box
@@ -178,7 +179,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             <PersonOutlinedIcon
                                 sx={{
                                     fontSize: 24,
-                                    mr: 1,
+                                    marginRight: 1,
                                     color: theme.vars.palette.primary.main,
                                 }}
                             />
@@ -240,11 +241,14 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             </IconButton>
                         )}
                         {review.user.id === Number(session?.user?.id) && (
-                            <Box ref={ref} tabIndex={-1}>
-                                <IconButton size="medium" color="error" onClick={() => handleRemoveReview()}>
-                                    <CloseIcon fontSize="medium" />
-                                </IconButton>
-                            </Box>
+                            <>
+                                {/* @ts-expect-error div ref */}
+                                <div ref={ref} tabIndex={-1}>
+                                    <IconButton size="medium" color="error" onClick={() => handleRemoveReview()}>
+                                        <CloseIcon fontSize="medium" />
+                                    </IconButton>
+                                </div>
+                            </>
                         )}
                     </Box>
                 </Box>
@@ -260,7 +264,7 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        mt: 1,
+                        marginTop: 1,
                     }}
                 >
                     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -268,13 +272,13 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             variant="body1"
                             fontSize={19}
                             fontWeight={900}
-                            sx={{ mr: 1, color, letterSpacing: 2 }}
+                            sx={{ marginRight: 1, color, letterSpacing: 2 }}
                         >
                             {label}
                         </Typography>
                     </Box>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ mr: 1 }}>
+                        <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ marginRight: 1 }}>
                             {review?.rating ? review?.rating?.toFixed(1) : "0.0"}
                         </Typography>
                         <Rating
@@ -291,11 +295,17 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        mt: 1,
+                        marginTop: 1,
                         columnGap: 4,
                     }}
                 >
-                    <Box display={"flex"} alignItems={"center"} columnGap={1}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            columnGap: 1,
+                        }}
+                    >
                         <motion.div
                             whileTap={{ scale: 1 }}
                             animate={isClickedUpvote ? { scale: [1, 1.5, 1] } : {}}
@@ -331,7 +341,13 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
                             <Typography>{review._count.upvotes}</Typography>
                         </Button>
                     </Box>
-                    <Box display={"flex"} alignItems={"center"} columnGap={1}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            columnGap: 1,
+                        }}
+                    >
                         <motion.div
                             whileTap={{ scale: 1 }}
                             animate={isClickedDownvote ? { scale: [1, 1.5, 1] } : {}}

@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Box, Select, MenuItem, SvgIcon, Typography, FormControl, InputLabel } from "@mui/material";
+import { Select, MenuItem, SvgIcon, Typography, FormControl, InputLabel } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useSorting } from "@/hooks/useSorting";
 import { getSortOptions } from "@/utils/componentHelpers/getSortingOptions";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ISortSelectProps {
     sortBy: string;
@@ -29,13 +30,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
 
     return (
         <Box sx={{ display: "flex", alignItems: "start", gap: 2 }}>
-            <FormControl
-            // sx={{
-            //     display: "flex",
-            //     justifyContent: "start",
-            //     justifyItems: "center",
-            // }}
-            >
+            <FormControl>
                 <InputLabel
                     id="sort-by-label"
                     sx={{
@@ -48,7 +43,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     labelId="sort-by-label"
                     value={sortBy || "none"}
                     sx={{
-                        mt: 2,
+                        marginTop: 2,
                     }}
                     onChange={handleSortTypeChange}
                     displayEmpty
@@ -87,7 +82,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                         value={ascOrDesc || "asc"}
                         onChange={handleOrderChange}
                         sx={{
-                            mt: 2,
+                            marginTop: 2,
                         }}
                     >
                         <MenuItem value="asc">Ascending</MenuItem>

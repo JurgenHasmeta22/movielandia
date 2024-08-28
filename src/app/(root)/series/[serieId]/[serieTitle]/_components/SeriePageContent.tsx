@@ -290,7 +290,7 @@ export default function SeriePageContent({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: serie.reviews!.length > 0 ? 4 : 0,
+                    marginBottom: serie.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >

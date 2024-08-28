@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button } from "@mui/material";
+import { Typography, IconButton, Stack, TextField, Button } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -14,6 +14,7 @@ import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
@@ -27,19 +28,25 @@ const Footer = (): React.JSX.Element => {
                 backgroundColor: theme.vars.palette.primary.dark,
                 color: theme.vars.palette.primary.main,
                 justifyContent: "center",
-                py: 4,
+                paddingTop: 2,
+                paddingBottom: 2,
                 gap: 2,
-                pl: 2,
-                pr: 2,
+                paddingLeft: 2,
+                paddingRight: 2,
             }}
             component="footer"
         >
-            <Stack direction="row" rowGap={8} columnGap={4} sx={{ flexWrap: "wrap", justifyContent: "center", mb: 1 }}>
+            <Stack
+                direction="row"
+                rowGap={8}
+                columnGap={4}
+                sx={{ flexWrap: "wrap", justifyContent: "center", marginBottom: 1 }}
+            >
                 <Box>
                     <Typography variant="h4" gutterBottom>
                         Explore
                     </Typography>
-                    <Stack spacing={1} sx={{ pt: 1 }}>
+                    <Stack spacing={1} sx={{ paddingTop: 1 }}>
                         <Button
                             component={MuiNextLink}
                             href="/movies"
@@ -106,7 +113,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Account
                     </Typography>
-                    <Stack spacing={1} sx={{ pt: 1 }}>
+                    <Stack spacing={1} sx={{ paddingTop: 1 }}>
                         <Button
                             component={MuiNextLink}
                             href="/login"
@@ -143,7 +150,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Follow Us
                     </Typography>
-                    <Stack direction="row" spacing={1} sx={{ pt: 1 }}>
+                    <Stack direction="row" spacing={1} sx={{ paddingTop: 1 }}>
                         <IconButton href="https://facebook.com" target="_blank" rel="noopener">
                             <FacebookIcon />
                         </IconButton>
@@ -159,7 +166,7 @@ const Footer = (): React.JSX.Element => {
                     <Typography variant="h4" gutterBottom>
                         Newsletter
                     </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 1 }}>
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{ paddingTop: 1 }}>
                         <TextField variant="outlined" size="small" placeholder="Email" />
                         <Button
                             variant="contained"
@@ -181,7 +188,7 @@ const Footer = (): React.JSX.Element => {
             </Stack>
             <Box
                 sx={{
-                    pt: 2,
+                    paddingTop: 2,
                 }}
             >
                 <Typography variant="body2">Copyright © 2024 | MovieLandia24</Typography>

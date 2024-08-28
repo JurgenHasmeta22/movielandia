@@ -1,6 +1,5 @@
 "use client";
 
-import { Box } from "@mui/material";
 import Header from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import * as yup from "yup";
 import { toast } from "react-toastify";
@@ -13,6 +12,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { addGenre } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IGenreAdd {
     name: string;
@@ -46,7 +46,11 @@ const AddGenreAdminPage = () => {
     };
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <Header title={CONSTANTS.GENRE__ADD__TITLE} subtitle={CONSTANTS.GENRE__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
@@ -72,7 +76,7 @@ const AddGenreAdminPage = () => {
                             fontSize: "15px",
                             fontWeight: "700",
                         },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+                        icon: <SaveAsIcon sx={{ marginLeft: "10px" }} color="action" />,
                     },
                     {
                         label: CONSTANTS.FORM__RESET__BUTTON,
@@ -88,7 +92,7 @@ const AddGenreAdminPage = () => {
                             fontSize: "15px",
                             fontWeight: "700",
                         },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearAllIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                 ]}
                 onSubmit={handleFormSubmit}

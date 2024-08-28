@@ -1,8 +1,9 @@
 "use client";
 
-import { Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 const HeaderDashboard = ({ title, subtitle }: any) => {
     const theme = useTheme();
@@ -11,7 +12,7 @@ const HeaderDashboard = ({ title, subtitle }: any) => {
         <Box
             component={"nav"}
             sx={{
-                mb: "30px",
+                marginBottom: "30px",
             }}
         >
             <Typography

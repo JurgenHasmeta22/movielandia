@@ -200,7 +200,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                 variant="h4"
                 color={theme.vars.palette.primary.main}
                 sx={{
-                    mb: 4,
+                    marginBottom: 4,
                 }}
             >
                 Bookmarked {type}
@@ -247,7 +247,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                     component="h3"
                                     sx={{
                                         color: theme.vars.palette.primary.main,
-                                        mt: 1,
+                                        marginTop: 1,
                                         textAlign: "center",
                                         fontWeight: "bold",
                                         fontSize: "1rem",

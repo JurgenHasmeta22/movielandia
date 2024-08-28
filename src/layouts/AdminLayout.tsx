@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
 import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
@@ -19,7 +19,7 @@ export default function AdminLayout({
                 <TopBar />
                 <Box
                     sx={{
-                        ml: 4,
+                        marginLeft: 4,
                     }}
                 >
                     {children}

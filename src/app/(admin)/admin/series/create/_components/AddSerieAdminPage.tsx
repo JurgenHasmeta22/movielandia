@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { FormikProps } from "formik";
@@ -55,7 +55,11 @@ const AddSerieAdminPage = () => {
     };
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <HeaderDashboard title={CONSTANTS.SERIE__ADD__TITLE} subtitle={CONSTANTS.SERIE__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
@@ -102,7 +106,7 @@ const AddSerieAdminPage = () => {
                             fontSize: "15px",
                             fontWeight: "700",
                         },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+                        icon: <SaveAsIcon sx={{ marginLeft: "10px" }} color="action" />,
                     },
                     {
                         label: CONSTANTS.FORM__RESET__BUTTON,
@@ -118,7 +122,7 @@ const AddSerieAdminPage = () => {
                             fontSize: "15px",
                             fontWeight: "700",
                         },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearAllIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                 ]}
                 onSubmit={handleFormSubmit}

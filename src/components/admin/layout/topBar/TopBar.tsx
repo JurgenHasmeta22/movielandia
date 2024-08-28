@@ -1,6 +1,6 @@
 "use client";
 
-import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { useState } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 const TopBar = () => {
     const { data: session } = useSession();
@@ -51,7 +52,12 @@ const TopBar = () => {
                 }}
                 component={"nav"}
             >
-                <Box display={"flex"} justifyContent={"start"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "start",
+                    }}
+                >
                     {!isOpenSidebarAdmin && (
                         <IconButton
                             onClick={() => {
@@ -62,7 +68,12 @@ const TopBar = () => {
                         </IconButton>
                     )}
                 </Box>
-                <Box display={"flex"} flexDirection={"row"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                    }}
+                >
                     <IconButton>
                         {theme.palette.mode === "dark" ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
                     </IconButton>

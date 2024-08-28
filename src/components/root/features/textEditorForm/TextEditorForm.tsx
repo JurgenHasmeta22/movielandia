@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import TextEditor from "../textEditor/TextEditor";
 import { TextEditorButtons } from "../textEditorButtons/TextEditorButtons";
 
@@ -32,8 +32,18 @@ export function TextEditorForm({
     onSubmitUpdateReview,
 }: ITextEditorForm) {
     return (
-        <Box marginTop={4} px={4}>
-            <Box marginBottom={1}>
+        <Box
+            sx={{
+                marginTop: 4,
+                paddingLeft: 2,
+                paddingRight: 2,
+            }}
+        >
+            <Box
+                sx={{
+                    marginBottom: 1,
+                }}
+            >
                 <TextEditor
                     value={review}
                     onChange={setReview}

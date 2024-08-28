@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import {
-    Box,
     List,
     Typography,
     Avatar,
@@ -23,6 +22,7 @@ import { signOut, useSession } from "next-auth/react";
 import { IS_BROWSER } from "@/utils/helpers/utils";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 const Sidebar = ({ sidebarItems }: any) => {
     const { data: session } = useSession();
@@ -67,15 +67,15 @@ const Sidebar = ({ sidebarItems }: any) => {
         >
             <Box
                 sx={{
-                    mt: 2,
+                    marginTop: 2,
                 }}
             >
                 <Box
-                    display="flex"
-                    justifyContent="end"
-                    alignItems="center"
                     sx={{
-                        mb: 2,
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center",
+                        marginBottom: 2,
                     }}
                 >
                     <IconButton onClick={onClose}>
@@ -83,11 +83,11 @@ const Sidebar = ({ sidebarItems }: any) => {
                     </IconButton>
                 </Box>
                 <Box
-                    display="flex"
-                    alignItems="center"
                     sx={{
-                        mb: 2,
-                        ml: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: 2,
+                        marginLeft: 2,
                     }}
                 >
                     <Avatar>
@@ -95,7 +95,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                     </Avatar>
                     <Box
                         sx={{
-                            ml: 2,
+                            marginLeft: 2,
                         }}
                     >
                         <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>

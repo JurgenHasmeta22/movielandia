@@ -7,5 +7,5 @@ import { useTheme } from "@mui/material-pigment-css";
 export default function DividerLine() {
     const theme = useTheme();
 
-    return <Divider sx={{ borderBottomWidth: 3, mt: 1, background: theme.vars.palette.primary.main }} />;
+    return <Divider sx={{ borderBottomWidth: 3, marginTop: 1, background: theme.vars.palette.primary.main }} />;
 }

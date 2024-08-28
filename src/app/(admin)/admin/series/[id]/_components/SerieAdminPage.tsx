@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
@@ -94,7 +94,11 @@ const SerieAdminPage = () => {
     }, []);
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
@@ -191,7 +195,7 @@ const SerieAdminPage = () => {
                         sx: {
                             bgcolor: "#ff5252",
                         },
-                        icon: <ClearOutlinedIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearOutlinedIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                     {
                         label: CONSTANTS.FORM__RESET__BUTTON,
@@ -204,7 +208,7 @@ const SerieAdminPage = () => {
                         sx: {
                             bgcolor: "#00bfff",
                         },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearAllIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                     {
                         label: CONSTANTS.FORM__UPDATE__BUTTON,
@@ -214,7 +218,7 @@ const SerieAdminPage = () => {
                         sx: {
                             bgcolor: "#30969f",
                         },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+                        icon: <SaveAsIcon sx={{ marginLeft: "10px" }} color="action" />,
                     },
                 ]}
             />

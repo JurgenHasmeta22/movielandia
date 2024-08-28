@@ -292,7 +292,7 @@ export default function MoviePageContent({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: movie.reviews!.length > 0 ? 4 : 0,
+                    marginBottom: movie.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >

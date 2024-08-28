@@ -21,7 +21,6 @@ import {
     ListItemAvatar,
     ListItemText,
     CircularProgress,
-    Box,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Formik, Form, Field, FormikProps } from "formik";
@@ -31,6 +30,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import Grid from "@mui/material-pigment-css/Grid";
+import Box from "@mui/material-pigment-css/Box";
 
 type FieldConfig = {
     name: string;
@@ -126,11 +126,11 @@ const Modal: React.FC<ModalProps> = ({
                             }
                             loader={
                                 <Box
-                                    display={"flex"}
-                                    alignItems={"center"}
-                                    justifyContent={"center"}
                                     sx={{
-                                        mt: 1,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        marginTop: 1,
                                     }}
                                 >
                                     <CircularProgress size={20} thickness={2} />
@@ -174,7 +174,7 @@ const Modal: React.FC<ModalProps> = ({
                                                       <PersonOutlinedIcon
                                                           sx={{
                                                               fontSize: 24,
-                                                              mr: 1,
+                                                              marginRight: 1,
                                                           }}
                                                       />
                                                   )}
@@ -210,7 +210,7 @@ const Modal: React.FC<ModalProps> = ({
                                                       <PersonOutlinedIcon
                                                           sx={{
                                                               fontSize: 24,
-                                                              mr: 1,
+                                                              marginRight: 1,
                                                           }}
                                                       />
                                                   )}
@@ -238,7 +238,7 @@ const Modal: React.FC<ModalProps> = ({
                                         container
                                         spacing={4}
                                         sx={{
-                                            mt: 2,
+                                            marginTop: 2,
                                         }}
                                     >
                                         {fields &&

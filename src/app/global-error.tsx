@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
     return (

@@ -43,7 +43,13 @@ export default function ResetPasswordPage() {
                 rowGap: 4,
             }}
         >
-            <Box display={"flex"} flexDirection="row" alignItems={"center"} justifyContent={"center"} sx={{ pb: 2 }}>
+            <Box
+                display={"flex"}
+                flexDirection="row"
+                alignItems={"center"}
+                justifyContent={"center"}
+                sx={{ paddingBottom: 2 }}
+            >
                 <Typography variant="h2" textAlign={"center"}>
                     Reset Password
                 </Typography>

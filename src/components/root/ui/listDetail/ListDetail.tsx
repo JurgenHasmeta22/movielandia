@@ -1,5 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IListDetail {
     data: any;
@@ -24,8 +25,8 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                     >
                         <Box
                             sx={{
-                                ml: 3,
-                                mr: 3,
+                                marginLeft: 3,
+                                marginRight: 3,
                             }}
                         >
                             {type !== "actor" && (
@@ -101,7 +102,7 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 </Box>
                             )}
                         </Box>
-                        <Box sx={{ pl: 5, pr: 3 }}>
+                        <Box sx={{ paddingLeft: 5, paddingRight: 3 }}>
                             <Stack
                                 direction="row"
                                 flexWrap="wrap"

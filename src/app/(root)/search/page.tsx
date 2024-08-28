@@ -1,6 +1,6 @@
 import { searchMoviesByTitle } from "@/actions/movie.actions";
 import { searchSeriesByTitle } from "@/actions/serie.actions";
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import { Actor, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import type { Metadata } from "next";
 import { searchActorsByTitle } from "@/actions/actor.actions";

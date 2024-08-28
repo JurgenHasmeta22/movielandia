@@ -1,5 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import SortSelect from "../sortSelect/SortSelect";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IReviews {
     data: {

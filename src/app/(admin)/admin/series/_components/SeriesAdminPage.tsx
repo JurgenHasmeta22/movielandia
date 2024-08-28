@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import { useMemo } from "react";
@@ -39,7 +39,11 @@ const SeriesAdminPage = () => {
     });
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <HeaderDashboard title="Series" subtitle="List of Series" />
             <MaterialReactTable table={table} />
         </Box>

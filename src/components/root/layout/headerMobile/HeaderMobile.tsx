@@ -1,7 +1,7 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, Drawer, IconButton, useMediaQuery } from "@mui/material";
+import { Drawer, IconButton, useMediaQuery } from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import { Genre } from "@prisma/client";
@@ -11,6 +11,7 @@ import AuthButtons from "../../ui/authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IHeaderMenu {
     genres: Genre[];
@@ -84,8 +85,8 @@ export default function HeaderMobile({
                 <Box
                     sx={{
                         marginTop: 2,
-                        ml: 2,
-                        mr: 2,
+                        marginLeft: 2,
+                        marginRight: 2,
                     }}
                 >
                     <SearchField />
@@ -93,8 +94,8 @@ export default function HeaderMobile({
                 <Box
                     sx={{
                         marginTop: 2,
-                        ml: 2,
-                        mr: 2,
+                        marginLeft: 2,
+                        marginRight: 2,
                     }}
                 >
                     <ThemeToggleButton />
@@ -105,8 +106,8 @@ export default function HeaderMobile({
                         display: "flex",
                         flexDirection: "row",
                         columnGap: 3,
-                        ml: 2,
-                        mr: 2,
+                        marginLeft: 2,
+                        marginRight: 2,
                     }}
                 >
                     <AuthButtons

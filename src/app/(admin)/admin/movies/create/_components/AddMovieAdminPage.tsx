@@ -1,6 +1,5 @@
 "use client";
 
-import { Box } from "@mui/material";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { FormikProps } from "formik";
@@ -12,6 +11,7 @@ import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDas
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { addMovie } from "@/actions/movie.actions";
 import { useRouter } from "next/navigation";
+import Box from "@mui/material-pigment-css/Box";
 
 const movieSchema = yup.object().shape({
     title: yup.string().required("required"),
@@ -53,7 +53,11 @@ const AddMovieAdminPage = () => {
     };
 
     return (
-        <Box m="20px">
+        <Box
+            sx={{
+                margin: "20px",
+            }}
+        >
             <HeaderDashboard title={CONSTANTS.MOVIE__ADD__TITLE} subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE} />
             <FormAdvanced
                 initialValues={{
@@ -121,7 +125,7 @@ const AddMovieAdminPage = () => {
                             fontSize: "15px",
                             fontWeight: "700",
                         },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+                        icon: <SaveAsIcon sx={{ marginLeft: "10px" }} color="action" />,
                     },
                     {
                         label: CONSTANTS.FORM__RESET__BUTTON,
@@ -137,7 +141,7 @@ const AddMovieAdminPage = () => {
                             fontSize: "15px",
                             fontWeight: "700",
                         },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                        icon: <ClearAllIcon color="action" sx={{ marginLeft: "10px" }} />,
                     },
                 ]}
                 onSubmit={handleFormSubmit}

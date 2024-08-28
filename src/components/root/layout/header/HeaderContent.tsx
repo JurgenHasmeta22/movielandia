@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, IconButton, Stack, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Stack, Toolbar } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
@@ -16,6 +16,7 @@ import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IHeaderContent {
     session: Session | null;

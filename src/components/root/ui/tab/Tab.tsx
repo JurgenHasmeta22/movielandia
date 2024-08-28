@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 
 export default function TabPanel(props: any) {
     const { children, value, index, ...other } = props;
@@ -13,7 +13,15 @@ export default function TabPanel(props: any) {
             aria-labelledby={`tab-${index}`}
             {...other}
         >
-            {value === index && <Box p={3}>{children}</Box>}
+            {value === index && (
+                <Box
+                    sx={{
+                        padding: 3,
+                    }}
+                >
+                    {children}
+                </Box>
+            )}
         </div>
     );
 }

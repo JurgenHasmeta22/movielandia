@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Container from "@mui/material-pigment-css/Container";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 export default function NotFoundGlobalPage() {
     const theme = useTheme();
@@ -12,17 +13,18 @@ export default function NotFoundGlobalPage() {
         <Container maxWidth="sm">
             <Box
                 sx={{
-                    my: 20,
+                    marginTop: 10,
+                    marginBottom: 10,
                     display: "flex",
                     flexDirection: "column",
                     placeItems: "center",
                     placeContent: "center",
                     borderRadius: 2,
-                    border: 1,
+                    border: "1px solid",
                     borderColor: "neutral.200",
-                    bgcolor: "background.paper",
-                    p: 6,
-                    boxShadow: 3,
+                    backgroundColor: "background.paper",
+                    padding: 6,
+                    boxShadow: "3px",
                     transition: "background-color 0.5s ease",
                 }}
             >
@@ -48,7 +50,7 @@ export default function NotFoundGlobalPage() {
                     </Typography>
                     <Box
                         sx={{
-                            mt: 4,
+                            marginTop: 4,
                         }}
                     >
                         <Link

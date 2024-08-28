@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import { Metadata } from "next";
 import { Genre, Movie, Serie } from "@prisma/client";
 import { getGenreById } from "@/actions/genre.actions";

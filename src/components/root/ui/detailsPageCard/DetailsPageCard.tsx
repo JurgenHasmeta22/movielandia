@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Chip, Button } from "@mui/material";
+import { Typography, Chip, Button } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface IDetailsPageCardProps {
     data: any;
@@ -29,17 +30,17 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                bgcolor: theme.vars.palette.secondary.light,
+                backgroundColor: theme.vars.palette.secondary.light,
                 color: theme.vars.palette.primary.main,
                 width: "100%",
                 maxWidth: "1200px",
                 margin: "auto",
-                p: { xs: 2, sm: 3, md: 4 },
+                padding: { xs: 2, sm: 3, md: 4 },
                 borderRadius: 6,
-                mt: 10,
+                marginTop: 10,
             }}
         >
-            <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 3, mb: 3 }}>
+            <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 3, marginBottom: 3 }}>
                 <Box
                     sx={{
                         flexShrink: 0,
@@ -68,7 +69,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                     >
                         {type !== "actor" ? data.title : data.fullname}
                     </Typography>
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, marginBottom: 2 }}>
                         {data.genres?.map((genre: any, index: number) => (
                             <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
                                 <Chip
@@ -87,7 +88,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             </Link>
                         ))}
                     </Box>
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 2 }}>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, marginBottom: 2 }}>
                         {type !== "season" && type !== "serie" && type !== "actor" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <AccessTime fontSize="small" />
@@ -118,7 +119,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                     <Typography variant="body1" paragraph color={theme.vars.palette.primary.light}>
                         {data.description}
                     </Typography>
-                    <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <Box sx={{ marginTop: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
                         {type !== "actor" && (
                             <Button
                                 variant="contained"

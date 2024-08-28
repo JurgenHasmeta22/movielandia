@@ -89,7 +89,7 @@ export default async function Actors({ searchParams }: IActorsProps) {
                     <Typography fontSize={22} variant="h2">
                         Actors
                     </Typography>
-                    <Typography variant="h5" sx={{ pt: 0.5 }}>
+                    <Typography variant="h5" sx={{ paddingTop: 0.5 }}>
                         {startIndex} – {endIndex} of {actorsCount} actors
                     </Typography>
                 </Box>
@@ -103,8 +103,8 @@ export default async function Actors({ searchParams }: IActorsProps) {
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 4,
-                    pl: 5,
-                    pr: 3,
+                    paddingLeft: 5,
+                    paddingRight: 3,
                 }}
             >
                 <Stack

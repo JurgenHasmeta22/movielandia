@@ -9,7 +9,6 @@ import {
     FormControl,
     InputLabel,
     Drawer,
-    Box,
     Typography,
     Step,
     StepLabel,
@@ -27,6 +26,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Grid from "@mui/material-pigment-css/Grid";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 type FieldConfig = {
     name: string;
@@ -112,17 +112,19 @@ const RightPanel: React.FC<DrawerProps> = ({
                 sx={{
                     width: "100%",
                     height: "100%",
-                    px: 2,
-                    py: 4,
-                    bgcolor: theme.vars.palette.background.default,
+                    paddingTop: 2,
+                    paddingBottom: 2,
+                    paddingRight: 1,
+                    paddingLeft: 1,
+                    backgroundColor: theme.vars.palette.background.default,
                 }}
             >
                 <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
                     sx={{
-                        mb: 2,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 2,
                     }}
                 >
                     {title && <Typography variant="h3">{title}</Typography>}
@@ -135,7 +137,7 @@ const RightPanel: React.FC<DrawerProps> = ({
                         variant="subtitle1"
                         color="textSecondary"
                         sx={{
-                            mb: 4,
+                            marginBottom: 4,
                         }}
                     >
                         {subTitle}
@@ -199,7 +201,13 @@ const RightPanel: React.FC<DrawerProps> = ({
                                                     </Select>
                                                 </FormControl>
                                             ) : field.type === "password" ? (
-                                                <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        rowGap: 1,
+                                                    }}
+                                                >
                                                     <FormLabel>{field.label}</FormLabel>
                                                     <TextField
                                                         key={index}
@@ -234,7 +242,13 @@ const RightPanel: React.FC<DrawerProps> = ({
                                                     />
                                                 </Box>
                                             ) : (
-                                                <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        rowGap: 1,
+                                                    }}
+                                                >
                                                     <FormLabel>{field.label}</FormLabel>
                                                     <TextField
                                                         key={index}
@@ -257,11 +271,11 @@ const RightPanel: React.FC<DrawerProps> = ({
                                     ))}
                                 </Grid>
                                 <Box
-                                    display={"flex"}
-                                    gap={"10px"}
-                                    justifyContent={"end"}
                                     sx={{
-                                        mt: 3,
+                                        display: "flex",
+                                        justifyContent: "end",
+                                        gap: "10px",
+                                        marginTop: 3,
                                     }}
                                 >
                                     {(steps ? steps[activeStep].actions! : actions!).map((action, index) => (
@@ -290,10 +304,10 @@ const RightPanel: React.FC<DrawerProps> = ({
                                 </Box>
                                 {steps && (
                                     <Box
-                                        display="flex"
-                                        justifyContent="space-between"
                                         sx={{
-                                            mt: 12,
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            marginTop: 12,
                                         }}
                                     >
                                         <Button disabled={activeStep === 0} onClick={handleBack} variant="contained">

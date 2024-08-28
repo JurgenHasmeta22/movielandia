@@ -307,7 +307,7 @@ export default function EpisodePage({
                     display: "flex",
                     flexDirection: "column",
                     rowGap: 2,
-                    mb: episode.reviews!.length > 0 ? 4 : 0,
+                    marginBottom: episode.reviews!.length > 0 ? 4 : 0,
                 }}
                 component={"section"}
             >

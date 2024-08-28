@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import Box from "@mui/material-pigment-css/Box";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
 

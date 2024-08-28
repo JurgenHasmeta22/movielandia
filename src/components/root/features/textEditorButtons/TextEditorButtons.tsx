@@ -1,11 +1,12 @@
 "use client";
 
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
+import Box from "@mui/material-pigment-css/Box";
 
 interface ITextEditorButtons {
     isEditMode: boolean;
@@ -33,7 +34,13 @@ export function TextEditorButtons({
     return (
         <>
             {!isEditMode ? (
-                <Box display={"flex"} justifyContent={"end"} marginTop={2}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "end",
+                        marginTop: 2,
+                    }}
+                >
                     <Button
                         onClick={onSubmitReview}
                         variant="contained"
@@ -58,12 +65,14 @@ export function TextEditorButtons({
                 </Box>
             ) : (
                 <Box
-                    display={"flex"}
-                    flexDirection={"row"}
-                    columnGap={1}
-                    justifyContent={"end"}
-                    alignItems={"center"}
-                    marginTop={2}
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        columnGap: 1,
+                        justifyContent: "end",
+                        alignItems: "center",
+                        marginTop: 2,
+                    }}
                 >
                     <Button
                         onClick={() => {
