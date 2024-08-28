@@ -1,5 +1,5 @@
 import { withPigment } from "@pigment-css/nextjs-plugin";
-import { createTheme, extendTheme, responsiveFontSizes } from "@mui/material";
+import { extendTheme } from "@mui/material";
 
 const darkColorTokens = {
     grey: {
@@ -130,8 +130,7 @@ const lightColorTokens = {
  */
 const pigmentConfig = {
     transformLibraries: ["@mui/material"],
-    // sourceMap: true,
-    theme: createTheme({
+    theme: extendTheme({
         colorSchemes: {
             light: {
                 palette: {
@@ -312,11 +311,6 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
-    // output: "export",
-    // devIndicators: {
-    //     buildActivity: true,
-    //     buildActivityPosition: "bottom-right",
-    // },
 };
 
 export default withPigment(nextConfig, pigmentConfig);
