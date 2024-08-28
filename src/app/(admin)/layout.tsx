@@ -16,10 +16,10 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-    // robots: {
-    //     follow: false,
-    //     index: false,
-    // },
+    robots: {
+        follow: false,
+        index: false,
+    },
     title: {
         default: "Admin Panel",
     },
@@ -34,11 +34,11 @@ export default function RootLayout({
         <html suppressHydrationWarning lang="en">
             <body className={montserrat.className}>
                 <AuthProvider>
-                    <InitColorSchemeScript attribute="class" />
                     <MUIThemeProvider>
                         <ToastProvider>
                             <ModalProvider>
                                 <RightPanelProvider>
+                                    <InitColorSchemeScript attribute="class" />
                                     <AdminLayout>{children}</AdminLayout>
                                 </RightPanelProvider>
                             </ModalProvider>
