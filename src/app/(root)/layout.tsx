@@ -7,8 +7,8 @@ import { MUIThemeProvider } from "@/providers/ThemeProvider";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import MainLayout from "@/layouts/MainLayout";
 import { Montserrat } from "next/font/google";
-import "../globals.css";
 import "@mui/material-pigment-css/styles.css";
+import "../globals.css";
 
 const montserrat = Montserrat({
     weight: ["300", "400", "500", "700"],

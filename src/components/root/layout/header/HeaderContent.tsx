@@ -71,12 +71,13 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: {
-                            xs: "flex-start",
-                            sm: "flex-start",
-                            md: "space-around",
-                            lg: "space-around",
-                        },
+                        // justifyContent: {
+                        //     xs: "flex-start",
+                        //     sm: "flex-start",
+                        //     md: "space-around",
+                        //     lg: "space-around",
+                        // },
+                        justifyContent: "space-around",
                         flexWrap: "wrap",
                         py: 1,
                         backgroundColor: theme.vars.palette.primary.dark,
@@ -86,12 +87,13 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     {/* Mobile Header */}
                     <Box
                         sx={{
-                            display: {
-                                xs: "block",
-                                sm: "block",
-                                md: "none",
-                                lg: "none",
-                            },
+                            // display: {
+                            //     xs: "block",
+                            //     sm: "block",
+                            //     md: "none",
+                            //     lg: "none",
+                            // },
+                            display: "none",
                         }}
                     >
                         <IconButton
@@ -107,12 +109,13 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     {/* Dekstop Header */}
                     <Stack
                         sx={{
-                            display: {
-                                xs: "none",
-                                sm: "none",
-                                md: "flex",
-                                lg: "flex",
-                            },
+                            // display: {
+                            //     xs: "none",
+                            //     sm: "none",
+                            //     md: "flex",
+                            //     lg: "flex",
+                            // },
+                            display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
                             justifyContent: "space-around",

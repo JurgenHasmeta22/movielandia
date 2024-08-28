@@ -2,7 +2,7 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
@@ -10,6 +10,7 @@ import { getMovies, getLatestMovies } from "@/actions/movie.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IMoviesProps {
     searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
@@ -82,12 +83,12 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 <Carousel data={moviesCarouselImages} type="movies" />
             </Box>
             <Stack
-                display="flex"
-                flexDirection="row"
-                justifyContent={"space-between"}
-                alignItems="center"
                 component="section"
                 sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                     marginLeft: 3,
                     marginRight: 3,
                 }}
@@ -122,18 +123,20 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 }}
             >
                 <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    columnGap={5}
-                    rowGap={5}
                     sx={{
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "start",
+                        flexWrap: "wrap",
+                        columnGap: 5,
+                        rowGap: 5,
+                        justifyContent: "start",
+                        // justifyContent: {
+                        //     xs: "center",
+                        //     sm: "center",
+                        //     md: "start",
+                        //     lg: "start",
+                        // },
                     }}
                 >
                     {movies.map((movie: Movie) => (

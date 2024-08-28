@@ -11,7 +11,6 @@ import {
     SxProps,
     InputAdornment,
     IconButton,
-    Stack,
     FormLabel,
     Typography,
 } from "@mui/material";
@@ -21,6 +20,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import Grid from "@mui/material-pigment-css/Grid";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 type FieldOption = {
     label: string;
@@ -85,7 +85,15 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                     <Form>
                         <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>
                             <Grid container sx={{ alignItems: "center" }}>
-                                <Stack rowGap={4} columnGap={2} flexDirection={"row"} flexWrap={"wrap"}>
+                                <Stack
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                        rowGap: 4,
+                                        columnGap: 2,
+                                    }}
+                                >
                                     {fields.map((field: FieldConfig, index: number) => {
                                         switch (field.type) {
                                             case "select":
@@ -243,10 +251,11 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                 }}
                             >
                                 <Stack
-                                    columnGap={2}
-                                    flexDirection={"row"}
-                                    flexWrap={"wrap"}
                                     sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        flexWrap: "wrap",
+                                        columnGap: 2,
                                         marginTop: "20px",
                                     }}
                                 >

@@ -1,6 +1,7 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IListDetail {
     data: any;
@@ -33,12 +34,13 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
+                                        // justifyContent: {
+                                        //     xs: "center",
+                                        //     sm: "center",
+                                        //     md: "start",
+                                        //     lg: "start",
+                                        // },
+                                        justifyContent: "start",
                                     }}
                                 >
                                     <Typography
@@ -71,12 +73,13 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
+                                        // justifyContent: {
+                                        //     xs: "center",
+                                        //     sm: "center",
+                                        //     md: "start",
+                                        //     lg: "start",
+                                        // },
+                                        justifyContent: "start",
                                     }}
                                 >
                                     <Typography variant={"h2"} fontSize={28}>
@@ -88,12 +91,13 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                                 <Box
                                     sx={{
                                         display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
+                                        // justifyContent: {
+                                        //     xs: "center",
+                                        //     sm: "center",
+                                        //     md: "start",
+                                        //     lg: "start",
+                                        // },
+                                        justifyContent: "start",
                                     }}
                                 >
                                     <Typography variant={"h2"} fontSize={28}>
@@ -104,18 +108,20 @@ export function ListDetail({ data, type, roleData }: IListDetail) {
                         </Box>
                         <Box sx={{ paddingLeft: 5, paddingRight: 3 }}>
                             <Stack
-                                direction="row"
-                                flexWrap="wrap"
-                                alignItems={"start"}
-                                rowGap={5}
-                                columnGap={5}
                                 sx={{
-                                    justifyContent: {
-                                        xs: "center",
-                                        sm: "center",
-                                        md: "start",
-                                        lg: "start",
-                                    },
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    flexWrap: "wrap",
+                                    alignItems: "start",
+                                    rowGap: 5,
+                                    columnGap: 5,
+                                    // justifyContent: {
+                                    //     xs: "center",
+                                    //     sm: "center",
+                                    //     md: "start",
+                                    //     lg: "start",
+                                    // },
+                                    justifyContent: "start",
                                 }}
                             >
                                 {data &&

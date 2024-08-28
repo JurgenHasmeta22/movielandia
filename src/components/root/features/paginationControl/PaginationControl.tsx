@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Stack, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 import { useSearchParams, useRouter } from "next/navigation";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IPaginationControl {
     pageCount: number;

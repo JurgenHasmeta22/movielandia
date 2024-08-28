@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import DefaultPropsProvider from "@mui/material/DefaultPropsProvider";
 

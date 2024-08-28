@@ -93,12 +93,13 @@ const GenreList: React.FC<GenreListProps> = ({
                         alignItems: "start",
                         columnGap: 5,
                         rowGap: 5,
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
+                        // justifyContent: {
+                        //     xs: "center",
+                        //     sm: "center",
+                        //     md: "start",
+                        //     lg: "start",
+                        // },
+                        justifyContent: "start",
                     }}
                 >
                     {data.map((item, index) => (

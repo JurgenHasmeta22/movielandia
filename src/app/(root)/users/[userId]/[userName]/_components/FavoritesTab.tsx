@@ -1,6 +1,6 @@
 "use client";
 
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
@@ -17,6 +17,7 @@ import Link from "next/link";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface FavoritesTabProps {
     type: string;
@@ -206,7 +207,16 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
             >
                 Bookmarked {type}
             </Typography>
-            <Stack flexDirection="row" flexWrap="wrap" columnGap={3} rowGap={3} justifyContent="start">
+            <Stack
+                sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "start",
+                    flexWrap: "wrap",
+                    rowGap: 3,
+                    columnGap: 3,
+                }}
+            >
                 {favorites.map((favItem: any, index: number) => (
                     <motion.div
                         key={index}

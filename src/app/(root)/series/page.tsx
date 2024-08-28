@@ -2,7 +2,7 @@ import CardItem from "@/components/root/ui/cardItem/CardItem";
 import Carousel from "@/components/root/ui/carousel/Carousel";
 import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/features/sortSelect/SortSelect";
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
@@ -10,6 +10,7 @@ import { getSeries, getLatestSeries } from "@/actions/serie.actions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface ISeriesProps {
     searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
@@ -81,12 +82,12 @@ export default async function Series({ searchParams }: ISeriesProps) {
                 <Carousel data={seriesCarouselImages} type="series" />
             </Box>
             <Stack
-                display="flex"
-                flexDirection="row"
-                justifyContent={"space-between"}
-                alignItems="center"
                 component="section"
                 sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                     marginLeft: 3,
                     marginRight: 3,
                 }}
@@ -121,18 +122,19 @@ export default async function Series({ searchParams }: ISeriesProps) {
                 }}
             >
                 <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    columnGap={5}
-                    rowGap={5}
                     sx={{
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "start",
+                        alignItems: "start",
+                        columnGap: 5,
+                        rowGap: 5,
+                        // justifyContent: {
+                        //     xs: "center",
+                        //     sm: "center",
+                        //     md: "start",
+                        //     lg: "start",
+                        // },
                     }}
                 >
                     {series.map((serie: Serie) => (

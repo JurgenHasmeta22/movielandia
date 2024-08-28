@@ -1,9 +1,10 @@
 import GenreItem from "@/components/root/ui/genreItem/GenreItem";
 import { getGenres } from "@/actions/genre.actions";
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
@@ -60,20 +61,22 @@ export default async function Genres() {
                 Choose your favorite genre
             </Typography>
             <Stack
-                direction="row"
-                flexWrap="wrap"
-                alignItems={"start"}
-                rowGap={4}
-                columnGap={3}
                 sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    alignItems: "start",
+                    rowGap: 4,
+                    columnGap: 3,
                     marginTop: 3,
                     marginBottom: 4,
-                    justifyContent: {
-                        xs: "center",
-                        sm: "center",
-                        md: "start",
-                        lg: "start",
-                    },
+                    justifyContent: "start",
+                    // justifyContent: {
+                    //     xs: "center",
+                    //     sm: "center",
+                    //     md: "start",
+                    //     lg: "start",
+                    // },
                 }}
             >
                 {genres.map((genre: Genre, index: number) => (

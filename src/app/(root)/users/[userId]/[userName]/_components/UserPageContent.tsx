@@ -6,7 +6,6 @@ import {
     AccordionSummary,
     Button,
     IconButton,
-    Stack,
     Tab,
     Tabs,
     TextField,
@@ -31,6 +30,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTheme } from "@mui/material-pigment-css";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IUserPageProps {
     userLoggedIn: any | null;
@@ -208,25 +208,30 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
             {Number(userLoggedIn.id) === userInPage.id ||
             (userInPage.isFollowed && userInPage.isFollowedStatus === "accepted") ? (
                 <Stack
-                    flexDirection="row"
-                    px={4}
-                    py={10}
-                    columnGap={4}
-                    rowGap={4}
-                    flexWrap={"wrap"}
-                    width={"100%"}
-                    alignItems="flex-start"
-                    justifyContent="center"
+                    sx={{
+                        paddingTop: 5,
+                        paddingBottom: 5,
+                        paddingRight: 2,
+                        paddingLeft: 2,
+                        display: "flex",
+                        flexDirection: "row",
+                        rowGap: 4,
+                        columnGap: 4,
+                        flexWrap: "wrap",
+                        alignItems: "start",
+                        justifyContent: "center",
+                        width: "100%",
+                    }}
                 >
                     <Stack
                         component="section"
                         sx={{
-                            bgcolor: theme.vars.palette.secondary.light,
+                            backgroundColor: theme.vars.palette.secondary.light,
                             borderRadius: "18px",
                             padding: 4,
                             display: "flex",
                             flexDirection: "column",
-                            boxShadow: 6,
+                            boxShadow: "6px",
                             width: ["100%", "100%", "30%", "30%"],
                         }}
                     >

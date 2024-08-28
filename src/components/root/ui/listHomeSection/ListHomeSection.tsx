@@ -1,9 +1,10 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
 import Link from "next/link";
 import CardItem from "../cardItem/CardItem";
 import GenreItem from "../genreItem/GenreItem";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IListHomeSectionProps {
     data: Array<Movie | Serie | Actor | Genre>;
@@ -24,10 +25,11 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
             }}
         >
             <Stack
-                flexDirection={"row"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
                 sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                     marginLeft: 3,
                     marginRight: 5,
                 }}
@@ -61,18 +63,20 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
             </Stack>
             <Box sx={{ paddingLeft: 5, paddingRight: 3 }}>
                 <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    rowGap={5}
-                    columnGap={5}
                     sx={{
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        alignItems: "start",
+                        rowGap: 5,
+                        columnGap: 5,
+                        // justifyContent: {
+                        //     xs: "center",
+                        //     sm: "center",
+                        //     md: "start",
+                        //     lg: "start",
+                        // },
+                        justifyContent: "start",
                     }}
                 >
                     {data &&

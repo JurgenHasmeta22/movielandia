@@ -1,6 +1,7 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import SortSelect from "../sortSelect/SortSelect";
 import Box from "@mui/material-pigment-css/Box";
+import Stack from "@mui/material-pigment-css/Stack";
 
 interface IReviews {
     data: {
@@ -13,7 +14,16 @@ interface IReviews {
 
 const ReviewsHeader = ({ data, sortBy, ascOrDesc, sortingDataType }: IReviews) => {
     return (
-        <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
+        <Stack
+            sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingRight: 1.5,
+                paddingLeft: 1.5,
+            }}
+        >
             <Box>
                 <Typography variant="h3" align="center">
                     Reviews ({data.totalReviews})
