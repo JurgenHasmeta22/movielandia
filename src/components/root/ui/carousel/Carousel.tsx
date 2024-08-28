@@ -2,13 +2,14 @@
 
 import React from "react";
 import Slider from "react-slick";
-import { Box, Button, Typography, IconButton, useTheme, CssVarsTheme } from "@mui/material";
+import { Box, Button, Typography, IconButton, useTheme } from "@mui/material";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Link from "next/link";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface ICarouselProps {
     data: any[];
@@ -64,7 +65,7 @@ const CustomPrevArrow = (props: any) => {
 };
 
 const Carousel = ({ data, type }: ICarouselProps) => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const settings = {
         dots: false,

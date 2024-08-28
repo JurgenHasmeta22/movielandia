@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Container, CssVarsTheme, Link, Typography, useTheme } from "@mui/material";
+import { Box, Container, Link, Typography, useTheme } from "@mui/material";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 export default function NotFoundGlobalPage() {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Container maxWidth="sm">

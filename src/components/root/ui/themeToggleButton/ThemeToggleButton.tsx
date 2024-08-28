@@ -6,13 +6,12 @@ import { DarkMode, LightMode } from "@mui/icons-material";
 
 const SwitchThemeButton = () => {
     const { colorScheme, setColorScheme } = useColorScheme();
-    const alternativeScheme = colorScheme === "light" ? "dark" : "light";
 
-    return (
-        <IconButton onClick={() => setColorScheme(alternativeScheme)}>
-            {colorScheme === "dark" ? <LightMode /> : <DarkMode />}
-        </IconButton>
-    );
+    function handleModeChange() {
+        setColorScheme(colorScheme === "light" ? "dark" : "light");
+    }
+
+    return <IconButton onClick={handleModeChange}>{colorScheme === "dark" ? <LightMode /> : <DarkMode />}</IconButton>;
 };
 
 export default SwitchThemeButton;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, CssVarsTheme, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
 import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IHeaderContent {
     session: Session | null;
@@ -28,7 +29,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
 
     const router = useRouter();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
         setAnchorElGenres(event.currentTarget);

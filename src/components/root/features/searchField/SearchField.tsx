@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import { TextField, InputAdornment, useTheme, CssVarsTheme } from "@mui/material";
+import { TextField, InputAdornment, useTheme } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
-
 import { useRouter, useSearchParams } from "next/navigation";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const SearchField = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     const handleSearch = (value: string) => {
         if (value.length > 0) {

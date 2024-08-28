@@ -2,7 +2,7 @@
 
 import React, { forwardRef, useEffect } from "react";
 import ReactQuill from "react-quill";
-import { CssVarsTheme, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
@@ -44,7 +44,7 @@ const formats = [
 ];
 
 const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, rating, setRating }, ref) => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     useEffect(() => {
         const resizeImages = () => {

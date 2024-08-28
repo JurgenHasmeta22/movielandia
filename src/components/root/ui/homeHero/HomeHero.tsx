@@ -1,13 +1,14 @@
 "use client";
 
-import { Typography, Button, Box, useTheme, CssVarsTheme } from "@mui/material";
+import { Typography, Button, Box, useTheme } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import MovieIcon from "@mui/icons-material/Movie";
 import Link from "next/link";
 import Image from "next/image";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const HomeHeroSection = () => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Box
@@ -95,7 +96,14 @@ const HomeHeroSection = () => {
                     Explore the latest blockbusters and timeless classics.
                 </Typography>
             </Box>
-            <Box display="flex" justifyContent="center" marginTop={3} columnGap={2} sx={{ zIndex: 1 }}>
+            <Box
+                display="flex"
+                justifyContent="center"
+                marginTop={3}
+                columnGap={2}
+                sx={{ zIndex: 1 }}
+                flexWrap={"wrap"}
+            >
                 <Link href="/movies" passHref style={{ textDecoration: "none" }}>
                     <Button
                         variant="contained"

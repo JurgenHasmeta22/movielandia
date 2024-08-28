@@ -12,7 +12,7 @@ import {
     InputAdornment,
     IconButton,
     Stack,
-    Grid,
+    Grid2 as Grid,
     Box,
     FormLabel,
     Typography,
@@ -84,7 +84,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                 return (
                     <Form>
                         <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>
-                            <Grid container item alignItems={"center"}>
+                            <Grid container alignItems={"center"}>
                                 <Stack rowGap={4} columnGap={2} flexDirection={"row"} flexWrap={"wrap"}>
                                     {fields.map((field: FieldConfig, index: number) => {
                                         switch (field.type) {
@@ -225,7 +225,6 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                             </Grid>
                             <Grid
                                 container
-                                item
                                 justifyContent={"end"}
                                 sx={{
                                     mt: 2,

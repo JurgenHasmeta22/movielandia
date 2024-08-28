@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, CssVarsTheme, Typography, useTheme } from "@mui/material";
+import { Card, Typography, useTheme } from "@mui/material";
 import { Genre } from "@prisma/client";
 import { motion } from "framer-motion";
-
+import type {} from "@mui/material/themeCssVarsAugmentation";
 import Link from "next/link";
 
 interface IGenreItemProps {
@@ -11,7 +11,7 @@ interface IGenreItemProps {
 }
 
 export default function GenreItem({ genre }: IGenreItemProps) {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>

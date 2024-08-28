@@ -1,15 +1,15 @@
 "use client";
 
-import { Box, CssVarsTheme, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-
+import type {} from "@mui/material/themeCssVarsAugmentation";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
 
 const DashboardAdminPage = () => {
-    const theme: CssVarsTheme = useTheme();
+    const theme = useTheme();
 
     return (
         <Box m="20px" component={"main"}>
