@@ -5,14 +5,13 @@ import { IconButton, useColorScheme } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
 
 const SwitchThemeButton = () => {
-    const { mode, setMode } = useColorScheme();
-    const alternativeScheme = mode === "light" ? "dark" : "light";
+    const { colorScheme, setColorScheme } = useColorScheme();
 
-    return (
-        <IconButton onClick={() => setMode(alternativeScheme)}>
-            {mode === "dark" ? <LightMode /> : <DarkMode />}
-        </IconButton>
-    );
+    function handleModeChange() {
+        setColorScheme(colorScheme === "light" ? "dark" : "light");
+    }
+
+    return <IconButton onClick={handleModeChange}>{colorScheme === "dark" ? <LightMode /> : <DarkMode />}</IconButton>;
 };
 
 export default SwitchThemeButton;
