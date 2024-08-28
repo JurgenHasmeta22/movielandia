@@ -44,8 +44,9 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                     prefetch={false}
                     style={{
                         fontSize: "18px",
-                        fontWeight: 700,
+                        fontWeight: 900,
                         textTransform: "capitalize",
+                        letterSpacing: 1,
                         color: theme.vars.palette.primary.main,
                     }}
                     onClick={() => {

@@ -96,7 +96,14 @@ const HomeHeroSection = () => {
                     Explore the latest blockbusters and timeless classics.
                 </Typography>
             </Box>
-            <Box display="flex" justifyContent="center" marginTop={3} columnGap={2} sx={{ zIndex: 1 }}>
+            <Box
+                display="flex"
+                justifyContent="center"
+                marginTop={3}
+                columnGap={2}
+                sx={{ zIndex: 1 }}
+                flexWrap={"wrap"}
+            >
                 <Link href="/movies" passHref style={{ textDecoration: "none" }}>
                     <Button
                         variant="contained"
