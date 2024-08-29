@@ -23,7 +23,7 @@ model EpisodeReview {
     rating    Float?
     createdAt DateTime                @default(now())
     updatedAt DateTime?
-    userId    Int
+    userId Int
     episodeId Int
     user      User                    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     episode   Episode                 @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -33,7 +33,7 @@ model EpisodeReview {
 
 model UpvoteEpisodeReview {
     id              Int            @id @default(autoincrement())
-    userId          Int
+    userId       Int
     episodeId       Int
     episodeReviewId Int
     user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -43,7 +43,7 @@ model UpvoteEpisodeReview {
 
 model DownvoteEpisodeReview {
     id              Int            @id @default(autoincrement())
-    userId          Int
+    userId       Int
     episodeId       Int
     episodeReviewId Int
     user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)

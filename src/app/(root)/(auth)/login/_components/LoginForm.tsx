@@ -181,7 +181,7 @@ export default function LoginForm() {
                                 Sign In
                             </Typography>
                         </Button>
-                        <Button
+                        {/* <Button
                             onClick={() => signIn("google", { callbackUrl: "/" })}
                             variant="outlined"
                             sx={{ fontWeight: 600, py: 1 }}
@@ -193,7 +193,7 @@ export default function LoginForm() {
                             >
                                 Continue with Google
                             </Typography>
-                        </Button>
+                        </Button> */}
                         <Box>
                             <MuiLink
                                 component={Link}

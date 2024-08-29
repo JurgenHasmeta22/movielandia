@@ -39,7 +39,7 @@ model MovieReview {
     rating    Float?
     createdAt DateTime              @default(now())
     updatedAt DateTime?
-    userId    Int
+    userId Int
     movieId   Int
     user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     movie     Movie                 @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -49,7 +49,7 @@ model MovieReview {
 
 model UpvoteMovieReview {
     id            Int          @id @default(autoincrement())
-    userId        Int
+    userId Int
     movieId       Int
     movieReviewId Int
     user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -59,7 +59,7 @@ model UpvoteMovieReview {
 
 model DownvoteMovieReview {
     id            Int          @id @default(autoincrement())
-    userId        Int
+    userId Int
     movieId       Int
     movieReviewId Int
     user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)

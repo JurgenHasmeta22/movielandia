@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import { prisma } from "../../../../../prisma/config/prisma";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -10,8 +11,15 @@ export const authOptions: NextAuthOptions = {
     },
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID!,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+            // authorization: {
+            //     params: {
+            //         prompt: "consent",
+            //         access_type: "offline",
+            //         response_type: "code",
+            //     },
+            // },
         }),
         CredentialsProvider({
             name: "Credentials",
@@ -36,7 +44,7 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("User is not active. Please verify your email.");
                 }
 
-                const isPasswordValid = await compare(credentials.password, user.password);
+                const isPasswordValid = await compare(credentials.password, user.password!);
 
                 if (!isPasswordValid) {
                     throw new Error("Invalid credentials");
@@ -51,7 +59,43 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+    // adapter: PrismaAdapter(prisma),
     callbacks: {
+        // async signIn({ account, profile, user, credentials }) {
+        //     console.log(account, profile, user, credentials);
+
+        //     if (!profile?.email) {
+        //         throw new Error("No profile found");
+        //     }
+
+        //     const existingUser = await prisma.user.findUnique({
+        //         where: {
+        //             email: profile.email,
+        //         },
+        //     });
+
+        //     if (existingUser) {
+        //         await prisma.user.update({
+        //             where: {
+        //                 email: profile.email,
+        //             },
+        //             data: {
+        //                 userName: profile.name,
+        //             },
+        //         });
+        //     } else {
+        //         await prisma.user.create({
+        //             data: {
+        //                 email: profile.email,
+        //                 userName: profile.name!,
+        //                 active: true,
+        //             },
+        //         });
+        //     }
+
+        //     return true;
+        // },
+
         async jwt({ token, user }: any) {
             if (user) {
                 token.id = user.id;
