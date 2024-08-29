@@ -38,6 +38,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
     const session = await getServerSession(authOptions);
+    console.log(session);
 
     const queryParams = {
         page: 1,
