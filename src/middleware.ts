@@ -2,6 +2,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import { NextFetchEvent, NextResponse } from "next/server";
 
+// This middleware logic basically is to prevent to access certain pages if not loggedIn
 export default async function middleware(req: NextRequestWithAuth, event: NextFetchEvent) {
     const token = await getToken({ req });
     const isAuthenticated = !!token;

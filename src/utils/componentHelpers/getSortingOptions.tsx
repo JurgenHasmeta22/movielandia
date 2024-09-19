@@ -29,6 +29,7 @@ export const getSortOptions = (type: string, dataType: string): SortOption[] => 
 
     if (type === "list") {
         const listOptions = [...commonOptions];
+
         return listOptions;
     } else {
         return [

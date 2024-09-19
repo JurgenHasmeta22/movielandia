@@ -1,3 +1,4 @@
+// #region "Imports"
 "use client";
 
 import { useState, useEffect } from "react";
@@ -23,14 +24,18 @@ import { deleteGenreById, getGenresWithFilters } from "@/actions/genre.actions";
 import { deleteUserById, getUsersWithFilters } from "@/actions/user.actions";
 import { deleteMovieById, getMoviesWithFilters } from "@/actions/movie.actions";
 import { deleteSerieById, getSeriesWithFilters } from "@/actions/serie.actions";
+// #endregion
 
+// #region "Interfaces"
 type TableAdminProps = {
     columns: MRT_ColumnDef<any>[];
     page: string;
     handleAddItem: () => void;
 };
+// #endregion
 
 const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
+    // #region "State Management, calling other Hooks"
     const [rows, setRows] = useState<any[]>([]);
     const [rowsCount, setRowsCount] = useState<number>(0);
     const [rowSelection, setRowSelection] = useState<any>({});
@@ -51,7 +56,9 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
 
     const router = useRouter();
     const { openModal } = useModal();
+    // #endregion
 
+    // #region "Delete individually and massive on methods"
     function handleDelete(id: number) {
         openModal({
             onClose: () => setOpen(false),
@@ -207,7 +214,9 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
             subTitle: "Do you want to delete selected rows ?",
         });
     }
+    // #endregion
 
+    // #region "Doing all the fetching also with error handling"
     const fetchData = async () => {
         if (!rows?.length) {
             setIsLoading(true);
@@ -236,22 +245,26 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
                     response = await getSeriesWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
+
                     break;
                 case "movies":
                     response = await getMoviesWithFilters(queryParams);
                     setRows(response.movies);
                     setRowsCount(response.count);
+
                     break;
                 case "genres":
                     response = await getGenresWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
+
                     break;
                 case "users":
-                    // @ts-expect-error typeError
+                    // @ts-expect-error String or undefined
                     response = await getUsersWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
+
                     break;
                 default:
                     response = { rows: [], count: 0 };
@@ -269,7 +282,9 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
     useEffect(() => {
         fetchData();
     }, [columnFilters, globalFilter, pagination.pageIndex, pagination.pageSize, sorting]);
+    // #endregion
 
+    // #region "Table configuration"
     const table = useMaterialReactTable({
         columns,
         data: rows,
@@ -447,6 +462,7 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
             );
         },
     });
+    // #endregion
 
     return {
         table,
