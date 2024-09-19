@@ -5,7 +5,7 @@ import SortSelect from "@/components/root/features/sortSelect/SortSelect";
 import { Box, Stack, Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
 import type { Metadata } from "next";
-import { getActors } from "@/actions/actor.actions";
+import { getActors, getActorsWithFilters } from "@/actions/actor.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -51,7 +51,7 @@ export default async function Actors({ searchParams }: IActorsProps) {
         sortBy,
     };
 
-    const actorsData = await getActors(queryParams, Number(session?.user?.id));
+    const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
     const actors = actorsData.actors;
     const actorsCarouselImages: Actor[] = actorsData.actors.slice(0, 5);
     const actorsCount = actorsData.count;

@@ -21,7 +21,7 @@ type RatingsMap = {
     };
 };
 
-export async function getMovies(
+export async function getMoviesWithFilters(
     {
         sortBy,
         ascOrDesc,
@@ -107,7 +107,7 @@ export async function getMovies(
     return { movies: moviesFinal, count: moviesCount };
 }
 
-export async function getMoviesAll(): Promise<any | null> {
+export async function getMovies(): Promise<any | null> {
     const moviesAll = await prisma.movie.findMany();
 
     if (moviesAll) {
@@ -236,6 +236,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
+
     const titleFinal = title
         .split("")
         .map((char) => (char === "-" ? " " : char))

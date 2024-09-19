@@ -1,9 +1,9 @@
-import { getActorsAll } from "@/actions/actor.actions";
-import { getEpisodesAll } from "@/actions/episode.actions";
-import { getGenresAll } from "@/actions/genre.actions";
-import { getMoviesAll } from "@/actions/movie.actions";
-import { getSeasonsAll } from "@/actions/season.actions";
-import { getSeriesAll } from "@/actions/serie.actions";
+import { getActors } from "@/actions/actor.actions";
+import { getEpisodes } from "@/actions/episode.actions";
+import { getGenres } from "@/actions/genre.actions";
+import { getMovies } from "@/actions/movie.actions";
+import { getSeasons } from "@/actions/season.actions";
+import { getSeries } from "@/actions/serie.actions";
 import { Actor, Episode, Genre, Movie, Season, Serie } from "@prisma/client";
 import { MetadataRoute } from "next";
 
@@ -14,12 +14,12 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const urls: any[] = [];
 
-    const movies = await getMoviesAll();
-    const series = await getSeriesAll();
-    const genres = await getGenresAll();
-    const seasons = await getSeasonsAll();
-    const episodes = await getEpisodesAll();
-    const actors = await getActorsAll();
+    const movies = await getMovies();
+    const series = await getSeries();
+    const genres = await getGenres();
+    const seasons = await getSeasons();
+    const episodes = await getEpisodes();
+    const actors = await getActors();
 
     urls.push({
         url: `${baseUrl}`,

@@ -1,8 +1,9 @@
 # MovieLandia24 - Next.js Full-Stack Web Application
 
-MovieLandia24 is a web application for discovering and sharing movies, series, seasons, episodes, genres and actors.
+MovieLandia24 is a web app for discovering and sharing movies, series, seasons, episodes, genres and actors.
 
-You can also CRUD reviews in movies, series, seasons, episodes, actors, search based on many criteria, see stuff based on genre, sort, paginate, auth many many more features.
+You can also review the movies, series, seasons, episodes, actors, also you can search based on many criteria, see stuff based on genre, sort, paginate, auth and many more features.
+
 Built using Next.js for a fast and efficient frontend, with a beautiful and responsive UI.
 
 ## Installation

@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getSeries, getLatestSeries } from "@/actions/serie.actions";
+import { getSeries, getLatestSeries, getSeriesWithFilters } from "@/actions/serie.actions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 
@@ -55,7 +55,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
         sortBy,
     };
 
-    const seriesData = await getSeries(queryParams, Number(session?.user?.id));
+    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series = seriesData.rows;
 
     const latestSeries = await getLatestSeries();

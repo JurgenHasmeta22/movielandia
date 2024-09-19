@@ -19,10 +19,10 @@ import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { deleteGenreById, getGenres } from "@/actions/genre.actions";
-import { deleteUserById, getUsers } from "@/actions/user.actions";
-import { deleteMovieById, getMovies } from "@/actions/movie.actions";
-import { deleteSerieById, getSeries } from "@/actions/serie.actions";
+import { deleteGenreById, getGenresWithFilters } from "@/actions/genre.actions";
+import { deleteUserById, getUsersWithFilters } from "@/actions/user.actions";
+import { deleteMovieById, getMoviesWithFilters } from "@/actions/movie.actions";
+import { deleteSerieById, getSeriesWithFilters } from "@/actions/serie.actions";
 
 type TableAdminProps = {
     columns: MRT_ColumnDef<any>[];
@@ -233,23 +233,23 @@ const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
 
             switch (page) {
                 case "series":
-                    response = await getSeries(queryParams);
+                    response = await getSeriesWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
                     break;
                 case "movies":
-                    response = await getMovies(queryParams);
+                    response = await getMoviesWithFilters(queryParams);
                     setRows(response.movies);
                     setRowsCount(response.count);
                     break;
                 case "genres":
-                    response = await getGenres(queryParams);
+                    response = await getGenresWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
                     break;
                 case "users":
                     // @ts-expect-error typeError
-                    response = await getUsers(queryParams);
+                    response = await getUsersWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
                     break;

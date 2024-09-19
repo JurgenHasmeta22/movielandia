@@ -86,7 +86,7 @@ function getReferer() {
 // #endregion
 
 // #region "CRUD for Users"
-export async function getUsers({
+export async function getUsersWithFilters({
     sortBy,
     ascOrDesc,
     perPage,

@@ -22,7 +22,7 @@ interface GetGenresParams {
     filterOperatorString?: ">" | "=" | "<";
 }
 
-export async function getGenres({
+export async function getGenresWithFilters({
     sortBy,
     ascOrDesc,
     perPage,
@@ -70,7 +70,7 @@ export async function getGenres({
     }
 }
 
-export async function getGenresAll(): Promise<any | null> {
+export async function getGenres(): Promise<any | null> {
     const genres = await prisma.genre.findMany();
 
     if (genres) {

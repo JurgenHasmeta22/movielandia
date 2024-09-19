@@ -15,7 +15,7 @@ interface EpisodeModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export async function getEpisodes({
+export async function getEpisodesWithFilters({
     sortBy,
     ascOrDesc,
     perPage,
@@ -56,7 +56,7 @@ export async function getEpisodes({
     }
 }
 
-export async function getEpisodesAll(): Promise<any | null> {
+export async function getEpisodes(): Promise<any | null> {
     const episodesAll = await prisma.episode.findMany();
 
     if (episodesAll) {

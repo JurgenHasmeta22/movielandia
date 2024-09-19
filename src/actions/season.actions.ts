@@ -21,7 +21,7 @@ export type RatingsMap = {
     };
 };
 
-export async function getSeasons({
+export async function getSeasonsWithFilters({
     sortBy,
     ascOrDesc,
     perPage,
@@ -62,7 +62,7 @@ export async function getSeasons({
     }
 }
 
-export async function getSeasonsAll(): Promise<any | null> {
+export async function getSeasons(): Promise<any | null> {
     const seasonsAll = await prisma.season.findMany();
 
     if (seasonsAll) {

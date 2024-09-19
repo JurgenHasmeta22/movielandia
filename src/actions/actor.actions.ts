@@ -15,7 +15,7 @@ interface ActorModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
-export async function getActors(
+export async function getActorsWithFilters(
     {
         sortBy,
         ascOrDesc,
@@ -105,7 +105,7 @@ export async function getActors(
     }
 }
 
-export async function getActorsAll(): Promise<any | null> {
+export async function getActors(): Promise<any | null> {
     const actorsAll = await prisma.actor.findMany();
 
     if (actorsAll) {
