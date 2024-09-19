@@ -7,6 +7,7 @@ interface SortingOptions {
     ascOrDesc: string;
 }
 
+// Custom hook to handle sorting logic basically it will change the URL query params
 export function useSorting(type: string) {
     const searchParams = useSearchParams();
     const router = useRouter();

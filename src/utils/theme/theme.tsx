@@ -2,6 +2,7 @@
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
+// Tokens only for the theme dark/light and to have them in some parts of UI
 const darkColorTokens = {
     grey: {
         100: "#e0e0e0",
