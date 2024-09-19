@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getMovies, getLatestMovies } from "@/actions/movie.actions";
+import { getMovies, getLatestMovies, getMoviesWithFilters } from "@/actions/movie.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -55,7 +55,7 @@ export default async function Movies({ searchParams }: IMoviesProps) {
         sortBy,
     };
 
-    const moviesData = await getMovies(queryParams, Number(session?.user?.id));
+    const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
     const movies = moviesData.movies;
     const moviesCarouselImages: Movie[] = moviesData.movies.slice(0, 5);
 

@@ -21,7 +21,7 @@ type RatingsMap = {
     };
 };
 
-export async function getSeries(
+export async function getSeriesWithFilters(
     {
         sortBy,
         ascOrDesc,
@@ -111,7 +111,7 @@ export async function getSeries(
     }
 }
 
-export async function getSeriesAll(): Promise<any | null> {
+export async function getSeries(): Promise<any | null> {
     const seriesAll = await prisma.serie.findMany();
 
     if (seriesAll) {

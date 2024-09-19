@@ -1,5 +1,4 @@
-// import fs from "fs";
-
+// #region "Data used for seeding the database"
 export const users = [
     {
         id: 1,
@@ -1983,6 +1982,7 @@ export const castSeries = [
     { id: 39, serieId: 14, actorId: 15 },
     { id: 40, serieId: 14, actorId: 16 },
 ];
+// #endregion
 
 // #region "Custom script for writting in file and generating stuff"
 // const seasons: any = [];

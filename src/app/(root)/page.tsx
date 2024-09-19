@@ -2,11 +2,11 @@ import { Stack } from "@mui/material";
 import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
 import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
-import { getGenres } from "@/actions/genre.actions";
-import { getMovies } from "@/actions/movie.actions";
-import { getSeries } from "@/actions/serie.actions";
+import { getGenres, getGenresWithFilters } from "@/actions/genre.actions";
+import { getMovies, getMoviesWithFilters } from "@/actions/movie.actions";
+import { getSeries, getSeriesWithFilters } from "@/actions/serie.actions";
 import type { Metadata } from "next";
-import { getActors } from "@/actions/actor.actions";
+import { getActors, getActorsWithFilters } from "@/actions/actor.actions";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 
@@ -44,16 +44,16 @@ export default async function Home() {
         page: 1,
     };
 
-    const moviesData = await getMovies(queryParams, Number(session?.user?.id));
+    const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
     const movies: Movie[] = moviesData.movies;
 
-    const seriesData = await getSeries(queryParams, Number(session?.user?.id));
+    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series: Serie[] = seriesData.rows;
 
-    const genresData = await getGenres(queryParams);
+    const genresData = await getGenresWithFilters(queryParams);
     const genres: Genre[] = genresData.rows;
 
-    const actorsData = await getActors(queryParams, Number(session?.user?.id));
+    const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
     const actors: Actor[] = actorsData.actors;
 
     return (
