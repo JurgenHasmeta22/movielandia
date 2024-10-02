@@ -1,6 +1,6 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex", "prismaSchemaFolder"]
+    provider        = "prisma-client-js"
+    previewFeatures = ["fullTextSearch", "fullTextIndex", "prismaSchemaFolder"]
 }
 
 // generator erd {
