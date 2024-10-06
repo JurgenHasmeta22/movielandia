@@ -21,6 +21,7 @@ type RatingsMap = {
     };
 };
 
+// #region "GET Methods"
 export async function getMoviesWithFilters(
     {
         sortBy,
@@ -483,7 +484,9 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
 
     return movies.length > 0 ? movies : null;
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function updateMovieById(movieParam: Prisma.MovieUpdateInput, id: string): Promise<Movie | null> {
     const movie: Movie | null = await prisma.movie.findUnique({
         where: { id: Number(id) },
@@ -613,3 +616,4 @@ export async function searchMoviesByTitle(title: string, queryParams: any, userI
         return null;
     }
 }
+// #endregion

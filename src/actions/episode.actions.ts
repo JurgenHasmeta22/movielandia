@@ -15,6 +15,7 @@ interface EpisodeModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
+// #region "GET Methods"
 export async function getEpisodesWithFilters({
     sortBy,
     ascOrDesc,
@@ -391,7 +392,9 @@ export async function getRelatedEpisodes(id: number, seasonId: number): Promise<
 
     return episodesFinal.length > 0 ? episodesFinal : null;
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function updateEpisodeById(episodeParam: Prisma.EpisodeUpdateInput, id: string): Promise<Episode | null> {
     const episode: Episode | null = await prisma.episode.findUnique({
         where: { id: Number(id) },
@@ -519,3 +522,4 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
         return null;
     }
 }
+// #endregion

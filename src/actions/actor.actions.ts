@@ -15,6 +15,7 @@ interface ActorModelParams {
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }
 
+// #region "GET Methods"
 export async function getActorsWithFilters(
     {
         sortBy,
@@ -341,7 +342,9 @@ export async function getActorByFullname(actorTitle: string, queryParams: any): 
         throw new Error("Actor not found");
     }
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function updateActorById(actorParam: Prisma.ActorUpdateInput, id: string): Promise<Actor | null> {
     const actor: Actor | null = await prisma.actor.findUnique({
         where: { id: Number(id) },
@@ -469,3 +472,4 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
         return null;
     }
 }
+// #endregion

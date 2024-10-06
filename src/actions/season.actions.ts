@@ -21,6 +21,7 @@ export type RatingsMap = {
     };
 };
 
+// #region "GET Methods"
 export async function getSeasonsWithFilters({
     sortBy,
     ascOrDesc,
@@ -397,7 +398,9 @@ export async function getRelatedSeasons(seasonId: number, serieId: number): Prom
 
     return seasonsFinal.length > 0 ? seasonsFinal : null;
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function updateSeasonById(seasonParam: Prisma.SeasonUpdateInput, id: string): Promise<Season | null> {
     const season: Season | null = await prisma.season.findUnique({
         where: { id: Number(id) },
@@ -525,3 +528,4 @@ export async function searchSeasonsByTitle(title: string, queryParams: any, user
         return null;
     }
 }
+// #endregion

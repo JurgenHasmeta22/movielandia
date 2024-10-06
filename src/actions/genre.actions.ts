@@ -22,6 +22,7 @@ interface GetGenresParams {
     filterOperatorString?: ">" | "=" | "<";
 }
 
+// #region "GET Methods"
 export async function getGenresWithFilters({
     sortBy,
     ascOrDesc,
@@ -434,7 +435,9 @@ export async function getGenreByName(
         throw new Error("Genre not found");
     }
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function addGenre(genreData: Prisma.GenreCreateInput): Promise<Genre | null> {
     const genre = await prisma.genre.create({
         data: genreData,
@@ -516,3 +519,4 @@ export async function searchGenresByName(name: string, page: number): Promise<Ge
         return null;
     }
 }
+// #endregion
