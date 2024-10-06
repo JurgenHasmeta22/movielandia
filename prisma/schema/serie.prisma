@@ -17,22 +17,6 @@ model Serie {
     downvoteSerieReviews DownvoteSerieReview[]
 }
 
-model SerieGenre {
-    id      Int   @id @default(autoincrement())
-    serieId Int
-    genreId Int
-    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
-model CastSerie {
-    id      Int   @id @default(autoincrement())
-    serieId Int
-    actorId Int
-    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
 model UpvoteSerieReview {
     id            Int          @id @default(autoincrement())
     userId        Int
@@ -65,4 +49,20 @@ model SerieReview {
     serie     Serie                 @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     upvotes   UpvoteSerieReview[]
     downvotes DownvoteSerieReview[]
+}
+
+model SerieGenre {
+    id      Int   @id @default(autoincrement())
+    serieId Int
+    genreId Int
+    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model CastSerie {
+    id      Int   @id @default(autoincrement())
+    serieId Int
+    actorId Int
+    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
