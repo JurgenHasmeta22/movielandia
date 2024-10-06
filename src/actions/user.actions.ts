@@ -5,7 +5,6 @@ import { Prisma, User } from "@prisma/client";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { prisma } from "../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
-import { type } from "os";
 
 // #region "Interfaces"
 interface UserModelParams {
@@ -86,6 +85,8 @@ function getReferer() {
 // #endregion
 
 // #region "CRUD for Users"
+
+// #region "GET Methods"
 export async function getUsersWithFilters({
     sortBy,
     ascOrDesc,
@@ -269,7 +270,9 @@ export async function getUserByUsername(userName: string, userLoggedInId: number
         return null;
     }
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function updateUserById(userParam: Prisma.UserUpdateInput, id: number): Promise<void> {
     try {
         const updatedUser = await prisma.user.update({
@@ -337,6 +340,8 @@ export async function searchUsersByUsername(userName: string, queryParams: any):
         return null;
     }
 }
+// #endregion
+
 // #endregion
 
 // #region "Bookmarks for Movies, Series, Seasons, Episodes"

@@ -21,6 +21,7 @@ type RatingsMap = {
     };
 };
 
+// #region "GET Methods"
 export async function getSeriesWithFilters(
     {
         sortBy,
@@ -123,8 +124,10 @@ export async function getSeries(): Promise<any | null> {
 
 export async function getSerieById(id: number, queryParams: any): Promise<Serie | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
+
     const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
@@ -232,9 +235,12 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
 
 export async function getSerieByTitle(title: string, queryParams: any): Promise<Serie | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
+
     const orderByObject: any = {};
+
     const titleFinal = title
         .split("")
         .map((char) => (char === "-" ? " " : char))
@@ -479,7 +485,9 @@ export async function getRelatedSeries(id: number, userId?: number): Promise<Ser
 
     return series.length > 0 ? series : null;
 }
+// #endregion
 
+// #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
 export async function updateSerieById(serieParam: Prisma.SerieUpdateInput, id: string): Promise<Serie | null> {
     const serie: Serie | null = await prisma.serie.findUnique({
         where: { id: Number(id) },
@@ -609,3 +617,4 @@ export async function searchSeriesByTitle(title: string, queryParams: any, userI
         return null;
     }
 }
+// #endregion
