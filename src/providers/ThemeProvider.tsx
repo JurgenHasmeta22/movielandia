@@ -7,7 +7,7 @@ import { theme } from "@/utils/theme/theme";
 export function MUIThemeProvider({ children }: { children: ReactNode }) {
     return (
         <AppRouterCacheProvider>
-            <ThemeProvider theme={theme} disableTransitionOnChange>
+            <ThemeProvider theme={theme} disableTransitionOnChange defaultMode="dark">
                 <CssBaseline />
                 {children}
             </ThemeProvider>
