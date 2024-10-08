@@ -25,7 +25,6 @@ interface ICardItemProps {
 
 const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
     const { data: session } = useSession();
-
     const params = useParams();
 
     const bookmarkFunctions: any = {

@@ -1,13 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 
-interface IListDetail {
+interface IListDetailProps {
     data: any;
     type: string;
     roleData: string;
 }
 
-export function ListDetail({ data, type, roleData }: IListDetail) {
+export function ListDetail({ data, type, roleData }: IListDetailProps) {
     return (
         <>
             {data && data.length > 0 && (

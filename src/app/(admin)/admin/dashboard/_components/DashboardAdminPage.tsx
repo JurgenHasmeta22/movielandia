@@ -2,11 +2,11 @@
 
 import { Box, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const DashboardAdminPage = () => {
     const theme = useTheme();
@@ -25,9 +25,9 @@ const DashboardAdminPage = () => {
                     justifyContent="center"
                 >
                     <DashboardStatBox
-                        title={"321"}
+                        title="321"
                         subtitle="Nr of Movies"
-                        progress="0.75"
+                        progress={0.75}
                         increase="+14%"
                         icon={
                             <AccountTreeIcon
@@ -47,9 +47,9 @@ const DashboardAdminPage = () => {
                     justifyContent="center"
                 >
                     <DashboardStatBox
-                        title={"53"}
+                        title="53"
                         subtitle="Nr of Users"
-                        progress="0.50"
+                        progress={0.5}
                         increase="+21%"
                         icon={
                             <PersonAddIcon
@@ -69,9 +69,9 @@ const DashboardAdminPage = () => {
                     justifyContent="center"
                 >
                     <DashboardStatBox
-                        title={"4"}
+                        title="4"
                         subtitle="Nr of Genres"
-                        progress="0.30"
+                        progress={0.3}
                         increase="+5%"
                         icon={
                             <EventNoteIcon

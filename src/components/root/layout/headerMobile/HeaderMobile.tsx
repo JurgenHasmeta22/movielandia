@@ -11,7 +11,7 @@ import AuthButtons from "../../ui/authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
 
-interface IHeaderMenu {
+interface IHeaderMobileProps {
     genres: Genre[];
     anchorElProfile: null | HTMLElement;
     session: Session | null;
@@ -29,10 +29,9 @@ export default function HeaderMobile({
     handleSignOut,
     userName,
     session,
-}: IHeaderMenu) {
+}: IHeaderMobileProps) {
     const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
-
     const theme = useTheme();
 
     const openMenuGenresMobile = (event: React.MouseEvent<HTMLLIElement>) => {

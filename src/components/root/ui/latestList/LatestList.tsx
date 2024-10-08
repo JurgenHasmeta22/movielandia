@@ -2,12 +2,12 @@ import { Box, Stack, Typography } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 import { Movie, Serie } from "@prisma/client";
 
-interface ILatestList {
+interface ILatestListProps {
     data: Array<Movie | Serie> | null;
     type: string;
 }
 
-export function LatestList({ data, type }: ILatestList) {
+export function LatestList({ data, type }: ILatestListProps) {
     return (
         <Box
             component={"section"}

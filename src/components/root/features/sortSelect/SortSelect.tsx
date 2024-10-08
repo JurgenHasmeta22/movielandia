@@ -29,13 +29,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
 
     return (
         <Box sx={{ display: "flex", alignItems: "start", gap: 2 }}>
-            <FormControl
-            // sx={{
-            //     display: "flex",
-            //     justifyContent: "start",
-            //     justifyItems: "center",
-            // }}
-            >
+            <FormControl>
                 <InputLabel
                     id="sort-by-label"
                     sx={{

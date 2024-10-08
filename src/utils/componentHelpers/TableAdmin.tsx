@@ -27,14 +27,14 @@ import { deleteSerieById, getSeriesWithFilters } from "@/actions/serie.actions";
 // #endregion
 
 // #region "Interfaces"
-type TableAdminProps = {
+interface ITableAdminProps {
     columns: MRT_ColumnDef<any>[];
     page: string;
     handleAddItem: () => void;
-};
+}
 // #endregion
 
-const TableAdmin = ({ columns, page, handleAddItem }: TableAdminProps) => {
+const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
     // #region "State Management, calling other Hooks"
     const [rows, setRows] = useState<any[]>([]);
     const [rowsCount, setRowsCount] = useState<number>(0);

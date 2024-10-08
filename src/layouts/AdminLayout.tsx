@@ -4,11 +4,11 @@ import Sidebar from "@/components/admin/layout/sidebar/Sidebar";
 import TopBar from "@/components/admin/layout/topBar/TopBar";
 import { SidebarItems } from "@/utils/componentHelpers/SidebarItems";
 
-export default function AdminLayout({
-    children,
-}: Readonly<{
+interface IAdminLayoutProps {
     children: React.ReactNode;
-}>) {
+}
+
+export default function AdminLayout({ children }: Readonly<IAdminLayoutProps>) {
     return (
         <Grid container component={"main"}>
             <Grid size={{ xs: 12, md: 2 }}>

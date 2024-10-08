@@ -32,14 +32,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
-type FieldConfig = {
-    name: string;
-    label: string;
-    type?: string;
-    options?: Array<{ label: string; value: any }>;
-};
-
-type ModalProps = {
+interface IModalProps {
     onClose?: () => void;
     onDataChange?: (values: any) => void;
     onSave?: (values: any) => void;
@@ -52,6 +45,13 @@ type ModalProps = {
     formRef?: React.Ref<FormikProps<any>>;
     subTitle?: string;
     hasList?: boolean;
+}
+
+type FieldConfig = {
+    name: string;
+    label: string;
+    type?: string;
+    options?: Array<{ label: string; value: any }>;
 };
 
 type ActionConfig = {
@@ -64,7 +64,7 @@ type ActionConfig = {
     sx?: SxProps;
 };
 
-const Modal: React.FC<ModalProps> = ({
+const Modal: React.FC<IModalProps> = ({
     onClose,
     initialValues,
     fields,
@@ -290,7 +290,7 @@ const Modal: React.FC<ModalProps> = ({
                                             <Button
                                                 key={index}
                                                 onClick={action.onClick}
-                                                // @ts-expect-error nono
+                                                // @ts-expect-error color
                                                 color={action.color || "secondary"}
                                                 variant={action.variant || "text"}
                                                 sx={action.sx}
@@ -320,7 +320,7 @@ const Modal: React.FC<ModalProps> = ({
                                     action.onClick();
                                     onClose!();
                                 }}
-                                // @ts-expect-error nono
+                                // @ts-expect-error color
                                 color={action.color || "secondary"}
                                 variant={action.variant || "text"}
                                 sx={action.sx}

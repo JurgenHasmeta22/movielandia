@@ -1,6 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
-import React from "react";
 import { HeaderContent } from "./HeaderContent";
 import { getGenres } from "@/actions/genre.actions";
 import { getUsernameByUserId } from "@/actions/user.actions";

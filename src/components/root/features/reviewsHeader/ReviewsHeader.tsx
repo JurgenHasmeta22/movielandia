@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import SortSelect from "../sortSelect/SortSelect";
 
-interface IReviews {
+interface IReviewsProps {
     data: {
         totalReviews: number;
     };
@@ -10,7 +10,7 @@ interface IReviews {
     sortingDataType: string;
 }
 
-const ReviewsHeader = ({ data, sortBy, ascOrDesc, sortingDataType }: IReviews) => {
+const ReviewsHeader = ({ data, sortBy, ascOrDesc, sortingDataType }: IReviewsProps) => {
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
             <Box>

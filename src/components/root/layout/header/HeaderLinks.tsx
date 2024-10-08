@@ -10,16 +10,15 @@ import { useStore } from "@/store/store";
 import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-interface IHeaderLinks {
+interface IHeaderLinksProps {
     genres: Genre[];
     anchorElGenres: HTMLElement | null;
     openMenuGenres: (event: React.MouseEvent<HTMLLIElement>) => void;
     closeMenuGenres: () => void;
 }
 
-export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinks) {
+export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinksProps) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
-
     const theme = useTheme();
 
     return (
