@@ -3,7 +3,12 @@
 import { Typography, Box, useTheme } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-const HeaderDashboard = ({ title, subtitle }: any) => {
+interface IHeaderDashboard {
+    title: string;
+    subtitle: string;
+}
+
+const HeaderDashboard = ({ title, subtitle }: IHeaderDashboard) => {
     const theme = useTheme();
 
     return (

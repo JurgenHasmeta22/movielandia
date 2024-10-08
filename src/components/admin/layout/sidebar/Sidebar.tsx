@@ -24,7 +24,11 @@ import { signOut, useSession } from "next-auth/react";
 import { IS_BROWSER } from "@/utils/helpers/utils";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-const Sidebar = ({ sidebarItems }: any) => {
+interface ISidebarProps {
+    sidebarItems: any;
+}
+
+const Sidebar = ({ sidebarItems }: ISidebarProps) => {
     const { data: session } = useSession();
 
     const [selectedLabel, setSelectedLabel] = useState("");
@@ -32,7 +36,6 @@ const Sidebar = ({ sidebarItems }: any) => {
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
 
     const router = useRouter();
-
     const theme = useTheme();
 
     const handleItemClick = (title: string, to: string) => {
@@ -47,6 +50,11 @@ const Sidebar = ({ sidebarItems }: any) => {
     const onClose = () => {
         setIsOpenSidebarAdmin(false);
     };
+
+    async function onLogout() {
+        await signOut();
+        router.push("/login");
+    }
 
     useEffect(() => {
         if (IS_BROWSER) {
@@ -133,10 +141,7 @@ const Sidebar = ({ sidebarItems }: any) => {
                                     },
                                 },
                             }}
-                            onClick={async () => {
-                                await signOut();
-                                router.push("/login");
-                            }}
+                            onClick={onLogout}
                         >
                             <ListItemIcon>
                                 <LogoutIcon />

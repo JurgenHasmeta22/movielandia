@@ -9,7 +9,6 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 const SearchField = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
-
     const theme = useTheme();
 
     const handleSearch = (value: string) => {

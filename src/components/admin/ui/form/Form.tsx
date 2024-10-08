@@ -18,9 +18,21 @@ import {
     Typography,
 } from "@mui/material";
 import { Formik, FormikProps, Form } from "formik";
-import * as yup from "yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
+import * as yup from "yup";
+
+interface IFormProps {
+    initialValues: any;
+    validationSchema: yup.ObjectSchema<any>;
+    resetTrigger?: boolean;
+    fields: FieldConfig[];
+    formRef: React.RefObject<FormikProps<any>>;
+    actions?: ActionConfig[];
+    onDataChange?: (values: any) => void;
+    onSubmit: (values: any) => void;
+    onFormChange?: (values: any, formikHelpers: any) => void;
+}
 
 type FieldOption = {
     label: string;
@@ -42,18 +54,6 @@ type FieldConfig = {
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 };
 
-type FormProps = {
-    initialValues: any;
-    validationSchema: yup.ObjectSchema<any>;
-    resetTrigger?: boolean;
-    fields: FieldConfig[];
-    formRef: React.RefObject<FormikProps<any>>;
-    actions?: ActionConfig[];
-    onDataChange?: (values: any) => void;
-    onSubmit: (values: any) => void;
-    onFormChange?: (values: any, formikHelpers: any) => void;
-};
-
 type ActionConfig = {
     label: string;
     type?: string;
@@ -64,7 +64,14 @@ type ActionConfig = {
     onClick?: () => void;
 };
 
-const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validationSchema, fields, formRef, actions }) => {
+const FormAdvanced: React.FC<IFormProps> = ({
+    initialValues,
+    onSubmit,
+    validationSchema,
+    fields,
+    formRef,
+    actions,
+}) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -152,7 +159,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                                         size="small"
                                                         value={values[field.name]}
                                                         type={field.type}
-                                                        // @ts-expect-error nono
+                                                        // @ts-expect-error helperText
                                                         helperText={touched[field.name] && errors[field.name]}
                                                         error={touched[field.name] && !!errors[field.name]}
                                                         InputLabelProps={
@@ -175,7 +182,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                                             value={values[field.name]}
                                                             type={showPassword ? "text" : "password"}
                                                             autoComplete={"on"}
-                                                            // @ts-expect-error nono
+                                                            // @ts-expect-error helperText
                                                             helperText={touched[field.name] && errors[field.name]}
                                                             error={touched[field.name] && !!errors[field.name]}
                                                             InputProps={{
@@ -213,7 +220,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                                             disabled={field.disabled}
                                                             sx={{ ...field.sx }}
                                                             size="small"
-                                                            // @ts-expect-error nono
+                                                            // @ts-expect-error helperText
                                                             helperText={touched[field.name] && errors[field.name]}
                                                             error={touched[field.name] && !!errors[field.name]}
                                                         />
@@ -242,7 +249,7 @@ const FormAdvanced: React.FC<FormProps> = ({ initialValues, onSubmit, validation
                                         <Button
                                             key={index}
                                             onClick={action.onClick}
-                                            // @ts-expect-error nono
+                                            // @ts-expect-error color
                                             color={action.color || "primary"}
                                             variant={action.variant || "text"}
                                             sx={action.sx}

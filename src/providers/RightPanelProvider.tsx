@@ -9,9 +9,9 @@ type RightPanelContextType = {
     closeRightPanel: () => void;
 };
 
-type RightPanelProviderProps = {
+interface IRightPanelProviderProps {
     children: ReactNode;
-};
+}
 
 const RightPanelContext = createContext<RightPanelContextType | undefined>(undefined);
 
@@ -25,7 +25,7 @@ export const useRightPanel = () => {
     return context;
 };
 
-export const RightPanelProvider: React.FC<RightPanelProviderProps> = ({ children }) => {
+export const RightPanelProvider: React.FC<IRightPanelProviderProps> = ({ children }) => {
     const [rightPanelProps, setRightPanelProps] = useState<any | null>(null);
 
     const openRightPanel = (props: any) => {

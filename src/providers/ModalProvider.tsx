@@ -3,14 +3,14 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import Modal from "@/components/admin/ui/modal/Modal";
 
+interface IModalProviderProps {
+    children: ReactNode;
+}
+
 type ModalContextType = {
     modalProps: any;
     openModal: (props: any) => void;
     closeModal: () => void;
-};
-
-type ModalProviderProps = {
-    children: ReactNode;
 };
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -25,7 +25,7 @@ export const useModal = () => {
     return context;
 };
 
-export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
+export const ModalProvider: React.FC<IModalProviderProps> = ({ children }) => {
     const [modalProps, setModalProps] = useState<any | null>(null);
 
     const openModal = (props: any) => {

@@ -14,7 +14,24 @@ import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-interface Review {
+interface IReviewProps {
+    review: Review;
+    setRating: React.Dispatch<React.SetStateAction<number | null>>;
+    ref: any;
+    setIsEditMode: Dispatch<SetStateAction<boolean>>;
+    isEditMode: boolean;
+    setReview: React.Dispatch<React.SetStateAction<string>>;
+    type: string;
+    data: any;
+    handleRemoveReview: () => void;
+    handleFocusTextEditor: () => void;
+    handleUpvote: (reviewId: number, isAlreadyUpvotedOrDownvoted: boolean) => void;
+    handleDownvote: (reviewId: number, isAlreadyUpvotedOrDownvoted: boolean) => void;
+    handleOpenUpvotesModal: (review: any) => void;
+    handleOpenDownvotesModal: (review: any) => void;
+}
+
+type Review = {
     id: number;
     content: string;
     createdAt: string;
@@ -33,43 +50,6 @@ interface Review {
         userName: string;
         avatar: any;
     };
-}
-
-interface IReviewProps {
-    review: Review;
-    setRating: React.Dispatch<React.SetStateAction<number | null>>;
-    ref: any;
-    setIsEditMode: Dispatch<SetStateAction<boolean>>;
-    isEditMode: boolean;
-    setReview: React.Dispatch<React.SetStateAction<string>>;
-    type: string;
-    data: any;
-    handleRemoveReview: () => void;
-    handleFocusTextEditor: () => void;
-    handleUpvote: (reviewId: number, isAlreadyUpvotedOrDownvoted: boolean) => void;
-    handleDownvote: (reviewId: number, isAlreadyUpvotedOrDownvoted: boolean) => void;
-    handleOpenUpvotesModal: (review: any) => void;
-    handleOpenDownvotesModal: (review: any) => void;
-}
-
-const getRatingLabelAndColor = (rating: number) => {
-    if (rating <= 2) {
-        return { label: "Very Bad", color: "error.main" };
-    }
-
-    if (rating <= 4) {
-        return { label: "Bad", color: "warning.main" };
-    }
-
-    if (rating <= 6) {
-        return { label: "Average", color: "info.main" };
-    }
-
-    if (rating <= 8) {
-        return { label: "Good", color: "success.light" };
-    }
-
-    return { label: "Very Good", color: "success.main" };
 };
 
 const Review = forwardRef<HTMLElement, IReviewProps>(
@@ -88,20 +68,39 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
         },
         ref,
     ) => {
-        // #region "State, hooks, theme"
+        // #region "State, hooks, theme, also colorFunction utils"
+        const getRatingLabelAndColor = (rating: number) => {
+            if (rating <= 2) {
+                return { label: "Very Bad", color: "error.main" };
+            }
+
+            if (rating <= 4) {
+                return { label: "Bad", color: "warning.main" };
+            }
+
+            if (rating <= 6) {
+                return { label: "Average", color: "info.main" };
+            }
+
+            if (rating <= 8) {
+                return { label: "Good", color: "success.light" };
+            }
+
+            return { label: "Very Good", color: "success.main" };
+        };
+
         const { data: session } = useSession();
 
         const [isClickedUpvote, setIsClickedUpvote] = useState(false);
         const [isClickedDownvote, setIsClickedDownvote] = useState(false);
 
         const router = useRouter();
-
         const theme = useTheme();
 
         const { label, color } = getRatingLabelAndColor(review.rating);
         // #endregion
 
-        // #region "Event handlers"
+        // #region "Event handlers and other functions"
         async function onClickUpvotesReviewList() {
             handleOpenUpvotesModal(review);
         }
@@ -373,4 +372,5 @@ const Review = forwardRef<HTMLElement, IReviewProps>(
 );
 
 Review.displayName = "ReviewComponent";
+
 export default Review;

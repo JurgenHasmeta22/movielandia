@@ -95,14 +95,6 @@ const TopBar = () => {
                         <MenuItem onClick={handleRedirectToProfile} style={{ color: theme.vars.palette.primary.main }}>
                             My profile
                         </MenuItem>
-                        {/* <MenuItem>
-                            <Link
-                                to="/changePassword"
-                                style={{ color: theme.vars.palette.primary.main, textDecoration: "none" }}
-                            >
-                                Change password
-                            </Link>
-                        </MenuItem> */}
                         <MenuItem onClick={handleLogout} style={{ color: theme.vars.palette.primary.main }}>
                             Log out
                         </MenuItem>

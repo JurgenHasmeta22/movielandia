@@ -4,13 +4,13 @@ import React from "react";
 import { Stack, Pagination, Box } from "@mui/material";
 import { useSearchParams, useRouter } from "next/navigation";
 
-interface IPaginationControl {
+interface IPaginationControlProps {
     pageCount: number;
     currentPage: number;
     dataType?: string;
 }
 
-const PaginationControl: React.FC<IPaginationControl> = ({ pageCount, currentPage, dataType }) => {
+const PaginationControl: React.FC<IPaginationControlProps> = ({ pageCount, currentPage, dataType }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 

@@ -1,8 +1,16 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import { DashboardProgressCircle } from "./DashboardProgressCircle";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
-export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: any) => {
+interface IDashboardProgressCircleProps {
+    title: string;
+    subtitle: string;
+    progress: number;
+    increase: string;
+    icon: JSX.Element;
+}
+
+export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: IDashboardProgressCircleProps) => {
     const theme = useTheme();
 
     return (

@@ -4,7 +4,11 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import CssBaseline from "@mui/material/CssBaseline";
 import { theme } from "@/utils/theme/theme";
 
-export function MUIThemeProvider({ children }: { children: ReactNode }) {
+interface IMUIThemeProviderProps {
+    children: ReactNode;
+}
+
+export function MUIThemeProvider({ children }: IMUIThemeProviderProps) {
     return (
         <AppRouterCacheProvider>
             <ThemeProvider theme={theme} disableTransitionOnChange defaultMode="dark">

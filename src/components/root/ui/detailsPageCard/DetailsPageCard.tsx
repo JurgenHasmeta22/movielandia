@@ -20,7 +20,6 @@ interface IDetailsPageCardProps {
 
 export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
     const { data: session } = useSession();
-
     const theme = useTheme();
 
     return (

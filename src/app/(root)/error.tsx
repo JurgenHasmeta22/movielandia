@@ -2,7 +2,12 @@
 
 import { Box, Button, Container, Typography } from "@mui/material";
 
-export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+interface IErrorProps {
+    error: Error & { digest?: string };
+    reset: () => void;
+}
+
+export default function Error({ error, reset }: IErrorProps) {
     return (
         <Container maxWidth="sm">
             <Box
@@ -22,6 +27,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             >
                 <Typography variant="h3" gutterBottom>
                     Something went wrong.
+                    {error.message}
                 </Typography>
                 <Typography variant="h5" gutterBottom>
                     Please try again now or later

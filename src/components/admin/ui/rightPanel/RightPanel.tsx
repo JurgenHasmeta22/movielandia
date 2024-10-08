@@ -28,20 +28,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-type FieldConfig = {
-    name: string;
-    label: string;
-    type?: string;
-    options?: Array<{ label: string; value: any }>;
-    variant?: any;
-    disabled?: boolean;
-    hidden?: boolean;
-    sx: {
-        gridColumn: string;
-    };
-};
-
-type DrawerProps = {
+interface IDrawerProps {
     onClose?: () => void;
     onSave?: (values: any) => void;
     onDataChange?: (values: any) => void;
@@ -53,6 +40,19 @@ type DrawerProps = {
     formRef?: React.Ref<FormikProps<any>>;
     subTitle?: string;
     steps?: StepConfig[];
+}
+
+type FieldConfig = {
+    name: string;
+    label: string;
+    type?: string;
+    options?: Array<{ label: string; value: any }>;
+    variant?: any;
+    disabled?: boolean;
+    hidden?: boolean;
+    sx: {
+        gridColumn: string;
+    };
 };
 
 type ActionConfig = {
@@ -72,7 +72,7 @@ type StepConfig = {
     actions?: ActionConfig[];
 };
 
-const RightPanel: React.FC<DrawerProps> = ({
+const RightPanel: React.FC<IDrawerProps> = ({
     onClose,
     initialValues,
     fields,
@@ -268,7 +268,7 @@ const RightPanel: React.FC<DrawerProps> = ({
                                         <Button
                                             key={index}
                                             onClick={action.onClick}
-                                            // @ts-expect-error nono
+                                            // @ts-expect-error color
                                             color={action.color || "primary"}
                                             variant={action.variant || "text"}
                                             sx={action.sx}

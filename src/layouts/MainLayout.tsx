@@ -4,11 +4,11 @@ import Footer from "@/components/root/layout/footer/Footer";
 import { Grid2 as Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
 
-export default function MainLayout({
-    children,
-}: Readonly<{
+interface IMainLayoutProps {
     children: React.ReactNode;
-}>) {
+}
+
+export default function MainLayout({ children }: Readonly<IMainLayoutProps>) {
     return (
         <Grid container>
             <Grid size={{ xs: 12 }}>

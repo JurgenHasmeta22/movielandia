@@ -1,8 +1,14 @@
 import { Box, useTheme } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-export const DashboardProgressCircle = ({ progress = "0.75", size = "40" }: any) => {
+interface IDashboardProgressCircleProps {
+    progress: number;
+    size?: string;
+}
+
+export const DashboardProgressCircle = ({ progress = 0.75, size = "40" }: IDashboardProgressCircleProps) => {
     const theme = useTheme();
+
     const angle = progress * 360;
 
     return (

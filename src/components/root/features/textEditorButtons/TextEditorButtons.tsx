@@ -6,7 +6,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-interface ITextEditorButtons {
+interface ITextEditorButtonsProps {
     isEditMode: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,9 +24,8 @@ export function TextEditorButtons({
     setReview,
     handleFocusReview,
     onSubmitUpdateReview,
-}: ITextEditorButtons) {
+}: ITextEditorButtonsProps) {
     const { openModal } = useModal();
-
     const theme = useTheme();
 
     return (

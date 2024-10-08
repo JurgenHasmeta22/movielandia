@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import TextEditor from "../textEditor/TextEditor";
 import { TextEditorButtons } from "../textEditorButtons/TextEditorButtons";
 
-interface ITextEditorForm {
+interface ITextEditorFormProps {
     review: string;
     rating: number | null;
     isEditMode: boolean;
@@ -30,7 +30,7 @@ export function TextEditorForm({
     isEditMode,
     setOpen,
     onSubmitUpdateReview,
-}: ITextEditorForm) {
+}: ITextEditorFormProps) {
     return (
         <Box marginTop={4} px={4}>
             <Box marginBottom={1}>

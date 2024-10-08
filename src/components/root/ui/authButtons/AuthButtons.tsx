@@ -11,7 +11,7 @@ import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-interface IAuthButtons {
+interface IAuthButtonsProps {
     session: Session | null;
     anchorElProfile: HTMLElement | null;
     userName: string;
@@ -27,9 +27,8 @@ const AuthButtons = ({
     closeMenuProfile,
     handleSignOut,
     userName,
-}: IAuthButtons) => {
+}: IAuthButtonsProps) => {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
-
     const theme = useTheme();
 
     return (

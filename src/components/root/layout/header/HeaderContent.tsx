@@ -16,19 +16,18 @@ import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-interface IHeaderContent {
+interface IHeaderContentProps {
     session: Session | null;
     genres: Genre[];
     userName: string;
 }
 
-export function HeaderContent({ session, genres, userName }: IHeaderContent) {
+export function HeaderContent({ session, genres, userName }: IHeaderContentProps) {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const router = useRouter();
-
     const theme = useTheme();
 
     const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -80,7 +79,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     }}
                     component={"nav"}
                 >
-                    {/* Mobile Header */}
+                    {/* Hamburger Button */}
                     <Box
                         sx={{
                             display: {
@@ -138,7 +137,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContent) {
                     </Stack>
                 </Toolbar>
             </AppBar>
-            {/* Mobile Header Menu */}
+            {/* Mobile Header Toggled sidebar */}
             <HeaderMobile
                 genres={genres}
                 anchorElProfile={anchorElProfile}

@@ -5,12 +5,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useRouter } from "next/navigation";
 
-type BreadcrumbProps = {
+interface IBreadcrumbProps {
     breadcrumbs: JSX.Element[];
     navigateTo: string;
-};
+}
 
-const Breadcrumb = ({ breadcrumbs, navigateTo }: BreadcrumbProps) => {
+const Breadcrumb = ({ breadcrumbs, navigateTo }: IBreadcrumbProps) => {
     const router = useRouter();
 
     return (
