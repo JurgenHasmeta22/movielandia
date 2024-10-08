@@ -101,6 +101,7 @@ const HomeHeroSection = () => {
                 justifyContent="center"
                 marginTop={3}
                 columnGap={2}
+                rowGap={3}
                 sx={{ zIndex: 1 }}
                 flexWrap={"wrap"}
             >
