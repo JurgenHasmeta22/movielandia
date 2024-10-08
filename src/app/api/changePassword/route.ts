@@ -40,7 +40,6 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ message: "Password is changed successfully." });
     } catch (error) {
-        // console.error("Error occurred:", error);
         return NextResponse.json({ message: "An error occurred during changing the password." }, { status: 500 });
     }
 }

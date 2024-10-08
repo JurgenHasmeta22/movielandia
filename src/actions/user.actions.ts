@@ -273,6 +273,29 @@ export async function getUserByUsername(userName: string, userLoggedInId: number
 // #endregion
 
 // #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
+export async function updateUserByIdAdmin(userParam: Prisma.UserUpdateInput, id: number): Promise<User | null> {
+    try {
+        const updatedUser = await prisma.user.update({
+            where: { id },
+            data: userParam,
+        });
+
+        if (updatedUser) {
+            return updatedUser;
+            // revalidatePath(`/users/${updatedUser.id}/${updatedUser.userName}`, "page");
+        } else {
+            // throw new Error("Failed to update user.");
+            return null;
+        }
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
 export async function updateUserById(userParam: Prisma.UserUpdateInput, id: number): Promise<void> {
     try {
         const updatedUser = await prisma.user.update({

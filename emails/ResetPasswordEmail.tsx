@@ -6,8 +6,10 @@ interface IResetPasswordEmailProps {
     token: string;
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+
 const ResetPasswordEmail = ({ userName, email, token }: IResetPasswordEmailProps) => {
-    const verificationLink = `https://movielandia-avenger22s-projects.vercel.app/verify-reset-password?token=${token}&email=${email}`;
+    const verificationLink = `${baseUrl}/verify-reset-password?token=${token}&email=${email}`;
 
     return (
         <Html>

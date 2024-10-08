@@ -14,7 +14,7 @@ import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDas
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";
-import { deleteUserById, getUserById, updateUserById } from "@/actions/user.actions";
+import { deleteUserById, getUserById, updateUserById, updateUserByIdAdmin } from "@/actions/user.actions";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Prisma, User } from "@prisma/client";
@@ -65,7 +65,7 @@ const UserAdmin = () => {
             password: values.password,
         };
 
-        const response: User | null = await updateUserById(payload, Number(user?.id));
+        const response: User | null = await updateUserByIdAdmin(payload, Number(user?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
