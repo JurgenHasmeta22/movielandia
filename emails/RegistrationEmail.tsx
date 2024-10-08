@@ -6,8 +6,10 @@ interface IRegistrationEmailProps {
     token: string;
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
+
 export default function RegistrationEmail({ userName, email, token }: IRegistrationEmailProps) {
-    const verificationLink = `https://movielandia-avenger22s-projects.vercel.app/verify-register?token=${token}&email=${email}`;
+    const verificationLink = `${baseUrl}/verify-register?token=${token}&email=${email}`;
 
     return (
         <Html>
