@@ -27,7 +27,7 @@ const GenreList: React.FC<GenreListProps> = ({
     dataType,
     cardType,
 }) => {
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, count);
 
@@ -37,19 +37,27 @@ const GenreList: React.FC<GenreListProps> = ({
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
+                flexWrap="wrap"
                 sx={{
                     mt: 4,
                     ml: 3,
                     mr: 3,
+                    flexDirection: { xs: "column", sm: "row" },
+                    rowGap: { xs: 2, sm: 0 },
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    display={"flex"}
+                    flexDirection={{ xs: "column", sm: "row" }}
+                    alignItems={{ xs: "flex-start", sm: "center" }}
+                    columnGap={1}
+                    textAlign={{ xs: "left", sm: "center" }}
+                >
                     <Typography
                         sx={{
                             fontSize: [16, 17, 20, 22, 24],
                         }}
                         variant="h2"
-                        textAlign={"center"}
                     >
                         {title}
                     </Typography>
@@ -60,8 +68,9 @@ const GenreList: React.FC<GenreListProps> = ({
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: { xs: "flex-start", sm: "flex-end" },
                         alignItems: "center",
+                        mt: { xs: 2, sm: 0 },
                     }}
                 >
                     <SortSelect sortBy={sortBy!} ascOrDesc={ascOrDesc!} type="list" dataType={dataType.toLowerCase()} />

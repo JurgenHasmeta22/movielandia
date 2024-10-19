@@ -17,7 +17,7 @@ const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
 export const metadata: Metadata = {
     title: "Check Actors | High-Quality and Always Updated",
-    description: "Discover most amazing actors.",
+    description: "Discover the most amazing actors.",
     openGraph: {
         type: "video.other",
         url: `${baseUrl}/actors`,
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
 export default async function Actors({ searchParams }: IActorsProps) {
     const session = await getServerSession(authOptions);
 
-    const ascOrDesc = searchParams && searchParams.actorsAscOrDesc ? searchParams.actorsAscOrDesc : "";
-    const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
-    const sortBy = searchParams && searchParams.actorsSortBy ? searchParams.actorsSortBy : "";
+    const ascOrDesc = searchParams?.actorsAscOrDesc || "";
+    const page = searchParams?.page ? Number(searchParams.page) : 1;
+    const sortBy = searchParams?.actorsSortBy || "";
 
     const queryParams = {
         ascOrDesc,
@@ -75,16 +75,24 @@ export default async function Actors({ searchParams }: IActorsProps) {
             </Box>
             <Stack
                 display="flex"
-                flexDirection="row"
-                justifyContent={"space-between"}
-                alignItems="center"
+                flexDirection={{ xs: "column", sm: "row" }}
+                justifyContent="space-between"
+                alignItems={{ xs: "flex-start", sm: "center" }}
                 component="section"
                 sx={{
                     ml: 3,
                     mr: 3,
+                    rowGap: { xs: 2, sm: 0 },
+                    flexWrap: "wrap",
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    display={"flex"}
+                    flexDirection={{ xs: "column", sm: "row" }}
+                    alignItems={{ xs: "flex-start", sm: "center" }}
+                    columnGap={1}
+                    textAlign={{ xs: "left", sm: "center" }}
+                >
                     <Typography fontSize={26} fontWeight={800}>
                         Actors
                     </Typography>
@@ -92,7 +100,14 @@ export default async function Actors({ searchParams }: IActorsProps) {
                         {startIndex} – {endIndex} of {actorsCount} actors
                     </Typography>
                 </Box>
-                <Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: { xs: "flex-start", sm: "flex-end" },
+                        alignItems: "center",
+                        mt: { xs: 2, sm: 0 },
+                    }}
+                >
                     <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="actors" />
                 </Box>
             </Stack>
