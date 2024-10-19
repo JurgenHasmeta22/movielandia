@@ -27,7 +27,7 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                 <Typography
                     sx={{
                         fontWeight: 700,
-                        fontSize: 28,
+                        fontSize: 22,
                     }}
                 >
                     {type === "genre"

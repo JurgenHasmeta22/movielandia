@@ -29,7 +29,7 @@ const SearchList: React.FC<MediaListProps> = ({
     cardType,
     path = "",
 }) => {
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, count);
 
@@ -46,7 +46,7 @@ const SearchList: React.FC<MediaListProps> = ({
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
-                    <Typography fontSize={22} variant="h2">
+                    <Typography fontSize={26} fontWeight={800}>
                         {title}
                     </Typography>
                     <Typography variant="h5">

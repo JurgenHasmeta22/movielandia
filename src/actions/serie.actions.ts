@@ -26,7 +26,7 @@ export async function getSeriesWithFilters(
     {
         sortBy,
         ascOrDesc,
-        perPage = 10,
+        perPage = 12,
         page = 1,
         title,
         filterValue,
@@ -354,7 +354,7 @@ export async function getLatestSeries(userId?: number): Promise<Serie[] | null> 
         orderBy: {
             dateAired: "desc",
         },
-        take: 5,
+        take: 6,
     });
 
     const serieIds = series.map((serie) => serie.id);
@@ -556,8 +556,8 @@ export async function searchSeriesByTitle(title: string, queryParams: any, userI
             title: { contains: title },
         },
         orderBy: orderByObject,
-        skip: page ? (page - 1) * 10 : 0,
-        take: 10,
+        skip: page ? (page - 1) * 12 : 0,
+        take: 12,
     };
 
     const series = await prisma.serie.findMany(query);

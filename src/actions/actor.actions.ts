@@ -20,7 +20,7 @@ export async function getActorsWithFilters(
     {
         sortBy,
         ascOrDesc,
-        perPage = 10,
+        perPage = 12,
         page = 1,
         fullname,
         filterValue,
@@ -411,8 +411,8 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
             fullname: { contains: fullname },
         },
         orderBy: orderByObject,
-        skip: page ? (page - 1) * 10 : 0,
-        take: 10,
+        skip: page ? (page - 1) * 12 : 0,
+        take: 12,
     };
 
     const actors = await prisma.actor.findMany(query);

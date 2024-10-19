@@ -114,7 +114,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        maxWidth: "200px",
+                        maxWidth: "160px",
                         cursor: "pointer",
                         height: "auto",
                         width: "100%",
@@ -130,14 +130,14 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                     <Box
                         sx={{
                             position: "relative",
-                            height: "280px",
+                            height: "240px",
                             overflow: "hidden",
                             "&:hover .hoverOverlay": {
                                 opacity: 1,
                             },
                         }}
                     >
-                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={280} width={200} />
+                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={240} width={160} />
                         <Box
                             className="hoverOverlay"
                             sx={{
@@ -194,7 +194,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                 <Box>
                                     <Stack
                                         flexDirection={"row"}
-                                        columnGap={"40px"}
+                                        columnGap={"30px"}
                                         justifyContent="space-between"
                                         alignItems="center"
                                     >
@@ -222,7 +222,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                                     alignItems: "center",
                                                 }}
                                             >
-                                                <AccessTimeIcon sx={{ color: "gold", mr: 0.5, fontSize: "0.8rem" }} />
+                                                <AccessTimeIcon sx={{ color: "gold", mr: 0.2, fontSize: "0.8rem" }} />
                                                 <Typography
                                                     color={"white"}
                                                     fontSize="0.8rem"

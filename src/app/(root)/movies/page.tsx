@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Movie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getMovies, getLatestMovies, getMoviesWithFilters } from "@/actions/movie.actions";
+import { getLatestMovies, getMoviesWithFilters } from "@/actions/movie.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -64,7 +64,7 @@ export default async function Movies({ searchParams }: IMoviesProps) {
     const moviesCount = moviesData.count;
     const pageCount = Math.ceil(moviesCount / 10);
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, moviesCount);
 
@@ -92,7 +92,7 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
-                    <Typography fontSize={22} variant="h2">
+                    <Typography fontSize={26} fontWeight={800}>
                         Movies
                     </Typography>
                     <Typography variant="h5" sx={{ pt: 0.5 }}>

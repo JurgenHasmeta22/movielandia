@@ -5,7 +5,7 @@ import SortSelect from "@/components/root/features/sortSelect/SortSelect";
 import { Box, Stack, Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
 import type { Metadata } from "next";
-import { getActors, getActorsWithFilters } from "@/actions/actor.actions";
+import { getActorsWithFilters } from "@/actions/actor.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -57,7 +57,7 @@ export default async function Actors({ searchParams }: IActorsProps) {
     const actorsCount = actorsData.count;
     const pageCount = Math.ceil(actorsCount / 10);
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, actorsCount);
 
@@ -85,7 +85,7 @@ export default async function Actors({ searchParams }: IActorsProps) {
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
-                    <Typography fontSize={22} variant="h2">
+                    <Typography fontSize={26} fontWeight={800}>
                         Actors
                     </Typography>
                     <Typography variant="h5" sx={{ pt: 0.5 }}>

@@ -461,8 +461,8 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
             title: { contains: title },
         },
         orderBy: orderByObject,
-        skip: page ? (page - 1) * 10 : 0,
-        take: 10,
+        skip: page ? (page - 1) * 12 : 0,
+        take: 12,
     };
 
     const episodes = await prisma.episode.findMany(query);
