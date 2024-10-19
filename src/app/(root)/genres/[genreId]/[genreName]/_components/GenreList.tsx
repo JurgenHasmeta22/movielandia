@@ -55,7 +55,7 @@ const GenreList: React.FC<GenreListProps> = ({
                 >
                     <Typography
                         sx={{
-                            fontSize: [16, 17, 20, 22, 24],
+                            fontSize: 22,
                         }}
                         variant="h2"
                     >

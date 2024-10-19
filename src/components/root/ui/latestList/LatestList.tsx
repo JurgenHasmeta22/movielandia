@@ -22,6 +22,13 @@ export function LatestList({ data, type }: ILatestListProps) {
             <Box
                 sx={{
                     pl: 3,
+                    display: "flex",
+                    justifyContent: {
+                        xs: "center",
+                        sm: "center",
+                        md: "start",
+                        lg: "start",
+                    },
                 }}
             >
                 <Typography fontSize={22} variant="h2">
