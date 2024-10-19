@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Box, Card, Stack, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -25,7 +25,11 @@ interface ICardItemProps {
 
 const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
     const { data: session } = useSession();
+
+    const [isHovered, setIsHovered] = useState(false);
     const params = useParams();
+
+    const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
 
     const bookmarkFunctions: any = {
         movie: onBookmarkMovie,
@@ -85,8 +89,26 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
         }
     };
 
+    const handleCardClick = (e: React.MouseEvent) => {
+        if (isTouchDevice && !isHovered) {
+            e.preventDefault();
+            setIsHovered(true);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (isTouchDevice) {
+            setIsHovered(false);
+        }
+    };
+
     return (
-        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2, ease: "easeInOut" }}>
+        <motion.div
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            onClick={handleCardClick}
+            onMouseLeave={handleMouseLeave}
+        >
             <Link href={getPath()}>
                 <Card
                     sx={{
@@ -125,7 +147,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                 right: 0,
                                 top: 0,
                                 backgroundColor: "rgba(0, 0, 0, 0.6)",
-                                opacity: 0,
+                                opacity: isHovered ? 1 : 0,
                                 transition: "opacity 0.3s ease-in-out",
                                 display: "flex",
                                 flexDirection: "column",
