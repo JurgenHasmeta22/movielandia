@@ -100,7 +100,7 @@ export default async function Movies({ searchParams }: IMoviesProps) {
                     columnGap={1}
                     textAlign={{ xs: "left", sm: "center" }}
                 >
-                    <Typography fontSize={26} fontWeight={800}>
+                    <Typography fontSize={22} variant="h2">
                         Movies
                     </Typography>
                     <Typography variant="h5" sx={{ pt: 0.5 }}>

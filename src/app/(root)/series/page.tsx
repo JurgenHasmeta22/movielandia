@@ -99,7 +99,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
                     columnGap={1}
                     textAlign={{ xs: "left", sm: "center" }}
                 >
-                    <Typography fontSize={26} fontWeight={800}>
+                    <Typography fontSize={22} variant="h2">
                         Series
                     </Typography>
                     <Typography variant="h5" sx={{ pt: 0.5 }}>
