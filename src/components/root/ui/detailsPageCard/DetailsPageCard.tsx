@@ -75,6 +75,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                     sx={{
                                         bgcolor: theme.vars.palette.secondary.light,
                                         color: theme.vars.palette.red.main,
+                                        textDecoration: "none",
                                         fontSize: "0.9rem",
                                         fontWeight: "bold",
                                         "&:hover": {
