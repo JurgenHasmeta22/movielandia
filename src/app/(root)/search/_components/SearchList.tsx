@@ -37,15 +37,24 @@ const SearchList: React.FC<MediaListProps> = ({
         <Box display={"flex"} flexDirection={"column"} rowGap={3}>
             <Box
                 display="flex"
+                flexDirection={{ xs: "column", sm: "row" }}
                 justifyContent="space-between"
-                alignItems="center"
+                alignItems={{ xs: "flex-start", sm: "center" }}
                 sx={{
                     mt: 4,
                     ml: 3,
                     mr: 3,
+                    rowGap: { xs: 2, sm: 0 },
+                    flexWrap: "wrap",
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    display={"flex"}
+                    flexDirection={{ xs: "column", sm: "row" }}
+                    alignItems={{ xs: "flex-start", sm: "center" }}
+                    columnGap={1}
+                    textAlign={{ xs: "left", sm: "center" }}
+                >
                     <Typography fontSize={26} fontWeight={800}>
                         {title}
                     </Typography>
@@ -56,8 +65,9 @@ const SearchList: React.FC<MediaListProps> = ({
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: { xs: "flex-start", sm: "flex-end" },
                         alignItems: "center",
+                        mt: { xs: 2, sm: 0 },
                     }}
                 >
                     <SortSelect sortBy={sortBy!} ascOrDesc={ascOrDesc!} type="list" dataType={dataType.toLowerCase()} />

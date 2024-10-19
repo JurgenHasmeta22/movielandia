@@ -81,16 +81,24 @@ export default async function Series({ searchParams }: ISeriesProps) {
             </Box>
             <Stack
                 display="flex"
-                flexDirection="row"
+                flexDirection={{ xs: "column", sm: "row" }}
                 justifyContent={"space-between"}
-                alignItems="center"
+                alignItems={{ xs: "flex-start", sm: "center" }}
                 component="section"
                 sx={{
                     ml: 3,
                     mr: 3,
+                    rowGap: { xs: 2, sm: 0 },
+                    flexWrap: "wrap",
                 }}
             >
-                <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
+                <Box
+                    display={"flex"}
+                    flexDirection={{ xs: "column", sm: "row" }}
+                    alignItems={{ xs: "flex-start", sm: "center" }}
+                    columnGap={1}
+                    textAlign={{ xs: "left", sm: "center" }}
+                >
                     <Typography fontSize={26} fontWeight={800}>
                         Series
                     </Typography>
@@ -98,7 +106,14 @@ export default async function Series({ searchParams }: ISeriesProps) {
                         {startIndex} – {endIndex} of {seriesCount} series
                     </Typography>
                 </Box>
-                <Box>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: { xs: "flex-start", sm: "flex-end" },
+                        alignItems: "center",
+                        mt: { xs: 2, sm: 0 },
+                    }}
+                >
                     <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
                 </Box>
             </Stack>
