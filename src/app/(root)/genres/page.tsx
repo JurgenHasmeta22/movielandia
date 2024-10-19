@@ -33,8 +33,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Genres() {
-    const genresData = await getGenres({});
-    const genres = genresData.rows;
+    const genres = await getGenres();
 
     return (
         <Box
@@ -62,9 +61,10 @@ export default async function Genres() {
                 direction="row"
                 flexWrap="wrap"
                 alignItems={"start"}
-                rowGap={4}
-                columnGap={3}
+                rowGap={5}
+                columnGap={5}
                 sx={{
+                    pl: 3,
                     mt: 3,
                     mb: 4,
                     justifyContent: {

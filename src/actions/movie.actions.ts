@@ -26,7 +26,7 @@ export async function getMoviesWithFilters(
     {
         sortBy,
         ascOrDesc,
-        perPage = 10,
+        perPage = 12,
         page = 1,
         title,
         filterValue,
@@ -353,7 +353,7 @@ export async function getLatestMovies(userId?: number): Promise<Movie[] | null> 
         orderBy: {
             dateAired: "desc",
         },
-        take: 5,
+        take: 6,
     });
 
     const movieIds = movies.map((movie) => movie.id);
@@ -555,8 +555,8 @@ export async function searchMoviesByTitle(title: string, queryParams: any, userI
             title: { contains: title },
         },
         orderBy: orderByObject,
-        skip: page ? (page - 1) * 10 : 0,
-        take: 10,
+        skip: page ? (page - 1) * 12 : 0,
+        take: 12,
     };
 
     const movies = await prisma.movie.findMany(query);

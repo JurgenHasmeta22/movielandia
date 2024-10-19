@@ -39,7 +39,7 @@ export async function getGenresWithFilters({
 
     if (page !== undefined) {
         skip = perPage ? (page - 1) * perPage : 0;
-        take = perPage || 10;
+        take = perPage || 12;
     }
 
     if (name) filters.name = { contains: name };

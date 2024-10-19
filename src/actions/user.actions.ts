@@ -345,8 +345,8 @@ export async function searchUsersByUsername(userName: string, queryParams: any):
             userName: { contains: userName },
         },
         orderBy: orderByObject,
-        skip: page ? (page - 1) * 10 : 0,
-        take: 10,
+        skip: page ? (page - 1) * 12 : 0,
+        take: 12,
     };
 
     const users = await prisma.user.findMany(query);

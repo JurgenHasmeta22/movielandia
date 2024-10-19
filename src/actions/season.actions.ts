@@ -467,8 +467,8 @@ export async function searchSeasonsByTitle(title: string, queryParams: any, user
             title: { contains: title },
         },
         orderBy: orderByObject,
-        skip: page ? (page - 1) * 10 : 0,
-        take: 10,
+        skip: page ? (page - 1) * 12 : 0,
+        take: 12,
     };
 
     const seasons = await prisma.season.findMany(query);

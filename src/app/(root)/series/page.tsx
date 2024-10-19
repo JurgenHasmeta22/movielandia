@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { LatestList } from "@/components/root/ui/latestList/LatestList";
 import { Serie } from "@prisma/client";
 import type { Metadata } from "next";
-import { getSeries, getLatestSeries, getSeriesWithFilters } from "@/actions/serie.actions";
+import { getLatestSeries, getSeriesWithFilters } from "@/actions/serie.actions";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 
@@ -63,7 +63,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
     const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
     const pageCount = Math.ceil(seriesCount / 10);
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, seriesCount);
 
@@ -91,7 +91,7 @@ export default async function Series({ searchParams }: ISeriesProps) {
                 }}
             >
                 <Box display={"flex"} flexDirection={"row"} columnGap={1} alignItems={"center"}>
-                    <Typography fontSize={22} variant="h2">
+                    <Typography fontSize={26} fontWeight={800}>
                         Series
                     </Typography>
                     <Typography variant="h5" sx={{ pt: 0.5 }}>
