@@ -1,11 +1,9 @@
 import { Box, Container, Typography } from "@mui/material";
 import Link from "next/link";
 
-export default async function VerifyResetPasswordPage(
-    props: {
-        searchParams: Promise<{ token: string; email: string }>;
-    }
-) {
+export default async function VerifyResetPasswordPage(props: {
+    searchParams: Promise<{ token: string; email: string }>;
+}) {
     const searchParams = await props.searchParams;
     const { token, email } = searchParams;
 
