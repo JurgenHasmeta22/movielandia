@@ -9,18 +9,18 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IGenreProps {
-    params: {
+    params: Promise<{
         genreId: string;
         genreName: string;
-    };
-    searchParams?: {
+    }>;
+    searchParams?: Promise<{
         moviesAscOrDesc?: string;
         pageMovies?: string;
         moviesSortBy?: string;
         seriesAscOrDesc?: string;
         pageSeries?: string;
         seriesSortBy?: string;
-    };
+    }>;
 }
 
 interface IQueryParams {
@@ -30,7 +30,8 @@ interface IQueryParams {
     sortBy?: string;
 }
 
-export async function generateMetadata({ params }: IGenreProps): Promise<Metadata> {
+export async function generateMetadata(props: IGenreProps): Promise<Metadata> {
+    const params = await props.params;
     const { genreId } = params;
 
     let genre: Genre;
@@ -69,7 +70,9 @@ export async function generateMetadata({ params }: IGenreProps): Promise<Metadat
     };
 }
 
-export default async function GenrePage({ searchParams, params }: IGenreProps): Promise<React.JSX.Element> {
+export default async function GenrePage(props: IGenreProps): Promise<React.JSX.Element> {
+    const params = await props.params;
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const genreId = params.genreId;

@@ -12,7 +12,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 
 interface ISearchProps {
-    searchParams?: {
+    searchParams?: Promise<{
         moviesAscOrDesc?: string;
         pageMovies?: string;
         moviesSortBy?: string;
@@ -32,7 +32,7 @@ interface ISearchProps {
         pageUsers?: string;
         usersSortBy?: string;
         term?: string;
-    };
+    }>;
 }
 
 export const metadata: Metadata = {
@@ -41,7 +41,8 @@ export const metadata: Metadata = {
         "Discover and search the latest and most amazing series in high quality. Our collection is always updated with the newest episodes and releases.",
 };
 
-export default async function Search({ searchParams }: ISearchProps) {
+export default async function Search(props: ISearchProps) {
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const term = searchParams && searchParams.term;
