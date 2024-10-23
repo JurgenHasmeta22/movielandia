@@ -73,7 +73,7 @@ interface RemoveReviewEpisodeParams {
 
 // #region "Utils"
 function getReferer() {
-    const headersList = (headers() as unknown as UnsafeUnwrappedHeaders);
+    const headersList = headers() as unknown as UnsafeUnwrappedHeaders as unknown as UnsafeUnwrappedHeaders;
     const referer = headersList.get("referer");
 
     if (referer) {

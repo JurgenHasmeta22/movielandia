@@ -4,11 +4,9 @@ import { notFound } from "next/navigation";
 import { getSeasonById } from "@/actions/season.actions";
 import SeasonPage from "./[seasonTitle]/page";
 
-export async function generateMetadata(
-    props: {
-        params: Promise<{ seasonId: string; serieId: string }>;
-    }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+    params: Promise<{ seasonId: string; serieId: string }>;
+}): Promise<Metadata> {
     const params = await props.params;
     const { seasonId } = params;
 
