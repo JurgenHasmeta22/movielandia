@@ -11,7 +11,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IMoviesProps {
-    searchParams?: { moviesAscOrDesc?: string; page?: string; moviesSortBy?: string };
+    searchParams?: Promise<{ moviesAscOrDesc?: string; page?: string; moviesSortBy?: string }>;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
@@ -42,7 +42,8 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function Movies({ searchParams }: IMoviesProps) {
+export default async function Movies(props: IMoviesProps) {
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const ascOrDesc = searchParams && searchParams.moviesAscOrDesc ? searchParams.moviesAscOrDesc : "";
