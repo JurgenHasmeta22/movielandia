@@ -6,13 +6,14 @@ import { notFound } from "next/navigation";
 import UserPageContent from "./_components/UserPageContent";
 
 interface IUserDetailsProps {
-    params: {
+    params: Promise<{
         userId: string;
-    };
-    searchParams?: { tab?: string };
+    }>;
+    searchParams?: Promise<{ tab?: string }>;
 }
 
-export async function generateMetadata({ params }: IUserDetailsProps): Promise<Metadata> {
+export async function generateMetadata(props: IUserDetailsProps): Promise<Metadata> {
+    const params = await props.params;
     const { userId } = params;
 
     let userInPage: any;
@@ -67,7 +68,9 @@ export async function generateMetadata({ params }: IUserDetailsProps): Promise<M
     };
 }
 
-export default async function UserPage({ searchParams, params }: IUserDetailsProps) {
+export default async function UserPage(props: IUserDetailsProps) {
+    const params = await props.params;
+    const searchParams = await props.searchParams;
     const tabValue = searchParams && searchParams.tab ? searchParams.tab : "favMovies";
     const userId = params.userId;
 

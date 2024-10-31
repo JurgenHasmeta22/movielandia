@@ -10,7 +10,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IActorsProps {
-    searchParams?: { actorsAscOrDesc?: string; page?: string; actorsSortBy?: string };
+    searchParams?: Promise<{ actorsAscOrDesc?: string; page?: string; actorsSortBy?: string }>;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
@@ -38,7 +38,8 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function Actors({ searchParams }: IActorsProps) {
+export default async function Actors(props: IActorsProps) {
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const ascOrDesc = searchParams?.actorsAscOrDesc || "";

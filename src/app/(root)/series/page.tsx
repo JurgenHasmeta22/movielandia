@@ -11,7 +11,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 
 interface ISeriesProps {
-    searchParams?: { seriesAscOrDesc?: string; page?: string; seriesSortBy?: string };
+    searchParams?: Promise<{ seriesAscOrDesc?: string; page?: string; seriesSortBy?: string }>;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
@@ -42,7 +42,8 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function Series({ searchParams }: ISeriesProps) {
+export default async function Series(props: ISeriesProps) {
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const ascOrDesc = searchParams && searchParams.seriesAscOrDesc ? searchParams.seriesAscOrDesc : "";

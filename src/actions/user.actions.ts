@@ -1,6 +1,6 @@
 "use server";
 
-import { headers } from "next/headers";
+import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 import { Prisma, User } from "@prisma/client";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { prisma } from "../../prisma/config/prisma";
@@ -73,7 +73,7 @@ interface RemoveReviewEpisodeParams {
 
 // #region "Utils"
 function getReferer() {
-    const headersList = headers();
+    const headersList = headers() as unknown as UnsafeUnwrappedHeaders as unknown as UnsafeUnwrappedHeaders;
     const referer = headersList.get("referer");
 
     if (referer) {
