@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getSerieById } from "@/actions/serie.actions";
 import SeriePage from "./[serieTitle]/page";
 
-export async function generateMetadata({ params }: { params: { serieId: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ serieId: string }> }): Promise<Metadata> {
+    const params = await props.params;
     const { serieId } = params;
 
     let serie: Serie;
@@ -61,6 +62,7 @@ export async function generateMetadata({ params }: { params: { serieId: string }
     };
 }
 
-export default function Page({ params }: { params: { serieId: string } }) {
+export default async function Page(props: { params: Promise<{ serieId: string }> }) {
+    const params = await props.params;
     return <SeriePage params={params} />;
 }

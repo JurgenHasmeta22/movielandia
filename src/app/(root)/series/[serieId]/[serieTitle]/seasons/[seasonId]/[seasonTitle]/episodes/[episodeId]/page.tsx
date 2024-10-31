@@ -4,11 +4,10 @@ import { notFound } from "next/navigation";
 import { getEpisodeById } from "@/actions/episode.actions";
 import EpisodePage from "./[episodeTitle]/page";
 
-export async function generateMetadata({
-    params,
-}: {
-    params: { episodeId: string; seasonId: string };
+export async function generateMetadata(props: {
+    params: Promise<{ episodeId: string; seasonId: string }>;
 }): Promise<Metadata> {
+    const params = await props.params;
     const { episodeId } = params;
 
     let episode: Episode;
@@ -65,6 +64,7 @@ export async function generateMetadata({
     };
 }
 
-export default function Page({ params }: { params: { episodeId: string; seasonId: string } }) {
+export default async function Page(props: { params: Promise<{ episodeId: string; seasonId: string }> }) {
+    const params = await props.params;
     return <EpisodePage params={params} />;
 }

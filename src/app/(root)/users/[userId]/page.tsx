@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getUserById } from "@/actions/user.actions";
 import UserPage from "./[userName]/page";
 
-export async function generateMetadata({ params }: { params: { userId: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ userId: string }> }): Promise<Metadata> {
+    const params = await props.params;
     const { userId } = params;
 
     let user: any;
@@ -58,6 +59,7 @@ export async function generateMetadata({ params }: { params: { userId: string } 
     };
 }
 
-export default function Page({ params }: { params: { userId: string } }) {
+export default async function Page(props: { params: Promise<{ userId: string }> }) {
+    const params = await props.params;
     return <UserPage params={params} />;
 }

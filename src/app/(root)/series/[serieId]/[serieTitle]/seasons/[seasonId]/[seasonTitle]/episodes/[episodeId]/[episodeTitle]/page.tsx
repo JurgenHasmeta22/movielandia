@@ -7,14 +7,15 @@ import { Episode } from "@prisma/client";
 import EpisodePageContent from "../../_components/EpisodePageContent";
 
 interface IEpisodeProps {
-    params: {
+    params: Promise<{
         episodeId: string;
         seasonId: string;
-    };
-    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
+    }>;
+    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
 }
 
-export async function generateMetadata({ params }: IEpisodeProps): Promise<Metadata> {
+export async function generateMetadata(props: IEpisodeProps): Promise<Metadata> {
+    const params = await props.params;
     const { episodeId } = params;
 
     let episode: Episode;
@@ -71,7 +72,9 @@ export async function generateMetadata({ params }: IEpisodeProps): Promise<Metad
     };
 }
 
-export default async function EpisodePage({ searchParams, params }: IEpisodeProps) {
+export default async function EpisodePage(props: IEpisodeProps) {
+    const params = await props.params;
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const { episodeId, seasonId } = params;

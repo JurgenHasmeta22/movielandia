@@ -7,13 +7,14 @@ import { Actor } from "@prisma/client";
 import ActorPageContent from "./_components/ActorPageContent";
 
 interface IActorProps {
-    params: {
+    params: Promise<{
         actorId: string;
-    };
-    searchParams?: { reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string };
+    }>;
+    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
 }
 
-export async function generateMetadata({ params }: IActorProps): Promise<Metadata> {
+export async function generateMetadata(props: IActorProps): Promise<Metadata> {
+    const params = await props.params;
     const { actorId } = params;
 
     let actor: Actor;
@@ -70,7 +71,9 @@ export async function generateMetadata({ params }: IActorProps): Promise<Metadat
     };
 }
 
-export default async function ActorPage({ searchParams, params }: IActorProps) {
+export default async function ActorPage(props: IActorProps) {
+    const params = await props.params;
+    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
     const { actorId } = params;

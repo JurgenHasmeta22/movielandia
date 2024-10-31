@@ -4,11 +4,10 @@ import { Genre } from "@prisma/client";
 import { notFound } from "next/navigation";
 import GenrePage from "./[genreName]/page";
 
-export async function generateMetadata({
-    params,
-}: {
-    params: { genreId: string; genreName: string };
+export async function generateMetadata(props: {
+    params: Promise<{ genreId: string; genreName: string }>;
 }): Promise<Metadata> {
+    const params = await props.params;
     const { genreId } = params;
 
     let genre: Genre;
@@ -45,6 +44,7 @@ export async function generateMetadata({
     };
 }
 
-export default function Page({ params }: { params: { genreId: string; genreName: string } }) {
+export default async function Page(props: { params: Promise<{ genreId: string; genreName: string }> }) {
+    const params = await props.params;
     return <GenrePage params={params} />;
 }
