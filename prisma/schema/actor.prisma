@@ -1,7 +1,6 @@
 model Actor {
     id                   Int                   @id @default(autoincrement())
     fullname             String
-    role                 String                @default("Actor")
     photoSrc             String                @default("")
     photoSrcProd         String                @default("")
     description          String                @default("")

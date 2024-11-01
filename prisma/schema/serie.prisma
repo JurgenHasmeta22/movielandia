@@ -8,6 +8,7 @@ model Serie {
     dateAired            String                @default("01/01/2020")
     ratingImdb           Float                 @default(5.0)
     cast                 CastSerie[]
+    crew                 CrewSerie[]
     seasons              Season[]
     reviews              SerieReview[]
     genres               SerieGenre[]
@@ -65,4 +66,12 @@ model CastSerie {
     actorId Int
     serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model CrewSerie {
+    id      Int   @id @default(autoincrement())
+    serieId Int
+    crewId  Int
+    serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    crew    Crew  @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
