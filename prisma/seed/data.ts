@@ -67,7 +67,6 @@ export const actors = [
     {
         id: 1,
         fullname: "Tom Holland",
-        role: "Actor",
         description: "A brief description for Tom Holland.",
         debut: "2012",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -76,7 +75,6 @@ export const actors = [
     {
         id: 2,
         fullname: "Zendaya",
-        role: "Actor",
         description: "A brief description for Zendaya.",
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -85,7 +83,6 @@ export const actors = [
     {
         id: 3,
         fullname: "Benedict Cumberbatch",
-        role: "Actor",
         description: "A brief description for Benedict Cumberbatch.",
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -94,7 +91,6 @@ export const actors = [
     {
         id: 4,
         fullname: "Mackenzie Davis",
-        role: "Actor",
         description: "A brief description for Mackenzie Davis.",
         debut: "2012",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -103,7 +99,6 @@ export const actors = [
     {
         id: 5,
         fullname: "Finn Wolfhard",
-        role: "Actor",
         description: "A brief description for Finn Wolfhard.",
         debut: "2014",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -112,7 +107,6 @@ export const actors = [
     {
         id: 6,
         fullname: "Brooklynn Prince",
-        role: "Actor",
         description: "A brief description for Brooklynn Prince.",
         debut: "2015",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -121,7 +115,6 @@ export const actors = [
     {
         id: 7,
         fullname: "Leighton Meester",
-        role: "Actor",
         description: "A brief description for Leighton Meester.",
         debut: "1999",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -130,7 +123,6 @@ export const actors = [
     {
         id: 8,
         fullname: "Christina Wolfe",
-        role: "Actor",
         description: "A brief description for Christina Wolfe.",
         debut: "2013",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -139,7 +131,6 @@ export const actors = [
     {
         id: 9,
         fullname: "Damson Idris",
-        role: "Actor",
         description: "A brief description for Damson Idris.",
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -148,7 +139,6 @@ export const actors = [
     {
         id: 10,
         fullname: "Carter Hudson",
-        role: "Actor",
         description: "A brief description for Carter Hudson.",
         debut: "2007",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -157,7 +147,6 @@ export const actors = [
     {
         id: 11,
         fullname: "Giorgio Cantarini",
-        role: "Actor",
         description: "A brief description for Giorgio Cantarini.",
         debut: "1999",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -166,7 +155,6 @@ export const actors = [
     {
         id: 12,
         fullname: "Aurora Quattrocchi",
-        role: "Actor",
         description: "A brief description for Aurora Quattrocchi.",
         debut: "2005",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -175,7 +163,6 @@ export const actors = [
     {
         id: 13,
         fullname: "Franz Rogowski",
-        role: "Actor",
         description: "A brief description for Franz Rogowski.",
         debut: "2009",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -184,7 +171,6 @@ export const actors = [
     {
         id: 14,
         fullname: "Gokhan Yikilkan",
-        role: "Actor",
         description: "A brief description for Gokhan Yikilkan.",
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -193,7 +179,6 @@ export const actors = [
     {
         id: 15,
         fullname: "Belçim Bilgin",
-        role: "Actor",
         description: "A brief description for Belçim Bilgin.",
         debut: "2006",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -202,7 +187,6 @@ export const actors = [
     {
         id: 16,
         fullname: "Bariş Arduc",
-        role: "Actor",
         description: "A brief description for Bariş Arduc.",
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -211,7 +195,6 @@ export const actors = [
     {
         id: 17,
         fullname: "Mario Casas",
-        role: "Actor",
         description: "A brief description for Mario Casas.",
         debut: "2006",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -220,7 +203,6 @@ export const actors = [
     {
         id: 18,
         fullname: "Ana Wagener",
-        role: "Actor",
         description: "A brief description for Ana Wagener.",
         debut: "2001",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -229,7 +211,6 @@ export const actors = [
     {
         id: 19,
         fullname: "José Coronado",
-        role: "Actor",
         description: "A brief description for José Coronado.",
         debut: "1996",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -238,7 +219,6 @@ export const actors = [
     {
         id: 20,
         fullname: "Michael Jai White",
-        role: "Actor",
         description: "A brief description for Michael Jai White.",
         debut: "1992",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -247,7 +227,6 @@ export const actors = [
     {
         id: 21,
         fullname: "Julian Sands",
-        role: "Actor",
         description: "A brief description for Julian Sands.",
         debut: "1984",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -256,7 +235,6 @@ export const actors = [
     {
         id: 22,
         fullname: "Eamonn Walker",
-        role: "Actor",
         description: "A brief description for Eamonn Walker.",
         debut: "1994",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -265,7 +243,6 @@ export const actors = [
     {
         id: 23,
         fullname: "Jacob Tremblay",
-        role: "Actor",
         description: "A brief description for Jacob Tremblay.",
         debut: "2013",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -274,7 +251,6 @@ export const actors = [
     {
         id: 24,
         fullname: "Julia Roberts",
-        role: "Actor",
         description: "A brief description for Julia Roberts.",
         debut: "1987",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -283,7 +259,6 @@ export const actors = [
     {
         id: 25,
         fullname: "Owen Wilson",
-        role: "Actor",
         description: "A brief description for Owen Wilson.",
         debut: "1996",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -292,7 +267,6 @@ export const actors = [
     {
         id: 26,
         fullname: "Gemma Chan",
-        role: "Actor",
         description: "A brief description for Gemma Chan.",
         debut: "2006",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -301,7 +275,6 @@ export const actors = [
     {
         id: 27,
         fullname: "Richard Madden",
-        role: "Actor",
         description: "A brief description for Richard Madden.",
         debut: "2007",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -310,7 +283,6 @@ export const actors = [
     {
         id: 28,
         fullname: "Kumail Nanjiani",
-        role: "Actor",
         description: "A brief description for Kumail Nanjiani.",
         debut: "2008",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -319,7 +291,6 @@ export const actors = [
     {
         id: 29,
         fullname: "Asim Chaudhry",
-        role: "Actor",
         description: "A brief description for Asim Chaudhry.",
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -328,7 +299,6 @@ export const actors = [
     {
         id: 30,
         fullname: "Kobna Holdbrook-Smith",
-        role: "Actor",
         description: "A brief description for Kobna Holdbrook-Smith.",
         debut: "2008",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -337,7 +307,6 @@ export const actors = [
     {
         id: 31,
         fullname: "Giovanna Mezzogiorno",
-        role: "Actor",
         description: "A brief description for Giovanna Mezzogiorno.",
         debut: "1997",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -346,7 +315,6 @@ export const actors = [
     {
         id: 32,
         fullname: "Stefano Accorsi",
-        role: "Actor",
         description: "A brief description for Stefano Accorsi.",
         debut: "1996",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -355,7 +323,6 @@ export const actors = [
     {
         id: 33,
         fullname: "Amanda Collin",
-        role: "Actor",
         description: "A brief description for Amanda Collin.",
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -364,7 +331,6 @@ export const actors = [
     {
         id: 34,
         fullname: "Dar Salim",
-        role: "Actor",
         description: "A brief description for Dar Salim.",
         debut: "2009",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -373,7 +339,6 @@ export const actors = [
     {
         id: 35,
         fullname: "Noomi Rapace",
-        role: "Actor",
         description: "A brief description for Noomi Rapace.",
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -382,7 +347,6 @@ export const actors = [
     {
         id: 36,
         fullname: "Joel Kinnaman",
-        role: "Actor",
         description: "A brief description for Joel Kinnaman.",
         debut: "2003",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -391,7 +355,6 @@ export const actors = [
     {
         id: 37,
         fullname: "Kevin Hart",
-        role: "Actor",
         description: "A brief description for Kevin Hart.",
         debut: "2001",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -400,7 +363,6 @@ export const actors = [
     {
         id: 38,
         fullname: "John Cena",
-        role: "Actor",
         description: "A brief description for John Cena.",
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -409,7 +371,6 @@ export const actors = [
     {
         id: 39,
         fullname: "Danielle Brooks",
-        role: "Actor",
         description: "A brief description for Danielle Brooks.",
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -418,7 +379,6 @@ export const actors = [
     {
         id: 40,
         fullname: "Ashley Walters",
-        role: "Actor",
         description: "A brief description for Ashley Walters.",
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -427,7 +387,6 @@ export const actors = [
     {
         id: 41,
         fullname: "Kane Robinson",
-        role: "Actor",
         description: "A brief description for Kane Robinson.",
         debut: "2005",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -436,7 +395,6 @@ export const actors = [
     {
         id: 42,
         fullname: "Micheal Ward",
-        role: "Actor",
         description: "A brief description for Micheal Ward.",
         debut: "2014",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -445,7 +403,6 @@ export const actors = [
     {
         id: 43,
         fullname: "Samy Seghir",
-        role: "Actor",
         description: "A brief description for Samy Seghir.",
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -454,7 +411,6 @@ export const actors = [
     {
         id: 44,
         fullname: "Manon Azem",
-        role: "Actor",
         description: "A brief description for Manon Azem.",
         debut: "2009",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -463,7 +419,6 @@ export const actors = [
     {
         id: 45,
         fullname: "Tracy Gotoas",
-        role: "Actor",
         description: "A brief description for Tracy Gotoas.",
         debut: "2003",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -472,7 +427,6 @@ export const actors = [
     {
         id: 46,
         fullname: "Jason Bateman",
-        role: "Actor",
         description: "A brief description for Jason Bateman.",
         debut: "1987",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -481,7 +435,6 @@ export const actors = [
     {
         id: 47,
         fullname: "Laura Linney",
-        role: "Actor",
         description: "A brief description for Laura Linney.",
         debut: "1993",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -490,7 +443,6 @@ export const actors = [
     {
         id: 48,
         fullname: "Sofia Hublitz",
-        role: "Actor",
         description: "A brief description for Sofia Hublitz.",
         debut: "2013",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -499,7 +451,6 @@ export const actors = [
     {
         id: 49,
         fullname: "Alan Tudyk",
-        role: "Actor",
         description: "A brief description for Alan Tudyk.",
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
@@ -508,7 +459,6 @@ export const actors = [
     {
         id: 50,
         fullname: "Sara Tomko",
-        role: "Actor",
         description: "A brief description for Sara Tomko.",
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
