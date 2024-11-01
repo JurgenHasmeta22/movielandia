@@ -3,9 +3,10 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import ClearIcon from "@mui/icons-material/Clear";
-import { Actor, Episode, Movie, Season, Serie } from "@prisma/client";
+import { Actor, Crew, Episode, Movie, Season, Serie } from "@prisma/client";
 import {
     removeFavoriteActorToUser,
+    removeFavoriteCrewToUser,
     removeFavoriteEpisodeToUser,
     removeFavoriteMovieToUser,
     removeFavoriteSeasonToUser,
@@ -37,6 +38,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
         case "Actors":
             favorites = userInPage?.favActors;
             break;
+        case "Crew":
+            favorites = userInPage?.favCrew;
+            break;
         case "Seasons":
             favorites = userInPage?.favSeasons;
             break;
@@ -58,6 +62,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                 movie?.id,
                 `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favMovies`,
             );
+
             showToast("success", "Movie unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -77,6 +82,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                 serie.id,
                 `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favSeries`,
             );
+
             showToast("success", "Serie unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -96,6 +102,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                 season?.id,
                 `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favSeason`,
             );
+
             showToast("success", "Season unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -115,6 +122,7 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                 episode?.id,
                 `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favEpisodes`,
             );
+
             showToast("success", "Episode unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
@@ -134,7 +142,28 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                 actor?.id,
                 `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favActors`,
             );
+
             showToast("success", "Actor unbookmarked successfully!");
+        } catch (error) {
+            if (error instanceof Error) {
+                showToast("error", `Error: ${error.message}`);
+            } else {
+                showToast("error", "An unexpected error occurred while removing the bookmark");
+            }
+        }
+    }
+
+    async function onRemoveBookmarkCrew(crew: Crew) {
+        if (!userLoggedIn || !crew) return;
+
+        try {
+            await removeFavoriteCrewToUser(
+                Number(userLoggedIn?.id),
+                crew?.id,
+                `/users/${Number(userLoggedIn.id)}/${userLoggedIn.userName}?tab=favCrew`,
+            );
+
+            showToast("success", "Crew unbookmarked successfully!");
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
@@ -229,9 +258,11 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                               ? favItem.serie.photoSrcProd
                                               : type === "Actors"
                                                 ? favItem.actor.photoSrcProd
-                                                : type === "Seasons"
-                                                  ? favItem.season.photoSrcProd
-                                                  : favItem.episode.photoSrcProd
+                                                : type === "Crew"
+                                                  ? favItem.crew.photoSrcProd
+                                                  : type === "Seasons"
+                                                    ? favItem.season.photoSrcProd
+                                                    : favItem.episode.photoSrcProd
                                     }
                                     alt={
                                         type === "Movies"
@@ -240,9 +271,11 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                               ? favItem.serie.title
                                               : type === "Actors"
                                                 ? favItem.actor.fullname
-                                                : type === "Seasons"
-                                                  ? favItem.season.title
-                                                  : favItem.episode.title
+                                                : type === "Crew"
+                                                  ? favItem.crew.fullname
+                                                  : type === "Seasons"
+                                                    ? favItem.season.title
+                                                    : favItem.episode.title
                                     }
                                     height={200}
                                     width={150}
@@ -265,9 +298,11 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                           ? favItem.serie.title
                                           : type === "Actors"
                                             ? favItem.actor.fullname
-                                            : type === "Seasons"
-                                              ? favItem.season.title
-                                              : favItem.episode.title}
+                                            : type === "Crew"
+                                              ? favItem.crew.fullname
+                                              : type === "Seasons"
+                                                ? favItem.season.title
+                                                : favItem.episode.title}
                                 </Typography>
                             </Box>
                         </Link>
@@ -298,6 +333,9 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                                             break;
                                         case "Actors":
                                             await onRemoveBookmarkActor(favItem.actor);
+                                            break;
+                                        case "Crew":
+                                            await onRemoveBookmarkCrew(favItem.crew);
                                             break;
                                         case "Seasons":
                                             await onRemoveBookmarkSeason(favItem.season);

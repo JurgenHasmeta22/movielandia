@@ -1,12 +1,14 @@
 "use client";
 
-import React, { forwardRef, useEffect } from "react";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+import React, { useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface ITextEditorProps {
     value: string;
@@ -43,12 +45,11 @@ const formats = [
     "video",
 ];
 
-const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, rating, setRating }, ref) => {
+const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref }) => {
     const theme = useTheme();
 
     useEffect(() => {
         const resizeImages = () => {
-            // @ts-expect-error editorError
             const quillEditor = ref?.current?.getEditor?.();
 
             if (quillEditor) {
@@ -61,7 +62,6 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
             }
         };
 
-        // @ts-expect-error instanceError
         const editorInstance = ref?.current?.getEditor?.();
 
         if (editorInstance) {
@@ -84,7 +84,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                 onChange={onChange}
                 modules={modules}
                 formats={formats}
-                // @ts-expect-error refError
+                // @ts-expect-error - Quill does not accept ref as a prop
                 ref={ref}
                 style={{
                     backgroundColor: theme.vars.palette.blue.dark,
@@ -92,13 +92,7 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
                     marginBottom: "10px",
                 }}
             />
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                }}
-            >
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
                 <Typography variant="body2" fontSize={16} fontWeight={700} sx={{ mr: 1 }}>
                     {rating?.toFixed(1)}
                 </Typography>
@@ -115,8 +109,6 @@ const TextEditor: React.FC<ITextEditorProps> = forwardRef(({ value, onChange, ra
             </Box>
         </Box>
     );
-});
-
-TextEditor.displayName = "TextEditorComponent";
+};
 
 export default TextEditor;

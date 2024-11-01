@@ -38,7 +38,19 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("User is not active. Please verify your email.");
                 }
 
-                const isPasswordValid = await compare(credentials.password, user.password!);
+                const dbPassword = user.password!;
+                let isPasswordValid = false;
+
+                // Checking if the password in the database is hashed
+                const isHashedPassword = dbPassword.length === 60 && dbPassword.startsWith("$2b$");
+
+                if (isHashedPassword) {
+                    // Comparing using bcrypt for hashed passwords
+                    isPasswordValid = await compare(credentials.password, dbPassword);
+                } else {
+                    // Plain text comparison for unencrypted passwords
+                    isPasswordValid = credentials.password === dbPassword;
+                }
 
                 if (!isPasswordValid) {
                     throw new Error("Invalid credentials");

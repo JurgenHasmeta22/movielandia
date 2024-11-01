@@ -142,6 +142,7 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
             include: {
                 genres: { select: { genre: true } },
                 cast: { include: { actor: true } },
+                crew: { include: { crew: true } },
                 reviews: {
                     include: {
                         user: true,

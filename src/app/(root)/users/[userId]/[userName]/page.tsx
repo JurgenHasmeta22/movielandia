@@ -34,10 +34,10 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
             url: pageUrl,
             title: `${userInPage.userName} | User`,
             description: userInPage.bio,
-            images: userInPage.avatar!.photoSrc
+            images: userInPage.avatar?.photoSrc!
                 ? [
                       {
-                          url: userInPage.avatar!.photoSrc,
+                          url: userInPage.avatar?.photoSrc!,
                           width: 160,
                           height: 200,
                           alt: userInPage.bio,
@@ -52,10 +52,10 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
             creator: "movieLandia24",
             title: `${userInPage.userName} | User`,
             description: userInPage.bio,
-            images: userInPage.avatar!.photoSrc
+            images: userInPage.avatar?.photoSrc!
                 ? [
                       {
-                          url: userInPage.avatar!.photoSrc,
+                          url: userInPage.avatar?.photoSrc!,
                           alt: userInPage.bio,
                       },
                   ]
@@ -71,6 +71,7 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
 export default async function UserPage(props: IUserDetailsProps) {
     const params = await props.params;
     const searchParams = await props.searchParams;
+
     const tabValue = searchParams && searchParams.tab ? searchParams.tab : "favMovies";
     const userId = params.userId;
 
