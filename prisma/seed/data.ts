@@ -4,25 +4,28 @@ export const users = [
         id: 1,
         userName: "admin",
         email: "admin@yahoo.com",
-        password: "$2b$10$UBuJtW2y/o43uOoMTVQah.AjA43SPQvG.w18g2P2Xxly6WWvhiMP2", // Encrypted version of "Admin22%"
+        password: "$2b$10$UBuJtW2y/o43uOoMTVQah.AjA43SPQvG.w18g2P2Xxly6WWvhiMP2", // Admin22%
         role: "Admin",
         bio: "Admin bio test",
+        active: true,
     },
     {
         id: 2,
         userName: "sasuke22",
         email: "sasuke@yahoo.com",
-        password: "$2b$10$99kD1L0U7I1o0LRsqAOPoe6oU9I0rIRLMlTx5uqTZ2CF7wErRovOW", // Encrypted version of "Sasuke22%"
+        password: "$2b$10$99kD1L0U7I1o0LRsqAOPoe6oU9I0rIRLMlTx5uqTZ2CF7wErRovOW", // Sasuke22%
         role: "User",
         bio: "Sasuke bio test",
+        active: true,
     },
     {
         id: 3,
         userName: "naruto22",
         email: "naruto@yahoo.com",
-        password: "$2b$10$t2I/N7Iq6VpYMBMzR/UH1.Odf6tSCDWpuIicL/OacRL1eiw/64w0a", // Encrypted version of "Naruto22%"
+        password: "$2b$10$t2I/N7Iq6VpYMBMzR/UH1.Odf6tSCDWpuIicL/OacRL1eiw/64w0a", // Naruto22%
         role: "User",
         bio: "Naruto bio test",
+        active: true,
     },
 ];
 
@@ -1981,6 +1984,275 @@ export const castSeries = [
     { id: 38, serieId: 14, actorId: 14 },
     { id: 39, serieId: 14, actorId: 15 },
     { id: 40, serieId: 14, actorId: 16 },
+];
+
+export const crew = [
+    {
+        id: 1,
+        fullname: "Steven Spielberg",
+        role: "Director",
+        description: "A renowned filmmaker known for iconic films such as 'Jurassic Park' and 'E.T.'.",
+        photoSrc: "http://localhost:4000/images/crew/steven_spielberg.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/crew/steven_spielberg.jpg",
+        debut: "1971"
+    },
+    {
+        id: 2,
+        fullname: "Christopher Nolan",
+        role: "Director",
+        description: "Director known for his work on 'Inception' and 'The Dark Knight' trilogy.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1998"
+    },
+    {
+        id: 3,
+        fullname: "Roger Deakins",
+        role: "Cinematographer",
+        description: "Celebrated cinematographer recognized for his work on 'Blade Runner 2049' and '1917'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1984"
+    },
+    {
+        id: 4,
+        fullname: "Emmanuel Lubezki",
+        role: "Cinematographer",
+        description: "Award-winning cinematographer known for his work on 'Gravity' and 'Birdman'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1991"
+    },
+    {
+        id: 5,
+        fullname: "Hans Zimmer",
+        role: "Composer",
+        description: "A celebrated composer known for scores in 'The Lion King' and 'Inception'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1984"
+    },
+    {
+        id: 6,
+        fullname: "John Williams",
+        role: "Composer",
+        description: "A legendary composer known for 'Star Wars', 'Jurassic Park', and 'Harry Potter'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1958"
+    },
+    {
+        id: 7,
+        fullname: "Quentin Tarantino",
+        role: "Writer",
+        description: "Writer and director known for 'Pulp Fiction' and 'Kill Bill'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1992"
+    },
+    {
+        id: 8,
+        fullname: "Aaron Sorkin",
+        role: "Writer",
+        description: "Known for his distinctive dialogue in 'The West Wing' and 'The Social Network'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1988"
+    },
+    {
+        id: 9,
+        fullname: "Denis Villeneuve",
+        role: "Director",
+        description: "Critically acclaimed director known for 'Arrival' and 'Dune'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1998"
+    },
+    {
+        id: 10,
+        fullname: "Greta Gerwig",
+        role: "Director",
+        description: "Director and writer known for 'Lady Bird' and 'Little Women'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2006"
+    },
+    {
+        id: 11,
+        fullname: "Rachel Morrison",
+        role: "Cinematographer",
+        description: "Known for her work on 'Mudbound' and 'Black Panther'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2004"
+    },
+    {
+        id: 12,
+        fullname: "Howard Shore",
+        role: "Composer",
+        description: "Composer for 'The Lord of the Rings' and 'The Departed'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1979"
+    },
+    {
+        id: 13,
+        fullname: "Lynn Shelton",
+        role: "Director",
+        description: "Director of indie films like 'Humpday' and 'Your Sister's Sister'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2006"
+    },
+    {
+        id: 14,
+        fullname: "Wally Pfister",
+        role: "Cinematographer",
+        description: "Known for his cinematography on 'Inception' and 'The Dark Knight'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1990"
+    },
+    {
+        id: 15,
+        fullname: "Nora Ephron",
+        role: "Writer",
+        description: "Screenwriter and director of romantic comedies like 'When Harry Met Sally'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1983"
+    },
+    {
+        id: 16,
+        fullname: "Spike Lee",
+        role: "Director",
+        description: "Known for films that address race relations like 'Do the Right Thing'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1986"
+    },
+    {
+        id: 17,
+        fullname: "Robert Richardson",
+        role: "Cinematographer",
+        description: "Worked on 'Inglourious Basterds' and 'Shutter Island'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1985"
+    },
+    {
+        id: 18,
+        fullname: "Trent Reznor",
+        role: "Composer",
+        description: "Composer for films such as 'The Social Network' and 'Gone Girl'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2008"
+    },
+    {
+        id: 19,
+        fullname: "Sofia Coppola",
+        role: "Director",
+        description: "Director known for 'Lost in Translation' and 'The Virgin Suicides'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1999"
+    },
+    {
+        id: 20,
+        fullname: "Michael Giacchino",
+        role: "Composer",
+        description: "Known for his work on Pixar films and 'Jurassic World'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1997"
+    },
+];
+
+export const crewMovies = [
+    { id: 1, movieId: 1, crewId: 1 },
+    { id: 2, movieId: 1, crewId: 3 },
+    { id: 3, movieId: 1, crewId: 5 },
+    { id: 4, movieId: 1, crewId: 11 },
+    { id: 5, movieId: 2, crewId: 2 },
+    { id: 6, movieId: 2, crewId: 4 },
+    { id: 7, movieId: 2, crewId: 6 },
+    { id: 8, movieId: 2, crewId: 12 },
+    { id: 9, movieId: 3, crewId: 7 },
+    { id: 10, movieId: 3, crewId: 8 },
+    { id: 11, movieId: 3, crewId: 9 },
+    { id: 12, movieId: 3, crewId: 13 },
+    { id: 13, movieId: 4, crewId: 10 },
+    { id: 14, movieId: 4, crewId: 1 },
+    { id: 15, movieId: 4, crewId: 3 },
+    { id: 16, movieId: 4, crewId: 14 },
+    { id: 17, movieId: 5, crewId: 2 },
+    { id: 18, movieId: 5, crewId: 4 },
+    { id: 19, movieId: 5, crewId: 6 },
+    { id: 20, movieId: 5, crewId: 15 },
+    { id: 21, movieId: 6, crewId: 7 },
+    { id: 22, movieId: 6, crewId: 8 },
+    { id: 23, movieId: 6, crewId: 9 },
+    { id: 24, movieId: 6, crewId: 16 },
+    { id: 25, movieId: 7, crewId: 10 },
+    { id: 26, movieId: 7, crewId: 1 },
+    { id: 27, movieId: 7, crewId: 3 },
+    { id: 28, movieId: 7, crewId: 17 },
+    { id: 29, movieId: 8, crewId: 2 },
+    { id: 30, movieId: 8, crewId: 4 },
+    { id: 31, movieId: 8, crewId: 6 },
+    { id: 32, movieId: 8, crewId: 18 },
+    { id: 33, movieId: 9, crewId: 7 },
+    { id: 34, movieId: 9, crewId: 8 },
+    { id: 35, movieId: 9, crewId: 9 },
+    { id: 36, movieId: 9, crewId: 19 },
+    { id: 37, movieId: 10, crewId: 10 },
+    { id: 38, movieId: 10, crewId: 1 },
+    { id: 39, movieId: 10, crewId: 3 },
+    { id: 40, movieId: 10, crewId: 20 },
+];
+
+export const crewSeries = [
+    { id: 1, serieId: 1, crewId: 1 },
+    { id: 2, serieId: 1, crewId: 3 },
+    { id: 3, serieId: 1, crewId: 5 },
+    { id: 4, serieId: 1, crewId: 11 },
+    { id: 5, serieId: 2, crewId: 2 },
+    { id: 6, serieId: 2, crewId: 4 },
+    { id: 7, serieId: 2, crewId: 6 },
+    { id: 8, serieId: 2, crewId: 12 },
+    { id: 9, serieId: 3, crewId: 7 },
+    { id: 10, serieId: 3, crewId: 8 },
+    { id: 11, serieId: 3, crewId: 9 },
+    { id: 12, serieId: 3, crewId: 13 },
+    { id: 13, serieId: 4, crewId: 10 },
+    { id: 14, serieId: 4, crewId: 1 },
+    { id: 15, serieId: 4, crewId: 3 },
+    { id: 16, serieId: 4, crewId: 14 },
+    { id: 17, serieId: 5, crewId: 2 },
+    { id: 18, serieId: 5, crewId: 4 },
+    { id: 19, serieId: 5, crewId: 6 },
+    { id: 20, serieId: 5, crewId: 15 },
+    { id: 21, serieId: 6, crewId: 7 },
+    { id: 22, serieId: 6, crewId: 8 },
+    { id: 23, serieId: 6, crewId: 9 },
+    { id: 24, serieId: 6, crewId: 16 },
+    { id: 25, serieId: 7, crewId: 10 },
+    { id: 26, serieId: 7, crewId: 1 },
+    { id: 27, serieId: 7, crewId: 3 },
+    { id: 28, serieId: 7, crewId: 17 },
+    { id: 29, serieId: 8, crewId: 2 },
+    { id: 30, serieId: 8, crewId: 4 },
+    { id: 31, serieId: 8, crewId: 6 },
+    { id: 32, serieId: 8, crewId: 18 },
+    { id: 33, serieId: 9, crewId: 7 },
+    { id: 34, serieId: 9, crewId: 8 },
+    { id: 35, serieId: 9, crewId: 9 },
+    { id: 36, serieId: 9, crewId: 19 },
+    { id: 37, serieId: 10, crewId: 10 },
+    { id: 38, serieId: 10, crewId: 1 },
+    { id: 39, serieId: 10, crewId: 3 },
+    { id: 40, serieId: 10, crewId: 20 },
 ];
 // #endregion
 
