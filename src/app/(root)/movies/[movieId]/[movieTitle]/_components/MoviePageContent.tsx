@@ -347,6 +347,7 @@ export default function MoviePageContent({
                 <ListDetail data={relatedMovies} type="movie" roleData="related" />
             )}
             <ListDetail data={movie.cast} type="actor" roleData="cast" />
+            <ListDetail data={movie.crew} type="crew" roleData="production" />
         </Stack>
     );
 }

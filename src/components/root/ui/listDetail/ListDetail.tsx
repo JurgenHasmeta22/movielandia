@@ -100,6 +100,40 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                                     </Typography>
                                 </Box>
                             )}
+                            {type === "crew" && roleData !== "production" && (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: {
+                                            xs: "center",
+                                            sm: "center",
+                                            md: "start",
+                                            lg: "start",
+                                        },
+                                    }}
+                                >
+                                    <Typography variant={"h2"} fontSize={28}>
+                                        Worked on
+                                    </Typography>
+                                </Box>
+                            )}
+                            {type === "crew" && roleData === "production" && (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: {
+                                            xs: "center",
+                                            sm: "center",
+                                            md: "start",
+                                            lg: "start",
+                                        },
+                                    }}
+                                >
+                                    <Typography variant={"h2"} fontSize={28}>
+                                        Crew
+                                    </Typography>
+                                </Box>
+                            )}
                         </Box>
                         <Box sx={{ pl: 5, pr: 3 }}>
                             <Stack
@@ -128,7 +162,9 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                                                       ? item.serie
                                                       : type === "actor" && roleData === "cast"
                                                         ? item.actor
-                                                        : item
+                                                        : type === "crew" && roleData === "production"
+                                                          ? item.crew
+                                                          : item
                                             }
                                             key={index}
                                             type={type}
@@ -139,7 +175,13 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                                                       ? "series"
                                                       : type === "actor" && roleData === "cast"
                                                         ? "actors"
-                                                        : null
+                                                        : type === "crew" && roleData === "Movies"
+                                                          ? "movies"
+                                                          : type === "crew" && roleData === "Series"
+                                                            ? "series"
+                                                            : type === "crew" && roleData === "production"
+                                                              ? "crew"
+                                                              : null
                                             }
                                         />
                                     ))}

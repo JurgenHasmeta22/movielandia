@@ -348,8 +348,8 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                     />
                 )}
             </Box>
-            <ListDetail data={crew.starredMovies} type="crew" roleData="Movies" />
-            <ListDetail data={crew.starredSeries} type="crew" roleData="Series" />
+            <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />
+            <ListDetail data={crew.producedSeries} type="crew" roleData="Series" />
         </Stack>
     );
 }

@@ -6,7 +6,7 @@ interface SortOption {
 export const getSortOptions = (type: string, dataType: string): SortOption[] => {
     const commonOptions: SortOption[] = [{ value: "none", label: "None" }];
 
-    if (dataType === "actors") {
+    if (dataType === "actors" || dataType === "crew") {
         return [...commonOptions, { value: "fullname", label: "Full Name" }];
     }
 

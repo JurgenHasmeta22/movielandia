@@ -18,7 +18,7 @@ export async function generateMetadata(props: { params: Promise<{ crewId: string
 
     const { description, photoSrcProd } = crew;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/crews/${crew.fullname}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/crew/${crew.fullname}`;
 
     return {
         title: `${crew.fullname} | Crew`,
