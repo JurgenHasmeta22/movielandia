@@ -3,7 +3,6 @@
 import { IS_BROWSER } from "@/utils/helpers/utils";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import { Box, Fab, Zoom, useScrollTrigger, useTheme } from "@mui/material";
-import { useCallback } from "react";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 function ScrollToTop() {
@@ -14,11 +13,11 @@ function ScrollToTop() {
         disableHysteresis: true,
     });
 
-    const scrollToTop = useCallback(() => {
+    const scrollToTop = () => {
         if (IS_BROWSER) {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
-    }, []);
+    };
 
     return (
         <Zoom in={trigger}>

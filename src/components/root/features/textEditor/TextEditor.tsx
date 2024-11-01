@@ -6,9 +6,9 @@ import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
-import "react-quill/dist/quill.snow.css";
+import "react-quill-new/dist/quill.snow.css";
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ITextEditorProps {
     value: string;
@@ -39,7 +39,7 @@ const formats = [
     "strike",
     "blockquote",
     "list",
-    "bullet",
+    // "bullet", this broke the component
     "link",
     "image",
     "video",
