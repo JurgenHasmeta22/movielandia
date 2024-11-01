@@ -138,6 +138,7 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
             include: {
                 genres: { select: { genre: true } },
                 cast: { include: { actor: true } },
+                crew: { include: { crew: true } },
                 reviews: {
                     include: {
                         user: true,

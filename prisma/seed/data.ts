@@ -9,6 +9,24 @@ export const users = [
         bio: "Admin bio test",
         active: true,
     },
+    {
+        id: 2,
+        userName: "test1",
+        email: "test1@email.com",
+        password: "Test22%",
+        role: "User",
+        bio: "Test 1 bio test",
+        active: true,
+    },
+    {
+        id: 3,
+        userName: "test2",
+        email: "test2@email.com",
+        password: "Test22%",
+        role: "User",
+        bio: "Test 2 bio test",
+        active: true,
+    },
 ];
 
 export const genres = [

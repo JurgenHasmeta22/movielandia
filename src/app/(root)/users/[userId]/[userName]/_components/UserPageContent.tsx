@@ -56,10 +56,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     // #endregion
 
     // #region "Tab logic"
-    const tabValueFinal = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"].indexOf(tabValue);
+    const tabValueFinal = ["favMovies", "favSeries", "favActors", "favCrew", "favSeasons", "favEpisodes"].indexOf(
+        tabValue,
+    );
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        const tabRoutes = ["favMovies", "favSeries", "favActors", "favSeasons", "favEpisodes"];
+        const tabRoutes = ["favMovies", "favSeries", "favActors", "favCrew", "favSeasons", "favEpisodes"];
 
         if (newValue >= 0 && newValue < tabRoutes.length) {
             router.push(`/users/${userInPage.id}/${userInPage.userName}?tab=${tabRoutes[newValue]}`);
@@ -689,6 +691,16 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 }}
                             />
                             <Tab
+                                label="Favorite Crew"
+                                sx={{
+                                    backgroundColor: theme.vars.palette.blue.main,
+                                    color: theme.vars.palette.primary.main,
+                                    fontWeight: "bold",
+                                    fontSize: 14,
+                                    textTransform: "capitalize",
+                                }}
+                            />
+                            <Tab
                                 label="Favorite Seasons"
                                 sx={{
                                     backgroundColor: theme.vars.palette.blue.main,
@@ -719,9 +731,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             <FavoritesTab type="Actors" userInPage={userInPage} userLoggedIn={userLoggedIn} />
                         </TabPanel>
                         <TabPanel value={tabValueFinal} index={3}>
-                            <FavoritesTab type="Seasons" userInPage={userInPage} userLoggedIn={userLoggedIn} />
+                            <FavoritesTab type="Crew" userInPage={userInPage} userLoggedIn={userLoggedIn} />
                         </TabPanel>
                         <TabPanel value={tabValueFinal} index={4}>
+                            <FavoritesTab type="Seasons" userInPage={userInPage} userLoggedIn={userLoggedIn} />
+                        </TabPanel>
+                        <TabPanel value={tabValueFinal} index={5}>
                             <FavoritesTab type="Episodes" userInPage={userInPage} userLoggedIn={userLoggedIn} />
                         </TabPanel>
                     </Box>
@@ -744,7 +759,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             flexWrap: "wrap",
                         }}
                     >
-                        {userInPage.avatar!.photoSrc ? (
+                        {userInPage.avatar?.photoSrc! ? (
                             <Image
                                 alt={userInPage.userName}
                                 height={50}
@@ -752,7 +767,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                 style={{
                                     borderRadius: 20,
                                 }}
-                                src={userInPage.avatar!.photoSrc}
+                                src={userInPage.avatar?.photoSrc!}
                             />
                         ) : (
                             <PersonIcon
