@@ -346,6 +346,7 @@ export default function SeriePageContent({
             )}
             <ListDetail data={serie.seasons} type="season" roleData="season" />
             <ListDetail data={serie.cast} type="actor" roleData="cast" />
+            <ListDetail data={serie.crew} type="crew" roleData="production" />
         </Stack>
     );
 }

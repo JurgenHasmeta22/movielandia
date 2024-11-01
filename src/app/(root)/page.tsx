@@ -2,13 +2,14 @@ import { Stack } from "@mui/material";
 import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
 import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
-import { getGenres, getGenresWithFilters } from "@/actions/genre.actions";
-import { getMovies, getMoviesWithFilters } from "@/actions/movie.actions";
-import { getSeries, getSeriesWithFilters } from "@/actions/serie.actions";
+import { getGenresWithFilters } from "@/actions/genre.actions";
+import { getMoviesWithFilters } from "@/actions/movie.actions";
+import { getSeriesWithFilters } from "@/actions/serie.actions";
 import type { Metadata } from "next";
-import { getActors, getActorsWithFilters } from "@/actions/actor.actions";
+import { getActorsWithFilters } from "@/actions/actor.actions";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
+import { getCrewMembersWithFilters } from "@/actions/crew.actions";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -55,6 +56,9 @@ export default async function Home() {
     const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
     const actors: Actor[] = actorsData.actors;
 
+    const crewData = await getCrewMembersWithFilters(queryParams, Number(session?.user?.id));
+    const crew: Actor[] = crewData.crewMembers;
+
     return (
         <>
             <HomeHeroSection />
@@ -94,6 +98,14 @@ export default async function Home() {
                     link="/actors"
                     linkText="Explore all Actors"
                     path="actors"
+                />
+                <ListHomeSection
+                    key={"crew"}
+                    data={crew}
+                    type="crew"
+                    link="/crew"
+                    linkText="Explore all Crew Members"
+                    path="crew"
                 />
             </Stack>
         </>

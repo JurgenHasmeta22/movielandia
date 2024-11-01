@@ -64,7 +64,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         fontWeight="bold"
                         color={theme.vars.palette.primary.main}
                     >
-                        {type !== "actor" ? data.title : data.fullname}
+                        {type !== "actor" && type !== "crew" ? data.title : data.fullname}
                     </Typography>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
                         {data.genres?.map((genre: any, index: number) => (
@@ -87,7 +87,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         ))}
                     </Box>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 2 }}>
-                        {type !== "season" && type !== "serie" && type !== "actor" && (
+                        {type !== "season" && type !== "serie" && type !== "actor" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <AccessTime fontSize="small" />
                                 <Typography variant="body1">Duration: {data.duration} mins</Typography>
@@ -96,12 +96,12 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <CalendarToday fontSize="small" />
                             <Typography variant="body1">
-                                {type !== "actor"
+                                {type !== "actor" && type !== "crew"
                                     ? `Aired on: ${formatDate(data.dateAired)}`
                                     : `Debut year: ${data.debut}`}
                             </Typography>
                         </Box>
-                        {type !== "actor" && (
+                        {type !== "actor" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <Star fontSize="small" />
                                 <Typography variant="body1">Imdb rating: {data.ratingImdb}</Typography>
@@ -114,7 +114,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography variant="body1" paragraph color={theme.vars.palette.primary.light}>
+                    <Typography variant="body1" color={theme.vars.palette.primary.light}>
                         {data.description}
                     </Typography>
                     <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>

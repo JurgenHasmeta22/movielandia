@@ -4,27 +4,9 @@ export const users = [
         id: 1,
         userName: "admin",
         email: "admin@yahoo.com",
-        password: "$2b$10$UBuJtW2y/o43uOoMTVQah.AjA43SPQvG.w18g2P2Xxly6WWvhiMP2", // Admin22%
+        password: "Admin22%",
         role: "Admin",
         bio: "Admin bio test",
-        active: true,
-    },
-    {
-        id: 2,
-        userName: "sasuke22",
-        email: "sasuke@yahoo.com",
-        password: "$2b$10$99kD1L0U7I1o0LRsqAOPoe6oU9I0rIRLMlTx5uqTZ2CF7wErRovOW", // Sasuke22%
-        role: "User",
-        bio: "Sasuke bio test",
-        active: true,
-    },
-    {
-        id: 3,
-        userName: "naruto22",
-        email: "naruto@yahoo.com",
-        password: "$2b$10$t2I/N7Iq6VpYMBMzR/UH1.Odf6tSCDWpuIicL/OacRL1eiw/64w0a", // Naruto22%
-        role: "User",
-        bio: "Naruto bio test",
         active: true,
     },
 ];
@@ -1942,8 +1924,8 @@ export const crew = [
         fullname: "Steven Spielberg",
         role: "Director",
         description: "A renowned filmmaker known for iconic films such as 'Jurassic Park' and 'E.T.'.",
-        photoSrc: "http://localhost:4000/images/crew/steven_spielberg.jpg",
-        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/crew/steven_spielberg.jpg",
+        photoSrc: "http://localhost:4000/images/crew/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/crew/placeholder.jpg",
         debut: "1971",
     },
     {

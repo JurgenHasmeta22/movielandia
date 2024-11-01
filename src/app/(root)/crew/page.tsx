@@ -9,14 +9,14 @@ import { getCrewMembersWithFilters } from "@/actions/crew.actions";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-interface ICrewsProps {
-    searchParams?: Promise<{ crewsAscOrDesc?: string; page?: string; crewsSortBy?: string }>;
+interface ICrewProps {
+    searchParams?: Promise<{ crewAscOrDesc?: string; page?: string; crewSortBy?: string }>;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
 export const metadata: Metadata = {
-    title: "Check Crews | High-Quality and Always Updated",
+    title: "Crew of movies and series",
     description: "Discover the most amazing crews.",
     openGraph: {
         type: "video.other",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         site: "@movieLandia24",
         creator: "movieLandia24",
         title: "Crews",
-        description: "Discover the most amazing crews in high quality.",
+        description: "Discover the crew of movies and series.",
     },
     robots: {
         index: true,
@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function Crews(props: ICrewsProps) {
+export default async function Crews(props: ICrewProps) {
     const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
-    const ascOrDesc = searchParams?.crewsAscOrDesc || "";
+    const ascOrDesc = searchParams?.crewAscOrDesc || "";
     const page = searchParams?.page ? Number(searchParams.page) : 1;
-    const sortBy = searchParams?.crewsSortBy || "";
+    const sortBy = searchParams?.crewSortBy || "";
 
     const queryParams = {
         ascOrDesc,
@@ -52,15 +52,16 @@ export default async function Crews(props: ICrewsProps) {
         sortBy,
     };
 
-    const crewsData = await getCrewMembersWithFilters(queryParams, Number(session?.user?.id));
-    const crews = crewsData.crewMemebrs;
-    const crewsCarouselImages: Crew[] = crewsData.crewMemebrs.slice(0, 5);
-    const crewsCount = crewsData.count;
-    const pageCount = Math.ceil(crewsCount / 10);
+    const crewData = await getCrewMembersWithFilters(queryParams, Number(session?.user?.id));
+    const crewMembers = crewData.crewMembers;
+    const crewCarouselImages: Crew[] = crewMembers.slice(0, 5);
+
+    const crewCount = crewData.count;
+    const pageCount = Math.ceil(crewCount / 10);
 
     const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(startIndex + itemsPerPage - 1, crewsCount);
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, crewCount);
 
     return (
         <Box
@@ -72,7 +73,7 @@ export default async function Crews(props: ICrewsProps) {
             component={"section"}
         >
             <Box component={"section"}>
-                <Carousel data={crewsCarouselImages} type="crews" />
+                <Carousel data={crewCarouselImages} type="crew" />
             </Box>
             <Stack
                 display="flex"
@@ -95,10 +96,10 @@ export default async function Crews(props: ICrewsProps) {
                     textAlign={{ xs: "left", sm: "center" }}
                 >
                     <Typography fontSize={22} variant="h2">
-                        Crews
+                        Crew
                     </Typography>
                     <Typography variant="h5" sx={{ pt: 0.5 }}>
-                        {startIndex} – {endIndex} of {crewsCount} crews
+                        {startIndex} – {endIndex} of {crewCount} crews
                     </Typography>
                 </Box>
                 <Box
@@ -109,7 +110,7 @@ export default async function Crews(props: ICrewsProps) {
                         mt: { xs: 2, sm: 0 },
                     }}
                 >
-                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="crews" />
+                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="crew" />
                 </Box>
             </Stack>
             <Box
@@ -137,9 +138,9 @@ export default async function Crews(props: ICrewsProps) {
                         },
                     }}
                 >
-                    {crews.map((crew: Crew) => (
-                        <Box key={crew.id}>
-                            <CardItem data={crew} type="crew" path={"crews"} />
+                    {crewMembers.map((crewMember: Crew) => (
+                        <Box key={crewMember.id}>
+                            <CardItem data={crewMember} type="crew" path={"crew"} />
                         </Box>
                     ))}
                 </Stack>

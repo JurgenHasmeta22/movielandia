@@ -16,6 +16,7 @@ import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/componentHelpers
 import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/componentHelpers/features/serieFeaturesUtils";
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/componentHelpers/features/actorFeaturesUtils";
 import { useSession } from "next-auth/react";
+import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/componentHelpers/features/crewFeaturesUtils";
 
 interface ICardItemProps {
     data: any;
@@ -37,6 +38,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
         season: onBookmarkSeason,
         episode: onBookmarkEpisode,
         actor: onBookmarkActor,
+        crew: onBookmarkCrew,
     };
 
     const removeBookmarkFunctions: any = {
@@ -45,6 +47,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
         season: onRemoveBookmarkSeason,
         episode: onRemoveBookmarkEpisode,
         actor: onRemoveBookmarkActor,
+        crew: onRemoveBookmarkCrew,
     };
 
     const handleBookmarkClick = async (e: React.MouseEvent) => {
@@ -75,6 +78,14 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                     return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
                 } else if (path && path === "actors") {
                     return `/actors/${data.id}/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
+                } else {
+                    return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                }
+            case "crew":
+                if (path && path === "movies") {
+                    return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                } else if (path && path === "crew") {
+                    return `/crew/${data.id}/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
                 } else {
                     return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
                 }
@@ -157,7 +168,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                         >
                             <Box>
                                 <Typography color="white" sx={{ fontSize: "0.8rem" }}>
-                                    {path === "actors"
+                                    {path === "actors" || path === "crew"
                                         ? data.fullname + " " + "(" + data.debut + ")"
                                         : path === "users"
                                           ? data.userName
@@ -198,7 +209,7 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                         justifyContent="space-between"
                                         alignItems="center"
                                     >
-                                        {type !== "actor" && (
+                                        {type !== "actor" && type !== "crew" && (
                                             <Box
                                                 sx={{
                                                     display: "flex",
@@ -215,24 +226,29 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                                                 {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
                                             </Box>
                                         )}
-                                        {type !== "serie" && type !== "season" && type !== "actor" && (
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <AccessTimeIcon sx={{ color: "gold", mr: 0.2, fontSize: "0.8rem" }} />
-                                                <Typography
-                                                    color={"white"}
-                                                    fontSize="0.8rem"
-                                                    component="span"
-                                                    width={"30ch"}
+                                        {type !== "serie" &&
+                                            type !== "season" &&
+                                            type !== "actor" &&
+                                            type !== "crew" && (
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                    }}
                                                 >
-                                                    {data.duration} min
-                                                </Typography>
-                                            </Box>
-                                        )}
+                                                    <AccessTimeIcon
+                                                        sx={{ color: "gold", mr: 0.2, fontSize: "0.8rem" }}
+                                                    />
+                                                    <Typography
+                                                        color={"white"}
+                                                        fontSize="0.8rem"
+                                                        component="span"
+                                                        width={"30ch"}
+                                                    >
+                                                        {data.duration} min
+                                                    </Typography>
+                                                </Box>
+                                            )}
                                     </Stack>
                                     <Stack
                                         flexDirection={"row"}

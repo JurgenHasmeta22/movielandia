@@ -100,7 +100,7 @@ export async function getCrewMembersWithFilters(
     const crewsCount = await prisma.crew.count();
 
     if (crewFinal) {
-        return { crewMemebrs: crewFinal, count: crewsCount };
+        return { crewMembers: crewFinal, count: crewsCount };
     } else {
         return null;
     }
