@@ -227,14 +227,14 @@ export async function getCrewMemberById(crewId: number, queryParams: any): Promi
     }
 }
 
-export async function getCrewMemberByFullname(crewTitle: string, queryParams: any): Promise<Crew | any | null> {
+export async function getCrewMemberByFullname(crewFullname: string, queryParams: any): Promise<Crew | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
 
     const orderByObject: any = {};
-    const fullnameFinal = crewTitle
+    const fullnameFinal = crewFullname
         .split("")
         .map((char) => (char === "-" ? " " : char))
         .join("");

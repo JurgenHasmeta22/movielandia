@@ -1924,8 +1924,8 @@ export const crew = [
         fullname: "Steven Spielberg",
         role: "Director",
         description: "A renowned filmmaker known for iconic films such as 'Jurassic Park' and 'E.T.'.",
-        photoSrc: "http://localhost:4000/images/crew/placeholder.jpg",
-        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/crew/placeholder.jpg",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
         debut: "1971",
     },
     {

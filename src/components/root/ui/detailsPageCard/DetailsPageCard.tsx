@@ -50,7 +50,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                 >
                     <Image
                         src={data.photoSrcProd}
-                        alt={type !== "actor" ? data.title : data.fullname}
+                        alt={type !== "actor" && type !== "crew" ? data.title : data.fullname}
                         height={317}
                         width={214}
                         priority

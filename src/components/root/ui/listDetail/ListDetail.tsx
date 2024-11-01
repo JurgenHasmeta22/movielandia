@@ -28,7 +28,7 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                                 mr: 3,
                             }}
                         >
-                            {type !== "actor" && (
+                            {type !== "actor" && type !== "crew" && (
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -113,7 +113,7 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                                     }}
                                 >
                                     <Typography variant={"h2"} fontSize={28}>
-                                        Worked on
+                                        Worked on {roleData}
                                     </Typography>
                                 </Box>
                             )}
@@ -164,7 +164,11 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                                                         ? item.actor
                                                         : type === "crew" && roleData === "production"
                                                           ? item.crew
-                                                          : item
+                                                          : type === "crew" && roleData === "Movies"
+                                                            ? item.movie
+                                                            : type === "crew" && roleData === "Series"
+                                                              ? item.serie
+                                                              : item
                                             }
                                             key={index}
                                             type={type}
