@@ -171,6 +171,13 @@ export default function FavoritesTab({ type, userLoggedIn, userInPage }: Favorit
                     .map((char: string) => (char === " " ? "-" : char))
                     .join("");
                 break;
+            case "Crew":
+                urlPath = "crew";
+                formattedTitle = favItem.crew.fullname
+                    .split("")
+                    .map((char: string) => (char === " " ? "-" : char))
+                    .join("");
+                break;
             case "Seasons":
                 urlPath = "seasons";
                 formattedTitle = favItem.season.title
