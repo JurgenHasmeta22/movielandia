@@ -11,6 +11,9 @@ import {
     castMovies,
     castSeries,
     actors,
+    crewMovies,
+    crew,
+    crewSeries
 } from "./data";
 
 const prisma = new PrismaClient({
@@ -24,6 +27,9 @@ async function createStuff() {
         await prisma.castMovie.deleteMany();
         await prisma.castSerie.deleteMany();
         await prisma.actor.deleteMany();
+        await prisma.crewMovie.deleteMany();
+        await prisma.crewSerie.deleteMany();
+        await prisma.crew.deleteMany();
         await prisma.season.deleteMany();
         await prisma.serie.deleteMany();
         await prisma.movie.deleteMany();
@@ -61,6 +67,12 @@ async function createStuff() {
             });
         }
 
+        for (const crewMember of crew) {
+            await prisma.crew.create({
+                data: crewMember,
+            });
+        }
+
         for (const movieGenre of movieGenres) {
             await prisma.movieGenre.create({
                 data: movieGenre,
@@ -82,6 +94,18 @@ async function createStuff() {
         for (const castSerie of castSeries) {
             await prisma.castSerie.create({
                 data: castSerie,
+            });
+        }
+
+        for (const crewMovie of crewMovies) {
+            await prisma.crewMovie.create({
+                data: crewMovie,
+            });
+        }
+
+        for (const crewSerie of crewSeries) {
+            await prisma.crewSerie.create({
+                data: crewSerie,
             });
         }
 
