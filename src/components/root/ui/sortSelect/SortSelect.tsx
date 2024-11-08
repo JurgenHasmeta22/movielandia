@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Select, MenuItem, SvgIcon, Typography, FormControl, InputLabel } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useSorting } from "@/hooks/useSorting";
-import { getSortOptions } from "@/utils/componentHelpers/getSortingOptions";
+import { getSortOptions } from "@/components/root/ui/sortSelect/getSortingOptions";
 
 interface ISortSelectProps {
     sortBy: string;

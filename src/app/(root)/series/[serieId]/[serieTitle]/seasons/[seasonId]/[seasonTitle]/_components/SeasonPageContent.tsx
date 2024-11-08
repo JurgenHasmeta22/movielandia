@@ -1,9 +1,9 @@
 "use client";
 
 import { DetailsPageCard } from "@/components/root/ui/detailsPageCard/DetailsPageCard";
-import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
+import PaginationControl from "@/components/root/ui/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/ui/listDetail/ListDetail";
-import Review from "@/components/root/features/review/Review";
+import Review from "@/components/root/ui/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
@@ -16,13 +16,13 @@ import {
     removeUpvoteSeasonReview,
     updateReviewSeason,
 } from "@/actions/user.actions";
-import { TextEditorForm } from "@/components/root/features/textEditorForm/TextEditorForm";
+import { TextEditorForm } from "@/components/root/ui/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
-import ReviewsHeader from "@/components/root/features/reviewsHeader/ReviewsHeader";
+import ReviewsHeader from "@/components/root/ui/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Season } from "@prisma/client";
-import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/componentHelpers/features/seasonFeaturesUtils";
+import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/features/seasonFeaturesUtils";
 
 interface ISeasonPageContentProps {
     searchParamsValues: {

@@ -2,7 +2,6 @@
 
 import { useStore } from "@/store/store";
 import { AppBar, Box, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
-import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,6 +14,7 @@ import { signOut } from "next-auth/react";
 import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import SearchField from "../searchField/SearchField";
 
 interface IHeaderContentProps {
     session: Session | null;

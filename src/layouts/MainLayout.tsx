@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid2 as Grid } from "@mui/material";
-import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
+import ScrollToTop from "@/components/root/ui/scrollToTop/ScrollToTop";
 import Header from "@/components/root/ui/header/Header";
 import Footer from "@/components/root/ui/footer/Footer";
 

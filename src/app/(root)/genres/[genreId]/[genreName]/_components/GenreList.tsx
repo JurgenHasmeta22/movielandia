@@ -1,5 +1,5 @@
-import PaginationControl from "@/components/root/features/paginationControl/PaginationControl";
-import SortSelect from "@/components/root/features/sortSelect/SortSelect";
+import PaginationControl from "@/components/root/ui/paginationControl/PaginationControl";
+import SortSelect from "@/components/root/ui/sortSelect/SortSelect";
 import CardItem from "@/components/root/ui/cardItem/CardItem";
 import { Box, Typography, Stack } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";

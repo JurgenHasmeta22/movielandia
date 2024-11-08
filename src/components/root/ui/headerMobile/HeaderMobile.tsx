@@ -6,10 +6,10 @@ import { useStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import { Genre } from "@prisma/client";
 import { Session } from "next-auth";
-import SearchField from "../../features/searchField/SearchField";
 import AuthButtons from "../../ui/authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
+import SearchField from "../searchField/SearchField";
 
 interface IHeaderMobileProps {
     genres: Genre[];
