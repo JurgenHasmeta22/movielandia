@@ -8,8 +8,8 @@ import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
-import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
-import FormAdvanced from "@/components/admin/ui/form/Form";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/form/Form";
 import { addMovie } from "@/actions/movie.actions";
 import { useRouter } from "next/navigation";
 

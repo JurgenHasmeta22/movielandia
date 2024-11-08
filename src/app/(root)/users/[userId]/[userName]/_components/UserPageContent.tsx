@@ -15,7 +15,7 @@ import {
     useTheme,
 } from "@mui/material";
 import { useState } from "react";
-import TabPanel from "@/components/root/ui/tabPanel/TabPanel";
+import TabPanel from "@/components/root/tabPanel/TabPanel";
 import { useRouter } from "next/navigation";
 import FavoritesTab from "./FavoritesTab";
 import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/actions/user.actions";

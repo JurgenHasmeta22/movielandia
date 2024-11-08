@@ -1,6 +1,6 @@
-import PaginationControl from "@/components/root/ui/paginationControl/PaginationControl";
-import SortSelect from "@/components/root/ui/sortSelect/SortSelect";
-import CardItem from "@/components/root/ui/cardItem/CardItem";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import SortSelect from "@/components/root/sortSelect/SortSelect";
+import CardItem from "@/components/root/cardItem/CardItem";
 import { Box, Typography, Stack } from "@mui/material";
 import { Actor, Episode, Movie, Season, Serie, User } from "@prisma/client";
 

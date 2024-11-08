@@ -9,8 +9,8 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
-import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
-import FormAdvanced from "@/components/admin/ui/form/Form";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/form/Form";
 import { signUp } from "@/actions/auth.actions";
 import { User } from "@prisma/client";
 

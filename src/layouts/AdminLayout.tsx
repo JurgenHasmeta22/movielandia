@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Grid2 as Grid } from "@mui/material";
-import Sidebar from "@/components/admin/ui/sidebar/Sidebar";
-import TopBar from "@/components/admin/ui/topBar/TopBar";
-import { SidebarItems } from "@/components/admin/ui/sidebar/components/SidebarItems";
+import Sidebar from "@/components/admin/sidebar/Sidebar";
+import TopBar from "@/components/admin/topBar/TopBar";
+import { SidebarItems } from "@/components/admin/sidebar/components/SidebarItems";
 
 interface IAdminLayoutProps {
     children: React.ReactNode;

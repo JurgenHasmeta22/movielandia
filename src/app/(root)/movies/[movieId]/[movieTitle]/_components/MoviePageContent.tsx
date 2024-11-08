@@ -1,9 +1,9 @@
 "use client";
 
-import { DetailsPageCard } from "@/components/root/ui/detailsPageCard/DetailsPageCard";
-import PaginationControl from "@/components/root/ui/paginationControl/PaginationControl";
-import { ListDetail } from "@/components/root/ui/listDetail/ListDetail";
-import Review from "@/components/root/ui/review/Review";
+import { DetailsPageCard } from "@/components/root/detailsPageCard/DetailsPageCard";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import { ListDetail } from "@/components/root/listDetail/ListDetail";
+import Review from "@/components/root/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
@@ -17,9 +17,9 @@ import {
     updateReviewMovie,
 } from "@/actions/user.actions";
 import * as CONSTANTS from "@/constants/Constants";
-import { TextEditorForm } from "@/components/root/ui/textEditorForm/TextEditorForm";
+import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import { showToast } from "@/utils/helpers/toast";
-import ReviewsHeader from "@/components/root/ui/reviewsHeader/ReviewsHeader";
+import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Movie } from "@prisma/client";
 import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/features/movieFeaturesUtils";
