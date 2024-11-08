@@ -1,7 +1,7 @@
-import CardItem from "@/components/root/ui/cardItem/CardItem";
-import Carousel from "@/components/root/ui/carousel/Carousel";
-import PaginationControl from "@/components/root/ui/paginationControl/PaginationControl";
-import SortSelect from "@/components/root/ui/sortSelect/SortSelect";
+import CardItem from "@/components/root/cardItem/CardItem";
+import Carousel from "@/components/root/carousel/Carousel";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import SortSelect from "@/components/root/sortSelect/SortSelect";
 import { Box, Stack, Typography } from "@mui/material";
 import { Crew } from "@prisma/client";
 import type { Metadata } from "next";

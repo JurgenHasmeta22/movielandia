@@ -1,4 +1,4 @@
-import GenreItem from "@/components/root/ui/genreItem/GenreItem";
+import GenreItem from "@/components/root/genreItem/GenreItem";
 import { getGenres } from "@/actions/genre.actions";
 import { Box, Stack, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";

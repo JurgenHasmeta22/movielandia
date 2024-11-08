@@ -2,10 +2,10 @@
 
 import { Box } from "@mui/material";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
-import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import TableAdmin from "@/components/admin/ui/tableAdmin/TableAdmin";
+import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 
 const SeriesAdminPage = () => {
     const router = useRouter();

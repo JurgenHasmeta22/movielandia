@@ -6,7 +6,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { DashboardStatBox } from "./DashboardStatBox";
-import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 
 const DashboardAdminPage = () => {
     const theme = useTheme();

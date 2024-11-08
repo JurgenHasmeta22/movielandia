@@ -1,17 +1,17 @@
 "use client";
 
 import { Box } from "@mui/material";
-import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import FormAdvanced from "@/components/admin/ui/form/Form";
+import FormAdvanced from "@/components/admin/form/Form";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";

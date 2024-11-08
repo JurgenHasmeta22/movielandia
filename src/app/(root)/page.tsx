@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
-import HomeHeroSection from "@/components/root/ui/homeHero/HomeHero";
-import ListHomeSection from "@/components/root/ui/listHomeSection/ListHomeSection";
+import HomeHeroSection from "@/components/root/homeHero/HomeHero";
+import ListHomeSection from "@/components/root/listHomeSection/ListHomeSection";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
 import { getGenresWithFilters } from "@/actions/genre.actions";
 import { getMoviesWithFilters } from "@/actions/movie.actions";

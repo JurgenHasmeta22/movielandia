@@ -2,8 +2,8 @@
 
 import { useStore } from "@/store/store";
 import { AppBar, Box, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
-import AuthButtons from "../../ui/authButtons/AuthButtons";
-import ThemeToggleButton from "../../ui/themeToggleButton/ThemeToggleButton";
+import AuthButtons from "../authButtons/AuthButtons";
+import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLinks } from "./HeaderLinks";
 import { Genre } from "@prisma/client";

@@ -1,10 +1,10 @@
 "use client";
 
 import { Box } from "@mui/material";
-import Header from "@/components/admin/ui/headerDashboard/HeaderDashboard";
+import Header from "@/components/admin/headerDashboard/HeaderDashboard";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import FormAdvanced from "@/components/admin/ui/form/Form";
+import FormAdvanced from "@/components/admin/form/Form";
 import { FormikProps } from "formik";
 import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";

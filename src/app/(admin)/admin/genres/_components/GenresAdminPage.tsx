@@ -4,8 +4,8 @@ import { Box } from "@mui/material";
 import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import TableAdmin from "@/components/admin/ui/tableAdmin/TableAdmin";
-import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
+import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 
 const GenresAdminPage = () => {
     const router = useRouter();

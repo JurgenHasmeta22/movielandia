@@ -7,7 +7,7 @@ import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
-import MuiNextLink from "../../ui/muiNextLink/MuiNextLink";
+import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IHeaderLinksProps {
