@@ -6,7 +6,8 @@ import { useModal } from "@/providers/ModalProvider";
 import { useStore } from "@/store/store";
 
 /* 
-    This hook is used to store the data of the page details, because i use movie, serie, actor, season, episode so i needed a custom hook to extract all those data
+    This hook is used to store the data of the page details, because i use movie, serie, actor, season, episode, crew
+    so i needed a custom hook to extract all those data
 */
 export function usePageDetailsData() {
     const { data: session } = useSession();
