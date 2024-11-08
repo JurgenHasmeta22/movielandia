@@ -10,13 +10,13 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Link from "next/link";
-import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/componentHelpers/features/episodeFeaturesUtils";
-import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/componentHelpers/features/seasonFeaturesUtils";
-import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/componentHelpers/features/movieFeaturesUtils";
-import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/componentHelpers/features/serieFeaturesUtils";
-import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/componentHelpers/features/actorFeaturesUtils";
+import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/features/episodeFeaturesUtils";
+import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/features/seasonFeaturesUtils";
+import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/features/movieFeaturesUtils";
+import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFeaturesUtils";
+import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
 import { useSession } from "next-auth/react";
-import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/componentHelpers/features/crewFeaturesUtils";
+import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
 
 interface ICardItemProps {
     data: any;

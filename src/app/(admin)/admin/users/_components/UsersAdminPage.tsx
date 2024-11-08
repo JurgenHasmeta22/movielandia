@@ -5,7 +5,7 @@ import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
 import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import TableAdmin from "@/utils/componentHelpers/TableAdmin";
+import TableAdmin from "@/components/admin/ui/tableAdmin/TableAdmin";
 
 const UsersAdminPage = () => {
     const router = useRouter();

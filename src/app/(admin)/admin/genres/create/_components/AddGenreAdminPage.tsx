@@ -1,7 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import Header from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import Header from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import FormAdvanced from "@/components/admin/ui/form/Form";

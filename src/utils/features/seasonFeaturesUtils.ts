@@ -1,7 +1,7 @@
 import { addFavoriteSeasonToUser, removeFavoriteSeasonToUser } from "@/actions/user.actions";
 import { Season } from "@prisma/client";
 import { Session } from "next-auth";
-import { showToast } from "../../helpers/toast";
+import { showToast } from "@/utils/helpers/toast";
 
 export async function onBookmarkSeason(session: Session, season: Season) {
     if (!session?.user || !season) return;
