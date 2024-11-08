@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "@/components/root/layout/header/Header";
-import Footer from "@/components/root/layout/footer/Footer";
 import { Grid2 as Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/features/scrollToTop/ScrollToTop";
+import Header from "@/components/root/ui/header/Header";
+import Footer from "@/components/root/ui/footer/Footer";
 
 interface IMainLayoutProps {
     children: React.ReactNode;

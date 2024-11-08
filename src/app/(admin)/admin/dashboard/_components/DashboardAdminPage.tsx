@@ -2,11 +2,11 @@
 
 import { Box, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import { DashboardStatBox } from "@/components/admin/layout/dashboard/DashboardStatBox";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { DashboardStatBox } from "./DashboardStatBox";
+import HeaderDashboard from "./HeaderDashboard";
 
 const DashboardAdminPage = () => {
     const theme = useTheme();

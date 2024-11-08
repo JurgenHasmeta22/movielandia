@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { Prisma, Serie } from "@prisma/client";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";

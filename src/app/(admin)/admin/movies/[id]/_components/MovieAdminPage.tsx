@@ -12,7 +12,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { Movie, Prisma } from "@prisma/client";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
