@@ -10,7 +10,7 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/ui/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { useModal } from "@/providers/ModalProvider";

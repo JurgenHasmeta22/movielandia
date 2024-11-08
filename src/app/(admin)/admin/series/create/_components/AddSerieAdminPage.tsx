@@ -8,7 +8,7 @@ import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import * as CONSTANTS from "@/constants/Constants";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import { useRouter } from "next/navigation";
 import FormAdvanced from "@/components/admin/ui/form/Form";
 import { addSerie } from "@/actions/serie.actions";

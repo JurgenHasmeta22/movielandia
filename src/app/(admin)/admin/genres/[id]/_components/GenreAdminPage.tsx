@@ -1,7 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import HeaderDashboard from "@/components/admin/layout/headerDashboard/HeaderDashboard";
+import HeaderDashboard from "@/components/admin/ui/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
 import { FormikProps } from "formik";
 import * as yup from "yup";
