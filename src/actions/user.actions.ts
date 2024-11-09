@@ -69,6 +69,52 @@ interface RemoveReviewEpisodeParams {
     userId: number;
     episodeId: number;
 }
+
+interface RemoveReviewActorParams {
+    userId: number;
+    actorId: number;
+}
+
+interface RemoveReviewCrewParams {
+    userId: number;
+    crewId: number;
+}
+
+interface VoteMovieReviewParams {
+    userId: number;
+    movieId: number;
+    movieReviewId: number;
+}
+
+interface VoteSerieReviewParams {
+    userId: number;
+    serieId: number;
+    serieReviewId: number;
+}
+
+interface VoteSeasonReviewParams {
+    userId: number;
+    seasonId: number;
+    seasonReviewId: number;
+}
+
+interface VoteEpisodeReviewParams {
+    userId: number;
+    episodeId: number;
+    episodeReviewId: number;
+}
+
+interface VoteActorReviewParams {
+    userId: number;
+    actorId: number;
+    actorReviewId: number;
+}
+
+interface VoteCrewReviewParams {
+    userId: number;
+    crewId: number;
+    crewReviewId: number;
+}
 // #endregion
 
 // #region "Utils"
@@ -84,7 +130,7 @@ function getReferer() {
 }
 // #endregion
 
-// #region "CRUD for Users"
+// #region "CRUD"
 
 // #region "GET Methods"
 export async function getUsersWithFilters({
@@ -371,7 +417,9 @@ export async function searchUsersByUsername(userName: string, queryParams: any):
 
 // #endregion
 
-// #region "Bookmarks for Movies, Series, Seasons, Episodes"
+// #region "Bookmarks"
+
+// #region "Add Favorite"
 export async function addFavoriteSerieToUser(userId: number, serieId: number): Promise<void> {
     try {
         const existingFavorite = await prisma.userSerieFavorite.findFirst({
@@ -617,7 +665,9 @@ export async function addFavoriteCrewToUser(userId: number, crewId: number): Pro
         }
     }
 }
+// #endregion
 
+// #region "Remove Favorite"
 export async function removeFavoriteMovieToUser(userId: number, movieId: number, pathFrom: string): Promise<void> {
     try {
         const existingFavorite = await prisma.userMovieFavorite.findFirst({
@@ -847,7 +897,9 @@ export async function removeFavoriteCrewToUser(userId: number, crewId: number, p
 }
 // #endregion
 
-// #region "Reviews for Movies, Series, Seasons, Episodes"
+// #endregion
+
+// #region "Reviews"
 
 // #region "Add Review"
 export const addReviewMovie = async ({
@@ -1608,7 +1660,7 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
     }
 };
 
-export const removeReviewActor = async ({ userId, actorId }: any): Promise<void> => {
+export const removeReviewActor = async ({ userId, actorId }: RemoveReviewActorParams): Promise<void> => {
     try {
         const existingReview = await prisma.actorReview.findFirst({
             where: {
@@ -1642,7 +1694,7 @@ export const removeReviewActor = async ({ userId, actorId }: any): Promise<void>
     }
 };
 
-export const removeReviewCrew = async ({ userId, crewId }: any): Promise<void> => {
+export const removeReviewCrew = async ({ userId, crewId }: RemoveReviewCrewParams): Promise<void> => {
     try {
         const existingReview = await prisma.crewReview.findFirst({
             where: {
@@ -1679,10 +1731,12 @@ export const removeReviewCrew = async ({ userId, crewId }: any): Promise<void> =
 
 // #endregion
 
-// #region "Upvotes, Downvotes for Movies, Series, Seasons, Episodes"
+// #region "Upvotes, Downvotes"
 
 // #region "Upvotes"
-export async function addUpvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
+
+// #region "Add Upvote"
+export async function addUpvoteMovieReview({ userId, movieId, movieReviewId }: VoteMovieReviewParams): Promise<any> {
     try {
         const existingUpvoteMovieReview = await prisma.upvoteMovieReview.findFirst({
             where: {
@@ -1717,7 +1771,7 @@ export async function addUpvoteMovieReview({ userId, movieId, movieReviewId }: a
     }
 }
 
-export async function addUpvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
+export async function addUpvoteSerieReview({ userId, serieId, serieReviewId }: VoteSerieReviewParams): Promise<any> {
     try {
         const existingUpvoteSerieReview = await prisma.upvoteSerieReview.findFirst({
             where: {
@@ -1750,7 +1804,11 @@ export async function addUpvoteSerieReview({ userId, serieId, serieReviewId }: a
     }
 }
 
-export async function addUpvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
+export async function addUpvoteSeasonReview({
+    userId,
+    seasonId,
+    seasonReviewId,
+}: VoteSeasonReviewParams): Promise<any> {
     try {
         const existingUpvoteSeasonReview = await prisma.upvoteSeasonReview.findFirst({
             where: {
@@ -1783,7 +1841,11 @@ export async function addUpvoteSeasonReview({ userId, seasonId, seasonReviewId }
     }
 }
 
-export async function addUpvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
+export async function addUpvoteEpisodeReview({
+    userId,
+    episodeId,
+    episodeReviewId,
+}: VoteEpisodeReviewParams): Promise<any> {
     try {
         const existingUpvoteEpisodeReview = await prisma.upvoteEpisodeReview.findFirst({
             where: {
@@ -1816,7 +1878,7 @@ export async function addUpvoteEpisodeReview({ userId, episodeId, episodeReviewI
     }
 }
 
-export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: VoteActorReviewParams): Promise<any> {
     try {
         const existingUpvoteActorReview = await prisma.upvoteActorReview.findFirst({
             where: {
@@ -1849,7 +1911,7 @@ export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: a
     }
 }
 
-export async function addUpvoteCrewReview({ userId, crewId, crewReviewId }: any): Promise<any> {
+export async function addUpvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
     try {
         const existingUpvoteCrewReview = await prisma.upvoteCrewReview.findFirst({
             where: {
@@ -1881,8 +1943,10 @@ export async function addUpvoteCrewReview({ userId, crewId, crewReviewId }: any)
         }
     }
 }
+// #endregion
 
-export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
+// #region "Remove Upvote"
+export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }: VoteMovieReviewParams): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteMovieReview.findFirst({
             where: {
@@ -1911,7 +1975,7 @@ export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }
     }
 }
 
-export async function removeUpvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
+export async function removeUpvoteSerieReview({ userId, serieId, serieReviewId }: VoteSerieReviewParams): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteSerieReview.findFirst({
             where: {
@@ -1940,7 +2004,11 @@ export async function removeUpvoteSerieReview({ userId, serieId, serieReviewId }
     }
 }
 
-export async function removeUpvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
+export async function removeUpvoteSeasonReview({
+    userId,
+    seasonId,
+    seasonReviewId,
+}: VoteSeasonReviewParams): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
             where: {
@@ -1969,7 +2037,11 @@ export async function removeUpvoteSeasonReview({ userId, seasonId, seasonReviewI
     }
 }
 
-export async function removeUpvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
+export async function removeUpvoteEpisodeReview({
+    userId,
+    episodeId,
+    episodeReviewId,
+}: VoteEpisodeReviewParams): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
             where: {
@@ -1998,7 +2070,7 @@ export async function removeUpvoteEpisodeReview({ userId, episodeId, episodeRevi
     }
 }
 
-export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }: VoteActorReviewParams): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteActorReview.findFirst({
             where: {
@@ -2027,7 +2099,7 @@ export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }
     }
 }
 
-export async function removeUpvoteCrewReview({ userId, crewId, crewReviewId }: any): Promise<any> {
+export async function removeUpvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
     try {
         const existingUpvote = await prisma.upvoteCrewReview.findFirst({
             where: {
@@ -2057,8 +2129,12 @@ export async function removeUpvoteCrewReview({ userId, crewId, crewReviewId }: a
 }
 // #endregion
 
+// #endregion
+
 // #region "Downvotes"
-export async function addDownvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
+
+// #region "Add Downvote"
+export async function addDownvoteMovieReview({ userId, movieId, movieReviewId }: VoteMovieReviewParams): Promise<any> {
     try {
         const existingDownvoteMovieReview = await prisma.downvoteMovieReview.findFirst({
             where: {
@@ -2093,7 +2169,7 @@ export async function addDownvoteMovieReview({ userId, movieId, movieReviewId }:
     }
 }
 
-export async function addDownvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
+export async function addDownvoteSerieReview({ userId, serieId, serieReviewId }: VoteSerieReviewParams): Promise<any> {
     try {
         const existingDownvoteSerieReview = await prisma.downvoteSerieReview.findFirst({
             where: {
@@ -2126,7 +2202,11 @@ export async function addDownvoteSerieReview({ userId, serieId, serieReviewId }:
     }
 }
 
-export async function addDownvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
+export async function addDownvoteSeasonReview({
+    userId,
+    seasonId,
+    seasonReviewId,
+}: VoteSeasonReviewParams): Promise<any> {
     try {
         const existingDownvoteSeasonReview = await prisma.downvoteSeasonReview.findFirst({
             where: {
@@ -2159,7 +2239,11 @@ export async function addDownvoteSeasonReview({ userId, seasonId, seasonReviewId
     }
 }
 
-export async function addDownvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
+export async function addDownvoteEpisodeReview({
+    userId,
+    episodeId,
+    episodeReviewId,
+}: VoteEpisodeReviewParams): Promise<any> {
     try {
         const existingDownvoteEpisodeReview = await prisma.downvoteEpisodeReview.findFirst({
             where: {
@@ -2192,7 +2276,7 @@ export async function addDownvoteEpisodeReview({ userId, episodeId, episodeRevie
     }
 }
 
-export async function addDownvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+export async function addDownvoteActorReview({ userId, actorId, actorReviewId }: VoteActorReviewParams): Promise<any> {
     try {
         const existingDownvoteActorReview = await prisma.downvoteActorReview.findFirst({
             where: {
@@ -2225,7 +2309,7 @@ export async function addDownvoteActorReview({ userId, actorId, actorReviewId }:
     }
 }
 
-export async function addDownvoteCrewReview({ userId, crewId, crewReviewId }: any): Promise<any> {
+export async function addDownvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
     try {
         const existingDownvoteCrewReview = await prisma.downvoteCrewReview.findFirst({
             where: {
@@ -2257,8 +2341,14 @@ export async function addDownvoteCrewReview({ userId, crewId, crewReviewId }: an
         }
     }
 }
+// #endregion
 
-export async function removeDownvoteMovieReview({ userId, movieId, movieReviewId }: any): Promise<any> {
+// #region "Remove Downvote"
+export async function removeDownvoteMovieReview({
+    userId,
+    movieId,
+    movieReviewId,
+}: VoteMovieReviewParams): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteMovieReview.findFirst({
             where: {
@@ -2287,7 +2377,11 @@ export async function removeDownvoteMovieReview({ userId, movieId, movieReviewId
     }
 }
 
-export async function removeDownvoteSerieReview({ userId, serieId, serieReviewId }: any): Promise<any> {
+export async function removeDownvoteSerieReview({
+    userId,
+    serieId,
+    serieReviewId,
+}: VoteSerieReviewParams): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteSerieReview.findFirst({
             where: {
@@ -2316,7 +2410,11 @@ export async function removeDownvoteSerieReview({ userId, serieId, serieReviewId
     }
 }
 
-export async function removeDownvoteSeasonReview({ userId, seasonId, seasonReviewId }: any): Promise<any> {
+export async function removeDownvoteSeasonReview({
+    userId,
+    seasonId,
+    seasonReviewId,
+}: VoteSeasonReviewParams): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
             where: {
@@ -2345,7 +2443,11 @@ export async function removeDownvoteSeasonReview({ userId, seasonId, seasonRevie
     }
 }
 
-export async function removeDownvoteEpisodeReview({ userId, episodeId, episodeReviewId }: any): Promise<any> {
+export async function removeDownvoteEpisodeReview({
+    userId,
+    episodeId,
+    episodeReviewId,
+}: VoteEpisodeReviewParams): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
             where: {
@@ -2374,7 +2476,11 @@ export async function removeDownvoteEpisodeReview({ userId, episodeId, episodeRe
     }
 }
 
-export async function removeDownvoteActorReview({ userId, actorId, actorReviewId }: any): Promise<any> {
+export async function removeDownvoteActorReview({
+    userId,
+    actorId,
+    actorReviewId,
+}: VoteActorReviewParams): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteActorReview.findFirst({
             where: {
@@ -2403,7 +2509,7 @@ export async function removeDownvoteActorReview({ userId, actorId, actorReviewId
     }
 }
 
-export async function removeDownvoteCrewReview({ userId, crewId, crewReviewId }: any): Promise<any> {
+export async function removeDownvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
     try {
         const existingDownvote = await prisma.downvoteCrewReview.findFirst({
             where: {
@@ -2431,11 +2537,13 @@ export async function removeDownvoteCrewReview({ userId, crewId, crewReviewId }:
         }
     }
 }
+// #endregion
+
 //#endregion
 
 // #endregion
 
-// #region "Follow, Unfollow Users"
+// #region "Follow, Unfollow"
 export async function follow(followerId: number, followingId: number): Promise<void> {
     try {
         if (followerId === followingId) {

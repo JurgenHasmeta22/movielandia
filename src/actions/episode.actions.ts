@@ -142,9 +142,10 @@ export async function getEpisodeById(episodeId: number, queryParams: any): Promi
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 
@@ -261,9 +262,10 @@ export async function getEpisodeByTitle(
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 

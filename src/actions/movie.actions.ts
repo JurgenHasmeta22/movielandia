@@ -194,10 +194,10 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 
@@ -311,10 +311,10 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 

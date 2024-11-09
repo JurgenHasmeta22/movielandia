@@ -192,9 +192,10 @@ export async function getCrewMemberById(crewId: number, queryParams: any): Promi
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 

@@ -148,9 +148,10 @@ export async function getSeasonById(seasonId: number, queryParams: any): Promise
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 
@@ -267,9 +268,10 @@ export async function getSeasonByTitle(
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 
