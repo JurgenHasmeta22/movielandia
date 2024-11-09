@@ -35,6 +35,12 @@ interface ISearchProps {
     }>;
 }
 
+interface IQueryParams {
+    page: number;
+    ascOrDesc?: string;
+    sortBy?: string;
+}
+
 export const metadata: Metadata = {
     title: "Search the Latest Series | High-Quality and Always Updated",
     description:
@@ -51,7 +57,7 @@ export default async function Search(props: ISearchProps) {
     const pageMovies = Number(searchParams && searchParams.pageMovies) || 1;
     const moviesSortBy = searchParams && searchParams.moviesSortBy;
     const moviesAscOrDesc = searchParams && searchParams.moviesAscOrDesc;
-    const queryParamsMovies: any = { page: pageMovies };
+    const queryParamsMovies: IQueryParams = { page: pageMovies };
 
     if (moviesSortBy) {
         queryParamsMovies.sortBy = moviesSortBy;
@@ -71,7 +77,7 @@ export default async function Search(props: ISearchProps) {
     const pageSeries = Number(searchParams && searchParams.pageSeries) || 1;
     const seriesSortBy = searchParams && searchParams.seriesSortBy;
     const seriesAscOrDesc = searchParams && searchParams.seriesAscOrDesc;
-    const queryParamsSeries: any = { page: pageSeries };
+    const queryParamsSeries: IQueryParams = { page: pageSeries };
 
     if (seriesSortBy) {
         queryParamsSeries.sortBy = seriesSortBy;
@@ -91,7 +97,7 @@ export default async function Search(props: ISearchProps) {
     const pageActors = Number(searchParams && searchParams.pageActors) || 1;
     const actorsSortBy = searchParams && searchParams.actorsSortBy;
     const actorsAscOrDesc = searchParams && searchParams.actorsAscOrDesc;
-    const queryParamsActors: any = { page: pageActors };
+    const queryParamsActors: IQueryParams = { page: pageActors };
 
     if (actorsSortBy) {
         queryParamsActors.sortBy = actorsSortBy;
@@ -111,7 +117,7 @@ export default async function Search(props: ISearchProps) {
     const pageEpisodes = Number(searchParams && searchParams.pageEpisodes) || 1;
     const episodesSortBy = searchParams && searchParams.episodesSortBy;
     const episodesAscOrDesc = searchParams && searchParams.episodesAscOrDesc;
-    const queryParamsEpisodes: any = { page: pageEpisodes };
+    const queryParamsEpisodes: IQueryParams = { page: pageEpisodes };
 
     if (episodesSortBy) {
         queryParamsEpisodes.sortBy = episodesSortBy;
@@ -131,7 +137,7 @@ export default async function Search(props: ISearchProps) {
     const pageSeasons = Number(searchParams && searchParams.pageSeasons) || 1;
     const seasonsSortBy = searchParams && searchParams.seasonsSortBy;
     const seasonsAscOrDesc = searchParams && searchParams.seasonsAscOrDesc;
-    const queryParamsSeasons: any = { page: pageSeasons };
+    const queryParamsSeasons: IQueryParams = { page: pageSeasons };
 
     if (seasonsSortBy) {
         queryParamsSeasons.sortBy = seasonsSortBy;
@@ -151,7 +157,7 @@ export default async function Search(props: ISearchProps) {
     const pageUsers = Number(searchParams && searchParams.pageUsers) || 1;
     const usersSortBy = searchParams && searchParams.usersSortBy;
     const usersAscOrDesc = searchParams && searchParams.usersAscOrDesc;
-    const queryParamsUsers: any = { page: pageUsers };
+    const queryParamsUsers: IQueryParams = { page: pageUsers };
 
     if (usersSortBy) {
         queryParamsUsers.sortBy = usersSortBy;

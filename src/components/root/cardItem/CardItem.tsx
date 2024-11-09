@@ -17,6 +17,9 @@ import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFe
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
 import { useSession } from "next-auth/react";
 import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
+// import { Season, Movie, Serie, Episode, Actor, Crew } from "@prisma/client";
+
+// type DataType = Movie | Serie | Season | Episode | Actor | Crew;
 
 interface ICardItemProps {
     data: any;

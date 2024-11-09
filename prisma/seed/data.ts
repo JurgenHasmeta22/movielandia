@@ -2207,8 +2207,8 @@ export const crewSeries = [
 // #endregion
 
 // #region "Custom script for writting in file and generating stuff"
-// const seasons: any = [];
-// const episodes: any = [];
+// const seasons: Season[] = [];
+// const episodes: Episode[] = [];
 
 // // function formatDate(date) {
 // //     const day = (`0${date.getDate()}`).slice(-2);
@@ -2217,7 +2217,7 @@ export const crewSeries = [
 // //     return `${day}/${month}/${year}`;
 // // }
 
-// function replaceImageUrl(url: any) {
+// function replaceImageUrl(url: string) {
 //     const urlObj = new URL(url);
 //     return `${urlObj.origin}/images/placeholder.jpg`;
 // }
