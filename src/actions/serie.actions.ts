@@ -202,9 +202,10 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
                     },
                 });
 
-                // @ts-expect-error dunno
+                // @ts-expect-error type
                 review.isUpvoted = !!existingUpvote;
-                // @ts-expect-error dunno
+
+                // @ts-expect-error type
                 review.isDownvoted = !!existingDownvote;
             }
 
@@ -318,9 +319,10 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
                     },
                 });
 
-                // @ts-expect-error dunno
+                // @ts-expect-error type
                 review.isUpvoted = !!existingUpvote;
-                // @ts-expect-error dunno
+
+                // @ts-expect-error type
                 review.isDownvoted = !!existingDownvote;
             }
 

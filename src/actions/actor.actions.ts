@@ -192,9 +192,10 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 
@@ -308,9 +309,10 @@ export async function getActorByFullname(actorTitle: string, queryParams: any): 
                         },
                     });
 
-                    // @ts-expect-error dunno
+                    // @ts-expect-error type
                     review.isUpvoted = !!existingUpvote;
-                    // @ts-expect-error dunno
+
+                    // @ts-expect-error type
                     review.isDownvoted = !!existingDownvote;
                 }
 
