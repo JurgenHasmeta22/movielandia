@@ -33,7 +33,7 @@ interface IActorPageContentProps {
     pageCount: number;
 }
 
-export default function ActorPageContent({ searchParamsValues, actor, pageCount }: any) {
+export default function ActorPageContent({ searchParamsValues, actor, pageCount }: IActorPageContentProps) {
     // #region "Data for the page"
     const {
         session,
