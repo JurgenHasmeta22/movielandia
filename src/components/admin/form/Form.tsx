@@ -97,7 +97,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                         switch (field.type) {
                                             case "select":
                                                 return (
-                                                    <FormControl>
+                                                    <FormControl key={index}>
                                                         <InputLabel id={`${field.name}-label`}>
                                                             {field.label}
                                                         </InputLabel>
@@ -122,7 +122,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                                 );
                                             case "multiselect":
                                                 return (
-                                                    <FormControl>
+                                                    <FormControl key={index}>
                                                         <InputLabel id={`${field.name}-label`}>
                                                             {field.label}
                                                         </InputLabel>
@@ -169,7 +169,12 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                                 );
                                             case "password":
                                                 return (
-                                                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                                    <Box
+                                                        display={"flex"}
+                                                        flexDirection={"column"}
+                                                        rowGap={1}
+                                                        key={index}
+                                                    >
                                                         <FormLabel>{field.label}</FormLabel>
                                                         <TextField
                                                             key={index}
@@ -207,7 +212,12 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                                 );
                                             default:
                                                 return (
-                                                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                                                    <Box
+                                                        display={"flex"}
+                                                        flexDirection={"column"}
+                                                        rowGap={1}
+                                                        key={index}
+                                                    >
                                                         <FormLabel>{field.label}</FormLabel>
                                                         <TextField
                                                             key={index}

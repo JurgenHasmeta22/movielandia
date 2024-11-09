@@ -24,17 +24,23 @@ import { signOut, useSession } from "next-auth/react";
 import { IS_BROWSER } from "@/utils/helpers/utils";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
+interface ISidebarItem {
+    label: string;
+    to: string;
+    icon: JSX.Element;
+    index: number;
+}
+
 interface ISidebarProps {
-    sidebarItems: any;
+    sidebarItems: ISidebarItem[];
 }
 
 const Sidebar = ({ sidebarItems }: ISidebarProps) => {
-    const { data: session } = useSession();
-
     const [selectedLabel, setSelectedLabel] = useState("");
     const [height, setHeight] = useState(0);
-    const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
 
+    const { data: session } = useSession();
+    const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
     const router = useRouter();
     const theme = useTheme();
 
@@ -58,7 +64,7 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 
     useEffect(() => {
         if (IS_BROWSER) {
-            setHeight(window.innerHeight);
+            setHeight(window.innerWidth);
         }
     }, []);
 
@@ -70,7 +76,7 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
             component={"aside"}
             onClose={onClose}
             PaperProps={{
-                sx: { backgroundColor: theme.vars.palette.greyAccent.main, paddingLeft: 2, paddingRight: 2 },
+                sx: { backgroundColor: theme.vars.palette.primary.dark, paddingLeft: 2, paddingRight: 2 },
             }}
         >
             <Box
@@ -132,12 +138,12 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
                             sx={{
                                 color: theme.vars.palette.greyAccent.main,
                                 "&:hover": {
-                                    backgroundColor: theme.vars.palette.primary.dark,
+                                    backgroundColor: theme.vars.palette.primary.light,
                                     "& .MuiListItemIcon-root": {
-                                        color: theme.vars.palette.greyAccent.main,
+                                        color: theme.vars.palette.greyAccent.light,
                                     },
                                     "& .MuiListItemText-primary": {
-                                        color: theme.vars.palette.greyAccent.main,
+                                        color: theme.vars.palette.greyAccent.light,
                                     },
                                 },
                             }}

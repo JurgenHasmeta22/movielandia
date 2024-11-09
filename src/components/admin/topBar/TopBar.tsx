@@ -2,25 +2,23 @@
 
 import { AppBar, Box, IconButton, Menu, MenuItem, Toolbar, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useStore } from "@/store/store";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import SwitchThemeButton from "@/components/root/themeToggleButton/ThemeToggleButton";
 
 const TopBar = () => {
-    const { data: session } = useSession();
-
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
 
+    const { data: session } = useSession();
     const router = useRouter();
-    const open = Boolean(anchorEl);
-
     const theme = useTheme();
+
+    const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -37,7 +35,7 @@ const TopBar = () => {
     };
 
     const handleRedirectToProfile = () => {
-        router.push("/profile");
+        router.push("/users/1/admin");
     };
 
     return (
@@ -62,9 +60,7 @@ const TopBar = () => {
                     )}
                 </Box>
                 <Box display={"flex"} flexDirection={"row"}>
-                    <IconButton>
-                        {theme.palette.mode === "dark" ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
-                    </IconButton>
+                    <SwitchThemeButton />
                     <IconButton
                         id="buttonProfile"
                         aria-controls={open ? "menuProfile" : undefined}
