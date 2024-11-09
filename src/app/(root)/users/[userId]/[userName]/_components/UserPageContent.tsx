@@ -1,5 +1,6 @@
 "use client";
 
+// #region "Imports"
 import {
     Accordion,
     AccordionDetails,
@@ -31,12 +32,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+// #endregion
 
+// #region "Interfaces"
 interface IUserPageProps {
     userLoggedIn: any | null;
     userInPage: any | null;
     tabValue: string;
 }
+// #endregion
 
 export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
     // #region "State, hooks, router, theme usage call"
