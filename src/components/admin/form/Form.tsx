@@ -118,6 +118,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                             <Controller
                                                 name={field.name}
                                                 control={control}
+                                                defaultValue={""}
                                                 render={({ field: controllerField }) => (
                                                     <Select
                                                         labelId={`${field.name}-label`}
@@ -143,6 +144,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                             <Controller
                                                 name={field.name}
                                                 control={control}
+                                                defaultValue={""}
                                                 render={({ field: controllerField }) => (
                                                     <Select
                                                         labelId={`${field.name}-label`}
@@ -168,6 +170,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                             key={index}
                                             name={field.name}
                                             control={control}
+                                            defaultValue={""}
                                             render={({ field: controllerField }) => (
                                                 <TextField
                                                     label={field.label}
@@ -190,6 +193,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                             <Controller
                                                 name={field.name}
                                                 control={control}
+                                                defaultValue={""}
                                                 render={({ field: controllerField }) => (
                                                     <TextField
                                                         {...controllerField}
@@ -229,6 +233,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                             <Controller
                                                 name={field.name}
                                                 control={control}
+                                                defaultValue={""}
                                                 render={({ field: controllerField }) => (
                                                     <TextField
                                                         {...controllerField}

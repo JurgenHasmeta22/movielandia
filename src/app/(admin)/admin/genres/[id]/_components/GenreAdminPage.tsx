@@ -13,10 +13,11 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreById, updateGenreById } from "@/actions/genre.actions";
+import { deleteGenreById, getGenreByIdAdmin, updateGenreById } from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
 import { z } from "zod";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface IGenreEdit {
     id?: string;
@@ -30,6 +31,7 @@ const genreSchema = z.object({
 const GenreAdminPage = () => {
     const [genre, setGenre] = useState<Genre | null>(null);
     const [formData, setFormData] = useState<any>({});
+    const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
     const formRef = useRef<any>(null);
@@ -78,21 +80,25 @@ const GenreAdminPage = () => {
     };
 
     async function getGenre(): Promise<void> {
-        const response: Genre | null = await getGenreById(Number(params.id), {});
+        setLoading(true);
+
+        const response: Genre | null = await getGenreByIdAdmin(Number(params?.id));
 
         if (response) {
             setGenre(response);
-            handleResetFromParent();
+            setLoading(false);
+        } else {
+            toast.error("Failed to fetch genre");
         }
     }
 
     useEffect(() => {
-        async function fetchData() {
-            await getGenre();
-        }
-
-        fetchData();
+        getGenre();
     }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <Box m="20px">

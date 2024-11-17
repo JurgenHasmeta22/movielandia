@@ -17,6 +17,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Prisma, User } from "@prisma/client";
 import { z } from "zod";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 const userSchema = z.object({
     userName: z.string().min(1, { message: "required" }),
@@ -26,6 +27,7 @@ const userSchema = z.object({
 const UserAdmin = () => {
     const [user, setUser] = useState<User | null>(null);
     const [formData, setFormData] = useState<any>({});
+    const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
     const formRef = useRef<any>(null);
@@ -74,19 +76,23 @@ const UserAdmin = () => {
     };
 
     async function getUser(): Promise<void> {
+        setLoading(true);
+
         const response: User | null = await getUserById(Number(params.id));
 
-        if (response) setUser(response);
+        if (response) {
+            setUser(response);
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
-        async function fetchData() {
-            await getUser();
-            handleResetFromParent();
-        }
-
-        fetchData();
+        getUser();
     }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <Box m="20px">
