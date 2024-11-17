@@ -5,7 +5,6 @@ import {
     Box,
     Button,
     FormControl,
-    FormHelperText,
     FormLabel,
     IconButton,
     InputAdornment,
@@ -13,9 +12,6 @@ import {
     Typography,
     Link as MuiLink,
 } from "@mui/material";
-import { Form, Formik } from "formik";
-import * as yup from "yup";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -24,31 +20,39 @@ import { showToast } from "@/utils/helpers/toast";
 import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import GoogleIcon from "@mui/icons-material/Google";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const loginSchema = yup.object().shape({
-    email: yup.string().required("Email is a required field").email("Invalid email format"),
-    password: yup
+const loginSchema = z.object({
+    email: z.string().email("Invalid email format").min(1, "Email is a required field"),
+    password: z
         .string()
-        .required("Password is a required field")
         .min(8, "Password must be at least 8 characters")
-        .matches(
+        .regex(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
             "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-        ),
+        )
+        .min(1, "Password is a required field"),
 });
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
 
+    const router = useRouter();
+
+    const { control, handleSubmit, formState } = useForm({
+        resolver: zodResolver(loginSchema),
+        defaultValues: { email: "", password: "" },
+    });
+
+    const { errors, isSubmitting } = formState;
+
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-    const router = useRouter();
-
-    async function handleSubmitLogin(
-        values: { email: string; password: string },
-        setSubmitting: (isSubmitting: boolean) => void,
-    ) {
+    async function handleSubmitLogin(values: { email: string; password: string }) {
         const result = await signIn("credentials", {
             redirect: false,
             email: values.email,
@@ -63,163 +67,122 @@ export default function LoginForm() {
             router.refresh();
             showToast("success", "You are successfully logged in!");
         }
-
-        setSubmitting(false);
     }
 
     return (
-        <Formik
-            initialValues={{ email: "", password: "" }}
-            validationSchema={loginSchema}
-            onSubmit={(values, { setSubmitting }) => {
-                handleSubmitLogin(values, setSubmitting);
-            }}
-        >
-            {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
-                <Form onSubmit={handleSubmit}>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
-                        <Box
-                            display={"flex"}
-                            flexDirection="row"
-                            columnGap={1}
-                            alignItems={"center"}
-                            justifyContent={"center"}
-                            sx={{ pb: 4 }}
-                        >
-                            <LockOutlinedIcon fontSize="large" />
-                            <Typography variant="h2" textAlign={"center"}>
-                                Sign In
-                            </Typography>
+        <form onSubmit={handleSubmit(handleSubmitLogin)}>
+            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                <Box
+                    display={"flex"}
+                    flexDirection="row"
+                    columnGap={1}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    sx={{ pb: 4 }}
+                >
+                    <LockOutlinedIcon fontSize="large" />
+                    <Typography variant="h2" textAlign={"center"}>
+                        Sign In
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                        <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <EmailIcon />
+                            <FormLabel component={"label"}>Email</FormLabel>
                         </Box>
-                        <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                    <EmailIcon />
-                                    <FormLabel component={"label"}>Email</FormLabel>
-                                </Box>
+                        <Controller
+                            name="email"
+                            control={control}
+                            render={({ field }) => (
                                 <TextField
-                                    type="text"
-                                    name="email"
-                                    aria-label="Email"
-                                    required
-                                    value={values.email}
-                                    onChange={handleChange}
+                                    {...field}
+                                    type="email"
                                     autoComplete="username"
-                                    hiddenLabel={true}
-                                    aria-autocomplete="both"
-                                    onBlur={handleBlur}
                                     size="small"
-                                    helperText={touched["email"] && errors["email"]}
-                                    error={touched["email"] && !!errors["email"]}
                                     fullWidth
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
                                 />
-                            </Box>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                    <PasswordIcon />
-                                    <FormLabel component={"label"}>Password</FormLabel>
-                                </Box>
-                                <FormControl variant="outlined" fullWidth size="small">
-                                    <Box sx={{ minHeight: "100px" }}>
-                                        <TextField
-                                            type={showPassword ? "text" : "password"}
-                                            name="password"
-                                            required
-                                            autoComplete="current-password"
-                                            aria-label="Current password"
-                                            hiddenLabel={true}
-                                            aria-autocomplete="both"
-                                            value={values.password}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            size="small"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            }}
-                                            error={touched.password && !!errors.password}
-                                            fullWidth
-                                        />
-                                        {touched.password && errors.password && (
-                                            <FormHelperText
-                                                error
-                                                sx={{
-                                                    whiteSpace: "normal",
-                                                    overflowWrap: "break-word",
-                                                    wordWrap: "break-word",
-                                                    maxWidth: "200px",
-                                                }}
-                                            >
-                                                {errors.password}
-                                            </FormHelperText>
-                                        )}
-                                    </Box>
-                                </FormControl>
-                            </Box>
-                        </Box>
-                        <Button
-                            type="submit"
-                            variant="outlined"
-                            sx={{ fontWeight: 600, py: 1 }}
-                            disabled={isSubmitting}
-                        >
-                            <LockOutlinedIcon />
-                            <Typography
-                                component={"span"}
-                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
-                            >
-                                Sign In
-                            </Typography>
-                        </Button>
-                        <Button
-                            onClick={() => signIn("google", { callbackUrl: "/" })}
-                            variant="outlined"
-                            sx={{ fontWeight: 600, py: 1 }}
-                        >
-                            <GoogleIcon />
-                            <Typography
-                                component={"span"}
-                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
-                            >
-                                Continue with Google
-                            </Typography>
-                        </Button>
-                        <Box>
-                            <MuiLink
-                                component={Link}
-                                href="/reset-password"
-                                underline="none"
-                                sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
-                            >
-                                Forgot Password?
-                            </MuiLink>
-                        </Box>
-                        <Box>
-                            <Typography component={"span"} sx={{ fontSize: 14, pl: 4, textTransform: "capitalize" }}>
-                                Don&apos;t have an account?
-                            </Typography>
-                            <MuiLink
-                                component={Link}
-                                href="/register"
-                                underline="none"
-                                sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4, textTransform: "capitalize" }}
-                            >
-                                Sign Up
-                            </MuiLink>
-                        </Box>
+                            )}
+                        />
                     </Box>
-                </Form>
-            )}
-        </Formik>
+                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                        <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <PasswordIcon />
+                            <FormLabel component={"label"}>Password</FormLabel>
+                        </Box>
+                        <FormControl variant="outlined" fullWidth size="small">
+                            <Controller
+                                name="password"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        type={showPassword ? "text" : "password"}
+                                        autoComplete="current-password"
+                                        size="small"
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        error={!!errors.password}
+                                        helperText={errors.password?.message}
+                                    />
+                                )}
+                            />
+                        </FormControl>
+                    </Box>
+                </Box>
+                <Button type="submit" variant="outlined" sx={{ fontWeight: 600, py: 1 }} disabled={isSubmitting}>
+                    <LockOutlinedIcon />
+                    <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
+                        Sign In
+                    </Typography>
+                </Button>
+                <Button
+                    onClick={() => signIn("google", { callbackUrl: "/" })}
+                    variant="outlined"
+                    sx={{ fontWeight: 600, py: 1 }}
+                >
+                    <GoogleIcon />
+                    <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
+                        Continue with Google
+                    </Typography>
+                </Button>
+                <Box>
+                    <MuiLink
+                        component={Link}
+                        href="/reset-password"
+                        underline="none"
+                        sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
+                    >
+                        Forgot Password?
+                    </MuiLink>
+                </Box>
+                <Box>
+                    <Typography component={"span"} sx={{ fontSize: 14, pl: 4 }}>
+                        Don&apos;t have an account?
+                    </Typography>
+                    <MuiLink
+                        component={Link}
+                        href="/register"
+                        underline="none"
+                        sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4 }}
+                    >
+                        Sign Up
+                    </MuiLink>
+                </Box>
+            </Box>
+        </form>
     );
 }

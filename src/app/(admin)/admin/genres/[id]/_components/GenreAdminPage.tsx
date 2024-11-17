@@ -3,8 +3,6 @@
 import { Box } from "@mui/material";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
-import { FormikProps } from "formik";
-import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -18,14 +16,15 @@ import { useParams, useRouter } from "next/navigation";
 import { deleteGenreById, getGenreById, updateGenreById } from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
+import { z } from "zod";
 
 interface IGenreEdit {
     id?: string;
     name: string;
 }
 
-const genreSchema = yup.object().shape({
-    name: yup.string().required("required"),
+const genreSchema = z.object({
+    name: z.string().min(1, { message: "required" }),
 });
 
 const GenreAdminPage = () => {
@@ -33,9 +32,10 @@ const GenreAdminPage = () => {
     const [formData, setFormData] = useState<any>({});
     const [open, setOpen] = useState(false);
 
+    const formRef = useRef<any>(null);
+
     const router = useRouter();
     const params = useParams();
-    const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
 
     const breadcrumbs = [
@@ -57,7 +57,9 @@ const GenreAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        if (formRef.current) {
+            formRef.current.reset();
+        }
     };
 
     const handleFormSubmit = async (values: IGenreEdit) => {
@@ -94,7 +96,7 @@ const GenreAdminPage = () => {
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     id: genre?.id,
                     name: genre?.name,
                 }}
@@ -117,8 +119,8 @@ const GenreAdminPage = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={genreSchema}
-                formRef={formikRef}
+                schema={genreSchema}
+                formRef={formRef}
                 actions={[
                     {
                         label: CONSTANTS.FORM__DELETE__BUTTON,
