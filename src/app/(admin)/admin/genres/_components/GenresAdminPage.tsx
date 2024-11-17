@@ -21,7 +21,7 @@ const GenresAdminPage = () => {
     );
 
     function handleAddGenre() {
-        router.push("/admin/genres/add");
+        router.push("/admin/genres/create");
     }
 
     const { table } = TableAdmin({

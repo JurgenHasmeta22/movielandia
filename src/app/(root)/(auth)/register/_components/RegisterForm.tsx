@@ -59,6 +59,7 @@ export default function LoginForm() {
             password: "",
             confirmPassword: "",
         },
+        mode: "onChange",
     });
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -210,7 +211,7 @@ export default function LoginForm() {
                         </FormControl>
                     </Box>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Box sx={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
                     <Button
                         type="submit"
                         variant="outlined"
