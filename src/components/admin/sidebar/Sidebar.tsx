@@ -138,7 +138,7 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
                             sx={{
                                 color: theme.vars.palette.greyAccent.main,
                                 "&:hover": {
-                                    backgroundColor: theme.vars.palette.primary.light,
+                                    backgroundColor: theme.vars.palette.secondary.light,
                                     "& .MuiListItemIcon-root": {
                                         color: theme.vars.palette.greyAccent.light,
                                     },

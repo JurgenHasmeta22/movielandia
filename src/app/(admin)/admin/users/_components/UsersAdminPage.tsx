@@ -31,7 +31,7 @@ const UsersAdminPage = () => {
     );
 
     function handleAddUser() {
-        router.push("/admin/users/add");
+        router.push("/admin/users/create");
     }
 
     const { table } = TableAdmin({

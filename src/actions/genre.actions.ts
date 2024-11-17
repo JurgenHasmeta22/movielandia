@@ -455,13 +455,6 @@ export async function getGenreByName(
 export async function addGenre(genreData: Prisma.GenreCreateInput): Promise<Genre | null> {
     const genre = await prisma.genre.create({
         data: genreData,
-        include: {
-            movies: {
-                select: {
-                    movie: true,
-                },
-            },
-        },
     });
 
     if (genre) {
@@ -477,13 +470,6 @@ export async function updateGenreById(genreData: Prisma.GenreUpdateInput, id: st
             id: parseInt(id),
         },
         data: genreData,
-        include: {
-            movies: {
-                select: {
-                    movie: true,
-                },
-            },
-        },
     });
 
     if (genreUpdated) {

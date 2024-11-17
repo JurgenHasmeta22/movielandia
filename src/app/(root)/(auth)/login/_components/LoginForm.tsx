@@ -42,12 +42,15 @@ export default function LoginForm() {
 
     const router = useRouter();
 
-    const { control, handleSubmit, formState } = useForm({
+    const {
+        control,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm({
         resolver: zodResolver(loginSchema),
         defaultValues: { email: "", password: "" },
+        mode: "onChange",
     });
-
-    const { errors, isSubmitting } = formState;
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -143,7 +146,12 @@ export default function LoginForm() {
                         </FormControl>
                     </Box>
                 </Box>
-                <Button type="submit" variant="outlined" sx={{ fontWeight: 600, py: 1 }} disabled={isSubmitting}>
+                <Button
+                    type="submit"
+                    variant="outlined"
+                    sx={{ fontWeight: 600, py: 1, marginTop: 8 }}
+                    disabled={isSubmitting}
+                >
                     <LockOutlinedIcon />
                     <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
                         Sign In

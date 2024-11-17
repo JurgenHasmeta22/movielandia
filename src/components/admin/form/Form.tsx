@@ -81,7 +81,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
     } = useForm({
         values: defaultValues,
         resolver: zodResolver(schema),
-        mode: "all",
+        mode: "onChange",
     });
 
     useImperativeHandle(formRef, () => ({
