@@ -31,9 +31,9 @@ const UserAdmin = () => {
 
     const router = useRouter();
     const params = useParams();
+    const { openModal } = useModal();
 
     const formRef = useRef<any>(null);
-    const { openModal } = useModal();
 
     const breadcrumbs = [
         <Link key="2" href={`/admin/users/${Number(params?.id)}`} style={{ textDecoration: "none" }}>
@@ -54,7 +54,8 @@ const UserAdmin = () => {
     };
 
     const handleResetFromParent = () => {
-        formRef.current?.reset();
+        console.log(formRef);
+        formRef.current.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
@@ -76,6 +77,7 @@ const UserAdmin = () => {
 
     async function getUser(): Promise<void> {
         const response: User | null = await getUserById(Number(params.id));
+
         if (response) setUser(response);
     }
 
@@ -83,6 +85,7 @@ const UserAdmin = () => {
         async function fetchData() {
             await getUser();
             setLoading(false);
+            handleResetFromParent();
         }
 
         fetchData();

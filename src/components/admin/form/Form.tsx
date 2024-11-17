@@ -79,18 +79,20 @@ const FormAdvanced: React.FC<IFormProps> = ({
         reset,
         formState: { errors, isDirty },
     } = useForm({
-        defaultValues,
+        values: defaultValues,
         resolver: zodResolver(schema),
-        mode: "onBlur",
+        mode: "all",
     });
 
-    const watchedValues = watch();
-
     useEffect(() => {
-        if (onDataChange) {
-            onDataChange(watchedValues);
-        }
-    }, [watchedValues, onDataChange]);
+        const { unsubscribe } = watch(() => {
+            if (onDataChange) {
+                onDataChange(watch());
+            }
+        });
+
+        return () => unsubscribe();
+    }, [watch]);
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
