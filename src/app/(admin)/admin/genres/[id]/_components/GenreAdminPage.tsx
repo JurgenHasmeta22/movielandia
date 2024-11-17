@@ -80,7 +80,10 @@ const GenreAdminPage = () => {
     async function getGenre(): Promise<void> {
         const response: Genre | null = await getGenreById(Number(params.id), {});
 
-        if (response) setGenre(response);
+        if (response) {
+            setGenre(response);
+            handleResetFromParent();
+        }
     }
 
     useEffect(() => {

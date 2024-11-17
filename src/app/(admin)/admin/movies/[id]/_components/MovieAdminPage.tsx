@@ -35,9 +35,9 @@ const MovieAdminPage = () => {
 
     const router = useRouter();
     const params = useParams();
+    const { openModal } = useModal();
 
     const formRef = useRef<any>(null);
-    const { openModal } = useModal();
 
     const breadcrumbs = [
         <Link key="2" href={`/admin/movies/${params?.id}`} style={{ textDecoration: "none" }}>
@@ -85,15 +85,13 @@ const MovieAdminPage = () => {
     async function getMovie(): Promise<void> {
         const response: Movie | null = await getMovieById(Number(params.id), {});
 
-        if (response) setMovie(response);
+        if (response) {
+            setMovie(response);
+        }
     }
 
     useEffect(() => {
-        async function fetchData() {
-            await getMovie();
-        }
-
-        fetchData();
+        getMovie();
     }, []);
 
     return (
