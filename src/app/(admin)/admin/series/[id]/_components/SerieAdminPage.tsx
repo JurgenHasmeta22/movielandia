@@ -17,17 +17,19 @@ import { updateSerieById, getSerieById, deleteSerieById } from "@/actions/serie.
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { z } from "zod";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 const serieSchema = z.object({
     title: z.string().min(1, { message: "required" }),
     photoSrc: z.string().min(1, { message: "required" }),
-    ratingImdb: z.string().min(1, { message: "required" }),
+    ratingImdb: z.coerce.number().min(1, { message: "required" }),
     dateAired: z.string().min(1, { message: "required" }),
 });
 
 const SerieAdminPage = () => {
     const [serie, setSerie] = useState<Serie | null>(null);
     const [formData, setFormData] = useState<any>({});
+    const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
     const router = useRouter();
@@ -77,20 +79,23 @@ const SerieAdminPage = () => {
     };
 
     async function getSerie(): Promise<void> {
+        setLoading(true);
+
         const response: Serie | null = await getSerieById(Number(params.id), {});
 
         if (response) {
             setSerie(response);
+            setLoading(false);
         }
     }
 
     useEffect(() => {
-        async function fetchData() {
-            await getSerie();
-        }
-
-        fetchData();
+        getSerie();
     }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <Box m="20px">

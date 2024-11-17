@@ -17,14 +17,15 @@ import { useParams, useRouter } from "next/navigation";
 import { deleteMovieById, getMovieById, updateMovieById } from "@/actions/movie.actions";
 import Link from "next/link";
 import { z } from "zod";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 const movieSchema = z.object({
     title: z.string().min(1, { message: "required" }),
     photoSrc: z.string().min(1, { message: "required" }),
     trailerSrc: z.string().min(1, { message: "required" }),
-    duration: z.string().min(1, { message: "required" }),
+    duration: z.coerce.number().min(1, { message: "required" }),
     dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.string().min(1, { message: "required" }),
+    ratingImdb: z.coerce.number().min(1, { message: "required" }),
     description: z.string().min(1, { message: "required" }),
 });
 
@@ -32,6 +33,7 @@ const MovieAdminPage = () => {
     const [movie, setMovie] = useState<Movie | null>(null);
     const [formData, setFormData] = useState<any>({});
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const router = useRouter();
     const params = useParams();
@@ -65,7 +67,7 @@ const MovieAdminPage = () => {
         const payload: Prisma.MovieUpdateInput = {
             title: values.title,
             description: values.description,
-            duration: values.duration,
+            duration: Number(values.duration),
             photoSrc: values.photoSrc,
             trailerSrc: values.trailerSrc,
             ratingImdb: Number(values.ratingImdb),
@@ -83,16 +85,23 @@ const MovieAdminPage = () => {
     };
 
     async function getMovie(): Promise<void> {
+        setLoading(true);
+
         const response: Movie | null = await getMovieById(Number(params.id), {});
 
         if (response) {
             setMovie(response);
+            setLoading(false);
         }
     }
 
     useEffect(() => {
         getMovie();
     }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <Box m="20px">

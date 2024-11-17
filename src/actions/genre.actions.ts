@@ -266,6 +266,20 @@ export async function getGenreById(
     }
 }
 
+export async function getGenreByIdAdmin(genreId: number): Promise<Genre | null> {
+    const genre = await prisma.genre.findFirst({
+        where: {
+            id: genreId,
+        },
+    });
+
+    if (genre) {
+        return genre;
+    } else {
+        return null;
+    }
+}
+
 export async function getGenreByName(
     nameGenre: string,
     {
