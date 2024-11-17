@@ -29,7 +29,6 @@
         "bcrypt": "^5.1.1",
         "date-fns": "^4.1.0",
         "dotenv": "^16.4.5",
-        "formik": "^2.4.6",
         "framer-motion": "^12.0.0-alpha.0",
         "material-react-table": "^3.0.1",
         "next": "^15.0.3",
@@ -38,6 +37,7 @@
         "react": "^19.0.0-rc-45804af1-20241021",
         "react-dom": "^19.0.0-rc-45804af1-20241021",
         "react-email": "3.0.2",
+        "react-hook-form": "^7.53.2",
         "react-infinite-scroll-component": "^6.1.0",
         "react-intersection-observer": "^9.13.1",
         "react-quill-new": "^3.3.3",
@@ -46,7 +46,7 @@
         "resend": "^4.0.0",
         "sharp": "^0.33.5",
         "slick-carousel": "^1.8.1",
-        "yup": "^1.4.0",
+        "zod": "^3.23.8",
         "zustand": "^5.0.1"
     },
     "devDependencies": {
