@@ -25,15 +25,14 @@ const userSchema = z.object({
 
 const UserAdmin = () => {
     const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState<any>({});
     const [open, setOpen] = useState(false);
+
+    const formRef = useRef<any>(null);
 
     const router = useRouter();
     const params = useParams();
     const { openModal } = useModal();
-
-    const formRef = useRef<any>(null);
 
     const breadcrumbs = [
         <Link key="2" href={`/admin/users/${Number(params?.id)}`} style={{ textDecoration: "none" }}>
@@ -54,8 +53,7 @@ const UserAdmin = () => {
     };
 
     const handleResetFromParent = () => {
-        console.log(formRef);
-        formRef.current.reset();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
@@ -84,7 +82,6 @@ const UserAdmin = () => {
     useEffect(() => {
         async function fetchData() {
             await getUser();
-            setLoading(false);
             handleResetFromParent();
         }
 
@@ -150,7 +147,6 @@ const UserAdmin = () => {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
                                             setOpen(false);
-
                                             const response = await deleteUserById(user?.id!);
 
                                             if (response) {

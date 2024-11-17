@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useImperativeHandle } from "react";
 import {
     TextField,
     Select,
@@ -84,6 +84,10 @@ const FormAdvanced: React.FC<IFormProps> = ({
         mode: "all",
     });
 
+    useImperativeHandle(formRef, () => ({
+        reset: () => reset(),
+    }));
+
     useEffect(() => {
         const { unsubscribe } = watch(() => {
             if (onDataChange) {
@@ -98,7 +102,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>
                 <Grid container alignItems={"center"}>
                     <Stack rowGap={4} columnGap={2} flexDirection={"row"} flexWrap={"wrap"}>
