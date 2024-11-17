@@ -1,43 +1,41 @@
 "use client";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-    Box,
-    Button,
-    FormControl,
-    FormHelperText,
-    FormLabel,
-    IconButton,
-    InputAdornment,
-    TextField,
-    Typography,
-} from "@mui/material";
-import { Form, Formik } from "formik";
-import * as yup from "yup";
+import { Box, Button, FormControl, FormLabel, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import PasswordIcon from "@mui/icons-material/Password";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface IChangePassword {
     email: string;
 }
 
-const changePasswordSchema = yup.object().shape({
-    newPassword: yup
-        .string()
-        .required("New password is required")
-        .min(8, "Password must be at least 8 characters")
-        .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-        ),
-    confirmPassword: yup
-        .string()
-        .required("Confirm password is required")
-        .oneOf([yup.ref("newPassword")], "Passwords must match"),
-});
+const registerSchema = z
+    .object({
+        newPassword: z
+            .string()
+            .min(8, { message: "Password must be at least 8 characters" })
+            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+                message:
+                    "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+            })
+            .min(1, { message: "New password is required" }),
+        confirmPassword: z.string().min(1, "Please confirm your password"),
+    })
+    .superRefine((data, ctx) => {
+        if (data.newPassword !== data.confirmPassword) {
+            ctx.addIssue({
+                code: "custom",
+                path: ["confirmPassword"],
+                message: "Passwords must match",
+            });
+        }
+    });
 
 export default function ChangePasswordForm({ email }: IChangePassword) {
     const [showNewPassword, setShowNewPassword] = useState(false);
@@ -48,10 +46,7 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
 
     const router = useRouter();
 
-    async function handleSubmitChangePassword(
-        values: { newPassword: string; confirmPassword: string },
-        setSubmitting: (isSubmitting: boolean) => void,
-    ) {
+    async function handleSubmitChangePassword(values: { newPassword: string; confirmPassword: string }) {
         try {
             const response = await fetch("/api/changePassword", {
                 method: "POST",
@@ -70,156 +65,112 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
             }
         } catch (error) {
             showToast("error", "An error occurred. Please try again later.");
-        } finally {
-            setSubmitting(false);
         }
     }
 
+    const {
+        control,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            newPassword: "",
+            confirmPassword: "",
+        },
+    });
+
     return (
-        <Formik
-            initialValues={{ newPassword: "", confirmPassword: "" }}
-            validationSchema={changePasswordSchema}
-            onSubmit={(values, { setSubmitting }) => {
-                handleSubmitChangePassword(values, setSubmitting);
-            }}
-        >
-            {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
-                <Form onSubmit={handleSubmit}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: 6,
-                            height: "100vh",
-                        }}
-                    >
-                        <Box display={"flex"} flexDirection="row" columnGap={1} sx={{ pb: 4 }}>
-                            <LockOutlinedIcon fontSize="large" />
-                            <Typography variant="h2" textAlign={"center"}>
-                                Change Password
-                            </Typography>
+        <form onSubmit={handleSubmit(handleSubmitChangePassword)}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: 6,
+                    height: "100vh",
+                }}
+            >
+                <Box display={"flex"} flexDirection="row" columnGap={1} sx={{ pb: 4 }}>
+                    <LockOutlinedIcon fontSize="large" />
+                    <Typography variant="h2" textAlign={"center"}>
+                        Change Password
+                    </Typography>
+                </Box>
+                <Box display={"flex"} flexDirection={"row"} columnGap={3}>
+                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                        <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <PasswordIcon />
+                            <FormLabel component={"label"}>New Password</FormLabel>
                         </Box>
-                        <Box display={"flex"} flexDirection={"row"} columnGap={3}>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                    <PasswordIcon />
-                                    <FormLabel component={"label"}>New Password</FormLabel>
-                                </Box>
-                                <FormControl variant="outlined" fullWidth size="small">
-                                    <Box sx={{ minHeight: "100px" }}>
+                        <FormControl variant="outlined" fullWidth size="small">
+                            <Box sx={{ minHeight: "100px" }}>
+                                <Controller
+                                    name="newPassword"
+                                    control={control}
+                                    render={({ field }) => (
                                         <TextField
+                                            {...field}
                                             type={showNewPassword ? "text" : "password"}
-                                            name="newPassword"
-                                            required
-                                            autoComplete="new-password"
-                                            aria-label="New password"
-                                            hiddenLabel={true}
-                                            aria-autocomplete="both"
-                                            value={values.newPassword}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
                                             size="small"
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle new password visibility"
-                                                            onClick={handleClickShowNewPassword}
-                                                            edge="end"
-                                                        >
+                                                        <IconButton onClick={handleClickShowNewPassword}>
                                                             {showNewPassword ? <Visibility /> : <VisibilityOff />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),
                                             }}
-                                            error={touched.newPassword && !!errors.newPassword}
+                                            error={!!errors.newPassword}
+                                            helperText={errors.newPassword?.message}
                                         />
-                                        {touched.newPassword && errors.newPassword && (
-                                            <FormHelperText
-                                                error
-                                                sx={{
-                                                    whiteSpace: "normal",
-                                                    overflowWrap: "break-word",
-                                                    wordWrap: "break-word",
-                                                    maxWidth: "200px",
-                                                }}
-                                            >
-                                                {errors.newPassword}
-                                            </FormHelperText>
-                                        )}
-                                    </Box>
-                                </FormControl>
+                                    )}
+                                />
                             </Box>
-                            <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                    <PasswordIcon />
-                                    <FormLabel component={"label"}>Confirm New Password</FormLabel>
-                                </Box>
-                                <FormControl variant="outlined" fullWidth size="small">
-                                    <Box sx={{ minHeight: "100px" }}>
+                        </FormControl>
+                    </Box>
+                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                        <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <PasswordIcon />
+                            <FormLabel component={"label"}>Confirm New Password</FormLabel>
+                        </Box>
+                        <FormControl variant="outlined" fullWidth size="small">
+                            <Box sx={{ minHeight: "100px" }}>
+                                <Controller
+                                    name="confirmPassword"
+                                    control={control}
+                                    render={({ field }) => (
                                         <TextField
+                                            {...field}
                                             type={showConfirmPassword ? "text" : "password"}
-                                            name="confirmPassword"
-                                            required
-                                            autoComplete="new-password"
-                                            aria-label="Confirm new password"
-                                            hiddenLabel={true}
-                                            aria-autocomplete="both"
-                                            value={values.confirmPassword}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
                                             size="small"
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle confirm password visibility"
-                                                            onClick={handleClickShowConfirmPassword}
-                                                            edge="end"
-                                                        >
+                                                        <IconButton onClick={handleClickShowConfirmPassword}>
                                                             {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),
                                             }}
-                                            error={touched.confirmPassword && !!errors.confirmPassword}
+                                            error={!!errors.confirmPassword}
+                                            helperText={errors.confirmPassword?.message}
                                         />
-                                        {touched.confirmPassword && errors.confirmPassword && (
-                                            <FormHelperText
-                                                error
-                                                sx={{
-                                                    whiteSpace: "normal",
-                                                    overflowWrap: "break-word",
-                                                    wordWrap: "break-word",
-                                                    maxWidth: "200px",
-                                                }}
-                                            >
-                                                {errors.confirmPassword}
-                                            </FormHelperText>
-                                        )}
-                                    </Box>
-                                </FormControl>
+                                    )}
+                                />
                             </Box>
-                        </Box>
-                        <Button
-                            type="submit"
-                            variant="outlined"
-                            sx={{ fontWeight: 600, py: 1 }}
-                            disabled={isSubmitting}
-                        >
-                            <LockOutlinedIcon />
-                            <Typography
-                                component={"span"}
-                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
-                            >
-                                Change Password
-                            </Typography>
-                        </Button>
+                        </FormControl>
                     </Box>
-                </Form>
-            )}
-        </Formik>
+                </Box>
+                <Button type="submit" variant="outlined" sx={{ fontWeight: 600, py: 1 }} disabled={isSubmitting}>
+                    <LockOutlinedIcon />
+                    <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}>
+                        Change Password
+                    </Typography>
+                </Button>
+            </Box>
+        </form>
     );
 }

@@ -2,8 +2,6 @@
 
 import { Box } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
-import { FormikProps } from "formik";
-import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -18,12 +16,13 @@ import { useModal } from "@/providers/ModalProvider";
 import { updateSerieById, getSerieById, deleteSerieById } from "@/actions/serie.actions";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { z } from "zod";
 
-const serieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
-    dateAired: yup.string().required("required"),
+const serieSchema = z.object({
+    title: z.string().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    ratingImdb: z.string().min(1, { message: "required" }),
+    dateAired: z.string().min(1, { message: "required" }),
 });
 
 const SerieAdminPage = () => {
@@ -34,7 +33,7 @@ const SerieAdminPage = () => {
     const router = useRouter();
     const params = useParams();
 
-    const formikRef = useRef<FormikProps<any>>(null);
+    const formRef = useRef<any>(null);
     const { openModal } = useModal();
 
     const breadcrumbs = [
@@ -56,7 +55,7 @@ const SerieAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
@@ -98,7 +97,7 @@ const SerieAdminPage = () => {
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     id: serie?.id,
                     title: serie?.title,
                     photoSrc: serie?.photoSrc,
@@ -142,8 +141,8 @@ const SerieAdminPage = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={serieSchema}
-                formRef={formikRef}
+                schema={serieSchema}
+                formRef={formRef}
                 actions={[
                     {
                         label: CONSTANTS.FORM__DELETE__BUTTON,

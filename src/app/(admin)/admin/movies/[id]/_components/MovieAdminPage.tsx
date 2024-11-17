@@ -2,8 +2,6 @@
 
 import { Box } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
-import { FormikProps } from "formik";
-import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -18,15 +16,16 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
 import { deleteMovieById, getMovieById, updateMovieById } from "@/actions/movie.actions";
 import Link from "next/link";
+import { z } from "zod";
 
-const movieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    trailerSrc: yup.string().required("required"),
-    duration: yup.string().required("required"),
-    dateAired: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
-    description: yup.string().required("required"),
+const movieSchema = z.object({
+    title: z.string().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    trailerSrc: z.string().min(1, { message: "required" }),
+    duration: z.string().min(1, { message: "required" }),
+    dateAired: z.string().min(1, { message: "required" }),
+    ratingImdb: z.string().min(1, { message: "required" }),
+    description: z.string().min(1, { message: "required" }),
 });
 
 const MovieAdminPage = () => {
@@ -37,7 +36,7 @@ const MovieAdminPage = () => {
     const router = useRouter();
     const params = useParams();
 
-    const formikRef = useRef<FormikProps<any>>(null);
+    const formRef = useRef<any>(null);
     const { openModal } = useModal();
 
     const breadcrumbs = [
@@ -59,7 +58,7 @@ const MovieAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
@@ -102,7 +101,7 @@ const MovieAdminPage = () => {
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
             <HeaderDashboard title={CONSTANTS.MOVIE__EDIT__TITLE} subtitle={CONSTANTS.MOVIE__EDIT__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     id: movie?.id,
                     title: movie?.title,
                     trailerSrc: movie?.trailerSrc,
@@ -167,8 +166,8 @@ const MovieAdminPage = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={movieSchema}
-                formRef={formikRef}
+                schema={movieSchema}
+                formRef={formRef}
                 actions={[
                     {
                         label: CONSTANTS.FORM__DELETE__BUTTON,
