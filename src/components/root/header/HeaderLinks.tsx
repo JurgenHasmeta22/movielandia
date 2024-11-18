@@ -71,6 +71,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             style={{
                                 display: "flex",
                                 fontSize: 16,
+                                textTransform: "capitalize",
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,

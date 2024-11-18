@@ -11,19 +11,13 @@ interface IMainLayoutProps {
 
 export default function MainLayout({ children }: Readonly<IMainLayoutProps>) {
     return (
-        <>
-            <Head>
-                <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon/favicon-16x16.png" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/icons/favicon/favicon-180x180.png" />
-            </Head>
-            <Grid container>
-                <Grid size={{ xs: 12 }}>
-                    <Header />
-                    <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                    <ScrollToTop />
-                    <Footer />
-                </Grid>
+        <Grid container>
+            <Grid size={{ xs: 12 }}>
+                <Header />
+                <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                <ScrollToTop />
+                <Footer />
             </Grid>
-        </>
+        </Grid>
     );
 }
