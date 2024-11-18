@@ -3,8 +3,6 @@
 import { Box } from "@mui/material";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import { useState, useEffect, useRef } from "react";
-import { FormikProps } from "formik";
-import * as yup from "yup";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -15,27 +13,31 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreById, updateGenreById } from "@/actions/genre.actions";
+import { deleteGenreById, getGenreByIdAdmin, updateGenreById } from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
+import { z } from "zod";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface IGenreEdit {
     id?: string;
     name: string;
 }
 
-const genreSchema = yup.object().shape({
-    name: yup.string().required("required"),
+const genreSchema = z.object({
+    name: z.string().min(1, { message: "required" }),
 });
 
 const GenreAdminPage = () => {
     const [genre, setGenre] = useState<Genre | null>(null);
     const [formData, setFormData] = useState<any>({});
+    const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
+
+    const formRef = useRef<any>(null);
 
     const router = useRouter();
     const params = useParams();
-    const formikRef = useRef<FormikProps<any>>(null);
     const { openModal } = useModal();
 
     const breadcrumbs = [
@@ -57,7 +59,9 @@ const GenreAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        if (formRef.current) {
+            formRef.current.reset();
+        }
     };
 
     const handleFormSubmit = async (values: IGenreEdit) => {
@@ -76,25 +80,32 @@ const GenreAdminPage = () => {
     };
 
     async function getGenre(): Promise<void> {
-        const response: Genre | null = await getGenreById(Number(params.id), {});
+        setLoading(true);
 
-        if (response) setGenre(response);
+        const response: Genre | null = await getGenreByIdAdmin(Number(params?.id));
+
+        if (response) {
+            setGenre(response);
+            setLoading(false);
+        } else {
+            toast.error("Failed to fetch genre");
+        }
     }
 
     useEffect(() => {
-        async function fetchData() {
-            await getGenre();
-        }
-
-        fetchData();
+        getGenre();
     }, []);
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <Box m="20px">
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     id: genre?.id,
                     name: genre?.name,
                 }}
@@ -117,8 +128,8 @@ const GenreAdminPage = () => {
                     handleDataChange(values);
                 }}
                 onSubmit={handleFormSubmit}
-                validationSchema={genreSchema}
-                formRef={formikRef}
+                schema={genreSchema}
+                formRef={formRef}
                 actions={[
                     {
                         label: CONSTANTS.FORM__DELETE__BUTTON,

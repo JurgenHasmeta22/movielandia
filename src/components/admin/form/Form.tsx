@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState, useImperativeHandle } from "react";
 import {
     TextField,
     Select,
@@ -17,21 +17,20 @@ import {
     FormLabel,
     Typography,
 } from "@mui/material";
-import { Formik, FormikProps, Form } from "formik";
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
-import * as yup from "yup";
 
 interface IFormProps {
-    initialValues: any;
-    validationSchema: yup.ObjectSchema<any>;
-    resetTrigger?: boolean;
+    defaultValues: any;
+    schema: z.ZodSchema<any>;
     fields: FieldConfig[];
-    formRef: React.RefObject<FormikProps<any>>;
     actions?: ActionConfig[];
-    onDataChange?: (values: any) => void;
+    formRef: any;
     onSubmit: (values: any) => void;
-    onFormChange?: (values: any, formikHelpers: any) => void;
+    onDataChange?: (values: any) => void;
 }
 
 type FieldOption = {
@@ -50,8 +49,6 @@ type FieldConfig = {
     error?: boolean | undefined;
     variant?: any;
     sx?: SxProps;
-    onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
-    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined;
 };
 
 type ActionConfig = {
@@ -65,226 +62,233 @@ type ActionConfig = {
 };
 
 const FormAdvanced: React.FC<IFormProps> = ({
-    initialValues,
+    defaultValues,
+    schema,
     onSubmit,
-    validationSchema,
     fields,
-    formRef,
     actions,
+    onDataChange,
+    formRef,
 }) => {
     const [showPassword, setShowPassword] = useState(false);
+
+    const {
+        control,
+        handleSubmit,
+        watch,
+        reset,
+        formState: { errors, isDirty },
+    } = useForm({
+        values: defaultValues,
+        resolver: zodResolver(schema),
+        mode: "onChange",
+    });
+
+    useImperativeHandle(formRef, () => ({
+        reset: () => reset(),
+    }));
+
+    useEffect(() => {
+        const { unsubscribe } = watch(() => {
+            if (onDataChange) {
+                onDataChange(watch());
+            }
+        });
+
+        return () => unsubscribe();
+    }, [watch]);
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
     return (
-        <Formik
-            innerRef={formRef}
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={(values: any) => {
-                onSubmit(values);
-            }}
-            enableReinitialize
-        >
-            {({ values, errors, touched, handleBlur, handleChange, dirty }) => {
-                return (
-                    <Form>
-                        <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>
-                            <Grid container alignItems={"center"}>
-                                <Stack rowGap={4} columnGap={2} flexDirection={"row"} flexWrap={"wrap"}>
-                                    {fields.map((field: FieldConfig, index: number) => {
-                                        switch (field.type) {
-                                            case "select":
-                                                return (
-                                                    <FormControl key={index}>
-                                                        <InputLabel id={`${field.name}-label`}>
-                                                            {field.label}
-                                                        </InputLabel>
-                                                        <Select
-                                                            key={index}
-                                                            name={field.name}
-                                                            labelId={`${field.name}-label`}
-                                                            variant={field.variant}
-                                                            size="small"
-                                                            onBlur={handleBlur}
-                                                            onChange={handleChange}
-                                                            value={values[field.name]}
-                                                            sx={field.sx}
-                                                        >
-                                                            {field.options?.map((option, index: number) => (
-                                                                <MenuItem key={index} value={option.value}>
-                                                                    {option.label}
-                                                                </MenuItem>
-                                                            ))}
-                                                        </Select>
-                                                    </FormControl>
-                                                );
-                                            case "multiselect":
-                                                return (
-                                                    <FormControl key={index}>
-                                                        <InputLabel id={`${field.name}-label`}>
-                                                            {field.label}
-                                                        </InputLabel>
-                                                        <Select
-                                                            key={index}
-                                                            name={field.name}
-                                                            labelId={`${field.name}-label`}
-                                                            variant={field.variant}
-                                                            size="small"
-                                                            onBlur={handleBlur}
-                                                            onChange={handleChange}
-                                                            value={values[field.name]}
-                                                            multiple
-                                                            sx={field.sx}
-                                                        >
-                                                            {field.options?.map((option, index: number) => (
-                                                                <MenuItem key={index} value={option.value}>
-                                                                    {option.label}
-                                                                </MenuItem>
-                                                            ))}
-                                                        </Select>
-                                                    </FormControl>
-                                                );
-                                            case "date":
-                                                return (
-                                                    <TextField
-                                                        key={index}
-                                                        name={field.name}
-                                                        label={field.label}
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container direction="column" rowSpacing={{ xs: 4, md: 6, lg: 8 }}>
+                <Grid container alignItems={"center"}>
+                    <Stack rowGap={4} columnGap={2} flexDirection={"row"} flexWrap={"wrap"}>
+                        {fields.map((field: FieldConfig, index: number) => {
+                            const error = !!errors[field.name];
+                            const helperText = errors[field.name]?.message as string | undefined;
+
+                            switch (field.type) {
+                                case "select":
+                                    return (
+                                        <FormControl key={index} fullWidth>
+                                            <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+                                            <Controller
+                                                name={field.name}
+                                                control={control}
+                                                defaultValue={""}
+                                                render={({ field: controllerField }) => (
+                                                    <Select
+                                                        labelId={`${field.name}-label`}
                                                         variant={field.variant}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        sx={field.sx}
                                                         size="small"
-                                                        value={values[field.name]}
-                                                        type={field.type}
-                                                        // @ts-expect-error helperText
-                                                        helperText={touched[field.name] && errors[field.name]}
-                                                        error={touched[field.name] && !!errors[field.name]}
-                                                        InputLabelProps={
-                                                            field.type === "date" ? { shrink: true } : undefined
-                                                        }
-                                                    />
-                                                );
-                                            case "password":
-                                                return (
-                                                    <Box
-                                                        display={"flex"}
-                                                        flexDirection={"column"}
-                                                        rowGap={1}
-                                                        key={index}
+                                                        {...controllerField}
+                                                        sx={field.sx}
                                                     >
-                                                        <FormLabel>{field.label}</FormLabel>
-                                                        <TextField
-                                                            key={index}
-                                                            name={field.name}
-                                                            variant={field.variant}
-                                                            onBlur={handleBlur}
-                                                            onChange={handleChange}
-                                                            size="small"
-                                                            sx={field.sx}
-                                                            value={values[field.name]}
-                                                            type={showPassword ? "text" : "password"}
-                                                            autoComplete={"on"}
-                                                            // @ts-expect-error helperText
-                                                            helperText={touched[field.name] && errors[field.name]}
-                                                            error={touched[field.name] && !!errors[field.name]}
-                                                            InputProps={{
-                                                                endAdornment: (
-                                                                    <InputAdornment position="end">
-                                                                        <IconButton
-                                                                            aria-label="toggle password visibility"
-                                                                            onClick={handleClickShowPassword}
-                                                                            onMouseDown={handleMouseDownPassword}
-                                                                        >
-                                                                            {showPassword ? (
-                                                                                <Visibility color="primary" />
-                                                                            ) : (
-                                                                                <VisibilityOff color="primary" />
-                                                                            )}
-                                                                        </IconButton>
-                                                                    </InputAdornment>
-                                                                ),
-                                                            }}
-                                                        />
-                                                    </Box>
-                                                );
-                                            default:
-                                                return (
-                                                    <Box
-                                                        display={"flex"}
-                                                        flexDirection={"column"}
-                                                        rowGap={1}
-                                                        key={index}
+                                                        {field.options?.map((option, idx) => (
+                                                            <MenuItem key={idx} value={option.value}>
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                )}
+                                            />
+                                        </FormControl>
+                                    );
+                                case "multiselect":
+                                    return (
+                                        <FormControl key={index} fullWidth>
+                                            <InputLabel id={`${field.name}-label`}>{field.label}</InputLabel>
+                                            <Controller
+                                                name={field.name}
+                                                control={control}
+                                                defaultValue={""}
+                                                render={({ field: controllerField }) => (
+                                                    <Select
+                                                        labelId={`${field.name}-label`}
+                                                        variant={field.variant}
+                                                        size="small"
+                                                        multiple
+                                                        {...controllerField}
+                                                        sx={field.sx}
                                                     >
-                                                        <FormLabel>{field.label}</FormLabel>
-                                                        <TextField
-                                                            key={index}
-                                                            name={field.name}
-                                                            type={field.type}
-                                                            onBlur={handleBlur}
-                                                            onChange={handleChange}
-                                                            value={values[field.name]}
-                                                            variant={field.variant}
-                                                            disabled={field.disabled}
-                                                            sx={{ ...field.sx }}
-                                                            size="small"
-                                                            // @ts-expect-error helperText
-                                                            helperText={touched[field.name] && errors[field.name]}
-                                                            error={touched[field.name] && !!errors[field.name]}
-                                                        />
-                                                    </Box>
-                                                );
-                                        }
-                                    })}
-                                </Stack>
-                            </Grid>
-                            <Grid
-                                container
-                                justifyContent={"end"}
-                                sx={{
-                                    mt: 2,
-                                }}
-                            >
-                                <Stack
-                                    columnGap={2}
-                                    flexDirection={"row"}
-                                    flexWrap={"wrap"}
-                                    sx={{
-                                        mt: "20px",
-                                    }}
-                                >
-                                    {actions!.map((action, index) => (
-                                        <Button
+                                                        {field.options?.map((option, idx) => (
+                                                            <MenuItem key={idx} value={option.value}>
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                )}
+                                            />
+                                        </FormControl>
+                                    );
+                                case "date":
+                                    return (
+                                        <Controller
                                             key={index}
-                                            onClick={action.onClick}
-                                            // @ts-expect-error color
-                                            color={action.color || "primary"}
-                                            variant={action.variant || "text"}
-                                            sx={action.sx}
-                                            type={action.type}
-                                            endIcon={action.icon}
-                                            disabled={
-                                                dirty || action.label === CONSTANTS.FORM__DELETE__BUTTON ? false : true
-                                            }
-                                        >
-                                            <Typography
-                                                fontSize={16}
-                                                fontWeight={500}
-                                                sx={{ textTransform: "capitalize" }}
-                                            >
-                                                {action.label}
-                                            </Typography>
-                                        </Button>
-                                    ))}
-                                </Stack>
-                            </Grid>
-                        </Grid>
-                    </Form>
-                );
-            }}
-        </Formik>
+                                            name={field.name}
+                                            control={control}
+                                            defaultValue={""}
+                                            render={({ field: controllerField }) => (
+                                                <TextField
+                                                    label={field.label}
+                                                    variant={field.variant}
+                                                    {...controllerField}
+                                                    sx={field.sx}
+                                                    size="small"
+                                                    type="date"
+                                                    InputLabelProps={{ shrink: true }}
+                                                    helperText={helperText}
+                                                    error={error}
+                                                />
+                                            )}
+                                        />
+                                    );
+                                case "password":
+                                    return (
+                                        <Box display={"flex"} flexDirection={"column"} rowGap={1} key={index}>
+                                            <FormLabel>{field.label}</FormLabel>
+                                            <Controller
+                                                name={field.name}
+                                                control={control}
+                                                defaultValue={""}
+                                                render={({ field: controllerField }) => (
+                                                    <TextField
+                                                        {...controllerField}
+                                                        variant={field.variant}
+                                                        size="small"
+                                                        sx={field.sx}
+                                                        type={showPassword ? "text" : "password"}
+                                                        autoComplete={"on"}
+                                                        helperText={helperText}
+                                                        error={error}
+                                                        InputProps={{
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    <IconButton
+                                                                        aria-label="toggle password visibility"
+                                                                        onClick={handleClickShowPassword}
+                                                                        onMouseDown={handleMouseDownPassword}
+                                                                    >
+                                                                        {showPassword ? (
+                                                                            <Visibility color="primary" />
+                                                                        ) : (
+                                                                            <VisibilityOff color="primary" />
+                                                                        )}
+                                                                    </IconButton>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
+                                    );
+                                default:
+                                    return (
+                                        <Box display={"flex"} flexDirection={"column"} rowGap={1} key={index}>
+                                            <FormLabel>{field.label}</FormLabel>
+                                            <Controller
+                                                name={field.name}
+                                                control={control}
+                                                defaultValue={""}
+                                                render={({ field: controllerField }) => (
+                                                    <TextField
+                                                        {...controllerField}
+                                                        type={field.type}
+                                                        variant={field.variant}
+                                                        disabled={field.disabled}
+                                                        sx={{ ...field.sx }}
+                                                        size="small"
+                                                        helperText={helperText}
+                                                        error={error}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
+                                    );
+                            }
+                        })}
+                    </Stack>
+                </Grid>
+                <Grid
+                    container
+                    justifyContent={"end"}
+                    sx={{
+                        mt: 2,
+                    }}
+                >
+                    <Stack
+                        columnGap={2}
+                        flexDirection={"row"}
+                        flexWrap={"wrap"}
+                        sx={{
+                            mt: "20px",
+                        }}
+                    >
+                        {actions?.map((action, index) => (
+                            <Button
+                                key={index}
+                                onClick={action.onClick}
+                                // @ts-expect-error color
+                                color={action.color || "primary"}
+                                variant={action.variant || "text"}
+                                sx={action.sx}
+                                type={action.type}
+                                endIcon={action.icon}
+                                disabled={!isDirty && action.label !== CONSTANTS.FORM__DELETE__BUTTON}
+                            >
+                                <Typography fontSize={16} fontWeight={500} sx={{ textTransform: "capitalize" }}>
+                                    {action.label}
+                                </Typography>
+                            </Button>
+                        ))}
+                    </Stack>
+                </Grid>
+            </Grid>
+        </form>
     );
 };
 

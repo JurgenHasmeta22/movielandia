@@ -29,7 +29,7 @@ const SeriesAdminPage = () => {
     );
 
     function handleAddSerie() {
-        router.push("/admin/series/add");
+        router.push("/admin/series/create");
     }
 
     const { table } = TableAdmin({

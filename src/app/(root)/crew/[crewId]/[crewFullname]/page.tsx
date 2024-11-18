@@ -7,9 +7,9 @@ import { Crew } from "@prisma/client";
 import CrewPageContent from "./_components/CrewPageContent";
 
 interface ICrewProps {
-    params: Promise<{
+    params: {
         crewId: string;
-    }>;
+    };
     searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
 }
 

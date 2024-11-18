@@ -1,9 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import * as yup from "yup";
 import { toast } from "react-toastify";
-import { FormikProps } from "formik";
 import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -13,6 +11,7 @@ import { useRouter } from "next/navigation";
 import FormAdvanced from "@/components/admin/form/Form";
 import { addSerie } from "@/actions/serie.actions";
 import { Serie } from "@prisma/client";
+import { z } from "zod";
 
 interface IAddSerie {
     title: string;
@@ -21,19 +20,19 @@ interface IAddSerie {
     ratingImdb: string | number;
 }
 
-const serieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    dateAired: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
+const serieSchema = z.object({
+    title: z.string().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    dateAired: z.string().min(1, { message: "required" }),
+    ratingImdb: z.string().min(1, { message: "required" }),
 });
 
 const AddSerieAdminPage = () => {
-    const formikRef = useRef<FormikProps<any>>(null);
+    const formRef = useRef<any>(null);
     const router = useRouter();
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: IAddSerie) => {
@@ -58,7 +57,7 @@ const AddSerieAdminPage = () => {
         <Box m="20px">
             <HeaderDashboard title={CONSTANTS.SERIE__ADD__TITLE} subtitle={CONSTANTS.SERIE__ADD__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     title: "",
                     photoSrc: "",
                     dateAired: "",
@@ -122,8 +121,8 @@ const AddSerieAdminPage = () => {
                     },
                 ]}
                 onSubmit={handleFormSubmit}
-                validationSchema={serieSchema}
-                formRef={formikRef}
+                schema={serieSchema}
+                formRef={formRef}
             />
         </Box>
     );

@@ -19,14 +19,14 @@ export const SidebarItem = ({ index, item, selectedLabel, handleItemClick }: ISi
                 sx={{
                     color: theme.vars.palette.greyAccent.main,
                     "&.Mui-selected": {
-                        backgroundColor: theme.vars.palette.primary.light,
+                        backgroundColor: theme.vars.palette.secondary.light,
                         color: theme.vars.palette.greyAccent.main,
                         "&:hover": {
-                            backgroundColor: theme.vars.palette.primary.light,
+                            backgroundColor: theme.vars.palette.secondary.light,
                         },
                     },
                     "&:hover": {
-                        backgroundColor: theme.vars.palette.primary.light,
+                        backgroundColor: theme.vars.palette.secondary.light,
                         "& .MuiListItemIcon-root": {
                             color: theme.vars.palette.greyAccent.main,
                         },

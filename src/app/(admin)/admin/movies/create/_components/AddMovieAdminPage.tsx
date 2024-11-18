@@ -1,9 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import * as yup from "yup";
 import { toast } from "react-toastify";
-import { FormikProps } from "formik";
 import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -12,23 +10,24 @@ import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard"
 import FormAdvanced from "@/components/admin/form/Form";
 import { addMovie } from "@/actions/movie.actions";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 
-const movieSchema = yup.object().shape({
-    title: yup.string().required("required"),
-    photoSrc: yup.string().required("required"),
-    trailerSrc: yup.string().required("required"),
-    duration: yup.string().required("required"),
-    dateAired: yup.string().required("required"),
-    ratingImdb: yup.string().required("required"),
-    description: yup.string().required("required"),
+const movieSchema = z.object({
+    title: z.string().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    trailerSrc: z.string().min(1, { message: "required" }),
+    duration: z.string().min(1, { message: "required" }),
+    dateAired: z.string().min(1, { message: "required" }),
+    ratingImdb: z.string().min(1, { message: "required" }),
+    description: z.string().min(1, { message: "required" }),
 });
 
 const AddMovieAdminPage = () => {
     const router = useRouter();
-    const formikRef = useRef<FormikProps<any>>(null);
+    const formRef = useRef<any>(null);
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
@@ -56,7 +55,7 @@ const AddMovieAdminPage = () => {
         <Box m="20px">
             <HeaderDashboard title={CONSTANTS.MOVIE__ADD__TITLE} subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     title: "",
                     photoSrc: "",
                     trailerSrc: "",
@@ -141,8 +140,8 @@ const AddMovieAdminPage = () => {
                     },
                 ]}
                 onSubmit={handleFormSubmit}
-                validationSchema={movieSchema}
-                formRef={formikRef}
+                schema={movieSchema}
+                formRef={formRef}
             />
         </Box>
     );

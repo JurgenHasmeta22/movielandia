@@ -1,31 +1,28 @@
 "use client";
 
 import { Box, Button, FormLabel, TextField, Typography, useTheme } from "@mui/material";
-import { Formik, Form } from "formik";
-import * as yup from "yup";
 import EmailIcon from "@mui/icons-material/Email";
 import { showToast } from "@/utils/helpers/toast";
 import { resetPassword } from "@/actions/auth.actions";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { z } from "zod";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const resetPasswordSchema = yup.object().shape({
-    email: yup.string().required("Email is a required field").email("Invalid email format"),
+const resetPasswordSchema = z.object({
+    email: z.string().email({ message: "Invalid email format" }).min(1, { message: "Email is a required field" }),
 });
 
 export default function ResetPasswordPage() {
     const theme = useTheme();
 
-    async function handleSubmitResetPassword(
-        values: { email: string },
-        setSubmitting: (isSubmitting: boolean) => void,
-    ) {
+    async function handleSubmitResetPassword(values: { email: string }) {
         const userData = {
             email: values.email,
         };
 
         try {
             await resetPassword(userData);
-            setSubmitting(false);
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
@@ -34,6 +31,17 @@ export default function ResetPasswordPage() {
             }
         }
     }
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = useForm({
+        resolver: zodResolver(resetPasswordSchema),
+        defaultValues: {
+            email: "",
+        },
+    });
 
     return (
         <Box
@@ -66,56 +74,47 @@ export default function ResetPasswordPage() {
                         Reset Password
                     </Typography>
                 </Box>
-                <Formik
-                    initialValues={{ email: "" }}
-                    validationSchema={resetPasswordSchema}
-                    onSubmit={(values, { setSubmitting }) => {
-                        handleSubmitResetPassword(values, setSubmitting);
-                    }}
-                >
-                    {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
-                        <Form onSubmit={handleSubmit}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    rowGap: 2,
-                                    width: 300,
-                                    maxWidth: "100%",
-                                }}
-                            >
-                                <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                    <EmailIcon />
-                                    <FormLabel component={"label"}>Email</FormLabel>
-                                </Box>
+                <form onSubmit={handleSubmit(handleSubmitResetPassword)}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            rowGap: 2,
+                            width: 300,
+                            maxWidth: "100%",
+                        }}
+                    >
+                        <Box display={"flex"} flexDirection="row" columnGap={1}>
+                            <EmailIcon />
+                            <FormLabel component={"label"}>Email</FormLabel>
+                        </Box>
+                        <Controller
+                            name="email"
+                            control={control}
+                            render={({ field }) => (
                                 <TextField
-                                    type="text"
-                                    name="email"
-                                    aria-label="Email"
-                                    required
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                    {...field}
+                                    size="small"
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
+                                    placeholder="Enter your email address"
                                     autoComplete="email"
                                     hiddenLabel={true}
                                     aria-autocomplete="both"
-                                    size="small"
-                                    placeholder="Enter your email address"
-                                    helperText={touched["email"] && errors["email"]}
-                                    error={touched["email"] && !!errors["email"]}
+                                    type="text"
                                 />
-                                <Button
-                                    type="submit"
-                                    variant="text"
-                                    sx={{ fontWeight: 700, py: 1, fontSize: 18, textTransform: "capitalize" }}
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? "Sending..." : "Send Reset Link"}
-                                </Button>
-                            </Box>
-                        </Form>
-                    )}
-                </Formik>
+                            )}
+                        />
+                        <Button
+                            type="submit"
+                            variant="text"
+                            sx={{ fontWeight: 700, py: 1, fontSize: 18, textTransform: "capitalize" }}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Sending..." : "Send Reset Link"}
+                        </Button>
+                    </Box>
+                </form>
             </Box>
         </Box>
     );
