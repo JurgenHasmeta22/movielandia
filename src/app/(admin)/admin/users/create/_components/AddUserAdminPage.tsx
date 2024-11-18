@@ -1,9 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import * as yup from "yup";
 import { toast } from "react-toastify";
-import { FormikProps } from "formik";
 import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -13,19 +11,21 @@ import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard"
 import FormAdvanced from "@/components/admin/form/Form";
 import { signUp } from "@/actions/auth.actions";
 import { User } from "@prisma/client";
+import { z } from "zod";
 
-const userSchema = yup.object().shape({
-    userName: yup.string().required("required"),
-    email: yup.string().required("required"),
-    password: yup.string().required("required"),
+const userSchema = z.object({
+    userName: z.string().min(1, { message: "required" }),
+    email: z.string().min(1, { message: "required" }),
+    password: z.string().min(1, { message: "required" }),
 });
 
 const AddUserAdminPage = () => {
     const router = useRouter();
-    const formikRef = useRef<FormikProps<any>>(null);
+
+    const formRef = useRef<any>(null);
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
@@ -47,7 +47,7 @@ const AddUserAdminPage = () => {
         <Box m="20px">
             <HeaderDashboard title={CONSTANTS.USER__ADD__TITLE} subtitle={CONSTANTS.USER__ADD__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     userName: "",
                     email: "",
                     password: "",
@@ -104,8 +104,8 @@ const AddUserAdminPage = () => {
                     },
                 ]}
                 onSubmit={handleFormSubmit}
-                validationSchema={userSchema}
-                formRef={formikRef}
+                schema={userSchema}
+                formRef={formRef}
             />
         </Box>
     );

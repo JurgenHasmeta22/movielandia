@@ -2,10 +2,8 @@
 
 import { Box } from "@mui/material";
 import Header from "@/components/admin/headerDashboard/HeaderDashboard";
-import * as yup from "yup";
 import { toast } from "react-toastify";
 import FormAdvanced from "@/components/admin/form/Form";
-import { FormikProps } from "formik";
 import { useRef } from "react";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
@@ -13,21 +11,22 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { addGenre } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
+import { z } from "zod";
 
 interface IGenreAdd {
     name: string;
 }
 
-const genreSchema = yup.object().shape({
-    name: yup.string().required("required"),
+const genreSchema = z.object({
+    name: z.string().min(1, { message: "required" }),
 });
 
 const AddGenreAdminPage = () => {
     const router = useRouter();
-    const formikRef = useRef<FormikProps<any>>(null);
+    const formRef = useRef<any>(null);
 
     const handleResetFromParent = () => {
-        formikRef.current?.resetForm();
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: IGenreAdd) => {
@@ -49,7 +48,7 @@ const AddGenreAdminPage = () => {
         <Box m="20px">
             <Header title={CONSTANTS.GENRE__ADD__TITLE} subtitle={CONSTANTS.GENRE__ADD__SUBTITLE} />
             <FormAdvanced
-                initialValues={{
+                defaultValues={{
                     name: "",
                 }}
                 fields={[
@@ -92,8 +91,8 @@ const AddGenreAdminPage = () => {
                     },
                 ]}
                 onSubmit={handleFormSubmit}
-                validationSchema={genreSchema}
-                formRef={formikRef}
+                schema={genreSchema}
+                formRef={formRef}
             />
         </Box>
     );
