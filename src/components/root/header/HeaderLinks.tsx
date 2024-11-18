@@ -83,14 +83,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             }}
                         >
                             <MovieIcon fontSize={"large"} />
-                            <Typography
-                                component={"span"}
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Movies
-                            </Typography>
+                            Movies
                         </Button>
                     </ListItem>
                     <ListItem>
@@ -101,6 +94,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             style={{
                                 display: "flex",
                                 fontSize: 16,
+                                textTransform: "capitalize",
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -113,14 +107,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             }}
                         >
                             <LocalMoviesIcon fontSize={"large"} />
-                            <Typography
-                                component={"span"}
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Series
-                            </Typography>
+                            Series
                         </Button>
                     </ListItem>
                     <ListItem onMouseEnter={openMenuGenres} onMouseLeave={closeMenuGenres} sx={{ cursor: "pointer" }}>
@@ -131,6 +118,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             style={{
                                 display: "flex",
                                 fontSize: 16,
+                                textTransform: "capitalize",
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -143,14 +131,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             }}
                         >
                             <SubtitlesIcon fontSize={"large"} />
-                            <Typography
-                                component={"span"}
-                                sx={{
-                                    textTransform: "capitalize",
-                                }}
-                            >
-                                Genres
-                            </Typography>
+                            Genres
                         </Button>
                         <Menu
                             anchorEl={anchorElGenres}
