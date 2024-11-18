@@ -84,7 +84,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             <Typography
                                 component={"span"}
                                 sx={{
-                                    fontSize: "16px",
+                                    fontSize: "18px",
+                                    fontWeight: 700,
                                     textTransform: "capitalize",
                                 }}
                             >
@@ -114,7 +115,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             <Typography
                                 component={"span"}
                                 sx={{
-                                    fontSize: "16px",
+                                    fontSize: "18px",
+                                    fontWeight: 700,
                                     textTransform: "capitalize",
                                 }}
                             >
@@ -144,7 +146,8 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             <Typography
                                 component={"span"}
                                 sx={{
-                                    fontSize: "16px",
+                                    fontSize: "18px",
+                                    fontWeight: 700,
                                     textTransform: "capitalize",
                                 }}
                             >
