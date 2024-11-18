@@ -107,7 +107,7 @@ export default function LoginForm() {
                         Sign Up
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 4 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 3 }}>
                     <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <PersonIcon />
@@ -125,7 +125,6 @@ export default function LoginForm() {
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             position: "absolute",
-                                            bottom: "-24px",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
@@ -153,7 +152,6 @@ export default function LoginForm() {
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             position: "absolute",
-                                            bottom: "-24px",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
@@ -196,7 +194,6 @@ export default function LoginForm() {
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             position: "absolute",
-                                            bottom: "-24px",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
@@ -239,7 +236,6 @@ export default function LoginForm() {
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             position: "absolute",
-                                            bottom: "-24px",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,

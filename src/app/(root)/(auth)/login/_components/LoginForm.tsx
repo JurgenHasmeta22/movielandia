@@ -55,6 +55,7 @@ const ErrorMessage = ({ message }: { message: string }) => (
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
+
     const router = useRouter();
 
     const {
@@ -104,7 +105,7 @@ export default function LoginForm() {
                             Sign In
                         </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 3 }}>
                         <Box display={"flex"} flexDirection={"column"} rowGap={1}>
                             <Box display={"flex"} flexDirection="row" columnGap={1}>
                                 <EmailIcon />
@@ -122,6 +123,16 @@ export default function LoginForm() {
                                             size="small"
                                             fullWidth
                                             error={!!errors.email}
+                                            helperText={errors.email?.message}
+                                            sx={{
+                                                "& .MuiFormHelperText-root": {
+                                                    position: "absolute",
+                                                    maxWidth: "100%",
+                                                    whiteSpace: "normal",
+                                                    marginLeft: 0,
+                                                    marginRight: 0,
+                                                },
+                                            }}
                                         />
                                     )}
                                 />
@@ -145,6 +156,7 @@ export default function LoginForm() {
                                             size="small"
                                             fullWidth
                                             error={!!errors.password}
+                                            helperText={errors.password?.message}
                                             slotProps={{
                                                 input: {
                                                     endAdornment: (
@@ -158,6 +170,15 @@ export default function LoginForm() {
                                                             </IconButton>
                                                         </InputAdornment>
                                                     ),
+                                                },
+                                            }}
+                                            sx={{
+                                                "& .MuiFormHelperText-root": {
+                                                    position: "absolute",
+                                                    maxWidth: "100%",
+                                                    whiteSpace: "normal",
+                                                    marginLeft: 0,
+                                                    marginRight: 0,
                                                 },
                                             }}
                                         />
