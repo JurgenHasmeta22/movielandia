@@ -105,13 +105,13 @@ export default function LoginForm() {
                             Sign In
                         </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 3 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
                         <Box display={"flex"} flexDirection={"column"} rowGap={1}>
                             <Box display={"flex"} flexDirection="row" columnGap={1}>
                                 <EmailIcon />
                                 <FormLabel component={"label"}>Email</FormLabel>
                             </Box>
-                            <FormControl error={!!errors.email}>
+                            <FormControl>
                                 <Controller
                                     name="email"
                                     control={control}
@@ -143,7 +143,7 @@ export default function LoginForm() {
                                 <PasswordIcon />
                                 <FormLabel component={"label"}>Password</FormLabel>
                             </Box>
-                            <FormControl error={!!errors.password}>
+                            <FormControl>
                                 <Controller
                                     name="password"
                                     control={control}
@@ -186,33 +186,35 @@ export default function LoginForm() {
                             </FormControl>
                         </Box>
                     </Box>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        sx={{ fontWeight: 600, py: 1, marginTop: 4 }}
-                        disabled={isSubmitting}
-                    >
-                        <LockOutlinedIcon />
-                        <Typography
-                            component={"span"}
-                            sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                    <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1, px: 4 }}
+                            disabled={isSubmitting}
                         >
-                            Sign In
-                        </Typography>
-                    </Button>
-                    <Button
-                        onClick={() => signIn("google", { callbackUrl: "/" })}
-                        variant="outlined"
-                        sx={{ fontWeight: 600, py: 1 }}
-                    >
-                        <GoogleIcon />
-                        <Typography
-                            component={"span"}
-                            sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            <LockOutlinedIcon />
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            >
+                                Sign In
+                            </Typography>
+                        </Button>
+                        <Button
+                            onClick={() => signIn("google", { callbackUrl: "/" })}
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1 }}
                         >
-                            Continue with Google
-                        </Typography>
-                    </Button>
+                            <GoogleIcon />
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            >
+                                Continue with Google
+                            </Typography>
+                        </Button>
+                    </Box>
                     <Box>
                         <MuiLink
                             component={Link}

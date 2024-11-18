@@ -243,7 +243,7 @@ export default function LoginForm() {
                         />
                     </FormControl>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
+                <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
                     <Button
                         type="submit"
                         variant="outlined"
