@@ -114,17 +114,28 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                             {...field}
                                             type={showNewPassword ? "text" : "password"}
                                             size="small"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowNewPassword}>
-                                                            {showNewPassword ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
+                                            slotProps={{
+                                                input: {
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton onClick={handleClickShowNewPassword}>
+                                                                {showNewPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                },
                                             }}
                                             error={!!errors.newPassword}
                                             helperText={errors.newPassword?.message}
+                                            sx={{
+                                                "& .MuiFormHelperText-root": {
+                                                    position: "absolute",
+                                                    maxWidth: "100%",
+                                                    whiteSpace: "normal",
+                                                    marginLeft: 0,
+                                                    marginRight: 0,
+                                                },
+                                            }}
                                         />
                                     )}
                                 />
@@ -146,17 +157,32 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                             {...field}
                                             type={showConfirmPassword ? "text" : "password"}
                                             size="small"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowConfirmPassword}>
-                                                            {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
+                                            slotProps={{
+                                                input: {
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton onClick={handleClickShowConfirmPassword}>
+                                                                {showConfirmPassword ? (
+                                                                    <Visibility />
+                                                                ) : (
+                                                                    <VisibilityOff />
+                                                                )}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                },
                                             }}
                                             error={!!errors.confirmPassword}
                                             helperText={errors.confirmPassword?.message}
+                                            sx={{
+                                                "& .MuiFormHelperText-root": {
+                                                    position: "absolute",
+                                                    maxWidth: "100%",
+                                                    whiteSpace: "normal",
+                                                    marginLeft: 0,
+                                                    marginRight: 0,
+                                                },
+                                            }}
                                         />
                                     )}
                                 />
