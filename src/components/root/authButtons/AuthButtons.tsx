@@ -103,8 +103,6 @@ const AuthButtons = ({
                         <Typography
                             sx={{
                                 textTransform: "capitalize",
-                                fontSize: "18px",
-                                fontWeight: 700,
                             }}
                         >
                             Sign In
@@ -137,8 +135,6 @@ const AuthButtons = ({
                         <Typography
                             sx={{
                                 textTransform: "capitalize",
-                                fontSize: "18px",
-                                fontWeight: 700,
                             }}
                         >
                             Sign Up
