@@ -7,14 +7,13 @@ import { Serie } from "@prisma/client";
 import SeriePageContent from "./_components/SeriePageContent";
 
 interface ISerieProps {
-    params: Promise<{
+    params: {
         serieId: string;
-    }>;
+    };
     searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
 }
 
-export async function generateMetadata(props: ISerieProps): Promise<Metadata> {
-    const params = await props.params;
+export async function generateMetadata({ params }: ISerieProps): Promise<Metadata> {
     const { serieId } = params;
 
     let serie: Serie;
@@ -72,12 +71,12 @@ export async function generateMetadata(props: ISerieProps): Promise<Metadata> {
 }
 
 export default async function SeriePage(props: ISerieProps) {
-    const params = await props.params;
-    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
+    const params = props.params;
     const serieId = params.serieId;
 
+    const searchParams = await props.searchParams;
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";

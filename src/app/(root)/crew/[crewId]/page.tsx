@@ -64,5 +64,6 @@ export async function generateMetadata(props: { params: Promise<{ crewId: string
 
 export default async function Page(props: { params: Promise<{ crewId: string }> }) {
     const params = await props.params;
+
     return <CrewPage params={params} />;
 }

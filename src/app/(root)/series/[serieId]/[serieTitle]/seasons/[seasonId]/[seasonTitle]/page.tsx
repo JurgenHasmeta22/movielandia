@@ -7,15 +7,15 @@ import { Season } from "@prisma/client";
 import SeasonPageConent from "./_components/SeasonPageContent";
 
 interface ISeasonProps {
-    params: Promise<{
+    params: {
         seasonId: string;
         serieId: string;
-    }>;
+    };
     searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
 }
 
 export async function generateMetadata(props: ISeasonProps): Promise<Metadata> {
-    const params = await props.params;
+    const params = props.params;
     const { seasonId } = params;
 
     let season: Season;
@@ -73,12 +73,12 @@ export async function generateMetadata(props: ISeasonProps): Promise<Metadata> {
 }
 
 export default async function SeasonPage(props: ISeasonProps) {
-    const params = await props.params;
-    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
+    const params = props.params;
     const { seasonId, serieId } = params;
 
+    const searchParams = await props.searchParams;
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
@@ -99,7 +99,6 @@ export default async function SeasonPage(props: ISeasonProps) {
 
     const latestSeasons = await getLatestSeasons(Number(serieId));
     const relatedSeasons = await getRelatedSeasons(Number(seasonId), Number(serieId));
-
     const pageCountReviews = Math.ceil(season.totalReviews / 5);
 
     return (
