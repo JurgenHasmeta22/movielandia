@@ -186,7 +186,15 @@ export default function LoginForm() {
                             </FormControl>
                         </Box>
                     </Box>
-                    <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: 2,
+                            flexDirection: "column",
+                            rowGap: 1,
+                        }}
+                    >
                         <Button
                             type="submit"
                             variant="outlined"
