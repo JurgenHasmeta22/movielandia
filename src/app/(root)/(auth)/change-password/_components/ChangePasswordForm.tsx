@@ -129,7 +129,6 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                             helperText={errors.newPassword?.message}
                                             sx={{
                                                 "& .MuiFormHelperText-root": {
-                                                    position: "absolute",
                                                     maxWidth: "100%",
                                                     whiteSpace: "normal",
                                                     marginLeft: 0,
@@ -176,7 +175,6 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                             helperText={errors.confirmPassword?.message}
                                             sx={{
                                                 "& .MuiFormHelperText-root": {
-                                                    position: "absolute",
                                                     maxWidth: "100%",
                                                     whiteSpace: "normal",
                                                     marginLeft: 0,

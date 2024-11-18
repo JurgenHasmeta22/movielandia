@@ -126,7 +126,6 @@ export default function LoginForm() {
                                             helperText={errors.email?.message}
                                             sx={{
                                                 "& .MuiFormHelperText-root": {
-                                                    position: "absolute",
                                                     maxWidth: "100%",
                                                     whiteSpace: "normal",
                                                     marginLeft: 0,
@@ -174,7 +173,6 @@ export default function LoginForm() {
                                             }}
                                             sx={{
                                                 "& .MuiFormHelperText-root": {
-                                                    position: "absolute",
                                                     maxWidth: "100%",
                                                     whiteSpace: "normal",
                                                     marginLeft: 0,
