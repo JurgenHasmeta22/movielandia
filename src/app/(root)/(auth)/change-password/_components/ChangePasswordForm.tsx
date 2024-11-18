@@ -129,10 +129,10 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                             helperText={errors.newPassword?.message}
                                             sx={{
                                                 "& .MuiFormHelperText-root": {
-                                                    maxWidth: "100%",
                                                     whiteSpace: "normal",
-                                                    marginLeft: 0,
-                                                    marginRight: 0,
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
                                                 },
                                             }}
                                         />
@@ -175,10 +175,10 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
                                             helperText={errors.confirmPassword?.message}
                                             sx={{
                                                 "& .MuiFormHelperText-root": {
-                                                    maxWidth: "100%",
                                                     whiteSpace: "normal",
-                                                    marginLeft: 0,
-                                                    marginRight: 0,
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
                                                 },
                                             }}
                                         />

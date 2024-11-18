@@ -124,10 +124,10 @@ export default function LoginForm() {
                                     helperText={errors.userName?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            maxWidth: "100%",
                                             whiteSpace: "normal",
-                                            marginLeft: 0,
-                                            marginRight: 0,
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
                                         },
                                     }}
                                 />
@@ -150,10 +150,10 @@ export default function LoginForm() {
                                     helperText={errors.email?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            maxWidth: "100%",
                                             whiteSpace: "normal",
-                                            marginLeft: 0,
-                                            marginRight: 0,
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
                                         },
                                     }}
                                 />
@@ -191,10 +191,10 @@ export default function LoginForm() {
                                     helperText={errors.password?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            maxWidth: "100%",
                                             whiteSpace: "normal",
-                                            marginLeft: 0,
-                                            marginRight: 0,
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
                                         },
                                     }}
                                 />
@@ -232,10 +232,10 @@ export default function LoginForm() {
                                     helperText={errors.confirmPassword?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            maxWidth: "100%",
                                             whiteSpace: "normal",
-                                            marginLeft: 0,
-                                            marginRight: 0,
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
                                         },
                                     }}
                                 />
