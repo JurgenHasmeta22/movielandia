@@ -11,6 +11,8 @@ import {
     TextField,
     Typography,
     Link as MuiLink,
+    useTheme,
+    useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
@@ -38,24 +40,28 @@ const loginSchema = z.object({
 });
 
 const ErrorMessage = ({ message }: { message: string }) => (
-    <Typography
-        component="span"
+    <Box
         sx={{
+            position: "absolute",
             color: "error.main",
             fontSize: "0.75rem",
             mt: 0.5,
-            display: "block",
-            wordWrap: "break-word",
             maxWidth: "100%",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "pre-wrap",
+            minHeight: "1.5em",
         }}
     >
         {message}
-    </Typography>
+    </Box>
 );
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     const {
         control,
@@ -88,29 +94,39 @@ export default function LoginForm() {
     }
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto" }}>
+        <Box
+            sx={{
+                width: "100%",
+                maxWidth: { xs: "90%", sm: "400px" },
+                margin: "0 auto",
+                p: { xs: 2, sm: 3 },
+                borderRadius: 2,
+                bgcolor: "background.paper",
+                boxShadow: { xs: 0, sm: 1 },
+            }}
+        >
             <form onSubmit={handleSubmit(handleSubmitLogin)}>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                     <Box
-                        display={"flex"}
+                        display="flex"
                         flexDirection="row"
-                        columnGap={1}
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        sx={{ pb: 4 }}
+                        gap={1}
+                        alignItems="center"
+                        justifyContent="center"
+                        sx={{ mb: 4 }}
                     >
-                        <LockOutlinedIcon fontSize="large" />
-                        <Typography variant="h2" textAlign={"center"}>
+                        <LockOutlinedIcon fontSize="large" color="primary" />
+                        <Typography variant={isMobile ? "h5" : "h4"} textAlign="center" color="primary">
                             Sign In
                         </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <EmailIcon />
-                                <FormLabel component={"label"}>Email</FormLabel>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                        <Box sx={{ position: "relative", pb: errors.email ? 3 : 0 }}>
+                            <Box display="flex" flexDirection="row" gap={1} mb={1}>
+                                <EmailIcon color="action" />
+                                <FormLabel sx={{ color: "text.primary" }}>Email</FormLabel>
                             </Box>
-                            <FormControl error={!!errors.email}>
+                            <FormControl error={!!errors.email} fullWidth>
                                 <Controller
                                     name="email"
                                     control={control}
@@ -122,18 +138,23 @@ export default function LoginForm() {
                                             size="small"
                                             fullWidth
                                             error={!!errors.email}
+                                            sx={{
+                                                "& .MuiOutlinedInput-root": {
+                                                    backgroundColor: "background.paper",
+                                                },
+                                            }}
                                         />
                                     )}
                                 />
                                 {errors.email && <ErrorMessage message={errors.email.message as string} />}
                             </FormControl>
                         </Box>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel component={"label"}>Password</FormLabel>
+                        <Box sx={{ position: "relative", pb: errors.password ? 3 : 0 }}>
+                            <Box display="flex" flexDirection="row" gap={1} mb={1}>
+                                <PasswordIcon color="action" />
+                                <FormLabel sx={{ color: "text.primary" }}>Password</FormLabel>
                             </Box>
-                            <FormControl error={!!errors.password}>
+                            <FormControl error={!!errors.password} fullWidth>
                                 <Controller
                                     name="password"
                                     control={control}
@@ -152,11 +173,17 @@ export default function LoginForm() {
                                                             onClick={handleClickShowPassword}
                                                             onMouseDown={handleMouseDownPassword}
                                                             edge="end"
+                                                            size="small"
                                                         >
                                                             {showPassword ? <Visibility /> : <VisibilityOff />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),
+                                            }}
+                                            sx={{
+                                                "& .MuiOutlinedInput-root": {
+                                                    backgroundColor: "background.paper",
+                                                },
                                             }}
                                         />
                                     )}
@@ -165,49 +192,79 @@ export default function LoginForm() {
                             </FormControl>
                         </Box>
                     </Box>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        sx={{ fontWeight: 600, py: 1, marginTop: 8 }}
-                        disabled={isSubmitting}
-                    >
-                        <LockOutlinedIcon />
-                        <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4 }}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={isSubmitting}
+                            sx={{
+                                py: 1.5,
+                                textTransform: "none",
+                                fontWeight: 600,
+                            }}
+                        >
+                            <LockOutlinedIcon sx={{ mr: 1 }} />
                             Sign In
-                        </Typography>
-                    </Button>
-                    <Button
-                        onClick={() => signIn("google", { callbackUrl: "/" })}
-                        variant="outlined"
-                        sx={{ fontWeight: 600, py: 1 }}
-                    >
-                        <GoogleIcon />
-                        <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
+                        </Button>
+
+                        <Button
+                            onClick={() => signIn("google", { callbackUrl: "/" })}
+                            variant="outlined"
+                            sx={{
+                                py: 1.5,
+                                textTransform: "none",
+                                fontWeight: 600,
+                            }}
+                        >
+                            <GoogleIcon sx={{ mr: 1 }} />
                             Continue with Google
-                        </Typography>
-                    </Button>
-                    <Box>
+                        </Button>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: { xs: "column", sm: "row" },
+                            justifyContent: "space-between",
+                            alignItems: { xs: "flex-start", sm: "center" },
+                            gap: 1,
+                            mt: 2,
+                        }}
+                    >
                         <MuiLink
                             component={Link}
                             href="/reset-password"
-                            underline="none"
-                            sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
+                            underline="hover"
+                            sx={{
+                                fontSize: "0.875rem",
+                                color: "primary.main",
+                            }}
                         >
                             Forgot Password?
                         </MuiLink>
-                    </Box>
-                    <Box>
-                        <Typography component={"span"} sx={{ fontSize: 14, pl: 4 }}>
-                            Don&apos;t have an account?
-                        </Typography>
-                        <MuiLink
-                            component={Link}
-                            href="/register"
-                            underline="none"
-                            sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4 }}
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                gap: 1,
+                                alignItems: "center",
+                            }}
                         >
-                            Sign Up
-                        </MuiLink>
+                            <Typography variant="body2" color="text.secondary">
+                                Don&apos;t have an account?
+                            </Typography>
+                            <MuiLink
+                                component={Link}
+                                href="/register"
+                                underline="hover"
+                                sx={{
+                                    fontSize: "0.875rem",
+                                    color: "primary.main",
+                                    fontWeight: 500,
+                                }}
+                            >
+                                Sign Up
+                            </MuiLink>
+                        </Box>
                     </Box>
                 </Box>
             </form>
