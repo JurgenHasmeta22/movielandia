@@ -9,6 +9,7 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import Image from "next/image";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -41,20 +42,13 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                     component={MuiNextLink}
                     href={"/"}
                     prefetch={false}
-                    style={{
-                        fontSize: "18px",
-                        fontWeight: 900,
-                        textTransform: "capitalize",
-                        letterSpacing: 1,
-                        color: theme.vars.palette.primary.main,
-                    }}
                     onClick={() => {
                         if (isDrawerOpen) {
                             setIsDrawerOpen(false);
                         }
                     }}
                 >
-                    MovieLandia24
+                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={70} width={280} />
                 </Button>
             </Box>
             <Box>
