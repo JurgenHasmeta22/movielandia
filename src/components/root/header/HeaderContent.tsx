@@ -25,6 +25,7 @@ interface IHeaderContentProps {
 export function HeaderContent({ session, genres, userName }: IHeaderContentProps) {
     const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
+
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const router = useRouter();
@@ -48,6 +49,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
 
     const handleSignOut = async () => {
         closeMenuProfile();
+
         await signOut({ redirect: false });
 
         if (isDrawerOpen) {
@@ -105,7 +107,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         flexDirection={"row"}
                         alignItems={"center"}
                         justifyContent={"space-around"}
-                        columnGap={2}
+                        columnGap={1}
                         flexWrap={"wrap"}
                         sx={{
                             display: {
