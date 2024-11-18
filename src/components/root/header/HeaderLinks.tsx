@@ -20,6 +20,7 @@ interface IHeaderLinksProps {
 
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinksProps) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
+
     const theme = useTheme();
 
     return (
@@ -48,7 +49,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         }
                     }}
                 >
-                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={80} width={200} />
+                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={70} width={200} />
                 </Button>
             </Box>
             <Box>
@@ -69,6 +70,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             prefetch={false}
                             style={{
                                 display: "flex",
+                                fontSize: 16,
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -84,8 +86,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             <Typography
                                 component={"span"}
                                 sx={{
-                                    fontSize: "18px",
-                                    fontWeight: 700,
                                     textTransform: "capitalize",
                                 }}
                             >
@@ -100,6 +100,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             prefetch={false}
                             style={{
                                 display: "flex",
+                                fontSize: 16,
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -115,8 +116,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             <Typography
                                 component={"span"}
                                 sx={{
-                                    fontSize: "18px",
-                                    fontWeight: 700,
                                     textTransform: "capitalize",
                                 }}
                             >
@@ -131,6 +130,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             prefetch={false}
                             style={{
                                 display: "flex",
+                                fontSize: 16,
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -146,8 +146,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             <Typography
                                 component={"span"}
                                 sx={{
-                                    fontSize: "18px",
-                                    fontWeight: 700,
                                     textTransform: "capitalize",
                                 }}
                             >
