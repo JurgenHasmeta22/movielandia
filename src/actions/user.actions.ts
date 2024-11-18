@@ -176,6 +176,16 @@ export async function getUsersWithFilters({
     }
 }
 
+export async function getUsers(): Promise<any | null> {
+    const users = await prisma.user.findMany();
+
+    if (users) {
+        return users;
+    } else {
+        return null;
+    }
+}
+
 export async function getUserById(userId: number, userLoggedInId?: number): Promise<User | null> {
     const user = await prisma.user.findUnique({
         where: { id: userId },
