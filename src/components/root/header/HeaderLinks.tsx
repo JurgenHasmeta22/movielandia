@@ -68,8 +68,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             href="/movies"
                             prefetch={false}
                             style={{
-                                fontSize: "16px",
-                                textTransform: "capitalize",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
@@ -83,7 +81,15 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             }}
                         >
                             <MovieIcon fontSize={"large"} />
-                            Movies
+                            <Typography
+                                component={"span"}
+                                sx={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Movies
+                            </Typography>
                         </Button>
                     </ListItem>
                     <ListItem>
@@ -92,8 +98,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             href="/series"
                             prefetch={false}
                             style={{
-                                fontSize: "16px",
-                                textTransform: "capitalize",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
@@ -107,7 +111,15 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             }}
                         >
                             <LocalMoviesIcon fontSize={"large"} />
-                            Series
+                            <Typography
+                                component={"span"}
+                                sx={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Series
+                            </Typography>
                         </Button>
                     </ListItem>
                     <ListItem onMouseEnter={openMenuGenres} onMouseLeave={closeMenuGenres} sx={{ cursor: "pointer" }}>
@@ -116,8 +128,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             href="/genres"
                             prefetch={false}
                             style={{
-                                fontSize: "16px",
-                                textTransform: "capitalize",
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
@@ -131,7 +141,15 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             }}
                         >
                             <SubtitlesIcon fontSize={"large"} />
-                            Genres
+                            <Typography
+                                component={"span"}
+                                sx={{
+                                    fontSize: "16px",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                Genres
+                            </Typography>
                         </Button>
                         <Menu
                             anchorEl={anchorElGenres}
