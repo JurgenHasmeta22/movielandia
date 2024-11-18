@@ -9,10 +9,10 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface IGenreProps {
-    params: Promise<{
+    params: {
         genreId: string;
         genreName: string;
-    }>;
+    };
     searchParams?: Promise<{
         moviesAscOrDesc?: string;
         pageMovies?: string;
@@ -71,17 +71,17 @@ export async function generateMetadata(props: IGenreProps): Promise<Metadata> {
 }
 
 export default async function GenrePage(props: IGenreProps): Promise<React.JSX.Element> {
-    const params = await props.params;
-    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
+    const params = props.params;
     const genreId = params.genreId;
+
+    const searchParams = await props.searchParams;
 
     // #region "Movies data"
     const pageMovies = Number(searchParams && searchParams.pageMovies) || 1;
     const moviesSortBy = searchParams && searchParams.moviesSortBy;
     const moviesAscOrDesc = searchParams && searchParams.moviesAscOrDesc;
-
     const queryParamsMovies: IQueryParams = { page: pageMovies, type: "movie" };
 
     if (moviesSortBy) {
@@ -101,7 +101,6 @@ export default async function GenrePage(props: IGenreProps): Promise<React.JSX.E
     }
 
     const genre: Genre = moviesByGenreData.genre;
-
     const moviesByGenre: Movie[] = moviesByGenreData.movies;
     const moviesByGenreCount: number = moviesByGenreData.count;
     const pageCountMovies = Math.ceil(moviesByGenreCount / 10);
@@ -111,7 +110,6 @@ export default async function GenrePage(props: IGenreProps): Promise<React.JSX.E
     const pageSeries = Number(searchParams && searchParams.pageSeries) || 1;
     const seriesSortBy = searchParams && searchParams.seriesSortBy;
     const seriesAscOrDesc = searchParams && searchParams.seriesAscOrDesc;
-
     const queryParamsSeries: IQueryParams = { page: pageSeries, type: "serie" };
 
     if (seriesSortBy) {

@@ -7,9 +7,9 @@ import { Movie } from "@prisma/client";
 import MoviePageContent from "./_components/MoviePageContent";
 
 interface IMoviePageProps {
-    params: Promise<{
+    params: {
         movieId: string;
-    }>;
+    };
     searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
 }
 
@@ -72,16 +72,15 @@ export async function generateMetadata(props: IMoviePageProps): Promise<Metadata
 }
 
 export default async function MoviePage(props: IMoviePageProps) {
-    const params = await props.params;
-    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
+    const params = props.params;
     const movieId = params.movieId;
 
+    const searchParams = await props.searchParams;
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
-
     const searchParamsValues = {
         ascOrDesc,
         page,

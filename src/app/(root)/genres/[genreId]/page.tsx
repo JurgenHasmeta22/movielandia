@@ -46,5 +46,6 @@ export async function generateMetadata(props: {
 
 export default async function Page(props: { params: Promise<{ genreId: string; genreName: string }> }) {
     const params = await props.params;
+
     return <GenrePage params={params} />;
 }

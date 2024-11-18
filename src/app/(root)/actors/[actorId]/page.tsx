@@ -64,5 +64,6 @@ export async function generateMetadata(props: { params: Promise<{ actorId: strin
 
 export default async function Page(props: { params: Promise<{ actorId: string }> }) {
     const params = await props.params;
+
     return <ActorPage params={params} />;
 }
