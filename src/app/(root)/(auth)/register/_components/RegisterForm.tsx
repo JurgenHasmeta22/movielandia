@@ -107,7 +107,7 @@ export default function LoginForm() {
                         Sign Up
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 4 }}>
                     <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <PersonIcon />
@@ -122,6 +122,16 @@ export default function LoginForm() {
                                     size="small"
                                     error={!!errors.userName}
                                     helperText={errors.userName?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            position: "absolute",
+                                            bottom: "-24px",
+                                            maxWidth: "100%",
+                                            whiteSpace: "normal",
+                                            marginLeft: 0,
+                                            marginRight: 0,
+                                        },
+                                    }}
                                 />
                             )}
                         />
@@ -140,6 +150,16 @@ export default function LoginForm() {
                                     size="small"
                                     error={!!errors.email}
                                     helperText={errors.email?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            position: "absolute",
+                                            bottom: "-24px",
+                                            maxWidth: "100%",
+                                            whiteSpace: "normal",
+                                            marginLeft: 0,
+                                            marginRight: 0,
+                                        },
+                                    }}
                                 />
                             )}
                         />
@@ -173,6 +193,16 @@ export default function LoginForm() {
                                     }}
                                     error={!!errors.password}
                                     helperText={errors.password?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            position: "absolute",
+                                            bottom: "-24px",
+                                            maxWidth: "100%",
+                                            whiteSpace: "normal",
+                                            marginLeft: 0,
+                                            marginRight: 0,
+                                        },
+                                    }}
                                 />
                             )}
                         />
@@ -206,6 +236,16 @@ export default function LoginForm() {
                                     }}
                                     error={!!errors.confirmPassword}
                                     helperText={errors.confirmPassword?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            position: "absolute",
+                                            bottom: "-24px",
+                                            maxWidth: "100%",
+                                            whiteSpace: "normal",
+                                            marginLeft: 0,
+                                            marginRight: 0,
+                                        },
+                                    }}
                                 />
                             )}
                         />
