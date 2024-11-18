@@ -28,7 +28,7 @@ const registerSchema = z
             .min(8, "Password must be at least 8 characters")
             .regex(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+                "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase, one number, and one special character",
             )
             .min(1, "Password is a required field"),
         confirmPassword: z.string().min(1, "Please confirm your password"),
@@ -107,60 +107,74 @@ export default function LoginForm() {
                         Sign Up
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 4 }}>
-                    <Box display={"flex"} flexDirection={"row"} columnGap={4}>
-                        <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                            <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                <PersonIcon />
-                                <FormLabel>Username</FormLabel>
-                            </Box>
-                            <Controller
-                                name="userName"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        size="small"
-                                        error={!!errors.userName}
-                                        helperText={errors.userName?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                        <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                            <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                <EmailIcon />
-                                <FormLabel>Email</FormLabel>
-                            </Box>
-                            <Controller
-                                name="email"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        size="small"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                    </Box>
-                    <Box display={"flex"} flexDirection={"row"} columnGap={4}>
-                        <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                            <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel>Password</FormLabel>
-                            </Box>
-                            <Controller
-                                name="password"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        type={showPassword ? "text" : "password"}
-                                        size="small"
-                                        InputProps={{
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                            <PersonIcon />
+                            <FormLabel>Username</FormLabel>
+                        </Box>
+                        <Controller
+                            name="userName"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    size="small"
+                                    error={!!errors.userName}
+                                    helperText={errors.userName?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            whiteSpace: "normal",
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                            <EmailIcon />
+                            <FormLabel>Email</FormLabel>
+                        </Box>
+                        <Controller
+                            name="email"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    size="small"
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            whiteSpace: "normal",
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                            <PasswordIcon />
+                            <FormLabel>Password</FormLabel>
+                        </Box>
+                        <Controller
+                            name="password"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    type={showPassword ? "text" : "password"}
+                                    size="small"
+                                    slotProps={{
+                                        input: {
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <IconButton
@@ -171,27 +185,37 @@ export default function LoginForm() {
                                                     </IconButton>
                                                 </InputAdornment>
                                             ),
-                                        }}
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                        <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                            <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel>Confirm Password</FormLabel>
-                            </Box>
-                            <Controller
-                                name="confirmPassword"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        type={showPasswordConfirm ? "text" : "password"}
-                                        size="small"
-                                        InputProps={{
+                                        },
+                                    }}
+                                    error={!!errors.password}
+                                    helperText={errors.password?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            whiteSpace: "normal",
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                            <PasswordIcon />
+                            <FormLabel>Confirm Password</FormLabel>
+                        </Box>
+                        <Controller
+                            name="confirmPassword"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    type={showPasswordConfirm ? "text" : "password"}
+                                    size="small"
+                                    slotProps={{
+                                        input: {
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <IconButton
@@ -202,16 +226,24 @@ export default function LoginForm() {
                                                     </IconButton>
                                                 </InputAdornment>
                                             ),
-                                        }}
-                                        error={!!errors.confirmPassword}
-                                        helperText={errors.confirmPassword?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                    </Box>
+                                        },
+                                    }}
+                                    error={!!errors.confirmPassword}
+                                    helperText={errors.confirmPassword?.message}
+                                    sx={{
+                                        "& .MuiFormHelperText-root": {
+                                            whiteSpace: "normal",
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "200px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "center", marginTop: 8 }}>
+                <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
                     <Button
                         type="submit"
                         variant="outlined"
@@ -219,7 +251,10 @@ export default function LoginForm() {
                         disabled={isSubmitting}
                     >
                         <LockOutlinedIcon />
-                        <Typography component={"span"} sx={{ paddingLeft: 1, fontSize: 16 }}>
+                        <Typography
+                            component={"span"}
+                            sx={{ paddingLeft: 1, fontSize: 16, textTransform: "capitalize" }}
+                        >
                             Sign Up
                         </Typography>
                     </Button>
@@ -228,7 +263,7 @@ export default function LoginForm() {
                     <Typography component={"span"} sx={{ textTransform: "capitalize", fontSize: 12 }}>
                         Already have an account?
                     </Typography>
-                    <Link href="/login" style={{ textDecoration: "none", paddingLeft: 4 }}>
+                    <Link href="/login" style={{ textDecoration: "none", paddingLeft: 4, textTransform: "capitalize" }}>
                         Sign In
                     </Link>
                 </Box>

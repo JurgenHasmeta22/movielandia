@@ -179,7 +179,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                                     sx={field.sx}
                                                     size="small"
                                                     type="date"
-                                                    InputLabelProps={{ shrink: true }}
+                                                    slotProps={{ inputLabel: { shrink: true } }}
                                                     helperText={helperText}
                                                     error={error}
                                                 />
@@ -204,22 +204,24 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                                         autoComplete={"on"}
                                                         helperText={helperText}
                                                         error={error}
-                                                        InputProps={{
-                                                            endAdornment: (
-                                                                <InputAdornment position="end">
-                                                                    <IconButton
-                                                                        aria-label="toggle password visibility"
-                                                                        onClick={handleClickShowPassword}
-                                                                        onMouseDown={handleMouseDownPassword}
-                                                                    >
-                                                                        {showPassword ? (
-                                                                            <Visibility color="primary" />
-                                                                        ) : (
-                                                                            <VisibilityOff color="primary" />
-                                                                        )}
-                                                                    </IconButton>
-                                                                </InputAdornment>
-                                                            ),
+                                                        slotProps={{
+                                                            input: {
+                                                                endAdornment: (
+                                                                    <InputAdornment position="end">
+                                                                        <IconButton
+                                                                            aria-label="toggle password visibility"
+                                                                            onClick={handleClickShowPassword}
+                                                                            onMouseDown={handleMouseDownPassword}
+                                                                        >
+                                                                            {showPassword ? (
+                                                                                <Visibility color="primary" />
+                                                                            ) : (
+                                                                                <VisibilityOff color="primary" />
+                                                                            )}
+                                                                        </IconButton>
+                                                                    </InputAdornment>
+                                                                ),
+                                                            },
                                                         }}
                                                     />
                                                 )}
