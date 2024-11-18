@@ -4,7 +4,8 @@ import { getGenres } from "@/actions/genre.actions";
 import { getMovies } from "@/actions/movie.actions";
 import { getSeasons } from "@/actions/season.actions";
 import { getSeries } from "@/actions/serie.actions";
-import { Actor, Episode, Genre, Movie, Season, Serie } from "@prisma/client";
+import { getUsers } from "@/actions/user.actions";
+import { Actor, Episode, Genre, Movie, Season, Serie, User } from "@prisma/client";
 import { MetadataRoute } from "next";
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
@@ -20,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const seasons = await getSeasons();
     const episodes = await getEpisodes();
     const actors = await getActors();
+    const users = await getUsers();
 
     urls.push({
         url: `${baseUrl}`,
@@ -72,13 +74,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     urls.push({
         url: `${baseUrl}/register`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.5,
-    });
-
-    urls.push({
-        url: `${baseUrl}/profile`,
         lastModified: new Date(),
         changeFrequency: "monthly",
         priority: 0.5,
@@ -139,6 +134,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     actors.forEach((actor: Actor) => {
         urls.push({
             url: `${baseUrl}/actors/${actor.id}/${actor.fullname}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        });
+    });
+
+    users.forEach((user: User) => {
+        urls.push({
+            url: `${baseUrl}/users/${user.id}/${user.userName}`,
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.8,
