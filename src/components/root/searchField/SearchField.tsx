@@ -25,7 +25,7 @@ const SearchField = () => {
 
     return (
         <TextField
-            placeholder="Search for movies, series, seasons, episodes, actors ..."
+            placeholder="Search for anything..."
             size="small"
             value={searchParams.get("term") || ""}
             onChange={(e) => {

@@ -9,6 +9,7 @@ import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import Image from "next/image";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -19,6 +20,7 @@ interface IHeaderLinksProps {
 
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinksProps) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
+
     const theme = useTheme();
 
     return (
@@ -41,20 +43,13 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                     component={MuiNextLink}
                     href={"/"}
                     prefetch={false}
-                    style={{
-                        fontSize: "18px",
-                        fontWeight: 900,
-                        textTransform: "capitalize",
-                        letterSpacing: 1,
-                        color: theme.vars.palette.primary.main,
-                    }}
                     onClick={() => {
                         if (isDrawerOpen) {
                             setIsDrawerOpen(false);
                         }
                     }}
                 >
-                    MovieLandia24
+                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={70} width={200} />
                 </Button>
             </Box>
             <Box>
@@ -66,7 +61,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             sm: "column",
                             md: "row",
                         },
-                        columnGap: 1,
                     }}
                 >
                     <ListItem>
@@ -75,9 +69,9 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             href="/movies"
                             prefetch={false}
                             style={{
-                                fontSize: "16px",
-                                textTransform: "capitalize",
                                 display: "flex",
+                                fontSize: 16,
+                                textTransform: "capitalize",
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -99,9 +93,9 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             href="/series"
                             prefetch={false}
                             style={{
-                                fontSize: "16px",
-                                textTransform: "capitalize",
                                 display: "flex",
+                                fontSize: 16,
+                                textTransform: "capitalize",
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,
@@ -123,9 +117,9 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             href="/genres"
                             prefetch={false}
                             style={{
-                                fontSize: "16px",
-                                textTransform: "capitalize",
                                 display: "flex",
+                                fontSize: 16,
+                                textTransform: "capitalize",
                                 flexDirection: "row",
                                 alignItems: "center",
                                 columnGap: 3,

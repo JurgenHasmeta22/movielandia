@@ -32,10 +32,26 @@ const loginSchema = z.object({
         .min(8, "Password must be at least 8 characters")
         .regex(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
+            "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase, one number, and one special character",
         )
         .min(1, "Password is a required field"),
 });
+
+const ErrorMessage = ({ message }: { message: string }) => (
+    <Typography
+        component="span"
+        sx={{
+            color: "error.main",
+            fontSize: "0.75rem",
+            mt: 0.5,
+            display: "block",
+            wordWrap: "break-word",
+            maxWidth: "100%",
+        }}
+    >
+        {message}
+    </Typography>
+);
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -73,124 +89,165 @@ export default function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(handleSubmitLogin)}>
-            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
-                <Box
-                    display={"flex"}
-                    flexDirection="row"
-                    columnGap={1}
-                    alignItems={"center"}
-                    justifyContent={"center"}
-                    sx={{ pb: 4 }}
-                >
-                    <LockOutlinedIcon fontSize="large" />
-                    <Typography variant="h2" textAlign={"center"}>
-                        Sign In
-                    </Typography>
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                        <Box display={"flex"} flexDirection="row" columnGap={1}>
-                            <EmailIcon />
-                            <FormLabel component={"label"}>Email</FormLabel>
-                        </Box>
-                        <Controller
-                            name="email"
-                            control={control}
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    type="email"
-                                    autoComplete="username"
-                                    size="small"
-                                    fullWidth
-                                    error={!!errors.email}
-                                    helperText={errors.email?.message}
+        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto" }}>
+            <form onSubmit={handleSubmit(handleSubmitLogin)}>
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
+                    <Box
+                        display={"flex"}
+                        flexDirection="row"
+                        columnGap={1}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        sx={{ pb: 4 }}
+                    >
+                        <LockOutlinedIcon fontSize="large" />
+                        <Typography variant="h2" textAlign={"center"}>
+                            Sign In
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                            <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                <EmailIcon />
+                                <FormLabel component={"label"}>Email</FormLabel>
+                            </Box>
+                            <FormControl>
+                                <Controller
+                                    name="email"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            type="email"
+                                            autoComplete="username"
+                                            size="small"
+                                            fullWidth
+                                            error={!!errors.email}
+                                            helperText={errors.email?.message}
+                                            sx={{
+                                                "& .MuiFormHelperText-root": {
+                                                    whiteSpace: "normal",
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
+                                                },
+                                            }}
+                                        />
+                                    )}
                                 />
-                            )}
-                        />
-                    </Box>
-                    <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                        <Box display={"flex"} flexDirection="row" columnGap={1}>
-                            <PasswordIcon />
-                            <FormLabel component={"label"}>Password</FormLabel>
+                                {errors.email && <ErrorMessage message={errors.email.message as string} />}
+                            </FormControl>
                         </Box>
-                        <FormControl variant="outlined" fullWidth size="small">
-                            <Controller
-                                name="password"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        type={showPassword ? "text" : "password"}
-                                        autoComplete="current-password"
-                                        size="small"
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        onClick={handleClickShowPassword}
-                                                        onMouseDown={handleMouseDownPassword}
-                                                        edge="end"
-                                                    >
-                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
-                                    />
-                                )}
-                            />
-                        </FormControl>
+                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
+                            <Box display={"flex"} flexDirection="row" columnGap={1}>
+                                <PasswordIcon />
+                                <FormLabel component={"label"}>Password</FormLabel>
+                            </Box>
+                            <FormControl>
+                                <Controller
+                                    name="password"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <TextField
+                                            {...field}
+                                            type={showPassword ? "text" : "password"}
+                                            autoComplete="current-password"
+                                            size="small"
+                                            fullWidth
+                                            error={!!errors.password}
+                                            helperText={errors.password?.message}
+                                            slotProps={{
+                                                input: {
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}
+                                                                edge="end"
+                                                            >
+                                                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    ),
+                                                },
+                                            }}
+                                            sx={{
+                                                "& .MuiFormHelperText-root": {
+                                                    whiteSpace: "normal",
+                                                    overflowWrap: "break-word",
+                                                    wordWrap: "break-word",
+                                                    maxWidth: "200px",
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                />
+                                {errors.password && <ErrorMessage message={errors.password.message as string} />}
+                            </FormControl>
+                        </Box>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: 2,
+                            flexDirection: "column",
+                            rowGap: 1,
+                        }}
+                    >
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1, px: 4 }}
+                            disabled={isSubmitting}
+                        >
+                            <LockOutlinedIcon />
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            >
+                                Sign In
+                            </Typography>
+                        </Button>
+                        <Button
+                            onClick={() => signIn("google", { callbackUrl: "/" })}
+                            variant="outlined"
+                            sx={{ fontWeight: 600, py: 1 }}
+                        >
+                            <GoogleIcon />
+                            <Typography
+                                component={"span"}
+                                sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            >
+                                Continue with Google
+                            </Typography>
+                        </Button>
+                    </Box>
+                    <Box>
+                        <MuiLink
+                            component={Link}
+                            href="/reset-password"
+                            underline="none"
+                            sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4, textTransform: "capitalize" }}
+                        >
+                            Forgot Password?
+                        </MuiLink>
+                    </Box>
+                    <Box>
+                        <Typography component={"span"} sx={{ fontSize: 14, pl: 4, textTransform: "capitalize" }}>
+                            Don&apos;t have an account?
+                        </Typography>
+                        <MuiLink
+                            component={Link}
+                            href="/register"
+                            underline="none"
+                            sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4, textTransform: "capitalize" }}
+                        >
+                            Sign Up
+                        </MuiLink>
                     </Box>
                 </Box>
-                <Button
-                    type="submit"
-                    variant="outlined"
-                    sx={{ fontWeight: 600, py: 1, marginTop: 8 }}
-                    disabled={isSubmitting}
-                >
-                    <LockOutlinedIcon />
-                    <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
-                        Sign In
-                    </Typography>
-                </Button>
-                <Button
-                    onClick={() => signIn("google", { callbackUrl: "/" })}
-                    variant="outlined"
-                    sx={{ fontWeight: 600, py: 1 }}
-                >
-                    <GoogleIcon />
-                    <Typography component={"span"} sx={{ fontSize: 16, paddingLeft: 1 }}>
-                        Continue with Google
-                    </Typography>
-                </Button>
-                <Box>
-                    <MuiLink
-                        component={Link}
-                        href="/reset-password"
-                        underline="none"
-                        sx={{ textAlign: "right", mt: 1, fontSize: 12, pl: 4 }}
-                    >
-                        Forgot Password?
-                    </MuiLink>
-                </Box>
-                <Box>
-                    <Typography component={"span"} sx={{ fontSize: 14, pl: 4 }}>
-                        Don&apos;t have an account?
-                    </Typography>
-                    <MuiLink
-                        component={Link}
-                        href="/register"
-                        underline="none"
-                        sx={{ textAlign: "right", mt: 1, fontSize: 14, pl: 4 }}
-                    >
-                        Sign Up
-                    </MuiLink>
-                </Box>
-            </Box>
-        </form>
+            </form>
+        </Box>
     );
 }
