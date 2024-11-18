@@ -107,7 +107,7 @@ export default function LoginForm() {
                         Sign Up
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 3 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
                     <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <PersonIcon />
@@ -124,7 +124,6 @@ export default function LoginForm() {
                                     helperText={errors.userName?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            position: "absolute",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
@@ -151,7 +150,6 @@ export default function LoginForm() {
                                     helperText={errors.email?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            position: "absolute",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
@@ -193,7 +191,6 @@ export default function LoginForm() {
                                     helperText={errors.password?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            position: "absolute",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
@@ -235,7 +232,6 @@ export default function LoginForm() {
                                     helperText={errors.confirmPassword?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
-                                            position: "absolute",
                                             maxWidth: "100%",
                                             whiteSpace: "normal",
                                             marginLeft: 0,
