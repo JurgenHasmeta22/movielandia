@@ -48,7 +48,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                         }
                     }}
                 >
-                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={70} width={280} />
+                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={80} width={200} />
                 </Button>
             </Box>
             <Box>
@@ -60,7 +60,6 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             sm: "column",
                             md: "row",
                         },
-                        columnGap: 1,
                     }}
                 >
                     <ListItem>
