@@ -43,6 +43,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                     component={MuiNextLink}
                     href={"/"}
                     prefetch={false}
+                    type={"mainLogo"}
                     onClick={() => {
                         if (isDrawerOpen) {
                             setIsDrawerOpen(false);
