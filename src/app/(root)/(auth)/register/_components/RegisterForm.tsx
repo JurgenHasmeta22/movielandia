@@ -13,6 +13,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import GoogleIcon from "@mui/icons-material/Google";
+import { signIn } from "next-auth/react";
 
 const registerSchema = z
     .object({
@@ -243,7 +245,9 @@ export default function LoginForm() {
                         />
                     </FormControl>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+                <Box
+                    sx={{ display: "flex", justifyContent: "center", marginTop: 2, flexDirection: "column", rowGap: 1 }}
+                >
                     <Button
                         type="submit"
                         variant="outlined"
@@ -256,6 +260,19 @@ export default function LoginForm() {
                             sx={{ paddingLeft: 1, fontSize: 16, textTransform: "capitalize" }}
                         >
                             Sign Up
+                        </Typography>
+                    </Button>
+                    <Button
+                        onClick={() => signIn("google", { callbackUrl: "/" })}
+                        variant="outlined"
+                        sx={{ fontWeight: 600, py: 1 }}
+                    >
+                        <GoogleIcon />
+                        <Typography
+                            component={"span"}
+                            sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                        >
+                            Continue with Google
                         </Typography>
                     </Button>
                 </Box>
