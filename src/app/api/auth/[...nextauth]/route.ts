@@ -37,9 +37,21 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Please activate your account first");
                 }
 
-                const isCorrectPassword = await compare(credentials.password, user.password);
+                const dbPassword = user.password!;
+                let isPasswordValid = false;
 
-                if (!isCorrectPassword) {
+                // Checking if the password in the database is hashed
+                const isHashedPassword = dbPassword.length === 60 && dbPassword.startsWith("$2b$");
+
+                if (isHashedPassword) {
+                    // Comparing using bcrypt for hashed passwords
+                    isPasswordValid = await compare(credentials.password, dbPassword);
+                } else {
+                    // Plain text comparison for unencrypted passwords
+                    isPasswordValid = credentials.password === dbPassword;
+                }
+
+                if (!isPasswordValid) {
                     throw new Error("Invalid credentials");
                 }
 
@@ -56,7 +68,7 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ account, profile }) {
             if (account?.provider === "google") {
                 const existingUser = await prisma.user.findUnique({
                     where: { email: profile?.email },
@@ -64,7 +76,7 @@ export const authOptions: NextAuthOptions = {
                 });
 
                 if (!existingUser) {
-                    // Create new user if doesn't exist
+                    // Creating a new user if doesn't exist for google auth0
                     const newUser = await prisma.user.create({
                         data: {
                             email: profile?.email!,
@@ -74,7 +86,7 @@ export const authOptions: NextAuthOptions = {
                         },
                     });
 
-                    // Create the account link
+                    // Create the account link, this is the most important which fixed it
                     await prisma.account.create({
                         data: {
                             userId: newUser.id,

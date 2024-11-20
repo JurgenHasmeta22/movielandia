@@ -135,7 +135,6 @@ export default function LoginForm() {
                                         />
                                     )}
                                 />
-                                {errors.email && <ErrorMessage message={errors.email.message as string} />}
                             </FormControl>
                         </Box>
                         <Box display={"flex"} flexDirection={"column"} rowGap={1}>
@@ -182,7 +181,6 @@ export default function LoginForm() {
                                         />
                                     )}
                                 />
-                                {errors.password && <ErrorMessage message={errors.password.message as string} />}
                             </FormControl>
                         </Box>
                     </Box>
