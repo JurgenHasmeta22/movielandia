@@ -1,52 +1,52 @@
 model Episode {
-    id                     Int                     @id @default(autoincrement())
-    title                  String                  @default("")
-    photoSrc               String                  @default("")
-    photoSrcProd           String                  @default("")
-    trailerSrc             String                  @default("")
-    description            String                  @default("")
-    duration               Int                     @default(20)
-    dateAired              String                  @default("01/01/1990")
-    ratingImdb             Float                   @default(5.0)
-    seasonId               Int
-    season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    usersWhoBookmarkedIt   UserEpisodeFavorite[]
-    usersWhoRatedIt        UserEpisodeRating[]
-    reviews                EpisodeReview[]
-    upvoteEpisodeReviews   UpvoteEpisodeReview[]
-    downvoteEpisodeReviews DownvoteEpisodeReview[]
+  id                     Int                     @id @default(autoincrement())
+  title                  String                  @default("")
+  photoSrc               String                  @default("")
+  photoSrcProd           String                  @default("")
+  trailerSrc             String                  @default("")
+  description            String                  @default("")
+  duration               Int                     @default(20)
+  dateAired              String                  @default("01/01/1990")
+  ratingImdb             Float                   @default(5.0)
+  seasonId               Int
+  season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  usersWhoBookmarkedIt   UserEpisodeFavorite[]
+  usersWhoRatedIt        UserEpisodeRating[]
+  reviews                EpisodeReview[]
+  upvoteEpisodeReviews   UpvoteEpisodeReview[]
+  downvoteEpisodeReviews DownvoteEpisodeReview[]
 }
 
 model EpisodeReview {
-    id        Int                     @id @default(autoincrement())
-    content   String                  @default("")
-    rating    Float?
-    createdAt DateTime                @default(now())
-    updatedAt DateTime?
-    userId Int
-    episodeId Int
-    user      User                    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    episode   Episode                 @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    upvotes   UpvoteEpisodeReview[]
-    downvotes DownvoteEpisodeReview[]
+  id        Int                     @id @default(autoincrement())
+  content   String                  @default("")
+  rating    Float?
+  createdAt DateTime                @default(now())
+  updatedAt DateTime?
+  userId    Int
+  episodeId Int
+  user      User                    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  episode   Episode                 @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  upvotes   UpvoteEpisodeReview[]
+  downvotes DownvoteEpisodeReview[]
 }
 
 model UpvoteEpisodeReview {
-    id              Int            @id @default(autoincrement())
-    userId       Int
-    episodeId       Int
-    episodeReviewId Int
-    user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-    episode         Episode        @relation(fields: [episodeId], references: [id], onDelete: Cascade)
-    episodeReview   EpisodeReview? @relation(fields: [episodeReviewId], references: [id], onDelete: Cascade)
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  episodeId       Int
+  episodeReviewId Int
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  episode         Episode        @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  episodeReview   EpisodeReview? @relation(fields: [episodeReviewId], references: [id], onDelete: Cascade)
 }
 
 model DownvoteEpisodeReview {
-    id              Int            @id @default(autoincrement())
-    userId       Int
-    episodeId       Int
-    episodeReviewId Int
-    user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-    episode         Episode        @relation(fields: [episodeId], references: [id], onDelete: Cascade)
-    episodeReview   EpisodeReview? @relation(fields: [episodeReviewId], references: [id], onDelete: Cascade)
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  episodeId       Int
+  episodeReviewId Int
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  episode         Episode        @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  episodeReview   EpisodeReview? @relation(fields: [episodeReviewId], references: [id], onDelete: Cascade)
 }
