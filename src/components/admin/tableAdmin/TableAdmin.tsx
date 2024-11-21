@@ -27,6 +27,7 @@ import { deleteSerieById, getSeriesWithFilters } from "@/actions/serie.actions";
 import { deleteActorById, getActorsWithFilters } from "@/actions/actor.actions";
 import { deleteEpisodeById, getEpisodesWithFilters } from "@/actions/episode.actions";
 import { deleteSeasonById, getSeasonsWithFilters } from "@/actions/season.actions";
+import { deleteCrewMemberById, getCrewMembersWithFilters } from "@/actions/crew.actions";
 // #endregion
 
 // #region "Interfaces"
@@ -145,6 +146,15 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                                 }
 
                                 break;
+                            case "crews":
+                                response = await deleteCrewMemberById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
                             default:
                                 response = null;
                         }
@@ -251,6 +261,15 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                                     }
 
                                     break;
+                                case "crews":
+                                    response = await deleteCrewMemberById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
                                 default:
                                     response = null;
                             }
@@ -298,7 +317,9 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                               ? "name"
                               : page === "actors"
                                 ? "name"
-                                : "title",
+                                : page === "crew"
+                                  ? "fullname"
+                                  : "title",
                     filterValue: globalFilter,
                 }),
             };
@@ -339,6 +360,11 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                     setRows(response.seasons);
                     setRowsCount(response.count);
                     break;
+                case "crews":
+                    response = await getCrewMembersWithFilters(queryParams);
+                    setRows(response.crewMembers);
+                    setRowsCount(response.count);
+                    break;
                 default:
                     response = { rows: [], count: 0 };
             }
@@ -360,6 +386,29 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
     // #region "Table configuration"
     const columns = useMemo<MRT_ColumnDef<any>[]>(() => {
         switch (page) {
+            case "crews":
+                return [
+                    {
+                        accessorKey: "fullname",
+                        header: "Full Name",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "role",
+                        header: "Role",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "debut",
+                        header: "Debut",
+                    },
+                ];
             case "actors":
                 return [
                     {
