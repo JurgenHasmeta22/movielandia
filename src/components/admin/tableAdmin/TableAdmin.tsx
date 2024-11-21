@@ -1,7 +1,7 @@
 // #region "Imports"
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
     MRT_ColumnDef,
     MRT_ColumnFiltersState,
@@ -24,17 +24,20 @@ import { deleteGenreById, getGenresWithFilters } from "@/actions/genre.actions";
 import { deleteUserById, getUsersWithFilters } from "@/actions/user.actions";
 import { deleteMovieById, getMoviesWithFilters } from "@/actions/movie.actions";
 import { deleteSerieById, getSeriesWithFilters } from "@/actions/serie.actions";
+import { deleteActorById, getActorsWithFilters } from "@/actions/actor.actions";
+import { deleteEpisodeById, getEpisodesWithFilters } from "@/actions/episode.actions";
+import { deleteSeasonById, getSeasonsWithFilters } from "@/actions/season.actions";
+import { deleteCrewMemberById, getCrewMembersWithFilters } from "@/actions/crew.actions";
 // #endregion
 
 // #region "Interfaces"
 interface ITableAdminProps {
-    columns: MRT_ColumnDef<any>[];
     page: string;
     handleAddItem: () => void;
 }
 // #endregion
 
-const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
+const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
     // #region "State Management, calling other Hooks"
     const [rows, setRows] = useState<any[]>([]);
     const [rowsCount, setRowsCount] = useState<number>(0);
@@ -109,6 +112,42 @@ const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
                                 break;
                             case "users":
                                 response = await deleteUserById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "actors":
+                                response = await deleteActorById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "episodes":
+                                response = await deleteEpisodeById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "seasons":
+                                response = await deleteSeasonById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "crews":
+                                response = await deleteCrewMemberById(Number(id));
 
                                 if (response) {
                                     toast.success(`Item with id ${id} deleted succesfully`);
@@ -195,6 +234,42 @@ const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
                                     }
 
                                     break;
+                                case "actors":
+                                    response = await deleteActorById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "episodes":
+                                    response = await deleteEpisodeById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "seasons":
+                                    response = await deleteSeasonById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "crews":
+                                    response = await deleteCrewMemberById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
                                 default:
                                     response = null;
                             }
@@ -235,7 +310,16 @@ const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
                     sortBy: sorting[0].id,
                 }),
                 ...(globalFilter?.length > 0 && {
-                    filterNameString: page === "users" ? "userName" : page === "genres" ? "name" : "title",
+                    filterNameString:
+                        page === "users"
+                            ? "userName"
+                            : page === "genres"
+                              ? "name"
+                              : page === "actors"
+                                ? "name"
+                                : page === "crew"
+                                  ? "fullname"
+                                  : "title",
                     filterValue: globalFilter,
                 }),
             };
@@ -245,26 +329,41 @@ const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
                     response = await getSeriesWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
-
                     break;
                 case "movies":
                     response = await getMoviesWithFilters(queryParams);
                     setRows(response.movies);
                     setRowsCount(response.count);
-
                     break;
                 case "genres":
                     response = await getGenresWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
-
                     break;
                 case "users":
-                    // @ts-expect-error String or undefined
                     response = await getUsersWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
-
+                    break;
+                case "actors":
+                    response = await getActorsWithFilters(queryParams);
+                    setRows(response.actors);
+                    setRowsCount(response.count);
+                    break;
+                case "episodes":
+                    response = await getEpisodesWithFilters(queryParams);
+                    setRows(response.episodes);
+                    setRowsCount(response.count);
+                    break;
+                case "seasons":
+                    response = await getSeasonsWithFilters(queryParams);
+                    setRows(response.seasons);
+                    setRowsCount(response.count);
+                    break;
+                case "crews":
+                    response = await getCrewMembersWithFilters(queryParams);
+                    setRows(response.crewMembers);
+                    setRowsCount(response.count);
                     break;
                 default:
                     response = { rows: [], count: 0 };
@@ -285,6 +384,209 @@ const TableAdmin = ({ columns, page, handleAddItem }: ITableAdminProps) => {
     // #endregion
 
     // #region "Table configuration"
+    const columns = useMemo<MRT_ColumnDef<any>[]>(() => {
+        switch (page) {
+            case "crews":
+                return [
+                    {
+                        accessorKey: "fullname",
+                        header: "Full Name",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "role",
+                        header: "Role",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "debut",
+                        header: "Debut",
+                    },
+                ];
+            case "actors":
+                return [
+                    {
+                        accessorKey: "fullname",
+                        header: "Full Name",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "debut",
+                        header: "Debut",
+                    },
+                ];
+            case "seasons":
+                return [
+                    {
+                        accessorKey: "title",
+                        header: "Title",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "trailerSrc",
+                        header: "Trailer URL",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "dateAired",
+                        header: "Date Aired",
+                    },
+                    {
+                        accessorKey: "ratingImdb",
+                        header: "IMDB Rating",
+                    },
+                    {
+                        accessorKey: "serieId",
+                        header: "Serie ID",
+                    },
+                ];
+            case "episodes":
+                return [
+                    {
+                        accessorKey: "title",
+                        header: "Title",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "trailerSrc",
+                        header: "Trailer URL",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "duration",
+                        header: "Duration (minutes)",
+                    },
+                    {
+                        accessorKey: "dateAired",
+                        header: "Date Aired",
+                    },
+                    {
+                        accessorKey: "ratingImdb",
+                        header: "IMDB Rating",
+                    },
+                    {
+                        accessorKey: "seasonId",
+                        header: "Season ID",
+                    },
+                ];
+            case "series":
+                return [
+                    {
+                        accessorKey: "title",
+                        header: "Title",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "trailerSrc",
+                        header: "Trailer URL",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "dateAired",
+                        header: "Date Aired",
+                    },
+                    {
+                        accessorKey: "ratingImdb",
+                        header: "IMDB Rating",
+                    },
+                    {
+                        accessorKey: "genreId",
+                        header: "Genre ID",
+                    },
+                ];
+            case "movies":
+                return [
+                    {
+                        accessorKey: "title",
+                        header: "Title",
+                    },
+                    {
+                        accessorKey: "photoSrc",
+                        header: "Photo URL",
+                    },
+                    {
+                        accessorKey: "trailerSrc",
+                        header: "Trailer URL",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                    {
+                        accessorKey: "dateAired",
+                        header: "Date Aired",
+                    },
+                    {
+                        accessorKey: "ratingImdb",
+                        header: "IMDB Rating",
+                    },
+                    {
+                        accessorKey: "genreId",
+                        header: "Genre ID",
+                    },
+                ];
+            case "genres":
+                return [
+                    {
+                        accessorKey: "name",
+                        header: "Name",
+                    },
+                    {
+                        accessorKey: "description",
+                        header: "Description",
+                    },
+                ];
+            case "users":
+                return [
+                    {
+                        accessorKey: "userName",
+                        header: "User Name",
+                    },
+                    {
+                        accessorKey: "email",
+                        header: "Email",
+                    },
+                    {
+                        accessorKey: "password",
+                        header: "Password",
+                    },
+                ];
+            default:
+                return [];
+        }
+    }, [page]);
+
     const table = useMaterialReactTable({
         columns,
         data: rows,

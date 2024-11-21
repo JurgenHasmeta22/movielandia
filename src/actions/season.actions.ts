@@ -4,10 +4,10 @@ import { Season, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 
 interface SeasonModelParams {
-    sortBy: string;
-    ascOrDesc: "asc" | "desc";
-    perPage: number;
-    page: number;
+    sortBy?: string;
+    ascOrDesc?: string;
+    perPage?: number;
+    page?: number;
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
@@ -31,7 +31,7 @@ export async function getSeasonsWithFilters({
     filterValue,
     filterNameString,
     filterOperatorString,
-}: SeasonModelParams): Promise<Season[] | null> {
+}: SeasonModelParams): Promise<any | null> {
     const filters: any = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
     const take = perPage || 20;
@@ -57,7 +57,9 @@ export async function getSeasonsWithFilters({
     });
 
     if (seasons) {
-        return seasons;
+        const seasonsCount = await prisma.season.count();
+
+        return { seasons, count: seasonsCount };
     } else {
         return null;
     }
@@ -424,7 +426,7 @@ export async function updateSeasonById(seasonParam: Prisma.SeasonUpdateInput, id
     }
 }
 
-export async function addSeason(seasonParam: Season): Promise<Season | null> {
+export async function addSeason(seasonParam: Prisma.SeasonCreateInput): Promise<Season | null> {
     const seasonCreated = await prisma.season.create({
         data: seasonParam,
     });

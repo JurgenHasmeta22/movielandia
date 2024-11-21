@@ -5,10 +5,10 @@ import { RatingsMap } from "./season.actions";
 import { prisma } from "../../prisma/config/prisma";
 
 interface EpisodeModelParams {
-    sortBy: string;
-    ascOrDesc: "asc" | "desc";
-    perPage: number;
-    page: number;
+    sortBy?: string;
+    ascOrDesc?: string;
+    perPage?: number;
+    page?: number;
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
@@ -25,7 +25,7 @@ export async function getEpisodesWithFilters({
     filterValue,
     filterNameString,
     filterOperatorString,
-}: EpisodeModelParams): Promise<Episode[] | null> {
+}: EpisodeModelParams): Promise<any | null> {
     const filters: any = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
     const take = perPage || 20;
@@ -51,7 +51,8 @@ export async function getEpisodesWithFilters({
     });
 
     if (episodes) {
-        return episodes;
+        const epispodesCount = await prisma.episode.count();
+        return { episodes, count: epispodesCount };
     } else {
         return null;
     }
@@ -418,7 +419,7 @@ export async function updateEpisodeById(episodeParam: Prisma.EpisodeUpdateInput,
     }
 }
 
-export async function addEpisode(episodeParam: Episode): Promise<Episode | null> {
+export async function addEpisode(episodeParam: Prisma.EpisodeUncheckedCreateInput): Promise<Episode | null> {
     const episodeCreated = await prisma.episode.create({
         data: episodeParam,
     });

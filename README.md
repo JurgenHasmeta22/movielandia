@@ -1,49 +1,115 @@
-# MovieLandia24 - Next.js Full-Stack Web Application
+# MovieLandia24
 
-MovieLandia24 is a web app for discovering and sharing movies, series, seasons, episodes, genres and actors.
+A modern web application for discovering, managing, and reviewing movies, TV series, actors, crew members, seasons, and episodes.
 
-You can also review the movies, series, seasons, episodes, actors, also you can search based on many criteria, see stuff based on genre, sort, paginate, auth and many more features.
+## Tech Stack
 
-Built using Next.js for a fast and efficient frontend, with a beautiful and responsive UI.
+-   **Framework**: Next.js 15 (App Router)
+-   **UI**: Material-UI v6
+-   **State Management**: Zustand
+-   **Database**: PostgreSQL + Prisma ORM
+-   **Authentication**: NextAuth.js with Google provider
+-   **Forms**: React Hook Form + Zod validation
+-   **Rich Text**: React Quill
+-   **Email**: React Email + Resend
+-   **Tables**: Material React Table
+-   **Animations**: Framer Motion
 
-## Installation
+## Key Features
 
-1. **Clone the repository:**
+-   **Content Management**:
+
+    -   Movies, TV Series, Seasons, Episodes
+    -   Actors and Crew Members
+    -   Genres and Categories
+    -   IMDb Ratings and Reviews
+
+-   **User Features**:
+
+    -   Google Authentication
+    -   Profile Management
+    -   Bookmarks & Favorites
+    -   Reviews & Ratings
+    -   Follow System
+
+-   **Admin Dashboard**:
+
+    -   Material React Table
+    -   CRUD Operations
+    -   Stats & Analytics
+    -   User Management
+    -   Content Management
+
+-   **Advanced Features**:
+    -   Infinite Scroll
+    -   Rich Text Editor
+    -   Advanced Search
+    -   Sorting & Filtering
+    -   Responsive Design
+
+## Getting Started
+
+1. **Setup environment:**
 
     ```bash
     git clone https://github.com/JurgenHasmeta22/movielandia.git
     cd movielandia
-    ```
-
-2. **Install dependencies:**
-
-    ```bash
-    yarn install
-    # or
     npm install
     ```
 
-3. **Set up the environment variables:**
+2. **Configure environment variables:**
+   Create `.env.local` with:
 
-    Create a `.env and .env.local` file in the root of your project and add the following variables:
-
-    ```plaintext
-    DATABASE_URL="your-database-url"
-    NEXTAUTH_URL="your-next-auth-url"
-    NEXT_PUBLIC_API_URL="your-api-url"
-    NEXTAUTH_URL and others
+    ```
+    DATABASE_URL=
+    NEXTAUTH_URL=http://localhost:4000
+    NEXTAUTH_SECRET=
+    GOOGLE_CLIENT_ID=
+    GOOGLE_CLIENT_SECRET=
+    RESEND_API_KEY=
     ```
 
-## Running the Project
-
-1. **Start the development server:**
+3. **Initialize database:**
 
     ```bash
-    yarn dev
-    # or
+    npx prisma generate
+    npx prisma db push
+    ```
+
+4. **Run development server:**
+
+    ```bash
     npm run dev
     ```
 
-2. **Open your browser:**
+    Open [http://localhost:4000](http://localhost:4000)
 
-    Navigate to `http://localhost:4000` to see the application in action.
+## Project Structure
+
+🔍 PROJECT OVERVIEW
+- Web application for movie, series, and entertainment content discovery
+- Full-stack Next.js application with rich user interaction features
+- Developed by JurgenHasmeta22
+- 215+ files with 40,000+ lines of code
+
+```
+movielandia/
+├── src/
+│   ├── actions/         # Server actions for data mutations
+│   ├── app/            # Next.js app router pages & layouts
+│   │   ├── (admin)/    # Admin dashboard routes
+│   │   └── (root)/     # Main app routes
+│   ├── components/     # Reusable UI components
+│   ├── constants/      # Global constants
+│   ├── hooks/          # Custom React hooks
+│   ├── layouts/        # Layout components
+│   ├── middleware.ts   # Auth & routing middleware
+│   ├── providers/      # Context providers
+│   ├── store/          # Zustand store
+│   ├── types/          # TypeScript definitions
+│   └── utils/          # Helper functions
+├── prisma/
+│   ├── migrations/     # Database migrations
+│   ├── schema/         # Database models
+│   └── seed/          # Seed data scripts
+└── emails/            # Email templates

@@ -41,18 +41,13 @@ const GenreAdminPage = () => {
     const { openModal } = useModal();
 
     const breadcrumbs = [
+        <Link key="1" href="/admin/genres" style={{ textDecoration: "none" }}>
+            Genres
+        </Link>,
         <Link key="2" href={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
-            Genre {`${params?.id}`}
+            {genre?.name || `Genre ${params?.id}`}
         </Link>,
     ];
-
-    // if (location?.state?.from) {
-    breadcrumbs.push(
-        <Link key="1" href={"/admin/genres"} style={{ textDecoration: "none" }}>
-            {/* {location.state.from} */}
-        </Link>,
-    );
-    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
