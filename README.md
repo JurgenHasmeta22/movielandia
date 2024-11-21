@@ -86,6 +86,12 @@ A modern web application for discovering, managing, and reviewing movies, TV ser
 
 ## Project Structure
 
+🔍 PROJECT OVERVIEW
+- Web application for movie, series, and entertainment content discovery
+- Full-stack Next.js application with rich user interaction features
+- Developed by JurgenHasmeta22
+- 215+ files with 40,000+ lines of code
+
 ```
 movielandia/
 ├── src/
@@ -107,4 +113,3 @@ movielandia/
 │   ├── schema/         # Database models
 │   └── seed/          # Seed data scripts
 └── emails/            # Email templates
-```
