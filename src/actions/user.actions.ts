@@ -8,12 +8,12 @@ import { revalidatePath } from "next/cache";
 
 // #region "Interfaces"
 interface UserModelParams {
-    sortBy: string;
-    ascOrDesc: string;
+    sortBy?: string;
+    ascOrDesc?: string;
     perPage?: number;
-    page: number;
-    userName?: string | null;
-    filterValue?: any;
+    page?: number;
+    title?: string | null;
+    filterValue?: number | string;
     filterNameString?: string | null;
     filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
 }

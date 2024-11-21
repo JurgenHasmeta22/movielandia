@@ -20,6 +20,11 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
+    // Prevent admin from accessing user profile
+    if (req.nextUrl.pathname.startsWith("/users") && userRole === "Admin") {
+        return NextResponse.redirect(new URL("/admin", req.url));
+    }
+
     if (req.nextUrl.pathname.startsWith("/admin") && (!isAuthenticated || userRole !== "Admin")) {
         return NextResponse.redirect(new URL("/login", req.url));
     }

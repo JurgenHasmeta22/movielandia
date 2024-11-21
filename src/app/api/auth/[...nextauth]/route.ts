@@ -6,9 +6,6 @@ import { prisma } from "../../../../../prisma/config/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
-    session: {
-        strategy: "jwt",
-    },
     adapter: PrismaAdapter(prisma),
     providers: [
         GoogleProvider({
@@ -23,19 +20,21 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
-                    throw new Error("Missing credentials");
+                    throw new Error("Invalid credentials");
                 }
 
                 const user = await prisma.user.findUnique({
-                    where: { email: credentials.email },
+                    where: {
+                        email: credentials.email,
+                    },
                 });
 
-                if (!user) {
-                    throw new Error("No user found with this email");
+                if (!user || !user?.password) {
+                    throw new Error("Invalid credentials");
                 }
 
                 if (!user.active) {
-                    throw new Error("User is not active. Please verify your email.");
+                    throw new Error("Please activate your account first");
                 }
 
                 const dbPassword = user.password!;
@@ -65,28 +64,57 @@ export const authOptions: NextAuthOptions = {
             },
         }),
     ],
+    session: {
+        strategy: "jwt",
+    },
     callbacks: {
         async signIn({ account, profile }) {
             if (account?.provider === "google") {
                 const existingUser = await prisma.user.findUnique({
                     where: { email: profile?.email },
+                    include: { accounts: true },
                 });
 
-                if (existingUser) {
-                    await prisma.user.update({
-                        where: { email: profile?.email },
-                        data: {
-                            userName: profile?.name ?? existingUser.userName,
-                            active: true,
-                        },
-                    });
-                } else {
-                    await prisma.user.create({
+                if (!existingUser) {
+                    // Creating a new user if doesn't exist for google auth0
+                    const newUser = await prisma.user.create({
                         data: {
                             email: profile?.email!,
                             userName: profile?.name ?? "Google User",
                             active: true,
                             role: "User",
+                        },
+                    });
+
+                    // Create the account link, this is the most important which fixed it
+                    await prisma.account.create({
+                        data: {
+                            userId: newUser.id,
+                            type: account.type,
+                            provider: account.provider,
+                            providerAccountId: account.providerAccountId,
+                            access_token: account.access_token,
+                            token_type: account.token_type,
+                            scope: account.scope,
+                            id_token: account.id_token,
+                        },
+                    });
+
+                    return true;
+                }
+
+                // If user exists but no account is linked, link the account
+                if (existingUser && !existingUser.accounts.length) {
+                    await prisma.account.create({
+                        data: {
+                            userId: existingUser.id,
+                            type: account.type,
+                            provider: account.provider,
+                            providerAccountId: account.providerAccountId,
+                            access_token: account.access_token,
+                            token_type: account.token_type,
+                            scope: account.scope,
+                            id_token: account.id_token,
                         },
                     });
                 }
@@ -96,30 +124,41 @@ export const authOptions: NextAuthOptions = {
 
             return true;
         },
-        async jwt({ token, user }: any) {
+        async jwt({ token, user, account }) {
+            if (account?.provider === "google") {
+                const dbUser = await prisma.user.findUnique({
+                    where: { email: token.email! },
+                });
+
+                if (dbUser) {
+                    token.id = dbUser.id.toString();
+                    token.userName = dbUser.userName;
+                    token.role = dbUser.role;
+                }
+            }
+
             if (user) {
                 token.id = user.id;
                 token.userName = user.userName;
-                token.email = user.email;
                 token.role = user.role;
             }
 
             return token;
         },
-        async session({ session, token }: any) {
-            if (token) {
-                session.user.id = token.id;
-                session.user.userName = token.userName;
-                session.user.email = token.email;
-                session.user.role = token.role;
+        async session({ session, token }) {
+            if (session.user) {
+                session.user.id = token.id as string;
+                session.user.userName = token.userName as string;
+                session.user.role = token.role as string;
             }
-
             return session;
         },
-        async redirect({ url, baseUrl }) {
-            return url.startsWith(baseUrl) ? url : baseUrl;
-        },
     },
+    pages: {
+        signIn: "/login",
+        error: "/login",
+    },
+    debug: process.env.NODE_ENV === "development",
     secret: process.env.NEXTAUTH_SECRET,
 };
 

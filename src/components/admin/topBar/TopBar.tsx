@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import SwitchThemeButton from "@/components/root/themeToggleButton/ThemeToggleButton";
+import Image from "next/image";
+import MuiNextLink from "@/components/root/muiNextLink/MuiNextLink";
 
 const TopBar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -35,7 +37,12 @@ const TopBar = () => {
     };
 
     const handleRedirectToProfile = () => {
-        router.push("/users/1/admin");
+        if (session?.user?.role === "Admin") {
+            router.push("/admin");
+        } else {
+            router.push("/users/1/admin");
+        }
+        handleClose();
     };
 
     return (
@@ -48,7 +55,13 @@ const TopBar = () => {
                 }}
                 component={"nav"}
             >
-                <Box display={"flex"} justifyContent={"start"}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2,
+                    }}
+                >
                     {!isOpenSidebarAdmin && (
                         <IconButton
                             onClick={() => {
@@ -58,6 +71,38 @@ const TopBar = () => {
                             <MenuIcon fontSize="medium" />
                         </IconButton>
                     )}
+                    <Box
+                        sx={{
+                            marginLeft: {
+                                xs: 1,
+                                sm: 1,
+                                md: 0,
+                            },
+                        }}
+                    >
+                        <IconButton
+                            component={MuiNextLink}
+                            href={"/admin"}
+                            prefetch={false}
+                            sx={{
+                                p: 0,
+                                "&:hover": {
+                                    backgroundColor: "transparent",
+                                },
+                            }}
+                        >
+                            <Image
+                                src="/icons/movielandia24-logo.png"
+                                alt="MovieLandia24 Admin"
+                                height={50}
+                                width={143}
+                                priority
+                                style={{
+                                    objectFit: "contain",
+                                }}
+                            />
+                        </IconButton>
+                    </Box>
                 </Box>
                 <Box display={"flex"} flexDirection={"row"}>
                     <SwitchThemeButton />
@@ -89,7 +134,7 @@ const TopBar = () => {
                         }}
                     >
                         <MenuItem onClick={handleRedirectToProfile} style={{ color: theme.vars.palette.primary.main }}>
-                            My profile
+                            {session?.user?.role === "Admin" ? "Go to Dashboard" : "My Profile"}
                         </MenuItem>
                         <MenuItem onClick={handleLogout} style={{ color: theme.vars.palette.primary.main }}>
                             Log out
