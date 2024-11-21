@@ -6,6 +6,7 @@ import MovieIcon from "@mui/icons-material/Movie";
 import PersonIcon from "@mui/icons-material/Person";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
+import GroupWorkIcon from "@mui/icons-material/GroupWork";
 
 export const SidebarItems = [
     {
@@ -51,9 +52,15 @@ export const SidebarItems = [
         index: 6,
     },
     {
+        label: "Crew",
+        to: "/admin/crew",
+        icon: <GroupWorkIcon />,
+        index: 7,
+    },
+    {
         label: "Genres",
         to: "/admin/genres",
         icon: <MovieIcon />,
-        index: 7,
+        index: 8,
     },
 ];
