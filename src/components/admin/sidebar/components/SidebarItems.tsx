@@ -52,8 +52,8 @@ export const SidebarItems = [
         index: 6,
     },
     {
-        label: "Crew",
-        to: "/admin/crew",
+        label: "Crews",
+        to: "/admin/crews",
         icon: <GroupWorkIcon />,
         index: 7,
     },

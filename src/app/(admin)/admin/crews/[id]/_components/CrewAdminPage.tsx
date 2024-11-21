@@ -16,6 +16,7 @@ import FormAdvanced from "@/components/admin/form/Form";
 import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { z } from "zod";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 const crewSchema = z.object({
     photoSrc: z.string().min(1, { message: "required" }),
@@ -79,7 +80,7 @@ const CrewAdminPage = () => {
     }
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <LoadingSpinner />;
     }
 
     return (
