@@ -1,7 +1,7 @@
 "use client";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, FormControl, FormLabel, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, FormLabel, IconButton, InputAdornment, TextField, Typography, Divider } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
 import { showToast } from "@/utils/helpers/toast";
@@ -262,6 +262,22 @@ export default function LoginForm() {
                             Sign Up
                         </Typography>
                     </Button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', my: 1 }}>
+                        <Divider sx={{ flexGrow: 1 }} />
+                        <Typography 
+                            variant="body2" 
+                            component="span" 
+                            sx={{ 
+                                px: 2, 
+                                color: 'text.secondary',
+                                fontWeight: 500,
+                                fontSize: '0.875rem'
+                            }}
+                        >
+                            OR
+                        </Typography>
+                        <Divider sx={{ flexGrow: 1 }} />
+                    </Box>
                     <Button
                         onClick={() => signIn("google", { callbackUrl: "/" })}
                         variant="outlined"
