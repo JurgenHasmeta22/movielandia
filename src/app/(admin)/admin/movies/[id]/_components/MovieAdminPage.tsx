@@ -42,18 +42,13 @@ const MovieAdminPage = () => {
     const formRef = useRef<any>(null);
 
     const breadcrumbs = [
+        <Link key="1" href="/admin/movies" style={{ textDecoration: "none" }}>
+            Movies
+        </Link>,
         <Link key="2" href={`/admin/movies/${params?.id}`} style={{ textDecoration: "none" }}>
-            Movie {`${params?.id}`}
+            {movie?.title || `Movie ${params?.id}`}
         </Link>,
     ];
-
-    // if (location?.state?.from) {
-    breadcrumbs.unshift(
-        <Link key="1" href={"/admin/movies"} style={{ textDecoration: "none" }}>
-            {/* {location.state.from} */}
-        </Link>,
-    );
-    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);

@@ -55,11 +55,11 @@ const TopBar = () => {
                 }}
                 component={"nav"}
             >
-                <Box 
+                <Box
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 2
+                        gap: 2,
                     }}
                 >
                     {!isOpenSidebarAdmin && (
@@ -91,10 +91,10 @@ const TopBar = () => {
                                 },
                             }}
                         >
-                            <Image 
-                                src="/icons/movielandia24-logo.png" 
-                                alt="MovieLandia24 Admin" 
-                                height={50} 
+                            <Image
+                                src="/icons/movielandia24-logo.png"
+                                alt="MovieLandia24 Admin"
+                                height={50}
                                 width={143}
                                 priority
                                 style={{

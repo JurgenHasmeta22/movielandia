@@ -20,8 +20,8 @@ const LoadingSpinner: React.FC = () => {
             <AnimatePresence>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ 
-                        opacity: 1, 
+                    animate={{
+                        opacity: 1,
                         scale: 1,
                         rotate: 360,
                     }}
