@@ -7,24 +7,27 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
-import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
-import FormAdvanced from "@/components/admin/form/Form";
 import { useModal } from "@/providers/ModalProvider";
+import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { Episode, Prisma } from "@prisma/client";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/form/Form";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
+import { deleteEpisodeById, getEpisodeById, updateEpisodeById } from "@/actions/episode.actions";
 import Link from "next/link";
 import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-import { Episode, Prisma } from "@prisma/client";
-import { deleteEpisodeById, getEpisodeById, updateEpisodeById } from "@/actions/episode.actions";
 
 const episodeSchema = z.object({
     title: z.string().min(1, { message: "required" }),
-    episodeNumber: z.coerce.number().min(1, { message: "required" }),
-    duration: z.coerce.number().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    photoSrcProd: z.string().min(1, { message: "required" }),
+    trailerSrc: z.string().min(1, { message: "required" }),
     description: z.string().min(1, { message: "required" }),
+    duration: z.coerce.number().min(1, { message: "required" }),
     dateAired: z.string().min(1, { message: "required" }),
+    ratingImdb: z.coerce.number().min(0).max(10),
     seasonId: z.coerce.number().min(1, { message: "required" }),
 });
 
@@ -34,11 +37,10 @@ const EpisodeAdminPage = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
-    const formRef = useRef<any>(null);
-
     const router = useRouter();
     const params = useParams();
     const { openModal } = useModal();
+    const formRef = useRef<any>(null);
 
     const breadcrumbs = [
         <Link key="1" href="/admin/episodes" style={{ textDecoration: "none" }}>
@@ -54,18 +56,19 @@ const EpisodeAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        if (formRef.current) {
-            formRef.current.reset();
-        }
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
         const payload: Prisma.EpisodeUpdateInput = {
             title: values.title,
-            episodeNumber: values.episodeNumber,
-            duration: values.duration,
+            photoSrc: values.photoSrc,
+            photoSrcProd: values.photoSrcProd,
+            trailerSrc: values.trailerSrc,
             description: values.description,
+            duration: Number(values.duration),
             dateAired: values.dateAired,
+            ratingImdb: Number(values.ratingImdb),
             season: {
                 connect: {
                     id: values.seasonId,
@@ -83,57 +86,12 @@ const EpisodeAdminPage = () => {
         }
     };
 
-    const handleDelete = () => {
-        openModal({
-            title: "Delete Episode",
-            description: "Are you sure you want to delete this episode?",
-            handleConfirm: async () => {
-                const response = await deleteEpisodeById(Number(params?.id));
-
-                if (response) {
-                    toast.success(CONSTANTS.DELETE__SUCCESS);
-                    router.push("/admin/episodes");
-                } else {
-                    toast.error(CONSTANTS.DELETE__FAILURE);
-                }
-            },
-            icon: <WarningOutlined sx={{ color: "warning.main" }} />,
-            confirmText: "Delete",
-            confirmButtonProps: {
-                color: "warning",
-                variant: "contained",
-                startIcon: <ClearOutlinedIcon />,
-            },
-        });
-    };
-
-    const handleReset = () => {
-        openModal({
-            title: "Reset Form",
-            description: "Are you sure you want to reset the form?",
-            handleConfirm: () => {
-                handleResetFromParent();
-            },
-            icon: <CheckOutlined sx={{ color: "info.main" }} />,
-            confirmText: "Reset",
-            confirmButtonProps: {
-                color: "info",
-                variant: "contained",
-                startIcon: <ClearAllIcon />,
-            },
-        });
-    };
-
     async function getEpisode(): Promise<void> {
         setLoading(true);
-
-        const response: Episode | null = await getEpisodeById(Number(params?.id));
-
+        const response: Episode | null = await getEpisodeById(Number(params.id), {});
         if (response) {
             setEpisode(response);
             setLoading(false);
-        } else {
-            toast.error("Failed to fetch episode");
         }
     }
 
@@ -147,83 +105,158 @@ const EpisodeAdminPage = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/episodes" />
-            <HeaderDashboard title={`Episode ${params?.id}`} subtitle="Managing episode" />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/episodes"} />
+            <HeaderDashboard title={"Episode"} subtitle={"Edit Episode"} />
             <FormAdvanced
                 defaultValues={{
+                    id: episode?.id,
                     title: episode?.title,
-                    episodeNumber: episode?.episodeNumber,
-                    duration: episode?.duration,
+                    photoSrc: episode?.photoSrc,
+                    photoSrcProd: episode?.photoSrcProd,
+                    trailerSrc: episode?.trailerSrc,
                     description: episode?.description,
+                    duration: episode?.duration,
                     dateAired: episode?.dateAired,
+                    ratingImdb: episode?.ratingImdb,
                     seasonId: episode?.seasonId,
                 }}
-                schema={episodeSchema}
-                onSubmit={handleFormSubmit}
-                formRef={formRef}
                 fields={[
+                    {
+                        name: "id",
+                        label: "Id",
+                        disabled: true,
+                        variant: "filled",
+                        type: "text",
+                    },
                     {
                         name: "title",
                         label: "Title",
+                        variant: "filled",
                         type: "text",
-                        variant: "outlined",
                     },
                     {
-                        name: "episodeNumber",
-                        label: "Episode Number",
-                        type: "number",
-                        variant: "outlined",
+                        name: "photoSrc",
+                        label: "Photo Src",
+                        variant: "filled",
+                        type: "text",
                     },
                     {
-                        name: "duration",
-                        label: "Duration (minutes)",
-                        type: "number",
-                        variant: "outlined",
+                        name: "photoSrcProd",
+                        label: "Photo Src Prod",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "trailerSrc",
+                        label: "Trailer Src",
+                        variant: "filled",
+                        type: "text",
                     },
                     {
                         name: "description",
                         label: "Description",
+                        variant: "filled",
                         type: "text",
-                        variant: "outlined",
-                        multiline: true,
-                        rows: 4,
+                    },
+                    {
+                        name: "duration",
+                        label: "Duration (minutes)",
+                        variant: "filled",
+                        type: "text",
                     },
                     {
                         name: "dateAired",
                         label: "Date Aired",
+                        variant: "filled",
                         type: "date",
-                        variant: "outlined",
+                    },
+                    {
+                        name: "ratingImdb",
+                        label: "IMDB Rating",
+                        variant: "filled",
+                        type: "text",
                     },
                     {
                         name: "seasonId",
                         label: "Season ID",
-                        type: "number",
-                        variant: "outlined",
+                        variant: "filled",
+                        type: "text",
                     },
                 ]}
+                schema={episodeSchema}
+                onSubmit={handleFormSubmit}
+                formRef={formRef}
                 actions={[
                     {
-                        label: "Save",
+                        label: CONSTANTS.FORM__DELETE__BUTTON,
+                        onClick: async () => {
+                            openModal({
+                                onClose: () => setOpen(false),
+                                title: `Delete selected episode ${formData.title}`,
+                                actions: [
+                                    {
+                                        label: CONSTANTS.MODAL__DELETE__NO,
+                                        onClick: () => setOpen(false),
+                                        color: "secondary",
+                                        variant: "contained",
+                                        sx: {
+                                            bgcolor: "#ff5252",
+                                        },
+                                        icon: <WarningOutlined />,
+                                    },
+                                    {
+                                        label: CONSTANTS.MODAL__DELETE__YES,
+                                        onClick: async () => {
+                                            const response = await deleteEpisodeById(episode?.id!);
+
+                                            if (response) {
+                                                toast.success(CONSTANTS.DELETE__SUCCESS);
+                                                router.push("/admin/episodes");
+                                            } else {
+                                                toast.success(CONSTANTS.DELETE__FAILURE);
+                                            }
+                                        },
+                                        type: "submit",
+                                        color: "secondary",
+                                        variant: "contained",
+                                        sx: {
+                                            bgcolor: "#30969f",
+                                        },
+                                        icon: <CheckOutlined />,
+                                    },
+                                ],
+                                subTitle: "Do you want to delete selected record ?",
+                            });
+                        },
+                        color: "secondary",
+                        variant: "contained",
+                        sx: {
+                            bgcolor: "#ff5252",
+                        },
+                        icon: <ClearOutlinedIcon color="action" sx={{ ml: "10px" }} />,
+                    },
+                    {
+                        label: CONSTANTS.FORM__RESET__BUTTON,
+                        type: "reset",
+                        onClick: () => {
+                            handleResetFromParent();
+                        },
+                        color: "secondary",
+                        variant: "contained",
+                        sx: {
+                            bgcolor: "#00bfff",
+                        },
+                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                    },
+                    {
+                        label: CONSTANTS.FORM__UPDATE__BUTTON,
                         type: "submit",
+                        color: "secondary",
                         variant: "contained",
-                        color: "primary",
-                        startIcon: <SaveAsIcon />,
-                    },
-                    {
-                        label: "Reset",
-                        type: "button",
-                        variant: "contained",
-                        color: "info",
-                        startIcon: <ClearAllIcon />,
-                        onClick: handleReset,
-                    },
-                    {
-                        label: "Delete",
-                        type: "button",
-                        variant: "contained",
-                        color: "warning",
-                        startIcon: <ClearOutlinedIcon />,
-                        onClick: handleDelete,
+                        sx: {
+                            bgcolor: "#30969f",
+                        },
+                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
                     },
                 ]}
             />

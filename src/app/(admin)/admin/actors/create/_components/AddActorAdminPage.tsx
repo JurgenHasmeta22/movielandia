@@ -18,14 +18,13 @@ import { Actor, Prisma } from "@prisma/client";
 import { addActor } from "@/actions/actor.actions";
 
 const actorSchema = z.object({
-    name: z.string().min(1, { message: "required" }),
-    biography: z.string().min(1, { message: "required" }),
-    birthDate: z.string().min(1, { message: "required" }),
-    birthPlace: z.string().min(1, { message: "required" }),
-    imageUrl: z.string().min(1, { message: "required" }),
+    fullname: z.string().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    description: z.string().min(1, { message: "required" }),
+    debut: z.string().min(1, { message: "required" }),
 });
 
-const CreateActorForm = () => {
+const AddActorAdminPage = () => {
     const formRef = useRef<any>(null);
     const router = useRouter();
     const { openModal } = useModal();
@@ -47,20 +46,19 @@ const CreateActorForm = () => {
 
     const handleFormSubmit = async (values: any) => {
         const payload: Prisma.ActorCreateInput = {
-            name: values.name,
-            biography: values.biography,
-            birthDate: values.birthDate,
-            birthPlace: values.birthPlace,
-            imageUrl: values.imageUrl,
+            fullname: values.fullname,
+            photoSrc: values.photoSrc,
+            description: values.description,
+            debut: values.debut,
         };
 
         const response: Actor | null = await addActor(payload);
 
         if (response) {
-            toast.success(CONSTANTS.CREATE__SUCCESS);
+            toast.success(CONSTANTS.ADD__SUCCESS);
             router.push("/admin/actors");
         } else {
-            toast.error(CONSTANTS.CREATE__FAILURE);
+            toast.error(CONSTANTS.ADD__FAILURE);
         }
     };
 
@@ -84,60 +82,72 @@ const CreateActorForm = () => {
     return (
         <Box m="20px">
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/actors" />
-            <HeaderDashboard title="Create Actor" subtitle="Add a new actor" />
+            <HeaderDashboard title="Actor" subtitle="Add an actor" />
             <FormAdvanced
                 schema={actorSchema}
+                defaultValues={{
+                    fullname: "",
+                    photoSrc: "",
+                    description: "",
+                    debut: "",
+                }}
                 onSubmit={handleFormSubmit}
                 formRef={formRef}
                 fields={[
                     {
-                        name: "name",
-                        label: "Name",
+                        name: "fullname",
+                        label: "Fullname",
                         type: "text",
-                        variant: "outlined",
+                        variant: "filled",
                     },
                     {
-                        name: "biography",
-                        label: "Biography",
+                        name: "photoSrc",
+                        label: "Photo Src",
                         type: "text",
-                        variant: "outlined",
-                        multiline: true,
-                        rows: 4,
+                        variant: "filled",
                     },
                     {
-                        name: "birthDate",
-                        label: "Birth Date",
-                        type: "date",
-                        variant: "outlined",
+                        name: "description",
+                        label: "Description",
+                        type: "text",
+                        variant: "filled",
                     },
                     {
-                        name: "birthPlace",
-                        label: "Birth Place",
+                        name: "debut",
+                        label: "Debut",
                         type: "text",
-                        variant: "outlined",
-                    },
-                    {
-                        name: "imageUrl",
-                        label: "Image URL",
-                        type: "text",
-                        variant: "outlined",
+                        variant: "filled",
                     },
                 ]}
                 actions={[
                     {
-                        label: "Create",
+                        label: CONSTANTS.FORM__UPDATE__BUTTON,
                         type: "submit",
+                        color: "secondary",
                         variant: "contained",
-                        color: "primary",
-                        startIcon: <SaveAsIcon />,
+                        sx: {
+                            border: "1px solid #000",
+                            bgcolor: "#30969f",
+                            fontSize: "15px",
+                            fontWeight: "700",
+                        },
+                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
                     },
                     {
-                        label: "Reset",
-                        type: "button",
+                        label: CONSTANTS.FORM__RESET__BUTTON,
+                        type: "reset",
+                        onClick: () => {
+                            handleResetFromParent();
+                        },
+                        color: "secondary",
                         variant: "contained",
-                        color: "info",
-                        startIcon: <ClearAllIcon />,
-                        onClick: handleReset,
+                        sx: {
+                            border: "1px solid #000",
+                            bgcolor: "#ff5252",
+                            fontSize: "15px",
+                            fontWeight: "700",
+                        },
+                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
                     },
                 ]}
             />
@@ -145,4 +155,4 @@ const CreateActorForm = () => {
     );
 };
 
-export default CreateActorForm;
+export default AddActorAdminPage;

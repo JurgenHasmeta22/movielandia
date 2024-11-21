@@ -381,7 +381,7 @@ export async function updateActorById(actorParam: Prisma.ActorUpdateInput, id: s
     }
 }
 
-export async function addActor(actorParam: Actor): Promise<Actor | null> {
+export async function addActor(actorParam: Prisma.ActorCreateInput): Promise<Actor | null> {
     const actorCreated = await prisma.actor.create({
         data: actorParam,
     });

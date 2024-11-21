@@ -7,24 +7,24 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
-import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
-import FormAdvanced from "@/components/admin/form/Form";
 import { useModal } from "@/providers/ModalProvider";
+import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { Actor, Prisma } from "@prisma/client";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/form/Form";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
+import { deleteActorById, getActorById, updateActorById } from "@/actions/actor.actions";
 import Link from "next/link";
 import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-import { Actor, Prisma } from "@prisma/client";
-import { deleteActorById, getActorById, updateActorById } from "@/actions/actor.actions";
 
 const actorSchema = z.object({
-    name: z.string().min(1, { message: "required" }),
-    biography: z.string().min(1, { message: "required" }),
-    birthDate: z.string().min(1, { message: "required" }),
-    birthPlace: z.string().min(1, { message: "required" }),
-    imageUrl: z.string().min(1, { message: "required" }),
+    fullname: z.string().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    photoSrcProd: z.string().min(1, { message: "required" }),
+    description: z.string().min(1, { message: "required" }),
+    debut: z.string().min(1, { message: "required" }),
 });
 
 const ActorAdminPage = () => {
@@ -33,18 +33,17 @@ const ActorAdminPage = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
-    const formRef = useRef<any>(null);
-
     const router = useRouter();
     const params = useParams();
     const { openModal } = useModal();
+    const formRef = useRef<any>(null);
 
     const breadcrumbs = [
         <Link key="1" href="/admin/actors" style={{ textDecoration: "none" }}>
             Actors
         </Link>,
         <Link key="2" href={`/admin/actors/${params?.id}`} style={{ textDecoration: "none" }}>
-            {actor?.name || `Actor ${params?.id}`}
+            {actor?.fullname || `Actor ${params?.id}`}
         </Link>,
     ];
 
@@ -53,18 +52,16 @@ const ActorAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        if (formRef.current) {
-            formRef.current.reset();
-        }
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
         const payload: Prisma.ActorUpdateInput = {
-            name: values.name,
-            biography: values.biography,
-            birthDate: values.birthDate,
-            birthPlace: values.birthPlace,
-            imageUrl: values.imageUrl,
+            fullname: values.fullname,
+            photoSrc: values.photoSrc,
+            photoSrcProd: values.photoSrcProd,
+            description: values.description,
+            debut: values.debut,
         };
 
         const response: Actor | null = await updateActorById(payload, String(actor?.id));
@@ -77,57 +74,13 @@ const ActorAdminPage = () => {
         }
     };
 
-    const handleDelete = () => {
-        openModal({
-            title: "Delete Actor",
-            description: "Are you sure you want to delete this actor?",
-            handleConfirm: async () => {
-                const response = await deleteActorById(Number(params?.id));
-
-                if (response) {
-                    toast.success(CONSTANTS.DELETE__SUCCESS);
-                    router.push("/admin/actors");
-                } else {
-                    toast.error(CONSTANTS.DELETE__FAILURE);
-                }
-            },
-            icon: <WarningOutlined sx={{ color: "warning.main" }} />,
-            confirmText: "Delete",
-            confirmButtonProps: {
-                color: "warning",
-                variant: "contained",
-                startIcon: <ClearOutlinedIcon />,
-            },
-        });
-    };
-
-    const handleReset = () => {
-        openModal({
-            title: "Reset Form",
-            description: "Are you sure you want to reset the form?",
-            handleConfirm: () => {
-                handleResetFromParent();
-            },
-            icon: <CheckOutlined sx={{ color: "info.main" }} />,
-            confirmText: "Reset",
-            confirmButtonProps: {
-                color: "info",
-                variant: "contained",
-                startIcon: <ClearAllIcon />,
-            },
-        });
-    };
-
     async function getActor(): Promise<void> {
         setLoading(true);
-
-        const response: Actor | null = await getActorById(Number(params?.id));
+        const response: Actor | null = await getActorById(Number(params.id), {});
 
         if (response) {
             setActor(response);
             setLoading(false);
-        } else {
-            toast.error("Failed to fetch actor");
         }
     }
 
@@ -141,76 +94,130 @@ const ActorAdminPage = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/actors" />
-            <HeaderDashboard title={`Actor ${params?.id}`} subtitle="Managing actor" />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/actors"} />
+            <HeaderDashboard title={"Actor"} subtitle={"Edit actor"} />
             <FormAdvanced
                 defaultValues={{
-                    name: actor?.name,
-                    biography: actor?.biography,
-                    birthDate: actor?.birthDate,
-                    birthPlace: actor?.birthPlace,
-                    imageUrl: actor?.imageUrl,
+                    id: actor?.id,
+                    fullname: actor?.fullname,
+                    photoSrc: actor?.photoSrc,
+                    photoSrcProd: actor?.photoSrcProd,
+                    description: actor?.description,
+                    debut: actor?.debut,
                 }}
+                fields={[
+                    {
+                        name: "id",
+                        label: "Id",
+                        disabled: true,
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "fullname",
+                        label: "Full Name",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrc",
+                        label: "Photo Src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo Src Prod",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "description",
+                        label: "Description",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "debut",
+                        label: "Debut",
+                        variant: "filled",
+                        type: "text",
+                    },
+                ]}
                 schema={actorSchema}
                 onSubmit={handleFormSubmit}
                 formRef={formRef}
-                fields={[
-                    {
-                        name: "name",
-                        label: "Name",
-                        type: "text",
-                        variant: "outlined",
-                    },
-                    {
-                        name: "biography",
-                        label: "Biography",
-                        type: "text",
-                        variant: "outlined",
-                        multiline: true,
-                        rows: 4,
-                    },
-                    {
-                        name: "birthDate",
-                        label: "Birth Date",
-                        type: "date",
-                        variant: "outlined",
-                    },
-                    {
-                        name: "birthPlace",
-                        label: "Birth Place",
-                        type: "text",
-                        variant: "outlined",
-                    },
-                    {
-                        name: "imageUrl",
-                        label: "Image URL",
-                        type: "text",
-                        variant: "outlined",
-                    },
-                ]}
                 actions={[
                     {
-                        label: "Save",
+                        label: CONSTANTS.FORM__DELETE__BUTTON,
+                        onClick: async () => {
+                            openModal({
+                                onClose: () => setOpen(false),
+                                title: `Delete selected actor ${formData.name}`,
+                                actions: [
+                                    {
+                                        label: CONSTANTS.MODAL__DELETE__NO,
+                                        onClick: () => setOpen(false),
+                                        color: "secondary",
+                                        variant: "contained",
+                                        sx: {
+                                            bgcolor: "#ff5252",
+                                        },
+                                        icon: <WarningOutlined />,
+                                    },
+                                    {
+                                        label: CONSTANTS.MODAL__DELETE__YES,
+                                        onClick: async () => {
+                                            const response = await deleteActorById(actor?.id!);
+
+                                            if (response) {
+                                                toast.success(CONSTANTS.DELETE__SUCCESS);
+                                                router.push("/admin/actors");
+                                            } else {
+                                                toast.success(CONSTANTS.DELETE__FAILURE);
+                                            }
+                                        },
+                                        type: "submit",
+                                        color: "secondary",
+                                        variant: "contained",
+                                        sx: {
+                                            bgcolor: "#30969f",
+                                        },
+                                        icon: <CheckOutlined />,
+                                    },
+                                ],
+                                subTitle: "Do you want to delete selected record ?",
+                            });
+                        },
+                        color: "secondary",
+                        variant: "contained",
+                        sx: {
+                            bgcolor: "#ff5252",
+                        },
+                        icon: <ClearOutlinedIcon color="action" sx={{ ml: "10px" }} />,
+                    },
+                    {
+                        label: CONSTANTS.FORM__RESET__BUTTON,
+                        type: "reset",
+                        onClick: () => {
+                            handleResetFromParent();
+                        },
+                        color: "secondary",
+                        variant: "contained",
+                        sx: {
+                            bgcolor: "#00bfff",
+                        },
+                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                    },
+                    {
+                        label: CONSTANTS.FORM__UPDATE__BUTTON,
                         type: "submit",
+                        color: "secondary",
                         variant: "contained",
-                        color: "primary",
-                        startIcon: <SaveAsIcon />,
-                    },
-                    {
-                        label: "Reset",
-                        type: "button",
-                        variant: "contained",
-                        color: "info",
-                        startIcon: <ClearAllIcon />,
-                        onClick: handleReset,
-                    },
-                    {
-                        label: "Delete",
-                        type: "button",
-                        variant: "contained",
-                        color: "warning",
-                        startIcon: <ClearOutlinedIcon />,
-                        onClick: handleDelete,
+                        sx: {
+                            bgcolor: "#30969f",
+                        },
+                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
                     },
                 ]}
             />

@@ -7,23 +7,26 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
-import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
-import FormAdvanced from "@/components/admin/form/Form";
 import { useModal } from "@/providers/ModalProvider";
+import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { Season, Prisma } from "@prisma/client";
+import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
+import FormAdvanced from "@/components/admin/form/Form";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
+import { deleteSeasonById, getSeasonById, updateSeasonById } from "@/actions/season.actions";
 import Link from "next/link";
 import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-import { Season, Prisma } from "@prisma/client";
-import { deleteSeasonById, getSeasonById, updateSeasonById } from "@/actions/season.actions";
 
 const seasonSchema = z.object({
     title: z.string().min(1, { message: "required" }),
-    seasonNumber: z.coerce.number().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    photoSrcProd: z.string().min(1, { message: "required" }),
+    trailerSrc: z.string().min(1, { message: "required" }),
     description: z.string().min(1, { message: "required" }),
     dateAired: z.string().min(1, { message: "required" }),
+    ratingImdb: z.coerce.number().min(0).max(10),
     serieId: z.coerce.number().min(1, { message: "required" }),
 });
 
@@ -33,11 +36,10 @@ const SeasonAdminPage = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
-    const formRef = useRef<any>(null);
-
     const router = useRouter();
     const params = useParams();
     const { openModal } = useModal();
+    const formRef = useRef<any>(null);
 
     const breadcrumbs = [
         <Link key="1" href="/admin/seasons" style={{ textDecoration: "none" }}>
@@ -53,17 +55,18 @@ const SeasonAdminPage = () => {
     };
 
     const handleResetFromParent = () => {
-        if (formRef.current) {
-            formRef.current.reset();
-        }
+        formRef.current?.reset();
     };
 
     const handleFormSubmit = async (values: any) => {
         const payload: Prisma.SeasonUpdateInput = {
             title: values.title,
-            seasonNumber: values.seasonNumber,
+            photoSrc: values.photoSrc,
+            photoSrcProd: values.photoSrcProd,
+            trailerSrc: values.trailerSrc,
             description: values.description,
             dateAired: values.dateAired,
+            ratingImdb: Number(values.ratingImdb),
             serie: {
                 connect: {
                     id: values.serieId,
@@ -81,57 +84,12 @@ const SeasonAdminPage = () => {
         }
     };
 
-    const handleDelete = () => {
-        openModal({
-            title: "Delete Season",
-            description: "Are you sure you want to delete this season?",
-            handleConfirm: async () => {
-                const response = await deleteSeasonById(Number(params?.id));
-
-                if (response) {
-                    toast.success(CONSTANTS.DELETE__SUCCESS);
-                    router.push("/admin/seasons");
-                } else {
-                    toast.error(CONSTANTS.DELETE__FAILURE);
-                }
-            },
-            icon: <WarningOutlined sx={{ color: "warning.main" }} />,
-            confirmText: "Delete",
-            confirmButtonProps: {
-                color: "warning",
-                variant: "contained",
-                startIcon: <ClearOutlinedIcon />,
-            },
-        });
-    };
-
-    const handleReset = () => {
-        openModal({
-            title: "Reset Form",
-            description: "Are you sure you want to reset the form?",
-            handleConfirm: () => {
-                handleResetFromParent();
-            },
-            icon: <CheckOutlined sx={{ color: "info.main" }} />,
-            confirmText: "Reset",
-            confirmButtonProps: {
-                color: "info",
-                variant: "contained",
-                startIcon: <ClearAllIcon />,
-            },
-        });
-    };
-
     async function getSeason(): Promise<void> {
         setLoading(true);
-
-        const response: Season | null = await getSeasonById(Number(params?.id));
-
+        const response: Season | null = await getSeasonById(Number(params.id), {});
         if (response) {
             setSeason(response);
             setLoading(false);
-        } else {
-            toast.error("Failed to fetch season");
         }
     }
 
@@ -145,76 +103,151 @@ const SeasonAdminPage = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/seasons" />
-            <HeaderDashboard title={`Season ${params?.id}`} subtitle="Managing season" />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/seasons"} />
+            <HeaderDashboard title={"Season"} subtitle={"Edit Season"} />
             <FormAdvanced
                 defaultValues={{
+                    id: season?.id,
                     title: season?.title,
-                    seasonNumber: season?.seasonNumber,
+                    photoSrc: season?.photoSrc,
+                    photoSrcProd: season?.photoSrcProd,
+                    trailerSrc: season?.trailerSrc,
                     description: season?.description,
                     dateAired: season?.dateAired,
+                    ratingImdb: season?.ratingImdb,
                     serieId: season?.serieId,
                 }}
-                schema={seasonSchema}
-                onSubmit={handleFormSubmit}
-                formRef={formRef}
                 fields={[
+                    {
+                        name: "id",
+                        label: "Id",
+                        disabled: true,
+                        variant: "filled",
+                        type: "text",
+                    },
                     {
                         name: "title",
                         label: "Title",
+                        variant: "filled",
                         type: "text",
-                        variant: "outlined",
                     },
                     {
-                        name: "seasonNumber",
-                        label: "Season Number",
-                        type: "number",
-                        variant: "outlined",
+                        name: "photoSrc",
+                        label: "Photo Src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo Src Prod",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "trailerSrc",
+                        label: "Trailer Src",
+                        variant: "filled",
+                        type: "text",
                     },
                     {
                         name: "description",
                         label: "Description",
+                        variant: "filled",
                         type: "text",
-                        variant: "outlined",
-                        multiline: true,
-                        rows: 4,
                     },
                     {
                         name: "dateAired",
                         label: "Date Aired",
+                        variant: "filled",
                         type: "date",
-                        variant: "outlined",
+                    },
+                    {
+                        name: "ratingImdb",
+                        label: "IMDB Rating",
+                        variant: "filled",
+                        type: "text",
                     },
                     {
                         name: "serieId",
-                        label: "Series ID",
-                        type: "number",
-                        variant: "outlined",
+                        label: "Serie ID",
+                        variant: "filled",
+                        type: "text",
                     },
                 ]}
+                schema={seasonSchema}
+                onSubmit={handleFormSubmit}
+                formRef={formRef}
                 actions={[
                     {
-                        label: "Save",
+                        label: CONSTANTS.FORM__DELETE__BUTTON,
+                        onClick: async () => {
+                            openModal({
+                                onClose: () => setOpen(false),
+                                title: `Delete selected season ${formData.title}`,
+                                actions: [
+                                    {
+                                        label: CONSTANTS.MODAL__DELETE__NO,
+                                        onClick: () => setOpen(false),
+                                        color: "secondary",
+                                        variant: "contained",
+                                        sx: {
+                                            bgcolor: "#ff5252",
+                                        },
+                                        icon: <WarningOutlined />,
+                                    },
+                                    {
+                                        label: CONSTANTS.MODAL__DELETE__YES,
+                                        onClick: async () => {
+                                            const response = await deleteSeasonById(season?.id!);
+
+                                            if (response) {
+                                                toast.success(CONSTANTS.DELETE__SUCCESS);
+                                                router.push("/admin/seasons");
+                                            } else {
+                                                toast.success(CONSTANTS.DELETE__FAILURE);
+                                            }
+                                        },
+                                        type: "submit",
+                                        color: "secondary",
+                                        variant: "contained",
+                                        sx: {
+                                            bgcolor: "#30969f",
+                                        },
+                                        icon: <CheckOutlined />,
+                                    },
+                                ],
+                                subTitle: "Do you want to delete selected record ?",
+                            });
+                        },
+                        color: "secondary",
+                        variant: "contained",
+                        sx: {
+                            bgcolor: "#ff5252",
+                        },
+                        icon: <ClearOutlinedIcon color="action" sx={{ ml: "10px" }} />,
+                    },
+                    {
+                        label: CONSTANTS.FORM__RESET__BUTTON,
+                        type: "reset",
+                        onClick: () => {
+                            handleResetFromParent();
+                        },
+                        color: "secondary",
+                        variant: "contained",
+                        sx: {
+                            bgcolor: "#00bfff",
+                        },
+                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
+                    },
+                    {
+                        label: CONSTANTS.FORM__UPDATE__BUTTON,
                         type: "submit",
+                        color: "secondary",
                         variant: "contained",
-                        color: "primary",
-                        startIcon: <SaveAsIcon />,
-                    },
-                    {
-                        label: "Reset",
-                        type: "button",
-                        variant: "contained",
-                        color: "info",
-                        startIcon: <ClearAllIcon />,
-                        onClick: handleReset,
-                    },
-                    {
-                        label: "Delete",
-                        type: "button",
-                        variant: "contained",
-                        color: "warning",
-                        startIcon: <ClearOutlinedIcon />,
-                        onClick: handleDelete,
+                        sx: {
+                            bgcolor: "#30969f",
+                        },
+                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
                     },
                 ]}
             />
