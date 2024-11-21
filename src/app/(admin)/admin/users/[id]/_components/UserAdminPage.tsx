@@ -37,18 +37,13 @@ const UserAdmin = () => {
     const { openModal } = useModal();
 
     const breadcrumbs = [
-        <Link key="2" href={`/admin/users/${Number(params?.id)}`} style={{ textDecoration: "none" }}>
-            User {`${params?.id}`}
+        <Link key="1" href="/admin/users" style={{ textDecoration: "none" }}>
+            Users
+        </Link>,
+        <Link key="2" href={`/admin/users/${params?.id}`} style={{ textDecoration: "none" }}>
+            {user?.userName || `User ${params?.id}`}
         </Link>,
     ];
-
-    // if (location?.state?.from) {
-    breadcrumbs.unshift(
-        <Link key="1" href={"/admin/users"} style={{ textDecoration: "none" }}>
-            {/* {location.state.from} */}
-        </Link>,
-    );
-    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);

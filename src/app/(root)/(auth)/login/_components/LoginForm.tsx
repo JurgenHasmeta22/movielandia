@@ -208,16 +208,16 @@ export default function LoginForm() {
                                 Sign In
                             </Typography>
                         </Button>
-                        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', my: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "center", width: "100%", my: 1 }}>
                             <Divider sx={{ flexGrow: 1 }} />
-                            <Typography 
-                                variant="body2" 
-                                component="span" 
-                                sx={{ 
-                                    px: 2, 
-                                    color: 'text.secondary',
+                            <Typography
+                                variant="body2"
+                                component="span"
+                                sx={{
+                                    px: 2,
+                                    color: "text.secondary",
                                     fontWeight: 500,
-                                    fontSize: '0.875rem'
+                                    fontSize: "0.875rem",
                                 }}
                             >
                                 OR

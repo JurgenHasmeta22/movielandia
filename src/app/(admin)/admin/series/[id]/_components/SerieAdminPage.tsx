@@ -39,18 +39,13 @@ const SerieAdminPage = () => {
     const { openModal } = useModal();
 
     const breadcrumbs = [
+        <Link key="1" href="/admin/series" style={{ textDecoration: "none" }}>
+            Series
+        </Link>,
         <Link key="2" href={`/admin/series/${params?.id}`} style={{ textDecoration: "none" }}>
-            Serie {`${Number(params?.id)}`}
+            {serie?.title || `Serie ${params?.id}`}
         </Link>,
     ];
-
-    // if (location?.state?.from) {
-    breadcrumbs.push(
-        <Link key="1" href={"/admin/series"} style={{ textDecoration: "none" }}>
-            {/* {location.state.from} */}
-        </Link>,
-    );
-    // }
 
     const handleDataChange = (values: any) => {
         setFormData(values);
