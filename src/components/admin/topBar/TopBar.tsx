@@ -37,7 +37,12 @@ const TopBar = () => {
     };
 
     const handleRedirectToProfile = () => {
-        router.push("/users/1/admin");
+        if (session?.user?.role === "Admin") {
+            router.push("/admin");
+        } else {
+            router.push("/users/1/admin");
+        }
+        handleClose();
     };
 
     return (
@@ -129,7 +134,7 @@ const TopBar = () => {
                         }}
                     >
                         <MenuItem onClick={handleRedirectToProfile} style={{ color: theme.vars.palette.primary.main }}>
-                            My profile
+                            {session?.user?.role === "Admin" ? "Go to Dashboard" : "My Profile"}
                         </MenuItem>
                         <MenuItem onClick={handleLogout} style={{ color: theme.vars.palette.primary.main }}>
                             Log out

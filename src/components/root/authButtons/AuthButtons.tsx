@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { useRouter } from "next/navigation";
 
 interface IAuthButtonsProps {
     session: Session | null;
@@ -30,6 +31,16 @@ const AuthButtons = ({
 }: IAuthButtonsProps) => {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
     const theme = useTheme();
+    const router = useRouter();
+
+    const handleProfileClick = () => {
+        closeMenuProfile();
+        if (session?.user?.role === "Admin") {
+            router.push("/admin");
+        } else {
+            router.push(`/users/${session?.user?.id}/${userName}`);
+        }
+    };
 
     return (
         <>
@@ -61,13 +72,10 @@ const AuthButtons = ({
                             horizontal: "left",
                         }}
                     >
-                        <MenuItem onClick={() => closeMenuProfile()} sx={{ color: theme.vars.palette.primary.main }}>
-                            <Link
-                                href={`/users/${session?.user?.id}/${userName}`}
-                                style={{ textDecoration: "none", color: theme.vars.palette.primary.main }}
-                            >
-                                <Typography variant="inherit">My Profile</Typography>
-                            </Link>
+                        <MenuItem onClick={handleProfileClick} sx={{ color: theme.vars.palette.primary.main }}>
+                            <Typography variant="inherit">
+                                {session?.user?.role === "Admin" ? "Go to Dashboard" : "My Profile"}
+                            </Typography>
                         </MenuItem>
                         <MenuItem onClick={() => handleSignOut()} sx={{ color: theme.vars.palette.primary.main }}>
                             <Typography variant="inherit">Sign Out</Typography>
