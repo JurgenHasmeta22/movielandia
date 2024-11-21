@@ -17,15 +17,29 @@ import { z } from "zod";
 import { Season, Prisma } from "@prisma/client";
 import { addSeason } from "@/actions/season.actions";
 
+interface IAddSeason {
+    title: string;
+    photoSrc: string;
+    photoSrcProd: string;
+    trailerSrc: string;
+    description: string;
+    dateAired: string;
+    ratingImdb: number;
+    serieId: number;
+}
+
 const seasonSchema = z.object({
     title: z.string().min(1, { message: "required" }),
-    seasonNumber: z.coerce.number().min(1, { message: "required" }),
+    photoSrc: z.string().min(1, { message: "required" }),
+    photoSrcProd: z.string().min(1, { message: "required" }),
+    trailerSrc: z.string().min(1, { message: "required" }),
     description: z.string().min(1, { message: "required" }),
     dateAired: z.string().min(1, { message: "required" }),
+    ratingImdb: z.coerce.number().min(0).max(10),
     serieId: z.coerce.number().min(1, { message: "required" }),
 });
 
-const CreateSeasonForm = () => {
+const AddSeasonAdminPage = () => {
     const formRef = useRef<any>(null);
     const router = useRouter();
     const { openModal } = useModal();
@@ -46,25 +60,24 @@ const CreateSeasonForm = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: Prisma.SeasonCreateInput = {
+        const payload: IAddSeason = {
             title: values.title,
-            seasonNumber: values.seasonNumber,
+            photoSrc: values.photoSrc,
+            photoSrcProd: values.photoSrcProd,
+            trailerSrc: values.trailerSrc,
             description: values.description,
             dateAired: values.dateAired,
-            serie: {
-                connect: {
-                    id: values.serieId,
-                },
-            },
+            ratingImdb: values.ratingImdb,
+            serieId: values.serieId,
         };
 
         const response: Season | null = await addSeason(payload);
 
         if (response) {
-            toast.success(CONSTANTS.CREATE__SUCCESS);
+            toast.success(CONSTANTS.ADD__SUCCESS);
             router.push("/admin/seasons");
         } else {
-            toast.error(CONSTANTS.CREATE__FAILURE);
+            toast.error(CONSTANTS.ADD__FAILURE);
         }
     };
 
@@ -88,9 +101,19 @@ const CreateSeasonForm = () => {
     return (
         <Box m="20px">
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/seasons" />
-            <HeaderDashboard title="Create Season" subtitle="Add a new season" />
+            <HeaderDashboard title="Season" subtitle="Add a new season" />
             <FormAdvanced
                 schema={seasonSchema}
+                defaultValues={{
+                    title: "",
+                    photoSrc: "",
+                    photoSrcProd: "",
+                    trailerSrc: "",
+                    description: "",
+                    dateAired: "",
+                    ratingImdb: "",
+                    serieId: "",
+                }}
                 onSubmit={handleFormSubmit}
                 formRef={formRef}
                 fields={[
@@ -98,50 +121,80 @@ const CreateSeasonForm = () => {
                         name: "title",
                         label: "Title",
                         type: "text",
-                        variant: "outlined",
+                        variant: "filled",
                     },
                     {
-                        name: "seasonNumber",
-                        label: "Season Number",
-                        type: "number",
-                        variant: "outlined",
+                        name: "photoSrc",
+                        label: "Photo Src",
+                        type: "text",
+                        variant: "filled",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo Src Prod",
+                        type: "text",
+                        variant: "filled",
+                    },
+                    {
+                        name: "trailerSrc",
+                        label: "Trailer Src",
+                        type: "text",
+                        variant: "filled",
                     },
                     {
                         name: "description",
                         label: "Description",
                         type: "text",
-                        variant: "outlined",
-                        multiline: true,
-                        rows: 4,
+                        variant: "filled",
                     },
                     {
                         name: "dateAired",
                         label: "Date Aired",
                         type: "date",
-                        variant: "outlined",
+                        variant: "filled",
+                    },
+                    {
+                        name: "ratingImdb",
+                        label: "Rating IMDB",
+                        type: "text",
+                        variant: "filled",
                     },
                     {
                         name: "serieId",
                         label: "Series ID",
-                        type: "number",
-                        variant: "outlined",
+                        type: "text",
+                        variant: "filled",
                     },
                 ]}
                 actions={[
                     {
-                        label: "Create",
+                        label: CONSTANTS.FORM__UPDATE__BUTTON,
                         type: "submit",
+                        color: "secondary",
                         variant: "contained",
-                        color: "primary",
-                        startIcon: <SaveAsIcon />,
+                        sx: {
+                            border: "1px solid #000",
+                            bgcolor: "#30969f",
+                            fontSize: "15px",
+                            fontWeight: "700",
+                        },
+                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
                     },
                     {
-                        label: "Reset",
-                        type: "button",
+                        label: CONSTANTS.FORM__RESET__BUTTON,
+                        type: "reset",
+                        onClick: () => {
+                            handleResetFromParent();
+                        },
+                        color: "secondary",
                         variant: "contained",
-                        color: "info",
-                        startIcon: <ClearAllIcon />,
-                        onClick: handleReset,
+                        sx: {
+                            border: "1px solid #000",
+                            bgcolor: "#ff5252",
+                            fontSize: "15px",
+                            fontWeight: "700",
+                        },
+                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
                     },
                 ]}
             />
@@ -149,4 +202,4 @@ const CreateSeasonForm = () => {
     );
 };
 
-export default CreateSeasonForm;
+export default AddSeasonAdminPage;

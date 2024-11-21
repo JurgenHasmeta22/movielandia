@@ -1,7 +1,5 @@
-"use client";
-
-import CreateSeasonForm from "./_components/CreateSeasonForm";
+import CreateSeasonPage from "./_components/AddSeasonAdminPage";
 
 export default async function CreateSeason() {
-    return <CreateSeasonForm />;
+    return <CreateSeasonPage />;
 }
