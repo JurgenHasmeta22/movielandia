@@ -10,8 +10,9 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import FormAdvanced from "@/components/admin/form/Form";
 import * as CONSTANTS from "@/constants/Constants";
-
 import { z } from "zod";
+import Link from "next/link";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 
 export const crewSchema = z.object({
     fullname: z.string().min(1, { message: "required" }),
@@ -25,6 +26,15 @@ export const crewSchema = z.object({
 const AddCrewAdminPage = () => {
     const router = useRouter();
     const formRef = useRef<any>(null);
+
+    const breadcrumbs = [
+        <Link key="1" href="/admin/crews" style={{ textDecoration: "none" }}>
+            Crews
+        </Link>,
+        <Link key="2" href={`/admin/crews/create`} style={{ textDecoration: "none" }}>
+            New Crew
+        </Link>,
+    ];
 
     const handleFormSubmit = async (data: any) => {
         const response = await addCrewMember(data);
@@ -45,6 +55,7 @@ const AddCrewAdminPage = () => {
 
     return (
         <Box m="20px">
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/actors" />
             <HeaderDashboard title="Crew" subtitle="Add a crew member" />
             <FormAdvanced
                 schema={crewSchema}

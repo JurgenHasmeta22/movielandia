@@ -11,6 +11,8 @@ import FormAdvanced from "@/components/admin/form/Form";
 import { addMovie } from "@/actions/movie.actions";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import Link from "next/link";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 
 const movieSchema = z.object({
     title: z.string().min(1, { message: "required" }),
@@ -25,6 +27,15 @@ const movieSchema = z.object({
 const AddMovieAdminPage = () => {
     const router = useRouter();
     const formRef = useRef<any>(null);
+
+    const breadcrumbs = [
+        <Link key="1" href="/admin/movies" style={{ textDecoration: "none" }}>
+            Movies
+        </Link>,
+        <Link key="2" href={`/admin/movies/create`} style={{ textDecoration: "none" }}>
+            New Movie
+        </Link>,
+    ];
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -53,6 +64,7 @@ const AddMovieAdminPage = () => {
 
     return (
         <Box m="20px">
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
             <HeaderDashboard title={CONSTANTS.MOVIE__ADD__TITLE} subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE} />
             <FormAdvanced
                 defaultValues={{
