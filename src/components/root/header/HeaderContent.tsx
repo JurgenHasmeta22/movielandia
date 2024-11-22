@@ -23,21 +23,12 @@ interface IHeaderContentProps {
 }
 
 export function HeaderContent({ session, genres, userName }: IHeaderContentProps) {
-    const [anchorElGenres, setAnchorElGenres] = useState<null | HTMLElement>(null);
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
 
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const router = useRouter();
     const theme = useTheme();
-
-    const openMenuGenres = (event: React.MouseEvent<HTMLLIElement>) => {
-        setAnchorElGenres(event.currentTarget);
-    };
-
-    const closeMenuGenres = () => {
-        setAnchorElGenres(null);
-    };
 
     const openMenuProfile = (event: any) => {
         setAnchorElProfile(event.currentTarget);
@@ -56,7 +47,6 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
             setIsDrawerOpen(false);
         }
 
-        // this does a full server component rerender too not only client so is very useful here
         router.push("/login");
         router.refresh();
         showToast("success", "You are succesfully logged out!");
@@ -102,13 +92,9 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             <MenuIcon />
                         </IconButton>
                     </Box>
-                    {/* Dekstop Header */}
-                    <Stack
-                        flexDirection={"row"}
-                        alignItems={"center"}
-                        justifyContent={"space-around"}
-                        columnGap={1}
-                        flexWrap={"wrap"}
+
+                    {/* Desktop Navigation */}
+                    <Box
                         sx={{
                             display: {
                                 xs: "none",
@@ -116,14 +102,13 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                 md: "flex",
                                 lg: "flex",
                             },
+                            flexDirection: "row",
+                            alignItems: "center",
+                            flexGrow: 1,
+                            justifyContent: "space-around",
                         }}
                     >
-                        <HeaderLinks
-                            genres={genres}
-                            openMenuGenres={openMenuGenres}
-                            closeMenuGenres={closeMenuGenres}
-                            anchorElGenres={anchorElGenres}
-                        />
+                        <HeaderLinks genres={genres} />
                         <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
                             <SearchField />
                             <ThemeToggleButton />
@@ -136,7 +121,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                 handleSignOut={handleSignOut}
                             />
                         </Box>
-                    </Stack>
+                    </Box>
                 </Toolbar>
             </AppBar>
             {/* Mobile Header Toggled sidebar */}

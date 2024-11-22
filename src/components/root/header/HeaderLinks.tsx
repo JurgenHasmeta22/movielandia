@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, List, ListItem, Menu, Typography, useTheme } from "@mui/material";
+import { Box, Button, List, ListItem, Popper, Paper, ButtonGroup, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
@@ -11,19 +11,33 @@ import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 interface IHeaderLinksProps {
     genres: Genre[];
-    anchorElGenres: HTMLElement | null;
-    openMenuGenres: (event: React.MouseEvent<HTMLLIElement>) => void;
-    closeMenuGenres: () => void;
 }
 
-export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinksProps) {
+export function HeaderLinks({ genres }: IHeaderLinksProps) {
+    const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const pathname = usePathname();
     const theme = useTheme();
+
+    useEffect(() => {
+        handleGenresLeave();
+    }, [pathname]);
+
+    const handleGenresHover = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+        setOpen(true);
+    };
+
+    const handleGenresLeave = () => {
+        setOpen(false);
+        setAnchorEl(null);
+    };
 
     const isActive = (path: string) => {
         return pathname === path;
@@ -40,6 +54,9 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
         borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
         borderRadius: 0,
         paddingBottom: 1,
+        "&:hover": {
+            backgroundColor: "transparent",
+        },
     });
 
     return (
@@ -115,71 +132,77 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             Series
                         </Button>
                     </ListItem>
-                    <ListItem onMouseEnter={openMenuGenres} onMouseLeave={closeMenuGenres} sx={{ cursor: "pointer" }}>
-                        <Button
-                            component={MuiNextLink}
-                            href="/genres"
-                            prefetch={false}
-                            sx={getButtonStyle("/genres")}
-                            onClick={() => {
-                                if (isDrawerOpen) {
-                                    setIsDrawerOpen(false);
-                                }
-                                closeMenuGenres();
-                            }}
-                        >
-                            <SubtitlesIcon fontSize={"large"} />
-                            Genres
-                        </Button>
-                        <Menu
-                            anchorEl={anchorElGenres}
-                            open={Boolean(anchorElGenres)}
-                            onClose={closeMenuGenres}
-                            MenuListProps={{
-                                onMouseLeave: closeMenuGenres,
-                                sx: {
-                                    display: "grid",
-                                    height: "auto",
-                                    width: "auto",
-                                    gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                                    padding: 3,
-                                },
-                            }}
-                        >
-                            {genres.map((genre, index: number) => (
-                                <Link
-                                    key={index}
-                                    href={`/genres/${genre.id}/${genre.name}`}
-                                    style={{
-                                        textDecoration: "none",
-                                        color: theme.vars.palette.primary.main,
-                                    }}
-                                    onClick={() => {
-                                        if (isDrawerOpen) {
-                                            setIsDrawerOpen(false);
-                                        }
+                    <ListItem>
+                        <Box onMouseEnter={handleGenresHover} onMouseLeave={handleGenresLeave}>
+                            <Button
+                                component={MuiNextLink}
+                                href="/genres"
+                                prefetch={false}
+                                sx={getButtonStyle("/genres")}
+                                onClick={() => {
+                                    if (isDrawerOpen) {
+                                        setIsDrawerOpen(false);
+                                    }
+                                    handleGenresLeave();
+                                }}
+                            >
+                                <SubtitlesIcon fontSize={"large"} />
+                                Genres
+                            </Button>
+                            <Popper
+                                open={open}
+                                anchorEl={anchorEl}
+                                placement={isDrawerOpen ? "right-start" : "bottom-start"}
+                                sx={{
+                                    zIndex: 1300,
+                                    ...(isDrawerOpen && {
+                                        position: 'fixed',
+                                        left: '240px', // Adjust based on your drawer width
+                                    })
+                                }}
+                            >
+                                <Paper
+                                    sx={{
+                                        mt: 1,
+                                        display: "grid",
+                                        gridTemplateColumns: "repeat(4, 1fr)",
+                                        gap: 1,
+                                        p: 2,
                                     }}
                                 >
-                                    <Box
-                                        key={genre.id}
-                                        onClick={() => {
-                                            closeMenuGenres();
-                                        }}
-                                        sx={{
-                                            cursor: "pointer",
-                                            padding: 1.5,
-                                            textAlign: "center",
-                                            transition: "background-color 0.2s",
-                                            "&:hover": {
-                                                backgroundColor: theme.vars.palette.green.main,
-                                            },
-                                        }}
-                                    >
-                                        <Typography component={"span"}>{genre.name}</Typography>
-                                    </Box>
-                                </Link>
-                            ))}
-                        </Menu>
+                                    {genres.map((genre) => (
+                                        <Link
+                                            key={genre.id}
+                                            href={`/genres/${genre.id}/${genre.name}`}
+                                            style={{
+                                                textDecoration: "none",
+                                                color: theme.vars.palette.primary.main,
+                                            }}
+                                            onClick={() => {
+                                                if (isDrawerOpen) {
+                                                    setIsDrawerOpen(false);
+                                                }
+                                                handleGenresLeave();
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    cursor: "pointer",
+                                                    padding: 1.5,
+                                                    textAlign: "center",
+                                                    transition: "background-color 0.2s",
+                                                    "&:hover": {
+                                                        backgroundColor: theme.vars.palette.green.main,
+                                                    },
+                                                }}
+                                            >
+                                                <Typography component={"span"}>{genre.name}</Typography>
+                                            </Box>
+                                        </Link>
+                                    ))}
+                                </Paper>
+                            </Popper>
+                        </Box>
                     </ListItem>
                 </List>
             </Box>
