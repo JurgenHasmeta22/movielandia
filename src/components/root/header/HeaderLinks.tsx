@@ -10,6 +10,7 @@ import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -21,7 +22,25 @@ interface IHeaderLinksProps {
 export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElGenres }: IHeaderLinksProps) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
+    const pathname = usePathname();
     const theme = useTheme();
+
+    const isActive = (path: string) => {
+        return pathname === path;
+    };
+
+    const getButtonStyle = (path: string) => ({
+        display: "flex",
+        fontSize: 16,
+        columnGap: 0.5,
+        textTransform: "capitalize",
+        flexDirection: "row",
+        alignItems: "center",
+        color: isActive(path) ? theme.vars.palette.green.main : theme.vars.palette.primary.main,
+        borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
+        borderRadius: 0,
+        paddingBottom: 1,
+    });
 
     return (
         <>
@@ -69,15 +88,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             component={MuiNextLink}
                             href="/movies"
                             prefetch={false}
-                            style={{
-                                display: "flex",
-                                fontSize: 16,
-                                textTransform: "capitalize",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                columnGap: 3,
-                                color: theme.vars.palette.primary.main,
-                            }}
+                            sx={getButtonStyle("/movies")}
                             onClick={() => {
                                 if (isDrawerOpen) {
                                     setIsDrawerOpen(false);
@@ -93,15 +104,7 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             component={MuiNextLink}
                             href="/series"
                             prefetch={false}
-                            style={{
-                                display: "flex",
-                                fontSize: 16,
-                                textTransform: "capitalize",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                columnGap: 3,
-                                color: theme.vars.palette.primary.main,
-                            }}
+                            sx={getButtonStyle("/series")}
                             onClick={() => {
                                 if (isDrawerOpen) {
                                     setIsDrawerOpen(false);
@@ -117,19 +120,12 @@ export function HeaderLinks({ genres, openMenuGenres, closeMenuGenres, anchorElG
                             component={MuiNextLink}
                             href="/genres"
                             prefetch={false}
-                            style={{
-                                display: "flex",
-                                fontSize: 16,
-                                textTransform: "capitalize",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                columnGap: 3,
-                                color: theme.vars.palette.primary.main,
-                            }}
+                            sx={getButtonStyle("/genres")}
                             onClick={() => {
                                 if (isDrawerOpen) {
                                     setIsDrawerOpen(false);
                                 }
+                                closeMenuGenres();
                             }}
                         >
                             <SubtitlesIcon fontSize={"large"} />

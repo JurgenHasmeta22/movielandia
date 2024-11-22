@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Actor, Crew, Genre, Movie, Serie } from "@prisma/client";
+import { Genre, Movie, Serie } from "@prisma/client";
 import Link from "next/link";
 import CardItem from "../cardItem/CardItem";
 import GenreItem from "../genreItem/GenreItem";
 
 interface IListHomeSectionProps {
-    data: Array<Movie | Serie | Actor | Genre>;
-    type: "genre" | "movie" | "serie" | "actor" | "crew";
+    data: Array<Movie | Serie | Genre>;
+    type: "genre" | "movie" | "serie";
     link: string;
     linkText: string;
     path?: string;
@@ -36,11 +36,7 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                           ? "Trending Movies"
                           : type === "serie"
                             ? "Trending Series"
-                            : type === "actor"
-                              ? "Trending Actors"
-                              : type === "crew"
-                                ? "Trending Crew Members"
-                                : ""}
+                            : ""}
                 </Typography>
                 <Link
                     href={link}
@@ -71,7 +67,7 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                 >
                     {data &&
                         data.length > 0 &&
-                        data.map((item: Movie | Genre | Serie | Actor | Crew) =>
+                        data.map((item: Movie | Genre | Serie) =>
                             type === "genre" ? (
                                 <GenreItem key={item.id} genre={item as Genre} />
                             ) : (
