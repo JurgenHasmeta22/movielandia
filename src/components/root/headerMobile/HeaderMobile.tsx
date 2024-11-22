@@ -3,13 +3,13 @@
 import { CloseOutlined } from "@mui/icons-material";
 import { Box, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import { useStore } from "@/store/store";
-import { useEffect, useState } from "react";
-import { Genre } from "@prisma/client";
+import { useEffect } from "react";
 import { Session } from "next-auth";
 import AuthButtons from "../authButtons/AuthButtons";
 import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import SearchField from "../searchField/SearchField";
+import { Genre } from "@prisma/client";
 
 interface IHeaderMobileProps {
     genres: Genre[];
@@ -30,22 +30,8 @@ export default function HeaderMobile({
     userName,
     session,
 }: IHeaderMobileProps) {
-    const [anchorElGenresMobile, setAnchorElGenresMobile] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
     const theme = useTheme();
-
-    const openMenuGenresMobile = (event: React.MouseEvent<HTMLLIElement>) => {
-        setAnchorElGenresMobile(event.currentTarget);
-    };
-
-    const closeMenuGenresMobile = () => {
-        setAnchorElGenresMobile(null);
-    };
-
-    const handleDrawerToggle = () => {
-        setIsDrawerOpen(false);
-    };
-
     const isFullScreen = useMediaQuery(theme.breakpoints.up("md"));
 
     useEffect(() => {
@@ -55,7 +41,7 @@ export default function HeaderMobile({
     }, [isFullScreen, isDrawerOpen, setIsDrawerOpen]);
 
     return (
-        <Drawer variant="persistent" open={isDrawerOpen} onClose={handleDrawerToggle} component={"aside"}>
+        <Drawer variant="persistent" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} component={"aside"}>
             <Box>
                 <Box
                     sx={{
@@ -73,12 +59,7 @@ export default function HeaderMobile({
                         <CloseOutlined />
                     </IconButton>
                 </Box>
-                <HeaderLinks
-                    genres={genres}
-                    anchorElGenres={anchorElGenresMobile}
-                    closeMenuGenres={closeMenuGenresMobile}
-                    openMenuGenres={openMenuGenresMobile}
-                />
+                <HeaderLinks genres={genres} />
                 <Box
                     sx={{
                         marginTop: 2,
