@@ -1,5 +1,8 @@
 import DashboardAdminPage from "./_components/DashboardAdminPage";
+import { getDashboardStats } from "./_actions/getDashboardStats";
 
-export default function DashboardAdmin() {
-    return <DashboardAdminPage />;
+export default async function DashboardAdmin() {
+    const stats = await getDashboardStats();
+
+    return <DashboardAdminPage stats={stats} />;
 }
