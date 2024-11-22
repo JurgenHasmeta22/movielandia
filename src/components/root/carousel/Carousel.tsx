@@ -86,7 +86,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
         pauseOnHover: true,
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />,
-        beforeChange: (_, next) => setCurrentSlide(next),
+        beforeChange: (_: any, next: any) => setCurrentSlide(next),
         fade: true,
         cssEase: "cubic-bezier(0.87, 0, 0.13, 1)",
         dotsClass: "slick-dots custom-dots",
