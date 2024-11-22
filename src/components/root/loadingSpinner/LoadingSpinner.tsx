@@ -19,19 +19,17 @@ const LoadingSpinner: React.FC = () => {
         >
             <AnimatePresence>
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
                     animate={{
                         opacity: 1,
-                        scale: 1,
-                        rotate: 360,
+                        scale: [0.8, 1.1, 0.8],
                     }}
                     transition={{
                         opacity: { duration: 0.4 },
-                        scale: { duration: 0.4 },
-                        rotate: {
+                        scale: {
                             duration: 2,
                             repeat: Infinity,
-                            ease: [0.34, 0, 0.27, 1],
+                            ease: "easeInOut",
                         },
                     }}
                     style={{
