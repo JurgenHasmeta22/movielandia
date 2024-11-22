@@ -11,6 +11,9 @@ import {
     TextField,
     Typography,
     Divider,
+    Checkbox,
+    FormControlLabel,
+    useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import Link from "next/link";
@@ -44,6 +47,9 @@ const registerSchema = z
             )
             .min(1, "Password is a required field"),
         confirmPassword: z.string().min(1, "Please confirm your password"),
+        acceptTerms: z.boolean().refine((val) => val === true, {
+            message: "You must accept the Terms of Service and Privacy Policy",
+        }),
     })
     .superRefine((data, ctx) => {
         if (data.password !== data.confirmPassword) {
@@ -58,6 +64,7 @@ const registerSchema = z
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+    const theme = useTheme();
 
     const {
         control,
@@ -70,6 +77,7 @@ export default function LoginForm() {
             email: "",
             password: "",
             confirmPassword: "",
+            acceptTerms: false,
         },
         mode: "onChange",
     });
@@ -85,6 +93,7 @@ export default function LoginForm() {
         email: string;
         password: string;
         confirmPassword: string;
+        acceptTerms: boolean;
     }) {
         const userData = {
             userName: values.userName,
@@ -251,6 +260,47 @@ export default function LoginForm() {
                                         },
                                     }}
                                 />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                        <Controller
+                            name="acceptTerms"
+                            control={control}
+                            render={({ field }) => (
+                                <>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                checked={field.value}
+                                                onChange={(e) => field.onChange(e.target.checked)}
+                                                sx={{
+                                                    color: theme.vars.palette.primary.main,
+                                                    "&.Mui-checked": {
+                                                        color: theme.vars.palette.primary.main,
+                                                    },
+                                                }}
+                                            />
+                                        }
+                                        label={
+                                            <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
+                                                <Typography variant="body2">I agree to the</Typography>
+                                                <Link href="/terms" target="_blank">
+                                                    Terms of Service
+                                                </Link>
+                                                <Typography variant="body2">and</Typography>
+                                                <Link href="/privacy" target="_blank">
+                                                    Privacy Policy
+                                                </Link>
+                                            </Box>
+                                        }
+                                    />
+                                    {errors.acceptTerms && (
+                                        <Typography variant="body2" sx={{ color: "error.main" }}>
+                                            {errors.acceptTerms.message}
+                                        </Typography>
+                                    )}
+                                </>
                             )}
                         />
                     </FormControl>

@@ -2,87 +2,195 @@
 
 import { Box, useTheme } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import MovieIcon from "@mui/icons-material/Movie";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import CategoryIcon from "@mui/icons-material/Category";
+import PersonIcon from "@mui/icons-material/Person";
+import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { DashboardStatBox } from "./DashboardStatBox";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
+import type { DashboardStats } from "../_actions/getDashboardStats";
 
-const DashboardAdminPage = () => {
+interface DashboardAdminPageProps {
+    stats: DashboardStats;
+}
+
+const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
     const theme = useTheme();
 
+    const StatBoxWrapper = ({ children }: { children: React.ReactNode }) => (
+        <Box
+            sx={{
+                backgroundColor: theme.vars.palette.background.paper,
+                borderRadius: 2,
+                p: 2.5,
+                boxShadow: "0px 4px 10px",
+                transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0px 8px 15px",
+                },
+                minHeight: "180px",
+                width: "100%",
+            }}
+        >
+            {children}
+        </Box>
+    );
+
     return (
-        <Box m="20px" component={"main"}>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-                <HeaderDashboard title="Dashboard" subtitle="Miresevini ne dashboardin tuaj" />
+        <Box
+            sx={{
+                p: { xs: 2, sm: 3 },
+                width: "100%",
+                maxWidth: "100%",
+                overflow: "hidden",
+            }}
+        >
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+                <HeaderDashboard title="Dashboard" subtitle="Welcome to your MovieLandia24 Admin Dashboard" />
             </Box>
-            <Box display="grid" gridTemplateColumns="repeat(9, 1fr)" gridAutoRows="250px" gap="30px">
-                <Box
-                    sx={{ backgroundColor: theme.vars.palette.background.default }}
-                    gridColumn="span 3"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                >
+
+            <Box
+                sx={{
+                    display: "grid",
+                    gridTemplateColumns: {
+                        xs: "1fr",
+                        sm: "repeat(2, 1fr)",
+                        md: "repeat(3, 1fr)",
+                        lg: "repeat(4, 1fr)",
+                    },
+                    gap: { xs: 2, sm: 2.5, md: 3 },
+                    width: "100%",
+                }}
+            >
+                {/* Movies */}
+                <StatBoxWrapper>
                     <DashboardStatBox
-                        title="321"
-                        subtitle="Nr of Movies"
+                        title={stats.totalMovies.toString()}
+                        subtitle="Movies"
                         progress={0.75}
-                        increase="+14%"
+                        increase="Total"
                         icon={
-                            <AccountTreeIcon
+                            <MovieIcon
                                 sx={{
-                                    color: theme.vars.palette.green.light,
-                                    fontSize: "26px",
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
                                 }}
                             />
                         }
                     />
-                </Box>
-                <Box
-                    gridColumn="span 3"
-                    sx={{ backgroundColor: theme.vars.palette.background.default }}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                >
+                </StatBoxWrapper>
+
+                {/* TV Series */}
+                <StatBoxWrapper>
                     <DashboardStatBox
-                        title="53"
-                        subtitle="Nr of Users"
+                        title={stats.totalSeries.toString()}
+                        subtitle="TV Series"
+                        progress={0.65}
+                        increase="Total"
+                        icon={
+                            <LiveTvIcon
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
+                                }}
+                            />
+                        }
+                    />
+                </StatBoxWrapper>
+
+                {/* Users */}
+                <StatBoxWrapper>
+                    <DashboardStatBox
+                        title={stats.totalUsers.toString()}
+                        subtitle="Users"
                         progress={0.5}
-                        increase="+21%"
+                        increase="Total"
                         icon={
                             <PersonAddIcon
                                 sx={{
-                                    color: theme.vars.palette.green.light,
-                                    fontSize: "26px",
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
                                 }}
                             />
                         }
                     />
-                </Box>
-                <Box
-                    gridColumn="span 3"
-                    sx={{ backgroundColor: theme.vars.palette.background.default }}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                >
+                </StatBoxWrapper>
+
+                {/* Genres */}
+                <StatBoxWrapper>
                     <DashboardStatBox
-                        title="4"
-                        subtitle="Nr of Genres"
-                        progress={0.3}
-                        increase="+5%"
+                        title={stats.totalGenres.toString()}
+                        subtitle="Genres"
+                        progress={0.8}
+                        increase="Total"
                         icon={
-                            <EventNoteIcon
+                            <CategoryIcon
                                 sx={{
-                                    color: theme.vars.palette.green.light,
-                                    fontSize: "26px",
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
                                 }}
                             />
                         }
                     />
-                </Box>
+                </StatBoxWrapper>
+
+                {/* Actors */}
+                <StatBoxWrapper>
+                    <DashboardStatBox
+                        title={stats.totalActors.toString()}
+                        subtitle="Actors"
+                        progress={0.7}
+                        increase="Total"
+                        icon={
+                            <PersonIcon
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
+                                }}
+                            />
+                        }
+                    />
+                </StatBoxWrapper>
+
+                {/* Episodes */}
+                <StatBoxWrapper>
+                    <DashboardStatBox
+                        title={stats.totalEpisodes.toString()}
+                        subtitle="Episodes"
+                        progress={0.6}
+                        increase="Total"
+                        icon={
+                            <PlaylistPlayIcon
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
+                                }}
+                            />
+                        }
+                    />
+                </StatBoxWrapper>
+
+                {/* Seasons */}
+                <StatBoxWrapper>
+                    <DashboardStatBox
+                        title={stats.totalSeasons.toString()}
+                        subtitle="Seasons"
+                        progress={0.55}
+                        increase="Total"
+                        icon={
+                            <VideoLibraryIcon
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: 32,
+                                }}
+                            />
+                        }
+                    />
+                </StatBoxWrapper>
             </Box>
         </Box>
     );

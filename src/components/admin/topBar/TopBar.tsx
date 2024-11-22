@@ -13,10 +13,11 @@ import Image from "next/image";
 import MuiNextLink from "@/components/root/muiNextLink/MuiNextLink";
 
 const TopBar = () => {
+    const { data: session } = useSession();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
 
-    const { data: session } = useSession();
     const router = useRouter();
     const theme = useTheme();
 
@@ -42,6 +43,7 @@ const TopBar = () => {
         } else {
             router.push("/users/1/admin");
         }
+
         handleClose();
     };
 
@@ -73,11 +75,7 @@ const TopBar = () => {
                     )}
                     <Box
                         sx={{
-                            marginLeft: {
-                                xs: 1,
-                                sm: 1,
-                                md: 0,
-                            },
+                            paddingLeft: 3,
                         }}
                     >
                         <IconButton
@@ -94,8 +92,8 @@ const TopBar = () => {
                             <Image
                                 src="/icons/movielandia24-logo.png"
                                 alt="MovieLandia24 Admin"
-                                height={50}
-                                width={143}
+                                height={80}
+                                width={200}
                                 priority
                                 style={{
                                     objectFit: "contain",

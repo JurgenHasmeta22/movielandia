@@ -12,6 +12,8 @@ import FormAdvanced from "@/components/admin/form/Form";
 import { addSerie } from "@/actions/serie.actions";
 import { Serie } from "@prisma/client";
 import { z } from "zod";
+import Link from "next/link";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 
 interface IAddSerie {
     title: string;
@@ -30,6 +32,15 @@ const serieSchema = z.object({
 const AddSerieAdminPage = () => {
     const formRef = useRef<any>(null);
     const router = useRouter();
+
+    const breadcrumbs = [
+        <Link key="1" href="/admin/series" style={{ textDecoration: "none" }}>
+            Series
+        </Link>,
+        <Link key="2" href={`/admin/series/create`} style={{ textDecoration: "none" }}>
+            New Serie
+        </Link>,
+    ];
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -55,6 +66,7 @@ const AddSerieAdminPage = () => {
 
     return (
         <Box m="20px">
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
             <HeaderDashboard title={CONSTANTS.SERIE__ADD__TITLE} subtitle={CONSTANTS.SERIE__ADD__SUBTITLE} />
             <FormAdvanced
                 defaultValues={{
