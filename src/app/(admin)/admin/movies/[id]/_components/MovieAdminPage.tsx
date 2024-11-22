@@ -38,7 +38,6 @@ const MovieAdminPage = () => {
     const router = useRouter();
     const params = useParams();
     const { openModal } = useModal();
-
     const formRef = useRef<any>(null);
 
     const breadcrumbs = [

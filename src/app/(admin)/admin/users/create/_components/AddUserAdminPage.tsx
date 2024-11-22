@@ -12,6 +12,8 @@ import FormAdvanced from "@/components/admin/form/Form";
 import { signUp } from "@/actions/auth.actions";
 import { User } from "@prisma/client";
 import { z } from "zod";
+import Link from "next/link";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 
 const userSchema = z.object({
     userName: z.string().min(1, { message: "required" }),
@@ -21,8 +23,16 @@ const userSchema = z.object({
 
 const AddUserAdminPage = () => {
     const router = useRouter();
-
     const formRef = useRef<any>(null);
+
+    const breadcrumbs = [
+        <Link key="1" href="/admin/users" style={{ textDecoration: "none" }}>
+            Users
+        </Link>,
+        <Link key="2" href={`/admin/users/create`} style={{ textDecoration: "none" }}>
+            New User
+        </Link>,
+    ];
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -45,6 +55,7 @@ const AddUserAdminPage = () => {
 
     return (
         <Box m="20px">
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <HeaderDashboard title={CONSTANTS.USER__ADD__TITLE} subtitle={CONSTANTS.USER__ADD__SUBTITLE} />
             <FormAdvanced
                 defaultValues={{
