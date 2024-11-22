@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { addGenre } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
 import { z } from "zod";
+import Link from "next/link";
+import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 
 interface IGenreAdd {
     name: string;
@@ -24,6 +26,15 @@ const genreSchema = z.object({
 const AddGenreAdminPage = () => {
     const router = useRouter();
     const formRef = useRef<any>(null);
+
+    const breadcrumbs = [
+        <Link key="1" href="/admin/genres" style={{ textDecoration: "none" }}>
+            Genres
+        </Link>,
+        <Link key="2" href={`/admin/genres/create`} style={{ textDecoration: "none" }}>
+            New Genre
+        </Link>,
+    ];
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -46,6 +57,7 @@ const AddGenreAdminPage = () => {
 
     return (
         <Box m="20px">
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
             <Header title={CONSTANTS.GENRE__ADD__TITLE} subtitle={CONSTANTS.GENRE__ADD__SUBTITLE} />
             <FormAdvanced
                 defaultValues={{

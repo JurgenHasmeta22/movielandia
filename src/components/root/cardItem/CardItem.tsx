@@ -17,9 +17,6 @@ import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFe
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
 import { useSession } from "next-auth/react";
 import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
-// import { Season, Movie, Serie, Episode, Actor, Crew } from "@prisma/client";
-
-// type DataType = Movie | Serie | Season | Episode | Actor | Crew;
 
 interface ICardItemProps {
     data: any;
@@ -151,7 +148,12 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             },
                         }}
                     >
-                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={240} width={160} />
+                        <Image
+                            src={data.photoSrcProd || "/images/placeholder.jpg"}
+                            alt={data.description || "No description available"}
+                            height={240}
+                            width={160}
+                        />
                         <Box
                             className="hoverOverlay"
                             sx={{

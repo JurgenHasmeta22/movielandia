@@ -6,11 +6,9 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
-import { CheckOutlined } from "@mui/icons-material";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
-import { useModal } from "@/providers/ModalProvider";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { z } from "zod";
@@ -42,14 +40,13 @@ const seasonSchema = z.object({
 const AddSeasonAdminPage = () => {
     const formRef = useRef<any>(null);
     const router = useRouter();
-    const { openModal } = useModal();
 
     const breadcrumbs = [
         <Link key="1" href="/admin/seasons" style={{ textDecoration: "none" }}>
             Seasons
         </Link>,
         <Link key="2" href="/admin/seasons/create" style={{ textDecoration: "none" }}>
-            Create Season
+            New Season
         </Link>,
     ];
 
@@ -79,23 +76,6 @@ const AddSeasonAdminPage = () => {
         } else {
             toast.error(CONSTANTS.ADD__FAILURE);
         }
-    };
-
-    const handleReset = () => {
-        openModal({
-            title: "Reset Form",
-            description: "Are you sure you want to reset the form?",
-            handleConfirm: () => {
-                handleResetFromParent();
-            },
-            icon: <CheckOutlined sx={{ color: "info.main" }} />,
-            confirmText: "Reset",
-            confirmButtonProps: {
-                color: "info",
-                variant: "contained",
-                startIcon: <ClearAllIcon />,
-            },
-        });
     };
 
     return (
