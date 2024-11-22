@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button, useTheme } from "@mui/material";
+import { Box, Typography, IconButton, Stack, TextField, Button, useTheme, Container, Divider } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
@@ -12,7 +12,59 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import { motion } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+
+const FooterLink = ({ href, icon: Icon, text }: { href: string; icon: any; text: string }) => {
+    const theme = useTheme();
+    return (
+        <Button
+            component={MuiNextLink}
+            href={href}
+            prefetch={false}
+            sx={{
+                textDecoration: "none",
+                textTransform: "capitalize",
+                color: theme.vars.palette.primary.main,
+                transition: "all 0.2s ease-in-out",
+                minWidth: "160px",
+                justifyContent: "flex-start",
+                "&:hover": {
+                    transform: "translateX(8px)",
+                    color: theme.vars.palette.red.main,
+                },
+            }}
+        >
+            <Stack direction="row" alignItems="center" spacing={1.5} sx={{ width: "100%" }}>
+                <Icon sx={{ fontSize: 20, minWidth: "24px" }} />
+                <Typography variant="body1">{text}</Typography>
+            </Stack>
+        </Button>
+    );
+};
+
+const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
+    const theme = useTheme();
+    return (
+        <IconButton
+            component={motion.button}
+            whileHover={{ scale: 1.1 }}
+            href={href}
+            target="_blank"
+            rel="noopener"
+            sx={{
+                color: theme.vars.palette.primary.main,
+                transition: "all 0.2s ease-in-out",
+                "&:hover": {
+                    color: theme.vars.palette.red.main,
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+            }}
+        >
+            <Icon />
+        </IconButton>
+    );
+};
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
@@ -20,171 +72,136 @@ const Footer = (): React.JSX.Element => {
     return (
         <Box
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
                 backgroundColor: theme.vars.palette.primary.dark,
                 color: theme.vars.palette.primary.main,
-                justifyContent: "center",
-                py: 4,
-                gap: 2,
-                pl: 2,
-                pr: 2,
+                py: 6,
+                borderTop: `1px solid ${theme.vars.palette.divider}`,
             }}
             component="footer"
         >
-            <Stack direction="row" rowGap={8} columnGap={4} sx={{ flexWrap: "wrap", justifyContent: "center", mb: 1 }}>
-                <Box>
-                    <Typography variant="h4" gutterBottom>
-                        Explore
-                    </Typography>
-                    <Stack spacing={1} sx={{ pt: 1 }}>
-                        <Button
-                            component={MuiNextLink}
-                            href="/movies"
-                            prefetch={false}
-                            style={{
-                                textDecoration: "none",
-                                textTransform: "capitalize",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <MovieIcon />
-                                <Typography>Movies</Typography>
+            <Container maxWidth="lg">
+                <Stack spacing={6}>
+                    <Stack
+                        direction={{ xs: "column", sm: "row" }}
+                        spacing={{ xs: 6, sm: 2, md: 8 }}
+                        sx={{ justifyContent: "space-between" }}
+                    >
+                        <Box>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                                Explore
+                            </Typography>
+                            <Stack spacing={1}>
+                                <FooterLink href="/movies" icon={MovieIcon} text="Movies" />
+                                <FooterLink href="/series" icon={LocalMoviesIcon} text="Series" />
+                                <FooterLink href="/genres" icon={SubtitlesIcon} text="Genres" />
+                                <FooterLink href="/actors" icon={RecentActorsIcon} text="Actors" />
                             </Stack>
-                        </Button>
-                        <Button
-                            component={MuiNextLink}
-                            href="/series"
-                            prefetch={false}
-                            style={{
-                                textDecoration: "none",
-                                textTransform: "capitalize",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <LocalMoviesIcon />
-                                <Typography>Series</Typography>
+                        </Box>
+
+                        <Box>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                                Account
+                            </Typography>
+                            <Stack spacing={1}>
+                                <FooterLink href="/login" icon={LockOpenIcon} text="Sign In" />
+                                <FooterLink href="/register" icon={AppRegistrationIcon} text="Sign Up" />
                             </Stack>
-                        </Button>
-                        <Button
-                            component={MuiNextLink}
-                            href="/genres"
-                            prefetch={false}
-                            style={{
-                                textDecoration: "none",
-                                textTransform: "capitalize",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <SubtitlesIcon />
-                                <Typography>Genres</Typography>
+                        </Box>
+
+                        <Box>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                                Follow Us
+                            </Typography>
+                            <Stack direction="row" spacing={1}>
+                                <SocialButton href="https://facebook.com" icon={FacebookIcon} />
+                                <SocialButton href="https://twitter.com" icon={TwitterIcon} />
+                                <SocialButton href="https://instagram.com" icon={InstagramIcon} />
                             </Stack>
-                        </Button>
-                        <Button
-                            component={MuiNextLink}
-                            href="/actors"
-                            prefetch={false}
-                            style={{
-                                textDecoration: "none",
-                                textTransform: "capitalize",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <RecentActorsIcon />
-                                <Typography>Actors</Typography>
+                        </Box>
+
+                        <Box sx={{ maxWidth: 300 }}>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                                Newsletter
+                            </Typography>
+                            <Stack spacing={2}>
+                                <TextField
+                                    variant="outlined"
+                                    size="small"
+                                    placeholder="Enter your email"
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            backgroundColor: "rgba(255, 255, 255, 0.05)",
+                                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: theme.vars.palette.red.main,
+                                            },
+                                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: theme.vars.palette.red.main,
+                                            },
+                                        },
+                                        "& .MuiOutlinedInput-input": {
+                                            color: theme.vars.palette.primary.main,
+                                        },
+                                    }}
+                                />
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        py: 1,
+                                        color: theme.vars.palette.secondary.light,
+                                        bgcolor: theme.vars.palette.red.main,
+                                        "&:hover": {
+                                            bgcolor: theme.vars.palette.red.dark,
+                                        },
+                                    }}
+                                >
+                                    Subscribe
+                                </Button>
                             </Stack>
-                        </Button>
+                        </Box>
                     </Stack>
-                </Box>
-                <Box>
-                    <Typography variant="h4" gutterBottom>
-                        Account
-                    </Typography>
-                    <Stack spacing={1} sx={{ pt: 1 }}>
-                        <Button
-                            component={MuiNextLink}
-                            href="/login"
-                            prefetch={false}
-                            style={{
-                                textDecoration: "none",
-                                textTransform: "capitalize",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <LockOpenIcon />
-                                <Typography>Sign In</Typography>
-                            </Stack>
-                        </Button>
-                        <Button
-                            component={MuiNextLink}
-                            href="/register"
-                            prefetch={false}
-                            style={{
-                                textDecoration: "none",
-                                textTransform: "capitalize",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <AppRegistrationIcon />
-                                <Typography>Sign Up</Typography>
-                            </Stack>
-                        </Button>
+
+                    <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
+                    <Stack
+                        direction={{ xs: "column", sm: "row" }}
+                        spacing={2}
+                        sx={{
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                            2024 MovieLandia24. All rights reserved.
+                        </Typography>
+                        <Stack direction="row" spacing={3}>
+                            <Typography
+                                variant="body2"
+                                component={MuiNextLink}
+                                href="/privacy"
+                                sx={{
+                                    opacity: 0.8,
+                                    textDecoration: "none",
+                                    "&:hover": { color: theme.vars.palette.red.main },
+                                }}
+                            >
+                                Privacy Policy
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                component={MuiNextLink}
+                                href="/terms"
+                                sx={{
+                                    opacity: 0.8,
+                                    textDecoration: "none",
+                                    "&:hover": { color: theme.vars.palette.red.main },
+                                }}
+                            >
+                                Terms of Service
+                            </Typography>
+                        </Stack>
                     </Stack>
-                </Box>
-                <Box>
-                    <Typography variant="h4" gutterBottom>
-                        Follow Us
-                    </Typography>
-                    <Stack direction="row" spacing={1} sx={{ pt: 1 }}>
-                        <IconButton href="https://facebook.com" target="_blank" rel="noopener">
-                            <FacebookIcon />
-                        </IconButton>
-                        <IconButton href="https://twitter.com" target="_blank" rel="noopener">
-                            <TwitterIcon />
-                        </IconButton>
-                        <IconButton href="https://instagram.com" target="_blank" rel="noopener">
-                            <InstagramIcon />
-                        </IconButton>
-                    </Stack>
-                </Box>
-                <Box>
-                    <Typography variant="h4" gutterBottom>
-                        Newsletter
-                    </Typography>
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 1 }}>
-                        <TextField variant="outlined" size="small" placeholder="Email" />
-                        <Button
-                            variant="contained"
-                            sx={{
-                                py: 1.2,
-                                px: 3,
-                                color: theme.vars.palette.secondary.light,
-                                bgcolor: theme.vars.palette.red.main,
-                                "&:hover": {
-                                    color: theme.vars.palette.blue.main,
-                                    bgcolor: theme.vars.palette.primary.light,
-                                },
-                            }}
-                        >
-                            Subscribe
-                        </Button>
-                    </Stack>
-                </Box>
-            </Stack>
-            <Box
-                sx={{
-                    pt: 2,
-                }}
-            >
-                <Typography variant="body2">Copyright © 2024 | MovieLandia24</Typography>
-            </Box>
+                </Stack>
+            </Container>
         </Box>
     );
 };
