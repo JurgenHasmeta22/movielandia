@@ -14,11 +14,19 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
     const theme = useTheme();
 
     return (
-        <Box width="100%" m="0 30px">
-            <Box display="flex" justifyContent="space-between">
+        <Box width="100%" height="100%">
+            <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                 <Box>
                     {icon}
-                    <Typography variant="h4" fontWeight="bold" sx={{ color: theme.vars.palette.greyAccent.main }}>
+                    <Typography
+                        variant="h4"
+                        fontWeight="bold"
+                        sx={{
+                            color: theme.vars.palette.text.primary,
+                            mt: 2,
+                            mb: 1,
+                        }}
+                    >
                         {title}
                     </Typography>
                 </Box>
@@ -26,17 +34,30 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
                     <DashboardProgressCircle progress={progress} />
                 </Box>
             </Box>
-            <Box
-                display="flex"
-                justifyContent="space-between"
-                sx={{
-                    mt: 2,
-                }}
-            >
-                <Typography variant="h5" sx={{ color: theme.vars.palette.green.light }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+                <Typography
+                    variant="h6"
+                    sx={{
+                        color: theme.vars.palette.text.secondary,
+                        fontWeight: 500,
+                    }}
+                >
                     {subtitle}
                 </Typography>
-                <Typography variant="h5" fontStyle="italic" sx={{ color: theme.vars.palette.green.light }}>
+                <Typography
+                    variant="body2"
+                    sx={{
+                        color: theme.vars.palette.primary.main,
+                        backgroundColor:
+                            theme.vars.palette.mode === "dark"
+                                ? "rgba(144, 202, 249, 0.08)"
+                                : "rgba(33, 150, 243, 0.08)",
+                        px: 1.5,
+                        py: 0.5,
+                        borderRadius: 1,
+                        fontWeight: 500,
+                    }}
+                >
                     {increase}
                 </Typography>
             </Box>
