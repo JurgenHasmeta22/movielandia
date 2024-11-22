@@ -12,6 +12,7 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -162,53 +163,104 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                     }),
                                 }}
                             >
-                                <Paper
-                                    sx={{
-                                        mt: 1,
-                                        display: "grid",
-                                        gridTemplateColumns: isDrawerOpen ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
-                                        gap: isDrawerOpen ? 0.5 : 1,
-                                        p: isDrawerOpen ? 1 : 2,
-                                    }}
-                                >
-                                    {genres.map((genre) => (
-                                        <Link
-                                            key={genre.id}
-                                            href={`/genres/${genre.id}/${genre.name}`}
-                                            style={{
-                                                textDecoration: "none",
-                                                color: theme.vars.palette.primary.main,
+                                <AnimatePresence>
+                                    {open && (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.6, y: -40 }}
+                                            animate={{
+                                                opacity: 1,
+                                                scale: 1,
+                                                y: 0,
+                                                transition: {
+                                                    type: "spring",
+                                                    stiffness: 200,
+                                                    damping: 20,
+                                                },
                                             }}
-                                            onClick={() => {
-                                                if (isDrawerOpen) {
-                                                    setIsDrawerOpen(false);
-                                                }
-                                                handleGenresLeave();
+                                            exit={{
+                                                opacity: 0,
+                                                scale: 0.6,
+                                                y: -20,
+                                                transition: {
+                                                    duration: 0.2,
+                                                },
                                             }}
+                                            style={{ transformOrigin: "top" }}
                                         >
-                                            <Box
+                                            <Paper
                                                 sx={{
-                                                    cursor: "pointer",
-                                                    padding: isDrawerOpen ? 0.75 : 1.5,
-                                                    textAlign: "center",
-                                                    transition: "background-color 0.2s",
-                                                    "&:hover": {
-                                                        backgroundColor: theme.vars.palette.green.main,
-                                                    },
+                                                    mt: 1,
+                                                    display: "grid",
+                                                    gridTemplateColumns: isDrawerOpen
+                                                        ? "repeat(2, 1fr)"
+                                                        : "repeat(4, 1fr)",
+                                                    gap: isDrawerOpen ? 0.5 : 1,
+                                                    p: isDrawerOpen ? 1 : 2,
                                                 }}
                                             >
-                                                <Typography
-                                                    component={"span"}
-                                                    sx={{
-                                                        fontSize: isDrawerOpen ? 14 : 16,
-                                                    }}
-                                                >
-                                                    {genre.name}
-                                                </Typography>
-                                            </Box>
-                                        </Link>
-                                    ))}
-                                </Paper>
+                                                {genres.map((genre, index) => (
+                                                    <motion.div
+                                                        key={genre.id}
+                                                        initial={{ opacity: 0, y: 20 }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                            y: 0,
+                                                            transition: {
+                                                                delay: index * 0.05,
+                                                                duration: 0.3,
+                                                            },
+                                                        }}
+                                                        whileHover={{
+                                                            scale: 1.1,
+                                                            rotate: [0, -2, 2, 0],
+                                                            transition: {
+                                                                rotate: {
+                                                                    duration: 0.3,
+                                                                    repeat: 0,
+                                                                },
+                                                            },
+                                                        }}
+                                                    >
+                                                        <Link
+                                                            href={`/genres/${genre.id}/${genre.name}`}
+                                                            style={{
+                                                                textDecoration: "none",
+                                                                color: theme.vars.palette.primary.main,
+                                                            }}
+                                                            onClick={() => {
+                                                                if (isDrawerOpen) {
+                                                                    setIsDrawerOpen(false);
+                                                                }
+                                                                handleGenresLeave();
+                                                            }}
+                                                        >
+                                                            <Box
+                                                                sx={{
+                                                                    cursor: "pointer",
+                                                                    padding: isDrawerOpen ? 0.75 : 1.5,
+                                                                    textAlign: "center",
+                                                                    transition: "background-color 0.2s",
+                                                                    "&:hover": {
+                                                                        backgroundColor: theme.vars.palette.green.main,
+                                                                    },
+                                                                }}
+                                                            >
+                                                                <Typography
+                                                                    component={"span"}
+                                                                    sx={{
+                                                                        fontSize: isDrawerOpen ? 14 : 16,
+                                                                    }}
+                                                                >
+                                                                    {genre.name}
+                                                                </Typography>
+                                                            </Box>
+                                                        </Link>
+                                                    </motion.div>
+                                                ))}
+                                            </Paper>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </Popper>
                         </Box>
                     </ListItem>
