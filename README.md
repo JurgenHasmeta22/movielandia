@@ -5,14 +5,14 @@ A modern web application for discovering, managing, and reviewing movies, TV ser
 ## Tech Stack
 
 -   **Framework**: Next.js 15 (App Router)
--   **UI**: Material-UI v6
--   **State Management**: Zustand
+-   **UI Component library**: Material-UI v6 (Emotion based)
+-   **Global State Management**: Zustand
 -   **Database**: PostgreSQL + Prisma ORM
 -   **Authentication**: NextAuth.js with Google provider
 -   **Forms**: React Hook Form + Zod validation
--   **Rich Text**: React Quill
--   **Email**: React Email + Resend
--   **Tables**: Material React Table
+-   **Rich Text Editor**: React Quill
+-   **Email Templates**: React Email + Resend
+-   **DataTables**: Material React Table V3
 -   **Animations**: Framer Motion
 
 ## Key Features
@@ -61,19 +61,29 @@ A modern web application for discovering, managing, and reviewing movies, TV ser
    Create `.env.local` with:
 
     ```
-    DATABASE_URL=
-    NEXTAUTH_URL=http://localhost:4000
-    NEXTAUTH_SECRET=
-    GOOGLE_CLIENT_ID=
-    GOOGLE_CLIENT_SECRET=
-    RESEND_API_KEY=
+    DATABASE_URL = ""
+    NEXTAUTH_URL = ""
+    NEXTAUTH_SECRET = ""
+    GOOGLE_CLIENT_ID = ""
+    GOOGLE_CLIENT_SECRET = ""
+    RESEND_API_KEY = ""
+    NEXTAUTH_SECRET = ""
+    POSTGRES_URL = ""
+    POSTGRES_PRISMA_URL = ""
+    POSTGRES_URL_NO_SSL = ""
+    POSTGRES_URL_NON_POOLING = ""
+    POSTGRES_HOST = ""
+    POSTGRES_PASSWORD = ""
+    POSTGRES_DATABASE = ""
     ```
 
 3. **Initialize database:**
 
     ```bash
     npx prisma generate
-    npx prisma db push
+    npx prisma db push 
+    # or just use 
+    npx prisma migrate dev
     ```
 
 4. **Run development server:**
@@ -90,7 +100,7 @@ A modern web application for discovering, managing, and reviewing movies, TV ser
 - Web application for movie, series, and entertainment content discovery
 - Full-stack Next.js application with rich user interaction features
 - Developed by JurgenHasmeta22
-- 215+ files with 40,000+ lines of code
+- 250+ files with 50,000+ lines of code
 
 ```
 movielandia/

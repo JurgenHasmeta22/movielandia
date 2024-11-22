@@ -40,7 +40,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     };
 
     const isActive = (path: string) => {
-        return pathname === path;
+        if (path === "/") return pathname === "/";
+        return pathname.startsWith(path);
     };
 
     const getButtonStyle = (path: string) => ({
@@ -156,18 +157,18 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 sx={{
                                     zIndex: 1300,
                                     ...(isDrawerOpen && {
-                                        position: 'fixed',
-                                        left: '240px', // Adjust based on your drawer width
-                                    })
+                                        position: "fixed",
+                                        left: "240px",
+                                    }),
                                 }}
                             >
                                 <Paper
                                     sx={{
                                         mt: 1,
                                         display: "grid",
-                                        gridTemplateColumns: "repeat(4, 1fr)",
-                                        gap: 1,
-                                        p: 2,
+                                        gridTemplateColumns: isDrawerOpen ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
+                                        gap: isDrawerOpen ? 0.5 : 1,
+                                        p: isDrawerOpen ? 1 : 2,
                                     }}
                                 >
                                     {genres.map((genre) => (
@@ -188,7 +189,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                             <Box
                                                 sx={{
                                                     cursor: "pointer",
-                                                    padding: 1.5,
+                                                    padding: isDrawerOpen ? 0.75 : 1.5,
                                                     textAlign: "center",
                                                     transition: "background-color 0.2s",
                                                     "&:hover": {
@@ -196,7 +197,14 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                     },
                                                 }}
                                             >
-                                                <Typography component={"span"}>{genre.name}</Typography>
+                                                <Typography
+                                                    component={"span"}
+                                                    sx={{
+                                                        fontSize: isDrawerOpen ? 14 : 16,
+                                                    }}
+                                                >
+                                                    {genre.name}
+                                                </Typography>
                                             </Box>
                                         </Link>
                                     ))}

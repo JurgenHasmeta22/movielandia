@@ -21,7 +21,7 @@
         "@mui/icons-material": "^6.1.8",
         "@mui/material": "^6.1.8",
         "@mui/material-nextjs": "^6.1.8",
-        "@mui/x-date-pickers": "^7.22.2",
+        "@mui/x-date-pickers": "^7.22.3",
         "@next-auth/prisma-adapter": "^1.0.7",
         "@next/bundle-analyzer": "^15.0.3",
         "@prisma/client": "^5.22.0",
