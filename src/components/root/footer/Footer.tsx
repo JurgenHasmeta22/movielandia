@@ -55,6 +55,7 @@ const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
             sx={{
                 color: theme.vars.palette.primary.main,
                 transition: "all 0.2s ease-in-out",
+                padding: "8px",
                 "&:hover": {
                     color: theme.vars.palette.red.main,
                     backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -86,8 +87,8 @@ const Footer = (): React.JSX.Element => {
                         spacing={{ xs: 6, sm: 2, md: 8 }}
                         sx={{ justifyContent: "space-between" }}
                     >
-                        <Box>
-                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                        <Box sx={{ minWidth: 160 }}>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, pl: "12px" }}>
                                 Explore
                             </Typography>
                             <Stack spacing={1}>
@@ -98,8 +99,8 @@ const Footer = (): React.JSX.Element => {
                             </Stack>
                         </Box>
 
-                        <Box>
-                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                        <Box sx={{ minWidth: 160 }}>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, pl: "12px" }}>
                                 Account
                             </Typography>
                             <Stack spacing={1}>
@@ -108,11 +109,20 @@ const Footer = (): React.JSX.Element => {
                             </Stack>
                         </Box>
 
-                        <Box>
-                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                        <Box sx={{ minWidth: 160 }}>
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600, pl: "12px" }}>
                                 Follow Us
                             </Typography>
-                            <Stack direction="row" spacing={1}>
+                            <Stack
+                                direction="row"
+                                spacing={0.5}
+                                sx={{
+                                    pl: "4px",
+                                    "& .MuiIconButton-root": {
+                                        ml: "4px",
+                                    },
+                                }}
+                            >
                                 <SocialButton href="https://facebook.com" icon={FacebookIcon} />
                                 <SocialButton href="https://twitter.com" icon={TwitterIcon} />
                                 <SocialButton href="https://instagram.com" icon={InstagramIcon} />
