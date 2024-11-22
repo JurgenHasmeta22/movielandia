@@ -151,7 +151,12 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                             },
                         }}
                     >
-                        <Image src={data.photoSrcProd} alt={`${data.description}`} height={240} width={160} />
+                        <Image
+                            src={data.photoSrcProd || "/images/placeholder.jpg"}
+                            alt={data.description || "No description available"}
+                            height={240}
+                            width={160}
+                        />
                         <Box
                             className="hoverOverlay"
                             sx={{
