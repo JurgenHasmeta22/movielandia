@@ -91,22 +91,6 @@ export default async function Home() {
                     link="/genres"
                     linkText="Explore all Genres"
                 />
-                <ListHomeSection
-                    key={"actor"}
-                    data={actors}
-                    type="actor"
-                    link="/actors"
-                    linkText="Explore all Actors"
-                    path="actors"
-                />
-                <ListHomeSection
-                    key={"crew"}
-                    data={crew}
-                    type="crew"
-                    link="/crew"
-                    linkText="Explore all Crew Members"
-                    path="crew"
-                />
             </Stack>
         </>
     );
