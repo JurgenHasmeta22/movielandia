@@ -26,15 +26,11 @@ const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
                 backgroundColor: theme.vars.palette.background.paper,
                 borderRadius: 2,
                 p: 2.5,
-                boxShadow: `0px 4px 10px ${
-                    theme.vars.palette.mode === "dark" ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.1)"
-                }`,
+                boxShadow: "0px 4px 10px",
                 transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
                 "&:hover": {
                     transform: "translateY(-5px)",
-                    boxShadow: `0px 8px 15px ${
-                        theme.vars.palette.mode === "dark" ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0.2)"
-                    }`,
+                    boxShadow: "0px 8px 15px",
                 },
                 minHeight: "180px",
                 width: "100%",
