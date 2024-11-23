@@ -55,8 +55,8 @@ const ContactUsContent = () => {
                 <Paper
                     elevation={0}
                     sx={{
-                        p: 4,
-                        mb: 6,
+                        p: { xs: 3, md: 4 },
+                        mb: { xs: 4, md: 6 },
                         borderRadius: 2,
                         background: `linear-gradient(135deg, ${theme.vars.palette.primary.main}22 0%, ${theme.vars.palette.primary.main}11 100%)`,
                     }}
@@ -70,6 +70,7 @@ const ContactUsContent = () => {
                             textAlign: "center",
                             textTransform: "uppercase",
                             letterSpacing: "0.1em",
+                            fontSize: { xs: "2rem", md: "3rem" },
                         }}
                     >
                         Contact Us
@@ -81,15 +82,16 @@ const ContactUsContent = () => {
                             maxWidth: "800px",
                             mx: "auto",
                             mb: 4,
+                            fontSize: { xs: "0.875rem", md: "1rem" },
                         }}
                     >
                         We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
                     </Typography>
                 </Paper>
 
-                <Stack direction={{ xs: "column", md: "row" }} spacing={4}>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={{ xs: 4, md: 6 }} alignItems="stretch">
                     <Box flex={1}>
-                        <Stack spacing={4}>
+                        <Stack spacing={4} height="100%" justifyContent="center">
                             <Box
                                 component={motion.div}
                                 initial={{ opacity: 0, x: -20 }}
@@ -97,9 +99,15 @@ const ContactUsContent = () => {
                                 transition={{ duration: 0.5, delay: 0.2 }}
                             >
                                 <Stack direction="row" spacing={2} alignItems="center">
-                                    <EmailIcon sx={{ color: theme.vars.palette.red.main, fontSize: 30 }} />
+                                    <EmailIcon
+                                        sx={{ color: theme.vars.palette.red.main, fontSize: { xs: 24, md: 30 } }}
+                                    />
                                     <Box>
-                                        <Typography variant="h6" color="primary">
+                                        <Typography
+                                            variant="h6"
+                                            color="primary"
+                                            sx={{ fontSize: { xs: "1rem", md: "1.25rem" } }}
+                                        >
                                             Email
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
@@ -116,9 +124,15 @@ const ContactUsContent = () => {
                                 transition={{ duration: 0.5, delay: 0.4 }}
                             >
                                 <Stack direction="row" spacing={2} alignItems="center">
-                                    <PhoneIcon sx={{ color: theme.vars.palette.red.main, fontSize: 30 }} />
+                                    <PhoneIcon
+                                        sx={{ color: theme.vars.palette.red.main, fontSize: { xs: 24, md: 30 } }}
+                                    />
                                     <Box>
-                                        <Typography variant="h6" color="primary">
+                                        <Typography
+                                            variant="h6"
+                                            color="primary"
+                                            sx={{ fontSize: { xs: "1rem", md: "1.25rem" } }}
+                                        >
                                             Phone
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
@@ -135,9 +149,15 @@ const ContactUsContent = () => {
                                 transition={{ duration: 0.5, delay: 0.6 }}
                             >
                                 <Stack direction="row" spacing={2} alignItems="center">
-                                    <LocationOnIcon sx={{ color: theme.vars.palette.red.main, fontSize: 30 }} />
+                                    <LocationOnIcon
+                                        sx={{ color: theme.vars.palette.red.main, fontSize: { xs: 24, md: 30 } }}
+                                    />
                                     <Box>
-                                        <Typography variant="h6" color="primary">
+                                        <Typography
+                                            variant="h6"
+                                            color="primary"
+                                            sx={{ fontSize: { xs: "1rem", md: "1.25rem" } }}
+                                        >
                                             Address
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
@@ -161,13 +181,14 @@ const ContactUsContent = () => {
                         <Paper
                             elevation={0}
                             sx={{
-                                p: 4,
+                                p: { xs: 3, md: 4 },
                                 borderRadius: 2,
                                 background: `linear-gradient(135deg, ${theme.vars.palette.primary.main}11 0%, ${theme.vars.palette.primary.main}22 100%)`,
+                                height: "100%",
                             }}
                         >
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <Stack spacing={3}>
+                            <form onSubmit={handleSubmit(onSubmit)} style={{ height: "100%" }}>
+                                <Stack spacing={3} height="100%">
                                     <Controller
                                         name="name"
                                         control={control}
@@ -178,6 +199,12 @@ const ContactUsContent = () => {
                                                 error={!!errors.name}
                                                 helperText={errors.name?.message}
                                                 fullWidth
+                                                variant="outlined"
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        backgroundColor: "background.paper",
+                                                    },
+                                                }}
                                             />
                                         )}
                                     />
@@ -192,6 +219,12 @@ const ContactUsContent = () => {
                                                 error={!!errors.email}
                                                 helperText={errors.email?.message}
                                                 fullWidth
+                                                variant="outlined"
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        backgroundColor: "background.paper",
+                                                    },
+                                                }}
                                             />
                                         )}
                                     />
@@ -206,6 +239,12 @@ const ContactUsContent = () => {
                                                 error={!!errors.subject}
                                                 helperText={errors.subject?.message}
                                                 fullWidth
+                                                variant="outlined"
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        backgroundColor: "background.paper",
+                                                    },
+                                                }}
                                             />
                                         )}
                                     />
@@ -222,25 +261,36 @@ const ContactUsContent = () => {
                                                 error={!!errors.message}
                                                 helperText={errors.message?.message}
                                                 fullWidth
+                                                variant="outlined"
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        backgroundColor: "background.paper",
+                                                    },
+                                                }}
                                             />
                                         )}
                                     />
 
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        size="large"
-                                        sx={{
-                                            py: 1.5,
-                                            color: theme.vars.palette.secondary.light,
-                                            bgcolor: theme.vars.palette.red.main,
-                                            "&:hover": {
-                                                bgcolor: theme.vars.palette.red.dark,
-                                            },
-                                        }}
-                                    >
-                                        Send Message
-                                    </Button>
+                                    <Box sx={{ mt: "auto", pt: 2 }}>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            size="large"
+                                            fullWidth
+                                            sx={{
+                                                py: 1.5,
+                                                color: "white",
+                                                bgcolor: theme.vars.palette.red.main,
+                                                "&:hover": {
+                                                    bgcolor: theme.vars.palette.red.dark,
+                                                },
+                                                fontSize: { xs: "0.875rem", md: "1rem" },
+                                                fontWeight: 600,
+                                            }}
+                                        >
+                                            Send Message
+                                        </Button>
+                                    </Box>
                                 </Stack>
                             </form>
                         </Paper>
