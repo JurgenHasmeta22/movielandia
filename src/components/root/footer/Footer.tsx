@@ -12,6 +12,8 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import InfoIcon from "@mui/icons-material/Info";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import { motion } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
@@ -96,6 +98,8 @@ const Footer = (): React.JSX.Element => {
                                 <FooterLink href="/series" icon={LocalMoviesIcon} text="Series" />
                                 <FooterLink href="/genres" icon={SubtitlesIcon} text="Genres" />
                                 <FooterLink href="/actors" icon={RecentActorsIcon} text="Actors" />
+                                <FooterLink href="/about-us" icon={InfoIcon} text="About Us" />
+                                <FooterLink href="/contact-us" icon={ContactSupportIcon} text="Contact Us" />
                             </Stack>
                         </Box>
 
