@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper } from "@mui/material";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateUserById } from "@/actions/user.actions";
@@ -14,27 +14,58 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import FavoritesTab from "./FavoritesTab";
+import TabContent from "./TabContent";
 
-interface IUserPageProps {
-    userLoggedIn: any | null;
-    userInPage: any | null;
+interface UserPageProps {
+    userLoggedIn: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+    } | null;
+    userInPage: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+        avatar?: { photoSrc: string } | null;
+        isFollowed?: boolean;
+        isFollowedStatus?: string | null;
+    };
     tabValue: string;
 }
 
-export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
-    const [bio, setBio] = useState<string>(userInPage.bio || "");
+type TabConfig = {
+    label: string;
+    icon: JSX.Element;
+    param: string;
+};
+
+type SubTabsConfig = {
+    [key: string]: string[];
+};
+
+export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: UserPageProps) {
+    const [bio, setBio] = useState<string>(userInPage.bio);
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
-    const [userName, setUserName] = useState<string>(userInPage.userName || "");
+    const [userName, setUserName] = useState<string>(userInPage.userName);
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>(userInPage.email || "");
+    const [email, setEmail] = useState<string>(userInPage.email);
     const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
 
     const router = useRouter();
     const searchParams = useSearchParams();
 
     // Main tab options with their corresponding search param values
-    const mainTabs = useMemo(
+    const mainTabs = useMemo<TabConfig[]>(
         () => [
             { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
             { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
@@ -45,46 +76,70 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     );
 
     // Sub tab options based on main tab
-    const subTabs = useMemo(
+    const subTabs = useMemo<SubTabsConfig>(
         () => ({
             bookmarks: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
-            upvotes: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
-            downvotes: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
-            reviews: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
+            upvotes: [
+                "Movie Reviews",
+                "Series Reviews",
+                "Season Reviews",
+                "Episode Reviews",
+                "Actor Reviews",
+                "Crew Reviews",
+            ],
+            downvotes: [
+                "Movie Reviews",
+                "Series Reviews",
+                "Season Reviews",
+                "Episode Reviews",
+                "Actor Reviews",
+                "Crew Reviews",
+            ],
+            reviews: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
         }),
         [],
     );
 
     // Get current tab values from URL
     const currentMainTab = useMemo(() => {
-        const mainTabParam = searchParams.get("maintab") || "bookmarks";
-        return mainTabs.findIndex((tab) => tab.param === mainTabParam);
+        const mainTabParam = searchParams.get("maintab");
+        return mainTabParam ? mainTabs.findIndex((tab) => tab.param === mainTabParam) : 0;
     }, [searchParams, mainTabs]);
 
     const currentSubTab = useMemo(() => {
-        const mainTabParam = searchParams.get("maintab") || "bookmarks";
-        const subTabParam = searchParams.get("subtab")?.toLowerCase() || "movies";
+        const mainTabParam = searchParams.get("maintab") || mainTabs[0].param;
+        const subTabParam = searchParams.get("subtab");
         const currentSubTabs = subTabs[mainTabParam as keyof typeof subTabs];
-        return currentSubTabs.findIndex((tab) => tab.toLowerCase() === subTabParam);
-    }, [searchParams, subTabs]);
+
+        if (!subTabParam) return 0;
+
+        const subTabIndex = currentSubTabs.findIndex(
+            (tab) => tab.toLowerCase().replace(/\s+/g, "") === subTabParam.toLowerCase().replace(/\s+/g, ""),
+        );
+
+        return subTabIndex === -1 ? 0 : subTabIndex;
+    }, [searchParams, subTabs, mainTabs]);
 
     const updateURL = (mainTabValue: string, subTabValue: string) => {
-        const url = new URL(window.location.href);
-        url.searchParams.set("maintab", mainTabValue);
-        url.searchParams.set("subtab", subTabValue);
-        router.push(url.pathname + url.search);
+        const cleanSubTabValue = subTabValue.toLowerCase().replace(/\s+/g, "");
+        const newSearchParams = new URLSearchParams(searchParams.toString());
+
+        newSearchParams.set("maintab", mainTabValue);
+        newSearchParams.set("subtab", cleanSubTabValue);
+
+        router.push(`?${newSearchParams.toString()}`);
     };
 
     const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[newValue].param;
-        const subTabParam = subTabs[mainTabParam as keyof typeof subTabs][0].toLowerCase();
-        updateURL(mainTabParam, subTabParam);
+        const firstSubTab = subTabs[mainTabParam as keyof typeof subTabs][0];
+        updateURL(mainTabParam, firstSubTab);
     };
 
     const handleSubTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[currentMainTab].param;
-        const subTabParam = subTabs[mainTabParam as keyof typeof subTabs][newValue].toLowerCase();
-        updateURL(mainTabParam, subTabParam);
+        const selectedSubTab = subTabs[mainTabParam as keyof typeof subTabs][newValue];
+        updateURL(mainTabParam, selectedSubTab);
     };
 
     const handleBioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,47 +154,20 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
         setEmail(event.target.value);
     };
 
-    async function handleSaveEditBio() {
+    const handleSaveEdit = async (
+        field: "bio" | "userName" | "email",
+        value: string,
+        setEditing: (value: boolean) => void,
+    ) => {
         try {
-            await updateUserById({ bio }, Number(userInPage.id));
-            setIsBioEditing(false);
-            showToast("success", "Bio updated successfully");
+            await updateUserById({ [field]: value }, userInPage.id);
+            setEditing(false);
+            showToast("success", `${field.charAt(0).toUpperCase() + field.slice(1)} updated successfully`);
         } catch (error) {
-            if (error instanceof Error) {
-                showToast("error", `Error updating bio: ${error.message}`);
-            } else {
-                showToast("error", "An unexpected error occurred");
-            }
+            const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+            showToast("error", `Error updating ${field}: ${errorMessage}`);
         }
-    }
-
-    async function handleSaveEditUserName() {
-        try {
-            await updateUserById({ userName }, Number(userInPage.id));
-            setIsUserNameEditing(false);
-            showToast("success", "Username updated successfully");
-        } catch (error) {
-            if (error instanceof Error) {
-                showToast("error", `Error updating username: ${error.message}`);
-            } else {
-                showToast("error", "An unexpected error occurred");
-            }
-        }
-    }
-
-    async function handleSaveEditEmail() {
-        try {
-            await updateUserById({ email }, Number(userInPage.id));
-            setIsEmailEditing(false);
-            showToast("success", "Email updated successfully");
-        } catch (error) {
-            if (error instanceof Error) {
-                showToast("error", `Error updating email: ${error.message}`);
-            } else {
-                showToast("error", "An unexpected error occurred");
-            }
-        }
-    }
+    };
 
     return (
         <Box
@@ -163,6 +191,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                         sx={{ width: 150, height: 150 }}
                     />
                     <Box flex={1}>
+                        {/* Username Field */}
                         <Stack direction="row" alignItems="center" spacing={2} mb={2}>
                             {isUserNameEditing ? (
                                 <Stack direction="row" spacing={1} alignItems="center">
@@ -172,7 +201,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                         size="small"
                                         fullWidth
                                     />
-                                    <IconButton onClick={handleSaveEditUserName} color="primary">
+                                    <IconButton
+                                        onClick={() => handleSaveEdit("userName", userName, setIsUserNameEditing)}
+                                        color="primary"
+                                    >
                                         <SaveIcon />
                                     </IconButton>
                                     <IconButton onClick={() => setIsUserNameEditing(false)} color="error">
@@ -191,6 +223,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             )}
                         </Stack>
 
+                        {/* Bio Field */}
                         {isBioEditing ? (
                             <Stack direction="row" spacing={1} alignItems="start" mb={2}>
                                 <TextField
@@ -201,7 +234,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                     fullWidth
                                     placeholder="Write something about yourself..."
                                 />
-                                <IconButton onClick={handleSaveEditBio} color="primary">
+                                <IconButton onClick={() => handleSaveEdit("bio", bio, setIsBioEditing)} color="primary">
                                     <SaveIcon />
                                 </IconButton>
                                 <IconButton onClick={() => setIsBioEditing(false)} color="error">
@@ -221,6 +254,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                             </Stack>
                         )}
 
+                        {/* Email Field */}
                         {isEmailEditing ? (
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <TextField
@@ -230,7 +264,10 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                                     fullWidth
                                     type="email"
                                 />
-                                <IconButton onClick={handleSaveEditEmail} color="primary">
+                                <IconButton
+                                    onClick={() => handleSaveEdit("email", email, setIsEmailEditing)}
+                                    color="primary"
+                                >
                                     <SaveIcon />
                                 </IconButton>
                                 <IconButton onClick={() => setIsEmailEditing(false)} color="error">
@@ -311,7 +348,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                     transition={{ duration: 0.2 }}
                 >
                     <Box sx={{ minHeight: "50vh" }}>
-                        <FavoritesTab
+                        <TabContent
                             type={subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs][currentSubTab]}
                             userLoggedIn={userLoggedIn}
                             userInPage={userInPage}
