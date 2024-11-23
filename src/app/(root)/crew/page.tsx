@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import CrewPageContent from "./_components/CrewPageContent";
+import CrewAllPageContent from "./_components/CrewAllPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface ICrewProps {
@@ -42,7 +42,7 @@ export default async function Crews(props: ICrewProps) {
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <CrewPageContent searchParams={searchParams} session={session} />
+            <CrewAllPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );
 }

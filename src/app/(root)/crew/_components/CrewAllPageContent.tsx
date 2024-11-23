@@ -1,27 +1,26 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Serie } from "@prisma/client";
-import { getLatestSeries, getSeriesWithFilters } from "@/actions/serie.actions";
+import { Crew } from "@prisma/client";
+import { getCrewMembersWithFilters } from "@/actions/crew.actions";
 import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
-import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 
-interface SeriesPageContentProps {
+interface CrewPageContentProps {
     searchParams:
         | {
-              seriesAscOrDesc?: string;
+              crewAscOrDesc?: string;
               page?: string;
-              seriesSortBy?: string;
+              crewSortBy?: string;
           }
         | undefined;
     session: any;
 }
 
-export default async function SeriesPageContent({ searchParams, session }: SeriesPageContentProps) {
-    const ascOrDesc = searchParams?.seriesAscOrDesc ?? "";
+export default async function CrewAllPageContent({ searchParams, session }: CrewPageContentProps) {
+    const ascOrDesc = searchParams?.crewAscOrDesc ?? "";
     const page = searchParams?.page ? Number(searchParams.page) : 1;
-    const sortBy = searchParams?.seriesSortBy ?? "";
+    const sortBy = searchParams?.crewSortBy ?? "";
 
     const queryParams = {
         ascOrDesc,
@@ -30,16 +29,15 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
     };
 
     const itemsPerPage = 12;
-    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
-    const series = seriesData.rows;
-    const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
+    const crewData = await getCrewMembersWithFilters(queryParams, Number(session?.user?.id));
+    const crewMembers = crewData.crewMembers;
+    const crewCarouselImages: Crew[] = crewMembers.slice(0, 5);
 
-    const latestSeries = await getLatestSeries();
-    const seriesCount = seriesData.count;
-    const pageCount = Math.ceil(seriesCount / itemsPerPage);
+    const crewCount = crewData.count;
+    const pageCount = Math.ceil(crewCount / itemsPerPage);
 
     const startIndex = (page - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(startIndex + itemsPerPage - 1, seriesCount);
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, crewCount);
 
     return (
         <Box
@@ -51,7 +49,7 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
             }}
         >
             <Box component="section">
-                <Carousel data={seriesCarouselImages} type="series" />
+                <Carousel data={crewCarouselImages} type="crew" />
             </Box>
             <Box
                 component="section"
@@ -100,7 +98,7 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
                                 },
                             }}
                         >
-                            Series
+                            Crew
                         </Typography>
                         <Typography
                             variant="h5"
@@ -113,11 +111,11 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
                                 top: { sm: 2 },
                             }}
                         >
-                            {startIndex} – {endIndex} of {seriesCount} series
+                            {startIndex} – {endIndex} of {crewCount} crews
                         </Typography>
                     </Box>
                     <Box>
-                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
+                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="crew" />
                     </Box>
                 </Box>
                 <Box
@@ -141,14 +139,13 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
                             mb: { xs: 3, md: 4 },
                         }}
                     >
-                        {series.map((serie: Serie) => (
-                            <CardItem key={serie.id} data={serie} type="serie" />
+                        {crewMembers.map((crewMember: Crew) => (
+                            <CardItem key={crewMember.id} data={crewMember} type="crew" path="crew" />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Series" />
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Crew" />
                 </Box>
             </Box>
-            <LatestList data={latestSeries} type="Series" />
         </Box>
     );
 }

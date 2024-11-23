@@ -40,86 +40,110 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
 
     return (
         <Box
+            component="section"
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                rowGap: 4,
+                gap: { xs: 3, sm: 4, md: 5 },
             }}
-            component={"section"}
         >
-            <Box component={"section"}>
+            <Box component="section">
                 <Carousel data={actorsCarouselImages} type="actors" />
             </Box>
-            <Stack
-                display="flex"
-                flexDirection={{ xs: "column", sm: "row" }}
-                justifyContent="space-between"
-                alignItems={{ xs: "flex-start", sm: "center" }}
+            <Box
                 component="section"
                 sx={{
-                    ml: 3,
-                    mr: 3,
-                    rowGap: { xs: 2, sm: 0 },
-                    flexWrap: "wrap",
+                    maxWidth: "1200px",
+                    margin: "0 auto",
+                    width: "100%",
+                    px: { xs: 2, sm: 3, md: 4 },
                 }}
             >
-                <Box
-                    display={"flex"}
-                    flexDirection={{ xs: "column", sm: "row" }}
-                    alignItems={{ xs: "flex-start", sm: "center" }}
-                    columnGap={1}
-                    textAlign={{ xs: "left", sm: "center" }}
-                >
-                    <Typography fontSize={22} variant="h2">
-                        Actors
-                    </Typography>
-                    <Typography variant="h5" sx={{ pt: 0.5 }}>
-                        {startIndex} – {endIndex} of {actorsCount} actors
-                    </Typography>
-                </Box>
                 <Box
                     sx={{
                         display: "flex",
-                        justifyContent: { xs: "flex-start", sm: "flex-end" },
-                        alignItems: "center",
-                        mt: { xs: 2, sm: 0 },
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        flexDirection: { xs: "column", sm: "row" },
+                        gap: { xs: 2, sm: 3 },
+                        mb: { xs: 3, md: 4 },
                     }}
                 >
-                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="actors" />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: { xs: "column", sm: "row" },
+                            alignItems: { xs: "flex-start", sm: "baseline" },
+                            gap: { xs: 1, sm: 2 },
+                        }}
+                    >
+                        <Typography
+                            variant="h2"
+                            sx={{
+                                fontSize: { xs: 24, sm: 28, md: 32 },
+                                fontWeight: 800,
+                                color: "text.primary",
+                                position: "relative",
+                                display: "inline-block",
+                                "&::after": {
+                                    content: '""',
+                                    position: "absolute",
+                                    bottom: -8,
+                                    left: 0,
+                                    width: "100%",
+                                    height: 3,
+                                    bgcolor: "primary.main",
+                                    borderRadius: 1,
+                                },
+                            }}
+                        >
+                            Actors
+                        </Typography>
+                        <Typography
+                            variant="h5"
+                            sx={{
+                                fontSize: { xs: 16, sm: 18 },
+                                color: "text.secondary",
+                                mt: { xs: 2, sm: 0 },
+                                ml: { sm: 1 },
+                                position: "relative",
+                                top: { sm: 2 },
+                            }}
+                        >
+                            {startIndex} – {endIndex} of {actorsCount} actors
+                        </Typography>
+                    </Box>
+                    <Box>
+                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="actors" />
+                    </Box>
                 </Box>
-            </Stack>
-            <Box
-                component={"section"}
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: 4,
-                    pl: 5,
-                    pr: 3,
-                }}
-            >
-                <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    columnGap={5}
-                    rowGap={5}
+                <Box
                     sx={{
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
+                        width: "100%",
+                        overflow: "hidden",
+                        mt: { xs: 4, md: 5 },
                     }}
                 >
-                    {actors.map((actor: Actor) => (
-                        <Box key={actor.id}>
-                            <CardItem data={actor} type="actor" path={"actors"} />
-                        </Box>
-                    ))}
-                </Stack>
-                <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
+                    <Stack
+                        direction="row"
+                        flexWrap="wrap"
+                        sx={{
+                            columnGap: { xs: 1, sm: 2, md: 3 },
+                            rowGap: { xs: 3, sm: 4, md: 5 },
+                            justifyContent: {
+                                xs: "center",
+                                md: "flex-start",
+                            },
+                            mx: { xs: 1, sm: 2 },
+                            mb: { xs: 3, md: 4 },
+                        }}
+                    >
+                        {actors.map((actor: Actor) => (
+                            <CardItem key={actor.id} data={actor} type="actor" path="actors" />
+                        ))}
+                    </Stack>
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Actors" />
+                </Box>
             </Box>
         </Box>
     );
