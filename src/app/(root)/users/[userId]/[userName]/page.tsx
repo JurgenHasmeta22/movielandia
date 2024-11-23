@@ -72,7 +72,18 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
 
 export default async function UserPage(props: IUserDetailsProps) {
     const session = await getServerSession(authOptions);
-    const userSession = (session && session.user) || null;
+    const userSession = session?.user
+        ? {
+              id: Number(session.user.id),
+              userName: session.user.userName,
+              email: session.user.email,
+              password: null,
+              role: session.user.role,
+              bio: "",
+              active: true,
+              canResetPassword: false,
+          }
+        : null;
 
     const params = await props.params;
     const userId = params.userId;
@@ -85,13 +96,16 @@ export default async function UserPage(props: IUserDetailsProps) {
 
     try {
         userInPage = await getUserById(Number(userId), Number(userSession?.id));
+        if (!userInPage) {
+            return notFound();
+        }
     } catch (error) {
         return notFound();
     }
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <UserPageContent userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />{" "}
+            <UserPageContent userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />
         </Suspense>
     );
 }
