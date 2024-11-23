@@ -1,100 +1,169 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Card, Stack, Typography, Button } from "@mui/material";
+import { Box, Card, Typography, Button, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/features/episodeFeaturesUtils";
 import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/features/seasonFeaturesUtils";
 import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/features/movieFeaturesUtils";
 import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFeaturesUtils";
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
-import { useSession } from "next-auth/react";
 import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
 
-interface ICardItemProps {
-    data: any;
-    type?: string;
-    path?: string | null;
+type CardItemType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
+type PathType = "movies" | "actors" | "crew" | null;
+
+interface BaseCardData {
+    id: number;
+    photoSrcProd: string;
+    description?: string;
+    dateAired?: string;
+    isBookmarked?: boolean;
 }
 
-const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
+interface RatedCardData extends BaseCardData {
+    ratingImdb?: number;
+}
+
+interface MovieCardData extends RatedCardData {
+    title: string;
+}
+
+interface SerieCardData extends RatedCardData {
+    title: string;
+}
+
+interface SeasonCardData extends RatedCardData {
+    title: string;
+}
+
+interface EpisodeCardData extends RatedCardData {
+    title: string;
+}
+
+interface ActorCardData extends RatedCardData {
+    fullname: string;
+    debut: string;
+}
+
+interface CrewCardData extends RatedCardData {
+    fullname: string;
+    debut: string;
+}
+
+interface UserCardData extends BaseCardData {
+    userName: string;
+}
+
+type CardData =
+    | MovieCardData
+    | SerieCardData
+    | SeasonCardData
+    | EpisodeCardData
+    | ActorCardData
+    | CrewCardData
+    | UserCardData;
+
+interface ICardItemProps {
+    data: CardData;
+    type: CardItemType;
+    path?: PathType;
+}
+
+const CardItem: React.FC<ICardItemProps> = ({ data, type, path }): React.JSX.Element => {
     const { data: session } = useSession();
 
     const [isHovered, setIsHovered] = useState(false);
     const params = useParams();
+    const theme = useTheme();
 
     const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
 
-    const bookmarkFunctions: any = {
+    const bookmarkFunctions = {
         movie: onBookmarkMovie,
         serie: onBookmarkSerie,
         season: onBookmarkSeason,
         episode: onBookmarkEpisode,
         actor: onBookmarkActor,
         crew: onBookmarkCrew,
-    };
+    } as const;
 
-    const removeBookmarkFunctions: any = {
+    const removeBookmarkFunctions = {
         movie: onRemoveBookmarkMovie,
         serie: onRemoveBookmarkSerie,
         season: onRemoveBookmarkSeason,
         episode: onRemoveBookmarkEpisode,
         actor: onRemoveBookmarkActor,
         crew: onRemoveBookmarkCrew,
-    };
+    } as const;
 
-    const handleBookmarkClick = async (e: React.MouseEvent) => {
+    const handleBookmarkClick = async (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
+        if (!session?.user) return;
 
-        const bookmarkFunc = bookmarkFunctions[type || ""];
-        const removeBookmarkFunc = removeBookmarkFunctions[type || ""];
+        const bookmarkFunc = bookmarkFunctions[type as keyof typeof bookmarkFunctions];
+        const removeBookmarkFunc = removeBookmarkFunctions[type as keyof typeof removeBookmarkFunctions];
 
-        if (data.isBookmarked) {
-            if (removeBookmarkFunc) {
-                await removeBookmarkFunc(session, data);
+        try {
+            if (data.isBookmarked) {
+                if (removeBookmarkFunc) {
+                    await removeBookmarkFunc(session, data);
+                }
+            } else {
+                if (bookmarkFunc) {
+                    await bookmarkFunc(session, data);
+                }
             }
-        } else {
-            if (bookmarkFunc) {
-                await bookmarkFunc(session, data);
-            }
+        } catch (error) {
+            console.error("Error toggling bookmark:", error);
         }
     };
 
-    const getPath = () => {
+    const getPath = (): string => {
+        const formatTitle = (title: string) => encodeURIComponent(title.split(" ").join("-"));
+
         switch (type) {
             case "serie":
-                return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                return `/series/${data.id}/${formatTitle((data as SerieCardData).title)}`;
             case "movie":
-                return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                return `/movies/${data.id}/${formatTitle((data as MovieCardData).title)}`;
             case "actor":
-                if (path && path === "movies") {
-                    return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
-                } else if (path && path === "actors") {
-                    return `/actors/${data.id}/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
-                } else {
-                    return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                if (path === "movies") {
+                    return `/movies/${data.id}/${formatTitle((data as MovieCardData).title)}`;
+                } else if (path === "actors") {
+                    return `/actors/${data.id}/${formatTitle((data as ActorCardData).fullname)}`;
                 }
+
+                return `/series/${data.id}/${formatTitle((data as SerieCardData).title)}`;
             case "crew":
-                if (path && path === "movies") {
-                    return `/movies/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
-                } else if (path && path === "crew") {
-                    return `/crew/${data.id}/${encodeURIComponent(data.fullname.split(" ").join("-"))}`;
-                } else {
-                    return `/series/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+                if (path === "movies") {
+                    return `/movies/${data.id}/${formatTitle((data as MovieCardData).title)}`;
+                } else if (path === "crew") {
+                    return `/crew/${data.id}/${formatTitle((data as CrewCardData).fullname)}`;
                 }
-            case "season":
-                return `/series/${typeof params.serieId === "string" ? params.serieId : ""}/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
-            case "episode":
-                return `/series/${typeof params.serieId === "string" ? params.serieId : ""}/${typeof params.serieTitle === "string" ? encodeURIComponent(params.serieTitle.split(" ").join("-")) : ""}/seasons/${typeof params.seasonId === "string" ? params.seasonId : ""}/${typeof params.seasonTitle === "string" ? encodeURIComponent(params.seasonTitle.split(" ").join("-")) : ""}/episodes/${data.id}/${encodeURIComponent(data.title.split(" ").join("-"))}`;
+
+                return `/series/${data.id}/${formatTitle((data as SerieCardData).title)}`;
+            case "season": {
+                const serieId = typeof params.serieId === "string" ? params.serieId : "";
+                const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
+                return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle((data as SeasonCardData).title)}`;
+            }
+            case "episode": {
+                const serieId = typeof params.serieId === "string" ? params.serieId : "";
+                const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
+                const seasonId = typeof params.seasonId === "string" ? params.seasonId : "";
+                const seasonTitle = typeof params.seasonTitle === "string" ? formatTitle(params.seasonTitle) : "";
+                return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${data.id}/${formatTitle((data as EpisodeCardData).title)}`;
+            }
             case "user":
-                return `/users/${data.id}/${encodeURIComponent(data.userName.split(" ").join("-"))}`;
+                return `/users/${data.id}/${formatTitle((data as UserCardData).userName)}`;
             default:
                 return "/";
         }
@@ -113,6 +182,20 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
         }
     };
 
+    const getDisplayTitle = () => {
+        if (path === "actors" || path === "crew") {
+            const personData = data as ActorCardData | CrewCardData;
+            return `${personData.fullname} (${personData.debut})`;
+        }
+
+        if (type === "user") {
+            return (data as UserCardData).userName;
+        }
+
+        const mediaData = data as MovieCardData | SerieCardData | SeasonCardData | EpisodeCardData;
+        return `${mediaData.title} (${mediaData.dateAired?.split("/")[2]})`;
+    };
+
     return (
         <motion.div
             whileHover={{ scale: 1.03 }}
@@ -120,28 +203,28 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
             onClick={handleCardClick}
             onMouseLeave={handleMouseLeave}
         >
-            <Link href={getPath()}>
+            <Link href={getPath()} tabIndex={0} aria-label={getDisplayTitle()}>
                 <Card
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        maxWidth: "160px",
-                        cursor: "pointer",
-                        height: "auto",
-                        width: "100%",
+                        width: { xs: "140px", sm: "160px" },
+                        height: "100%",
                         position: "relative",
                         borderRadius: 2,
                         overflow: "hidden",
-                        boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+                        boxShadow: theme.shadows[4],
+                        transition: "box-shadow 0.3s ease-in-out",
                         "&:hover": {
-                            boxShadow: "0 8px 16px rgba(0,0,0,0.3)",
+                            boxShadow: theme.shadows[8],
                         },
                     }}
                 >
                     <Box
                         sx={{
                             position: "relative",
-                            height: "240px",
+                            height: { xs: "210px", sm: "240px" },
+                            width: "100%",
                             overflow: "hidden",
                             "&:hover .hoverOverlay": {
                                 opacity: 1,
@@ -151,130 +234,108 @@ const CardItem = ({ data, type, path }: ICardItemProps): React.JSX.Element => {
                         <Image
                             src={data.photoSrcProd || "/images/placeholder.jpg"}
                             alt={data.description || "No description available"}
-                            height={240}
-                            width={160}
+                            fill
+                            sizes="(max-width: 600px) 140px, 160px"
+                            style={{ objectFit: "cover" }}
+                            priority
                         />
                         <Box
                             className="hoverOverlay"
                             sx={{
                                 position: "absolute",
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                top: 0,
-                                backgroundColor: "rgba(0, 0, 0, 0.6)",
+                                inset: 0,
+                                bgcolor: "rgba(0, 0, 0, 0.7)",
                                 opacity: isHovered ? 1 : 0,
                                 transition: "opacity 0.3s ease-in-out",
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "space-between",
-                                padding: 2,
+                                p: { xs: 1.5, sm: 2 },
                             }}
                         >
                             <Box>
-                                <Typography color="white" sx={{ fontSize: "0.8rem" }}>
-                                    {path === "actors" || path === "crew"
-                                        ? data.fullname + " " + "(" + data.debut + ")"
-                                        : path === "users"
-                                          ? data.userName
-                                          : data.title + " (" + data.dateAired.split("/")[2] + ")"}
+                                <Typography
+                                    color="white"
+                                    sx={{
+                                        fontSize: { xs: "0.75rem", sm: "0.85rem" },
+                                        fontWeight: 500,
+                                        lineHeight: 1.4,
+                                        mb: 1,
+                                    }}
+                                >
+                                    {getDisplayTitle()}
                                 </Typography>
-                                {session?.user?.userName && type !== "user" && (
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "start",
-                                        }}
-                                        onClick={handleBookmarkClick}
-                                    >
-                                        <Button variant="outlined">
-                                            {data.isBookmarked ? (
-                                                <BookmarkIcon color={data.isBookmarked ? "error" : "success"} />
-                                            ) : (
-                                                <BookmarkBorderIcon color={data.isBookmarked ? "error" : "success"} />
-                                            )}
+
+                                {type !== "user" && "ratingImdb" in data && (
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                                            <StarRateIcon sx={{ color: "#FFD700", fontSize: "1rem" }} />
                                             <Typography
-                                                variant="body2"
+                                                variant="caption"
                                                 sx={{
-                                                    textTransform: "capitalize",
+                                                    color: "white",
+                                                    ml: 0.5,
                                                 }}
                                             >
-                                                {data.isBookmarked ? "Unbookmark" : "Bookmark"}
-                                            </Typography>
-                                        </Button>
-                                    </Box>
-                                )}
-                            </Box>
-                            {type !== "user" && (
-                                <Box>
-                                    <Stack
-                                        flexDirection={"row"}
-                                        columnGap={"30px"}
-                                        justifyContent="space-between"
-                                        alignItems="center"
-                                    >
-                                        {type !== "actor" && type !== "crew" && (
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <Image
-                                                    src="/icons/imdb.svg"
-                                                    alt="IMDb Icon"
-                                                    width={14}
-                                                    height={14}
-                                                    style={{ marginRight: 2 }}
-                                                />
-                                                {data.ratingImdb !== 0 ? `${data.ratingImdb}` : "N/A"}
-                                            </Box>
-                                        )}
-                                        {type !== "serie" &&
-                                            type !== "season" &&
-                                            type !== "actor" &&
-                                            type !== "crew" && (
-                                                <Box
-                                                    sx={{
-                                                        display: "flex",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <AccessTimeIcon
-                                                        sx={{ color: "gold", mr: 0.2, fontSize: "0.8rem" }}
-                                                    />
-                                                    <Typography
-                                                        color={"white"}
-                                                        fontSize="0.8rem"
-                                                        component="span"
-                                                        width={"30ch"}
-                                                    >
-                                                        {data.duration} min
-                                                    </Typography>
-                                                </Box>
-                                            )}
-                                    </Stack>
-                                    <Stack
-                                        flexDirection={"row"}
-                                        columnGap={"40px"}
-                                        justifyContent="space-between"
-                                        alignItems="center"
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                alignContent: "center",
-                                                alignSelf: "center",
-                                            }}
-                                        >
-                                            <StarRateIcon sx={{ color: "gold", mr: 0.5, fontSize: "1rem" }} />
-                                            <Typography color={"white"} fontSize="0.9rem" component="span">
-                                                {data.averageRating ? data.averageRating : "N/A"}
+                                                {data.ratingImdb?.toFixed(1) || "N/A"}
                                             </Typography>
                                         </Box>
-                                    </Stack>
+                                    </Box>
+                                )}
+                                {data.description && (
+                                    <Typography
+                                        variant="caption"
+                                        sx={{
+                                            color: "white",
+                                            display: "-webkit-box",
+                                            WebkitLineClamp: 3,
+                                            WebkitBoxOrient: "vertical",
+                                            overflow: "hidden",
+                                        }}
+                                    >
+                                        {data.description}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {session?.user?.userName && type !== "user" && (
+                                <Box
+                                    onClick={handleBookmarkClick}
+                                    sx={{
+                                        mt: "auto",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 1,
+                                    }}
+                                >
+                                    <Button
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                            minWidth: "auto",
+                                            p: 1,
+                                            borderColor: "white",
+                                            "&:hover": {
+                                                borderColor: "white",
+                                                bgcolor: "rgba(255, 255, 255, 0.1)",
+                                            },
+                                        }}
+                                    >
+                                        {data.isBookmarked ? (
+                                            <BookmarkIcon sx={{ color: theme.vars.palette.error.main }} />
+                                        ) : (
+                                            <BookmarkBorderIcon sx={{ color: "white" }} />
+                                        )}
+                                    </Button>
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            color: "white",
+                                            textTransform: "capitalize",
+                                            fontSize: { xs: "0.75rem", sm: "0.85rem" },
+                                        }}
+                                    >
+                                        {data.isBookmarked ? "Bookmarked" : "Bookmark"}
+                                    </Typography>
                                 </Box>
                             )}
                         </Box>

@@ -12,7 +12,7 @@ interface IListHomeSectionProps {
     type: "genre" | "movie" | "serie";
     link: string;
     linkText: string;
-    path?: string;
+    path?: "movies" | "actors" | "crew" | null;
 }
 
 const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionProps) => {
@@ -29,6 +29,36 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
             default:
                 return "";
         }
+    };
+
+    const transformItemToCardData = (item: Movie | Serie | Genre) => {
+        if (type === "movie") {
+            const movieData = item as Movie;
+
+            return {
+                id: movieData.id,
+                photoSrcProd: movieData.photoSrcProd,
+                description: movieData.description,
+                title: movieData.title,
+                ratingImdb: movieData.ratingImdb,
+                dateAired: movieData.dateAired,
+                isBookmarked: false,
+            };
+        } else if (type === "serie") {
+            const serieData = item as Serie;
+
+            return {
+                id: serieData.id,
+                photoSrcProd: serieData.photoSrcProd,
+                description: serieData.description,
+                title: serieData.title,
+                ratingImdb: serieData.ratingImdb,
+                dateAired: serieData.dateAired,
+                isBookmarked: false,
+            };
+        }
+
+        return null;
     };
 
     return (
@@ -108,13 +138,19 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                         mx: { xs: 1, sm: 2 },
                     }}
                 >
-                    {data?.map((item, index) =>
-                        type === "genre" ? (
-                            <GenreItem key={index} genre={item as Genre} />
-                        ) : (
-                            <CardItem key={index} data={item} type={type} path={path} />
-                        ),
-                    )}
+                    {data?.map((item, index) => {
+                        if (type === "genre") {
+                            return <GenreItem key={index} genre={item as Genre} />;
+                        }
+
+                        const cardData = transformItemToCardData(item);
+
+                        if (!cardData) {
+                            return null;
+                        }
+
+                        return <CardItem key={index} data={cardData} type={type} path={path} />;
+                    })}
                 </Stack>
             </Box>
         </Box>
