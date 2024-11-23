@@ -30,6 +30,7 @@ interface BaseCardData {
 
 interface RatedCardData extends BaseCardData {
     ratingImdb?: number;
+    averageRating?: number;
 }
 
 interface MovieCardData extends RatedCardData {
@@ -267,17 +268,31 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path }): React.JSX.Ele
                                 </Typography>
 
                                 {type !== "user" && "ratingImdb" in data && (
-                                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                            <Box sx={{ display: "flex", alignItems: "center", height: "1rem" }}>
+                                                <Image src="/icons/imdb.svg" alt="IMDb" width={32} height={16} />
+                                            </Box>
+                                            <Typography
+                                                variant="caption"
+                                                sx={{
+                                                    color: "white",
+                                                }}
+                                            >
+                                                {data.ratingImdb?.toFixed(1) || "N/A"}
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                                             <StarRateIcon sx={{ color: "#FFD700", fontSize: "1rem" }} />
                                             <Typography
                                                 variant="caption"
                                                 sx={{
                                                     color: "white",
-                                                    ml: 0.5,
                                                 }}
                                             >
-                                                {data.ratingImdb?.toFixed(1) || "N/A"}
+                                                {data.averageRating && data.averageRating !== 0.0
+                                                    ? data.averageRating.toFixed(1)
+                                                    : "N/A"}
                                             </Typography>
                                         </Box>
                                     </Box>
