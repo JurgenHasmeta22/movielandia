@@ -1,6 +1,9 @@
-import { Box, Stack, Typography } from "@mui/material";
+"use client";
+
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
 import { Movie, Serie } from "@prisma/client";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface ILatestListProps {
     data: Array<Movie | Serie> | null;
@@ -8,55 +11,81 @@ interface ILatestListProps {
 }
 
 export function LatestList({ data, type }: ILatestListProps) {
+    const theme = useTheme();
+
     return (
         <Box
-            component={"section"}
+            component="section"
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                rowGap: 2,
-                marginBottom: 4,
-                pr: 3,
+                maxWidth: "1200px",
+                margin: "0 auto",
+                width: "100%",
+                px: { xs: 2, sm: 3, md: 4 },
+                py: { xs: 3, md: 4 },
             }}
         >
             <Box
                 sx={{
-                    pl: 3,
+                    mb: { xs: 1, md: 2 },
                     display: "flex",
-                    justifyContent: {
-                        xs: "center",
-                        sm: "center",
-                        md: "start",
-                        lg: "start",
-                    },
+                    justifyContent: { xs: "center", md: "flex-start" },
                 }}
             >
-                <Typography fontSize={22} variant="h2">
-                    Latest {type.toLowerCase()}
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontSize: { xs: 24, sm: 28, md: 32 },
+                        fontWeight: 800,
+                        color: theme.vars.palette.text.primary,
+                        position: "relative",
+                        display: "inline-block",
+                        "&::after": {
+                            content: '""',
+                            position: "absolute",
+                            bottom: -8,
+                            left: 0,
+                            width: "100%",
+                            height: 3,
+                            bgcolor: theme.vars.palette.primary.main,
+                            borderRadius: 1,
+                        },
+                    }}
+                >
+                    Latest {type}
                 </Typography>
             </Box>
-            <Stack
-                direction="row"
-                flexWrap="wrap"
-                alignItems={"start"}
-                columnGap={5}
-                rowGap={5}
+
+            <Box
                 sx={{
-                    mb: 4,
-                    pl: 5,
-                    mt: 3,
-                    justifyContent: {
-                        xs: "center",
-                        sm: "center",
-                        md: "start",
-                        lg: "start",
-                    },
+                    width: "100%",
+                    overflow: "hidden",
+                    mt: { xs: 4, md: 5 },
                 }}
             >
-                {data?.map((item: Movie | Serie) => (
-                    <CardItem data={item} key={item.id} type={`${type === "Movies" ? "movie" : "serie"}`} />
-                ))}
-            </Stack>
+                <Stack
+                    direction="row"
+                    flexWrap="wrap"
+                    sx={{
+                        columnGap: { xs: 1, sm: 2, md: 3 },
+                        rowGap: { xs: 3, sm: 4, md: 5 },
+                        justifyContent: {
+                            xs: "center",
+                            md: "flex-start",
+                        },
+                        mx: { xs: 1, sm: 2 },
+                    }}
+                >
+                    {data?.map((item) => (
+                        <CardItem
+                            key={item.id}
+                            data={item}
+                            type={type.toLowerCase() === "movies" ? "movie" : "serie"}
+                        />
+                    ))}
+                </Stack>
+            </Box>
         </Box>
     );
 }

@@ -1,5 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import CardItem from "../cardItem/CardItem";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IListDetailProps {
     data: any;
@@ -8,193 +9,126 @@ interface IListDetailProps {
 }
 
 export function ListDetail({ data, type, roleData }: IListDetailProps) {
+    const theme = useTheme();
+
+    if (!data || data.length === 0) return null;
+
+    const getTitle = () => {
+        if (type === "actor") {
+            return roleData === "cast" ? "Cast" : `Starred ${roleData}`;
+        }
+
+        if (type === "crew") {
+            return roleData === "production" ? "Crew" : `Worked on ${roleData}`;
+        }
+
+        return `${roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""} ${
+            type === "movie"
+                ? "Movies"
+                : type === "serie"
+                  ? "Series"
+                  : type === "season"
+                    ? "Seasons"
+                    : type === "episode"
+                      ? "Episodes"
+                      : ""
+        }`;
+    };
+
+    const getItemData = (item: any) => {
+        if (type === "actor") {
+            if (roleData === "Movies") return item.movie;
+            if (roleData === "Series") return item.serie;
+            if (roleData === "cast") return item.actor;
+        }
+
+        if (type === "crew") {
+            if (roleData === "production") return item.crew;
+            if (roleData === "Movies") return item.movie;
+            if (roleData === "Series") return item.serie;
+        }
+
+        return item;
+    };
+
+    const getItemPath = () => {
+        if (type === "actor") {
+            if (roleData === "Movies") return "movies";
+            if (roleData === "Series") return "series";
+            if (roleData === "cast") return "actors";
+        }
+
+        if (type === "crew") {
+            if (roleData === "Movies") return "movies";
+            if (roleData === "Series") return "series";
+            if (roleData === "production") return "crew";
+        }
+
+        return null;
+    };
+
     return (
-        <>
-            {data && data.length > 0 && (
-                <>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            rowGap: 2,
-                            marginBottom: 2,
-                            marginTop: 2,
-                        }}
-                        component={"section"}
-                    >
-                        <Box
-                            sx={{
-                                ml: 3,
-                                mr: 3,
-                            }}
-                        >
-                            {type !== "actor" && type !== "crew" && (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
-                                    }}
-                                >
-                                    <Typography
-                                        variant={"h2"}
-                                        fontSize={28}
-                                        sx={{
-                                            display: "flex",
-                                            justifySelf: {
-                                                xs: "center",
-                                                sm: "center",
-                                                md: "start",
-                                                lg: "start",
-                                            },
-                                        }}
-                                    >
-                                        {roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""}
-                                        {type === "movie"
-                                            ? " Movies"
-                                            : type === "serie"
-                                              ? " Series"
-                                              : type === "season"
-                                                ? " Seasons"
-                                                : type === "episode"
-                                                  ? " Episodes"
-                                                  : ""}
-                                    </Typography>
-                                </Box>
-                            )}
-                            {type === "actor" && roleData !== "cast" && (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
-                                    }}
-                                >
-                                    <Typography variant={"h2"} fontSize={28}>
-                                        Starred {roleData}
-                                    </Typography>
-                                </Box>
-                            )}
-                            {type === "actor" && roleData === "cast" && (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
-                                    }}
-                                >
-                                    <Typography variant={"h2"} fontSize={28}>
-                                        Cast
-                                    </Typography>
-                                </Box>
-                            )}
-                            {type === "crew" && roleData !== "production" && (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
-                                    }}
-                                >
-                                    <Typography variant={"h2"} fontSize={28}>
-                                        Worked on {roleData}
-                                    </Typography>
-                                </Box>
-                            )}
-                            {type === "crew" && roleData === "production" && (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: {
-                                            xs: "center",
-                                            sm: "center",
-                                            md: "start",
-                                            lg: "start",
-                                        },
-                                    }}
-                                >
-                                    <Typography variant={"h2"} fontSize={28}>
-                                        Crew
-                                    </Typography>
-                                </Box>
-                            )}
-                        </Box>
-                        <Box sx={{ pl: 5, pr: 3 }}>
-                            <Stack
-                                direction="row"
-                                flexWrap="wrap"
-                                alignItems={"start"}
-                                rowGap={5}
-                                columnGap={5}
-                                sx={{
-                                    justifyContent: {
-                                        xs: "center",
-                                        sm: "center",
-                                        md: "start",
-                                        lg: "start",
-                                    },
-                                }}
-                            >
-                                {data &&
-                                    data.length > 0 &&
-                                    data.map((item: any, index: number) => (
-                                        <CardItem
-                                            data={
-                                                type === "actor" && roleData === "Movies"
-                                                    ? item.movie
-                                                    : type === "actor" && roleData === "Series"
-                                                      ? item.serie
-                                                      : type === "actor" && roleData === "cast"
-                                                        ? item.actor
-                                                        : type === "crew" && roleData === "production"
-                                                          ? item.crew
-                                                          : type === "crew" && roleData === "Movies"
-                                                            ? item.movie
-                                                            : type === "crew" && roleData === "Series"
-                                                              ? item.serie
-                                                              : item
-                                            }
-                                            key={index}
-                                            type={type}
-                                            path={
-                                                type === "actor" && roleData === "Movies"
-                                                    ? "movies"
-                                                    : type === "actor" && roleData === "Series"
-                                                      ? "series"
-                                                      : type === "actor" && roleData === "cast"
-                                                        ? "actors"
-                                                        : type === "crew" && roleData === "Movies"
-                                                          ? "movies"
-                                                          : type === "crew" && roleData === "Series"
-                                                            ? "series"
-                                                            : type === "crew" && roleData === "production"
-                                                              ? "crew"
-                                                              : null
-                                            }
-                                        />
-                                    ))}
-                            </Stack>
-                        </Box>
-                    </Box>
-                </>
-            )}
-        </>
+        <Box
+            component="section"
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                width: "100%",
+                maxWidth: "1200px",
+                margin: "0 auto",
+                px: { xs: 2, sm: 3, md: 4 },
+            }}
+        >
+            <Box
+                sx={{
+                    mb: { xs: 1, md: 2 },
+                    display: "flex",
+                    justifyContent: { xs: "center", md: "flex-start" },
+                }}
+            >
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontSize: { xs: 24, sm: 28, md: 32 },
+                        fontWeight: 800,
+                        color: theme.vars.palette.text.primary,
+                        position: "relative",
+                        display: "inline-block",
+                        "&::after": {
+                            content: '""',
+                            position: "absolute",
+                            bottom: -8,
+                            left: 0,
+                            width: "100%",
+                            height: 3,
+                            bgcolor: theme.vars.palette.primary.main,
+                            borderRadius: 1,
+                        },
+                    }}
+                >
+                    {getTitle()}
+                </Typography>
+            </Box>
+            <Box
+                sx={{
+                    display: "grid",
+                    gridTemplateColumns: {
+                        xs: "repeat(auto-fill, minmax(120px, 1fr))",
+                        sm: "repeat(auto-fill, minmax(140px, 1fr))",
+                        md: "repeat(auto-fill, minmax(150px, 1fr))",
+                        lg: "repeat(auto-fill, minmax(160px, 1fr))",
+                    },
+                    gap: { xs: 1, sm: 2, md: 3 },
+                    width: "100%",
+                    justifyItems: { xs: "center", md: "start" },
+                }}
+            >
+                {data.map((item: any, index: number) => (
+                    <CardItem key={index} data={getItemData(item)} type={type} path={getItemPath()} />
+                ))}
+            </Box>
+        </Box>
     );
 }
 

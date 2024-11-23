@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const LoadingSpinner: React.FC = () => {
     const theme = useTheme();
@@ -49,7 +49,6 @@ const LoadingSpinner: React.FC = () => {
                 overflow: "hidden",
             }}
         >
-            {/* Background Animation */}
             <Box
                 component={motion.div}
                 sx={{
@@ -72,48 +71,29 @@ const LoadingSpinner: React.FC = () => {
                     ease: "linear",
                 }}
             />
-
-            {/* Logo Container */}
             <Box sx={{ position: "relative", zIndex: 1 }}>
-                <AnimatePresence>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{
-                            opacity: 1,
-                            scale: [0.8, 1.1, 0.8],
-                        }}
-                        transition={{
-                            opacity: { duration: 0.4 },
-                            scale: {
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            },
-                        }}
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "400px",
+                        height: "140px",
+                        filter: "drop-shadow(0 0 12px rgba(25,118,210,0.2))",
+                    }}
+                >
+                    <Image
+                        src="/icons/movielandia24-logo.png"
+                        alt="MovieLandia24 Loading"
+                        width={400}
+                        height={140}
+                        priority
                         style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            width: "300px",
-                            height: "105px",
-                            filter: "drop-shadow(0 0 12px rgba(25,118,210,0.2))",
+                            objectFit: "contain",
                         }}
-                    >
-                        <Image
-                            src="/icons/movielandia24-logo.png"
-                            alt="MovieLandia24 Loading"
-                            width={300}
-                            height={105}
-                            priority
-                            style={{
-                                objectFit: "contain",
-                            }}
-                        />
-                    </motion.div>
-                </AnimatePresence>
+                    />
+                </Box>
             </Box>
-
-            {/* Modern Buffering Animation */}
             <Box
                 sx={{
                     position: "relative",
@@ -149,8 +129,6 @@ const LoadingSpinner: React.FC = () => {
                     }}
                 />
             </Box>
-
-            {/* Loading Text */}
             <Typography
                 variant="body1"
                 sx={{
