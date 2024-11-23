@@ -5,6 +5,8 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Movie } from "@prisma/client";
 import MoviePageContent from "./_components/MoviePageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { Suspense } from "react";
 
 interface IMoviePageProps {
     params: {
@@ -78,6 +80,7 @@ export default async function MoviePage(props: IMoviePageProps) {
     const movieId = params.movieId;
 
     const searchParams = await props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
@@ -101,12 +104,14 @@ export default async function MoviePage(props: IMoviePageProps) {
     const pageCount = Math.ceil(movie.totalReviews / 5);
 
     return (
-        <MoviePageContent
-            searchParamsValues={searchParamsValues}
-            movie={movie}
-            latestMovies={latestMovies}
-            relatedMovies={relatedMovies}
-            pageCount={pageCount}
-        />
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <MoviePageContent
+                searchParamsValues={searchParamsValues}
+                movie={movie}
+                latestMovies={latestMovies}
+                relatedMovies={relatedMovies}
+                pageCount={pageCount}
+            />
+        </Suspense>
     );
 }

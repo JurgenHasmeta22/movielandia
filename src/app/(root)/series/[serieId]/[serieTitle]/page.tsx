@@ -5,6 +5,8 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Serie } from "@prisma/client";
 import SeriePageContent from "./_components/SeriePageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { Suspense } from "react";
 
 interface ISerieProps {
     params: {
@@ -77,6 +79,7 @@ export default async function SeriePage(props: ISerieProps) {
     const serieId = params.serieId;
 
     const searchParams = await props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
@@ -101,12 +104,14 @@ export default async function SeriePage(props: ISerieProps) {
     const pageCountReviews = Math.ceil(serie.totalReviews / 5);
 
     return (
-        <SeriePageContent
-            searchParamsValues={searchParamsValues}
-            serie={serie}
-            latestSeries={latestSeries}
-            relatedSeries={relatedSeries}
-            pageCount={pageCountReviews}
-        />
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <SeriePageContent
+                searchParamsValues={searchParamsValues}
+                serie={serie}
+                latestSeries={latestSeries}
+                relatedSeries={relatedSeries}
+                pageCount={pageCountReviews}
+            />
+        </Suspense>
     );
 }
