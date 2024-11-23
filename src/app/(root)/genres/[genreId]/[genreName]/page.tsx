@@ -1,12 +1,12 @@
-import React from "react";
-import { Box } from "@mui/material";
+import React, { Suspense } from "react";
 import { Metadata } from "next";
-import { Genre, Movie, Serie } from "@prisma/client";
+import { Genre } from "@prisma/client";
 import { getGenreById } from "@/actions/genre.actions";
 import { notFound } from "next/navigation";
-import GenreList from "./_components/GenreList";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import GenrePageContent from "./_components/GenrePageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface IGenreProps {
     params: {
@@ -21,13 +21,6 @@ interface IGenreProps {
         pageSeries?: string;
         seriesSortBy?: string;
     }>;
-}
-
-interface IQueryParams {
-    page: number;
-    type: string;
-    ascOrDesc?: string;
-    sortBy?: string;
 }
 
 export async function generateMetadata(props: IGenreProps): Promise<Metadata> {
@@ -73,97 +66,12 @@ export async function generateMetadata(props: IGenreProps): Promise<Metadata> {
 export default async function GenrePage(props: IGenreProps): Promise<React.JSX.Element> {
     const session = await getServerSession(authOptions);
 
-    const params = props.params;
-    const genreId = params.genreId;
-
     const searchParams = await props.searchParams;
-
-    // #region "Movies data"
-    const pageMovies = Number(searchParams && searchParams.pageMovies) || 1;
-    const moviesSortBy = searchParams && searchParams.moviesSortBy;
-    const moviesAscOrDesc = searchParams && searchParams.moviesAscOrDesc;
-    const queryParamsMovies: IQueryParams = { page: pageMovies, type: "movie" };
-
-    if (moviesSortBy) {
-        queryParamsMovies.sortBy = moviesSortBy;
-    }
-
-    if (moviesAscOrDesc) {
-        queryParamsMovies.ascOrDesc = moviesAscOrDesc;
-    }
-
-    let moviesByGenreData = [];
-
-    try {
-        moviesByGenreData = await getGenreById(Number(genreId), queryParamsMovies, Number(session?.user?.id));
-    } catch (error) {
-        return notFound();
-    }
-
-    const genre: Genre = moviesByGenreData.genre;
-    const moviesByGenre: Movie[] = moviesByGenreData.movies;
-    const moviesByGenreCount: number = moviesByGenreData.count;
-    const pageCountMovies = Math.ceil(moviesByGenreCount / 10);
-    // #endregion
-
-    // #region "Series data"
-    const pageSeries = Number(searchParams && searchParams.pageSeries) || 1;
-    const seriesSortBy = searchParams && searchParams.seriesSortBy;
-    const seriesAscOrDesc = searchParams && searchParams.seriesAscOrDesc;
-    const queryParamsSeries: IQueryParams = { page: pageSeries, type: "serie" };
-
-    if (seriesSortBy) {
-        queryParamsSeries.sortBy = seriesSortBy;
-    }
-
-    if (seriesAscOrDesc) {
-        queryParamsSeries.ascOrDesc = seriesAscOrDesc;
-    }
-
-    let seriesByGenreData = [];
-
-    try {
-        seriesByGenreData = await getGenreById(Number(genreId), queryParamsSeries, Number(session?.user?.id));
-    } catch (error) {
-        return notFound();
-    }
-
-    const seriesByGenre: Serie[] = seriesByGenreData.series;
-    const seriesByGenreCount: number = seriesByGenreData.count;
-    const pageCountSeries = Math.ceil(seriesByGenreCount / 10);
-    // #endregion
+    const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: 4,
-                paddingTop: 6,
-            }}
-        >
-            <GenreList
-                title={`All Movies of Genre ${genre.name}`}
-                data={moviesByGenre}
-                count={moviesByGenreCount}
-                sortBy={moviesSortBy!}
-                ascOrDesc={moviesAscOrDesc!}
-                page={Number(pageMovies)}
-                pageCount={pageCountMovies}
-                dataType="Movies"
-                cardType="movie"
-            />
-            <GenreList
-                title={`All Series of Genre ${params.genreName}`}
-                data={seriesByGenre}
-                count={seriesByGenreCount}
-                sortBy={seriesSortBy!}
-                ascOrDesc={seriesAscOrDesc!}
-                page={Number(pageSeries)}
-                pageCount={pageCountSeries}
-                dataType="Series"
-                cardType="serie"
-            />
-        </Box>
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <GenrePageContent params={props.params} searchParams={searchParams} session={session} />
+        </Suspense>
     );
 }

@@ -1,14 +1,9 @@
-import CardItem from "@/components/root/cardItem/CardItem";
-import Carousel from "@/components/root/carousel/Carousel";
-import PaginationControl from "@/components/root/paginationControl/PaginationControl";
-import SortSelect from "@/components/root/sortSelect/SortSelect";
-import { Box, Stack, Typography } from "@mui/material";
-import { LatestList } from "@/components/root/latestList/LatestList";
-import { Serie } from "@prisma/client";
+import { Suspense } from "react";
 import type { Metadata } from "next";
-import { getLatestSeries, getSeriesWithFilters } from "@/actions/serie.actions";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import SeriesPageContent from "./_components/SeriesPageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface ISeriesProps {
     searchParams?: Promise<{ seriesAscOrDesc?: string; page?: string; seriesSortBy?: string }>;
@@ -43,113 +38,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Series(props: ISeriesProps) {
-    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
-    const ascOrDesc = searchParams && searchParams.seriesAscOrDesc ? searchParams.seriesAscOrDesc : "";
-    const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
-    const sortBy = searchParams && searchParams.seriesSortBy ? searchParams.seriesSortBy : "";
-
-    const queryParams = {
-        ascOrDesc,
-        page,
-        sortBy,
-    };
-
-    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
-    const series = seriesData.rows;
-
-    const latestSeries = await getLatestSeries();
-    const seriesCount = seriesData.count;
-    const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
-    const pageCount = Math.ceil(seriesCount / 10);
-
-    const itemsPerPage = 12;
-    const startIndex = (page - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(startIndex + itemsPerPage - 1, seriesCount);
+    const searchParams = await props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: 4,
-            }}
-            component={"section"}
-        >
-            <Box component={"section"}>
-                <Carousel data={seriesCarouselImages} type="series" />
-            </Box>
-            <Stack
-                display="flex"
-                flexDirection={{ xs: "column", sm: "row" }}
-                justifyContent={"space-between"}
-                alignItems={{ xs: "flex-start", sm: "center" }}
-                component="section"
-                sx={{
-                    ml: 3,
-                    mr: 3,
-                    rowGap: { xs: 2, sm: 0 },
-                    flexWrap: "wrap",
-                }}
-            >
-                <Box
-                    display={"flex"}
-                    flexDirection={{ xs: "column", sm: "row" }}
-                    alignItems={{ xs: "flex-start", sm: "center" }}
-                    columnGap={1}
-                    textAlign={{ xs: "left", sm: "center" }}
-                >
-                    <Typography fontSize={22} variant="h2">
-                        Series
-                    </Typography>
-                    <Typography variant="h5" sx={{ pt: 0.5 }}>
-                        {startIndex} – {endIndex} of {seriesCount} series
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: { xs: "flex-start", sm: "flex-end" },
-                        alignItems: "center",
-                        mt: { xs: 2, sm: 0 },
-                    }}
-                >
-                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="series" />
-                </Box>
-            </Stack>
-            <Box
-                component={"section"}
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: 4,
-                    pl: 5,
-                    pr: 3,
-                }}
-            >
-                <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    alignItems={"start"}
-                    columnGap={5}
-                    rowGap={5}
-                    sx={{
-                        justifyContent: {
-                            xs: "center",
-                            sm: "center",
-                            md: "start",
-                            lg: "start",
-                        },
-                    }}
-                >
-                    {series.map((serie: Serie) => (
-                        <CardItem data={serie} type="serie" key={serie.id} />
-                    ))}
-                </Stack>
-                <PaginationControl currentPage={Number(page)} pageCount={pageCount} />
-            </Box>
-            <LatestList data={latestSeries} type="Series" />
-        </Box>
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <SeriesPageContent searchParams={searchParams} session={session} />
+        </Suspense>
     );
 }
