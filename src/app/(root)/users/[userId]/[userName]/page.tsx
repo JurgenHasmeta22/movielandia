@@ -74,9 +74,10 @@ export default async function UserPage(props: IUserDetailsProps) {
 
     const params = props.params;
     const userId = params.userId;
-    const searchParams = await props.searchParams;
 
+    const searchParams = await props.searchParams;
     const tabValue = searchParams && searchParams.tab ? searchParams.tab : "favMovies";
+
     let userInPage;
 
     try {

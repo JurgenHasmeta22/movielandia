@@ -1,90 +1,108 @@
 "use client";
 
-// #region "Imports"
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Button,
-    IconButton,
-    Stack,
-    Tab,
-    Tabs,
-    TextField,
-    Typography,
-    useTheme,
-} from "@mui/material";
-import { useState } from "react";
-import TabPanel from "@/components/root/tabPanel/TabPanel";
-import { useRouter } from "next/navigation";
-import FavoritesTab from "./FavoritesTab";
-import { acceptFollowRequest, follow, refuseFollowRequest, unfollow, updateUserById } from "@/actions/user.actions";
+import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper } from "@mui/material";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { updateUserById } from "@/actions/user.actions";
 import { showToast } from "@/utils/helpers/toast";
-import Image from "next/image";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import DescriptionIcon from "@mui/icons-material/Description";
+import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
-import EditIcon from "@mui/icons-material/Edit";
-import PersonIcon from "@mui/icons-material/Person";
-import EmailIcon from "@mui/icons-material/Email";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import RateReviewIcon from "@mui/icons-material/RateReview";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-// #endregion
+import FavoritesTab from "./FavoritesTab";
 
-// #region "Interfaces"
 interface IUserPageProps {
     userLoggedIn: any | null;
     userInPage: any | null;
     tabValue: string;
 }
-// #endregion
 
 export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: IUserPageProps) {
-    // #region "State, hooks, router, theme usage call"
-    const [followersExpanded, setFollowersExpanded] = useState<boolean>(
-        userInPage.followers.filter((userFollow: any) => userFollow.state === "pending").length > 0 ? true : false,
-    );
     const [bio, setBio] = useState<string>(userInPage.bio || "");
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
     const [userName, setUserName] = useState<string>(userInPage.userName || "");
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
     const [email, setEmail] = useState<string>(userInPage.email || "");
     const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
+    const [mainTab, setMainTab] = useState<number>(0);
+    const [subTab, setSubTab] = useState<number>(0);
 
     const router = useRouter();
+    const searchParams = useSearchParams();
 
-    const theme = useTheme();
-    // #endregion
+    // Main tab options with their corresponding search param values
+    const mainTabs = [
+        { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
+        { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
+        { label: "Downvotes", icon: <ThumbDownIcon />, param: "downvotes" },
+        { label: "Reviews", icon: <RateReviewIcon />, param: "reviews" },
+    ];
 
-    // #region "Tab logic"
-    const tabValueFinal = ["favMovies", "favSeries", "favActors", "favCrew", "favSeasons", "favEpisodes"].indexOf(
-        tabValue,
-    );
+    // Sub tab options based on main tab
+    const subTabs = {
+        0: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Bookmarks
+        1: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Upvotes
+        2: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Downvotes
+        3: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Reviews
+    };
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        const tabRoutes = ["favMovies", "favSeries", "favActors", "favCrew", "favSeasons", "favEpisodes"];
+    // Initialize tabs from URL params
+    useEffect(() => {
+        const mainTabParam = searchParams.get("maintab");
+        const subTabParam = searchParams.get("subtab");
 
-        if (newValue >= 0 && newValue < tabRoutes.length) {
-            router.push(`/users/${userInPage.id}/${userInPage.userName}?tab=${tabRoutes[newValue]}`);
-        } else {
-            console.warn("Unknown tab index:", newValue);
+        if (mainTabParam) {
+            const mainTabIndex = mainTabs.findIndex((tab) => tab.param === mainTabParam);
+            if (mainTabIndex !== -1) {
+                setMainTab(mainTabIndex);
+            }
+        }
+
+        if (subTabParam) {
+            const currentSubTabs = subTabs[mainTab as keyof typeof subTabs];
+            const subTabIndex = currentSubTabs.findIndex((tab) => tab.toLowerCase() === subTabParam.toLowerCase());
+
+            if (subTabIndex !== -1) {
+                setSubTab(subTabIndex);
+            }
+        }
+    }, []);
+
+    const handleMainTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setMainTab(newValue);
+        setSubTab(0);
+        updateURL(newValue, 0);
+    };
+
+    const handleSubTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setSubTab(newValue);
+        updateURL(mainTab, newValue);
+    };
+
+    const updateURL = (mainTabValue: number, subTabValue: number) => {
+        const currentSubTabs = subTabs[mainTabValue as keyof typeof subTabs];
+
+        if (subTabValue >= 0 && subTabValue < currentSubTabs.length) {
+            const mainTabParam = mainTabs[mainTabValue].param;
+            const subTabParam = currentSubTabs[subTabValue].toLowerCase();
+            router.push(`/users/${userInPage.id}/${userInPage.userName}?maintab=${mainTabParam}&subtab=${subTabParam}`);
         }
     };
-    // #endregion
 
-    // #region "Edit bio, username, email handlers"
-    const handleBioChange = (event: any) => {
+    const handleBioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setBio(event.target.value);
     };
 
-    const handleUserNameChange = (event: any) => {
+    const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserName(event.target.value);
     };
 
-    const handleEmailChange = (event: any) => {
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
 
@@ -92,14 +110,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
         try {
             await updateUserById({ bio }, Number(userInPage.id));
             setIsBioEditing(false);
-            showToast("success", "Bio updated succesfully");
+            showToast("success", "Bio updated successfully");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error updating the bio of user: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
+                showToast("error", `Error updating bio: ${error.message}`);
             } else {
-                console.error("Unknown error updating bio of user.");
-                showToast("error", "An unexpected error occurred while updating bio of user.");
+                showToast("error", "An unexpected error occurred");
             }
         }
     }
@@ -108,14 +124,12 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
         try {
             await updateUserById({ userName }, Number(userInPage.id));
             setIsUserNameEditing(false);
-            showToast("success", "Username updated succesfully");
+            showToast("success", "Username updated successfully");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error updating the username of user: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
+                showToast("error", `Error updating username: ${error.message}`);
             } else {
-                console.error("Unknown error updating username of user.");
-                showToast("error", "An unexpected error occurred while updating username of user.");
+                showToast("error", "An unexpected error occurred");
             }
         }
     }
@@ -124,719 +138,194 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
         try {
             await updateUserById({ email }, Number(userInPage.id));
             setIsEmailEditing(false);
-            showToast("success", "Email updated succesfully");
+            showToast("success", "Email updated successfully");
         } catch (error) {
             if (error instanceof Error) {
-                console.error(`Error updating the email of user: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
+                showToast("error", `Error updating email: ${error.message}`);
             } else {
-                console.error("Unknown error updating email of user.");
-                showToast("error", "An unexpected error occurred while updating email of user.");
+                showToast("error", "An unexpected error occurred");
             }
         }
     }
-    // #endregion
-
-    // #region "Follow, Unfollow, accept refuse follow handlers"
-    async function onFollowUser() {
-        if (!userLoggedIn || !userInPage) return;
-
-        try {
-            await follow(Number(userLoggedIn.id), Number(userInPage.id));
-            showToast("success", "The follow request was succesfully made !");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error making the follow request: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error making a follow request.");
-                showToast("error", "An unexpected error occurred making the follow request.");
-            }
-        }
-    }
-
-    async function onUnfollowUser() {
-        if (!userLoggedIn || !userInPage) return;
-
-        try {
-            await unfollow(Number(userLoggedIn.id), Number(userInPage.id));
-            showToast("success", "The follow was succesfully removed!");
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error removing the follow request: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error removing a follow request.");
-                showToast("error", "An unexpected error occurred removing the follow request.");
-            }
-        }
-    }
-
-    async function onAcceptFollowUser(followerId: number) {
-        if (!userLoggedIn || !userInPage) return;
-
-        try {
-            await acceptFollowRequest(followerId, Number(userLoggedIn.id));
-            showToast("success", "The follow was succesfully accepted!");
-            setFollowersExpanded(false);
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error accepting the follow request: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error accepting the follow request.");
-                showToast("error", "An unexpected error occurred accepting the follow request.");
-            }
-        }
-    }
-
-    async function onRefuseFollowUser(followerId: number) {
-        if (!userLoggedIn || !userInPage) return;
-
-        try {
-            await refuseFollowRequest(followerId, Number(userLoggedIn.id));
-            showToast("success", "The follow was succesfully refused!");
-            setFollowersExpanded(false);
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error refusing the follow request: ${error.message}`);
-                showToast("error", `An error occurred: ${error.message}`);
-            } else {
-                console.error("Unknown error refusing the follow request.");
-                showToast("error", "An unexpected error occurred regusing the follow request.");
-            }
-        }
-    }
-    // #endregion
 
     return (
-        <>
-            {Number(userLoggedIn.id) === userInPage.id ||
-            (userInPage.isFollowed && userInPage.isFollowedStatus === "accepted") ? (
-                <Stack
-                    flexDirection="row"
-                    px={4}
-                    py={10}
-                    columnGap={4}
-                    rowGap={4}
-                    flexWrap={"wrap"}
-                    width={"100%"}
-                    alignItems="flex-start"
-                    justifyContent="center"
-                >
-                    <Stack
-                        component="section"
-                        sx={{
-                            bgcolor: theme.vars.palette.secondary.light,
-                            borderRadius: "18px",
-                            padding: 4,
-                            display: "flex",
-                            flexDirection: "column",
-                            boxShadow: 6,
-                            width: ["100%", "100%", "30%", "30%"],
-                        }}
-                    >
-                        <Box>
+        <Box
+            component="main"
+            sx={{ width: "100%", maxWidth: 1200, mx: "auto", p: { xs: 2, sm: 3 }, mt: { xs: 3, sm: 4 } }}
+        >
+            {/* Profile Header */}
+            <Paper
+                elevation={0}
+                sx={{
+                    p: { xs: 2, sm: 3, md: 4 },
+                    mb: 4,
+                    borderRadius: 2,
+                    bgcolor: "background.paper",
+                }}
+            >
+                <Stack direction={{ xs: "column", md: "row" }} spacing={4} alignItems="center">
+                    <Avatar
+                        src={userInPage.avatar?.photoSrc || "/default-avatar.jpg"}
+                        alt={userInPage.userName}
+                        sx={{ width: 150, height: 150 }}
+                    />
+                    <Box flex={1}>
+                        <Stack direction="row" alignItems="center" spacing={2} mb={2}>
                             {isUserNameEditing ? (
-                                <>
+                                <Stack direction="row" spacing={1} alignItems="center">
                                     <TextField
-                                        variant="outlined"
-                                        fullWidth
                                         value={userName}
                                         onChange={handleUserNameChange}
-                                        multiline
-                                        rows={2}
-                                        sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
-                                    />
-                                    <Box display="flex" flexDirection="row">
-                                        <IconButton
-                                            onClick={handleSaveEditUserName}
-                                            sx={{
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.vars.palette.green.main,
-                                                },
-                                            }}
-                                        >
-                                            <SaveIcon sx={{ pr: 1 }} />
-                                            Save
-                                        </IconButton>
-                                        <IconButton
-                                            onClick={() => {
-                                                setIsUserNameEditing(false);
-                                                setUserName(userInPage.userName);
-                                            }}
-                                            sx={{
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.vars.palette.green.main,
-                                                },
-                                            }}
-                                        >
-                                            <CancelIcon sx={{ pr: 1 }} />
-                                            Discard
-                                        </IconButton>
-                                    </Box>
-                                </>
-                            ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
-                                    <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        columnGap={0.5}
-                                        flexWrap="wrap"
-                                    >
-                                        <PersonIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                            Username: {userName}
-                                        </Typography>
-                                    </Box>
-                                    {Number(userLoggedIn.id) === userInPage.id && (
-                                        <Button
-                                            variant="text"
-                                            onClick={() => setIsUserNameEditing(true)}
-                                            sx={{
-                                                "&:hover": {
-                                                    bgcolor: theme.vars.palette.green.main,
-                                                },
-                                                ml: 2,
-                                            }}
-                                        >
-                                            <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                                        </Button>
-                                    )}
-                                </Box>
-                            )}
-                        </Box>
-                        <Box>
-                            {Number(userLoggedIn.id) !== userInPage.id && (
-                                <Button
-                                    variant="outlined"
-                                    onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowUser}
-                                    sx={{
-                                        color: theme.vars.palette.primary.main,
-                                        bgcolor: !userInPage.isFollowed
-                                            ? theme.vars.palette.red.main
-                                            : theme.vars.palette.green.light,
-                                        "&:hover": {
-                                            bgcolor: theme.vars.palette.red.main,
-                                        },
-                                        textTransform: "capitalize",
-                                        fontSize: 18,
-                                        ml: 4,
-                                    }}
-                                >
-                                    {!userInPage.isFollowed
-                                        ? "Follow"
-                                        : userInPage.isFollowed && userInPage.isFollowedStatus === "pending"
-                                          ? "Requested"
-                                          : "Unfollow"}
-                                </Button>
-                            )}
-                        </Box>
-                        <Box>
-                            {isEmailEditing ? (
-                                <>
-                                    <TextField
-                                        variant="outlined"
+                                        size="small"
                                         fullWidth
-                                        value={email}
-                                        onChange={handleEmailChange}
-                                        multiline
-                                        rows={2}
-                                        sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
                                     />
-                                    <Box display="flex" flexDirection="row">
-                                        <IconButton
-                                            onClick={handleSaveEditEmail}
-                                            sx={{
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.vars.palette.green.main,
-                                                },
-                                            }}
-                                        >
-                                            <SaveIcon sx={{ pr: 1 }} />
-                                            Save
-                                        </IconButton>
-                                        <IconButton
-                                            onClick={() => {
-                                                setIsEmailEditing(false);
-                                                setEmail(userInPage.email);
-                                            }}
-                                            sx={{
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.vars.palette.green.main,
-                                                },
-                                            }}
-                                        >
-                                            <CancelIcon sx={{ pr: 1 }} />
-                                            Discard
-                                        </IconButton>
-                                    </Box>
-                                </>
+                                    <IconButton onClick={handleSaveEditUserName} color="primary">
+                                        <SaveIcon />
+                                    </IconButton>
+                                    <IconButton onClick={() => setIsUserNameEditing(false)} color="error">
+                                        <CancelIcon />
+                                    </IconButton>
+                                </Stack>
                             ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
-                                    <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        columnGap={0.5}
-                                        flexWrap="wrap"
-                                    >
-                                        <EmailIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                            Email: {email}
-                                        </Typography>
-                                    </Box>
-                                    {Number(userLoggedIn.id) === userInPage.id && (
-                                        <Button
-                                            variant="text"
-                                            onClick={() => setIsEmailEditing(true)}
-                                            sx={{
-                                                "&:hover": {
-                                                    bgcolor: theme.vars.palette.green.main,
-                                                },
-                                                ml: 2,
-                                            }}
-                                        >
-                                            <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                                        </Button>
-                                    )}
-                                </Box>
-                            )}
-                        </Box>
-                        <Box>
-                            {isBioEditing ? (
-                                <>
-                                    <TextField
-                                        variant="outlined"
-                                        fullWidth
-                                        value={bio}
-                                        onChange={handleBioChange}
-                                        multiline
-                                        rows={2}
-                                        sx={{ marginTop: 2, color: theme.vars.palette.primary.main }}
-                                    />
-                                    <Box display="flex" flexDirection="row">
-                                        <IconButton
-                                            onClick={handleSaveEditBio}
-                                            sx={{
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.vars.palette.green.main,
-                                                },
-                                            }}
-                                        >
-                                            <SaveIcon sx={{ pr: 1 }} />
-                                            Save
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <Typography variant="h4">{userName}</Typography>
+                                    {userLoggedIn?.id === userInPage.id && (
+                                        <IconButton onClick={() => setIsUserNameEditing(true)} size="small">
+                                            <EditIcon />
                                         </IconButton>
-                                        <IconButton
-                                            onClick={() => {
-                                                setIsBioEditing(false);
-                                                setBio(userInPage.bio);
-                                            }}
-                                            sx={{
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    color: theme.vars.palette.green.main,
-                                                },
-                                            }}
-                                        >
-                                            <CancelIcon sx={{ pr: 1 }} />
-                                            Discard
-                                        </IconButton>
-                                    </Box>
-                                </>
-                            ) : (
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
-                                    <Box
-                                        display="flex"
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        columnGap={0.5}
-                                        flexWrap="wrap"
-                                    >
-                                        <DescriptionIcon
-                                            sx={{ fontSize: 18, color: theme.vars.palette.primary.main }}
-                                        />
-                                        <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                            Bio: {bio}
-                                        </Typography>
-                                    </Box>
-                                    {Number(userLoggedIn.id) === userInPage.id && (
-                                        <Button
-                                            variant="text"
-                                            onClick={() => setIsBioEditing(true)}
-                                            sx={{
-                                                "&:hover": {
-                                                    bgcolor: theme.vars.palette.green.main,
-                                                },
-                                                ml: 2,
-                                            }}
-                                        >
-                                            <EditIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                                        </Button>
                                     )}
-                                </Box>
+                                </Stack>
                             )}
-                        </Box>
-                        <Box
-                            display={"flex"}
-                            rowGap={2}
-                            flexDirection={"column"}
-                            sx={{
-                                mt: 2,
-                            }}
-                        >
-                            <Accordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h5">Bookmarks</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Movies:</strong> {userInPage.favMovies.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Series:</strong> {userInPage.favSeries.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Actors:</strong> {userInPage.favActors.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Episodes:</strong> {userInPage.favEpisodes.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Favorite Seasons:</strong> {userInPage.favSeasons.length}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                            <Accordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h5">Reviews</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Movie Reviews:</strong> {userInPage.movieReviews.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Series Reviews:</strong> {userInPage.serieReviews.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Actor Reviews:</strong> {userInPage.actorReviews.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Season Reviews:</strong> {userInPage.seasonReviews.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Episode Reviews:</strong> {userInPage.episodeReviews.length}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                            <Accordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h5">Upvotes</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Movies:</strong> {userInPage.movieReviewsUpvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Series:</strong> {userInPage.serieReviewsUpvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Actors:</strong> {userInPage.actorReviewsUpvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Episodes:</strong> {userInPage.episodeReviewsUpvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Upvoted Seasons:</strong> {userInPage.seasonReviewsUpvoted.length}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                            <Accordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h5">Downvotes</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Movies:</strong> {userInPage.movieReviewsDownvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Series:</strong> {userInPage.serieReviewsDownvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Actors:</strong> {userInPage.actorReviewsDownvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Episodes:</strong> {userInPage.episodeReviewsDownvoted.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Downvoted Seasons:</strong> {userInPage.seasonReviewsDownvoted.length}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                            <Accordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography variant="h5">Social</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Followers:</strong> {userInPage.followers.length}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: theme.vars.palette.primary.main }}>
-                                        <strong>Following:</strong> {userInPage.following.length}
-                                    </Typography>
-                                </AccordionDetails>
-                            </Accordion>
-                            {Number(userLoggedIn.id) === userInPage.id && (
-                                <Box>
-                                    <Accordion
-                                        expanded={followersExpanded}
-                                        onClick={() => setFollowersExpanded(!followersExpanded)}
-                                    >
-                                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                            <Typography variant="h5">
-                                                Follower Requests (
-                                                {
-                                                    userInPage.followers.filter(
-                                                        (userFollow: any) => userFollow.state === "pending",
-                                                    ).length
-                                                }
-                                                )
-                                            </Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            {userInPage.followers
-                                                .filter((userFollow: any) => userFollow.state === "pending")
-                                                .map((userFollow: any, index: number) => (
-                                                    <Box
-                                                        key={index}
-                                                        display="flex"
-                                                        alignItems="center"
-                                                        justifyContent="space-between"
-                                                        sx={{
-                                                            mb: 1,
-                                                        }}
-                                                    >
-                                                        <Typography variant="body1">
-                                                            {userFollow.follower.userName}
-                                                        </Typography>
-                                                        <Box>
-                                                            <IconButton
-                                                                color="success"
-                                                                aria-label="accept"
-                                                                onClick={() =>
-                                                                    onAcceptFollowUser(userFollow.follower.id)
-                                                                }
-                                                            >
-                                                                <CheckIcon />
-                                                            </IconButton>
-                                                            <IconButton
-                                                                color="error"
-                                                                aria-label="refuse"
-                                                                onClick={() =>
-                                                                    onRefuseFollowUser(userFollow.follower.id)
-                                                                }
-                                                            >
-                                                                <CloseIcon />
-                                                            </IconButton>
-                                                        </Box>
-                                                    </Box>
-                                                ))}
-                                        </AccordionDetails>
-                                    </Accordion>
-                                </Box>
-                            )}
-                        </Box>
-                    </Stack>
-                    <Box
-                        component="section"
-                        sx={{
-                            bgcolor: theme.vars.palette.secondary.light,
-                            borderRadius: "18px",
-                            padding: 4,
-                            boxShadow: 6,
-                            width: ["100%", "100%", "65%", "65%"],
-                        }}
-                    >
-                        <Tabs value={tabValueFinal} onChange={handleTabChange} variant="fullWidth">
-                            <Tab
-                                label="Favorite Movies"
-                                sx={{
-                                    backgroundColor: theme.vars.palette.blue.main,
-                                    color: theme.vars.palette.primary.main,
-                                    fontWeight: "bold",
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                }}
-                            />
-                            <Tab
-                                label="Favorite Series"
-                                sx={{
-                                    backgroundColor: theme.vars.palette.blue.main,
-                                    color: theme.vars.palette.primary.main,
-                                    fontWeight: "bold",
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                }}
-                            />
-                            <Tab
-                                label="Favorite Actors"
-                                sx={{
-                                    backgroundColor: theme.vars.palette.blue.main,
-                                    color: theme.vars.palette.primary.main,
-                                    fontWeight: "bold",
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                }}
-                            />
-                            <Tab
-                                label="Favorite Crew"
-                                sx={{
-                                    backgroundColor: theme.vars.palette.blue.main,
-                                    color: theme.vars.palette.primary.main,
-                                    fontWeight: "bold",
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                }}
-                            />
-                            <Tab
-                                label="Favorite Seasons"
-                                sx={{
-                                    backgroundColor: theme.vars.palette.blue.main,
-                                    color: theme.vars.palette.primary.main,
-                                    fontWeight: "bold",
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                }}
-                            />
-                            <Tab
-                                label="Favorite Episodes"
-                                sx={{
-                                    backgroundColor: theme.vars.palette.blue.main,
-                                    color: theme.vars.palette.primary.main,
-                                    fontWeight: "bold",
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                }}
-                            />
-                        </Tabs>
-                        <TabPanel value={tabValueFinal} index={0}>
-                            <FavoritesTab type="Movies" userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                        </TabPanel>
-                        <TabPanel value={tabValueFinal} index={1}>
-                            <FavoritesTab type="Series" userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                        </TabPanel>
-                        <TabPanel value={tabValueFinal} index={2}>
-                            <FavoritesTab type="Actors" userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                        </TabPanel>
-                        <TabPanel value={tabValueFinal} index={3}>
-                            <FavoritesTab type="Crew" userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                        </TabPanel>
-                        <TabPanel value={tabValueFinal} index={4}>
-                            <FavoritesTab type="Seasons" userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                        </TabPanel>
-                        <TabPanel value={tabValueFinal} index={5}>
-                            <FavoritesTab type="Episodes" userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                        </TabPanel>
+                        </Stack>
+
+                        {isBioEditing ? (
+                            <Stack direction="row" spacing={1} alignItems="start" mb={2}>
+                                <TextField
+                                    value={bio}
+                                    onChange={handleBioChange}
+                                    multiline
+                                    rows={3}
+                                    fullWidth
+                                    placeholder="Write something about yourself..."
+                                />
+                                <IconButton onClick={handleSaveEditBio} color="primary">
+                                    <SaveIcon />
+                                </IconButton>
+                                <IconButton onClick={() => setIsBioEditing(false)} color="error">
+                                    <CancelIcon />
+                                </IconButton>
+                            </Stack>
+                        ) : (
+                            <Stack direction="row" spacing={1} alignItems="start" mb={2}>
+                                <Typography variant="body1" color="text.secondary">
+                                    {bio || "No bio yet"}
+                                </Typography>
+                                {userLoggedIn?.id === userInPage.id && (
+                                    <IconButton onClick={() => setIsBioEditing(true)} size="small">
+                                        <EditIcon />
+                                    </IconButton>
+                                )}
+                            </Stack>
+                        )}
+
+                        {isEmailEditing ? (
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <TextField
+                                    value={email}
+                                    onChange={handleEmailChange}
+                                    size="small"
+                                    fullWidth
+                                    type="email"
+                                />
+                                <IconButton onClick={handleSaveEditEmail} color="primary">
+                                    <SaveIcon />
+                                </IconButton>
+                                <IconButton onClick={() => setIsEmailEditing(false)} color="error">
+                                    <CancelIcon />
+                                </IconButton>
+                            </Stack>
+                        ) : (
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <Typography variant="body2" color="text.secondary">
+                                    {email}
+                                </Typography>
+                                {userLoggedIn?.id === userInPage.id && (
+                                    <IconButton onClick={() => setIsEmailEditing(true)} size="small">
+                                        <EditIcon />
+                                    </IconButton>
+                                )}
+                            </Stack>
+                        )}
                     </Box>
                 </Stack>
-            ) : (
-                <Box
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    alignContent={"center"}
-                    flexDirection="column"
-                    rowGap={2}
-                    height={"100vh"}
+            </Paper>
+
+            {/* Main Tabs */}
+            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
+                <Tabs
+                    value={mainTab}
+                    onChange={handleMainTabChange}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    allowScrollButtonsMobile
                 >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "start",
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        {userInPage.avatar?.photoSrc! ? (
-                            <Image
-                                alt={userInPage.userName}
-                                height={50}
-                                width={50}
-                                style={{
-                                    borderRadius: 20,
-                                }}
-                                src={userInPage.avatar?.photoSrc!}
-                            />
-                        ) : (
-                            <PersonIcon
-                                sx={{
-                                    fontSize: 18,
-                                    color: theme.vars.palette.primary.main,
-                                }}
-                            />
-                        )}
-                        <Typography variant="h3" component="span" sx={{ color: theme.vars.palette.primary.main }}>
-                            {userInPage.userName}
-                        </Typography>
+                    {mainTabs.map((tab, index) => (
+                        <Tab
+                            key={tab.label}
+                            icon={tab.icon}
+                            label={tab.label}
+                            iconPosition="start"
+                            sx={{
+                                minHeight: 48,
+                                textTransform: "none",
+                                fontSize: "1rem",
+                            }}
+                        />
+                    ))}
+                </Tabs>
+            </Box>
+
+            {/* Sub Tabs */}
+            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
+                <Tabs
+                    value={subTab}
+                    onChange={handleSubTabChange}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    allowScrollButtonsMobile
+                >
+                    {subTabs[mainTab as keyof typeof subTabs].map((label, index) => (
+                        <Tab
+                            key={label}
+                            label={label}
+                            sx={{
+                                minHeight: 48,
+                                textTransform: "none",
+                                fontSize: "1rem",
+                            }}
+                        />
+                    ))}
+                </Tabs>
+            </Box>
+
+            {/* Content */}
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={`${mainTab}-${subTab}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <Box sx={{ minHeight: "50vh" }}>
+                        <FavoritesTab
+                            type={subTabs[mainTab as keyof typeof subTabs][subTab]}
+                            userLoggedIn={userLoggedIn}
+                            userInPage={userInPage}
+                        />
                     </Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "start",
-                            columnGap: 0.5,
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        <EmailIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                        <Typography variant="body1" sx={{ color: theme.vars.palette.primary.main }}>
-                            {userInPage.email}
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "start",
-                            columnGap: 0.5,
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        <DescriptionIcon sx={{ fontSize: 18, color: theme.vars.palette.primary.main }} />
-                        <Typography variant="body1">{userInPage.bio}</Typography>
-                    </Box>
-                    <Typography variant="body1">
-                        You cannot see anything from this user, you have to follow him first
-                    </Typography>
-                    <Button
-                        variant="outlined"
-                        onClick={!userInPage.isFollowed ? onFollowUser : onUnfollowUser}
-                        sx={{
-                            color: theme.vars.palette.primary.main,
-                            bgcolor: !userInPage.isFollowed
-                                ? theme.vars.palette.red.main
-                                : theme.vars.palette.green.light,
-                            "&:hover": {
-                                bgcolor: theme.vars.palette.red.main,
-                            },
-                            textTransform: "capitalize",
-                            fontSize: 16,
-                        }}
-                    >
-                        {!userInPage.isFollowed
-                            ? "Follow"
-                            : userInPage.isFollowed && userInPage.isFollowedStatus === "pending"
-                              ? "Requested"
-                              : "Unfollow"}
-                    </Button>
-                </Box>
-            )}
-        </>
+                </motion.div>
+            </AnimatePresence>
+        </Box>
     );
 }

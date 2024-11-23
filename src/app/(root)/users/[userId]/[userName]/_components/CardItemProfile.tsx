@@ -17,7 +17,7 @@ import {
 } from "@/actions/user.actions";
 import { showToast } from "@/utils/helpers/toast";
 
-type FavoriteType = "Movies" | "Series" | "Actors" | "Crew" | "Seasons" | "Episodes";
+export type FavoriteType = "Movies" | "Series" | "Actors" | "Crew" | "Seasons" | "Episodes";
 
 interface FavoriteMovie {
     id: number;
