@@ -11,6 +11,7 @@ import { getCrewMembersWithFilters } from "@/actions/crew.actions";
 import HomeHeroSection from "./(home)/_components/homeHero/HomeHero";
 import ListHomeSection from "./(home)/_components/listHomeSection/ListHomeSection";
 import MarketingSection from "./(home)/_components/marketingSection/MarketingSection";
+import NewsletterSection from "./(home)/_components/newsletterSection/NewsletterSection";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -70,6 +71,7 @@ export default async function Home() {
         >
             <HomeHeroSection />
             <MarketingSection />
+            <NewsletterSection />
             <Container
                 maxWidth="xl"
                 sx={{
