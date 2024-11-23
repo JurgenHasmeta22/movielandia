@@ -4,6 +4,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getUserById } from "@/actions/user.actions";
 import { notFound } from "next/navigation";
 import UserPageContent from "./_components/UserPageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { Suspense } from "react";
 
 interface IUserDetailsProps {
     params: {
@@ -13,7 +15,7 @@ interface IUserDetailsProps {
 }
 
 export async function generateMetadata(props: IUserDetailsProps): Promise<Metadata> {
-    const params = props.params;
+    const params = await props.params;
     const { userId } = params;
 
     let userInPage: any;
@@ -72,10 +74,11 @@ export default async function UserPage(props: IUserDetailsProps) {
     const session = await getServerSession(authOptions);
     const userSession = (session && session.user) || null;
 
-    const params = props.params;
+    const params = await props.params;
     const userId = params.userId;
 
     const searchParams = await props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
     const tabValue = searchParams && searchParams.tab ? searchParams.tab : "favMovies";
 
     let userInPage;
@@ -86,5 +89,9 @@ export default async function UserPage(props: IUserDetailsProps) {
         return notFound();
     }
 
-    return <UserPageContent userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />;
+    return (
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <UserPageContent userLoggedIn={userSession} userInPage={userInPage} tabValue={tabValue} />{" "}
+        </Suspense>
+    );
 }

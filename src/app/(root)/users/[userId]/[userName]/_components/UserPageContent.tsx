@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateUserById } from "@/actions/user.actions";
@@ -29,69 +29,62 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
     const [email, setEmail] = useState<string>(userInPage.email || "");
     const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
-    const [mainTab, setMainTab] = useState<number>(0);
-    const [subTab, setSubTab] = useState<number>(0);
 
     const router = useRouter();
     const searchParams = useSearchParams();
 
     // Main tab options with their corresponding search param values
-    const mainTabs = [
-        { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
-        { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
-        { label: "Downvotes", icon: <ThumbDownIcon />, param: "downvotes" },
-        { label: "Reviews", icon: <RateReviewIcon />, param: "reviews" },
-    ];
+    const mainTabs = useMemo(
+        () => [
+            { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
+            { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
+            { label: "Downvotes", icon: <ThumbDownIcon />, param: "downvotes" },
+            { label: "Reviews", icon: <RateReviewIcon />, param: "reviews" },
+        ],
+        [],
+    );
 
     // Sub tab options based on main tab
-    const subTabs = {
-        0: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Bookmarks
-        1: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Upvotes
-        2: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Downvotes
-        3: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"], // Reviews
+    const subTabs = useMemo(
+        () => ({
+            bookmarks: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
+            upvotes: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
+            downvotes: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
+            reviews: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
+        }),
+        [],
+    );
+
+    // Get current tab values from URL
+    const currentMainTab = useMemo(() => {
+        const mainTabParam = searchParams.get("maintab") || "bookmarks";
+        return mainTabs.findIndex((tab) => tab.param === mainTabParam);
+    }, [searchParams, mainTabs]);
+
+    const currentSubTab = useMemo(() => {
+        const mainTabParam = searchParams.get("maintab") || "bookmarks";
+        const subTabParam = searchParams.get("subtab")?.toLowerCase() || "movies";
+        const currentSubTabs = subTabs[mainTabParam as keyof typeof subTabs];
+        return currentSubTabs.findIndex((tab) => tab.toLowerCase() === subTabParam);
+    }, [searchParams, subTabs]);
+
+    const updateURL = (mainTabValue: string, subTabValue: string) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set("maintab", mainTabValue);
+        url.searchParams.set("subtab", subTabValue);
+        router.push(url.pathname + url.search);
     };
 
-    // Initialize tabs from URL params
-    useEffect(() => {
-        const mainTabParam = searchParams.get("maintab");
-        const subTabParam = searchParams.get("subtab");
-
-        if (mainTabParam) {
-            const mainTabIndex = mainTabs.findIndex((tab) => tab.param === mainTabParam);
-            if (mainTabIndex !== -1) {
-                setMainTab(mainTabIndex);
-            }
-        }
-
-        if (subTabParam) {
-            const currentSubTabs = subTabs[mainTab as keyof typeof subTabs];
-            const subTabIndex = currentSubTabs.findIndex((tab) => tab.toLowerCase() === subTabParam.toLowerCase());
-
-            if (subTabIndex !== -1) {
-                setSubTab(subTabIndex);
-            }
-        }
-    }, []);
-
-    const handleMainTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        setMainTab(newValue);
-        setSubTab(0);
-        updateURL(newValue, 0);
+    const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {
+        const mainTabParam = mainTabs[newValue].param;
+        const subTabParam = subTabs[mainTabParam as keyof typeof subTabs][0].toLowerCase();
+        updateURL(mainTabParam, subTabParam);
     };
 
-    const handleSubTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        setSubTab(newValue);
-        updateURL(mainTab, newValue);
-    };
-
-    const updateURL = (mainTabValue: number, subTabValue: number) => {
-        const currentSubTabs = subTabs[mainTabValue as keyof typeof subTabs];
-
-        if (subTabValue >= 0 && subTabValue < currentSubTabs.length) {
-            const mainTabParam = mainTabs[mainTabValue].param;
-            const subTabParam = currentSubTabs[subTabValue].toLowerCase();
-            router.push(`/users/${userInPage.id}/${userInPage.userName}?maintab=${mainTabParam}&subtab=${subTabParam}`);
-        }
+    const handleSubTabChange = (_: React.SyntheticEvent, newValue: number) => {
+        const mainTabParam = mainTabs[currentMainTab].param;
+        const subTabParam = subTabs[mainTabParam as keyof typeof subTabs][newValue].toLowerCase();
+        updateURL(mainTabParam, subTabParam);
     };
 
     const handleBioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -263,13 +256,13 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
             {/* Main Tabs */}
             <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
                 <Tabs
-                    value={mainTab}
+                    value={currentMainTab}
                     onChange={handleMainTabChange}
                     variant="scrollable"
                     scrollButtons="auto"
                     allowScrollButtonsMobile
                 >
-                    {mainTabs.map((tab, index) => (
+                    {mainTabs.map((tab) => (
                         <Tab
                             key={tab.label}
                             icon={tab.icon}
@@ -288,13 +281,13 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
             {/* Sub Tabs */}
             <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
                 <Tabs
-                    value={subTab}
+                    value={currentSubTab}
                     onChange={handleSubTabChange}
                     variant="scrollable"
                     scrollButtons="auto"
                     allowScrollButtonsMobile
                 >
-                    {subTabs[mainTab as keyof typeof subTabs].map((label, index) => (
+                    {subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs].map((label) => (
                         <Tab
                             key={label}
                             label={label}
@@ -311,7 +304,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
             {/* Content */}
             <AnimatePresence mode="wait">
                 <motion.div
-                    key={`${mainTab}-${subTab}`}
+                    key={`${currentMainTab}-${currentSubTab}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -319,7 +312,7 @@ export default function UserPageContent({ tabValue, userLoggedIn, userInPage }: 
                 >
                     <Box sx={{ minHeight: "50vh" }}>
                         <FavoritesTab
-                            type={subTabs[mainTab as keyof typeof subTabs][subTab]}
+                            type={subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs][currentSubTab]}
                             userLoggedIn={userLoggedIn}
                             userInPage={userInPage}
                         />
