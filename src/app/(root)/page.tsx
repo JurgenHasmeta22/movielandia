@@ -1,6 +1,4 @@
-import { Stack } from "@mui/material";
-import HomeHeroSection from "@/components/root/homeHero/HomeHero";
-import ListHomeSection from "@/components/root/listHomeSection/ListHomeSection";
+import { Stack, Box, Container } from "@mui/material";
 import { Actor, Genre, Movie, Serie } from "@prisma/client";
 import { getGenresWithFilters } from "@/actions/genre.actions";
 import { getMoviesWithFilters } from "@/actions/movie.actions";
@@ -10,6 +8,9 @@ import { getActorsWithFilters } from "@/actions/actor.actions";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 import { getCrewMembersWithFilters } from "@/actions/crew.actions";
+import HomeHeroSection from "./(home)/_components/homeHero/HomeHero";
+import ListHomeSection from "./(home)/_components/listHomeSection/ListHomeSection";
+import MarketingSection from "./(home)/_components/marketingSection/MarketingSection";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -60,38 +61,45 @@ export default async function Home() {
     const crew: Actor[] = crewData.crewMembers;
 
     return (
-        <>
+        <Box
+            component="main"
+            sx={{
+                width: "100%",
+                overflow: "hidden",
+            }}
+        >
             <HomeHeroSection />
-            <Stack
-                flexDirection={"column"}
-                rowGap={6}
+            <MarketingSection />
+            <Container
+                maxWidth="xl"
                 sx={{
-                    mb: 6,
-                    mt: 6,
+                    py: { xs: 2, md: 3 },
                 }}
             >
-                <ListHomeSection
-                    key={"movie"}
-                    data={movies}
-                    type="movie"
-                    link="/movies"
-                    linkText="Explore all Movies"
-                />
-                <ListHomeSection
-                    key={"serie"}
-                    data={series}
-                    type="serie"
-                    link="/series"
-                    linkText="Explore all Series"
-                />
-                <ListHomeSection
-                    key={"genre"}
-                    data={genres}
-                    type="genre"
-                    link="/genres"
-                    linkText="Explore all Genres"
-                />
-            </Stack>
-        </>
+                <Stack spacing={{ xs: 4, md: 5 }}>
+                    <ListHomeSection
+                        key={"movie"}
+                        data={movies}
+                        type="movie"
+                        link="/movies"
+                        linkText="Explore all Movies"
+                    />
+                    <ListHomeSection
+                        key={"serie"}
+                        data={series}
+                        type="serie"
+                        link="/series"
+                        linkText="Explore all Series"
+                    />
+                    <ListHomeSection
+                        key={"genre"}
+                        data={genres}
+                        type="genre"
+                        link="/genres"
+                        linkText="Explore all Genres"
+                    />
+                </Stack>
+            </Container>
+        </Box>
     );
 }

@@ -173,7 +173,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
             }}
         >
             <SearchList
-                title={`Movies matching "${term}"`}
+                title={term ? `Movies matching "${term}"` : "Movies"}
                 data={movies}
                 count={moviesCount}
                 sortBy={moviesSortBy}
@@ -184,7 +184,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 cardType="movie"
             />
             <SearchList
-                title={`Series matching "${term}"`}
+                title={term ? `Series matching "${term}"` : "Series"}
                 data={series}
                 count={seriesCount}
                 sortBy={seriesSortBy}
@@ -195,7 +195,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 cardType="serie"
             />
             <SearchList
-                title={`Actors matching "${term}"`}
+                title={term ? `Actors matching "${term}"` : "Actors"}
                 data={actors}
                 count={actorsCount}
                 sortBy={actorsSortBy}
@@ -207,7 +207,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 path="actors"
             />
             <SearchList
-                title={`Seasons matching "${term}"`}
+                title={term ? `Seasons matching "${term}"` : "Seasons"}
                 data={seasons}
                 count={seasonsCount}
                 sortBy={seasonsSortBy}
@@ -219,7 +219,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 path="seasons"
             />
             <SearchList
-                title={`Episodes matching "${term}"`}
+                title={term ? `Episodes matching "${term}"` : "Episodes"}
                 data={episodes}
                 count={episodesCount}
                 sortBy={episodesSortBy}
@@ -231,7 +231,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 path="episodes"
             />
             <SearchList
-                title={`Users matching "${term}"`}
+                title={term ? `Users matching "${term}"` : "Users"}
                 data={users}
                 count={usersCount}
                 sortBy={usersSortBy}
