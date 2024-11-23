@@ -5,6 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getCrewMemberById } from "@/actions/crew.actions";
 import { Crew } from "@prisma/client";
 import CrewPageContent from "./_components/CrewPageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { Suspense } from "react";
 
 interface ICrewProps {
     params: {
@@ -14,7 +16,7 @@ interface ICrewProps {
 }
 
 export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
-    const params = await props.params;
+    const params = props.params;
     const { crewId } = params;
 
     let crew: Crew;
@@ -72,16 +74,16 @@ export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
 }
 
 export default async function CrewPage(props: ICrewProps) {
-    const params = await props.params;
-    const searchParams = await props.searchParams;
     const session = await getServerSession(authOptions);
 
+    const params = props.params;
     const { crewId } = params;
 
+    const searchParams = await props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
-
     const searchParamsValues = {
         ascOrDesc,
         page,
@@ -99,5 +101,9 @@ export default async function CrewPage(props: ICrewProps) {
 
     const pageCountReviews = Math.ceil(crew.totalReviews / 5);
 
-    return <CrewPageContent searchParamsValues={searchParamsValues} crew={crew} pageCount={pageCountReviews} />;
+    return (
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <CrewPageContent searchParamsValues={searchParamsValues} crew={crew} pageCount={pageCountReviews} />
+        </Suspense>
+    );
 }

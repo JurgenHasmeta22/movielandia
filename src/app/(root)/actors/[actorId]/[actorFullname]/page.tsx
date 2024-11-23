@@ -5,6 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getActorById } from "@/actions/actor.actions";
 import { Actor } from "@prisma/client";
 import ActorPageContent from "./_components/ActorPageContent";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface IActorProps {
     params: {
@@ -78,6 +80,7 @@ export default async function ActorPage(props: IActorProps) {
     const { actorId } = params;
 
     const searchParams = await props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
@@ -98,5 +101,9 @@ export default async function ActorPage(props: IActorProps) {
 
     const pageCountReviews = Math.ceil(actor.totalReviews / 5);
 
-    return <ActorPageContent searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />;
+    return (
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <ActorPageContent searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />
+        </Suspense>
+    );
 }
