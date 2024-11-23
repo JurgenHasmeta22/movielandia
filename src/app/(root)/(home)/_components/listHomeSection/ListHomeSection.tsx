@@ -1,8 +1,11 @@
+"use client";
+
 import CardItem from "@/components/root/cardItem/CardItem";
 import GenreItem from "@/components/root/genreItem/GenreItem";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { Genre, Movie, Serie } from "@prisma/client";
 import NextLink from "next/link";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IListHomeSectionProps {
     data: Array<Movie | Serie | Genre>;
@@ -12,29 +15,37 @@ interface IListHomeSectionProps {
     path?: string;
 }
 
-const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, linkText, path }) => {
+const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionProps) => {
+    const theme = useTheme();
+
+    const getSectionTitle = () => {
+        switch (type) {
+            case "genre":
+                return "Trending Genres";
+            case "movie":
+                return "Trending Movies";
+            case "serie":
+                return "Trending Series";
+            default:
+                return "";
+        }
+    };
+
     return (
         <Box
-            component={"section"}
+            component="section"
             sx={{
                 py: { xs: 3, md: 4 },
                 px: { xs: 2, sm: 3, md: 4 },
             }}
         >
-            <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                sx={{
-                    mb: { xs: 3, md: 4 },
-                }}
-            >
+            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: { xs: 1, md: 2 } }}>
                 <Typography
                     variant="h2"
                     sx={{
                         fontWeight: 800,
                         fontSize: { xs: 24, sm: 28, md: 32 },
-                        color: "text.primary",
+                        color: theme.vars.palette.text.primary,
                         position: "relative",
                         display: "inline-block",
                         "&::after": {
@@ -44,18 +55,12 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                             left: 0,
                             width: "100%",
                             height: 3,
-                            backgroundColor: "primary.main",
+                            backgroundColor: theme.vars.palette.primary.main,
                             borderRadius: 1,
                         },
                     }}
                 >
-                    {type === "genre"
-                        ? "Trending Genres"
-                        : type === "movie"
-                          ? "Trending Movies"
-                          : type === "serie"
-                            ? "Trending Series"
-                            : ""}
+                    {getSectionTitle()}
                 </Typography>
                 <NextLink
                     href={link}
@@ -72,7 +77,7 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                         sx={{
                             fontWeight: 700,
                             fontSize: { xs: 14, sm: 16 },
-                            color: "primary.main",
+                            color: theme.vars.palette.primary.main,
                             transition: "opacity 0.2s ease",
                             "&:hover": {
                                 opacity: 0.8,
@@ -83,35 +88,33 @@ const ListHomeSection: React.FC<IListHomeSectionProps> = ({ data, type, link, li
                     </Typography>
                 </NextLink>
             </Stack>
-
             <Box
                 sx={{
                     width: "100%",
                     overflow: "hidden",
+                    mt: { xs: 4, md: 5 },
                 }}
             >
                 <Stack
                     direction="row"
                     flexWrap="wrap"
                     sx={{
-                        gap: { xs: 2, sm: 3, md: 4 },
+                        columnGap: { xs: 1, sm: 2, md: 3 },
+                        rowGap: { xs: 3, sm: 4, md: 5 },
                         justifyContent: {
                             xs: "center",
-                            sm: "center",
                             md: "flex-start",
                         },
-                        mx: "auto",
+                        mx: { xs: 1, sm: 2 },
                     }}
                 >
-                    {data &&
-                        data.length > 0 &&
-                        data.map((item: Movie | Genre | Serie) =>
-                            type === "genre" ? (
-                                <GenreItem key={item.id} genre={item as Genre} />
-                            ) : (
-                                <CardItem data={item} key={item.id} type={type} path={path!} />
-                            ),
-                        )}
+                    {data?.map((item, index) =>
+                        type === "genre" ? (
+                            <GenreItem key={index} genre={item as Genre} />
+                        ) : (
+                            <CardItem key={index} data={item} type={type} path={path} />
+                        ),
+                    )}
                 </Stack>
             </Box>
         </Box>
