@@ -39,5 +39,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# docs
-coding-conventions.md
+# instructions
+instructions.md
