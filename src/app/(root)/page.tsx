@@ -1,17 +1,17 @@
 import { Stack, Box, Container } from "@mui/material";
-import { Actor, Genre, Movie, Serie } from "@prisma/client";
+import { Genre, Movie, Serie } from "@prisma/client";
 import { getGenresWithFilters } from "@/actions/genre.actions";
 import { getMoviesWithFilters } from "@/actions/movie.actions";
 import { getSeriesWithFilters } from "@/actions/serie.actions";
 import type { Metadata } from "next";
-import { getActorsWithFilters } from "@/actions/actor.actions";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
-import { getCrewMembersWithFilters } from "@/actions/crew.actions";
-import HomeHeroSection from "./(home)/_components/homeHero/HomeHero";
-import ListHomeSection from "./(home)/_components/listHomeSection/ListHomeSection";
-import MarketingSection from "./(home)/_components/marketingSection/MarketingSection";
-import NewsletterSection from "./(home)/_components/newsletterSection/NewsletterSection";
+import HomeHeroSection from "./(home)/_components/HomeHero";
+import ListHomeSection from "./(home)/_components/ListHomeSection";
+import MarketingSection from "./(home)/_components/MarketingSection";
+import NewsletterSection from "./(home)/_components/NewsletterSection";
+import { Suspense } from "react";
+import MovieTheaterWrapper from "@/components/3d/MovieTheaterWrapper";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -55,12 +55,6 @@ export default async function Home() {
     const genresData = await getGenresWithFilters(queryParams);
     const genres: Genre[] = genresData.rows;
 
-    const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
-    const actors: Actor[] = actorsData.actors;
-
-    const crewData = await getCrewMembersWithFilters(queryParams, Number(session?.user?.id));
-    const crew: Actor[] = crewData.crewMembers;
-
     return (
         <Box
             component="main"
@@ -70,6 +64,9 @@ export default async function Home() {
             }}
         >
             <HomeHeroSection />
+            <Suspense fallback={<Box sx={{ width: "100%", height: "80vh", bgcolor: "black" }} />}>
+                <MovieTheaterWrapper />
+            </Suspense>
             <MarketingSection />
             <NewsletterSection />
             <Container
