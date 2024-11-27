@@ -291,13 +291,38 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
             </Paper>
 
             {/* Main Tabs */}
-            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
+            <Box sx={{ borderBottom: 2, borderColor: "divider", mb: 3 }}>
                 <Tabs
                     value={currentMainTab}
                     onChange={handleMainTabChange}
                     variant="scrollable"
                     scrollButtons="auto"
                     allowScrollButtonsMobile
+                    sx={{
+                        '& .MuiTab-root': {
+                            minHeight: 52,
+                            textTransform: "none",
+                            fontSize: "1rem",
+                            transition: "all 0.2s",
+                            borderRight: '1px solid',
+                            borderColor: 'divider',
+                            px: 4,
+                            '&:hover': {
+                                backgroundColor: 'action.hover',
+                                color: 'primary.main',
+                            },
+                            '&:last-child': {
+                                borderRight: 'none',
+                            }
+                        },
+                        '& .Mui-selected': {
+                            fontWeight: 'bold',
+                            backgroundColor: 'action.selected',
+                            '&:hover': {
+                                backgroundColor: 'action.selected',
+                            },
+                        },
+                    }}
                 >
                     {mainTabs.map((tab) => (
                         <Tab
@@ -305,34 +330,60 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                             icon={tab.icon}
                             label={tab.label}
                             iconPosition="start"
-                            sx={{
-                                minHeight: 48,
-                                textTransform: "none",
-                                fontSize: "1rem",
-                            }}
                         />
                     ))}
                 </Tabs>
             </Box>
 
             {/* Sub Tabs */}
-            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
+            <Box sx={{ 
+                borderBottom: 1, 
+                borderColor: "divider", 
+                mb: 4,
+                backgroundColor: 'action.hover',
+                borderRadius: 1,
+                py: 0.5
+            }}>
                 <Tabs
                     value={currentSubTab}
                     onChange={handleSubTabChange}
                     variant="scrollable"
                     scrollButtons="auto"
                     allowScrollButtonsMobile
+                    sx={{
+                        '& .MuiTab-root': {
+                            minHeight: 42,
+                            textTransform: "none",
+                            fontSize: "0.95rem",
+                            transition: "all 0.2s",
+                            opacity: 0.75,
+                            borderRight: '1px solid',
+                            borderColor: 'divider',
+                            px: 3,
+                            color: 'text.primary',
+                            '&:hover': {
+                                opacity: 1,
+                                backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                            },
+                            '&:last-child': {
+                                borderRight: 'none',
+                            }
+                        },
+                        '& .Mui-selected': {
+                            opacity: 1,
+                            fontWeight: 'medium',
+                            backgroundColor: '#2C3333 !important',
+                            color: '#fff !important',
+                            '&:hover': {
+                                backgroundColor: '#2C3333 !important',
+                            },
+                        },
+                    }}
                 >
                     {subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs].map((label) => (
                         <Tab
                             key={label}
                             label={label}
-                            sx={{
-                                minHeight: 48,
-                                textTransform: "none",
-                                fontSize: "1rem",
-                            }}
                         />
                     ))}
                 </Tabs>

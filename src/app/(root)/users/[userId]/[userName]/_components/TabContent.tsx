@@ -492,48 +492,50 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                         )}
                     </AnimatePresence>
                 </Box>
-                <Stack spacing={2} alignItems="center" sx={{ mt: 2 }}>
-                    <Pagination
-                        count={Math.max(1, totalPages)}
-                        page={page}
-                        onChange={handlePageChange}
-                        color="primary"
-                        size="medium"
-                        showFirstButton
-                        showLastButton
-                        disabled={totalItems === 0}
-                        sx={{
-                            "& .MuiPaginationItem-root": {
-                                color: "text.secondary",
-                                borderRadius: 1,
-                                minWidth: "35px",
-                                height: "35px",
-                                "&:hover": {
-                                    backgroundColor: "action.hover",
+                {totalItems > 0 && (
+                    <Stack spacing={2} alignItems="center" sx={{ mt: 2 }}>
+                        <Pagination
+                            count={Math.max(1, totalPages)}
+                            page={page}
+                            onChange={handlePageChange}
+                            color="primary"
+                            size="medium"
+                            showFirstButton
+                            showLastButton
+                            disabled={totalItems === 0}
+                            sx={{
+                                "& .MuiPaginationItem-root": {
+                                    color: "text.secondary",
+                                    borderRadius: 1,
+                                    minWidth: "35px",
+                                    height: "35px",
+                                    "&:hover": {
+                                        backgroundColor: "action.hover",
+                                    },
                                 },
-                            },
-                            "& .Mui-selected": {
-                                backgroundColor: "primary.main",
-                                color: "white",
-                                "&:hover": {
+                                "& .Mui-selected": {
                                     backgroundColor: "primary.main",
+                                    color: "white",
+                                    "&:hover": {
+                                        backgroundColor: "primary.main",
+                                    },
                                 },
-                            },
-                            "& .MuiPaginationItem-firstLast": {
-                                borderRadius: 1,
-                                "&:hover": {
-                                    backgroundColor: "action.hover",
+                                "& .MuiPaginationItem-firstLast": {
+                                    borderRadius: 1,
+                                    "&:hover": {
+                                        backgroundColor: "action.hover",
+                                    },
                                 },
-                            },
-                            "& .MuiPaginationItem-previousNext": {
-                                borderRadius: 1,
-                                "&:hover": {
-                                    backgroundColor: "action.hover",
+                                "& .MuiPaginationItem-previousNext": {
+                                    borderRadius: 1,
+                                    "&:hover": {
+                                        backgroundColor: "action.hover",
+                                    },
                                 },
-                            },
-                        }}
-                    />
-                </Stack>
+                            }}
+                        />
+                    </Stack>
+                )}
             </Box>
         </Box>
     );
