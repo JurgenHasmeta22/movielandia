@@ -419,18 +419,18 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
     return (
         <Box
             component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
         >
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <Box
                     sx={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                        gap: 2,
-                        minHeight: "200px",
+                        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                        gap: { xs: 1.5, sm: 2 },
+                        minHeight: paginatedContent.length === 0 ? "auto" : "200px",
                     }}
                 >
                     <AnimatePresence mode="wait">
@@ -483,19 +483,29 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                 );
                             })
                         ) : (
-                            <Typography
-                                variant="body1"
-                                color="text.secondary"
-                                textAlign="center"
-                                sx={{ gridColumn: "1/-1", py: 4 }}
+                            <Box
+                                sx={{
+                                    gridColumn: "1/-1",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    py: { xs: 2, sm: 3 },
+                                    minHeight: "100px"
+                                }}
                             >
-                                No items found
-                            </Typography>
+                                <Typography
+                                    variant="body1"
+                                    color="text.secondary"
+                                    textAlign="center"
+                                >
+                                    No items found
+                                </Typography>
+                            </Box>
                         )}
                     </AnimatePresence>
                 </Box>
                 {totalItems > 0 && (
-                    <Stack spacing={2} alignItems="center" sx={{ mt: 2 }}>
+                    <Stack spacing={2} alignItems="center" sx={{ mt: { xs: 1, sm: 2 } }}>
                         <Pagination
                             count={Math.max(1, totalPages)}
                             page={page}

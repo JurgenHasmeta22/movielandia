@@ -92,19 +92,19 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
     const getSubTabIcon = (label: string) => {
         switch (label.toLowerCase()) {
             case "movies":
-                return <LocalMoviesIcon sx={{ fontSize: "1.1rem" }} />;
+                return <LocalMoviesIcon />;
             case "series":
-                return <LiveTvIcon sx={{ fontSize: "1.1rem" }} />;
+                return <LiveTvIcon />;
             case "seasons":
-                return <PlaylistPlayIcon sx={{ fontSize: "1.1rem" }} />;
+                return <PlaylistPlayIcon />;
             case "episodes":
-                return <PlayCircleOutlineIcon sx={{ fontSize: "1.1rem" }} />;
+                return <PlayCircleOutlineIcon />;
             case "actors":
-                return <PersonIcon sx={{ fontSize: "1.1rem" }} />;
+                return <PersonIcon />;
             case "crew":
-                return <GroupWorkIcon sx={{ fontSize: "1.1rem" }} />;
+                return <GroupWorkIcon />;
             default:
-                return <BookmarkIcon sx={{ fontSize: "1.1rem" }} />;
+                return <BookmarkIcon />;
         }
     };
 
@@ -180,25 +180,49 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
     return (
         <Box
             component="main"
-            sx={{ width: "100%", maxWidth: 1200, mx: "auto", p: { xs: 2, sm: 3 }, mt: { xs: 3, sm: 4 } }}
+            sx={{
+                width: "100%",
+                maxWidth: 1200,
+                mx: "auto",
+                p: { xs: 2, sm: 3, md: 4 },
+                mt: { xs: 2, sm: 3, md: 4 },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: { xs: 3, sm: 4, md: 5 }
+            }}
         >
             {/* Profile Header */}
             <Paper
-                elevation={0}
+                elevation={2}
                 sx={{
                     p: { xs: 2, sm: 3, md: 4 },
-                    mb: 4,
-                    borderRadius: 2,
+                    borderRadius: 3,
                     bgcolor: "background.paper",
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                        boxShadow: (theme) => theme.shadows[4]
+                    }
                 }}
             >
-                <Stack direction={{ xs: "column", md: "row" }} spacing={4} alignItems="center">
-                    <Avatar
-                        src={userInPage.avatar?.photoSrc || "/default-avatar.jpg"}
-                        alt={userInPage.userName}
-                        sx={{ width: 150, height: 150 }}
-                    />
-                    <Box flex={1}>
+                <Stack 
+                    direction={{ xs: "column", md: "row" }} 
+                    spacing={{ xs: 3, md: 4 }} 
+                    alignItems={{ xs: "center", md: "flex-start" }}
+                >
+                    <Box sx={{ position: 'relative' }}>
+                        <Avatar
+                            src={userInPage.avatar?.photoSrc || "/default-avatar.jpg"}
+                            alt={userInPage.userName}
+                            sx={{
+                                width: { xs: 120, sm: 150 },
+                                height: { xs: 120, sm: 150 },
+                                border: '4px solid',
+                                borderColor: 'background.paper',
+                                boxShadow: 2
+                            }}
+                        />
+                    </Box>
+                    <Box flex={1} width="100%">
                         {/* Username Field */}
                         <Stack direction="row" alignItems="center" spacing={2} mb={2}>
                             {isUserNameEditing ? (
@@ -212,10 +236,21 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     <IconButton
                                         onClick={() => handleSaveEdit("userName", userName, setIsUserNameEditing)}
                                         color="primary"
+                                        sx={{
+                                            '&:hover': {
+                                                backgroundColor: 'action.hover',
+                                                color: 'primary.main'
+                                            }
+                                        }}
                                     >
                                         <SaveIcon />
                                     </IconButton>
-                                    <IconButton onClick={() => setIsUserNameEditing(false)} color="error">
+                                    <IconButton onClick={() => setIsUserNameEditing(false)} color="error" sx={{
+                                        '&:hover': {
+                                            backgroundColor: 'action.hover',
+                                            color: 'error.main'
+                                        }
+                                    }}>
                                         <CancelIcon />
                                     </IconButton>
                                 </Stack>
@@ -223,7 +258,12 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                 <Stack direction="row" spacing={1} alignItems="center">
                                     <Typography variant="h4">{userName}</Typography>
                                     {userLoggedIn?.id === userInPage.id && (
-                                        <IconButton onClick={() => setIsUserNameEditing(true)} size="small">
+                                        <IconButton onClick={() => setIsUserNameEditing(true)} size="small" sx={{
+                                            '&:hover': {
+                                                backgroundColor: 'action.hover',
+                                                color: 'primary.main'
+                                            }
+                                        }}>
                                             <EditIcon />
                                         </IconButton>
                                     )}
@@ -242,10 +282,20 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     fullWidth
                                     placeholder="Write something about yourself..."
                                 />
-                                <IconButton onClick={() => handleSaveEdit("bio", bio, setIsBioEditing)} color="primary">
+                                <IconButton onClick={() => handleSaveEdit("bio", bio, setIsBioEditing)} color="primary" sx={{
+                                    '&:hover': {
+                                        backgroundColor: 'action.hover',
+                                        color: 'success.main'
+                                    }
+                                }}>
                                     <SaveIcon />
                                 </IconButton>
-                                <IconButton onClick={() => setIsBioEditing(false)} color="error">
+                                <IconButton onClick={() => setIsBioEditing(false)} color="error" sx={{
+                                    '&:hover': {
+                                        backgroundColor: 'action.hover',
+                                        color: 'error.main'
+                                    }
+                                }}>
                                     <CancelIcon />
                                 </IconButton>
                             </Stack>
@@ -255,7 +305,12 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     {bio || "No bio yet"}
                                 </Typography>
                                 {userLoggedIn?.id === userInPage.id && (
-                                    <IconButton onClick={() => setIsBioEditing(true)} size="small">
+                                    <IconButton onClick={() => setIsBioEditing(true)} size="small" sx={{
+                                        '&:hover': {
+                                            backgroundColor: 'action.hover',
+                                            color: 'primary.main'
+                                        }
+                                    }}>
                                         <EditIcon />
                                     </IconButton>
                                 )}
@@ -275,10 +330,21 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                 <IconButton
                                     onClick={() => handleSaveEdit("email", email, setIsEmailEditing)}
                                     color="primary"
+                                    sx={{
+                                        '&:hover': {
+                                            backgroundColor: 'action.hover',
+                                            color: 'success.main'
+                                        }
+                                    }}
                                 >
                                     <SaveIcon />
                                 </IconButton>
-                                <IconButton onClick={() => setIsEmailEditing(false)} color="error">
+                                <IconButton onClick={() => setIsEmailEditing(false)} color="error" sx={{
+                                    '&:hover': {
+                                        backgroundColor: 'action.hover',
+                                        color: 'error.main'
+                                    }
+                                }}>
                                     <CancelIcon />
                                 </IconButton>
                             </Stack>
@@ -288,7 +354,12 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     {email}
                                 </Typography>
                                 {userLoggedIn?.id === userInPage.id && (
-                                    <IconButton onClick={() => setIsEmailEditing(true)} size="small">
+                                    <IconButton onClick={() => setIsEmailEditing(true)} size="small" sx={{
+                                        '&:hover': {
+                                            backgroundColor: 'action.hover',
+                                            color: 'primary.main'
+                                        }
+                                    }}>
                                         <EditIcon />
                                     </IconButton>
                                 )}
@@ -299,7 +370,18 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
             </Paper>
 
             {/* Main Tabs */}
-            <Box sx={{ borderBottom: 2, borderColor: "divider", mb: 3 }}>
+            <Paper
+                elevation={1}
+                sx={{
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    bgcolor: 'background.paper',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                        boxShadow: (theme) => theme.shadows[3]
+                    }
+                }}
+            >
                 <Tabs
                     value={currentMainTab}
                     onChange={handleMainTabChange}
@@ -307,29 +389,38 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                     scrollButtons="auto"
                     allowScrollButtonsMobile
                     sx={{
+                        borderBottom: 2,
+                        borderColor: "divider",
                         '& .MuiTab-root': {
-                            minHeight: 52,
+                            minHeight: 48,
                             textTransform: "none",
-                            fontSize: "1rem",
+                            fontSize: { xs: '0.875rem', sm: '0.875rem' },
                             transition: "all 0.2s",
                             borderRight: '1px solid',
                             borderColor: 'divider',
-                            px: 4,
+                            px: { xs: 2, sm: 3 },
+                            py: 1.5,
                             '&:hover': {
-                                backgroundColor: 'action.hover',
+                                bgcolor: 'action.hover',
                                 color: 'primary.main',
                             },
                             '&:last-child': {
                                 borderRight: 'none',
+                            },
+                            '& .MuiSvgIcon-root': {
+                                fontSize: '1.25rem'
                             }
                         },
                         '& .Mui-selected': {
-                            fontWeight: 'bold',
-                            backgroundColor: 'action.selected',
+                            fontWeight: 600,
+                            bgcolor: 'action.selected',
                             '&:hover': {
-                                backgroundColor: 'action.selected',
+                                bgcolor: 'action.selected',
                             },
                         },
+                        '& .MuiTabs-indicator': {
+                            height: 2,
+                        }
                     }}
                 >
                     {mainTabs.map((tab) => (
@@ -338,20 +429,24 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                             icon={tab.icon}
                             label={tab.label}
                             iconPosition="start"
+                            sx={{
+                                gap: 1,
+                            }}
                         />
                     ))}
                 </Tabs>
-            </Box>
+            </Paper>
 
             {/* Sub Tabs */}
-            <Box sx={{ 
-                borderBottom: 1, 
-                borderColor: "divider", 
-                mb: 4,
-                backgroundColor: 'action.hover',
-                borderRadius: 1,
-                py: 0.5
-            }}>
+            <Paper
+                elevation={1}
+                sx={{
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    bgcolor: 'background.paper',
+                    mb: { xs: 1, sm: 1.5 }
+                }}
+            >
                 <Tabs
                     value={currentSubTab}
                     onChange={handleSubTabChange}
@@ -359,36 +454,34 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                     scrollButtons="auto"
                     allowScrollButtonsMobile
                     sx={{
+                        minHeight: 48,
+                        borderBottom: 1,
+                        borderColor: "divider",
                         '& .MuiTab-root': {
-                            minHeight: 42,
+                            minHeight: 48,
                             textTransform: "none",
-                            fontSize: "0.95rem",
+                            fontSize: { xs: '0.875rem', sm: '0.875rem' },
+                            px: { xs: 2, sm: 3 },
+                            py: 1,
                             transition: "all 0.2s",
-                            opacity: 0.75,
-                            borderRight: '1px solid',
-                            borderColor: 'divider',
-                            px: 3,
-                            color: 'text.primary',
-                            '& .MuiSvgIcon-root': {
-                                mr: 1,
-                            },
                             '&:hover': {
-                                opacity: 1,
-                                backgroundColor: 'rgba(0, 0, 0, 0.15)',
+                                bgcolor: 'action.hover',
+                                color: 'primary.main',
                             },
-                            '&:last-child': {
-                                borderRight: 'none',
+                            '& .MuiSvgIcon-root': {
+                                fontSize: '1.25rem'
                             }
                         },
                         '& .Mui-selected': {
-                            opacity: 1,
-                            fontWeight: 'medium',
-                            backgroundColor: '#2C3333 !important',
-                            color: '#fff !important',
+                            fontWeight: 500,
+                            bgcolor: 'action.selected',
                             '&:hover': {
-                                backgroundColor: '#2C3333 !important',
-                            },
+                                bgcolor: 'action.selected',
+                            }
                         },
+                        '& .MuiTabs-indicator': {
+                            height: 2,
+                        }
                     }}
                 >
                     {subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs].map((label) => (
@@ -397,18 +490,21 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                             label={label}
                             icon={getSubTabIcon(label)}
                             iconPosition="start"
+                            sx={{
+                                gap: 1,
+                            }}
                         />
                     ))}
                 </Tabs>
-            </Box>
+            </Paper>
 
             {/* Content */}
             <AnimatePresence mode="wait">
                 <motion.div
                     key={`${currentMainTab}-${currentSubTab}`}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
+                    exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
                 >
                     <Box sx={{ minHeight: "50vh" }}>
