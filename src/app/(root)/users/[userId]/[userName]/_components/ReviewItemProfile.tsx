@@ -20,8 +20,16 @@ interface ReviewItemProfileProps {
 export default function ReviewItemProfile({ review, type, variant }: ReviewItemProfileProps) {
     // Helper function to get the content title and link
     const getContentInfo = () => {
+        console.log('Review data:', review);
+        console.log('Type:', type);
+        console.log('Variant:', variant);
+
         switch (type) {
             case "movie":
+                if (!review?.movieReview?.movie) {
+                    console.log('Missing movie data:', review);
+                    return { title: "", link: "", review: null };
+                }
                 return {
                     title: review.movieReview.movie.title,
                     link: `/movies/${review.movieReview.movie.id}/${review.movieReview.movie.title
@@ -37,22 +45,51 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                         .replace(/\s+/g, "-")}`,
                     review: review.serieReview,
                 };
-            case "season":
+            case "season": {
+                const seasonReview = review.seasonReview;
+                const season = seasonReview.season;
+                const serie = seasonReview.serie || season.serie;
+
+                if (!serie) {
+                    return {
+                        title: season.title,
+                        link: `/seasons/${season.id}/${season.title.toLowerCase().replace(/\s+/g, "-")}`,
+                        review: seasonReview,
+                    };
+                }
+
                 return {
-                    title: review.seasonReview.season.title,
-                    link: `/seasons/${review.seasonReview.season.id}/${review.seasonReview.season.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`,
-                    review: review.seasonReview,
+                    title: season.title,
+                    link: `/series/${serie.id}/${serie.title.toLowerCase().replace(/\s+/g, "-")}/seasons/${
+                        season.id
+                    }/${season.title.toLowerCase().replace(/\s+/g, "-")}`,
+                    review: seasonReview,
                 };
-            case "episode":
+            }
+            case "episode": {
+                const episodeReview = review.episodeReview;
+                const episode = episodeReview.episode;
+                const season = episodeReview.season || episode.season;
+                const serie = episodeReview.serie || season?.serie;
+
+                if (!season || !serie) {
+                    return {
+                        title: episode.title,
+                        link: `/episodes/${episode.id}/${episode.title.toLowerCase().replace(/\s+/g, "-")}`,
+                        review: episodeReview,
+                    };
+                }
+
                 return {
-                    title: review.episodeReview.episode.title,
-                    link: `/episodes/${review.episodeReview.episode.id}/${review.episodeReview.episode.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`,
-                    review: review.episodeReview,
+                    title: episode.title,
+                    link: `/series/${serie.id}/${serie.title.toLowerCase().replace(/\s+/g, "-")}/seasons/${
+                        season.id
+                    }/${season.title.toLowerCase().replace(/\s+/g, "-")}/episodes/${
+                        episode.id
+                    }/${episode.title.toLowerCase().replace(/\s+/g, "-")}`,
+                    review: episodeReview,
                 };
+            }
             default:
                 return { title: "", link: "", review: null };
         }
@@ -83,11 +120,12 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                     "&:hover": {
                         transform: "translateY(-4px)",
                     },
+                    width: "100%",
+                    maxWidth: "800px",
                 }}
             >
                 <CardContent>
                     <Stack spacing={2}>
-                        {/* Content Title and Link */}
                         <Link href={link} style={{ textDecoration: "none" }}>
                             <Typography
                                 variant="h6"
@@ -99,34 +137,55 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                 {title}
                             </Typography>
                         </Link>
-
-                        {/* Review Content */}
-                        <Box sx={{ 
-                            "& .quill": { 
-                                border: "none",
-                                "& .ql-container": {
+                        <Box
+                            sx={{
+                                "& .quill": {
                                     border: "none",
-                                },
-                                "& .ql-editor": {
-                                    padding: 0,
-                                    "& p": {
-                                        color: "text.secondary",
+                                    "& .ql-container": {
+                                        border: "none",
+                                    },
+                                    "& .ql-editor": {
+                                        padding: 0,
+                                        "& p": {
+                                            color: "text.secondary",
+                                        },
                                     },
                                 },
-                            },
-                        }}>
-                            <ReactQuill
-                                value={contentReview.content}
-                                readOnly={true}
-                                modules={modules}
-                                theme="snow"
-                            />
+                            }}
+                        >
+                            <ReactQuill value={contentReview.content} readOnly={true} modules={modules} theme="snow" />
                         </Box>
-
-                        {/* Rating and Stats */}
-                        <Stack direction="row" spacing={2} alignItems="center">
-                            <Rating value={contentReview.rating} readOnly precision={0.5} />
+                        <Stack
+                            direction="row"
+                            spacing={2}
+                            alignItems="center"
+                            sx={{
+                                width: "100%",
+                                justifyContent: "space-between",
+                                flexWrap: "wrap",
+                                gap: 2,
+                            }}
+                        >
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                <Rating
+                                    value={contentReview.rating}
+                                    max={10}
+                                    readOnly
+                                    precision={0.5}
+                                    sx={{ "& .MuiRating-icon": { fontSize: "1.2rem" } }}
+                                />
+                                <Typography variant="body2" color="text.secondary">
+                                    {contentReview.rating.toFixed(1)}/10
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                    ml: "auto",
+                                }}
+                            >
                                 <IconButton
                                     size="small"
                                     color={variant === "upvote" ? "primary" : "default"}
@@ -149,8 +208,6 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                 </Typography>
                             </Box>
                         </Stack>
-
-                        {/* Review Metadata */}
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.secondary" }}>
                             <Avatar
                                 src={contentReview.user.avatar?.photoSrc || "/default-avatar.jpg"}
