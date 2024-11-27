@@ -216,6 +216,9 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                 alt={contentReview.user?.userName || "User"}
                                 sx={{ width: 24, height: 24 }}
                             />
+                            <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                                {contentReview.user?.userName || "User"}
+                            </Typography>
                             <Typography variant="body2">
                                 {formatDistanceToNow(new Date(contentReview.createdAt), {
                                     addSuffix: true,

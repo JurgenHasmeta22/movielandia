@@ -440,17 +440,15 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                 if (mainTab === "reviews") {
                                     const reviewType = getReviewType(item);
                                     const reviewItem = {
-                                        [`${reviewType}Review`]: {
-                                            ...item,
-                                            user: userInPage,
-                                            movie: item.movie,
-                                            serie: item.serie,
-                                            season: item.season,
-                                            episode: item.episode,
-                                            _count: {
-                                                upvotes: item._count?.upvotes || 0,
-                                                downvotes: item._count?.downvotes || 0,
-                                            },
+                                        ...item,
+                                        [`${reviewType}`]: reviewType === "movie" ? item.movie : 
+                                                         reviewType === "serie" ? item.serie :
+                                                         reviewType === "season" ? item.season :
+                                                         item.episode,
+                                        user: userInPage,
+                                        _count: {
+                                            upvotes: item._count?.upvotes || 0,
+                                            downvotes: item._count?.downvotes || 0,
                                         },
                                     };
                                     return (
