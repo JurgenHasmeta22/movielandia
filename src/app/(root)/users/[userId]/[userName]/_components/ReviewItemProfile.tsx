@@ -124,6 +124,7 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                     },
                     width: "100%",
                     maxWidth: "800px",
+                    cursor: "pointer",
                 }}
             >
                 <CardContent>
@@ -180,35 +181,6 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                     {contentReview.rating.toFixed(1)}/10
                                 </Typography>
                             </Box>
-                            {/* <Box
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 1,
-                                    ml: "auto",
-                                }}
-                            >
-                                <IconButton
-                                    size="small"
-                                    color={variant === "upvote" ? "primary" : "default"}
-                                    sx={{ cursor: "default" }}
-                                >
-                                    <ThumbUpIcon fontSize="small" />
-                                </IconButton>
-                                <Typography variant="body2" color="text.secondary">
-                                    {contentReview._count?.upvotes || 0}
-                                </Typography>
-                                <IconButton
-                                    size="small"
-                                    color={variant === "downvote" ? "error" : "default"}
-                                    sx={{ cursor: "default" }}
-                                >
-                                    <ThumbDownIcon fontSize="small" />
-                                </IconButton>
-                                <Typography variant="body2" color="text.secondary">
-                                    {contentReview._count?.downvotes || 0}
-                                </Typography>
-                            </Box> */}
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.secondary" }}>
                             <Avatar
