@@ -199,16 +199,14 @@ export default function ReviewItemProfile({ review, type, variant, userLoggedIn 
                                 sx={{ width: 24, height: 24 }}
                             />
                             <Stack direction="row" spacing={0.5} alignItems="center">
-                                <Typography variant="body2">
-                                    {contentReview.user?.userName || "Anonymous"}
-                                </Typography>
+                                <Typography variant="body2">{contentReview.user?.userName || "Anonymous"}</Typography>
                                 {userLoggedIn?.id === contentReview.userId && (
-                                    <Typography 
-                                        variant="body2" 
-                                        sx={{ 
-                                            color: '#2ecc71',
-                                            fontWeight: 'bold',
-                                            backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            color: "#2ecc71",
+                                            fontWeight: "bold",
+                                            backgroundColor: "rgba(46, 204, 113, 0.1)",
                                             px: 0.8,
                                             py: 0.2,
                                             borderRadius: 1,

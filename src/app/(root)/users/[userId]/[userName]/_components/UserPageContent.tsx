@@ -186,9 +186,9 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                 mx: "auto",
                 p: { xs: 2, sm: 3, md: 4 },
                 mt: { xs: 2, sm: 3, md: 4 },
-                display: 'flex',
-                flexDirection: 'column',
-                gap: { xs: 3, sm: 4, md: 5 }
+                display: "flex",
+                flexDirection: "column",
+                gap: { xs: 3, sm: 4, md: 5 },
             }}
         >
             {/* Profile Header */}
@@ -198,27 +198,27 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                     p: { xs: 2, sm: 3, md: 4 },
                     borderRadius: 3,
                     bgcolor: "background.paper",
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                        boxShadow: (theme) => theme.shadows[4]
-                    }
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                        boxShadow: (theme) => theme.shadows[4],
+                    },
                 }}
             >
-                <Stack 
-                    direction={{ xs: "column", md: "row" }} 
-                    spacing={{ xs: 3, md: 4 }} 
+                <Stack
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={{ xs: 3, md: 4 }}
                     alignItems={{ xs: "center", md: "flex-start" }}
                 >
-                    <Box sx={{ position: 'relative' }}>
+                    <Box sx={{ position: "relative" }}>
                         <Avatar
                             src={userInPage.avatar?.photoSrc || "/default-avatar.jpg"}
                             alt={userInPage.userName}
                             sx={{
                                 width: { xs: 120, sm: 150 },
                                 height: { xs: 120, sm: 150 },
-                                border: '4px solid',
-                                borderColor: 'background.paper',
-                                boxShadow: 2
+                                border: "4px solid",
+                                borderColor: "background.paper",
+                                boxShadow: 2,
                             }}
                         />
                     </Box>
@@ -237,20 +237,24 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                         onClick={() => handleSaveEdit("userName", userName, setIsUserNameEditing)}
                                         color="primary"
                                         sx={{
-                                            '&:hover': {
-                                                backgroundColor: 'action.hover',
-                                                color: 'primary.main'
-                                            }
+                                            "&:hover": {
+                                                backgroundColor: "action.hover",
+                                                color: "primary.main",
+                                            },
                                         }}
                                     >
                                         <SaveIcon />
                                     </IconButton>
-                                    <IconButton onClick={() => setIsUserNameEditing(false)} color="error" sx={{
-                                        '&:hover': {
-                                            backgroundColor: 'action.hover',
-                                            color: 'error.main'
-                                        }
-                                    }}>
+                                    <IconButton
+                                        onClick={() => setIsUserNameEditing(false)}
+                                        color="error"
+                                        sx={{
+                                            "&:hover": {
+                                                backgroundColor: "action.hover",
+                                                color: "error.main",
+                                            },
+                                        }}
+                                    >
                                         <CancelIcon />
                                     </IconButton>
                                 </Stack>
@@ -258,12 +262,16 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                 <Stack direction="row" spacing={1} alignItems="center">
                                     <Typography variant="h4">{userName}</Typography>
                                     {userLoggedIn?.id === userInPage.id && (
-                                        <IconButton onClick={() => setIsUserNameEditing(true)} size="small" sx={{
-                                            '&:hover': {
-                                                backgroundColor: 'action.hover',
-                                                color: 'primary.main'
-                                            }
-                                        }}>
+                                        <IconButton
+                                            onClick={() => setIsUserNameEditing(true)}
+                                            size="small"
+                                            sx={{
+                                                "&:hover": {
+                                                    backgroundColor: "action.hover",
+                                                    color: "primary.main",
+                                                },
+                                            }}
+                                        >
                                             <EditIcon />
                                         </IconButton>
                                     )}
@@ -282,20 +290,28 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     fullWidth
                                     placeholder="Write something about yourself..."
                                 />
-                                <IconButton onClick={() => handleSaveEdit("bio", bio, setIsBioEditing)} color="primary" sx={{
-                                    '&:hover': {
-                                        backgroundColor: 'action.hover',
-                                        color: 'success.main'
-                                    }
-                                }}>
+                                <IconButton
+                                    onClick={() => handleSaveEdit("bio", bio, setIsBioEditing)}
+                                    color="primary"
+                                    sx={{
+                                        "&:hover": {
+                                            backgroundColor: "action.hover",
+                                            color: "success.main",
+                                        },
+                                    }}
+                                >
                                     <SaveIcon />
                                 </IconButton>
-                                <IconButton onClick={() => setIsBioEditing(false)} color="error" sx={{
-                                    '&:hover': {
-                                        backgroundColor: 'action.hover',
-                                        color: 'error.main'
-                                    }
-                                }}>
+                                <IconButton
+                                    onClick={() => setIsBioEditing(false)}
+                                    color="error"
+                                    sx={{
+                                        "&:hover": {
+                                            backgroundColor: "action.hover",
+                                            color: "error.main",
+                                        },
+                                    }}
+                                >
                                     <CancelIcon />
                                 </IconButton>
                             </Stack>
@@ -305,12 +321,16 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     {bio || "No bio yet"}
                                 </Typography>
                                 {userLoggedIn?.id === userInPage.id && (
-                                    <IconButton onClick={() => setIsBioEditing(true)} size="small" sx={{
-                                        '&:hover': {
-                                            backgroundColor: 'action.hover',
-                                            color: 'primary.main'
-                                        }
-                                    }}>
+                                    <IconButton
+                                        onClick={() => setIsBioEditing(true)}
+                                        size="small"
+                                        sx={{
+                                            "&:hover": {
+                                                backgroundColor: "action.hover",
+                                                color: "primary.main",
+                                            },
+                                        }}
+                                    >
                                         <EditIcon />
                                     </IconButton>
                                 )}
@@ -331,20 +351,24 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     onClick={() => handleSaveEdit("email", email, setIsEmailEditing)}
                                     color="primary"
                                     sx={{
-                                        '&:hover': {
-                                            backgroundColor: 'action.hover',
-                                            color: 'success.main'
-                                        }
+                                        "&:hover": {
+                                            backgroundColor: "action.hover",
+                                            color: "success.main",
+                                        },
                                     }}
                                 >
                                     <SaveIcon />
                                 </IconButton>
-                                <IconButton onClick={() => setIsEmailEditing(false)} color="error" sx={{
-                                    '&:hover': {
-                                        backgroundColor: 'action.hover',
-                                        color: 'error.main'
-                                    }
-                                }}>
+                                <IconButton
+                                    onClick={() => setIsEmailEditing(false)}
+                                    color="error"
+                                    sx={{
+                                        "&:hover": {
+                                            backgroundColor: "action.hover",
+                                            color: "error.main",
+                                        },
+                                    }}
+                                >
                                     <CancelIcon />
                                 </IconButton>
                             </Stack>
@@ -354,12 +378,16 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     {email}
                                 </Typography>
                                 {userLoggedIn?.id === userInPage.id && (
-                                    <IconButton onClick={() => setIsEmailEditing(true)} size="small" sx={{
-                                        '&:hover': {
-                                            backgroundColor: 'action.hover',
-                                            color: 'primary.main'
-                                        }
-                                    }}>
+                                    <IconButton
+                                        onClick={() => setIsEmailEditing(true)}
+                                        size="small"
+                                        sx={{
+                                            "&:hover": {
+                                                backgroundColor: "action.hover",
+                                                color: "primary.main",
+                                            },
+                                        }}
+                                    >
                                         <EditIcon />
                                     </IconButton>
                                 )}
@@ -374,12 +402,12 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                 elevation={1}
                 sx={{
                     borderRadius: 2,
-                    overflow: 'hidden',
-                    bgcolor: 'background.paper',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                        boxShadow: (theme) => theme.shadows[3]
-                    }
+                    overflow: "hidden",
+                    bgcolor: "background.paper",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                        boxShadow: (theme) => theme.shadows[3],
+                    },
                 }}
             >
                 <Tabs
@@ -391,36 +419,36 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                     sx={{
                         borderBottom: 2,
                         borderColor: "divider",
-                        '& .MuiTab-root': {
+                        "& .MuiTab-root": {
                             minHeight: 48,
                             textTransform: "none",
-                            fontSize: { xs: '0.875rem', sm: '0.875rem' },
+                            fontSize: { xs: "0.875rem", sm: "0.875rem" },
                             transition: "all 0.2s",
-                            borderRight: '1px solid',
-                            borderColor: 'divider',
+                            borderRight: "1px solid",
+                            borderColor: "divider",
                             px: { xs: 2, sm: 3 },
                             py: 1.5,
-                            '&:hover': {
-                                bgcolor: 'action.hover',
-                                color: 'primary.main',
+                            "&:hover": {
+                                bgcolor: "action.hover",
+                                color: "primary.main",
                             },
-                            '&:last-child': {
-                                borderRight: 'none',
+                            "&:last-child": {
+                                borderRight: "none",
                             },
-                            '& .MuiSvgIcon-root': {
-                                fontSize: '1.25rem'
-                            }
+                            "& .MuiSvgIcon-root": {
+                                fontSize: "1.25rem",
+                            },
                         },
-                        '& .Mui-selected': {
+                        "& .Mui-selected": {
                             fontWeight: 600,
-                            bgcolor: 'action.selected',
-                            '&:hover': {
-                                bgcolor: 'action.selected',
+                            bgcolor: "action.selected",
+                            "&:hover": {
+                                bgcolor: "action.selected",
                             },
                         },
-                        '& .MuiTabs-indicator': {
+                        "& .MuiTabs-indicator": {
                             height: 2,
-                        }
+                        },
                     }}
                 >
                     {mainTabs.map((tab) => (
@@ -442,9 +470,9 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                 elevation={1}
                 sx={{
                     borderRadius: 2,
-                    overflow: 'hidden',
-                    bgcolor: 'background.paper',
-                    mb: { xs: 1, sm: 1.5 }
+                    overflow: "hidden",
+                    bgcolor: "background.paper",
+                    mb: { xs: 1, sm: 1.5 },
                 }}
             >
                 <Tabs
@@ -457,31 +485,31 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                         minHeight: 48,
                         borderBottom: 1,
                         borderColor: "divider",
-                        '& .MuiTab-root': {
+                        "& .MuiTab-root": {
                             minHeight: 48,
                             textTransform: "none",
-                            fontSize: { xs: '0.875rem', sm: '0.875rem' },
+                            fontSize: { xs: "0.875rem", sm: "0.875rem" },
                             px: { xs: 2, sm: 3 },
                             py: 1,
                             transition: "all 0.2s",
-                            '&:hover': {
-                                bgcolor: 'action.hover',
-                                color: 'primary.main',
+                            "&:hover": {
+                                bgcolor: "action.hover",
+                                color: "primary.main",
                             },
-                            '& .MuiSvgIcon-root': {
-                                fontSize: '1.25rem'
-                            }
+                            "& .MuiSvgIcon-root": {
+                                fontSize: "1.25rem",
+                            },
                         },
-                        '& .Mui-selected': {
+                        "& .Mui-selected": {
                             fontWeight: 500,
-                            bgcolor: 'action.selected',
-                            '&:hover': {
-                                bgcolor: 'action.selected',
-                            }
+                            bgcolor: "action.selected",
+                            "&:hover": {
+                                bgcolor: "action.selected",
+                            },
                         },
-                        '& .MuiTabs-indicator': {
+                        "& .MuiTabs-indicator": {
                             height: 2,
-                        }
+                        },
                     }}
                 >
                     {subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs].map((label) => (
