@@ -40,8 +40,6 @@ const ContactUsContent = () => {
 
     const onSubmit = async (data: ContactFormData) => {
         try {
-            // Here you would typically send the data to your backend
-            console.log("Form data:", data);
             showToast("success", "Message sent successfully! We&apos;ll get back to you soon.");
             reset();
         } catch (error) {
