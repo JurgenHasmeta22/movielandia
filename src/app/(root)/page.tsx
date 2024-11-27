@@ -50,9 +50,6 @@ export default async function Home() {
     const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series: Serie[] = seriesData.rows;
 
-    const genresData = await getGenresWithFilters(queryParams);
-    const genres: Genre[] = genresData.rows;
-
     return (
         <Box
             component="main"
@@ -84,13 +81,6 @@ export default async function Home() {
                         type="serie"
                         link="/series"
                         linkText="Explore all Series"
-                    />
-                    <ListHomeSection
-                        key={"genre"}
-                        data={genres}
-                        type="genre"
-                        link="/genres"
-                        linkText="Explore all Genres"
                     />
                 </Stack>
             </Container>
