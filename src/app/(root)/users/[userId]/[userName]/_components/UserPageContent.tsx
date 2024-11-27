@@ -13,6 +13,12 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import RateReviewIcon from "@mui/icons-material/RateReview";
+import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupWorkIcon from "@mui/icons-material/GroupWork";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import TabContent from "./TabContent";
 
@@ -76,29 +82,31 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
     );
 
     // Sub tab options based on main tab
-    const subTabs = useMemo<SubTabsConfig>(
-        () => ({
-            bookmarks: ["Movies", "Series", "Actors", "Crew", "Seasons", "Episodes"],
-            upvotes: [
-                "Movie Reviews",
-                "Series Reviews",
-                "Season Reviews",
-                "Episode Reviews",
-                "Actor Reviews",
-                "Crew Reviews",
-            ],
-            downvotes: [
-                "Movie Reviews",
-                "Series Reviews",
-                "Season Reviews",
-                "Episode Reviews",
-                "Actor Reviews",
-                "Crew Reviews",
-            ],
-            reviews: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
-        }),
-        [],
-    );
+    const subTabs: Record<string, string[]> = {
+        bookmarks: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
+        reviews: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
+        upvotes: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
+        downvotes: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
+    };
+
+    const getSubTabIcon = (label: string) => {
+        switch (label.toLowerCase()) {
+            case "movies":
+                return <LocalMoviesIcon sx={{ fontSize: "1.1rem" }} />;
+            case "series":
+                return <LiveTvIcon sx={{ fontSize: "1.1rem" }} />;
+            case "seasons":
+                return <PlaylistPlayIcon sx={{ fontSize: "1.1rem" }} />;
+            case "episodes":
+                return <PlayCircleOutlineIcon sx={{ fontSize: "1.1rem" }} />;
+            case "actors":
+                return <PersonIcon sx={{ fontSize: "1.1rem" }} />;
+            case "crew":
+                return <GroupWorkIcon sx={{ fontSize: "1.1rem" }} />;
+            default:
+                return <BookmarkIcon sx={{ fontSize: "1.1rem" }} />;
+        }
+    };
 
     // Get current tab values from URL
     const currentMainTab = useMemo(() => {
@@ -361,6 +369,9 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                             borderColor: 'divider',
                             px: 3,
                             color: 'text.primary',
+                            '& .MuiSvgIcon-root': {
+                                mr: 1,
+                            },
                             '&:hover': {
                                 opacity: 1,
                                 backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -384,6 +395,8 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                         <Tab
                             key={label}
                             label={label}
+                            icon={getSubTabIcon(label)}
+                            iconPosition="start"
                         />
                     ))}
                 </Tabs>

@@ -13,11 +13,21 @@ const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ReviewItemProfileProps {
     review: any;
-    type: "movie" | "serie" | "season" | "episode";
-    variant: "upvote" | "downvote";
+    type: string;
+    variant?: "upvote" | "downvote";
+    userLoggedIn: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+    } | null;
 }
 
-export default function ReviewItemProfile({ review, type, variant }: ReviewItemProfileProps) {
+export default function ReviewItemProfile({ review, type, variant, userLoggedIn }: ReviewItemProfileProps) {
     // Helper function to get the content title and link
     const getContentInfo = () => {
         switch (type) {
@@ -188,9 +198,26 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                 alt={contentReview.user?.userName || "User"}
                                 sx={{ width: 24, height: 24 }}
                             />
-                            <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                                {contentReview.user?.userName || "User"}
-                            </Typography>
+                            <Stack direction="row" spacing={0.5} alignItems="center">
+                                <Typography variant="body2">
+                                    {contentReview.user?.userName || "Anonymous"}
+                                </Typography>
+                                {userLoggedIn?.id === contentReview.userId && (
+                                    <Typography 
+                                        variant="body2" 
+                                        sx={{ 
+                                            color: '#2ecc71',
+                                            fontWeight: 'bold',
+                                            backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                                            px: 0.8,
+                                            py: 0.2,
+                                            borderRadius: 1,
+                                        }}
+                                    >
+                                        (You)
+                                    </Typography>
+                                )}
+                            </Stack>
                             <Typography variant="body2">
                                 {formatDistanceToNow(new Date(contentReview.createdAt), {
                                     addSuffix: true,

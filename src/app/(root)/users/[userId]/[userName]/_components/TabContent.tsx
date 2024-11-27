@@ -457,6 +457,7 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                             review={reviewItem}
                                             type={reviewType}
                                             variant="upvote"
+                                            userLoggedIn={userLoggedIn}
                                         />
                                     );
                                 } else if (mainTab === "upvotes" || mainTab === "downvotes") {
@@ -466,6 +467,7 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                             review={item}
                                             type={getReviewType(item)}
                                             variant={mainTab === "upvotes" ? "upvote" : "downvote"}
+                                            userLoggedIn={userLoggedIn}
                                         />
                                     );
                                 }
