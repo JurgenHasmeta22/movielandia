@@ -6,6 +6,10 @@ import Link from "next/link";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { formatDistanceToNow } from "date-fns";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ReviewItemProfileProps {
     review: any;
@@ -58,6 +62,10 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
 
     if (!contentReview) return null;
 
+    const modules = {
+        toolbar: false, // Disable toolbar for read-only mode
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -93,9 +101,27 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                         </Link>
 
                         {/* Review Content */}
-                        <Typography variant="body1" color="text.secondary">
-                            {contentReview.content}
-                        </Typography>
+                        <Box sx={{ 
+                            "& .quill": { 
+                                border: "none",
+                                "& .ql-container": {
+                                    border: "none",
+                                },
+                                "& .ql-editor": {
+                                    padding: 0,
+                                    "& p": {
+                                        color: "text.secondary",
+                                    },
+                                },
+                            },
+                        }}>
+                            <ReactQuill
+                                value={contentReview.content}
+                                readOnly={true}
+                                modules={modules}
+                                theme="snow"
+                            />
+                        </Box>
 
                         {/* Rating and Stats */}
                         <Stack direction="row" spacing={2} alignItems="center">
