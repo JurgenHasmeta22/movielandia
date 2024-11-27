@@ -20,41 +20,40 @@ interface ReviewItemProfileProps {
 export default function ReviewItemProfile({ review, type, variant }: ReviewItemProfileProps) {
     // Helper function to get the content title and link
     const getContentInfo = () => {
-        console.log('Review data:', review);
-        console.log('Type:', type);
-        console.log('Variant:', variant);
-
         switch (type) {
             case "movie":
-                if (!review?.movieReview?.movie) {
-                    console.log('Missing movie data:', review);
+                if (!review?.movie) {
                     return { title: "", link: "", review: null };
                 }
+
                 return {
-                    title: review.movieReview.movie.title,
-                    link: `/movies/${review.movieReview.movie.id}/${review.movieReview.movie.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`,
-                    review: review.movieReview,
+                    title: review.movie.title,
+                    link: `/movies/${review.movie.id}/${review.movie.title.toLowerCase().replace(/\s+/g, "-")}`,
+                    review: review,
                 };
             case "serie":
+                if (!review?.serie) {
+                    return { title: "", link: "", review: null };
+                }
+
                 return {
-                    title: review.serieReview.serie.title,
-                    link: `/series/${review.serieReview.serie.id}/${review.serieReview.serie.title
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`,
-                    review: review.serieReview,
+                    title: review.serie.title,
+                    link: `/series/${review.serie.id}/${review.serie.title.toLowerCase().replace(/\s+/g, "-")}`,
+                    review: review,
                 };
             case "season": {
-                const seasonReview = review.seasonReview;
-                const season = seasonReview.season;
-                const serie = seasonReview.serie || season.serie;
+                if (!review?.season) {
+                    return { title: "", link: "", review: null };
+                }
+
+                const season = review.season;
+                const serie = review.serie || season.serie;
 
                 if (!serie) {
                     return {
                         title: season.title,
                         link: `/seasons/${season.id}/${season.title.toLowerCase().replace(/\s+/g, "-")}`,
-                        review: seasonReview,
+                        review: review,
                     };
                 }
 
@@ -63,20 +62,23 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                     link: `/series/${serie.id}/${serie.title.toLowerCase().replace(/\s+/g, "-")}/seasons/${
                         season.id
                     }/${season.title.toLowerCase().replace(/\s+/g, "-")}`,
-                    review: seasonReview,
+                    review: review,
                 };
             }
             case "episode": {
-                const episodeReview = review.episodeReview;
-                const episode = episodeReview.episode;
-                const season = episodeReview.season || episode.season;
-                const serie = episodeReview.serie || season?.serie;
+                if (!review?.episode) {
+                    return { title: "", link: "", review: null };
+                }
+
+                const episode = review.episode;
+                const season = review.season || episode.season;
+                const serie = review.serie || season?.serie;
 
                 if (!season || !serie) {
                     return {
                         title: episode.title,
                         link: `/episodes/${episode.id}/${episode.title.toLowerCase().replace(/\s+/g, "-")}`,
-                        review: episodeReview,
+                        review: review,
                     };
                 }
 
@@ -87,7 +89,7 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                     }/${season.title.toLowerCase().replace(/\s+/g, "-")}/episodes/${
                         episode.id
                     }/${episode.title.toLowerCase().replace(/\s+/g, "-")}`,
-                    review: episodeReview,
+                    review: review,
                 };
             }
             default:
@@ -178,7 +180,7 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                     {contentReview.rating.toFixed(1)}/10
                                 </Typography>
                             </Box>
-                            <Box
+                            {/* <Box
                                 sx={{
                                     display: "flex",
                                     alignItems: "center",
@@ -206,12 +208,12 @@ export default function ReviewItemProfile({ review, type, variant }: ReviewItemP
                                 <Typography variant="body2" color="text.secondary">
                                     {contentReview._count?.downvotes || 0}
                                 </Typography>
-                            </Box>
+                            </Box> */}
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.secondary" }}>
                             <Avatar
-                                src={contentReview.user.avatar?.photoSrc || "/default-avatar.jpg"}
-                                alt={contentReview.user.userName}
+                                src={contentReview.user?.avatar?.photoSrc || "/default-avatar.jpg"}
+                                alt={contentReview.user?.userName || "User"}
                                 sx={{ width: 24, height: 24 }}
                             />
                             <Typography variant="body2">

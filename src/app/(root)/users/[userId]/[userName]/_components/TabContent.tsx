@@ -23,10 +23,6 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
         const mainTab = searchParams?.get("maintab") || "bookmarks";
         let content = [];
 
-        console.log("Current tab:", mainTab);
-        console.log("Current type:", type);
-        console.log("Raw user data:", userInPage);
-
         if (mainTab === "bookmarks") {
             switch (type.toLowerCase()) {
                 case "movies":
@@ -77,195 +73,275 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
             const isSubTabUpvotes = mainTab === "upvotes";
             const isSubTabDownvotes = mainTab === "downvotes";
             // Fix the type processing to handle "X Reviews" format
-            const reviewType = type.toLowerCase()
-                .replace(/\s*reviews\s*/g, "")  // Remove "reviews" with any surrounding spaces
-                .replace(/s$/, "");             // Remove trailing 's'
-
-            console.log("Processed review type:", reviewType);
-            console.log("Is upvotes?", isSubTabUpvotes);
-            console.log("Is downvotes?", isSubTabDownvotes);
+            const reviewType = type
+                .toLowerCase()
+                .replace(/\s*reviews\s*/g, "") // Remove "reviews" with any surrounding spaces
+                .replace(/s$/, ""); // Remove trailing 's'
 
             if (isSubTabUpvotes) {
                 const upvotedContent = userInPage[`${reviewType}ReviewsUpvoted`];
-                console.log(`${reviewType}ReviewsUpvoted content:`, upvotedContent);
             }
+
             if (isSubTabDownvotes) {
                 const downvotedContent = userInPage[`${reviewType}ReviewsDownvoted`];
-                console.log(`${reviewType}ReviewsDownvoted content:`, downvotedContent);
             }
 
             switch (reviewType) {
                 case "movie": {
                     const upvotedContent = userInPage.movieReviewsUpvoted || [];
                     const downvotedContent = userInPage.movieReviewsDownvoted || [];
-                    
+
                     content = isSubTabUpvotes
-                        ? upvotedContent.map((item: any) => {
-                            if (!item?.movieReview || !item?.movie) return null;
-                            return {
-                                movieReview: {
-                                    ...item.movieReview,
-                                    movie: item.movie,
-                                    _count: item.movieReview._count || { upvotes: 0, downvotes: 0 }
-                                }
-                            };
-                        }).filter(Boolean)
-                        : isSubTabDownvotes
-                          ? downvotedContent.map((item: any) => {
-                              if (!item?.movieReview || !item?.movie) return null;
-                              return {
-                                  movieReview: {
-                                      ...item.movieReview,
+                        ? upvotedContent
+                              .map((item: any) => {
+                                  if (!item?.movieReview || !item?.movie) return null;
+                                  return {
+                                      id: item.movieReviewId,
+                                      content: item.movieReview.content,
+                                      rating: item.movieReview.rating,
+                                      createdAt: item.movieReview.createdAt,
+                                      updatedAt: item.movieReview.updatedAt,
+                                      userId: item.movieReview.userId,
+                                      movieId: item.movieReview.movieId,
                                       movie: item.movie,
-                                      _count: item.movieReview._count || { upvotes: 0, downvotes: 0 }
-                                  }
-                              };
-                          }).filter(Boolean)
+                                      user: item.movieReview.user || item.user,
+                                      _count: item.movieReview._count || { upvotes: 0, downvotes: 0 },
+                                  };
+                              })
+                              .filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent
+                                .map((item: any) => {
+                                    if (!item?.movieReview || !item?.movie) return null;
+                                    return {
+                                        id: item.movieReviewId,
+                                        content: item.movieReview.content,
+                                        rating: item.movieReview.rating,
+                                        createdAt: item.movieReview.createdAt,
+                                        updatedAt: item.movieReview.updatedAt,
+                                        userId: item.movieReview.userId,
+                                        movieId: item.movieReview.movieId,
+                                        movie: item.movie,
+                                        user: item.movieReview.user || item.user,
+                                        _count: item.movieReview._count || { upvotes: 0, downvotes: 0 },
+                                    };
+                                })
+                                .filter(Boolean)
                           : [];
                     break;
                 }
                 case "serie": {
                     const upvotedContent = userInPage.serieReviewsUpvoted || [];
                     const downvotedContent = userInPage.serieReviewsDownvoted || [];
-                    
+
                     content = isSubTabUpvotes
-                        ? upvotedContent.map((item: any) => {
-                            if (!item?.serieReview || !item?.serie) return null;
-                            return {
-                                serieReview: {
-                                    ...item.serieReview,
-                                    serie: item.serie,
-                                    _count: item.serieReview._count || { upvotes: 0, downvotes: 0 }
-                                }
-                            };
-                        }).filter(Boolean)
-                        : isSubTabDownvotes
-                          ? downvotedContent.map((item: any) => {
-                              if (!item?.serieReview || !item?.serie) return null;
-                              return {
-                                  serieReview: {
-                                      ...item.serieReview,
+                        ? upvotedContent
+                              .map((item: any) => {
+                                  if (!item?.serieReview || !item?.serie) return null;
+                                  return {
+                                      id: item.serieReviewId,
+                                      content: item.serieReview.content,
+                                      rating: item.serieReview.rating,
+                                      createdAt: item.serieReview.createdAt,
+                                      updatedAt: item.serieReview.updatedAt,
+                                      userId: item.serieReview.userId,
+                                      serieId: item.serieReview.serieId,
                                       serie: item.serie,
-                                      _count: item.serieReview._count || { upvotes: 0, downvotes: 0 }
-                                  }
-                              };
-                          }).filter(Boolean)
+                                      user: item.serieReview.user || item.user,
+                                      _count: item.serieReview._count || { upvotes: 0, downvotes: 0 },
+                                  };
+                              })
+                              .filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent
+                                .map((item: any) => {
+                                    if (!item?.serieReview || !item?.serie) return null;
+                                    return {
+                                        id: item.serieReviewId,
+                                        content: item.serieReview.content,
+                                        rating: item.serieReview.rating,
+                                        createdAt: item.serieReview.createdAt,
+                                        updatedAt: item.serieReview.updatedAt,
+                                        userId: item.serieReview.userId,
+                                        serieId: item.serieReview.serieId,
+                                        serie: item.serie,
+                                        user: item.serieReview.user || item.user,
+                                        _count: item.serieReview._count || { upvotes: 0, downvotes: 0 },
+                                    };
+                                })
+                                .filter(Boolean)
                           : [];
                     break;
                 }
                 case "season": {
                     const upvotedContent = userInPage.seasonReviewsUpvoted || [];
                     const downvotedContent = userInPage.seasonReviewsDownvoted || [];
-                    
+
                     content = isSubTabUpvotes
-                        ? upvotedContent.map((item: any) => {
-                            if (!item?.seasonReview || !item?.season) return null;
-                            return {
-                                seasonReview: {
-                                    ...item.seasonReview,
-                                    season: item.season,
-                                    _count: item.seasonReview._count || { upvotes: 0, downvotes: 0 }
-                                }
-                            };
-                        }).filter(Boolean)
-                        : isSubTabDownvotes
-                          ? downvotedContent.map((item: any) => {
-                              if (!item?.seasonReview || !item?.season) return null;
-                              return {
-                                  seasonReview: {
-                                      ...item.seasonReview,
+                        ? upvotedContent
+                              .map((item: any) => {
+                                  if (!item?.seasonReview || !item?.season) return null;
+                                  return {
+                                      id: item.seasonReviewId,
+                                      content: item.seasonReview.content,
+                                      rating: item.seasonReview.rating,
+                                      createdAt: item.seasonReview.createdAt,
+                                      updatedAt: item.seasonReview.updatedAt,
+                                      userId: item.seasonReview.userId,
+                                      seasonId: item.seasonReview.seasonId,
                                       season: item.season,
-                                      _count: item.seasonReview._count || { upvotes: 0, downvotes: 0 }
-                                  }
-                              };
-                          }).filter(Boolean)
+                                      user: item.seasonReview.user || item.user,
+                                      _count: item.seasonReview._count || { upvotes: 0, downvotes: 0 },
+                                  };
+                              })
+                              .filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent
+                                .map((item: any) => {
+                                    if (!item?.seasonReview || !item?.season) return null;
+                                    return {
+                                        id: item.seasonReviewId,
+                                        content: item.seasonReview.content,
+                                        rating: item.seasonReview.rating,
+                                        createdAt: item.seasonReview.createdAt,
+                                        updatedAt: item.seasonReview.updatedAt,
+                                        userId: item.seasonReview.userId,
+                                        seasonId: item.seasonReview.seasonId,
+                                        season: item.season,
+                                        user: item.seasonReview.user || item.user,
+                                        _count: item.seasonReview._count || { upvotes: 0, downvotes: 0 },
+                                    };
+                                })
+                                .filter(Boolean)
                           : [];
                     break;
                 }
                 case "episode": {
                     const upvotedContent = userInPage.episodeReviewsUpvoted || [];
                     const downvotedContent = userInPage.episodeReviewsDownvoted || [];
-                    
+
                     content = isSubTabUpvotes
-                        ? upvotedContent.map((item: any) => {
-                            if (!item?.episodeReview || !item?.episode) return null;
-                            return {
-                                episodeReview: {
-                                    ...item.episodeReview,
-                                    episode: item.episode,
-                                    _count: item.episodeReview._count || { upvotes: 0, downvotes: 0 }
-                                }
-                            };
-                        }).filter(Boolean)
-                        : isSubTabDownvotes
-                          ? downvotedContent.map((item: any) => {
-                              if (!item?.episodeReview || !item?.episode) return null;
-                              return {
-                                  episodeReview: {
-                                      ...item.episodeReview,
+                        ? upvotedContent
+                              .map((item: any) => {
+                                  if (!item?.episodeReview || !item?.episode) return null;
+                                  return {
+                                      id: item.episodeReviewId,
+                                      content: item.episodeReview.content,
+                                      rating: item.episodeReview.rating,
+                                      createdAt: item.episodeReview.createdAt,
+                                      updatedAt: item.episodeReview.updatedAt,
+                                      userId: item.episodeReview.userId,
+                                      episodeId: item.episodeReview.episodeId,
                                       episode: item.episode,
-                                      _count: item.episodeReview._count || { upvotes: 0, downvotes: 0 }
-                                  }
-                              };
-                          }).filter(Boolean)
+                                      user: item.episodeReview.user || item.user,
+                                      _count: item.episodeReview._count || { upvotes: 0, downvotes: 0 },
+                                  };
+                              })
+                              .filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent
+                                .map((item: any) => {
+                                    if (!item?.episodeReview || !item?.episode) return null;
+                                    return {
+                                        id: item.episodeReviewId,
+                                        content: item.episodeReview.content,
+                                        rating: item.episodeReview.rating,
+                                        createdAt: item.episodeReview.createdAt,
+                                        updatedAt: item.episodeReview.updatedAt,
+                                        userId: item.episodeReview.userId,
+                                        episodeId: item.episodeReview.episodeId,
+                                        episode: item.episode,
+                                        user: item.episodeReview.user || item.user,
+                                        _count: item.episodeReview._count || { upvotes: 0, downvotes: 0 },
+                                    };
+                                })
+                                .filter(Boolean)
                           : [];
                     break;
                 }
                 case "actor": {
                     const upvotedContent = userInPage.actorReviewsUpvoted || [];
                     const downvotedContent = userInPage.actorReviewsDownvoted || [];
-                    
+
                     content = isSubTabUpvotes
-                        ? upvotedContent.map((item: any) => {
-                            if (!item?.actorReview || !item?.actor) return null;
-                            return {
-                                actorReview: {
-                                    ...item.actorReview,
-                                    actor: item.actor,
-                                    _count: item.actorReview._count || { upvotes: 0, downvotes: 0 }
-                                }
-                            };
-                        }).filter(Boolean)
-                        : isSubTabDownvotes
-                          ? downvotedContent.map((item: any) => {
-                              if (!item?.actorReview || !item?.actor) return null;
-                              return {
-                                  actorReview: {
-                                      ...item.actorReview,
+                        ? upvotedContent
+                              .map((item: any) => {
+                                  if (!item?.actorReview || !item?.actor) return null;
+                                  return {
+                                      id: item.actorReviewId,
+                                      content: item.actorReview.content,
+                                      rating: item.actorReview.rating,
+                                      createdAt: item.actorReview.createdAt,
+                                      updatedAt: item.actorReview.updatedAt,
+                                      userId: item.actorReview.userId,
+                                      actorId: item.actorReview.actorId,
                                       actor: item.actor,
-                                      _count: item.actorReview._count || { upvotes: 0, downvotes: 0 }
-                                  }
-                              };
-                          }).filter(Boolean)
+                                      user: item.actorReview.user || item.user,
+                                      _count: item.actorReview._count || { upvotes: 0, downvotes: 0 },
+                                  };
+                              })
+                              .filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent
+                                .map((item: any) => {
+                                    if (!item?.actorReview || !item?.actor) return null;
+                                    return {
+                                        id: item.actorReviewId,
+                                        content: item.actorReview.content,
+                                        rating: item.actorReview.rating,
+                                        createdAt: item.actorReview.createdAt,
+                                        updatedAt: item.actorReview.updatedAt,
+                                        userId: item.actorReview.userId,
+                                        actorId: item.actorReview.actorId,
+                                        actor: item.actor,
+                                        user: item.actorReview.user || item.user,
+                                        _count: item.actorReview._count || { upvotes: 0, downvotes: 0 },
+                                    };
+                                })
+                                .filter(Boolean)
                           : [];
                     break;
                 }
                 case "crew": {
                     const upvotedContent = userInPage.crewReviewsUpvoted || [];
                     const downvotedContent = userInPage.crewReviewsDownvoted || [];
-                    
+
                     content = isSubTabUpvotes
-                        ? upvotedContent.map((item: any) => {
-                            if (!item?.crewReview || !item?.crew) return null;
-                            return {
-                                crewReview: {
-                                    ...item.crewReview,
-                                    crew: item.crew,
-                                    _count: item.crewReview._count || { upvotes: 0, downvotes: 0 }
-                                }
-                            };
-                        }).filter(Boolean)
-                        : isSubTabDownvotes
-                          ? downvotedContent.map((item: any) => {
-                              if (!item?.crewReview || !item?.crew) return null;
-                              return {
-                                  crewReview: {
-                                      ...item.crewReview,
+                        ? upvotedContent
+                              .map((item: any) => {
+                                  if (!item?.crewReview || !item?.crew) return null;
+                                  return {
+                                      id: item.crewReviewId,
+                                      content: item.crewReview.content,
+                                      rating: item.crewReview.rating,
+                                      createdAt: item.crewReview.createdAt,
+                                      updatedAt: item.crewReview.updatedAt,
+                                      userId: item.crewReview.userId,
+                                      crewId: item.crewReview.crewId,
                                       crew: item.crew,
-                                      _count: item.crewReview._count || { upvotes: 0, downvotes: 0 }
-                                  }
-                              };
-                          }).filter(Boolean)
+                                      user: item.crewReview.user || item.user,
+                                      _count: item.crewReview._count || { upvotes: 0, downvotes: 0 },
+                                  };
+                              })
+                              .filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent
+                                .map((item: any) => {
+                                    if (!item?.crewReview || !item?.crew) return null;
+                                    return {
+                                        id: item.crewReviewId,
+                                        content: item.crewReview.content,
+                                        rating: item.crewReview.rating,
+                                        createdAt: item.crewReview.createdAt,
+                                        updatedAt: item.crewReview.updatedAt,
+                                        userId: item.crewReview.userId,
+                                        crewId: item.crewReview.crewId,
+                                        crew: item.crew,
+                                        user: item.crewReview.user || item.user,
+                                        _count: item.crewReview._count || { upvotes: 0, downvotes: 0 },
+                                    };
+                                })
+                                .filter(Boolean)
                           : [];
                     break;
                 }
@@ -274,7 +350,6 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
             }
         }
 
-        console.log("Final content:", content);
         return content;
     };
 
