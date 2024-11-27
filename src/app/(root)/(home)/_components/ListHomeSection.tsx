@@ -8,8 +8,8 @@ import NextLink from "next/link";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IListHomeSectionProps {
-    data: Array<Movie | Serie | Genre>;
-    type: "genre" | "movie" | "serie";
+    data: Array<Movie | Serie>;
+    type: "movie" | "serie";
     link: string;
     linkText: string;
     path?: "movies" | "actors" | "crew" | null;
@@ -20,8 +20,6 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
 
     const getSectionTitle = () => {
         switch (type) {
-            case "genre":
-                return "Trending Genres";
             case "movie":
                 return "Trending Movies";
             case "serie":
@@ -139,10 +137,6 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                     }}
                 >
                     {data?.map((item, index) => {
-                        if (type === "genre") {
-                            return <GenreItem key={index} genre={item as Genre} />;
-                        }
-
                         const cardData = transformItemToCardData(item);
 
                         if (!cardData) {

@@ -14,9 +14,10 @@ import {
     Checkbox,
     FormControlLabel,
     useTheme,
+    FormHelperText,
+    Link,
 } from "@mui/material";
 import { useState } from "react";
-import Link from "next/link";
 import { showToast } from "@/utils/helpers/toast";
 import { signUp } from "@/actions/auth.actions";
 import EmailIcon from "@mui/icons-material/Email";
@@ -28,6 +29,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GoogleIcon from "@mui/icons-material/Google";
 import { signIn } from "next-auth/react";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 const registerSchema = z
     .object({
@@ -104,7 +106,9 @@ export default function LoginForm() {
         try {
             await signUp(userData);
         } catch (error) {
-            if (error instanceof Error) {
+            if (isRedirectError(error)) {
+                throw error;
+            } else if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
                 showToast("error", "An unexpected error occurred while registering the user.");
@@ -114,7 +118,16 @@ export default function LoginForm() {
 
     return (
         <form onSubmit={handleSubmit(handleSubmitRegister)}>
-            <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: 2,
+                    maxWidth: "300px",
+                    margin: "0 auto",
+                    width: "100%",
+                }}
+            >
                 <Box
                     display={"flex"}
                     flexDirection="row"
@@ -129,7 +142,7 @@ export default function LoginForm() {
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <PersonIcon />
                             <FormLabel>Username</FormLabel>
@@ -148,14 +161,14 @@ export default function LoginForm() {
                                             whiteSpace: "normal",
                                             overflowWrap: "break-word",
                                             wordWrap: "break-word",
-                                            maxWidth: "200px",
+                                            maxWidth: "100%",
                                         },
                                     }}
                                 />
                             )}
                         />
                     </FormControl>
-                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <EmailIcon />
                             <FormLabel>Email</FormLabel>
@@ -174,14 +187,14 @@ export default function LoginForm() {
                                             whiteSpace: "normal",
                                             overflowWrap: "break-word",
                                             wordWrap: "break-word",
-                                            maxWidth: "200px",
+                                            maxWidth: "100%",
                                         },
                                     }}
                                 />
                             )}
                         />
                     </FormControl>
-                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <PasswordIcon />
                             <FormLabel>Password</FormLabel>
@@ -215,14 +228,14 @@ export default function LoginForm() {
                                             whiteSpace: "normal",
                                             overflowWrap: "break-word",
                                             wordWrap: "break-word",
-                                            maxWidth: "200px",
+                                            maxWidth: "100%",
                                         },
                                     }}
                                 />
                             )}
                         />
                     </FormControl>
-                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
                         <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
                             <PasswordIcon />
                             <FormLabel>Confirm Password</FormLabel>
@@ -256,53 +269,102 @@ export default function LoginForm() {
                                             whiteSpace: "normal",
                                             overflowWrap: "break-word",
                                             wordWrap: "break-word",
-                                            maxWidth: "200px",
+                                            maxWidth: "100%",
                                         },
                                     }}
                                 />
                             )}
                         />
                     </FormControl>
-                    <FormControl fullWidth variant="outlined" size="small" sx={{ rowGap: 1 }}>
+                    <FormControl variant="outlined" size="small">
                         <Controller
                             name="acceptTerms"
                             control={control}
                             render={({ field }) => (
-                                <>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={field.value}
-                                                onChange={(e) => field.onChange(e.target.checked)}
-                                                sx={{
-                                                    color: theme.vars.palette.primary.main,
-                                                    "&.Mui-checked": {
-                                                        color: theme.vars.palette.primary.main,
-                                                    },
-                                                }}
-                                            />
-                                        }
-                                        label={
-                                            <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                                                <Typography variant="body2">I agree to the</Typography>
-                                                <Link href="/terms" target="_blank">
-                                                    Terms of Service
-                                                </Link>
-                                                <Typography variant="body2">and</Typography>
-                                                <Link href="/privacy" target="_blank">
-                                                    Privacy Policy
-                                                </Link>
-                                            </Box>
-                                        }
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 1,
+                                    }}
+                                >
+                                    <Checkbox
+                                        {...field}
+                                        size="medium"
+                                        checked={field.value}
+                                        sx={{
+                                            p: 0.5,
+                                            mt: "-2px",
+                                        }}
                                     />
-                                    {errors.acceptTerms && (
-                                        <Typography variant="body2" sx={{ color: "error.main" }}>
-                                            {errors.acceptTerms.message}
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            flexWrap: "wrap",
+                                            gap: 0.5,
+                                            fontSize: "0.95rem",
+                                        }}
+                                    >
+                                        <Typography
+                                            component="span"
+                                            sx={{
+                                                fontSize: "inherit",
+                                                lineHeight: 1.5,
+                                                fontWeight: 500,
+                                                color: "text.primary",
+                                            }}
+                                        >
+                                            I agree to the
                                         </Typography>
-                                    )}
-                                </>
+                                        <Link
+                                            href="/terms"
+                                            target="_blank"
+                                            sx={{
+                                                textDecoration: "none",
+                                                color: "primary.main",
+                                                fontSize: "inherit",
+                                                lineHeight: 1.5,
+                                                "&:hover": {
+                                                    textDecoration: "underline",
+                                                },
+                                            }}
+                                        >
+                                            Terms of Service
+                                        </Link>
+                                        <Typography
+                                            component="span"
+                                            sx={{
+                                                fontSize: "inherit",
+                                                lineHeight: 1.5,
+                                            }}
+                                        >
+                                            and
+                                        </Typography>
+                                        <Link
+                                            href="/privacy"
+                                            target="_blank"
+                                            sx={{
+                                                textDecoration: "none",
+                                                color: "primary.main",
+                                                fontSize: "inherit",
+                                                lineHeight: 1.5,
+                                                "&:hover": {
+                                                    textDecoration: "underline",
+                                                },
+                                            }}
+                                        >
+                                            Privacy Policy
+                                        </Link>
+                                    </Box>
+                                </Box>
                             )}
                         />
+                        {errors.acceptTerms && (
+                            <FormHelperText error sx={{ mt: 0.5, ml: "32px" }}>
+                                {errors.acceptTerms.message}
+                            </FormHelperText>
+                        )}
                     </FormControl>
                 </Box>
                 <Box
@@ -311,17 +373,27 @@ export default function LoginForm() {
                     <Button
                         type="submit"
                         variant="outlined"
-                        sx={{ fontWeight: 600, py: 1, px: 4 }}
+                        fullWidth
                         disabled={isSubmitting}
+                        sx={{
+                            fontWeight: 600,
+                            py: 1,
+                            px: 4,
+                        }}
                     >
                         <LockOutlinedIcon />
                         <Typography
                             component={"span"}
-                            sx={{ paddingLeft: 1, fontSize: 16, textTransform: "capitalize" }}
+                            sx={{
+                                fontSize: 16,
+                                paddingLeft: 1,
+                                textTransform: "capitalize",
+                            }}
                         >
                             Sign Up
                         </Typography>
                     </Button>
+
                     <Box sx={{ display: "flex", alignItems: "center", width: "100%", my: 1 }}>
                         <Divider sx={{ flexGrow: 1 }} />
                         <Typography
@@ -338,6 +410,7 @@ export default function LoginForm() {
                         </Typography>
                         <Divider sx={{ flexGrow: 1 }} />
                     </Box>
+
                     <Button
                         onClick={() => signIn("google", { callbackUrl: "/" })}
                         variant="outlined"
@@ -346,19 +419,40 @@ export default function LoginForm() {
                         <GoogleIcon />
                         <Typography
                             component={"span"}
-                            sx={{ fontSize: 16, paddingLeft: 1, textTransform: "capitalize" }}
+                            sx={{
+                                fontSize: 16,
+                                paddingLeft: 1,
+                                textTransform: "capitalize",
+                            }}
                         >
                             Continue with Google
                         </Typography>
                     </Button>
-                </Box>
-                <Box sx={{ textAlign: "center" }}>
-                    <Typography component={"span"} sx={{ textTransform: "capitalize", fontSize: 12 }}>
-                        Already have an account?
+
+                    <Typography
+                        variant="body2"
+                        sx={{
+                            textAlign: "center",
+                            mt: 1,
+                            fontSize: 14,
+                        }}
+                    >
+                        Already have an account?{" "}
+                        <Link
+                            href="/login"
+                            sx={{
+                                textDecoration: "none",
+                                pl: 1,
+                                fontSize: 14,
+                                textTransform: "capitalize",
+                                "&:hover": {
+                                    textDecoration: "underline",
+                                },
+                            }}
+                        >
+                            Sign In
+                        </Link>
                     </Typography>
-                    <Link href="/login" style={{ textDecoration: "none", paddingLeft: 4, textTransform: "capitalize" }}>
-                        Sign In
-                    </Link>
                 </Box>
             </Box>
         </form>
