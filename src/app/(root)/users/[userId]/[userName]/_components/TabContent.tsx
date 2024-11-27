@@ -23,7 +23,10 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
         const mainTab = searchParams?.get("maintab") || "bookmarks";
         let content = [];
 
-        // Handle bookmarks
+        console.log("Current tab:", mainTab);
+        console.log("Current type:", type);
+        console.log("Raw user data:", userInPage);
+
         if (mainTab === "bookmarks") {
             switch (type.toLowerCase()) {
                 case "movies":
@@ -47,37 +50,7 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                 default:
                     content = [];
             }
-        } else {
-            // Handle upvotes and downvotes
-            const isUpvote = mainTab === "upvotes";
-            const reviewType = type.toLowerCase().replace(" reviews", "");
-
-            switch (reviewType) {
-                case "movie":
-                    content = isUpvote ? userInPage.movieReviewsUpvoted : userInPage.movieReviewsDownvoted;
-                    break;
-                case "serie":
-                    content = isUpvote ? userInPage.serieReviewsUpvoted : userInPage.serieReviewsDownvoted;
-                    break;
-                case "season":
-                    content = isUpvote ? userInPage.seasonReviewsUpvoted : userInPage.seasonReviewsDownvoted;
-                    break;
-                case "episode":
-                    content = isUpvote ? userInPage.episodeReviewsUpvoted : userInPage.episodeReviewsDownvoted;
-                    break;
-                case "actor":
-                    content = isUpvote ? userInPage.actorReviewsUpvoted : userInPage.actorReviewsDownvoted;
-                    break;
-                case "crew":
-                    content = isUpvote ? userInPage.crewReviewsUpvoted : userInPage.crewReviewsDownvoted;
-                    break;
-                default:
-                    content = [];
-            }
-        }
-
-        // Handle reviews tab
-        if (mainTab === "reviews") {
+        } else if (mainTab === "reviews") {
             switch (type.toLowerCase()) {
                 case "movies":
                     content = userInPage.movieReviews;
@@ -100,8 +73,208 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                 default:
                     content = [];
             }
+        } else {
+            const isSubTabUpvotes = mainTab === "upvotes";
+            const isSubTabDownvotes = mainTab === "downvotes";
+            // Fix the type processing to handle "X Reviews" format
+            const reviewType = type.toLowerCase()
+                .replace(/\s*reviews\s*/g, "")  // Remove "reviews" with any surrounding spaces
+                .replace(/s$/, "");             // Remove trailing 's'
+
+            console.log("Processed review type:", reviewType);
+            console.log("Is upvotes?", isSubTabUpvotes);
+            console.log("Is downvotes?", isSubTabDownvotes);
+
+            if (isSubTabUpvotes) {
+                const upvotedContent = userInPage[`${reviewType}ReviewsUpvoted`];
+                console.log(`${reviewType}ReviewsUpvoted content:`, upvotedContent);
+            }
+            if (isSubTabDownvotes) {
+                const downvotedContent = userInPage[`${reviewType}ReviewsDownvoted`];
+                console.log(`${reviewType}ReviewsDownvoted content:`, downvotedContent);
+            }
+
+            switch (reviewType) {
+                case "movie": {
+                    const upvotedContent = userInPage.movieReviewsUpvoted || [];
+                    const downvotedContent = userInPage.movieReviewsDownvoted || [];
+                    
+                    content = isSubTabUpvotes
+                        ? upvotedContent.map((item: any) => {
+                            if (!item?.movieReview || !item?.movie) return null;
+                            return {
+                                movieReview: {
+                                    ...item.movieReview,
+                                    movie: item.movie,
+                                    _count: item.movieReview._count || { upvotes: 0, downvotes: 0 }
+                                }
+                            };
+                        }).filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent.map((item: any) => {
+                              if (!item?.movieReview || !item?.movie) return null;
+                              return {
+                                  movieReview: {
+                                      ...item.movieReview,
+                                      movie: item.movie,
+                                      _count: item.movieReview._count || { upvotes: 0, downvotes: 0 }
+                                  }
+                              };
+                          }).filter(Boolean)
+                          : [];
+                    break;
+                }
+                case "serie": {
+                    const upvotedContent = userInPage.serieReviewsUpvoted || [];
+                    const downvotedContent = userInPage.serieReviewsDownvoted || [];
+                    
+                    content = isSubTabUpvotes
+                        ? upvotedContent.map((item: any) => {
+                            if (!item?.serieReview || !item?.serie) return null;
+                            return {
+                                serieReview: {
+                                    ...item.serieReview,
+                                    serie: item.serie,
+                                    _count: item.serieReview._count || { upvotes: 0, downvotes: 0 }
+                                }
+                            };
+                        }).filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent.map((item: any) => {
+                              if (!item?.serieReview || !item?.serie) return null;
+                              return {
+                                  serieReview: {
+                                      ...item.serieReview,
+                                      serie: item.serie,
+                                      _count: item.serieReview._count || { upvotes: 0, downvotes: 0 }
+                                  }
+                              };
+                          }).filter(Boolean)
+                          : [];
+                    break;
+                }
+                case "season": {
+                    const upvotedContent = userInPage.seasonReviewsUpvoted || [];
+                    const downvotedContent = userInPage.seasonReviewsDownvoted || [];
+                    
+                    content = isSubTabUpvotes
+                        ? upvotedContent.map((item: any) => {
+                            if (!item?.seasonReview || !item?.season) return null;
+                            return {
+                                seasonReview: {
+                                    ...item.seasonReview,
+                                    season: item.season,
+                                    _count: item.seasonReview._count || { upvotes: 0, downvotes: 0 }
+                                }
+                            };
+                        }).filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent.map((item: any) => {
+                              if (!item?.seasonReview || !item?.season) return null;
+                              return {
+                                  seasonReview: {
+                                      ...item.seasonReview,
+                                      season: item.season,
+                                      _count: item.seasonReview._count || { upvotes: 0, downvotes: 0 }
+                                  }
+                              };
+                          }).filter(Boolean)
+                          : [];
+                    break;
+                }
+                case "episode": {
+                    const upvotedContent = userInPage.episodeReviewsUpvoted || [];
+                    const downvotedContent = userInPage.episodeReviewsDownvoted || [];
+                    
+                    content = isSubTabUpvotes
+                        ? upvotedContent.map((item: any) => {
+                            if (!item?.episodeReview || !item?.episode) return null;
+                            return {
+                                episodeReview: {
+                                    ...item.episodeReview,
+                                    episode: item.episode,
+                                    _count: item.episodeReview._count || { upvotes: 0, downvotes: 0 }
+                                }
+                            };
+                        }).filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent.map((item: any) => {
+                              if (!item?.episodeReview || !item?.episode) return null;
+                              return {
+                                  episodeReview: {
+                                      ...item.episodeReview,
+                                      episode: item.episode,
+                                      _count: item.episodeReview._count || { upvotes: 0, downvotes: 0 }
+                                  }
+                              };
+                          }).filter(Boolean)
+                          : [];
+                    break;
+                }
+                case "actor": {
+                    const upvotedContent = userInPage.actorReviewsUpvoted || [];
+                    const downvotedContent = userInPage.actorReviewsDownvoted || [];
+                    
+                    content = isSubTabUpvotes
+                        ? upvotedContent.map((item: any) => {
+                            if (!item?.actorReview || !item?.actor) return null;
+                            return {
+                                actorReview: {
+                                    ...item.actorReview,
+                                    actor: item.actor,
+                                    _count: item.actorReview._count || { upvotes: 0, downvotes: 0 }
+                                }
+                            };
+                        }).filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent.map((item: any) => {
+                              if (!item?.actorReview || !item?.actor) return null;
+                              return {
+                                  actorReview: {
+                                      ...item.actorReview,
+                                      actor: item.actor,
+                                      _count: item.actorReview._count || { upvotes: 0, downvotes: 0 }
+                                  }
+                              };
+                          }).filter(Boolean)
+                          : [];
+                    break;
+                }
+                case "crew": {
+                    const upvotedContent = userInPage.crewReviewsUpvoted || [];
+                    const downvotedContent = userInPage.crewReviewsDownvoted || [];
+                    
+                    content = isSubTabUpvotes
+                        ? upvotedContent.map((item: any) => {
+                            if (!item?.crewReview || !item?.crew) return null;
+                            return {
+                                crewReview: {
+                                    ...item.crewReview,
+                                    crew: item.crew,
+                                    _count: item.crewReview._count || { upvotes: 0, downvotes: 0 }
+                                }
+                            };
+                        }).filter(Boolean)
+                        : isSubTabDownvotes
+                          ? downvotedContent.map((item: any) => {
+                              if (!item?.crewReview || !item?.crew) return null;
+                              return {
+                                  crewReview: {
+                                      ...item.crewReview,
+                                      crew: item.crew,
+                                      _count: item.crewReview._count || { upvotes: 0, downvotes: 0 }
+                                  }
+                              };
+                          }).filter(Boolean)
+                          : [];
+                    break;
+                }
+                default:
+                    content = [];
+            }
         }
 
+        console.log("Final content:", content);
         return content;
     };
 
@@ -113,6 +286,7 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
         current.set("page", value.toString());
+
         const search = current.toString();
         const query = search ? `?${search}` : "";
         router.push(`${window.location.pathname}${query}`);
@@ -123,68 +297,48 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
         if (item.serie || item.serieId) return "serie";
         if (item.season || item.seasonId) return "season";
         if (item.episode || item.episodeId) return "episode";
-        return "movie"; // fallback
+
+        return "movie";
     };
 
-    const getItemUrl = (favItem: any) => {
-        let urlPath;
-        let formattedTitle;
-        let id;
+    const formatTitle = (text: string) =>
+        text
+            .split("")
+            .map((char: string) => (char === " " ? "-" : char))
+            .join("");
 
+    const getItemUrl = (favItem: any) => {
         switch (type.toLowerCase()) {
             case "movies":
-                urlPath = "movies";
-                formattedTitle = favItem.movie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-                id = favItem.movie.id;
-                break;
+                return `/movies/${favItem.movie.id}/${formatTitle(favItem.movie.title)}`;
             case "series":
-                urlPath = "series";
-                formattedTitle = favItem.serie.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-                id = favItem.serie.id;
-                break;
+                return `/series/${favItem.serie.id}/${formatTitle(favItem.serie.title)}`;
             case "actors":
-                urlPath = "actors";
-                formattedTitle = favItem.actor.fullname
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-                id = favItem.actor.id;
-                break;
+                return `/actors/${favItem.actor.id}/${formatTitle(favItem.actor.fullname)}`;
             case "crew":
-                urlPath = "crew";
-                formattedTitle = favItem.crew.fullname
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-                id = favItem.crew.id;
-                break;
-            case "seasons":
-                urlPath = "seasons";
-                formattedTitle = favItem.season.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-                id = favItem.season.id;
-                break;
-            case "episodes":
-                urlPath = "episodes";
-                formattedTitle = favItem.episode.title
-                    .split("")
-                    .map((char: string) => (char === " " ? "-" : char))
-                    .join("");
-                id = favItem.episode.id;
-                break;
+                return `/crew/${favItem.crew.id}/${formatTitle(favItem.crew.fullname)}`;
+            case "seasons": {
+                const season = favItem.season;
+
+                if (!season?.serie) {
+                    return `/seasons/${season.id}/${formatTitle(season.title)}`;
+                }
+
+                return `/series/${season.serie.id}/${formatTitle(season.serie.title)}/seasons/${season.id}/${formatTitle(season.title)}`;
+            }
+            case "episodes": {
+                const episode = favItem.episode;
+                const season = episode.season;
+
+                if (!season?.serie) {
+                    return `/episodes/${episode.id}/${formatTitle(episode.title)}`;
+                }
+
+                return `/series/${season.serie.id}/${formatTitle(season.serie.title)}/seasons/${season.id}/${formatTitle(season.title)}/episodes/${episode.id}/${formatTitle(episode.title)}`;
+            }
             default:
                 return undefined;
         }
-
-        return `/${urlPath}/${id}/${formattedTitle}`;
     };
 
     return (
@@ -201,7 +355,7 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
                         gap: 2,
-                        minHeight: "200px", // Add minimum height to prevent layout shift
+                        minHeight: "200px",
                     }}
                 >
                     <AnimatePresence mode="wait">
@@ -210,20 +364,19 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                 const mainTab = searchParams?.get("maintab") || "bookmarks";
                                 if (mainTab === "reviews") {
                                     const reviewType = getReviewType(item);
-                                    // Properly format the review data
                                     const reviewItem = {
                                         [`${reviewType}Review`]: {
                                             ...item,
-                                            user: userInPage, // Add the user data
+                                            user: userInPage,
                                             movie: item.movie,
                                             serie: item.serie,
                                             season: item.season,
                                             episode: item.episode,
                                             _count: {
                                                 upvotes: item._count?.upvotes || 0,
-                                                downvotes: item._count?.downvotes || 0
-                                            }
-                                        }
+                                                downvotes: item._count?.downvotes || 0,
+                                            },
+                                        },
                                     };
                                     return (
                                         <ReviewItemProfile
@@ -255,7 +408,12 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                 );
                             })
                         ) : (
-                            <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ gridColumn: "1/-1", py: 4 }}>
+                            <Typography
+                                variant="body1"
+                                color="text.secondary"
+                                textAlign="center"
+                                sx={{ gridColumn: "1/-1", py: 4 }}
+                            >
                                 No items found
                             </Typography>
                         )}
@@ -272,32 +430,32 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                         showLastButton
                         disabled={totalItems === 0}
                         sx={{
-                            '& .MuiPaginationItem-root': {
-                                color: 'text.secondary',
+                            "& .MuiPaginationItem-root": {
+                                color: "text.secondary",
                                 borderRadius: 1,
-                                minWidth: '35px',
-                                height: '35px',
-                                '&:hover': {
-                                    backgroundColor: 'action.hover',
+                                minWidth: "35px",
+                                height: "35px",
+                                "&:hover": {
+                                    backgroundColor: "action.hover",
                                 },
                             },
-                            '& .Mui-selected': {
-                                backgroundColor: 'primary.main',
-                                color: 'white',
-                                '&:hover': {
-                                    backgroundColor: 'primary.main',
+                            "& .Mui-selected": {
+                                backgroundColor: "primary.main",
+                                color: "white",
+                                "&:hover": {
+                                    backgroundColor: "primary.main",
                                 },
                             },
-                            '& .MuiPaginationItem-firstLast': {
+                            "& .MuiPaginationItem-firstLast": {
                                 borderRadius: 1,
-                                '&:hover': {
-                                    backgroundColor: 'action.hover',
+                                "&:hover": {
+                                    backgroundColor: "action.hover",
                                 },
                             },
-                            '& .MuiPaginationItem-previousNext': {
+                            "& .MuiPaginationItem-previousNext": {
                                 borderRadius: 1,
-                                '&:hover': {
-                                    backgroundColor: 'action.hover',
+                                "&:hover": {
+                                    backgroundColor: "action.hover",
                                 },
                             },
                         }}
