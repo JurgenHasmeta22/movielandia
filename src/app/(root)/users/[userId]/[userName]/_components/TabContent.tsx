@@ -441,10 +441,14 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                     const reviewType = getReviewType(item);
                                     const reviewItem = {
                                         ...item,
-                                        [`${reviewType}`]: reviewType === "movie" ? item.movie : 
-                                                         reviewType === "serie" ? item.serie :
-                                                         reviewType === "season" ? item.season :
-                                                         item.episode,
+                                        [`${reviewType}`]:
+                                            reviewType === "movie"
+                                                ? item.movie
+                                                : reviewType === "serie"
+                                                  ? item.serie
+                                                  : reviewType === "season"
+                                                    ? item.season
+                                                    : item.episode,
                                         user: userInPage,
                                         _count: {
                                             upvotes: item._count?.upvotes || 0,
@@ -490,14 +494,10 @@ export default function TabContent({ type, userLoggedIn, userInPage }: ITabConte
                                     alignItems: "center",
                                     justifyContent: "center",
                                     py: { xs: 2, sm: 3 },
-                                    minHeight: "100px"
+                                    minHeight: "100px",
                                 }}
                             >
-                                <Typography
-                                    variant="body1"
-                                    color="text.secondary"
-                                    textAlign="center"
-                                >
+                                <Typography variant="body1" color="text.secondary" textAlign="center">
                                     No items found
                                 </Typography>
                             </Box>
