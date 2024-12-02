@@ -39,6 +39,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# instructions
+# AI prompts
 instructions.md
 prompt-codebase.md
+/docs
