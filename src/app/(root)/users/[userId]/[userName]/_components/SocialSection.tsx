@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Button, IconButton, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Box, Button, IconButton, Typography, Accordion, AccordionSummary, AccordionDetails, useTheme, Stack } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -36,6 +36,8 @@ interface SocialSectionProps {
 }
 
 export default function SocialSection({ userLoggedIn, userInPage }: SocialSectionProps) {
+    const theme = useTheme();
+
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(
         userInPage.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0,
     );
@@ -115,126 +117,128 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
     return (
         <Box>
             {/* Follow/Unfollow Button */}
-            {userLoggedIn && (
-                <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-                    {!userInPage.isFollowed ? (
-                        <Button
-                            variant="contained"
-                            onClick={handleFollowUser}
-                            startIcon={<PersonAddIcon />}
-                            sx={{
-                                bgcolor: "primary.main",
-                                color: "primary.contrastText",
-                                "&:hover": {
-                                    bgcolor: "primary.dark",
-                                },
-                                textTransform: "none",
-                                borderRadius: 2,
-                                px: 3,
-                                py: 1,
-                            }}
-                        >
-                            Follow
-                        </Button>
-                    ) : (
-                        <Button
-                            variant="outlined"
-                            onClick={handleUnfollowUser}
-                            startIcon={<PersonRemoveIcon />}
-                            sx={{
-                                borderColor: "error.main",
-                                color: "error.main",
-                                "&:hover": {
-                                    bgcolor: "error.main",
-                                    color: "error.contrastText",
-                                    borderColor: "error.main",
-                                },
-                                textTransform: "none",
-                                borderRadius: 2,
-                                px: 3,
-                                py: 1,
-                            }}
-                        >
-                            Unfollow
-                        </Button>
-                    )}
-                </Box>
-            )}
-
-            {/* Followers Accordion */}
-            {userLoggedIn?.id === userInPage.id && userInPage.followers.length > 0 && (
-                <Accordion
-                    expanded={followersExpanded}
-                    onChange={() => setFollowersExpanded(!followersExpanded)}
+            {userLoggedIn && userLoggedIn.id !== userInPage.id && (
+                <Button
+                    variant={userInPage.isFollowed ? "outlined" : "contained"}
+                    startIcon={userInPage.isFollowed ? <PersonRemoveIcon /> : <PersonAddIcon />}
+                    size="large"
+                    onClick={handleFollowAction}
                     sx={{
-                        bgcolor: "background.paper",
+                        minWidth: 140,
+                        height: 45,
+                        textTransform: "none",
                         borderRadius: 2,
-                        "&:before": { display: "none" },
-                        boxShadow: (theme) => theme.shadows[2],
+                        fontSize: "1rem",
+                        fontWeight: 500,
+                        boxShadow: 1,
+                        transition: "all 0.2s ease-in-out",
+                        ...(userInPage.isFollowed
+                            ? {
+                                  borderColor: "primary.light",
+                                  color: "primary.main",
+                                  borderWidth: 2,
+                                  bgcolor: "transparent",
+                                  "&:hover": {
+                                      bgcolor: "grey.200",
+                                      borderColor: "primary.main",
+                                      color: "primary.main",
+                                      transform: "translateY(-2px)",
+                                      boxShadow: 2,
+                                  },
+                              }
+                            : {
+                                  bgcolor: "primary.main",
+                                  "&:hover": {
+                                      bgcolor: "primary.600",
+                                      transform: "translateY(-2px)",
+                                      boxShadow: 3,
+                                  },
+                              }),
                     }}
                 >
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
+                    {userInPage.isFollowed ? "Following" : "Follow"}
+                </Button>
+            )}
+
+            {/* Only show pending follow requests accordion when viewing own profile */}
+            {userLoggedIn && userLoggedIn.id === userInPage.id && userInPage.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 && (
+                <Box sx={{ mt: 2 }}>
+                    <Accordion
+                        expanded={followersExpanded}
+                        onChange={() => setFollowersExpanded(!followersExpanded)}
                         sx={{
+                            bgcolor: "background.paper",
                             borderRadius: 2,
-                            "&:hover": { bgcolor: "action.hover" },
+                            boxShadow: 1,
+                            "& .MuiAccordionSummary-root": {
+                                borderRadius: 2,
+                            },
+                            "& .MuiAccordionDetails-root": {
+                                p: 2,
+                            },
                         }}
                     >
-                        <Typography>
-                            Followers Requests (
-                            {userInPage.followers.filter((userFollow: any) => userFollow.state === "pending").length})
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        {userInPage.followers
-                            .filter((userFollow: any) => userFollow.state === "pending")
-                            .map((userFollow: any) => (
-                                <Box
-                                    key={userFollow.follower.id}
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        p: 1,
-                                        mb: 1,
-                                        borderRadius: 1,
-                                        bgcolor: "action.hover",
-                                    }}
-                                >
-                                    <Typography>{userFollow.follower.userName}</Typography>
-                                    <Box>
-                                        <IconButton
-                                            onClick={() => handleAcceptFollow(userFollow.follower.id)}
-                                            color="success"
-                                            size="small"
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography variant="subtitle1" fontWeight={500}>
+                                Followers Requests ({userInPage.followers?.filter((userFollow: any) => userFollow.state === "pending").length})
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Stack spacing={2}>
+                                {userInPage.followers
+                                    ?.filter((userFollow: any) => userFollow.state === "pending")
+                                    .map((userFollow: any) => (
+                                        <Box
+                                            key={userFollow.follower.id}
                                             sx={{
-                                                mr: 1,
-                                                "&:hover": {
-                                                    bgcolor: "success.main",
-                                                    color: "success.contrastText",
-                                                },
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                p: 1.5,
+                                                borderRadius: 2,
+                                                bgcolor: "background.default",
+                                                boxShadow: 1,
                                             }}
                                         >
-                                            <CheckIcon />
-                                        </IconButton>
-                                        <IconButton
-                                            onClick={() => handleRefuseFollow(userFollow.follower.id)}
-                                            color="error"
-                                            size="small"
-                                            sx={{
-                                                "&:hover": {
-                                                    bgcolor: "error.main",
-                                                    color: "error.contrastText",
-                                                },
-                                            }}
-                                        >
-                                            <CloseIcon />
-                                        </IconButton>
-                                    </Box>
-                                </Box>
-                            ))}
-                    </AccordionDetails>
-                </Accordion>
+                                            <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                                                {userFollow.follower.userName}
+                                            </Typography>
+                                            <Box>
+                                                <IconButton
+                                                    onClick={() => handleAcceptFollow(userFollow.follower.id)}
+                                                    sx={{
+                                                        color: "success.main",
+                                                        "&:hover": {
+                                                            color: "success.dark",
+                                                            transform: "scale(1.1)",
+                                                        },
+                                                    }}
+                                                >
+                                                    <CheckIcon />
+                                                </IconButton>
+                                                <IconButton
+                                                    onClick={() => handleRefuseFollow(userFollow.follower.id)}
+                                                    sx={{
+                                                        color: "error.main",
+                                                        "&:hover": {
+                                                            color: "error.dark",
+                                                            transform: "scale(1.1)",
+                                                        },
+                                                    }}
+                                                >
+                                                    <CloseIcon />
+                                                </IconButton>
+                                            </Box>
+                                        </Box>
+                                    ))}
+                            </Stack>
+                        </AccordionDetails>
+                    </Accordion>
+                </Box>
             )}
         </Box>
     );
