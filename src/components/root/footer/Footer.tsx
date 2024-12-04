@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, IconButton, Stack, TextField, Button, useTheme, Container, Divider } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
@@ -16,10 +16,13 @@ import InfoIcon from "@mui/icons-material/Info";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { motion } from "framer-motion";
+import { subscribeNewsletter } from "@/actions/auth.actions";
+import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const FooterLink = ({ href, icon: Icon, text }: { href: string; icon: any; text: string }) => {
     const theme = useTheme();
+
     return (
         <Button
             component={MuiNextLink}
@@ -48,6 +51,7 @@ const FooterLink = ({ href, icon: Icon, text }: { href: string; icon: any; text:
 
 const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
     const theme = useTheme();
+
     return (
         <IconButton
             component={motion.button}
@@ -72,6 +76,20 @@ const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
+
+    const [email, setEmail] = useState("");
+
+    const handleSubscribe = async () => {
+        try {
+            await subscribeNewsletter({ email });
+            showToast("success", "Subscription successful! Check your email for confirmation.");
+        } catch (error) {
+            showToast(
+                "error",
+                "Subscription failed. Please make sure that this email is valid and is already registered in the MovieLandia24.",
+            );
+        }
+    };
 
     return (
         <Box
@@ -267,6 +285,7 @@ const Footer = (): React.JSX.Element => {
                                     <TextField
                                         variant="outlined"
                                         size="small"
+                                        onChange={(e) => setEmail(e.target.value)}
                                         placeholder="Enter your email"
                                         sx={{
                                             "& .MuiOutlinedInput-root": {
@@ -285,6 +304,7 @@ const Footer = (): React.JSX.Element => {
                                     />
                                     <Button
                                         variant="contained"
+                                        onClick={handleSubscribe}
                                         sx={{
                                             py: 1,
                                             color: theme.vars.palette.secondary.light,

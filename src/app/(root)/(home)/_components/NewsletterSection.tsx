@@ -2,9 +2,26 @@
 
 import { Box, Button, Container, TextField, Typography, useTheme } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { useState } from "react";
+import { subscribeNewsletter } from "../../../../actions/auth.actions";
+import { showToast } from "@/utils/helpers/toast";
 
 const NewsletterSection = () => {
     const theme = useTheme();
+
+    const [email, setEmail] = useState("");
+
+    const handleSubscribe = async () => {
+        try {
+            await subscribeNewsletter({ email });
+            showToast("success", "Subscription successful! Check your email for confirmation.");
+        } catch (error) {
+            showToast(
+                "error",
+                "Subscription failed. Please make sure that this email is valid and is already registered in the MovieLandia24.",
+            );
+        }
+    };
 
     return (
         <Box
@@ -18,7 +35,6 @@ const NewsletterSection = () => {
                 overflow: "hidden",
             }}
         >
-            {/* Background Pattern */}
             <Box
                 sx={{
                     position: "absolute",
@@ -63,7 +79,6 @@ const NewsletterSection = () => {
                             Stay Updated
                         </Typography>
                     </Box>
-
                     <Typography
                         variant="h2"
                         sx={{
@@ -79,7 +94,6 @@ const NewsletterSection = () => {
                     >
                         Subscribe to Our Newsletter
                     </Typography>
-
                     <Typography
                         variant="h3"
                         sx={{
@@ -93,7 +107,6 @@ const NewsletterSection = () => {
                         Get notified about new releases, exclusive content, and special events. Join our community of
                         movie enthusiasts!
                     </Typography>
-
                     <Box
                         component="form"
                         sx={{
@@ -109,6 +122,7 @@ const NewsletterSection = () => {
                             fullWidth
                             placeholder="Enter your email"
                             variant="outlined"
+                            onChange={(e) => setEmail(e.target.value)}
                             type="email"
                             sx={{
                                 "& .MuiOutlinedInput-root": {
@@ -120,6 +134,7 @@ const NewsletterSection = () => {
                         <Button
                             variant="contained"
                             size="large"
+                            onClick={handleSubscribe}
                             sx={{
                                 minWidth: { xs: "100%", sm: 180 },
                                 height: 56,
@@ -143,7 +158,6 @@ const NewsletterSection = () => {
                             Subscribe
                         </Button>
                     </Box>
-
                     <Typography
                         variant="caption"
                         sx={{
