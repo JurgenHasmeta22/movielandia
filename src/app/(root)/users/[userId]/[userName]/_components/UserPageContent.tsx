@@ -20,7 +20,6 @@ import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import PeopleIcon from "@mui/icons-material/People";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import DescriptionIcon from "@mui/icons-material/Description";
 import type {} from "@mui/material/themeCssVarsAugmentation";
@@ -479,6 +478,7 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                         "&:hover": {
                             boxShadow: (theme) => theme.shadows[3],
                         },
+                        mt: 0,
                     }}
                 >
                     <Tabs
@@ -490,6 +490,13 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                         sx={{
                             borderBottom: 2,
                             borderColor: "divider",
+                            "& .MuiTabs-flexContainer": {
+                                display: "flex",
+                                "& > button": {
+                                    flex: 1,
+                                    maxWidth: "none",
+                                },
+                            },
                             "& .MuiTab-root": {
                                 minHeight: 48,
                                 textTransform: "none",
@@ -497,8 +504,10 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                 transition: "all 0.2s",
                                 borderRight: "1px solid",
                                 borderColor: "divider",
-                                px: { xs: 2, sm: 3 },
-                                py: 1.5,
+                                px: { xs: 1, sm: 2 },
+                                py: 1,
+                                margin: 0,
+                                minWidth: 0,
                                 "&:hover": {
                                     bgcolor: "action.hover",
                                     color: "primary.main",
@@ -529,24 +538,11 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                 label={tab.label}
                                 iconPosition="start"
                                 sx={{
-                                    gap: 1,
+                                    gap: 0.5,
                                 }}
                             />
                         ))}
                     </Tabs>
-                </Paper>
-            )}
-            {/* Sub Tabs */}
-            {canViewProfile && (
-                <Paper
-                    elevation={1}
-                    sx={{
-                        borderRadius: 2,
-                        overflow: "hidden",
-                        bgcolor: "background.paper",
-                        mb: { xs: 1, sm: 1.5 },
-                    }}
-                >
                     <Tabs
                         value={currentSubTab}
                         onChange={handleSubTabChange}
@@ -557,12 +553,21 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                             minHeight: 48,
                             borderBottom: 1,
                             borderColor: "divider",
+                            "& .MuiTabs-flexContainer": {
+                                display: "flex",
+                                "& > button": {
+                                    flex: 1,
+                                    maxWidth: "none",
+                                },
+                            },
                             "& .MuiTab-root": {
                                 minHeight: 48,
                                 textTransform: "none",
                                 fontSize: { xs: "0.875rem", sm: "0.875rem" },
-                                px: { xs: 2, sm: 3 },
+                                px: { xs: 1, sm: 2 },
                                 py: 1,
+                                margin: 0,
+                                minWidth: 0,
                                 transition: "all 0.2s",
                                 "&:hover": {
                                     bgcolor: "action.hover",
@@ -591,7 +596,7 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                 icon={getSubTabIcon(label)}
                                 iconPosition="start"
                                 sx={{
-                                    gap: 1,
+                                    gap: 0.5,
                                 }}
                             />
                         ))}
