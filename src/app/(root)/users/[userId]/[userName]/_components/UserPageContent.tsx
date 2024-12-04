@@ -1,7 +1,7 @@
 "use client";
 
 // #region "Imports"
-import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper, Button } from "@mui/material";
+import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper } from "@mui/material";
 import { useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,12 +20,9 @@ import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import EmailIcon from "@mui/icons-material/Email";
 import PeopleIcon from "@mui/icons-material/People";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import DescriptionIcon from "@mui/icons-material/Description";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import TabContent from "./TabContent";
 import SocialSection from "./SocialSection";
@@ -68,26 +65,25 @@ type TabConfig = {
     param: string;
 };
 
-type SubTabsConfig = {
-    [key: string]: string[];
-};
+// type SubTabsConfig = {
+//     [key: string]: string[];
+// };
 // #endregion
 
-export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: UserPageProps) {
+export default function UserPageContent({ userLoggedIn, userInPage }: UserPageProps) {
     // #region "State, hooks"
     const [bio, setBio] = useState<string>(userInPage.bio);
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
     const [userName, setUserName] = useState<string>(userInPage.userName);
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>(userInPage.email);
-    const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
+    // const [email, setEmail] = useState<string>(userInPage.email);
+    // const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
 
     const router = useRouter();
     const searchParams = useSearchParams();
     // #endregion
 
     // #region "Profile follow view logic"
-    // Check if the logged-in user can view the profile
     const canViewProfile = useMemo(() => {
         if (!userLoggedIn) return false;
         if (userLoggedIn.id === userInPage.id) return true;
@@ -96,7 +92,6 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
     // #endregion
 
     // #region "Tabs and Subtabs logic"
-    // Main tab options with their corresponding search param values
     const mainTabs = useMemo<TabConfig[]>(
         () => [
             { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
@@ -107,7 +102,6 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
         [],
     );
 
-    // Sub tab options based on main tab
     const subTabs: Record<string, string[]> = {
         bookmarks: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
         reviews: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
@@ -159,7 +153,6 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
 
         newSearchParams.set("maintab", mainTabValue);
         newSearchParams.set("subtab", cleanSubTabValue);
-
         router.push(`?${newSearchParams.toString()}`);
     };
 
@@ -185,9 +178,9 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
         setUserName(event.target.value);
     };
 
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    };
+    // const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setEmail(event.target.value);
+    // };
 
     const handleSaveEdit = async (
         field: "bio" | "userName" | "email",
@@ -289,7 +282,14 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                                     <IconButton
                                                         onClick={() => setIsUserNameEditing(true)}
                                                         size="small"
-                                                        sx={{ ml: 1 }}
+                                                        sx={{
+                                                            ml: 1,
+                                                            color: "text.secondary",
+                                                            "&:hover": {
+                                                                color: "primary.main",
+                                                                bgcolor: "primary.lighter",
+                                                            },
+                                                        }}
                                                     >
                                                         <EditIcon fontSize="small" />
                                                     </IconButton>
@@ -298,48 +298,10 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                         )}
                                     </Box>
                                 </Stack>
-                                {/* Follow Button */}
-                                {userLoggedIn && userLoggedIn.id !== userInPage.id && (
-                                    <Button
-                                        variant={userInPage.isFollowed ? "outlined" : "contained"}
-                                        startIcon={userInPage.isFollowed ? <PersonRemoveIcon /> : <PersonAddIcon />}
-                                        size="large"
-                                        sx={{
-                                            minWidth: 140,
-                                            height: 45,
-                                            textTransform: "none",
-                                            borderRadius: 2,
-                                            fontSize: "1rem",
-                                            fontWeight: 500,
-                                            boxShadow: 1,
-                                            ...(userInPage.isFollowed
-                                                ? {
-                                                      borderColor: "primary.main",
-                                                      color: "primary.main",
-                                                      borderWidth: 1.5,
-                                                      "&:hover": {
-                                                          backgroundColor: "primary.main",
-                                                          color: "primary.contrastText",
-                                                          borderColor: "primary.main",
-                                                          borderWidth: 1.5,
-                                                      },
-                                                  }
-                                                : {
-                                                      backgroundColor: "primary.main",
-                                                      "&:hover": {
-                                                          backgroundColor: "primary.dark",
-                                                          boxShadow: 2,
-                                                      },
-                                                  }),
-                                        }}
-                                    >
-                                        {userInPage.isFollowed ? "Following" : "Follow"}
-                                    </Button>
-                                )}
                             </Stack>
 
                             {/* Email Section */}
-                            <Stack direction="row" spacing={1} alignItems="center" sx={{ width: "100%" }}>
+                            {/* <Stack direction="row" spacing={1} alignItems="center" sx={{ width: "100%" }}>
                                 <EmailIcon sx={{ fontSize: 18, color: "text.secondary" }} />
                                 <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
                                     {isEmailEditing && userLoggedIn?.id === userInPage.id ? (
@@ -376,7 +338,14 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                                 <IconButton
                                                     onClick={() => setIsEmailEditing(true)}
                                                     size="small"
-                                                    sx={{ ml: 1 }}
+                                                    sx={{
+                                                        ml: 1,
+                                                        color: 'text.secondary',
+                                                        '&:hover': {
+                                                            color: 'primary.main',
+                                                            bgcolor: 'primary.lighter'
+                                                        }
+                                                    }}
                                                 >
                                                     <EditIcon fontSize="small" />
                                                 </IconButton>
@@ -384,7 +353,7 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                         </>
                                     )}
                                 </Box>
-                            </Stack>
+                            </Stack> */}
 
                             {/* Bio Section */}
                             <Stack direction="row" spacing={1} sx={{ width: "100%" }}>
@@ -439,7 +408,14 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                                 <IconButton
                                                     onClick={() => setIsBioEditing(true)}
                                                     size="small"
-                                                    sx={{ ml: 1 }}
+                                                    sx={{
+                                                        ml: 1,
+                                                        color: "text.secondary",
+                                                        "&:hover": {
+                                                            color: "primary.main",
+                                                            bgcolor: "primary.lighter",
+                                                        },
+                                                    }}
                                                 >
                                                     <EditIcon fontSize="small" />
                                                 </IconButton>
@@ -469,6 +445,16 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                                     <strong>Following:</strong>&nbsp;{userInPage.following?.length || 0}
                                 </Typography>
                             </Stack>
+
+                            {/* Social Section */}
+                            <SocialSection
+                                userLoggedIn={userLoggedIn}
+                                userInPage={{
+                                    ...userInPage,
+                                    followers: userInPage.followers || [],
+                                    following: userInPage.following || [],
+                                }}
+                            />
                         </Stack>
                     </Box>
                 </Stack>
@@ -633,7 +619,7 @@ export default function UserPageContent({ userLoggedIn, userInPage, tabValue }: 
                 </Paper>
             )}
 
-            {/* Content */}
+            {/* Tab Content */}
             {canViewProfile && (
                 <AnimatePresence mode="wait">
                     <motion.div
