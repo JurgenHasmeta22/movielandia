@@ -426,23 +426,16 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                             </Stack>
 
                             {/* Profile Stats - Always visible to everyone */}
-                            <Stack
-                                direction="row"
-                                spacing={3}
-                                sx={{
-                                    mt: 1,
-                                    pt: 2,
-                                    borderTop: 1,
-                                    borderColor: "divider",
-                                }}
-                            >
-                                <Typography variant="body2" sx={{ display: "flex", alignItems: "center" }}>
-                                    <PeopleIcon sx={{ fontSize: 18, mr: 0.5 }} />
-                                    <strong>Followers:</strong>&nbsp;{userInPage.followers?.length || 0}
+                            <Stack direction="row" spacing={4} sx={{ mt: 2 }}>
+                                <Typography variant="body1" color="text.secondary">
+                                    <strong>Followers:</strong>&nbsp;
+                                    {userInPage.followers?.filter((follow: any) => follow.state === "accepted")
+                                        .length || 0}
                                 </Typography>
-                                <Typography variant="body2" sx={{ display: "flex", alignItems: "center" }}>
-                                    <PersonIcon sx={{ fontSize: 18, mr: 0.5 }} />
-                                    <strong>Following:</strong>&nbsp;{userInPage.following?.length || 0}
+                                <Typography variant="body1" color="text.secondary">
+                                    <strong>Following:</strong>&nbsp;
+                                    {userInPage.following?.filter((follow: any) => follow.state === "accepted")
+                                        .length || 0}
                                 </Typography>
                             </Stack>
 
