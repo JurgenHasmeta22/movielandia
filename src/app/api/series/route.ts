@@ -13,7 +13,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     try {
         const searchParams = request.nextUrl.searchParams;
         const userId = searchParams.get("userId") ? Number(searchParams.get("userId")) : undefined;
-        
+
         const filters: any = {};
         const orderByObject: any = {};
 
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
         const filterValue = searchParams.get("filterValue") ? Number(searchParams.get("filterValue")) : undefined;
         const filterNameString = searchParams.get("filterNameString") || undefined;
-        const filterOperatorString = searchParams.get("filterOperatorString") as ">" | "<" | "=" || undefined;
+        const filterOperatorString = (searchParams.get("filterOperatorString") as ">" | "<" | "=") || undefined;
 
         if (filterValue !== undefined && filterNameString && filterOperatorString) {
             const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         }
 
         const sortBy = searchParams.get("sortBy") || undefined;
-        const ascOrDesc = searchParams.get("ascOrDesc") as "asc" | "desc" || undefined;
+        const ascOrDesc = (searchParams.get("ascOrDesc") as "asc" | "desc") || undefined;
         if (sortBy && ascOrDesc) {
             orderByObject[sortBy] = ascOrDesc;
         }
@@ -98,20 +98,16 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         const count = await prisma.serie.count();
 
         if (seriesFinal) {
-            return NextResponse.json({ 
-                rows: seriesFinal, 
-                count 
+            return NextResponse.json({
+                rows: seriesFinal,
+                count,
             });
         }
-        
-        return NextResponse.json(null);
 
+        return NextResponse.json(null);
     } catch (error) {
         console.error("Error fetching series:", error);
-        
-        return NextResponse.json(
-            { error: "Failed to fetch series" },
-            { status: 500 }
-        );
+
+        return NextResponse.json({ error: "Failed to fetch series" }, { status: 500 });
     }
 }
