@@ -19,6 +19,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { follow, unfollow, acceptFollowRequest, refuseFollowRequest } from "@/actions/user.actions";
 import { showToast } from "@/utils/helpers/toast";
+import { useRouter } from "next/navigation";
 
 interface SocialSectionProps {
     userLoggedIn: {
@@ -47,9 +48,10 @@ interface SocialSectionProps {
 
 export default function SocialSection({ userLoggedIn, userInPage }: SocialSectionProps) {
     const theme = useTheme();
+    const router = useRouter();
 
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(
-        userInPage.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0,
+        userInPage.followers?.filter((follow: any) => follow.state === "pending").length > 0,
     );
 
     const handleFollowUser = async () => {
@@ -83,6 +85,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
             await acceptFollowRequest(followerId, Number(userLoggedIn.id));
             showToast("success", "Follow request accepted!");
             setFollowersExpanded(false);
+            router.refresh();
         } catch (error: any) {
             console.error(`Error accepting follow request: ${error.message}`);
             showToast("error", error.message || "Error accepting follow request");
@@ -96,6 +99,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
             await refuseFollowRequest(followerId, Number(userLoggedIn.id));
             showToast("success", "Follow request refused!");
             setFollowersExpanded(false);
+            router.refresh();
         } catch (error: any) {
             console.error(`Error refusing follow request: ${error.message}`);
             showToast("error", error.message || "Error refusing follow request");
@@ -110,14 +114,24 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
         }
     };
 
-    const getButtonText = () => {
-        if (!userInPage.isFollowed) {
-            return "Follow";
-        } else if (userInPage.isFollowedStatus === "pending") {
-            return "Requested";
-        } else {
-            return "Unfollow";
+    const getFollowButtonText = () => {
+        if (userInPage.isFollowed) {
+            if (userInPage.isFollowedStatus === "pending") {
+                return "Requested";
+            }
+
+            return "Following";
         }
+
+        return "Follow";
+    };
+
+    const getFollowButtonIcon = () => {
+        if (userInPage.isFollowed) {
+            return <PersonRemoveIcon />;
+        }
+
+        return <PersonAddIcon />;
     };
 
     return (
@@ -126,7 +140,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
             {userLoggedIn && userLoggedIn.id !== userInPage.id && (
                 <Button
                     variant={userInPage.isFollowed ? "outlined" : "contained"}
-                    startIcon={userInPage.isFollowed ? <PersonRemoveIcon /> : <PersonAddIcon />}
+                    startIcon={getFollowButtonIcon()}
                     size="large"
                     onClick={handleFollowAction}
                     sx={{
@@ -162,14 +176,14 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                               }),
                     }}
                 >
-                    {userInPage.isFollowed ? "Following" : "Follow"}
+                    {getFollowButtonText()}
                 </Button>
             )}
 
             {/* Only show pending follow requests accordion when viewing own profile */}
             {userLoggedIn &&
                 userLoggedIn.id === userInPage.id &&
-                userInPage.followers?.filter((userFollow: any) => userFollow.state === "pending").length > 0 && (
+                userInPage.followers?.filter((follow: any) => follow.state === "pending").length > 0 && (
                     <Box sx={{ mt: 2, maxWidth: "300px" }}>
                         <Accordion
                             expanded={followersExpanded}
@@ -194,21 +208,16 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                             >
                                 <Typography variant="subtitle1" fontWeight={500}>
                                     Followers Requests (
-                                    {
-                                        userInPage.followers?.filter(
-                                            (userFollow: any) => userFollow.state === "pending",
-                                        ).length
-                                    }
-                                    )
+                                    {userInPage.followers?.filter((follow: any) => follow.state === "pending").length})
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Stack spacing={2}>
                                     {userInPage.followers
-                                        ?.filter((userFollow: any) => userFollow.state === "pending")
-                                        .map((userFollow: any) => (
+                                        ?.filter((follow: any) => follow.state === "pending")
+                                        .map((follow: any) => (
                                             <Box
-                                                key={userFollow.follower.id}
+                                                key={follow.follower.id}
                                                 sx={{
                                                     display: "flex",
                                                     alignItems: "center",
@@ -220,11 +229,11 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                                                 }}
                                             >
                                                 <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                                                    {userFollow.follower.userName}
+                                                    {follow.follower.userName}
                                                 </Typography>
                                                 <Box>
                                                     <IconButton
-                                                        onClick={() => handleAcceptFollow(userFollow.follower.id)}
+                                                        onClick={() => handleAcceptFollow(follow.follower.id)}
                                                         sx={{
                                                             color: "success.main",
                                                             "&:hover": {
@@ -236,7 +245,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                                                         <CheckIcon />
                                                     </IconButton>
                                                     <IconButton
-                                                        onClick={() => handleRefuseFollow(userFollow.follower.id)}
+                                                        onClick={() => handleRefuseFollow(follow.follower.id)}
                                                         sx={{
                                                             color: "error.main",
                                                             "&:hover": {
