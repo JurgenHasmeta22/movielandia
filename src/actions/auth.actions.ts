@@ -107,7 +107,7 @@ export async function resetPassword(userData: IResetPassword): Promise<any> {
     }
 }
 
-export async function subscribeNewsletter(userData: INewsletterSubscribe): Promise<void> {
+export async function subscribeNewsletter(userData: INewsletterSubscribe): Promise<string> {
     try {
         const { email } = userData;
 
@@ -116,11 +116,11 @@ export async function subscribeNewsletter(userData: INewsletterSubscribe): Promi
         });
 
         if (!user) {
-            throw new Error("Email does not exist. Please ensure you have entered the correct email.");
+            return "Email does not exist. Please ensure you have entered the correct email.";
         }
 
         if (user.subscribed) {
-            throw new Error("You are already subscribed to the newsletter.");
+            return "You are already subscribed to the newsletter.";
         }
 
         await prisma.user.update({
@@ -134,11 +134,9 @@ export async function subscribeNewsletter(userData: INewsletterSubscribe): Promi
             subject: "MovieLandia24 Newsletter!",
             react: NewsletterEmail({ userName: user.userName }),
         });
+
+        return "Subscription successful! Check your email for confirmation.";
     } catch (error) {
-        if (isRedirectError(error)) {
-            throw error;
-        } else {
-            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-        }
+        return error instanceof Error ? error.message : "An unexpected error occurred.";
     }
 }

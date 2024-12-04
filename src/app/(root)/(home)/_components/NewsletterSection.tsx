@@ -13,8 +13,9 @@ const NewsletterSection = () => {
 
     const handleSubscribe = async () => {
         try {
-            await subscribeNewsletter({ email });
-            showToast("success", "Subscription successful! Check your email for confirmation.");
+            const message = await subscribeNewsletter({ email });
+            const messageType = message.includes("successful") ? "success" : "error";
+            showToast(messageType, message);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred.";
             showToast("error", errorMessage);
