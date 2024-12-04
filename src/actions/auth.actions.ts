@@ -9,6 +9,7 @@ import { randomUUID } from "crypto";
 import { Resend } from "resend";
 import RegistrationEmail from "../../emails/RegistrationEmail";
 import ResetPasswordEmail from "../../emails/ResetPasswordEmail";
+import NewsletterEmail from "../../emails/NewsletterEmail";
 
 interface IRegister {
     email: string;
@@ -17,6 +18,10 @@ interface IRegister {
 }
 
 interface IResetPassword {
+    email: string;
+}
+
+interface INewsletterSubscribe {
     email: string;
 }
 
@@ -93,6 +98,32 @@ export async function resetPassword(userData: IResetPassword): Promise<any> {
         });
 
         redirect(`/reset-password-verification-sent?email=${encodeURIComponent(email)}`);
+    } catch (error) {
+        if (isRedirectError(error)) {
+            throw error;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        }
+    }
+}
+
+export async function subscribeNewsletter(userData: INewsletterSubscribe): Promise<void> {
+    try {
+        const { email } = userData;
+
+        const user = await prisma.user.update({
+            where: { email },
+            data: { subscribed: true },
+        });
+
+        if (user) {
+            await resend.emails.send({
+                from: "MovieLandia24 <onboarding@resend.dev>",
+                to: email,
+                subject: "MovieLandia24 Newsletter!",
+                react: NewsletterEmail({ userName: user.userName }),
+            });
+        }
     } catch (error) {
         if (isRedirectError(error)) {
             throw error;

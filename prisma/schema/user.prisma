@@ -7,6 +7,7 @@ model User {
   bio                     String                  @default("")
   active                  Boolean                 @default(false)
   canResetPassword        Boolean                 @default(false)
+  subscribed              Boolean                 @default(false)
   resetPassowrdTokens     ResetPasswordToken[]
   activateTokens          ActivateToken[]
   favMovies               UserMovieFavorite[]
