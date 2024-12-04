@@ -151,7 +151,6 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                         fontSize: "1rem",
                         fontWeight: 500,
                         boxShadow: 1,
-                        transition: "all 0.2s ease-in-out",
                         ...(userInPage.isFollowed
                             ? {
                                   borderColor: theme.vars.palette.primary.light,
@@ -159,18 +158,16 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                                   borderWidth: 2,
                                   bgcolor: "transparent",
                                   "&:hover": {
-                                      bgcolor: theme.vars.palette.action.hover,
+                                      bgcolor: theme.vars.palette.primary.light,
                                       borderColor: theme.vars.palette.primary.main,
                                       color: theme.vars.palette.primary.main,
-                                      transform: "translateY(-2px)",
                                       boxShadow: 2,
                                   },
                               }
                             : {
                                   bgcolor: theme.vars.palette.primary.main,
                                   "&:hover": {
-                                      bgcolor: theme.vars.palette.primary.dark,
-                                      transform: "translateY(-2px)",
+                                      bgcolor: theme.vars.palette.primary.light,
                                       boxShadow: 3,
                                   },
                               }),

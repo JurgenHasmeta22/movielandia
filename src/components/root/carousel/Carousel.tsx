@@ -228,33 +228,31 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                     >
                                         {element.description}
                                     </Typography>
-                                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                        <Link
-                                            href={`/${type}/${element.id}/${generateSlug(getTitleOrName(type, element))}`}
-                                            passHref
+                                    <Link
+                                        href={`/${type}/${element.id}/${generateSlug(getTitleOrName(type, element))}`}
+                                        passHref
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            sx={{
+                                                bgcolor: theme.vars.palette.red.main,
+                                                "&:hover": {
+                                                    bgcolor: theme.vars.palette.green.main,
+                                                    color: theme.vars.palette.primary.main,
+                                                },
+                                                textTransform: "capitalize",
+                                                color: theme.vars.palette.greyAccent.main,
+                                                fontSize: { xs: 14, sm: 16 },
+                                                fontWeight: 700,
+                                                px: { xs: 3, sm: 4 },
+                                                py: 1.5,
+                                                borderRadius: "8px",
+                                                boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                                            }}
                                         >
-                                            <Button
-                                                variant="contained"
-                                                sx={{
-                                                    bgcolor: theme.vars.palette.red.main,
-                                                    "&:hover": {
-                                                        bgcolor: theme.vars.palette.green.light,
-                                                        color: theme.vars.palette.primary.main,
-                                                    },
-                                                    textTransform: "capitalize",
-                                                    color: theme.vars.palette.greyAccent.main,
-                                                    fontSize: { xs: 14, sm: 16 },
-                                                    fontWeight: 700,
-                                                    px: { xs: 3, sm: 4 },
-                                                    py: 1.5,
-                                                    borderRadius: "8px",
-                                                    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                                                }}
-                                            >
-                                                See Details
-                                            </Button>
-                                        </Link>
-                                    </motion.div>
+                                            See Details
+                                        </Button>
+                                    </Link>
                                 </motion.div>
                             </Box>
                         </Box>
