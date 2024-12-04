@@ -38,8 +38,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# AI prompts
-instructions.md
-prompt-codebase.md
-/docs
