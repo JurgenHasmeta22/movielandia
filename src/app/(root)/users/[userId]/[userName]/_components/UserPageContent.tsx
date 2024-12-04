@@ -200,19 +200,15 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
 
     return (
         <Stack spacing={4} width="100%" alignItems="center" sx={{ mt: 4, py: 4 }}>
-            {/* Profile Card Container */}
             <Paper
                 elevation={3}
                 sx={{
                     width: "100%",
                     p: { xs: 3, sm: 4 },
-                    borderRadius: 2,
                     bgcolor: (theme) => (theme.palette.mode === "dark" ? "background.paper" : "grey.50"),
                 }}
             >
-                {/* Profile Layout: Avatar and Info side by side (column on mobile) */}
                 <Stack direction={["column", "row"]} spacing={{ xs: 3, sm: 4 }} alignItems="center">
-                    {/* Avatar Container with fixed dimensions and styling */}
                     <Box
                         sx={{
                             position: "relative",
@@ -233,14 +229,14 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                             }}
                         />
                     </Box>
-
                     {/* Profile Information Section */}
                     <Box flex={1}>
                         <Stack spacing={2.5}>
-                            {/* Username Section with Follow Button */}
+                            {/* Username Section */}
                             <Stack direction="row" spacing={2} alignItems="center" sx={{ width: "100%" }}>
                                 <Stack direction="row" spacing={1} alignItems="center" sx={{ flex: 1 }}>
                                     <PersonOutlineIcon sx={{ fontSize: 20, color: "text.secondary" }} />
+                                    <Typography sx={{ fontSize: 16, color: "text.secondary" }}>Username: </Typography>
                                     <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
                                         {isUserNameEditing && userLoggedIn?.id === userInPage.id ? (
                                             <Stack
@@ -299,7 +295,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                     </Box>
                                 </Stack>
                             </Stack>
-
                             {/* Email Section */}
                             {/* <Stack direction="row" spacing={1} alignItems="center" sx={{ width: "100%" }}>
                                 <EmailIcon sx={{ fontSize: 18, color: "text.secondary" }} />
@@ -354,10 +349,10 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                     )}
                                 </Box>
                             </Stack> */}
-
                             {/* Bio Section */}
                             <Stack direction="row" spacing={1} sx={{ width: "100%" }}>
                                 <DescriptionIcon sx={{ fontSize: 20, color: "text.secondary", mt: 0.5 }} />
+                                <Typography sx={{ fontSize: 16, color: "text.secondary" }}>Bio: </Typography>
                                 <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
                                     {isBioEditing && userLoggedIn?.id === userInPage.id ? (
                                         <Stack
@@ -424,8 +419,7 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                     )}
                                 </Box>
                             </Stack>
-
-                            {/* Profile Stats - Always visible to everyone */}
+                            {/* Profile Stats */}
                             <Stack direction="row" spacing={4} sx={{ mt: 2 }}>
                                 <Typography variant="body1" color="text.secondary">
                                     <strong>Followers:</strong>&nbsp;
@@ -438,8 +432,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                         .length || 0}
                                 </Typography>
                             </Stack>
-
-                            {/* Social Section */}
                             <SocialSection
                                 userLoggedIn={userLoggedIn}
                                 userInPage={{
@@ -452,8 +444,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                     </Box>
                 </Stack>
             </Paper>
-
-            {/* Private Content Notice - Show when profile is private and not followed */}
             {!canViewProfile && userLoggedIn && userLoggedIn.id !== userInPage.id && (
                 <Paper
                     elevation={3}
@@ -478,8 +468,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                     </Stack>
                 </Paper>
             )}
-
-            {/* Profile Content Tabs - Only visible if user has access */}
             {canViewProfile && (
                 <Paper
                     elevation={1}
@@ -548,7 +536,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                     </Tabs>
                 </Paper>
             )}
-
             {/* Sub Tabs */}
             {canViewProfile && (
                 <Paper
@@ -611,7 +598,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                     </Tabs>
                 </Paper>
             )}
-
             {/* Tab Content */}
             {canViewProfile && (
                 <AnimatePresence mode="wait">

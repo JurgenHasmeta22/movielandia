@@ -60,6 +60,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
         try {
             await follow(Number(userLoggedIn.id), Number(userInPage.id));
             showToast("success", "Follow request sent successfully!");
+            router.refresh();
         } catch (error: any) {
             console.error(`Error following user: ${error.message}`);
             showToast("error", error.message || "Error following user");
@@ -72,6 +73,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
         try {
             await unfollow(Number(userLoggedIn.id), Number(userInPage.id));
             showToast("success", "Unfollowed successfully!");
+            router.refresh();
         } catch (error: any) {
             console.error(`Error unfollowing user: ${error.message}`);
             showToast("error", error.message || "Error unfollowing user");
@@ -97,7 +99,7 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
 
         try {
             await refuseFollowRequest(followerId, Number(userLoggedIn.id));
-            showToast("success", "Follow request refused!");
+            showToast("success", "Follow request succesfully refused!");
             setFollowersExpanded(false);
             router.refresh();
         } catch (error: any) {
@@ -136,7 +138,6 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
 
     return (
         <Box>
-            {/* Follow/Unfollow Button */}
             {userLoggedIn && userLoggedIn.id !== userInPage.id && (
                 <Button
                     variant={userInPage.isFollowed ? "outlined" : "contained"}
@@ -148,36 +149,17 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                         height: 45,
                         textTransform: "none",
                         borderRadius: 2,
-                        fontSize: "1rem",
+                        fontSize: "1.2rem",
                         fontWeight: 500,
                         boxShadow: 1,
-                        ...(userInPage.isFollowed
-                            ? {
-                                  borderColor: theme.vars.palette.primary.light,
-                                  color: theme.vars.palette.primary.main,
-                                  borderWidth: 2,
-                                  bgcolor: "transparent",
-                                  "&:hover": {
-                                      bgcolor: theme.vars.palette.primary.light,
-                                      borderColor: theme.vars.palette.primary.main,
-                                      color: theme.vars.palette.primary.main,
-                                      boxShadow: 2,
-                                  },
-                              }
-                            : {
-                                  bgcolor: theme.vars.palette.primary.main,
-                                  "&:hover": {
-                                      bgcolor: theme.vars.palette.primary.light,
-                                      boxShadow: 3,
-                                  },
-                              }),
+                        bgcolor: "background.paper",
+                        color: theme.vars.palette.greyAccent.main,
+                        borderWidth: 2,
                     }}
                 >
                     {getFollowButtonText()}
                 </Button>
             )}
-
-            {/* Only show pending follow requests accordion when viewing own profile */}
             {userLoggedIn &&
                 userLoggedIn.id === userInPage.id &&
                 userInPage.followers?.filter((follow: any) => follow.state === "pending").length > 0 && (
