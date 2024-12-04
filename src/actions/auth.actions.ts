@@ -111,19 +111,29 @@ export async function subscribeNewsletter(userData: INewsletterSubscribe): Promi
     try {
         const { email } = userData;
 
-        const user = await prisma.user.update({
+        const user = await prisma.user.findUnique({
+            where: { email },
+        });
+
+        if (!user) {
+            throw new Error("Email does not exist. Please ensure you have entered the correct email.");
+        }
+
+        if (user.subscribed) {
+            throw new Error("You are already subscribed to the newsletter.");
+        }
+
+        await prisma.user.update({
             where: { email },
             data: { subscribed: true },
         });
 
-        if (user) {
-            await resend.emails.send({
-                from: "MovieLandia24 <onboarding@resend.dev>",
-                to: email,
-                subject: "MovieLandia24 Newsletter!",
-                react: NewsletterEmail({ userName: user.userName }),
-            });
-        }
+        await resend.emails.send({
+            from: "MovieLandia24 <onboarding@resend.dev>",
+            to: email,
+            subject: "MovieLandia24 Newsletter!",
+            react: NewsletterEmail({ userName: user.userName }),
+        });
     } catch (error) {
         if (isRedirectError(error)) {
             throw error;

@@ -84,10 +84,8 @@ const Footer = (): React.JSX.Element => {
             await subscribeNewsletter({ email });
             showToast("success", "Subscription successful! Check your email for confirmation.");
         } catch (error) {
-            showToast(
-                "error",
-                "Subscription failed. Please make sure that this email is valid and is already registered in the MovieLandia24.",
-            );
+            const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred.";
+            showToast("error", errorMessage);
         }
     };
 
