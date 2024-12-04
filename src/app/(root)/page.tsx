@@ -1,8 +1,5 @@
 import { Stack, Box, Container } from "@mui/material";
-import { Genre, Movie, Serie } from "@prisma/client";
-import { getGenresWithFilters } from "@/actions/genre.actions";
-import { getMoviesWithFilters } from "@/actions/movie.actions";
-import { getSeriesWithFilters } from "@/actions/serie.actions";
+import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
@@ -44,10 +41,18 @@ export default async function Home() {
         page: 1,
     };
 
-    const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
+    const moviesResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/movies?page=${queryParams.page}${session?.user?.id ? `&userId=${session.user.id}` : ""}`,
+        { cache: "no-store" },
+    );
+    const moviesData = await moviesResponse.json();
     const movies: Movie[] = moviesData.movies;
 
-    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
+    const seriesResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/series?page=${queryParams.page}${session?.user?.id ? `&userId=${session.user.id}` : ""}`,
+        { cache: "no-store" },
+    );
+    const seriesData = await seriesResponse.json();
     const series: Serie[] = seriesData.rows;
 
     return (
