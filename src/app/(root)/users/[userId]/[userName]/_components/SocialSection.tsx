@@ -154,22 +154,22 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                         transition: "all 0.2s ease-in-out",
                         ...(userInPage.isFollowed
                             ? {
-                                  borderColor: "primary.light",
-                                  color: "primary.main",
+                                  borderColor: theme.vars.palette.primary.light,
+                                  color: theme.vars.palette.primary.main,
                                   borderWidth: 2,
                                   bgcolor: "transparent",
                                   "&:hover": {
-                                      bgcolor: "grey.200",
-                                      borderColor: "primary.main",
-                                      color: "primary.main",
+                                      bgcolor: theme.vars.palette.action.hover,
+                                      borderColor: theme.vars.palette.primary.main,
+                                      color: theme.vars.palette.primary.main,
                                       transform: "translateY(-2px)",
                                       boxShadow: 2,
                                   },
                               }
                             : {
-                                  bgcolor: "primary.main",
+                                  bgcolor: theme.vars.palette.primary.main,
                                   "&:hover": {
-                                      bgcolor: "primary.600",
+                                      bgcolor: theme.vars.palette.primary.dark,
                                       transform: "translateY(-2px)",
                                       boxShadow: 3,
                                   },
