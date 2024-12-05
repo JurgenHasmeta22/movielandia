@@ -11,16 +11,9 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { z } from "zod";
 import { Actor, Prisma } from "@prisma/client";
 import { addActor } from "@/actions/actor.actions";
-
-const actorSchema = z.object({
-    fullname: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-    debut: z.string().min(1, { message: "required" }),
-});
+import { actorSchema } from "@/schemas/actor.schema";
 
 const AddActorAdminPage = () => {
     const formRef = useRef<any>(null);
@@ -68,6 +61,7 @@ const AddActorAdminPage = () => {
                 defaultValues={{
                     fullname: "",
                     photoSrc: "",
+                    photoSrcProd: "",
                     description: "",
                     debut: "",
                 }}
@@ -83,6 +77,12 @@ const AddActorAdminPage = () => {
                     {
                         name: "photoSrc",
                         label: "Photo Src",
+                        type: "text",
+                        variant: "filled",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo Src Prod",
                         type: "text",
                         variant: "filled",
                     },

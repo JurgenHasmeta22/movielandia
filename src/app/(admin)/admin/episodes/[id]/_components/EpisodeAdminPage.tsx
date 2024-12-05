@@ -16,20 +16,8 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
 import { deleteEpisodeById, getEpisodeById, updateEpisodeById } from "@/actions/episode.actions";
 import Link from "next/link";
-import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-
-const episodeSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    photoSrcProd: z.string().min(1, { message: "required" }),
-    trailerSrc: z.string().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-    duration: z.coerce.number().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.coerce.number().min(0).max(10),
-    seasonId: z.coerce.number().min(1, { message: "required" }),
-});
+import { episodeSchema } from "@/schemas/episode.schema";
 
 const EpisodeAdminPage = () => {
     const [episode, setEpisode] = useState<Episode | null>(null);
@@ -89,6 +77,7 @@ const EpisodeAdminPage = () => {
     async function getEpisode(): Promise<void> {
         setLoading(true);
         const response: Episode | null = await getEpisodeById(Number(params.id), {});
+
         if (response) {
             setEpisode(response);
             setLoading(false);

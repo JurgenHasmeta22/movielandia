@@ -5,13 +5,9 @@ import EmailIcon from "@mui/icons-material/Email";
 import { showToast } from "@/utils/helpers/toast";
 import { resetPassword } from "@/actions/auth.actions";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const resetPasswordSchema = z.object({
-    email: z.string().email({ message: "Invalid email format" }).min(1, { message: "Email is a required field" }),
-});
+import { resetPasswordSchema } from "@/schemas/auth.schema";
 
 export default function ResetPasswordPage() {
     const theme = useTheme();

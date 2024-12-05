@@ -10,19 +10,9 @@ import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard"
 import FormAdvanced from "@/components/admin/form/Form";
 import { addMovie } from "@/actions/movie.actions";
 import { useRouter } from "next/navigation";
-import { z } from "zod";
 import Link from "next/link";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
-
-const movieSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    trailerSrc: z.string().min(1, { message: "required" }),
-    duration: z.string().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.string().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-});
+import { movieSchema } from "@/schemas/movie.schema";
 
 const AddMovieAdminPage = () => {
     const router = useRouter();
@@ -86,6 +76,12 @@ const AddMovieAdminPage = () => {
                     {
                         name: "photoSrc",
                         label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo src prod",
                         variant: "filled",
                         type: "text",
                     },

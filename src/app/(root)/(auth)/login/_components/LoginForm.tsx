@@ -23,40 +23,11 @@ import PasswordIcon from "@mui/icons-material/Password";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const loginSchema = z.object({
-    email: z.string().email("Invalid email format").min(1, "Email is a required field"),
-    password: z
-        .string()
-        .min(8, "Password must be at least 8 characters")
-        .regex(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase, one number, and one special character",
-        )
-        .min(1, "Password is a required field"),
-});
-
-const ErrorMessage = ({ message }: { message: string }) => (
-    <Typography
-        component="span"
-        sx={{
-            color: "error.main",
-            fontSize: "0.75rem",
-            mt: 0.5,
-            display: "block",
-            wordWrap: "break-word",
-            maxWidth: "100%",
-        }}
-    >
-        {message}
-    </Typography>
-);
+import { loginSchema } from "@/schemas/auth.schema";
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
-
     const router = useRouter();
 
     const {

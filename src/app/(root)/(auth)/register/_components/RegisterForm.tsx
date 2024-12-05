@@ -12,8 +12,6 @@ import {
     Typography,
     Divider,
     Checkbox,
-    FormControlLabel,
-    useTheme,
     FormHelperText,
     Link,
 } from "@mui/material";
@@ -25,48 +23,15 @@ import PasswordIcon from "@mui/icons-material/Password";
 import PersonIcon from "@mui/icons-material/Person";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GoogleIcon from "@mui/icons-material/Google";
 import { signIn } from "next-auth/react";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { registerSchema } from "@/schemas/auth.schema";
 
-const registerSchema = z
-    .object({
-        userName: z
-            .string()
-            .min(3, "Username must be at least 3 characters")
-            .max(20, "Username can't be longer than 20 characters")
-            .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores")
-            .min(1, "Username is a required field"),
-        email: z.string().email("Invalid email format").min(1, "Email is a required field"),
-        password: z
-            .string()
-            .min(8, "Password must be at least 8 characters")
-            .regex(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase, one number, and one special character",
-            )
-            .min(1, "Password is a required field"),
-        confirmPassword: z.string().min(1, "Please confirm your password"),
-        acceptTerms: z.boolean().refine((val) => val === true, {
-            message: "You must accept the Terms of Service and Privacy Policy",
-        }),
-    })
-    .superRefine((data, ctx) => {
-        if (data.password !== data.confirmPassword) {
-            ctx.addIssue({
-                code: "custom",
-                path: ["confirmPassword"],
-                message: "Passwords must match",
-            });
-        }
-    });
-
-export default function LoginForm() {
+export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-    const theme = useTheme();
 
     const {
         control,

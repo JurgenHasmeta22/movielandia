@@ -16,18 +16,8 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
 import { deleteMovieById, getMovieById, updateMovieById } from "@/actions/movie.actions";
 import Link from "next/link";
-import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-
-const movieSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    trailerSrc: z.string().min(1, { message: "required" }),
-    duration: z.coerce.number().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.coerce.number().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-});
+import { movieSchema } from "@/schemas/movie.schema";
 
 const MovieAdminPage = () => {
     const [movie, setMovie] = useState<Movie | null>(null);
@@ -129,6 +119,12 @@ const MovieAdminPage = () => {
                     {
                         name: "photoSrc",
                         label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo src prod",
                         variant: "filled",
                         type: "text",
                     },

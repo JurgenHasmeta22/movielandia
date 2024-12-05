@@ -16,13 +16,8 @@ import { deleteUserById, getUserById, updateUserByIdAdmin } from "@/actions/user
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Prisma, User } from "@prisma/client";
-import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-
-const userSchema = z.object({
-    userName: z.string().min(1, { message: "required" }),
-    email: z.string().min(1, { message: "required" }),
-});
+import { userSchema } from "@/schemas/user.schema";
 
 const UserAdmin = () => {
     const [user, setUser] = useState<User | null>(null);

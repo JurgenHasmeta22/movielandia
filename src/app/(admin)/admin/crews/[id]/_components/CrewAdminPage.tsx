@@ -15,17 +15,8 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
 import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
-import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-
-const crewSchema = z.object({
-    photoSrc: z.string().min(1, { message: "required" }),
-    photoSrcProd: z.string().min(1, { message: "required" }),
-    role: z.coerce.number().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-    debut: z.coerce.number().min(1, { message: "required" }),
-    fullname: z.string().min(1, { message: "required" }),
-});
+import { crewSchema } from "@/schemas/crew.schema";
 
 const CrewAdminPage = () => {
     const [crew, setCrew] = useState<Crew | null>(null);
@@ -47,10 +38,6 @@ const CrewAdminPage = () => {
             {crew?.fullname || `Crew ${params?.id}`}
         </Link>,
     ];
-
-    useEffect(() => {
-        getCrew();
-    }, []);
 
     const handleFormSubmit = async (data: any) => {
         const response = await updateCrewMemberById(data, String(crew?.id));
@@ -78,6 +65,10 @@ const CrewAdminPage = () => {
             setLoading(false);
         }
     }
+
+    useEffect(() => {
+        getCrew();
+    }, []);
 
     if (loading) {
         return <LoadingSpinner />;

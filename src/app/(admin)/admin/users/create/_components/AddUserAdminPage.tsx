@@ -11,15 +11,9 @@ import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard"
 import FormAdvanced from "@/components/admin/form/Form";
 import { signUp } from "@/actions/auth.actions";
 import { User } from "@prisma/client";
-import { z } from "zod";
 import Link from "next/link";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
-
-const userSchema = z.object({
-    userName: z.string().min(1, { message: "required" }),
-    email: z.string().min(1, { message: "required" }),
-    password: z.string().min(1, { message: "required" }),
-});
+import { addUserSchema } from "@/schemas/user.schema";
 
 const AddUserAdminPage = () => {
     const router = useRouter();
@@ -115,7 +109,7 @@ const AddUserAdminPage = () => {
                     },
                 ]}
                 onSubmit={handleFormSubmit}
-                schema={userSchema}
+                schema={addUserSchema}
                 formRef={formRef}
             />
         </Box>
