@@ -382,15 +382,22 @@ export async function updateActorById(actorParam: Prisma.ActorUpdateInput, id: s
 }
 
 export async function addActor(actorParam: Prisma.ActorCreateInput): Promise<Actor | null> {
-    const actorCreated = await prisma.actor.create({
-        data: actorParam,
-    });
+    try {
+        console.log("actorParam", actorParam);
+        
+        const actorCreated = await prisma.actor.create({
+            data: actorParam,
+        });
 
-    if (actorCreated) {
-        return actorCreated;
-    } else {
+        if (actorCreated) {
+            return actorCreated;
+        }
+    } catch (error) {
+        console.error("Error creating actor:", error);
         return null;
     }
+
+    return null;
 }
 
 export async function deleteActorById(id: number): Promise<string | null> {
