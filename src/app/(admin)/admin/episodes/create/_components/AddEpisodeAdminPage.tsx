@@ -11,9 +11,9 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { z } from "zod";
 import { Episode } from "@prisma/client";
 import { addEpisode } from "@/actions/episode.actions";
+import { episodeSchema } from "@/schemas/episode.schema";
 
 interface IAddEpisode {
     title: string;
@@ -26,18 +26,6 @@ interface IAddEpisode {
     ratingImdb: string | number;
     seasonId: string | number;
 }
-
-const episodeSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    photoSrcProd: z.string().min(1, { message: "required" }),
-    trailerSrc: z.string().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-    duration: z.coerce.number().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.coerce.number().min(0).max(10),
-    seasonId: z.coerce.number().min(1, { message: "required" }),
-});
 
 const AddEpisodeAdminPage = () => {
     const formRef = useRef<any>(null);

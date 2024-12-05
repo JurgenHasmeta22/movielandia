@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 import FormAdvanced from "@/components/admin/form/Form";
 import { addSerie } from "@/actions/serie.actions";
 import { Serie } from "@prisma/client";
-import { z } from "zod";
 import Link from "next/link";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
+import { serieSchema } from "@/schemas/serie.schema";
 
 interface IAddSerie {
     title: string;
@@ -21,13 +21,6 @@ interface IAddSerie {
     dateAired: string;
     ratingImdb: string | number;
 }
-
-const serieSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.string().min(1, { message: "required" }),
-});
 
 const AddSerieAdminPage = () => {
     const formRef = useRef<any>(null);
@@ -72,6 +65,7 @@ const AddSerieAdminPage = () => {
                 defaultValues={{
                     title: "",
                     photoSrc: "",
+                    photoSrcProd: "",
                     dateAired: "",
                     ratingImdb: "",
                 }}
@@ -85,6 +79,12 @@ const AddSerieAdminPage = () => {
                     {
                         name: "photoSrc",
                         label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo src prod",
                         variant: "filled",
                         type: "text",
                     },

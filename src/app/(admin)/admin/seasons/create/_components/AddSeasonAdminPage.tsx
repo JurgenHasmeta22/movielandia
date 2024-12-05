@@ -11,9 +11,9 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { z } from "zod";
-import { Season, Prisma } from "@prisma/client";
+import { Season } from "@prisma/client";
 import { addSeason } from "@/actions/season.actions";
+import { seasonSchema } from "@/schemas/season.schema";
 
 interface IAddSeason {
     title: string;
@@ -25,17 +25,6 @@ interface IAddSeason {
     ratingImdb: number;
     serieId: number;
 }
-
-const seasonSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    photoSrcProd: z.string().min(1, { message: "required" }),
-    trailerSrc: z.string().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-    ratingImdb: z.coerce.number().min(0).max(10),
-    serieId: z.coerce.number().min(1, { message: "required" }),
-});
 
 const AddSeasonAdminPage = () => {
     const formRef = useRef<any>(null);

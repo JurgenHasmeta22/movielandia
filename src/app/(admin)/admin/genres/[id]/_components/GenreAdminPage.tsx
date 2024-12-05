@@ -16,17 +16,13 @@ import { useParams, useRouter } from "next/navigation";
 import { deleteGenreById, getGenreByIdAdmin, updateGenreById } from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
-import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { genreSchema } from "@/schemas/genre.schema";
 
 interface IGenreEdit {
     id?: string;
     name: string;
 }
-
-const genreSchema = z.object({
-    name: z.string().min(1, { message: "required" }),
-});
 
 const GenreAdminPage = () => {
     const [genre, setGenre] = useState<Genre | null>(null);

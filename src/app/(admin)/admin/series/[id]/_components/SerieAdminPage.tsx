@@ -16,15 +16,8 @@ import { useModal } from "@/providers/ModalProvider";
 import { updateSerieById, getSerieById, deleteSerieById } from "@/actions/serie.actions";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { z } from "zod";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-
-const serieSchema = z.object({
-    title: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    ratingImdb: z.coerce.number().min(1, { message: "required" }),
-    dateAired: z.string().min(1, { message: "required" }),
-});
+import { serieSchema } from "@/schemas/serie.schema";
 
 const SerieAdminPage = () => {
     const [serie, setSerie] = useState<Serie | null>(null);
@@ -101,6 +94,7 @@ const SerieAdminPage = () => {
                     id: serie?.id,
                     title: serie?.title,
                     photoSrc: serie?.photoSrc,
+                    photoSrcProd: serie?.photoSrcProd,
                     dateAired: serie?.dateAired,
                     ratingImdb: serie?.ratingImdb,
                 }}
@@ -121,6 +115,12 @@ const SerieAdminPage = () => {
                     {
                         name: "photoSrc",
                         label: "Photo src",
+                        variant: "filled",
+                        type: "text",
+                    },
+                    {
+                        name: "photoSrcProd",
+                        label: "Photo src prod",
                         variant: "filled",
                         type: "text",
                     },

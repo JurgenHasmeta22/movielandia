@@ -10,18 +10,9 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
 import FormAdvanced from "@/components/admin/form/Form";
 import * as CONSTANTS from "@/constants/Constants";
-import { z } from "zod";
 import Link from "next/link";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
-
-export const crewSchema = z.object({
-    fullname: z.string().min(1, { message: "required" }),
-    photoSrc: z.string().min(1, { message: "required" }),
-    photoSrcProd: z.string().min(1, { message: "required" }),
-    role: z.string().min(1, { message: "required" }),
-    description: z.string().min(1, { message: "required" }),
-    debut: z.string().min(1, { message: "required" }),
-});
+import { crewSchema } from "@/schemas/crew.schema";
 
 const AddCrewAdminPage = () => {
     const router = useRouter();

@@ -11,17 +11,13 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { addGenre } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
-import { z } from "zod";
 import Link from "next/link";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
+import { genreSchema } from "@/schemas/genre.schema";
 
 interface IGenreAdd {
     name: string;
 }
-
-const genreSchema = z.object({
-    name: z.string().min(1, { message: "required" }),
-});
 
 const AddGenreAdminPage = () => {
     const router = useRouter();
