@@ -38,6 +38,7 @@ const AddActorAdminPage = () => {
         const payload: Prisma.ActorCreateInput = {
             fullname: values.fullname,
             photoSrc: values.photoSrc,
+            photoSrcProd: values.photoSrcProd,
             description: values.description,
             debut: values.debut,
         };
