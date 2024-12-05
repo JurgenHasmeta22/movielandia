@@ -11,16 +11,14 @@ import { toast } from "react-toastify";
 interface IDeleteHandler {
     page: string;
     id: number;
-    handleFetchData: () => Promise<void>;
 }
 
 interface IMassiveDeleteHandler {
     page: string;
     selectedIds: string[];
-    handleFetchData: () => Promise<void>;
 }
 
-export const handleDeleteById = async ({ page, id, handleFetchData }: IDeleteHandler) => {
+export const handleDeleteById = async ({ page, id }: IDeleteHandler) => {
     let response: any;
 
     try {
@@ -56,7 +54,6 @@ export const handleDeleteById = async ({ page, id, handleFetchData }: IDeleteHan
 
         if (response) {
             toast.success(`Item with id ${id} deleted successfully`);
-            await handleFetchData();
             return response;
         } else {
             toast.error(`Failed to delete item with id ${id}`);
@@ -69,11 +66,11 @@ export const handleDeleteById = async ({ page, id, handleFetchData }: IDeleteHan
     }
 };
 
-export const handleMassiveDelete = async ({ page, selectedIds, handleFetchData }: IMassiveDeleteHandler) => {
+export const handleMassiveDelete = async ({ page, selectedIds }: IMassiveDeleteHandler) => {
     const results = [];
 
     for (const id of selectedIds) {
-        const result = await handleDeleteById({ page, id: Number(id), handleFetchData });
+        const result = await handleDeleteById({ page, id: Number(id) });
         results.push(result);
     }
 
