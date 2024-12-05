@@ -2,16 +2,34 @@
 
 // #region "Imports"
 import { useState, useEffect, useMemo } from "react";
-import { MRT_ColumnFiltersState, MRT_SortingState, useMaterialReactTable } from "material-react-table";
-import { CheckOutlined, WarningOutlined } from "@mui/icons-material";
+import {
+    MRT_ColumnDef,
+    MRT_ColumnFiltersState,
+    MRT_GlobalFilterTextField,
+    MRT_ShowHideColumnsButton,
+    MRT_SortingState,
+    MRT_ToggleDensePaddingButton,
+    MRT_ToggleFiltersButton,
+    MRT_ToggleFullScreenButton,
+    useMaterialReactTable,
+} from "material-react-table";
+import { Box, Button, IconButton, ListItemIcon, MenuItem, Tooltip, Typography } from "@mui/material";
+import { Edit, Delete, Add, CheckOutlined, WarningOutlined } from "@mui/icons-material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { toast } from "react-toastify";
-import { handleDeleteById, handleMassiveDelete as handleMassiveDeleteUtil } from "./utils/tableDelete";
+import { useRouter } from "next/navigation";
+import { deleteGenreById, getGenresWithFilters } from "@/actions/genre.actions";
+import { deleteUserById, getUsersWithFilters } from "@/actions/user.actions";
+import { deleteMovieById, getMoviesWithFilters } from "@/actions/movie.actions";
+import { deleteSerieById, getSeriesWithFilters } from "@/actions/serie.actions";
+import { deleteActorById, getActorsWithFilters } from "@/actions/actor.actions";
+import { deleteEpisodeById, getEpisodesWithFilters } from "@/actions/episode.actions";
+import { deleteSeasonById, getSeasonsWithFilters } from "@/actions/season.actions";
+import { deleteCrewMemberById, getCrewMembersWithFilters } from "@/actions/crew.actions";
 import { getColumns } from "./utils/tableColumns";
-import { renderRowActionMenuItems } from "./components/TableActions";
-import { renderTopToolbar } from "./components/TableToolbar";
-import { fetchData } from "./utils/tableFetch";
+import { TableToolbar } from "./components/TableToolbar";
 // #endregion
 
 // #region "Interfaces"
@@ -22,7 +40,7 @@ interface ITableAdminProps {
 // #endregion
 
 const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
-    // #region "State, Hooks"
+    // #region "State Management, Hooks"
     const [rows, setRows] = useState<any[]>([]);
     const [rowsCount, setRowsCount] = useState<number>(0);
     const [rowSelection, setRowSelection] = useState<any>({});
@@ -39,10 +57,12 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
         pageSize: 10,
     });
     const [open, setOpen] = useState(false);
+
+    const router = useRouter();
     const { openModal } = useModal();
     // #endregion
 
-    // #region "Delete individually and massive methods"
+    // #region "Delete methods"
     function handleDelete(id: number) {
         openModal({
             onClose: () => setOpen(false),
@@ -61,7 +81,85 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                 {
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
-                        await handleDeleteById({ page, id, handleFetchData });
+                        let response: any;
+
+                        switch (page) {
+                            case "series":
+                                response = await deleteSerieById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "movies":
+                                response = await deleteMovieById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "genres":
+                                response = await deleteGenreById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "users":
+                                response = await deleteUserById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "actors":
+                                response = await deleteActorById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "episodes":
+                                response = await deleteEpisodeById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "seasons":
+                                response = await deleteSeasonById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            case "crews":
+                                response = await deleteCrewMemberById(Number(id));
+
+                                if (response) {
+                                    toast.success(`Item with id ${id} deleted succesfully`);
+                                    await fetchData();
+                                }
+
+                                break;
+                            default:
+                                response = null;
+                        }
+
                         setRowSelection([]);
                     },
                     type: "submit",
@@ -78,7 +176,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
     }
 
     function handleMassiveDelete() {
-        const selectedIds = Object.keys(rowSelection);
+        const keysArray = Object.keys(rowSelection);
 
         openModal({
             onClose: () => setOpen(false),
@@ -97,7 +195,87 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                 {
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
-                        await handleMassiveDeleteUtil({ page, selectedIds, handleFetchData });
+                        let response: any;
+
+                        for (const id of keysArray) {
+                            switch (page) {
+                                case "series":
+                                    response = await deleteSerieById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "movies":
+                                    response = await deleteMovieById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "genres":
+                                    response = await deleteGenreById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "users":
+                                    response = await deleteUserById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "actors":
+                                    response = await deleteActorById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "episodes":
+                                    response = await deleteEpisodeById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "seasons":
+                                    response = await deleteSeasonById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                case "crews":
+                                    response = await deleteCrewMemberById(Number(id));
+
+                                    if (response) {
+                                        toast.success(`Item with id ${id} deleted succesfully`);
+                                        await fetchData();
+                                    }
+
+                                    break;
+                                default:
+                                    response = null;
+                            }
+                        }
+
                         setRowSelection([]);
                     },
                     type: "submit",
@@ -114,33 +292,99 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
     }
     // #endregion
 
-    // #region "Fetching"
-    const handleFetchData = async () => {
+    // #region "Data fetching"
+    const fetchData = async () => {
         if (!rows?.length) {
             setIsLoading(true);
         } else {
             setIsRefetching(true);
         }
 
-        await fetchData({
-            page,
-            pagination,
-            sorting,
-            globalFilter,
-            setRows,
-            setRowsCount,
-            setIsError,
-            setIsLoading,
-            setIsRefetching,
-        });
+        try {
+            let response: any;
+
+            const queryParams = {
+                page: Number(pagination?.pageIndex + 1),
+                pageSize: Number(pagination?.pageSize),
+                ...(sorting?.length > 0 && {
+                    ascOrDesc: sorting[0].desc ? "desc" : "asc",
+                    sortBy: sorting[0].id,
+                }),
+                ...(globalFilter?.length > 0 && {
+                    filterNameString:
+                        page === "users"
+                            ? "userName"
+                            : page === "genres"
+                              ? "name"
+                              : page === "actors"
+                                ? "name"
+                                : page === "crew"
+                                  ? "fullname"
+                                  : "title",
+                    filterValue: globalFilter,
+                }),
+            };
+
+            switch (page) {
+                case "series":
+                    response = await getSeriesWithFilters(queryParams);
+                    setRows(response.rows);
+                    setRowsCount(response.count);
+                    break;
+                case "movies":
+                    response = await getMoviesWithFilters(queryParams);
+                    setRows(response.movies);
+                    setRowsCount(response.count);
+                    break;
+                case "genres":
+                    response = await getGenresWithFilters(queryParams);
+                    setRows(response.rows);
+                    setRowsCount(response.count);
+                    break;
+                case "users":
+                    response = await getUsersWithFilters(queryParams);
+                    setRows(response.rows);
+                    setRowsCount(response.count);
+                    break;
+                case "actors":
+                    response = await getActorsWithFilters(queryParams);
+                    setRows(response.actors);
+                    setRowsCount(response.count);
+                    break;
+                case "episodes":
+                    response = await getEpisodesWithFilters(queryParams);
+                    setRows(response.episodes);
+                    setRowsCount(response.count);
+                    break;
+                case "seasons":
+                    response = await getSeasonsWithFilters(queryParams);
+                    setRows(response.seasons);
+                    setRowsCount(response.count);
+                    break;
+                case "crews":
+                    response = await getCrewMembersWithFilters(queryParams);
+                    setRows(response.crewMembers);
+                    setRowsCount(response.count);
+                    break;
+                default:
+                    response = { rows: [], count: 0 };
+            }
+        } catch (error) {
+            setIsError(true);
+            console.error(error);
+        }
+
+        setIsError(false);
+        setIsLoading(false);
+        setIsRefetching(false);
     };
 
     useEffect(() => {
-        handleFetchData();
+        fetchData();
     }, [columnFilters, globalFilter, pagination.pageIndex, pagination.pageSize, sorting]);
     // #endregion
 
-    // #region "Table, columns configuration"
+    // #region "Table, Columns configuration"
     const columns = useMemo(() => getColumns(page), [page]);
 
     const table = useMaterialReactTable({
@@ -170,9 +414,6 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                   children: "Error loading data",
               }
             : undefined,
-        renderRowActionMenuItems: (props) => renderRowActionMenuItems({ ...props, page, handleDelete }),
-        renderTopToolbar: (props) =>
-            renderTopToolbar({ ...props, handleFetchData, handleAddItem, handleMassiveDelete }),
         initialState: {
             columnVisibility: { id: false },
             showColumnFilters: false,
@@ -228,6 +469,44 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
             style: {
                 paddingTop: 6,
             },
+        },
+        renderRowActionMenuItems: ({ closeMenu, row }) => [
+            <MenuItem
+                key={0}
+                onClick={() => {
+                    router.push(`/admin/${page}/${row.original.id}`);
+                    closeMenu();
+                }}
+                sx={{ m: 0 }}
+            >
+                <ListItemIcon>
+                    <Edit />
+                </ListItemIcon>
+                <Typography>Edit</Typography>
+            </MenuItem>,
+            <MenuItem
+                key={1}
+                onClick={async () => {
+                    handleDelete(Number(row.id));
+                    closeMenu();
+                }}
+                sx={{ m: 0 }}
+            >
+                <ListItemIcon>
+                    <Delete />
+                </ListItemIcon>
+                <Typography>Delete</Typography>
+            </MenuItem>,
+        ],
+        renderTopToolbar: ({ table }) => {
+            return (
+                <TableToolbar
+                    table={table}
+                    handleMassiveDelete={handleMassiveDelete}
+                    handleFetchData={fetchData}
+                    handleAddItem={handleAddItem}
+                />
+            );
         },
     });
     // #endregion

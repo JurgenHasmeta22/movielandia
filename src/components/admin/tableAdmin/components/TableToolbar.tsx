@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -7,21 +9,22 @@ import {
     MRT_ToggleDensePaddingButton,
     MRT_ToggleFiltersButton,
     MRT_ToggleFullScreenButton,
+    MRT_TableInstance,
 } from "material-react-table";
 
-interface RenderTopToolbarProps {
-    table: any;
+interface TableToolbarProps {
+    table: MRT_TableInstance<any>;
     handleFetchData: () => Promise<void>;
     handleAddItem: () => void;
     handleMassiveDelete: () => void;
 }
 
-export const renderTopToolbar = ({
+export const TableToolbar = ({
     table,
     handleFetchData,
     handleAddItem,
     handleMassiveDelete,
-}: RenderTopToolbarProps) => {
+}: TableToolbarProps) => {
     return (
         <Box
             sx={() => ({
