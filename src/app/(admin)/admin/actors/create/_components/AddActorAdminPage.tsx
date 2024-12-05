@@ -43,12 +43,19 @@ const AddActorAdminPage = () => {
             debut: values.debut,
         };
 
-        const response: Actor | null = await addActor(payload);
+        console.log("Payload:", payload);
 
-        if (response) {
-            toast.success(CONSTANTS.ADD__SUCCESS);
-            router.push("/admin/actors");
-        } else {
+        try {
+            const response: Actor | null = await addActor(payload);
+
+            if (response) {
+                toast.success(CONSTANTS.ADD__SUCCESS);
+                router.push("/admin/actors");
+            } else {
+                toast.error(CONSTANTS.ADD__FAILURE);
+            }
+        } catch (error) {
+            console.error("Error creating actor:", error);
             toast.error(CONSTANTS.ADD__FAILURE);
         }
     };

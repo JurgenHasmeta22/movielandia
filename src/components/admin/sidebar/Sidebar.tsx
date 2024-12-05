@@ -76,12 +76,12 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
             component={"aside"}
             onClose={onClose}
             PaperProps={{
-                sx: { backgroundColor: theme.vars.palette.primary.dark, paddingLeft: 2, paddingRight: 2 },
+                sx: { backgroundColor: theme.vars.palette.primary.dark, paddingLeft: 1, paddingRight: 1 },
             }}
         >
             <Box
                 sx={{
-                    mt: 2,
+                    mt: 1,
                 }}
             >
                 <Box
@@ -89,7 +89,7 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
                     justifyContent="end"
                     alignItems="center"
                     sx={{
-                        mb: 2,
+                        mb: 1,
                     }}
                 >
                     <IconButton onClick={onClose}>
@@ -100,8 +100,8 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
                     display="flex"
                     alignItems="center"
                     sx={{
-                        mb: 2,
-                        ml: 2,
+                        mb: 1,
+                        ml: 1,
                     }}
                 >
                     <Avatar>
