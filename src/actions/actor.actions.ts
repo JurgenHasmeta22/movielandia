@@ -3,16 +3,17 @@
 import { Actor, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
+import { FilterOperator } from "@/types/filterOperators";
 
 interface ActorModelParams {
     sortBy?: string;
     ascOrDesc?: string;
     perPage?: number;
     page?: number;
-    fullname?: string | null;
+    name?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
-    filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
+    filterOperatorString?: FilterOperator;
 }
 
 // interface Filters {
@@ -35,7 +36,7 @@ export async function getActorsWithFilters(
         ascOrDesc,
         perPage = 12,
         page = 1,
-        fullname,
+        name,
         filterValue,
         filterNameString,
         filterOperatorString,
@@ -48,11 +49,15 @@ export async function getActorsWithFilters(
     const skip = (page - 1) * perPage;
     const take = perPage;
 
-    if (fullname) filters.fullname = { contains: fullname };
+    if (name) filters.name = { contains: name };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     if (sortBy && ascOrDesc) {

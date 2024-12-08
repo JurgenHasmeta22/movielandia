@@ -19,6 +19,7 @@ import { getCrewMembersWithFilters } from "@/actions/crew.actions";
 import { getColumns } from "./utils/tableColumns";
 import { handleDeleteById, handleMassiveDelete } from "./utils/tableDelete";
 import { TableToolbar } from "./components/TableToolbar";
+import { FilterOperator } from "@/types/filterOperators";
 // #endregion
 
 // #region "Interfaces"
@@ -26,8 +27,6 @@ interface ITableAdminProps {
     page: string;
     handleAddItem: () => void;
 }
-
-type FilterOperator = "equals" | ">" | "=" | "<" | "gt" | "lt";
 
 const mapFilterOperator = (operator: string): FilterOperator => {
     switch (operator) {
@@ -159,32 +158,62 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
         try {
             let response: any;
 
-            const queryParams = {
+            const baseParams = {
                 page: Number(pagination?.pageIndex + 1),
                 perPage: Number(pagination?.pageSize),
                 ...(sorting?.length > 0 && {
                     ascOrDesc: sorting[0].desc ? "desc" : "asc",
                     sortBy: sorting[0].id as string,
                 }),
-                ...(globalFilter?.length > 0 && {
-                    filterNameString:
-                        page === "users"
-                            ? "userName"
-                            : page === "genres"
-                              ? "name"
-                              : page === "actors"
-                                ? "name"
-                                : page === "crew"
-                                  ? "fullname"
-                                  : "title",
-                    filterValue: globalFilter as string,
-                    filterOperatorString: "equals" as FilterOperator,
-                }),
-                ...(columnFilters?.length > 0 && {
-                    filterNameString: columnFilters[0].id as string,
-                    filterValue: String(columnFilters[0].value),
-                    filterOperatorString: mapFilterOperator(columnFiltersFns[0] || "contains"),
-                }),
+            };
+
+            const getFilterParams = () => {
+                if (globalFilter?.length > 0) {
+                    return {
+                        filterNameString:
+                            page === "users"
+                                ? "userName"
+                                : page === "genres"
+                                  ? "name"
+                                  : page === "actors"
+                                    ? "name"
+                                    : page === "crew"
+                                      ? "fullname"
+                                      : "title",
+                        filterValue: globalFilter as string,
+                        filterOperatorString: "contains" as FilterOperator,
+                    };
+                }
+
+                if (columnFilters?.length > 0) {
+                    const filterValue = columnFilters[0].value;
+                    // Convert to number if the value is numeric
+                    const processedValue =
+                        !isNaN(Number(filterValue)) && typeof filterValue !== "boolean"
+                            ? Number(filterValue)
+                            : String(filterValue);
+
+                    return {
+                        filterNameString: columnFilters[0].id as string,
+                        filterValue: processedValue,
+                        filterOperatorString: (columnFiltersFns[0] === "contains"
+                            ? "contains"
+                            : columnFiltersFns[0] === "equals"
+                              ? "equals"
+                              : columnFiltersFns[0] === "greaterThan"
+                                ? ">"
+                                : columnFiltersFns[0] === "lessThan"
+                                  ? "<"
+                                  : "contains") as FilterOperator,
+                    };
+                }
+
+                return {};
+            };
+
+            const queryParams = {
+                ...baseParams,
+                ...getFilterParams(),
             };
 
             switch (page) {
@@ -199,7 +228,6 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                     setRowsCount(response.count);
                     break;
                 case "genres":
-                    // @ts-ignore
                     response = await getGenresWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
@@ -310,11 +338,13 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                     const someSelected = rows.some((row) => newSelection[row.id]);
 
                     if (allSelected) {
-                        // When select all is clicked, select all rows on the current page
-                        return rows.reduce((acc, row) => {
-                            acc[row.id] = true;
-                            return acc;
-                        }, {} as Record<string, boolean>);
+                        return rows.reduce(
+                            (acc, row) => {
+                                acc[row.id] = true;
+                                return acc;
+                            },
+                            {} as Record<string, boolean>,
+                        );
                     } else if (!someSelected) {
                         return {};
                     }
