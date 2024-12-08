@@ -60,7 +60,7 @@ export const TableToolbar = ({
                 </Button>
                 <Button
                     color="error"
-                    disabled={!table.getIsSomeRowsSelected()}
+                    disabled={Object.keys(table.getState().rowSelection).length === 0}
                     onClick={handleMassiveDelete}
                     variant="contained"
                 >

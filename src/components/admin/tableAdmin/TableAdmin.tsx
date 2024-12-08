@@ -278,10 +278,14 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                   children: "Error loading data",
               }
             : undefined,
+        onColumnFiltersChange: setColumnFilters,
+        onColumnFilterFnsChange: setColumnFiltersFns,
+        onGlobalFilterChange: setGlobalFilter,
+        onPaginationChange: setPagination,
+        onSortingChange: setSorting,
         initialState: {
             columnVisibility: { id: false },
             showColumnFilters: false,
-            // columnFilterFns: columnFiltersFns,
             showGlobalFilter: true,
             showLoadingOverlay: false,
             isFullScreen: false,
@@ -298,17 +302,33 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
             showProgressBars: isRefetching,
             sorting,
         },
-        onColumnFiltersChange: setColumnFilters,
-        onColumnFilterFnsChange: setColumnFiltersFns,
-        onGlobalFilterChange: setGlobalFilter,
-        onPaginationChange: setPagination,
-        onSortingChange: setSorting,
-        onRowSelectionChange: setRowSelection,
+        onRowSelectionChange: (updatedSelection) => {
+            if (typeof updatedSelection === "function") {
+                setRowSelection((prev: any) => {
+                    const newSelection = updatedSelection(prev);
+                    const allSelected = rows.every((row) => newSelection[row.id]);
+                    const someSelected = rows.some((row) => newSelection[row.id]);
+
+                    if (allSelected) {
+                        // When select all is clicked, select all rows on the current page
+                        return rows.reduce((acc, row) => {
+                            acc[row.id] = true;
+                            return acc;
+                        }, {} as Record<string, boolean>);
+                    } else if (!someSelected) {
+                        return {};
+                    }
+
+                    return newSelection;
+                });
+            } else {
+                setRowSelection(updatedSelection);
+            }
+        },
         state: {
             rowSelection,
             columnFilters,
             globalFilter,
-            // columnFilterFns: columnFiltersFns,
             isLoading,
             pagination,
             showAlertBanner: isError,
