@@ -26,6 +26,23 @@ interface ITableAdminProps {
     page: string;
     handleAddItem: () => void;
 }
+
+type FilterOperator = "equals" | ">" | "=" | "<" | "gt" | "lt";
+
+const mapFilterOperator = (operator: string): FilterOperator => {
+    switch (operator) {
+        case "contains":
+            return "equals";
+        case "greaterThan":
+            return "gt";
+        case "lessThan":
+            return "lt";
+        case "equals":
+            return "equals";
+        default:
+            return "equals";
+    }
+};
 // #endregion
 
 const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
@@ -144,10 +161,10 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 
             const queryParams = {
                 page: Number(pagination?.pageIndex + 1),
-                pageSize: Number(pagination?.pageSize),
+                perPage: Number(pagination?.pageSize),
                 ...(sorting?.length > 0 && {
                     ascOrDesc: sorting[0].desc ? "desc" : "asc",
-                    sortBy: sorting[0].id,
+                    sortBy: sorting[0].id as string,
                 }),
                 ...(globalFilter?.length > 0 && {
                     filterNameString:
@@ -160,7 +177,13 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                                 : page === "crew"
                                   ? "fullname"
                                   : "title",
-                    filterValue: globalFilter,
+                    filterValue: globalFilter as string,
+                    filterOperatorString: "equals" as FilterOperator,
+                }),
+                ...(columnFilters?.length > 0 && {
+                    filterNameString: columnFilters[0].id as string,
+                    filterValue: String(columnFilters[0].value),
+                    filterOperatorString: mapFilterOperator(columnFiltersFns[0] || "contains"),
                 }),
             };
 
@@ -176,6 +199,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                     setRowsCount(response.count);
                     break;
                 case "genres":
+                    // @ts-ignore
                     response = await getGenresWithFilters(queryParams);
                     setRows(response.rows);
                     setRowsCount(response.count);
@@ -239,6 +263,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
         enablePinning: true,
         enableSortingRemoval: true,
         enableColumnFilterModes: true,
+        enableGlobalFilter: true,
         enableColumnActions: true,
         enableColumnFilters: true,
         enableClickToCopy: true,
@@ -256,6 +281,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
         initialState: {
             columnVisibility: { id: false },
             showColumnFilters: false,
+            // columnFilterFns: columnFiltersFns,
             showGlobalFilter: true,
             showLoadingOverlay: false,
             isFullScreen: false,
@@ -282,6 +308,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
             rowSelection,
             columnFilters,
             globalFilter,
+            // columnFilterFns: columnFiltersFns,
             isLoading,
             pagination,
             showAlertBanner: isError,
@@ -307,6 +334,20 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
             variant: "outlined",
             style: {
                 paddingTop: 6,
+            },
+            sx: {
+                ".MuiPaginationItem-root": {
+                    "&:hover": {
+                        backgroundColor: "#30969f33",
+                    },
+                    "&.Mui-selected": {
+                        backgroundColor: "#30969f",
+                        color: "white",
+                        "&:hover": {
+                            backgroundColor: "#30969fcc",
+                        },
+                    },
+                },
             },
         },
         renderRowActionMenuItems: ({ closeMenu, row }) => [
