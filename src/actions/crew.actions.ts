@@ -3,6 +3,7 @@
 import { Crew, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
+import { FilterOperator } from "@/types/filterOperators";
 
 interface CrewModelParams {
     sortBy?: string;
@@ -12,7 +13,7 @@ interface CrewModelParams {
     fullname?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
-    filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
+    filterOperatorString?: FilterOperator;
 }
 
 // #region "GET Methods"
@@ -38,8 +39,12 @@ export async function getCrewMembersWithFilters(
     if (fullname) filters.fullname = { contains: fullname };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     if (sortBy && ascOrDesc) {
