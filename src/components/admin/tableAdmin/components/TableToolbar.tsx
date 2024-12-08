@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
@@ -19,12 +19,7 @@ interface TableToolbarProps {
     handleMassiveDelete: () => void;
 }
 
-export const TableToolbar = ({
-    table,
-    handleFetchData,
-    handleAddItem,
-    handleMassiveDelete,
-}: TableToolbarProps) => {
+export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMassiveDelete }: TableToolbarProps) => {
     return (
         <Box
             sx={() => ({
