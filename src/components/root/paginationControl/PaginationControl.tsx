@@ -27,6 +27,8 @@ const PaginationControl: React.FC<IPaginationControlProps> = ({ pageCount, curre
             newSearchParams.set("pageSeasons", String(value));
         } else if (dataType === "Episodes") {
             newSearchParams.set("pageEpisodes", String(value));
+        } else if (dataType === "Crew") {
+            newSearchParams.set("pageCrews", String(value));
         } else {
             newSearchParams.set("page", String(value));
         }

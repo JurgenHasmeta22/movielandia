@@ -1,5 +1,6 @@
 "use client";
 
+// #region "Imports"
 import React, { useState } from "react";
 import { Box, Card, Typography, Button, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -16,13 +17,16 @@ import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/features/movieFe
 import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFeaturesUtils";
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
 import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
+// #endregion
 
+// #region "Types and Interfaces"
 type CardItemType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
-type PathType = "movies" | "actors" | "crew" | null;
+
+export type PathType = "movies" | "actors" | "crew" | null;
 
 interface BaseCardData {
     id: number;
-    photoSrcProd: string;
+    photoSrcProd?: string;
     description?: string;
     dateAired?: string;
     isBookmarked?: boolean;
@@ -77,6 +81,7 @@ interface ICardItemProps {
     type: CardItemType;
     path?: PathType;
 }
+// #endregion
 
 const CardItem: React.FC<ICardItemProps> = ({ data, type, path }): React.JSX.Element => {
     const { data: session } = useSession();

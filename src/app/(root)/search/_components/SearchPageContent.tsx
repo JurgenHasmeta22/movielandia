@@ -1,5 +1,6 @@
-import { Box } from "@mui/material";
-import { Actor, Episode, Movie, Season, Serie, User } from "@prisma/client";
+// #region "Imports"
+import { Box, Typography } from "@mui/material";
+import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import { searchMoviesByTitle } from "@/actions/movie.actions";
 import { searchSeriesByTitle } from "@/actions/serie.actions";
 import { searchActorsByTitle } from "@/actions/actor.actions";
@@ -7,7 +8,10 @@ import { searchSeasonsByTitle } from "@/actions/season.actions";
 import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import { searchUsersByUsername } from "@/actions/user.actions";
 import SearchList from "./SearchList";
+import { searchCrewMembersByTitle } from "@/actions/crew.actions";
+// #endregion
 
+// #region "Interfaces"
 interface SearchPageContentProps {
     searchParams?: {
         moviesAscOrDesc?: string;
@@ -19,6 +23,9 @@ interface SearchPageContentProps {
         actorsAscOrDesc?: string;
         pageActors?: string;
         actorsSortBy?: string;
+        crewAscOrDesc?: string;
+        pageCrews?: string;
+        crewSortBy?: string;
         seasonsAscOrDesc?: string;
         pageSeasons?: string;
         seasonsSortBy?: string;
@@ -38,6 +45,7 @@ interface IQueryParams {
     ascOrDesc?: string;
     sortBy?: string;
 }
+// #endregion
 
 export default async function SearchPageContent({ searchParams, session }: SearchPageContentProps) {
     const term = searchParams?.term ?? "";
@@ -103,6 +111,26 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     const pageCountActors = Math.ceil(actorsCount / itemsPerPage);
     // #endregion
 
+    // #region "Crews data"
+    const pageCrews = Number(searchParams?.pageCrews) || 1;
+    const crewsSortBy = searchParams?.crewSortBy ?? "";
+    const crewsAscOrDesc = searchParams?.crewAscOrDesc ?? "";
+    const queryParamsCrews: IQueryParams = { page: pageCrews };
+
+    if (crewsSortBy) {
+        queryParamsCrews.sortBy = crewsSortBy;
+    }
+
+    if (actorsAscOrDesc) {
+        queryParamsActors.ascOrDesc = actorsAscOrDesc;
+    }
+
+    const crewsData = await searchCrewMembersByTitle(term, queryParamsCrews, Number(session?.user?.id));
+    const crews: Crew[] = crewsData.crews;
+    const crewsCount: number = crewsData.count;
+    const pageCountCrews = Math.ceil(crewsCount / itemsPerPage);
+    // #endregion
+
     // #region "Episodes data"
     const pageEpisodes = Number(searchParams?.pageEpisodes) || 1;
     const episodesSortBy = searchParams?.episodesSortBy ?? "";
@@ -166,82 +194,151 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     return (
         <Box
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: 4,
-                paddingTop: 6,
+                maxWidth: "1400px",
+                margin: "0 auto",
+                px: { xs: 2, sm: 3, md: 4 },
+                py: { xs: 3, md: 4 },
             }}
         >
-            <SearchList
-                title={term ? `Movies matching "${term}"` : "Movies"}
-                data={movies}
-                count={moviesCount}
-                sortBy={moviesSortBy}
-                ascOrDesc={moviesAscOrDesc}
-                page={Number(pageMovies)}
-                pageCount={pageCountMovies}
-                dataType="Movies"
-                cardType="movie"
-            />
-            <SearchList
-                title={term ? `Series matching "${term}"` : "Series"}
-                data={series}
-                count={seriesCount}
-                sortBy={seriesSortBy}
-                ascOrDesc={seriesAscOrDesc}
-                page={Number(pageSeries)}
-                pageCount={pageCountSeries}
-                dataType="Series"
-                cardType="serie"
-            />
-            <SearchList
-                title={term ? `Actors matching "${term}"` : "Actors"}
-                data={actors}
-                count={actorsCount}
-                sortBy={actorsSortBy}
-                ascOrDesc={actorsAscOrDesc}
-                page={Number(pageActors)}
-                pageCount={pageCountActors}
-                dataType="Actors"
-                cardType="actor"
-                path="actors"
-            />
-            <SearchList
-                title={term ? `Seasons matching "${term}"` : "Seasons"}
-                data={seasons}
-                count={seasonsCount}
-                sortBy={seasonsSortBy}
-                ascOrDesc={seasonsAscOrDesc}
-                page={Number(pageSeasons)}
-                pageCount={pageCountSeasons}
-                dataType="Seasons"
-                cardType="season"
-                path="seasons"
-            />
-            <SearchList
-                title={term ? `Episodes matching "${term}"` : "Episodes"}
-                data={episodes}
-                count={episodesCount}
-                sortBy={episodesSortBy}
-                ascOrDesc={episodesAscOrDesc}
-                page={Number(pageEpisodes)}
-                pageCount={pageCountEpisodes}
-                dataType="Episodes"
-                cardType="episode"
-                path="episodes"
-            />
-            <SearchList
-                title={term ? `Users matching "${term}"` : "Users"}
-                data={users}
-                count={usersCount}
-                sortBy={usersSortBy}
-                ascOrDesc={usersAscOrDesc}
-                page={Number(pageUsers)}
-                pageCount={pageCountUsers}
-                dataType="Users"
-                cardType="user"
-                path="users"
-            />
+            <Box
+                sx={{
+                    mb: { xs: 4, md: 6 },
+                    textAlign: "center",
+                }}
+            >
+                <Typography
+                    variant="h1"
+                    sx={{
+                        fontSize: { xs: 28, sm: 32, md: 40 },
+                        fontWeight: 800,
+                        mb: 2,
+                    }}
+                >
+                    {term ? `Search Results for "${term}"` : "Browse All"}
+                </Typography>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        color: "text.secondary",
+                        fontSize: { xs: 16, sm: 18 },
+                        maxWidth: "600px",
+                        margin: "0 auto",
+                    }}
+                >
+                    {term
+                        ? `Found ${
+                              moviesCount + seriesCount + actorsCount + seasonsCount + episodesCount + usersCount
+                          } results across all categories`
+                        : "Explore our vast collection of movies, series, actors and more"}
+                </Typography>
+            </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: { xs: 6, md: 8 },
+                }}
+            >
+                {(!term || moviesCount > 0) && (
+                    <SearchList
+                        title={term ? `Movies matching "${term}"` : "Movies"}
+                        data={movies}
+                        count={moviesCount}
+                        sortBy={moviesSortBy}
+                        ascOrDesc={moviesAscOrDesc}
+                        page={Number(pageMovies)}
+                        pageCount={pageCountMovies}
+                        dataType="Movies"
+                        cardType="movie"
+                    />
+                )}
+
+                {(!term || seriesCount > 0) && (
+                    <SearchList
+                        title={term ? `Series matching "${term}"` : "Series"}
+                        data={series}
+                        count={seriesCount}
+                        sortBy={seriesSortBy}
+                        ascOrDesc={seriesAscOrDesc}
+                        page={Number(pageSeries)}
+                        pageCount={pageCountSeries}
+                        dataType="Series"
+                        cardType="serie"
+                    />
+                )}
+
+                {(!term || actorsCount > 0) && (
+                    <SearchList
+                        title={term ? `Actors matching "${term}"` : "Actors"}
+                        data={actors}
+                        count={actorsCount}
+                        sortBy={actorsSortBy}
+                        ascOrDesc={actorsAscOrDesc}
+                        page={Number(pageActors)}
+                        pageCount={pageCountActors}
+                        dataType="Actors"
+                        cardType="actor"
+                        path="actors"
+                    />
+                )}
+
+                {(!term || crewsCount > 0) && (
+                    <SearchList
+                        title={term ? `Crews matching "${term}"` : "Crews"}
+                        data={crews}
+                        count={crewsCount}
+                        sortBy={crewsSortBy}
+                        ascOrDesc={crewsAscOrDesc}
+                        page={Number(pageCrews)}
+                        pageCount={pageCountCrews}
+                        dataType="Crew"
+                        cardType="crew"
+                        path="crew"
+                    />
+                )}
+
+                {(!term || seasonsCount > 0) && (
+                    <SearchList
+                        title={term ? `Seasons matching "${term}"` : "Seasons"}
+                        data={seasons}
+                        count={seasonsCount}
+                        sortBy={seasonsSortBy}
+                        ascOrDesc={seasonsAscOrDesc}
+                        page={Number(pageSeasons)}
+                        pageCount={pageCountSeasons}
+                        dataType="Seasons"
+                        cardType="season"
+                    />
+                )}
+
+                {(!term || episodesCount > 0) && (
+                    <SearchList
+                        title={term ? `Episodes matching "${term}"` : "Episodes"}
+                        data={episodes}
+                        count={episodesCount}
+                        sortBy={episodesSortBy}
+                        ascOrDesc={episodesAscOrDesc}
+                        page={Number(pageEpisodes)}
+                        pageCount={pageCountEpisodes}
+                        dataType="Episodes"
+                        cardType="episode"
+                    />
+                )}
+
+                {(!term || usersCount > 0) && (
+                    <SearchList
+                        title={term ? `Users matching "${term}"` : "Users"}
+                        data={users}
+                        count={usersCount}
+                        sortBy={usersSortBy}
+                        ascOrDesc={usersAscOrDesc}
+                        page={Number(pageUsers)}
+                        pageCount={pageCountUsers}
+                        dataType="Users"
+                        cardType="user"
+                    />
+                )}
+            </Box>
         </Box>
     );
 }
