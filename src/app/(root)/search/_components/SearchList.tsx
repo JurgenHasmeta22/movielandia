@@ -93,37 +93,32 @@ const SearchList = ({
                 </Box>
             </Box>
             <Box sx={{ p: { xs: 2, sm: 3 } }}>
-                <Stack
-                    direction="row"
-                    flexWrap="wrap"
+                <Box
                     sx={{
-                        gap: { xs: 2, sm: 3 },
-                        justifyContent: {
-                            xs: "center",
-                            sm: "flex-start",
-                        },
+                        display: "flex",
+                        flexWrap: "wrap",
+                        columnGap: { xs: 2, sm: 3 },
+                        rowGap: { xs: 3, sm: 4 },
+                        justifyContent: "flex-start",
                     }}
                 >
                     {data.map((item) => (
                         <Box
                             key={item.id}
                             sx={{
-                                width: {
-                                    xs: "100%",
-                                    sm: "calc(50% - 12px)",
-                                    md: "calc(33.333% - 16px)",
-                                    lg: "calc(25% - 18px)",
-                                },
+                                display: "flex",
+                                columnGap: { xs: 1, sm: 2, md: 3 },
+                                rowGap: { xs: 3, sm: 4, md: 5 },
                                 transition: "transform 0.2s ease-in-out",
                                 "&:hover": {
                                     transform: "translateY(-4px)",
                                 },
                             }}
                         >
-                            <CardItem data={item} key={item.id} type={cardType} path={path} />
+                            <CardItem data={item} type={cardType} path={path} />
                         </Box>
                     ))}
-                </Stack>
+                </Box>
                 <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
                     <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType={dataType} />
                 </Box>
