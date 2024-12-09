@@ -27,7 +27,7 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
             .getAllColumns()
             .filter((column) => 
                 column.getIsVisible() && 
-                !['actions', 'select', 'mrt-row-expand', 'mrt-row-select', 'Actions'].includes(column.id)
+                !['mrt-row-actions', 'select', 'mrt-row-expand', 'mrt-row-select', 'Actions'].includes(column.id)
             )
             .map((column) => ({
                 accessorKey: column.id,
@@ -37,7 +37,7 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
 
     const prepareExportData = () => {
         const visibleColumns = getVisibleColumns().filter(column => 
-            !['actions', 'select', 'mrt-row-expand', 'mrt-row-select'].includes(column.accessorKey)
+            !['mrt-row-actions', 'select', 'mrt-row-expand', 'mrt-row-select'].includes(column.accessorKey)
         );
 
         return table.getRowModel().rows.map((row: MRT_Row<any>) => {
@@ -62,7 +62,7 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
         
         const exportData = prepareExportData();
         const visibleColumns = getVisibleColumns().filter(column => 
-            !['actions', 'select', 'mrt-row-expand', 'mrt-row-select', 'Actions'].includes(column.accessorKey)
+            !['mrt-row-actions', 'select', 'mrt-row-expand', 'mrt-row-select', 'Actions'].includes(column.accessorKey)
         );
 
         const headers = ['ID', ...visibleColumns.map((col) => col.header)];
@@ -75,13 +75,16 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
 
         const getColumnWidths = () => {
             const widths: { [key: number]: number } = {};
+
             headers.forEach((header, index) => {
                 const maxLength = Math.max(
                     header.length,
                     ...rows.map(row => String(row[index]).length)
                 );
+
                 widths[index] = Math.min(Math.max(maxLength * 2.5, 20), 50);
             });
+
             return widths;
         };
 
@@ -129,6 +132,7 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
                         cellPadding: 2,
                         overflow: 'linebreak',
                     };
+
                     return acc;
                 },
                 {} as Record<number, any>,
@@ -146,6 +150,7 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
                     data.cell.styles.fontSize = 8;
                     data.cell.styles.fontStyle = "bold";
                 }
+                
                 if (Array.isArray(data.cell.text)) {
                     data.cell.text = data.cell.text.map(text => 
                         text.length > 50 ? text.slice(0, 47) + '...' : text
