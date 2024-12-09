@@ -4,7 +4,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { TextField, InputAdornment, useTheme, IconButton, Box, ClickAwayListener } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
 import { useRouter, useSearchParams } from "next/navigation";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import { searchMoviesByTitle } from "@/actions/movie.actions";
 import { searchSeriesByTitle } from "@/actions/serie.actions";
 import { searchActorsByTitle } from "@/actions/actor.actions";
@@ -14,6 +13,7 @@ import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import { searchUsersByUsername } from "@/actions/user.actions";
 import SearchAutocomplete from "./SearchAutocomplete";
 import { useDebounce } from "@/hooks/useDebounce";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const SearchField = () => {
     const router = useRouter();
@@ -31,7 +31,6 @@ const SearchField = () => {
         episodes: [],
         users: [],
     });
-
     const theme = useTheme();
     const debouncedSearch = useDebounce(inputValue, 300);
 
@@ -41,11 +40,13 @@ const SearchField = () => {
         } else {
             router.push("/search");
         }
+
         setShowResults(false);
     };
 
     const handleClear = () => {
         setInputValue("");
+
         setResults({
             movies: [],
             series: [],
@@ -55,6 +56,7 @@ const SearchField = () => {
             episodes: [],
             users: [],
         });
+
         router.push("/search");
     };
 
@@ -68,12 +70,17 @@ const SearchField = () => {
             setSelectedFilters(["all"]);
         } else {
             const newFilters = selectedFilters.filter((f) => f !== "all");
+
             if (selectedFilters.includes(filter)) {
                 setSelectedFilters(newFilters.filter((f) => f !== filter));
             } else {
                 setSelectedFilters([...newFilters, filter]);
             }
         }
+    };
+
+    const handleShowMore = () => {
+        handleSearch();
     };
 
     const fetchResults = useCallback(async () => {
@@ -87,37 +94,32 @@ const SearchField = () => {
                 episodes: [],
                 users: [],
             });
+
             return;
         }
 
         setLoading(true);
+
         try {
-            const [
-                moviesData,
-                seriesData,
-                actorsData,
-                crewData,
-                seasonsData,
-                episodesData,
-                usersData,
-            ] = await Promise.all([
-                searchMoviesByTitle(debouncedSearch, { page: 1 }),
-                searchSeriesByTitle(debouncedSearch, { page: 1 }),
-                searchActorsByTitle(debouncedSearch, { page: 1 }),
-                searchCrewMembersByTitle(debouncedSearch, { page: 1 }),
-                searchSeasonsByTitle(debouncedSearch, { page: 1 }),
-                searchEpisodesByTitle(debouncedSearch, { page: 1 }),
-                searchUsersByUsername(debouncedSearch, { page: 1 }),
-            ]);
+            const [moviesData, seriesData, actorsData, crewData, seasonsData, episodesData, usersData] =
+                await Promise.all([
+                    searchMoviesByTitle(debouncedSearch, { page: 1 }),
+                    searchSeriesByTitle(debouncedSearch, { page: 1 }),
+                    searchActorsByTitle(debouncedSearch, { page: 1 }),
+                    searchCrewMembersByTitle(debouncedSearch, { page: 1 }),
+                    searchSeasonsByTitle(debouncedSearch, { page: 1 }),
+                    searchEpisodesByTitle(debouncedSearch, { page: 1 }),
+                    searchUsersByUsername(debouncedSearch, { page: 1 }),
+                ]);
 
             setResults({
-                movies: moviesData?.movies?.slice(0, 5) || [],
-                series: seriesData?.rows?.slice(0, 5) || [],
-                actors: actorsData?.actors?.slice(0, 5) || [],
-                crew: crewData?.crews?.slice(0, 5) || [],
-                seasons: seasonsData?.seasons?.slice(0, 5) || [],
-                episodes: episodesData?.episodes?.slice(0, 5) || [],
-                users: usersData?.users?.slice(0, 5) || [],
+                movies: moviesData?.movies?.slice(0, 10) || [],
+                series: seriesData?.rows?.slice(0, 10) || [],
+                actors: actorsData?.actors?.slice(0, 10) || [],
+                crew: crewData?.crews?.slice(0, 10) || [],
+                seasons: seasonsData?.seasons?.slice(0, 10) || [],
+                episodes: episodesData?.episodes?.slice(0, 10) || [],
+                users: usersData?.users?.slice(0, 10) || [],
             });
         } catch (error) {
             console.error("Error fetching search results:", error);
@@ -129,10 +131,6 @@ const SearchField = () => {
     useEffect(() => {
         fetchResults();
     }, [fetchResults]);
-
-    const handleShowMore = () => {
-        handleSearch();
-    };
 
     return (
         <ClickAwayListener onClickAway={() => setShowResults(false)}>
