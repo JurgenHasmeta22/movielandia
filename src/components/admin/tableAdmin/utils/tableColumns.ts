@@ -170,10 +170,6 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                     accessorKey: "name",
                     header: "Name",
                 },
-                {
-                    accessorKey: "description",
-                    header: "Description",
-                },
             ];
         case "users":
             return [
