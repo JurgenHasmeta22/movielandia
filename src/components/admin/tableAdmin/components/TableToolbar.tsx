@@ -56,20 +56,32 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
     };
 
     const handleExportPDF = () => {
+        console.log("Export Data before PDF:", exportData);
         const doc = new jsPDF();
-        const columns = getColumns(table.getState().columnVisibility);
-        const rows = exportData.map((row) => {
-            const rowData: any = {};
-            columns.forEach((col) => {
-                rowData[col.accessorKey] = row[col.accessorKey] ?? "";
-            });
 
-            return rowData;
+        const rows = exportData.map((row) => {
+            return Object.keys(row).map((key) => row[key] ?? "");
         });
 
+        console.log("Rows for PDF:", rows);
+
         autoTable(doc, {
-            columns: columns.map((col) => ({ header: col.header, dataKey: col.accessorKey })),
+            head: [Object.keys(exportData[0] || {}).map((key) => key)],
             body: rows,
+            styles: {
+                cellPadding: 5,
+                fontSize: 10,
+                overflow: "linebreak",
+                halign: "left",
+                valign: "middle",
+            },
+            theme: "striped",
+            headStyles: {
+                fillColor: [52, 168, 83],
+                textColor: 255,
+                fontSize: 11,
+                fontStyle: "bold",
+            },
         });
 
         const fileName = `data_${getFormattedDate()}.pdf`;
@@ -77,13 +89,11 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
     };
 
     const handleExportCSV = () => {
-        const csvContent = exportData
-            .map((row) => {
-                return getColumns(table.getState().columnVisibility)
-                    .map((col) => row[col.accessorKey] ?? "")
-                    .join(",");
-            })
-            .join("\n");
+        const headers = Object.keys(exportData[0] || {}).join(",");
+        const csvContent = [headers, ...exportData.map((row) => Object.values(row).join(","))].join("\n");
+
+        console.log("Exporting CSV with content:", csvContent);
+
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
