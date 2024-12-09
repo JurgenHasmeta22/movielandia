@@ -215,9 +215,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        width: isAutocomplete 
-                            ? { xs: "120px", sm: "140px" }
-                            : { xs: "140px", sm: "160px" },
+                        width: isAutocomplete ? { xs: "120px", sm: "140px" } : { xs: "140px", sm: "160px" },
                         height: "100%",
                         position: "relative",
                         borderRadius: 2,
@@ -232,9 +230,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                     <Box
                         sx={{
                             position: "relative",
-                            height: isAutocomplete 
-                                ? { xs: "180px", sm: "210px" }
-                                : { xs: "210px", sm: "240px" },
+                            height: isAutocomplete ? { xs: "180px", sm: "210px" } : { xs: "210px", sm: "240px" },
                             width: "100%",
                             overflow: "hidden",
                             "&:hover .hoverOverlay": {
