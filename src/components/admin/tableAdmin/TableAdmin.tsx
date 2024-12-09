@@ -187,7 +187,6 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 
                 if (columnFilters?.length > 0) {
                     const filterValue = columnFilters[0].value;
-                    // Convert to number if the value is numeric
                     const processedValue =
                         !isNaN(Number(filterValue)) && typeof filterValue !== "boolean"
                             ? Number(filterValue)

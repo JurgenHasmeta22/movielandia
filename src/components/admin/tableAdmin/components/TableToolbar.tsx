@@ -25,7 +25,10 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
     const getVisibleColumns = () => {
         return table
             .getAllColumns()
-            .filter((column) => column.getIsVisible())
+            .filter((column) => 
+                column.getIsVisible() && 
+                !['actions', 'select', 'mrt-row-expand', 'mrt-row-select', 'Actions'].includes(column.id)
+            )
             .map((column) => ({
                 accessorKey: column.id,
                 header: column.columnDef.header?.toString() || column.id,
@@ -33,10 +36,14 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
     };
 
     const prepareExportData = () => {
-        const visibleColumns = getVisibleColumns();
+        const visibleColumns = getVisibleColumns().filter(column => 
+            !['actions', 'select', 'mrt-row-expand', 'mrt-row-select'].includes(column.accessorKey)
+        );
 
         return table.getRowModel().rows.map((row: MRT_Row<any>) => {
             const rowData: Record<string, any> = {};
+            rowData['ID'] = row.original.id;
+            
             visibleColumns.forEach((column) => {
                 const value = row.getValue(column.accessorKey);
                 rowData[column.header] = value !== null && value !== undefined ? value : "";
@@ -47,17 +54,36 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
     };
 
     const handleExportPDF = () => {
-        const doc = new jsPDF();
+        const doc = new jsPDF({
+            orientation: "landscape",
+            unit: "mm",
+            format: "a3"
+        });
+        
         const exportData = prepareExportData();
-        const visibleColumns = getVisibleColumns();
-
-        const headers = visibleColumns.map((col) => col.header);
-        const rows = exportData.map((row) =>
-            visibleColumns.map((col) => {
-                const value = row[col.header];
-                return value !== null && value !== undefined ? String(value) : "";
-            }),
+        const visibleColumns = getVisibleColumns().filter(column => 
+            !['actions', 'select', 'mrt-row-expand', 'mrt-row-select', 'Actions'].includes(column.accessorKey)
         );
+
+        const headers = ['ID', ...visibleColumns.map((col) => col.header)];
+        const rows = exportData.map((row) =>
+            headers.map(header => {
+                const value = row[header];
+                return value !== null && value !== undefined ? String(value) : "";
+            })
+        );
+
+        const getColumnWidths = () => {
+            const widths: { [key: number]: number } = {};
+            headers.forEach((header, index) => {
+                const maxLength = Math.max(
+                    header.length,
+                    ...rows.map(row => String(row[index]).length)
+                );
+                widths[index] = Math.min(Math.max(maxLength * 2.5, 20), 50);
+            });
+            return widths;
+        };
 
         doc.setFontSize(16);
         doc.text("Export Data", 14, 15);
@@ -69,36 +95,39 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
             body: rows,
             startY: 35,
             styles: {
-                fontSize: 8,
-                cellPadding: 2,
+                fontSize: 7,
+                cellPadding: 1.5,
                 lineWidth: 0.5,
                 lineColor: [80, 80, 80],
+                overflow: 'linebreak',
             },
             headStyles: {
                 fillColor: [48, 150, 159],
                 textColor: 255,
-                fontSize: 9,
+                fontSize: 8,
                 fontStyle: "bold",
                 halign: "left",
-                cellPadding: 3,
+                cellPadding: 2,
                 lineWidth: 0.5,
                 lineColor: [80, 80, 80],
-                minCellWidth: 30,
+                minCellWidth: 15,
             },
             bodyStyles: {
                 halign: "left",
                 valign: "middle",
-                cellPadding: 3,
+                cellPadding: 2,
+                fontSize: 7,
                 lineWidth: 0.5,
                 lineColor: [80, 80, 80],
             },
             columnStyles: headers.reduce(
                 (acc, _, index) => {
                     acc[index] = {
-                        cellWidth: "auto",
-                        minCellWidth: 30,
-                        maxCellWidth: 100,
-                        cellPadding: 3,
+                        cellWidth: getColumnWidths()[index],
+                        minCellWidth: 15,
+                        maxCellWidth: 50,
+                        cellPadding: 2,
+                        overflow: 'linebreak',
                     };
                     return acc;
                 },
@@ -109,13 +138,18 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
             },
             margin: { top: 35, left: 10, right: 10 },
             theme: "grid",
-            tableWidth: "auto",
+            tableWidth: 'auto',
             didParseCell: function (data) {
                 if (data.section === "head") {
                     data.cell.styles.fillColor = [48, 150, 159];
                     data.cell.styles.textColor = 255;
-                    data.cell.styles.fontSize = 9;
+                    data.cell.styles.fontSize = 8;
                     data.cell.styles.fontStyle = "bold";
+                }
+                if (Array.isArray(data.cell.text)) {
+                    data.cell.text = data.cell.text.map(text => 
+                        text.length > 50 ? text.slice(0, 47) + '...' : text
+                    );
                 }
             },
             didDrawCell: function (data) {
