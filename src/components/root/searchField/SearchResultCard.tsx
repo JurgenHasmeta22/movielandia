@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 type ResultType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
+
 type PathType = "movies" | "actors" | "crew" | null;
 
 interface BaseResultData {
@@ -55,6 +56,7 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
                 } else if (path === "actors") {
                     return `/actors/${data.id}/${formatTitle((data as PersonResultData).fullname)}`;
                 }
+
                 return `/series/${data.id}/${formatTitle((data as MediaResultData).title)}`;
             case "crew":
                 if (path === "movies") {
@@ -62,12 +64,14 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
                 } else if (path === "crew") {
                     return `/crew/${data.id}/${formatTitle((data as PersonResultData).fullname)}`;
                 }
+
                 return `/series/${data.id}/${formatTitle((data as MediaResultData).title)}`;
             case "season": {
                 const serieId = typeof params.serieId === "string" ? params.serieId : "";
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
                 return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle((data as MediaResultData).title)}`;
             }
+
             case "episode": {
                 const serieId = typeof params.serieId === "string" ? params.serieId : "";
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
@@ -75,6 +79,7 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
                 const seasonTitle = typeof params.seasonTitle === "string" ? formatTitle(params.seasonTitle) : "";
                 return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${data.id}/${formatTitle((data as MediaResultData).title)}`;
             }
+
             case "user":
                 return `/users/${data.id}/${formatTitle((data as UserResultData).userName)}`;
             default:
@@ -85,7 +90,7 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
     const getDisplayTitle = () => {
         if (type === "actor" || type === "crew") {
             const personData = data as PersonResultData;
-            return `${personData.fullname}${personData.debut ? ` (${personData.debut})` : ''}`;
+            return `${personData.fullname}${personData.debut ? ` (${personData.debut})` : ""}`;
         }
 
         if (type === "user") {
@@ -93,11 +98,11 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
         }
 
         const mediaData = data as MediaResultData;
-        return `${mediaData.title}${mediaData.dateAired ? ` (${mediaData.dateAired.split('/')[2]})` : ''}`;
+        return `${mediaData.title}${mediaData.dateAired ? ` (${mediaData.dateAired.split("/")[2]})` : ""}`;
     };
 
     return (
-        <Link href={getPath()} style={{ textDecoration: 'none' }}>
+        <Link href={getPath()} style={{ textDecoration: "none" }}>
             <Box
                 sx={{
                     display: "flex",
@@ -164,4 +169,4 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
     );
 };
 
-export default SearchResultCard; 
+export default SearchResultCard;

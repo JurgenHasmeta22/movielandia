@@ -2,7 +2,6 @@
 
 import { Box, CircularProgress, Typography, useTheme, Button } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
-import { useState } from "react";
 import { Chip, Stack } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material";
 import SearchResultCard from "./SearchResultCard";
@@ -19,12 +18,19 @@ interface SearchAutocompleteProps {
         users: User[];
     };
     selectedFilters: string[];
-    onFilterChange: (filter: string) => void;
     searchTerm: string;
+    onFilterChange: (filter: string) => void;
     onShowMore: () => void;
 }
 
-const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange, searchTerm, onShowMore }: SearchAutocompleteProps) => {
+const SearchAutocomplete = ({
+    loading,
+    results,
+    selectedFilters,
+    onFilterChange,
+    searchTerm,
+    onShowMore,
+}: SearchAutocompleteProps) => {
     const theme = useTheme();
 
     const filters = [
@@ -104,16 +110,16 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
                 overflowY: "auto",
             }}
         >
-            <Stack 
-                direction="row" 
-                spacing={1} 
-                sx={{ 
+            <Stack
+                direction="row"
+                spacing={1}
+                sx={{
                     mb: 2.5,
                     pb: 2,
                     borderBottom: 1,
-                    borderColor: 'divider',
+                    borderColor: "divider",
                     flexWrap: "wrap",
-                    gap: 1 
+                    gap: 1,
                 }}
             >
                 {filters.map((filter) => (
@@ -125,11 +131,11 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
                         variant={selectedFilters.includes(filter.value) ? "filled" : "outlined"}
                         sx={{
                             borderRadius: 1,
-                            '&:hover': {
-                                bgcolor: selectedFilters.includes(filter.value) 
-                                    ? theme.vars.palette.primary.main 
+                            "&:hover": {
+                                bgcolor: selectedFilters.includes(filter.value)
+                                    ? theme.vars.palette.primary.main
                                     : theme.vars.palette.action.hover,
-                            }
+                            },
                         }}
                     />
                 ))}
@@ -138,9 +144,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
             <Stack spacing={3}>
                 {shouldShowSection("movies") && results.movies.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -158,9 +164,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
 
                 {shouldShowSection("series") && results.series.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -178,9 +184,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
 
                 {shouldShowSection("actors") && results.actors.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -198,9 +204,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
 
                 {shouldShowSection("crew") && results.crew.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -218,9 +224,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
 
                 {shouldShowSection("seasons") && results.seasons.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -238,9 +244,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
 
                 {shouldShowSection("episodes") && results.episodes.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -258,9 +264,9 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
 
                 {shouldShowSection("users") && results.users.length > 0 && (
                     <Box>
-                        <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
                                 color: theme.vars.palette.text.primary,
@@ -277,25 +283,25 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
                 )}
 
                 {hasResults && (
-                    <Box 
-                        sx={{ 
-                            mt: 2, 
-                            pt: 2, 
-                            borderTop: 1, 
-                            borderColor: 'divider',
-                            textAlign: 'center'
+                    <Box
+                        sx={{
+                            mt: 2,
+                            pt: 2,
+                            borderTop: 1,
+                            borderColor: "divider",
+                            textAlign: "center",
                         }}
                     >
                         <Button
                             onClick={onShowMore}
                             variant="text"
                             endIcon={<ArrowForward />}
-                            sx={{ 
-                                textTransform: 'none',
+                            sx={{
+                                textTransform: "none",
                                 color: theme.vars.palette.primary.main,
                             }}
                         >
-                            View all {getTotalResults()} results for "{searchTerm}"
+                            View all {getTotalResults()} results for &quot;{searchTerm}&quot;
                         </Button>
                     </Box>
                 )}
@@ -304,4 +310,4 @@ const SearchAutocomplete = ({ loading, results, selectedFilters, onFilterChange,
     );
 };
 
-export default SearchAutocomplete; 
+export default SearchAutocomplete;
