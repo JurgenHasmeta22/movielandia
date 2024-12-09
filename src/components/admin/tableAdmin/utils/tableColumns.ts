@@ -136,10 +136,6 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                     accessorKey: "ratingImdb",
                     header: "IMDB Rating",
                 },
-                {
-                    accessorKey: "genreId",
-                    header: "Genre ID",
-                },
             ];
         case "movies":
             return [
@@ -166,10 +162,6 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                 {
                     accessorKey: "ratingImdb",
                     header: "IMDB Rating",
-                },
-                {
-                    accessorKey: "genreId",
-                    header: "Genre ID",
                 },
             ];
         case "genres":
