@@ -1,22 +1,15 @@
 "use client";
 
-import { Box, Button, IconButton, Tooltip, Typography, Menu, MenuItem, ListItemIcon } from "@mui/material";
-import { Add, Delete, SaveAlt, PictureAsPdf, TableChart } from "@mui/icons-material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import {
-    MRT_GlobalFilterTextField,
-    MRT_ShowHideColumnsButton,
-    MRT_ToggleDensePaddingButton,
-    MRT_ToggleFiltersButton,
-    MRT_ToggleFullScreenButton,
-    MRT_TableInstance,
-    MRT_Row,
-} from "material-react-table";
-import { useState, useMemo } from "react";
+import { Box } from "@mui/material";
+import { MRT_TableInstance, MRT_Row } from "material-react-table";
+import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { utils, writeFile } from "xlsx";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { ExportMenu } from "./ExportMenu";
+import { ToolbarActions } from "./ToolbarActions";
+import { ToolbarFilters } from "./ToolbarFilters";
 
 interface TableToolbarProps {
     table: MRT_TableInstance<any>;
@@ -27,216 +20,174 @@ interface TableToolbarProps {
 
 export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMassiveDelete }: TableToolbarProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
     const theme = useTheme();
-    const exportData = useMemo(() => table.getRowModel().rows.map((row: MRT_Row<any>) => row.original), [table]);
 
-    const handleExportClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+    const getVisibleColumns = () => {
+        return table
+            .getAllColumns()
+            .filter((column) => column.getIsVisible())
+            .map((column) => ({
+                accessorKey: column.id,
+                header: column.columnDef.header?.toString() || column.id,
+            }));
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const prepareExportData = () => {
+        const visibleColumns = getVisibleColumns();
 
-    const getColumns = (columnVisibility: any) => {
-        return Object.keys(columnVisibility)
-            .filter((key) => columnVisibility[key])
-            .map((key) => {
-                return {
-                    accessorKey: key,
-                    header: table.getColumn(key).header,
-                };
+        return table.getRowModel().rows.map((row: MRT_Row<any>) => {
+            const rowData: Record<string, any> = {};
+            visibleColumns.forEach((column) => {
+                const value = row.getValue(column.accessorKey);
+                rowData[column.header] = value !== null && value !== undefined ? value : "";
             });
-    };
 
-    const getFormattedDate = () => {
-        const date = new Date();
-        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+            return rowData;
+        });
     };
 
     const handleExportPDF = () => {
-        console.log("Export Data before PDF:", exportData);
         const doc = new jsPDF();
+        const exportData = prepareExportData();
+        const visibleColumns = getVisibleColumns();
 
-        const rows = exportData.map((row) => {
-            return Object.keys(row).map((key) => row[key] ?? "");
-        });
+        const headers = visibleColumns.map((col) => col.header);
+        const rows = exportData.map((row) =>
+            visibleColumns.map((col) => {
+                const value = row[col.header];
+                return value !== null && value !== undefined ? String(value) : "";
+            }),
+        );
 
-        console.log("Rows for PDF:", rows);
+        doc.setFontSize(16);
+        doc.text("Export Data", 14, 15);
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 25);
 
         autoTable(doc, {
-            head: [Object.keys(exportData[0] || {}).map((key) => key)],
+            head: [headers],
             body: rows,
+            startY: 35,
             styles: {
-                cellPadding: 5,
-                fontSize: 10,
-                overflow: "linebreak",
+                fontSize: 8,
+                cellPadding: 2,
+                lineWidth: 0.5,
+                lineColor: [80, 80, 80],
+            },
+            headStyles: {
+                fillColor: [48, 150, 159],
+                textColor: 255,
+                fontSize: 9,
+                fontStyle: "bold",
+                halign: "left",
+                cellPadding: 3,
+                lineWidth: 0.5,
+                lineColor: [80, 80, 80],
+                minCellWidth: 30,
+            },
+            bodyStyles: {
                 halign: "left",
                 valign: "middle",
+                cellPadding: 3,
+                lineWidth: 0.5,
+                lineColor: [80, 80, 80],
             },
-            theme: "striped",
-            headStyles: {
-                fillColor: [52, 168, 83],
-                textColor: 255,
-                fontSize: 11,
-                fontStyle: "bold",
+            columnStyles: headers.reduce(
+                (acc, _, index) => {
+                    acc[index] = {
+                        cellWidth: "auto",
+                        minCellWidth: 30,
+                        maxCellWidth: 100,
+                        cellPadding: 3,
+                    };
+                    return acc;
+                },
+                {} as Record<number, any>,
+            ),
+            alternateRowStyles: {
+                fillColor: [245, 245, 245],
+            },
+            margin: { top: 35, left: 10, right: 10 },
+            theme: "grid",
+            tableWidth: "auto",
+            didParseCell: function (data) {
+                if (data.section === "head") {
+                    data.cell.styles.fillColor = [48, 150, 159];
+                    data.cell.styles.textColor = 255;
+                    data.cell.styles.fontSize = 9;
+                    data.cell.styles.fontStyle = "bold";
+                }
+            },
+            didDrawCell: function (data) {
+                if (data.cell.raw) {
+                    const { x, y, width, height } = data.cell;
+                    doc.setDrawColor(80, 80, 80);
+                    doc.setLineWidth(0.5);
+                    doc.rect(x, y, width, height);
+                }
             },
         });
 
-        const fileName = `data_${getFormattedDate()}.pdf`;
+        const fileName = `export_${new Date().toISOString().split("T")[0]}.pdf`;
         doc.save(fileName);
     };
 
     const handleExportCSV = () => {
-        const headers = Object.keys(exportData[0] || {}).join(",");
-        const csvContent = [headers, ...exportData.map((row) => Object.values(row).join(","))].join("\n");
-
-        console.log("Exporting CSV with content:", csvContent);
+        const exportData = prepareExportData();
+        const headers = Object.keys(exportData[0] || {});
+        const csvContent = [
+            headers.join(","),
+            ...exportData.map((row) =>
+                headers
+                    .map((header) => {
+                        const value = row[header];
+                        return value !== null && value !== undefined ? `"${value}"` : '""';
+                    })
+                    .join(","),
+            ),
+        ].join("\n");
 
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        const fileName = `data_${getFormattedDate()}.csv`;
-        a.href = url;
-        a.download = fileName;
-        a.click();
+        const link = document.createElement("a");
+
+        link.href = URL.createObjectURL(blob);
+        link.download = `export_${new Date().toISOString().split("T")[0]}.csv`;
+        link.click();
     };
 
     const handleExportExcel = () => {
+        const exportData = prepareExportData();
         const worksheet = utils.json_to_sheet(exportData);
         const workbook = utils.book_new();
-        utils.book_append_sheet(workbook, worksheet, "Sheet1");
-        const fileName = `data_${getFormattedDate()}.xlsx`;
-        writeFile(workbook, fileName);
+
+        utils.book_append_sheet(workbook, worksheet, "Data");
+        writeFile(workbook, `export_${new Date().toISOString().split("T")[0]}.xlsx`);
     };
 
-    const handleExport = (format: string) => {
-        switch (format) {
-            case "pdf":
-                handleExportPDF();
-                break;
-            case "csv":
-                handleExportCSV();
-                break;
-            case "excel":
-                handleExportExcel();
-                break;
-            default:
-                break;
-        }
+    const handleExport = (format: "pdf" | "csv" | "excel") => {
+        const exportHandlers = {
+            pdf: handleExportPDF,
+            csv: handleExportCSV,
+            excel: handleExportExcel,
+        };
 
-        handleClose();
+        exportHandlers[format]();
+        setAnchorEl(null);
     };
 
     return (
         <Box
-            sx={() => ({
+            sx={{
                 display: "flex",
                 gap: "1rem",
                 p: "10px",
                 justifyContent: "space-between",
-            })}
+            }}
         >
+            <ToolbarFilters table={table} handleFetchData={handleFetchData} />
             <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                <Tooltip arrow title="Refresh Data">
-                    <IconButton onClick={handleFetchData}>
-                        <RefreshIcon />
-                    </IconButton>
-                </Tooltip>
-                <MRT_GlobalFilterTextField table={table} />
-                <MRT_ToggleFiltersButton table={table} />
-                <MRT_ShowHideColumnsButton table={table} />
-                <MRT_ToggleDensePaddingButton table={table} />
-                <MRT_ToggleFullScreenButton table={table} />
-            </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    placeItems: "center",
-                    placeContent: "center",
-                    gap: "1rem",
-                }}
-            >
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleExportClick}
-                    startIcon={<SaveAlt />}
-                    sx={{
-                        height: "36px",
-                        backgroundColor: theme.vars.palette.secondary.main,
-                        color: theme.vars.palette.common.white,
-                        "&:hover": {
-                            backgroundColor: theme.vars.palette.primary.dark,
-                        },
-                    }}
-                >
-                    Export
-                </Button>
-                <Menu
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    sx={{
-                        "& .MuiPaper-root": {
-                            backgroundColor: theme.vars.palette.background.paper,
-                            boxShadow: theme.shadows[3],
-                        },
-                    }}
-                >
-                    <MenuItem
-                        onClick={() => handleExport("pdf")}
-                        sx={{
-                            "&:hover": {
-                                backgroundColor: theme.vars.palette.action.hover,
-                            },
-                        }}
-                    >
-                        <ListItemIcon>
-                            <PictureAsPdf sx={{ color: theme.vars.palette.primary.main }} />
-                        </ListItemIcon>
-                        Export to PDF
-                    </MenuItem>
-                    <MenuItem
-                        onClick={() => handleExport("csv")}
-                        sx={{
-                            "&:hover": {
-                                backgroundColor: theme.vars.palette.action.hover,
-                            },
-                        }}
-                    >
-                        <ListItemIcon>
-                            <TableChart sx={{ color: theme.vars.palette.primary.main }} />
-                        </ListItemIcon>
-                        Export to CSV
-                    </MenuItem>
-                    <MenuItem
-                        onClick={() => handleExport("excel")}
-                        sx={{
-                            "&:hover": {
-                                backgroundColor: theme.vars.palette.action.hover,
-                            },
-                        }}
-                    >
-                        <ListItemIcon>
-                            <SaveAlt sx={{ color: theme.vars.palette.primary.main }} />
-                        </ListItemIcon>
-                        Export to Excel
-                    </MenuItem>
-                </Menu>
-                <Button color="success" onClick={handleAddItem} variant="contained" startIcon={<Add />}>
-                    <Typography sx={{ textTransform: "capitalize" }}>Add</Typography>
-                </Button>
-                <Button
-                    color="error"
-                    disabled={Object.keys(table.getState().rowSelection).length === 0}
-                    onClick={handleMassiveDelete}
-                    variant="contained"
-                    startIcon={<Delete />}
-                >
-                    <Typography sx={{ textTransform: "capitalize" }}>Delete</Typography>
-                </Button>
+                <ExportMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} handleExport={handleExport} theme={theme} />
+                <ToolbarActions table={table} handleAddItem={handleAddItem} handleMassiveDelete={handleMassiveDelete} />
             </Box>
         </Box>
     );
