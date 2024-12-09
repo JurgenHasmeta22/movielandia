@@ -2,22 +2,22 @@
 
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import CardItem from "@/components/root/cardItem/CardItem";
+import CardItem, { PathType } from "@/components/root/cardItem/CardItem";
 import { Box, Typography, Stack, useTheme } from "@mui/material";
-import { Actor, Episode, Movie, Season, Serie, User } from "@prisma/client";
+import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface MediaListProps {
     title: string;
-    data: Array<Movie | Serie | Actor | Season | Episode | User>;
+    data: Array<Movie | Serie | Actor | Season | Episode | User | Crew>;
     count: number;
     sortBy: string;
     ascOrDesc: string;
     page: number;
     pageCount: number;
-    dataType: "Movies" | "Series" | "Actors" | "Seasons" | "Episodes" | "Users";
-    cardType: "movie" | "serie" | "actor" | "season" | "episode" | "user";
-    path?: string;
+    dataType: "Movies" | "Series" | "Actors" | "Seasons" | "Episodes" | "Users" | "Crew";
+    cardType: "movie" | "serie" | "actor" | "season" | "episode" | "user" | "crew";
+    path?: PathType;
 }
 
 const SearchList = ({
@@ -30,134 +30,103 @@ const SearchList = ({
     pageCount,
     dataType,
     cardType,
-    path = "",
+    path = null,
 }: MediaListProps) => {
     const theme = useTheme();
+
     const itemsPerPage = 12;
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, count);
 
     if (data.length === 0) {
-        return (
-            <Box
-                component="section"
-                sx={{
-                    height: "50vh",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    px: { xs: 2, sm: 3, md: 4 },
-                }}
-            >
-                <Typography
-                    variant="h3"
-                    sx={{
-                        fontSize: { xs: 20, sm: 22, md: 24 },
-                        color: theme.vars.palette.text.secondary,
-                        textAlign: "center",
-                    }}
-                >
-                    No search result, no {dataType.toLowerCase()} found with that criteria.
-                </Typography>
-            </Box>
-        );
+        return null;
     }
 
     return (
         <Box
             component="section"
             sx={{
-                maxWidth: "1200px",
-                margin: "0 auto",
                 width: "100%",
-                px: { xs: 2, sm: 3, md: 4 },
-                py: { xs: 3, md: 4 },
+                bgcolor: "background.paper",
+                borderRadius: 2,
+                boxShadow: theme.vars.shadows[1],
+                overflow: "hidden",
             }}
         >
             <Box
                 sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    flexDirection: { xs: "column", sm: "row" },
-                    gap: { xs: 2, sm: 3 },
-                    mb: { xs: 3, md: 4 },
+                    p: { xs: 2, sm: 3 },
+                    borderBottom: `1px solid ${theme.vars.palette.divider}`,
                 }}
             >
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: { xs: "column", sm: "row" },
-                        alignItems: { xs: "flex-start", sm: "baseline" },
-                        gap: { xs: 1, sm: 2 },
+                        justifyContent: "space-between",
+                        alignItems: { xs: "flex-start", sm: "center" },
+                        gap: 2,
                     }}
                 >
-                    <Typography
-                        variant="h2"
-                        sx={{
-                            fontSize: { xs: 24, sm: 28, md: 32 },
-                            fontWeight: 800,
-                            color: theme.vars.palette.text.primary,
-                            position: "relative",
-                            display: "inline-block",
-                            "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                bottom: -8,
-                                left: 0,
-                                width: "100%",
-                                height: 3,
-                                bgcolor: theme.vars.palette.primary.main,
-                                borderRadius: 1,
-                            },
-                        }}
-                    >
-                        {title}
-                    </Typography>
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            fontSize: { xs: 16, sm: 18 },
-                            color: theme.vars.palette.text.secondary,
-                            mt: { xs: 2, sm: 0 },
-                            ml: { sm: 1 },
-                            position: "relative",
-                            top: { sm: 2 },
-                        }}
-                    >
-                        {startIndex} – {endIndex} of {count} {dataType.toLowerCase()}
-                    </Typography>
-                </Box>
-                <Box>
+                    <Box>
+                        <Typography
+                            variant="h2"
+                            sx={{
+                                fontSize: { xs: 20, sm: 24 },
+                                fontWeight: 700,
+                                color: "text.primary",
+                                mb: 0.5,
+                            }}
+                        >
+                            {title}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                color: "text.secondary",
+                            }}
+                        >
+                            {startIndex} – {endIndex} of {count} {dataType.toLowerCase()}
+                        </Typography>
+                    </Box>
                     <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType={dataType.toLowerCase()} />
                 </Box>
             </Box>
-            <Box
-                sx={{
-                    width: "100%",
-                    overflow: "hidden",
-                    mt: { xs: 4, md: 5 },
-                }}
-            >
+            <Box sx={{ p: { xs: 2, sm: 3 } }}>
                 <Stack
                     direction="row"
                     flexWrap="wrap"
                     sx={{
-                        columnGap: { xs: 1, sm: 2, md: 3 },
-                        rowGap: { xs: 3, sm: 4, md: 5 },
+                        gap: { xs: 2, sm: 3 },
                         justifyContent: {
                             xs: "center",
-                            md: "flex-start",
+                            sm: "flex-start",
                         },
-                        mx: { xs: 1, sm: 2 },
-                        mb: { xs: 3, md: 4 },
                     }}
                 >
                     {data.map((item) => (
-                        <CardItem data={item} type={cardType} key={item.id} path={path} />
+                        <Box
+                            key={item.id}
+                            sx={{
+                                width: {
+                                    xs: "100%",
+                                    sm: "calc(50% - 12px)",
+                                    md: "calc(33.333% - 16px)",
+                                    lg: "calc(25% - 18px)",
+                                },
+                                transition: "transform 0.2s ease-in-out",
+                                "&:hover": {
+                                    transform: "translateY(-4px)",
+                                },
+                            }}
+                        >
+                            <CardItem data={item} key={item.id} type={cardType} path={path} />
+                        </Box>
                     ))}
                 </Stack>
-                <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType={dataType} />
+                <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType={dataType} />
+                </Box>
             </Box>
         </Box>
     );
