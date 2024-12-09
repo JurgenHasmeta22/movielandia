@@ -203,6 +203,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
             <Box
                 sx={{
                     mb: { xs: 4, md: 6 },
+                    mt: { xs: 4, md: 6 },
                     textAlign: "center",
                 }}
             >
