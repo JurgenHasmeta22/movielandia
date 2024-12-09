@@ -431,9 +431,10 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
             return (
                 <TableToolbar
                     table={table}
-                    handleMassiveDelete={handleBulkDelete}
                     handleFetchData={fetchData}
                     handleAddItem={handleAddItem}
+                    handleMassiveDelete={handleBulkDelete}
+                    page={page}
                 />
             );
         },
