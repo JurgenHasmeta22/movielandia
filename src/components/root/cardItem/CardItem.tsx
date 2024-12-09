@@ -80,10 +80,11 @@ interface ICardItemProps {
     data: CardData;
     type: CardItemType;
     path?: PathType;
+    isAutocomplete?: boolean;
 }
 // #endregion
 
-const CardItem: React.FC<ICardItemProps> = ({ data, type, path }): React.JSX.Element => {
+const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete = false }): React.JSX.Element => {
     const { data: session } = useSession();
 
     const [isHovered, setIsHovered] = useState(false);
@@ -214,7 +215,9 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path }): React.JSX.Ele
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        width: { xs: "140px", sm: "160px" },
+                        width: isAutocomplete 
+                            ? { xs: "120px", sm: "140px" }
+                            : { xs: "140px", sm: "160px" },
                         height: "100%",
                         position: "relative",
                         borderRadius: 2,
@@ -229,7 +232,9 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path }): React.JSX.Ele
                     <Box
                         sx={{
                             position: "relative",
-                            height: { xs: "210px", sm: "240px" },
+                            height: isAutocomplete 
+                                ? { xs: "180px", sm: "210px" }
+                                : { xs: "210px", sm: "240px" },
                             width: "100%",
                             overflow: "hidden",
                             "&:hover .hoverOverlay": {
