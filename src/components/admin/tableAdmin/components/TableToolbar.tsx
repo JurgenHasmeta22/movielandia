@@ -39,41 +39,78 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
         setAnchorEl(null);
     };
 
+    const getColumns = (columnVisibility: any) => {
+        return Object.keys(columnVisibility)
+            .filter((key) => columnVisibility[key])
+            .map((key) => {
+                return {
+                    accessorKey: key,
+                    header: table.getColumn(key).header,
+                };
+            });
+    };
+
+    const getFormattedDate = () => {
+        const date = new Date();
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    };
+
+    const handleExportPDF = () => {
+        const doc = new jsPDF();
+        const columns = getColumns(table.getState().columnVisibility);
+        const rows = exportData.map((row) => {
+            const rowData: any = {};
+            columns.forEach((col) => {
+                rowData[col.accessorKey] = row[col.accessorKey] ?? "";
+            });
+
+            return rowData;
+        });
+
+        autoTable(doc, {
+            columns: columns.map((col) => ({ header: col.header, dataKey: col.accessorKey })),
+            body: rows,
+        });
+
+        const fileName = `data_${getFormattedDate()}.pdf`;
+        doc.save(fileName);
+    };
+
+    const handleExportCSV = () => {
+        const csvContent = exportData
+            .map((row) => {
+                return getColumns(table.getState().columnVisibility)
+                    .map((col) => row[col.accessorKey] ?? "")
+                    .join(",");
+            })
+            .join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const fileName = `data_${getFormattedDate()}.csv`;
+        a.href = url;
+        a.download = fileName;
+        a.click();
+    };
+
+    const handleExportExcel = () => {
+        const worksheet = utils.json_to_sheet(exportData);
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        const fileName = `data_${getFormattedDate()}.xlsx`;
+        writeFile(workbook, fileName);
+    };
+
     const handleExport = (format: string) => {
         switch (format) {
-            case "csv":
-                const csvContent = exportData.map((row) => Object.values(row).join(",")).join("\n");
-                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "export.csv";
-                a.click();
-                break;
             case "pdf":
-                const doc = new jsPDF();
-                const columns = table.getAllColumns().map((col) => ({ header: col.columnDef.header, dataKey: col.id }));
-                const rows = exportData.map((row) => {
-                    const rowData: any = {};
-                    columns.forEach((col) => {
-                        rowData[col.dataKey] = row[col.dataKey];
-                    });
-
-                    return rowData;
-                });
-
-                autoTable(doc, {
-                    columns,
-                    body: rows,
-                });
-
-                doc.save("export.pdf");
+                handleExportPDF();
+                break;
+            case "csv":
+                handleExportCSV();
                 break;
             case "excel":
-                const worksheet = utils.json_to_sheet(exportData);
-                const workbook = utils.book_new();
-                utils.book_append_sheet(workbook, worksheet, "Sheet1");
-                writeFile(workbook, "export.xlsx");
+                handleExportExcel();
                 break;
             default:
                 break;
@@ -139,19 +176,6 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
                     }}
                 >
                     <MenuItem
-                        onClick={() => handleExport("csv")}
-                        sx={{
-                            "&:hover": {
-                                backgroundColor: theme.vars.palette.action.hover,
-                            },
-                        }}
-                    >
-                        <ListItemIcon>
-                            <TableChart sx={{ color: theme.vars.palette.primary.main }} />
-                        </ListItemIcon>
-                        Export to CSV
-                    </MenuItem>
-                    <MenuItem
                         onClick={() => handleExport("pdf")}
                         sx={{
                             "&:hover": {
@@ -163,6 +187,19 @@ export const TableToolbar = ({ table, handleFetchData, handleAddItem, handleMass
                             <PictureAsPdf sx={{ color: theme.vars.palette.primary.main }} />
                         </ListItemIcon>
                         Export to PDF
+                    </MenuItem>
+                    <MenuItem
+                        onClick={() => handleExport("csv")}
+                        sx={{
+                            "&:hover": {
+                                backgroundColor: theme.vars.palette.action.hover,
+                            },
+                        }}
+                    >
+                        <ListItemIcon>
+                            <TableChart sx={{ color: theme.vars.palette.primary.main }} />
+                        </ListItemIcon>
+                        Export to CSV
                     </MenuItem>
                     <MenuItem
                         onClick={() => handleExport("excel")}
