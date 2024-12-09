@@ -6,6 +6,7 @@ import CardItem, { PathType } from "@/components/root/cardItem/CardItem";
 import { Box, Typography, Stack, useTheme } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { motion } from "framer-motion";
 
 interface MediaListProps {
     title: string;
@@ -44,7 +45,11 @@ const SearchList = ({
 
     return (
         <Box
-            component="section"
+            component={motion.section}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
             sx={{
                 width: "100%",
                 bgcolor: "background.paper",

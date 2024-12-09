@@ -9,6 +9,7 @@ import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import { searchUsersByUsername } from "@/actions/user.actions";
 import SearchList from "./SearchList";
 import { searchCrewMembersByTitle } from "@/actions/crew.actions";
+import SearchTabs from "./SearchTabs";
 // #endregion
 
 // #region "Interfaces"
@@ -36,6 +37,7 @@ interface SearchPageContentProps {
         pageUsers?: string;
         usersSortBy?: string;
         term?: string;
+        filters?: string;
     };
     session: any;
 }
@@ -49,6 +51,7 @@ interface IQueryParams {
 
 export default async function SearchPageContent({ searchParams, session }: SearchPageContentProps) {
     const term = searchParams?.term ?? "";
+    const selectedFilters = searchParams?.filters?.split(",") || ["all"];
     const itemsPerPage = 12;
 
     // #region "Movies data"
@@ -191,6 +194,11 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     const pageCountUsers = Math.ceil(usersCount / itemsPerPage);
     // #endregion
 
+    const shouldShowSection = (type: string) => {
+        if (selectedFilters.includes("all")) return true;
+        return selectedFilters.includes(type.toLowerCase());
+    };
+
     return (
         <Box
             sx={{
@@ -233,14 +241,16 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         : "Explore our vast collection of movies, series, actors and more"}
                 </Typography>
             </Box>
+            <SearchTabs />
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     gap: { xs: 6, md: 8 },
+                    mt: 4,
                 }}
             >
-                {(!term || moviesCount > 0) && (
+                {shouldShowSection("movies") && (
                     <SearchList
                         title={term ? `Movies matching "${term}"` : "Movies"}
                         data={movies}
@@ -254,7 +264,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     />
                 )}
 
-                {(!term || seriesCount > 0) && (
+                {shouldShowSection("series") && (!term || seriesCount > 0) && (
                     <SearchList
                         title={term ? `Series matching "${term}"` : "Series"}
                         data={series}
@@ -268,7 +278,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     />
                 )}
 
-                {(!term || actorsCount > 0) && (
+                {shouldShowSection("actors") && (!term || actorsCount > 0) && (
                     <SearchList
                         title={term ? `Actors matching "${term}"` : "Actors"}
                         data={actors}
@@ -283,7 +293,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     />
                 )}
 
-                {(!term || crewsCount > 0) && (
+                {shouldShowSection("crew") && (!term || crewsCount > 0) && (
                     <SearchList
                         title={term ? `Crews matching "${term}"` : "Crews"}
                         data={crews}
@@ -298,7 +308,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     />
                 )}
 
-                {(!term || seasonsCount > 0) && (
+                {shouldShowSection("seasons") && (!term || seasonsCount > 0) && (
                     <SearchList
                         title={term ? `Seasons matching "${term}"` : "Seasons"}
                         data={seasons}
@@ -312,7 +322,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     />
                 )}
 
-                {(!term || episodesCount > 0) && (
+                {shouldShowSection("episodes") && (!term || episodesCount > 0) && (
                     <SearchList
                         title={term ? `Episodes matching "${term}"` : "Episodes"}
                         data={episodes}
@@ -326,7 +336,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     />
                 )}
 
-                {(!term || usersCount > 0) && (
+                {shouldShowSection("users") && (!term || usersCount > 0) && (
                     <SearchList
                         title={term ? `Users matching "${term}"` : "Users"}
                         data={users}
