@@ -153,9 +153,16 @@ export const theme = responsiveFontSizes(
                     },
                     background: {
                         default: "#fcfcfc",
+                        paper: "#ffffff",
                     },
                     greyAccent: {
                         main: lightColorTokens.grey[100],
+                    },
+                    stats: {
+                        boxShadow: "rgba(0, 0, 0, 0.1)",
+                        hoverShadow: "rgba(0, 0, 0, 0.15)",
+                        iconBg: "rgba(33, 150, 243, 0.08)",
+                        borderColor: "rgba(0, 0, 0, 0.1)",
                     },
                 },
             },
@@ -183,9 +190,16 @@ export const theme = responsiveFontSizes(
                     },
                     background: {
                         default: darkColorTokens.primary[500],
+                        paper: darkColorTokens.primary[400],
                     },
                     greyAccent: {
                         main: darkColorTokens.grey[100],
+                    },
+                    stats: {
+                        boxShadow: "rgba(0, 0, 0, 0.3)",
+                        hoverShadow: "rgba(0, 0, 0, 0.4)",
+                        iconBg: "rgba(144, 202, 249, 0.08)",
+                        borderColor: "rgba(255, 255, 255, 0.1)",
                     },
                 },
             },

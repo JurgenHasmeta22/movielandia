@@ -1,6 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DashboardProgressCircle } from "./DashboardProgressCircle";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import React, { JSX } from "react";
 
 interface IDashboardProgressCircleProps {
     title: string;
@@ -14,10 +15,21 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
     const theme = useTheme();
 
     return (
-        <Box width="100%" height="100%">
+        <Box width="100%" height="100%" display="flex" flexDirection="column" justifyContent="space-between">
             <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                 <Box>
-                    {icon}
+                    <Box
+                        className="stat-icon"
+                        sx={{
+                            backgroundColor: theme.vars.palette.stats.iconBg,
+                            p: 1,
+                            borderRadius: 2,
+                            display: "inline-flex",
+                            transition: "transform 0.3s ease-in-out",
+                        }}
+                    >
+                        {icon}
+                    </Box>
                     <Typography
                         variant="h4"
                         fontWeight="bold"
@@ -25,6 +37,7 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
                             color: theme.vars.palette.text.primary,
                             mt: 2,
                             mb: 1,
+                            fontSize: "2rem",
                         }}
                     >
                         {title}
@@ -34,7 +47,16 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
                     <DashboardProgressCircle progress={progress} />
                 </Box>
             </Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+            <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                mt={2}
+                sx={{
+                    borderTop: `1px solid ${theme.vars.palette.stats.borderColor}`,
+                    pt: 2,
+                }}
+            >
                 <Typography
                     variant="h6"
                     sx={{
@@ -48,14 +70,12 @@ export const DashboardStatBox = ({ title, subtitle, icon, progress, increase }: 
                     variant="body2"
                     sx={{
                         color: theme.vars.palette.primary.main,
-                        backgroundColor:
-                            theme.vars.palette.mode === "dark"
-                                ? "rgba(144, 202, 249, 0.08)"
-                                : "rgba(33, 150, 243, 0.08)",
-                        px: 1.5,
-                        py: 0.5,
-                        borderRadius: 1,
-                        fontWeight: 500,
+                        backgroundColor: theme.vars.palette.stats.iconBg,
+                        px: 2,
+                        py: 0.75,
+                        borderRadius: 2,
+                        fontWeight: 600,
+                        fontSize: "0.875rem",
                     }}
                 >
                     {increase}

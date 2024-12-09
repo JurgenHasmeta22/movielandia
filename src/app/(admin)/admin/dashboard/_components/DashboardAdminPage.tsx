@@ -25,15 +25,21 @@ const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
             sx={{
                 backgroundColor: theme.vars.palette.background.paper,
                 borderRadius: 2,
-                p: 2.5,
-                boxShadow: "0px 4px 10px",
-                transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                p: 3,
+                boxShadow: theme.vars.palette.stats.boxShadow,
+                transition: "all 0.3s ease-in-out",
                 "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0px 8px 15px",
+                    transform: "translateY(-4px)",
+                    boxShadow: theme.vars.palette.stats.hoverShadow,
+                    "& .stat-icon": {
+                        transform: "scale(1.1)",
+                    },
                 },
-                minHeight: "180px",
+                minHeight: "200px",
                 width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
             }}
         >
             {children}
