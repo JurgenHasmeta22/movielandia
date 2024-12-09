@@ -2,6 +2,7 @@
 
 import { Genre, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
+import { FilterOperator } from "@/types/filterOperators";
 
 type RatingsMap = {
     [key: number]: {
@@ -10,46 +11,45 @@ type RatingsMap = {
     };
 };
 
-interface GetGenresParams {
+interface GenreModelParams {
     sortBy?: string;
     ascOrDesc?: string;
     perPage?: number;
     page?: number;
-    name?: string;
-    type?: string;
-    filterValue?: any;
-    filterNameString?: string;
-    filterOperatorString?: ">" | "=" | "<";
+    name?: string | null;
+    type?: string | null;
+    filterValue?: number | string;
+    filterNameString?: string | null;
+    filterOperatorString?: FilterOperator;
 }
 
 // #region "GET Methods"
 export async function getGenresWithFilters({
     sortBy,
     ascOrDesc,
-    perPage,
-    page,
+    perPage = 12,
+    page = 1,
     name,
     filterValue,
     filterNameString,
     filterOperatorString,
-}: GetGenresParams): Promise<any | null> {
+}: GenreModelParams): Promise<{ rows: Genre[]; count: number }> {
     const filters: any = {};
-    let skip = 0;
-    let take = undefined;
+    const orderByObject: any = {};
 
-    if (page !== undefined) {
-        skip = perPage ? (page - 1) * perPage : 0;
-        take = perPage || 12;
-    }
+    const skip = (page - 1) * perPage;
+    const take = perPage;
 
     if (name) filters.name = { contains: name };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
-
-    const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
         orderByObject[sortBy] = ascOrDesc;
@@ -62,16 +62,12 @@ export async function getGenresWithFilters({
         take,
     });
 
-    const count = await prisma.genre.count();
+    const genresCount = await prisma.genre.count();
 
-    if (genres) {
-        return { rows: genres, count };
-    } else {
-        return null;
-    }
+    return { rows: genres, count: genresCount };
 }
 
-export async function getGenres(): Promise<any | null> {
+export async function getGenres(): Promise<Genre[] | null> {
     const genres = await prisma.genre.findMany();
 
     if (genres) {
@@ -93,7 +89,7 @@ export async function getGenreById(
         filterValue,
         filterNameString,
         filterOperatorString,
-    }: GetGenresParams,
+    }: GenreModelParams,
     userId?: number,
 ): Promise<any | null> {
     const filters: any = {};
@@ -103,8 +99,12 @@ export async function getGenreById(
     if (name) filters.name = { contains: name };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     const orderByObject: any = {};
@@ -292,7 +292,7 @@ export async function getGenreByName(
         filterValue,
         filterNameString,
         filterOperatorString,
-    }: GetGenresParams,
+    }: GenreModelParams,
 ): Promise<any | null> {
     const filters: any = {};
     const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
@@ -301,8 +301,12 @@ export async function getGenreByName(
     if (name) filters.name = { contains: name };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     const orderByObject: any = {};

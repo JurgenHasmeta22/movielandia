@@ -1,0 +1,8 @@
+{
+    "output": {
+        "instructionFilePath": "docs/instructions.md",
+        "filePath": "docs/codebase.md",
+        "style": "markdown",
+        "headerText": "MovieLandia24 Codebase"
+    }
+}

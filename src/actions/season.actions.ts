@@ -2,6 +2,7 @@
 
 import { Season, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
+import { FilterOperator } from "@/types/filterOperators";
 
 interface SeasonModelParams {
     sortBy?: string;
@@ -11,7 +12,7 @@ interface SeasonModelParams {
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
-    filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
+    filterOperatorString?: FilterOperator;
 }
 
 export type RatingsMap = {
@@ -39,8 +40,12 @@ export async function getSeasonsWithFilters({
     if (title) filters.title = { contains: title };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     const orderByObject: any = {};
