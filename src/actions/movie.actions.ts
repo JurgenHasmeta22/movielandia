@@ -2,6 +2,7 @@
 
 import { Movie, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
+import { FilterOperator } from "@/types/filterOperators";
 
 interface MovieModelParams {
     sortBy?: string;
@@ -11,7 +12,7 @@ interface MovieModelParams {
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
-    filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
+    filterOperatorString?: FilterOperator;
 }
 
 type RatingsMap = {
@@ -44,8 +45,12 @@ export async function getMoviesWithFilters(
     if (title) filters.title = { contains: title };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     if (sortBy && ascOrDesc) {

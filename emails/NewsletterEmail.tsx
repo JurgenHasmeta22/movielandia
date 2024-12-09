@@ -9,7 +9,6 @@ import {
     Text,
     Img,
     Section,
-    Link,
 } from "@react-email/components";
 
 interface NewsletterEmailProps {
@@ -99,10 +98,6 @@ const NewsletterEmail: React.FC<NewsletterEmailProps> = ({ userName }) => {
                     </Text>
                     <Text style={footer}>
                         &copy; 2024 MovieLandia24. All rights reserved.
-                        <br />
-                        <Link href={`${baseUrl}/preferences`} style={{ color: "#9ba3af", textDecoration: "underline" }}>
-                            Update email preferences
-                        </Link>
                     </Text>
                 </Container>
             </Body>

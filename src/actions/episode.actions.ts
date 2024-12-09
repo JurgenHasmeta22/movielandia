@@ -3,6 +3,7 @@
 import { Episode, Prisma } from "@prisma/client";
 import { RatingsMap } from "./season.actions";
 import { prisma } from "../../prisma/config/prisma";
+import { FilterOperator } from "@/types/filterOperators";
 
 interface EpisodeModelParams {
     sortBy?: string;
@@ -12,7 +13,7 @@ interface EpisodeModelParams {
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
-    filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
+    filterOperatorString?: FilterOperator;
 }
 
 // #region "GET Methods"
@@ -33,8 +34,12 @@ export async function getEpisodesWithFilters({
     if (title) filters.title = { contains: title };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        filters[filterNameString] = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
 
     const orderByObject: any = {};

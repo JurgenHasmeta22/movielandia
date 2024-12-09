@@ -5,6 +5,7 @@ import { Prisma, User } from "@prisma/client";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { prisma } from "../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
+import { FilterOperator } from "@/types/filterOperators";
 
 // #region "Interfaces"
 interface UserModelParams {
@@ -15,7 +16,7 @@ interface UserModelParams {
     title?: string | null;
     filterValue?: number | string;
     filterNameString?: string | null;
-    filterOperatorString?: ">" | "=" | "<" | "gt" | "equals" | "lt";
+    filterOperatorString?: FilterOperator;
 }
 
 interface AddReviewMovieParams {
@@ -115,6 +116,18 @@ interface VoteCrewReviewParams {
     crewId: number;
     crewReviewId: number;
 }
+
+interface UserModelParams {
+    sortBy?: string;
+    ascOrDesc?: string;
+    perPage?: number;
+    page?: number;
+    userName?: string | null;
+    filterValue?: number | string;
+    filterNameString?: string | null;
+    filterOperatorString?: FilterOperator;
+}
+
 // #endregion
 
 // #region "Utils"
@@ -136,22 +149,29 @@ function getReferer() {
 export async function getUsersWithFilters({
     sortBy,
     ascOrDesc,
-    perPage,
-    page,
+    perPage = 12,
+    page = 1,
+    userName,
     filterValue,
     filterNameString,
     filterOperatorString,
-}: UserModelParams): Promise<any | null> {
-    const filters: Prisma.UserWhereInput = {};
-    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
-    const take = perPage || 20;
+}: UserModelParams): Promise<{ users: User[]; count: number }> {
+    const filters: any = {};
+    const orderByObject: any = {};
+
+    const skip = (page - 1) * perPage;
+    const take = perPage;
+
+    if (userName) filters.userName = { contains: userName };
 
     if (filterValue !== undefined && filterNameString && filterOperatorString) {
-        const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
-        (filters[filterNameString as keyof Prisma.UserWhereInput] as any) = { [operator]: filterValue };
+        if (filterOperatorString === "contains") {
+            filters[filterNameString] = { contains: filterValue };
+        } else {
+            const operator = filterOperatorString === ">" ? "gt" : filterOperatorString === "<" ? "lt" : "equals";
+            filters[filterNameString] = { [operator]: filterValue };
+        }
     }
-
-    const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
         orderByObject[sortBy] = ascOrDesc;
@@ -164,13 +184,9 @@ export async function getUsersWithFilters({
         take,
     });
 
-    const count = await prisma.user.count();
+    const usersCount = await prisma.user.count();
 
-    if (users) {
-        return { rows: users, count };
-    } else {
-        return null;
-    }
+    return { users, count: usersCount };
 }
 
 export async function getUsers(): Promise<any | null> {
