@@ -42,16 +42,12 @@ export default function SearchTabs() {
             newFilters = ["all"];
         } else {
             if (selectedFilters.includes("all")) {
-                // If "all" was selected, replace it with the clicked filter
                 newFilters = [value];
             } else {
                 if (selectedFilters.includes(value)) {
-                    // Remove the value if it was already selected
                     newFilters = selectedFilters.filter((f) => f !== value);
-                    // If no filters left, default to "all"
                     if (newFilters.length === 0) newFilters = ["all"];
                 } else {
-                    // Add the new value to existing filters
                     newFilters = [...selectedFilters, value];
                 }
             }
@@ -66,19 +62,20 @@ export default function SearchTabs() {
     return (
         <Box
             sx={{
+                width: "100%",
                 borderBottom: 1,
                 borderColor: "divider",
-                overflowX: "auto",
-                "&::-webkit-scrollbar": { display: "none" },
-                scrollbarWidth: "none",
+                position: "relative",
             }}
         >
             <Box
                 sx={{
                     display: "flex",
+                    flexWrap: "wrap",
                     gap: 1,
-                    p: 1,
-                    flexWrap: "nowrap",
+                    p: { xs: 1, sm: 1.5 },
+                    mx: -1,
+                    justifyContent: { xs: "center", sm: "flex-start" },
                 }}
             >
                 {tabOptions.map((tab) => (
@@ -88,12 +85,11 @@ export default function SearchTabs() {
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            gap: 1,
-                            px: { xs: 1.5, sm: 2 },
-                            py: 1,
+                            gap: 0.75,
+                            px: { xs: 1.25, sm: 1.5 },
+                            py: { xs: 0.75, sm: 1 },
                             borderRadius: 1,
                             cursor: "pointer",
-                            whiteSpace: "nowrap",
                             transition: "all 0.2s",
                             bgcolor: selectedFilters.includes(tab.value) ? "primary.main" : "transparent",
                             color: selectedFilters.includes(tab.value) ? "primary.contrastText" : "text.primary",
@@ -101,15 +97,21 @@ export default function SearchTabs() {
                                 bgcolor: selectedFilters.includes(tab.value) ? "primary.light" : "action.hover",
                             },
                             "& .MuiSvgIcon-root": {
-                                fontSize: "1.25rem",
+                                fontSize: { xs: "1.1rem", sm: "1.25rem" },
+                            },
+                            boxShadow: selectedFilters.includes(tab.value) ? 1 : "none",
+                            transform: selectedFilters.includes(tab.value) ? "scale(1.02)" : "scale(1)",
+                            "&:active": {
+                                transform: "scale(0.98)",
                             },
                         }}
                     >
                         {tab.icon}
                         <Typography
                             sx={{
-                                fontSize: { xs: "0.875rem", sm: "0.875rem" },
+                                fontSize: { xs: "0.8125rem", sm: "0.875rem" },
                                 fontWeight: selectedFilters.includes(tab.value) ? 600 : 400,
+                                lineHeight: 1,
                             }}
                         >
                             {tab.label}
