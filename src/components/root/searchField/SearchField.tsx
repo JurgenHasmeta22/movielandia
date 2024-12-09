@@ -145,7 +145,14 @@ const SearchField = () => {
                             setShowResults(true);
                         }}
                         onFocus={() => setShowResults(true)}
-                        sx={{ width: "100%" }}
+                        sx={{
+                            width: "100%",
+                            "& .MuiInputBase-root": {
+                                minWidth: 300,
+                                transition: "width 0.2s",
+                                width: showResults ? "100%" : 300,
+                            },
+                        }}
                         slotProps={{
                             input: {
                                 sx: { py: 0.5, color: theme.vars.palette.primary.main },
@@ -169,7 +176,7 @@ const SearchField = () => {
                         }}
                     />
                 </form>
-                {showResults && (
+                {showResults && debouncedSearch && (
                     <SearchAutocomplete
                         loading={loading}
                         results={results}
