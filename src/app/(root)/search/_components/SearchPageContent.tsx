@@ -263,7 +263,6 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         cardType="movie"
                     />
                 )}
-
                 {shouldShowSection("series") && (!term || seriesCount > 0) && (
                     <SearchList
                         title={term ? `Series matching "${term}"` : "Series"}
@@ -277,7 +276,6 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         cardType="serie"
                     />
                 )}
-
                 {shouldShowSection("actors") && (!term || actorsCount > 0) && (
                     <SearchList
                         title={term ? `Actors matching "${term}"` : "Actors"}
@@ -292,7 +290,6 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         path="actors"
                     />
                 )}
-
                 {shouldShowSection("crew") && (!term || crewsCount > 0) && (
                     <SearchList
                         title={term ? `Crews matching "${term}"` : "Crews"}
@@ -307,7 +304,6 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         path="crew"
                     />
                 )}
-
                 {shouldShowSection("seasons") && (!term || seasonsCount > 0) && (
                     <SearchList
                         title={term ? `Seasons matching "${term}"` : "Seasons"}
@@ -321,7 +317,6 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         cardType="season"
                     />
                 )}
-
                 {shouldShowSection("episodes") && (!term || episodesCount > 0) && (
                     <SearchList
                         title={term ? `Episodes matching "${term}"` : "Episodes"}
@@ -335,7 +330,6 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         cardType="episode"
                     />
                 )}
-
                 {shouldShowSection("users") && (!term || usersCount > 0) && (
                     <SearchList
                         title={term ? `Users matching "${term}"` : "Users"}
