@@ -99,10 +99,8 @@ const AuthButtons = ({
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            gap: 0.5,
-                            px: 1.5,
-                            height: 40,
-                            minWidth: "auto",
+                            gap: 0.75,
+                            px: 2,
                             color: theme.vars.palette.primary.main,
                             textTransform: "none",
                             flexShrink: 0,
@@ -128,7 +126,6 @@ const AuthButtons = ({
                             Sign In
                         </Typography>
                     </Button>
-
                     <Button
                         LinkComponent={MuiNextLink}
                         href="/register"
@@ -136,10 +133,8 @@ const AuthButtons = ({
                         sx={{
                             display: "flex",
                             alignItems: "center",
-                            gap: 0.5,
-                            px: 1.5,
-                            height: 40,
-                            minWidth: "auto",
+                            gap: 0.75,
+                            px: 2,
                             color: theme.vars.palette.primary.main,
                             textTransform: "none",
                             flexShrink: 0,

@@ -66,9 +66,9 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             lg: "space-between",
                         },
                         flexWrap: "nowrap",
-                        py: 1,
+                        py: 1.5,
                         backgroundColor: theme.vars.palette.primary.dark,
-                        minHeight: 64,
+                        minHeight: 72,
                     }}
                     component={"nav"}
                 >
