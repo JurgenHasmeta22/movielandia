@@ -98,6 +98,24 @@ export default async function GenrePageContent({ params, searchParams, session }
         return selectedFilters.includes(type.toLowerCase());
     };
 
+    const getSubtitleText = () => {
+        const selectedFilters = searchParams?.filters?.split(",") || ["all"];
+        
+        if (selectedFilters.includes("all")) {
+            return `Found ${totalCount} titles in ${genre.name} genre`;
+        }
+        
+        if (selectedFilters.includes("movies") && !selectedFilters.includes("series")) {
+            return `Found ${moviesByGenreCount} movies in ${genre.name} genre`;
+        }
+        
+        if (selectedFilters.includes("series") && !selectedFilters.includes("movies")) {
+            return `Found ${seriesByGenreCount} series in ${genre.name} genre`;
+        }
+        
+        return `Found ${totalCount} titles in ${genre.name} genre`;
+    };
+
     return (
         <Box
             sx={{
@@ -133,7 +151,7 @@ export default async function GenrePageContent({ params, searchParams, session }
                         margin: "0 auto",
                     }}
                 >
-                    Found {totalCount} titles in {genre.name} genre
+                    {getSubtitleText()}
                 </Typography>
             </Box>
 
