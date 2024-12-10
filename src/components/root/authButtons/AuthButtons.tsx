@@ -4,7 +4,6 @@ import React from "react";
 import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import Link from "next/link";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
@@ -35,6 +34,7 @@ const AuthButtons = ({
 
     const handleProfileClick = () => {
         closeMenuProfile();
+
         if (session?.user?.role === "Admin") {
             router.push("/admin");
         } else {
@@ -83,19 +83,29 @@ const AuthButtons = ({
                     </Menu>
                 </>
             ) : (
-                <>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                        height: "100%",
+                        flexShrink: 0,
+                    }}
+                >
                     <Button
-                        component={MuiNextLink}
+                        LinkComponent={MuiNextLink}
                         href="/login"
-                        prefetch={false}
                         variant="text"
                         sx={{
                             display: "flex",
-                            flexDirection: "row",
-                            columnGap: 1,
-                            px: 2,
-                            py: 1,
+                            alignItems: "center",
+                            gap: 0.5,
+                            px: 1.5,
+                            height: 40,
+                            minWidth: "auto",
                             color: theme.vars.palette.primary.main,
+                            textTransform: "none",
+                            flexShrink: 0,
                             "&:hover": {
                                 backgroundColor: theme.vars.palette.green.main,
                                 color: theme.vars.palette.greyAccent.main,
@@ -107,27 +117,32 @@ const AuthButtons = ({
                             }
                         }}
                     >
-                        <LockOpenIcon />
+                        <LockOpenIcon sx={{ fontSize: "1.2rem" }} />
                         <Typography
                             sx={{
-                                textTransform: "capitalize",
+                                fontSize: "0.875rem",
+                                fontWeight: 500,
+                                whiteSpace: "nowrap",
                             }}
                         >
                             Sign In
                         </Typography>
                     </Button>
+
                     <Button
-                        component={MuiNextLink}
+                        LinkComponent={MuiNextLink}
                         href="/register"
-                        prefetch={false}
                         variant="text"
                         sx={{
                             display: "flex",
-                            flexDirection: "row",
-                            columnGap: 1,
-                            px: 2,
-                            py: 1,
+                            alignItems: "center",
+                            gap: 0.5,
+                            px: 1.5,
+                            height: 40,
+                            minWidth: "auto",
                             color: theme.vars.palette.primary.main,
+                            textTransform: "none",
+                            flexShrink: 0,
                             "&:hover": {
                                 backgroundColor: theme.vars.palette.green.main,
                                 color: theme.vars.palette.greyAccent.main,
@@ -139,16 +154,18 @@ const AuthButtons = ({
                             }
                         }}
                     >
-                        <AppRegistrationIcon />
+                        <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />
                         <Typography
                             sx={{
-                                textTransform: "capitalize",
+                                fontSize: "0.875rem",
+                                fontWeight: 500,
+                                whiteSpace: "nowrap",
                             }}
                         >
                             Sign Up
                         </Typography>
                     </Button>
-                </>
+                </Box>
             )}
         </>
     );

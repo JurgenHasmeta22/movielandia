@@ -8,11 +8,11 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import SubtitlesIcon from "@mui/icons-material/Subtitles";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -47,17 +47,20 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
     const getButtonStyle = (path: string) => ({
         display: "flex",
-        fontSize: 16,
+        fontSize: "1rem",
         columnGap: 0.5,
-        textTransform: "capitalize",
+        textTransform: "none",
         flexDirection: "row",
         alignItems: "center",
         color: isActive(path) ? theme.vars.palette.green.main : theme.vars.palette.primary.main,
         borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
         borderRadius: 0,
         paddingBottom: 1,
+        fontWeight: 400,
+        letterSpacing: "0.02em",
         "&:hover": {
             backgroundColor: "transparent",
+            color: theme.vars.palette.green.main,
         },
     });
 
@@ -78,10 +81,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                 }}
             >
                 <Button
-                    component={MuiNextLink}
+                    LinkComponent={MuiNextLink}
                     href={"/"}
-                    prefetch={false}
-                    type={"mainLogo"}
+                    type="button"
                     onClick={() => {
                         if (isDrawerOpen) {
                             setIsDrawerOpen(false);
@@ -91,7 +93,14 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={70} width={200} />
                 </Button>
             </Box>
-            <Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                    flexShrink: 0,
+                }}
+            >
                 <List
                     sx={{
                         display: "flex",
@@ -100,13 +109,16 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             sm: "column",
                             md: "row",
                         },
+                        gap: 1,
+                        m: 0,
+                        p: 0,
                     }}
                 >
                     <ListItem>
                         <Button
-                            component={MuiNextLink}
+                            LinkComponent={MuiNextLink}
                             href="/movies"
-                            prefetch={false}
+                            variant="text"
                             sx={getButtonStyle("/movies")}
                             onClick={() => {
                                 if (isDrawerOpen) {
@@ -120,9 +132,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     </ListItem>
                     <ListItem>
                         <Button
-                            component={MuiNextLink}
+                            LinkComponent={MuiNextLink}
                             href="/series"
-                            prefetch={false}
+                            variant="text"
                             sx={getButtonStyle("/series")}
                             onClick={() => {
                                 if (isDrawerOpen) {
@@ -137,14 +149,15 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     <ListItem>
                         <Box onMouseEnter={handleGenresHover} onMouseLeave={handleGenresLeave}>
                             <Button
-                                component={MuiNextLink}
+                                LinkComponent={MuiNextLink}
                                 href="/genres"
-                                prefetch={false}
+                                variant="text"
                                 sx={getButtonStyle("/genres")}
                                 onClick={() => {
                                     if (isDrawerOpen) {
                                         setIsDrawerOpen(false);
                                     }
+
                                     handleGenresLeave();
                                 }}
                             >
@@ -231,6 +244,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 if (isDrawerOpen) {
                                                                     setIsDrawerOpen(false);
                                                                 }
+
                                                                 handleGenresLeave();
                                                             }}
                                                         >
@@ -248,7 +262,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 <Typography
                                                                     component={"span"}
                                                                     sx={{
-                                                                        fontSize: isDrawerOpen ? 14 : 16,
+                                                                        fontSize: isDrawerOpen ? "0.875rem" : "1rem",
+                                                                        fontWeight: 400,
+                                                                        letterSpacing: "0.02em",
+                                                                        color: "inherit",
                                                                     }}
                                                                 >
                                                                     {genre.name}

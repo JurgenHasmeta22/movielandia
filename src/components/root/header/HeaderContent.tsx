@@ -62,12 +62,13 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         justifyContent: {
                             xs: "flex-start",
                             sm: "flex-start",
-                            md: "space-around",
-                            lg: "space-around",
+                            md: "space-between",
+                            lg: "space-between",
                         },
-                        flexWrap: "wrap",
+                        flexWrap: "nowrap",
                         py: 1,
                         backgroundColor: theme.vars.palette.primary.dark,
+                        minHeight: 64,
                     }}
                     component={"nav"}
                 >
@@ -88,6 +89,12 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             onClick={() => {
                                 setIsDrawerOpen(true);
                             }}
+                            sx={{
+                                color: theme.vars.palette.primary.main,
+                                "&:hover": {
+                                    color: theme.vars.palette.green.main,
+                                },
+                            }}
                         >
                             <MenuIcon />
                         </IconButton>
@@ -104,12 +111,22 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             },
                             flexDirection: "row",
                             alignItems: "center",
-                            flexGrow: 1,
-                            justifyContent: "space-around",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            px: 2,
                         }}
                     >
                         <HeaderLinks genres={genres} />
-                        <Box sx={{ display: "flex", placeItems: "center", columnGap: 1 }}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1.5,
+                                ml: "auto",
+                                height: "100%",
+                                flexShrink: 0,
+                            }}
+                        >
                             <SearchField />
                             <ThemeToggleButton />
                             <AuthButtons
