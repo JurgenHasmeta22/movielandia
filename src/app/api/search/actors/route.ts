@@ -84,4 +84,4 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         console.error("Error searching actors:", error);
         return NextResponse.json({ error: "Failed to search actors" }, { status: 500 });
     }
-} 
+}

@@ -35,4 +35,4 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         console.error("Error searching users:", error);
         return NextResponse.json({ error: "Failed to search users" }, { status: 500 });
     }
-} 
+}
