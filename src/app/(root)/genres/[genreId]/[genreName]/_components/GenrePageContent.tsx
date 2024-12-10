@@ -1,9 +1,8 @@
-import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Genre, Movie, Serie } from "@prisma/client";
 import { getGenreById } from "@/actions/genre.actions";
 import { notFound } from "next/navigation";
-import GenreList from "../_components/GenreList";
+import GenreList from "./GenreList";
 
 interface GenrePageContentProps {
     params: {
@@ -28,11 +27,7 @@ interface IQueryParams {
     sortBy?: string;
 }
 
-export default async function GenrePageContent({
-    params,
-    searchParams,
-    session,
-}: GenrePageContentProps): Promise<React.JSX.Element> {
+export default async function GenrePageContent({ params, searchParams, session }: GenrePageContentProps) {
     const genreId = params.genreId;
 
     // #region "Movies data"
@@ -91,37 +86,87 @@ export default async function GenrePageContent({
     const pageCountSeries = Math.ceil(seriesByGenreCount / itemsPerPage);
     // #endregion
 
+    const totalCount = moviesByGenreCount + seriesByGenreCount;
+
     return (
         <Box
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                rowGap: 4,
-                paddingTop: 6,
+                maxWidth: "1400px",
+                margin: "0 auto",
+                px: { xs: 2, sm: 3, md: 4 },
+                py: { xs: 3, md: 4 },
             }}
         >
-            <GenreList
-                title={`All Movies of Genre ${genre.name}`}
-                data={moviesByGenre}
-                count={moviesByGenreCount}
-                sortBy={moviesSortBy}
-                ascOrDesc={moviesAscOrDesc}
-                page={Number(pageMovies)}
-                pageCount={pageCountMovies}
-                dataType="Movies"
-                cardType="movie"
-            />
-            <GenreList
-                title={`All Series of Genre ${genre.name}`}
-                data={seriesByGenre}
-                count={seriesByGenreCount}
-                sortBy={seriesSortBy}
-                ascOrDesc={seriesAscOrDesc}
-                page={Number(pageSeries)}
-                pageCount={pageCountSeries}
-                dataType="Series"
-                cardType="serie"
-            />
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: { xs: 4, md: 6 },
+                    mb: { xs: 4, md: 6 },
+                    mt: { xs: 4, md: 6 },
+                }}
+            >
+                <Typography
+                    variant="h1"
+                    sx={{
+                        fontSize: { xs: 28, sm: 32, md: 40 },
+                        fontWeight: 800,
+                        color: "text.primary",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                    }}
+                >
+                    All Movies of Genre {genre.name}
+                    <Typography
+                        component="span"
+                        sx={{
+                            fontSize: { xs: 16, sm: 18 },
+                            color: "text.secondary",
+                            ml: 2,
+                        }}
+                    >
+                        {moviesByGenreCount > 0
+                            ? `1 – ${Math.min(moviesByGenreCount, 2)} of ${moviesByGenreCount} movies`
+                            : "No movies found"}
+                    </Typography>
+                </Typography>
+            </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: { xs: 6, md: 8 },
+                    mt: 4,
+                }}
+            >
+                {moviesByGenre.length > 0 && (
+                    <GenreList
+                        title={`Movies in ${genre.name}`}
+                        data={moviesByGenre}
+                        count={moviesByGenreCount}
+                        sortBy={moviesSortBy}
+                        ascOrDesc={moviesAscOrDesc}
+                        page={Number(pageMovies)}
+                        pageCount={pageCountMovies}
+                        dataType="Movies"
+                        cardType="movie"
+                    />
+                )}
+                {seriesByGenre.length > 0 && (
+                    <GenreList
+                        title={`Series in ${genre.name}`}
+                        data={seriesByGenre}
+                        count={seriesByGenreCount}
+                        sortBy={seriesSortBy}
+                        ascOrDesc={seriesAscOrDesc}
+                        page={Number(pageSeries)}
+                        pageCount={pageCountSeries}
+                        dataType="Series"
+                        cardType="serie"
+                    />
+                )}
+            </Box>
         </Box>
     );
 }
