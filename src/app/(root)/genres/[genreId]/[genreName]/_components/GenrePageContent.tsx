@@ -3,6 +3,7 @@ import { Genre, Movie, Serie } from "@prisma/client";
 import { getGenreById } from "@/actions/genre.actions";
 import { notFound } from "next/navigation";
 import GenreList from "./GenreList";
+import GenreTabs from "./GenreTabs";
 
 interface GenrePageContentProps {
     params: {
@@ -16,6 +17,7 @@ interface GenrePageContentProps {
         seriesAscOrDesc?: string;
         pageSeries?: string;
         seriesSortBy?: string;
+        filters?: string;
     };
     session: any;
 }
@@ -88,6 +90,14 @@ export default async function GenrePageContent({ params, searchParams, session }
 
     const totalCount = moviesByGenreCount + seriesByGenreCount;
 
+    const shouldShowSection = (type: string) => {
+        const selectedFilters = searchParams?.filters?.split(",") || ["all"];
+        if (selectedFilters.includes("all")) {
+            return true;
+        }
+        return selectedFilters.includes(type.toLowerCase());
+    };
+
     return (
         <Box
             sx={{
@@ -99,11 +109,9 @@ export default async function GenrePageContent({ params, searchParams, session }
         >
             <Box
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: { xs: 4, md: 6 },
                     mb: { xs: 4, md: 6 },
                     mt: { xs: 4, md: 6 },
+                    textAlign: "center",
                 }}
             >
                 <Typography
@@ -111,36 +119,34 @@ export default async function GenrePageContent({ params, searchParams, session }
                     sx={{
                         fontSize: { xs: 28, sm: 32, md: 40 },
                         fontWeight: 800,
-                        color: "text.primary",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 1,
+                        mb: 2,
                     }}
                 >
                     All Movies of Genre {genre.name}
-                    <Typography
-                        component="span"
-                        sx={{
-                            fontSize: { xs: 16, sm: 18 },
-                            color: "text.secondary",
-                            ml: 2,
-                        }}
-                    >
-                        {moviesByGenreCount > 0
-                            ? `1 – ${Math.min(moviesByGenreCount, 2)} of ${moviesByGenreCount} movies`
-                            : "No movies found"}
-                    </Typography>
+                </Typography>
+                <Typography
+                    variant="body1"
+                    sx={{
+                        color: "text.secondary",
+                        fontSize: { xs: 16, sm: 18 },
+                        maxWidth: "600px",
+                        margin: "0 auto",
+                    }}
+                >
+                    Found {totalCount} titles in {genre.name} genre
                 </Typography>
             </Box>
+
+            <GenreTabs />
+
             <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     gap: { xs: 6, md: 8 },
-                    mt: 4,
                 }}
             >
-                {moviesByGenre.length > 0 && (
+                {shouldShowSection("movies") && (
                     <GenreList
                         title={`Movies in ${genre.name}`}
                         data={moviesByGenre}
@@ -153,7 +159,7 @@ export default async function GenrePageContent({ params, searchParams, session }
                         cardType="movie"
                     />
                 )}
-                {seriesByGenre.length > 0 && (
+                {shouldShowSection("series") && (
                     <GenreList
                         title={`Series in ${genre.name}`}
                         data={seriesByGenre}
