@@ -289,7 +289,6 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
                     {shouldShowSection("episodes") && (
                         <Box>
                             <Typography
@@ -313,7 +312,6 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
                     {shouldShowSection("users") && (
                         <Box>
                             <Typography
@@ -337,7 +335,6 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
                     {hasAnyResults && (
                         <Box
                             sx={{

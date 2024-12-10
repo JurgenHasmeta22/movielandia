@@ -47,17 +47,18 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
     const getButtonStyle = (path: string) => ({
         display: "flex",
-        fontSize: "1rem",
-        columnGap: 0.5,
-        textTransform: "none",
-        flexDirection: "row",
         alignItems: "center",
+        gap: 0.75,
+        fontSize: "0.875rem",
+        textTransform: "none",
         color: isActive(path) ? theme.vars.palette.green.main : theme.vars.palette.primary.main,
         borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
         borderRadius: 0,
-        paddingBottom: 1,
-        fontWeight: 400,
+        padding: "8px 16px",
+        paddingBottom: "10px",
+        fontWeight: 500,
         letterSpacing: "0.02em",
+        height: 48,
         "&:hover": {
             backgroundColor: "transparent",
             color: theme.vars.palette.green.main,
@@ -78,19 +79,37 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                         sm: 1,
                         md: 0,
                     },
+                    height: 72,
+                    display: "flex",
+                    alignItems: "center",
                 }}
             >
                 <Button
                     LinkComponent={MuiNextLink}
                     href={"/"}
                     type="button"
+                    sx={{
+                        padding: 0,
+                        "&:hover": {
+                            backgroundColor: "transparent",
+                        },
+                        "&:active": {
+                            backgroundColor: "transparent",
+                        },
+                    }}
                     onClick={() => {
                         if (isDrawerOpen) {
                             setIsDrawerOpen(false);
                         }
                     }}
                 >
-                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={70} width={200} />
+                    <Image 
+                        src={"/icons/movielandia24-logo.png"} 
+                        alt="MovieLandia24" 
+                        height={70} 
+                        width={200}
+                        style={{ pointerEvents: "none" }}
+                    />
                 </Button>
             </Box>
             <Box
@@ -262,8 +281,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 <Typography
                                                                     component={"span"}
                                                                     sx={{
-                                                                        fontSize: isDrawerOpen ? "0.875rem" : "1rem",
-                                                                        fontWeight: 400,
+                                                                        fontSize: "0.875rem",
+                                                                        fontWeight: 500,
                                                                         letterSpacing: "0.02em",
                                                                         color: "inherit",
                                                                     }}

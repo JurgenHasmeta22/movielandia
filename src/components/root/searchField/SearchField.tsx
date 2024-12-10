@@ -18,6 +18,7 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 const SearchField = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
+
     const [inputValue, setInputValue] = useState(searchParams.get("term") || "");
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
@@ -31,6 +32,7 @@ const SearchField = () => {
         episodes: [],
         users: [],
     });
+
     const theme = useTheme();
     const debouncedSearch = useDebounce(inputValue, 300);
 
@@ -113,13 +115,13 @@ const SearchField = () => {
                 ]);
 
             setResults({
-                movies: moviesData?.movies?.slice(0, 10) || [],
-                series: seriesData?.rows?.slice(0, 10) || [],
-                actors: actorsData?.actors?.slice(0, 10) || [],
-                crew: crewData?.crews?.slice(0, 10) || [],
-                seasons: seasonsData?.seasons?.slice(0, 10) || [],
-                episodes: episodesData?.episodes?.slice(0, 10) || [],
-                users: usersData?.users?.slice(0, 10) || [],
+                movies: moviesData?.movies || [],
+                series: seriesData?.rows || [],
+                actors: actorsData?.actors || [],
+                crew: crewData?.crews || [],
+                seasons: seasonsData?.seasons || [],
+                episodes: episodesData?.episodes || [],
+                users: usersData?.users || [],
             });
         } catch (error) {
             console.error("Error fetching search results:", error);
