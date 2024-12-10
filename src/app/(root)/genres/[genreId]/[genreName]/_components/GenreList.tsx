@@ -27,9 +27,7 @@ const GenreList = ({ title, data, count, sortBy, ascOrDesc, page, pageCount, dat
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, count);
 
-    if (data.length === 0) {
-        return null;
-    }
+    if (data.length === 0) return null;
 
     return (
         <Box
