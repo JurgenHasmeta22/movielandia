@@ -115,4 +115,4 @@ const GenreTabs = () => {
     );
 };
 
-export default GenreTabs; 
+export default GenreTabs;
