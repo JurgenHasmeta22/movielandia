@@ -1,106 +1,152 @@
-# MovieLandia24
+<div align="center">
+  <h1>🎬 MovieLandia24</h1>
+  
+  <p align="center">
+    A modern social platform for cinema enthusiasts to discover, review, and engage with movies and TV series.
+  </p>
 
-A modern web application for discovering, managing, and reviewing movies, TV series, actors, crew members, seasons, and episodes.
+  <p align="center">
+    <a href="#-key-features">Features</a> •
+    <a href="#-tech-stack">Tech Stack</a> •
+    <a href="#-getting-started">Getting Started</a> •
+    <a href="#-project-structure">Structure</a>
+  </p>
 
-## Tech Stack
+  <p align="center">
+    <img src="https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js" alt="Next.js" />
+    <img src="https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react" alt="React" />
+    <img src="https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/MUI-6-blue?style=flat-square&logo=mui" alt="Material UI" />
+  </p>
+</div>
 
--   **Framework**: Next.js 15 (App Router)
--   **UI Component library**: Material-UI v6 (Emotion based)
--   **Global State Management**: Zustand
--   **Database**: PostgreSQL + Prisma ORM
--   **Authentication**: NextAuth.js with Google provider
--   **Forms**: React Hook Form + Zod validation
--   **Rich Text Editor**: React Quill
--   **Email Templates**: React Email + Resend
--   **DataTables**: Material React Table V3
--   **Animations**: Framer Motion
+---
 
-## Key Features
+## ⚡ Tech Stack
 
--   **Content Management**:
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **UI Components:** [Material-UI v6](https://mui.com/) with Emotion
+- **State Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **Database:** PostgreSQL + [Prisma ORM](https://www.prisma.io/)
+- **Authentication:** [NextAuth.js](https://next-auth.js.org/) with Google & Credentials
+- **Forms & Validation:** [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+- **Rich Text Editor:** [React Quill](https://github.com/zenoamaro/react-quill)
+- **Email System:** [React Email](https://react.email/) + [Resend](https://resend.com/)
+- **DataTables:** [Material React Table V3](https://www.material-react-table.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **PDF Generation:** [jsPDF](https://github.com/parallax/jsPDF) + [AutoTable](https://github.com/simonbengtsson/jsPDF-AutoTable)
+- **Carousel:** [React Slick](https://react-slick.neostack.com/)
+- **Notifications:** [React Toastify](https://fkhadra.github.io/react-toastify/)
 
-    -   Movies, TV Series, Seasons, Episodes
-    -   Actors and Crew Members
-    -   Genres and Categories
-    -   IMDb Ratings and Reviews
+## 🚀 Key Features
 
--   **User Features**:
+### 📺 Content Management
 
-    -   Google Authentication
-    -   Profile Management
-    -   Bookmarks & Favorites
-    -   Reviews & Ratings
-    -   Follow System
+- Movies, TV Series, Seasons & Episodes
+- Actors and Crew Members
+- Genres
+- IMDb Ratings Integration
+- Rich Media Support
 
--   **Admin Dashboard**:
+### 👤 User Features
 
-    -   Material React Table
-    -   CRUD Operations
-    -   Stats & Analytics
-    -   User Management
-    -   Content Management
+- Multi-provider Authentication (Google & Email)
+- Profile Management & Customization
+- Bookmarks
+- Reviews & Ratings System
+- User Following System
+- Password Reset Flow
+- Account Activation
 
--   **Advanced Features**:
-    -   Infinite Scroll
-    -   Rich Text Editor
-    -   Advanced Search
-    -   Sorting & Filtering
-    -   Responsive Design
+### 🛠 Admin Dashboard
 
-## Getting Started
+- Material React Table Integration
+- Advanced CRUD Operations
+- User Management & Roles
+- Content Moderation
+- Export to PDF/Excel
 
-1. **Setup environment:**
+### 🎯 Advanced Features
 
-    ```bash
-    git clone https://github.com/JurgenHasmeta22/movielandia.git
-    cd movielandia
-    npm install
-    ```
+- Infinite Scroll Implementation
+- Rich Text Editor with Media Support
+- Advanced Search with Filters
+- Smart Sorting & Filtering
+- Responsive Design
+- Image Optimization
+- SEO Optimization
+- Form Validation
 
-2. **Configure environment variables:**
-   Create `.env.local` with:
+### 💻 Developer Experience
 
-    ```
-    DATABASE_URL = ""
-    NEXTAUTH_URL = ""
-    NEXTAUTH_SECRET = ""
-    GOOGLE_CLIENT_ID = ""
-    GOOGLE_CLIENT_SECRET = ""
-    RESEND_API_KEY = ""
-    NEXTAUTH_SECRET = ""
-    POSTGRES_URL = ""
-    POSTGRES_PRISMA_URL = ""
-    POSTGRES_URL_NO_SSL = ""
-    POSTGRES_URL_NON_POOLING = ""
-    POSTGRES_HOST = ""
-    POSTGRES_PASSWORD = ""
-    POSTGRES_DATABASE = ""
-    ```
+- TypeScript Support
+- ESLint Configuration
+- Prettier Code Formatting
+- Development Tools
+    - Turbo Mode
+    - Hot Reload
+    - React Dev Tools
+    - Performance Monitoring
+- Modular Architecture
+- Code Splitting
+- Route Groups
+- Server Actions
+- API Routes
 
-3. **Initialize database:**
+### 🔒 Security Features
 
-    ```bash
-    npx prisma generate
-    npx prisma db push 
-    # or just use 
-    npx prisma migrate dev
-    ```
+- JWT Authentication
+- Password Hashing
+- Protected Routes
+- Role-based Access
+- Input Validation
 
-4. **Run development server:**
+## 🏁 Getting Started
 
-    ```bash
-    npm run dev
-    ```
+1. **Clone & Install**
 
-    Open [http://localhost:4000](http://localhost:4000)
+```bash
+git clone https://github.com/JurgenHasmeta22/movielandia.git
+cd movielandia
+npm install
+```
 
-## Project Structure
+2. **Environment Setup**
 
-🔍 PROJECT OVERVIEW
-- Web application for movie, series, and entertainment content discovery
-- Full-stack Next.js application with rich user interaction features
-- Developed by JurgenHasmeta22
-- 250+ files with 50,000+ lines of code
+Create `.env.local` with the following variables:
+
+```env
+DATABASE_URL=""
+NEXTAUTH_URL=""
+NEXTAUTH_SECRET=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+RESEND_API_KEY=""
+POSTGRES_URL=""
+POSTGRES_PRISMA_URL=""
+POSTGRES_URL_NO_SSL=""
+POSTGRES_URL_NON_POOLING=""
+POSTGRES_HOST=""
+POSTGRES_PASSWORD=""
+POSTGRES_DATABASE=""
+```
+
+3. **Database Initialization**
+
+```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+4. **Development Server**
+
+```bash
+npm run dev
+```
+
+Visit [http://localhost:4000](http://localhost:4000)
+
+## 📁 Project Structure
 
 ```
 movielandia/
@@ -121,5 +167,13 @@ movielandia/
 ├── prisma/
 │   ├── migrations/     # Database migrations
 │   ├── schema/         # Database models
-│   └── seed/          # Seed data scripts
-└── emails/            # Email templates
+│   |── seed/           # Seed data scripts
+|   |── config/         # Prisma config file
+└── emails/             # Email templates
+```
+
+---
+
+<div align="center">
+  <p>Developed with ❤️ by <a href="https://github.com/JurgenHasmeta22">JurgenHasmeta22</a></p>
+</div>
