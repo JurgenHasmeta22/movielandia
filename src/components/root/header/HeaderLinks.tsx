@@ -103,10 +103,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                         }
                     }}
                 >
-                    <Image 
-                        src={"/icons/movielandia24-logo.png"} 
-                        alt="MovieLandia24" 
-                        height={70} 
+                    <Image
+                        src={"/icons/movielandia24-logo.png"}
+                        alt="MovieLandia24"
+                        height={70}
                         width={200}
                         style={{ pointerEvents: "none" }}
                     />
