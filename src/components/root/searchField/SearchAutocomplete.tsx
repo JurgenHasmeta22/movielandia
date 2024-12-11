@@ -145,6 +145,44 @@ const SearchAutocomplete = ({
         );
     };
 
+    const getFilterSpecificResults = () => {
+        const selectedCategories = selectedFilters.includes("all")
+            ? filters.filter((f) => f.value !== "all")
+            : filters.filter((f) => selectedFilters.includes(f.value));
+
+        const counts = selectedCategories
+            .map((filter) => {
+                const count = results[filter.value.toLowerCase() as keyof typeof results].length;
+
+                return { label: filter.label, count };
+            })
+            .filter((item) => item.count > 0);
+
+        if (counts.length === 0) return "";
+
+        if (selectedFilters.includes("all")) {
+            return `View all ${getTotalResults()} results`;
+        }
+
+        const totalCount = counts.reduce((sum, item) => sum + item.count, 0);
+
+        if (counts.length === 1) {
+            return `View ${totalCount} ${counts[0].label.toLowerCase()} results`;
+        }
+
+        const categoriesText = counts
+            .map((item, index) => {
+                if (index === counts.length - 1) {
+                    return `and ${item.count} ${item.label.toLowerCase()}`;
+                }
+
+                return `${item.count} ${item.label.toLowerCase()}`;
+            })
+            .join(counts.length > 2 ? ", " : " ");
+
+        return `View ${categoriesText} results`;
+    };
+
     return (
         <Box
             sx={{
@@ -215,9 +253,7 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
-                    {shouldShowSection("movies") && shouldShowSection("series") && (
-                        <Divider sx={{ my: 1 }} />
-                    )}
+                    {shouldShowSection("movies") && shouldShowSection("series") && <Divider sx={{ my: 1 }} />}
 
                     {shouldShowSection("series") && (
                         <Box>
@@ -234,9 +270,7 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
-                    {shouldShowSection("series") && shouldShowSection("actors") && (
-                        <Divider sx={{ my: 1 }} />
-                    )}
+                    {shouldShowSection("series") && shouldShowSection("actors") && <Divider sx={{ my: 1 }} />}
 
                     {shouldShowSection("actors") && (
                         <Box>
@@ -262,9 +296,7 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
-                    {shouldShowSection("series") && shouldShowSection("crew") && (
-                        <Divider sx={{ my: 1 }} />
-                    )}
+                    {shouldShowSection("series") && shouldShowSection("crew") && <Divider sx={{ my: 1 }} />}
 
                     {shouldShowSection("crew") && (
                         <Box>
@@ -295,9 +327,7 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
-                    {shouldShowSection("series") && shouldShowSection("seasons") && (
-                        <Divider sx={{ my: 1 }} />
-                    )}
+                    {shouldShowSection("series") && shouldShowSection("seasons") && <Divider sx={{ my: 1 }} />}
 
                     {shouldShowSection("seasons") && (
                         <Box>
@@ -323,9 +353,7 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
-                    {shouldShowSection("series") && shouldShowSection("episodes") && (
-                        <Divider sx={{ my: 1 }} />
-                    )}
+                    {shouldShowSection("series") && shouldShowSection("episodes") && <Divider sx={{ my: 1 }} />}
 
                     {shouldShowSection("episodes") && (
                         <Box>
@@ -351,9 +379,7 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
-                    {shouldShowSection("series") && shouldShowSection("users") && (
-                        <Divider sx={{ my: 1 }} />
-                    )}
+                    {shouldShowSection("series") && shouldShowSection("users") && <Divider sx={{ my: 1 }} />}
 
                     {shouldShowSection("users") && (
                         <Box>
@@ -398,7 +424,7 @@ const SearchAutocomplete = ({
                                     color: theme.vars.palette.primary.main,
                                 }}
                             >
-                                View all {getTotalResults()} results for &quot;{searchTerm}&quot;
+                                {`${getFilterSpecificResults()} for "${searchTerm}"`}
                             </Button>
                         </Box>
                     )}
