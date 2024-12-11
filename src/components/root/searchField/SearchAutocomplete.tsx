@@ -51,20 +51,21 @@ const SearchAutocomplete = ({
 
     const hasAnyResults = Object.values(results).some((array) => array.length > 0);
 
-    const NoResultsMessage = () => (
-        <Box
-            sx={{
-                py: 4,
-                textAlign: "center",
-                color: theme.vars.palette.text.secondary,
-            }}
-        >
-            <Typography variant="body1">No results found for &quot;{searchTerm}&quot;</Typography>
-            <Typography variant="caption">
-                Try adjusting your search or filters to find what you&apos;re looking for
-            </Typography>
-        </Box>
-    );
+    const NoResultsMessage = () =>
+        searchTerm ? (
+            <Box
+                sx={{
+                    py: 4,
+                    textAlign: "center",
+                    color: theme.vars.palette.text.secondary,
+                }}
+            >
+                <Typography variant="body1">No results found for &quot;{searchTerm}&quot;</Typography>
+                <Typography variant="caption">
+                    Try adjusting your search or filters to find what you&apos;re looking for
+                </Typography>
+            </Box>
+        ) : null;
 
     const NoSectionResults = ({ section }: { section: string }) => (
         <Typography

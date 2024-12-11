@@ -30,6 +30,17 @@ const SearchField = () => {
     const theme = useTheme();
     const debouncedSearch = useDebounce(inputValue, 300);
 
+    const filters = [
+        { label: "All", value: "all" },
+        { label: "Movies", value: "movies" },
+        { label: "Series", value: "series" },
+        { label: "Actors", value: "actors" },
+        { label: "Crew", value: "crew" },
+        { label: "Seasons", value: "seasons" },
+        { label: "Episodes", value: "episodes" },
+        { label: "Users", value: "users" },
+    ];
+
     const handleSearch = () => {
         if (inputValue) {
             router.push(`/search?term=${encodeURIComponent(inputValue)}&filters=${selectedFilters.join(",")}`);
@@ -42,7 +53,7 @@ const SearchField = () => {
 
     const handleClear = () => {
         setInputValue("");
-
+        setShowResults(false);
         setResults({
             movies: [],
             series: [],
@@ -62,13 +73,24 @@ const SearchField = () => {
     const handleFilterChange = (filter: string) => {
         if (filter === "all") {
             setSelectedFilters(["all"]);
-        } else {
-            const newFilters = selectedFilters.filter((f) => f !== "all");
+            return;
+        }
 
-            if (selectedFilters.includes(filter)) {
-                setSelectedFilters(newFilters.filter((f) => f !== filter));
+        const newFilters = selectedFilters.filter((f) => f !== "all");
+
+        if (selectedFilters.includes(filter)) {
+            const updatedFilters = newFilters.filter((f) => f !== filter);
+            // If no filters are selected, default to "all"
+            setSelectedFilters(updatedFilters.length === 0 ? ["all"] : updatedFilters);
+        } else {
+            // Check if adding this filter would make all filters selected
+            const potentialFilters = [...newFilters, filter];
+            const allFiltersExceptAll = filters.filter((f) => f.value !== "all").map((f) => f.value);
+
+            if (potentialFilters.length === allFiltersExceptAll.length) {
+                setSelectedFilters(["all"]);
             } else {
-                setSelectedFilters([...newFilters, filter]);
+                setSelectedFilters(potentialFilters);
             }
         }
     };
