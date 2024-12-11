@@ -86,6 +86,7 @@ export default function HeaderMobile({
                         columnGap: 3,
                         ml: 2,
                         mr: 2,
+                        mb: 2,
                     }}
                 >
                     <AuthButtons

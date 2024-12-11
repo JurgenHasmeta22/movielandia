@@ -8,8 +8,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useRouter } from "next/navigation";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IAuthButtonsProps {
     session: Session | null;
@@ -87,9 +87,8 @@ const AuthButtons = ({
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 1,
-                        height: "100%",
                         flexShrink: 0,
+                        gap: 1,
                     }}
                 >
                     <Button
@@ -118,7 +117,7 @@ const AuthButtons = ({
                         <LockOpenIcon sx={{ fontSize: "1.2rem" }} />
                         <Typography
                             sx={{
-                                fontSize: "0.875rem",
+                                fontSize: "1rem",
                                 fontWeight: 500,
                                 whiteSpace: "nowrap",
                             }}
@@ -152,7 +151,7 @@ const AuthButtons = ({
                         <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />
                         <Typography
                             sx={{
-                                fontSize: "0.875rem",
+                                fontSize: "1rem",
                                 fontWeight: 500,
                                 whiteSpace: "nowrap",
                             }}
