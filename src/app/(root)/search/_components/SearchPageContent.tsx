@@ -236,7 +236,13 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 >
                     {term
                         ? `Found ${
-                              moviesCount + seriesCount + actorsCount + seasonsCount + episodesCount + usersCount
+                              moviesCount +
+                              seriesCount +
+                              actorsCount +
+                              seasonsCount +
+                              episodesCount +
+                              usersCount +
+                              crewsCount
                           } results across all categories`
                         : "Explore our vast collection of movies, series, actors and more"}
                 </Typography>
