@@ -1,85 +1,93 @@
 "use client";
 
-import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const LoadingSpinner: React.FC = () => {
+const spinAnimation = {
+    animate: {
+        rotate: 360,
+        transition: {
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "linear",
+        },
+    },
+};
+
+const pulseAnimation = {
+    animate: {
+        scale: [1, 1.1, 1],
+        opacity: [0.7, 1, 0.7],
+        transition: {
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+        },
+    },
+};
+
+const dotAnimation = {
+    animate: {
+        opacity: [0, 1, 0],
+        transition: {
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+        },
+    },
+};
+
+const LoadingSpinner = () => {
     const theme = useTheme();
-
-    const bufferingCircle = {
-        animate: {
-            rotate: 360,
-            transition: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "linear",
-            },
-        },
-    };
-
-    const pulseAnimation = {
-        animate: {
-            scale: [1, 1.2, 1],
-            opacity: [0.6, 1, 0.6],
-            transition: {
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-            },
-        },
-    };
+    const isDark = theme.palette.mode === "dark";
 
     return (
         <Box
             sx={{
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
                 alignItems: "center",
-                height: "100vh",
+                justifyContent: "center",
+                minHeight: "100vh",
                 width: "100%",
-                background:
-                    theme.palette.mode === "dark"
-                        ? "linear-gradient(135deg, rgba(0,0,0,0.95), rgba(25,118,210,0.1))"
-                        : "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(25,118,210,0.05))",
-                gap: 6,
+                background: isDark
+                    ? `linear-gradient(135deg, 
+                        rgba(0,0,0,0.97), 
+                        rgba(25,118,210,0.15))`
+                    : `linear-gradient(135deg, 
+                        rgba(255,255,255,0.97), 
+                        rgba(25,118,210,0.08))`,
+                gap: 5,
                 position: "relative",
-                overflow: "hidden",
+                isolation: "isolate",
             }}
         >
             <Box
-                component={motion.div}
                 sx={{
                     position: "absolute",
-                    width: "200%",
-                    height: "200%",
-                    background:
-                        "radial-gradient(circle, transparent 20%, rgba(25,118,210,0.03) 20.5%, transparent 21%)",
-                    backgroundSize: "40px 40px",
-                    top: "-50%",
-                    left: "-50%",
-                    zIndex: 0,
-                }}
-                animate={{
-                    rotate: [0, 360],
-                }}
-                transition={{
-                    duration: 60,
-                    repeat: Infinity,
-                    ease: "linear",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "100%",
+                    height: "100%",
+                    background: `radial-gradient(circle at center, 
+                        ${theme.palette.primary.main}15 0%, 
+                        transparent 70%)`,
+                    filter: "blur(40px)",
                 }}
             />
-            <Box sx={{ position: "relative", zIndex: 1 }}>
+            <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+            >
                 <Box
                     sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        width: "400px",
-                        height: "140px",
-                        filter: "drop-shadow(0 0 12px rgba(25,118,210,0.2))",
+                        width: { xs: 280, sm: 400 },
+                        height: 140,
+                        filter: `drop-shadow(0 0 20px ${theme.palette.primary.main}30)`,
+                        position: "relative",
                     }}
                 >
                     <Image
@@ -89,32 +97,34 @@ const LoadingSpinner: React.FC = () => {
                         height={140}
                         priority
                         style={{
+                            width: "100%",
+                            height: "100%",
                             objectFit: "contain",
                         }}
                     />
                 </Box>
-            </Box>
+            </motion.div>
             <Box
                 sx={{
                     position: "relative",
-                    zIndex: 1,
-                    width: "80px",
-                    height: "80px",
+                    width: 70,
+                    height: 70,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                 }}
             >
                 <motion.div
-                    variants={bufferingCircle}
+                    variants={spinAnimation}
                     animate="animate"
                     style={{
                         position: "absolute",
                         width: "100%",
                         height: "100%",
-                        border: `3px solid ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"}`,
-                        borderTop: `3px solid ${theme.palette.primary.main}`,
+                        border: `3px solid ${isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"}`,
+                        borderTopColor: theme.palette.primary.main,
                         borderRadius: "50%",
+                        boxShadow: `0 0 15px ${theme.palette.primary.main}40`,
                     }}
                 />
                 <motion.div
@@ -122,30 +132,48 @@ const LoadingSpinner: React.FC = () => {
                     animate="animate"
                     style={{
                         position: "absolute",
-                        width: "50%",
-                        height: "50%",
+                        width: "40%",
+                        height: "40%",
                         borderRadius: "50%",
-                        background: `radial-gradient(circle, ${theme.palette.primary.main} 0%, ${theme.palette.primary.main}40 70%, transparent 100%)`,
+                        background: `radial-gradient(circle, 
+                            ${theme.palette.primary.main} 0%, 
+                            ${theme.palette.primary.main}40 70%, 
+                            transparent 100%)`,
+                        filter: "blur(1px)",
                     }}
                 />
             </Box>
-            <Typography
-                variant="body1"
-                sx={{
-                    color: theme.palette.mode === "dark" ? "rgba(255,255,255,0.9)" : "rgba(0,0,0,0.9)",
-                    fontWeight: 500,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    fontSize: "0.875rem",
-                    position: "relative",
-                    zIndex: 1,
-                    textShadow:
-                        theme.palette.mode === "dark" ? "0 0 10px rgba(255,255,255,0.2)" : "0 0 10px rgba(0,0,0,0.1)",
-                    marginTop: -1,
-                }}
-            >
-                Loading
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <Typography
+                    variant="body2"
+                    sx={{
+                        color: isDark ? "rgba(255,255,255,0.9)" : "rgba(0,0,0,0.9)",
+                        fontWeight: 500,
+                        letterSpacing: 1,
+                        textTransform: "uppercase",
+                        textShadow: `0 0 10px ${theme.palette.primary.main}40`,
+                    }}
+                >
+                    Loading
+                </Typography>
+                {[0, 1, 2].map((i) => (
+                    <motion.div
+                        key={i}
+                        variants={dotAnimation}
+                        animate="animate"
+                        style={{
+                            width: 3,
+                            height: 3,
+                            borderRadius: "50%",
+                            backgroundColor: isDark ? "rgba(255,255,255,0.9)" : "rgba(0,0,0,0.9)",
+                            animationDelay: `${i * 0.3}s`,
+                        }}
+                        transition={{
+                            delay: i * 0.2,
+                        }}
+                    />
+                ))}
+            </Box>
         </Box>
     );
 };

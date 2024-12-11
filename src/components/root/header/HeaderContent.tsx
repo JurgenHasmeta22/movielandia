@@ -13,8 +13,8 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import SearchField from "../searchField/SearchField";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IHeaderContentProps {
     session: Session | null;
@@ -24,7 +24,6 @@ interface IHeaderContentProps {
 
 export function HeaderContent({ session, genres, userName }: IHeaderContentProps) {
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
-
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
     const router = useRouter();
@@ -40,7 +39,6 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
 
     const handleSignOut = async () => {
         closeMenuProfile();
-
         await signOut({ redirect: false });
 
         if (isDrawerOpen) {
@@ -99,7 +97,6 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             <MenuIcon />
                         </IconButton>
                     </Box>
-
                     {/* Desktop Navigation */}
                     <Box
                         sx={{
@@ -121,7 +118,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 1.5,
+                                gap: 2,
                                 ml: "auto",
                                 height: "100%",
                                 flexShrink: 0,

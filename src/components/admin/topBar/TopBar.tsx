@@ -14,13 +14,10 @@ import MuiNextLink from "@/components/root/muiNextLink/MuiNextLink";
 
 const TopBar = () => {
     const { data: session } = useSession();
-
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
-
     const router = useRouter();
     const theme = useTheme();
-
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +41,11 @@ const TopBar = () => {
             router.push("/users/1/admin");
         }
 
+        handleClose();
+    };
+
+    const handleGoToHome = () => {
+        router.push("/");
         handleClose();
     };
 
@@ -79,9 +81,8 @@ const TopBar = () => {
                         }}
                     >
                         <IconButton
-                            component={MuiNextLink}
+                            LinkComponent={MuiNextLink}
                             href={"/admin"}
-                            prefetch={false}
                             sx={{
                                 p: 0,
                                 "&:hover": {
@@ -134,6 +135,11 @@ const TopBar = () => {
                         <MenuItem onClick={handleRedirectToProfile} style={{ color: theme.vars.palette.primary.main }}>
                             {session?.user?.role === "Admin" ? "Go to Dashboard" : "My Profile"}
                         </MenuItem>
+                        {session?.user?.role === "Admin" && (
+                            <MenuItem onClick={handleGoToHome} sx={{ color: theme.vars.palette.primary.main }}>
+                                <Typography variant="inherit">Go To Home</Typography>
+                            </MenuItem>
+                        )}
                         <MenuItem onClick={handleLogout} style={{ color: theme.vars.palette.primary.main }}>
                             Log out
                         </MenuItem>
