@@ -28,6 +28,7 @@ interface PersonResultData extends BaseResultData {
 
 interface UserResultData extends BaseResultData {
     userName: string;
+    bio?: string;
 }
 
 type ResultData = MediaResultData | PersonResultData | UserResultData;
@@ -101,6 +102,14 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
         return `${mediaData.title}${mediaData.dateAired ? ` (${mediaData.dateAired.split("/")[2]})` : ""}`;
     };
 
+    const getDescription = () => {
+        if (type === "user") {
+            return (data as UserResultData).bio;
+        }
+
+        return data.description;
+    };
+
     return (
         <Link href={getPath()} style={{ textDecoration: "none" }}>
             <Box
@@ -148,7 +157,7 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
                     >
                         {getDisplayTitle()}
                     </Typography>
-                    {data.description && (
+                    {getDescription() && (
                         <Typography
                             variant="caption"
                             sx={{
@@ -160,7 +169,7 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
                                 lineHeight: 1.2,
                             }}
                         >
-                            {data.description}
+                            {getDescription()}
                         </Typography>
                     )}
                 </Box>
