@@ -81,7 +81,15 @@ const SearchAutocomplete = ({
         </Typography>
     );
 
-    const SectionTitle = ({ title }: { title: string }) => (
+    const SectionTitle = ({
+        title,
+        shownCount,
+        totalCount,
+    }: {
+        title: string;
+        shownCount: number;
+        totalCount: number;
+    }) => (
         <Typography
             variant="subtitle1"
             sx={{
@@ -103,7 +111,19 @@ const SearchAutocomplete = ({
                 },
             }}
         >
-            {title}
+            {title}{" "}
+            {totalCount > 0 && (
+                <Box
+                    component="span"
+                    sx={{
+                        fontSize: "0.85em",
+                        color: theme.vars.palette.text.secondary,
+                        ml: 1,
+                    }}
+                >
+                    ({shownCount} of {totalCount})
+                </Box>
+            )}
         </Typography>
     );
 
@@ -167,21 +187,23 @@ const SearchAutocomplete = ({
         const totalCount = counts.reduce((sum, item) => sum + item.count, 0);
 
         if (counts.length === 1) {
-            return `View ${totalCount} ${counts[0].label.toLowerCase()} results`;
+            return `View all ${totalCount} ${counts[0].label.toLowerCase()} results`;
         }
 
         const categoriesText = counts
             .map((item, index) => {
                 if (index === counts.length - 1) {
-                    return `and ${item.count} ${item.label.toLowerCase()}`;
+                    return `and all ${item.count} ${item.label.toLowerCase()}`;
                 }
 
                 return `${item.count} ${item.label.toLowerCase()}`;
             })
             .join(counts.length > 2 ? ", " : " ");
 
-        return `View ${categoriesText} results`;
+        return `View all ${categoriesText} results`;
     };
+
+    const sectionDivider = <Divider sx={{ my: 1, width: "100%" }} />;
 
     return (
         <Box
@@ -231,14 +253,17 @@ const SearchAutocomplete = ({
                     />
                 ))}
             </Stack>
-
             {!hasAnyResults ? (
                 <NoResultsMessage />
             ) : (
-                <Stack spacing={3}>
+                <Stack spacing={3} sx={{ width: "100%" }}>
                     {shouldShowSection("movies") && (
                         <Box>
-                            <SectionTitle title="Movies" />
+                            <SectionTitle
+                                title="Movies"
+                                shownCount={results.movies.items.length}
+                                totalCount={results.movies.total}
+                            />
                             <Box sx={{ mt: 1 }}>
                                 {results.movies.items.length > 0 ? (
                                     <Stack spacing={1}>
@@ -252,12 +277,14 @@ const SearchAutocomplete = ({
                             </Box>
                         </Box>
                     )}
-
-                    {shouldShowSection("movies") && shouldShowSection("series") && <Divider sx={{ my: 1 }} />}
-
+                    {shouldShowSection("movies") && shouldShowSection("series") && sectionDivider}
                     {shouldShowSection("series") && (
                         <Box>
-                            <SectionTitle title="Series" />
+                            <SectionTitle
+                                title="Series"
+                                shownCount={results.series.items.length}
+                                totalCount={results.series.total}
+                            />
                             {results.series.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.series.items.map((serie) => (
@@ -269,78 +296,61 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
-                    {shouldShowSection("series") && shouldShowSection("actors") && <Divider sx={{ my: 1 }} />}
-
+                    {shouldShowSection("series") && shouldShowSection("actors") && sectionDivider}
                     {shouldShowSection("actors") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Actors
-                            </Typography>
-                            {results.actors.items.length > 0 ? (
-                                <Stack spacing={1}>
-                                    {results.actors.items.map((actor) => (
-                                        <SearchResultCard key={actor.id} data={actor} type="actor" path="actors" />
-                                    ))}
-                                </Stack>
-                            ) : (
-                                <NoSectionResults section="Actors" />
-                            )}
+                            <SectionTitle
+                                title="Actors"
+                                shownCount={results.actors.items.length}
+                                totalCount={results.actors.total}
+                            />
+                            <Box sx={{ mt: 1 }}>
+                                {results.actors.items.length > 0 ? (
+                                    <Stack spacing={1}>
+                                        {results.actors.items.map((actor) => (
+                                            <SearchResultCard key={actor.id} data={actor} type="actor" path="actors" />
+                                        ))}
+                                    </Stack>
+                                ) : (
+                                    <NoSectionResults section="Actors" />
+                                )}
+                            </Box>
                         </Box>
                     )}
-
-                    {shouldShowSection("series") && shouldShowSection("crew") && <Divider sx={{ my: 1 }} />}
-
+                    {shouldShowSection("actors") && shouldShowSection("crew") && sectionDivider}
                     {shouldShowSection("crew") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Crew
-                            </Typography>
-                            {results.crews.items.length > 0 ? (
-                                <Stack spacing={1}>
-                                    {results.crews.items.map((crewMember) => (
-                                        <SearchResultCard
-                                            key={crewMember.id}
-                                            data={crewMember}
-                                            type="crew"
-                                            path="crew"
-                                        />
-                                    ))}
-                                </Stack>
-                            ) : (
-                                <NoSectionResults section="Crew" />
-                            )}
+                            <SectionTitle
+                                title="Crew"
+                                shownCount={results.crews.items.length}
+                                totalCount={results.crews.total}
+                            />
+                            <Box sx={{ mt: 1 }}>
+                                {results.crews.items.length > 0 ? (
+                                    <Stack spacing={1}>
+                                        {results.crews.items.map((crewMember) => (
+                                            <SearchResultCard
+                                                key={crewMember.id}
+                                                data={crewMember}
+                                                type="crew"
+                                                path="crew"
+                                            />
+                                        ))}
+                                    </Stack>
+                                ) : (
+                                    <NoSectionResults section="Crew" />
+                                )}
+                            </Box>
                         </Box>
                     )}
-
-                    {shouldShowSection("series") && shouldShowSection("seasons") && <Divider sx={{ my: 1 }} />}
-
+                    {shouldShowSection("crew") && shouldShowSection("seasons") && sectionDivider}
                     {shouldShowSection("seasons") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Seasons
-                            </Typography>
+                            <SectionTitle
+                                title="Seasons"
+                                shownCount={results.seasons.items.length}
+                                totalCount={results.seasons.total}
+                            />
                             {results.seasons.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.seasons.items.map((season) => (
@@ -352,21 +362,14 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
-                    {shouldShowSection("series") && shouldShowSection("episodes") && <Divider sx={{ my: 1 }} />}
-
+                    {shouldShowSection("seasons") && shouldShowSection("episodes") && sectionDivider}
                     {shouldShowSection("episodes") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Episodes
-                            </Typography>
+                            <SectionTitle
+                                title="Episodes"
+                                shownCount={results.episodes.items.length}
+                                totalCount={results.episodes.total}
+                            />
                             {results.episodes.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.episodes.items.map((episode) => (
@@ -378,21 +381,14 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
-                    {shouldShowSection("series") && shouldShowSection("users") && <Divider sx={{ my: 1 }} />}
-
+                    {shouldShowSection("episodes") && shouldShowSection("users") && sectionDivider}
                     {shouldShowSection("users") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Users
-                            </Typography>
+                            <SectionTitle
+                                title="Users"
+                                shownCount={results.users.items.length}
+                                totalCount={results.users.total}
+                            />
                             {results.users.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.users.items.map((user) => (
@@ -404,7 +400,6 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-
                     {hasAnyResults && (
                         <Box
                             sx={{
