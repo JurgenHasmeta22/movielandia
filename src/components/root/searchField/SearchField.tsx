@@ -4,15 +4,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { TextField, InputAdornment, useTheme, IconButton, Box, ClickAwayListener } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
 import { useRouter, useSearchParams } from "next/navigation";
-import { searchMoviesByTitle } from "@/actions/movie.actions";
-import { searchSeriesByTitle } from "@/actions/serie.actions";
-import { searchActorsByTitle } from "@/actions/actor.actions";
-import { searchCrewMembersByTitle } from "@/actions/crew.actions";
-import { searchSeasonsByTitle } from "@/actions/season.actions";
-import { searchEpisodesByTitle } from "@/actions/episode.actions";
-import { searchUsersByUsername } from "@/actions/user.actions";
 import SearchAutocomplete from "./SearchAutocomplete";
 import { useDebounce } from "@/hooks/useDebounce";
+import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const SearchField = () => {
@@ -58,8 +52,6 @@ const SearchField = () => {
             episodes: [],
             users: [],
         });
-
-        router.push("/search");
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -103,28 +95,31 @@ const SearchField = () => {
         setLoading(true);
 
         try {
-            const [moviesData, seriesData, actorsData, crewData, seasonsData, episodesData, usersData] =
-                await Promise.all([
-                    searchMoviesByTitle(debouncedSearch, { page: 1 }),
-                    searchSeriesByTitle(debouncedSearch, { page: 1 }),
-                    searchActorsByTitle(debouncedSearch, { page: 1 }),
-                    searchCrewMembersByTitle(debouncedSearch, { page: 1 }),
-                    searchSeasonsByTitle(debouncedSearch, { page: 1 }),
-                    searchEpisodesByTitle(debouncedSearch, { page: 1 }),
-                    searchUsersByUsername(debouncedSearch, { page: 1 }),
-                ]);
+            const response = await fetch(`/api/search/all?term=${encodeURIComponent(debouncedSearch)}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                showToast("error", "Failed to fetch search results");
+            }
+
+            const data = await response.json();
 
             setResults({
-                movies: moviesData?.movies || [],
-                series: seriesData?.rows || [],
-                actors: actorsData?.actors || [],
-                crew: crewData?.crews || [],
-                seasons: seasonsData?.seasons || [],
-                episodes: episodesData?.episodes || [],
-                users: usersData?.users || [],
+                movies: data.movies || [],
+                series: data.series || [],
+                actors: data.actors || [],
+                crew: data.crews || [],
+                seasons: data.seasons || [],
+                episodes: data.episodes || [],
+                users: data.users || [],
             });
         } catch (error) {
             console.error("Error fetching search results:", error);
+            showToast("error", "Failed to fetch search results. Please try again later.");
         } finally {
             setLoading(false);
         }
