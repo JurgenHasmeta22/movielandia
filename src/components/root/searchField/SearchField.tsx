@@ -151,6 +151,27 @@ const SearchField = () => {
         fetchResults();
     }, [fetchResults]);
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setInputValue(value);
+        
+        if (value.length > 0) {
+            setLoading(true);
+            setShowResults(true);
+        } else {
+            setShowResults(false);
+            setResults({
+                movies: [],
+                series: [],
+                actors: [],
+                crew: [],
+                seasons: [],
+                episodes: [],
+                users: [],
+            });
+        }
+    };
+
     return (
         <ClickAwayListener onClickAway={() => setShowResults(false)}>
             <Box sx={{ position: "relative", width: "100%" }}>
@@ -159,11 +180,12 @@ const SearchField = () => {
                         placeholder="Search for anything..."
                         size="small"
                         value={inputValue}
-                        onChange={(e) => {
-                            setInputValue(e.target.value);
-                            setShowResults(true);
+                        onChange={handleInputChange}
+                        onFocus={() => {
+                            if (inputValue.length > 0) {
+                                setShowResults(true);
+                            }
                         }}
-                        onFocus={() => setShowResults(true)}
                         sx={{
                             width: "100%",
                             "& .MuiInputBase-root": {
@@ -195,7 +217,7 @@ const SearchField = () => {
                         }}
                     />
                 </form>
-                {showResults && debouncedSearch && (
+                {showResults && (
                     <SearchAutocomplete
                         loading={loading}
                         results={results}
