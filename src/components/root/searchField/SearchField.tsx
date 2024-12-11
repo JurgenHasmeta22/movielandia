@@ -8,6 +8,27 @@ import SearchAutocomplete from "./SearchAutocomplete";
 import { useDebounce } from "@/hooks/useDebounce";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import { Movie, Serie, Actor, Crew, Season, Episode, User } from "@prisma/client";
+
+interface SearchResults {
+    movies: { items: Movie[]; total: number };
+    series: { items: Serie[]; total: number };
+    actors: { items: Actor[]; total: number };
+    crews: { items: Crew[]; total: number };
+    seasons: { items: Season[]; total: number };
+    episodes: { items: Episode[]; total: number };
+    users: { items: User[]; total: number };
+}
+
+const emptyResults = {
+    movies: { items: [], total: 0 },
+    series: { items: [], total: 0 },
+    actors: { items: [], total: 0 },
+    crews: { items: [], total: 0 },
+    seasons: { items: [], total: 0 },
+    episodes: { items: [], total: 0 },
+    users: { items: [], total: 0 },
+};
 
 const SearchField = () => {
     const router = useRouter();
@@ -17,18 +38,10 @@ const SearchField = () => {
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const [selectedFilters, setSelectedFilters] = useState<string[]>(["all"]);
-    const [results, setResults] = useState({
-        movies: [],
-        series: [],
-        actors: [],
-        crew: [],
-        seasons: [],
-        episodes: [],
-        users: [],
-    });
+    const [results, setResults] = useState<SearchResults>(emptyResults);
 
-    const theme = useTheme();
     const debouncedSearch = useDebounce(inputValue, 300);
+    const theme = useTheme();
 
     const filters = [
         { label: "All", value: "all" },
@@ -54,15 +67,7 @@ const SearchField = () => {
     const handleClear = () => {
         setInputValue("");
         setShowResults(false);
-        setResults({
-            movies: [],
-            series: [],
-            actors: [],
-            crew: [],
-            seasons: [],
-            episodes: [],
-            users: [],
-        });
+        setResults(emptyResults);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -80,6 +85,7 @@ const SearchField = () => {
 
         if (selectedFilters.includes(filter)) {
             const updatedFilters = newFilters.filter((f) => f !== filter);
+
             // If no filters are selected, default to "all"
             setSelectedFilters(updatedFilters.length === 0 ? ["all"] : updatedFilters);
         } else {
@@ -101,16 +107,7 @@ const SearchField = () => {
 
     const fetchResults = useCallback(async () => {
         if (!debouncedSearch) {
-            setResults({
-                movies: [],
-                series: [],
-                actors: [],
-                crew: [],
-                seasons: [],
-                episodes: [],
-                users: [],
-            });
-
+            setResults(emptyResults);
             return;
         }
 
@@ -126,18 +123,20 @@ const SearchField = () => {
 
             if (!response.ok) {
                 showToast("error", "Failed to fetch search results");
+                return;
             }
 
             const data = await response.json();
 
+            // Ensuring all properties exist with default values
             setResults({
-                movies: data.movies || [],
-                series: data.series || [],
-                actors: data.actors || [],
-                crew: data.crews || [],
-                seasons: data.seasons || [],
-                episodes: data.episodes || [],
-                users: data.users || [],
+                movies: { items: data.movies?.items || [], total: data.movies?.total || 0 },
+                series: { items: data.series?.items || [], total: data.series?.total || 0 },
+                actors: { items: data.actors?.items || [], total: data.actors?.total || 0 },
+                crews: { items: data.crews?.items || [], total: data.crews?.total || 0 },
+                seasons: { items: data.seasons?.items || [], total: data.seasons?.total || 0 },
+                episodes: { items: data.episodes?.items || [], total: data.episodes?.total || 0 },
+                users: { items: data.users?.items || [], total: data.users?.total || 0 },
             });
         } catch (error) {
             console.error("Error fetching search results:", error);
@@ -154,21 +153,13 @@ const SearchField = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setInputValue(value);
-        
+
         if (value.length > 0) {
             setLoading(true);
             setShowResults(true);
         } else {
             setShowResults(false);
-            setResults({
-                movies: [],
-                series: [],
-                actors: [],
-                crew: [],
-                seasons: [],
-                episodes: [],
-                users: [],
-            });
+            setResults(emptyResults);
         }
     };
 
