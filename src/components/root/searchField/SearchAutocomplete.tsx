@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, CircularProgress, Typography, useTheme, Button } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme, Button, Divider } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import { Chip, Stack } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material";
@@ -81,6 +81,32 @@ const SearchAutocomplete = ({
         </Typography>
     );
 
+    const SectionTitle = ({ title }: { title: string }) => (
+        <Typography
+            variant="subtitle1"
+            sx={{
+                textAlign: "center",
+                fontWeight: 600,
+                color: theme.vars.palette.text.primary,
+                mb: 1.5,
+                position: "relative",
+                "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    bottom: -8,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 40,
+                    height: 2,
+                    bgcolor: theme.vars.palette.primary.main,
+                    borderRadius: 1,
+                },
+            }}
+        >
+            {title}
+        </Typography>
+    );
+
     if (loading) {
         return (
             <Box
@@ -135,12 +161,13 @@ const SearchAutocomplete = ({
                 direction="row"
                 spacing={1}
                 sx={{
-                    mb: 2.5,
+                    mb: 2,
                     pb: 2,
                     borderBottom: 1,
                     borderColor: "divider",
                     flexWrap: "wrap",
                     gap: 1,
+                    justifyContent: "center",
                 }}
             >
                 {filters.map((filter) => (
@@ -152,6 +179,7 @@ const SearchAutocomplete = ({
                         variant={selectedFilters.includes(filter.value) ? "filled" : "outlined"}
                         sx={{
                             borderRadius: 1,
+                            minWidth: filter.value === "all" ? 80 : "auto",
                             "&:hover": {
                                 bgcolor: selectedFilters.includes(filter.value)
                                     ? theme.vars.palette.primary.main
@@ -168,40 +196,28 @@ const SearchAutocomplete = ({
                 <Stack spacing={3}>
                     {shouldShowSection("movies") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Movies
-                            </Typography>
-                            {results.movies.length > 0 ? (
-                                <Stack spacing={1}>
-                                    {results.movies.map((movie) => (
-                                        <SearchResultCard key={movie.id} data={movie} type="movie" />
-                                    ))}
-                                </Stack>
-                            ) : (
-                                <NoSectionResults section="Movies" />
-                            )}
+                            <SectionTitle title="Movies" />
+                            <Box sx={{ mt: 1 }}>
+                                {results.movies.length > 0 ? (
+                                    <Stack spacing={1}>
+                                        {results.movies.map((movie) => (
+                                            <SearchResultCard key={movie.id} data={movie} type="movie" />
+                                        ))}
+                                    </Stack>
+                                ) : (
+                                    <NoSectionResults section="Movies" />
+                                )}
+                            </Box>
                         </Box>
+                    )}
+
+                    {shouldShowSection("movies") && shouldShowSection("series") && (
+                        <Divider sx={{ my: 1 }} />
                     )}
 
                     {shouldShowSection("series") && (
                         <Box>
-                            <Typography
-                                variant="subtitle1"
-                                sx={{
-                                    mb: 2,
-                                    fontWeight: 600,
-                                    color: theme.vars.palette.text.primary,
-                                }}
-                            >
-                                Series
-                            </Typography>
+                            <SectionTitle title="Series" />
                             {results.series.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.series.map((serie) => (
@@ -212,6 +228,10 @@ const SearchAutocomplete = ({
                                 <NoSectionResults section="Series" />
                             )}
                         </Box>
+                    )}
+
+                    {shouldShowSection("series") && shouldShowSection("actors") && (
+                        <Divider sx={{ my: 1 }} />
                     )}
 
                     {shouldShowSection("actors") && (
@@ -236,6 +256,10 @@ const SearchAutocomplete = ({
                                 <NoSectionResults section="Actors" />
                             )}
                         </Box>
+                    )}
+
+                    {shouldShowSection("series") && shouldShowSection("crew") && (
+                        <Divider sx={{ my: 1 }} />
                     )}
 
                     {shouldShowSection("crew") && (
@@ -267,6 +291,10 @@ const SearchAutocomplete = ({
                         </Box>
                     )}
 
+                    {shouldShowSection("series") && shouldShowSection("seasons") && (
+                        <Divider sx={{ my: 1 }} />
+                    )}
+
                     {shouldShowSection("seasons") && (
                         <Box>
                             <Typography
@@ -290,6 +318,11 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
+
+                    {shouldShowSection("series") && shouldShowSection("episodes") && (
+                        <Divider sx={{ my: 1 }} />
+                    )}
+
                     {shouldShowSection("episodes") && (
                         <Box>
                             <Typography
@@ -313,6 +346,11 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
+
+                    {shouldShowSection("series") && shouldShowSection("users") && (
+                        <Divider sx={{ my: 1 }} />
+                    )}
+
                     {shouldShowSection("users") && (
                         <Box>
                             <Typography
@@ -336,6 +374,7 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
+
                     {hasAnyResults && (
                         <Box
                             sx={{
