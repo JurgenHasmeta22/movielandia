@@ -3,6 +3,7 @@ public/
 README.md
 prisma/migrations/
 prisma/seed/
+prisma/seed/data/
 prisma/erd/
 prisma/dbml/
 repomix.config.json
