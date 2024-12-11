@@ -107,26 +107,30 @@ const SearchAutocomplete = ({
         </Typography>
     );
 
+    const LoadingState = () => (
+        <Box
+            sx={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                bgcolor: "background.paper",
+                borderRadius: 1,
+                boxShadow: theme.shadows[3],
+                p: 2,
+                zIndex: 1000,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: 100,
+            }}
+        >
+            <CircularProgress size={24} />
+        </Box>
+    );
+
     if (loading) {
-        return (
-            <Box
-                sx={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    right: 0,
-                    bgcolor: "background.paper",
-                    borderRadius: 1,
-                    boxShadow: theme.shadows[3],
-                    p: 2,
-                    zIndex: 1000,
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            >
-                <CircularProgress size={24} />
-            </Box>
-        );
+        return <LoadingState />;
     }
 
     const getTotalResults = () => {
