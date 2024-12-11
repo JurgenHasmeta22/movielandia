@@ -9,13 +9,13 @@ import SearchResultCard from "./SearchResultCard";
 interface SearchAutocompleteProps {
     loading: boolean;
     results: {
-        movies: Movie[];
-        series: Serie[];
-        actors: Actor[];
-        crew: Crew[];
-        seasons: Season[];
-        episodes: Episode[];
-        users: User[];
+        movies: { items: Movie[]; total: number };
+        series: { items: Serie[]; total: number };
+        actors: { items: Actor[]; total: number };
+        crews: { items: Crew[]; total: number };
+        seasons: { items: Season[]; total: number };
+        episodes: { items: Episode[]; total: number };
+        users: { items: User[]; total: number };
     };
     selectedFilters: string[];
     searchTerm: string;
@@ -49,7 +49,7 @@ const SearchAutocomplete = ({
         return selectedFilters.includes(type.toLowerCase());
     };
 
-    const hasAnyResults = Object.values(results).some((array) => array.length > 0);
+    const hasAnyResults = Object.values(results).some((category) => category.items.length > 0);
 
     const NoResultsMessage = () =>
         searchTerm ? (
@@ -134,15 +134,9 @@ const SearchAutocomplete = ({
     }
 
     const getTotalResults = () => {
-        return (
-            results.movies.length +
-            results.series.length +
-            results.actors.length +
-            results.crew.length +
-            results.seasons.length +
-            results.episodes.length +
-            results.users.length
-        );
+        return Object.values(results).reduce((sum, category) => {
+            return sum + (category?.total || 0);
+        }, 0);
     };
 
     const getFilterSpecificResults = () => {
@@ -152,11 +146,17 @@ const SearchAutocomplete = ({
 
         const counts = selectedCategories
             .map((filter) => {
-                const count = results[filter.value.toLowerCase() as keyof typeof results].length;
+                const key = filter.value === "crew" ? "crews" : `${filter.value}`;
+                const category = results[key.toLowerCase() as keyof typeof results];
 
-                return { label: filter.label, count };
+                if (!category) return null;
+
+                return {
+                    label: filter.label,
+                    count: category.total || 0,
+                };
             })
-            .filter((item) => item.count > 0);
+            .filter((item): item is { label: string; count: number } => item !== null && item.count > 0);
 
         if (counts.length === 0) return "";
 
@@ -240,9 +240,9 @@ const SearchAutocomplete = ({
                         <Box>
                             <SectionTitle title="Movies" />
                             <Box sx={{ mt: 1 }}>
-                                {results.movies.length > 0 ? (
+                                {results.movies.items.length > 0 ? (
                                     <Stack spacing={1}>
-                                        {results.movies.map((movie) => (
+                                        {results.movies.items.map((movie) => (
                                             <SearchResultCard key={movie.id} data={movie} type="movie" />
                                         ))}
                                     </Stack>
@@ -258,9 +258,9 @@ const SearchAutocomplete = ({
                     {shouldShowSection("series") && (
                         <Box>
                             <SectionTitle title="Series" />
-                            {results.series.length > 0 ? (
+                            {results.series.items.length > 0 ? (
                                 <Stack spacing={1}>
-                                    {results.series.map((serie) => (
+                                    {results.series.items.map((serie) => (
                                         <SearchResultCard key={serie.id} data={serie} type="serie" />
                                     ))}
                                 </Stack>
@@ -284,9 +284,9 @@ const SearchAutocomplete = ({
                             >
                                 Actors
                             </Typography>
-                            {results.actors.length > 0 ? (
+                            {results.actors.items.length > 0 ? (
                                 <Stack spacing={1}>
-                                    {results.actors.map((actor) => (
+                                    {results.actors.items.map((actor) => (
                                         <SearchResultCard key={actor.id} data={actor} type="actor" path="actors" />
                                     ))}
                                 </Stack>
@@ -310,9 +310,9 @@ const SearchAutocomplete = ({
                             >
                                 Crew
                             </Typography>
-                            {results.crew.length > 0 ? (
+                            {results.crews.items.length > 0 ? (
                                 <Stack spacing={1}>
-                                    {results.crew.map((crewMember) => (
+                                    {results.crews.items.map((crewMember) => (
                                         <SearchResultCard
                                             key={crewMember.id}
                                             data={crewMember}
@@ -341,9 +341,9 @@ const SearchAutocomplete = ({
                             >
                                 Seasons
                             </Typography>
-                            {results.seasons.length > 0 ? (
+                            {results.seasons.items.length > 0 ? (
                                 <Stack spacing={1}>
-                                    {results.seasons.map((season) => (
+                                    {results.seasons.items.map((season) => (
                                         <SearchResultCard key={season.id} data={season} type="season" />
                                     ))}
                                 </Stack>
@@ -367,9 +367,9 @@ const SearchAutocomplete = ({
                             >
                                 Episodes
                             </Typography>
-                            {results.episodes.length > 0 ? (
+                            {results.episodes.items.length > 0 ? (
                                 <Stack spacing={1}>
-                                    {results.episodes.map((episode) => (
+                                    {results.episodes.items.map((episode) => (
                                         <SearchResultCard key={episode.id} data={episode} type="episode" />
                                     ))}
                                 </Stack>
@@ -393,9 +393,9 @@ const SearchAutocomplete = ({
                             >
                                 Users
                             </Typography>
-                            {results.users.length > 0 ? (
+                            {results.users.items.length > 0 ? (
                                 <Stack spacing={1}>
-                                    {results.users.map((user) => (
+                                    {results.users.items.map((user) => (
                                         <SearchResultCard key={user.id} data={user} type="user" />
                                     ))}
                                 </Stack>
