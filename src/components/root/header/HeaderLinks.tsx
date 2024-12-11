@@ -49,13 +49,11 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
         display: "flex",
         alignItems: "center",
         gap: 0.75,
-        fontSize: "0.875rem",
+        fontSize: "1rem",
         textTransform: "none",
         color: isActive(path) ? theme.vars.palette.green.main : theme.vars.palette.primary.main,
         borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
         borderRadius: 0,
-        padding: "8px 16px",
-        paddingBottom: "10px",
         fontWeight: 500,
         letterSpacing: "0.02em",
         height: 48,
@@ -69,17 +67,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
         <>
             <Box
                 sx={{
-                    marginLeft: {
-                        xs: 2,
-                        sm: 2,
-                        md: 0,
-                    },
-                    marginBottom: {
-                        xs: 1,
-                        sm: 1,
-                        md: 0,
-                    },
-                    height: 72,
                     display: "flex",
                     alignItems: "center",
                 }}
@@ -116,7 +103,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                 sx={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 2,
                     flexShrink: 0,
                 }}
             >
@@ -128,9 +114,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             sm: "column",
                             md: "row",
                         },
-                        gap: 1,
-                        m: 0,
-                        p: 0,
                     }}
                 >
                     <ListItem>

@@ -4,6 +4,7 @@ import { Box, Button, Breadcrumbs, useTheme } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useRouter } from "next/navigation";
+import { JSX } from "react";
 
 interface IBreadcrumbProps {
     breadcrumbs: JSX.Element[];
