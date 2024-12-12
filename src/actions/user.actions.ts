@@ -2660,6 +2660,7 @@ export async function getUserFavorites(
     limit: number = 10,
 ) {
     const skip = (page - 1) * limit;
+    const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
 
     const [items, total] = await Promise.all([
         prisma.user.findUnique({
@@ -2667,7 +2668,7 @@ export async function getUserFavorites(
             select: {
                 [`fav${subTab.charAt(0).toUpperCase() + subTab.slice(1)}`]: {
                     include: {
-                        [subTab.slice(0, -1)]: true,
+                        [singularSubTab]: true,
                     },
                     take: limit,
                     skip,
@@ -2699,14 +2700,15 @@ export async function getUserReviews(
     limit: number = 10,
 ) {
     const skip = (page - 1) * limit;
+    const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
 
     const [reviews, total] = await Promise.all([
         prisma.user.findUnique({
             where: { id: userId },
             select: {
-                [`${subTab}Reviews`]: {
+                [`${singularSubTab}Reviews`]: {
                     include: {
-                        [subTab]: true,
+                        [singularSubTab]: true,
                         _count: {
                             select: {
                                 upvotes: true,
@@ -2724,7 +2726,7 @@ export async function getUserReviews(
             select: {
                 [`_count`]: {
                     select: {
-                        [`${subTab}Reviews`]: true,
+                        [`${singularSubTab}Reviews`]: true,
                     },
                 },
             },
@@ -2732,8 +2734,8 @@ export async function getUserReviews(
     ]);
 
     return {
-        items: reviews?.[`${subTab}Reviews`] || [],
-        total: total?._count?.[`${subTab}Reviews`] || 0,
+        items: reviews?.[`${singularSubTab}Reviews`] || [],
+        total: total?._count?.[`${singularSubTab}Reviews`] || 0,
     };
 }
 
@@ -2745,16 +2747,19 @@ export async function getUserVotes(
     limit: number = 10,
 ) {
     const skip = (page - 1) * limit;
+    const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
+    const type = mainTab === "upvotes" ? "upvoted" : mainTab === "downvotes" ? "downvoted" : mainTab;
 
     const [votes, total] = await Promise.all([
         prisma.user.findUnique({
             where: { id: userId },
             select: {
-                [`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`]: {
+                [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: {
                     include: {
-                        [`${subTab}Review`]: {
+                        [`${singularSubTab}Review`]: {
                             include: {
-                                user: true,
+                                user: { include: { avatar: true } },
+                                [singularSubTab]: true,
                                 _count: {
                                     select: {
                                         upvotes: true,
@@ -2763,7 +2768,7 @@ export async function getUserVotes(
                                 },
                             },
                         },
-                        [subTab]: true,
+                        [singularSubTab]: true,
                     },
                     take: limit,
                     skip,
@@ -2775,7 +2780,7 @@ export async function getUserVotes(
             select: {
                 [`_count`]: {
                     select: {
-                        [`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`]: true,
+                        [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: true,
                     },
                 },
             },
@@ -2783,8 +2788,8 @@ export async function getUserVotes(
     ]);
 
     return {
-        items: votes?.[`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`] || [],
-        total: total?._count?.[`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`] || 0,
+        items: votes?.[`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`] || [],
+        total: total?._count?.[`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`] || 0,
     };
 }
 // #endregion

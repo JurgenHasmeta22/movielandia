@@ -22,6 +22,8 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const totalItems = additionalData.total || 0;
     const totalPages = Math.ceil(totalItems / perPage);
 
+    console.log(additionalData);
+
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
         current.set("page", value.toString());
@@ -31,13 +33,28 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
         router.push(`${window.location.pathname}${query}`);
     };
 
-    const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" => {
+    const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "actor" | "crew" => {
         if (item.movie || item.movieId) return "movie";
         if (item.serie || item.serieId) return "serie";
         if (item.season || item.seasonId) return "season";
         if (item.episode || item.episodeId) return "episode";
+        if (item.actor || item.actorId) return "actor";
+        if (item.crew || item.crewId) return "crew";
 
         return "movie";
+    };
+
+    const getReviewVotesType = (
+        item: any,
+    ): "movieReview" | "serieReview" | "seasonReview" | "episodeReview" | "actorReview" | "crewReview" => {
+        if (item.movieReview || item.movieReviewId) return "movieReview";
+        if (item.serieReview || item.serieReviewId) return "serieReview";
+        if (item.seasonReview || item.seasonReviewId) return "seasonReview";
+        if (item.episodeReview || item.episodeReviewId) return "episodeReview";
+        if (item.actorReview || item.actorReviewId) return "actorReview";
+        if (item.crewReview || item.crewReviewId) return "crewReview";
+
+        return "movieReview";
     };
 
     const formatTitle = (text: string) =>
@@ -88,37 +105,58 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
         >
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, justifyItems: "center" }}>
                 <Box
                     sx={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-                        gap: { xs: 1.5, sm: 2 },
+                        gridTemplateColumns: {
+                            xs:
+                                searchParams.get("maintab") === "reviews" ||
+                                searchParams.get("maintab") === "upvotes" ||
+                                searchParams.get("maintab") === "downvotes"
+                                    ? "repeat(auto-fill, minmax(300px, 1fr))"
+                                    : "repeat(auto-fill, minmax(100px, 1fr))",
+                            sm:
+                                searchParams.get("maintab") === "reviews" ||
+                                searchParams.get("maintab") === "upvotes" ||
+                                searchParams.get("maintab") === "downvotes"
+                                    ? "repeat(2, minmax(350px, 1fr))"
+                                    : "repeat(3, minmax(120px, 1fr))",
+                            md:
+                                searchParams.get("maintab") === "reviews" ||
+                                searchParams.get("maintab") === "upvotes" ||
+                                searchParams.get("maintab") === "downvotes"
+                                    ? "repeat(3, minmax(300px, 1fr))"
+                                    : "repeat(5, minmax(140px, 1fr))",
+                        },
+                        gap: { xs: 1, sm: 1.5 },
+                        justifyContent: "center",
+                        width: "100%",
+                        maxWidth: "1200px",
+                        margin: "0 auto",
                         minHeight: additionalData.items.length === 0 ? "auto" : "200px",
+                        px: { xs: 1, sm: 2 },
                     }}
                 >
                     <AnimatePresence mode="wait">
                         {additionalData.items.length > 0 ? (
                             additionalData.items.map((item: any, index: number) => {
                                 const mainTab = searchParams?.get("maintab") || "bookmarks";
+
                                 if (mainTab === "reviews") {
                                     const reviewType = getReviewType(item);
                                     const reviewItem = {
                                         ...item,
-                                        [`${reviewType}`]:
-                                            reviewType === "movie"
-                                                ? item.movie
-                                                : reviewType === "serie"
-                                                  ? item.serie
-                                                  : reviewType === "season"
-                                                    ? item.season
-                                                    : item.episode,
+                                        ...item[reviewType],
                                         user: userInPage,
                                         _count: {
                                             upvotes: item._count?.upvotes || 0,
                                             downvotes: item._count?.downvotes || 0,
                                         },
                                     };
+
+                                    console.log(reviewItem, reviewType);
+
                                     return (
                                         <ReviewItemProfile
                                             key={index}
@@ -129,10 +167,21 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                         />
                                     );
                                 } else if (mainTab === "upvotes" || mainTab === "downvotes") {
+                                    const reviewType = getReviewVotesType(item);
+                                    const reviewItem = {
+                                        ...item[reviewType],
+                                        user: userInPage,
+                                        _count: {
+                                            upvotes: item._count?.upvotes || 0,
+                                            downvotes: item._count?.downvotes || 0,
+                                        },
+                                    };
+
+                                    console.log(reviewItem, reviewType);
                                     return (
                                         <ReviewItemProfile
                                             key={index}
-                                            review={item}
+                                            review={reviewItem}
                                             type={getReviewType(item)}
                                             variant={mainTab === "upvotes" ? "upvote" : "downvote"}
                                             userLoggedIn={userLoggedIn}
