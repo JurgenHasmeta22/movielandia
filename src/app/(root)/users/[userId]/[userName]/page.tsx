@@ -25,7 +25,6 @@ interface IUserDetailsProps {
 export async function generateMetadata(props: IUserDetailsProps): Promise<Metadata> {
     const params = await props.params;
     const { userId } = params;
-
     let userInPage: any;
 
     try {

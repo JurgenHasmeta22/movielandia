@@ -16,19 +16,6 @@ interface ActorModelParams {
     filterOperatorString?: FilterOperator;
 }
 
-// interface Filters {
-//     fullname?: {
-//         contains: string;
-//     };
-//     filterNameString?: {
-//         operator: number | string;
-//     }
-// }
-
-// type SortOrder = "asc" | "desc";
-// type SortByKey = "createdAt" | "updatedAt" | "rating";
-// type OrderByObject = Partial<Record<SortByKey, SortOrder>>;
-
 // #region "GET Methods"
 export async function getActorsWithFilters(
     {

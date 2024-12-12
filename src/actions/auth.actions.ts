@@ -3,7 +3,6 @@
 import { hashSync } from "bcrypt";
 import { User } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
-import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import { randomUUID } from "crypto";
 import { Resend } from "resend";
@@ -65,18 +64,13 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
             }
         }
     } catch (error) {
-        if (isRedirectError(error)) {
-            throw error;
-        } else {
-            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-        }
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 
 export async function resetPassword(userData: IResetPassword): Promise<any> {
     try {
         const { email } = userData;
-
         const user = await prisma.user.findUnique({ where: { email } });
 
         if (!user) {
@@ -99,11 +93,7 @@ export async function resetPassword(userData: IResetPassword): Promise<any> {
 
         redirect(`/reset-password-verification-sent?email=${encodeURIComponent(email)}`);
     } catch (error) {
-        if (isRedirectError(error)) {
-            throw error;
-        } else {
-            throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-        }
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 
