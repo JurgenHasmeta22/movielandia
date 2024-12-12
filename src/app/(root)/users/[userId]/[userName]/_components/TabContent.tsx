@@ -22,8 +22,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const totalItems = additionalData.total || 0;
     const totalPages = Math.ceil(totalItems / perPage);
 
-    console.log(additionalData);
-
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
         current.set("page", value.toString());
@@ -138,84 +136,79 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                         px: { xs: 1, sm: 2 },
                     }}
                 >
-                    <AnimatePresence mode="wait">
-                        {additionalData.items.length > 0 ? (
-                            additionalData.items.map((item: any, index: number) => {
-                                const mainTab = searchParams?.get("maintab") || "bookmarks";
+                    {additionalData.items.length > 0 ? (
+                        additionalData.items.map((item: any, index: number) => {
+                            const mainTab = searchParams?.get("maintab") || "bookmarks";
 
-                                if (mainTab === "reviews") {
-                                    const reviewType = getReviewType(item);
-                                    const reviewItem = {
-                                        ...item,
-                                        ...item[reviewType],
-                                        user: userInPage,
-                                        _count: {
-                                            upvotes: item._count?.upvotes || 0,
-                                            downvotes: item._count?.downvotes || 0,
-                                        },
-                                    };
+                            if (mainTab === "reviews") {
+                                const reviewType = getReviewType(item);
+                                const reviewItem = {
+                                    ...item,
+                                    ...item[reviewType],
+                                    user: userInPage,
+                                    _count: {
+                                        upvotes: item._count?.upvotes || 0,
+                                        downvotes: item._count?.downvotes || 0,
+                                    },
+                                };
 
-                                    console.log(reviewItem, reviewType);
-
-                                    return (
-                                        <ReviewItemProfile
-                                            key={index}
-                                            review={reviewItem}
-                                            type={reviewType}
-                                            variant="upvote"
-                                            userLoggedIn={userLoggedIn}
-                                        />
-                                    );
-                                } else if (mainTab === "upvotes" || mainTab === "downvotes") {
-                                    const reviewType = getReviewVotesType(item);
-                                    const reviewItem = {
-                                        ...item[reviewType],
-                                        user: userInPage,
-                                        _count: {
-                                            upvotes: item._count?.upvotes || 0,
-                                            downvotes: item._count?.downvotes || 0,
-                                        },
-                                    };
-
-                                    console.log(reviewItem, reviewType);
-                                    return (
-                                        <ReviewItemProfile
-                                            key={index}
-                                            review={reviewItem}
-                                            type={getReviewType(item)}
-                                            variant={mainTab === "upvotes" ? "upvote" : "downvote"}
-                                            userLoggedIn={userLoggedIn}
-                                        />
-                                    );
-                                }
                                 return (
-                                    <CardItemProfile
+                                    <ReviewItemProfile
                                         key={index}
-                                        favItem={item}
-                                        type={type as FavoriteType}
-                                        getItemUrl={getItemUrl}
+                                        review={reviewItem}
+                                        type={reviewType}
+                                        variant="upvote"
                                         userLoggedIn={userLoggedIn}
-                                        userInPage={userInPage}
                                     />
                                 );
-                            })
-                        ) : (
-                            <Box
-                                sx={{
-                                    gridColumn: "1/-1",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    py: { xs: 2, sm: 3 },
-                                    minHeight: "100px",
-                                }}
-                            >
-                                <Typography variant="body1" color="text.secondary" textAlign="center">
-                                    No items found
-                                </Typography>
-                            </Box>
-                        )}
-                    </AnimatePresence>
+                            } else if (mainTab === "upvotes" || mainTab === "downvotes") {
+                                const reviewType = getReviewVotesType(item);
+                                const reviewItem = {
+                                    ...item[reviewType],
+                                    user: userInPage,
+                                    _count: {
+                                        upvotes: item._count?.upvotes || 0,
+                                        downvotes: item._count?.downvotes || 0,
+                                    },
+                                };
+
+                                return (
+                                    <ReviewItemProfile
+                                        key={index}
+                                        review={reviewItem}
+                                        type={getReviewType(item)}
+                                        variant={mainTab === "upvotes" ? "upvote" : "downvote"}
+                                        userLoggedIn={userLoggedIn}
+                                    />
+                                );
+                            }
+                            return (
+                                <CardItemProfile
+                                    key={index}
+                                    favItem={item}
+                                    type={type as FavoriteType}
+                                    getItemUrl={getItemUrl}
+                                    userLoggedIn={userLoggedIn}
+                                    userInPage={userInPage}
+                                />
+                            );
+                        })
+                    ) : (
+                        <Box
+                            sx={{
+                                gridColumn: "1/-1",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                py: { xs: 2, sm: 3 },
+                                minHeight: "100px",
+                            }}
+                        >
+                            <Typography variant="body1" color="text.secondary" textAlign="center">
+                                No items found
+                            </Typography>
+                        </Box>
+                    )}
                 </Box>
                 {totalItems > 0 && (
                     <Stack spacing={2} alignItems="center" sx={{ mt: { xs: 1, sm: 2 } }}>

@@ -44,15 +44,14 @@ interface SocialSectionProps {
         isFollowed?: boolean;
         isFollowedStatus?: string | null;
     };
+    userPendingFollowers: any;
 }
 
-export default function SocialSection({ userLoggedIn, userInPage }: SocialSectionProps) {
+export default function SocialSection({ userLoggedIn, userInPage, userPendingFollowers }: SocialSectionProps) {
     const theme = useTheme();
     const router = useRouter();
 
-    const [followersExpanded, setFollowersExpanded] = useState<boolean>(
-        userInPage.followers?.filter((follow: any) => follow.state === "pending").length > 0,
-    );
+    const [followersExpanded, setFollowersExpanded] = useState<boolean>(userPendingFollowers.items.length > 0);
 
     const handleFollowUser = async () => {
         if (!userLoggedIn || !userInPage) return;
@@ -160,89 +159,84 @@ export default function SocialSection({ userLoggedIn, userInPage }: SocialSectio
                     {getFollowButtonText()}
                 </Button>
             )}
-            {userLoggedIn &&
-                userLoggedIn.id === userInPage.id &&
-                userInPage.followers?.filter((follow: any) => follow.state === "pending").length > 0 && (
-                    <Box sx={{ mt: 2, maxWidth: "300px" }}>
-                        <Accordion
-                            expanded={followersExpanded}
-                            onChange={() => setFollowersExpanded(!followersExpanded)}
-                            sx={{
-                                bgcolor: "background.paper",
+            {userLoggedIn && userLoggedIn.id === userInPage.id && userPendingFollowers.items.length > 0 && (
+                <Box sx={{ mt: 2, maxWidth: "300px" }}>
+                    <Accordion
+                        expanded={followersExpanded}
+                        onChange={() => setFollowersExpanded(!followersExpanded)}
+                        sx={{
+                            bgcolor: "background.paper",
+                            borderRadius: 2,
+                            boxShadow: 1,
+                            width: "100%",
+                            "& .MuiAccordionSummary-root": {
                                 borderRadius: 2,
-                                boxShadow: 1,
-                                width: "100%",
-                                "& .MuiAccordionSummary-root": {
-                                    borderRadius: 2,
-                                },
-                                "& .MuiAccordionDetails-root": {
-                                    p: 2,
-                                },
-                            }}
+                            },
+                            "& .MuiAccordionDetails-root": {
+                                p: 2,
+                            },
+                        }}
+                    >
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
                         >
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography variant="subtitle1" fontWeight={500}>
-                                    Followers Requests (
-                                    {userInPage.followers?.filter((follow: any) => follow.state === "pending").length})
-                                </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Stack spacing={2}>
-                                    {userInPage.followers
-                                        ?.filter((follow: any) => follow.state === "pending")
-                                        .map((follow: any) => (
-                                            <Box
-                                                key={follow.follower.id}
+                            <Typography variant="subtitle1" fontWeight={500}>
+                                Followers Requests ({userPendingFollowers.items.length})
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Stack spacing={2}>
+                                {userPendingFollowers.items.map((follow: any) => (
+                                    <Box
+                                        key={follow.follower.id}
+                                        sx={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            p: 1.5,
+                                            borderRadius: 2,
+                                            bgcolor: "background.default",
+                                            boxShadow: 1,
+                                        }}
+                                    >
+                                        <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                                            {follow.follower.userName}
+                                        </Typography>
+                                        <Box>
+                                            <IconButton
+                                                onClick={() => handleAcceptFollow(follow.follower.id)}
                                                 sx={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "space-between",
-                                                    p: 1.5,
-                                                    borderRadius: 2,
-                                                    bgcolor: "background.default",
-                                                    boxShadow: 1,
+                                                    color: "success.main",
+                                                    "&:hover": {
+                                                        color: "success.dark",
+                                                        transform: "scale(1.1)",
+                                                    },
                                                 }}
                                             >
-                                                <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                                                    {follow.follower.userName}
-                                                </Typography>
-                                                <Box>
-                                                    <IconButton
-                                                        onClick={() => handleAcceptFollow(follow.follower.id)}
-                                                        sx={{
-                                                            color: "success.main",
-                                                            "&:hover": {
-                                                                color: "success.dark",
-                                                                transform: "scale(1.1)",
-                                                            },
-                                                        }}
-                                                    >
-                                                        <CheckIcon />
-                                                    </IconButton>
-                                                    <IconButton
-                                                        onClick={() => handleRefuseFollow(follow.follower.id)}
-                                                        sx={{
-                                                            color: "error.main",
-                                                            "&:hover": {
-                                                                color: "error.dark",
-                                                                transform: "scale(1.1)",
-                                                            },
-                                                        }}
-                                                    >
-                                                        <CloseIcon />
-                                                    </IconButton>
-                                                </Box>
-                                            </Box>
-                                        ))}
-                                </Stack>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Box>
-                )}
+                                                <CheckIcon />
+                                            </IconButton>
+                                            <IconButton
+                                                onClick={() => handleRefuseFollow(follow.follower.id)}
+                                                sx={{
+                                                    color: "error.main",
+                                                    "&:hover": {
+                                                        color: "error.dark",
+                                                        transform: "scale(1.1)",
+                                                    },
+                                                }}
+                                            >
+                                                <CloseIcon />
+                                            </IconButton>
+                                        </Box>
+                                    </Box>
+                                ))}
+                            </Stack>
+                        </AccordionDetails>
+                    </Accordion>
+                </Box>
+            )}
         </Box>
     );
 }

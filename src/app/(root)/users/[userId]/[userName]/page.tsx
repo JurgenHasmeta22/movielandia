@@ -1,7 +1,15 @@
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getUserById, getUserFavorites, getUserReviews, getUserVotes } from "@/actions/user.actions";
+import {
+    getPendingFollowRequests,
+    getFollowers,
+    getFollowing,
+    getUserById,
+    getUserFavorites,
+    getUserReviews,
+    getUserVotes,
+} from "@/actions/user.actions";
 import { notFound } from "next/navigation";
 import UserPageContent from "./_components/UserPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -96,9 +104,17 @@ export default async function UserPage(props: IUserDetailsProps) {
 
     let userInPage;
     let additionalData: any = { items: [], total: 0 };
+    let userFollowers: any;
+    let userFollowing: any;
+    let userPendingFollowers: any;
 
     try {
         userInPage = await getUserById(Number(userId), userSession?.id);
+        userFollowers = await getFollowers(Number(userId));
+        userFollowing = await getFollowing(Number(userId));
+        userPendingFollowers = await getPendingFollowRequests(Number(userId));
+
+        console.log(userFollowers, userFollowing, userPendingFollowers);
 
         if (!userInPage) {
             return notFound();
@@ -130,7 +146,14 @@ export default async function UserPage(props: IUserDetailsProps) {
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <UserPageContent userLoggedIn={userSession} userInPage={userInPage} additionalData={additionalData} />
+            <UserPageContent
+                userLoggedIn={userSession}
+                userInPage={userInPage}
+                additionalData={additionalData}
+                userFollowers={userFollowers}
+                userFollowing={userFollowing}
+                userPendingFollowers={userPendingFollowers}
+            />
         </Suspense>
     );
 }

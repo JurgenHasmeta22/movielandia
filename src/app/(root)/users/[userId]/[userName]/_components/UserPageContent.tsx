@@ -56,6 +56,9 @@ interface UserPageProps {
         following?: any[];
     };
     additionalData: any;
+    userFollowers: any;
+    userFollowing: any;
+    userPendingFollowers: any;
 }
 
 type TabConfig = {
@@ -65,7 +68,14 @@ type TabConfig = {
 };
 // #endregion
 
-export default function UserPageContent({ userLoggedIn, userInPage, additionalData }: UserPageProps) {
+export default function UserPageContent({
+    userLoggedIn,
+    userInPage,
+    additionalData,
+    userFollowers,
+    userFollowing,
+    userPendingFollowers,
+}: UserPageProps) {
     // #region "State, hooks"
     const [bio, setBio] = useState<string>(userInPage.bio);
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
@@ -363,22 +373,21 @@ export default function UserPageContent({ userLoggedIn, userInPage, additionalDa
                             <Stack direction="row" spacing={4} sx={{ mt: 2 }}>
                                 <Typography variant="body1" color="text.secondary">
                                     <strong>Followers:</strong>&nbsp;
-                                    {userInPage.followers?.filter((follow: any) => follow.state === "accepted")
-                                        .length || 0}
+                                    {userFollowers.items.length || 0}
                                 </Typography>
                                 <Typography variant="body1" color="text.secondary">
                                     <strong>Following:</strong>&nbsp;
-                                    {userInPage.following?.filter((follow: any) => follow.state === "accepted")
-                                        .length || 0}
+                                    {userFollowing.items.length || 0}
                                 </Typography>
                             </Stack>
                             <SocialSection
                                 userLoggedIn={userLoggedIn}
                                 userInPage={{
                                     ...userInPage,
-                                    followers: userInPage.followers || [],
-                                    following: userInPage.following || [],
+                                    followers: userFollowers.items || [],
+                                    following: userFollowing.items || [],
                                 }}
+                                userPendingFollowers={userPendingFollowers}
                             />
                         </Stack>
                     </Box>
@@ -546,24 +555,22 @@ export default function UserPageContent({ userLoggedIn, userInPage, additionalDa
             )}
             {/* Tab Content */}
             {canViewProfile && (
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={`${currentMainTab}-${currentSubTab}`}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        <Box sx={{ minHeight: "50vh" }}>
-                            <TabContent
-                                type={subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs][currentSubTab]}
-                                userLoggedIn={userLoggedIn}
-                                userInPage={userInPage}
-                                additionalData={additionalData}
-                            />
-                        </Box>
-                    </motion.div>
-                </AnimatePresence>
+                <motion.div
+                    key={`${currentMainTab}-${currentSubTab}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <Box sx={{ minHeight: "50vh" }}>
+                        <TabContent
+                            type={subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs][currentSubTab]}
+                            userLoggedIn={userLoggedIn}
+                            userInPage={userInPage}
+                            additionalData={additionalData}
+                        />
+                    </Box>
+                </motion.div>
             )}
         </Stack>
     );

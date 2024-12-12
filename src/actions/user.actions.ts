@@ -2793,3 +2793,104 @@ export async function getUserVotes(
     };
 }
 // #endregion
+
+// #region "Get Followers and Following"
+export async function getFollowers(userId: number, page: number = 1, limit: number = 10) {
+    const skip = (page - 1) * limit;
+
+    const [followers, total] = await Promise.all([
+        prisma.userFollow.findMany({
+            where: {
+                followingId: userId,
+                state: "accepted",
+            },
+            include: {
+                follower: {
+                    include: {
+                        avatar: true,
+                    },
+                },
+            },
+            take: limit,
+            skip,
+        }),
+        prisma.userFollow.count({
+            where: {
+                followingId: userId,
+                state: "accepted",
+            },
+        }),
+    ]);
+
+    return {
+        items: followers || [],
+        total: total || 0,
+    };
+}
+
+export async function getFollowing(userId: number, page: number = 1, limit: number = 10) {
+    const skip = (page - 1) * limit;
+
+    const [following, total] = await Promise.all([
+        prisma.userFollow.findMany({
+            where: {
+                followerId: userId,
+                state: "accepted",
+            },
+            include: {
+                following: {
+                    include: {
+                        avatar: true,
+                    },
+                },
+            },
+            take: limit,
+            skip,
+        }),
+        prisma.userFollow.count({
+            where: {
+                followerId: userId,
+                state: "accepted",
+            },
+        }),
+    ]);
+
+    return {
+        items: following || [],
+        total: total || 0,
+    };
+}
+
+export async function getPendingFollowRequests(userId: number, page: number = 1, limit: number = 10) {
+    const skip = (page - 1) * limit;
+
+    const [pendingRequests, total] = await Promise.all([
+        prisma.userFollow.findMany({
+            where: {
+                followingId: userId,
+                state: "pending",
+            },
+            include: {
+                follower: {
+                    include: {
+                        avatar: true,
+                    },
+                },
+            },
+            take: limit,
+            skip,
+        }),
+        prisma.userFollow.count({
+            where: {
+                followingId: userId,
+                state: "pending",
+            },
+        }),
+    ]);
+
+    return {
+        items: pendingRequests || [],
+        total: total || 0,
+    };
+}
+// #endregion
