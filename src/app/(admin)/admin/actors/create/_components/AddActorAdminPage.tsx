@@ -43,8 +43,6 @@ const AddActorAdminPage = () => {
             debut: values.debut,
         };
 
-        console.log("Payload:", payload);
-
         try {
             const response: Actor | null = await addActor(payload);
 
