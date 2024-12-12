@@ -204,39 +204,6 @@ export async function getUserById(userId: number, userLoggedInId?: number): Prom
         where: { id: userId },
         include: {
             avatar: true,
-            favMovies: { include: { movie: true } },
-            favSeries: { include: { serie: true } },
-            favActors: { include: { actor: true } },
-            favCrew: { include: { crew: true } },
-            favEpisodes: { include: { episode: true } },
-            favSeasons: { include: { season: true } },
-            movieReviews: { include: { movie: true } },
-            serieReviews: { include: { serie: true } },
-            seasonReviews: { include: { season: true } },
-            episodeReviews: { include: { episode: true } },
-            actorReviews: { include: { actor: true } },
-            crewReviews: { include: { crew: true } },
-            movieReviewsUpvoted: { include: { movieReview: { include: { user: true } }, movie: true } },
-            movieReviewsDownvoted: { include: { movieReview: { include: { user: true } }, movie: true } },
-            serieReviewsUpvoted: { include: { serieReview: { include: { user: true } }, serie: true } },
-            serieReviewsDownvoted: { include: { serieReview: { include: { user: true } }, serie: true } },
-            seasonReviewsUpvoted: { include: { seasonReview: { include: { user: true } }, season: true } },
-            seasonReviewsDownvoted: { include: { seasonReview: { include: { user: true } }, season: true } },
-            episodeReviewsUpvoted: { include: { episodeReview: { include: { user: true } }, episode: true } },
-            episodeReviewsDownvoted: { include: { episodeReview: { include: { user: true } }, episode: true } },
-            actorReviewsUpvoted: { include: { actorReview: { include: { user: true } }, actor: true } },
-            actorReviewsDownvoted: { include: { actorReview: { include: { user: true } }, actor: true } },
-            crewReviewsUpvoted: { include: { crewReview: { include: { user: true } }, crew: true } },
-            crewReviewsDownvoted: { include: { crewReview: { include: { user: true } }, crew: true } },
-            messagesReceived: { include: { receiver: true, sender: true } },
-            messagesSent: { include: { receiver: true, sender: true } },
-            inboxs: true,
-            followers: {
-                include: { follower: true },
-            },
-            following: {
-                include: { following: true },
-            },
         },
     });
 
@@ -248,6 +215,7 @@ export async function getUserById(userId: number, userLoggedInId?: number): Prom
             const existingFollow = await prisma.userFollow.findFirst({
                 where: {
                     followerId: userLoggedInId,
+                    followingId: userId,
                 },
             });
 
@@ -258,9 +226,9 @@ export async function getUserById(userId: number, userLoggedInId?: number): Prom
         }
 
         return { ...user, ...(userLoggedInId && { isFollowed, isFollowedStatus }) };
-    } else {
-        return null;
     }
+
+    return null;
 }
 
 export async function getUsernameByUserId(userId: number): Promise<string> {
@@ -289,35 +257,6 @@ export async function getUserByUsername(userName: string, userLoggedInId: number
         where: { userName },
         include: {
             avatar: true,
-            favMovies: { include: { movie: true } },
-            favSeries: { include: { serie: true } },
-            favActors: { include: { actor: true } },
-            favEpisodes: { include: { episode: true } },
-            favSeasons: { include: { season: true } },
-            movieReviews: { include: { movie: true } },
-            serieReviews: { include: { serie: true } },
-            seasonReviews: { include: { season: true } },
-            episodeReviews: { include: { episode: true } },
-            actorReviews: { include: { actor: true } },
-            movieReviewsUpvoted: { include: { movieReview: { include: { user: true } }, movie: true } },
-            movieReviewsDownvoted: { include: { movieReview: { include: { user: true } }, movie: true } },
-            serieReviewsUpvoted: { include: { serieReview: { include: { user: true } }, serie: true } },
-            serieReviewsDownvoted: { include: { serieReview: { include: { user: true } }, serie: true } },
-            seasonReviewsUpvoted: { include: { seasonReview: { include: { user: true } }, season: true } },
-            seasonReviewsDownvoted: { include: { seasonReview: { include: { user: true } }, season: true } },
-            episodeReviewsUpvoted: { include: { episodeReview: { include: { user: true } }, episode: true } },
-            episodeReviewsDownvoted: { include: { episodeReview: { include: { user: true } }, episode: true } },
-            actorReviewsUpvoted: { include: { actorReview: { include: { user: true } }, actor: true } },
-            actorReviewsDownvoted: { include: { actorReview: { include: { user: true } }, actor: true } },
-            messagesReceived: { include: { receiver: true, sender: true } },
-            messagesSent: { include: { receiver: true, sender: true } },
-            inboxs: true,
-            followers: {
-                include: { follower: true },
-            },
-            following: {
-                include: { following: true },
-            },
         },
     });
 
@@ -2710,5 +2649,142 @@ export async function refuseFollowRequest(followerId: number, followingId: numbe
             throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
     }
+}
+// #endregion
+
+// #region "User favorites, reviews, votes"
+export async function getUserFavorites(
+    userId: number,
+    subTab: "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
+    page: number = 1,
+    limit: number = 10,
+) {
+    const skip = (page - 1) * limit;
+
+    const [items, total] = await Promise.all([
+        prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                [`fav${subTab.charAt(0).toUpperCase() + subTab.slice(1)}`]: {
+                    include: {
+                        [subTab.slice(0, -1)]: true,
+                    },
+                    take: limit,
+                    skip,
+                },
+            },
+        }),
+        prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                [`_count`]: {
+                    select: {
+                        [`fav${subTab.charAt(0).toUpperCase() + subTab.slice(1)}`]: true,
+                    },
+                },
+            },
+        }),
+    ]);
+
+    return {
+        items: items?.[`fav${subTab.charAt(0).toUpperCase() + subTab.slice(1)}`] || [],
+        total: total?._count?.[`fav${subTab.charAt(0).toUpperCase() + subTab.slice(1)}`] || 0,
+    };
+}
+
+export async function getUserReviews(
+    userId: number,
+    subTab: "movies" | "series" | "seasons" | "episodes" | "actors" | "crew",
+    page: number = 1,
+    limit: number = 10,
+) {
+    const skip = (page - 1) * limit;
+
+    const [reviews, total] = await Promise.all([
+        prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                [`${subTab}Reviews`]: {
+                    include: {
+                        [subTab]: true,
+                        _count: {
+                            select: {
+                                upvotes: true,
+                                downvotes: true,
+                            },
+                        },
+                    },
+                    take: limit,
+                    skip,
+                },
+            },
+        }),
+        prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                [`_count`]: {
+                    select: {
+                        [`${subTab}Reviews`]: true,
+                    },
+                },
+            },
+        }),
+    ]);
+
+    return {
+        items: reviews?.[`${subTab}Reviews`] || [],
+        total: total?._count?.[`${subTab}Reviews`] || 0,
+    };
+}
+
+export async function getUserVotes(
+    userId: number,
+    subTab: "movies" | "series" | "seasons" | "episodes" | "actors" | "crew",
+    mainTab: "upvotes" | "downvotes",
+    page: number = 1,
+    limit: number = 10,
+) {
+    const skip = (page - 1) * limit;
+
+    const [votes, total] = await Promise.all([
+        prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                [`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`]: {
+                    include: {
+                        [`${subTab}Review`]: {
+                            include: {
+                                user: true,
+                                _count: {
+                                    select: {
+                                        upvotes: true,
+                                        downvotes: true,
+                                    },
+                                },
+                            },
+                        },
+                        [subTab]: true,
+                    },
+                    take: limit,
+                    skip,
+                },
+            },
+        }),
+        prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                [`_count`]: {
+                    select: {
+                        [`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`]: true,
+                    },
+                },
+            },
+        }),
+    ]);
+
+    return {
+        items: votes?.[`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`] || [],
+        total: total?._count?.[`${subTab}Reviews${mainTab.charAt(0).toUpperCase() + mainTab.slice(1)}`] || 0,
+    };
 }
 // #endregion

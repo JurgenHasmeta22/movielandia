@@ -2,7 +2,7 @@
 
 // #region "Imports"
 import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useState, useMemo, JSX } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateUserById } from "@/actions/user.actions";
@@ -55,7 +55,7 @@ interface UserPageProps {
         followers?: any[];
         following?: any[];
     };
-    tabValue: string;
+    additionalData: any;
 }
 
 type TabConfig = {
@@ -63,20 +63,14 @@ type TabConfig = {
     icon: JSX.Element;
     param: string;
 };
-
-// type SubTabsConfig = {
-//     [key: string]: string[];
-// };
 // #endregion
 
-export default function UserPageContent({ userLoggedIn, userInPage }: UserPageProps) {
+export default function UserPageContent({ userLoggedIn, userInPage, additionalData }: UserPageProps) {
     // #region "State, hooks"
     const [bio, setBio] = useState<string>(userInPage.bio);
     const [isBioEditing, setIsBioEditing] = useState<boolean>(false);
     const [userName, setUserName] = useState<string>(userInPage.userName);
     const [isUserNameEditing, setIsUserNameEditing] = useState<boolean>(false);
-    // const [email, setEmail] = useState<string>(userInPage.email);
-    // const [isEmailEditing, setIsEmailEditing] = useState<boolean>(false);
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -86,6 +80,7 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
     const canViewProfile = useMemo(() => {
         if (!userLoggedIn) return false;
         if (userLoggedIn.id === userInPage.id) return true;
+
         return userInPage.isFollowed && userInPage.isFollowedStatus === "accepted";
     }, [userLoggedIn, userInPage]);
     // #endregion
@@ -294,60 +289,6 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                     </Box>
                                 </Stack>
                             </Stack>
-                            {/* Email Section */}
-                            {/* <Stack direction="row" spacing={1} alignItems="center" sx={{ width: "100%" }}>
-                                <EmailIcon sx={{ fontSize: 18, color: "text.secondary" }} />
-                                <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
-                                    {isEmailEditing && userLoggedIn?.id === userInPage.id ? (
-                                        <Stack direction="row" spacing={1} alignItems="center" sx={{ width: "100%" }}>
-                                            <TextField
-                                                value={email}
-                                                onChange={handleEmailChange}
-                                                size="small"
-                                                fullWidth
-                                                type="email"
-                                                placeholder="Enter email"
-                                            />
-                                            <IconButton
-                                                onClick={() => handleSaveEdit("email", email, setIsEmailEditing)}
-                                                color="primary"
-                                                size="small"
-                                            >
-                                                <SaveIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                onClick={() => setIsEmailEditing(false)}
-                                                color="error"
-                                                size="small"
-                                            >
-                                                <CancelIcon />
-                                            </IconButton>
-                                        </Stack>
-                                    ) : (
-                                        <>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {email}
-                                            </Typography>
-                                            {userLoggedIn?.id === userInPage.id && (
-                                                <IconButton
-                                                    onClick={() => setIsEmailEditing(true)}
-                                                    size="small"
-                                                    sx={{
-                                                        ml: 1,
-                                                        color: 'text.secondary',
-                                                        '&:hover': {
-                                                            color: 'primary.main',
-                                                            bgcolor: 'primary.lighter'
-                                                        }
-                                                    }}
-                                                >
-                                                    <EditIcon fontSize="small" />
-                                                </IconButton>
-                                            )}
-                                        </>
-                                    )}
-                                </Box>
-                            </Stack> */}
                             {/* Bio Section */}
                             <Stack direction="row" spacing={1} sx={{ width: "100%" }}>
                                 <DescriptionIcon sx={{ fontSize: 20, color: "text.secondary", mt: 0.5 }} />
@@ -618,6 +559,7 @@ export default function UserPageContent({ userLoggedIn, userInPage }: UserPagePr
                                 type={subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs][currentSubTab]}
                                 userLoggedIn={userLoggedIn}
                                 userInPage={userInPage}
+                                additionalData={additionalData}
                             />
                         </Box>
                     </motion.div>
