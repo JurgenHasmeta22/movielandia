@@ -26,7 +26,6 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GoogleIcon from "@mui/icons-material/Google";
 import { signIn } from "next-auth/react";
-import { isRedirectError } from "next/dist/client/components/redirect";
 import { registerSchema } from "@/schemas/auth.schema";
 
 export default function RegisterForm() {
@@ -71,9 +70,7 @@ export default function RegisterForm() {
         try {
             await signUp(userData);
         } catch (error) {
-            if (isRedirectError(error)) {
-                throw error;
-            } else if (error instanceof Error) {
+            if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
                 showToast("error", "An unexpected error occurred while registering the user.");

@@ -155,6 +155,7 @@ export default function UserPageContent({
         const cleanSubTabValue = subTabValue.toLowerCase().replace(/\s+/g, "");
         const newSearchParams = new URLSearchParams(searchParams.toString());
 
+        newSearchParams.delete("page");
         newSearchParams.set("maintab", mainTabValue);
         newSearchParams.set("subtab", cleanSubTabValue);
         router.push(`?${newSearchParams.toString()}`);
