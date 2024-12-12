@@ -19,6 +19,10 @@ Coding Instructions Guidelines:
 - Be concise Minimize any other prose.
 - If you think there might not be a correct answer, you say so.
 - If you do not know the answer, say so, instead of guessing.
+- No strict line limit for code: Return complete, functional solutions when needed.
+- Prioritize modularity: Break large solutions into logical, reusable parts.
+- Avoid unnecessary comments: Use clear variable and function names to make the code self-explanatory.
+- Limit explanations: Keep explanations to 2–3 sentences unless additional clarification is required.
 
 Code Style and Structure:
 
@@ -41,7 +45,7 @@ Framework Practices:
 
 UI Styling Practices
 
-- Use Material UI with Emotion and `sx` props for consistent styling aligned with the project theme.
+- Use Material UI with Emotion and `sx` props for consistent styling aligned with the project themet, please do not use any styled components even with MUI never use it.
 
 Performance Optimization:
 
@@ -53,19 +57,3 @@ Database Practices:
 
 - Use Prisma for database modeling, ensuring alignment with the existing schema.
 - Perform CRUD operations only after verifying database entities.
-
-Git Usage:
-
-- Use the following prefixes for commit messages followed by a colon and a space:
-    - "fix" for bug fixes
-    - "feat" for new features
-    - "perf" for performance improvements
-    - "docs" for documentation changes
-    - "style" for formatting changes
-    - "refactor" for code refactoring
-    - "test" for adding missing tests
-    - "chore" for chore tasks
-- When determining the commit message prefix, pick the most relevant prefix from the list above.
-- Use lower case for commit messages.
-- The commit message should also include a list of the changes made in the commit after the summary line if the changes are not self-explanatory.
-- The commit message should be short, so the description part of the message should not be more than 2 lines keep it short and simple

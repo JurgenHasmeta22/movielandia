@@ -221,6 +221,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         fontSize: { xs: 28, sm: 32, md: 40 },
                         fontWeight: 800,
                         mb: 2,
+                        mt: 4,
                     }}
                 >
                     {term ? `Search Results for "${term}"` : "Browse All"}
