@@ -1,3 +1,5 @@
+"use server";
+
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../../prisma/config/prisma";
 import {
@@ -31,7 +33,7 @@ export async function addDownvoteMovieReview({ userId, movieId, movieReviewId }:
             });
 
             if (downvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote movie");
@@ -62,7 +64,7 @@ export async function addDownvoteSerieReview({ userId, serieId, serieReviewId }:
             });
 
             if (downvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote serie");
@@ -95,7 +97,7 @@ export async function addDownvoteSeasonReview({
             });
 
             if (downvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote season");
@@ -128,7 +130,7 @@ export async function addDownvoteEpisodeReview({
             });
 
             if (downvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote episode");
@@ -157,7 +159,7 @@ export async function addDownvoteActorReview({ userId, actorId, actorReviewId }:
             });
 
             if (downvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote actor");
@@ -186,7 +188,7 @@ export async function addDownvoteCrewReview({ userId, crewId, crewReviewId }: Vo
             });
 
             if (downvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to downvote crew");
@@ -217,7 +219,7 @@ export async function removeDownvoteMovieReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote movie");
@@ -246,7 +248,7 @@ export async function removeDownvoteSerieReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote serie");
@@ -275,7 +277,7 @@ export async function removeDownvoteSeasonReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote season");
@@ -304,7 +306,7 @@ export async function removeDownvoteEpisodeReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote episode");
@@ -333,7 +335,7 @@ export async function removeDownvoteActorReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote actor");
@@ -358,7 +360,7 @@ export async function removeDownvoteCrewReview({ userId, crewId, crewReviewId }:
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove downvote crew");

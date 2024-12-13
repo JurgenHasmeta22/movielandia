@@ -20,4 +20,4 @@ export default async function FollowingPage({
     const following = await getFollowing(Number(params.userId), page);
 
     return <FollowingContent userInPage={userInPage} following={following} />;
-} 
+}

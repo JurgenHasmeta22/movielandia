@@ -379,7 +379,9 @@ export default function UserPageContent({
                                         cursor: "pointer",
                                         "&:hover": { color: "primary.main" },
                                     }}
-                                    onClick={() => router.push(`/users/${userInPage.id}/${userInPage.userName}/followers`)}
+                                    onClick={() =>
+                                        router.push(`/users/${userInPage.id}/${userInPage.userName}/followers`)
+                                    }
                                 >
                                     <strong>Followers:</strong>&nbsp;
                                     {userFollowers.items.length || 0}
@@ -391,7 +393,9 @@ export default function UserPageContent({
                                         cursor: "pointer",
                                         "&:hover": { color: "primary.main" },
                                     }}
-                                    onClick={() => router.push(`/users/${userInPage.id}/${userInPage.userName}/following`)}
+                                    onClick={() =>
+                                        router.push(`/users/${userInPage.id}/${userInPage.userName}/following`)
+                                    }
                                 >
                                     <strong>Following:</strong>&nbsp;
                                     {userFollowing.items.length || 0}

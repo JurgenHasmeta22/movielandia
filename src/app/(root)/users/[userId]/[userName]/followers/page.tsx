@@ -20,4 +20,4 @@ export default async function FollowersPage({
     const followers = await getFollowers(Number(params.userId), page);
 
     return <FollowersContent userInPage={userInPage} followers={followers} />;
-} 
+}

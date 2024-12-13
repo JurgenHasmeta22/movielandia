@@ -15,7 +15,7 @@ interface FollowersContentProps {
 export default function FollowersContent({ userInPage, followers }: FollowersContentProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
-    
+
     const page = Number(searchParams?.get("page")) || 1;
     const perPage = 10;
     const totalPages = Math.ceil(followers.total / perPage);
@@ -36,11 +36,7 @@ export default function FollowersContent({ userInPage, followers }: FollowersCon
             <Stack spacing={2}>
                 {followers.items.length > 0 ? (
                     followers.items.map((follow: any) => (
-                        <UserListItem
-                            key={follow.follower.id}
-                            user={follow.follower}
-                            userLoggedIn={userInPage}
-                        />
+                        <UserListItem key={follow.follower.id} user={follow.follower} userLoggedIn={userInPage} />
                     ))
                 ) : (
                     <Typography color="text.secondary" textAlign="center">
@@ -61,4 +57,4 @@ export default function FollowersContent({ userInPage, followers }: FollowersCon
             )}
         </Container>
     );
-} 
+}

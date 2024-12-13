@@ -1,3 +1,5 @@
+"use server";
+
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../../prisma/config/prisma";
 import {
@@ -31,7 +33,7 @@ export async function addUpvoteMovieReview({ userId, movieId, movieReviewId }: V
             });
 
             if (upvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote movie");
@@ -62,7 +64,7 @@ export async function addUpvoteSerieReview({ userId, serieId, serieReviewId }: V
             });
 
             if (upvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote serie");
@@ -95,7 +97,7 @@ export async function addUpvoteSeasonReview({
             });
 
             if (upvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote season");
@@ -128,7 +130,7 @@ export async function addUpvoteEpisodeReview({
             });
 
             if (upvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote episode");
@@ -157,7 +159,7 @@ export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: V
             });
 
             if (upvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote actor");
@@ -186,7 +188,7 @@ export async function addUpvoteCrewReview({ userId, crewId, crewReviewId }: Vote
             });
 
             if (upvoteAdded) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to upvote crew");
@@ -213,7 +215,7 @@ export async function removeUpvoteMovieReview({ userId, movieId, movieReviewId }
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote movie");
@@ -238,7 +240,7 @@ export async function removeUpvoteSerieReview({ userId, serieId, serieReviewId }
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote serie");
@@ -267,7 +269,7 @@ export async function removeUpvoteSeasonReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote season");
@@ -296,7 +298,7 @@ export async function removeUpvoteEpisodeReview({
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote episode");
@@ -321,7 +323,7 @@ export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote actor");
@@ -346,7 +348,7 @@ export async function removeUpvoteCrewReview({ userId, crewId, crewReviewId }: V
             });
 
             if (result) {
-                const referer = getReferer();
+                const referer = await getReferer();
                 revalidatePath(referer);
             } else {
                 throw new Error("Failed to remove upvote crew");

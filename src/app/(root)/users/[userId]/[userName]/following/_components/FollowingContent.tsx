@@ -15,7 +15,7 @@ interface FollowingContentProps {
 export default function FollowingContent({ userInPage, following }: FollowingContentProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
-    
+
     const page = Number(searchParams?.get("page")) || 1;
     const perPage = 10;
     const totalPages = Math.ceil(following.total / perPage);
@@ -36,11 +36,7 @@ export default function FollowingContent({ userInPage, following }: FollowingCon
             <Stack spacing={2}>
                 {following.items.length > 0 ? (
                     following.items.map((follow: any) => (
-                        <UserListItem
-                            key={follow.following.id}
-                            user={follow.following}
-                            userLoggedIn={userInPage}
-                        />
+                        <UserListItem key={follow.following.id} user={follow.following} userLoggedIn={userInPage} />
                     ))
                 ) : (
                     <Typography color="text.secondary" textAlign="center">
@@ -61,4 +57,4 @@ export default function FollowingContent({ userInPage, following }: FollowingCon
             )}
         </Container>
     );
-} 
+}
