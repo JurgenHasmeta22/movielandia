@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback } from "react";
-import { Box, Pagination } from "@mui/material";
+import { Box, Pagination, PaginationItem } from "@mui/material";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 interface PaginationControlProps {
@@ -19,12 +19,15 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
         (name: string, value: string) => {
             const params = new URLSearchParams(searchParams.toString());
             params.set(name, value);
+
             return params.toString();
         },
         [searchParams],
     );
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+        if (value === currentPage) return;
+
         router.push(pathname + "?" + createQueryString(urlParamName, value.toString()), { scroll: false });
     };
 
@@ -37,6 +40,9 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
                 variant="outlined"
                 shape="rounded"
                 size="large"
+                renderItem={(item) => (
+                    <PaginationItem {...item} disabled={item.page === currentPage || item.disabled} />
+                )}
             />
         </Box>
     );

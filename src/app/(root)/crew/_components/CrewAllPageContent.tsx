@@ -143,7 +143,7 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
                             <CardItem key={crewMember.id} data={crewMember} type="crew" path="crew" />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Crew" />
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} urlParamName="pageCrews" />
                 </Box>
             </Box>
         </Box>
