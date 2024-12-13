@@ -21,7 +21,7 @@ import { removeUpvoteSerieReview, addUpvoteSerieReview } from "@/actions/user/us
 interface ISeriePageContentProps {
     searchParamsValues: {
         ascOrDesc: string | undefined;
-        page: number;
+        reviewsPage: number;
         sortBy: string;
         castPage: number;
         crewPage: number;
@@ -30,7 +30,7 @@ interface ISeriePageContentProps {
     serie: any;
     latestSeries: Serie[] | null;
     relatedSeries: Serie[] | null;
-    pageCount: number;
+    reviewsPageCount: number;
     castPageCount: number;
     crewPageCount: number;
     seasonsPageCount: number;
@@ -41,7 +41,7 @@ export default function SeriePageContent({
     serie,
     latestSeries,
     relatedSeries,
-    pageCount,
+    reviewsPageCount,
     castPageCount,
     crewPageCount,
     seasonsPageCount,
@@ -343,8 +343,8 @@ export default function SeriePageContent({
                     />
                 )}
                 <PaginationControl
-                    currentPage={Number(searchParamsValues.page)}
-                    pageCount={pageCount}
+                    currentPage={Number(searchParamsValues.reviewsPage)}
+                    pageCount={reviewsPageCount}
                     urlParamName="reviewsPage"
                 />
             </Box>

@@ -89,15 +89,16 @@ export default async function SeriePage(props: ISerieProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const page = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams?.reviewsSortBy || "";
-    const castPage = searchParams?.castPage;
-    const crewPage = searchParams?.crewPage;
-    const seasonsPage = searchParams?.seasonsPage;
+
+    const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const castPage = searchParams?.castPage ? Number(searchParams.castPage) : 1;
+    const crewPage = searchParams?.crewPage ? Number(searchParams.crewPage) : 1;
+    const seasonsPage = searchParams?.seasonsPage ? Number(searchParams.seasonsPage) : 1;
 
     const searchParamsValues = {
         ascOrDesc,
-        page,
+        reviewsPage,
         sortBy,
         castPage,
         crewPage,
@@ -116,17 +117,18 @@ export default async function SeriePage(props: ISerieProps) {
     const latestSeries = await getLatestSeries(Number(session?.user?.id));
     const relatedSeries = await getRelatedSeries(Number(serieId), Number(session?.user?.id));
 
+    const perPage = 6;
     const pageCountReviews = Math.ceil(serie.totalReviews / 5);
-    const castPageCount = Math.ceil(serie.totalCast / 6);
-    const crewPageCount = Math.ceil(serie.totalCrew / 6);
-    const seasonsPageCount = Math.ceil(serie.totalSeasons / 6);
+    const castPageCount = Math.ceil(serie.totalCast / perPage);
+    const crewPageCount = Math.ceil(serie.totalCrew / perPage);
+    const seasonsPageCount = Math.ceil(serie.totalSeasons / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <SeriePageContent
                 searchParamsValues={{
                     ascOrDesc,
-                    page: Number(page),
+                    reviewsPage: Number(reviewsPage),
                     sortBy,
                     castPage: Number(castPage) || 1,
                     crewPage: Number(crewPage) || 1,
@@ -135,7 +137,7 @@ export default async function SeriePage(props: ISerieProps) {
                 serie={serie}
                 latestSeries={latestSeries}
                 relatedSeries={relatedSeries}
-                pageCount={pageCountReviews}
+                reviewsPageCount={pageCountReviews}
                 castPageCount={castPageCount}
                 crewPageCount={crewPageCount}
                 seasonsPageCount={seasonsPageCount}
