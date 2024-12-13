@@ -14,6 +14,10 @@ interface UserListItemProps {
         userName: string;
         bio: string;
         avatar?: { photoSrc: string } | null;
+        followStatus?: {
+            isFollowing: boolean;
+            state: string | null;
+        } | null;
     };
     userLoggedIn: {
         id: number;
@@ -25,23 +29,62 @@ interface UserListItemProps {
 export default function UserListItem({ user, userLoggedIn, isFollowingList }: UserListItemProps) {
     const router = useRouter();
 
+    const getButtonConfig = () => {
+        if (!user.followStatus) {
+            return {
+                text: "Follow",
+                icon: <PersonAddIcon />,
+                variant: "contained",
+                action: "follow"
+            };
+        }
+
+        if (user.followStatus.state === "pending") {
+            return {
+                text: "Cancel Request",
+                icon: <PersonRemoveIcon />,
+                variant: "outlined",
+                action: "unfollow"
+            };
+        }
+
+        if (user.followStatus.isFollowing) {
+            return {
+                text: "Unfollow",
+                icon: <PersonRemoveIcon />,
+                variant: "outlined",
+                action: "unfollow"
+            };
+        }
+
+        return {
+            text: "Follow",
+            icon: <PersonAddIcon />,
+            variant: "contained",
+            action: "follow"
+        };
+    };
+
     const handleFollowAction = async () => {
         if (!userLoggedIn) return;
 
+        const config = getButtonConfig();
+
         try {
-            if (isFollowingList) {
+            if (config.action === "unfollow") {
                 await unfollow(userLoggedIn.id, user.id);
                 showToast("success", "Unfollowed successfully!");
-                router.push(`/users/${user.id}/${user.userName}`);
             } else {
                 await follow(userLoggedIn.id, user.id);
                 showToast("success", "Follow request sent successfully!");
-                router.push(`/users/${user.id}/${user.userName}`);
             }
+            router.refresh();
         } catch (error: any) {
             showToast("error", error.message || "Error performing follow action");
         }
     };
+
+    const buttonConfig = getButtonConfig();
 
     return (
         <Paper
@@ -113,8 +156,8 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                 </Box>
                 {userLoggedIn && userLoggedIn.id !== user.id && (
                     <Button
-                        variant={isFollowingList ? "outlined" : "contained"}
-                        startIcon={isFollowingList ? <PersonRemoveIcon /> : <PersonAddIcon />}
+                        variant={buttonConfig.variant as "contained" | "outlined"}
+                        startIcon={buttonConfig.icon}
                         onClick={handleFollowAction}
                         sx={{
                             minWidth: 100,
@@ -123,8 +166,18 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                             borderRadius: 1,
                             fontSize: "0.875rem",
                             fontWeight: 500,
-                            ...(isFollowingList
+                            ...(buttonConfig.variant === "contained"
                                 ? {
+                                      bgcolor: "#1976d2",
+                                      color: "#ffffff",
+                                      border: "1px solid",
+                                      borderColor: "#1976d2",
+                                      "&:hover": {
+                                          bgcolor: "#1565c0",
+                                          borderColor: "#1565c0",
+                                      },
+                                  }
+                                : {
                                       bgcolor: "transparent",
                                       color: "#1976d2",
                                       border: "1px solid",
@@ -134,16 +187,6 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                                           color: "#ffffff",
                                           borderColor: "#1976d2",
                                       },
-                                  }
-                                : {
-                                      bgcolor: "#1976d2",
-                                      color: "#ffffff",
-                                      border: "1px solid",
-                                      borderColor: "#1976d2",
-                                      "&:hover": {
-                                          bgcolor: "#1565c0",
-                                          borderColor: "#1565c0",
-                                      },
                                   }),
                             transition: "all 0.2s ease-in-out",
                             "&:active": {
@@ -151,7 +194,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                             },
                         }}
                     >
-                        {isFollowingList ? "Unfollow" : "Follow"}
+                        {buttonConfig.text}
                     </Button>
                 )}
             </Stack>

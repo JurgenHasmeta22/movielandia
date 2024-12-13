@@ -48,7 +48,7 @@ export default async function FollowersPage(props: IFollowersPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    const followers = await getFollowers(Number(params.userId), page);
+    const followers = await getFollowers(Number(params.userId), userSession?.id!, page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
