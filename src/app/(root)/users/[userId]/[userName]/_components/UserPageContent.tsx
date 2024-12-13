@@ -1,6 +1,6 @@
 "use client";
 
-import { Stack, Paper, Box } from "@mui/material";
+import { Stack, Paper, Box, Typography, Divider } from "@mui/material";
 import { motion } from "framer-motion";
 import { JSX, useMemo } from "react";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -136,6 +136,21 @@ export default function UserPageContent({
     }, [searchParams, subTabs, mainTabs]);
     // #endregion
 
+    const getMainTabDescription = (mainTab: string) => {
+        switch (mainTab) {
+            case "bookmarks":
+                return "Items saved for later viewing";
+            case "upvotes":
+                return "Reviews this user found helpful";
+            case "downvotes":
+                return "Reviews this user disagreed with";
+            case "reviews":
+                return "User's reviews and ratings";
+            default:
+                return "";
+        }
+    };
+
     return (
         <Stack spacing={4} width="100%" alignItems="center" sx={{ mt: 4, py: 4 }}>
             <Paper elevation={3} sx={{ width: "100%", p: { xs: 3, sm: 4 } }}>
@@ -168,6 +183,34 @@ export default function UserPageContent({
             {!canViewProfile && userLoggedIn && userLoggedIn.id !== userInPage.id && <PrivateProfileMessage />}
             {canViewProfile && (
                 <>
+                    <Box
+                        sx={{
+                            width: "100%",
+                            textAlign: "center",
+                            mb: 2,
+                        }}
+                    >
+                        <Typography
+                            variant="h5"
+                            sx={{
+                                fontWeight: 500,
+                                mb: 1,
+                            }}
+                        >
+                            {userInPage.userName}&apos;s {mainTabs[currentMainTab].label}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{
+                                fontSize: { xs: "0.875rem", sm: "1rem" },
+                            }}
+                        >
+                            {getMainTabDescription(mainTabs[currentMainTab].param)}
+                        </Typography>
+                        <Divider sx={{ mt: 2 }} />
+                    </Box>
+
                     <ProfileTabs
                         mainTabs={mainTabs}
                         subTabs={subTabs}

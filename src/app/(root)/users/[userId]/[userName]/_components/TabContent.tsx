@@ -22,6 +22,9 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const totalItems = additionalData.total || 0;
     const totalPages = Math.ceil(totalItems / perPage);
 
+    const startIndex = (page - 1) * perPage + 1;
+    const endIndex = Math.min(page * perPage, totalItems);
+
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
         current.set("page", value.toString());
@@ -104,6 +107,28 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
             transition={{ duration: 0.2 }}
         >
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, justifyItems: "center" }}>
+                {totalItems > 0 && (
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            px: { xs: 1, sm: 2 },
+                            mb: 1,
+                        }}
+                    >
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{
+                                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                            }}
+                        >
+                            Showing {startIndex}-{endIndex} of {totalItems} items
+                        </Typography>
+                    </Box>
+                )}
+
                 <Box
                     sx={{
                         display: "grid",
