@@ -27,6 +27,8 @@ interface UserListItemProps {
 export default function UserListItem({ user, userLoggedIn, onActionComplete }: UserListItemProps) {
     const router = useRouter();
 
+    console.log(user, userLoggedIn);
+
     const handleFollowAction = async () => {
         if (!userLoggedIn) return;
 
@@ -40,6 +42,7 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
             }
 
             if (onActionComplete) onActionComplete();
+
             router.refresh();
         } catch (error: any) {
             showToast("error", error.message || "Error performing follow action");

@@ -5,14 +5,36 @@ import { useSearchParams, useRouter } from "next/navigation";
 import UserListItem from "../../_components/UserListItem";
 
 interface FollowersContentProps {
-    userInPage: any;
+    userInPage: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+        avatar?: { photoSrc: string } | null;
+        isFollowed?: boolean;
+        isFollowedStatus?: string | null;
+    };
+    userLoggedIn: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+    } | null;
     followers: {
         items: any[];
         total: number;
     };
 }
 
-export default function FollowersContent({ userInPage, followers }: FollowersContentProps) {
+export default function FollowersContent({ userInPage, followers, userLoggedIn }: FollowersContentProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -36,7 +58,7 @@ export default function FollowersContent({ userInPage, followers }: FollowersCon
             <Stack spacing={2}>
                 {followers.items.length > 0 ? (
                     followers.items.map((follow: any) => (
-                        <UserListItem key={follow.follower.id} user={follow.follower} userLoggedIn={userInPage} />
+                        <UserListItem key={follow.follower.id} user={follow.follower} userLoggedIn={userLoggedIn} />
                     ))
                 ) : (
                     <Typography color="text.secondary" textAlign="center">
