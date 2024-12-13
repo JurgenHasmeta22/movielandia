@@ -131,7 +131,7 @@ export async function getGenreById(
                 skip,
                 take,
                 select: {
-                    movie: true
+                    movie: true,
                 },
             });
 
@@ -142,19 +142,23 @@ export async function getGenreById(
             });
 
             if (result) {
-                const movies = await Promise.all(result.map(async (item) => {
-                    const isBookmarked = userId ? await prisma.userMovieFavorite.findFirst({
-                        where: {
-                            userId,
-                            movieId: item.movie.id
-                        }
-                    }) : null;
+                const movies = await Promise.all(
+                    result.map(async (item) => {
+                        const isBookmarked = userId
+                            ? await prisma.userMovieFavorite.findFirst({
+                                  where: {
+                                      userId,
+                                      movieId: item.movie.id,
+                                  },
+                              })
+                            : null;
 
-                    return {
-                        ...item.movie,
-                        isBookmarked: !!isBookmarked
-                    };
-                }));
+                        return {
+                            ...item.movie,
+                            isBookmarked: !!isBookmarked,
+                        };
+                    }),
+                );
 
                 const movieIds = movies.map((movie) => movie.id);
 
@@ -178,7 +182,7 @@ export async function getGenreById(
                     return map;
                 }, {} as RatingsMap);
 
-                const formattedMovies = movies.map(movie => {
+                const formattedMovies = movies.map((movie) => {
                     const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
                     return { ...movie, ...ratingsInfo };
                 });
@@ -196,7 +200,7 @@ export async function getGenreById(
                 skip,
                 take,
                 select: {
-                    serie: true
+                    serie: true,
                 },
             });
 
@@ -207,19 +211,23 @@ export async function getGenreById(
             });
 
             if (result) {
-                const series = await Promise.all(result.map(async (item) => {
-                    const isBookmarked = userId ? await prisma.userSerieFavorite.findFirst({
-                        where: {
-                            userId,
-                            serieId: item.serie.id
-                        }
-                    }) : null;
+                const series = await Promise.all(
+                    result.map(async (item) => {
+                        const isBookmarked = userId
+                            ? await prisma.userSerieFavorite.findFirst({
+                                  where: {
+                                      userId,
+                                      serieId: item.serie.id,
+                                  },
+                              })
+                            : null;
 
-                    return {
-                        ...item.serie,
-                        isBookmarked: !!isBookmarked
-                    };
-                }));
+                        return {
+                            ...item.serie,
+                            isBookmarked: !!isBookmarked,
+                        };
+                    }),
+                );
 
                 const serieIds = series.map((serie) => serie.id);
 
@@ -243,7 +251,7 @@ export async function getGenreById(
                     return map;
                 }, {} as RatingsMap);
 
-                const formattedSeries = series.map(serie => {
+                const formattedSeries = series.map((serie) => {
                     const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
                     return { ...serie, ...ratingsInfo };
                 });

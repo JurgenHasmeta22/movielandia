@@ -60,14 +60,13 @@ const SearchField = () => {
         } else {
             router.push("/search");
         }
-
         setShowResults(false);
     };
 
     const handleClear = () => {
         setInputValue("");
-        setShowResults(false);
         setResults(emptyResults);
+        handleSearch();
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -163,8 +162,25 @@ const SearchField = () => {
         }
     };
 
+    const handleClose = () => {
+        setShowResults(false);
+    };
+
+    const handleReset = () => {
+        setInputValue("");
+        setResults(emptyResults);
+        setShowResults(false);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleSearch();
+            handleClose();
+        }
+    };
+
     return (
-        <ClickAwayListener onClickAway={() => setShowResults(false)}>
+        <ClickAwayListener onClickAway={handleClose}>
             <Box sx={{ position: "relative", width: "100%" }}>
                 <form onSubmit={handleSubmit} style={{ display: "flex" }}>
                     <TextField
@@ -177,6 +193,7 @@ const SearchField = () => {
                                 setShowResults(true);
                             }
                         }}
+                        onKeyDown={handleKeyDown}
                         sx={{
                             width: "100%",
                             "& .MuiInputBase-root": {
@@ -216,6 +233,8 @@ const SearchField = () => {
                         onFilterChange={handleFilterChange}
                         searchTerm={inputValue}
                         onShowMore={handleShowMore}
+                        onClose={handleClose}
+                        onResultClick={handleReset}
                     />
                 )}
             </Box>
