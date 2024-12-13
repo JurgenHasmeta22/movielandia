@@ -11,7 +11,7 @@ interface SeriesPageContentProps {
     searchParams:
         | {
               seriesAscOrDesc?: string;
-              page?: string;
+              pageSeries?: string;
               seriesSortBy?: string;
           }
         | undefined;
@@ -20,7 +20,7 @@ interface SeriesPageContentProps {
 
 export default async function SeriesPageContent({ searchParams, session }: SeriesPageContentProps) {
     const ascOrDesc = searchParams?.seriesAscOrDesc ?? "";
-    const page = searchParams?.page ? Number(searchParams.page) : 1;
+    const page = searchParams?.pageSeries ? Number(searchParams.pageSeries) : 1;
     const sortBy = searchParams?.seriesSortBy ?? "";
 
     const queryParams = {

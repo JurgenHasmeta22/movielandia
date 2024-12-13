@@ -20,7 +20,7 @@ import { removeUpvoteCrewReview, addUpvoteCrewReview } from "@/actions/user/user
 interface ICrewPageContentProps {
     searchParamsValues: {
         ascOrDesc: string | undefined;
-        page: number;
+        pageCrews: number;
         sortBy: string;
     };
     crew: any;
@@ -342,7 +342,11 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                     />
                 )}
                 {crew.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                    <PaginationControl
+                        currentPage={Number(searchParamsValues.pageCrews)!}
+                        pageCount={pageCount}
+                        dataType="Crew"
+                    />
                 )}
             </Box>
             <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />
