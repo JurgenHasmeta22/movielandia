@@ -3,6 +3,7 @@
 import { Box } from "@mui/material";
 import TextEditor from "../textEditor/TextEditor";
 import { TextEditorButtons } from "../textEditorButtons/TextEditorButtons";
+import { useState } from "react";
 
 interface ITextEditorFormProps {
     review: string;
@@ -31,6 +32,8 @@ export function TextEditorForm({
     setOpen,
     onSubmitUpdateReview,
 }: ITextEditorFormProps) {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     return (
         <Box marginTop={4} px={4}>
             <Box marginBottom={1}>
@@ -40,6 +43,7 @@ export function TextEditorForm({
                     ref={textEditorRef}
                     rating={rating}
                     setRating={setRating}
+                    isDisabled={isSubmitting}
                 />
             </Box>
             <TextEditorButtons
@@ -50,6 +54,7 @@ export function TextEditorForm({
                 onSubmitReview={onSubmitReview}
                 handleFocusReview={handleFocusReview}
                 onSubmitUpdateReview={onSubmitUpdateReview}
+                setIsSubmitting={setIsSubmitting}
             />
         </Box>
     );

@@ -16,6 +16,7 @@ interface ITextEditorProps {
     rating: number | null;
     setRating: React.Dispatch<React.SetStateAction<number | null>>;
     onChange: (value: string) => void;
+    isDisabled?: boolean;
 }
 
 const modules = {
@@ -45,7 +46,7 @@ const formats = [
     "video",
 ];
 
-const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref }) => {
+const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -77,13 +78,14 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
     }, [ref, value]);
 
     return (
-        <Box>
+        <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
             <ReactQuill
                 theme="snow"
                 value={value}
                 onChange={onChange}
                 modules={modules}
                 formats={formats}
+                readOnly={isDisabled}
                 // @ts-expect-error - Quill does not accept ref as a prop
                 ref={ref}
                 style={{
@@ -105,6 +107,7 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     size="medium"
                     max={10}
                     precision={0.5}
+                    readOnly={isDisabled}
                 />
             </Box>
         </Box>
