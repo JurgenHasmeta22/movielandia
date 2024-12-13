@@ -257,15 +257,15 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
         <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            style={{ position: "relative", width: 113, borderRadius: "8px", overflow: "hidden" }}
+            style={{ position: "relative", width: 125, borderRadius: "8px", overflow: "hidden" }}
         >
             <Link href={getItemUrl(favItem)!} style={{ textDecoration: "none" }}>
                 <Box sx={{ position: "relative", overflow: "hidden" }}>
                     <Image
                         src={getPhotoSrc()}
                         alt={getTitle()}
-                        height={150}
-                        width={113}
+                        height={170}
+                        width={125}
                         style={{
                             borderRadius: "8px",
                             objectFit: "cover",
