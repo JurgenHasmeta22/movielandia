@@ -39,9 +39,9 @@ const SeasonAdminPage = () => {
         </Link>,
     ];
 
-    const handleDataChange = (values: any) => {
-        setFormData(values);
-    };
+    // const handleDataChange = (values: any) => {
+    //     setFormData(values);
+    // };
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -188,7 +188,7 @@ const SeasonAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteSeasonById(season?.id!);
+                                            const response = await deleteSeasonById(season?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

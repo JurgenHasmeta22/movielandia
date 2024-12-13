@@ -92,9 +92,11 @@ export default async function GenrePageContent({ params, searchParams, session }
 
     const shouldShowSection = (type: string) => {
         const selectedFilters = searchParams?.filters?.split(",") || ["all"];
+
         if (selectedFilters.includes("all")) {
             return true;
         }
+
         return selectedFilters.includes(type.toLowerCase());
     };
 
@@ -138,6 +140,7 @@ export default async function GenrePageContent({ params, searchParams, session }
                         fontSize: { xs: 28, sm: 32, md: 40 },
                         fontWeight: 800,
                         mb: 2,
+                        mt: 4,
                     }}
                 >
                     All Movies of Genre {genre.name}

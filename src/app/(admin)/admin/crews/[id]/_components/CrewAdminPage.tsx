@@ -20,7 +20,7 @@ import { crewSchema } from "@/schemas/crew.schema";
 
 const CrewAdminPage = () => {
     const [crew, setCrew] = useState<Crew | null>(null);
-    const [formData, setFormData] = useState<any>({});
+    // const [formData, setFormData] = useState<any>({});
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
 
@@ -150,7 +150,7 @@ const CrewAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteCrewMemberById(crew?.id!);
+                                            const response = await deleteCrewMemberById(crew?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

@@ -39,9 +39,9 @@ const EpisodeAdminPage = () => {
         </Link>,
     ];
 
-    const handleDataChange = (values: any) => {
-        setFormData(values);
-    };
+    // const handleDataChange = (values: any) => {
+    //     setFormData(values);
+    // };
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -196,7 +196,7 @@ const EpisodeAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteEpisodeById(episode?.id!);
+                                            const response = await deleteEpisodeById(episode?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

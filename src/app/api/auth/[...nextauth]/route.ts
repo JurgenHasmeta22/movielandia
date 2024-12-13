@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
                     // Creating a new user if doesn't exist for google auth0
                     const newUser = await prisma.user.create({
                         data: {
-                            email: profile?.email!,
+                            email: profile?.email,
                             userName: profile?.name ?? "Google User",
                             active: true,
                             role: "User",

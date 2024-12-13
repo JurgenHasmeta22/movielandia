@@ -234,7 +234,7 @@ const Review: React.FC<IReviewProps> = ({
                             <EditIcon fontSize="medium" />
                         </IconButton>
                     )}
-                    {review.user.id === Number(session?.user?.id) && (
+                    {review.user.id === Number(session?.user?.id) && !isEditMode && (
                         <Box ref={ref} tabIndex={-1}>
                             <IconButton size="medium" color="error" onClick={() => handleRemoveReview()}>
                                 <CloseIcon fontSize="medium" />
@@ -285,7 +285,7 @@ const Review: React.FC<IReviewProps> = ({
                     columnGap: 4,
                 }}
             >
-                <Box display={"flex"} alignItems={"center"} columnGap={1}>
+                <Box display={"flex"} alignItems={"center"}>
                     <motion.div
                         whileTap={{ scale: 1 }}
                         animate={isClickedUpvote ? { scale: [1, 1.5, 1] } : {}}
@@ -301,6 +301,7 @@ const Review: React.FC<IReviewProps> = ({
                                 color: review.isUpvoted
                                     ? theme.vars.palette.green.main
                                     : theme.vars.palette.primary.main,
+                                pr: 0.5,
                             }}
                         >
                             <ThumbUpIcon fontSize="medium" />
@@ -316,12 +317,15 @@ const Review: React.FC<IReviewProps> = ({
                                 backgroundColor: "transparent",
                             },
                             color: theme.vars.palette.primary.main,
+                            p: 0,
+                            minWidth: "auto",
+                            ml: 1,
                         }}
                     >
                         <Typography>{review._count.upvotes}</Typography>
                     </Button>
                 </Box>
-                <Box display={"flex"} alignItems={"center"} columnGap={1}>
+                <Box display={"flex"} alignItems={"center"}>
                     <motion.div
                         whileTap={{ scale: 1 }}
                         animate={isClickedDownvote ? { scale: [1, 1.5, 1] } : {}}
@@ -337,6 +341,7 @@ const Review: React.FC<IReviewProps> = ({
                                 color: review.isDownvoted
                                     ? theme.vars.palette.red.main
                                     : theme.vars.palette.primary.main,
+                                pr: 0.5,
                             }}
                         >
                             <ThumbDownIcon fontSize="medium" />
@@ -352,6 +357,9 @@ const Review: React.FC<IReviewProps> = ({
                             "&:hover": {
                                 backgroundColor: "transparent",
                             },
+                            p: 0,
+                            minWidth: "auto",
+                            ml: 1,
                         }}
                     >
                         <Typography>{review._count.downvotes}</Typography>

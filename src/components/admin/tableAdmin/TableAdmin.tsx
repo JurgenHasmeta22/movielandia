@@ -9,7 +9,7 @@ import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { getGenresWithFilters } from "@/actions/genre.actions";
-import { getUsersWithFilters } from "@/actions/user.actions";
+import { getUsersWithFilters } from "@/actions/user/user.actions";
 import { getMoviesWithFilters } from "@/actions/movie.actions";
 import { getSeriesWithFilters } from "@/actions/serie.actions";
 import { getActorsWithFilters } from "@/actions/actor.actions";
@@ -28,20 +28,20 @@ interface ITableAdminProps {
     handleAddItem: () => void;
 }
 
-const mapFilterOperator = (operator: string): FilterOperator => {
-    switch (operator) {
-        case "contains":
-            return "equals";
-        case "greaterThan":
-            return "gt";
-        case "lessThan":
-            return "lt";
-        case "equals":
-            return "equals";
-        default:
-            return "equals";
-    }
-};
+// const mapFilterOperator = (operator: string): FilterOperator => {
+//     switch (operator) {
+//         case "contains":
+//             return "equals";
+//         case "greaterThan":
+//             return "gt";
+//         case "lessThan":
+//             return "lt";
+//         case "equals":
+//             return "equals";
+//         default:
+//             return "equals";
+//     }
+// };
 // #endregion
 
 const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {

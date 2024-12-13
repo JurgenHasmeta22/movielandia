@@ -4,7 +4,7 @@ import { getGenres } from "@/actions/genre.actions";
 import { getMovies } from "@/actions/movie.actions";
 import { getSeasons } from "@/actions/season.actions";
 import { getSeries } from "@/actions/serie.actions";
-import { getUsers } from "@/actions/user.actions";
+import { getUsers } from "@/actions/user/user.actions";
 import { Actor, Episode, Genre, Movie, Season, Serie, User } from "@prisma/client";
 import { MetadataRoute } from "next";
 
@@ -104,7 +104,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
     });
 
-    genres.forEach((genre: Genre) => {
+    genres?.forEach((genre: Genre) => {
         urls.push({
             url: `${baseUrl}/genres/${genre.id}/${genre.name}`,
             lastModified: new Date(),

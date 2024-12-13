@@ -1,4 +1,4 @@
-import { addFavoriteSeasonToUser, removeFavoriteSeasonToUser } from "@/actions/user.actions";
+import { addFavoriteSeasonToUser, removeFavoriteSeasonToUser } from "@/actions/user/userBookmarks.actions";
 import { Season } from "@prisma/client";
 import { Session } from "next-auth";
 import { showToast } from "@/utils/helpers/toast";
