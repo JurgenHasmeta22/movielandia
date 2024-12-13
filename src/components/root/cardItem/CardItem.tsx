@@ -115,6 +115,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
 
     const handleBookmarkClick = async (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
+
         if (!session?.user) return;
 
         const bookmarkFunc = bookmarkFunctions[type as keyof typeof bookmarkFunctions];
@@ -204,6 +205,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
         }
 
         const mediaData = data as MovieCardData | SerieCardData | SeasonCardData | EpisodeCardData;
+
         return `${mediaData.title} (${mediaData.dateAired?.split("/")[2]})`;
     };
 

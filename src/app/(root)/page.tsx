@@ -43,26 +43,13 @@ export default async function Home() {
         page: 1,
     };
 
-    // API Route approach:
-    // const moviesResponse = await fetch(
-    //     `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/movies?page=${queryParams.page}${session?.user?.id ? `&userId=${session.user.id}` : ""}`,
-    //     { cache: "no-store" },
-    // );
-    // const moviesData = await moviesResponse.json();
-    // const movies: Movie[] = moviesData.movies;
-
-    // const seriesResponse = await fetch(
-    //     `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/series?page=${queryParams.page}${session?.user?.id ? `&userId=${session.user.id}` : ""}`,
-    //     { cache: "no-store" },
-    // );
-    // const seriesData = await seriesResponse.json();
-    // const series: Serie[] = seriesData.rows;
-
     const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
     const movies: Movie[] = moviesData.movies;
 
     const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series: Serie[] = seriesData.rows;
+
+    console.log(movies, series);
 
     return (
         <Box

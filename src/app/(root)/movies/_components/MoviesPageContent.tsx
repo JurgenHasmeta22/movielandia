@@ -22,23 +22,21 @@ export default async function MoviesPageContent({ searchParams, session }: Movie
     const ascOrDesc = searchParams?.moviesAscOrDesc ?? "";
     const page = searchParams?.pageMovies ? Number(searchParams.pageMovies) : 1;
     const sortBy = searchParams?.moviesSortBy ?? "";
-
     const queryParams = {
         ascOrDesc,
         page,
         sortBy,
     };
 
-    const itemsPerPage = 12;
     const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
     const movies = moviesData.movies;
-    const moviesCarouselImages: Movie[] = moviesData.movies.slice(0, 5);
+    const moviesCount = moviesData.count;
 
+    const moviesCarouselImages: Movie[] = moviesData.movies.slice(0, 5);
     const latestMovies = await getLatestMovies();
 
-    const moviesCount = moviesData.count;
+    const itemsPerPage = 12;
     const pageCount = Math.ceil(moviesCount / itemsPerPage);
-
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, moviesCount);
 

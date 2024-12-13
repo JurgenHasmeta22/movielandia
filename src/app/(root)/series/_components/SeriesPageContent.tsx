@@ -22,22 +22,21 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
     const ascOrDesc = searchParams?.seriesAscOrDesc ?? "";
     const page = searchParams?.pageSeries ? Number(searchParams.pageSeries) : 1;
     const sortBy = searchParams?.seriesSortBy ?? "";
-
     const queryParams = {
         ascOrDesc,
         page,
         sortBy,
     };
 
-    const itemsPerPage = 12;
     const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series = seriesData.rows;
-    const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
-
-    const latestSeries = await getLatestSeries();
     const seriesCount = seriesData.count;
-    const pageCount = Math.ceil(seriesCount / itemsPerPage);
 
+    const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
+    const latestSeries = await getLatestSeries();
+
+    const itemsPerPage = 12;
+    const pageCount = Math.ceil(seriesCount / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, seriesCount);
 
