@@ -59,7 +59,12 @@ export default function FollowingContent({ userInPage, following, userLoggedIn }
             <Stack spacing={2}>
                 {following.items.length > 0 ? (
                     following.items.map((follow: any) => (
-                        <UserListItem key={follow.following.id} user={follow.following} userLoggedIn={userLoggedIn} />
+                        <UserListItem
+                            key={follow.following.id}
+                            user={follow.following}
+                            userLoggedIn={userLoggedIn}
+                            isFollowingList={true}
+                        />
                     ))
                 ) : (
                     <Typography color="text.secondary" textAlign="center">

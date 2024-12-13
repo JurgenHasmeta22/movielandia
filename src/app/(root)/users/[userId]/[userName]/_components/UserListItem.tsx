@@ -14,36 +14,34 @@ interface UserListItemProps {
         userName: string;
         bio: string;
         avatar?: { photoSrc: string } | null;
-        isFollowed?: boolean;
-        isFollowedStatus?: string | null;
     };
     userLoggedIn: {
         id: number;
         userName: string;
     } | null;
+    isFollowingList?: boolean;
     onActionComplete?: () => void;
 }
 
-export default function UserListItem({ user, userLoggedIn, onActionComplete }: UserListItemProps) {
+export default function UserListItem({ user, userLoggedIn, isFollowingList, onActionComplete }: UserListItemProps) {
     const router = useRouter();
 
-    console.log(user, userLoggedIn);
+    // console.log(user, userLoggedIn);
 
     const handleFollowAction = async () => {
         if (!userLoggedIn) return;
 
         try {
-            if (!user.isFollowed) {
-                await follow(userLoggedIn.id, user.id);
-                showToast("success", "Follow request sent successfully!");
-            } else {
+            if (isFollowingList) {
                 await unfollow(userLoggedIn.id, user.id);
                 showToast("success", "Unfollowed successfully!");
+                router.push(`/users/${user.id}/${user.userName}`);
+            } else {
+                await follow(userLoggedIn.id, user.id);
+                showToast("success", "Follow request sent successfully!");
+                if (onActionComplete) onActionComplete();
+                router.refresh();
             }
-
-            if (onActionComplete) onActionComplete();
-
-            router.refresh();
         } catch (error: any) {
             showToast("error", error.message || "Error performing follow action");
         }
@@ -119,8 +117,8 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
                 </Box>
                 {userLoggedIn && userLoggedIn.id !== user.id && (
                     <Button
-                        variant={user.isFollowed ? "outlined" : "contained"}
-                        startIcon={user.isFollowed ? <PersonRemoveIcon /> : <PersonAddIcon />}
+                        variant={isFollowingList ? "outlined" : "contained"}
+                        startIcon={isFollowingList ? <PersonRemoveIcon /> : <PersonAddIcon />}
                         onClick={handleFollowAction}
                         sx={{
                             minWidth: 100,
@@ -129,24 +127,20 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
                             borderRadius: 1,
                             fontSize: "0.875rem",
                             fontWeight: 500,
-                            bgcolor: user.isFollowed ? "background.paper" : "primary.main",
-                            color: user.isFollowed ? "primary.main" : "secondary",
+                            bgcolor: isFollowingList ? "background.paper" : "primary.main",
+                            color: isFollowingList ? "primary.main" : "secondary",
                             border: "1px solid",
-                            borderColor: user.isFollowed ? "grey.300" : "primary.main",
-                            boxShadow: user.isFollowed ? "none" : 1,
+                            borderColor: isFollowingList ? "grey.300" : "primary.main",
+                            boxShadow: isFollowingList ? "none" : 1,
                             "&:hover": {
-                                color: user.isFollowed ? "primary.main" : "primary.main",
-                                bgcolor: user.isFollowed ? "grey.100" : "primary.dark",
-                                borderColor: user.isFollowed ? "grey.400" : "primary.dark",
-                                boxShadow: user.isFollowed ? "none" : 2,
-                            },
-                            "&:active": {
-                                bgcolor: user.isFollowed ? "grey.200" : "primary.dark",
-                                borderColor: user.isFollowed ? "grey.500" : "primary.dark",
+                                color: isFollowingList ? "primary.main" : "primary.dark",
+                                bgcolor: isFollowingList ? "grey.100" : "primary.dark",
+                                borderColor: isFollowingList ? "grey.400" : "primary.dark",
+                                boxShadow: isFollowingList ? "none" : 2,
                             },
                         }}
                     >
-                        {user.isFollowed ? (user.isFollowedStatus === "pending" ? "Requested" : "Following") : "Follow"}
+                        {isFollowingList ? "Unfollow" : "Follow"}
                     </Button>
                 )}
             </Stack>
