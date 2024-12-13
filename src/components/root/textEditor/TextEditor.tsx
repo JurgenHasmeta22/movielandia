@@ -7,27 +7,61 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import "react-quill-new/dist/quill.snow.css";
+import QuillResizeImage from "quill-resize-image";
+import { Quill } from "react-quill-new";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+
+if (typeof window !== "undefined") {
+    Quill.register("modules/resize", QuillResizeImage);
+}
 
 interface ITextEditorProps {
     value: string;
     ref: any;
     rating: number | null;
     setRating: React.Dispatch<React.SetStateAction<number | null>>;
-    onChange: (value: string) => void;
     isDisabled?: boolean;
+    onChange: (value: string) => void;
 }
 
 const modules = {
     toolbar: [
-        [{ header: "1" }, { header: "2" }, { font: [] }],
-        [{ size: [] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+        [{ font: [] }],
+        [{ size: ["small", false, "large", "huge"] }],
+
+        ["bold", "italic", "underline", "strike"],
+        [{ color: [] }, { background: [] }],
+
+        [{ align: ["", "center", "right", "justify"] }],
+
         [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+
+        [{ script: "sub" }, { script: "super" }],
+        ["blockquote", "code-block"],
+
         ["link", "image", "video"],
-        ["clean"],
+
+        [{ direction: "rtl" }],
     ],
+
+    resize: {
+        locale: {},
+    },
+
+    clipboard: {
+        matchVisual: false,
+    },
+
+    keyboard: {
+        bindings: {
+            tab: false,
+            "list autofill": true,
+        },
+    },
 };
 
 const formats = [
@@ -38,12 +72,18 @@ const formats = [
     "italic",
     "underline",
     "strike",
-    "blockquote",
+    "color",
+    "background",
+    "align",
     "list",
-    // "bullet", this broke the component
+    "indent",
+    "script",
+    "blockquote",
+    "code-block",
     "link",
     "image",
     "video",
+    "direction",
 ];
 
 const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled }) => {
@@ -108,6 +148,30 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                         "& .ql-picker-label:hover": {
                             color: theme.vars.palette.blue.main,
                         },
+                        "& .ql-color .ql-picker-options": {
+                            padding: "5px",
+                            width: "152px",
+                        },
+                        "& .ql-color .ql-picker-item": {
+                            width: "16px",
+                            height: "16px",
+                            margin: "2px",
+                        },
+                        "& .ql-background .ql-picker-options": {
+                            padding: "5px",
+                            width: "152px",
+                        },
+                        "& .ql-background .ql-picker-item": {
+                            width: "16px",
+                            height: "16px",
+                            margin: "2px",
+                        },
+                        "& .ql-size .ql-picker-options": {
+                            minWidth: "100px",
+                        },
+                        "& .ql-align .ql-picker-options": {
+                            minWidth: "100px",
+                        },
                     },
                     ".ql-container": {
                         backgroundColor: theme.vars.palette.secondary.light,
@@ -152,6 +216,34 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                         ol: {
                             color: theme.vars.palette.primary.main,
                         },
+                        "& pre.ql-syntax": {
+                            backgroundColor: theme.vars.palette.secondary.dark,
+                            color: theme.vars.palette.primary.light,
+                            padding: "1em",
+                            borderRadius: "4px",
+                            fontFamily: "monospace",
+                            fontSize: "14px",
+                            overflow: "auto",
+                        },
+                        "& sup": {
+                            fontSize: "0.75em",
+                            verticalAlign: "super",
+                        },
+                        "& sub": {
+                            fontSize: "0.75em",
+                            verticalAlign: "sub",
+                        },
+                        "&[dir='rtl']": {
+                            textAlign: "right",
+                        },
+                        "& .ql-indent-1": { paddingLeft: "3em" },
+                        "& .ql-indent-2": { paddingLeft: "6em" },
+                        "& .ql-indent-3": { paddingLeft: "9em" },
+                        "& .ql-indent-4": { paddingLeft: "12em" },
+                        "& .ql-indent-5": { paddingLeft: "15em" },
+                        "& .ql-align-center": { textAlign: "center" },
+                        "& .ql-align-right": { textAlign: "right" },
+                        "& .ql-align-justify": { textAlign: "justify" },
                     },
                 }}
             >
