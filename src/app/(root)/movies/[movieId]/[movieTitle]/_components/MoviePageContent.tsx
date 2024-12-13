@@ -298,27 +298,27 @@ export default function MoviePageContent({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {movie.reviews!.map((review: any, index: number) => (
-                    <Review
-                        key={index}
-                        review={review}
-                        handleRemoveReview={onSubmitRemoveReview}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setReview={setReview}
-                        handleFocusTextEditor={handleFocusTextEditor}
-                        ref={reviewRef}
-                        setRating={setRating}
-                        handleUpvote={onUpvoteMovie}
-                        handleDownvote={onDownVoteMovie}
-                        type="movie"
-                        data={movie}
-                        handleOpenUpvotesModal={handleOpenUpvotesModal}
-                        handleOpenDownvotesModal={handleOpenDownvotesModal}
-                    />
-                ))}
-                {movie.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                {movie.reviews!.map(
+                    (review: any, index: number) =>
+                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            <Review
+                                key={index}
+                                review={review}
+                                handleRemoveReview={onSubmitRemoveReview}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                                setReview={setReview}
+                                handleFocusTextEditor={handleFocusTextEditor}
+                                ref={reviewRef}
+                                setRating={setRating}
+                                handleUpvote={onUpvoteMovie}
+                                handleDownvote={onDownVoteMovie}
+                                type="movie"
+                                data={movie}
+                                handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                            />
+                        ),
                 )}
                 {session?.user && (!movie.isReviewed || isEditMode) && (
                     <TextEditorForm
@@ -334,6 +334,9 @@ export default function MoviePageContent({
                         onSubmitReview={onSubmitReview}
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
+                )}
+                {movie.totalReviews > 0 && (
+                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
             </Box>
             <ListDetail data={latestMovies} type="movie" roleData="latest" />

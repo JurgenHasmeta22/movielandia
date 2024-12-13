@@ -304,27 +304,27 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                         sortingDataType="reviews"
                     />
                 )}
-                {crew.reviews.map((review: any, index: number) => (
-                    <Review
-                        key={index}
-                        review={review}
-                        handleRemoveReview={onSubmitRemoveReview}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setReview={setReview}
-                        handleFocusTextEditor={handleFocusTextEditor}
-                        ref={reviewRef}
-                        setRating={setRating}
-                        handleUpvote={onUpvoteCrew}
-                        handleDownvote={onDownVoteCrew}
-                        type="crew"
-                        data={crew}
-                        handleOpenUpvotesModal={handleOpenUpvotesModal}
-                        handleOpenDownvotesModal={handleOpenDownvotesModal}
-                    />
-                ))}
-                {crew.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                {crew.reviews.map(
+                    (review: any, index: number) =>
+                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            <Review
+                                key={index}
+                                review={review}
+                                handleRemoveReview={onSubmitRemoveReview}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                                setReview={setReview}
+                                handleFocusTextEditor={handleFocusTextEditor}
+                                ref={reviewRef}
+                                setRating={setRating}
+                                handleUpvote={onUpvoteCrew}
+                                handleDownvote={onDownVoteCrew}
+                                type="crew"
+                                data={crew}
+                                handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                            />
+                        ),
                 )}
                 {session?.user && (!crew.isReviewed || isEditMode) && (
                     <TextEditorForm
@@ -340,6 +340,9 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                         onSubmitReview={onSubmitReview}
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
+                )}
+                {crew.totalReviews > 0 && (
+                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
             </Box>
             <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />

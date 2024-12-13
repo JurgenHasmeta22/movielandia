@@ -304,27 +304,27 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                         sortingDataType="reviews"
                     />
                 )}
-                {actor.reviews.map((review: any, index: number) => (
-                    <Review
-                        key={index}
-                        review={review}
-                        handleRemoveReview={onSubmitRemoveReview}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setReview={setReview}
-                        handleFocusTextEditor={handleFocusTextEditor}
-                        ref={reviewRef}
-                        setRating={setRating}
-                        handleUpvote={onUpvoteActor}
-                        handleDownvote={onDownVoteActor}
-                        type="actor"
-                        data={actor}
-                        handleOpenUpvotesModal={handleOpenUpvotesModal}
-                        handleOpenDownvotesModal={handleOpenDownvotesModal}
-                    />
-                ))}
-                {actor.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                {actor.reviews.map(
+                    (review: any, index: number) =>
+                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            <Review
+                                key={index}
+                                review={review}
+                                handleRemoveReview={onSubmitRemoveReview}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                                setReview={setReview}
+                                handleFocusTextEditor={handleFocusTextEditor}
+                                ref={reviewRef}
+                                setRating={setRating}
+                                handleUpvote={onUpvoteActor}
+                                handleDownvote={onDownVoteActor}
+                                type="actor"
+                                data={actor}
+                                handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                            />
+                        ),
                 )}
                 {session?.user && (!actor.isReviewed || isEditMode) && (
                     <TextEditorForm
@@ -340,6 +340,9 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                         onSubmitReview={onSubmitReview}
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
+                )}
+                {actor.totalReviews > 0 && (
+                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
             </Box>
             <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />

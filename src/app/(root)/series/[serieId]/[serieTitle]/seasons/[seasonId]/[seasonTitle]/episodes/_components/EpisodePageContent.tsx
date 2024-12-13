@@ -313,27 +313,27 @@ export default function EpisodePage({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {episode.reviews!.map((review: any, index: number) => (
-                    <Review
-                        key={index}
-                        review={review}
-                        handleRemoveReview={onSubmitRemoveReview}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setReview={setReview}
-                        handleFocusTextEditor={handleFocusTextEditor}
-                        ref={reviewRef}
-                        setRating={setRating}
-                        handleUpvote={onUpvoteEpisode}
-                        handleDownvote={onDownVoteEpisode}
-                        type="episode"
-                        data={episode}
-                        handleOpenUpvotesModal={handleOpenUpvotesModal}
-                        handleOpenDownvotesModal={handleOpenDownvotesModal}
-                    />
-                ))}
-                {episode.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                {episode.reviews!.map(
+                    (review: any, index: number) =>
+                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            <Review
+                                key={index}
+                                review={review}
+                                handleRemoveReview={onSubmitRemoveReview}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                                setReview={setReview}
+                                handleFocusTextEditor={handleFocusTextEditor}
+                                ref={reviewRef}
+                                setRating={setRating}
+                                handleUpvote={onUpvoteEpisode}
+                                handleDownvote={onDownVoteEpisode}
+                                type="episode"
+                                data={episode}
+                                handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                            />
+                        ),
                 )}
                 {session?.user && (!episode.isReviewed || isEditMode) && (
                     <TextEditorForm
@@ -349,6 +349,9 @@ export default function EpisodePage({
                         onSubmitReview={onSubmitReview}
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
+                )}
+                {episode.totalReviews > 0 && (
+                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
             </Box>
             <ListDetail data={latestEpisodes!} type="episode" roleData="latest" />

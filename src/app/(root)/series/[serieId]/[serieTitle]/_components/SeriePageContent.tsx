@@ -296,27 +296,27 @@ export default function SeriePageContent({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {serie.reviews!.map((review: any, index: number) => (
-                    <Review
-                        key={index}
-                        review={review}
-                        handleRemoveReview={onSubmitRemoveReview}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setReview={setReview}
-                        handleFocusTextEditor={handleFocusTextEditor}
-                        ref={reviewRef}
-                        setRating={setRating}
-                        handleUpvote={onUpvoteSerie}
-                        handleDownvote={onDownVoteSerie}
-                        type="serie"
-                        data={serie}
-                        handleOpenUpvotesModal={handleOpenUpvotesModal}
-                        handleOpenDownvotesModal={handleOpenDownvotesModal}
-                    />
-                ))}
-                {serie.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                {serie.reviews!.map(
+                    (review: any, index: number) =>
+                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            <Review
+                                key={index}
+                                review={review}
+                                handleRemoveReview={onSubmitRemoveReview}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                                setReview={setReview}
+                                handleFocusTextEditor={handleFocusTextEditor}
+                                ref={reviewRef}
+                                setRating={setRating}
+                                handleUpvote={onUpvoteSerie}
+                                handleDownvote={onDownVoteSerie}
+                                type="serie"
+                                data={serie}
+                                handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                            />
+                        ),
                 )}
                 {session?.user && (!serie.isReviewed || isEditMode) && (
                     <TextEditorForm
@@ -332,6 +332,9 @@ export default function SeriePageContent({
                         onSubmitReview={onSubmitReview}
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
+                )}
+                {serie.totalReviews > 0 && (
+                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
             </Box>
             <ListDetail data={latestSeries!} type="serie" roleData="latest" />
