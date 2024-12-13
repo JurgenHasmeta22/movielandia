@@ -95,9 +95,9 @@ const RightPanel: React.FC<IDrawerProps> = ({
 
     const isLastStep = () => activeStep === (steps ? steps.length - 1 : 0);
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
-    };
+    // const handleNext = () => {
+    //     setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
+    // };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep: any) => prevActiveStep - 1);
@@ -110,8 +110,8 @@ const RightPanel: React.FC<IDrawerProps> = ({
     const {
         control,
         handleSubmit,
-        watch,
-        reset,
+        // watch,
+        // reset,
         formState: { errors, isDirty },
     } = useForm({
         defaultValues,

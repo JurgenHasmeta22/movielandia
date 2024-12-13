@@ -166,7 +166,7 @@ export default function ReviewItemProfile({ review, type, userLoggedIn }: Review
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.secondary" }}>
                             <Avatar
-                                src={review.user?.avatar?.photoSrc! || "/default-avatar.jpg"}
+                                src={review.user?.avatar?.photoSrc || "/default-avatar.jpg"}
                                 alt={review.user?.userName || "User"}
                                 sx={{ width: 24, height: 24 }}
                             />

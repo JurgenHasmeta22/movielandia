@@ -30,7 +30,7 @@ const ContactUsContent = () => {
         },
     });
 
-    const onSubmit = async (data: ContactFormData) => {
+    const onSubmit = async () => {
         try {
             showToast("success", "Message sent successfully! We&apos;ll get back to you soon.");
             reset();

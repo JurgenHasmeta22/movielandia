@@ -28,20 +28,20 @@ interface ITableAdminProps {
     handleAddItem: () => void;
 }
 
-const mapFilterOperator = (operator: string): FilterOperator => {
-    switch (operator) {
-        case "contains":
-            return "equals";
-        case "greaterThan":
-            return "gt";
-        case "lessThan":
-            return "lt";
-        case "equals":
-            return "equals";
-        default:
-            return "equals";
-    }
-};
+// const mapFilterOperator = (operator: string): FilterOperator => {
+//     switch (operator) {
+//         case "contains":
+//             return "equals";
+//         case "greaterThan":
+//             return "gt";
+//         case "lessThan":
+//             return "lt";
+//         case "equals":
+//             return "equals";
+//         default:
+//             return "equals";
+//     }
+// };
 // #endregion
 
 const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, List, ListItem, Popper, Paper, ButtonGroup, Typography, useTheme } from "@mui/material";
+import { Box, Button, List, ListItem, Popper, Paper, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
 import MovieIcon from "@mui/icons-material/Movie";
