@@ -31,7 +31,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
 
         const search = current.toString();
         const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`);
+        router.push(`${window.location.pathname}${query}`, { scroll: false });
     };
 
     const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "actor" | "crew" => {
