@@ -3,7 +3,7 @@
 import { Box, Typography, Pagination, Stack } from "@mui/material";
 import CardItemProfile, { FavoriteType } from "./CardItemProfile";
 import ReviewItemProfile from "./ReviewItemProfile";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 
 interface ITabContentProps {
@@ -152,6 +152,8 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                     },
                                 };
 
+                                console.log(reviewType, reviewItem);
+
                                 return (
                                     <ReviewItemProfile
                                         key={index}
@@ -165,12 +167,14 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                 const reviewType = getReviewVotesType(item);
                                 const reviewItem = {
                                     ...item[reviewType],
-                                    user: userInPage,
+                                    user: item[reviewType].user,
                                     _count: {
-                                        upvotes: item._count?.upvotes || 0,
-                                        downvotes: item._count?.downvotes || 0,
+                                        upvotes: item[reviewType]._count?.upvotes || 0,
+                                        downvotes: item[reviewType]._count?.downvotes || 0,
                                     },
                                 };
+
+                                console.log(reviewType, reviewItem, item);
 
                                 return (
                                     <ReviewItemProfile

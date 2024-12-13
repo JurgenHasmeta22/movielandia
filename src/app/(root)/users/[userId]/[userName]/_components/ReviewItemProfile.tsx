@@ -6,6 +6,8 @@ import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
@@ -137,6 +139,30 @@ export default function ReviewItemProfile({ review, type, userLoggedIn }: Review
                                     {review.rating.toFixed(1)}/10
                                 </Typography>
                             </Box>
+                            <Stack direction="row" spacing={2}>
+                                <Stack direction="row" spacing={0.5} alignItems="center">
+                                    <ThumbUpIcon
+                                        sx={{
+                                            fontSize: "1.2rem",
+                                            color: "success.main",
+                                        }}
+                                    />
+                                    <Typography variant="body2" color="text.secondary">
+                                        {review._count?.upvotes || 0}
+                                    </Typography>
+                                </Stack>
+                                <Stack direction="row" spacing={0.5} alignItems="center">
+                                    <ThumbDownIcon
+                                        sx={{
+                                            fontSize: "1.2rem",
+                                            color: "error.main",
+                                        }}
+                                    />
+                                    <Typography variant="body2" color="text.secondary">
+                                        {review._count?.downvotes || 0}
+                                    </Typography>
+                                </Stack>
+                            </Stack>
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.secondary" }}>
                             <Avatar
