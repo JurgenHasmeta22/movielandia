@@ -1,6 +1,6 @@
 "use client";
 
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { WarningOutlined, CheckOutlined, SendOutlined, SaveOutlined, CancelOutlined } from "@mui/icons-material";
 import { Box, Button, Typography, useTheme, CircularProgress } from "@mui/material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
@@ -70,7 +70,7 @@ export function TextEditorButtons({
                         onClick={handleSubmit}
                         variant="contained"
                         disabled={isPending}
-                        startIcon={isPending && <CircularProgress size={20} color="inherit" />}
+                        startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : <SendOutlined />}
                         sx={{
                             display: "flex",
                             placeSelf: "end",
@@ -142,6 +142,7 @@ export function TextEditorButtons({
                         color="error"
                         variant="contained"
                         disabled={isPending}
+                        startIcon={<CancelOutlined />}
                         sx={{
                             display: "flex",
                             placeSelf: "end",
@@ -161,7 +162,7 @@ export function TextEditorButtons({
                         color="success"
                         variant="contained"
                         disabled={isPending}
-                        startIcon={isPending && <CircularProgress size={20} color="inherit" />}
+                        startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : <SaveOutlined />}
                         sx={{
                             display: "flex",
                             placeSelf: "end",

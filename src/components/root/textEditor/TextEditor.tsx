@@ -79,23 +79,110 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
 
     return (
         <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
-            <ReactQuill
-                theme="snow"
-                value={value}
-                onChange={onChange}
-                modules={modules}
-                formats={formats}
-                readOnly={isDisabled}
-                // @ts-expect-error - Quill does not accept ref as a prop
-                ref={ref}
-                style={{
-                    backgroundColor: theme.vars.palette.blue.dark,
-                    color: theme.vars.palette.primary.light,
-                    marginBottom: "10px",
+            <Box
+                sx={{
+                    ".ql-toolbar": {
+                        backgroundColor: theme.vars.palette.secondary.light,
+                        border: `1px solid ${theme.vars.palette.primary.light}`,
+                        borderTopLeftRadius: "8px",
+                        borderTopRightRadius: "8px",
+                        "& .ql-stroke": {
+                            stroke: theme.vars.palette.primary.main,
+                        },
+                        "& .ql-fill": {
+                            fill: theme.vars.palette.primary.main,
+                        },
+                        "& .ql-picker": {
+                            color: theme.vars.palette.primary.main,
+                        },
+                        "& .ql-picker-options": {
+                            backgroundColor: theme.vars.palette.secondary.light,
+                            border: `1px solid ${theme.vars.palette.primary.light}`,
+                        },
+                        "& button:hover .ql-stroke": {
+                            stroke: theme.vars.palette.blue.main,
+                        },
+                        "& button:hover .ql-fill": {
+                            fill: theme.vars.palette.blue.main,
+                        },
+                        "& .ql-picker-label:hover": {
+                            color: theme.vars.palette.blue.main,
+                        },
+                    },
+                    ".ql-container": {
+                        backgroundColor: theme.vars.palette.secondary.light,
+                        border: `1px solid ${theme.vars.palette.primary.light}`,
+                        borderBottomLeftRadius: "8px",
+                        borderBottomRightRadius: "8px",
+                        fontSize: "16px",
+                        minHeight: "200px",
+                    },
+                    ".ql-editor": {
+                        color: theme.vars.palette.primary.main,
+                        padding: "20px",
+                        "&.ql-blank::before": {
+                            color: theme.vars.palette.primary.main,
+                            opacity: 0.6,
+                            fontStyle: "normal",
+                            fontSize: "16px",
+                            left: "20px",
+                            right: "20px",
+                        },
+                        "p, h1, h2, h3": {
+                            color: theme.vars.palette.primary.main,
+                            margin: "0 0 0.5em 0",
+                        },
+                        h1: { fontSize: "2em" },
+                        h2: { fontSize: "1.5em" },
+                        h3: { fontSize: "1.17em" },
+                        a: {
+                            color: theme.vars.palette.blue.main,
+                            textDecoration: "underline",
+                        },
+                        blockquote: {
+                            borderLeft: `4px solid ${theme.vars.palette.primary.main}`,
+                            color: theme.vars.palette.primary.main,
+                            opacity: 0.9,
+                            margin: "0.5em 0",
+                            padding: "0.5em 1em",
+                        },
+                        ul: {
+                            color: theme.vars.palette.primary.main,
+                        },
+                        ol: {
+                            color: theme.vars.palette.primary.main,
+                        },
+                    },
                 }}
-            />
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
-                <Typography variant="body2" fontSize={16} fontWeight={700} sx={{ mr: 1 }}>
+            >
+                <ReactQuill
+                    theme="snow"
+                    value={value}
+                    onChange={onChange}
+                    modules={modules}
+                    formats={formats}
+                    readOnly={isDisabled}
+                    // @ts-expect-error - Quill does not accept ref as a prop
+                    ref={ref}
+                />
+            </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    mt: 2,
+                }}
+            >
+                <Typography
+                    variant="body2"
+                    fontSize={16}
+                    fontWeight={700}
+                    sx={{
+                        mr: 1,
+                        color: theme.vars.palette.primary.main,
+                    }}
+                >
                     {rating?.toFixed(1)}
                 </Typography>
                 <Rating
