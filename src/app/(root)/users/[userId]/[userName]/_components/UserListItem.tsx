@@ -23,10 +23,9 @@ interface UserListItemProps {
         id: number;
         userName: string;
     } | null;
-    isFollowingList?: boolean;
 }
 
-export default function UserListItem({ user, userLoggedIn, isFollowingList }: UserListItemProps) {
+export default function UserListItem({ user, userLoggedIn }: UserListItemProps) {
     const router = useRouter();
 
     const getButtonConfig = () => {
@@ -35,7 +34,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                 text: "Follow",
                 icon: <PersonAddIcon />,
                 variant: "contained",
-                action: "follow"
+                action: "follow",
             };
         }
 
@@ -44,7 +43,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                 text: "Cancel Request",
                 icon: <PersonRemoveIcon />,
                 variant: "outlined",
-                action: "unfollow"
+                action: "unfollow",
             };
         }
 
@@ -53,7 +52,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                 text: "Unfollow",
                 icon: <PersonRemoveIcon />,
                 variant: "outlined",
-                action: "unfollow"
+                action: "unfollow",
             };
         }
 
@@ -61,7 +60,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
             text: "Follow",
             icon: <PersonAddIcon />,
             variant: "contained",
-            action: "follow"
+            action: "follow",
         };
     };
 
@@ -78,6 +77,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList }: Us
                 await follow(userLoggedIn.id, user.id);
                 showToast("success", "Follow request sent successfully!");
             }
+
             router.refresh();
         } catch (error: any) {
             showToast("error", error.message || "Error performing follow action");

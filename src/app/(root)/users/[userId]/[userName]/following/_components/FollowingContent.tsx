@@ -19,7 +19,18 @@ interface FollowingContentProps {
         isFollowedStatus?: string | null;
     };
     following: {
-        items: any[];
+        items: Array<{
+            following: {
+                id: number;
+                userName: string;
+                bio: string;
+                avatar?: { photoSrc: string } | null;
+                followStatus?: {
+                    isFollowing: boolean;
+                    state: string | null;
+                } | null;
+            };
+        }>;
         total: number;
     };
     userLoggedIn: {
@@ -58,13 +69,8 @@ export default function FollowingContent({ userInPage, following, userLoggedIn }
             </Typography>
             <Stack spacing={2}>
                 {following.items.length > 0 ? (
-                    following.items.map((follow: any) => (
-                        <UserListItem
-                            key={follow.following.id}
-                            user={follow.following}
-                            userLoggedIn={userLoggedIn}
-                            isFollowingList={true}
-                        />
+                    following.items.map((follow) => (
+                        <UserListItem key={follow.following.id} user={follow.following} userLoggedIn={userLoggedIn} />
                     ))
                 ) : (
                     <Typography color="text.secondary" textAlign="center">
