@@ -142,7 +142,7 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
                             <CardItem key={actor.id} data={actor} type="actor" path="actors" />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Actors" />
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} urlParamName="pageActors" />
                 </Box>
             </Box>
         </Box>
