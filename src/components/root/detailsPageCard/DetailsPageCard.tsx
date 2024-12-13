@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Typography, Chip, Button, useTheme } from "@mui/material";
+import React, { useTransition } from "react";
+import { Box, Typography, Chip, Button, useTheme, CircularProgress } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,12 +15,25 @@ interface IDetailsPageCardProps {
     type: string;
     isBookmarked: boolean;
     onBookmark: () => Promise<void>;
-    onRemoveBookmark?: () => Promise<void>;
+    onRemoveBookmark: () => Promise<void>;
 }
 
 export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
     const { data: session } = useSession();
     const theme = useTheme();
+    const [isPending, startTransition] = useTransition();
+
+    const handleBookmarkAction = () => {
+        if (!session?.user || !data) return;
+
+        startTransition(async () => {
+            if (isBookmarked) {
+                await onRemoveBookmark();
+            } else {
+                await onBookmark();
+            }
+        });
+    };
 
     return (
         <Box
@@ -141,12 +154,15 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         {session?.user?.userName && (
                             <Button
                                 variant="contained"
-                                onClick={isBookmarked ? onRemoveBookmark : onBookmark}
+                                onClick={handleBookmarkAction}
+                                disabled={isPending}
                                 startIcon={
-                                    data.isBookmarked ? (
-                                        <BookmarkIcon color={data.isBookmarked ? "error" : "success"} />
+                                    isPending ? (
+                                        <CircularProgress size={20} color="inherit" />
+                                    ) : isBookmarked ? (
+                                        <BookmarkIcon color="error" />
                                     ) : (
-                                        <BookmarkBorderIcon color={data.isBookmarked ? "error" : "success"} />
+                                        <BookmarkBorderIcon color="success" />
                                     )
                                 }
                                 sx={{
@@ -155,8 +171,15 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                                     "&:hover": {
                                         bgcolor: theme.vars.palette.secondary.light,
                                     },
+                                    "&:disabled": {
+                                        bgcolor: isBookmarked
+                                            ? theme.vars.palette.red.main
+                                            : theme.vars.palette.green.main,
+                                        opacity: 0.7,
+                                    },
                                     textTransform: "capitalize",
                                     fontSize: 16,
+                                    minWidth: 130,
                                 }}
                             >
                                 {isBookmarked ? "Bookmarked" : "Bookmark"}
