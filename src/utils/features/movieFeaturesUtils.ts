@@ -26,13 +26,8 @@ export async function onRemoveBookmarkMovie(session: Session, movie: Movie) {
     try {
         await removeFavoriteMovieToUser(Number(session.user.id), movie.id, `/movies/${movie.title}`);
         showToast("success", "Movie removed from favorites!");
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(`Error removing movie from favorites: ${error.message}`);
-            showToast("error", `An error occurred: ${error.message}`);
-        } else {
-            console.error("Unknown error removing movie from favorites.");
-            showToast("error", "An unexpected error occurred while removing the movie from favorites.");
-        }
+    } catch (error: any) {
+        console.error(`Error removing movie from favorites: ${error.message}`);
+        showToast("error", `An error occurred: ${error.message}`);
     }
 }
