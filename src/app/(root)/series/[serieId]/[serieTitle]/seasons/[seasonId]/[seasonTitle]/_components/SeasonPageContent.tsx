@@ -7,15 +7,6 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
-import {
-    addDownvoteSeasonReview,
-    addReviewSeason,
-    addUpvoteSeasonReview,
-    removeDownvoteSeasonReview,
-    removeReviewSeason,
-    removeUpvoteSeasonReview,
-    updateReviewSeason,
-} from "@/actions/user.actions";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
@@ -23,6 +14,9 @@ import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Season } from "@prisma/client";
 import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/features/seasonFeaturesUtils";
+import { removeDownvoteSeasonReview, addDownvoteSeasonReview } from "@/actions/user/userDownvotes.actions";
+import { addReviewSeason, removeReviewSeason, updateReviewSeason } from "@/actions/user/userReviews.actions";
+import { removeUpvoteSeasonReview, addUpvoteSeasonReview } from "@/actions/user/userUpvotes.actions";
 
 interface ISeasonPageContentProps {
     searchParamsValues: {

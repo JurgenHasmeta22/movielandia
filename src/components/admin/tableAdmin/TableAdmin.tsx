@@ -9,7 +9,7 @@ import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { getGenresWithFilters } from "@/actions/genre.actions";
-import { getUsersWithFilters } from "@/actions/user.actions";
+import { getUsersWithFilters } from "@/actions/user/user.actions";
 import { getMoviesWithFilters } from "@/actions/movie.actions";
 import { getSeriesWithFilters } from "@/actions/serie.actions";
 import { getActorsWithFilters } from "@/actions/actor.actions";

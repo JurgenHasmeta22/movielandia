@@ -1,4 +1,4 @@
-import { addFavoriteCrewToUser, removeFavoriteCrewToUser } from "@/actions/user.actions";
+import { addFavoriteCrewToUser, removeFavoriteCrewToUser } from "@/actions/user/userBookmarks.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { Crew } from "@prisma/client";
 import { Session } from "next-auth";

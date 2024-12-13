@@ -12,7 +12,7 @@ import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard"
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
 import { useModal } from "@/providers/ModalProvider";
-import { deleteUserById, getUserById, updateUserByIdAdmin } from "@/actions/user.actions";
+import { deleteUserById, getUserById, updateUserByIdAdmin } from "@/actions/user/user.actions";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Prisma, User } from "@prisma/client";

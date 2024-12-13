@@ -7,21 +7,15 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
-import {
-    addDownvoteCrewReview,
-    addReviewCrew,
-    addUpvoteCrewReview,
-    removeDownvoteCrewReview,
-    removeReviewCrew,
-    removeUpvoteCrewReview,
-    updateReviewCrew,
-} from "@/actions/user.actions";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
+import { removeDownvoteCrewReview, addDownvoteCrewReview } from "@/actions/user/userDownvotes.actions";
+import { addReviewCrew, removeReviewCrew, updateReviewCrew } from "@/actions/user/userReviews.actions";
+import { removeUpvoteCrewReview, addUpvoteCrewReview } from "@/actions/user/userUpvotes.actions";
 
 interface ICrewPageContentProps {
     searchParamsValues: {

@@ -7,15 +7,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
+import { showToast } from "@/utils/helpers/toast";
 import {
+    removeFavoriteMovieToUser,
+    removeFavoriteSerieToUser,
+    removeFavoriteSeasonToUser,
+    removeFavoriteEpisodeToUser,
     removeFavoriteActorToUser,
     removeFavoriteCrewToUser,
-    removeFavoriteEpisodeToUser,
-    removeFavoriteMovieToUser,
-    removeFavoriteSeasonToUser,
-    removeFavoriteSerieToUser,
-} from "@/actions/user.actions";
-import { showToast } from "@/utils/helpers/toast";
+} from "@/actions/user/userBookmarks.actions";
 
 export type FavoriteType = "Movies" | "Series" | "Actors" | "Crew" | "Seasons" | "Episodes";
 

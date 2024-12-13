@@ -6,7 +6,7 @@ import { searchSeriesByTitle } from "@/actions/serie.actions";
 import { searchActorsByTitle } from "@/actions/actor.actions";
 import { searchSeasonsByTitle } from "@/actions/season.actions";
 import { searchEpisodesByTitle } from "@/actions/episode.actions";
-import { searchUsersByUsername } from "@/actions/user.actions";
+import { searchUsersByUsername } from "@/actions/user/user.actions";
 import SearchList from "./SearchList";
 import { searchCrewMembersByTitle } from "@/actions/crew.actions";
 import SearchTabs from "./SearchTabs";

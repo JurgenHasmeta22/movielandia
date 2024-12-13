@@ -5,7 +5,7 @@ import { deleteGenreById } from "@/actions/genre.actions";
 import { deleteMovieById } from "@/actions/movie.actions";
 import { deleteSeasonById } from "@/actions/season.actions";
 import { deleteSerieById } from "@/actions/serie.actions";
-import { deleteUserById } from "@/actions/user.actions";
+import { deleteUserById } from "@/actions/user/user.actions";
 import { toast } from "react-toastify";
 
 interface IDeleteHandler {

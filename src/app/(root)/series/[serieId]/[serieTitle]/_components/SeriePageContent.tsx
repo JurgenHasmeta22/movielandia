@@ -7,15 +7,6 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
-import {
-    addDownvoteSerieReview,
-    addReviewSerie,
-    addUpvoteSerieReview,
-    removeDownvoteSerieReview,
-    removeReviewSerie,
-    removeUpvoteSerieReview,
-    updateReviewSerie,
-} from "@/actions/user.actions";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
@@ -23,6 +14,9 @@ import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Serie } from "@prisma/client";
 import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFeaturesUtils";
+import { removeDownvoteSerieReview, addDownvoteSerieReview } from "@/actions/user/userDownvotes.actions";
+import { addReviewSerie, removeReviewSerie, updateReviewSerie } from "@/actions/user/userReviews.actions";
+import { removeUpvoteSerieReview, addUpvoteSerieReview } from "@/actions/user/userUpvotes.actions";
 
 interface ISeriePageContentProps {
     searchParamsValues: {
