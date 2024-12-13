@@ -29,7 +29,18 @@ interface FollowersContentProps {
         canResetPassword: boolean;
     } | null;
     followers: {
-        items: any[];
+        items: Array<{
+            follower: {
+                id: number;
+                userName: string;
+                bio: string;
+                avatar?: { photoSrc: string } | null;
+                followStatus?: {
+                    isFollowing: boolean;
+                    state: string | null;
+                } | null;
+            };
+        }>;
         total: number;
     };
 }
