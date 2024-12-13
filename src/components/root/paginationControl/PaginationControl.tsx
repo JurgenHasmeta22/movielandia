@@ -47,13 +47,6 @@ const PaginationControl: React.FC<IPaginationControlProps> = ({ pageCount, curre
                     shape="rounded"
                     showLastButton
                     onChange={onPageChange}
-                    // sx={{
-                    //     '& .Mui-selected {': {
-                    //         '&:hover': {
-                    //             bgcolor: '#3333',
-                    //         },
-                    //     },
-                    // }}
                 />
             </Stack>
         </Box>
