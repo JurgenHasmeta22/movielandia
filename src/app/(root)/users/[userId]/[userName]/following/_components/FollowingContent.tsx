@@ -5,14 +5,36 @@ import { useSearchParams, useRouter } from "next/navigation";
 import UserListItem from "../../_components/UserListItem";
 
 interface FollowingContentProps {
-    userInPage: any;
+    userInPage: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+        avatar?: { photoSrc: string } | null;
+        isFollowed?: boolean;
+        isFollowedStatus?: string | null;
+    };
     following: {
         items: any[];
         total: number;
     };
+    userLoggedIn: {
+        id: number;
+        userName: string;
+        email: string;
+        password: string | null;
+        role: string;
+        bio: string;
+        active: boolean;
+        canResetPassword: boolean;
+    } | null;
 }
 
-export default function FollowingContent({ userInPage, following }: FollowingContentProps) {
+export default function FollowingContent({ userInPage, following, userLoggedIn }: FollowingContentProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -23,6 +45,7 @@ export default function FollowingContent({ userInPage, following }: FollowingCon
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
         current.set("page", value.toString());
+
         const search = current.toString();
         const query = search ? `?${search}` : "";
         router.push(`${window.location.pathname}${query}`);
@@ -36,7 +59,7 @@ export default function FollowingContent({ userInPage, following }: FollowingCon
             <Stack spacing={2}>
                 {following.items.length > 0 ? (
                     following.items.map((follow: any) => (
-                        <UserListItem key={follow.following.id} user={follow.following} userLoggedIn={userInPage} />
+                        <UserListItem key={follow.following.id} user={follow.following} userLoggedIn={userLoggedIn} />
                     ))
                 ) : (
                     <Typography color="text.secondary" textAlign="center">

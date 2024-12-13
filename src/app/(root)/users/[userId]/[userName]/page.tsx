@@ -107,7 +107,7 @@ export default async function UserPage(props: IUserDetailsProps) {
         userFollowing = await getFollowing(Number(userId));
         userPendingFollowers = await getPendingFollowRequests(Number(userId));
 
-        console.log(userFollowers, userFollowing, userPendingFollowers);
+        // console.log(userFollowers, userFollowing, userPendingFollowers);
 
         if (!userInPage) {
             return notFound();

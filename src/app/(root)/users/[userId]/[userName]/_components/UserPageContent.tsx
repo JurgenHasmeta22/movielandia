@@ -52,8 +52,6 @@ interface UserPageProps {
         avatar?: { photoSrc: string } | null;
         isFollowed?: boolean;
         isFollowedStatus?: string | null;
-        followers?: any[];
-        following?: any[];
     };
     additionalData: any;
     userFollowers: any;
