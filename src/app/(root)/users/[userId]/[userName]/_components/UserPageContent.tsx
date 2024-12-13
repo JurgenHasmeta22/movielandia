@@ -372,11 +372,27 @@ export default function UserPageContent({
                             </Stack>
                             {/* Profile Stats */}
                             <Stack direction="row" spacing={4} sx={{ mt: 2 }}>
-                                <Typography variant="body1" color="text.secondary">
+                                <Typography
+                                    variant="body1"
+                                    color="text.secondary"
+                                    sx={{
+                                        cursor: "pointer",
+                                        "&:hover": { color: "primary.main" },
+                                    }}
+                                    onClick={() => router.push(`/users/${userInPage.id}/${userInPage.userName}/followers`)}
+                                >
                                     <strong>Followers:</strong>&nbsp;
                                     {userFollowers.items.length || 0}
                                 </Typography>
-                                <Typography variant="body1" color="text.secondary">
+                                <Typography
+                                    variant="body1"
+                                    color="text.secondary"
+                                    sx={{
+                                        cursor: "pointer",
+                                        "&:hover": { color: "primary.main" },
+                                    }}
+                                    onClick={() => router.push(`/users/${userInPage.id}/${userInPage.userName}/following`)}
+                                >
                                     <strong>Following:</strong>&nbsp;
                                     {userFollowing.items.length || 0}
                                 </Typography>
