@@ -6,8 +6,16 @@ import { Genre, Movie, Serie } from "@prisma/client";
 import NextLink from "next/link";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
+type MovieWithBookmark = Movie & {
+    isBookmarked?: boolean;
+};
+
+type SerieWithBookmark = Serie & {
+    isBookmarked?: boolean;
+};
+
 interface IListHomeSectionProps {
-    data: Array<Movie | Serie>;
+    data: Array<MovieWithBookmark | SerieWithBookmark | Genre>;
     type: "movie" | "serie";
     link: string;
     linkText: string;
@@ -28,9 +36,9 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
         }
     };
 
-    const transformItemToCardData = (item: Movie | Serie | Genre) => {
+    const transformItemToCardData = (item: MovieWithBookmark | SerieWithBookmark | Genre) => {
         if (type === "movie") {
-            const movieData = item as Movie;
+            const movieData = item as MovieWithBookmark;
 
             return {
                 id: movieData.id,
@@ -39,10 +47,10 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                 title: movieData.title,
                 ratingImdb: movieData.ratingImdb,
                 dateAired: movieData.dateAired,
-                isBookmarked: false,
+                isBookmarked: movieData.isBookmarked,
             };
         } else if (type === "serie") {
-            const serieData = item as Serie;
+            const serieData = item as SerieWithBookmark;
 
             return {
                 id: serieData.id,
@@ -51,7 +59,7 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                 title: serieData.title,
                 ratingImdb: serieData.ratingImdb,
                 dateAired: serieData.dateAired,
-                isBookmarked: false,
+                isBookmarked: serieData.isBookmarked,
             };
         }
 
