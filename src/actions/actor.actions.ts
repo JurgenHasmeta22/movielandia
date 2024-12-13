@@ -229,7 +229,7 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
             return "Actor not found";
         }
     } catch (error) {
-        return error;
+        throw new Error("Actor not found");
     }
 }
 // #endregion

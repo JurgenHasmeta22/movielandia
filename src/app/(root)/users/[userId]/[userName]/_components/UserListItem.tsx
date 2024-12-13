@@ -2,6 +2,7 @@
 
 import { Avatar, Box, Button, Paper, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { follow, unfollow } from "@/actions/user/userFollow.actions";
 import { showToast } from "@/utils/helpers/toast";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -37,16 +38,12 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
                 await unfollow(userLoggedIn.id, user.id);
                 showToast("success", "Unfollowed successfully!");
             }
-            
+
             if (onActionComplete) onActionComplete();
             router.refresh();
         } catch (error: any) {
             showToast("error", error.message || "Error performing follow action");
         }
-    };
-
-    const handleUserClick = () => {
-        router.push(`/users/${user.id}/${user.userName}`);
     };
 
     return (
@@ -63,30 +60,46 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
             }}
         >
             <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar
-                    src={user.avatar?.photoSrc || "/images/default-avatar.png"}
-                    alt={user.userName}
-                    sx={{
-                        width: 50,
-                        height: 50,
-                        cursor: "pointer",
-                        border: "2px solid",
-                        borderColor: "background.paper",
-                    }}
-                    onClick={handleUserClick}
-                />
-                <Box sx={{ flex: 1, minWidth: 0 }}>
-                    <Typography
-                        variant="subtitle1"
+                <Link href={`/users/${user.id}/${user.userName}`} style={{ textDecoration: "none" }}>
+                    <Avatar
+                        src={user.avatar?.photoSrc || "/images/default-avatar.png"}
+                        alt={user.userName}
                         sx={{
-                            fontWeight: 500,
+                            width: 50,
+                            height: 50,
                             cursor: "pointer",
-                            "&:hover": { color: "primary.main" },
+                            border: "2px solid",
+                            borderColor: "background.paper",
+                            transition: "transform 0.2s",
+                            "&:hover": {
+                                transform: "scale(1.05)",
+                            },
                         }}
-                        onClick={handleUserClick}
+                    />
+                </Link>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Link
+                        href={`/users/${user.id}/${user.userName}`}
+                        style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                        }}
                     >
-                        {user.userName}
-                    </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                fontWeight: 500,
+                                cursor: "pointer",
+                                display: "inline-block",
+                                "&:hover": {
+                                    color: "primary.main",
+                                    textDecoration: "underline",
+                                },
+                            }}
+                        >
+                            {user.userName}
+                        </Typography>
+                    </Link>
                     <Typography
                         variant="body2"
                         color="text.secondary"
@@ -108,7 +121,26 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
                         onClick={handleFollowAction}
                         sx={{
                             minWidth: 100,
+                            height: 32,
                             textTransform: "none",
+                            borderRadius: 1,
+                            fontSize: "0.875rem",
+                            fontWeight: 500,
+                            bgcolor: user.isFollowed ? "background.paper" : "primary.main",
+                            color: user.isFollowed ? "primary.main" : "secondary",
+                            border: "1px solid",
+                            borderColor: user.isFollowed ? "grey.300" : "primary.main",
+                            boxShadow: user.isFollowed ? "none" : 1,
+                            "&:hover": {
+                                color: user.isFollowed ? "primary.main" : "primary.main",
+                                bgcolor: user.isFollowed ? "grey.100" : "primary.dark",
+                                borderColor: user.isFollowed ? "grey.400" : "primary.dark",
+                                boxShadow: user.isFollowed ? "none" : 2,
+                            },
+                            "&:active": {
+                                bgcolor: user.isFollowed ? "grey.200" : "primary.dark",
+                                borderColor: user.isFollowed ? "grey.500" : "primary.dark",
+                            },
                         }}
                     >
                         {user.isFollowed ? (user.isFollowedStatus === "pending" ? "Requested" : "Following") : "Follow"}
@@ -117,4 +149,4 @@ export default function UserListItem({ user, userLoggedIn, onActionComplete }: U
             </Stack>
         </Paper>
     );
-} 
+}

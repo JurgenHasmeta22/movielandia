@@ -1,3 +1,5 @@
+"use server";
+
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../../prisma/config/prisma";
 import { getReferer } from "./user.actions";

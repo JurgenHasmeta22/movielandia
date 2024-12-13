@@ -180,7 +180,7 @@ export async function getEpisodeById(episodeId: number, queryParams: any): Promi
             throw new Error("Episode not found");
         }
     } catch (error) {
-        return error;
+        throw new Error("Episode not found");
     }
 }
 

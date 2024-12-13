@@ -219,7 +219,7 @@ export async function getCrewMemberById(crewId: number, queryParams: any): Promi
             throw new Error("Crew not found");
         }
     } catch (error) {
-        return error;
+        throw new Error("Crew not found");
     }
 }
 
@@ -335,7 +335,7 @@ export async function getCrewMemberByFullname(crewFullname: string, queryParams:
             throw new Error("Crew not found");
         }
     } catch (error) {
-        return error;
+        throw new Error("Crew not found");
     }
 }
 // #endregion

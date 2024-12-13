@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "../../../prisma/config/prisma";
 
 export async function getUserFavorites(
