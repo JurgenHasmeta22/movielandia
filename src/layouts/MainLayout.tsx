@@ -3,7 +3,6 @@ import { Grid2 as Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/scrollToTop/ScrollToTop";
 import Header from "@/components/root/header/Header";
 import Footer from "@/components/root/footer/Footer";
-import Head from "next/head";
 
 interface IMainLayoutProps {
     children: React.ReactNode;

@@ -37,9 +37,10 @@ interface SearchResultCardProps {
     data: ResultData;
     type: ResultType;
     path?: PathType;
+    onResultClick: () => void;
 }
 
-const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
+const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardProps) => {
     const theme = useTheme();
     const params = useParams();
 
@@ -111,7 +112,7 @@ const SearchResultCard = ({ data, type, path }: SearchResultCardProps) => {
     };
 
     return (
-        <Link href={getPath()} style={{ textDecoration: "none" }}>
+        <Link href={getPath()} style={{ textDecoration: "none" }} onClick={onResultClick}>
             <Box
                 sx={{
                     display: "flex",

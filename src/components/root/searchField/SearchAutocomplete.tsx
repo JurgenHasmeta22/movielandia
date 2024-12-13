@@ -21,6 +21,8 @@ interface SearchAutocompleteProps {
     searchTerm: string;
     onFilterChange: (filter: string) => void;
     onShowMore: () => void;
+    onClose: () => void;
+    onResultClick: () => void;
 }
 
 const SearchAutocomplete = ({
@@ -30,6 +32,8 @@ const SearchAutocomplete = ({
     onFilterChange,
     searchTerm,
     onShowMore,
+    onClose,
+    onResultClick,
 }: SearchAutocompleteProps) => {
     const theme = useTheme();
 
@@ -268,7 +272,12 @@ const SearchAutocomplete = ({
                                 {results.movies.items.length > 0 ? (
                                     <Stack spacing={1}>
                                         {results.movies.items.map((movie) => (
-                                            <SearchResultCard key={movie.id} data={movie} type="movie" />
+                                            <SearchResultCard
+                                                key={movie.id}
+                                                data={movie}
+                                                type="movie"
+                                                onResultClick={onResultClick}
+                                            />
                                         ))}
                                     </Stack>
                                 ) : (
@@ -288,7 +297,12 @@ const SearchAutocomplete = ({
                             {results.series.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.series.items.map((serie) => (
-                                        <SearchResultCard key={serie.id} data={serie} type="serie" />
+                                        <SearchResultCard
+                                            key={serie.id}
+                                            data={serie}
+                                            type="serie"
+                                            onResultClick={onResultClick}
+                                        />
                                     ))}
                                 </Stack>
                             ) : (
@@ -308,7 +322,13 @@ const SearchAutocomplete = ({
                                 {results.actors.items.length > 0 ? (
                                     <Stack spacing={1}>
                                         {results.actors.items.map((actor) => (
-                                            <SearchResultCard key={actor.id} data={actor} type="actor" path="actors" />
+                                            <SearchResultCard
+                                                key={actor.id}
+                                                data={actor}
+                                                type="actor"
+                                                path="actors"
+                                                onResultClick={onResultClick}
+                                            />
                                         ))}
                                     </Stack>
                                 ) : (
@@ -334,6 +354,7 @@ const SearchAutocomplete = ({
                                                 data={crewMember}
                                                 type="crew"
                                                 path="crew"
+                                                onResultClick={onResultClick}
                                             />
                                         ))}
                                     </Stack>
@@ -354,7 +375,12 @@ const SearchAutocomplete = ({
                             {results.seasons.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.seasons.items.map((season) => (
-                                        <SearchResultCard key={season.id} data={season} type="season" />
+                                        <SearchResultCard
+                                            key={season.id}
+                                            data={season}
+                                            type="season"
+                                            onResultClick={onResultClick}
+                                        />
                                     ))}
                                 </Stack>
                             ) : (
@@ -373,7 +399,12 @@ const SearchAutocomplete = ({
                             {results.episodes.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.episodes.items.map((episode) => (
-                                        <SearchResultCard key={episode.id} data={episode} type="episode" />
+                                        <SearchResultCard
+                                            key={episode.id}
+                                            data={episode}
+                                            type="episode"
+                                            onResultClick={onResultClick}
+                                        />
                                     ))}
                                 </Stack>
                             ) : (
@@ -392,7 +423,12 @@ const SearchAutocomplete = ({
                             {results.users.items.length > 0 ? (
                                 <Stack spacing={1}>
                                     {results.users.items.map((user) => (
-                                        <SearchResultCard key={user.id} data={user} type="user" />
+                                        <SearchResultCard
+                                            key={user.id}
+                                            data={user}
+                                            type="user"
+                                            onResultClick={onResultClick}
+                                        />
                                     ))}
                                 </Stack>
                             ) : (
@@ -411,7 +447,10 @@ const SearchAutocomplete = ({
                             }}
                         >
                             <Button
-                                onClick={onShowMore}
+                                onClick={() => {
+                                    onShowMore();
+                                    onClose();
+                                }}
                                 variant="text"
                                 endIcon={<ArrowForward />}
                                 sx={{

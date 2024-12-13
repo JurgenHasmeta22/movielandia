@@ -7,15 +7,6 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
-import {
-    addDownvoteEpisodeReview,
-    addReviewEpisode,
-    addUpvoteEpisodeReview,
-    removeDownvoteEpisodeReview,
-    removeReviewEpisode,
-    removeUpvoteEpisodeReview,
-    updateReviewEpisode,
-} from "@/actions/user.actions";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
@@ -23,6 +14,9 @@ import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { Episode } from "@prisma/client";
 import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/features/episodeFeaturesUtils";
+import { removeDownvoteEpisodeReview, addDownvoteEpisodeReview } from "@/actions/user/userDownvotes.actions";
+import { addReviewEpisode, removeReviewEpisode, updateReviewEpisode } from "@/actions/user/userReviews.actions";
+import { removeUpvoteEpisodeReview, addUpvoteEpisodeReview } from "@/actions/user/userUpvotes.actions";
 
 interface IEpisodePageContentProps {
     searchParamsValues: {
@@ -319,27 +313,27 @@ export default function EpisodePage({
                         ascOrDesc={searchParamsValues.ascOrDesc!}
                     />
                 )}
-                {episode.reviews!.map((review: any, index: number) => (
-                    <Review
-                        key={index}
-                        review={review}
-                        handleRemoveReview={onSubmitRemoveReview}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setReview={setReview}
-                        handleFocusTextEditor={handleFocusTextEditor}
-                        ref={reviewRef}
-                        setRating={setRating}
-                        handleUpvote={onUpvoteEpisode}
-                        handleDownvote={onDownVoteEpisode}
-                        type="episode"
-                        data={episode}
-                        handleOpenUpvotesModal={handleOpenUpvotesModal}
-                        handleOpenDownvotesModal={handleOpenDownvotesModal}
-                    />
-                ))}
-                {episode.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                {episode.reviews!.map(
+                    (review: any, index: number) =>
+                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            <Review
+                                key={index}
+                                review={review}
+                                handleRemoveReview={onSubmitRemoveReview}
+                                isEditMode={isEditMode}
+                                setIsEditMode={setIsEditMode}
+                                setReview={setReview}
+                                handleFocusTextEditor={handleFocusTextEditor}
+                                ref={reviewRef}
+                                setRating={setRating}
+                                handleUpvote={onUpvoteEpisode}
+                                handleDownvote={onDownVoteEpisode}
+                                type="episode"
+                                data={episode}
+                                handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                            />
+                        ),
                 )}
                 {session?.user && (!episode.isReviewed || isEditMode) && (
                     <TextEditorForm
@@ -355,6 +349,9 @@ export default function EpisodePage({
                         onSubmitReview={onSubmitReview}
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
+                )}
+                {episode.totalReviews > 0 && (
+                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
                 )}
             </Box>
             <ListDetail data={latestEpisodes!} type="episode" roleData="latest" />

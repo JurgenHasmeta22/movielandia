@@ -1,4 +1,4 @@
-import { addFavoriteEpisodeToUser, removeFavoriteEpisodeToUser } from "@/actions/user.actions";
+import { addFavoriteEpisodeToUser, removeFavoriteEpisodeToUser } from "@/actions/user/userBookmarks.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { Session } from "next-auth";
 

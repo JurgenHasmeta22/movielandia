@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, useTheme } from "@mui/material";
 import AuthButtons from "../authButtons/AuthButtons";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import MenuIcon from "@mui/icons-material/Menu";

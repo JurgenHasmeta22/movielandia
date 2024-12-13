@@ -111,16 +111,6 @@ export async function getCrewMembersWithFilters(
     }
 }
 
-export async function getCrewMembers(): Promise<any | null> {
-    const crewMembersAll = await prisma.crew.findMany();
-
-    if (crewMembersAll) {
-        return crewMembersAll;
-    } else {
-        return null;
-    }
-}
-
 export async function getCrewMemberById(crewId: number, queryParams: any): Promise<Crew | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
 

@@ -38,6 +38,7 @@
         "next": "^15.1.0",
         "next-auth": "^4.24.11",
         "prisma": "^6.0.1",
+        "quill-resize-image": "^1.0.5",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-email": "3.0.4",

@@ -142,7 +142,24 @@ export async function getGenreById(
             });
 
             if (result) {
-                const movies = result.map((item) => item.movie);
+                const movies = await Promise.all(
+                    result.map(async (item) => {
+                        const isBookmarked = userId
+                            ? await prisma.userMovieFavorite.findFirst({
+                                  where: {
+                                      userId,
+                                      movieId: item.movie.id,
+                                  },
+                              })
+                            : null;
+
+                        return {
+                            ...item.movie,
+                            isBookmarked: !!isBookmarked,
+                        };
+                    }),
+                );
+
                 const movieIds = movies.map((movie) => movie.id);
 
                 const movieRatings = await prisma.movieReview.groupBy({
@@ -165,27 +182,10 @@ export async function getGenreById(
                     return map;
                 }, {} as RatingsMap);
 
-                const formattedMovies = await Promise.all(
-                    movies.map(async (movie) => {
-                        const { ...properties } = movie;
-
-                        let isBookmarked = false;
-
-                        if (userId) {
-                            const existingFavorite = await prisma.userMovieFavorite.findFirst({
-                                where: {
-                                    AND: [{ userId }, { movieId: movie.id }],
-                                },
-                            });
-
-                            isBookmarked = !!existingFavorite;
-                        }
-
-                        const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
-
-                        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
-                    }),
-                );
+                const formattedMovies = movies.map((movie) => {
+                    const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
+                    return { ...movie, ...ratingsInfo };
+                });
 
                 return { genre, movies: formattedMovies, count };
             }
@@ -211,7 +211,24 @@ export async function getGenreById(
             });
 
             if (result) {
-                const series = result.map((item) => item.serie);
+                const series = await Promise.all(
+                    result.map(async (item) => {
+                        const isBookmarked = userId
+                            ? await prisma.userSerieFavorite.findFirst({
+                                  where: {
+                                      userId,
+                                      serieId: item.serie.id,
+                                  },
+                              })
+                            : null;
+
+                        return {
+                            ...item.serie,
+                            isBookmarked: !!isBookmarked,
+                        };
+                    }),
+                );
+
                 const serieIds = series.map((serie) => serie.id);
 
                 const serieRatings = await prisma.serieReview.groupBy({
@@ -234,29 +251,12 @@ export async function getGenreById(
                     return map;
                 }, {} as RatingsMap);
 
-                const formattedSeries = await Promise.all(
-                    series.map(async (serie) => {
-                        const { ...properties } = serie;
+                const formattedSeries = series.map((serie) => {
+                    const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+                    return { ...serie, ...ratingsInfo };
+                });
 
-                        let isBookmarked = false;
-
-                        if (userId) {
-                            const existingFavorite = await prisma.userSerieFavorite.findFirst({
-                                where: {
-                                    AND: [{ userId }, { serieId: serie.id }],
-                                },
-                            });
-
-                            isBookmarked = !!existingFavorite;
-                        }
-
-                        const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
-
-                        return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
-                    }),
-                );
-
-                return { series: formattedSeries, count };
+                return { genre, series: formattedSeries, count };
             }
         } else {
             return null;

@@ -1,21 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useTransition } from "react";
 import { motion } from "framer-motion";
 import ClearIcon from "@mui/icons-material/Clear";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme, CircularProgress } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
+import { showToast } from "@/utils/helpers/toast";
 import {
+    removeFavoriteMovieToUser,
+    removeFavoriteSerieToUser,
+    removeFavoriteSeasonToUser,
+    removeFavoriteEpisodeToUser,
     removeFavoriteActorToUser,
     removeFavoriteCrewToUser,
-    removeFavoriteEpisodeToUser,
-    removeFavoriteMovieToUser,
-    removeFavoriteSeasonToUser,
-    removeFavoriteSerieToUser,
-} from "@/actions/user.actions";
-import { showToast } from "@/utils/helpers/toast";
+} from "@/actions/user/userBookmarks.actions";
 
 export type FavoriteType = "Movies" | "Series" | "Actors" | "Crew" | "Seasons" | "Episodes";
 
@@ -61,6 +61,7 @@ interface CardItemProfileProps {
 
 const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLoggedIn, getItemUrl, userInPage }) => {
     const theme = useTheme();
+    const [isPending, startTransition] = useTransition();
 
     // #region "Removing bookmark"
     async function onRemoveBookmarkMovie(movie: Movie) {
@@ -223,44 +224,48 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
     };
 
     const handleRemoveBookmark = async (e: React.MouseEvent) => {
+        if (isPending) return;
+
         e.preventDefault();
         e.stopPropagation();
 
-        switch (type) {
-            case "Movies":
-                await onRemoveBookmarkMovie((favItem as FavoriteMovie).movie);
-                break;
-            case "Series":
-                await onRemoveBookmarkSerie((favItem as FavoriteSerie).serie);
-                break;
-            case "Actors":
-                await onRemoveBookmarkActor((favItem as FavoriteActor).actor);
-                break;
-            case "Crew":
-                await onRemoveBookmarkCrew((favItem as FavoriteCrew).crew);
-                break;
-            case "Seasons":
-                await onRemoveBookmarkSeason((favItem as FavoriteSeason).season);
-                break;
-            case "Episodes":
-                await onRemoveBookmarkEpisode((favItem as FavoriteEpisode).episode);
-                break;
-        }
+        startTransition(async () => {
+            switch (type) {
+                case "Movies":
+                    await onRemoveBookmarkMovie((favItem as FavoriteMovie).movie);
+                    break;
+                case "Series":
+                    await onRemoveBookmarkSerie((favItem as FavoriteSerie).serie);
+                    break;
+                case "Actors":
+                    await onRemoveBookmarkActor((favItem as FavoriteActor).actor);
+                    break;
+                case "Crew":
+                    await onRemoveBookmarkCrew((favItem as FavoriteCrew).crew);
+                    break;
+                case "Seasons":
+                    await onRemoveBookmarkSeason((favItem as FavoriteSeason).season);
+                    break;
+                case "Episodes":
+                    await onRemoveBookmarkEpisode((favItem as FavoriteEpisode).episode);
+                    break;
+            }
+        });
     };
 
     return (
         <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            style={{ position: "relative", width: 113, borderRadius: "8px", overflow: "hidden" }}
+            style={{ position: "relative", width: 125, borderRadius: "8px", overflow: "hidden" }}
         >
             <Link href={getItemUrl(favItem)!} style={{ textDecoration: "none" }}>
                 <Box sx={{ position: "relative", overflow: "hidden" }}>
                     <Image
                         src={getPhotoSrc()}
                         alt={getTitle()}
-                        height={150}
-                        width={113}
+                        height={170}
+                        width={125}
                         style={{
                             borderRadius: "8px",
                             objectFit: "cover",
@@ -308,6 +313,7 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
                 <IconButton
                     onClick={handleRemoveBookmark}
                     size="small"
+                    disabled={isPending}
                     sx={{
                         position: "absolute",
                         top: 4,
@@ -317,9 +323,33 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
                         "&:hover": {
                             backgroundColor: "rgba(0, 0, 0, 0.8)",
                         },
+                        "&.Mui-disabled": {
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            color: theme.vars.palette.error.main,
+                        },
+                        width: 24,
+                        height: 24,
+                        padding: 0,
                     }}
                 >
-                    <ClearIcon fontSize="small" />
+                    {isPending ? (
+                        <CircularProgress
+                            size={16}
+                            sx={{
+                                color: theme.vars.palette.error.main,
+                            }}
+                        />
+                    ) : (
+                        <ClearIcon
+                            sx={{
+                                fontSize: 16,
+                                transition: "transform 0.2s ease-in-out",
+                                "&:hover": {
+                                    transform: "rotate(90deg)",
+                                },
+                            }}
+                        />
+                    )}
                 </IconButton>
             )}
         </motion.div>

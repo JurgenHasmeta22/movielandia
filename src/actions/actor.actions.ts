@@ -16,19 +16,6 @@ interface ActorModelParams {
     filterOperatorString?: FilterOperator;
 }
 
-// interface Filters {
-//     fullname?: {
-//         contains: string;
-//     };
-//     filterNameString?: {
-//         operator: number | string;
-//     }
-// }
-
-// type SortOrder = "asc" | "desc";
-// type SortByKey = "createdAt" | "updatedAt" | "rating";
-// type OrderByObject = Partial<Record<SortByKey, SortOrder>>;
-
 // #region "GET Methods"
 export async function getActorsWithFilters(
     {
@@ -239,124 +226,7 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
                 ...(userId && { isBookmarked, isReviewed }),
             };
         } else {
-            throw new Error("Actor not found");
-        }
-    } catch (error) {
-        throw new Error("Actor not found");
-    }
-}
-
-export async function getActorByFullname(actorTitle: string, queryParams: any): Promise<Actor | any | null> {
-    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
-
-    const skip = page ? (page - 1) * 5 : 0;
-    const take = 5;
-
-    const orderByObject: any = {};
-    const fullnameFinal = actorTitle
-        .split("")
-        .map((char) => (char === "-" ? " " : char))
-        .join("");
-
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    } else {
-        orderByObject["createdAt"] = "desc";
-    }
-
-    try {
-        const actor = await prisma.actor.findFirst({
-            where: {
-                fullname: fullnameFinal,
-            },
-            include: {
-                starredMovies: { include: { movie: true } },
-                starredSeries: { include: { serie: true } },
-                reviews: {
-                    include: {
-                        user: true,
-                        upvotes: {
-                            take: upvotesPage ? upvotesPage * 5 : 5,
-                            select: { user: true },
-                        },
-                        downvotes: {
-                            take: downvotesPage ? downvotesPage * 5 : 5,
-                            select: { user: true },
-                        },
-                        _count: {
-                            select: {
-                                upvotes: true,
-                                downvotes: true,
-                            },
-                        },
-                    },
-                    orderBy: orderByObject,
-                    skip: skip,
-                    take: take,
-                },
-            },
-        });
-
-        if (actor) {
-            const totalReviews = await prisma.actorReview.count({
-                where: { actorId: actor.id },
-            });
-
-            const ratings = await prisma.actorReview.findMany({
-                where: { actorId: actor.id },
-                select: { rating: true },
-            });
-
-            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
-            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
-
-            let isBookmarked = false;
-            let isReviewed = false;
-
-            if (userId) {
-                for (const review of actor.reviews) {
-                    const existingUpvote = await prisma.upvoteActorReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { actorId: actor.id }, { actorReviewId: review.id }],
-                        },
-                    });
-
-                    const existingDownvote = await prisma.downvoteActorReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { actorId: actor.id }, { actorReviewId: review.id }],
-                        },
-                    });
-
-                    // @ts-expect-error type
-                    review.isUpvoted = !!existingUpvote;
-
-                    // @ts-expect-error type
-                    review.isDownvoted = !!existingDownvote;
-                }
-
-                const existingFavorite = await prisma.userActorFavorite.findFirst({
-                    where: {
-                        AND: [{ userId }, { actorId: actor.id }],
-                    },
-                });
-                isBookmarked = !!existingFavorite;
-
-                const existingReview = await prisma.actorReview.findFirst({
-                    where: {
-                        AND: [{ userId }, { actorId: actor.id }],
-                    },
-                });
-                isReviewed = !!existingReview;
-            }
-
-            return {
-                ...actor,
-                averageRating,
-                totalReviews,
-                ...(userId && { isBookmarked, isReviewed }),
-            };
-        } else {
-            throw new Error("Actor not found");
+            return "Actor not found";
         }
     } catch (error) {
         throw new Error("Actor not found");
@@ -388,8 +258,6 @@ export async function updateActorById(actorParam: Prisma.ActorUpdateInput, id: s
 
 export async function addActor(actorParam: Prisma.ActorCreateInput): Promise<Actor | null> {
     try {
-        console.log("actorParam", actorParam);
-
         const actorCreated = await prisma.actor.create({
             data: actorParam,
         });

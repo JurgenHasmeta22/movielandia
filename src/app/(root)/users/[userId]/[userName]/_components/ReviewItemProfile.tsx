@@ -1,19 +1,19 @@
 "use client";
 
-import { Avatar, Box, Card, CardContent, IconButton, Rating, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Rating, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { formatDistanceToNow } from "date-fns";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ReviewItemProfileProps {
     review: any;
-    type: string;
+    type: any;
     variant?: "upvote" | "downvote";
     userLoggedIn: {
         id: number;
@@ -27,92 +27,40 @@ interface ReviewItemProfileProps {
     } | null;
 }
 
-export default function ReviewItemProfile({ review, type, variant, userLoggedIn }: ReviewItemProfileProps) {
-    // Helper function to get the content title and link
+export default function ReviewItemProfile({ review, type, userLoggedIn }: ReviewItemProfileProps) {
     const getContentInfo = () => {
         switch (type) {
             case "movie":
-                if (!review?.movie) {
-                    return { title: "", link: "", review: null };
-                }
-
                 return {
                     title: review.movie.title,
                     link: `/movies/${review.movie.id}/${review.movie.title.toLowerCase().replace(/\s+/g, "-")}`,
-                    review: review,
                 };
             case "serie":
-                if (!review?.serie) {
-                    return { title: "", link: "", review: null };
-                }
-
                 return {
                     title: review.serie.title,
                     link: `/series/${review.serie.id}/${review.serie.title.toLowerCase().replace(/\s+/g, "-")}`,
-                    review: review,
                 };
-            case "season": {
-                if (!review?.season) {
-                    return { title: "", link: "", review: null };
-                }
-
-                const season = review.season;
-                const serie = review.serie || season.serie;
-
-                if (!serie) {
-                    return {
-                        title: season.title,
-                        link: `/seasons/${season.id}/${season.title.toLowerCase().replace(/\s+/g, "-")}`,
-                        review: review,
-                    };
-                }
-
+            case "season":
                 return {
-                    title: season.title,
-                    link: `/series/${serie.id}/${serie.title.toLowerCase().replace(/\s+/g, "-")}/seasons/${
-                        season.id
-                    }/${season.title.toLowerCase().replace(/\s+/g, "-")}`,
-                    review: review,
+                    title: review.season.title,
+                    link: `/seasons/${review.season.id}/${review.season.title.toLowerCase().replace(/\s+/g, "-")}`,
                 };
-            }
-            case "episode": {
-                if (!review?.episode) {
-                    return { title: "", link: "", review: null };
-                }
-
-                const episode = review.episode;
-                const season = review.season || episode.season;
-                const serie = review.serie || season?.serie;
-
-                if (!season || !serie) {
-                    return {
-                        title: episode.title,
-                        link: `/episodes/${episode.id}/${episode.title.toLowerCase().replace(/\s+/g, "-")}`,
-                        review: review,
-                    };
-                }
-
+            case "episode":
                 return {
-                    title: episode.title,
-                    link: `/series/${serie.id}/${serie.title.toLowerCase().replace(/\s+/g, "-")}/seasons/${
-                        season.id
-                    }/${season.title.toLowerCase().replace(/\s+/g, "-")}/episodes/${
-                        episode.id
-                    }/${episode.title.toLowerCase().replace(/\s+/g, "-")}`,
-                    review: review,
+                    title: review.episode.title,
+                    link: `/episodes/${review.episode.id}/${review.episode.title.toLowerCase().replace(/\s+/g, "-")}`,
                 };
-            }
             default:
-                return { title: "", link: "", review: null };
+                return { title: "", link: "" };
         }
     };
 
-    const { title, link, review: contentReview } = getContentInfo();
+    const { title, link } = getContentInfo();
 
-    if (!contentReview) return null;
+    if (!title || !link) return null;
 
     const modules = {
-        toolbar: false, // Disable toolbar for read-only mode
+        toolbar: false,
     };
 
     return (
@@ -166,7 +114,7 @@ export default function ReviewItemProfile({ review, type, variant, userLoggedIn 
                                 },
                             }}
                         >
-                            <ReactQuill value={contentReview.content} readOnly={true} modules={modules} theme="snow" />
+                            <ReactQuill value={review.content} readOnly={true} modules={modules} theme="snow" />
                         </Box>
                         <Stack
                             direction="row"
@@ -181,26 +129,50 @@ export default function ReviewItemProfile({ review, type, variant, userLoggedIn 
                         >
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <Rating
-                                    value={contentReview.rating}
+                                    value={review.rating}
                                     max={10}
                                     readOnly
                                     precision={0.5}
                                     sx={{ "& .MuiRating-icon": { fontSize: "1.2rem" } }}
                                 />
                                 <Typography variant="body2" color="text.secondary">
-                                    {contentReview.rating.toFixed(1)}/10
+                                    {review.rating.toFixed(1)}/10
                                 </Typography>
                             </Box>
+                            <Stack direction="row" spacing={2}>
+                                <Stack direction="row" spacing={0.5} alignItems="center">
+                                    <ThumbUpIcon
+                                        sx={{
+                                            fontSize: "1.2rem",
+                                            color: "success.main",
+                                        }}
+                                    />
+                                    <Typography variant="body2" color="text.secondary">
+                                        {review._count?.upvotes || 0}
+                                    </Typography>
+                                </Stack>
+                                <Stack direction="row" spacing={0.5} alignItems="center">
+                                    <ThumbDownIcon
+                                        sx={{
+                                            fontSize: "1.2rem",
+                                            color: "error.main",
+                                        }}
+                                    />
+                                    <Typography variant="body2" color="text.secondary">
+                                        {review._count?.downvotes || 0}
+                                    </Typography>
+                                </Stack>
+                            </Stack>
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.secondary" }}>
                             <Avatar
-                                src={contentReview.user?.avatar?.photoSrc || "/default-avatar.jpg"}
-                                alt={contentReview.user?.userName || "User"}
+                                src={review.user?.avatar?.photoSrc || "/default-avatar.jpg"}
+                                alt={review.user?.userName || "User"}
                                 sx={{ width: 24, height: 24 }}
                             />
                             <Stack direction="row" spacing={0.5} alignItems="center">
-                                <Typography variant="body2">{contentReview.user?.userName || "Anonymous"}</Typography>
-                                {userLoggedIn?.id === contentReview.userId && (
+                                <Typography variant="body2">{review.user?.userName || "Anonymous"}</Typography>
+                                {userLoggedIn?.id === review.userId && (
                                     <Typography
                                         variant="body2"
                                         sx={{
@@ -217,7 +189,7 @@ export default function ReviewItemProfile({ review, type, variant, userLoggedIn 
                                 )}
                             </Stack>
                             <Typography variant="body2">
-                                {formatDistanceToNow(new Date(contentReview.createdAt), {
+                                {formatDistanceToNow(new Date(review.createdAt), {
                                     addSuffix: true,
                                 })}
                             </Typography>

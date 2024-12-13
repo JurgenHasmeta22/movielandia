@@ -3,7 +3,7 @@
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import CardItem, { PathType } from "@/components/root/cardItem/CardItem";
-import { Box, Typography, Stack, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { motion } from "framer-motion";

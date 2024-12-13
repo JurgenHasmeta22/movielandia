@@ -1,4 +1,4 @@
-import { addFavoriteMovieToUser, removeFavoriteMovieToUser } from "@/actions/user.actions";
+import { addFavoriteMovieToUser, removeFavoriteMovieToUser } from "@/actions/user/userBookmarks.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { Movie } from "@prisma/client";
 import { Session } from "next-auth";

@@ -1,7 +1,6 @@
 "use client";
 
 import CardItem from "@/components/root/cardItem/CardItem";
-import GenreItem from "@/components/root/genreItem/GenreItem";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { Genre, Movie, Serie } from "@prisma/client";
 import NextLink from "next/link";
