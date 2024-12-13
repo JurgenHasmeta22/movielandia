@@ -1,11 +1,11 @@
 "use client";
 
-import { Box, Tab, Tabs, Paper } from "@mui/material";
+import { Tab, Tabs, Paper } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { TabConfig } from "./UserPageContent";
+import { JSX } from "react";
 
 interface ProfileTabsProps {
-    mainTabs: TabConfig[];
+    mainTabs: any[];
     subTabs: Record<string, string[]>;
     getSubTabIcon: (label: string) => JSX.Element;
     currentMainTab: number;
@@ -30,7 +30,7 @@ export default function ProfileTabs({
         newSearchParams.delete("page");
         newSearchParams.set("maintab", mainTabValue);
         newSearchParams.set("subtab", cleanSubTabValue);
-        router.push(`?${newSearchParams.toString()}`);
+        router.push(`?${newSearchParams.toString()}`, { scroll: false });
     };
 
     const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {

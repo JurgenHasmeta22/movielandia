@@ -33,7 +33,7 @@ const PaginationControl: React.FC<IPaginationControlProps> = ({ pageCount, curre
             newSearchParams.set("page", String(value));
         }
 
-        router.push(`?${newSearchParams.toString()}`);
+        router.push(`?${newSearchParams.toString()}`, { scroll: false });
     };
 
     return (

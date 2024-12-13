@@ -32,7 +32,7 @@ export function useSorting(type: string) {
             }
         }
 
-        router.push(`?${newSearchParams.toString()}`);
+        router.push(`?${newSearchParams.toString()}`, { scroll: false });
     }
 
     return handleChangeSorting;
