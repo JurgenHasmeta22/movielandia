@@ -7,6 +7,8 @@ import { follow, unfollow } from "@/actions/user/userFollow.actions";
 import { showToast } from "@/utils/helpers/toast";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import { useTransition } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface UserListItemProps {
     user: {
@@ -25,8 +27,34 @@ interface UserListItemProps {
     } | null;
 }
 
+interface ButtonColors {
+    main: string;
+    hover: string;
+}
+
+const getButtonColors = (type: "follow" | "unfollow" | "pending"): ButtonColors => {
+    switch (type) {
+        case "follow":
+            return {
+                main: "#4cceac",
+                hover: "#3da58a",
+            };
+        case "unfollow":
+            return {
+                main: "#db4f4a",
+                hover: "#af3f3b",
+            };
+        case "pending":
+            return {
+                main: "#6870fa",
+                hover: "#535ac8",
+            };
+    }
+};
+
 export default function UserListItem({ user, userLoggedIn }: UserListItemProps) {
     const router = useRouter();
+    const [isPending, startTransition] = useTransition();
 
     const getButtonConfig = () => {
         if (!user.followStatus) {
@@ -35,6 +63,7 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
                 icon: <PersonAddIcon />,
                 variant: "contained",
                 action: "follow",
+                colorType: "follow" as const,
             };
         }
 
@@ -44,6 +73,7 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
                 icon: <PersonRemoveIcon />,
                 variant: "outlined",
                 action: "unfollow",
+                colorType: "pending" as const,
             };
         }
 
@@ -53,6 +83,7 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
                 icon: <PersonRemoveIcon />,
                 variant: "outlined",
                 action: "unfollow",
+                colorType: "unfollow" as const,
             };
         }
 
@@ -61,6 +92,7 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
             icon: <PersonAddIcon />,
             variant: "contained",
             action: "follow",
+            colorType: "follow" as const,
         };
     };
 
@@ -69,22 +101,25 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
 
         const config = getButtonConfig();
 
-        try {
-            if (config.action === "unfollow") {
-                await unfollow(userLoggedIn.id, user.id);
-                showToast("success", "Unfollowed successfully!");
-            } else {
-                await follow(userLoggedIn.id, user.id);
-                showToast("success", "Follow request sent successfully!");
-            }
+        startTransition(async () => {
+            try {
+                if (config.action === "unfollow") {
+                    await unfollow(userLoggedIn.id, user.id);
+                    showToast("success", "Unfollowed successfully!");
+                } else {
+                    await follow(userLoggedIn.id, user.id);
+                    showToast("success", "Follow request sent successfully!");
+                }
 
-            router.refresh();
-        } catch (error: any) {
-            showToast("error", error.message || "Error performing follow action");
-        }
+                router.refresh();
+            } catch (error: any) {
+                showToast("error", error.message || "Error performing follow action");
+            }
+        });
     };
 
     const buttonConfig = getButtonConfig();
+    const buttonColors = getButtonColors(buttonConfig.colorType);
 
     return (
         <Paper
@@ -157,8 +192,9 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
                 {userLoggedIn && userLoggedIn.id !== user.id && (
                     <Button
                         variant={buttonConfig.variant as "contained" | "outlined"}
-                        startIcon={buttonConfig.icon}
+                        startIcon={!isPending && buttonConfig.icon}
                         onClick={handleFollowAction}
+                        disabled={isPending}
                         sx={{
                             minWidth: 100,
                             height: 32,
@@ -168,33 +204,47 @@ export default function UserListItem({ user, userLoggedIn }: UserListItemProps) 
                             fontWeight: 500,
                             ...(buttonConfig.variant === "contained"
                                 ? {
-                                      bgcolor: "#1976d2",
+                                      bgcolor: buttonColors.main,
                                       color: "#ffffff",
                                       border: "1px solid",
-                                      borderColor: "#1976d2",
+                                      borderColor: buttonColors.main,
                                       "&:hover": {
-                                          bgcolor: "#1565c0",
-                                          borderColor: "#1565c0",
+                                          bgcolor: buttonColors.hover,
+                                          borderColor: buttonColors.hover,
                                       },
                                   }
                                 : {
                                       bgcolor: "transparent",
-                                      color: "#1976d2",
+                                      color: buttonColors.main,
                                       border: "1px solid",
-                                      borderColor: "#1976d2",
+                                      borderColor: buttonColors.main,
                                       "&:hover": {
-                                          bgcolor: "#1976d2",
+                                          bgcolor: buttonColors.main,
                                           color: "#ffffff",
-                                          borderColor: "#1976d2",
                                       },
                                   }),
                             transition: "all 0.2s ease-in-out",
                             "&:active": {
                                 transform: "translateY(1px)",
                             },
+                            "&:disabled": {
+                                bgcolor:
+                                    buttonConfig.variant === "contained" ? `${buttonColors.main}80` : "transparent",
+                                borderColor: `${buttonColors.main}80`,
+                                color: buttonConfig.variant === "contained" ? "#ffffff" : `${buttonColors.main}80`,
+                            },
                         }}
                     >
-                        {buttonConfig.text}
+                        {isPending ? (
+                            <CircularProgress
+                                size={20}
+                                sx={{
+                                    color: buttonConfig.variant === "contained" ? "#ffffff" : buttonColors.main,
+                                }}
+                            />
+                        ) : (
+                            buttonConfig.text
+                        )}
                     </Button>
                 )}
             </Stack>
