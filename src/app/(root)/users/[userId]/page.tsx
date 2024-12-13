@@ -25,10 +25,10 @@ export async function generateMetadata(props: { params: Promise<{ userId: string
             url: pageUrl,
             title: `${user.userName} | User`,
             description: user.bio,
-            images: user.avatar?.photoSrc!
+            images: user.avatar?.photoSrc
                 ? [
                       {
-                          url: user.avatar?.photoSrc!,
+                          url: user.avatar?.photoSrc,
                           width: 160,
                           height: 200,
                           alt: user.bio,
@@ -43,10 +43,10 @@ export async function generateMetadata(props: { params: Promise<{ userId: string
             creator: "movieLandia24",
             title: `${user.userName} | User`,
             description: user.bio,
-            images: user.avatar?.photoSrc!
+            images: user.avatar?.photoSrc
                 ? [
                       {
-                          url: user.avatar?.photoSrc!,
+                          url: user.avatar?.photoSrc,
                           alt: user.bio,
                       },
                   ]

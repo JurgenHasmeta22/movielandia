@@ -6,7 +6,6 @@ import Sidebar from "@/components/admin/sidebar/Sidebar";
 import TopBar from "@/components/admin/topBar/TopBar";
 import { SidebarItems } from "@/components/admin/sidebar/components/SidebarItems";
 import { useStore } from "@/store/store";
-import Head from "next/head";
 
 interface IAdminLayoutProps {
     children: React.ReactNode;

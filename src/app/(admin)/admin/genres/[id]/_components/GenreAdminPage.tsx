@@ -142,7 +142,7 @@ const GenreAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteGenreById(genre?.id!);
+                                            const response = await deleteGenreById(genre?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);

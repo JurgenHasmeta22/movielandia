@@ -39,9 +39,9 @@ const ActorAdminPage = () => {
         </Link>,
     ];
 
-    const handleDataChange = (values: any) => {
-        setFormData(values);
-    };
+    // const handleDataChange = (values: any) => {
+    //     setFormData(values);
+    // };
 
     const handleResetFromParent = () => {
         formRef.current?.reset();
@@ -160,7 +160,7 @@ const ActorAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteActorById(actor?.id!);
+                                            const response = await deleteActorById(actor?.id);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
