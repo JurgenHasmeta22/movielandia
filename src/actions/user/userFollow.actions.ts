@@ -135,7 +135,7 @@ export async function refuseFollowRequest(followerId: number, followingId: numbe
 
 export async function getFollowers(
     userId: number,
-    userLoggedInId: number | null,
+    userLoggedInId?: number | null,
     page: number = 1,
     limit: number = 10,
 ) {
@@ -208,7 +208,7 @@ export async function getFollowers(
 
 export async function getFollowing(
     userId: number,
-    userLoggedInId: number | null,
+    userLoggedInId?: number | null,
     page: number = 1,
     limit: number = 10,
 ) {

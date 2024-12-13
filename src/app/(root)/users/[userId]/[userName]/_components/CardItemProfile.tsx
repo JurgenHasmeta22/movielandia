@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useTransition } from "react";
 import { motion } from "framer-motion";
 import ClearIcon from "@mui/icons-material/Clear";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme, CircularProgress } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import { showToast } from "@/utils/helpers/toast";
 import {
@@ -61,6 +61,7 @@ interface CardItemProfileProps {
 
 const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLoggedIn, getItemUrl, userInPage }) => {
     const theme = useTheme();
+    const [isPending, startTransition] = useTransition();
 
     // #region "Removing bookmark"
     async function onRemoveBookmarkMovie(movie: Movie) {
@@ -223,29 +224,33 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
     };
 
     const handleRemoveBookmark = async (e: React.MouseEvent) => {
+        if (isPending) return;
+
         e.preventDefault();
         e.stopPropagation();
 
-        switch (type) {
-            case "Movies":
-                await onRemoveBookmarkMovie((favItem as FavoriteMovie).movie);
-                break;
-            case "Series":
-                await onRemoveBookmarkSerie((favItem as FavoriteSerie).serie);
-                break;
-            case "Actors":
-                await onRemoveBookmarkActor((favItem as FavoriteActor).actor);
-                break;
-            case "Crew":
-                await onRemoveBookmarkCrew((favItem as FavoriteCrew).crew);
-                break;
-            case "Seasons":
-                await onRemoveBookmarkSeason((favItem as FavoriteSeason).season);
-                break;
-            case "Episodes":
-                await onRemoveBookmarkEpisode((favItem as FavoriteEpisode).episode);
-                break;
-        }
+        startTransition(async () => {
+            switch (type) {
+                case "Movies":
+                    await onRemoveBookmarkMovie((favItem as FavoriteMovie).movie);
+                    break;
+                case "Series":
+                    await onRemoveBookmarkSerie((favItem as FavoriteSerie).serie);
+                    break;
+                case "Actors":
+                    await onRemoveBookmarkActor((favItem as FavoriteActor).actor);
+                    break;
+                case "Crew":
+                    await onRemoveBookmarkCrew((favItem as FavoriteCrew).crew);
+                    break;
+                case "Seasons":
+                    await onRemoveBookmarkSeason((favItem as FavoriteSeason).season);
+                    break;
+                case "Episodes":
+                    await onRemoveBookmarkEpisode((favItem as FavoriteEpisode).episode);
+                    break;
+            }
+        });
     };
 
     return (
@@ -308,6 +313,7 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
                 <IconButton
                     onClick={handleRemoveBookmark}
                     size="small"
+                    disabled={isPending}
                     sx={{
                         position: "absolute",
                         top: 4,
@@ -317,9 +323,33 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
                         "&:hover": {
                             backgroundColor: "rgba(0, 0, 0, 0.8)",
                         },
+                        "&.Mui-disabled": {
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            color: theme.vars.palette.error.main,
+                        },
+                        width: 24,
+                        height: 24,
+                        padding: 0,
                     }}
                 >
-                    <ClearIcon fontSize="small" />
+                    {isPending ? (
+                        <CircularProgress
+                            size={16}
+                            sx={{
+                                color: theme.vars.palette.error.main,
+                            }}
+                        />
+                    ) : (
+                        <ClearIcon
+                            sx={{
+                                fontSize: 16,
+                                transition: "transform 0.2s ease-in-out",
+                                "&:hover": {
+                                    transform: "rotate(90deg)",
+                                },
+                            }}
+                        />
+                    )}
                 </IconButton>
             )}
         </motion.div>
