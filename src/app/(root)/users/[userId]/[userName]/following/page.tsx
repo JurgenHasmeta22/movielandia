@@ -3,7 +3,7 @@ import { getUserById } from "@/actions/user/user.actions";
 import FollowingContent from "./_components/FollowingContent";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { Suspense } from "react";
 
@@ -31,19 +31,22 @@ export default async function FollowingPage(props: IFollowingPageProps) {
         : null;
 
     const params = await props.params;
-    const userInPage = await getUserById(Number(params.userId));
+    const userInPage: any = await getUserById(Number(params.userId), userSession?.id);
+
+    if (!userInPage) {
+        return notFound();
+    }
+
+    const canViewProfile =
+        userSession?.id === userInPage.id || (userInPage.isFollowed && userInPage.isFollowedStatus === "accepted");
+
+    if (!canViewProfile) {
+        return redirect(`/users/${params.userId}/${params.userName}`);
+    }
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
-
-    try {
-        if (!userInPage) {
-            return notFound();
-        }
-    } catch (error) {
-        return notFound();
-    }
 
     const following = await getFollowing(Number(params.userId), page);
 
