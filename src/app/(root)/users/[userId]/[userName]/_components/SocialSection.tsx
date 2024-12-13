@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useTransition } from "react";
 import {
     Box,
     Button,
@@ -11,6 +11,7 @@ import {
     AccordionDetails,
     useTheme,
     Stack,
+    CircularProgress,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";
@@ -51,60 +52,76 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
     const theme = useTheme();
     const router = useRouter();
 
+    const [isPending, startTransition] = useTransition();
+    const [pendingActionId, setPendingActionId] = useState<number | null>(null);
     const [followersExpanded, setFollowersExpanded] = useState<boolean>(userPendingFollowers.items.length > 0);
 
     const handleFollowUser = async () => {
-        if (!userLoggedIn || !userInPage) return;
+        if (!userLoggedIn || !userInPage || isPending) return;
 
-        try {
-            await follow(Number(userLoggedIn.id), Number(userInPage.id));
-            showToast("success", "Follow request sent successfully!");
-            router.refresh();
-        } catch (error: any) {
-            console.error(`Error following user: ${error.message}`);
-            showToast("error", error.message || "Error following user");
-        }
+        startTransition(async () => {
+            try {
+                await follow(Number(userLoggedIn.id), Number(userInPage.id));
+                showToast("success", "Follow request sent successfully!");
+                router.refresh();
+            } catch (error: any) {
+                console.error(`Error following user: ${error.message}`);
+                showToast("error", error.message || "Error following user");
+            }
+        });
     };
 
     const handleUnfollowUser = async () => {
-        if (!userLoggedIn || !userInPage) return;
+        if (!userLoggedIn || !userInPage || isPending) return;
 
-        try {
-            await unfollow(Number(userLoggedIn.id), Number(userInPage.id));
-            showToast("success", "Unfollowed successfully!");
-            router.refresh();
-        } catch (error: any) {
-            console.error(`Error unfollowing user: ${error.message}`);
-            showToast("error", error.message || "Error unfollowing user");
-        }
+        startTransition(async () => {
+            try {
+                await unfollow(Number(userLoggedIn.id), Number(userInPage.id));
+                showToast("success", "Unfollowed successfully!");
+                router.refresh();
+            } catch (error: any) {
+                console.error(`Error unfollowing user: ${error.message}`);
+                showToast("error", error.message || "Error unfollowing user");
+            }
+        });
     };
 
     const handleAcceptFollow = async (followerId: number) => {
-        if (!userLoggedIn) return;
+        if (!userLoggedIn || isPending) return;
 
-        try {
-            await acceptFollowRequest(followerId, Number(userLoggedIn.id));
-            showToast("success", "Follow request accepted!");
-            setFollowersExpanded(false);
-            router.refresh();
-        } catch (error: any) {
-            console.error(`Error accepting follow request: ${error.message}`);
-            showToast("error", error.message || "Error accepting follow request");
-        }
+        setPendingActionId(followerId);
+        startTransition(async () => {
+            try {
+                await acceptFollowRequest(followerId, Number(userLoggedIn.id));
+                showToast("success", "Follow request accepted!");
+                setFollowersExpanded(false);
+                router.refresh();
+            } catch (error: any) {
+                console.error(`Error accepting follow request: ${error.message}`);
+                showToast("error", error.message || "Error accepting follow request");
+            } finally {
+                setPendingActionId(null);
+            }
+        });
     };
 
     const handleRefuseFollow = async (followerId: number) => {
-        if (!userLoggedIn) return;
+        if (!userLoggedIn || isPending) return;
 
-        try {
-            await refuseFollowRequest(followerId, Number(userLoggedIn.id));
-            showToast("success", "Follow request succesfully refused!");
-            setFollowersExpanded(false);
-            router.refresh();
-        } catch (error: any) {
-            console.error(`Error refusing follow request: ${error.message}`);
-            showToast("error", error.message || "Error refusing follow request");
-        }
+        setPendingActionId(followerId);
+        startTransition(async () => {
+            try {
+                await refuseFollowRequest(followerId, Number(userLoggedIn.id));
+                showToast("success", "Follow request succesfully refused!");
+                setFollowersExpanded(false);
+                router.refresh();
+            } catch (error: any) {
+                console.error(`Error refusing follow request: ${error.message}`);
+                showToast("error", error.message || "Error refusing follow request");
+            } finally {
+                setPendingActionId(null);
+            }
+        });
     };
 
     const handleFollowAction = async () => {
@@ -140,9 +157,10 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
             {userLoggedIn && userLoggedIn.id !== userInPage.id && (
                 <Button
                     variant={userInPage.isFollowed ? "outlined" : "contained"}
-                    startIcon={getFollowButtonIcon()}
+                    startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : getFollowButtonIcon()}
                     size="large"
                     onClick={handleFollowAction}
+                    disabled={isPending}
                     sx={{
                         minWidth: 140,
                         height: 45,
@@ -154,9 +172,13 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                         bgcolor: "background.paper",
                         color: theme.vars.palette.greyAccent.main,
                         borderWidth: 2,
+                        "&.Mui-disabled": {
+                            bgcolor: "background.paper",
+                            opacity: 0.7,
+                        },
                     }}
                 >
-                    {getFollowButtonText()}
+                    {isPending ? "Processing..." : getFollowButtonText()}
                 </Button>
             )}
             {userLoggedIn && userLoggedIn.id === userInPage.id && userPendingFollowers.items.length > 0 && (
@@ -207,6 +229,7 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                                         <Box>
                                             <IconButton
                                                 onClick={() => handleAcceptFollow(follow.follower.id)}
+                                                disabled={isPending}
                                                 sx={{
                                                     color: "success.main",
                                                     "&:hover": {
@@ -215,10 +238,15 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                                                     },
                                                 }}
                                             >
-                                                <CheckIcon />
+                                                {isPending && pendingActionId === follow.follower.id ? (
+                                                    <CircularProgress size={20} color="inherit" />
+                                                ) : (
+                                                    <CheckIcon />
+                                                )}
                                             </IconButton>
                                             <IconButton
                                                 onClick={() => handleRefuseFollow(follow.follower.id)}
+                                                disabled={isPending}
                                                 sx={{
                                                     color: "error.main",
                                                     "&:hover": {
@@ -227,7 +255,11 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                                                     },
                                                 }}
                                             >
-                                                <CloseIcon />
+                                                {isPending && pendingActionId === follow.follower.id ? (
+                                                    <CircularProgress size={20} color="inherit" />
+                                                ) : (
+                                                    <CloseIcon />
+                                                )}
                                             </IconButton>
                                         </Box>
                                     </Box>
