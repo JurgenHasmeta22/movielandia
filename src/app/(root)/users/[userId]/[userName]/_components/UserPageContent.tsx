@@ -91,6 +91,13 @@ export default function UserPageContent({
 
         return userInPage.isFollowed && userInPage.isFollowedStatus === "accepted";
     }, [userLoggedIn, userInPage]);
+
+    const canClickFollow = useMemo(() => {
+        if (!userLoggedIn) return false;
+        if (userLoggedIn.id === userInPage.id) return true;
+
+        return userInPage.isFollowed && userInPage.isFollowedStatus === "accepted";
+    }, [userLoggedIn, userInPage]);
     // #endregion
 
     // #region "Tabs and Subtabs logic"
@@ -374,12 +381,14 @@ export default function UserPageContent({
                                     variant="body1"
                                     color="text.secondary"
                                     sx={{
-                                        cursor: "pointer",
-                                        "&:hover": { color: "primary.main" },
+                                        cursor: canClickFollow ? "pointer" : "default",
+                                        "&:hover": canClickFollow ? { color: "primary.main" } : undefined,
                                     }}
-                                    onClick={() =>
-                                        router.push(`/users/${userInPage.id}/${userInPage.userName}/followers`)
-                                    }
+                                    onClick={() => {
+                                        if (canClickFollow) {
+                                            router.push(`/users/${userInPage.id}/${userInPage.userName}/followers`);
+                                        }
+                                    }}
                                 >
                                     <strong>Followers:</strong>&nbsp;
                                     {userFollowers.items.length || 0}
@@ -388,12 +397,14 @@ export default function UserPageContent({
                                     variant="body1"
                                     color="text.secondary"
                                     sx={{
-                                        cursor: "pointer",
-                                        "&:hover": { color: "primary.main" },
+                                        cursor: canClickFollow ? "pointer" : "default",
+                                        "&:hover": canClickFollow ? { color: "primary.main" } : undefined,
                                     }}
-                                    onClick={() =>
-                                        router.push(`/users/${userInPage.id}/${userInPage.userName}/following`)
-                                    }
+                                    onClick={() => {
+                                        if (canClickFollow) {
+                                            router.push(`/users/${userInPage.id}/${userInPage.userName}/following`);
+                                        }
+                                    }}
                                 >
                                     <strong>Following:</strong>&nbsp;
                                     {userFollowing.items.length || 0}

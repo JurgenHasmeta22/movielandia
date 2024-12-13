@@ -1,7 +1,7 @@
 import { getFollowers } from "@/actions/user/userFollow.actions";
 import { getUserById } from "@/actions/user/user.actions";
 import FollowersContent from "./_components/FollowersContent";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -31,25 +31,28 @@ export default async function FollowersPage(props: IFollowersPageProps) {
         : null;
 
     const params = await props.params;
-    const userInPage = await getUserById(Number(params.userId));
+    const userInPage: any = await getUserById(Number(params.userId), userSession?.id);
+
+    if (!userInPage) {
+        return notFound();
+    }
+
+    const canViewProfile =
+        userSession?.id === userInPage.id || (userInPage.isFollowed && userInPage.isFollowedStatus === "accepted");
+
+    if (!canViewProfile) {
+        return redirect(`/users/${params.userId}/${params.userName}`);
+    }
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    try {
-        if (!userInPage) {
-            return notFound();
-        }
-    } catch (error) {
-        return notFound();
-    }
-
     const followers = await getFollowers(Number(params.userId), page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <FollowersContent userInPage={userInPage} userLoggedIn={userSession} followers={followers} />{" "}
+            <FollowersContent userInPage={userInPage} userLoggedIn={userSession} followers={followers} />
         </Suspense>
     );
 }
