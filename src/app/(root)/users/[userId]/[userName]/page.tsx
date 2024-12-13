@@ -9,7 +9,7 @@ import {
     getUserFavorites,
     getUserReviews,
     getUserVotes,
-} from "@/actions/user.actions";
+} from "@/actions/user/user.actions";
 import { notFound } from "next/navigation";
 import UserPageContent from "./_components/UserPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";

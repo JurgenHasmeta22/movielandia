@@ -17,9 +17,9 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import { follow, unfollow, acceptFollowRequest, refuseFollowRequest } from "@/actions/user.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { useRouter } from "next/navigation";
+import { follow, unfollow, acceptFollowRequest, refuseFollowRequest } from "@/actions/user/userFollow.actions";
 
 interface SocialSectionProps {
     userLoggedIn: {

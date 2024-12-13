@@ -7,21 +7,15 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
-import {
-    addDownvoteActorReview,
-    addReviewActor,
-    addUpvoteActorReview,
-    removeDownvoteActorReview,
-    removeReviewActor,
-    removeUpvoteActorReview,
-    updateReviewActor,
-} from "@/actions/user.actions";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
 import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
+import { removeDownvoteActorReview, addDownvoteActorReview } from "@/actions/user/userDownvotes.actions";
+import { addReviewActor, removeReviewActor, updateReviewActor } from "@/actions/user/userReviews.actions";
+import { removeUpvoteActorReview, addUpvoteActorReview } from "@/actions/user/userUpvotes.actions";
 
 interface IActorPageContentProps {
     searchParamsValues: {

@@ -1,4 +1,4 @@
-import { addFavoriteSerieToUser, removeFavoriteSerieToUser } from "@/actions/user.actions";
+import { addFavoriteSerieToUser, removeFavoriteSerieToUser } from "@/actions/user/userBookmarks.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { Serie } from "@prisma/client";
 import { Session } from "next-auth";

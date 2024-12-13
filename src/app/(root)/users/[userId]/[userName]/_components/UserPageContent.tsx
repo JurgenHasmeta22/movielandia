@@ -4,8 +4,8 @@
 import { Box, IconButton, Stack, Tab, Tabs, TextField, Typography, Avatar, Paper } from "@mui/material";
 import { useState, useMemo, JSX } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { updateUserById } from "@/actions/user.actions";
+import { motion } from "framer-motion";
+import { updateUserById } from "@/actions/user/user.actions";
 import { showToast } from "@/utils/helpers/toast";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
