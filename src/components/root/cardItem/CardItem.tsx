@@ -1,8 +1,8 @@
 "use client";
 
 // #region "Imports"
-import React, { useState } from "react";
-import { Box, Card, Typography, Button, useTheme } from "@mui/material";
+import React, { useState, useTransition } from "react";
+import { Box, Card, Typography, Button, useTheme, CircularProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -88,6 +88,8 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
     const { data: session } = useSession();
 
     const [isHovered, setIsHovered] = useState(false);
+    const [isPending, startTransition] = useTransition();
+
     const params = useParams();
     const theme = useTheme();
 
@@ -118,19 +120,21 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
         const bookmarkFunc = bookmarkFunctions[type as keyof typeof bookmarkFunctions];
         const removeBookmarkFunc = removeBookmarkFunctions[type as keyof typeof removeBookmarkFunctions];
 
-        try {
-            if (data.isBookmarked) {
-                if (removeBookmarkFunc) {
-                    await removeBookmarkFunc(session, data);
+        startTransition(async () => {
+            try {
+                if (data.isBookmarked) {
+                    if (removeBookmarkFunc) {
+                        await removeBookmarkFunc(session, data);
+                    }
+                } else {
+                    if (bookmarkFunc) {
+                        await bookmarkFunc(session, data);
+                    }
                 }
-            } else {
-                if (bookmarkFunc) {
-                    await bookmarkFunc(session, data);
-                }
+            } catch (error) {
+                console.error("Error toggling bookmark:", error);
             }
-        } catch (error) {
-            console.error("Error toggling bookmark:", error);
-        }
+        });
     };
 
     const getPath = (): string => {
@@ -331,6 +335,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                                     <Button
                                         variant="outlined"
                                         size="small"
+                                        disabled={isPending}
                                         sx={{
                                             minWidth: "auto",
                                             p: 1,
@@ -341,7 +346,9 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                                             },
                                         }}
                                     >
-                                        {data.isBookmarked ? (
+                                        {isPending ? (
+                                            <CircularProgress size={20} sx={{ color: "white" }} />
+                                        ) : data.isBookmarked ? (
                                             <BookmarkIcon sx={{ color: theme.vars.palette.error.main }} />
                                         ) : (
                                             <BookmarkBorderIcon sx={{ color: "white" }} />
@@ -355,7 +362,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                                             fontSize: { xs: "0.75rem", sm: "0.85rem" },
                                         }}
                                     >
-                                        {data.isBookmarked ? "Bookmarked" : "Bookmark"}
+                                        {isPending ? "Processing..." : data.isBookmarked ? "Bookmarked" : "Bookmark"}
                                     </Typography>
                                 </Box>
                             )}

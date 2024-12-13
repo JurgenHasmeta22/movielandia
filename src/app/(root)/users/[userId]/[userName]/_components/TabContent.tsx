@@ -220,41 +220,11 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                             count={Math.max(1, totalPages)}
                             page={page}
                             onChange={handlePageChange}
-                            color="primary"
-                            size="medium"
+                            size="large"
+                            shape="rounded"
                             showFirstButton
                             showLastButton
                             disabled={totalItems === 0}
-                            sx={{
-                                "& .MuiPaginationItem-root": {
-                                    color: "text.secondary",
-                                    borderRadius: 1,
-                                    minWidth: "35px",
-                                    height: "35px",
-                                    "&:hover": {
-                                        backgroundColor: "action.hover",
-                                    },
-                                },
-                                "& .Mui-selected": {
-                                    backgroundColor: "primary.main",
-                                    color: "white",
-                                    "&:hover": {
-                                        backgroundColor: "primary.main",
-                                    },
-                                },
-                                "& .MuiPaginationItem-firstLast": {
-                                    borderRadius: 1,
-                                    "&:hover": {
-                                        backgroundColor: "action.hover",
-                                    },
-                                },
-                                "& .MuiPaginationItem-previousNext": {
-                                    borderRadius: 1,
-                                    "&:hover": {
-                                        backgroundColor: "action.hover",
-                                    },
-                                },
-                            }}
                         />
                     </Stack>
                 )}
