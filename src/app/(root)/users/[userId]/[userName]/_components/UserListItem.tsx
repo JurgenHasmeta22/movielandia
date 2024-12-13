@@ -20,13 +20,10 @@ interface UserListItemProps {
         userName: string;
     } | null;
     isFollowingList?: boolean;
-    onActionComplete?: () => void;
 }
 
-export default function UserListItem({ user, userLoggedIn, isFollowingList, onActionComplete }: UserListItemProps) {
+export default function UserListItem({ user, userLoggedIn, isFollowingList }: UserListItemProps) {
     const router = useRouter();
-
-    // console.log(user, userLoggedIn);
 
     const handleFollowAction = async () => {
         if (!userLoggedIn) return;
@@ -39,8 +36,7 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList, onAc
             } else {
                 await follow(userLoggedIn.id, user.id);
                 showToast("success", "Follow request sent successfully!");
-                if (onActionComplete) onActionComplete();
-                router.refresh();
+                router.push(`/users/${user.id}/${user.userName}`);
             }
         } catch (error: any) {
             showToast("error", error.message || "Error performing follow action");
@@ -127,16 +123,31 @@ export default function UserListItem({ user, userLoggedIn, isFollowingList, onAc
                             borderRadius: 1,
                             fontSize: "0.875rem",
                             fontWeight: 500,
-                            bgcolor: isFollowingList ? "background.paper" : "primary.main",
-                            color: isFollowingList ? "primary.main" : "secondary",
-                            border: "1px solid",
-                            borderColor: isFollowingList ? "grey.300" : "primary.main",
-                            boxShadow: isFollowingList ? "none" : 1,
-                            "&:hover": {
-                                color: isFollowingList ? "primary.main" : "primary.dark",
-                                bgcolor: isFollowingList ? "grey.100" : "primary.dark",
-                                borderColor: isFollowingList ? "grey.400" : "primary.dark",
-                                boxShadow: isFollowingList ? "none" : 2,
+                            ...(isFollowingList
+                                ? {
+                                      bgcolor: "transparent",
+                                      color: "#1976d2",
+                                      border: "1px solid",
+                                      borderColor: "#1976d2",
+                                      "&:hover": {
+                                          bgcolor: "#1976d2",
+                                          color: "#ffffff",
+                                          borderColor: "#1976d2",
+                                      },
+                                  }
+                                : {
+                                      bgcolor: "#1976d2",
+                                      color: "#ffffff",
+                                      border: "1px solid",
+                                      borderColor: "#1976d2",
+                                      "&:hover": {
+                                          bgcolor: "#1565c0",
+                                          borderColor: "#1565c0",
+                                      },
+                                  }),
+                            transition: "all 0.2s ease-in-out",
+                            "&:active": {
+                                transform: "translateY(1px)",
                             },
                         }}
                     >
