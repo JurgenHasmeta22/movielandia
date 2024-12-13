@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 
 interface GenreListProps {
     title: string;
-    data: Array<Movie | Serie>;
+    data: (Movie | Serie)[];
     count: number;
     sortBy: string;
     ascOrDesc: string;
