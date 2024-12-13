@@ -133,7 +133,12 @@ export async function refuseFollowRequest(followerId: number, followingId: numbe
     }
 }
 
-export async function getFollowers(userId: number, userLoggedInId: number | null, page: number = 1, limit: number = 10) {
+export async function getFollowers(
+    userId: number,
+    userLoggedInId: number | null,
+    page: number = 1,
+    limit: number = 10,
+) {
     const skip = (page - 1) * limit;
 
     const [followers, total] = await Promise.all([
@@ -174,23 +179,25 @@ export async function getFollowers(userId: number, userLoggedInId: number | null
 
                 console.log(existingFollow);
 
-                followStatus = existingFollow ? {
-                    isFollowing: true,
-                    state: existingFollow.state
-                } : {
-                    isFollowing: false,
-                    state: null
-                };
+                followStatus = existingFollow
+                    ? {
+                          isFollowing: true,
+                          state: existingFollow.state,
+                      }
+                    : {
+                          isFollowing: false,
+                          state: null,
+                      };
             }
 
             return {
                 ...follow,
                 follower: {
                     ...follow.follower,
-                    followStatus
-                }
+                    followStatus,
+                },
             };
-        })
+        }),
     );
 
     return {
@@ -199,7 +206,12 @@ export async function getFollowers(userId: number, userLoggedInId: number | null
     };
 }
 
-export async function getFollowing(userId: number, userLoggedInId: number | null, page: number = 1, limit: number = 10) {
+export async function getFollowing(
+    userId: number,
+    userLoggedInId: number | null,
+    page: number = 1,
+    limit: number = 10,
+) {
     const skip = (page - 1) * limit;
 
     const [following, total] = await Promise.all([
@@ -226,8 +238,41 @@ export async function getFollowing(userId: number, userLoggedInId: number | null
         }),
     ]);
 
+    const followingWithStatus = await Promise.all(
+        following.map(async (follow) => {
+            let followStatus = null;
+
+            if (userLoggedInId) {
+                const existingFollow = await prisma.userFollow.findFirst({
+                    where: {
+                        followerId: userLoggedInId,
+                        followingId: follow.following.id,
+                    },
+                });
+
+                followStatus = existingFollow
+                    ? {
+                          isFollowing: true,
+                          state: existingFollow.state,
+                      }
+                    : {
+                          isFollowing: false,
+                          state: null,
+                      };
+            }
+
+            return {
+                ...follow,
+                following: {
+                    ...follow.following,
+                    followStatus,
+                },
+            };
+        }),
+    );
+
     return {
-        items: following || [],
+        items: followingWithStatus || [],
         total: total || 0,
     };
 }
