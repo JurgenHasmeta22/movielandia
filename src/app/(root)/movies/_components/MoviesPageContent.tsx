@@ -144,7 +144,7 @@ export default async function MoviesPageContent({ searchParams, session }: Movie
                             <CardItem key={movie.id} data={movie} type="movie" />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Movies" />
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} urlParamName="pageMovies" />
                 </Box>
             </Box>
             <LatestList data={latestMovies} type="Movies" />

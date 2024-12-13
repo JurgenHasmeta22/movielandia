@@ -343,9 +343,9 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                 )}
                 {crew.totalReviews > 0 && (
                     <PaginationControl
-                        currentPage={Number(searchParamsValues.pageCrews)!}
+                        currentPage={Number(searchParamsValues.pageCrews)}
                         pageCount={pageCount}
-                        dataType="Crew"
+                        urlParamName="pageCrews"
                     />
                 )}
             </Box>

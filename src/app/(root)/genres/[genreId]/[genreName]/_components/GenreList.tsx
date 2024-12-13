@@ -122,7 +122,11 @@ const GenreList = ({ title, data, count, sortBy, ascOrDesc, page, pageCount, dat
                     ))}
                 </Box>
                 <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType={dataType} />
+                    <PaginationControl
+                        currentPage={Number(page)}
+                        pageCount={pageCount}
+                        urlParamName={dataType === "Movies" ? "pageMovies" : "pageSeries"}
+                    />
                 </Box>
             </Box>
         </Box>

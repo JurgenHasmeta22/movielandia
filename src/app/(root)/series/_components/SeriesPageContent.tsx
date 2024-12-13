@@ -144,7 +144,7 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
                             <CardItem key={serie.id} data={serie} type="serie" />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType="Series" />
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} urlParamName="pageSeries" />
                 </Box>
             </Box>
             <LatestList data={latestSeries} type="Series" />

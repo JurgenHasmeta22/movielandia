@@ -146,8 +146,16 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
             where: { id },
             include: {
                 genres: { select: { genre: true } },
-                cast: { include: { actor: true } },
-                crew: { include: { crew: true } },
+                cast: {
+                    include: { actor: true },
+                    skip: queryParams.castPage ? (queryParams.castPage - 1) * 5 : 0,
+                    take: 6,
+                },
+                crew: {
+                    include: { crew: true },
+                    skip: queryParams.crewPage ? (queryParams.crewPage - 1) * 5 : 0,
+                    take: 6,
+                },
                 reviews: {
                     include: {
                         user: true,
@@ -170,7 +178,10 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
                     skip: skip,
                     take: take,
                 },
-                seasons: true,
+                seasons: {
+                    skip: queryParams.seasonsPage ? (queryParams.seasonsPage - 1) * 5 : 0,
+                    take: 6,
+                },
             },
         });
 
@@ -229,10 +240,19 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
             isReviewed = !!existingReview;
         }
 
+        const [totalCast, totalCrew, totalSeasons] = await Promise.all([
+            prisma.castSerie.count({ where: { serieId: serie.id } }),
+            prisma.crewSerie.count({ where: { serieId: serie.id } }),
+            prisma.season.count({ where: { serieId: serie.id } }),
+        ]);
+
         return {
             ...serie,
             averageRating,
             totalReviews,
+            totalCast,
+            totalCrew,
+            totalSeasons,
             ...(userId && { isBookmarked, isReviewed }),
         };
     } catch (error) {

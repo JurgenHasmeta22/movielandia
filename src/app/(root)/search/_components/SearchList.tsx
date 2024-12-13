@@ -126,7 +126,11 @@ const SearchList = ({
                     ))}
                 </Box>
                 <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} dataType={dataType} />
+                    <PaginationControl
+                        currentPage={Number(page)}
+                        pageCount={pageCount}
+                        urlParamName={`page${dataType}`}
+                    />
                 </Box>
             </Box>
         </Box>
