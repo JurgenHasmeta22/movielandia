@@ -343,9 +343,9 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                 )}
                 {actor.totalReviews > 0 && (
                     <PaginationControl
-                        currentPage={Number(searchParamsValues.pageActors)!}
+                        currentPage={Number(searchParamsValues.pageActors)}
                         pageCount={pageCount}
-                        dataType="Actors"
+                        urlParamName="pageActors"
                     />
                 )}
             </Box>

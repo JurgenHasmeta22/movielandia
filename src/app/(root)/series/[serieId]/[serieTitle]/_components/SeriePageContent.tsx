@@ -23,11 +23,17 @@ interface ISeriePageContentProps {
         ascOrDesc: string | undefined;
         page: number;
         sortBy: string;
+        castPage: number;
+        crewPage: number;
+        seasonsPage: number;
     };
     serie: any;
     latestSeries: Serie[] | null;
     relatedSeries: Serie[] | null;
     pageCount: number;
+    castPageCount: number;
+    crewPageCount: number;
+    seasonsPageCount: number;
 }
 
 export default function SeriePageContent({
@@ -36,6 +42,9 @@ export default function SeriePageContent({
     latestSeries,
     relatedSeries,
     pageCount,
+    castPageCount,
+    crewPageCount,
+    seasonsPageCount,
 }: ISeriePageContentProps) {
     // #region "Data for the page"
     const {
@@ -333,17 +342,40 @@ export default function SeriePageContent({
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
                 )}
-                {serie.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
-                )}
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.page)}
+                    pageCount={pageCount}
+                    urlParamName="reviewsPage"
+                />
             </Box>
             <ListDetail data={latestSeries!} type="serie" roleData="latest" />
             {relatedSeries && relatedSeries.length !== 0 && (
                 <ListDetail data={relatedSeries} type="serie" roleData="related" />
             )}
-            <ListDetail data={serie.seasons} type="season" roleData="season" />
-            <ListDetail data={serie.cast} type="actor" roleData="cast" />
-            <ListDetail data={serie.crew} type="crew" roleData="production" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={serie.seasons} type="season" roleData="season" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.seasonsPage)}
+                    pageCount={seasonsPageCount}
+                    urlParamName="seasonsPage"
+                />
+            </Box>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={serie.cast} type="actor" roleData="cast" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.castPage)}
+                    pageCount={castPageCount}
+                    urlParamName="castPage"
+                />
+            </Box>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={serie.crew} type="crew" roleData="production" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.crewPage)}
+                    pageCount={crewPageCount}
+                    urlParamName="crewPage"
+                />
+            </Box>
         </Stack>
     );
 }
