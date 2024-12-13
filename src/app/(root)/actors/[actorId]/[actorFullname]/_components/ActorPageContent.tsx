@@ -20,7 +20,7 @@ import { removeUpvoteActorReview, addUpvoteActorReview } from "@/actions/user/us
 interface IActorPageContentProps {
     searchParamsValues: {
         ascOrDesc: string | undefined;
-        page: number;
+        pageActors: number;
         sortBy: string;
     };
     actor: any;
@@ -342,7 +342,11 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                     />
                 )}
                 {actor.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                    <PaginationControl
+                        currentPage={Number(searchParamsValues.pageActors)!}
+                        pageCount={pageCount}
+                        dataType="Actors"
+                    />
                 )}
             </Box>
             <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />

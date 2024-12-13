@@ -11,7 +11,7 @@ interface MoviesPageContentProps {
     searchParams:
         | {
               moviesAscOrDesc?: string;
-              page?: string;
+              pageMovies?: string;
               moviesSortBy?: string;
           }
         | undefined;
@@ -20,7 +20,7 @@ interface MoviesPageContentProps {
 
 export default async function MoviesPageContent({ searchParams, session }: MoviesPageContentProps) {
     const ascOrDesc = searchParams?.moviesAscOrDesc ?? "";
-    const page = searchParams?.page ? Number(searchParams.page) : 1;
+    const page = searchParams?.pageMovies ? Number(searchParams.pageMovies) : 1;
     const sortBy = searchParams?.moviesSortBy ?? "";
 
     const queryParams = {
