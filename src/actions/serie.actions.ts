@@ -129,10 +129,8 @@ export async function getSeries(): Promise<any | null> {
 
 export async function getSerieById(id: number, queryParams: any): Promise<Serie | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
-
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
-
     const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {

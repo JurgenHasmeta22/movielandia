@@ -87,10 +87,8 @@ export default async function SeriePage(props: ISerieProps) {
 
     const searchParams = props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
-
     const ascOrDesc = searchParams?.reviewsAscOrDesc;
     const sortBy = searchParams?.reviewsSortBy || "";
-
     const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const castPage = searchParams?.castPage ? Number(searchParams.castPage) : 1;
     const crewPage = searchParams?.crewPage ? Number(searchParams.crewPage) : 1;
@@ -114,7 +112,6 @@ export default async function SeriePage(props: ISerieProps) {
         return notFound();
     }
 
-    const latestSeries = await getLatestSeries(Number(session?.user?.id));
     const relatedSeries = await getRelatedSeries(Number(serieId), Number(session?.user?.id));
 
     const perPage = 6;
@@ -135,7 +132,6 @@ export default async function SeriePage(props: ISerieProps) {
                     seasonsPage: Number(seasonsPage) || 1,
                 }}
                 serie={serie}
-                latestSeries={latestSeries}
                 relatedSeries={relatedSeries}
                 reviewsPageCount={pageCountReviews}
                 castPageCount={castPageCount}

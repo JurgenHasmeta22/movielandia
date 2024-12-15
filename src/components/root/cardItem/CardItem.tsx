@@ -20,7 +20,7 @@ import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeatu
 // #endregion
 
 // #region "Types and Interfaces"
-type CardItemType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
+export type CardItemType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
 
 export type PathType = "movies" | "actors" | "crew" | null;
 
@@ -79,7 +79,7 @@ type CardData =
 interface ICardItemProps {
     data: CardData;
     type: CardItemType;
-    path?: PathType;
+    path?: string;
     isAutocomplete?: boolean;
 }
 // #endregion

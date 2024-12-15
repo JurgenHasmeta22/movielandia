@@ -28,7 +28,6 @@ interface ISeriePageContentProps {
         seasonsPage: number;
     };
     serie: any;
-    latestSeries: Serie[] | null;
     relatedSeries: Serie[] | null;
     reviewsPageCount: number;
     castPageCount: number;
@@ -39,7 +38,6 @@ interface ISeriePageContentProps {
 export default function SeriePageContent({
     searchParamsValues,
     serie,
-    latestSeries,
     relatedSeries,
     reviewsPageCount,
     castPageCount,
@@ -342,13 +340,14 @@ export default function SeriePageContent({
                         onSubmitUpdateReview={onSubmitUpdateReview}
                     />
                 )}
-                <PaginationControl
-                    currentPage={Number(searchParamsValues.reviewsPage)}
-                    pageCount={reviewsPageCount}
-                    urlParamName="reviewsPage"
-                />
+                {serie.totalReviews > 0 && (
+                    <PaginationControl
+                        currentPage={Number(searchParamsValues.reviewsPage)}
+                        pageCount={reviewsPageCount}
+                        urlParamName="reviewsPage"
+                    />
+                )}
             </Box>
-            <ListDetail data={latestSeries!} type="serie" roleData="latest" />
             {relatedSeries && relatedSeries.length !== 0 && (
                 <ListDetail data={relatedSeries} type="serie" roleData="related" />
             )}
