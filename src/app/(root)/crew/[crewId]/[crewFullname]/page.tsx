@@ -73,7 +73,7 @@ export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
     };
 }
 
-export default async function CrewPage(props: ICrewProps) {
+export default async function CrewPageByFullname(props: ICrewProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;
@@ -81,9 +81,11 @@ export default async function CrewPage(props: ICrewProps) {
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
+
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+
     const searchParamsValues = {
         ascOrDesc,
         page,

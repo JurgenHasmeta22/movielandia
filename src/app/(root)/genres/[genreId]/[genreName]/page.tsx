@@ -63,7 +63,7 @@ export async function generateMetadata(props: IGenreProps): Promise<Metadata> {
     };
 }
 
-export default async function GenrePage(props: IGenreProps): Promise<React.JSX.Element> {
+export default async function GenrePageByName(props: IGenreProps): Promise<React.JSX.Element> {
     const session = await getServerSession(authOptions);
 
     const searchParams = await props.searchParams;

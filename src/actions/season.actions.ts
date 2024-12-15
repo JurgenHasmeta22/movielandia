@@ -81,7 +81,8 @@ export async function getSeasons(): Promise<any | null> {
 }
 
 export async function getSeasonById(seasonId: number, queryParams: any): Promise<Season | any | null> {
-    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId, episodesPage } = queryParams;
+    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId, episodesPage } =
+        queryParams;
     const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
@@ -171,7 +172,7 @@ export async function getSeasonById(seasonId: number, queryParams: any): Promise
                     AND: [{ userId }, { seasonId: season.id }],
                 },
             });
-            
+
             isBookmarked = !!existingFavorite;
 
             const existingReview = await prisma.seasonReview.findFirst({

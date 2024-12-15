@@ -340,7 +340,10 @@ export default function MoviePageContent({
                     />
                 )}
                 {movie.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.reviewsPage)!} pageCount={reviewsPageCount} />
+                    <PaginationControl
+                        currentPage={Number(searchParamsValues.reviewsPage)!}
+                        pageCount={reviewsPageCount}
+                    />
                 )}
             </Box>
             {relatedMovies && relatedMovies.length !== 0 && (

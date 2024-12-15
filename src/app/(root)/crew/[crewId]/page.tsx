@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getCrewMemberById } from "@/actions/crew.actions";
 import { Crew } from "@prisma/client";
 import { notFound } from "next/navigation";
-import CrewPage from "./[crewFullname]/page";
+import CrewPageByFullname from "./[crewFullname]/page";
 
 export async function generateMetadata(props: { params: Promise<{ crewId: string }> }): Promise<Metadata> {
     const params = await props.params;
@@ -62,8 +62,8 @@ export async function generateMetadata(props: { params: Promise<{ crewId: string
     };
 }
 
-export default async function Page(props: { params: Promise<{ crewId: string }> }) {
+export default async function CrewPageById(props: { params: Promise<{ crewId: string }> }) {
     const params = await props.params;
 
-    return <CrewPage params={params} />;
+    return <CrewPageByFullname params={params} />;
 }
