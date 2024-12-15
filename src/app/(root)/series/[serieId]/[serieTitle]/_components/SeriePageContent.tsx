@@ -20,9 +20,9 @@ import { removeUpvoteSerieReview, addUpvoteSerieReview } from "@/actions/user/us
 
 interface ISeriePageContentProps {
     searchParamsValues: {
-        ascOrDesc: string | undefined;
+        reviewsAscOrDesc: string | undefined;
         reviewsPage: number;
-        sortBy: string;
+        reviewsSortBy: string;
         castPage: number;
         crewPage: number;
         seasonsPage: number;
@@ -299,8 +299,8 @@ export default function SeriePageContent({
                     <ReviewsHeader
                         data={serie}
                         sortingDataType="reviews"
-                        sortBy={searchParamsValues.sortBy!}
-                        ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortBy={searchParamsValues.reviewsSortBy!}
+                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                     />
                 )}
                 {serie.reviews!.map(

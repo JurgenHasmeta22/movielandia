@@ -12,7 +12,7 @@ interface IMoviePageProps {
     params: {
         movieId: string;
     };
-    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
+    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: string; reviewsSortBy: string; crewPage: string; castPage: string }>;
 }
 
 export async function generateMetadata(props: IMoviePageProps): Promise<Metadata> {
@@ -81,36 +81,53 @@ export default async function MoviePage(props: IMoviePageProps) {
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
-    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
-    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
-    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+
+    const reviewsAscOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const reviewsSortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+    const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+
+    const castPage = searchParams?.castPage ? Number(searchParams.castPage) : 1;
+    const crewPage = searchParams?.crewPage ? Number(searchParams.crewPage) : 1;
+
     const searchParamsValues = {
-        ascOrDesc,
-        page,
-        sortBy,
+        reviewsAscOrDesc,
+        reviewsPage,
+        reviewsSortBy,
+        castPage,
+        crewPage,
+        userId: Number(session?.user?.id),
     };
 
     let movie = null;
 
     try {
-        movie = await getMovieById(Number(movieId), { userId: Number(session?.user?.id) });
+        movie = await getMovieById(Number(movieId), searchParamsValues);
     } catch (error) {
         return notFound();
     }
 
-    const latestMovies = await getLatestMovies(Number(session?.user?.id));
     const relatedMovies = await getRelatedMovies(Number(movieId), Number(session?.user?.id));
 
-    const pageCount = Math.ceil(movie.totalReviews / 5);
+    const perPage = 6;
+    const reviewsPageCount = Math.ceil(movie.totalReviews / 5);
+    const castPageCount = Math.ceil(movie.totalCast / perPage);
+    const crewPageCount = Math.ceil(movie.totalCrew / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <MoviePageContent
-                searchParamsValues={searchParamsValues}
+                searchParamsValues={{
+                    reviewsAscOrDesc,
+                    reviewsPage: Number(reviewsPage),
+                    reviewsSortBy,
+                    castPage: Number(castPage) || 1,
+                    crewPage: Number(crewPage) || 1,
+                }}
                 movie={movie}
-                latestMovies={latestMovies}
                 relatedMovies={relatedMovies}
-                pageCount={pageCount}
+                reviewsPageCount={reviewsPageCount}
+                castPageCount={castPageCount}
+                crewPageCount={crewPageCount}
             />
         </Suspense>
     );

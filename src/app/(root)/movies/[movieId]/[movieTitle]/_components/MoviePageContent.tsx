@@ -20,22 +20,26 @@ import { removeUpvoteMovieReview, addUpvoteMovieReview } from "@/actions/user/us
 
 interface IMoviePageContentProps {
     searchParamsValues: {
-        ascOrDesc: string | undefined;
-        page: number;
-        sortBy: string;
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: number;
+        reviewsSortBy: string;
+        castPage: number;
+        crewPage: number;
     };
     movie: any;
-    latestMovies: Movie[] | null;
     relatedMovies: Movie[] | null;
-    pageCount: number;
+    reviewsPageCount: number;
+    castPageCount: number;
+    crewPageCount: number;
 }
 
 export default function MoviePageContent({
     searchParamsValues,
     movie,
-    latestMovies,
     relatedMovies,
-    pageCount,
+    reviewsPageCount,
+    castPageCount,
+    crewPageCount,
 }: IMoviePageContentProps) {
     // #region "Data for the page"
     const {
@@ -294,8 +298,8 @@ export default function MoviePageContent({
                     <ReviewsHeader
                         data={movie}
                         sortingDataType="reviews"
-                        sortBy={searchParamsValues.sortBy!}
-                        ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortBy={searchParamsValues.reviewsSortBy!}
+                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                     />
                 )}
                 {movie.reviews!.map(
@@ -336,15 +340,28 @@ export default function MoviePageContent({
                     />
                 )}
                 {movie.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                    <PaginationControl currentPage={Number(searchParamsValues.reviewsPage)!} pageCount={reviewsPageCount} />
                 )}
             </Box>
-            <ListDetail data={latestMovies} type="movie" roleData="latest" />
             {relatedMovies && relatedMovies.length !== 0 && (
                 <ListDetail data={relatedMovies} type="movie" roleData="related" />
             )}
-            <ListDetail data={movie.cast} type="actor" roleData="cast" />
-            <ListDetail data={movie.crew} type="crew" roleData="production" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={movie.cast} type="actor" roleData="cast" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.castPage)}
+                    pageCount={castPageCount}
+                    urlParamName="castPage"
+                />
+            </Box>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={movie.crew} type="crew" roleData="production" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.crewPage)}
+                    pageCount={crewPageCount}
+                    urlParamName="crewPage"
+                />
+            </Box>
         </Stack>
     );
 }
