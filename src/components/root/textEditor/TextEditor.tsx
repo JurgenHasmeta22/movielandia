@@ -266,17 +266,6 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     mt: 2,
                 }}
             >
-                <Typography
-                    variant="body2"
-                    fontSize={16}
-                    fontWeight={700}
-                    sx={{
-                        mr: 1,
-                        color: theme.vars.palette.primary.main,
-                    }}
-                >
-                    {rating?.toFixed(1)}
-                </Typography>
                 <Rating
                     name="review-rating"
                     value={rating}
@@ -288,6 +277,17 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     precision={0.5}
                     readOnly={isDisabled}
                 />
+                <Typography
+                    variant="body2"
+                    fontSize={16}
+                    fontWeight={700}
+                    sx={{
+                        ml: 1,
+                        color: theme.vars.palette.primary.main,
+                    }}
+                >
+                    {rating?.toFixed(1)}
+                </Typography>
             </Box>
         </Box>
     );
