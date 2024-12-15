@@ -1,10 +1,10 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import CardItem from "../cardItem/CardItem";
+import CardItem, { CardItemType, PathType } from "../cardItem/CardItem";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IListDetailProps {
     data: any;
-    type: string;
+    type: CardItemType;
     roleData: string;
 }
 
@@ -22,7 +22,7 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
             return roleData === "production" ? "Crew" : `Worked on ${roleData}`;
         }
 
-        return `${roleData === "latest" ? "Latest" : roleData === "related" ? "Related" : ""} ${
+        return `${roleData === "related" ? "Related" : ""} ${
             type === "movie"
                 ? "Movies"
                 : type === "serie"
@@ -125,7 +125,7 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
                 }}
             >
                 {data.map((item: any, index: number) => (
-                    <CardItem key={index} data={getItemData(item)} type={type} path={getItemPath()} />
+                    <CardItem key={index} data={getItemData(item)} type={type} path={getItemPath()!} />
                 ))}
             </Box>
         </Box>
