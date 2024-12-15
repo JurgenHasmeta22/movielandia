@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getGenreById } from "@/actions/genre.actions";
 import { Genre } from "@prisma/client";
 import { notFound } from "next/navigation";
-import GenrePage from "./[genreName]/page";
+import GenrePageByName from "./[genreName]/page";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 export async function generateMetadata(props: {
@@ -46,13 +46,13 @@ export async function generateMetadata(props: {
     };
 }
 
-export default async function Page(props: { params: Promise<{ genreId: string; genreName: string }> }) {
+export default async function GenrePageById(props: { params: Promise<{ genreId: string; genreName: string }> }) {
     const params = await props.params;
     const paramsKey = JSON.stringify(params);
 
     return (
         <Suspense key={paramsKey} fallback={<LoadingSpinner />}>
-            <GenrePage params={params} />
+            <GenrePageByName params={params} />
         </Suspense>
     );
 }

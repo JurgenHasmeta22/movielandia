@@ -73,7 +73,7 @@ export async function generateMetadata(props: IActorProps): Promise<Metadata> {
     };
 }
 
-export default async function ActorPage(props: IActorProps) {
+export default async function ActorPageByFullname(props: IActorProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;
@@ -81,9 +81,11 @@ export default async function ActorPage(props: IActorProps) {
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
+
     const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+
     const searchParamsValues = {
         ascOrDesc,
         page,

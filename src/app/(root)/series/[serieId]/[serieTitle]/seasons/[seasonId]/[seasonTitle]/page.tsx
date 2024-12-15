@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
     };
 }
 
-export default async function SeasonPage(props: ISeasonProps) {
+export default async function SeasonPageByTitle(props: ISeasonProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;

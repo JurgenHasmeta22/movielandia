@@ -12,7 +12,13 @@ interface IMoviePageProps {
     params: {
         movieId: string;
     };
-    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: string; reviewsSortBy: string; crewPage: string; castPage: string }>;
+    searchParams?: Promise<{
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: string;
+        reviewsSortBy: string;
+        crewPage: string;
+        castPage: string;
+    }>;
 }
 
 export async function generateMetadata(props: IMoviePageProps): Promise<Metadata> {
@@ -73,7 +79,7 @@ export async function generateMetadata(props: IMoviePageProps): Promise<Metadata
     };
 }
 
-export default async function MoviePage(props: IMoviePageProps) {
+export default async function MoviePageByTitle(props: IMoviePageProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;

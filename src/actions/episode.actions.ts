@@ -168,7 +168,7 @@ export async function getEpisodeById(episodeId: number, queryParams: any): Promi
                     AND: [{ userId }, { episodeId: episode.id }],
                 },
             });
-            
+
             isReviewed = !!existingReview;
         }
 

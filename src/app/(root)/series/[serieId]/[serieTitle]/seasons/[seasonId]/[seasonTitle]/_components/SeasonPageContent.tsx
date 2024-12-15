@@ -352,7 +352,10 @@ export default function SeasonPageConent({
                     />
                 )}
                 {season.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.reviewsPage)!} pageCount={reviewsPageCount} />
+                    <PaginationControl
+                        currentPage={Number(searchParamsValues.reviewsPage)!}
+                        pageCount={reviewsPageCount}
+                    />
                 )}
             </Box>
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>

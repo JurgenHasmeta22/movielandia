@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Season } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { getSeasonById } from "@/actions/season.actions";
-import SeasonPage from "./[seasonTitle]/page";
+import SeasonPageByTitle from "./[seasonTitle]/page";
 
 export async function generateMetadata(props: {
     params: Promise<{ seasonId: string; serieId: string }>;
@@ -64,8 +64,8 @@ export async function generateMetadata(props: {
     };
 }
 
-export default async function Page(props: { params: Promise<{ seasonId: string; serieId: string }> }) {
+export default async function SeasonPageById(props: { params: Promise<{ seasonId: string; serieId: string }> }) {
     const params = await props.params;
 
-    return <SeasonPage params={params} />;
+    return <SeasonPageByTitle params={params} />;
 }

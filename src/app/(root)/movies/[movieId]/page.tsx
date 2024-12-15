@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Movie } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { getMovieById } from "@/actions/movie.actions";
-import MoviePage from "./[movieTitle]/page";
+import MoviePageByTitle from "./[movieTitle]/page";
 
 export async function generateMetadata(props: { params: Promise<{ movieId: string }> }): Promise<Metadata> {
     const params = await props.params;
@@ -62,8 +62,8 @@ export async function generateMetadata(props: { params: Promise<{ movieId: strin
     };
 }
 
-export default async function Page(props: { params: Promise<{ movieId: string }> }) {
+export default async function MoviePageById(props: { params: Promise<{ movieId: string }> }) {
     const params = await props.params;
 
-    return <MoviePage params={params} />;
+    return <MoviePageByTitle params={params} />;
 }

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Episode } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { getEpisodeById } from "@/actions/episode.actions";
-import EpisodePage from "./[episodeTitle]/page";
+import EpisodePageByTitle from "./[episodeTitle]/page";
 
 export async function generateMetadata(props: {
     params: Promise<{ episodeId: string; seasonId: string }>;
@@ -64,8 +64,8 @@ export async function generateMetadata(props: {
     };
 }
 
-export default async function Page(props: { params: Promise<{ episodeId: string; seasonId: string }> }) {
+export default async function EpisodePageById(props: { params: Promise<{ episodeId: string; seasonId: string }> }) {
     const params = await props.params;
 
-    return <EpisodePage params={params} />;
+    return <EpisodePageByTitle params={params} />;
 }

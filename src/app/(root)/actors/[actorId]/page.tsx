@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getActorById } from "@/actions/actor.actions";
 import { Actor } from "@prisma/client";
 import { notFound } from "next/navigation";
-import ActorPage from "./[actorFullname]/page";
+import ActorPageByFullname from "./[actorFullname]/page";
 
 export async function generateMetadata(props: { params: Promise<{ actorId: string }> }): Promise<Metadata> {
     const params = await props.params;
@@ -62,8 +62,8 @@ export async function generateMetadata(props: { params: Promise<{ actorId: strin
     };
 }
 
-export default async function Page(props: { params: Promise<{ actorId: string }> }) {
+export default async function ActorPageById(props: { params: Promise<{ actorId: string }> }) {
     const params = await props.params;
 
-    return <ActorPage params={params} />;
+    return <ActorPageByFullname params={params} />;
 }
