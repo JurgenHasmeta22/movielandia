@@ -125,10 +125,8 @@ export async function getMovies(): Promise<any | null> {
 
 export async function getMovieById(movieId: number, queryParams: any): Promise<Movie | any | null> {
     const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
-
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
-
     const orderByObject: any = {};
 
     if (sortBy && ascOrDesc) {
@@ -142,8 +140,16 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
             where: { id: movieId },
             include: {
                 genres: { select: { genre: true } },
-                cast: { include: { actor: true } },
-                crew: { include: { crew: true } },
+                cast: {
+                    include: { actor: true },
+                    skip: queryParams.castPage ? (queryParams.castPage - 1) * 5 : 0,
+                    take: 6,
+                },
+                crew: {
+                    include: { crew: true },
+                    skip: queryParams.crewPage ? (queryParams.crewPage - 1) * 5 : 0,
+                    take: 6,
+                },
                 reviews: {
                     include: {
                         user: true,
@@ -169,69 +175,76 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
             },
         });
 
-        if (movie) {
-            const totalReviews = await prisma.movieReview.count({
-                where: { movieId: movie.id },
-            });
-
-            const ratings = await prisma.movieReview.findMany({
-                where: { movieId: movie.id },
-                select: { rating: true },
-            });
-
-            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
-            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
-
-            let isBookmarked = false;
-            let isReviewed = false;
-
-            if (userId) {
-                for (const review of movie.reviews) {
-                    const existingUpvote = await prisma.upvoteMovieReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { movieId: movie.id }, { movieReviewId: review.id }],
-                        },
-                    });
-
-                    const existingDownvote = await prisma.downvoteMovieReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { movieId: movie.id }, { movieReviewId: review.id }],
-                        },
-                    });
-
-                    // @ts-expect-error type
-                    review.isUpvoted = !!existingUpvote;
-
-                    // @ts-expect-error type
-                    review.isDownvoted = !!existingDownvote;
-                }
-
-                const existingFavorite = await prisma.userMovieFavorite.findFirst({
-                    where: {
-                        AND: [{ userId }, { movieId: movie.id }],
-                    },
-                });
-
-                isBookmarked = !!existingFavorite;
-
-                const existingReview = await prisma.movieReview.findFirst({
-                    where: {
-                        AND: [{ userId }, { movieId: movie.id }],
-                    },
-                });
-
-                isReviewed = !!existingReview;
-            }
-
-            return {
-                ...movie,
-                averageRating,
-                totalReviews,
-                ...(userId && { isBookmarked, isReviewed }),
-            };
-        } else {
+        if (!movie) {
             throw new Error("Movie not found");
         }
+
+        const totalReviews = await prisma.movieReview.count({
+            where: { movieId: movie.id },
+        });
+
+        const ratings = await prisma.movieReview.findMany({
+            where: { movieId: movie.id },
+            select: { rating: true },
+        });
+
+        const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+        const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+        let isBookmarked = false;
+        let isReviewed = false;
+
+        if (userId) {
+            for (const review of movie.reviews) {
+                const existingUpvote = await prisma.upvoteMovieReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { movieId: movie.id }, { movieReviewId: review.id }],
+                    },
+                });
+
+                const existingDownvote = await prisma.downvoteMovieReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { movieId: movie.id }, { movieReviewId: review.id }],
+                    },
+                });
+
+                // @ts-expect-error type
+                review.isUpvoted = !!existingUpvote;
+
+                // @ts-expect-error type
+                review.isDownvoted = !!existingDownvote;
+            }
+
+            const existingFavorite = await prisma.userMovieFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { movieId: movie.id }],
+                },
+            });
+
+            isBookmarked = !!existingFavorite;
+
+            const existingReview = await prisma.movieReview.findFirst({
+                where: {
+                    AND: [{ userId }, { movieId: movie.id }],
+                },
+            });
+            
+            isReviewed = !!existingReview;
+        }
+
+        const [totalCast, totalCrew] = await Promise.all([
+            prisma.castMovie.count({ where: { movieId: movie.id } }),
+            prisma.crewMovie.count({ where: { movieId: movie.id } }),
+        ]);
+
+        return {
+            ...movie,
+            averageRating,
+            totalReviews,
+            totalCast,
+            totalCrew,
+            ...(userId && { isBookmarked, isReviewed }),
+        };
     } catch (error) {
         throw new Error("Movie not found");
     }

@@ -228,6 +228,7 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
                     AND: [{ userId }, { serieId: serie.id }],
                 },
             });
+            
             isBookmarked = !!existingFavorite;
 
             const existingReview = await prisma.serieReview.findFirst({
@@ -235,6 +236,7 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
                     AND: [{ userId }, { serieId: serie.id }],
                 },
             });
+
             isReviewed = !!existingReview;
         }
 

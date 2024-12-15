@@ -14,7 +14,7 @@ interface ISerieProps {
     };
     searchParams?: {
         reviewsAscOrDesc: string | undefined;
-        reviewsPage: number;
+        reviewsPage: string;
         reviewsSortBy: string;
         castPage?: string;
         crewPage?: string;
@@ -87,17 +87,19 @@ export default async function SeriePage(props: ISerieProps) {
 
     const searchParams = props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
-    const ascOrDesc = searchParams?.reviewsAscOrDesc;
-    const sortBy = searchParams?.reviewsSortBy || "";
+
+    const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;
+    const reviewsSortBy = searchParams?.reviewsSortBy || "";
     const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+
     const castPage = searchParams?.castPage ? Number(searchParams.castPage) : 1;
     const crewPage = searchParams?.crewPage ? Number(searchParams.crewPage) : 1;
     const seasonsPage = searchParams?.seasonsPage ? Number(searchParams.seasonsPage) : 1;
 
     const searchParamsValues = {
-        ascOrDesc,
+        reviewsAscOrDesc,
         reviewsPage,
-        sortBy,
+        reviewsSortBy,
         castPage,
         crewPage,
         seasonsPage,
@@ -124,9 +126,9 @@ export default async function SeriePage(props: ISerieProps) {
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <SeriePageContent
                 searchParamsValues={{
-                    ascOrDesc,
+                    reviewsAscOrDesc,
                     reviewsPage: Number(reviewsPage),
-                    sortBy,
+                    reviewsSortBy,
                     castPage: Number(castPage) || 1,
                     crewPage: Number(crewPage) || 1,
                     seasonsPage: Number(seasonsPage) || 1,
