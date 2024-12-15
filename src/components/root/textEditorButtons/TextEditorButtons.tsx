@@ -6,7 +6,6 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useTransition } from "react";
-import { showToast } from "@/utils/helpers/toast";
 
 interface ITextEditorButtonsProps {
     isEditMode: boolean;
@@ -92,7 +91,14 @@ export function TextEditorButtons({
                             minWidth: 150,
                         }}
                     >
-                        <Typography component={"span"}>{isPending ? "Submitting..." : "Submit Review"}</Typography>
+                        <Typography
+                            component={"span"}
+                            sx={{
+                                color: theme.vars.palette.primary.dark,
+                            }}
+                        >
+                            {isPending ? "Submitting..." : "Submit Review"}
+                        </Typography>
                     </Button>
                 </Box>
             ) : (

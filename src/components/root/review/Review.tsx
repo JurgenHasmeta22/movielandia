@@ -264,9 +264,6 @@ const Review: React.FC<IReviewProps> = ({
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ mr: 1 }}>
-                        {review?.rating ? review?.rating?.toFixed(1) : "0.0"}
-                    </Typography>
                     <Rating
                         name={`review-rating-${review.id}`}
                         value={review?.rating}
@@ -274,6 +271,9 @@ const Review: React.FC<IReviewProps> = ({
                         max={10}
                         precision={0.5}
                     />
+                    <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ ml: 1 }}>
+                        {review?.rating ? review?.rating?.toFixed(1) : "0.0"}
+                    </Typography>
                 </Box>
             </Box>
             <Box
