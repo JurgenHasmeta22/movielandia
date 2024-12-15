@@ -12,7 +12,13 @@ interface IActorProps {
     params: {
         actorId: string;
     };
-    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
+    searchParams?: Promise<{
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: string;
+        reviewsSortBy: string;
+        starredMoviesPage?: string;
+        starredSeriesPage?: string;
+    }>;
 }
 
 export async function generateMetadata(props: IActorProps): Promise<Metadata> {
@@ -85,11 +91,15 @@ export default async function ActorPageByFullname(props: IActorProps) {
     const reviewsAscOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const reviewsPage = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const reviewsSortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+    const starredMoviesPage = searchParams?.starredMoviesPage ? Number(searchParams.starredMoviesPage) : 1;
+    const starredSeriesPage = searchParams?.starredSeriesPage ? Number(searchParams.starredSeriesPage) : 1;
 
     const searchParamsValues = {
         reviewsAscOrDesc,
         reviewsPage,
         reviewsSortBy,
+        starredMoviesPage,
+        starredSeriesPage,
         userId: Number(session?.user?.id),
     };
 
@@ -101,11 +111,20 @@ export default async function ActorPageByFullname(props: IActorProps) {
         return notFound();
     }
 
-    const pageCountReviews = Math.ceil(actor.totalReviews / 5);
+    const perPage = 6;
+    const reviewsPageCount = Math.ceil(actor.totalReviews / 5);
+    const moviesPageCount = Math.ceil(actor.totalMovies / perPage);
+    const seriesPageCount = Math.ceil(actor.totalSeries / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <ActorPageContent searchParamsValues={searchParamsValues} actor={actor} pageCount={pageCountReviews} />
+            <ActorPageContent
+                searchParamsValues={searchParamsValues}
+                actor={actor}
+                reviewsPageCount={reviewsPageCount}
+                moviesPageCount={moviesPageCount}
+                seriesPageCount={seriesPageCount}
+            />
         </Suspense>
     );
 }

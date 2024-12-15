@@ -22,12 +22,22 @@ interface ICrewPageContentProps {
         reviewsAscOrDesc: string | undefined;
         reviewsPage: number;
         reviewsSortBy: string;
+        producedMoviesPage: number;
+        producedSeriesPage: number;
     };
     crew: any;
-    pageCount: number;
+    reviewsPageCount: number;
+    moviesPageCount: number;
+    seriesPageCount: number;
 }
 
-export default function CrewPageContent({ searchParamsValues, crew, pageCount }: ICrewPageContentProps) {
+export default function CrewPageContent({
+    searchParamsValues,
+    crew,
+    reviewsPageCount,
+    moviesPageCount,
+    seriesPageCount,
+}: ICrewPageContentProps) {
     // #region "Data for the page"
     const {
         session,
@@ -344,13 +354,28 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                 {crew.totalReviews > 0 && (
                     <PaginationControl
                         currentPage={Number(searchParamsValues.reviewsPage)}
-                        pageCount={pageCount}
+                        pageCount={reviewsPageCount}
                         urlParamName="reviewsPage"
                     />
                 )}
             </Box>
-            <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />
-            <ListDetail data={crew.producedSeries} type="crew" roleData="Series" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.producedMoviesPage)}
+                    pageCount={moviesPageCount}
+                    urlParamName="moviesPage"
+                />
+            </Box>
+
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={crew.producedSeries} type="crew" roleData="Series" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.producedSeriesPage)}
+                    pageCount={seriesPageCount}
+                    urlParamName="seriesPage"
+                />
+            </Box>
         </Stack>
     );
 }

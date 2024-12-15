@@ -12,7 +12,13 @@ interface ICrewProps {
     params: {
         crewId: string;
     };
-    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
+    searchParams?: Promise<{
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: string;
+        reviewsSortBy: string;
+        producedMoviesPage: string;
+        producedSeriesPage: string;
+    }>;
 }
 
 export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
@@ -86,10 +92,15 @@ export default async function CrewPageByFullname(props: ICrewProps) {
     const reviewsPage = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const reviewsSortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
 
+    const producedMoviesPage = searchParams?.producedMoviesPage ? Number(searchParams.producedMoviesPage) : 1;
+    const producedSeriesPage = searchParams?.producedSeriesPage ? Number(searchParams.producedSeriesPage) : 1;
+
     const searchParamsValues = {
         reviewsAscOrDesc,
         reviewsPage,
         reviewsSortBy,
+        producedMoviesPage,
+        producedSeriesPage,
         userId: Number(session?.user?.id),
     };
 
@@ -101,11 +112,20 @@ export default async function CrewPageByFullname(props: ICrewProps) {
         return notFound();
     }
 
-    const pageCountReviews = Math.ceil(crew.totalReviews / 5);
+    const perPage = 6;
+    const reviewsPageCount = Math.ceil(crew.totalReviews / 5);
+    const moviesPageCount = Math.ceil(crew.totalMovies / perPage);
+    const seriesPageCount = Math.ceil(crew.totalSeries / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <CrewPageContent searchParamsValues={searchParamsValues} crew={crew} pageCount={pageCountReviews} />
+            <CrewPageContent
+                searchParamsValues={searchParamsValues}
+                crew={crew}
+                reviewsPageCount={reviewsPageCount}
+                moviesPageCount={moviesPageCount}
+                seriesPageCount={seriesPageCount}
+            />
         </Suspense>
     );
 }

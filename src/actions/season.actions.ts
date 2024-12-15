@@ -363,11 +363,11 @@ export async function getLatestSeasons(serieId: number): Promise<Season[] | null
 }
 
 export async function getRelatedSeasons(
-    seasonId: number, 
+    seasonId: number,
     serieId: number,
     page: number = 1,
-    perPage: number = 6
-): Promise<{seasons: Season[] | null, count: number}> {
+    perPage: number = 6,
+): Promise<{ seasons: Season[] | null; count: number }> {
     const skip = (page - 1) * perPage;
 
     const season = await prisma.season.findFirst({
@@ -380,11 +380,11 @@ export async function getRelatedSeasons(
         where: { NOT: { id: season?.id }, AND: [{ serieId }] },
         include: { episodes: true },
         skip,
-        take: perPage
+        take: perPage,
     });
 
     const totalCount = await prisma.season.count({
-        where: { NOT: { id: season?.id }, AND: [{ serieId }] }
+        where: { NOT: { id: season?.id }, AND: [{ serieId }] },
     });
 
     if (!seasons.length) {
@@ -423,7 +423,7 @@ export async function getRelatedSeasons(
 
     return {
         seasons: seasonsFinal.length > 0 ? seasonsFinal : null,
-        count: totalCount
+        count: totalCount,
     };
 }
 // #endregion

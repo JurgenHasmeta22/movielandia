@@ -36,7 +36,7 @@ export default function EpisodePage({
     episode,
     relatedEpisodes,
     reviewsPageCount,
-    relatedPageCount
+    relatedPageCount,
 }: IEpisodePageContentProps) {
     // #region "Data for the page"
     const {

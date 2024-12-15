@@ -22,12 +22,22 @@ interface IActorPageContentProps {
         reviewsAscOrDesc: string | undefined;
         reviewsPage: number;
         reviewsSortBy: string;
+        starredMoviesPage: number;
+        starredSeriesPage: number;
     };
     actor: any;
-    pageCount: number;
+    reviewsPageCount: number;
+    moviesPageCount: number;
+    seriesPageCount: number;
 }
 
-export default function ActorPageContent({ searchParamsValues, actor, pageCount }: IActorPageContentProps) {
+export default function ActorPageContent({
+    searchParamsValues,
+    actor,
+    reviewsPageCount,
+    moviesPageCount,
+    seriesPageCount,
+}: IActorPageContentProps) {
     // #region "Data for the page"
     const {
         session,
@@ -344,13 +354,27 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                 {actor.totalReviews > 0 && (
                     <PaginationControl
                         currentPage={Number(searchParamsValues.reviewsPage)}
-                        pageCount={pageCount}
+                        pageCount={reviewsPageCount}
                         urlParamName="reviewsPage"
                     />
                 )}
             </Box>
-            <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />
-            <ListDetail data={actor.starredSeries} type="actor" roleData="Series" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.starredMoviesPage)}
+                    pageCount={moviesPageCount}
+                    urlParamName="moviesPage"
+                />
+            </Box>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={actor.starredSeries} type="actor" roleData="Series" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.starredSeriesPage)}
+                    pageCount={seriesPageCount}
+                    urlParamName="seriesPage"
+                />
+            </Box>
         </Stack>
     );
 }
