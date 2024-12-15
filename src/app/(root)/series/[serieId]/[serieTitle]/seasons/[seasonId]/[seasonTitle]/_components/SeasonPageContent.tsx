@@ -20,22 +20,23 @@ import { removeUpvoteSeasonReview, addUpvoteSeasonReview } from "@/actions/user/
 
 interface ISeasonPageContentProps {
     searchParamsValues: {
-        ascOrDesc: string | undefined;
-        page: number;
-        sortBy: string;
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: number;
+        reviewsSortBy: string;
+        episodesPage: number;
     };
     season: any;
-    latestSeasons: Season[] | null;
     relatedSeasons: Season[] | null;
-    pageCount: number;
+    reviewsPageCount: number;
+    episodesPageCount: number;
 }
 
 export default function SeasonPageConent({
     searchParamsValues,
     season,
-    latestSeasons,
     relatedSeasons,
-    pageCount,
+    reviewsPageCount,
+    episodesPageCount,
 }: ISeasonPageContentProps) {
     // #region "Data for the page"
     const {
@@ -309,8 +310,8 @@ export default function SeasonPageConent({
                     <ReviewsHeader
                         data={season}
                         sortingDataType="reviews"
-                        sortBy={searchParamsValues.sortBy!}
-                        ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortBy={searchParamsValues.reviewsSortBy!}
+                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                     />
                 )}
                 {season.reviews!.map(
@@ -351,12 +352,18 @@ export default function SeasonPageConent({
                     />
                 )}
                 {season.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                    <PaginationControl currentPage={Number(searchParamsValues.reviewsPage)!} pageCount={reviewsPageCount} />
                 )}
             </Box>
-            <ListDetail data={latestSeasons!} type="season" roleData="latest" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={season.episodes} type="episode" roleData="episode" />
+                <PaginationControl
+                    currentPage={Number(searchParamsValues.episodesPage)}
+                    pageCount={episodesPageCount}
+                    urlParamName="episodesPage"
+                />
+            </Box>
             <ListDetail data={relatedSeasons!} type="season" roleData="related" />
-            <ListDetail data={season.episodes} type="episode" roleData="episode" />
         </Stack>
     );
 }

@@ -124,13 +124,13 @@ export async function getMovies(): Promise<any | null> {
 }
 
 export async function getMovieById(movieId: number, queryParams: any): Promise<Movie | any | null> {
-    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const { page, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
+    if (reviewsSortBy && reviewsAscOrDesc) {
+        orderByObject[reviewsSortBy] = reviewsAscOrDesc;
     } else {
         orderByObject["createdAt"] = "desc";
     }
@@ -228,7 +228,7 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
                     AND: [{ userId }, { movieId: movie.id }],
                 },
             });
-            
+
             isReviewed = !!existingReview;
         }
 

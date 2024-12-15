@@ -74,23 +74,20 @@ export async function getEpisodes(): Promise<any | null> {
 }
 
 export async function getEpisodeById(episodeId: number, queryParams: any): Promise<Episode | any | null> {
-    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
-
-    const skip = page ? (page - 1) * 5 : 0;
+    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
+    if (reviewsSortBy && reviewsAscOrDesc) {
+        orderByObject[reviewsSortBy] = reviewsAscOrDesc;
     } else {
         orderByObject["createdAt"] = "desc";
     }
 
     try {
         const episode = await prisma.episode.findFirst({
-            where: {
-                id: episodeId,
-            },
+            where: { id: episodeId },
             include: {
                 season: true,
                 reviews: {
@@ -118,67 +115,69 @@ export async function getEpisodeById(episodeId: number, queryParams: any): Promi
             },
         });
 
-        if (episode) {
-            const totalReviews = await prisma.episodeReview.count({
-                where: { episodeId: episode.id },
-            });
-
-            const ratings = await prisma.episodeReview.findMany({
-                where: { episodeId: episode.id },
-                select: { rating: true },
-            });
-
-            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
-            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
-
-            let isBookmarked = false;
-            let isReviewed = false;
-
-            if (userId) {
-                for (const review of episode.reviews) {
-                    const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
-                        },
-                    });
-
-                    const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
-                        },
-                    });
-
-                    // @ts-expect-error type
-                    review.isUpvoted = !!existingUpvote;
-
-                    // @ts-expect-error type
-                    review.isDownvoted = !!existingDownvote;
-                }
-
-                const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
-                    where: {
-                        AND: [{ userId }, { episodeId: episode.id }],
-                    },
-                });
-                isBookmarked = !!existingFavorite;
-
-                const existingReview = await prisma.episodeReview.findFirst({
-                    where: {
-                        AND: [{ userId }, { episodeId: episode.id }],
-                    },
-                });
-                isReviewed = !!existingReview;
-            }
-
-            return {
-                ...episode,
-                averageRating,
-                totalReviews,
-                ...(userId && { isBookmarked, isReviewed }),
-            };
-        } else {
+        if (!episode) {
             throw new Error("Episode not found");
         }
+
+        const totalReviews = await prisma.episodeReview.count({
+            where: { episodeId: episode.id },
+        });
+
+        const ratings = await prisma.episodeReview.findMany({
+            where: { episodeId: episode.id },
+            select: { rating: true },
+        });
+
+        const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+        const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+        let isBookmarked = false;
+        let isReviewed = false;
+
+        if (userId) {
+            for (const review of episode.reviews) {
+                const existingUpvote = await prisma.upvoteEpisodeReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                    },
+                });
+
+                const existingDownvote = await prisma.downvoteEpisodeReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { episodeId: episode.id }, { episodeReviewId: review.id }],
+                    },
+                });
+
+                // @ts-expect-error type
+                review.isUpvoted = !!existingUpvote;
+
+                // @ts-expect-error type
+                review.isDownvoted = !!existingDownvote;
+            }
+
+            const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { episodeId: episode.id }],
+                },
+            });
+
+            isBookmarked = !!existingFavorite;
+
+            const existingReview = await prisma.episodeReview.findFirst({
+                where: {
+                    AND: [{ userId }, { episodeId: episode.id }],
+                },
+            });
+            
+            isReviewed = !!existingReview;
+        }
+
+        return {
+            ...episode,
+            averageRating,
+            totalReviews,
+            ...(userId && { isBookmarked, isReviewed }),
+        };
     } catch (error) {
         throw new Error("Episode not found");
     }
