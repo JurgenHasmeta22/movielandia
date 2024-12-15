@@ -128,8 +128,8 @@ export async function getSeries(): Promise<any | null> {
 }
 
 export async function getSerieById(id: number, queryParams: any): Promise<Serie | any | null> {
-    const { page, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
-    const skip = page ? (page - 1) * 5 : 0;
+    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
 

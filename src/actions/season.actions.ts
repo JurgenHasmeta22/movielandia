@@ -362,7 +362,14 @@ export async function getLatestSeasons(serieId: number): Promise<Season[] | null
     }
 }
 
-export async function getRelatedSeasons(seasonId: number, serieId: number): Promise<Season[] | null> {
+export async function getRelatedSeasons(
+    seasonId: number, 
+    serieId: number,
+    page: number = 1,
+    perPage: number = 6
+): Promise<{seasons: Season[] | null, count: number}> {
+    const skip = (page - 1) * perPage;
+
     const season = await prisma.season.findFirst({
         where: {
             AND: [{ id: seasonId }, { serieId }],
@@ -372,16 +379,22 @@ export async function getRelatedSeasons(seasonId: number, serieId: number): Prom
     const seasons = await prisma.season.findMany({
         where: { NOT: { id: season?.id }, AND: [{ serieId }] },
         include: { episodes: true },
+        skip,
+        take: perPage
+    });
+
+    const totalCount = await prisma.season.count({
+        where: { NOT: { id: season?.id }, AND: [{ serieId }] }
     });
 
     if (!seasons.length) {
-        return null;
+        return { seasons: null, count: 0 };
     }
 
     const relatedSeasonIds = seasons.map((rm) => rm.id);
 
     if (!relatedSeasonIds.length) {
-        return null;
+        return { seasons: null, count: 0 };
     }
 
     const seasonRatings = await prisma.seasonReview.groupBy({
@@ -397,7 +410,6 @@ export async function getRelatedSeasons(seasonId: number, serieId: number): Prom
                 averageRating: rating._avg.rating || 0,
                 totalReviews: rating._count.rating,
             };
-
             return acc;
         },
         {} as { [key: number]: { averageRating: number; totalReviews: number } },
@@ -406,11 +418,13 @@ export async function getRelatedSeasons(seasonId: number, serieId: number): Prom
     const seasonsFinal = seasons.map((relatedSeason) => {
         const { episodes, ...seasonDetails } = relatedSeason;
         const ratingsInfo = ratingsMap[relatedSeason.id] || { averageRating: 0, totalReviews: 0 };
-
         return { ...seasonDetails, episodes, ...ratingsInfo };
     });
 
-    return seasonsFinal.length > 0 ? seasonsFinal : null;
+    return {
+        seasons: seasonsFinal.length > 0 ? seasonsFinal : null,
+        count: totalCount
+    };
 }
 // #endregion
 

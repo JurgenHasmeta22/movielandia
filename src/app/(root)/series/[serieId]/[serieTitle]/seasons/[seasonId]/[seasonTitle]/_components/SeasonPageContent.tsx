@@ -24,19 +24,22 @@ interface ISeasonPageContentProps {
         reviewsPage: number;
         reviewsSortBy: string;
         episodesPage: number;
+        relatedPage: number;
     };
     season: any;
     relatedSeasons: Season[] | null;
     reviewsPageCount: number;
     episodesPageCount: number;
+    relatedPageCount: number;
 }
 
-export default function SeasonPageConent({
+export default function SeasonPageContent({
     searchParamsValues,
     season,
     relatedSeasons,
     reviewsPageCount,
     episodesPageCount,
+    relatedPageCount
 }: ISeasonPageContentProps) {
     // #region "Data for the page"
     const {
@@ -366,7 +369,16 @@ export default function SeasonPageConent({
                     urlParamName="episodesPage"
                 />
             </Box>
-            <ListDetail data={relatedSeasons!} type="season" roleData="related" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={relatedSeasons!} type="season" roleData="related" />
+                {relatedSeasons && (
+                    <PaginationControl
+                        currentPage={searchParamsValues.relatedPage}
+                        pageCount={relatedPageCount}
+                        urlParamName="relatedPage"
+                    />
+                )}
+            </Box>
         </Stack>
     );
 }

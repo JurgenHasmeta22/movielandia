@@ -18,6 +18,7 @@ interface ISeasonProps {
         reviewsPage: string;
         reviewsSortBy: string;
         episodesPage?: string;
+        relatedPage?: string;
     };
 }
 
@@ -91,6 +92,7 @@ export default async function SeasonPageByTitle(props: ISeasonProps) {
 
     const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const episodesPage = searchParams?.episodesPage ? Number(searchParams.episodesPage) : 1;
+    const relatedPage = searchParams?.relatedPage ? Number(searchParams.relatedPage) : 1;
 
     const searchParamsValues = {
         reviewsAscOrDesc,
@@ -108,11 +110,16 @@ export default async function SeasonPageByTitle(props: ISeasonProps) {
         return notFound();
     }
 
-    const relatedSeasons = await getRelatedSeasons(Number(seasonId), Number(serieId));
+    const { seasons: relatedSeasons, count: totalRelated } = await getRelatedSeasons(
+        Number(seasonId), 
+        Number(serieId),
+        relatedPage
+    );
 
     const perPage = 6;
     const pageCountReviews = Math.ceil(season.totalReviews / 5);
     const episodesPageCount = Math.ceil(season.totalEpisodes / perPage);
+    const relatedPageCount = Math.ceil(totalRelated / 6);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -122,11 +129,13 @@ export default async function SeasonPageByTitle(props: ISeasonProps) {
                     reviewsPage: Number(reviewsPage),
                     reviewsSortBy,
                     episodesPage: Number(episodesPage),
+                    relatedPage
                 }}
                 season={season}
                 relatedSeasons={relatedSeasons}
                 reviewsPageCount={pageCountReviews}
                 episodesPageCount={episodesPageCount}
+                relatedPageCount={relatedPageCount}
             />
         </Suspense>
     );

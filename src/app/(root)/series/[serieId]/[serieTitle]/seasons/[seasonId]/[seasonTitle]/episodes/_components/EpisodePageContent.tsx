@@ -23,10 +23,12 @@ interface IEpisodePageContentProps {
         reviewsAscOrDesc: string | undefined;
         reviewsPage: number;
         reviewsSortBy: string;
+        relatedPage: number;
     };
     episode: any;
     relatedEpisodes: Episode[] | null;
     reviewsPageCount: number;
+    relatedPageCount: number;
 }
 
 export default function EpisodePage({
@@ -34,6 +36,7 @@ export default function EpisodePage({
     episode,
     relatedEpisodes,
     reviewsPageCount,
+    relatedPageCount
 }: IEpisodePageContentProps) {
     // #region "Data for the page"
     const {
@@ -356,7 +359,16 @@ export default function EpisodePage({
                     />
                 )}
             </Box>
-            <ListDetail data={relatedEpisodes!} type="episode" roleData="related" />
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <ListDetail data={relatedEpisodes!} type="episode" roleData="related" />
+                {relatedEpisodes && (
+                    <PaginationControl
+                        currentPage={searchParamsValues.relatedPage}
+                        pageCount={relatedPageCount}
+                        urlParamName="relatedPage"
+                    />
+                )}
+            </Box>
         </Stack>
     );
 }

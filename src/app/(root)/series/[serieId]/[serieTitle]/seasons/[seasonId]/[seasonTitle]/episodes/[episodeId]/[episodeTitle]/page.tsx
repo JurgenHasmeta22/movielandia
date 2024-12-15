@@ -17,6 +17,7 @@ interface IEpisodeProps {
         reviewsAscOrDesc: string | undefined;
         reviewsPage: string;
         reviewsSortBy: string;
+        relatedPage?: string;
     };
 }
 
@@ -88,6 +89,7 @@ export default async function EpisodePageByTitle(props: IEpisodeProps) {
     const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;
     const reviewsSortBy = searchParams?.reviewsSortBy || "";
     const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const relatedPage = searchParams?.relatedPage ? Number(searchParams.relatedPage) : 1;
 
     const searchParamsValues = {
         reviewsAscOrDesc,
@@ -104,8 +106,14 @@ export default async function EpisodePageByTitle(props: IEpisodeProps) {
         return notFound();
     }
 
-    const relatedEpisodes = await getRelatedEpisodes(Number(episodeId), Number(seasonId));
+    const { episodes: relatedEpisodes, count: totalRelated } = await getRelatedEpisodes(
+        Number(episodeId), 
+        Number(seasonId),
+        relatedPage
+    );
+
     const pageCountReviews = Math.ceil(episode.totalReviews / 5);
+    const relatedPageCount = Math.ceil(totalRelated / 6);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -114,10 +122,12 @@ export default async function EpisodePageByTitle(props: IEpisodeProps) {
                     reviewsAscOrDesc,
                     reviewsPage: Number(reviewsPage),
                     reviewsSortBy,
+                    relatedPage
                 }}
                 episode={episode}
                 relatedEpisodes={relatedEpisodes}
                 reviewsPageCount={pageCountReviews}
+                relatedPageCount={relatedPageCount}
             />
         </Suspense>
     );

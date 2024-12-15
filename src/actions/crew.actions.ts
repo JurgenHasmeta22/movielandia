@@ -112,14 +112,14 @@ export async function getCrewMembersWithFilters(
 }
 
 export async function getCrewMemberById(crewId: number, queryParams: any): Promise<Crew | any | null> {
-    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
 
-    const skip = page ? (page - 1) * 5 : 0;
+    const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
+    if (reviewsSortBy && reviewsAscOrDesc) {
+        orderByObject[reviewsSortBy] = reviewsAscOrDesc;
     } else {
         orderByObject["createdAt"] = "desc";
     }
