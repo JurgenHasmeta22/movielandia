@@ -82,14 +82,14 @@ export default async function CrewPageByFullname(props: ICrewProps) {
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
-    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
-    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
-    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+    const reviewsAscOrDesc = searchParams && searchParams.reviewsAscOrDesc;
+    const reviewsPage = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const reviewsSortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
 
     const searchParamsValues = {
-        ascOrDesc,
-        page,
-        sortBy,
+        reviewsAscOrDesc,
+        reviewsPage,
+        reviewsSortBy,
         userId: Number(session?.user?.id),
     };
 

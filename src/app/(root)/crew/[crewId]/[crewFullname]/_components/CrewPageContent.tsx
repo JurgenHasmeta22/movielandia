@@ -19,9 +19,9 @@ import { removeUpvoteCrewReview, addUpvoteCrewReview } from "@/actions/user/user
 
 interface ICrewPageContentProps {
     searchParamsValues: {
-        ascOrDesc: string | undefined;
-        pageCrews: number;
-        sortBy: string;
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: number;
+        reviewsSortBy: string;
     };
     crew: any;
     pageCount: number;
@@ -299,8 +299,8 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                 {crew.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={crew}
-                        sortBy={searchParamsValues.sortBy!}
-                        ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortBy={searchParamsValues.reviewsSortBy!}
+                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                         sortingDataType="reviews"
                     />
                 )}
@@ -343,9 +343,9 @@ export default function CrewPageContent({ searchParamsValues, crew, pageCount }:
                 )}
                 {crew.totalReviews > 0 && (
                     <PaginationControl
-                        currentPage={Number(searchParamsValues.pageCrews)}
+                        currentPage={Number(searchParamsValues.reviewsPage)}
                         pageCount={pageCount}
-                        urlParamName="pageCrews"
+                        urlParamName="reviewsPage"
                     />
                 )}
             </Box>

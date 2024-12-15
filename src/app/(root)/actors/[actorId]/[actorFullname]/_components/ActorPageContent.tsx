@@ -19,9 +19,9 @@ import { removeUpvoteActorReview, addUpvoteActorReview } from "@/actions/user/us
 
 interface IActorPageContentProps {
     searchParamsValues: {
-        ascOrDesc: string | undefined;
-        pageActors: number;
-        sortBy: string;
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: number;
+        reviewsSortBy: string;
     };
     actor: any;
     pageCount: number;
@@ -299,8 +299,8 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                 {actor.reviews!.length > 0 && (
                     <ReviewsHeader
                         data={actor}
-                        sortBy={searchParamsValues.sortBy!}
-                        ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortBy={searchParamsValues.reviewsSortBy!}
+                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                         sortingDataType="reviews"
                     />
                 )}
@@ -343,9 +343,9 @@ export default function ActorPageContent({ searchParamsValues, actor, pageCount 
                 )}
                 {actor.totalReviews > 0 && (
                     <PaginationControl
-                        currentPage={Number(searchParamsValues.pageActors)}
+                        currentPage={Number(searchParamsValues.reviewsPage)}
                         pageCount={pageCount}
-                        urlParamName="pageActors"
+                        urlParamName="reviewsPage"
                     />
                 )}
             </Box>
