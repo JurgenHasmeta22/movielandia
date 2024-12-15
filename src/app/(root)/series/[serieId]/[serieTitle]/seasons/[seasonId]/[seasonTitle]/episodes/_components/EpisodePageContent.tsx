@@ -20,22 +20,20 @@ import { removeUpvoteEpisodeReview, addUpvoteEpisodeReview } from "@/actions/use
 
 interface IEpisodePageContentProps {
     searchParamsValues: {
-        ascOrDesc: string | undefined;
-        page: number;
-        sortBy: string;
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: number;
+        reviewsSortBy: string;
     };
     episode: any;
-    latestEpisodes: Episode[] | null;
     relatedEpisodes: Episode[] | null;
-    pageCount: number;
+    reviewsPageCount: number;
 }
 
 export default function EpisodePage({
     searchParamsValues,
     episode,
-    latestEpisodes,
     relatedEpisodes,
-    pageCount,
+    reviewsPageCount,
 }: IEpisodePageContentProps) {
     // #region "Data for the page"
     const {
@@ -309,8 +307,8 @@ export default function EpisodePage({
                     <ReviewsHeader
                         data={episode}
                         sortingDataType="reviews"
-                        sortBy={searchParamsValues.sortBy!}
-                        ascOrDesc={searchParamsValues.ascOrDesc!}
+                        sortBy={searchParamsValues.reviewsSortBy!}
+                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                     />
                 )}
                 {episode.reviews!.map(
@@ -351,10 +349,13 @@ export default function EpisodePage({
                     />
                 )}
                 {episode.totalReviews > 0 && (
-                    <PaginationControl currentPage={Number(searchParamsValues.page)!} pageCount={pageCount} />
+                    <PaginationControl
+                        currentPage={Number(searchParamsValues.reviewsPage)}
+                        pageCount={reviewsPageCount}
+                        urlParamName="reviewsPage"
+                    />
                 )}
             </Box>
-            <ListDetail data={latestEpisodes!} type="episode" roleData="latest" />
             <ListDetail data={relatedEpisodes!} type="episode" roleData="related" />
         </Stack>
     );

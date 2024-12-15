@@ -81,25 +81,25 @@ export async function getSeasons(): Promise<any | null> {
 }
 
 export async function getSeasonById(seasonId: number, queryParams: any): Promise<Season | any | null> {
-    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
-
-    const skip = page ? (page - 1) * 5 : 0;
+    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId, episodesPage } = queryParams;
+    const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
+    if (reviewsSortBy && reviewsAscOrDesc) {
+        orderByObject[reviewsSortBy] = reviewsAscOrDesc;
     } else {
         orderByObject["createdAt"] = "desc";
     }
 
     try {
         const season = await prisma.season.findFirst({
-            where: {
-                id: seasonId,
-            },
+            where: { id: seasonId },
             include: {
-                episodes: true,
+                episodes: {
+                    skip: episodesPage ? (episodesPage - 1) * 5 : 0,
+                    take: 6,
+                },
                 reviews: {
                     include: {
                         user: true,
@@ -125,67 +125,71 @@ export async function getSeasonById(seasonId: number, queryParams: any): Promise
             },
         });
 
-        if (season) {
-            const totalReviews = await prisma.seasonReview.count({
-                where: { seasonId: season.id },
-            });
-
-            const ratings = await prisma.seasonReview.findMany({
-                where: { seasonId: season.id },
-                select: { rating: true },
-            });
-
-            const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
-            const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
-
-            let isBookmarked = false;
-            let isReviewed = false;
-
-            if (userId) {
-                for (const review of season.reviews) {
-                    const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
-                        },
-                    });
-
-                    const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
-                        where: {
-                            AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
-                        },
-                    });
-
-                    // @ts-expect-error type
-                    review.isUpvoted = !!existingUpvote;
-
-                    // @ts-expect-error type
-                    review.isDownvoted = !!existingDownvote;
-                }
-
-                const existingFavorite = await prisma.userSeasonFavorite.findFirst({
-                    where: {
-                        AND: [{ userId }, { seasonId: season.id }],
-                    },
-                });
-                isBookmarked = !!existingFavorite;
-
-                const existingReview = await prisma.seasonReview.findFirst({
-                    where: {
-                        AND: [{ userId }, { seasonId: season.id }],
-                    },
-                });
-                isReviewed = !!existingReview;
-            }
-
-            return {
-                ...season,
-                averageRating,
-                totalReviews,
-                ...(userId && { isBookmarked, isReviewed }),
-            };
-        } else {
+        if (!season) {
             throw new Error("Season not found");
         }
+
+        const [totalReviews, totalEpisodes] = await Promise.all([
+            prisma.seasonReview.count({ where: { seasonId: season.id } }),
+            prisma.episode.count({ where: { seasonId: season.id } }),
+        ]);
+
+        const ratings = await prisma.seasonReview.findMany({
+            where: { seasonId: season.id },
+            select: { rating: true },
+        });
+
+        const totalRating = ratings.reduce((sum, review) => sum + review!.rating!, 0);
+        const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+        let isBookmarked = false;
+        let isReviewed = false;
+
+        if (userId) {
+            for (const review of season.reviews) {
+                const existingUpvote = await prisma.upvoteSeasonReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
+                    },
+                });
+
+                const existingDownvote = await prisma.downvoteSeasonReview.findFirst({
+                    where: {
+                        AND: [{ userId }, { seasonId: season.id }, { seasonReviewId: review.id }],
+                    },
+                });
+
+                // @ts-expect-error type
+                review.isUpvoted = !!existingUpvote;
+
+                // @ts-expect-error type
+                review.isDownvoted = !!existingDownvote;
+            }
+
+            const existingFavorite = await prisma.userSeasonFavorite.findFirst({
+                where: {
+                    AND: [{ userId }, { seasonId: season.id }],
+                },
+            });
+            
+            isBookmarked = !!existingFavorite;
+
+            const existingReview = await prisma.seasonReview.findFirst({
+                where: {
+                    AND: [{ userId }, { seasonId: season.id }],
+                },
+            });
+
+            isReviewed = !!existingReview;
+        }
+
+        return {
+            ...season,
+            averageRating,
+            totalReviews,
+            totalEpisodes,
+            ...(userId && { isBookmarked, isReviewed }),
+        };
     } catch (error) {
         throw new Error("Season not found");
     }

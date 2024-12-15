@@ -2,20 +2,26 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getLatestSeasons, getRelatedSeasons, getSeasonById } from "@/actions/season.actions";
+import { getRelatedSeasons, getSeasonById } from "@/actions/season.actions";
 import { Season } from "@prisma/client";
-import SeasonPageConent from "./_components/SeasonPageContent";
+import SeasonPageContent from "./_components/SeasonPageContent";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { Suspense } from "react";
 
 interface ISeasonProps {
     params: {
         seasonId: string;
         serieId: string;
     };
-    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
+    searchParams?: {
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: string;
+        reviewsSortBy: string;
+        episodesPage?: string;
+    };
 }
 
-export async function generateMetadata(props: ISeasonProps): Promise<Metadata> {
-    const params = props.params;
+export async function generateMetadata({ params }: ISeasonProps): Promise<Metadata> {
     const { seasonId } = params;
 
     let season: Season;
@@ -27,7 +33,6 @@ export async function generateMetadata(props: ISeasonProps): Promise<Metadata> {
     }
 
     const { description, photoSrcProd } = season;
-
     const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/seasons/${season.title}`;
 
     return {
@@ -78,18 +83,24 @@ export default async function SeasonPage(props: ISeasonProps) {
     const params = props.params;
     const { seasonId, serieId } = params;
 
-    const searchParams = await props.searchParams;
-    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
-    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
-    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+    const searchParams = props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
+
+    const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;
+    const reviewsSortBy = searchParams?.reviewsSortBy || "";
+
+    const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+    const episodesPage = searchParams?.episodesPage ? Number(searchParams.episodesPage) : 1;
+
     const searchParamsValues = {
-        ascOrDesc,
-        page,
-        sortBy,
+        reviewsAscOrDesc,
+        reviewsPage,
+        reviewsSortBy,
+        episodesPage,
         userId: Number(session?.user?.id),
     };
 
-    let season;
+    let season = null;
 
     try {
         season = await getSeasonById(Number(seasonId), searchParamsValues);
@@ -97,17 +108,26 @@ export default async function SeasonPage(props: ISeasonProps) {
         return notFound();
     }
 
-    const latestSeasons = await getLatestSeasons(Number(serieId));
     const relatedSeasons = await getRelatedSeasons(Number(seasonId), Number(serieId));
+
+    const perPage = 6;
     const pageCountReviews = Math.ceil(season.totalReviews / 5);
+    const episodesPageCount = Math.ceil(season.totalEpisodes / perPage);
 
     return (
-        <SeasonPageConent
-            searchParamsValues={searchParamsValues}
-            season={season}
-            latestSeasons={latestSeasons}
-            relatedSeasons={relatedSeasons}
-            pageCount={pageCountReviews}
-        />
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <SeasonPageContent
+                searchParamsValues={{
+                    reviewsAscOrDesc,
+                    reviewsPage: Number(reviewsPage),
+                    reviewsSortBy,
+                    episodesPage: Number(episodesPage),
+                }}
+                season={season}
+                relatedSeasons={relatedSeasons}
+                reviewsPageCount={pageCountReviews}
+                episodesPageCount={episodesPageCount}
+            />
+        </Suspense>
     );
 }

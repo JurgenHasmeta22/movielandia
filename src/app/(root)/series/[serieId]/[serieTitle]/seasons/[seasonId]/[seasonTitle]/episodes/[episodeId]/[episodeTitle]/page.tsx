@@ -2,8 +2,10 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getEpisodeById, getLatestEpisodes, getRelatedEpisodes } from "@/actions/episode.actions";
+import { getEpisodeById, getRelatedEpisodes } from "@/actions/episode.actions";
 import { Episode } from "@prisma/client";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import { Suspense } from "react";
 import EpisodePageContent from "../../_components/EpisodePageContent";
 
 interface IEpisodeProps {
@@ -11,11 +13,14 @@ interface IEpisodeProps {
         episodeId: string;
         seasonId: string;
     };
-    searchParams?: Promise<{ reviewsAscOrDesc: string | undefined; reviewsPage: number; reviewsSortBy: string }>;
+    searchParams?: {
+        reviewsAscOrDesc: string | undefined;
+        reviewsPage: string;
+        reviewsSortBy: string;
+    };
 }
 
-export async function generateMetadata(props: IEpisodeProps): Promise<Metadata> {
-    const params = props.params;
+export async function generateMetadata({ params }: IEpisodeProps): Promise<Metadata> {
     const { episodeId } = params;
 
     let episode: Episode;
@@ -27,7 +32,6 @@ export async function generateMetadata(props: IEpisodeProps): Promise<Metadata> 
     }
 
     const { description, photoSrcProd } = episode;
-
     const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/episodes/${episode.title}`;
 
     return {
@@ -78,18 +82,21 @@ export default async function EpisodePage(props: IEpisodeProps) {
     const params = props.params;
     const { episodeId, seasonId } = params;
 
-    const searchParams = await props.searchParams;
-    const ascOrDesc = searchParams && searchParams.reviewsAscOrDesc;
-    const page = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
-    const sortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+    const searchParams = props.searchParams;
+    const searchParamsKey = JSON.stringify(searchParams);
+
+    const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;
+    const reviewsSortBy = searchParams?.reviewsSortBy || "";
+    const reviewsPage = searchParams?.reviewsPage ? Number(searchParams.reviewsPage) : 1;
+
     const searchParamsValues = {
-        ascOrDesc,
-        page,
-        sortBy,
+        reviewsAscOrDesc,
+        reviewsPage,
+        reviewsSortBy,
         userId: Number(session?.user?.id),
     };
 
-    let episode;
+    let episode = null;
 
     try {
         episode = await getEpisodeById(Number(episodeId), searchParamsValues);
@@ -97,17 +104,21 @@ export default async function EpisodePage(props: IEpisodeProps) {
         return notFound();
     }
 
-    const latestEpisodes = await getLatestEpisodes(Number(seasonId));
     const relatedEpisodes = await getRelatedEpisodes(Number(episodeId), Number(seasonId));
     const pageCountReviews = Math.ceil(episode.totalReviews / 5);
 
     return (
-        <EpisodePageContent
-            searchParamsValues={searchParamsValues}
-            episode={episode}
-            latestEpisodes={latestEpisodes}
-            relatedEpisodes={relatedEpisodes}
-            pageCount={pageCountReviews}
-        />
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <EpisodePageContent
+                searchParamsValues={{
+                    reviewsAscOrDesc,
+                    reviewsPage: Number(reviewsPage),
+                    reviewsSortBy,
+                }}
+                episode={episode}
+                relatedEpisodes={relatedEpisodes}
+                reviewsPageCount={pageCountReviews}
+            />
+        </Suspense>
     );
 }

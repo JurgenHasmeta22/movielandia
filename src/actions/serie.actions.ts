@@ -128,13 +128,13 @@ export async function getSeries(): Promise<any | null> {
 }
 
 export async function getSerieById(id: number, queryParams: any): Promise<Serie | any | null> {
-    const { page, ascOrDesc, sortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const { page, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
     const skip = page ? (page - 1) * 5 : 0;
     const take = 5;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
+    if (reviewsSortBy && reviewsAscOrDesc) {
+        orderByObject[reviewsSortBy] = reviewsAscOrDesc;
     } else {
         orderByObject["createdAt"] = "desc";
     }
@@ -228,7 +228,7 @@ export async function getSerieById(id: number, queryParams: any): Promise<Serie 
                     AND: [{ userId }, { serieId: serie.id }],
                 },
             });
-            
+
             isBookmarked = !!existingFavorite;
 
             const existingReview = await prisma.serieReview.findFirst({
