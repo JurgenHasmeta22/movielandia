@@ -107,9 +107,9 @@ export default async function EpisodePageByTitle(props: IEpisodeProps) {
     }
 
     const { episodes: relatedEpisodes, count: totalRelated } = await getRelatedEpisodes(
-        Number(episodeId), 
+        Number(episodeId),
         Number(seasonId),
-        relatedPage
+        relatedPage,
     );
 
     const pageCountReviews = Math.ceil(episode.totalReviews / 5);
@@ -122,7 +122,7 @@ export default async function EpisodePageByTitle(props: IEpisodeProps) {
                     reviewsAscOrDesc,
                     reviewsPage: Number(reviewsPage),
                     reviewsSortBy,
-                    relatedPage
+                    relatedPage,
                 }}
                 episode={episode}
                 relatedEpisodes={relatedEpisodes}

@@ -112,7 +112,16 @@ export async function getCrewMembersWithFilters(
 }
 
 export async function getCrewMemberById(crewId: number, queryParams: any): Promise<Crew | any | null> {
-    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const {
+        reviewsPage,
+        reviewsAscOrDesc,
+        reviewsSortBy,
+        upvotesPage,
+        downvotesPage,
+        userId,
+        producedMoviesPage,
+        producedSeriesPage,
+    } = queryParams;
 
     const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
@@ -130,8 +139,16 @@ export async function getCrewMemberById(crewId: number, queryParams: any): Promi
                 id: crewId,
             },
             include: {
-                producedMovies: { include: { movie: true } },
-                producedSeries: { include: { serie: true } },
+                producedMovies: {
+                    include: { movie: true },
+                    skip: producedMoviesPage ? (producedMoviesPage - 1) * 6 : 0,
+                    take: 6,
+                },
+                producedSeries: {
+                    include: { serie: true },
+                    skip: producedSeriesPage ? (producedSeriesPage - 1) * 6 : 0,
+                    take: 6,
+                },
                 reviews: {
                     include: {
                         user: true,
@@ -209,10 +226,17 @@ export async function getCrewMemberById(crewId: number, queryParams: any): Promi
                 isReviewed = !!existingReview;
             }
 
+            const [totalMovies, totalSeries] = await Promise.all([
+                prisma.crewMovie.count({ where: { crewId: crewMember.id } }),
+                prisma.crewSerie.count({ where: { crewId: crewMember.id } }),
+            ]);
+
             return {
                 ...crewMember,
                 averageRating,
                 totalReviews,
+                totalMovies,
+                totalSeries,
                 ...(userId && { isBookmarked, isReviewed }),
             };
         } else {

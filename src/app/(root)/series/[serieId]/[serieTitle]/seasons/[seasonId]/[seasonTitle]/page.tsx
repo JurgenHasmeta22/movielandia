@@ -111,9 +111,9 @@ export default async function SeasonPageByTitle(props: ISeasonProps) {
     }
 
     const { seasons: relatedSeasons, count: totalRelated } = await getRelatedSeasons(
-        Number(seasonId), 
+        Number(seasonId),
         Number(serieId),
-        relatedPage
+        relatedPage,
     );
 
     const perPage = 6;
@@ -129,7 +129,7 @@ export default async function SeasonPageByTitle(props: ISeasonProps) {
                     reviewsPage: Number(reviewsPage),
                     reviewsSortBy,
                     episodesPage: Number(episodesPage),
-                    relatedPage
+                    relatedPage,
                 }}
                 season={season}
                 relatedSeasons={relatedSeasons}

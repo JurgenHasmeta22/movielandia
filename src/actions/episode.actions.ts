@@ -350,13 +350,13 @@ export async function getLatestEpisodes(seasonId: number): Promise<Episode[] | n
 }
 
 export async function getRelatedEpisodes(
-    id: number, 
+    id: number,
     seasonId: number,
     page: number = 1,
-    perPage: number = 6
-): Promise<{episodes: Episode[] | null, count: number}> {
+    perPage: number = 6,
+): Promise<{ episodes: Episode[] | null; count: number }> {
     const skip = (page - 1) * perPage;
-    
+
     const episode = await prisma.episode.findFirst({
         where: {
             AND: [{ id }, { seasonId }],
@@ -367,11 +367,11 @@ export async function getRelatedEpisodes(
         where: { NOT: { id: episode?.id }, AND: [{ seasonId }] },
         include: { season: true },
         skip,
-        take: perPage
+        take: perPage,
     });
 
     const totalCount = await prisma.episode.count({
-        where: { NOT: { id: episode?.id }, AND: [{ seasonId }] }
+        where: { NOT: { id: episode?.id }, AND: [{ seasonId }] },
     });
 
     if (!episodes.length) {
@@ -406,13 +406,13 @@ export async function getRelatedEpisodes(
     const episodesFinal = episodes.map((relatedEpisode) => {
         const { season, ...episodeDetails } = relatedEpisode;
         const ratingsInfo = ratingsMap[relatedEpisode.id] || { averageRating: 0, totalReviews: 0 };
-        
+
         return { ...episodeDetails, season, ...ratingsInfo };
     });
 
-    return { 
+    return {
         episodes: episodesFinal.length > 0 ? episodesFinal : null,
-        count: totalCount 
+        count: totalCount,
     };
 }
 // #endregion

@@ -39,7 +39,7 @@ export default function SeasonPageContent({
     relatedSeasons,
     reviewsPageCount,
     episodesPageCount,
-    relatedPageCount
+    relatedPageCount,
 }: ISeasonPageContentProps) {
     // #region "Data for the page"
     const {

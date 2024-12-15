@@ -122,7 +122,16 @@ export async function getActors(): Promise<any | null> {
 }
 
 export async function getActorById(actorId: number, queryParams: any): Promise<Actor | any | null> {
-    const { reviewsPage, reviewsAscOrDesc, reviewsSortBy, upvotesPage, downvotesPage, userId } = queryParams;
+    const {
+        reviewsPage,
+        reviewsAscOrDesc,
+        reviewsSortBy,
+        upvotesPage,
+        downvotesPage,
+        userId,
+        starredMoviesPage,
+        starredSeriesPage,
+    } = queryParams;
 
     const skip = reviewsPage ? (reviewsPage - 1) * 5 : 0;
     const take = 5;
@@ -140,8 +149,16 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
                 id: actorId,
             },
             include: {
-                starredMovies: { include: { movie: true } },
-                starredSeries: { include: { serie: true } },
+                starredMovies: {
+                    include: { movie: true },
+                    skip: starredMoviesPage ? (starredMoviesPage - 1) * 6 : 0,
+                    take: 6,
+                },
+                starredSeries: {
+                    include: { serie: true },
+                    skip: starredSeriesPage ? (starredSeriesPage - 1) * 6 : 0,
+                    take: 6,
+                },
                 reviews: {
                     include: {
                         user: true,
@@ -219,10 +236,17 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
                 isReviewed = !!existingReview;
             }
 
+            const [totalMovies, totalSeries] = await Promise.all([
+                prisma.castMovie.count({ where: { actorId: actor.id } }),
+                prisma.castSerie.count({ where: { actorId: actor.id } }),
+            ]);
+
             return {
                 ...actor,
                 averageRating,
                 totalReviews,
+                totalMovies,
+                totalSeries,
                 ...(userId && { isBookmarked, isReviewed }),
             };
         } else {
