@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
@@ -8,13 +7,8 @@ import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import "react-quill-new/dist/quill.snow.css";
 import QuillResizeImage from "quill-resize-image";
-import { Quill } from "react-quill-new";
-
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-
-if (typeof window !== "undefined") {
-    Quill.register("modules/resize", QuillResizeImage);
-}
+import ReactQuill, { Quill } from "react-quill-new";
+import { IS_BROWSER } from "@/utils/helpers/utils";
 
 interface ITextEditorProps {
     value: string;
@@ -28,34 +22,24 @@ interface ITextEditorProps {
 const modules = {
     toolbar: [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
         [{ font: [] }],
         [{ size: ["small", false, "large", "huge"] }],
-
         ["bold", "italic", "underline", "strike"],
         [{ color: [] }, { background: [] }],
-
         [{ align: ["", "center", "right", "justify"] }],
-
         [{ list: "ordered" }, { list: "bullet" }],
         [{ indent: "-1" }, { indent: "+1" }],
-
         [{ script: "sub" }, { script: "super" }],
         ["blockquote", "code-block"],
-
         ["link", "image", "video"],
-
         [{ direction: "rtl" }],
     ],
-
     resize: {
         locale: {},
     },
-
     clipboard: {
         matchVisual: false,
     },
-
     keyboard: {
         bindings: {
             tab: false,
@@ -85,6 +69,10 @@ const formats = [
     "video",
     "direction",
 ];
+
+if (IS_BROWSER) {
+    Quill.register("modules/resize", QuillResizeImage);
+}
 
 const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled }) => {
     const theme = useTheme();
@@ -254,7 +242,6 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     modules={modules}
                     formats={formats}
                     readOnly={isDisabled}
-                    // @ts-expect-error - Quill does not accept ref as a prop
                     ref={ref}
                 />
             </Box>
