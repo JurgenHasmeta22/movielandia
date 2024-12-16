@@ -27,16 +27,16 @@ interface IActorPageContentProps {
     };
     actor: any;
     reviewsPageCount: number;
-    moviesPageCount: number;
-    seriesPageCount: number;
+    starredMoviesPageCount: number;
+    starredSeriesPageCount: number;
 }
 
 export default function ActorPageContent({
     searchParamsValues,
     actor,
     reviewsPageCount,
-    moviesPageCount,
-    seriesPageCount,
+    starredMoviesPageCount,
+    starredSeriesPageCount,
 }: IActorPageContentProps) {
     // #region "Data for the page"
     const {
@@ -363,16 +363,16 @@ export default function ActorPageContent({
                 <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.starredMoviesPage)}
-                    pageCount={moviesPageCount}
-                    urlParamName="moviesPage"
+                    pageCount={starredMoviesPageCount}
+                    urlParamName="starredMoviesPage"
                 />
             </Box>
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <ListDetail data={actor.starredSeries} type="actor" roleData="Series" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.starredSeriesPage)}
-                    pageCount={seriesPageCount}
-                    urlParamName="seriesPage"
+                    pageCount={starredSeriesPageCount}
+                    urlParamName="starredSeriesPage"
                 />
             </Box>
         </Stack>

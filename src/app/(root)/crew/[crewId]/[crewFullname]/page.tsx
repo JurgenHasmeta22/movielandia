@@ -114,8 +114,8 @@ export default async function CrewPageByFullname(props: ICrewProps) {
 
     const perPage = 6;
     const reviewsPageCount = Math.ceil(crew.totalReviews / 5);
-    const moviesPageCount = Math.ceil(crew.totalMovies / perPage);
-    const seriesPageCount = Math.ceil(crew.totalSeries / perPage);
+    const producedMoviesPageCount = Math.ceil(crew.totalMovies / perPage);
+    const producedSeriesPageCount = Math.ceil(crew.totalSeries / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -123,8 +123,8 @@ export default async function CrewPageByFullname(props: ICrewProps) {
                 searchParamsValues={searchParamsValues}
                 crew={crew}
                 reviewsPageCount={reviewsPageCount}
-                moviesPageCount={moviesPageCount}
-                seriesPageCount={seriesPageCount}
+                producedMoviesPageCount={producedMoviesPageCount}
+                producedSeriesPageCount={producedSeriesPageCount}
             />
         </Suspense>
     );

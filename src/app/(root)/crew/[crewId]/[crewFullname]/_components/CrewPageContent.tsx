@@ -27,16 +27,16 @@ interface ICrewPageContentProps {
     };
     crew: any;
     reviewsPageCount: number;
-    moviesPageCount: number;
-    seriesPageCount: number;
+    producedMoviesPageCount: number;
+    producedSeriesPageCount: number;
 }
 
 export default function CrewPageContent({
     searchParamsValues,
     crew,
     reviewsPageCount,
-    moviesPageCount,
-    seriesPageCount,
+    producedMoviesPageCount,
+    producedSeriesPageCount,
 }: ICrewPageContentProps) {
     // #region "Data for the page"
     const {
@@ -363,8 +363,8 @@ export default function CrewPageContent({
                 <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.producedMoviesPage)}
-                    pageCount={moviesPageCount}
-                    urlParamName="moviesPage"
+                    pageCount={producedMoviesPageCount}
+                    urlParamName="producedMoviesPage"
                 />
             </Box>
 
@@ -372,8 +372,8 @@ export default function CrewPageContent({
                 <ListDetail data={crew.producedSeries} type="crew" roleData="Series" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.producedSeriesPage)}
-                    pageCount={seriesPageCount}
-                    urlParamName="seriesPage"
+                    pageCount={producedSeriesPageCount}
+                    urlParamName="producedSeriesPage"
                 />
             </Box>
         </Stack>

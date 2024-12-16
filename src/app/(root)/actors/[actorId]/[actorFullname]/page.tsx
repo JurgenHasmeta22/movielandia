@@ -91,6 +91,7 @@ export default async function ActorPageByFullname(props: IActorProps) {
     const reviewsAscOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const reviewsPage = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const reviewsSortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
+    
     const starredMoviesPage = searchParams?.starredMoviesPage ? Number(searchParams.starredMoviesPage) : 1;
     const starredSeriesPage = searchParams?.starredSeriesPage ? Number(searchParams.starredSeriesPage) : 1;
 
@@ -113,8 +114,8 @@ export default async function ActorPageByFullname(props: IActorProps) {
 
     const perPage = 6;
     const reviewsPageCount = Math.ceil(actor.totalReviews / 5);
-    const moviesPageCount = Math.ceil(actor.totalMovies / perPage);
-    const seriesPageCount = Math.ceil(actor.totalSeries / perPage);
+    const starredMoviesPageCount = Math.ceil(actor.totalMovies / perPage);
+    const starredSeriesPageCount = Math.ceil(actor.totalSeries / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -122,8 +123,8 @@ export default async function ActorPageByFullname(props: IActorProps) {
                 searchParamsValues={searchParamsValues}
                 actor={actor}
                 reviewsPageCount={reviewsPageCount}
-                moviesPageCount={moviesPageCount}
-                seriesPageCount={seriesPageCount}
+                starredMoviesPageCount={starredMoviesPageCount}
+                starredSeriesPageCount={starredSeriesPageCount}
             />
         </Suspense>
     );
