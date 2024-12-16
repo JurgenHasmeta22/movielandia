@@ -343,6 +343,7 @@ export default function MoviePageContent({
                     <PaginationControl
                         currentPage={Number(searchParamsValues.reviewsPage)!}
                         pageCount={reviewsPageCount}
+                        urlParamName="reviewsPage"
                     />
                 )}
             </Box>

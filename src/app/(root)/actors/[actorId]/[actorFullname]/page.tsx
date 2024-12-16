@@ -91,7 +91,7 @@ export default async function ActorPageByFullname(props: IActorProps) {
     const reviewsAscOrDesc = searchParams && searchParams.reviewsAscOrDesc;
     const reviewsPage = searchParams && searchParams.reviewsPage ? Number(searchParams.reviewsPage) : 1;
     const reviewsSortBy = searchParams && searchParams.reviewsSortBy ? searchParams.reviewsSortBy : "";
-    
+
     const starredMoviesPage = searchParams?.starredMoviesPage ? Number(searchParams.starredMoviesPage) : 1;
     const starredSeriesPage = searchParams?.starredSeriesPage ? Number(searchParams.starredSeriesPage) : 1;
 
