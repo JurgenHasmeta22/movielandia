@@ -5,10 +5,13 @@ import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+// import { Quill } from "react-quill-new";
+// import { IS_BROWSER } from "@/utils/helpers/utils";
+import dynamic from "next/dynamic";
+// import QuillResizeImage from "quill-resize-image";
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+// const QuillResizeImage = dynamic(() => import("quill-resize-image"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
-import QuillResizeImage from "quill-resize-image";
-import ReactQuill, { Quill } from "react-quill-new";
-import { IS_BROWSER } from "@/utils/helpers/utils";
 
 interface ITextEditorProps {
     value: string;
@@ -34,9 +37,9 @@ const modules = {
         ["link", "image", "video"],
         [{ direction: "rtl" }],
     ],
-    resize: {
-        locale: {},
-    },
+    // resize: {
+    //     locale: {},
+    // },
     clipboard: {
         matchVisual: false,
     },
@@ -70,9 +73,9 @@ const formats = [
     "direction",
 ];
 
-if (IS_BROWSER) {
-    Quill.register("modules/resize", QuillResizeImage);
-}
+// if (IS_BROWSER) {
+//     Quill.register("modules/resize", QuillResizeImage);
+// }
 
 const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled }) => {
     const theme = useTheme();
@@ -242,6 +245,7 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     modules={modules}
                     formats={formats}
                     readOnly={isDisabled}
+                    // @ts-expect-error ref
                     ref={ref}
                 />
             </Box>

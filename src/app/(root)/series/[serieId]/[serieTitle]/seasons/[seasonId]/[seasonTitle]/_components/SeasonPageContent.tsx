@@ -358,6 +358,7 @@ export default function SeasonPageContent({
                     <PaginationControl
                         currentPage={Number(searchParamsValues.reviewsPage)!}
                         pageCount={reviewsPageCount}
+                        urlParamName="reviewsPage"
                     />
                 )}
             </Box>

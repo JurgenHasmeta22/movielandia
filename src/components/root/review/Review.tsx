@@ -352,7 +352,6 @@ const Review: React.FC<IReviewProps> = ({
                         onClick={() => {
                             onClickDownvotesReviewList();
                         }}
-                        color={"error"}
                         sx={{
                             "&:hover": {
                                 backgroundColor: "transparent",

@@ -123,7 +123,7 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <StarRateIcon />
                             <Typography component="span" variant="body1">
-                                Average rating: {data.averageRating === 0 ? "N/A" : data.averageRating}
+                                Average rating: {data.averageRating === 0 ? "N/A" : data.averageRating.toFixed(2)}
                             </Typography>
                         </Box>
                     </Box>
