@@ -16,17 +16,9 @@ const HomeHeroSection = () => {
         },
     };
 
-    const textVariants = {
-        hidden: { opacity: 0, y: 30 },
+    const itemVariants = {
+        hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-    };
-
-    const buttonVariants = {
-        hover: {
-            scale: 1.05,
-            boxShadow: "0px 5px 10px rgba(255, 255, 255, 0.3)",
-            transition: { duration: 0.5, ease: "easeInOut" },
-        },
     };
 
     return (
@@ -83,7 +75,7 @@ const HomeHeroSection = () => {
                     zIndex: 1,
                 }}
             >
-                <motion.div variants={textVariants}>
+                <motion.div variants={itemVariants}>
                     <Typography
                         variant="h1"
                         fontSize={{ xs: 36, sm: 48, md: 64, lg: 72 }}
@@ -94,7 +86,7 @@ const HomeHeroSection = () => {
                         Dive into MovieLandia24
                     </Typography>
                 </motion.div>
-                <motion.div variants={textVariants}>
+                <motion.div variants={itemVariants}>
                     <Typography
                         variant="h2"
                         fontSize={{ xs: 22, sm: 28, md: 36, lg: 42 }}
@@ -104,7 +96,7 @@ const HomeHeroSection = () => {
                         Your Gateway to the World of Cinema!
                     </Typography>
                 </motion.div>
-                <motion.div variants={textVariants}>
+                <motion.div variants={itemVariants}>
                     <Typography
                         variant="body1"
                         fontSize={{ xs: 16, sm: 18, md: 20 }}
@@ -129,7 +121,7 @@ const HomeHeroSection = () => {
                         flexWrap: "wrap",
                     }}
                 >
-                    <motion.div variants={buttonVariants} whileHover="hover">
+                    <motion.div variants={itemVariants}>
                         <Button
                             component={Link}
                             href="/movies"
@@ -154,7 +146,7 @@ const HomeHeroSection = () => {
                             Explore Movies
                         </Button>
                     </motion.div>
-                    <motion.div variants={buttonVariants} whileHover="hover">
+                    <motion.div variants={itemVariants}>
                         <Button
                             component={Link}
                             href="/series"
