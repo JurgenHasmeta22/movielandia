@@ -30,14 +30,6 @@ const features = [
     },
 ];
 
-const cardVariants = {
-    hover: {
-        scale: 1.05,
-        boxShadow: "0px 12px 20px rgba(0, 0, 0, 0.2)",
-        transition: { duration: 0.3, ease: "easeInOut" },
-    },
-};
-
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -46,8 +38,8 @@ const containerVariants = {
     },
 };
 
-const textVariants = {
-    hidden: { opacity: 0, y: 30 },
+const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
@@ -76,7 +68,7 @@ const MarketingSection = () => {
                     viewport={{ once: true, amount: 0.3 }}
                     variants={containerVariants}
                 >
-                    <motion.div variants={textVariants}>
+                    <motion.div variants={itemVariants}>
                         <Box
                             sx={{
                                 textAlign: "center",
@@ -128,12 +120,7 @@ const MarketingSection = () => {
                         }}
                     >
                         {features.map((feature, index) => (
-                            <motion.div
-                                key={index}
-                                variants={cardVariants}
-                                whileHover="hover"
-                                style={{ height: "100%" }}
-                            >
+                            <motion.div key={index} variants={itemVariants} style={{ height: "100%" }}>
                                 <Box
                                     sx={{
                                         textAlign: "center",
