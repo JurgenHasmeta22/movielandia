@@ -19,7 +19,7 @@ interface IListHomeSectionProps {
     type: "movie" | "serie";
     link: string;
     linkText: string;
-    path?: "movies" | "actors" | "crew" | null;
+    path?: string;
 }
 
 const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionProps) => {
@@ -141,6 +141,7 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                             md: "flex-start",
                         },
                         mx: { xs: 1, sm: 2 },
+                        mb: { xs: 3, md: 4 },
                     }}
                 >
                     {data?.map((item, index) => {
