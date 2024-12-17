@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: IEpisodeProps): Promise<Metad
     };
 }
 
-export default async function EpisodePageByTitle(props: IEpisodeProps) {
+export default async function EpisodePage(props: IEpisodeProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;

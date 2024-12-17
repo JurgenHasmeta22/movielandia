@@ -71,7 +71,7 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
     };
 }
 
-export default async function UserPageByUserName(props: IUserDetailsProps) {
+export default async function UserPage(props: IUserDetailsProps) {
     const session = await getServerSession(authOptions);
     const userSession = session?.user
         ? {

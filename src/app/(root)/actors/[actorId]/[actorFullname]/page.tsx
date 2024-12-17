@@ -79,7 +79,7 @@ export async function generateMetadata(props: IActorProps): Promise<Metadata> {
     };
 }
 
-export default async function ActorPageByFullname(props: IActorProps) {
+export default async function ActorPage(props: IActorProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;

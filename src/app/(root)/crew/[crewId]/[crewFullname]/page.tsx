@@ -79,7 +79,7 @@ export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
     };
 }
 
-export default async function CrewPageByFullname(props: ICrewProps) {
+export default async function CrewPage(props: ICrewProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;
