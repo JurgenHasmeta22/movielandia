@@ -5,6 +5,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import UpdateIcon from "@mui/icons-material/Update";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import DevicesIcon from "@mui/icons-material/Devices";
+import { motion } from "framer-motion";
 
 const features = [
     {
@@ -29,6 +30,27 @@ const features = [
     },
 ];
 
+const cardVariants = {
+    hover: {
+        scale: 1.05,
+        boxShadow: "0px 12px 20px rgba(0, 0, 0, 0.2)",
+        transition: { duration: 0.3, ease: "easeInOut" },
+    },
+};
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.2, ease: "easeOut" },
+    },
+};
+
+const textVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
 const MarketingSection = () => {
     const theme = useTheme();
 
@@ -48,104 +70,114 @@ const MarketingSection = () => {
                     px: { xs: 2, sm: 3, md: 4 },
                 }}
             >
-                <Box
-                    sx={{
-                        textAlign: "center",
-                        mb: { xs: 5, md: 8 },
-                        maxWidth: "800px",
-                        mx: "auto",
-                    }}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={containerVariants}
                 >
-                    <Typography
-                        variant="h2"
-                        sx={{
-                            fontSize: { xs: 28, sm: 32, md: 40 },
-                            fontWeight: 800,
-                            mb: 2,
-                            background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
-                            backgroundClip: "text",
-                            WebkitBackgroundClip: "text",
-                            color: "transparent",
-                            WebkitTextFillColor: "transparent",
-                        }}
-                    >
-                        Welcome to MovieLandia24
-                    </Typography>
-                    <Typography
-                        variant="h3"
-                        sx={{
-                            fontSize: { xs: 16, sm: 18, md: 20 },
-                            color: "text.secondary",
-                            lineHeight: 1.6,
-                        }}
-                    >
-                        Your premier destination for cinematic entertainment. We bring you a vast collection of movies
-                        and series, carefully curated to provide the best streaming experience.
-                    </Typography>
-                </Box>
-
-                <Box
-                    sx={{
-                        maxWidth: "1200px",
-                        mx: "auto",
-                        display: "grid",
-                        gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "repeat(2, 1fr)",
-                            md: "repeat(4, 1fr)",
-                        },
-                        gap: 4,
-                    }}
-                >
-                    {features.map((feature, index) => (
+                    <motion.div variants={textVariants}>
                         <Box
-                            key={index}
                             sx={{
                                 textAlign: "center",
-                                height: "100%",
-                                p: 3,
-                                borderRadius: 4,
-                                backgroundColor: theme.palette.background.paper,
-                                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                                "&:hover": {
-                                    transform: "translateY(-8px)",
-                                    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.1)",
-                                },
+                                mb: { xs: 5, md: 8 },
+                                maxWidth: "800px",
+                                mx: "auto",
                             }}
                         >
-                            <Box
-                                sx={{
-                                    color: theme.palette.primary.main,
-                                    mb: 2,
-                                    display: "flex",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                {feature.icon}
-                            </Box>
                             <Typography
-                                variant="h6"
+                                variant="h2"
                                 sx={{
-                                    fontWeight: 700,
-                                    mb: 1,
-                                    fontSize: { xs: 18, md: 20 },
+                                    fontSize: { xs: 28, sm: 32, md: 40 },
+                                    fontWeight: 800,
+                                    mb: 2,
+                                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                    backgroundClip: "text",
+                                    WebkitBackgroundClip: "text",
+                                    color: "transparent",
+                                    WebkitTextFillColor: "transparent",
                                 }}
                             >
-                                {feature.title}
+                                Welcome to MovieLandia24
                             </Typography>
                             <Typography
-                                variant="body1"
+                                variant="h3"
                                 sx={{
+                                    fontSize: { xs: 16, sm: 18, md: 20 },
                                     color: "text.secondary",
-                                    fontSize: { xs: 14, md: 16 },
                                     lineHeight: 1.6,
                                 }}
                             >
-                                {feature.description}
+                                Your premier destination for cinematic entertainment. We bring you a vast collection of
+                                movies and series, carefully curated to provide the best streaming experience.
                             </Typography>
                         </Box>
-                    ))}
-                </Box>
+                    </motion.div>
+
+                    <Box
+                        sx={{
+                            maxWidth: "1200px",
+                            mx: "auto",
+                            display: "grid",
+                            gridTemplateColumns: {
+                                xs: "1fr",
+                                sm: "repeat(2, 1fr)",
+                                md: "repeat(4, 1fr)",
+                            },
+                            gap: 4,
+                        }}
+                    >
+                        {features.map((feature, index) => (
+                            <motion.div
+                                key={index}
+                                variants={cardVariants}
+                                whileHover="hover"
+                                style={{ height: "100%" }}
+                            >
+                                <Box
+                                    sx={{
+                                        textAlign: "center",
+                                        p: 3,
+                                        borderRadius: 4,
+                                        backgroundColor: theme.palette.background.paper,
+                                        height: "100%",
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            mb: 2,
+                                            display: "flex",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        {feature.icon}
+                                    </Box>
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            fontWeight: 700,
+                                            mb: 1,
+                                            fontSize: { xs: 18, md: 20 },
+                                        }}
+                                    >
+                                        {feature.title}
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{
+                                            color: "text.secondary",
+                                            fontSize: { xs: 14, md: 16 },
+                                            lineHeight: 1.6,
+                                        }}
+                                    >
+                                        {feature.description}
+                                    </Typography>
+                                </Box>
+                            </motion.div>
+                        ))}
+                    </Box>
+                </motion.div>
             </Container>
         </Box>
     );

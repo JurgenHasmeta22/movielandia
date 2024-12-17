@@ -49,8 +49,6 @@ export default async function Home() {
     const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series: Serie[] = seriesData.rows;
 
-    console.log(movies, series);
-
     return (
         <Box
             component="main"
@@ -62,13 +60,8 @@ export default async function Home() {
             <HomeHeroSection />
             <MarketingSection />
             <NewsletterSection />
-            <Container
-                maxWidth="xl"
-                sx={{
-                    py: { xs: 2, md: 3 },
-                }}
-            >
-                <Stack spacing={{ xs: 4, md: 5 }}>
+            <Container maxWidth="xl">
+                <Stack>
                     <ListHomeSection
                         key={"movie"}
                         data={movies}

@@ -111,10 +111,6 @@ const GenreList = ({ title, data, count, sortBy, ascOrDesc, page, pageCount, dat
                                 columnGap: { xs: 1, sm: 2, md: 3 },
                                 paddingLeft: 1,
                                 rowGap: { xs: 3, sm: 4, md: 5 },
-                                transition: "transform 0.2s ease-in-out",
-                                "&:hover": {
-                                    transform: "translateY(-4px)",
-                                },
                             }}
                         >
                             <CardItem data={item} type={cardType} />
