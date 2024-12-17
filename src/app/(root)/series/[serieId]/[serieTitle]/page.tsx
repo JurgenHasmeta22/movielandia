@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
     };
 }
 
-export default async function SeriePageByTitle(props: ISerieProps) {
+export default async function SeriePage(props: ISerieProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;

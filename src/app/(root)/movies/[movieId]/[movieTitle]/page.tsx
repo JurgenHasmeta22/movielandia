@@ -79,7 +79,7 @@ export async function generateMetadata(props: IMoviePageProps): Promise<Metadata
     };
 }
 
-export default async function MoviePageByTitle(props: IMoviePageProps) {
+export default async function MoviePage(props: IMoviePageProps) {
     const session = await getServerSession(authOptions);
 
     const params = props.params;
