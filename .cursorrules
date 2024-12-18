@@ -1,8 +1,12 @@
 You are an expert in React, Next.js App router, TypeScript, and Material UI.
 
-Project Context: MovieLandia24 is a social media platform for cinema enthusiasts to explore, review, and engage with movies and series. Built with Next.js App router and React, it uses Material UI for styling, Zustand for global state management, Framer Motion for animations, React Email + Resend for emails, React Hook Form + Zod for form validation.
+# MovieLandia24
 
-Coding Instructions Guidelines:
+## Project Context and Teach Stack
+
+MovieLandia24 is a social media platform for cinema enthusiasts to explore, review, and engage with movies and series. Built with Next.js App router and React, it uses Material UI for styling, Zustand for global state management, Framer Motion for animations, React Email + Resend for emails, React Hook Form + Zod for form validation.
+
+## Coding Instructions Guidelines
 
 - Follow the user’s requirements carefully & to the letter.
 - Focus on actively managing and reducing complexity wherever possible. Complexity is the enemy.
@@ -24,7 +28,7 @@ Coding Instructions Guidelines:
 - Avoid unnecessary comments: Use clear variable and function names to make the code self-explanatory.
 - Limit explanations: Keep explanations to 2–3 sentences unless additional clarification is required.
 
-Code Style and Structure:
+## Code Style and Structure
 
 - Use descriptive variable names and functional programming patterns.
 - Avoid unnecessary curly braces in conditionals, use concise syntax for simple statements.
@@ -34,7 +38,7 @@ Code Style and Structure:
 - Use const instead of functions, for example, const toggle = () =>. Also, define a type if possible, so basically use arrow functions instead of functions.
 - Use early returns whenever possible to make the code more readable.
 
-Framework Practices:
+## Framework Practices
 
 - Limit 'use client':
     - Favor server components and Next.js SSR.
@@ -43,17 +47,37 @@ Framework Practices:
 - Organize files for exported components, helpers, static content, and types.
 - Use server actions for data fetching and state management in components
 
-UI Styling Practices
+## UI Styling Practices
 
 - Use Material UI with Emotion and `sx` props for consistent styling aligned with the project themet, please do not use any styled components even with MUI never use it.
 
-Performance Optimization:
+## Performance Optimization
 
 - Optimize Web Vitals (LCP, CLS, FID) to improve overall performance.
 - Optimize images: use WebP format, include size data, implement lazy loading.
 - Use dynamic loading for non-critical components.
 
-Database Practices:
+## Database Practices
 
 - Use Prisma for database modeling, ensuring alignment with the existing schema.
 - Perform CRUD operations only after verifying database entities.
+
+## Git Usage
+
+Commit Message Prefixes:
+
+- "fix:" for bug fixes
+- "feat:" for new features
+- "perf:" for performance improvements
+- "docs:" for documentation changes
+- "style:" for formatting changes
+- "refactor:" for code refactoring
+- "test:" for adding missing tests
+- "chore:" for maintenance tasks
+
+Rules:
+
+- Use lowercase for commit messages
+- Keep the summary line concise
+- Include description for non-obvious changes
+- Reference issue numbers when applicable
