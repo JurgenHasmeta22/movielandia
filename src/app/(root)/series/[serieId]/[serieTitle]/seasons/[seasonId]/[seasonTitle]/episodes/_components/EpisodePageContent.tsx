@@ -4,7 +4,7 @@ import { DetailsPageCard } from "@/components/root/detailsPageCard/DetailsPageCa
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/listDetail/ListDetail";
 import Review from "@/components/root/review/Review";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Button } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
@@ -17,6 +17,8 @@ import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/features/epi
 import { removeDownvoteEpisodeReview, addDownvoteEpisodeReview } from "@/actions/user/userDownvotes.actions";
 import { addReviewEpisode, removeReviewEpisode, updateReviewEpisode } from "@/actions/user/userReviews.actions";
 import { removeUpvoteEpisodeReview, addUpvoteEpisodeReview } from "@/actions/user/userUpvotes.actions";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface IEpisodePageContentProps {
     searchParamsValues: {
@@ -59,6 +61,9 @@ export default function EpisodePage({
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = usePageDetailsData();
+
+    const router = useRouter();
+    const pathname = usePathname();
     // #endregion
 
     // #region "Handlers functions"
@@ -289,13 +294,21 @@ export default function EpisodePage({
     // #endregion
 
     return (
-        <Stack flexDirection={"column"} rowGap={4}>
+        <Stack flexDirection={"column"} rowGap={2}>
             <DetailsPageCard
                 data={episode}
                 type="episode"
                 isBookmarked={episode.isBookmarked}
                 onBookmark={() => onBookmarkEpisode(session!, episode)}
                 onRemoveBookmark={() => onRemoveBookmarkEpisode(session!, episode)}
+                onGoBack={() => {
+                    const currentPath = pathname;
+                    const episodesIndex = currentPath.indexOf("episodes/");
+                    const newPath = episodesIndex !== -1 ? currentPath.slice(0, episodesIndex) : currentPath;
+
+                    router.replace(newPath);
+                    router.refresh();
+                }}
             />
             <Box
                 sx={{
