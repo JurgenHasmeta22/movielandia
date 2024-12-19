@@ -346,7 +346,7 @@ export default function MoviePageContent({
                             }}
                         >
                             Reviews
-                            {movie.totalReviews > 0 && (
+                            {movie.totalReviews >= 0 && (
                                 <Typography
                                     component="span"
                                     sx={{
@@ -357,7 +357,7 @@ export default function MoviePageContent({
                                         borderRadius: "16px",
                                     }}
                                 >
-                                    ({movie.totalReviews})
+                                    ({movie.totalReviews ? movie.totalReviews : 0})
                                 </Typography>
                             )}
                         </Typography>
@@ -376,13 +376,23 @@ export default function MoviePageContent({
                                 rowGap: 2,
                             }}
                         >
-                            {movie.reviews!.length > 0 && (
+                            {movie.reviews!.length > 0 ? (
                                 <ReviewsHeader
                                     data={movie}
                                     sortingDataType="reviews"
                                     sortBy={searchParamsValues.reviewsSortBy!}
                                     ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                                 />
+                            ) : (
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        textAlign: "center",
+                                        color: theme.vars.palette.text.secondary,
+                                    }}
+                                >
+                                    No reviews yet. Be the first to review this movie!
+                                </Typography>
                             )}
                             {movie.reviews!.map(
                                 (review: any, index: number) =>
