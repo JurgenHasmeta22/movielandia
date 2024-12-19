@@ -143,12 +143,12 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
                 cast: {
                     include: { actor: true },
                     skip: queryParams.castPage ? (queryParams.castPage - 1) * 5 : 0,
-                    take: 6,
+                    take: 5,
                 },
                 crew: {
                     include: { crew: true },
                     skip: queryParams.crewPage ? (queryParams.crewPage - 1) * 5 : 0,
-                    take: 6,
+                    take: 5,
                 },
                 reviews: {
                     include: {

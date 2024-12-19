@@ -118,8 +118,8 @@ export default async function SeriePage(props: ISerieProps) {
 
     const perPage = 6;
     const pageCountReviews = Math.ceil(serie.totalReviews / 5);
-    const castPageCount = Math.ceil(serie.totalCast / perPage);
-    const crewPageCount = Math.ceil(serie.totalCrew / perPage);
+    const castPageCount = Math.ceil(serie.totalCast / 5);
+    const crewPageCount = Math.ceil(serie.totalCrew / 5);
     const seasonsPageCount = Math.ceil(serie.totalSeasons / perPage);
 
     return (

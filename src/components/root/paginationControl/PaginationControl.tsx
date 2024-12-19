@@ -19,7 +19,6 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
         (name: string, value: string) => {
             const params = new URLSearchParams(searchParams.toString());
             params.set(name, value);
-
             return params.toString();
         },
         [searchParams],
@@ -27,7 +26,6 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         if (value === currentPage) return;
-
         router.push(pathname + "?" + createQueryString(urlParamName, value.toString()), { scroll: false });
     };
 
@@ -37,6 +35,8 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
                 page={currentPage}
                 onChange={handleChange}
                 count={pageCount}
+                showLastButton={true}
+                showFirstButton={true}
                 variant="outlined"
                 shape="rounded"
                 size="large"
