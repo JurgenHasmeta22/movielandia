@@ -4,7 +4,7 @@ import { DetailsPageCard } from "@/components/root/detailsPageCard/DetailsPageCa
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/listDetail/ListDetail";
 import Review from "@/components/root/review/Review";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
@@ -17,6 +17,8 @@ import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFe
 import { removeDownvoteSerieReview, addDownvoteSerieReview } from "@/actions/user/userDownvotes.actions";
 import { addReviewSerie, removeReviewSerie, updateReviewSerie } from "@/actions/user/userReviews.actions";
 import { removeUpvoteSerieReview, addUpvoteSerieReview } from "@/actions/user/userUpvotes.actions";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface ISeriePageContentProps {
     searchParamsValues: {
@@ -44,6 +46,8 @@ export default function SeriePageContent({
     crewPageCount,
     seasonsPageCount,
 }: ISeriePageContentProps) {
+    const theme = useTheme();
+
     // #region "Data for the page"
     const {
         session,
@@ -285,68 +289,159 @@ export default function SeriePageContent({
                 isBookmarked={serie.isBookmarked}
                 onBookmark={() => onBookmarkSerie(session!, serie)}
                 onRemoveBookmark={() => onRemoveBookmarkSerie(session!, serie)}
+                cast={serie.cast}
+                crew={serie.crew}
+                currentCastPage={Number(searchParamsValues.castPage)!}
+                castPageCount={castPageCount}
+                currentCrewPage={Number(searchParamsValues.crewPage)!}
+                crewPageCount={crewPageCount}
             />
             <Box
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: 2,
-                    mb: serie.reviews!.length > 0 ? 4 : 0,
+                    maxWidth: "900px",
+                    width: "100%",
+                    mx: "auto",
+                    my: 4,
+                    "& .MuiAccordion-root": {
+                        mb: 2,
+                    },
                 }}
-                component={"section"}
             >
-                {serie.reviews!.length > 0 && (
-                    <ReviewsHeader
-                        data={serie}
-                        sortingDataType="reviews"
-                        sortBy={searchParamsValues.reviewsSortBy!}
-                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-                    />
-                )}
-                {serie.reviews!.map(
-                    (review: any, index: number) =>
-                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
-                            <Review
-                                key={index}
-                                review={review}
-                                handleRemoveReview={onSubmitRemoveReview}
-                                isEditMode={isEditMode}
-                                setIsEditMode={setIsEditMode}
-                                setReview={setReview}
-                                handleFocusTextEditor={handleFocusTextEditor}
-                                ref={reviewRef}
-                                setRating={setRating}
-                                handleUpvote={onUpvoteSerie}
-                                handleDownvote={onDownVoteSerie}
-                                type="serie"
-                                data={serie}
-                                handleOpenUpvotesModal={handleOpenUpvotesModal}
-                                handleOpenDownvotesModal={handleOpenDownvotesModal}
-                            />
-                        ),
-                )}
-                {session?.user && (!serie.isReviewed || isEditMode) && (
-                    <TextEditorForm
-                        review={review}
-                        setReview={setReview}
-                        rating={rating}
-                        setRating={setRating}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setOpen={setOpen}
-                        textEditorRef={textEditorRef}
-                        handleFocusReview={handleFocusReview}
-                        onSubmitReview={onSubmitReview}
-                        onSubmitUpdateReview={onSubmitUpdateReview}
-                    />
-                )}
-                {serie.totalReviews > 0 && (
-                    <PaginationControl
-                        currentPage={Number(searchParamsValues.reviewsPage)}
-                        pageCount={reviewsPageCount}
-                        urlParamName="reviewsPage"
-                    />
-                )}
+                <Accordion
+                    defaultExpanded={false}
+                    sx={{
+                        bgcolor: theme.vars.palette.secondary.light,
+                        borderRadius: "12px",
+                        "&:before": {
+                            display: "none",
+                        },
+                        "& .MuiAccordionSummary-root": {
+                            borderRadius: "12px",
+                            transition: "background-color 0.2s",
+                            "&:hover": {
+                                bgcolor: theme.vars.palette.secondary.dark,
+                            },
+                        },
+                        "& .MuiAccordionSummary-expandIconWrapper": {
+                            color: theme.vars.palette.primary.main,
+                            transition: "transform 0.3s",
+                            "&.Mui-expanded": {
+                                transform: "rotate(180deg)",
+                            },
+                        },
+                    }}
+                >
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="reviews-content"
+                        id="reviews-header"
+                    >
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontWeight: 600,
+                                color: theme.vars.palette.primary.main,
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                            }}
+                        >
+                            Reviews
+                            {serie.totalReviews >= 0 && (
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        color: theme.vars.palette.primary.main,
+                                        fontSize: "0.9rem",
+                                        fontWeight: 600,
+                                        py: 0.5,
+                                        borderRadius: "16px",
+                                    }}
+                                >
+                                    ({serie.totalReviews})
+                                </Typography>
+                            )}
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails
+                        sx={{
+                            p: { xs: 2, sm: 3 },
+                            borderTop: `1px solid ${theme.vars.palette.divider}`,
+                        }}
+                    >
+                        <Box
+                            component="section"
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                rowGap: 2,
+                            }}
+                        >
+                            {serie.reviews!.length > 0 ? (
+                                <ReviewsHeader
+                                    data={serie}
+                                    sortingDataType="reviews"
+                                    sortBy={searchParamsValues.reviewsSortBy!}
+                                    ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
+                                />
+                            ) : (
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        textAlign: "center",
+                                        color: theme.vars.palette.text.secondary,
+                                    }}
+                                >
+                                    No reviews yet. Be the first to review this serie!
+                                </Typography>
+                            )}
+                            {serie.reviews!.map(
+                                (review: any, index: number) =>
+                                    (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                                        <Review
+                                            key={index}
+                                            review={review}
+                                            handleRemoveReview={onSubmitRemoveReview}
+                                            isEditMode={isEditMode}
+                                            setIsEditMode={setIsEditMode}
+                                            setReview={setReview}
+                                            handleFocusTextEditor={handleFocusTextEditor}
+                                            ref={reviewRef}
+                                            setRating={setRating}
+                                            handleUpvote={onUpvoteSerie}
+                                            handleDownvote={onDownVoteSerie}
+                                            type="serie"
+                                            data={serie}
+                                            handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                            handleOpenDownvotesModal={handleOpenDownvotesModal}
+                                        />
+                                    ),
+                            )}
+                            {session?.user && (!serie.isReviewed || isEditMode) && (
+                                <TextEditorForm
+                                    review={review}
+                                    setReview={setReview}
+                                    rating={rating}
+                                    setRating={setRating}
+                                    isEditMode={isEditMode}
+                                    setIsEditMode={setIsEditMode}
+                                    setOpen={setOpen}
+                                    textEditorRef={textEditorRef}
+                                    handleFocusReview={handleFocusReview}
+                                    onSubmitReview={onSubmitReview}
+                                    onSubmitUpdateReview={onSubmitUpdateReview}
+                                />
+                            )}
+                            {serie.totalReviews > 0 && (
+                                <PaginationControl
+                                    currentPage={Number(searchParamsValues.reviewsPage)}
+                                    pageCount={reviewsPageCount}
+                                    urlParamName="reviewsPage"
+                                />
+                            )}
+                        </Box>
+                    </AccordionDetails>
+                </Accordion>
             </Box>
             {relatedSeries && relatedSeries.length !== 0 && (
                 <ListDetail data={relatedSeries} type="serie" roleData="related" />
@@ -357,22 +452,6 @@ export default function SeriePageContent({
                     currentPage={Number(searchParamsValues.seasonsPage)}
                     pageCount={seasonsPageCount}
                     urlParamName="seasonsPage"
-                />
-            </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <ListDetail data={serie.cast} type="actor" roleData="cast" />
-                <PaginationControl
-                    currentPage={Number(searchParamsValues.castPage)}
-                    pageCount={castPageCount}
-                    urlParamName="castPage"
-                />
-            </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <ListDetail data={serie.crew} type="crew" roleData="production" />
-                <PaginationControl
-                    currentPage={Number(searchParamsValues.crewPage)}
-                    pageCount={crewPageCount}
-                    urlParamName="crewPage"
                 />
             </Box>
         </Stack>

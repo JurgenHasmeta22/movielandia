@@ -114,7 +114,6 @@ export default async function MoviePage(props: IMoviePageProps) {
 
     const relatedMovies = await getRelatedMovies(Number(movieId), Number(session?.user?.id));
 
-    const perPage = 6;
     const reviewsPageCount = Math.ceil(movie.totalReviews / 5);
     const castPageCount = Math.ceil(movie.totalCast / 5);
     const crewPageCount = Math.ceil(movie.totalCrew / 5);

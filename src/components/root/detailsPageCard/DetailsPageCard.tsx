@@ -181,7 +181,7 @@ export function DetailsPageCard({
                     <Typography variant="body1" color={theme.vars.palette.primary.light}>
                         {data.description}
                     </Typography>
-                    {type === "movie" && (cast || crew) && (
+                    {(type === "movie" || type === "serie") && (cast || crew) && (
                         <Box
                             sx={{
                                 mt: 3,

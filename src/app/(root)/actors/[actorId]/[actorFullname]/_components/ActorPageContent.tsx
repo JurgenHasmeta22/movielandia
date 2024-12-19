@@ -4,8 +4,10 @@ import { DetailsPageCard } from "@/components/root/detailsPageCard/DetailsPageCa
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/listDetail/ListDetail";
 import Review from "@/components/root/review/Review";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect } from "react";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
@@ -59,6 +61,8 @@ export default function ActorPageContent({
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = usePageDetailsData();
+
+    const theme = useTheme();
     // #endregion
 
     // #region "Handlers functions"
@@ -299,65 +303,150 @@ export default function ActorPageContent({
             />
             <Box
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: 2,
-                    mb: actor.reviews!.length > 0 ? 4 : 0,
+                    maxWidth: "900px",
+                    width: "100%",
+                    mx: "auto",
+                    my: 4,
+                    "& .MuiAccordion-root": {
+                        mb: 2,
+                    },
                 }}
-                component={"section"}
             >
-                {actor.reviews!.length > 0 && (
-                    <ReviewsHeader
-                        data={actor}
-                        sortBy={searchParamsValues.reviewsSortBy!}
-                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-                        sortingDataType="reviews"
-                    />
-                )}
-                {actor.reviews.map(
-                    (review: any, index: number) =>
-                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
-                            <Review
-                                key={index}
-                                review={review}
-                                handleRemoveReview={onSubmitRemoveReview}
-                                isEditMode={isEditMode}
-                                setIsEditMode={setIsEditMode}
-                                setReview={setReview}
-                                handleFocusTextEditor={handleFocusTextEditor}
-                                ref={reviewRef}
-                                setRating={setRating}
-                                handleUpvote={onUpvoteActor}
-                                handleDownvote={onDownVoteActor}
-                                type="actor"
-                                data={actor}
-                                handleOpenUpvotesModal={handleOpenUpvotesModal}
-                                handleOpenDownvotesModal={handleOpenDownvotesModal}
-                            />
-                        ),
-                )}
-                {session?.user && (!actor.isReviewed || isEditMode) && (
-                    <TextEditorForm
-                        review={review}
-                        setReview={setReview}
-                        rating={rating}
-                        setRating={setRating}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setOpen={setOpen}
-                        textEditorRef={textEditorRef}
-                        handleFocusReview={handleFocusReview}
-                        onSubmitReview={onSubmitReview}
-                        onSubmitUpdateReview={onSubmitUpdateReview}
-                    />
-                )}
-                {actor.totalReviews > 0 && (
-                    <PaginationControl
-                        currentPage={Number(searchParamsValues.reviewsPage)}
-                        pageCount={reviewsPageCount}
-                        urlParamName="reviewsPage"
-                    />
-                )}
+                <Accordion
+                    defaultExpanded={false}
+                    sx={{
+                        bgcolor: theme.vars.palette.secondary.light,
+                        borderRadius: "12px",
+                        "&:before": {
+                            display: "none",
+                        },
+                        "& .MuiAccordionSummary-root": {
+                            borderRadius: "12px",
+                            transition: "background-color 0.2s",
+                            "&:hover": {
+                                bgcolor: theme.vars.palette.secondary.dark,
+                            },
+                        },
+                        "& .MuiAccordionSummary-expandIconWrapper": {
+                            color: theme.vars.palette.primary.main,
+                            transition: "transform 0.3s",
+                            "&.Mui-expanded": {
+                                transform: "rotate(180deg)",
+                            },
+                        },
+                    }}
+                >
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="reviews-content"
+                        id="reviews-header"
+                    >
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontWeight: 600,
+                                color: theme.vars.palette.primary.main,
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                            }}
+                        >
+                            Reviews
+                            {actor.totalReviews >= 0 && (
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        color: theme.vars.palette.primary.main,
+                                        fontSize: "0.9rem",
+                                        fontWeight: 600,
+                                        py: 0.5,
+                                        borderRadius: "16px",
+                                    }}
+                                >
+                                    ({actor.totalReviews ? actor.totalReviews : 0})
+                                </Typography>
+                            )}
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails
+                        sx={{
+                            p: { xs: 2, sm: 3 },
+                            borderTop: `1px solid ${theme.vars.palette.divider}`,
+                        }}
+                    >
+                        <Box
+                            component="section"
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                rowGap: 2,
+                            }}
+                        >
+                            {actor.reviews!.length > 0 ? (
+                                <ReviewsHeader
+                                    data={actor}
+                                    sortBy={searchParamsValues.reviewsSortBy!}
+                                    ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
+                                    sortingDataType="reviews"
+                                />
+                            ) : (
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        textAlign: "center",
+                                        color: theme.vars.palette.text.secondary,
+                                    }}
+                                >
+                                    No reviews yet. Be the first to review this actor!
+                                </Typography>
+                            )}
+                            {actor.reviews.map(
+                                (review: any, index: number) =>
+                                    (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                                        <Review
+                                            key={index}
+                                            review={review}
+                                            handleRemoveReview={onSubmitRemoveReview}
+                                            isEditMode={isEditMode}
+                                            setIsEditMode={setIsEditMode}
+                                            setReview={setReview}
+                                            handleFocusTextEditor={handleFocusTextEditor}
+                                            ref={reviewRef}
+                                            setRating={setRating}
+                                            handleUpvote={onUpvoteActor}
+                                            handleDownvote={onDownVoteActor}
+                                            type="actor"
+                                            data={actor}
+                                            handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                            handleOpenDownvotesModal={handleOpenDownvotesModal}
+                                        />
+                                    ),
+                            )}
+                            {session?.user && (!actor.isReviewed || isEditMode) && (
+                                <TextEditorForm
+                                    review={review}
+                                    setReview={setReview}
+                                    rating={rating}
+                                    setRating={setRating}
+                                    isEditMode={isEditMode}
+                                    setIsEditMode={setIsEditMode}
+                                    setOpen={setOpen}
+                                    textEditorRef={textEditorRef}
+                                    handleFocusReview={handleFocusReview}
+                                    onSubmitReview={onSubmitReview}
+                                    onSubmitUpdateReview={onSubmitUpdateReview}
+                                />
+                            )}
+                            {actor.totalReviews > 0 && (
+                                <PaginationControl
+                                    currentPage={Number(searchParamsValues.reviewsPage)}
+                                    pageCount={reviewsPageCount}
+                                    urlParamName="reviewsPage"
+                                />
+                            )}
+                        </Box>
+                    </AccordionDetails>
+                </Accordion>
             </Box>
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />
