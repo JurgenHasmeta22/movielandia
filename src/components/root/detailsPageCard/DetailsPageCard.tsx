@@ -182,7 +182,15 @@ export function DetailsPageCard({
                         {data.description}
                     </Typography>
                     {type === "movie" && (cast || crew) && (
-                        <Box sx={{ mt: 3, mb: 3, display: "flex", flexDirection: "column", gap: 3 }}>
+                        <Box
+                            sx={{
+                                mt: 3,
+                                mb: 3,
+                                display: "grid",
+                                gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+                                gap: 3,
+                            }}
+                        >
                             {cast && cast.length > 0 && (
                                 <Box>
                                     <Typography

@@ -4,7 +4,7 @@ import { DetailsPageCard } from "@/components/root/detailsPageCard/DetailsPageCa
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/listDetail/ListDetail";
 import Review from "@/components/root/review/Review";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import * as CONSTANTS from "@/constants/Constants";
@@ -17,6 +17,8 @@ import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/features/movieFe
 import { removeDownvoteMovieReview, addDownvoteMovieReview } from "@/actions/user/userDownvotes.actions";
 import { addReviewMovie, removeReviewMovie, updateReviewMovie } from "@/actions/user/userReviews.actions";
 import { removeUpvoteMovieReview, addUpvoteMovieReview } from "@/actions/user/userUpvotes.actions";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface IMoviePageContentProps {
     searchParamsValues: {
@@ -62,6 +64,8 @@ export default function MoviePageContent({
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = usePageDetailsData();
+
+    const theme = useTheme();
     // #endregion
 
     // #region "Handlers functions"
@@ -291,68 +295,137 @@ export default function MoviePageContent({
                 currentCrewPage={Number(searchParamsValues.crewPage)!}
                 crewPageCount={crewPageCount}
             />
-            <Box
+            <Accordion
+                defaultExpanded={false}
                 sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    rowGap: 2,
-                    mb: movie.reviews!.length > 0 ? 4 : 0,
+                    bgcolor: theme.vars.palette.secondary.light,
+                    boxShadow: theme.shadows[4],
+                    borderRadius: "12px !important",
+                    "&:before": {
+                        display: "none",
+                    },
+                    "& .MuiAccordionSummary-root": {
+                        borderRadius: "12px",
+                        transition: "all 0.2s ease-in-out",
+                        "&:hover": {
+                            bgcolor: theme.vars.palette.secondary.dark,
+                        },
+                    },
+                    "& .MuiAccordionSummary-expandIconWrapper": {
+                        color: theme.vars.palette.primary.main,
+                        transform: "rotate(0deg)",
+                        transition: "transform 0.3s ease-in-out",
+                        "&.Mui-expanded": {
+                            transform: "rotate(180deg)",
+                        },
+                    },
                 }}
-                component={"section"}
             >
-                {movie.reviews!.length > 0 && (
-                    <ReviewsHeader
-                        data={movie}
-                        sortingDataType="reviews"
-                        sortBy={searchParamsValues.reviewsSortBy!}
-                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-                    />
-                )}
-                {movie.reviews!.map(
-                    (review: any, index: number) =>
-                        (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
-                            <Review
-                                key={index}
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="reviews-content"
+                    id="reviews-header"
+                    sx={{
+                        minHeight: 64,
+                    }}
+                >
+                    <Typography
+                        variant="h6"
+                        sx={{
+                            fontWeight: 600,
+                            color: theme.vars.palette.primary.main,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 1,
+                        }}
+                    >
+                        Reviews
+                        {movie.totalReviews > 0 && (
+                            <Typography
+                                component="span"
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    fontSize: "16px",
+                                    fontWeight: 600,
+                                    px: 1.5,
+                                    py: 0.5,
+                                    borderRadius: "16px",
+                                }}
+                            >
+                                ({movie.totalReviews})
+                            </Typography>
+                        )}
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails
+                    sx={{
+                        p: { xs: 2, sm: 3 },
+                        borderTop: `1px solid ${theme.vars.palette.divider}`,
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            rowGap: 2,
+                        }}
+                        component={"section"}
+                    >
+                        {movie.reviews!.length > 0 && (
+                            <ReviewsHeader
+                                data={movie}
+                                sortingDataType="reviews"
+                                sortBy={searchParamsValues.reviewsSortBy!}
+                                ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
+                            />
+                        )}
+                        {movie.reviews!.map(
+                            (review: any, index: number) =>
+                                (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                                    <Review
+                                        key={index}
+                                        review={review}
+                                        handleRemoveReview={onSubmitRemoveReview}
+                                        isEditMode={isEditMode}
+                                        setIsEditMode={setIsEditMode}
+                                        setReview={setReview}
+                                        handleFocusTextEditor={handleFocusTextEditor}
+                                        ref={reviewRef}
+                                        setRating={setRating}
+                                        handleUpvote={onUpvoteMovie}
+                                        handleDownvote={onDownVoteMovie}
+                                        type="movie"
+                                        data={movie}
+                                        handleOpenUpvotesModal={handleOpenUpvotesModal}
+                                        handleOpenDownvotesModal={handleOpenDownvotesModal}
+                                    />
+                                ),
+                        )}
+                        {session?.user && (!movie.isReviewed || isEditMode) && (
+                            <TextEditorForm
                                 review={review}
-                                handleRemoveReview={onSubmitRemoveReview}
+                                setReview={setReview}
+                                rating={rating}
+                                setRating={setRating}
                                 isEditMode={isEditMode}
                                 setIsEditMode={setIsEditMode}
-                                setReview={setReview}
-                                handleFocusTextEditor={handleFocusTextEditor}
-                                ref={reviewRef}
-                                setRating={setRating}
-                                handleUpvote={onUpvoteMovie}
-                                handleDownvote={onDownVoteMovie}
-                                type="movie"
-                                data={movie}
-                                handleOpenUpvotesModal={handleOpenUpvotesModal}
-                                handleOpenDownvotesModal={handleOpenDownvotesModal}
+                                setOpen={setOpen}
+                                textEditorRef={textEditorRef}
+                                handleFocusReview={handleFocusReview}
+                                onSubmitReview={onSubmitReview}
+                                onSubmitUpdateReview={onSubmitUpdateReview}
                             />
-                        ),
-                )}
-                {session?.user && (!movie.isReviewed || isEditMode) && (
-                    <TextEditorForm
-                        review={review}
-                        setReview={setReview}
-                        rating={rating}
-                        setRating={setRating}
-                        isEditMode={isEditMode}
-                        setIsEditMode={setIsEditMode}
-                        setOpen={setOpen}
-                        textEditorRef={textEditorRef}
-                        handleFocusReview={handleFocusReview}
-                        onSubmitReview={onSubmitReview}
-                        onSubmitUpdateReview={onSubmitUpdateReview}
-                    />
-                )}
-                {movie.totalReviews > 0 && (
-                    <PaginationControl
-                        currentPage={Number(searchParamsValues.reviewsPage)!}
-                        pageCount={reviewsPageCount}
-                        urlParamName="reviewsPage"
-                    />
-                )}
-            </Box>
+                        )}
+                        {movie.totalReviews > 0 && (
+                            <PaginationControl
+                                currentPage={Number(searchParamsValues.reviewsPage)!}
+                                pageCount={reviewsPageCount}
+                                urlParamName="reviewsPage"
+                            />
+                        )}
+                    </Box>
+                </AccordionDetails>
+            </Accordion>
             {relatedMovies && relatedMovies.length !== 0 && (
                 <ListDetail data={relatedMovies} type="movie" roleData="related" />
             )}
