@@ -284,6 +284,12 @@ export default function MoviePageContent({
                 isBookmarked={movie.isBookmarked}
                 onBookmark={() => onBookmarkMovie(session!, movie)}
                 onRemoveBookmark={() => onRemoveBookmarkMovie(session!, movie)}
+                cast={movie.cast}
+                crew={movie.crew}
+                currentCastPage={Number(searchParamsValues.castPage)!}
+                castPageCount={castPageCount}
+                currentCrewPage={Number(searchParamsValues.crewPage)!}
+                crewPageCount={crewPageCount}
             />
             <Box
                 sx={{
@@ -350,22 +356,6 @@ export default function MoviePageContent({
             {relatedMovies && relatedMovies.length !== 0 && (
                 <ListDetail data={relatedMovies} type="movie" roleData="related" />
             )}
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <ListDetail data={movie.cast} type="actor" roleData="cast" />
-                <PaginationControl
-                    currentPage={Number(searchParamsValues.castPage)}
-                    pageCount={castPageCount}
-                    urlParamName="castPage"
-                />
-            </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <ListDetail data={movie.crew} type="crew" roleData="production" />
-                <PaginationControl
-                    currentPage={Number(searchParamsValues.crewPage)}
-                    pageCount={crewPageCount}
-                    urlParamName="crewPage"
-                />
-            </Box>
         </Stack>
     );
 }

@@ -12,11 +12,19 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import PersonRoleCard from "./PersonRoleCard";
+import PaginationPersonControl from "./PaginationPersonControl";
 
 interface IDetailsPageCardProps {
     data: any;
     type: string;
     isBookmarked: boolean;
+    cast?: any[];
+    crew?: any[];
+    currentCastPage?: number;
+    currentCrewPage?: number;
+    castPageCount?: number;
+    crewPageCount?: number;
     onBookmark: () => Promise<void>;
     onRemoveBookmark: () => Promise<void>;
     onGoBack?: () => void;
@@ -29,6 +37,12 @@ export function DetailsPageCard({
     onBookmark,
     onRemoveBookmark,
     onGoBack,
+    cast,
+    crew,
+    currentCastPage,
+    currentCrewPage,
+    castPageCount,
+    crewPageCount,
 }: IDetailsPageCardProps) {
     const { data: session } = useSession();
 
@@ -72,15 +86,21 @@ export function DetailsPageCard({
                     Go Back
                 </Button>
             )}
-            <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 3, mb: 3 }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
+                    gap: 3,
+                    alignItems: { xs: "center", md: "flex-start" },
+                }}
+            >
                 <Box
                     sx={{
                         flexShrink: 0,
-                        width: { xs: "100%", md: "100%" },
+                        width: { xs: "100%", md: "214px" },
                         maxWidth: "214px",
                         height: { xs: "300px", md: "317px" },
                         position: "relative",
-                        alignSelf: "center",
                     }}
                 >
                     <Image
@@ -89,9 +109,18 @@ export function DetailsPageCard({
                         height={317}
                         width={214}
                         priority
+                        style={{ objectFit: "cover", borderRadius: "8px" }}
                     />
                 </Box>
-                <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                <Box
+                    sx={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "100%",
+                        pt: { xs: 0, md: 0 },
+                    }}
+                >
                     <Typography
                         variant="h3"
                         component="h1"
@@ -152,6 +181,88 @@ export function DetailsPageCard({
                     <Typography variant="body1" color={theme.vars.palette.primary.light}>
                         {data.description}
                     </Typography>
+                    {type === "movie" && (cast || crew) && (
+                        <Box sx={{ mt: 3, mb: 3, display: "flex", flexDirection: "column", gap: 3 }}>
+                            {cast && cast.length > 0 && (
+                                <Box>
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            mb: 2,
+                                            fontWeight: 600,
+                                            color: theme.vars.palette.primary.main,
+                                        }}
+                                    >
+                                        Featured Cast
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: 2,
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexWrap: "wrap",
+                                                gap: 2,
+                                                justifyContent: { xs: "center", sm: "flex-start" },
+                                            }}
+                                        >
+                                            {cast.map((person, index) => (
+                                                <PersonRoleCard key={index} data={person.actor} type="actor" />
+                                            ))}
+                                        </Box>
+                                        <PaginationPersonControl
+                                            currentPage={currentCastPage!}
+                                            pageCount={castPageCount!}
+                                            urlParamName="castPage"
+                                        />
+                                    </Box>
+                                </Box>
+                            )}
+                            {crew && crew.length > 0 && (
+                                <Box>
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            mb: 2,
+                                            fontWeight: 600,
+                                            color: theme.vars.palette.primary.main,
+                                        }}
+                                    >
+                                        Featured Crew
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: 2,
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                flexWrap: "wrap",
+                                                gap: 2,
+                                                justifyContent: { xs: "center", sm: "flex-start" },
+                                            }}
+                                        >
+                                            {crew.map((person, index) => (
+                                                <PersonRoleCard key={index} data={person.crew} type="crew" />
+                                            ))}
+                                        </Box>
+                                        <PaginationPersonControl
+                                            currentPage={currentCrewPage!}
+                                            pageCount={crewPageCount!}
+                                            urlParamName="crewPage"
+                                        />
+                                    </Box>
+                                </Box>
+                            )}
+                        </Box>
+                    )}
                     <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
                         {type !== "actor" && (
                             <Button
