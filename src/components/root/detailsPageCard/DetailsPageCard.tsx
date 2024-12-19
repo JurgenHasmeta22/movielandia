@@ -122,59 +122,98 @@ export function DetailsPageCard({
                     }}
                 >
                     <Typography
-                        variant="h3"
                         component="h1"
                         gutterBottom
                         fontWeight="bold"
+                        sx={{
+                            fontSize: "3rem",
+                            letterSpacing: "0.3rem",
+                        }}
                         color={theme.vars.palette.primary.main}
                     >
                         {type !== "actor" && type !== "crew" ? data.title : data.fullname}
                     </Typography>
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
-                        {data.genres?.map((genre: any, index: number) => (
-                            <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
-                                <Chip
-                                    label={genre.genre.name}
-                                    clickable
-                                    sx={{
-                                        bgcolor: theme.vars.palette.secondary.light,
-                                        color: theme.vars.palette.red.main,
-                                        textDecoration: "none",
-                                        fontSize: "0.9rem",
-                                        fontWeight: "bold",
-                                        "&:hover": {
-                                            bgcolor: theme.vars.palette.blue.light,
-                                        },
-                                    }}
-                                />
-                            </Link>
-                        ))}
+                    <Box sx={{ mb: 2, display: "flex", flexDirection: "row", alignItems: "center" }}>
+                        <Typography
+                            component="h2"
+                            sx={{
+                                fontWeight: 600,
+                                fontSize: "1.1rem",
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
+                            Genres:
+                        </Typography>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 1,
+                                p: 1,
+                                borderRadius: 2,
+                            }}
+                        >
+                            {data.genres?.map((genre: any, index: number) => (
+                                <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
+                                    <Chip
+                                        label={genre.genre.name}
+                                        clickable
+                                        sx={{
+                                            bgcolor: theme.vars.palette.secondary.main,
+                                            color: theme.vars.palette.red.main,
+                                            textDecoration: "none",
+                                            fontSize: "0.9rem",
+                                            fontWeight: "600",
+                                            padding: "12px 6px",
+                                        }}
+                                    />
+                                </Link>
+                            ))}
+                        </Box>
                     </Box>
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 2 }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: 4,
+                            mb: 3,
+                            borderRadius: 2,
+                        }}
+                    >
                         {type !== "season" && type !== "serie" && type !== "actor" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <AccessTime fontSize="small" />
-                                <Typography variant="body1">Duration: {data.duration} mins</Typography>
+                                <AccessTime fontSize="small" color="primary" />
+                                <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                                    Duration:
+                                </Typography>
+                                <Typography variant="body1">{data.duration} mins</Typography>
                             </Box>
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <CalendarToday fontSize="small" />
-                            <Typography variant="body1">
-                                {type !== "actor" && type !== "crew"
-                                    ? `Aired on: ${formatDate(data.dateAired)}`
-                                    : `Debut year: ${data.debut}`}
+                            <CalendarToday fontSize="small" color="primary" />
+                            <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                                {type !== "actor" && type !== "crew" ? "Aired on:" : "Debut year:"}
+                            </Typography>
+                            <Typography variant="body2">
+                                {type !== "actor" && type !== "crew" ? formatDate(data.dateAired) : data.debut}
                             </Typography>
                         </Box>
                         {type !== "actor" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <Star fontSize="small" />
-                                <Typography variant="body1">Imdb rating: {data.ratingImdb}</Typography>
+                                <Star fontSize="small" color="primary" />
+                                <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                                    IMDB Rating:
+                                </Typography>
+                                <Typography variant="body2">{data.ratingImdb}</Typography>
                             </Box>
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <StarRateIcon />
-                            <Typography component="span" variant="body1">
-                                Average rating: {data.averageRating === 0 ? "N/A" : data.averageRating.toFixed(2)}
+                            <StarRateIcon color="primary" />
+                            <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                                Average Rating:
+                            </Typography>
+                            <Typography variant="body2">
+                                {data.averageRating === 0 ? "N/A" : data.averageRating.toFixed(2)}
                             </Typography>
                         </Box>
                     </Box>
