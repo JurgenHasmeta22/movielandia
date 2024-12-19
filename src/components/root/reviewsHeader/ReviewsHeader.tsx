@@ -15,7 +15,7 @@ const ReviewsHeader = ({ data, sortBy, ascOrDesc, sortingDataType }: IReviewsPro
         <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
             <Box>
                 <Typography variant="h3" align="center">
-                    All Reviews, total ({data.totalReviews})
+                    {data.totalReviews} Reviews
                 </Typography>
             </Box>
             <Box>
