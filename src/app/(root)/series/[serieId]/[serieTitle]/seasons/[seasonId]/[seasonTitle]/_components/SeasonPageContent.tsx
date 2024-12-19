@@ -17,6 +17,8 @@ import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/features/seaso
 import { removeDownvoteSeasonReview, addDownvoteSeasonReview } from "@/actions/user/userDownvotes.actions";
 import { addReviewSeason, removeReviewSeason, updateReviewSeason } from "@/actions/user/userReviews.actions";
 import { removeUpvoteSeasonReview, addUpvoteSeasonReview } from "@/actions/user/userUpvotes.actions";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface ISeasonPageContentProps {
     searchParamsValues: {
@@ -62,6 +64,9 @@ export default function SeasonPageContent({
         setHasMoreDownvotesModal,
         setHasMoreUpvotesModal,
     } = usePageDetailsData();
+
+    const router = useRouter();
+    const pathname = usePathname();
     // #endregion
 
     // #region "Handlers functions"
@@ -292,13 +297,21 @@ export default function SeasonPageContent({
     // #endregion
 
     return (
-        <Stack flexDirection={"column"} rowGap={4}>
+        <Stack flexDirection={"column"} rowGap={2}>
             <DetailsPageCard
                 data={season}
                 type="season"
                 isBookmarked={season.isBookmarked}
                 onBookmark={() => onBookmarkSeason(session!, season)}
                 onRemoveBookmark={() => onRemoveBookmarkSeason(session!, season)}
+                onGoBack={() => {
+                    const currentPath = pathname;
+                    const seasonsIndex = currentPath.indexOf("seasons/");
+                    const newPath = seasonsIndex !== -1 ? currentPath.slice(0, seasonsIndex) : currentPath;
+
+                    router.replace(newPath);
+                    router.refresh();
+                }}
             />
             <Box
                 sx={{

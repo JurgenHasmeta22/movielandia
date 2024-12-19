@@ -22,7 +22,7 @@ interface IEpisodeProps {
 }
 
 export async function generateMetadata({ params }: IEpisodeProps): Promise<Metadata> {
-    const { episodeId } = params;
+    const { episodeId } = await params;
 
     let episode: Episode;
 
@@ -80,10 +80,10 @@ export async function generateMetadata({ params }: IEpisodeProps): Promise<Metad
 export default async function EpisodePage(props: IEpisodeProps) {
     const session = await getServerSession(authOptions);
 
-    const params = props.params;
+    const params = await props.params;
     const { episodeId, seasonId } = params;
 
-    const searchParams = props.searchParams;
+    const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
     const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;

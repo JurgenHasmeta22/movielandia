@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useTransition } from "react";
 import { Box, Typography, Chip, Button, useTheme, CircularProgress } from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
@@ -8,6 +10,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import { formatDate } from "@/utils/helpers/utils";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface IDetailsPageCardProps {
@@ -16,10 +19,19 @@ interface IDetailsPageCardProps {
     isBookmarked: boolean;
     onBookmark: () => Promise<void>;
     onRemoveBookmark: () => Promise<void>;
+    onGoBack?: () => void;
 }
 
-export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemoveBookmark }: IDetailsPageCardProps) {
+export function DetailsPageCard({
+    data,
+    type,
+    isBookmarked,
+    onBookmark,
+    onRemoveBookmark,
+    onGoBack,
+}: IDetailsPageCardProps) {
     const { data: session } = useSession();
+
     const theme = useTheme();
     const [isPending, startTransition] = useTransition();
 
@@ -50,6 +62,16 @@ export function DetailsPageCard({ data, type, isBookmarked, onBookmark, onRemove
                 mt: 10,
             }}
         >
+            {(type === "season" || type === "episode") && (
+                <Button
+                    variant="outlined"
+                    onClick={onGoBack}
+                    sx={{ mb: 2, display: "flex", alignItems: "center", width: "fit-content" }}
+                >
+                    <ArrowBackIcon sx={{ mr: 1 }} />
+                    Go Back
+                </Button>
+            )}
             <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 3, mb: 3 }}>
                 <Box
                     sx={{

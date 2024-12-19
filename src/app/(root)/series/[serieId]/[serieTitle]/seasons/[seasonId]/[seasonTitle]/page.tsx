@@ -23,7 +23,7 @@ interface ISeasonProps {
 }
 
 export async function generateMetadata({ params }: ISeasonProps): Promise<Metadata> {
-    const { seasonId } = params;
+    const { seasonId } = await params;
 
     let season: Season;
 
@@ -81,10 +81,10 @@ export async function generateMetadata({ params }: ISeasonProps): Promise<Metada
 export default async function SeasonPage(props: ISeasonProps) {
     const session = await getServerSession(authOptions);
 
-    const params = props.params;
+    const params = await props.params;
     const { seasonId, serieId } = params;
 
-    const searchParams = props.searchParams;
+    const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
     const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;
