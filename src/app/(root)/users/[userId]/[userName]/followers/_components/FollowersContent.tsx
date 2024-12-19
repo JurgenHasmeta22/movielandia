@@ -1,8 +1,9 @@
 "use client";
 
-import { Box, Container, Pagination, Stack, Typography } from "@mui/material";
+import { Box, Container, Pagination, Stack, Typography, Button } from "@mui/material";
 import { useSearchParams, useRouter } from "next/navigation";
 import UserListItem from "../../_components/UserListItem";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface FollowersContentProps {
     userInPage: {
@@ -63,6 +64,17 @@ export default function FollowersContent({ userInPage, followers, userLoggedIn }
 
     return (
         <Container maxWidth="md" sx={{ py: 4, mt: 8, mb: 8 }}>
+            <Button
+                variant="outlined"
+                startIcon={<ArrowBackIcon />}
+                onClick={() => {
+                    router.push(`/users/${userInPage.id}/${userInPage.userName}`);
+                    router.refresh();
+                }}
+                sx={{ mb: 2 }}
+            >
+                Go Back
+            </Button>
             <Typography variant="h4" gutterBottom sx={{ mt: 3, mb: 3 }}>
                 {userInPage.userName}&apos;s Followers
             </Typography>
