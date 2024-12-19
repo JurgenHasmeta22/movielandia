@@ -116,8 +116,8 @@ export default async function MoviePage(props: IMoviePageProps) {
 
     const perPage = 6;
     const reviewsPageCount = Math.ceil(movie.totalReviews / 5);
-    const castPageCount = Math.ceil(movie.totalCast / perPage);
-    const crewPageCount = Math.ceil(movie.totalCrew / perPage);
+    const castPageCount = Math.ceil(movie.totalCast / 5);
+    const crewPageCount = Math.ceil(movie.totalCrew / 5);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
