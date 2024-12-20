@@ -456,7 +456,7 @@ export default function ActorPageContent({
                     urlParamName="starredMoviesPage"
                 />
             </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={actor.starredSeries} type="actor" roleData="Series" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.starredSeriesPage)}

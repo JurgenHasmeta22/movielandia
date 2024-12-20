@@ -2,7 +2,7 @@
   <h1>🎬 MovieLandia24</h1>
   
   <p align="center">
-    A modern social platform for cinema enthusiasts to discover, review, and engage with movies and TV series.
+    <strong>MovieLandia24</strong> is a dynamic social media platform designed for cinema enthusiasts. It allows users to explore, review, and engage with content related to movies, TV series, actors, crew members, seasons, and episodes. Users can also upvote or downvote reviews, bookmark their favorite content, and take advantage of many other interactive features within the platform.
   </p>
 
   <p align="center">
@@ -23,6 +23,12 @@
 ---
 
 ## ⚡ Tech Stack
+
+The application is built using the Next.js App Router and React, ensuring seamless navigation and a responsive user experience. For styling, it leverages Material UI, offering a modern and consistent design across the platform.
+
+Zustand is used for global state management, providing efficient handling of application state. Animations are powered by Framer Motion, delivering smooth and engaging transitions.
+
+For email functionality, the platform integrates React Email and Resend, while React Hook Form combined with Zod is used for robust form validation, ensuring a user-friendly and reliable experience.
 
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
 - **UI Components:** [Material-UI v6](https://mui.com/) with Emotion

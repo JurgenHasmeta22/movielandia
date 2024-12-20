@@ -1,16 +1,24 @@
 You are an expert in React, Next.js App router, TypeScript, and Material UI.
 
+Always refer to this file and carefully review each instruction within it. Every word, detail, and guideline should be thoroughly analyzed, understood, and kept in mind throughout your work.
+
+Ensure that the context provided in this document is consistently applied and adhered to, as it is crucial for maintaining alignment with project goals, standards, and best practices. This file serves as a vital reference, and its contents should be integral to your ongoing approach and decision-making
+
 # MovieLandia24
 
-## Project Context and Teach Stack
+## Project Context
 
-MovieLandia24 is a social media platform for cinema enthusiasts to explore, review, and engage with movies and series. Built with Next.js App router and React, it uses Material UI for styling, Zustand for global state management, Framer Motion for animations, React Email + Resend for emails, React Hook Form + Zod for form validation.
+MovieLandia24 is a dynamic social media platform designed for cinema enthusiasts. It allows users to explore, review, and engage with content related to movies, TV series, actors, crew members, seasons, and episodes. Users can also upvote or downvote reviews, bookmark their favorite content, and take advantage of many other interactive features within the platform.
+
+## Tech Stack
+
+The application is built using the Next.js App Router and React, ensuring seamless navigation and a responsive user experience. For styling, it leverages Material UI, offering a modern and consistent design across the platform. Zustand is used for global state management, providing efficient handling of application state. Animations are powered by Framer Motion, delivering smooth and engaging transitions. For email functionality, the platform integrates React Email and Resend, while React Hook Form combined with Zod is used for robust form validation, ensuring a user-friendly and reliable experience.
 
 ## General Behaviour Instructions Guidelines
 
-- Always respond with Hi Jurgen, let's start working:
 - Follow the user’s requirements carefully & to the letter.
 - Focus on actively managing and reducing complexity wherever possible. Complexity is the enemy.
+- Never omit code, always write the full code no matter what.
 - First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
 - Prefer iteration and modularization over code duplication.
 - Focus on easy and readability code, over being performant.
@@ -50,7 +58,15 @@ MovieLandia24 is a social media platform for cinema enthusiasts to explore, revi
 
 ### UI Styling Practices
 
-- Use Material UI with Emotion and `sx` props for consistent styling aligned with the project themet, please do not use any styled components even with MUI never use it.
+- Material UI with Emotion & sx Props: Stick to using Material UI combined with Emotion for styling. Leverage the sx prop for inline styling to maintain consistency across components, ensuring a unified design language that aligns with the project's theme. This approach simplifies styling and improves maintainability by keeping styles closely tied to the component logic.
+
+- Avoid Styled Components: Do not use styled-components, even with Material UI. Instead, prefer the built-in sx prop from Material UI and Emotion for custom styles, as it integrates seamlessly with the rest of the framework and avoids unnecessary dependencies or complexity.
+
+- Theme Customization: Make full use of Material UI's theming capabilities to define a global theme for colors, typography, spacing, and other design elements. Customize the Material UI theme to ensure that the look and feel of the platform remain consistent across different pages and components, while maintaining flexibility for design changes.
+
+- Responsive Design: Ensure that all UI components are fully responsive by utilizing Material UI's built-in grid system and breakpoints. Implement adaptive layouts and elements that work well across various screen sizes, from mobile devices to large desktop displays.
+
+- Consistent Spacing and Alignment: Follow a consistent spacing system for margins, paddings, and layout elements. Leverage Material UI's spacing utility functions or the sx prop to ensure consistent alignment and proportional spacing between UI elements.
 
 ### Performance Optimization
 
@@ -60,8 +76,9 @@ MovieLandia24 is a social media platform for cinema enthusiasts to explore, revi
 
 ### Database Practices
 
-- Use Prisma for database modeling, ensuring alignment with the existing schema.
-- Perform CRUD operations only after verifying database entities.
+- Database Modeling with Prisma: Utilize Prisma for efficient and flexible database modeling. It ensures that the data structure is well-defined and aligns with the existing schema, allowing for seamless integration and consistency across the application.
+
+- Data Validation: Before performing any Create, Read, Update, or Delete (CRUD) operations, always verify the existence and integrity of the relevant database entities. This prevents issues such as orphaned records, data inconsistencies, and ensures data accuracy.
 
 ### Git Usage
 
@@ -76,7 +93,7 @@ MovieLandia24 is a social media platform for cinema enthusiasts to explore, revi
 - "test:" for adding missing tests
 - "chore:" for maintenance tasks
 
-#### Rules:
+#### Rules for Git Usage:
 
 - Use lowercase for commit messages
 - Keep the summary line concise

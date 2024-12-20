@@ -462,7 +462,7 @@ export default function EpisodePage({
                     </AccordionDetails>
                 </Accordion>
             </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={relatedEpisodes!} type="episode" roleData="related" />
                 {relatedEpisodes && (
                     <PaginationControl
