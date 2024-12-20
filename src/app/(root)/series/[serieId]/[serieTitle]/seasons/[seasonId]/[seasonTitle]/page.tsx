@@ -116,9 +116,8 @@ export default async function SeasonPage(props: ISeasonProps) {
         relatedPage,
     );
 
-    const perPage = 6;
     const pageCountReviews = Math.ceil(season.totalReviews / 5);
-    const episodesPageCount = Math.ceil(season.totalEpisodes / perPage);
+    const episodesPageCount = Math.ceil(season.totalEpisodes / 6);
     const relatedPageCount = Math.ceil(totalRelated / 6);
 
     return (

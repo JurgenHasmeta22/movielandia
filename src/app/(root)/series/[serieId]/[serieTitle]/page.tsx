@@ -82,10 +82,10 @@ export async function generateMetadata({ params }: ISerieProps): Promise<Metadat
 export default async function SeriePage(props: ISerieProps) {
     const session = await getServerSession(authOptions);
 
-    const params = props.params;
+    const params = await props.params;
     const serieId = params.serieId;
 
-    const searchParams = props.searchParams;
+    const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
     const reviewsAscOrDesc = searchParams?.reviewsAscOrDesc;
@@ -116,11 +116,10 @@ export default async function SeriePage(props: ISerieProps) {
 
     const relatedSeries = await getRelatedSeries(Number(serieId), Number(session?.user?.id));
 
-    const perPage = 6;
     const pageCountReviews = Math.ceil(serie.totalReviews / 5);
     const castPageCount = Math.ceil(serie.totalCast / 5);
     const crewPageCount = Math.ceil(serie.totalCrew / 5);
-    const seasonsPageCount = Math.ceil(serie.totalSeasons / perPage);
+    const seasonsPageCount = Math.ceil(serie.totalSeasons / 6);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>

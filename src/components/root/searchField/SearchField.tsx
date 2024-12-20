@@ -60,6 +60,7 @@ const SearchField = () => {
         } else {
             router.push("/search");
         }
+
         setShowResults(false);
     };
 

@@ -73,6 +73,7 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
 
 export default async function UserPage(props: IUserDetailsProps) {
     const session = await getServerSession(authOptions);
+
     const userSession = session?.user
         ? {
               id: Number(session.user.id),
@@ -91,6 +92,7 @@ export default async function UserPage(props: IUserDetailsProps) {
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
+    
     const mainTab = searchParams && searchParams.maintab ? searchParams.maintab : "bookmarks";
     const subTab = searchParams && searchParams.subtab ? searchParams.subtab : "movies";
     const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
