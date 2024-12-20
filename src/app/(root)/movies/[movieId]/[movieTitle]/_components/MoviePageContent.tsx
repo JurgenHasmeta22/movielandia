@@ -443,7 +443,9 @@ export default function MoviePageContent({
                 </Accordion>
             </Box>
             {relatedMovies && relatedMovies.length !== 0 && (
-                <ListDetail data={relatedMovies} type="movie" roleData="related" />
+                <Box sx={{ mb: 6 }}>
+                    <ListDetail data={relatedMovies} type="movie" roleData="related" />
+                </Box>
             )}
         </Stack>
     );

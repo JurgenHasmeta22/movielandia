@@ -321,9 +321,6 @@ export function DetailsPageCard({
                                 sx={{
                                     bgcolor: theme.vars.palette.red.main,
                                     color: theme.vars.palette.primary.main,
-                                    "&:hover": {
-                                        bgcolor: theme.vars.palette.secondary.light,
-                                    },
                                     textTransform: "capitalize",
                                     fontSize: 16,
                                 }}

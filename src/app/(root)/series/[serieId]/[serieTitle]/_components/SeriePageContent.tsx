@@ -446,7 +446,7 @@ export default function SeriePageContent({
             {relatedSeries && relatedSeries.length !== 0 && (
                 <ListDetail data={relatedSeries} type="serie" roleData="related" />
             )}
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={serie.seasons} type="season" roleData="season" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.seasonsPage)}
