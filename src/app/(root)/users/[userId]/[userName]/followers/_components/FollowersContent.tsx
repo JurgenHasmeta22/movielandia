@@ -57,9 +57,10 @@ export default function FollowersContent({ userInPage, followers, userLoggedIn }
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
         current.set("page", value.toString());
+
         const search = current.toString();
         const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`);
+        router.push(`${window.location.pathname}${query}`, { scroll: false });
     };
 
     return (

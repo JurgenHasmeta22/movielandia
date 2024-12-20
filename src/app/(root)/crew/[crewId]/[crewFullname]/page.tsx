@@ -22,7 +22,7 @@ interface ICrewProps {
 }
 
 export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
-    const params = props.params;
+    const params = await props.params;
     const { crewId } = params;
 
     let crew: Crew;
@@ -82,7 +82,7 @@ export async function generateMetadata(props: ICrewProps): Promise<Metadata> {
 export default async function CrewPage(props: ICrewProps) {
     const session = await getServerSession(authOptions);
 
-    const params = props.params;
+    const params = await props.params;
     const { crewId } = params;
 
     const searchParams = await props.searchParams;

@@ -30,7 +30,7 @@ const PaginationDetailsPersonControl = ({
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         if (value === currentPage) return;
-        router.push(pathname + "?" + createQueryString(urlParamName, value.toString()));
+        router.push(pathname + "?" + createQueryString(urlParamName, value.toString()), { scroll: false });
     };
 
     return (

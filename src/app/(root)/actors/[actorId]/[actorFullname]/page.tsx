@@ -22,7 +22,7 @@ interface IActorProps {
 }
 
 export async function generateMetadata(props: IActorProps): Promise<Metadata> {
-    const params = props.params;
+    const params = await props.params;
     const { actorId } = params;
 
     let actor: Actor;
@@ -82,7 +82,7 @@ export async function generateMetadata(props: IActorProps): Promise<Metadata> {
 export default async function ActorPage(props: IActorProps) {
     const session = await getServerSession(authOptions);
 
-    const params = props.params;
+    const params = await props.params;
     const { actorId } = params;
 
     const searchParams = await props.searchParams;

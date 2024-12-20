@@ -60,7 +60,7 @@ export default function FollowingContent({ userInPage, following, userLoggedIn }
 
         const search = current.toString();
         const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`);
+        router.push(`${window.location.pathname}${query}`, { scroll: false });
     };
 
     return (
