@@ -2,7 +2,6 @@ import { getToken } from "next-auth/jwt";
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import { NextFetchEvent, NextResponse } from "next/server";
 
-// This middleware logic basically is to prevent to access certain pages if not loggedIn
 export default async function middleware(req: NextRequestWithAuth, event: NextFetchEvent) {
     const token = await getToken({ req });
     const isAuthenticated = !!token;
@@ -20,7 +19,7 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
-    // Prevent admin from accessing user profile
+    // Prevent admin from accessing user profile page
     if (req.nextUrl.pathname.startsWith("/users") && userRole === "Admin") {
         return NextResponse.redirect(new URL("/admin", req.url));
     }
@@ -38,6 +37,7 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
     return authMiddleware(req, event);
 }
 
+// Prevented pages if a user is not logged in
 export const config = {
     matcher: ["/login", "/register", "/users/:path*", "/admin/:path*"],
 };

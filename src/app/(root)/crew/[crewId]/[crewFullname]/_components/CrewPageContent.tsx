@@ -456,8 +456,7 @@ export default function CrewPageContent({
                     urlParamName="producedMoviesPage"
                 />
             </Box>
-
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={crew.producedSeries} type="crew" roleData="Series" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.producedSeriesPage)}

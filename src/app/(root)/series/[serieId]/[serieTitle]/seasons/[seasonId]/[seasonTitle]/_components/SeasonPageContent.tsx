@@ -473,7 +473,7 @@ export default function SeasonPageContent({
                     urlParamName="episodesPage"
                 />
             </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={relatedSeasons!} type="season" roleData="related" />
                 {relatedSeasons && (
                     <PaginationControl
