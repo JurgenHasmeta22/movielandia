@@ -13,7 +13,7 @@ interface IUserDetailsProps {
     params: {
         userId: string;
     };
-    searchParams?: Promise<{ maintab?: string; subtab?: string; page?: string }>;
+    searchParams?: Promise<{ maintab?: string; subtab?: string; page?: string; search?: string }>;
 }
 
 export async function generateMetadata(props: IUserDetailsProps): Promise<Metadata> {
@@ -93,9 +93,10 @@ export default async function UserPage(props: IUserDetailsProps) {
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
-    const mainTab = searchParams && searchParams.maintab ? searchParams.maintab : "bookmarks";
-    const subTab = searchParams && searchParams.subtab ? searchParams.subtab : "movies";
-    const page = searchParams && searchParams.page ? Number(searchParams.page) : 1;
+    const mainTab = searchParams?.maintab || "bookmarks";
+    const subTab = searchParams?.subtab || "movies";
+    const page = searchParams?.page ? Number(searchParams.page) : 1;
+    const search = searchParams?.search || "";
 
     let userInPage;
     let additionalData: any = { items: [], total: 0 };
@@ -116,8 +117,9 @@ export default async function UserPage(props: IUserDetailsProps) {
         if (mainTab === "bookmarks") {
             additionalData = await getUserFavorites(
                 Number(userId),
-                subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
+                subTab.toLowerCase() as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
                 page,
+                search,
             );
         } else if (mainTab === "reviews") {
             additionalData = await getUserReviews(
