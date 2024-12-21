@@ -50,13 +50,8 @@ export default function ProfileSearchBar() {
 
     useEffect(() => {
         setIsSearching(true);
-
-        const timer = setTimeout(() => {
-            handleSearch();
-            setIsSearching(false);
-        }, 300);
-
-        return () => clearTimeout(timer);
+        handleSearch();
+        setIsSearching(false);
     }, [debouncedSearch, handleSearch]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
