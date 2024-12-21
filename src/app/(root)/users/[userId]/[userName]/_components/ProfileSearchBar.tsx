@@ -1,7 +1,8 @@
 "use client";
 
-import { Box, InputAdornment, TextField, CircularProgress } from "@mui/material";
+import { Box, InputAdornment, TextField, CircularProgress, IconButton, ClickAwayListener } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -11,15 +12,16 @@ export default function ProfileSearchBar() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const [searchQuery, setSearchQuery] = useState(searchParams.get("search")?.toString() ?? "");
+    const [inputValue, setInputValue] = useState(searchParams.get("search")?.toString() ?? "");
     const [isSearching, setIsSearching] = useState(false);
-    const debouncedSearch = useDebounce(searchQuery, 300);
+    const debouncedSearch = useDebounce(inputValue, 300);
 
     const mainTab = searchParams.get("maintab") || "bookmarks";
     const subTab = searchParams.get("subtab") || "movies";
 
     const getPlaceholder = useMemo(() => {
         const contentType = subTab.toLowerCase();
+
         switch (mainTab) {
             case "reviews":
                 return `Search ${contentType} reviews...`;
@@ -32,88 +34,97 @@ export default function ProfileSearchBar() {
         }
     }, [mainTab, subTab]);
 
-    const createQueryString = useCallback(
-        (newSearch: string) => {
-            const params = new URLSearchParams(Array.from(searchParams.entries()));
+    const handleSearch = useCallback(() => {
+        const params = new URLSearchParams(Array.from(searchParams.entries()));
 
-            if (newSearch) {
-                params.set("search", newSearch);
-                params.set("page", "1");
-            } else {
-                params.delete("search");
-                params.delete("page");
-            }
-
-            return params.toString();
-        },
-        [searchParams],
-    );
-
-    const updateSearch = useCallback(
-        async (term: string) => {
-            setIsSearching(true);
-            const queryString = createQueryString(term);
-
-            await router.push(`${pathname}${queryString ? `?${queryString}` : ""}`, {
-                scroll: false,
-            });
-
-            setIsSearching(false);
-        },
-        [pathname, router, createQueryString],
-    );
-
-    useEffect(() => {
-        updateSearch(debouncedSearch);
-    }, [debouncedSearch, updateSearch]);
-
-    useEffect(() => {
-        const currentSearchParam = searchParams.get("search")?.toString() ?? "";
-
-        // Only update if there's a URL change that didn't come from the input
-        if (currentSearchParam !== searchQuery && document.activeElement !== document.querySelector("input")) {
-            setSearchQuery(currentSearchParam);
+        if (inputValue.trim()) {
+            params.set("search", inputValue.trim());
+            params.set("page", "1");
+        } else {
+            params.delete("search");
+            params.delete("page");
         }
-    }, [searchParams]);
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    }, [inputValue, pathname, router, searchParams]);
+
+    useEffect(() => {
+        setIsSearching(true);
+
+        const timer = setTimeout(() => {
+            handleSearch();
+            setIsSearching(false);
+        }, 300);
+
+        return () => clearTimeout(timer);
+    }, [debouncedSearch, handleSearch]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleClear = () => {
+        setInputValue("");
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        handleSearch();
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch();
+        }
     };
 
     return (
-        <Box
-            sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                mb: 2,
-            }}
-        >
-            <TextField
-                fullWidth
-                variant="outlined"
-                placeholder={getPlaceholder}
-                value={searchQuery}
-                onChange={handleSearchChange}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchIcon color="action" />
-                        </InputAdornment>
-                    ),
-                    endAdornment: isSearching ? (
-                        <InputAdornment position="end">
-                            <CircularProgress size={20} color="inherit" />
-                        </InputAdornment>
-                    ) : null,
-                }}
-                sx={{
-                    maxWidth: "600px",
-                    "& .MuiOutlinedInput-root": {
-                        borderRadius: 2,
-                    },
-                }}
-            />
-        </Box>
+        <ClickAwayListener onClickAway={() => {}}>
+            <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mb: 2 }}>
+                <form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: "600px" }}>
+                    <TextField
+                        fullWidth
+                        variant="outlined"
+                        placeholder={getPlaceholder}
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}
+                        slotProps={{
+                            input: {
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <IconButton type="submit" size="small" aria-label="search">
+                                            <SearchIcon color="action" />
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        {isSearching ? (
+                                            <CircularProgress size={20} color="inherit" />
+                                        ) : inputValue ? (
+                                            <IconButton
+                                                onClick={handleClear}
+                                                size="small"
+                                                aria-label="clear search"
+                                                edge="end"
+                                            >
+                                                <ClearIcon />
+                                            </IconButton>
+                                        ) : null}
+                                    </InputAdornment>
+                                ),
+                            },
+                        }}
+                        sx={{
+                            "& .MuiOutlinedInput-root": {
+                                borderRadius: 2,
+                            },
+                        }}
+                    />
+                </form>
+            </Box>
+        </ClickAwayListener>
     );
 }
