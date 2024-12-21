@@ -6,7 +6,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         const searchParams = request.nextUrl.searchParams;
         const searchTerm = searchParams.get("term")?.trim() || "";
 
-        // Returning empty results if search term is empty or only whitespace
         if (!searchTerm) {
             return NextResponse.json({});
         }
@@ -20,50 +19,50 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         const queries = [];
         if (shouldSearchAll || filters.includes("movies")) {
             queries.push(
-                prisma.movie.findMany({ where: { title: { contains: searchTerm } }, take }),
-                prisma.movie.count({ where: { title: { contains: searchTerm } } }),
+                prisma.movie.findMany({ where: { title: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.movie.count({ where: { title: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("series")) {
             queries.push(
-                prisma.serie.findMany({ where: { title: { contains: searchTerm } }, take }),
-                prisma.serie.count({ where: { title: { contains: searchTerm } } }),
+                prisma.serie.findMany({ where: { title: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.serie.count({ where: { title: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("actors")) {
             queries.push(
-                prisma.actor.findMany({ where: { fullname: { contains: searchTerm } }, take }),
-                prisma.actor.count({ where: { fullname: { contains: searchTerm } } }),
+                prisma.actor.findMany({ where: { fullname: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.actor.count({ where: { fullname: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("crew")) {
             queries.push(
-                prisma.crew.findMany({ where: { fullname: { contains: searchTerm } }, take }),
-                prisma.crew.count({ where: { fullname: { contains: searchTerm } } }),
+                prisma.crew.findMany({ where: { fullname: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.crew.count({ where: { fullname: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("seasons")) {
             queries.push(
-                prisma.season.findMany({ where: { title: { contains: searchTerm } }, take }),
-                prisma.season.count({ where: { title: { contains: searchTerm } } }),
+                prisma.season.findMany({ where: { title: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.season.count({ where: { title: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("episodes")) {
             queries.push(
-                prisma.episode.findMany({ where: { title: { contains: searchTerm } }, take }),
-                prisma.episode.count({ where: { title: { contains: searchTerm } } }),
+                prisma.episode.findMany({ where: { title: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.episode.count({ where: { title: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("users")) {
             queries.push(
-                prisma.user.findMany({ where: { userName: { contains: searchTerm } }, take }),
-                prisma.user.count({ where: { userName: { contains: searchTerm } } }),
+                prisma.user.findMany({ where: { userName: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.user.count({ where: { userName: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 

@@ -46,7 +46,7 @@ export default function ProfileTabs({
     const handleSubTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[currentMainTab].param;
         const selectedSubTab = subTabs[mainTabParam as keyof typeof subTabs][newValue];
-        
+
         updateURL(mainTabParam, selectedSubTab);
     };
 

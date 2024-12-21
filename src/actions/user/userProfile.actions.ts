@@ -262,15 +262,19 @@ export async function getUserReviews(
     const skip = (page - 1) * limit;
     const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
 
+    const titleField = singularSubTab === "actor" || singularSubTab === "crew" ? "fullname" : "title";
+
     const [reviews, total] = await Promise.all([
         prisma.user.findUnique({
             where: { id: userId },
             select: {
                 [`${singularSubTab}Reviews`]: {
                     where: {
-                        content: {
-                            contains: search,
-                            mode: "insensitive",
+                        [singularSubTab]: {
+                            [titleField]: {
+                                contains: search,
+                                mode: "insensitive",
+                            },
                         },
                     },
                     include: {
@@ -316,6 +320,7 @@ export async function getUserVotes(
     const skip = (page - 1) * limit;
     const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
     const type = mainTab === "upvotes" ? "upvoted" : mainTab === "downvotes" ? "downvoted" : mainTab;
+    const titleField = singularSubTab === "actor" || singularSubTab === "crew" ? "fullname" : "title";
 
     const [votes, total] = await Promise.all([
         prisma.user.findUnique({
@@ -324,9 +329,11 @@ export async function getUserVotes(
                 [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: {
                     where: {
                         [`${singularSubTab}Review`]: {
-                            content: {
-                                contains: search,
-                                mode: "insensitive",
+                            [singularSubTab]: {
+                                [titleField]: {
+                                    contains: search,
+                                    mode: "insensitive",
+                                },
                             },
                         },
                     },
@@ -358,9 +365,11 @@ export async function getUserVotes(
                         [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: {
                             where: {
                                 [`${singularSubTab}Review`]: {
-                                    content: {
-                                        contains: search,
-                                        mode: "insensitive",
+                                    [singularSubTab]: {
+                                        [titleField]: {
+                                            contains: search,
+                                            mode: "insensitive",
+                                        },
                                     },
                                 },
                             },

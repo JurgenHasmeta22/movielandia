@@ -103,10 +103,28 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
 
     const getEmptyStateMessage = () => {
         if (currentSearch) {
-            return `No ${type.toLowerCase()} found matching "${currentSearch}"`;
+            switch (mainTab) {
+                case "reviews":
+                    return `No ${type.toLowerCase()} reviews found matching "${currentSearch}"`;
+                case "upvotes":
+                    return `No upvoted ${type.toLowerCase()} reviews found matching "${currentSearch}"`;
+                case "downvotes":
+                    return `No downvoted ${type.toLowerCase()} reviews found matching "${currentSearch}"`;
+                default:
+                    return `No ${type.toLowerCase()} bookmarks found matching "${currentSearch}"`;
+            }
         }
 
-        return `No ${type.toLowerCase()} have been bookmarked yet`;
+        switch (mainTab) {
+            case "reviews":
+                return `No ${type.toLowerCase()} have been reviewed yet`;
+            case "upvotes":
+                return `No ${type.toLowerCase()} reviews have been upvoted yet`;
+            case "downvotes":
+                return `No ${type.toLowerCase()} reviews have been downvoted yet`;
+            default:
+                return `No ${type.toLowerCase()} have been bookmarked yet`;
+        }
     };
 
     return (
