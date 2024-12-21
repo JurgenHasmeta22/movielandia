@@ -67,6 +67,8 @@ const SearchField = () => {
     const handleClear = () => {
         setInputValue("");
         setResults(emptyResults);
+        setLoading(false);
+        setShowResults(true); // Keeping showing the initial state
         handleSearch();
     };
 
@@ -85,11 +87,10 @@ const SearchField = () => {
 
         if (selectedFilters.includes(filter)) {
             const updatedFilters = newFilters.filter((f) => f !== filter);
-
             // If no filters are selected, default to "all"
             setSelectedFilters(updatedFilters.length === 0 ? ["all"] : updatedFilters);
         } else {
-            // Check if adding this filter would make all filters selected
+            // Checking if adding this filter would make all filters selected
             const potentialFilters = [...newFilters, filter];
             const allFiltersExceptAll = filters.filter((f) => f.value !== "all").map((f) => f.value);
 
@@ -106,20 +107,25 @@ const SearchField = () => {
     };
 
     const fetchResults = useCallback(async () => {
-        if (!debouncedSearch) {
+        // No fetch if search term is empty or only whitespace
+        if (!debouncedSearch?.trim()) {
             setResults(emptyResults);
+            setLoading(false);
             return;
         }
 
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/search/all?term=${encodeURIComponent(debouncedSearch)}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
+            const response = await fetch(
+                `/api/search/all?term=${encodeURIComponent(debouncedSearch.trim())}&filters=${selectedFilters.join(",")}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 },
-            });
+            );
 
             if (!response.ok) {
                 showToast("error", "Failed to fetch search results");
@@ -128,15 +134,14 @@ const SearchField = () => {
 
             const data = await response.json();
 
-            // Ensuring all properties exist with default values
             setResults({
-                movies: { items: data.movies?.items || [], total: data.movies?.total || 0 },
-                series: { items: data.series?.items || [], total: data.series?.total || 0 },
-                actors: { items: data.actors?.items || [], total: data.actors?.total || 0 },
-                crews: { items: data.crews?.items || [], total: data.crews?.total || 0 },
-                seasons: { items: data.seasons?.items || [], total: data.seasons?.total || 0 },
-                episodes: { items: data.episodes?.items || [], total: data.episodes?.total || 0 },
-                users: { items: data.users?.items || [], total: data.users?.total || 0 },
+                movies: data.movies || { items: [], total: 0 },
+                series: data.series || { items: [], total: 0 },
+                actors: data.actors || { items: [], total: 0 },
+                crews: data.crews || { items: [], total: 0 },
+                seasons: data.seasons || { items: [], total: 0 },
+                episodes: data.episodes || { items: [], total: 0 },
+                users: data.users || { items: [], total: 0 },
             });
         } catch (error) {
             console.error("Error fetching search results:", error);
@@ -144,7 +149,7 @@ const SearchField = () => {
         } finally {
             setLoading(false);
         }
-    }, [debouncedSearch]);
+    }, [debouncedSearch, selectedFilters]);
 
     useEffect(() => {
         fetchResults();
@@ -154,12 +159,24 @@ const SearchField = () => {
         const value = e.target.value;
         setInputValue(value);
 
-        if (value.length > 0) {
+        // Showing results panel even if empty
+        setShowResults(true);
+
+        // Only setting loading if we have a non-empty, non-whitespace search term
+        if (value.trim()) {
             setLoading(true);
-            setShowResults(true);
         } else {
-            setShowResults(false);
+            setLoading(false);
             setResults(emptyResults);
+        }
+    };
+
+    const handleFocus = () => {
+        setShowResults(true);
+
+        // Only fetching if there's a valid search term
+        if (inputValue.trim()) {
+            fetchResults();
         }
     };
 
@@ -189,11 +206,7 @@ const SearchField = () => {
                         size="small"
                         value={inputValue}
                         onChange={handleInputChange}
-                        onFocus={() => {
-                            if (inputValue.length > 0) {
-                                setShowResults(true);
-                            }
-                        }}
+                        onFocus={handleFocus}
                         onKeyDown={handleKeyDown}
                         sx={{
                             width: "100%",
@@ -236,6 +249,7 @@ const SearchField = () => {
                         onShowMore={handleShowMore}
                         onClose={handleClose}
                         onResultClick={handleReset}
+                        showInitialState={!inputValue}
                     />
                 )}
             </Box>
