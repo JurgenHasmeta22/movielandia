@@ -34,10 +34,16 @@ const SearchField = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
+    // Get initial filters from URL or default to "all"
+    const getInitialFilters = () => {
+        const urlFilters = searchParams.get("filters")?.split(",") || [];
+        return urlFilters.length > 0 ? urlFilters : ["all"];
+    };
+
     const [inputValue, setInputValue] = useState(searchParams.get("term") || "");
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
-    const [selectedFilters, setSelectedFilters] = useState<string[]>(["all"]);
+    const [selectedFilters, setSelectedFilters] = useState<string[]>(getInitialFilters());
     const [results, setResults] = useState<SearchResults>(emptyResults);
 
     const debouncedSearch = useDebounce(inputValue, 300);
@@ -68,8 +74,8 @@ const SearchField = () => {
         setInputValue("");
         setResults(emptyResults);
         setLoading(false);
-        setShowResults(true); // Keeping showing the initial state
-        handleSearch();
+        setShowResults(true); // Keep showing the initial state
+        setSelectedFilters(["all"]); // Reset filters back to default "All"
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -154,6 +160,15 @@ const SearchField = () => {
     useEffect(() => {
         fetchResults();
     }, [fetchResults]);
+
+    // Update selected filters when URL params change
+    useEffect(() => {
+        const urlFilters = searchParams.get("filters")?.split(",") || [];
+
+        if (urlFilters.length > 0) {
+            setSelectedFilters(urlFilters);
+        }
+    }, [searchParams]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
