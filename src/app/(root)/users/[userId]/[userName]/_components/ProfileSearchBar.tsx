@@ -2,43 +2,83 @@
 
 import { Box, InputAdornment, TextField, CircularProgress } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 
 export default function ProfileSearchBar() {
     const router = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
-    const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+
+    const [searchQuery, setSearchQuery] = useState(searchParams.get("search")?.toString() ?? "");
     const [isSearching, setIsSearching] = useState(false);
-    const debouncedSearch = useDebounce(searchQuery, 300); // Reduced to 300ms for better responsiveness
+    const debouncedSearch = useDebounce(searchQuery, 300);
+
+    const mainTab = searchParams.get("maintab") || "bookmarks";
+    const subTab = searchParams.get("subtab") || "movies";
+
+    const getPlaceholder = useMemo(() => {
+        const contentType = subTab.toLowerCase();
+        switch (mainTab) {
+            case "reviews":
+                return `Search ${contentType} reviews...`;
+            case "upvotes":
+                return `Search upvoted ${contentType} reviews...`;
+            case "downvotes":
+                return `Search downvoted ${contentType} reviews...`;
+            default:
+                return `Search ${contentType} bookmarks...`;
+        }
+    }, [mainTab, subTab]);
 
     const createQueryString = useCallback(
-        (name: string, value: string) => {
+        (newSearch: string) => {
             const params = new URLSearchParams(Array.from(searchParams.entries()));
-            if (value) {
-                params.set(name, value);
-                params.set("page", "1"); // Reset to first page on new search
+
+            if (newSearch) {
+                params.set("search", newSearch);
+                params.set("page", "1");
             } else {
-                params.delete(name);
-                params.set("page", "1"); // Also reset page when clearing search
+                params.delete("search");
+                params.delete("page");
             }
+
             return params.toString();
         },
         [searchParams],
     );
 
-    useEffect(() => {
-        const updateSearch = async () => {
+    const updateSearch = useCallback(
+        async (term: string) => {
             setIsSearching(true);
-            const query = createQueryString("search", debouncedSearch);
-            const path = `${window.location.pathname}${query ? `?${query}` : ""}`;
-            await router.push(path, { scroll: false });
-            setIsSearching(false);
-        };
+            const queryString = createQueryString(term);
 
-        updateSearch();
-    }, [debouncedSearch, createQueryString, router]);
+            await router.push(`${pathname}${queryString ? `?${queryString}` : ""}`, {
+                scroll: false,
+            });
+
+            setIsSearching(false);
+        },
+        [pathname, router, createQueryString],
+    );
+
+    useEffect(() => {
+        updateSearch(debouncedSearch);
+    }, [debouncedSearch, updateSearch]);
+
+    useEffect(() => {
+        const currentSearchParam = searchParams.get("search")?.toString() ?? "";
+
+        // Only update if there's a URL change that didn't come from the input
+        if (currentSearchParam !== searchQuery && document.activeElement !== document.querySelector("input")) {
+            setSearchQuery(currentSearchParam);
+        }
+    }, [searchParams]);
+
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    };
 
     return (
         <Box
@@ -52,9 +92,9 @@ export default function ProfileSearchBar() {
             <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Search bookmarks..."
+                placeholder={getPlaceholder}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment position="start">

@@ -256,6 +256,7 @@ export async function getUserReviews(
     userId: number,
     subTab: "movies" | "series" | "seasons" | "episodes" | "actors" | "crew",
     page: number = 1,
+    search: string = "",
     limit: number = 10,
 ) {
     const skip = (page - 1) * limit;
@@ -266,6 +267,12 @@ export async function getUserReviews(
             where: { id: userId },
             select: {
                 [`${singularSubTab}Reviews`]: {
+                    where: {
+                        content: {
+                            contains: search,
+                            mode: "insensitive",
+                        },
+                    },
                     include: {
                         [singularSubTab]: true,
                         _count: {
@@ -302,6 +309,7 @@ export async function getUserVotes(
     userId: number,
     subTab: "movies" | "series" | "seasons" | "episodes" | "actors" | "crew",
     mainTab: "upvotes" | "downvotes",
+    search: string = "",
     page: number = 1,
     limit: number = 10,
 ) {
@@ -314,6 +322,14 @@ export async function getUserVotes(
             where: { id: userId },
             select: {
                 [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: {
+                    where: {
+                        [`${singularSubTab}Review`]: {
+                            content: {
+                                contains: search,
+                                mode: "insensitive",
+                            },
+                        },
+                    },
                     include: {
                         [`${singularSubTab}Review`]: {
                             include: {
@@ -339,7 +355,16 @@ export async function getUserVotes(
             select: {
                 [`_count`]: {
                     select: {
-                        [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: true,
+                        [`${singularSubTab}Reviews${type.charAt(0).toUpperCase() + type.slice(1)}`]: {
+                            where: {
+                                [`${singularSubTab}Review`]: {
+                                    content: {
+                                        contains: search,
+                                        mode: "insensitive",
+                                    },
+                                },
+                            },
+                        },
                     },
                 },
             },

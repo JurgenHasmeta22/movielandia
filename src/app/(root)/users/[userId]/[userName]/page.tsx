@@ -126,12 +126,14 @@ export default async function UserPage(props: IUserDetailsProps) {
                 Number(userId),
                 subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
                 page,
+                search,
             );
         } else if (mainTab === "upvotes" || mainTab === "downvotes") {
             additionalData = await getUserVotes(
                 Number(userId),
                 subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
                 mainTab,
+                search,
                 page,
             );
         }
