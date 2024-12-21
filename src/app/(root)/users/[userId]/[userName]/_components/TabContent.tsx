@@ -5,6 +5,7 @@ import CardItemProfile, { FavoriteType } from "./CardItemProfile";
 import ReviewItemProfile from "./ReviewItemProfile";
 import { motion } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
+import ProfileSearchBar from "./ProfileSearchBar";
 
 interface ITabContentProps {
     type: string;
@@ -16,6 +17,8 @@ interface ITabContentProps {
 export default function TabContent({ type, userLoggedIn, userInPage, additionalData }: ITabContentProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const mainTab = searchParams.get("maintab") || "bookmarks";
+    const currentSearch = searchParams.get("search") || "";
 
     const page = Number(searchParams?.get("page")) || 1;
     const perPage = 10;
@@ -98,6 +101,14 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
         }
     };
 
+    const getEmptyStateMessage = () => {
+        if (currentSearch) {
+            return `No ${type.toLowerCase()} found matching "${currentSearch}"`;
+        }
+
+        return `No ${type.toLowerCase()} have been bookmarked yet`;
+    };
+
     return (
         <Box
             component={motion.div}
@@ -105,26 +116,32 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
+            sx={{ width: "100%" }}
         >
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, justifyItems: "center" }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    alignItems: "center",
+                    width: "100%",
+                }}
+            >
+                {mainTab === "bookmarks" && <ProfileSearchBar />}
                 {totalItems > 0 && (
                     <Box
                         sx={{
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "center",
+                            width: "100%",
                             px: { xs: 1, sm: 2 },
                             mb: 1,
                         }}
                     >
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={{
-                                fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                            }}
-                        >
+                        <Typography variant="body2" color="text.secondary">
                             Showing {startIndex}-{endIndex} of {totalItems} items
+                            {currentSearch && ` for "${currentSearch}"`}
                         </Typography>
                     </Box>
                 )}
@@ -229,13 +246,20 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                py: { xs: 2, sm: 3 },
-                                minHeight: "100px",
+                                flexDirection: "column",
+                                gap: 1,
+                                py: { xs: 4, sm: 6 },
+                                minHeight: "200px",
                             }}
                         >
-                            <Typography variant="body1" color="text.secondary" textAlign="center">
-                                No items found
+                            <Typography variant="h6" color="text.secondary" textAlign="center">
+                                {getEmptyStateMessage()}
                             </Typography>
+                            {currentSearch && (
+                                <Typography variant="body2" color="text.secondary" textAlign="center">
+                                    Try adjusting your search to find what you&apos;re looking for
+                                </Typography>
+                            )}
                         </Box>
                     )}
                 </Box>
