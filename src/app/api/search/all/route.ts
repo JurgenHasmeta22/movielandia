@@ -4,106 +4,109 @@ import { prisma } from "../../../../../prisma/config/prisma";
 export async function GET(request: NextRequest): Promise<NextResponse> {
     try {
         const searchParams = request.nextUrl.searchParams;
-        const searchTerm = searchParams.get("term") || "";
+        const searchTerm = searchParams.get("term")?.trim() || "";
+
+        // Returning empty results if search term is empty or only whitespace
+        if (!searchTerm) {
+            return NextResponse.json({});
+        }
+
+        const filters = searchParams.get("filters")?.split(",") || [];
         const take = 5;
 
-        const [
-            movies,
-            moviesCount,
-            series,
-            seriesCount,
-            actors,
-            actorsCount,
-            crews,
-            crewsCount,
-            seasons,
-            seasonsCount,
-            episodes,
-            episodesCount,
-            users,
-            usersCount,
-        ] = await Promise.all([
-            prisma.movie.findMany({
-                where: { title: { contains: searchTerm } },
-                take,
-            }),
-            prisma.movie.count({
-                where: { title: { contains: searchTerm } },
-            }),
-            prisma.serie.findMany({
-                where: { title: { contains: searchTerm } },
-                take,
-            }),
-            prisma.serie.count({
-                where: { title: { contains: searchTerm } },
-            }),
-            prisma.actor.findMany({
-                where: { fullname: { contains: searchTerm } },
-                take,
-            }),
-            prisma.actor.count({
-                where: { fullname: { contains: searchTerm } },
-            }),
-            prisma.crew.findMany({
-                where: { fullname: { contains: searchTerm } },
-                take,
-            }),
-            prisma.crew.count({
-                where: { fullname: { contains: searchTerm } },
-            }),
-            prisma.season.findMany({
-                where: { title: { contains: searchTerm } },
-                take,
-            }),
-            prisma.season.count({
-                where: { title: { contains: searchTerm } },
-            }),
-            prisma.episode.findMany({
-                where: { title: { contains: searchTerm } },
-                take,
-            }),
-            prisma.episode.count({
-                where: { title: { contains: searchTerm } },
-            }),
-            prisma.user.findMany({
-                where: { userName: { contains: searchTerm } },
-                take,
-            }),
-            prisma.user.count({
-                where: { userName: { contains: searchTerm } },
-            }),
-        ]);
+        // If "all" is selected or no filters specified, search all categories
+        const shouldSearchAll = filters.includes("all") || filters.length === 0;
 
-        return NextResponse.json({
-            movies: {
-                items: movies,
-                total: moviesCount,
-            },
-            series: {
-                items: series,
-                total: seriesCount,
-            },
-            actors: {
-                items: actors,
-                total: actorsCount,
-            },
-            crews: {
-                items: crews,
-                total: crewsCount,
-            },
-            seasons: {
-                items: seasons,
-                total: seasonsCount,
-            },
-            episodes: {
-                items: episodes,
-                total: episodesCount,
-            },
-            users: {
-                items: users,
-                total: usersCount,
-            },
-        });
+        const queries = [];
+        if (shouldSearchAll || filters.includes("movies")) {
+            queries.push(
+                prisma.movie.findMany({ where: { title: { contains: searchTerm } }, take }),
+                prisma.movie.count({ where: { title: { contains: searchTerm } } }),
+            );
+        }
+
+        if (shouldSearchAll || filters.includes("series")) {
+            queries.push(
+                prisma.serie.findMany({ where: { title: { contains: searchTerm } }, take }),
+                prisma.serie.count({ where: { title: { contains: searchTerm } } }),
+            );
+        }
+
+        if (shouldSearchAll || filters.includes("actors")) {
+            queries.push(
+                prisma.actor.findMany({ where: { fullname: { contains: searchTerm } }, take }),
+                prisma.actor.count({ where: { fullname: { contains: searchTerm } } }),
+            );
+        }
+
+        if (shouldSearchAll || filters.includes("crew")) {
+            queries.push(
+                prisma.crew.findMany({ where: { fullname: { contains: searchTerm } }, take }),
+                prisma.crew.count({ where: { fullname: { contains: searchTerm } } }),
+            );
+        }
+
+        if (shouldSearchAll || filters.includes("seasons")) {
+            queries.push(
+                prisma.season.findMany({ where: { title: { contains: searchTerm } }, take }),
+                prisma.season.count({ where: { title: { contains: searchTerm } } }),
+            );
+        }
+
+        if (shouldSearchAll || filters.includes("episodes")) {
+            queries.push(
+                prisma.episode.findMany({ where: { title: { contains: searchTerm } }, take }),
+                prisma.episode.count({ where: { title: { contains: searchTerm } } }),
+            );
+        }
+
+        if (shouldSearchAll || filters.includes("users")) {
+            queries.push(
+                prisma.user.findMany({ where: { userName: { contains: searchTerm } }, take }),
+                prisma.user.count({ where: { userName: { contains: searchTerm } } }),
+            );
+        }
+
+        const results = await Promise.all(queries);
+        const response: any = {};
+        let resultIndex = 0;
+
+        // Processing results based on the same order as queries
+        if (shouldSearchAll || filters.includes("movies")) {
+            response.movies = { items: results[resultIndex], total: results[resultIndex + 1] };
+            resultIndex += 2;
+        }
+
+        if (shouldSearchAll || filters.includes("series")) {
+            response.series = { items: results[resultIndex], total: results[resultIndex + 1] };
+            resultIndex += 2;
+        }
+
+        if (shouldSearchAll || filters.includes("actors")) {
+            response.actors = { items: results[resultIndex], total: results[resultIndex + 1] };
+            resultIndex += 2;
+        }
+
+        if (shouldSearchAll || filters.includes("crew")) {
+            response.crews = { items: results[resultIndex], total: results[resultIndex + 1] };
+            resultIndex += 2;
+        }
+
+        if (shouldSearchAll || filters.includes("seasons")) {
+            response.seasons = { items: results[resultIndex], total: results[resultIndex + 1] };
+            resultIndex += 2;
+        }
+
+        if (shouldSearchAll || filters.includes("episodes")) {
+            response.episodes = { items: results[resultIndex], total: results[resultIndex + 1] };
+            resultIndex += 2;
+        }
+
+        if (shouldSearchAll || filters.includes("users")) {
+            response.users = { items: results[resultIndex], total: results[resultIndex + 1] };
+        }
+
+        return NextResponse.json(response);
     } catch (error) {
         console.error("Error searching:", error);
         return NextResponse.json({ error: "Failed to search" }, { status: 500 });

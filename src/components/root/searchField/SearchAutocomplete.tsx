@@ -23,6 +23,7 @@ interface SearchAutocompleteProps {
     onShowMore: () => void;
     onClose: () => void;
     onResultClick: () => void;
+    showInitialState: boolean;
 }
 
 const SearchAutocomplete = ({
@@ -34,6 +35,7 @@ const SearchAutocomplete = ({
     onShowMore,
     onClose,
     onResultClick,
+    showInitialState,
 }: SearchAutocompleteProps) => {
     const theme = useTheme();
 
@@ -153,6 +155,13 @@ const SearchAutocomplete = ({
         </Box>
     );
 
+    const InitialState = () => (
+        <Box sx={{ py: 4, textAlign: "center", color: theme.vars.palette.text.secondary }}>
+            <Typography variant="body1">Select a category and start typing to search</Typography>
+            <Typography variant="caption">You can search across movies, series, actors, and more</Typography>
+        </Box>
+    );
+
     if (loading) {
         return <LoadingState />;
     }
@@ -257,7 +266,10 @@ const SearchAutocomplete = ({
                     />
                 ))}
             </Stack>
-            {!hasAnyResults ? (
+
+            {showInitialState ? (
+                <InitialState />
+            ) : !hasAnyResults ? (
                 <NoResultsMessage />
             ) : (
                 <Stack spacing={3} sx={{ width: "100%" }}>
