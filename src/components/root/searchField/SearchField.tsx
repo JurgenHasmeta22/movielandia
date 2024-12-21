@@ -74,8 +74,8 @@ const SearchField = () => {
         setInputValue("");
         setResults(emptyResults);
         setLoading(false);
-        setShowResults(true); // Keep showing the initial state
-        setSelectedFilters(["all"]); // Reset filters back to default "All"
+        setShowResults(true);
+        setSelectedFilters(["all"]);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -93,6 +93,7 @@ const SearchField = () => {
 
         if (selectedFilters.includes(filter)) {
             const updatedFilters = newFilters.filter((f) => f !== filter);
+
             // If no filters are selected, default to "all"
             setSelectedFilters(updatedFilters.length === 0 ? ["all"] : updatedFilters);
         } else {
@@ -161,7 +162,7 @@ const SearchField = () => {
         fetchResults();
     }, [fetchResults]);
 
-    // Update selected filters when URL params change
+    // Updated selected filters when URL params change
     useEffect(() => {
         const urlFilters = searchParams.get("filters")?.split(",") || [];
 

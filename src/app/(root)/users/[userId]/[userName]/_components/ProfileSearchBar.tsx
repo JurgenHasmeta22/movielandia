@@ -4,7 +4,7 @@ import { Box, InputAdornment, TextField, CircularProgress, IconButton, ClickAway
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { useCallback, useEffect, useState, useMemo } from "react";
+import { useCallback, useState, useMemo, useEffect } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 
 export default function ProfileSearchBar() {
@@ -34,25 +34,36 @@ export default function ProfileSearchBar() {
         }
     }, [mainTab, subTab]);
 
-    const handleSearch = useCallback(() => {
-        const params = new URLSearchParams(Array.from(searchParams.entries()));
+    const updateSearchParams = useCallback(() => {
+        setIsSearching(true);
 
-        if (inputValue.trim()) {
-            params.set("search", inputValue.trim());
-            params.set("page", "1");
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (debouncedSearch.trim()) {
+            params.set("search", debouncedSearch.trim());
+
+            // Only reset page if the search term actually changed
+            if (params.get("search") !== searchParams.get("search")) {
+                params.set("page", "1");
+            }
         } else {
             params.delete("search");
-            params.delete("page");
+
+            // Only reset page if we're clearing a previous search
+            if (searchParams.has("search")) {
+                params.set("page", "1");
+            }
         }
 
         router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    }, [inputValue, pathname, router, searchParams]);
+        setIsSearching(false);
+    }, [debouncedSearch, pathname, router, searchParams]);
 
     useEffect(() => {
-        setIsSearching(true);
-        handleSearch();
-        setIsSearching(false);
-    }, [debouncedSearch, handleSearch]);
+        if (debouncedSearch !== searchParams.get("search")?.toString()) {
+            updateSearchParams();
+        }
+    }, [debouncedSearch, searchParams, updateSearchParams]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
@@ -64,13 +75,13 @@ export default function ProfileSearchBar() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        handleSearch();
+        updateSearchParams();
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            handleSearch();
+            updateSearchParams();
         }
     };
 
