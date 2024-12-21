@@ -28,20 +28,25 @@ export default function ProfileTabs({
         const newSearchParams = new URLSearchParams(searchParams.toString());
 
         newSearchParams.delete("page");
+        newSearchParams.delete("search");
+
         newSearchParams.set("maintab", mainTabValue);
         newSearchParams.set("subtab", cleanSubTabValue);
+
         router.push(`?${newSearchParams.toString()}`, { scroll: false });
     };
 
     const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[newValue].param;
         const firstSubTab = subTabs[mainTabParam as keyof typeof subTabs][0];
+
         updateURL(mainTabParam, firstSubTab);
     };
 
     const handleSubTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[currentMainTab].param;
         const selectedSubTab = subTabs[mainTabParam as keyof typeof subTabs][newValue];
+        
         updateURL(mainTabParam, selectedSubTab);
     };
 

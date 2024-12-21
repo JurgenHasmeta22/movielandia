@@ -127,7 +127,10 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     width: "100%",
                 }}
             >
-                {mainTab === "bookmarks" && <ProfileSearchBar />}
+                {(mainTab === "bookmarks" ||
+                    mainTab === "reviews" ||
+                    mainTab === "upvotes" ||
+                    mainTab === "downvotes") && <ProfileSearchBar />}
                 {totalItems > 0 && (
                     <Box
                         sx={{
