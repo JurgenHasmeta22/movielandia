@@ -74,15 +74,16 @@ interface MessagesPageContentProps {
     currentSection: "inbox" | "sent";
     currentPage: number;
     initialSearchQuery: string;
+    userLoggedIn: any;
 }
 
 export default function MessagesPageContent({
     initialMessages,
-    users,
     searchResults,
     currentSection,
     currentPage,
     initialSearchQuery,
+    userLoggedIn,
 }: MessagesPageContentProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -90,11 +91,11 @@ export default function MessagesPageContent({
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [messages, setMessages] = useState<Message[]>(initialMessages.items);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [messageText, setMessageText] = useState("");
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
     const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -122,28 +123,16 @@ export default function MessagesPageContent({
     const handleSendMessage = async () => {
         if (!selectedUser || !messageText.trim() || isLoading) return;
 
-        const optimisticMessage: Message = {
-            id: Date.now(),
-            text: messageText,
-            senderId: -1,
-            receiverId: selectedUser.id,
-            createdAt: new Date(),
-            sender: { userName: "You" },
-            receiver: selectedUser,
-        };
-
         try {
             setIsLoading(true);
-            setMessages((prev) => [optimisticMessage, ...prev]);
-
-            await sendMessage(selectedUser.id, messageText);
+            await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
 
             setMessageText("");
             setSelectedUser(null);
             navigateToSection("sent");
         } catch (error) {
             console.error("Failed to send message:", error);
-            setMessages((prev) => prev.filter((msg) => msg.id !== optimisticMessage.id));
+            router.refresh();
         } finally {
             setIsLoading(false);
         }
@@ -152,10 +141,7 @@ export default function MessagesPageContent({
     const handleDeleteMessage = async (messageId: number) => {
         try {
             setIsLoading(true);
-            setMessages((prev) => prev.filter((msg) => msg.id !== messageId));
-
             await deleteMessage(messageId);
-            setSelectedMessage(null);
         } catch (error) {
             console.error("Failed to delete message:", error);
             router.refresh();
@@ -167,19 +153,34 @@ export default function MessagesPageContent({
     useEffect(() => {
         if (debouncedSearchQuery !== searchQuery) {
             const params = new URLSearchParams(searchParams);
+
             if (debouncedSearchQuery) {
                 params.set("search", debouncedSearchQuery);
             } else {
                 params.delete("search");
             }
+
             router.push(`/messages?${params.toString()}`);
         }
     }, [debouncedSearchQuery, router, searchParams, searchQuery]);
 
-    const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setSearchQuery(value);
-    }, []);
+    const handleSearchChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const value = event.target.value;
+            setSearchQuery(value);
+
+            const params = new URLSearchParams(searchParams);
+
+            if (value) {
+                params.set("search", value);
+            } else {
+                params.delete("search");
+            }
+
+            router.push(`/messages?${params.toString()}`);
+        },
+        [searchParams, router],
+    );
 
     const drawer = (
         <Box sx={{ width: 250 }}>
@@ -246,22 +247,28 @@ export default function MessagesPageContent({
                             <TextField
                                 label="To"
                                 value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onChange={handleSearchChange}
                                 placeholder="Search users..."
                                 fullWidth
-                                InputProps={{
-                                    startAdornment: selectedUser && (
-                                        <InputAdornment position="start">
-                                            <Chip
-                                                label={selectedUser.userName}
-                                                onDelete={() => {
-                                                    setSelectedUser(null);
-                                                    setSearchQuery("");
-                                                }}
-                                                size="small"
-                                            />
-                                        </InputAdornment>
-                                    ),
+                                slotProps={{
+                                    input: {
+                                        startAdornment: selectedUser && (
+                                            <InputAdornment position="start">
+                                                <Chip
+                                                    label={selectedUser.userName}
+                                                    onDelete={() => {
+                                                        setSelectedUser(null);
+                                                        setSearchQuery("");
+
+                                                        const params = new URLSearchParams(searchParams);
+                                                        params.delete("search");
+                                                        router.push(`/messages?${params.toString()}`);
+                                                    }}
+                                                    size="small"
+                                                />
+                                            </InputAdornment>
+                                        ),
+                                    },
                                 }}
                             />
                             {searchQuery && !selectedUser && searchResults.length > 0 && (
@@ -287,8 +294,6 @@ export default function MessagesPageContent({
                                 type="message"
                             />
                             <Button
-                                variant="contained"
-                                color="primary"
                                 onClick={handleSendMessage}
                                 sx={{
                                     textTransform: "capitalize",
@@ -305,9 +310,9 @@ export default function MessagesPageContent({
                             <Typography variant="h6" gutterBottom>
                                 {currentSection === "inbox" ? "Inbox" : "Sent Messages"}
                             </Typography>
-                            {messages.length > 0 ? (
+                            {initialMessages.items.length > 0 ? (
                                 <>
-                                    {messages.map((message) => (
+                                    {initialMessages.items.map((message) => (
                                         <Paper
                                             key={message.id}
                                             sx={{

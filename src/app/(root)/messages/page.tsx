@@ -21,14 +21,12 @@ export default async function MessagesPage({ searchParams }: IMessagesPageProps)
     const searchQuery = searchParams?.search || "";
     const searchParamsKey = JSON.stringify(searchParams);
 
-    const messages =
-        section === "inbox"
-            ? await getUserInbox(page, session?.user.id)
-            : await getSentMessages(page, session?.user.id);
+    const [messages, users, searchResults] = await Promise.all([
+        section === "inbox" ? getUserInbox(page, session?.user.id) : getSentMessages(page, session?.user.id),
 
-    const searchResults = searchQuery ? await searchUsers(searchQuery, Number(session?.user.id)) : [];
-
-    const users = await getAllUsers(session?.user.id);
+        getAllUsers(session?.user.id),
+        searchQuery ? searchUsers(searchQuery, Number(session?.user.id)) : Promise.resolve([]),
+    ]);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -39,6 +37,7 @@ export default async function MessagesPage({ searchParams }: IMessagesPageProps)
                 currentSection={section as "inbox" | "sent"}
                 currentPage={page}
                 initialSearchQuery={searchQuery}
+                userLoggedIn={session?.user}
             />
         </Suspense>
     );
