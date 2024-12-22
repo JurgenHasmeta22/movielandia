@@ -15,6 +15,7 @@ import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
 import SearchField from "../searchField/SearchField";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import NotificationMenu from "../notificationMenu/NotificationMenu";
 
 interface IHeaderContentProps {
     session: Session | null;
@@ -113,7 +114,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             px: 2,
                         }}
                     >
-                        <HeaderLinks genres={genres} session={session} />
+                        <HeaderLinks genres={genres} />
                         <Box
                             sx={{
                                 display: "flex",
@@ -125,6 +126,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             }}
                         >
                             <SearchField />
+                            {session?.user && <NotificationMenu session={session} />}
                             <ThemeToggleButton />
                             <AuthButtons
                                 session={session}

@@ -13,15 +13,12 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import { Session } from "next-auth";
-import NotificationMenu from "../notificationMenu/NotificationMenu";
 
 interface IHeaderLinksProps {
     genres: Genre[];
-    session: Session | null;
 }
 
-export function HeaderLinks({ genres, session }: IHeaderLinksProps) {
+export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
@@ -287,7 +284,6 @@ export function HeaderLinks({ genres, session }: IHeaderLinksProps) {
                         </Box>
                     </ListItem>
                 </List>
-                {session?.user && <NotificationMenu session={session} />}
             </Box>
         </>
     );
