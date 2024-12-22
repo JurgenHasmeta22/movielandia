@@ -1,39 +1,17 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import {
-    Box,
-    Container,
-    Drawer,
-    List,
-    ListItemIcon,
-    ListItemText,
-    Paper,
-    Typography,
-    TextField,
-    Button,
-    Divider,
-    useTheme,
-    useMediaQuery,
-    IconButton,
-    Pagination,
-    ListItemButton,
-    InputAdornment,
-    Chip,
-} from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
-import SendIcon from "@mui/icons-material/Send";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useState, useEffect } from "react";
+import { Box, Container, Drawer, Paper, Typography, useTheme, useMediaQuery, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-import { sendMessage, deleteMessage } from "@/actions/user/userMessages.actions";
-import { formatDistanceToNow } from "date-fns";
+import { deleteMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "@/hooks/useDebounce";
-import TextEditor from "@/components/root/textEditor/TextEditor";
+import MessagedSidebar from "./MessagedSidebar";
+import { MessageDetails } from "./MessageDetails";
+import MessagesList from "./MessagesList";
+import MessageCompose from "./MessageCompose";
 
-interface Message {
+export interface Message {
     id: number;
     text: string;
     senderId: number;
@@ -50,15 +28,6 @@ interface Message {
         avatar?: {
             photoSrc: string;
         };
-    };
-}
-
-interface User {
-    id: number;
-    userName: string;
-    email: string;
-    avatar?: {
-        photoSrc: string;
     };
 }
 
@@ -92,8 +61,6 @@ export default function MessagesPageContent({
     const searchParams = useSearchParams();
 
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [messageText, setMessageText] = useState("");
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -112,30 +79,6 @@ export default function MessagesPageContent({
         router.push(`/messages?${params.toString()}`);
 
         if (isMobile) setMobileOpen(false);
-    };
-
-    const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
-        const params = new URLSearchParams(searchParams);
-        params.set("page", page.toString());
-        router.push(`/messages?${params.toString()}`);
-    };
-
-    const handleSendMessage = async () => {
-        if (!selectedUser || !messageText.trim() || isLoading) return;
-
-        try {
-            setIsLoading(true);
-            await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
-
-            setMessageText("");
-            setSelectedUser(null);
-            navigateToSection("sent");
-        } catch (error) {
-            console.error("Failed to send message:", error);
-            router.refresh();
-        } finally {
-            setIsLoading(false);
-        }
     };
 
     const handleDeleteMessage = async (messageId: number) => {
@@ -164,49 +107,6 @@ export default function MessagesPageContent({
         }
     }, [debouncedSearchQuery, router, searchParams, searchQuery]);
 
-    const handleSearchChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const value = event.target.value;
-            setSearchQuery(value);
-
-            const params = new URLSearchParams(searchParams);
-
-            if (value) {
-                params.set("search", value);
-            } else {
-                params.delete("search");
-            }
-
-            router.push(`/messages?${params.toString()}`);
-        },
-        [searchParams, router],
-    );
-
-    const drawer = (
-        <Box sx={{ width: 250 }}>
-            <List>
-                <ListItemButton onClick={() => navigateToSection("inbox")}>
-                    <ListItemIcon>
-                        <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inbox" />
-                </ListItemButton>
-                <ListItemButton onClick={() => navigateToSection("sent")}>
-                    <ListItemIcon>
-                        <SendIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sent Messages" />
-                </ListItemButton>
-                <ListItemButton onClick={() => navigateToSection("compose")}>
-                    <ListItemIcon>
-                        <EditIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Compose New Message" />
-                </ListItemButton>
-            </List>
-        </Box>
-    );
-
     return (
         <Container maxWidth="lg" sx={{ mt: 14, mb: 10 }}>
             <Box sx={{ display: "flex" }}>
@@ -234,164 +134,34 @@ export default function MessagesPageContent({
                         onClose={handleDrawerToggle}
                         ModalProps={{ keepMounted: true }}
                     >
-                        {drawer}
+                        <MessagedSidebar navigateToSection={navigateToSection} />
                     </Drawer>
                 ) : (
-                    <Paper sx={{ width: 250, mr: 2 }}>{drawer}</Paper>
+                    <Paper sx={{ width: 250, mr: 2 }}>
+                        <MessagedSidebar navigateToSection={navigateToSection} />
+                    </Paper>
                 )}
-
                 <Paper sx={{ flexGrow: 1, p: 2 }}>
                     {searchParams.get("section") === "compose" ? (
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                            <Typography variant="h6">New Message</Typography>
-                            <TextField
-                                label="To"
-                                value={searchQuery}
-                                onChange={handleSearchChange}
-                                placeholder="Search users..."
-                                fullWidth
-                                slotProps={{
-                                    input: {
-                                        startAdornment: selectedUser && (
-                                            <InputAdornment position="start">
-                                                <Chip
-                                                    label={selectedUser.userName}
-                                                    onDelete={() => {
-                                                        setSelectedUser(null);
-                                                        setSearchQuery("");
-
-                                                        const params = new URLSearchParams(searchParams);
-                                                        params.delete("search");
-                                                        router.push(`/messages?${params.toString()}`);
-                                                    }}
-                                                    size="small"
-                                                />
-                                            </InputAdornment>
-                                        ),
-                                    },
-                                }}
-                            />
-                            {searchQuery && !selectedUser && searchResults.length > 0 && (
-                                <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
-                                    <List>
-                                        {searchResults.map((user) => (
-                                            <ListItemButton
-                                                key={user.id}
-                                                onClick={() => {
-                                                    setSelectedUser(user);
-                                                    setSearchQuery("");
-                                                }}
-                                            >
-                                                <ListItemText primary={user.userName} secondary={user.email} />
-                                            </ListItemButton>
-                                        ))}
-                                    </List>
-                                </Paper>
-                            )}
-                            <TextEditor
-                                onChange={(content: any) => setMessageText(content)}
-                                value={messageText}
-                                type="message"
-                            />
-                            <Button
-                                onClick={handleSendMessage}
-                                sx={{
-                                    textTransform: "capitalize",
-                                    fontSize: 18,
-                                    fontWeight: 500,
-                                }}
-                                disabled={!selectedUser || !messageText.trim() || isLoading}
-                            >
-                                {isLoading ? "Sending..." : "Send Message"}
-                            </Button>
-                        </Box>
+                        <MessageCompose
+                            searchResults={searchResults}
+                            userLoggedIn={userLoggedIn}
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                        />
                     ) : (
-                        <Box>
-                            <Typography variant="h6" gutterBottom>
-                                {currentSection === "inbox" ? "Inbox" : "Sent Messages"}
-                            </Typography>
-                            {initialMessages.items.length > 0 ? (
-                                <>
-                                    {initialMessages.items.map((message) => (
-                                        <Paper
-                                            key={message.id}
-                                            sx={{
-                                                p: 2,
-                                                mb: 2,
-                                                cursor: "pointer",
-                                                opacity: isLoading ? 0.7 : 1,
-                                                "&:hover": { bgcolor: "action.hover" },
-                                            }}
-                                            onClick={() => setSelectedMessage(message)}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                }}
-                                            >
-                                                <Typography variant="subtitle1">
-                                                    {currentSection === "inbox"
-                                                        ? message.sender.userName
-                                                        : message.receiver.userName}
-                                                </Typography>
-                                                <Typography variant="caption" color="text.secondary">
-                                                    {formatDistanceToNow(new Date(message.createdAt), {
-                                                        addSuffix: true,
-                                                    })}
-                                                </Typography>
-                                            </Box>
-                                            <Typography variant="body2" noWrap>
-                                                {message.text}
-                                            </Typography>
-                                            <IconButton
-                                                size="small"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleDeleteMessage(message.id);
-                                                }}
-                                                disabled={isLoading}
-                                            >
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </Paper>
-                                    ))}
-                                    <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
-                                        <Pagination
-                                            count={Math.ceil(initialMessages.total / 10)}
-                                            page={currentPage}
-                                            onChange={handlePageChange}
-                                            color="primary"
-                                        />
-                                    </Box>
-                                </>
-                            ) : (
-                                <Typography color="text.secondary">No messages to display</Typography>
-                            )}
-                        </Box>
+                        <MessagesList
+                            messages={initialMessages}
+                            currentSection={currentSection}
+                            currentPage={currentPage}
+                            isLoading={isLoading}
+                            onMessageSelect={setSelectedMessage}
+                            onMessageDelete={handleDeleteMessage}
+                        />
                     )}
                 </Paper>
                 {selectedMessage && (
-                    <Paper sx={{ width: 300, ml: 2, p: 2, display: { xs: "none", md: "block" } }}>
-                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                            <Typography variant="h6">Message Details</Typography>
-                            <IconButton size="small" onClick={() => setSelectedMessage(null)}>
-                                <CloseIcon />
-                            </IconButton>
-                        </Box>
-                        <Divider />
-                        <Box sx={{ mt: 2 }}>
-                            <Typography variant="subtitle2">From: {selectedMessage.sender.userName}</Typography>
-                            <Typography variant="subtitle2">To: {selectedMessage.receiver.userName}</Typography>
-                            <Typography variant="body1" sx={{ mt: 2 }}>
-                                {selectedMessage.text}
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 2 }}>
-                                {formatDistanceToNow(new Date(selectedMessage.createdAt), { addSuffix: true })}
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <MessageDetails selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} />
                 )}
             </Box>
         </Container>
