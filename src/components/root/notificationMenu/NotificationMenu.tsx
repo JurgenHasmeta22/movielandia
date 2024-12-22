@@ -25,6 +25,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Session } from "next-auth";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import { formatDistanceToNow } from "date-fns";
 
 interface INotificationMenu {
     session: Session | null;
@@ -35,16 +36,19 @@ export default function NotificationMenu({ session }: INotificationMenu) {
     const [unreadCount, setUnreadCount] = useState(0);
     const [notifications, setNotifications] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [hasMore, setHasMore] = useState(true);
 
     const loaderRef = useRef<HTMLDivElement>(null);
     const isOpen = Boolean(notificationAnchorEl);
 
     const fetchNotifications = async (page: number) => {
-        if (!session?.user?.id || isLoading || !hasMore) return;
+        if (!session?.user?.id) return;
 
-        setIsLoading(true);
+        if (page === 1) {
+            setIsLoading(true);
+        }
+
         try {
             const newNotifications = await getPaginatedNotifications(Number(session.user.id), page);
 
@@ -65,19 +69,24 @@ export default function NotificationMenu({ session }: INotificationMenu) {
         const observer = new IntersectionObserver(
             (entries) => {
                 const first = entries[0];
-                if (first.isIntersecting && hasMore && isOpen) {
+                if (first.isIntersecting && hasMore && isOpen && !isLoading) {
                     fetchNotifications(currentPage + 1);
                 }
             },
             { threshold: 0.1 },
         );
 
-        if (loaderRef.current) {
-            observer.observe(loaderRef.current);
+        const currentLoaderRef = loaderRef.current;
+        if (currentLoaderRef) {
+            observer.observe(currentLoaderRef);
         }
 
-        return () => observer.disconnect();
-    }, [currentPage, hasMore, isOpen]);
+        return () => {
+            if (currentLoaderRef) {
+                observer.unobserve(currentLoaderRef);
+            }
+        };
+    }, [currentPage, hasMore, isOpen, isLoading]);
 
     const handleNotificationClick = async (event: React.MouseEvent<HTMLElement>) => {
         if (isOpen) {
@@ -85,6 +94,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
             return;
         }
 
+        setIsLoading(true);
         setNotificationAnchorEl(event.currentTarget);
         setCurrentPage(1);
         setHasMore(true);
@@ -93,7 +103,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
         if (session?.user?.id) {
             await markNotificationsAsRead(Number(session.user.id));
             setUnreadCount(0);
-            fetchNotifications(1);
+            await fetchNotifications(1);
         }
     };
 
@@ -167,72 +177,121 @@ export default function NotificationMenu({ session }: INotificationMenu) {
                                         }}
                                     >
                                         <Box sx={{ p: 2 }}>
-                                            <Typography variant="h6" gutterBottom>
-                                                Notifications
-                                            </Typography>
-                                            <Divider />
-                                            <Stack spacing={2} sx={{ mt: 2 }}>
-                                                {notifications.map((notification) => (
-                                                    <Box
-                                                        key={notification.id}
+                                            <Stack
+                                                direction="row"
+                                                alignItems="center"
+                                                justifyContent="space-between"
+                                                sx={{ mb: 2 }}
+                                            >
+                                                <Typography variant="h6">Notifications</Typography>
+                                                <Link
+                                                    href="/notifications"
+                                                    onClick={handleClickAway}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="body2"
                                                         sx={{
-                                                            p: 1.5,
-                                                            borderRadius: 1,
-                                                            cursor: "pointer",
-                                                            transition: "all 0.2s",
-                                                            bgcolor:
-                                                                notification.status === "unread"
-                                                                    ? "action.hover"
-                                                                    : "transparent",
+                                                            color: "primary.main",
                                                             "&:hover": {
-                                                                bgcolor: "background.default",
+                                                                textDecoration: "underline",
                                                             },
                                                         }}
-                                                        onClick={handleClickAway}
                                                     >
-                                                        <Stack direction="row" spacing={2} alignItems="center">
-                                                            <Avatar
-                                                                src={notification.sender.avatar?.photoSrc}
-                                                                alt={notification.sender.userName}
-                                                                sx={{ width: 40, height: 40 }}
-                                                            />
-                                                            <Box sx={{ flex: 1 }}>
-                                                                <Typography
-                                                                    variant="body2"
-                                                                    sx={{
-                                                                        fontWeight:
-                                                                            notification.status === "unread"
-                                                                                ? 600
-                                                                                : 400,
-                                                                    }}
+                                                        View All
+                                                    </Typography>
+                                                </Link>
+                                            </Stack>
+                                            <Divider />
+                                            <Stack spacing={2} sx={{ mt: 2 }}>
+                                                {isLoading ? (
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            justifyContent: "center",
+                                                            p: 4,
+                                                        }}
+                                                    >
+                                                        <CircularProgress size={24} />
+                                                    </Box>
+                                                ) : notifications.length > 0 ? (
+                                                    <>
+                                                        {notifications.map((notification) => (
+                                                            <Box
+                                                                key={notification.id}
+                                                                sx={{
+                                                                    p: 1.5,
+                                                                    borderRadius: 1,
+                                                                    cursor: "default",
+                                                                    transition: "all 0.2s",
+                                                                    bgcolor:
+                                                                        notification.status === "unread"
+                                                                            ? "action.hover"
+                                                                            : "transparent",
+                                                                    "&:hover": {
+                                                                        bgcolor: "background.default",
+                                                                    },
+                                                                }}
+                                                                onClick={handleClickAway}
+                                                            >
+                                                                <Stack
+                                                                    direction="row"
+                                                                    spacing={2}
+                                                                    alignItems="flex-start"
                                                                 >
-                                                                    {notification.sender.userName}
-                                                                </Typography>
-                                                                <Typography
-                                                                    variant="body2"
-                                                                    color="text.secondary"
-                                                                    sx={{
-                                                                        mt: 0.5,
-                                                                        opacity:
-                                                                            notification.status === "unread" ? 1 : 0.7,
-                                                                    }}
-                                                                >
-                                                                    {notification.content}
-                                                                </Typography>
+                                                                    <Avatar
+                                                                        src={notification.sender.avatar?.photoSrc}
+                                                                        alt={notification.sender.userName}
+                                                                        sx={{ width: 40, height: 40 }}
+                                                                    />
+                                                                    <Box sx={{ flex: 1 }}>
+                                                                        <Typography
+                                                                            variant="body2"
+                                                                            sx={{
+                                                                                fontWeight:
+                                                                                    notification.status === "unread"
+                                                                                        ? 600
+                                                                                        : 400,
+                                                                            }}
+                                                                        >
+                                                                            {notification.sender.userName}
+                                                                        </Typography>
+                                                                        <Typography
+                                                                            variant="body2"
+                                                                            color="text.secondary"
+                                                                            sx={{
+                                                                                mt: 0.5,
+                                                                                opacity:
+                                                                                    notification.status === "unread"
+                                                                                        ? 1
+                                                                                        : 0.7,
+                                                                            }}
+                                                                        >
+                                                                            {notification.content}
+                                                                        </Typography>
+                                                                        <Typography
+                                                                            variant="caption"
+                                                                            color="text.secondary"
+                                                                            sx={{
+                                                                                mt: 0.5,
+                                                                                display: "block",
+                                                                                opacity: 0.8,
+                                                                            }}
+                                                                        >
+                                                                            {formatDistanceToNow(
+                                                                                new Date(notification.createdAt),
+                                                                                { addSuffix: true },
+                                                                            )}
+                                                                        </Typography>
+                                                                    </Box>
+                                                                </Stack>
                                                             </Box>
-                                                        </Stack>
-                                                    </Box>
-                                                ))}
-
-                                                {isLoading && (
-                                                    <Box sx={{ p: 2, textAlign: "center" }}>
-                                                        <CircularProgress size={20} />
-                                                    </Box>
-                                                )}
-
-                                                <div ref={loaderRef} style={{ height: 1 }} />
-
-                                                {!isLoading && notifications.length === 0 && (
+                                                        ))}
+                                                        {hasMore && <div ref={loaderRef} style={{ height: 1 }} />}
+                                                    </>
+                                                ) : (
                                                     <Box
                                                         sx={{
                                                             py: 4,
@@ -258,26 +317,6 @@ export default function NotificationMenu({ session }: INotificationMenu) {
                                                     </Box>
                                                 )}
                                             </Stack>
-                                        </Box>
-                                        <Divider />
-                                        <Box
-                                            component={Link}
-                                            href="/notifications"
-                                            onClick={handleClickAway}
-                                            sx={{
-                                                display: "block",
-                                                textAlign: "center",
-                                                p: 2,
-                                                textDecoration: "none",
-                                                color: theme.vars.palette.primary.main,
-                                                "&:hover": {
-                                                    bgcolor: "background.default",
-                                                },
-                                            }}
-                                        >
-                                            <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                                                View all notifications
-                                            </Typography>
                                         </Box>
                                     </Paper>
                                 </motion.div>
