@@ -360,3 +360,43 @@ export async function markNotificationsAsRead(userId: number): Promise<void> {
 
     revalidatePath("/notifications");
 }
+
+export const getAllNotifications = async (userId: number, page: number = 1) => {
+    const perPage = 10;
+    const skip = (page - 1) * perPage;
+
+    const [notifications, total] = await Promise.all([
+        prisma.notification.findMany({
+            where: {
+                userId: userId, // Changed from receiverId to userId
+            },
+            include: {
+                sender: {
+                    include: {
+                        avatar: true,
+                    },
+                },
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            skip,
+            take: perPage,
+        }),
+        prisma.notification.count({
+            where: {
+                userId: userId, // Changed from receiverId to userId
+            },
+        }),
+    ]);
+
+    const notificationsWithReadStatus = notifications.map((notification) => ({
+        ...notification,
+        isRead: notification.status === "read",
+    }));
+
+    return {
+        items: notificationsWithReadStatus,
+        total,
+    };
+};
