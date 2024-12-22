@@ -50,12 +50,10 @@ export default function NotificationMenu({ session }: INotificationMenu) {
         }
 
         try {
-            const response = await fetch(
-                `/api/notifications?userId=${session.user.id}&page=${page}&limit=5`
-            );
+            const response = await fetch(`/api/notifications?userId=${session.user.id}&page=${page}&limit=5`);
 
             if (!response.ok) {
-                throw new Error('Failed to fetch notifications');
+                throw new Error("Failed to fetch notifications");
             }
 
             const newNotifications = await response.json();
@@ -64,9 +62,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
                 setHasMore(false);
             }
 
-            setNotifications((prev) => 
-                page === 1 ? newNotifications : [...prev, ...newNotifications]
-            );
+            setNotifications((prev) => (page === 1 ? newNotifications : [...prev, ...newNotifications]));
             setCurrentPage(page);
         } catch (error) {
             console.error("Error fetching notifications:", error);
