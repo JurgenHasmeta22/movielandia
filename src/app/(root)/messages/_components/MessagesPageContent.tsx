@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
     Box,
     Container,
@@ -16,9 +16,10 @@ import {
     useTheme,
     useMediaQuery,
     IconButton,
-    Autocomplete,
     Pagination,
     ListItemButton,
+    InputAdornment,
+    Chip,
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import SendIcon from "@mui/icons-material/Send";
@@ -29,6 +30,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { sendMessage, deleteMessage } from "@/actions/user/userMessages.actions";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useDebounce } from "@/hooks/useDebounce";
+import TextEditor from "@/components/root/textEditor/TextEditor";
 
 interface Message {
     id: number;
@@ -69,6 +72,7 @@ interface MessagesPageContentProps {
     users: any;
     currentSection: "inbox" | "sent";
     currentPage: number;
+    onSearchUsers?: (query: string) => Promise<User[]>;
 }
 
 export default function MessagesPageContent({
@@ -76,6 +80,7 @@ export default function MessagesPageContent({
     users,
     currentSection,
     currentPage,
+    onSearchUsers,
 }: MessagesPageContentProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -89,6 +94,9 @@ export default function MessagesPageContent({
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState<User[]>([]);
+    const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -155,6 +163,22 @@ export default function MessagesPageContent({
         }
     };
 
+    useEffect(() => {
+        const handleSearch = async () => {
+            if (debouncedSearchQuery.startsWith("@") && debouncedSearchQuery.length > 1) {
+                const results = await onSearchUsers?.(debouncedSearchQuery.slice(1));
+                setSearchResults(results || []);
+            }
+        };
+
+        handleSearch();
+    }, [debouncedSearchQuery, onSearchUsers]);
+
+    const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setSearchQuery(value);
+    }, []);
+
     const drawer = (
         <Box sx={{ width: 250 }}>
             <List>
@@ -181,7 +205,7 @@ export default function MessagesPageContent({
     );
 
     return (
-        <Container maxWidth="lg" sx={{ mt: 8, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mt: 14, mb: 10 }}>
             <Box sx={{ display: "flex" }}>
                 {isMobile && (
                     <IconButton
@@ -198,7 +222,6 @@ export default function MessagesPageContent({
                     Messages
                 </Typography>
             </Box>
-
             <Box sx={{ display: "flex", mt: 2 }}>
                 {isMobile ? (
                     <Drawer
@@ -218,24 +241,58 @@ export default function MessagesPageContent({
                     {searchParams.get("section") === "compose" ? (
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                             <Typography variant="h6">New Message</Typography>
-                            <Autocomplete
-                                options={users}
-                                getOptionLabel={(option) => option.userName}
-                                value={selectedUser}
-                                onChange={(_, newValue) => setSelectedUser(newValue)}
-                                renderInput={(params) => <TextField {...params} label="Recipient" />}
-                            />
                             <TextField
-                                label="Message"
-                                multiline
-                                rows={4}
+                                label="To"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                placeholder="Type @ to search users"
+                                InputProps={{
+                                    startAdornment: selectedUser && (
+                                        <InputAdornment position="start">
+                                            <Chip
+                                                label={selectedUser.userName}
+                                                onDelete={() => {
+                                                    setSelectedUser(null);
+                                                    setSearchQuery("");
+                                                }}
+                                                size="small"
+                                            />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            {searchQuery.startsWith("@") && searchResults.length > 0 && !selectedUser && (
+                                <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
+                                    <List>
+                                        {searchResults.map((user) => (
+                                            <ListItemButton
+                                                key={user.id}
+                                                onClick={() => {
+                                                    setSelectedUser(user);
+                                                    setSearchQuery("");
+                                                    setSearchResults([]);
+                                                }}
+                                            >
+                                                <ListItemText primary={user.userName} secondary={user.email} />
+                                            </ListItemButton>
+                                        ))}
+                                    </List>
+                                </Paper>
+                            )}
+                            <TextEditor
+                                onChange={(content: any) => setMessageText(content)}
                                 value={messageText}
-                                onChange={(e) => setMessageText(e.target.value)}
+                                type="message"
                             />
                             <Button
                                 variant="contained"
                                 color="primary"
                                 onClick={handleSendMessage}
+                                sx={{
+                                    textTransform: "capitalize",
+                                    fontSize: 18,
+                                    fontWeight: 600,
+                                }}
                                 disabled={!selectedUser || !messageText.trim() || isLoading}
                             >
                                 {isLoading ? "Sending..." : "Send Message"}
@@ -308,7 +365,6 @@ export default function MessagesPageContent({
                         </Box>
                     )}
                 </Paper>
-
                 {selectedMessage && (
                     <Paper sx={{ width: 300, ml: 2, p: 2, display: { xs: "none", md: "block" } }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
