@@ -13,7 +13,6 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import EmailIcon from "@mui/icons-material/Email";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -283,22 +282,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 </AnimatePresence>
                             </Popper>
                         </Box>
-                    </ListItem>
-                    <ListItem>
-                        <Button
-                            LinkComponent={MuiNextLink}
-                            href="/messages"
-                            variant="text"
-                            sx={getButtonStyle("/messages")}
-                            onClick={() => {
-                                if (isDrawerOpen) {
-                                    setIsDrawerOpen(false);
-                                }
-                            }}
-                        >
-                            <EmailIcon fontSize={"large"} />
-                            Messages
-                        </Button>
                     </ListItem>
                 </List>
             </Box>

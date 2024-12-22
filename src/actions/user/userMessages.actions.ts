@@ -132,3 +132,30 @@ export const getAllUsers = async (userLoggedIn?: any) => {
 
     return users;
 };
+
+export const searchUsers = async (query: string, currentUserId: number) => {
+    if (!query) return [];
+
+    const users = await prisma.user.findMany({
+        where: {
+            AND: [
+                {
+                    OR: [
+                        { userName: { contains: query, mode: "insensitive" } },
+                        { email: { contains: query, mode: "insensitive" } },
+                    ],
+                },
+                { NOT: { id: currentUserId } },
+            ],
+        },
+        select: {
+            id: true,
+            userName: true,
+            email: true,
+            avatar: true,
+        },
+        take: 5,
+    });
+
+    return users;
+};
