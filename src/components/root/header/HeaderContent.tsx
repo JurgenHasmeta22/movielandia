@@ -113,7 +113,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             px: 2,
                         }}
                     >
-                        <HeaderLinks genres={genres} />
+                        <HeaderLinks genres={genres} session={session} />
                         <Box
                             sx={{
                                 display: "flex",

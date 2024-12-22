@@ -49,6 +49,8 @@ model User {
   messagesReceived        Message[]               @relation("Reciever")
   accounts                Account[]
   sessions                Session[]
+  notificationsReceived   Notification[]          @relation("NotificationReceiver")
+  notificationsSent       Notification[]          @relation("NotificationSender")
 }
 
 model ActivateToken {
@@ -220,4 +222,16 @@ model UserCrewFavorite {
   crewId Int
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   crew   Crew @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  type      String   
+  content   String
+  userId    Int
+  user      User     @relation("NotificationReceiver", fields: [userId], references: [id], onDelete: Cascade)
+  senderId  Int
+  sender    User     @relation("NotificationSender", fields: [senderId], references: [id], onDelete: Cascade)
+  status    String   @default("unread")
+  createdAt DateTime @default(now())
 }
