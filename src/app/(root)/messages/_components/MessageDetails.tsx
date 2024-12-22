@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Paper, Box, Typography, IconButton, Divider } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
