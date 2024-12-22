@@ -129,7 +129,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
     }, [session]);
 
     return (
-        <Box sx={{ ml: 2 }}>
+        <Box>
             <ClickAwayListener onClickAway={handleClickAway}>
                 <Box>
                     <IconButton

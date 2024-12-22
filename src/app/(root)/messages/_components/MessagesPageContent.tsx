@@ -69,18 +69,20 @@ interface MessagesData {
 
 interface MessagesPageContentProps {
     initialMessages: MessagesData;
-    users: any;
+    users: any[];
+    searchResults: any[];
     currentSection: "inbox" | "sent";
     currentPage: number;
-    onSearchUsers?: (query: string) => Promise<User[]>;
+    initialSearchQuery: string;
 }
 
 export default function MessagesPageContent({
     initialMessages,
     users,
+    searchResults,
     currentSection,
     currentPage,
-    onSearchUsers,
+    initialSearchQuery,
 }: MessagesPageContentProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -94,8 +96,7 @@ export default function MessagesPageContent({
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState<User[]>([]);
+    const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
     const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
     const handleDrawerToggle = () => {
@@ -164,15 +165,16 @@ export default function MessagesPageContent({
     };
 
     useEffect(() => {
-        const handleSearch = async () => {
-            if (debouncedSearchQuery.startsWith("@") && debouncedSearchQuery.length > 1) {
-                const results = await onSearchUsers?.(debouncedSearchQuery.slice(1));
-                setSearchResults(results || []);
+        if (debouncedSearchQuery !== searchQuery) {
+            const params = new URLSearchParams(searchParams);
+            if (debouncedSearchQuery) {
+                params.set("search", debouncedSearchQuery);
+            } else {
+                params.delete("search");
             }
-        };
-
-        handleSearch();
-    }, [debouncedSearchQuery, onSearchUsers]);
+            router.push(`/messages?${params.toString()}`);
+        }
+    }, [debouncedSearchQuery, router, searchParams, searchQuery]);
 
     const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -244,8 +246,9 @@ export default function MessagesPageContent({
                             <TextField
                                 label="To"
                                 value={searchQuery}
-                                onChange={handleSearchChange}
-                                placeholder="Type @ to search users"
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search users..."
+                                fullWidth
                                 InputProps={{
                                     startAdornment: selectedUser && (
                                         <InputAdornment position="start">
@@ -261,7 +264,7 @@ export default function MessagesPageContent({
                                     ),
                                 }}
                             />
-                            {searchQuery.startsWith("@") && searchResults.length > 0 && !selectedUser && (
+                            {searchQuery && !selectedUser && searchResults.length > 0 && (
                                 <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
                                     <List>
                                         {searchResults.map((user) => (
@@ -270,7 +273,6 @@ export default function MessagesPageContent({
                                                 onClick={() => {
                                                     setSelectedUser(user);
                                                     setSearchQuery("");
-                                                    setSearchResults([]);
                                                 }}
                                             >
                                                 <ListItemText primary={user.userName} secondary={user.email} />
@@ -291,7 +293,7 @@ export default function MessagesPageContent({
                                 sx={{
                                     textTransform: "capitalize",
                                     fontSize: 18,
-                                    fontWeight: 600,
+                                    fontWeight: 500,
                                 }}
                                 disabled={!selectedUser || !messageText.trim() || isLoading}
                             >
