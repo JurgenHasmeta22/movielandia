@@ -83,11 +83,11 @@ export const getSentMessages = async (page: number = 1, userLoggedIn?: any) => {
     };
 };
 
-export const sendMessage = async (receiverId: number, text: string, userLoggedIn?: any) => {
+export const sendMessage = async (receiverId: number, text: string, userLoggedInId: number) => {
     const inbox = await prisma.inbox.create({
         data: {
             participants: {
-                create: [{ userId: userLoggedIn.id }, { userId: receiverId }],
+                create: [{ userId: userLoggedInId }, { userId: receiverId }],
             },
         },
     });
@@ -95,7 +95,7 @@ export const sendMessage = async (receiverId: number, text: string, userLoggedIn
     const message = await prisma.message.create({
         data: {
             text,
-            senderId: userLoggedIn.id,
+            senderId: userLoggedInId,
             receiverId,
             inboxId: inbox.id,
         },
@@ -105,7 +105,7 @@ export const sendMessage = async (receiverId: number, text: string, userLoggedIn
     return message;
 };
 
-export const deleteMessage = async (messageId: number, userLoggedIn?: any) => {
+export const deleteMessage = async (messageId: number) => {
     await prisma.message.delete({
         where: {
             id: messageId,
