@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Box, Paper, Typography, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";

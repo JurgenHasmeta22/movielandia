@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Box, Container, Drawer, Paper, Typography, useTheme, useMediaQuery, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { deleteMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useDebounce } from "@/hooks/useDebounce";
 import MessagedSidebar from "./MessagedSidebar";
 import { MessageDetails } from "./MessageDetails";
 import MessagesList from "./MessagesList";
@@ -42,8 +41,8 @@ interface MessagesPageContentProps {
     searchResults: any[];
     currentSection: "inbox" | "sent";
     currentPage: number;
-    initialSearchQuery: string;
     userLoggedIn: any;
+    initialSelectedUser: any;
 }
 
 export default function MessagesPageContent({
@@ -51,7 +50,7 @@ export default function MessagesPageContent({
     searchResults,
     currentSection,
     currentPage,
-    initialSearchQuery,
+    initialSelectedUser,
     userLoggedIn,
 }: MessagesPageContentProps) {
     const theme = useTheme();
@@ -62,10 +61,7 @@ export default function MessagesPageContent({
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
-
     const [isLoading, setIsLoading] = useState(false);
-    const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-    const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -76,7 +72,7 @@ export default function MessagesPageContent({
 
         params.set("section", section);
         params.set("page", "1");
-        router.push(`/messages?${params.toString()}`);
+        router.push(`/messages?${params.toString()}`, { scroll: false });
 
         if (isMobile) setMobileOpen(false);
     };
@@ -92,20 +88,6 @@ export default function MessagesPageContent({
             setIsLoading(false);
         }
     };
-
-    useEffect(() => {
-        if (debouncedSearchQuery !== searchQuery) {
-            const params = new URLSearchParams(searchParams);
-
-            if (debouncedSearchQuery) {
-                params.set("search", debouncedSearchQuery);
-            } else {
-                params.delete("search");
-            }
-
-            router.push(`/messages?${params.toString()}`);
-        }
-    }, [debouncedSearchQuery, router, searchParams, searchQuery]);
 
     return (
         <Container maxWidth="lg" sx={{ mt: 14, mb: 10 }}>
@@ -146,8 +128,7 @@ export default function MessagesPageContent({
                         <MessageCompose
                             searchResults={searchResults}
                             userLoggedIn={userLoggedIn}
-                            searchQuery={searchQuery}
-                            setSearchQuery={setSearchQuery}
+                            initialSelectedUser={initialSelectedUser}
                         />
                     ) : (
                         <MessagesList

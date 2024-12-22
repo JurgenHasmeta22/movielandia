@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
     Box,
     Typography,
@@ -29,39 +29,62 @@ interface User {
 interface MessageComposeProps {
     searchResults: User[];
     userLoggedIn: any;
-    searchQuery: string;
-    setSearchQuery: (query: string) => void;
+    initialSelectedUser?: User | null;
 }
 
-export default function MessageCompose({
-    searchResults,
-    userLoggedIn,
-    searchQuery,
-    setSearchQuery,
-}: MessageComposeProps) {
+export default function MessageCompose({ searchResults, userLoggedIn, initialSelectedUser }: MessageComposeProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const currentSearchQuery = searchParams.get("search") || "";
+    const selectedUserId = searchParams.get("selectedUser");
 
     const [messageText, setMessageText] = useState("");
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        if (initialSelectedUser) {
+            setSelectedUser(initialSelectedUser);
+        } else if (selectedUserId) {
+            const user = searchResults.find((user) => user.id === Number(selectedUserId));
+            if (user) {
+                setSelectedUser(user);
+            }
+        } else {
+            setSelectedUser(null);
+        }
+    }, [selectedUserId, searchResults, initialSelectedUser]);
 
     const handleSearchChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const value = event.target.value;
-            setSearchQuery(value);
             const params = new URLSearchParams(searchParams);
 
             if (value) {
                 params.set("search", value);
+                params.delete("selectedUser");
             } else {
                 params.delete("search");
             }
 
-            router.push(`/messages?${params.toString()}`);
+            router.push(`/messages?${params.toString()}`, { scroll: false });
         },
-        [searchParams, router, setSearchQuery],
+        [searchParams, router],
     );
+
+    const handleSelectUser = (user: User) => {
+        const params = new URLSearchParams(searchParams);
+        params.delete("search");
+        params.set("selectedUser", user.id.toString());
+        router.push(`/messages?${params.toString()}`, { scroll: false });
+    };
+
+    const handleClearSelection = useCallback(() => {
+        const params = new URLSearchParams(searchParams);
+        params.delete("search");
+        params.delete("selectedUser");
+        router.push(`/messages?${params.toString()}`, { scroll: false });
+    }, [searchParams, router]);
 
     const handleSendMessage = async () => {
         if (!selectedUser || !messageText.trim() || isLoading) return;
@@ -85,47 +108,50 @@ export default function MessageCompose({
         }
     };
 
-    return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Typography variant="h6">New Message</Typography>
-            <TextField
-                label="To"
-                value={searchQuery}
-                onChange={handleSearchChange}
-                placeholder="Search users..."
-                fullWidth
-                slotProps={{
-                    input: {
-                        startAdornment: selectedUser && (
+    const renderTextField = () => {
+        if (selectedUser) {
+            return (
+                <TextField
+                    label="To"
+                    value=""
+                    disabled
+                    fullWidth
+                    InputProps={{
+                        startAdornment: (
                             <InputAdornment position="start">
                                 <Chip
                                     label={selectedUser.userName}
-                                    onDelete={() => {
-                                        setSelectedUser(null);
-                                        setSearchQuery("");
-
-                                        const params = new URLSearchParams(searchParams);
-                                        params.delete("search");
-                                        router.push(`/messages?${params.toString()}`);
-                                    }}
+                                    onDelete={handleClearSelection}
                                     size="small"
+                                    sx={{ mr: 1 }}
                                 />
                             </InputAdornment>
                         ),
-                    },
-                }}
+                    }}
+                />
+            );
+        }
+
+        return (
+            <TextField
+                label="To"
+                value={currentSearchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search users..."
+                fullWidth
             />
-            {searchQuery && !selectedUser && searchResults.length > 0 && (
+        );
+    };
+
+    return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Typography variant="h6">New Message</Typography>
+            {renderTextField()}
+            {!selectedUser && currentSearchQuery && searchResults.length > 0 && (
                 <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
                     <List>
                         {searchResults.map((user) => (
-                            <ListItemButton
-                                key={user.id}
-                                onClick={() => {
-                                    setSelectedUser(user);
-                                    setSearchQuery("");
-                                }}
-                            >
+                            <ListItemButton key={user.id} onClick={() => handleSelectUser(user)}>
                                 <ListItemText primary={user.userName} secondary={user.email} />
                             </ListItemButton>
                         ))}
