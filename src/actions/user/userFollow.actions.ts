@@ -400,3 +400,27 @@ export const getAllNotifications = async (userId: number, page: number = 1) => {
         total,
     };
 };
+
+export async function getPaginatedNotifications(userId: number, page: number = 1, limit: number = 5) {
+    const skip = (page - 1) * limit;
+
+    return prisma.notification.findMany({
+        where: {
+            userId,
+        },
+        include: {
+            sender: {
+                select: {
+                    id: true,
+                    userName: true,
+                    avatar: true,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+        skip,
+        take: limit,
+    });
+}
