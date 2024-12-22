@@ -1,7 +1,16 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import {
+    Box,
+    Drawer,
+    IconButton,
+    useMediaQuery,
+    useTheme,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+} from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect } from "react";
 import { Session } from "next-auth";
@@ -10,6 +19,8 @@ import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import SearchField from "../searchField/SearchField";
 import { Genre } from "@prisma/client";
+import EmailIcon from "@mui/icons-material/Email";
+import Link from "next/link";
 
 interface IHeaderMobileProps {
     genres: Genre[];
@@ -98,6 +109,12 @@ export default function HeaderMobile({
                         userName={userName}
                     />
                 </Box>
+                <ListItemButton component={Link} href="/messages" onClick={() => setIsDrawerOpen(false)}>
+                    <ListItemIcon>
+                        <EmailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Messages" />
+                </ListItemButton>
             </Box>
         </Drawer>
     );

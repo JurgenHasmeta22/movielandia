@@ -44,6 +44,7 @@ export function TextEditorForm({
                     rating={rating}
                     setRating={setRating}
                     isDisabled={isSubmitting}
+                    type="review"
                 />
             </Box>
             <TextEditorButtons
