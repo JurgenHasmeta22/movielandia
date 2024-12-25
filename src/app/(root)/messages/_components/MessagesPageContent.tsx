@@ -88,6 +88,7 @@ export default function MessagesPageContent({
 
         params.set("section", section);
         params.set("page", "1");
+        params.delete("selectedUser");
         router.push(`/messages?${params.toString()}`, { scroll: false });
 
         if (isMobile) setMobileOpen(false);

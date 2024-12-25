@@ -236,6 +236,10 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                         "& .ql-align-center": { textAlign: "center" },
                         "& .ql-align-right": { textAlign: "right" },
                         "& .ql-align-justify": { textAlign: "justify" },
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                        minWidth: "100%",
+                        whiteSpace: "pre-wrap",
                     },
                 }}
             >

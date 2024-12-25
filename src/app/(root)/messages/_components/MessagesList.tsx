@@ -21,6 +21,7 @@ import { markMessageAsRead } from "@/actions/user/userMessages.actions";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
+import { useSession } from "next-auth/react";
 
 interface MessagesListProps {
     messages: any;
@@ -47,6 +48,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
     const [totalMessages, setTotalMessages] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const { openModal } = useModal();
+    const { data: session } = useSession();
 
     useEffect(() => {
         if (messages) {
@@ -120,74 +122,165 @@ const MessagesList: React.FC<MessagesListProps> = ({
         );
     }
 
+    const inboxMessages = currentMessages.filter(
+        (message) => currentSection === "inbox" && message.receiverId === session?.user.id,
+    );
+
+    if (currentSection === "inbox" && (!inboxMessages || inboxMessages.length === 0)) {
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
+                <Typography variant="body1">No messages received.</Typography>
+            </Box>
+        );
+    }
+
+    if (!currentMessages || currentMessages.length === 0) {
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
+                <Typography variant="body1">No messages found.</Typography>
+            </Box>
+        );
+    }
+
     return (
         <>
             <List>
                 {currentMessages.map((message: Message) => (
                     <Box key={message.id}>
-                        <ListItemButton
-                            onClick={() => handleOpenMessage(message)}
-                            sx={{
-                                backgroundColor:
-                                    message.read === false && currentSection === "inbox" ? "#f0f8ff" : "transparent",
-                            }}
-                        >
-                            <ListItemAvatar>
-                                <Avatar
-                                    src={
-                                        currentSection === "inbox"
-                                            ? message.sender?.avatar?.photoSrc
-                                            : message.receiver?.avatar?.photoSrc
-                                    }
-                                >
-                                    {currentSection === "inbox"
-                                        ? message.sender?.userName.charAt(0).toUpperCase()
-                                        : message.receiver?.userName.charAt(0).toUpperCase()}
-                                </Avatar>
-                            </ListItemAvatar>
-                            <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                                <Typography
-                                    variant="subtitle2"
-                                    fontWeight={
-                                        message.read === false && currentSection === "inbox" ? "bold" : "normal"
-                                    }
-                                >
-                                    {currentSection === "inbox" ? message.sender.userName : message.receiver.userName}
-                                </Typography>
-                                <Box
+                        {currentSection === "inbox" ? (
+                            message.receiverId === session?.user.id && (
+                                <ListItemButton
+                                    onClick={() => handleOpenMessage(message)}
                                     sx={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
+                                        backgroundColor: message.read === false ? "#f0f8ff" : "transparent",
                                     }}
                                 >
-                                    <Box
-                                        sx={{
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap",
-                                            maxWidth: "200px",
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            src={
+                                                currentSection === "inbox"
+                                                    ? message.sender?.avatar?.photoSrc
+                                                    : message.receiver?.avatar?.photoSrc
+                                            }
+                                        >
+                                            {currentSection === "inbox"
+                                                ? message.sender?.userName.charAt(0).toUpperCase()
+                                                : message.receiver?.userName.charAt(0).toUpperCase()}
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                                        <Typography
+                                            variant="subtitle2"
+                                            fontWeight={message.read === false ? "bold" : "normal"}
+                                        >
+                                            {currentSection === "inbox"
+                                                ? message.sender.userName
+                                                : message.receiver.userName}
+                                        </Typography>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    overflow: "hidden",
+                                                    textOverflow: "ellipsis",
+                                                    whiteSpace: "nowrap",
+                                                    maxWidth: "200px",
+                                                    wordWrap: "break-word",
+                                                    overflowWrap: "break-word",
+                                                }}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
+                                                }}
+                                            />
+                                            <Typography variant="caption" color="text.secondary">
+                                                {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                    <IconButton
+                                        edge="end"
+                                        aria-label="delete"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleOpenDeleteDialog(message.id);
                                         }}
-                                        dangerouslySetInnerHTML={{
-                                            __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
-                                        }}
-                                    />
-                                    <Typography variant="caption" color="text.secondary">
-                                        {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
-                                    </Typography>
-                                </Box>
-                            </Box>
-                            <IconButton
-                                edge="end"
-                                aria-label="delete"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleOpenDeleteDialog(message.id);
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </ListItemButton>
+                            )
+                        ) : (
+                            <ListItemButton
+                                onClick={() => handleOpenMessage(message)}
+                                sx={{
+                                    backgroundColor:
+                                        message.read === false && currentSection === "inbox" ? "#f0f8ff" : "transparent",
                                 }}
                             >
-                                <DeleteIcon />
-                            </IconButton>
-                        </ListItemButton>
+                                <ListItemAvatar>
+                                    <Avatar
+                                        src={
+                                            currentSection === "inbox"
+                                                ? message.sender?.avatar?.photoSrc
+                                                : message.receiver?.avatar?.photoSrc
+                                        }
+                                    >
+                                        {currentSection === "inbox"
+                                            ? message.sender?.userName.charAt(0).toUpperCase()
+                                            : message.receiver?.userName.charAt(0).toUpperCase()}
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                                    <Typography
+                                        variant="subtitle2"
+                                        fontWeight={
+                                            message.read === false && currentSection === "inbox" ? "bold" : "normal"
+                                        }
+                                    >
+                                        {currentSection === "inbox"
+                                            ? message.sender.userName
+                                            : message.receiver.userName}
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                whiteSpace: "nowrap",
+                                                maxWidth: "200px",
+                                            }}
+                                            dangerouslySetInnerHTML={{
+                                                __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
+                                            }}
+                                        />
+                                        <Typography variant="caption" color="text.secondary">
+                                            {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="delete"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleOpenDeleteDialog(message.id);
+                                    }}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItemButton>
+                        )}
                         <Divider />
                     </Box>
                 ))}
@@ -206,12 +299,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
                     ))}
                 </Box>
             )}
-            {!currentMessages ||
-                (currentMessages.length === 0 && (
-                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
-                        <Typography variant="body1">No messages found.</Typography>
-                    </Box>
-                ))}
         </>
     );
 };
