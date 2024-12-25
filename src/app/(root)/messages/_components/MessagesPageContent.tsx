@@ -1,7 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { Box, Container, Drawer, Paper, Typography, useTheme, useMediaQuery, IconButton } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+    Box,
+    Container,
+    Drawer,
+    Paper,
+    Typography,
+    useTheme,
+    useMediaQuery,
+    IconButton,
+    CircularProgress,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { deleteMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -16,6 +26,7 @@ export interface Message {
     senderId: number;
     receiverId: number;
     createdAt: Date;
+    read: boolean;
     sender: {
         userName: string;
         avatar?: {
@@ -62,6 +73,11 @@ export default function MessagesPageContent({
     const [mobileOpen, setMobileOpen] = useState(false);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingPage, setLoadingPage] = useState(true);
+
+    useEffect(() => {
+        setLoadingPage(false);
+    }, [initialMessages]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -88,6 +104,14 @@ export default function MessagesPageContent({
             setIsLoading(false);
         }
     };
+
+    if (loadingPage) {
+        return (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
         <Container maxWidth="lg" sx={{ mt: 14, mb: 10 }}>
