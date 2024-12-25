@@ -13,7 +13,7 @@ import {
     CircularProgress,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { deleteMessage, editMessage } from "@/actions/user/userMessages.actions";
+import { deleteMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";
 import { MessageDetails } from "./MessageDetails";
@@ -79,7 +79,6 @@ export default function MessagesPageContent({
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isPending, startTransition] = useTransition();
     const [loadingPage, setLoadingPage] = useState(true);
-    const [messageToEdit, setMessageToEdit] = useState<Message | null>(null);
 
     useEffect(() => {
         setLoadingPage(false);
@@ -92,6 +91,7 @@ export default function MessagesPageContent({
     const navigateToSection = (section: string) => {
         const params = new URLSearchParams(searchParams);
         params.set("section", section);
+        params.delete("editMessageId");
         router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
@@ -103,7 +103,6 @@ export default function MessagesPageContent({
     };
 
     const handleEditMessage = (message: Message) => {
-        setMessageToEdit(message);
         const params = new URLSearchParams(searchParams);
         params.set("section", "compose");
         router.push(`/messages?${params.toString()}`, { scroll: false });

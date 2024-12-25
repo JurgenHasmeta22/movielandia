@@ -101,8 +101,6 @@ export const sendMessage = async (receiverId: number, text: string, userLoggedIn
         },
     });
 
-    revalidatePath("/messages");
-
     return message;
 };
 
@@ -113,8 +111,6 @@ export const deleteMessage = async (messageId: number) => {
                 id: messageId,
             },
         });
-
-        revalidatePath("/messages");
     } catch (error) {
         console.error("Error deleting message:", error);
         throw error;
@@ -191,8 +187,6 @@ export const markMessageAsRead = async (messageId: number) => {
             read: true,
         },
     });
-
-    revalidatePath("/messages");
 };
 
 export const getTotalUnreadMessages = async (userId: number) => {
@@ -207,8 +201,6 @@ export const getTotalUnreadMessages = async (userId: number) => {
 };
 
 export const editMessage = async (messageId: number, text: string) => {
-    console.log(messageId, text);
-
     try {
         await prisma.message.update({
             where: {
@@ -219,8 +211,6 @@ export const editMessage = async (messageId: number, text: string) => {
                 editedAt: new Date(),
             },
         });
-
-        revalidatePath("/messages");
     } catch (error) {
         console.error("Error editing message:", error);
         throw error;

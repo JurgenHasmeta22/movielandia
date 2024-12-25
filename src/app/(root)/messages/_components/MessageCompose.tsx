@@ -46,6 +46,7 @@ export default function MessageCompose({
 }: MessageComposeProps) {
     const theme = useTheme();
     const router = useRouter();
+
     const searchParams = useSearchParams();
     const currentSearchQuery = searchParams.get("search") || "";
     const selectedUserId = searchParams.get("selectedUser");
@@ -97,7 +98,7 @@ export default function MessageCompose({
 
             router.push(`/messages?${params.toString()}`, { scroll: false });
         },
-        [searchParams, router],
+        [searchParams],
     );
 
     const handleSelectUser = (user: User) => {
@@ -112,7 +113,7 @@ export default function MessageCompose({
         params.delete("search");
         params.delete("selectedUser");
         router.push(`/messages?${params.toString()}`, { scroll: false });
-    }, [searchParams, router]);
+    }, [searchParams]);
 
     const handleSendMessage = async () => {
         if ((!selectedUser && !isEditing) || !messageText.trim() || isLoading) return;
@@ -128,9 +129,6 @@ export default function MessageCompose({
                 showToast("success", "Message sent successfully!");
             }
 
-            setMessageText("");
-            setSelectedUser(null);
-
             const params = new URLSearchParams(searchParams);
             params.set("section", "sent");
             router.push(`/messages?${params.toString()}`);
@@ -144,10 +142,6 @@ export default function MessageCompose({
 
     const handleCancelEdit = () => {
         setMessageText(initialText);
-        setIsEditing(false);
-
-        const params = new URLSearchParams(searchParams);
-        router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
     return (
@@ -195,19 +189,27 @@ export default function MessageCompose({
                 </Paper>
             )}
             <TextEditor onChange={(content: any) => setMessageText(content)} value={messageText} type="message" />
-            <Box sx={{ display: "flex", gap: 1 }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
                 <Button
                     onClick={handleSendMessage}
                     sx={{
                         textTransform: "capitalize",
                         fontSize: 18,
                         fontWeight: 500,
-                        bgcolor: theme.palette.primary.main,
-                        color: theme.palette.primary.contrastText,
+                        bgcolor: theme.palette.success.main,
+                        color: theme.palette.success.contrastText,
                         "&:disabled": {
                             bgcolor: theme.palette.grey[400],
                             color: theme.palette.grey[100],
                         },
+                        padding: "5px 15px",
+                        transition: "background-color 0.3s ease",
+                        "&:hover": {
+                            bgcolor: theme.palette.success.dark,
+                        },
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
                     disabled={
                         (!selectedUser && !isEditing) ||
@@ -215,7 +217,7 @@ export default function MessageCompose({
                         isLoading ||
                         (isEditing && messageText === initialText)
                     }
-                    startIcon={<SaveIcon />}
+                    startIcon={!isLoading ? <SaveIcon /> : null}
                 >
                     {isLoading ? <CircularProgress size={24} sx={{ mr: 1 }} /> : isEditing ? "Save" : "Send Message"}
                 </Button>
@@ -226,14 +228,22 @@ export default function MessageCompose({
                             textTransform: "capitalize",
                             fontSize: 18,
                             fontWeight: 500,
-                            color: theme.palette.grey[700],
-                            bgcolor: theme.palette.grey[200],
+                            color: theme.palette.error.contrastText,
+                            bgcolor: theme.palette.error.main,
                             "&:disabled": {
                                 bgcolor: theme.palette.grey[100],
                                 color: theme.palette.grey[500],
                             },
+                            padding: "5px 15px",
+                            transition: "background-color 0.3s ease",
+                            "&:hover": {
+                                bgcolor: theme.palette.error.dark,
+                            },
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                         }}
-                        startIcon={<CancelIcon />}
+                        startIcon={!isLoading ? <CancelIcon /> : null}
                         disabled={isLoading || (isEditing && messageText === initialText)}
                     >
                         Cancel
