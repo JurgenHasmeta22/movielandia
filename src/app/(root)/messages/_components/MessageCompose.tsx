@@ -12,10 +12,12 @@ import {
     ListItemText,
     InputAdornment,
     Chip,
+    CircularProgress,
 } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { sendMessage } from "@/actions/user/userMessages.actions";
+import { showToast } from "@/utils/helpers/toast";
 
 interface User {
     id: number;
@@ -100,6 +102,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
             params.set("section", "sent");
             params.set("page", "1");
             router.push(`/messages?${params.toString()}`);
+            showToast("success", "Message sent successfully!");
         } catch (error) {
             console.error("Failed to send message:", error);
             router.refresh();
@@ -168,7 +171,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
                 }}
                 disabled={!selectedUser || !messageText.trim() || isLoading}
             >
-                {isLoading ? "Sending..." : "Send Message"}
+                {isLoading ? <CircularProgress size={24} sx={{ mr: 1 }} /> : "Send Message"}
             </Button>
         </Box>
     );

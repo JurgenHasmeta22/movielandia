@@ -196,6 +196,6 @@ export const getTotalUnreadMessages = async (userId: number) => {
             read: false,
         },
     });
-    
+
     return count;
 };
