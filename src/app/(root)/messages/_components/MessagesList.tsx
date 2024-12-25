@@ -10,7 +10,6 @@ import {
     Divider,
     IconButton,
     CircularProgress,
-    Button,
     ListItemButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,6 +22,7 @@ import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useSession } from "next-auth/react";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 
 interface MessagesListProps {
     messages: any;
@@ -90,15 +90,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
         });
     };
 
-    const handlePageChange = (newPage: number) => {
-        const params = new URLSearchParams(searchParams);
-        params.set("page", String(newPage));
-
-        startTransition(() => {
-            router.push(`/messages?${params.toString()}`, { scroll: false });
-        });
-    };
-
     if (isLoading) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
@@ -126,223 +117,122 @@ const MessagesList: React.FC<MessagesListProps> = ({
             </Box>
         );
     }
+
     return (
         <>
             <List>
-                {messages.items.map((message: Message) => (
-                    <Box
-                        key={message.id}
-                        onClick={() => {
-                            router.push(`/messages/${message.id}`);
-                        }}
-                    >
-                        {currentSection === "inbox" ? (
-                            message.receiverId === Number(session?.user.id) && (
-                                <ListItemButton
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleOpenMessage(message);
-                                    }}
+                {messages.items.map((message: any) => (
+                    <Box key={message.id}>
+                        <ListItemButton
+                            onClick={() => {
+                                handleOpenMessage(message);
+                                const params = new URLSearchParams(searchParams);
+                                params.set("messageId", String(message.id));
+                                router.push(`/messages/${message.id}?${params.toString()}`, { scroll: false });
+                            }}
+                            sx={{
+                                "&:hover": {
+                                    backgroundColor: "rgba(0, 0, 0, 0.04)",
+                                },
+                                padding: 2,
+                            }}
+                        >
+                            <ListItemAvatar>
+                                <Avatar
+                                    src={
+                                        currentSection === "inbox"
+                                            ? message.sender?.avatar?.photoSrc
+                                            : message.receiver?.avatar?.photoSrc
+                                    }
+                                >
+                                    {currentSection === "inbox"
+                                        ? message.sender?.userName.charAt(0).toUpperCase()
+                                        : message.receiver?.userName.charAt(0).toUpperCase()}
+                                </Avatar>
+                            </ListItemAvatar>
+                            <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                                <Typography
+                                    variant="subtitle2"
+                                    fontWeight={message.read === false ? "bold" : "normal"}
+                                >
+                                    {currentSection === "inbox"
+                                        ? message.sender.userName
+                                        : message.receiver.userName}
+                                </Typography>
+                                <Box
                                     sx={{
-                                        backgroundColor: message.read === false ? "#f0f8ff" : "transparent",
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
                                     }}
                                 >
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            src={
-                                                currentSection === "inbox"
-                                                    ? message.sender?.avatar?.photoSrc
-                                                    : message.receiver?.avatar?.photoSrc
-                                            }
-                                        >
-                                            {currentSection === "inbox"
-                                                ? message.sender?.userName.charAt(0).toUpperCase()
-                                                : message.receiver?.userName.charAt(0).toUpperCase()}
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                                        <Typography
-                                            variant="subtitle2"
-                                            fontWeight={message.read === false ? "bold" : "normal"}
-                                        >
-                                            {currentSection === "inbox"
-                                                ? message.sender.userName
-                                                : message.receiver.userName}
-                                        </Typography>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <Box
-                                                sx={{
-                                                    overflow: "hidden",
-                                                    textOverflow: "ellipsis",
-                                                    whiteSpace: "nowrap",
-                                                    maxWidth: "200px",
-                                                    wordWrap: "break-word",
-                                                    overflowWrap: "break-word",
-                                                }}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
-                                                }}
-                                            />
-                                            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                                {message.editedAt && (
-                                                    <Typography
-                                                        variant="caption"
-                                                        color="text.secondary"
-                                                        sx={{ fontStyle: "italic" }}
-                                                    >
-                                                        (edited{" "}
-                                                        {formatDistanceToNow(new Date(message.editedAt), {
-                                                            addSuffix: true,
-                                                        })}
-                                                        )
-                                                    </Typography>
-                                                )}
-                                                <Typography variant="caption" color="text.secondary">
-                                                    created{" "}
-                                                    {formatDistanceToNow(new Date(message.createdAt), {
-                                                        addSuffix: true,
-                                                    })}
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="delete"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            console.log(message.id);
-                                            handleOpenDeleteDialog(message.id);
-                                        }}
-                                    >
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </ListItemButton>
-                            )
-                        ) : (
-                            <ListItemButton
-                                onClick={() => handleOpenMessage(message)}
-                                sx={{
-                                    backgroundColor:
-                                        message.read === false && currentSection === "inbox"
-                                            ? "#f0f8ff"
-                                            : "transparent",
-                                }}
-                            >
-                                <ListItemAvatar>
-                                    <Avatar
-                                        src={
-                                            currentSection === "inbox"
-                                                ? message.sender?.avatar?.photoSrc
-                                                : message.receiver?.avatar?.photoSrc
-                                        }
-                                    >
-                                        {currentSection === "inbox"
-                                            ? message.sender?.userName.charAt(0).toUpperCase()
-                                            : message.receiver?.userName.charAt(0).toUpperCase()}
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                                    <Typography
-                                        variant="subtitle2"
-                                        fontWeight={message.read === false ? "bold" : "normal"}
-                                    >
-                                        {currentSection === "inbox"
-                                            ? message.sender.userName
-                                            : message.receiver.userName}
-                                    </Typography>
                                     <Box
                                         sx={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "center",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                            whiteSpace: "nowrap",
+                                            maxWidth: "200px",
                                         }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                                whiteSpace: "nowrap",
-                                                maxWidth: "200px",
-                                            }}
-                                            dangerouslySetInnerHTML={{
-                                                __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
-                                            }}
-                                        />
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                            {message.editedAt && (
-                                                <Typography
-                                                    variant="caption"
-                                                    color="text.secondary"
-                                                    sx={{ fontStyle: "italic" }}
-                                                >
-                                                    (edited{" "}
-                                                    {formatDistanceToNow(new Date(message.editedAt), {
-                                                        addSuffix: true,
-                                                    })}
-                                                    )
-                                                </Typography>
-                                            )}
-                                            <Typography variant="caption" color="text.secondary">
-                                                created{" "}
-                                                {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
+                                        dangerouslySetInnerHTML={{
+                                            __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
+                                        }}
+                                    />
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                        {message.editedAt && (
+                                            <Typography
+                                                variant="caption"
+                                                color="text.secondary"
+                                                sx={{ fontStyle: "italic" }}
+                                            >
+                                                (edited{" "}
+                                                {formatDistanceToNow(new Date(message.editedAt), {
+                                                    addSuffix: true,
+                                                })}
+                                                )
                                             </Typography>
-                                        </Box>
+                                        )}
+                                        <Typography variant="caption" color="text.secondary">
+                                            created{" "}
+                                            {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
+                                        </Typography>
                                     </Box>
                                 </Box>
-                                <Box sx={{ display: "flex", alignItems: "center" }}>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="edit"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            const params = new URLSearchParams(searchParams);
-                                            params.set("editMessageId", String(message.id));
-                                            params.set("section", "compose");
-                                            router.push(`/messages?${params.toString()}`, { scroll: false });
-                                        }}
-                                        sx={{ mr: 1 }}
-                                    >
-                                        <EditIcon color="success" />
-                                    </IconButton>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="delete"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            console.log(message.id);
-                                            handleOpenDeleteDialog(message.id);
-                                        }}
-                                    >
-                                        <DeleteIcon color="error" />
-                                    </IconButton>
-                                </Box>
-                            </ListItemButton>
-                        )}
+                            </Box>
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="edit"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        const params = new URLSearchParams(searchParams);
+                                        params.set("editMessageId", String(message.id));
+                                        params.set("section", "compose");
+                                        router.push(`/messages?${params.toString()}`, { scroll: false });
+                                    }}
+                                    sx={{ mr: 1 }}
+                                >
+                                    <EditIcon color="success" />
+                                </IconButton>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="delete"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        console.log(message.id);
+                                        handleOpenDeleteDialog(message.id);
+                                    }}
+                                >
+                                    <DeleteIcon color="error" />
+                                </IconButton>
+                            </Box>
+                        </ListItemButton>
                         <Divider />
                     </Box>
                 ))}
             </List>
-            {messagesPageCount > 1 && (
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 2, gap: 1 }}>
-                    {Array.from({ length: messagesPageCount }, (_, i) => i + 1).map((page) => (
-                        <Button
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                            variant={Number(currentPage) === page ? "contained" : "outlined"}
-                            disabled={isPending}
-                        >
-                            {page}
-                        </Button>
-                    ))}
-                </Box>
-            )}
+            <Box sx={{ mt: 2 }}>
+                <PaginationControl pageCount={messagesPageCount} currentPage={currentPage} urlParamName="page" />
+            </Box>
         </>
     );
 };
