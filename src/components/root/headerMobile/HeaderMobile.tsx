@@ -1,7 +1,17 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, Drawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import {
+    Box,
+    Drawer,
+    IconButton,
+    useMediaQuery,
+    useTheme,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Button,
+} from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect } from "react";
 import { Session } from "next-auth";
@@ -10,6 +20,10 @@ import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import SearchField from "../searchField/SearchField";
 import { Genre } from "@prisma/client";
+import EmailIcon from "@mui/icons-material/Email";
+import Link from "next/link";
+import MuiNextLink from "../muiNextLink/MuiNextLink";
+import NotificationMenu from "../notificationMenu/NotificationMenu";
 
 interface IHeaderMobileProps {
     genres: Genre[];
@@ -71,11 +85,24 @@ export default function HeaderMobile({
                 </Box>
                 <Box
                     sx={{
-                        marginTop: 2,
+                        marginTop: 4,
                         ml: 2,
                         mr: 2,
                     }}
                 >
+                    {session?.user && (
+                        <Button
+                            LinkComponent={MuiNextLink}
+                            href="/messages"
+                            variant="text"
+                            sx={{
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
+                            <EmailIcon />
+                        </Button>
+                    )}
+                    {session?.user && <NotificationMenu session={session} />}
                     <ThemeToggleButton />
                 </Box>
                 <Box

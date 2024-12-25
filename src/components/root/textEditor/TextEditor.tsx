@@ -8,17 +8,18 @@ import { Typography } from "@mui/material";
 // import { Quill } from "react-quill-new";
 // import { IS_BROWSER } from "@/utils/helpers/utils";
 import dynamic from "next/dynamic";
-// import QuillResizeImage from "quill-resize-image";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 // const QuillResizeImage = dynamic(() => import("quill-resize-image"), { ssr: false });
+// import QuillResizeImage from "quill-resize-image";
 import "react-quill-new/dist/quill.snow.css";
 
 interface ITextEditorProps {
     value: string;
-    ref: any;
-    rating: number | null;
-    setRating: React.Dispatch<React.SetStateAction<number | null>>;
+    ref?: any;
+    rating?: number | null;
+    setRating?: React.Dispatch<React.SetStateAction<number | null>>;
     isDisabled?: boolean;
+    type: string;
     onChange: (value: string) => void;
 }
 
@@ -77,7 +78,7 @@ const formats = [
 //     Quill.register("modules/resize", QuillResizeImage);
 // }
 
-const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled }) => {
+const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled, type }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -235,6 +236,10 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                         "& .ql-align-center": { textAlign: "center" },
                         "& .ql-align-right": { textAlign: "right" },
                         "& .ql-align-justify": { textAlign: "justify" },
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                        minWidth: "100%",
+                        whiteSpace: "pre-wrap",
                     },
                 }}
             >
@@ -246,40 +251,42 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     formats={formats}
                     readOnly={isDisabled}
                     // @ts-expect-error ref
-                    ref={ref}
+                    ref={ref!}
                 />
             </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    mt: 2,
-                }}
-            >
-                <Rating
-                    name="review-rating"
-                    value={rating}
-                    onChange={(event, newValue) => {
-                        setRating(newValue);
-                    }}
-                    size="medium"
-                    max={10}
-                    precision={0.5}
-                    readOnly={isDisabled}
-                />
-                <Typography
-                    variant="body2"
-                    fontSize={16}
-                    fontWeight={700}
+            {type === "review" && (
+                <Box
                     sx={{
-                        ml: 1,
-                        color: theme.vars.palette.primary.main,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-start",
+                        mt: 2,
                     }}
                 >
-                    {rating?.toFixed(1)}
-                </Typography>
-            </Box>
+                    <Rating
+                        name="review-rating"
+                        value={rating}
+                        onChange={(event, newValue) => {
+                            setRating!(newValue);
+                        }}
+                        size="medium"
+                        max={10}
+                        precision={0.5}
+                        readOnly={isDisabled}
+                    />
+                    <Typography
+                        variant="body2"
+                        fontSize={16}
+                        fontWeight={700}
+                        sx={{
+                            ml: 1,
+                            color: theme.vars.palette.primary.main,
+                        }}
+                    >
+                        {rating?.toFixed(1)}
+                    </Typography>
+                </Box>
+            )}
         </Box>
     );
 };
