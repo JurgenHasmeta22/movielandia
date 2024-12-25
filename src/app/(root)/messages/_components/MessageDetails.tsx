@@ -44,6 +44,11 @@ export function MessageDetails({ selectedMessage, setSelectedMessage }: IMessage
                     style={{ marginTop: "16px", wordWrap: "break-word", overflowWrap: "break-word" }}
                     dangerouslySetInnerHTML={{ __html: selectedMessage.text }}
                 />
+                {selectedMessage.editedAt && (
+                    <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
+                        Edited {formatDistanceToNow(new Date(selectedMessage.editedAt), { addSuffix: true })}
+                    </Typography>
+                )}
                 <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 2 }}>
                     {formatDistanceToNow(new Date(selectedMessage.createdAt), { addSuffix: true })}
                 </Typography>

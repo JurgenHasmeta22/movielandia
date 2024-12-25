@@ -7,6 +7,7 @@ import {
     getAllUsers,
     searchUsers,
     getUserById,
+    getMessageById,
 } from "@/actions/user/userMessages.actions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -17,6 +18,7 @@ interface IMessagesPageProps {
         page?: string;
         search?: string;
         selectedUser?: string;
+        editMessageId?: string;
     };
 }
 
@@ -29,12 +31,14 @@ export default async function MessagesPage(props: IMessagesPageProps) {
     const searchQuery = searchParams?.search || "";
     const searchParamsKey = JSON.stringify(searchParams);
     const selectedUserId = searchParams?.selectedUser;
+    const editMessageId = searchParams?.editMessageId;
 
-    const [messages, users, searchResults, selectedUser] = await Promise.all([
+    const [messages, users, searchResults, selectedUser, messageToEdit] = await Promise.all([
         section === "inbox" ? getUserInbox(page, session?.user.id) : getSentMessages(page, session?.user.id),
         getAllUsers(session?.user.id),
         searchQuery ? searchUsers(searchQuery, Number(session?.user.id)) : Promise.resolve([]),
         selectedUserId ? getUserById(Number(selectedUserId)) : Promise.resolve(null),
+        editMessageId ? getMessageById(Number(editMessageId)) : Promise.resolve(null),
     ]);
 
     const messagesPageCount = Math.ceil(messages.total / 5);
@@ -50,6 +54,7 @@ export default async function MessagesPage(props: IMessagesPageProps) {
                 userLoggedIn={session?.user}
                 initialSelectedUser={selectedUser}
                 messagesPageCount={messagesPageCount}
+                initialMessageToEdit={messageToEdit}
             />
         </Suspense>
     );

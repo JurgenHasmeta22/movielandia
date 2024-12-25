@@ -205,3 +205,43 @@ export const getTotalUnreadMessages = async (userId: number) => {
 
     return count;
 };
+
+export const editMessage = async (messageId: number, text: string) => {
+    try {
+        await prisma.message.update({
+            where: {
+                id: messageId,
+            },
+            data: {
+                text,
+                editedAt: new Date(),
+            },
+        });
+        revalidatePath("/messages");
+    } catch (error) {
+        console.error("Error editing message:", error);
+        throw error;
+    }
+};
+
+export const getMessageById = async (messageId: number) => {
+    const message = await prisma.message.findUnique({
+        where: {
+            id: messageId,
+        },
+        include: {
+            sender: {
+                include: {
+                    avatar: true,
+                },
+            },
+            receiver: {
+                include: {
+                    avatar: true,
+                },
+            },
+        },
+    });
+
+    return message;
+};

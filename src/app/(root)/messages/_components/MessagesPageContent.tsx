@@ -13,7 +13,7 @@ import {
     CircularProgress,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { deleteMessage } from "@/actions/user/userMessages.actions";
+import { deleteMessage, editMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";
 import { MessageDetails } from "./MessageDetails";
@@ -27,6 +27,7 @@ export interface Message {
     receiverId: number;
     createdAt: Date;
     read: boolean;
+    editedAt?: Date | null;
     sender: {
         userName: string;
         avatar?: {
@@ -55,6 +56,7 @@ interface MessagesPageContentProps {
     userLoggedIn: any;
     initialSelectedUser: any;
     messagesPageCount: number;
+    initialMessageToEdit?: any | null;
 }
 
 export default function MessagesPageContent({
@@ -65,6 +67,7 @@ export default function MessagesPageContent({
     initialSelectedUser,
     userLoggedIn,
     messagesPageCount,
+    initialMessageToEdit,
 }: MessagesPageContentProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -76,6 +79,7 @@ export default function MessagesPageContent({
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isPending, startTransition] = useTransition();
     const [loadingPage, setLoadingPage] = useState(true);
+    const [messageToEdit, setMessageToEdit] = useState<Message | null>(null);
 
     useEffect(() => {
         setLoadingPage(false);
@@ -87,23 +91,30 @@ export default function MessagesPageContent({
 
     const navigateToSection = (section: string) => {
         const params = new URLSearchParams(searchParams);
-
         params.set("section", section);
-        params.delete("selectedUser");
         router.push(`/messages?${params.toString()}`, { scroll: false });
-
-        if (isMobile) setMobileOpen(false);
     };
 
     const handleDeleteMessage = async (messageId: number) => {
         startTransition(async () => {
-            try {
-                await deleteMessage(messageId);
-                router.refresh();
-            } catch (error) {
-                console.error("Failed to delete message:", error);
-            }
+            await deleteMessage(messageId);
+            setSelectedMessage(null);
         });
+    };
+
+    const handleEditMessage = (message: Message) => {
+        setMessageToEdit(message);
+        const params = new URLSearchParams(searchParams);
+        params.set("section", "compose");
+        router.push(`/messages?${params.toString()}`, { scroll: false });
+    };
+
+    const handleCancelEdit = () => {
+        setMessageToEdit(null);
+        const params = new URLSearchParams(searchParams);
+        params.delete("selectedUser");
+        params.set("section", "sent");
+        router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
     if (loadingPage) {
@@ -154,6 +165,9 @@ export default function MessagesPageContent({
                             searchResults={searchResults}
                             userLoggedIn={userLoggedIn}
                             initialSelectedUser={initialSelectedUser}
+                            editMessage={editMessage}
+                            initialMessageToEdit={initialMessageToEdit}
+                            onCancelEdit={handleCancelEdit}
                         />
                     ) : (
                         <MessagesList
@@ -164,6 +178,8 @@ export default function MessagesPageContent({
                             onMessageSelect={setSelectedMessage}
                             onMessageDelete={handleDeleteMessage}
                             messagesPageCount={messagesPageCount}
+                            onEditMessage={handleEditMessage}
+                            initialMessageToEdit={initialMessageToEdit}
                         />
                     )}
                 </Paper>
