@@ -32,9 +32,19 @@ interface MessageComposeProps {
     searchResults: User[];
     userLoggedIn: any;
     initialSelectedUser?: User | null;
+    editMessage?: (messageId: number, text: string) => Promise<void>;
+    initialMessageToEdit?: any | null;
+    onCancelEdit?: () => void;
 }
 
-export default function MessageCompose({ searchResults, userLoggedIn, initialSelectedUser }: MessageComposeProps) {
+export default function MessageCompose({
+    searchResults,
+    userLoggedIn,
+    initialSelectedUser,
+    editMessage,
+    initialMessageToEdit,
+    onCancelEdit,
+}: MessageComposeProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const currentSearchQuery = searchParams.get("search") || "";
@@ -43,6 +53,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
     const [messageText, setMessageText] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         if (initialSelectedUser) {
@@ -57,6 +68,17 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
             setSelectedUser(null);
         }
     }, [selectedUserId, searchResults, initialSelectedUser]);
+
+    useEffect(() => {
+        if (initialMessageToEdit) {
+            setMessageText(initialMessageToEdit.text);
+            setIsEditing(true);
+            setSelectedUser(initialMessageToEdit.receiver);
+        } else {
+            setMessageText("");
+            setIsEditing(false);
+        }
+    }, [initialMessageToEdit]);
 
     const handleSearchChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,24 +114,40 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
     }, [searchParams, router]);
 
     const handleSendMessage = async () => {
-        if (!selectedUser || !messageText.trim() || isLoading) return;
+        if ((!selectedUser && !isEditing) || !messageText.trim() || isLoading) return;
 
         try {
             setIsLoading(true);
-            await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
+            if (isEditing && initialMessageToEdit && editMessage) {
+                await editMessage(initialMessageToEdit.id, messageText);
+                showToast("success", "Message edited successfully!");
+                onCancelEdit?.();
+            } else if (selectedUser) {
+                await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
+                showToast("success", "Message sent successfully!");
+            }
             setMessageText("");
             setSelectedUser(null);
 
             const params = new URLSearchParams(searchParams);
             params.set("section", "sent");
             router.push(`/messages?${params.toString()}`);
-            showToast("success", "Message sent successfully!");
         } catch (error) {
-            console.error("Failed to send message:", error);
+            console.error("Failed to send/edit message:", error);
             router.refresh();
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleCancelEdit = () => {
+        setMessageText("");
+        setIsEditing(false);
+        setSelectedUser(null);
+        onCancelEdit?.();
+        const params = new URLSearchParams(searchParams);
+        params.delete("editMessageId");
+        router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
     const renderTextField = () => {
@@ -151,7 +189,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Typography variant="h6">New Message</Typography>
+            <Typography variant="h6">{isEditing ? "Edit Message" : "New Message"}</Typography>
             {renderTextField()}
             {!selectedUser && currentSearchQuery && searchResults.length > 0 && (
                 <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
@@ -165,17 +203,32 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
                 </Paper>
             )}
             <TextEditor onChange={(content: any) => setMessageText(content)} value={messageText} type="message" />
-            <Button
-                onClick={handleSendMessage}
-                sx={{
-                    textTransform: "capitalize",
-                    fontSize: 18,
-                    fontWeight: 500,
-                }}
-                disabled={!selectedUser || !messageText.trim() || isLoading}
-            >
-                {isLoading ? <CircularProgress size={24} sx={{ mr: 1 }} /> : "Send Message"}
-            </Button>
+            <Box sx={{ display: "flex", gap: 1 }}>
+                <Button
+                    onClick={handleSendMessage}
+                    sx={{
+                        textTransform: "capitalize",
+                        fontSize: 18,
+                        fontWeight: 500,
+                    }}
+                    disabled={(!selectedUser && !isEditing) || !messageText.trim() || isLoading}
+                >
+                    {isLoading ? <CircularProgress size={24} sx={{ mr: 1 }} /> : isEditing ? "Save" : "Send Message"}
+                </Button>
+                {isEditing && (
+                    <Button
+                        onClick={handleCancelEdit}
+                        sx={{
+                            textTransform: "capitalize",
+                            fontSize: 18,
+                            fontWeight: 500,
+                        }}
+                        color="secondary"
+                    >
+                        Cancel
+                    </Button>
+                )}
+            </Box>
         </Box>
     );
 }

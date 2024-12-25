@@ -14,6 +14,7 @@ import {
     ListItemButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Message } from "./MessagesPageContent";
@@ -31,6 +32,8 @@ interface MessagesListProps {
     messagesPageCount: number;
     onMessageSelect: (message: Message) => void;
     onMessageDelete: (messageId: number) => void;
+    onEditMessage: (message: Message) => void;
+    initialMessageToEdit?: Message | null;
 }
 
 const MessagesList: React.FC<MessagesListProps> = ({
@@ -41,6 +44,8 @@ const MessagesList: React.FC<MessagesListProps> = ({
     messagesPageCount,
     onMessageSelect,
     onMessageDelete,
+    onEditMessage,
+    initialMessageToEdit,
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -256,17 +261,33 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                         </Typography>
                                     </Box>
                                 </Box>
-                                <IconButton
-                                    edge="end"
-                                    aria-label="delete"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        console.log(message.id);
-                                        handleOpenDeleteDialog(message.id);
-                                    }}
-                                >
-                                    <DeleteIcon />
-                                </IconButton>
+                                <Box sx={{ display: "flex", alignItems: "center" }}>
+                                    <IconButton
+                                        edge="end"
+                                        aria-label="edit"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            const params = new URLSearchParams(searchParams);
+                                            params.set("editMessageId", String(message.id));
+                                            params.set("section", "compose");
+                                            router.push(`/messages?${params.toString()}`, { scroll: false });
+                                        }}
+                                        sx={{ mr: 1 }}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton
+                                        edge="end"
+                                        aria-label="delete"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            console.log(message.id);
+                                            handleOpenDeleteDialog(message.id);
+                                        }}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Box>
                             </ListItemButton>
                         )}
                         <Divider />
