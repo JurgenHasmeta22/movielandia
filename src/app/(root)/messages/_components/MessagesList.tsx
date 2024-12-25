@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useTransition } from "react";
 import {
     List,
     ListItemAvatar,
@@ -30,10 +30,10 @@ interface MessagesListProps {
     currentPage: number;
     isLoading: boolean;
     messagesPageCount: number;
+    initialMessageToEdit?: Message | null;
     onMessageSelect: (message: Message) => void;
     onMessageDelete: (messageId: number) => void;
     onEditMessage: (message: Message) => void;
-    initialMessageToEdit?: Message | null;
 }
 
 const MessagesList: React.FC<MessagesListProps> = ({
@@ -44,8 +44,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
     messagesPageCount,
     onMessageSelect,
     onMessageDelete,
-    onEditMessage,
-    initialMessageToEdit,
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -98,8 +96,8 @@ const MessagesList: React.FC<MessagesListProps> = ({
 
     const handlePageChange = (newPage: number) => {
         const params = new URLSearchParams(searchParams);
-
         params.set("page", String(newPage));
+
         startTransition(() => {
             router.push(`/messages?${params.toString()}`, { scroll: false });
         });
@@ -274,7 +272,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                         }}
                                         sx={{ mr: 1 }}
                                     >
-                                        <EditIcon />
+                                        <EditIcon color="success" />
                                     </IconButton>
                                     <IconButton
                                         edge="end"
@@ -285,7 +283,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                             handleOpenDeleteDialog(message.id);
                                         }}
                                     >
-                                        <DeleteIcon />
+                                        <DeleteIcon color="error" />
                                     </IconButton>
                                 </Box>
                             </ListItemButton>
