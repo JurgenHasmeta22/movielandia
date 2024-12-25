@@ -32,11 +32,14 @@ export default async function MessagesPage(props: IMessagesPageProps) {
     const editMessageId = searchParams?.editMessageId;
     const searchParamsKey = JSON.stringify(searchParams);
 
-    let messages;
+    let messages: any = {
+        items: [],
+        total: 0,
+    };
 
     if (section === "inbox") {
         messages = await getUserInbox(page, session?.user.id);
-    } else {
+    } else if (section === "sent") {
         messages = await getSentMessages(page, session?.user.id);
     }
 
@@ -46,7 +49,7 @@ export default async function MessagesPage(props: IMessagesPageProps) {
     const messagesPageCount = Math.ceil(messages.total / 10);
 
     console.log(messages);
-    
+
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <MessagesPageContent
