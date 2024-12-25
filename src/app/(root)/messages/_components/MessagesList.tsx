@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import {
     List,
     ListItemAvatar,
@@ -44,7 +44,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [loadingMessages, setLoadingMessages] = useState(false);
+    const [isPending, startTransition] = useTransition();
     const { openModal } = useModal();
     const { data: session } = useSession();
 
@@ -75,7 +75,9 @@ const MessagesList: React.FC<MessagesListProps> = ({
                 {
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
-                        await onMessageDelete(messageId);
+                        startTransition(async () => {
+                            await onMessageDelete(messageId);
+                        });
                     },
                     type: "submit",
                     color: "secondary",
@@ -93,14 +95,10 @@ const MessagesList: React.FC<MessagesListProps> = ({
         const params = new URLSearchParams(searchParams);
 
         params.set("page", String(newPage));
-        router.push(`/messages?${params.toString()}`, { scroll: false });
-
-        setLoadingMessages(true);
+        startTransition(() => {
+            router.push(`/messages?${params.toString()}`, { scroll: false });
+        });
     };
-
-    useEffect(() => {
-        setLoadingMessages(false);
-    }, [messages]);
 
     if (isLoading) {
         return (
@@ -229,9 +227,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                 <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
                                     <Typography
                                         variant="subtitle2"
-                                        fontWeight={
-                                            message.read === false && currentSection === "inbox" ? "bold" : "normal"
-                                        }
+                                        fontWeight={message.read === false ? "bold" : "normal"}
                                     >
                                         {currentSection === "inbox"
                                             ? message.sender.userName
@@ -284,7 +280,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                             key={page}
                             onClick={() => handlePageChange(page)}
                             variant={Number(currentPage) === page ? "contained" : "outlined"}
-                            disabled={loadingMessages}
+                            disabled={isPending}
                         >
                             {page}
                         </Button>

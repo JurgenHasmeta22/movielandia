@@ -49,6 +49,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
             setSelectedUser(initialSelectedUser);
         } else if (selectedUserId) {
             const user = searchResults.find((user) => user.id === Number(selectedUserId));
+
             if (user) {
                 setSelectedUser(user);
             }
@@ -76,6 +77,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
 
     const handleSelectUser = (user: User) => {
         const params = new URLSearchParams(searchParams);
+
         params.delete("search");
         params.set("selectedUser", user.id.toString());
         router.push(`/messages?${params.toString()}`, { scroll: false });
@@ -83,6 +85,7 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
 
     const handleClearSelection = useCallback(() => {
         const params = new URLSearchParams(searchParams);
+
         params.delete("search");
         params.delete("selectedUser");
         router.push(`/messages?${params.toString()}`, { scroll: false });
@@ -94,13 +97,11 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
         try {
             setIsLoading(true);
             await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
-
             setMessageText("");
             setSelectedUser(null);
 
             const params = new URLSearchParams(searchParams);
             params.set("section", "sent");
-            params.set("page", "1");
             router.push(`/messages?${params.toString()}`);
             showToast("success", "Message sent successfully!");
         } catch (error) {
@@ -119,17 +120,19 @@ export default function MessageCompose({ searchResults, userLoggedIn, initialSel
                     value=""
                     disabled
                     fullWidth
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Chip
-                                    label={selectedUser.userName}
-                                    onDelete={handleClearSelection}
-                                    size="small"
-                                    sx={{ mr: 1 }}
-                                />
-                            </InputAdornment>
-                        ),
+                    slotProps={{
+                        input: {
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Chip
+                                        label={selectedUser.userName}
+                                        onDelete={handleClearSelection}
+                                        size="small"
+                                        sx={{ mr: 1 }}
+                                    />
+                                </InputAdornment>
+                            ),
+                        },
                     }}
                 />
             );
