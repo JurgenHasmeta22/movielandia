@@ -2,14 +2,14 @@
 
 import { prisma } from "../../../prisma/config/prisma";
 
-export const getUserInbox = async (page: number = 1, userLoggedIn?: any) => {
+export const getUserInbox = async (page: number = 1, userLoggedInId: number) => {
     const perPage = 10;
     const skip = (page - 1) * perPage;
 
     const [messages, total] = await Promise.all([
         prisma.message.findMany({
             where: {
-                receiverId: userLoggedIn.id,
+                receiverId: userLoggedInId,
             },
             include: {
                 sender: {
@@ -31,7 +31,7 @@ export const getUserInbox = async (page: number = 1, userLoggedIn?: any) => {
         }),
         prisma.message.count({
             where: {
-                receiverId: userLoggedIn.id,
+                receiverId: userLoggedInId,
             },
         }),
     ]);
@@ -42,14 +42,14 @@ export const getUserInbox = async (page: number = 1, userLoggedIn?: any) => {
     };
 };
 
-export const getSentMessages = async (page: number = 1, userLoggedIn?: any) => {
+export const getSentMessages = async (page: number = 1, userLoggedInId: number) => {
     const perPage = 10;
     const skip = (page - 1) * perPage;
 
     const [messages, total] = await Promise.all([
         prisma.message.findMany({
             where: {
-                senderId: userLoggedIn.id,
+                senderId: userLoggedInId,
             },
             include: {
                 receiver: {
@@ -71,7 +71,7 @@ export const getSentMessages = async (page: number = 1, userLoggedIn?: any) => {
         }),
         prisma.message.count({
             where: {
-                senderId: userLoggedIn.id,
+                senderId: userLoggedInId,
             },
         }),
     ]);
