@@ -206,7 +206,11 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                                     />
                                                 ) : (
                                                     <Email
-                                                        sx={{ fontSize: "0.7rem", color: "#30969f", marginLeft: "0.2rem" }}
+                                                        sx={{
+                                                            fontSize: "0.7rem",
+                                                            color: "#30969f",
+                                                            marginLeft: "0.2rem",
+                                                        }}
                                                     />
                                                 )}
                                                 <Typography
