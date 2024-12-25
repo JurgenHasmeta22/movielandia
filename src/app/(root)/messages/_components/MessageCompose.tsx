@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useTransition } from "react";
 import {
     Box,
     Typography,
@@ -52,10 +52,10 @@ export default function MessageCompose({
     const selectedUserId = searchParams.get("selectedUser");
 
     const [messageText, setMessageText] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [initialText, setInitialText] = useState("");
+    const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
         if (initialSelectedUser) {
@@ -116,28 +116,28 @@ export default function MessageCompose({
     }, [searchParams]);
 
     const handleSendMessage = async () => {
-        if ((!selectedUser && !isEditing) || !messageText.trim() || isLoading) return;
+        if ((!selectedUser && !isEditing) || !messageText.trim() || isPending) return;
 
-        try {
-            setIsLoading(true);
+        startTransition(async () => {
+            try {
+                if (isEditing && initialMessageToEdit) {
+                    await editMessage(initialMessageToEdit.id, messageText);
+                    showToast("success", "Message edited successfully!");
+                } else if (selectedUser) {
+                    await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
+                    showToast("success", "Message sent successfully!");
+                }
 
-            if (isEditing && initialMessageToEdit) {
-                await editMessage(initialMessageToEdit.id, messageText);
-                showToast("success", "Message edited successfully!");
-            } else if (selectedUser) {
-                await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
-                showToast("success", "Message sent successfully!");
+                const params = new URLSearchParams(searchParams);
+                params.set("section", "sent");
+                params.delete("editMessageId");
+                params.delete("selectedUser");
+                router.push(`/messages?${params.toString()}`);
+            } catch (error) {
+                console.error("Failed to send/edit message:", error);
+                router.refresh();
             }
-
-            const params = new URLSearchParams(searchParams);
-            params.set("section", "sent");
-            router.push(`/messages?${params.toString()}`);
-        } catch (error) {
-            console.error("Failed to send/edit message:", error);
-            router.refresh();
-        } finally {
-            setIsLoading(false);
-        }
+        });
     };
 
     const handleCancelEdit = () => {
@@ -214,12 +214,12 @@ export default function MessageCompose({
                     disabled={
                         (!selectedUser && !isEditing) ||
                         !messageText.trim() ||
-                        isLoading ||
+                        isPending ||
                         (isEditing && messageText === initialText)
                     }
-                    startIcon={!isLoading ? <SaveIcon /> : null}
+                    startIcon={!isPending ? <SaveIcon /> : null}
                 >
-                    {isLoading ? <CircularProgress size={24} sx={{ mr: 1 }} /> : isEditing ? "Save" : "Send Message"}
+                    {isPending ? <CircularProgress size={24} sx={{ mr: 1 }} /> : isEditing ? "Save" : "Send Message"}
                 </Button>
                 {isEditing && (
                     <Button
@@ -243,8 +243,8 @@ export default function MessageCompose({
                             alignItems: "center",
                             justifyContent: "center",
                         }}
-                        startIcon={!isLoading ? <CancelIcon /> : null}
-                        disabled={isLoading || (isEditing && messageText === initialText)}
+                        startIcon={!isPending ? <CancelIcon /> : null}
+                        disabled={isPending || (isEditing && messageText === initialText)}
                     >
                         Cancel
                     </Button>
