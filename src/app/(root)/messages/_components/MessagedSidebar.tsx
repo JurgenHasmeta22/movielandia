@@ -17,13 +17,16 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
     const theme = useTheme();
 
     return (
-        <Box sx={{ width: 250 }}>
-            <List>
+        <Box sx={{ width: 250, display: 'flex', flexDirection: 'column'}}>
+            <List sx={{ flexGrow: 1 }}>
                 <ListItemButton
                     onClick={() => navigateToSection("inbox")}
                     sx={{
                         backgroundColor:
-                            currentSection === "inbox" ? theme.vars.palette.secondary.light : "transparent",
+                            currentSection === "inbox" ? theme.palette.secondary.light : "transparent",
+                        "&:hover": {
+                            backgroundColor: theme.palette.secondary.light,
+                        },
                     }}
                 >
                     <ListItemIcon>
@@ -34,7 +37,11 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("sent")}
                     sx={{
-                        backgroundColor: currentSection === "sent" ? theme.vars.palette.secondary.light : "transparent",
+                        backgroundColor:
+                            currentSection === "sent" ? theme.palette.secondary.light : "transparent",
+                        "&:hover": {
+                            backgroundColor: theme.palette.secondary.light,
+                        },
                     }}
                 >
                     <ListItemIcon>
@@ -46,7 +53,10 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                     onClick={() => navigateToSection("compose")}
                     sx={{
                         backgroundColor:
-                            currentSection === "compose" ? theme.vars.palette.secondary.light : "transparent",
+                            currentSection === "compose" ? theme.palette.secondary.light : "transparent",
+                        "&:hover": {
+                            backgroundColor: theme.palette.secondary.light,
+                        },
                     }}
                 >
                     <ListItemIcon>

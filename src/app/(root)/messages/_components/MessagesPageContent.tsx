@@ -16,7 +16,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { deleteMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";
-import { MessageDetails } from "./MessageDetails";
 import MessagesList from "./MessagesList";
 import MessageCompose from "./MessageCompose";
 
@@ -103,6 +102,7 @@ export default function MessagesPageContent({
     const handleEditMessage = (message: Message) => {
         const params = new URLSearchParams(searchParams);
         params.set("section", "compose");
+        params.set("editMessageId", String(message.id));
         router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
@@ -113,7 +113,6 @@ export default function MessagesPageContent({
             </Box>
         );
     }
-
     return (
         <Container maxWidth="lg" sx={{ mt: 14, mb: 10 }}>
             <Box sx={{ display: "flex" }}>
