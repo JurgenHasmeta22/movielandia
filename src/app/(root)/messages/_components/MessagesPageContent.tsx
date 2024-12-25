@@ -1,16 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import {
-    Box,
-    Container,
-    Drawer,
-    Paper,
-    Typography,
-    useTheme,
-    useMediaQuery,
-    IconButton,
-} from "@mui/material";
+import { Box, Container, Drawer, Paper, Typography, useTheme, useMediaQuery, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter, useSearchParams } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";

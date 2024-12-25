@@ -4,6 +4,7 @@ import { Box, Button, Paper, Typography, Avatar, Stack, Divider } from "@mui/mat
 import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import PersonIcon from "@mui/icons-material/Person";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function MessagePageContent({ message }: { message: any }) {
     const router = useRouter();
@@ -84,7 +85,15 @@ export default function MessagePageContent({ message }: { message: any }) {
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                    <Button onClick={handleBack} variant="outlined" color="primary">
+                    <Button
+                        onClick={handleBack}
+                        variant="outlined"
+                        startIcon={<ArrowBackIcon />}
+                        color="primary"
+                        sx={{
+                            textTransform: "capitalize",
+                        }}
+                    >
                         Back to Messages
                     </Button>
                 </Box>
