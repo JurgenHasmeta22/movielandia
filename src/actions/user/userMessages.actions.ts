@@ -175,3 +175,27 @@ export const getUserById = async (userId: number) => {
 
     return user;
 };
+
+export const markMessageAsRead = async (messageId: number) => {
+    await prisma.message.update({
+        where: {
+            id: messageId,
+        },
+        data: {
+            read: true,
+        },
+    });
+
+    revalidatePath("/messages");
+};
+
+export const getTotalUnreadMessages = async (userId: number) => {
+    const count = await prisma.message.count({
+        where: {
+            receiverId: userId,
+            read: false,
+        },
+    });
+    
+    return count;
+};

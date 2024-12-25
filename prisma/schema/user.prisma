@@ -112,6 +112,7 @@ model Message {
   inboxId    Int
   createdAt  DateTime @default(now())
   status     String   @default("Pending")
+  read       Boolean  @default(false)
 }
 
 model UserMovieRating {
