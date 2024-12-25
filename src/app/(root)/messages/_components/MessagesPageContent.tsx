@@ -76,7 +76,6 @@ export default function MessagesPageContent({
     const searchParams = useSearchParams();
 
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
     const [isPending, startTransition] = useTransition();
     const [loadingPage, setLoadingPage] = useState(true);
 
@@ -98,7 +97,6 @@ export default function MessagesPageContent({
     const handleDeleteMessage = async (messageId: number) => {
         startTransition(async () => {
             await deleteMessage(messageId);
-            setSelectedMessage(null);
         });
     };
 
@@ -164,7 +162,6 @@ export default function MessagesPageContent({
                             currentSection={currentSection}
                             currentPage={currentPage}
                             isLoading={isPending}
-                            onMessageSelect={setSelectedMessage}
                             onMessageDelete={handleDeleteMessage}
                             messagesPageCount={messagesPageCount}
                             onEditMessage={handleEditMessage}
@@ -172,9 +169,6 @@ export default function MessagesPageContent({
                         />
                     )}
                 </Paper>
-                {selectedMessage && (
-                    <MessageDetails selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} />
-                )}
             </Box>
         </Container>
     );
