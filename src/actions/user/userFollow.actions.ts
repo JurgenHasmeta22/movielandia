@@ -20,20 +20,27 @@ export async function follow(followerId: number, followingId: number): Promise<v
             throw new Error("You already follow this user.");
         }
 
-        const result = await prisma.userFollow.create({
-            data: {
-                followerId,
-                followingId,
-                state: "pending",
-            },
-        });
+        await prisma.$transaction([
+            prisma.userFollow.create({
+                data: {
+                    followerId,
+                    followingId,
+                    state: "pending",
+                },
+            }),
+            prisma.notification.create({
+                data: {
+                    type: "follow_request",
+                    content: "sent you a follow request",
+                    userId: followingId,
+                    senderId: followerId,
+                    status: "unread",
+                },
+            }),
+        ]);
 
-        if (result) {
-            const referer = getReferer();
-            revalidatePath(`${referer}`, "page");
-        } else {
-            throw new Error("Failed to follow user.");
-        }
+        const referer = getReferer();
+        revalidatePath(`${referer}`, "page");
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
@@ -308,4 +315,112 @@ export async function getPendingFollowRequests(userId: number, page: number = 1,
         items: pendingRequests || [],
         total: total || 0,
     };
+}
+
+export async function getUnreadNotificationsCount(userId: number): Promise<number> {
+    return prisma.notification.count({
+        where: {
+            userId,
+            status: "unread",
+        },
+    });
+}
+
+export async function getRecentNotifications(userId: number, limit: number = 5) {
+    return prisma.notification.findMany({
+        where: {
+            userId,
+        },
+        include: {
+            sender: {
+                select: {
+                    id: true,
+                    userName: true,
+                    avatar: true,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+        take: limit,
+    });
+}
+
+export async function markNotificationsAsRead(userId: number): Promise<void> {
+    await prisma.notification.updateMany({
+        where: {
+            userId,
+            status: "unread",
+        },
+        data: {
+            status: "read",
+        },
+    });
+
+    revalidatePath("/notifications");
+}
+
+export const getAllNotifications = async (userId: number, page: number = 1) => {
+    const perPage = 10;
+    const skip = (page - 1) * perPage;
+
+    const [notifications, total] = await Promise.all([
+        prisma.notification.findMany({
+            where: {
+                userId: userId, // Changed from receiverId to userId
+            },
+            include: {
+                sender: {
+                    include: {
+                        avatar: true,
+                    },
+                },
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            skip,
+            take: perPage,
+        }),
+        prisma.notification.count({
+            where: {
+                userId: userId, // Changed from receiverId to userId
+            },
+        }),
+    ]);
+
+    const notificationsWithReadStatus = notifications.map((notification) => ({
+        ...notification,
+        isRead: notification.status === "read",
+    }));
+
+    return {
+        items: notificationsWithReadStatus,
+        total,
+    };
+};
+
+export async function getPaginatedNotifications(userId: number, page: number = 1, limit: number = 5) {
+    const skip = (page - 1) * limit;
+
+    return prisma.notification.findMany({
+        where: {
+            userId,
+        },
+        include: {
+            sender: {
+                select: {
+                    id: true,
+                    userName: true,
+                    avatar: true,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+        skip,
+        take: limit,
+    });
 }

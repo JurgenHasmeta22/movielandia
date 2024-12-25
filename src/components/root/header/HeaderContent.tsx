@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, IconButton, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, Button, IconButton, Toolbar, useTheme } from "@mui/material";
 import AuthButtons from "../authButtons/AuthButtons";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,6 +15,10 @@ import HeaderMobile from "../headerMobile/HeaderMobile";
 import { showToast } from "@/utils/helpers/toast";
 import SearchField from "../searchField/SearchField";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import NotificationMenu from "../notificationMenu/NotificationMenu";
+import MuiNextLink from "../muiNextLink/MuiNextLink";
+import EmailIcon from "@mui/icons-material/Email";
+import MessageCounter from "./MessageCounter";
 
 interface IHeaderContentProps {
     session: Session | null;
@@ -118,13 +122,15 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 2,
+                                gap: 1,
                                 ml: "auto",
                                 height: "100%",
                                 flexShrink: 0,
                             }}
                         >
                             <SearchField />
+                            {session?.user && <MessageCounter session={session} />}
+                            {session?.user && <NotificationMenu session={session} />}
                             <ThemeToggleButton />
                             <AuthButtons
                                 session={session}
