@@ -40,7 +40,7 @@ export function MessageDetails({ selectedMessage, setSelectedMessage }: IMessage
             <Box sx={{ mt: 2 }}>
                 <Typography variant="subtitle2">From: {selectedMessage.sender.userName}</Typography>
                 <Typography variant="subtitle2">To: {selectedMessage.receiver.userName}</Typography>
-                <div style={{ marginTop: "16px" }} dangerouslySetInnerHTML={{ __html: selectedMessage.text }} />
+                <div style={{ marginTop: "16px", wordWrap: "break-word", overflowWrap: "break-word" }} dangerouslySetInnerHTML={{ __html: selectedMessage.text }} />
                 <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 2 }}>
                     {formatDistanceToNow(new Date(selectedMessage.createdAt), { addSuffix: true })}
                 </Typography>
