@@ -116,24 +116,6 @@ export const deleteMessage = async (messageId: number) => {
     }
 };
 
-export const getAllUsers = async (userLoggedIn?: any) => {
-    const users = await prisma.user.findMany({
-        where: {
-            NOT: {
-                id: userLoggedIn.id,
-            },
-        },
-        select: {
-            id: true,
-            userName: true,
-            email: true,
-            avatar: true,
-        },
-    });
-
-    return users;
-};
-
 export const searchUsers = async (query: string, currentUserId: number) => {
     if (!query) return [];
 

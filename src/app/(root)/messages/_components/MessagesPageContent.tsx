@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
     Box,
     Container,
@@ -10,15 +10,12 @@ import {
     useTheme,
     useMediaQuery,
     IconButton,
-    CircularProgress,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { deleteMessage } from "@/actions/user/userMessages.actions";
 import { useRouter, useSearchParams } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";
 import MessagesList from "./MessagesList";
 import MessageCompose from "./MessageCompose";
-import { showToast } from "@/utils/helpers/toast";
 
 export interface Message {
     id: number;
@@ -49,7 +46,6 @@ interface MessagesData {
 
 interface MessagesPageContentProps {
     initialMessages: MessagesData;
-    users: any[];
     searchResults: any[];
     currentSection: "inbox" | "sent";
     currentPage: number;
@@ -77,11 +73,6 @@ export default function MessagesPageContent({
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
-    const [loadingPage, setLoadingPage] = useState(true);
-
-    useEffect(() => {
-        setLoadingPage(false);
-    }, [initialMessages]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -94,29 +85,6 @@ export default function MessagesPageContent({
         router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
-    const handleDeleteMessage = async (messageId: number) => {
-        startTransition(async () => {
-            await deleteMessage(messageId);
-        });
-
-        showToast("success", "Message deleted successfully!");
-        router.refresh();
-    };
-
-    const handleEditMessage = (message: Message) => {
-        const params = new URLSearchParams(searchParams);
-        params.set("section", "compose");
-        params.set("editMessageId", String(message.id));
-        router.push(`/messages?${params.toString()}`, { scroll: false });
-    };
-
-    if (loadingPage) {
-        return (
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
-                <CircularProgress />
-            </Box>
-        );
-    }
     return (
         <Container maxWidth="lg" sx={{ mt: 14, mb: 10 }}>
             <Box sx={{ display: "flex" }}>
@@ -165,9 +133,7 @@ export default function MessagesPageContent({
                             currentSection={currentSection}
                             currentPage={currentPage}
                             isLoading={isPending}
-                            onMessageDelete={handleDeleteMessage}
                             messagesPageCount={messagesPageCount}
-                            onEditMessage={handleEditMessage}
                             initialMessageToEdit={initialMessageToEdit}
                         />
                     )}
