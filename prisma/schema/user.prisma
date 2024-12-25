@@ -106,12 +106,11 @@ model Message {
   text       String
   sender     User     @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   senderId   Int
-  receiver   User?    @relation("Reciever", fields: [receiverId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  receiverId Int?
+  receiver   User    @relation("Reciever", fields: [receiverId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  receiverId Int
   inbox      Inbox    @relation(fields: [inboxId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   inboxId    Int
   createdAt  DateTime @default(now())
-  status     String   @default("Pending")
   read       Boolean  @default(false)
   editedAt   DateTime?
 }

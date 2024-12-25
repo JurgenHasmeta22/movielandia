@@ -38,17 +38,17 @@ export default async function MessagesPage(props: IMessagesPageProps) {
     };
 
     if (section === "inbox") {
-        messages = await getUserInbox(page, session?.user.id);
+        messages = await getUserInbox(page, Number(session?.user.id));
     } else if (section === "sent") {
-        messages = await getSentMessages(page, session?.user.id);
+        messages = await getSentMessages(page, Number(session?.user.id));
+    } else {
+        messages = await getUserInbox(page, Number(session?.user.id));
     }
 
     const searchResults = searchQuery ? await searchUsers(searchQuery, Number(session?.user.id)) : [];
     const selectedUser = selectedUserId ? await getUserById(Number(selectedUserId)) : null;
     const messageToEdit = editMessageId ? await getMessageById(Number(editMessageId)) : null;
     const messagesPageCount = Math.ceil(messages.total / 10);
-
-    console.log(messages);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
