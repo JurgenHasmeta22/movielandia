@@ -25,9 +25,10 @@ import { useSession } from "next-auth/react";
 
 interface MessagesListProps {
     messages: any;
-    currentSection: "inbox" | "sent";
+    currentSection: string;
     currentPage: number;
     isLoading: boolean;
+    messagesPageCount: number;
     onMessageSelect: (message: Message) => void;
     onMessageDelete: (messageId: number) => void;
 }
@@ -37,45 +38,33 @@ const MessagesList: React.FC<MessagesListProps> = ({
     currentSection,
     currentPage,
     isLoading,
+    messagesPageCount,
     onMessageSelect,
     onMessageDelete,
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [messageToDelete, setMessageToDelete] = useState<number | null>(null);
     const [loadingMessages, setLoadingMessages] = useState(false);
-    const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
-    const [totalMessages, setTotalMessages] = useState(0);
-    const [totalPages, setTotalPages] = useState(1);
     const { openModal } = useModal();
     const { data: session } = useSession();
 
-    useEffect(() => {
-        if (messages) {
-            setCurrentMessages(messages.items);
-            setTotalMessages(messages.total);
-            setTotalPages(Math.ceil(messages.total / 10));
-        }
-    }, [messages]);
-
     const handleOpenMessage = async (message: Message) => {
         onMessageSelect(message);
+
         if (currentSection === "inbox" && !message.read) {
             await markMessageAsRead(message.id);
         }
     };
 
     const handleOpenDeleteDialog = (messageId: number) => {
-        setMessageToDelete(messageId);
-
         openModal({
-            onClose: () => setMessageToDelete(null),
+            onClose: () => {},
             title: `Delete selected message`,
             subTitle: "Do you want to delete selected message?",
             actions: [
                 {
                     label: CONSTANTS.MODAL__DELETE__NO,
-                    onClick: () => setMessageToDelete(null),
+                    onClick: () => {},
                     color: "secondary",
                     variant: "contained",
                     sx: {
@@ -86,10 +75,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                 {
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
-                        if (messageToDelete) {
-                            await onMessageDelete(messageToDelete);
-                            setMessageToDelete(null);
-                        }
+                        await onMessageDelete(messageId);
                     },
                     type: "submit",
                     color: "secondary",
@@ -105,8 +91,10 @@ const MessagesList: React.FC<MessagesListProps> = ({
 
     const handlePageChange = (newPage: number) => {
         const params = new URLSearchParams(searchParams);
+
         params.set("page", String(newPage));
         router.push(`/messages?${params.toString()}`, { scroll: false });
+
         setLoadingMessages(true);
     };
 
@@ -122,8 +110,8 @@ const MessagesList: React.FC<MessagesListProps> = ({
         );
     }
 
-    const inboxMessages = currentMessages.filter(
-        (message) => currentSection === "inbox" && message.receiverId === session?.user.id,
+    const inboxMessages = messages.items.filter(
+        (message: any) => currentSection === "inbox" && message.receiverId === Number(session?.user.id),
     );
 
     if (currentSection === "inbox" && (!inboxMessages || inboxMessages.length === 0)) {
@@ -134,7 +122,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
         );
     }
 
-    if (!currentMessages || currentMessages.length === 0) {
+    if (!messages.items || messages.items.length === 0) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
                 <Typography variant="body1">No messages found.</Typography>
@@ -145,10 +133,10 @@ const MessagesList: React.FC<MessagesListProps> = ({
     return (
         <>
             <List>
-                {currentMessages.map((message: Message) => (
+                {messages.items.map((message: Message) => (
                     <Box key={message.id}>
                         {currentSection === "inbox" ? (
-                            message.receiverId === session?.user.id && (
+                            message.receiverId === Number(session?.user.id) && (
                                 <ListItemButton
                                     onClick={() => handleOpenMessage(message)}
                                     sx={{
@@ -207,6 +195,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                         aria-label="delete"
                                         onClick={(e) => {
                                             e.stopPropagation();
+                                            console.log(message.id);
                                             handleOpenDeleteDialog(message.id);
                                         }}
                                     >
@@ -219,7 +208,9 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                 onClick={() => handleOpenMessage(message)}
                                 sx={{
                                     backgroundColor:
-                                        message.read === false && currentSection === "inbox" ? "#f0f8ff" : "transparent",
+                                        message.read === false && currentSection === "inbox"
+                                            ? "#f0f8ff"
+                                            : "transparent",
                                 }}
                             >
                                 <ListItemAvatar>
@@ -274,6 +265,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                     aria-label="delete"
                                     onClick={(e) => {
                                         e.stopPropagation();
+                                        console.log(message.id);
                                         handleOpenDeleteDialog(message.id);
                                     }}
                                 >
@@ -285,9 +277,9 @@ const MessagesList: React.FC<MessagesListProps> = ({
                     </Box>
                 ))}
             </List>
-            {totalPages > 1 && (
+            {messagesPageCount > 1 && (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 2, gap: 1 }}>
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    {Array.from({ length: messagesPageCount }, (_, i) => i + 1).map((page) => (
                         <Button
                             key={page}
                             onClick={() => handlePageChange(page)}
