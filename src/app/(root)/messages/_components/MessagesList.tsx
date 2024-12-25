@@ -130,7 +130,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
             </Box>
         );
     }
-
     return (
         <>
             <List>
@@ -186,9 +185,27 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                                     __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
                                                 }}
                                             />
-                                            <Typography variant="caption" color="text.secondary">
-                                                {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
-                                            </Typography>
+                                            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                                {message.editedAt && (
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                        sx={{ fontStyle: "italic" }}
+                                                    >
+                                                        (edited{" "}
+                                                        {formatDistanceToNow(new Date(message.editedAt), {
+                                                            addSuffix: true,
+                                                        })}
+                                                        )
+                                                    </Typography>
+                                                )}
+                                                <Typography variant="caption" color="text.secondary">
+                                                    created{" "}
+                                                    {formatDistanceToNow(new Date(message.createdAt), {
+                                                        addSuffix: true,
+                                                    })}
+                                                </Typography>
+                                            </Box>
                                         </Box>
                                     </Box>
                                     <IconButton
@@ -254,9 +271,25 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                                 __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
                                             }}
                                         />
-                                        <Typography variant="caption" color="text.secondary">
-                                            {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
-                                        </Typography>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                            {message.editedAt && (
+                                                <Typography
+                                                    variant="caption"
+                                                    color="text.secondary"
+                                                    sx={{ fontStyle: "italic" }}
+                                                >
+                                                    (edited{" "}
+                                                    {formatDistanceToNow(new Date(message.editedAt), {
+                                                        addSuffix: true,
+                                                    })}
+                                                    )
+                                                </Typography>
+                                            )}
+                                            <Typography variant="caption" color="text.secondary">
+                                                created{" "}
+                                                {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
+                                            </Typography>
+                                        </Box>
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: "flex", alignItems: "center" }}>
