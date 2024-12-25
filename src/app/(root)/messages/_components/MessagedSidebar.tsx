@@ -22,7 +22,8 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("inbox")}
                     sx={{
-                        backgroundColor: currentSection === "inbox" ? theme.vars.palette.secondary.light : "transparent",
+                        backgroundColor:
+                            currentSection === "inbox" ? theme.vars.palette.secondary.light : "transparent",
                     }}
                 >
                     <ListItemIcon>
@@ -44,7 +45,8 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("compose")}
                     sx={{
-                        backgroundColor: currentSection === "compose" ? theme.vars.palette.secondary.light : "transparent",
+                        backgroundColor:
+                            currentSection === "compose" ? theme.vars.palette.secondary.light : "transparent",
                     }}
                 >
                     <ListItemIcon>
