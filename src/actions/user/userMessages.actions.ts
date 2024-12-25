@@ -219,3 +219,14 @@ export const getMessageById = async (messageId: number) => {
 
     return message;
 };
+
+export const getUnreadMessagesCount = async (userId: number) => {
+    const count = await prisma.message.count({
+        where: {
+            receiverId: userId,
+            read: false,
+        },
+    });
+
+    return count;
+};

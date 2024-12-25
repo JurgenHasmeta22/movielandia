@@ -18,6 +18,7 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import EmailIcon from "@mui/icons-material/Email";
+import MessageCounter from "./MessageCounter";
 
 interface IHeaderContentProps {
     session: Session | null;
@@ -128,20 +129,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             }}
                         >
                             <SearchField />
-                            {session?.user && (
-                                <Box>
-                                    <Button
-                                        LinkComponent={MuiNextLink}
-                                        href="/messages"
-                                        variant="text"
-                                        sx={{
-                                            color: theme.vars.palette.primary.main,
-                                        }}
-                                    >
-                                        <EmailIcon />
-                                    </Button>
-                                </Box>
-                            )}
+                            {session?.user && <MessageCounter session={session} />}
                             {session?.user && <NotificationMenu session={session} />}
                             <ThemeToggleButton />
                             <AuthButtons
