@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import {
     List,
-    ListItem,
     ListItemAvatar,
     Avatar,
     Typography,
@@ -11,9 +10,6 @@ import {
     Divider,
     IconButton,
     CircularProgress,
-    Dialog,
-    DialogTitle,
-    DialogActions,
     Button,
     ListItemButton,
 } from "@mui/material";
@@ -22,6 +18,9 @@ import { formatDistanceToNow } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Message } from "./MessagesPageContent";
 import { markMessageAsRead } from "@/actions/user/userMessages.actions";
+import { useModal } from "@/providers/ModalProvider";
+import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import * as CONSTANTS from "@/constants/Constants";
 
 interface MessagesListProps {
     messages: any;
@@ -42,12 +41,12 @@ const MessagesList: React.FC<MessagesListProps> = ({
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [messageToDelete, setMessageToDelete] = useState<number | null>(null);
     const [loadingMessages, setLoadingMessages] = useState(false);
     const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
     const [totalMessages, setTotalMessages] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
+    const { openModal } = useModal();
 
     useEffect(() => {
         if (messages) {
@@ -66,19 +65,40 @@ const MessagesList: React.FC<MessagesListProps> = ({
 
     const handleOpenDeleteDialog = (messageId: number) => {
         setMessageToDelete(messageId);
-        setIsDeleteDialogOpen(true);
-    };
 
-    const handleCloseDeleteDialog = () => {
-        setIsDeleteDialogOpen(false);
-        setMessageToDelete(null);
-    };
-
-    const handleConfirmDelete = async () => {
-        if (messageToDelete) {
-            await onMessageDelete(messageToDelete);
-            handleCloseDeleteDialog();
-        }
+        openModal({
+            onClose: () => setMessageToDelete(null),
+            title: `Delete selected message`,
+            subTitle: "Do you want to delete selected message?",
+            actions: [
+                {
+                    label: CONSTANTS.MODAL__DELETE__NO,
+                    onClick: () => setMessageToDelete(null),
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#ff5252",
+                    },
+                    icon: <WarningOutlined />,
+                },
+                {
+                    label: CONSTANTS.MODAL__DELETE__YES,
+                    onClick: async () => {
+                        if (messageToDelete) {
+                            await onMessageDelete(messageToDelete);
+                            setMessageToDelete(null);
+                        }
+                    },
+                    type: "submit",
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#30969f",
+                    },
+                    icon: <CheckOutlined />,
+                },
+            ],
+        });
     };
 
     const handlePageChange = (newPage: number) => {
@@ -92,37 +112,10 @@ const MessagesList: React.FC<MessagesListProps> = ({
         setLoadingMessages(false);
     }, [messages]);
 
-    const renderPagination = () => {
-        if (totalPages <= 1) return null;
-
-        return (
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2, gap: 1 }}>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <Button
-                        key={page}
-                        onClick={() => handlePageChange(page)}
-                        variant={Number(currentPage) === page ? "contained" : "outlined"}
-                        disabled={loadingMessages}
-                    >
-                        {page}
-                    </Button>
-                ))}
-            </Box>
-        );
-    };
-
     if (isLoading) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
                 <CircularProgress />
-            </Box>
-        );
-    }
-
-    if (!currentMessages || currentMessages.length === 0) {
-        return (
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
-                <Typography variant="body1">No messages found.</Typography>
             </Box>
         );
     }
@@ -199,18 +192,26 @@ const MessagesList: React.FC<MessagesListProps> = ({
                     </Box>
                 ))}
             </List>
-            {renderPagination()}
-            <Dialog open={isDeleteDialogOpen} onClose={handleCloseDeleteDialog}>
-                <DialogTitle>{"Delete Message?"}</DialogTitle>
-                <DialogActions>
-                    <Button onClick={handleCloseDeleteDialog} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleConfirmDelete} color="error">
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            {totalPages > 1 && (
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 2, gap: 1 }}>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        <Button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            variant={Number(currentPage) === page ? "contained" : "outlined"}
+                            disabled={loadingMessages}
+                        >
+                            {page}
+                        </Button>
+                    ))}
+                </Box>
+            )}
+            {!currentMessages ||
+                (currentMessages.length === 0 && (
+                    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
+                        <Typography variant="body1">No messages found.</Typography>
+                    </Box>
+                ))}
         </>
     );
 };
