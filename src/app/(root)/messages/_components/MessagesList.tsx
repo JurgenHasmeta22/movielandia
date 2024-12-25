@@ -31,7 +31,6 @@ interface MessagesListProps {
     isLoading: boolean;
     messagesPageCount: number;
     initialMessageToEdit?: Message | null;
-    onMessageSelect: (message: Message) => void;
     onMessageDelete: (messageId: number) => void;
     onEditMessage: (message: Message) => void;
 }
@@ -42,7 +41,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
     currentPage,
     isLoading,
     messagesPageCount,
-    onMessageSelect,
     onMessageDelete,
 }) => {
     const router = useRouter();
@@ -52,8 +50,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
     const { data: session } = useSession();
 
     const handleOpenMessage = async (message: Message) => {
-        onMessageSelect(message);
-
         if (currentSection === "inbox" && !message.read) {
             await markMessageAsRead(message.id);
         }
@@ -134,11 +130,19 @@ const MessagesList: React.FC<MessagesListProps> = ({
         <>
             <List>
                 {messages.items.map((message: Message) => (
-                    <Box key={message.id}>
+                    <Box
+                        key={message.id}
+                        onClick={() => {
+                            router.push(`/messages/${message.id}`);
+                        }}
+                    >
                         {currentSection === "inbox" ? (
                             message.receiverId === Number(session?.user.id) && (
                                 <ListItemButton
-                                    onClick={() => handleOpenMessage(message)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleOpenMessage(message);
+                                    }}
                                     sx={{
                                         backgroundColor: message.read === false ? "#f0f8ff" : "transparent",
                                     }}

@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { prisma } from "../../../prisma/config/prisma";
 
 export const getUserInbox = async (page: number = 1, userLoggedIn?: any) => {
