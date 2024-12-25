@@ -4,7 +4,6 @@ import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import {
     getUserInbox,
     getSentMessages,
-    getAllUsers,
     searchUsers,
     getUserById,
     getMessageById,
@@ -29,25 +28,29 @@ export default async function MessagesPage(props: IMessagesPageProps) {
     const section = searchParams?.section || "inbox";
     const page = Number(searchParams?.page) || 1;
     const searchQuery = searchParams?.search || "";
-    const searchParamsKey = JSON.stringify(searchParams);
     const selectedUserId = searchParams?.selectedUser;
     const editMessageId = searchParams?.editMessageId;
+    const searchParamsKey = JSON.stringify(searchParams);
 
-    const [messages, users, searchResults, selectedUser, messageToEdit] = await Promise.all([
-        section === "inbox" ? getUserInbox(page, session?.user.id) : getSentMessages(page, session?.user.id),
-        getAllUsers(session?.user.id),
-        searchQuery ? searchUsers(searchQuery, Number(session?.user.id)) : Promise.resolve([]),
-        selectedUserId ? getUserById(Number(selectedUserId)) : Promise.resolve(null),
-        editMessageId ? getMessageById(Number(editMessageId)) : Promise.resolve(null),
-    ]);
+    let messages;
 
-    const messagesPageCount = Math.ceil(messages.total / 5);
+    if (section === "inbox") {
+        messages = await getUserInbox(page, session?.user.id);
+    } else {
+        messages = await getSentMessages(page, session?.user.id);
+    }
 
+    const searchResults = searchQuery ? await searchUsers(searchQuery, Number(session?.user.id)) : [];
+    const selectedUser = selectedUserId ? await getUserById(Number(selectedUserId)) : null;
+    const messageToEdit = editMessageId ? await getMessageById(Number(editMessageId)) : null;
+    const messagesPageCount = Math.ceil(messages.total / 10);
+
+    console.log(messages);
+    
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <MessagesPageContent
                 initialMessages={messages}
-                users={users}
                 searchResults={searchResults}
                 currentSection={section as "inbox" | "sent"}
                 currentPage={page}

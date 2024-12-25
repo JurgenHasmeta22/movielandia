@@ -17,12 +17,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Message } from "./MessagesPageContent";
-import { markMessageAsRead } from "@/actions/user/userMessages.actions";
+import { deleteMessage, markMessageAsRead } from "@/actions/user/userMessages.actions";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useSession } from "next-auth/react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import { showToast } from "@/utils/helpers/toast";
 
 interface MessagesListProps {
     messages: any;
@@ -31,8 +32,6 @@ interface MessagesListProps {
     isLoading: boolean;
     messagesPageCount: number;
     initialMessageToEdit?: Message | null;
-    onMessageDelete: (messageId: number) => void;
-    onEditMessage: (message: Message) => void;
 }
 
 const MessagesList: React.FC<MessagesListProps> = ({
@@ -41,7 +40,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
     currentPage,
     isLoading,
     messagesPageCount,
-    onMessageDelete,
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -49,10 +47,21 @@ const MessagesList: React.FC<MessagesListProps> = ({
     const { openModal } = useModal();
     const { data: session } = useSession();
 
+    const handleDeleteMessage = async (messageId: number) => {
+        startTransition(async () => {
+            await deleteMessage(messageId);
+        });
+
+        showToast("success", "Message deleted successfully!");
+        router.refresh();
+    };
+
     const handleOpenMessage = async (message: Message) => {
         if (currentSection === "inbox" && !message.read) {
             await markMessageAsRead(message.id);
         }
+
+        router.push(`/messages/${message.id}`, { scroll: false });
     };
 
     const handleOpenDeleteDialog = (messageId: number) => {
@@ -74,9 +83,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                 {
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
-                        startTransition(async () => {
-                            await onMessageDelete(messageId);
-                        });
+                        await handleDeleteMessage(messageId);
                     },
                     type: "submit",
                     color: "secondary",
@@ -90,7 +97,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
         });
     };
 
-    if (isLoading) {
+    if (isPending) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 200 }}>
                 <CircularProgress />
@@ -122,14 +129,14 @@ const MessagesList: React.FC<MessagesListProps> = ({
         <>
             <List>
                 {messages.items.map((message: any) => (
-                    <Box key={message.id}>
+                    <Box
+                        key={message.id}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleOpenMessage(message);
+                        }}
+                    >
                         <ListItemButton
-                            onClick={() => {
-                                handleOpenMessage(message);
-                                const params = new URLSearchParams(searchParams);
-                                params.set("messageId", String(message.id));
-                                router.push(`/messages/${message.id}?${params.toString()}`, { scroll: false });
-                            }}
                             sx={{
                                 "&:hover": {
                                     backgroundColor: "rgba(0, 0, 0, 0.04)",
@@ -194,31 +201,34 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                 </Box>
                             </Box>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
-                                <IconButton
-                                    edge="end"
-                                    aria-label="edit"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        const params = new URLSearchParams(searchParams);
-                                        params.set("editMessageId", String(message.id));
-                                        params.set("section", "compose");
-                                        router.push(`/messages?${params.toString()}`, { scroll: false });
-                                    }}
-                                    sx={{ mr: 1 }}
-                                >
-                                    <EditIcon color="success" />
-                                </IconButton>
-                                <IconButton
-                                    edge="end"
-                                    aria-label="delete"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        console.log(message.id);
-                                        handleOpenDeleteDialog(message.id);
-                                    }}
-                                >
-                                    <DeleteIcon color="error" />
-                                </IconButton>
+                                {currentSection !== "inbox" && (
+                                    <>
+                                        <IconButton
+                                            edge="end"
+                                            aria-label="edit"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                const params = new URLSearchParams(searchParams);
+                                                params.set("editMessageId", String(message.id));
+                                                params.set("section", "compose");
+                                                router.push(`/messages?${params.toString()}`, { scroll: false });
+                                            }}
+                                            sx={{ mr: 1 }}
+                                        >
+                                            <EditIcon color="success" />
+                                        </IconButton>
+                                        <IconButton
+                                            edge="end"
+                                            aria-label="delete"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleOpenDeleteDialog(message.id);
+                                            }}
+                                        >
+                                            <DeleteIcon color="error" />
+                                        </IconButton>
+                                    </>
+                                )}
                             </Box>
                         </ListItemButton>
                         <Divider />
