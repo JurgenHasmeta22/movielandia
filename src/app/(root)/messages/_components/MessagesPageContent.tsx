@@ -54,6 +54,7 @@ interface MessagesPageContentProps {
     currentPage: number;
     userLoggedIn: any;
     initialSelectedUser: any;
+    messagesPageCount: number;
 }
 
 export default function MessagesPageContent({
@@ -63,6 +64,7 @@ export default function MessagesPageContent({
     currentPage,
     initialSelectedUser,
     userLoggedIn,
+    messagesPageCount,
 }: MessagesPageContentProps) {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -98,9 +100,9 @@ export default function MessagesPageContent({
         try {
             setIsLoading(true);
             await deleteMessage(messageId);
+            router.refresh();
         } catch (error) {
             console.error("Failed to delete message:", error);
-            router.refresh();
         } finally {
             setIsLoading(false);
         }
@@ -163,6 +165,7 @@ export default function MessagesPageContent({
                             isLoading={isLoading}
                             onMessageSelect={setSelectedMessage}
                             onMessageDelete={handleDeleteMessage}
+                            messagesPageCount={messagesPageCount}
                         />
                     )}
                 </Paper>

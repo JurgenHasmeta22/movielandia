@@ -20,9 +20,10 @@ interface IMessagesPageProps {
     };
 }
 
-export default async function MessagesPage({ searchParams }: IMessagesPageProps) {
+export default async function MessagesPage(props: IMessagesPageProps) {
     const session = await getServerSession(authOptions);
 
+    const searchParams = await props.searchParams;
     const section = searchParams?.section || "inbox";
     const page = Number(searchParams?.page) || 1;
     const searchQuery = searchParams?.search || "";
@@ -36,6 +37,8 @@ export default async function MessagesPage({ searchParams }: IMessagesPageProps)
         selectedUserId ? getUserById(Number(selectedUserId)) : Promise.resolve(null),
     ]);
 
+    const messagesPageCount = Math.ceil(messages.total / 5);
+
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <MessagesPageContent
@@ -46,6 +49,7 @@ export default async function MessagesPage({ searchParams }: IMessagesPageProps)
                 currentPage={page}
                 userLoggedIn={session?.user}
                 initialSelectedUser={selectedUser}
+                messagesPageCount={messagesPageCount}
             />
         </Suspense>
     );
