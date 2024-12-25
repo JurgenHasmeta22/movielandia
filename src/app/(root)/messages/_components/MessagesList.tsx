@@ -19,7 +19,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Message } from "./MessagesPageContent";
 import { deleteMessage, markMessageAsRead } from "@/actions/user/userMessages.actions";
 import { useModal } from "@/providers/ModalProvider";
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { WarningOutlined, CheckOutlined, Circle, Email, MarkEmailRead } from "@mui/icons-material";
 import * as CONSTANTS from "@/constants/Constants";
 import { useSession } from "next-auth/react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
@@ -142,6 +142,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                     backgroundColor: "rgba(0, 0, 0, 0.04)",
                                 },
                                 padding: 2,
+                                backgroundColor: message.read ? "rgba(0, 0, 0, 0.02)" : "transparent",
                             }}
                         >
                             <ListItemAvatar>
@@ -197,6 +198,26 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                             created{" "}
                                             {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
                                         </Typography>
+                                        {currentSection === "inbox" && (
+                                            <>
+                                                {message.read ? (
+                                                    <MarkEmailRead
+                                                        sx={{ fontSize: "0.7rem", color: "grey", marginLeft: "0.2rem" }}
+                                                    />
+                                                ) : (
+                                                    <Email
+                                                        sx={{ fontSize: "0.7rem", color: "#30969f", marginLeft: "0.2rem" }}
+                                                    />
+                                                )}
+                                                <Typography
+                                                    variant="caption"
+                                                    color="text.secondary"
+                                                    sx={{ marginLeft: "0.2rem" }}
+                                                >
+                                                    {message.read ? "Read" : "Unread"}
+                                                </Typography>
+                                            </>
+                                        )}
                                     </Box>
                                 </Box>
                             </Box>
