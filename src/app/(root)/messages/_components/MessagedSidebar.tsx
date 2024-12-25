@@ -17,13 +17,12 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
     const theme = useTheme();
 
     return (
-        <Box sx={{ width: 250, display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{ width: 250, display: "flex", flexDirection: "column" }}>
             <List sx={{ flexGrow: 1 }}>
                 <ListItemButton
                     onClick={() => navigateToSection("inbox")}
                     sx={{
-                        backgroundColor:
-                            currentSection === "inbox" ? theme.palette.secondary.light : "transparent",
+                        backgroundColor: currentSection === "inbox" ? theme.palette.secondary.light : "transparent",
                         "&:hover": {
                             backgroundColor: theme.palette.secondary.light,
                         },
@@ -37,8 +36,7 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("sent")}
                     sx={{
-                        backgroundColor:
-                            currentSection === "sent" ? theme.palette.secondary.light : "transparent",
+                        backgroundColor: currentSection === "sent" ? theme.palette.secondary.light : "transparent",
                         "&:hover": {
                             backgroundColor: theme.palette.secondary.light,
                         },
@@ -52,8 +50,7 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("compose")}
                     sx={{
-                        backgroundColor:
-                            currentSection === "compose" ? theme.palette.secondary.light : "transparent",
+                        backgroundColor: currentSection === "compose" ? theme.palette.secondary.light : "transparent",
                         "&:hover": {
                             backgroundColor: theme.palette.secondary.light,
                         },

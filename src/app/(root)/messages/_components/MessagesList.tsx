@@ -151,13 +151,8 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                 </Avatar>
                             </ListItemAvatar>
                             <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                                <Typography
-                                    variant="subtitle2"
-                                    fontWeight={message.read === false ? "bold" : "normal"}
-                                >
-                                    {currentSection === "inbox"
-                                        ? message.sender.userName
-                                        : message.receiver.userName}
+                                <Typography variant="subtitle2" fontWeight={message.read === false ? "bold" : "normal"}>
+                                    {currentSection === "inbox" ? message.sender.userName : message.receiver.userName}
                                 </Typography>
                                 <Box
                                     sx={{

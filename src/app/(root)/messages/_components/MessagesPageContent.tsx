@@ -18,6 +18,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";
 import MessagesList from "./MessagesList";
 import MessageCompose from "./MessageCompose";
+import { showToast } from "@/utils/helpers/toast";
 
 export interface Message {
     id: number;
@@ -97,6 +98,9 @@ export default function MessagesPageContent({
         startTransition(async () => {
             await deleteMessage(messageId);
         });
+
+        showToast("success", "Message deleted successfully!");
+        router.refresh();
     };
 
     const handleEditMessage = (message: Message) => {

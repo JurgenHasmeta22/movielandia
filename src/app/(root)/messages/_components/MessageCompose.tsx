@@ -21,7 +21,7 @@ import { showToast } from "@/utils/helpers/toast";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useTheme } from "@mui/material/styles";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface User {
     id: number;
@@ -151,9 +151,9 @@ export default function MessageCompose({
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
                 <Typography variant="h6">{isEditing ? "Edit Message" : "New Message"}</Typography>
-                <Button onClick={handleGoBack} startIcon={<ArrowBackIcon />} sx={{ textTransform: 'capitalize' }}>
+                <Button onClick={handleGoBack} startIcon={<ArrowBackIcon />} sx={{ textTransform: "capitalize" }}>
                     Back
                 </Button>
             </Box>
