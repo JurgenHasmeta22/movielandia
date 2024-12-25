@@ -16,8 +16,11 @@ import {
 } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import TextEditor from "@/components/root/textEditor/TextEditor";
-import { sendMessage } from "@/actions/user/userMessages.actions";
+import { editMessage, sendMessage } from "@/actions/user/userMessages.actions";
 import { showToast } from "@/utils/helpers/toast";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { useTheme } from "@mui/material/styles";
 
 interface User {
     id: number;
@@ -32,19 +35,16 @@ interface MessageComposeProps {
     searchResults: User[];
     userLoggedIn: any;
     initialSelectedUser?: User | null;
-    editMessage?: (messageId: number, text: string) => Promise<void>;
     initialMessageToEdit?: any | null;
-    onCancelEdit?: () => void;
 }
 
 export default function MessageCompose({
     searchResults,
     userLoggedIn,
     initialSelectedUser,
-    editMessage,
     initialMessageToEdit,
-    onCancelEdit,
 }: MessageComposeProps) {
+    const theme = useTheme();
     const router = useRouter();
     const searchParams = useSearchParams();
     const currentSearchQuery = searchParams.get("search") || "";
@@ -54,6 +54,7 @@ export default function MessageCompose({
     const [isLoading, setIsLoading] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [isEditing, setIsEditing] = useState(false);
+    const [initialText, setInitialText] = useState("");
 
     useEffect(() => {
         if (initialSelectedUser) {
@@ -74,9 +75,11 @@ export default function MessageCompose({
             setMessageText(initialMessageToEdit.text);
             setIsEditing(true);
             setSelectedUser(initialMessageToEdit.receiver);
+            setInitialText(initialMessageToEdit.text);
         } else {
             setMessageText("");
             setIsEditing(false);
+            setInitialText("");
         }
     }, [initialMessageToEdit]);
 
@@ -99,7 +102,6 @@ export default function MessageCompose({
 
     const handleSelectUser = (user: User) => {
         const params = new URLSearchParams(searchParams);
-
         params.delete("search");
         params.set("selectedUser", user.id.toString());
         router.push(`/messages?${params.toString()}`, { scroll: false });
@@ -107,7 +109,6 @@ export default function MessageCompose({
 
     const handleClearSelection = useCallback(() => {
         const params = new URLSearchParams(searchParams);
-
         params.delete("search");
         params.delete("selectedUser");
         router.push(`/messages?${params.toString()}`, { scroll: false });
@@ -118,14 +119,15 @@ export default function MessageCompose({
 
         try {
             setIsLoading(true);
-            if (isEditing && initialMessageToEdit && editMessage) {
+
+            if (isEditing && initialMessageToEdit) {
                 await editMessage(initialMessageToEdit.id, messageText);
                 showToast("success", "Message edited successfully!");
-                onCancelEdit?.();
             } else if (selectedUser) {
                 await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
                 showToast("success", "Message sent successfully!");
             }
+
             setMessageText("");
             setSelectedUser(null);
 
@@ -141,18 +143,17 @@ export default function MessageCompose({
     };
 
     const handleCancelEdit = () => {
-        setMessageText("");
+        setMessageText(initialText);
         setIsEditing(false);
-        setSelectedUser(null);
-        onCancelEdit?.();
+
         const params = new URLSearchParams(searchParams);
-        params.delete("editMessageId");
         router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
-    const renderTextField = () => {
-        if (selectedUser) {
-            return (
+    return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Typography variant="h6">{isEditing ? "Edit Message" : "New Message"}</Typography>
+            {selectedUser ? (
                 <TextField
                     label="To"
                     value=""
@@ -173,24 +174,15 @@ export default function MessageCompose({
                         },
                     }}
                 />
-            );
-        }
-
-        return (
-            <TextField
-                label="To"
-                value={currentSearchQuery}
-                onChange={handleSearchChange}
-                placeholder="Search users..."
-                fullWidth
-            />
-        );
-    };
-
-    return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Typography variant="h6">{isEditing ? "Edit Message" : "New Message"}</Typography>
-            {renderTextField()}
+            ) : (
+                <TextField
+                    label="To"
+                    value={currentSearchQuery}
+                    onChange={handleSearchChange}
+                    placeholder="Search users..."
+                    fullWidth
+                />
+            )}
             {!selectedUser && currentSearchQuery && searchResults.length > 0 && (
                 <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
                     <List>
@@ -210,8 +202,20 @@ export default function MessageCompose({
                         textTransform: "capitalize",
                         fontSize: 18,
                         fontWeight: 500,
+                        bgcolor: theme.palette.primary.main,
+                        color: theme.palette.primary.contrastText,
+                        "&:disabled": {
+                            bgcolor: theme.palette.grey[400],
+                            color: theme.palette.grey[100],
+                        },
                     }}
-                    disabled={(!selectedUser && !isEditing) || !messageText.trim() || isLoading}
+                    disabled={
+                        (!selectedUser && !isEditing) ||
+                        !messageText.trim() ||
+                        isLoading ||
+                        (isEditing && messageText === initialText)
+                    }
+                    startIcon={<SaveIcon />}
                 >
                     {isLoading ? <CircularProgress size={24} sx={{ mr: 1 }} /> : isEditing ? "Save" : "Send Message"}
                 </Button>
@@ -222,8 +226,15 @@ export default function MessageCompose({
                             textTransform: "capitalize",
                             fontSize: 18,
                             fontWeight: 500,
+                            color: theme.palette.grey[700],
+                            bgcolor: theme.palette.grey[200],
+                            "&:disabled": {
+                                bgcolor: theme.palette.grey[100],
+                                color: theme.palette.grey[500],
+                            },
                         }}
-                        color="secondary"
+                        startIcon={<CancelIcon />}
+                        disabled={isLoading || (isEditing && messageText === initialText)}
                     >
                         Cancel
                     </Button>

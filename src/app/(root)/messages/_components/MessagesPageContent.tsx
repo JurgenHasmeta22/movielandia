@@ -109,14 +109,6 @@ export default function MessagesPageContent({
         router.push(`/messages?${params.toString()}`, { scroll: false });
     };
 
-    const handleCancelEdit = () => {
-        setMessageToEdit(null);
-        const params = new URLSearchParams(searchParams);
-        params.delete("selectedUser");
-        params.set("section", "sent");
-        router.push(`/messages?${params.toString()}`, { scroll: false });
-    };
-
     if (loadingPage) {
         return (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
@@ -165,9 +157,7 @@ export default function MessagesPageContent({
                             searchResults={searchResults}
                             userLoggedIn={userLoggedIn}
                             initialSelectedUser={initialSelectedUser}
-                            editMessage={editMessage}
                             initialMessageToEdit={initialMessageToEdit}
-                            onCancelEdit={handleCancelEdit}
                         />
                     ) : (
                         <MessagesList
