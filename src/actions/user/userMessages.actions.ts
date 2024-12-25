@@ -102,12 +102,11 @@ export const sendMessage = async (receiverId: number, text: string, userLoggedIn
     });
 
     revalidatePath("/messages");
+    
     return message;
 };
 
 export const deleteMessage = async (messageId: number) => {
-    console.log("deleteMessage action called with messageId:", messageId);
-
     try {
         await prisma.message.delete({
             where: {
@@ -115,9 +114,7 @@ export const deleteMessage = async (messageId: number) => {
             },
         });
 
-        console.log("Message deleted from database");
         revalidatePath("/messages");
-        console.log("revalidatePath('/messages') called");
     } catch (error) {
         console.error("Error deleting message:", error);
         throw error;

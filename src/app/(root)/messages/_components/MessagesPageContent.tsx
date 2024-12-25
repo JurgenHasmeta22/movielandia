@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import {
     Box,
     Container,
@@ -74,7 +74,7 @@ export default function MessagesPageContent({
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isPending, startTransition] = useTransition();
     const [loadingPage, setLoadingPage] = useState(true);
 
     useEffect(() => {
@@ -89,7 +89,6 @@ export default function MessagesPageContent({
         const params = new URLSearchParams(searchParams);
 
         params.set("section", section);
-        params.set("page", "1");
         params.delete("selectedUser");
         router.push(`/messages?${params.toString()}`, { scroll: false });
 
@@ -97,15 +96,14 @@ export default function MessagesPageContent({
     };
 
     const handleDeleteMessage = async (messageId: number) => {
-        try {
-            setIsLoading(true);
-            await deleteMessage(messageId);
-            router.refresh();
-        } catch (error) {
-            console.error("Failed to delete message:", error);
-        } finally {
-            setIsLoading(false);
-        }
+        startTransition(async () => {
+            try {
+                await deleteMessage(messageId);
+                router.refresh();
+            } catch (error) {
+                console.error("Failed to delete message:", error);
+            }
+        });
     };
 
     if (loadingPage) {
@@ -162,7 +160,7 @@ export default function MessagesPageContent({
                             messages={initialMessages}
                             currentSection={currentSection}
                             currentPage={currentPage}
-                            isLoading={isLoading}
+                            isLoading={isPending}
                             onMessageSelect={setSelectedMessage}
                             onMessageDelete={handleDeleteMessage}
                             messagesPageCount={messagesPageCount}
