@@ -174,9 +174,6 @@ const MessagesList: React.FC<MessagesListProps> = ({
                                             fontWeight: message.read === false ? "bold" : "normal",
                                             color: "inherit",
                                             textDecoration: "none",
-                                            "&:hover": {
-                                                textDecoration: "underline",
-                                            },
                                         }}
                                         onClick={(e) => e.stopPropagation()}
                                     >
