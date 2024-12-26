@@ -24,6 +24,7 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useSession } from "next-auth/react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { showToast } from "@/utils/helpers/toast";
+import Link from "next/link";
 
 interface MessagesListProps {
     messages: any;
@@ -129,133 +130,159 @@ const MessagesList: React.FC<MessagesListProps> = ({
         <>
             <List>
                 {messages.items.map((message: any) => (
-                    <Box
-                        key={message.id}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleOpenMessage(message);
-                        }}
-                    >
-                        <ListItemButton
-                            sx={{
-                                "&:hover": {
-                                    backgroundColor: "rgba(0, 0, 0, 0.04)",
-                                },
-                                padding: 2,
-                                backgroundColor: message.read ? "rgba(0, 0, 0, 0.02)" : "transparent",
+                    <Box key={message.id}>
+                        <Link
+                            href={`/messages/${message.id}`}
+                            style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                                display: "block",
                             }}
                         >
-                            <ListItemAvatar>
-                                <Avatar
-                                    src={
-                                        currentSection === "inbox"
-                                            ? message.sender?.avatar?.photoSrc
-                                            : message.receiver?.avatar?.photoSrc
-                                    }
-                                >
-                                    {currentSection === "inbox"
-                                        ? message.sender?.userName.charAt(0).toUpperCase()
-                                        : message.receiver?.userName.charAt(0).toUpperCase()}
-                                </Avatar>
-                            </ListItemAvatar>
-                            <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                                <Typography variant="subtitle2" fontWeight={message.read === false ? "bold" : "normal"}>
-                                    {currentSection === "inbox" ? message.sender.userName : message.receiver.userName}
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                    }}
-                                >
+                            <ListItemButton
+                                sx={{
+                                    "&:hover": {
+                                        backgroundColor: "rgba(0, 0, 0, 0.04)",
+                                    },
+                                    padding: 2,
+                                    backgroundColor: message.read ? "rgba(0, 0, 0, 0.02)" : "transparent",
+                                }}
+                            >
+                                <ListItemAvatar>
+                                    <Avatar
+                                        src={
+                                            currentSection === "inbox"
+                                                ? message.sender?.avatar?.photoSrc
+                                                : message.receiver?.avatar?.photoSrc
+                                        }
+                                    >
+                                        {currentSection === "inbox"
+                                            ? message.sender?.userName.charAt(0).toUpperCase()
+                                            : message.receiver?.userName.charAt(0).toUpperCase()}
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                                    <Link
+                                        href={`/users/${
+                                            currentSection === "inbox" ? message.sender.id : message.receiver.id
+                                        }/${
+                                            currentSection === "inbox"
+                                                ? message.sender.userName
+                                                : message.receiver.userName
+                                        }`}
+                                        style={{
+                                            fontWeight: message.read === false ? "bold" : "normal",
+                                            color: "inherit",
+                                            textDecoration: "none",
+                                            "&:hover": {
+                                                textDecoration: "underline",
+                                            },
+                                        }}
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        {currentSection === "inbox"
+                                            ? message.sender.userName
+                                            : message.receiver.userName}
+                                    </Link>
                                     <Box
                                         sx={{
-                                            overflow: "hidden",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap",
-                                            maxWidth: "200px",
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
                                         }}
-                                        dangerouslySetInnerHTML={{
-                                            __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
-                                        }}
-                                    />
-                                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                        {message.editedAt && (
-                                            <Typography
-                                                variant="caption"
-                                                color="text.secondary"
-                                                sx={{ fontStyle: "italic" }}
-                                            >
-                                                (edited{" "}
-                                                {formatDistanceToNow(new Date(message.editedAt), {
-                                                    addSuffix: true,
-                                                })}
-                                                )
-                                            </Typography>
-                                        )}
-                                        <Typography variant="caption" color="text.secondary">
-                                            created{" "}
-                                            {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
-                                        </Typography>
-                                        {currentSection === "inbox" && (
-                                            <>
-                                                {message.read ? (
-                                                    <MarkEmailRead
-                                                        sx={{ fontSize: "0.7rem", color: "grey", marginLeft: "0.2rem" }}
-                                                    />
-                                                ) : (
-                                                    <Email
-                                                        sx={{
-                                                            fontSize: "0.7rem",
-                                                            color: "#30969f",
-                                                            marginLeft: "0.2rem",
-                                                        }}
-                                                    />
-                                                )}
+                                    >
+                                        <Box
+                                            sx={{
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                                whiteSpace: "nowrap",
+                                                maxWidth: "200px",
+                                            }}
+                                            dangerouslySetInnerHTML={{
+                                                __html: message.text.replace(/<[^>]*>/g, "").slice(0, 50),
+                                            }}
+                                        />
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                            {message.editedAt && (
                                                 <Typography
                                                     variant="caption"
                                                     color="text.secondary"
-                                                    sx={{ marginLeft: "0.2rem" }}
+                                                    sx={{ fontStyle: "italic" }}
                                                 >
-                                                    {message.read ? "Read" : "Unread"}
+                                                    (edited{" "}
+                                                    {formatDistanceToNow(new Date(message.editedAt), {
+                                                        addSuffix: true,
+                                                    })}
+                                                    )
                                                 </Typography>
-                                            </>
-                                        )}
+                                            )}
+                                            <Typography variant="caption" color="text.secondary">
+                                                created{" "}
+                                                {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
+                                            </Typography>
+                                            {currentSection === "inbox" && (
+                                                <>
+                                                    {message.read ? (
+                                                        <MarkEmailRead
+                                                            sx={{
+                                                                fontSize: "0.7rem",
+                                                                color: "grey",
+                                                                marginLeft: "0.2rem",
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <Email
+                                                            sx={{
+                                                                fontSize: "0.7rem",
+                                                                color: "#30969f",
+                                                                marginLeft: "0.2rem",
+                                                            }}
+                                                        />
+                                                    )}
+                                                    <Typography
+                                                        variant="caption"
+                                                        color="text.secondary"
+                                                        sx={{ marginLeft: "0.2rem" }}
+                                                    >
+                                                        {message.read ? "Read" : "Unread"}
+                                                    </Typography>
+                                                </>
+                                            )}
+                                        </Box>
                                     </Box>
                                 </Box>
-                            </Box>
-                            <Box sx={{ display: "flex", alignItems: "center" }}>
-                                {currentSection !== "inbox" && (
-                                    <>
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="edit"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                const params = new URLSearchParams(searchParams);
-                                                params.set("editMessageId", String(message.id));
-                                                params.set("section", "compose");
-                                                router.push(`/messages?${params.toString()}`, { scroll: false });
-                                            }}
-                                            sx={{ mr: 1 }}
-                                        >
-                                            <EditIcon color="success" />
-                                        </IconButton>
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="delete"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleOpenDeleteDialog(message.id);
-                                            }}
-                                        >
-                                            <DeleteIcon color="error" />
-                                        </IconButton>
-                                    </>
-                                )}
-                            </Box>
-                        </ListItemButton>
+                                <Box sx={{ display: "flex", alignItems: "center" }}>
+                                    {currentSection !== "inbox" && (
+                                        <>
+                                            <IconButton
+                                                edge="end"
+                                                aria-label="edit"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    const params = new URLSearchParams(searchParams);
+                                                    params.set("editMessageId", String(message.id));
+                                                    params.set("section", "compose");
+                                                    router.push(`/messages?${params.toString()}`, { scroll: false });
+                                                }}
+                                                sx={{ mr: 1 }}
+                                            >
+                                                <EditIcon color="success" />
+                                            </IconButton>
+                                            <IconButton
+                                                edge="end"
+                                                aria-label="delete"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleOpenDeleteDialog(message.id);
+                                                }}
+                                            >
+                                                <DeleteIcon color="error" />
+                                            </IconButton>
+                                        </>
+                                    )}
+                                </Box>
+                            </ListItemButton>
+                        </Link>
                         <Divider />
                     </Box>
                 ))}

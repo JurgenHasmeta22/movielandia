@@ -5,6 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import PersonIcon from "@mui/icons-material/Person";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Link from "next/link";
 
 export default function MessagePageContent({ message }: { message: any }) {
     const router = useRouter();
@@ -41,9 +42,17 @@ export default function MessagePageContent({ message }: { message: any }) {
                     </Avatar>
                     <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
                         From:{" "}
-                        <Typography component="span" variant="body1" sx={{ fontWeight: 400, color: "text.secondary" }}>
+                        <Link
+                            href={`/users/${message.sender.id}/${message.sender.userName}`}
+                            style={{
+                                fontWeight: 400,
+                                color: "text.secondary",
+                                textDecoration: "none",
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             {message.sender.userName}
-                        </Typography>
+                        </Link>
                     </Typography>
                 </Stack>
                 <Stack direction="row" spacing={2} alignItems="center">
@@ -56,9 +65,20 @@ export default function MessagePageContent({ message }: { message: any }) {
                     </Avatar>
                     <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
                         To:{" "}
-                        <Typography component="span" variant="body1" sx={{ fontWeight: 400, color: "text.secondary" }}>
+                        <Link
+                            href={`/users/${message.receiver.id}/${message.receiver.userName}`}
+                            style={{
+                                fontWeight: 400,
+                                color: "text.secondary",
+                                textDecoration: "none",
+                                "&:hover": {
+                                    textDecoration: "underline",
+                                },
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             {message.receiver.userName}
-                        </Typography>
+                        </Link>
                     </Typography>
                 </Stack>
                 <Box
