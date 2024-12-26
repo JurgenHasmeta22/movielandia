@@ -153,9 +153,12 @@ export default function ProfileInfo({ userInPage, userLoggedIn }: ProfileInfoPro
                         />
                     </motion.div>
                 ) : (
-                    <Typography variant="h6" fontWeight={500} align="center">
-                        {userInPage.userName}
-                    </Typography>
+                    <>
+                        <Typography color="text.secondary">Username:</Typography>
+                        <Typography variant="h6" fontWeight={500} align="center">
+                            {userInPage.userName}
+                        </Typography>
+                    </>
                 )}
                 {!isEditingUserName && (
                     <IconButton
@@ -227,9 +230,12 @@ export default function ProfileInfo({ userInPage, userLoggedIn }: ProfileInfoPro
                         />
                     </motion.div>
                 ) : (
-                    <Typography variant="body2" color="text.secondary" align="center">
-                        {userInPage.bio}
-                    </Typography>
+                    <>
+                        <Typography color="text.secondary">Bio:</Typography>
+                        <Typography variant="body2" align="center">
+                            {userInPage.bio}
+                        </Typography>
+                    </>
                 )}
                 {!isEditingBio && (
                     <IconButton

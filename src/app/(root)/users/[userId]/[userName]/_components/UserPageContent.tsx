@@ -152,7 +152,7 @@ export default function UserPageContent({
     };
 
     return (
-        <Stack spacing={4} width="100%" alignItems="center" sx={{ mt: 4, py: 4 }}>
+        <Stack spacing={4} width="100%" alignItems="center" sx={{ mt: 8, py: 4 }}>
             <Paper elevation={3} sx={{ width: "100%", p: { xs: 3, sm: 4 }, maxWidth: 800 }}>
                 <Stack direction="column" spacing={{ xs: 3, sm: 4 }} alignItems="center">
                     <ProfileHeader avatar={userInPage.avatar} userName={userInPage.userName} />
@@ -194,6 +194,7 @@ export default function UserPageContent({
                             width: "100%",
                             textAlign: "center",
                             mb: 2,
+                            pt: 4,
                         }}
                     >
                         <Typography
@@ -216,7 +217,6 @@ export default function UserPageContent({
                         </Typography>
                         <Divider sx={{ mt: 2 }} />
                     </Box>
-
                     <ProfileTabs
                         mainTabs={mainTabs}
                         subTabs={subTabs}
