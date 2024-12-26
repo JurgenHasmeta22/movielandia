@@ -1,32 +1,20 @@
 "use client";
 
-import { Box, Container, Typography, Paper, Stack, Avatar } from "@mui/material";
+import { Box, Container, Typography, Paper, Stack, Avatar, Button, CircularProgress } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { motion } from "framer-motion";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 
 interface NotificationsPageContentProps {
-    notifications: {
-        items: Array<{
-            id: number;
-            content: string;
-            status: string;
-            createdAt: Date;
-            sender: {
-                id: number;
-                userName: string;
-                avatar?: {
-                    photoSrc: string;
-                };
-            };
-        }>;
-        total: number;
-    };
+    notifications: any;
+    userName: string;
+    userId: number;
 }
 
-export default function NotificationsPageContent({ notifications }: NotificationsPageContentProps) {
+export default function NotificationsPageContent({ notifications, userId, userName }: NotificationsPageContentProps) {
     const searchParams = useSearchParams();
     const currentPage = Number(searchParams.get("page")) || 1;
     const totalPages = Math.ceil(notifications.total / 10);
@@ -36,10 +24,40 @@ export default function NotificationsPageContent({ notifications }: Notification
             <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
                 Your Notifications
             </Typography>
+            {notifications.items.length > 0 && userId && userName ? (
+                <Box sx={{ mb: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Typography variant="body1" color="text.secondary">
+                        Check all your follow requests for approval.
+                    </Typography>
+                    <Link href={`/users/${userId}/${userName}/followersRequests`} passHref>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            sx={{
+                                textTransform: "none",
+                                borderRadius: 2,
+                                fontSize: "0.8rem",
+                                fontWeight: 500,
+                                boxShadow: 1,
+                                bgcolor: "background.paper",
+                                color: (theme) => theme.vars.palette.greyAccent.main,
+                                borderWidth: 2,
+                                height: 30,
+                                minWidth: 100,
+                                "&:hover": {
+                                    bgcolor: "background.default",
+                                },
+                            }}
+                        >
+                            View Requests
+                        </Button>
+                    </Link>
+                </Box>
+            ) : null}
 
             <Stack spacing={2}>
                 {notifications.items.length > 0 ? (
-                    notifications.items.map((notification, index) => (
+                    notifications.items.map((notification: any, index: number) => (
                         <motion.div
                             key={notification.id}
                             initial={{ opacity: 0, y: 20 }}

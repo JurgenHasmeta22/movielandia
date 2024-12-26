@@ -12,6 +12,8 @@ interface INotificationsPageProps {
 
 export default async function NotificationsPage(props: INotificationsPageProps) {
     const session = await getServerSession(authOptions);
+    const userName = session?.user.userName;
+    const userId = Number(session?.user.id);
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
@@ -21,7 +23,7 @@ export default async function NotificationsPage(props: INotificationsPageProps) 
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <NotificationsPageContent notifications={notifications} />
+            <NotificationsPageContent notifications={notifications} userName={userName!} userId={userId} />
         </Suspense>
     );
 }
