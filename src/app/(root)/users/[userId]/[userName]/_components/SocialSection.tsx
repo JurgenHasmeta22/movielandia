@@ -21,8 +21,9 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { showToast } from "@/utils/helpers/toast";
 import { useRouter } from "next/navigation";
-import { follow, unfollow, acceptFollowRequest, refuseFollowRequest } from "@/actions/user/userFollow.actions";
+import { follow, unfollow } from "@/actions/user/userFollow.actions";
 import MessageIcon from "@mui/icons-material/Message";
+import Link from "next/link";
 
 interface SocialSectionProps {
     userLoggedIn: {
@@ -61,8 +62,6 @@ export default function SocialSection({
     const router = useRouter();
 
     const [isPending, startTransition] = useTransition();
-    const [pendingActionId, setPendingActionId] = useState<number | null>(null);
-    const [followersExpanded, setFollowersExpanded] = useState<boolean>(userPendingFollowers.items.length > 0);
 
     const handleFollowUser = async () => {
         if (!userLoggedIn || !userInPage || isPending) return;
@@ -90,44 +89,6 @@ export default function SocialSection({
             } catch (error: any) {
                 console.error(`Error unfollowing user: ${error.message}`);
                 showToast("error", error.message || "Error unfollowing user");
-            }
-        });
-    };
-
-    const handleAcceptFollow = async (followerId: number) => {
-        if (!userLoggedIn || isPending) return;
-
-        setPendingActionId(followerId);
-        startTransition(async () => {
-            try {
-                await acceptFollowRequest(followerId, Number(userLoggedIn.id));
-                showToast("success", "Follow request accepted!");
-                setFollowersExpanded(false);
-                router.refresh();
-            } catch (error: any) {
-                console.error(`Error accepting follow request: ${error.message}`);
-                showToast("error", error.message || "Error accepting follow request");
-            } finally {
-                setPendingActionId(null);
-            }
-        });
-    };
-
-    const handleRefuseFollow = async (followerId: number) => {
-        if (!userLoggedIn || isPending) return;
-
-        setPendingActionId(followerId);
-        startTransition(async () => {
-            try {
-                await refuseFollowRequest(followerId, Number(userLoggedIn.id));
-                showToast("success", "Follow request succesfully refused!");
-                setFollowersExpanded(false);
-                router.refresh();
-            } catch (error: any) {
-                console.error(`Error refusing follow request: ${error.message}`);
-                showToast("error", error.message || "Error refusing follow request");
-            } finally {
-                setPendingActionId(null);
             }
         });
     };
@@ -216,93 +177,28 @@ export default function SocialSection({
             )}
             {userLoggedIn && userLoggedIn.id === userInPage.id && userPendingFollowers.items.length > 0 && (
                 <Box sx={{ mt: 2, maxWidth: "100%" }}>
-                    <Accordion
-                        expanded={followersExpanded}
-                        onChange={() => setFollowersExpanded(!followersExpanded)}
-                        sx={{
-                            bgcolor: "background.paper",
-                            borderRadius: 2,
-                            boxShadow: 1,
-                            width: "100%",
-                            "& .MuiAccordionSummary-root": {
+                    <Link href={`/users/${userInPage.id}/${userInPage.userName}/followersRequests`}>
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                textTransform: "none",
                                 borderRadius: 2,
-                                padding: "0 16px",
-                            },
-                            "& .MuiAccordionDetails-root": {
-                                p: 2,
-                            },
-                        }}
-                    >
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
+                                fontSize: "0.9rem",
+                                fontWeight: 500,
+                                boxShadow: 1,
+                                bgcolor: "background.paper",
+                                color: theme.vars.palette.greyAccent.main,
+                                borderWidth: 2,
+                                height: 35,
+                                minWidth: 100,
+                                "&:hover": {
+                                    bgcolor: "background.default",
+                                },
+                            }}
                         >
-                            <Typography variant="subtitle2" fontWeight={500}>
-                                Followers Requests ({userPendingFollowers.items.length})
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Stack spacing={1}>
-                                {userPendingFollowers.items.map((follow: any) => (
-                                    <Box
-                                        key={follow.follower.id}
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            p: 1,
-                                            borderRadius: 2,
-                                            bgcolor: "background.default",
-                                            boxShadow: 1,
-                                        }}
-                                    >
-                                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                                            {follow.follower.userName}
-                                        </Typography>
-                                        <Box>
-                                            <IconButton
-                                                onClick={() => handleAcceptFollow(follow.follower.id)}
-                                                disabled={isPending}
-                                                size="small"
-                                                sx={{
-                                                    color: "success.main",
-                                                    "&:hover": {
-                                                        color: "success.dark",
-                                                        transform: "scale(1.1)",
-                                                    },
-                                                }}
-                                            >
-                                                {isPending && pendingActionId === follow.follower.id ? (
-                                                    <CircularProgress size={16} color="inherit" />
-                                                ) : (
-                                                    <CheckIcon fontSize="small" />
-                                                )}
-                                            </IconButton>
-                                            <IconButton
-                                                onClick={() => handleRefuseFollow(follow.follower.id)}
-                                                disabled={isPending}
-                                                size="small"
-                                                sx={{
-                                                    color: "error.main",
-                                                    "&:hover": {
-                                                        color: "error.dark",
-                                                        transform: "scale(1.1)",
-                                                    },
-                                                }}
-                                            >
-                                                {isPending && pendingActionId === follow.follower.id ? (
-                                                    <CircularProgress size={16} color="inherit" />
-                                                ) : (
-                                                    <CloseIcon fontSize="small" />
-                                                )}
-                                            </IconButton>
-                                        </Box>
-                                    </Box>
-                                ))}
-                            </Stack>
-                        </AccordionDetails>
-                    </Accordion>
+                            Follow Requests ({userPendingFollowers.items.length})
+                        </Button>
+                    </Link>
                 </Box>
             )}
         </Box>
