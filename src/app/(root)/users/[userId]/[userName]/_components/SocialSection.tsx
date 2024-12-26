@@ -12,6 +12,7 @@ import {
     useTheme,
     Stack,
     CircularProgress,
+    Tooltip,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckIcon from "@mui/icons-material/Check";
@@ -21,6 +22,7 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { showToast } from "@/utils/helpers/toast";
 import { useRouter } from "next/navigation";
 import { follow, unfollow, acceptFollowRequest, refuseFollowRequest } from "@/actions/user/userFollow.actions";
+import MessageIcon from "@mui/icons-material/Message";
 
 interface SocialSectionProps {
     userLoggedIn: {
@@ -46,9 +48,15 @@ interface SocialSectionProps {
         isFollowedStatus?: string | null;
     };
     userPendingFollowers: any;
+    userLoggedInId?: number;
 }
 
-export default function SocialSection({ userLoggedIn, userInPage, userPendingFollowers }: SocialSectionProps) {
+export default function SocialSection({
+    userLoggedIn,
+    userInPage,
+    userPendingFollowers,
+    userLoggedInId,
+}: SocialSectionProps) {
     const theme = useTheme();
     const router = useRouter();
 
@@ -152,37 +160,62 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
         return <PersonAddIcon />;
     };
 
+    const handleMessageUser = () => {
+        if (!userLoggedInId || !userInPage.isFollowed || userInPage.isFollowedStatus !== "accepted") return;
+        router.push(`/messages?section=compose&selectedUser=${userInPage.id}`);
+    };
+
     return (
         <Box>
             {userLoggedIn && userLoggedIn.id !== userInPage.id && (
-                <Button
-                    variant={userInPage.isFollowed ? "outlined" : "contained"}
-                    startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : getFollowButtonIcon()}
-                    size="large"
-                    onClick={handleFollowAction}
-                    disabled={isPending}
-                    sx={{
-                        minWidth: 140,
-                        height: 45,
-                        textTransform: "none",
-                        borderRadius: 2,
-                        fontSize: "1.2rem",
-                        fontWeight: 500,
-                        boxShadow: 1,
-                        bgcolor: "background.paper",
-                        color: theme.vars.palette.greyAccent.main,
-                        borderWidth: 2,
-                        "&.Mui-disabled": {
+                <Stack direction="row" spacing={1} alignItems="center">
+                    <Button
+                        variant={userInPage.isFollowed ? "outlined" : "contained"}
+                        startIcon={isPending ? <CircularProgress size={20} color="inherit" /> : getFollowButtonIcon()}
+                        size="small"
+                        onClick={handleFollowAction}
+                        disabled={isPending}
+                        sx={{
+                            textTransform: "none",
+                            borderRadius: 2,
+                            fontSize: "0.9rem",
+                            fontWeight: 500,
+                            boxShadow: 1,
                             bgcolor: "background.paper",
-                            opacity: 0.7,
-                        },
-                    }}
-                >
-                    {isPending ? "Processing..." : getFollowButtonText()}
-                </Button>
+                            color: theme.vars.palette.greyAccent.main,
+                            borderWidth: 2,
+                            height: 35,
+                            minWidth: 100,
+                            "&.Mui-disabled": {
+                                bgcolor: "background.paper",
+                                opacity: 0.7,
+                            },
+                        }}
+                    >
+                        {isPending ? "Processing..." : getFollowButtonText()}
+                    </Button>
+                    {userInPage.isFollowed && userInPage.isFollowedStatus === "accepted" && (
+                        <Tooltip title="Send Message" placement="top">
+                            <IconButton
+                                onClick={handleMessageUser}
+                                disabled={isPending}
+                                size="small"
+                                sx={{
+                                    color: theme.vars.palette.greyAccent.main,
+                                    "&:hover": {
+                                        color: theme.vars.palette.primary.main,
+                                        transform: "scale(1.1)",
+                                    },
+                                }}
+                            >
+                                <MessageIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                    )}
+                </Stack>
             )}
             {userLoggedIn && userLoggedIn.id === userInPage.id && userPendingFollowers.items.length > 0 && (
-                <Box sx={{ mt: 2, maxWidth: "300px" }}>
+                <Box sx={{ mt: 2, maxWidth: "100%" }}>
                     <Accordion
                         expanded={followersExpanded}
                         onChange={() => setFollowersExpanded(!followersExpanded)}
@@ -193,6 +226,7 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                             width: "100%",
                             "& .MuiAccordionSummary-root": {
                                 borderRadius: 2,
+                                padding: "0 16px",
                             },
                             "& .MuiAccordionDetails-root": {
                                 p: 2,
@@ -204,12 +238,12 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography variant="subtitle1" fontWeight={500}>
+                            <Typography variant="subtitle2" fontWeight={500}>
                                 Followers Requests ({userPendingFollowers.items.length})
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Stack spacing={2}>
+                            <Stack spacing={1}>
                                 {userPendingFollowers.items.map((follow: any) => (
                                     <Box
                                         key={follow.follower.id}
@@ -217,19 +251,20 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "space-between",
-                                            p: 1.5,
+                                            p: 1,
                                             borderRadius: 2,
                                             bgcolor: "background.default",
                                             boxShadow: 1,
                                         }}
                                     >
-                                        <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
                                             {follow.follower.userName}
                                         </Typography>
                                         <Box>
                                             <IconButton
                                                 onClick={() => handleAcceptFollow(follow.follower.id)}
                                                 disabled={isPending}
+                                                size="small"
                                                 sx={{
                                                     color: "success.main",
                                                     "&:hover": {
@@ -239,14 +274,15 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                                                 }}
                                             >
                                                 {isPending && pendingActionId === follow.follower.id ? (
-                                                    <CircularProgress size={20} color="inherit" />
+                                                    <CircularProgress size={16} color="inherit" />
                                                 ) : (
-                                                    <CheckIcon />
+                                                    <CheckIcon fontSize="small" />
                                                 )}
                                             </IconButton>
                                             <IconButton
                                                 onClick={() => handleRefuseFollow(follow.follower.id)}
                                                 disabled={isPending}
+                                                size="small"
                                                 sx={{
                                                     color: "error.main",
                                                     "&:hover": {
@@ -256,9 +292,9 @@ export default function SocialSection({ userLoggedIn, userInPage, userPendingFol
                                                 }}
                                             >
                                                 {isPending && pendingActionId === follow.follower.id ? (
-                                                    <CircularProgress size={20} color="inherit" />
+                                                    <CircularProgress size={16} color="inherit" />
                                                 ) : (
-                                                    <CloseIcon />
+                                                    <CloseIcon fontSize="small" />
                                                 )}
                                             </IconButton>
                                         </Box>

@@ -2,8 +2,8 @@
 
 import { Stack, Typography, Box } from "@mui/material";
 import { useRouter } from "next/navigation";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PeopleIcon from "@mui/icons-material/People";
+import PersonIcon from "@mui/icons-material/Person";
 
 interface ProfileStatsProps {
     userInPage: {
@@ -45,7 +45,7 @@ export default function ProfileStats({
                         : undefined,
                 }}
             >
-                <PeopleOutlineIcon sx={{ fontSize: 24, color: "text.primary" }} />
+                <PeopleIcon color="action" />
                 <Typography variant="h6" color="text.primary" sx={{ fontWeight: 500 }}>
                     Followers:
                 </Typography>
@@ -73,7 +73,7 @@ export default function ProfileStats({
                         : undefined,
                 }}
             >
-                <PersonOutlineIcon sx={{ fontSize: 24, color: "text.primary" }} />
+                <PersonIcon color="action" />
                 <Typography variant="h6" color="text.primary" sx={{ fontWeight: 500 }}>
                     Following:
                 </Typography>

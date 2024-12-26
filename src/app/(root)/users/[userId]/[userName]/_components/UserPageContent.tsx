@@ -153,31 +153,37 @@ export default function UserPageContent({
 
     return (
         <Stack spacing={4} width="100%" alignItems="center" sx={{ mt: 4, py: 4 }}>
-            <Paper elevation={3} sx={{ width: "100%", p: { xs: 3, sm: 4 } }}>
-                <Stack direction={["column", "row"]} spacing={{ xs: 3, sm: 4 }} alignItems="flex-start">
-                    <Stack direction="row" spacing={4} sx={{ flex: 1 }}>
-                        <ProfileHeader avatar={userInPage.avatar} userName={userInPage.userName} />
-                        <Box sx={{ flex: 1 }}>
-                            <Stack spacing={2}>
-                                <ProfileInfo userInPage={userInPage} userLoggedIn={userLoggedIn} />
-                                <SocialSection
-                                    userLoggedIn={userLoggedIn}
-                                    userInPage={{
-                                        ...userInPage,
-                                        followers: userFollowers.items || [],
-                                        following: userFollowing.items || [],
-                                    }}
-                                    userPendingFollowers={userPendingFollowers}
-                                />
-                            </Stack>
+            <Paper elevation={3} sx={{ width: "100%", p: { xs: 3, sm: 4 }, maxWidth: 800 }}>
+                <Stack direction="column" spacing={{ xs: 3, sm: 4 }} alignItems="center">
+                    <ProfileHeader avatar={userInPage.avatar} userName={userInPage.userName} />
+                    <ProfileInfo userInPage={userInPage} userLoggedIn={userLoggedIn} />
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                        alignItems="flex-start"
+                        justifyContent="space-between"
+                        width="100%"
+                        sx={{ mt: 2 }}
+                    >
+                        <SocialSection
+                            userLoggedIn={userLoggedIn}
+                            userInPage={{
+                                ...userInPage,
+                                followers: userFollowers.items || [],
+                                following: userFollowing.items || [],
+                            }}
+                            userPendingFollowers={userPendingFollowers}
+                            userLoggedInId={userLoggedIn?.id}
+                        />
+                        <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+                            <ProfileStats
+                                userInPage={userInPage}
+                                followersCount={userFollowers.items.length}
+                                followingCount={userFollowing.items.length}
+                                canClickFollow={canViewProfile!}
+                            />
                         </Box>
                     </Stack>
-                    <ProfileStats
-                        userInPage={userInPage}
-                        followersCount={userFollowers.items.length}
-                        followingCount={userFollowing.items.length}
-                        canClickFollow={canViewProfile!}
-                    />
                 </Stack>
             </Paper>
             {!canViewProfile && userLoggedIn && userLoggedIn.id !== userInPage.id && <PrivateProfileMessage />}
