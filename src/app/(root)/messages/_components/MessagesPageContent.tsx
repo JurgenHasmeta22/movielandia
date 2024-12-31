@@ -3,11 +3,13 @@
 import { useState, useTransition } from "react";
 import { Box, Container, Drawer, Paper, Typography, useTheme, useMediaQuery, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import MessagedSidebar from "./MessagedSidebar";
 import MessagesList from "./MessagesList";
 import MessageCompose from "./MessageCompose";
+import { useQueryState } from "nuqs";
 
+// #region "Interfaces"
 export interface Message {
     id: number;
     text: string;
@@ -45,6 +47,7 @@ interface MessagesPageContentProps {
     messagesPageCount: number;
     initialMessageToEdit?: any | null;
 }
+// #endregion
 
 export default function MessagesPageContent({
     initialMessages,
@@ -59,21 +62,40 @@ export default function MessagesPageContent({
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
     const [mobileOpen, setMobileOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
+
+    const router = useRouter();
+
+    const [search, setSearch] = useQueryState("search", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [section, setSection] = useQueryState("section", {
+        defaultValue: "inbox",
+        parse: (value) => value || "inbox",
+        history: "push",
+        shallow: false,
+    });
+
+    const [editMessageId, setEditMessageId] = useQueryState("editMessageId", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
     const navigateToSection = (section: string) => {
-        const params = new URLSearchParams(searchParams);
-        params.set("section", section);
-        params.delete("editMessageId");
-        router.push(`/messages?${params.toString()}`, { scroll: false });
+        setSection(section);
+        setEditMessageId(null);
+        setSearch("");
     };
 
     return (
@@ -111,7 +133,7 @@ export default function MessagesPageContent({
                     </Paper>
                 )}
                 <Paper sx={{ flexGrow: 1, p: 2 }}>
-                    {searchParams.get("section") === "compose" ? (
+                    {section === "compose" ? (
                         <MessageCompose
                             searchResults={searchResults}
                             userLoggedIn={userLoggedIn}

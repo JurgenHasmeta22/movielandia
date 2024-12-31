@@ -13,7 +13,7 @@ import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import ProfileStats from "./ProfileStats";
@@ -21,6 +21,7 @@ import ProfileTabs from "./ProfileTabs";
 import PrivateProfileMessage from "./PrivateProfileMessage";
 import TabContent from "./TabContent";
 import SocialSection from "./SocialSection";
+import { useQueryState } from "nuqs";
 
 // #region "Iterfaces and types"
 interface UserPageProps {
@@ -69,7 +70,6 @@ export default function UserPageContent({
     userPendingFollowers,
 }: UserPageProps) {
     const router = useRouter();
-    const searchParams = useSearchParams();
 
     // #region "Profile follow view logic"
     const canViewProfile = useMemo(() => {
@@ -116,14 +116,28 @@ export default function UserPageContent({
         }
     };
 
+    const [mainTab, setMainTab] = useQueryState("maintab", {
+        defaultValue: "movies",
+        parse: (value) => value || "movies",
+        history: "push",
+        shallow: false,
+    });
+
+    const [subTab, setSubTab] = useQueryState("subtab", {
+        defaultValue: "bookmarks",
+        parse: (value) => value || "bookmarks",
+        history: "push",
+        shallow: false,
+    });
+
     const currentMainTab = useMemo(() => {
-        const mainTabParam = searchParams.get("maintab");
+        const mainTabParam = mainTab;
         return mainTabParam ? mainTabs.findIndex((tab) => tab.param === mainTabParam) : 0;
-    }, [searchParams, mainTabs]);
+    }, [mainTab, mainTabs]);
 
     const currentSubTab = useMemo(() => {
-        const mainTabParam = searchParams.get("maintab") || mainTabs[0].param;
-        const subTabParam = searchParams.get("subtab");
+        const mainTabParam = mainTab || mainTabs[0].param;
+        const subTabParam = subTab;
         const currentSubTabs = subTabs[mainTabParam as keyof typeof subTabs];
 
         if (!subTabParam) return 0;
@@ -133,7 +147,7 @@ export default function UserPageContent({
         );
 
         return subTabIndex === -1 ? 0 : subTabIndex;
-    }, [searchParams, subTabs, mainTabs]);
+    }, [subTab, subTabs, mainTabs]);
     // #endregion
 
     const getMainTabDescription = (mainTab: string) => {
@@ -223,8 +237,8 @@ export default function UserPageContent({
                         getSubTabIcon={getSubTabIcon}
                         currentMainTab={currentMainTab}
                         currentSubTab={currentSubTab}
-                        searchParams={searchParams}
-                        router={router}
+                        setMainTab={setMainTab}
+                        setSubTab={setSubTab}
                     />
                     <motion.div
                         key={`${currentMainTab}-${currentSubTab}`}

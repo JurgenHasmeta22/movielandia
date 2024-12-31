@@ -1,17 +1,20 @@
 "use client";
 
 import { Tab, Tabs, Paper } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Options, useQueryState } from "nuqs";
 import { JSX } from "react";
 
 interface ProfileTabsProps {
     mainTabs: any[];
     subTabs: Record<string, string[]>;
-    getSubTabIcon: (label: string) => JSX.Element;
     currentMainTab: number;
     currentSubTab: number;
-    searchParams: ReturnType<typeof useSearchParams>;
-    router: ReturnType<typeof useRouter>;
+    getSubTabIcon: (label: string) => JSX.Element;
+    setMainTab: (
+        value: string | ((old: string) => string | null) | null,
+        options?: Options,
+    ) => Promise<URLSearchParams>;
+    setSubTab: (value: string | ((old: string) => string | null) | null, options?: Options) => Promise<URLSearchParams>;
 }
 
 export default function ProfileTabs({
@@ -20,20 +23,30 @@ export default function ProfileTabs({
     getSubTabIcon,
     currentMainTab,
     currentSubTab,
-    searchParams,
-    router,
+    setMainTab,
+    setSubTab,
 }: ProfileTabsProps) {
+    const [search, setSearch] = useQueryState("maintab", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [page, setPage] = useQueryState("page", {
+        defaultValue: null,
+        parse: (value) => Number(value) || 1,
+        history: "push",
+        shallow: false,
+    });
+
     const updateURL = (mainTabValue: string, subTabValue: string) => {
         const cleanSubTabValue = subTabValue.toLowerCase().replace(/\s+/g, "");
-        const newSearchParams = new URLSearchParams(searchParams.toString());
 
-        newSearchParams.delete("page");
-        newSearchParams.delete("search");
-
-        newSearchParams.set("maintab", mainTabValue);
-        newSearchParams.set("subtab", cleanSubTabValue);
-
-        router.push(`?${newSearchParams.toString()}`, { scroll: false });
+        setPage(null);
+        setSearch("");
+        setMainTab(mainTabValue);
+        setSubTab(cleanSubTabValue);
     };
 
     const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {

@@ -11,6 +11,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import { useRouter, useSearchParams } from "next/navigation";
 import { JSX } from "react";
+import { useQueryState } from "nuqs";
 
 interface TabOption {
     label: string;
@@ -31,11 +32,17 @@ const tabOptions: TabOption[] = [
 
 export default function SearchTabs() {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const selectedFilters = searchParams.get("filters")?.split(",") || ["all"];
+
+    const [filters, setFilters] = useQueryState("filters", {
+        defaultValue: "all",
+        parse: (value) => value || "all",
+        history: "push",
+        shallow: false,
+    });
+
+    const selectedFilters = filters?.split(",") || ["all"];
 
     const handleTabClick = (value: string) => {
-        const current = new URLSearchParams(Array.from(searchParams.entries()));
         let newFilters: string[];
 
         if (value === "all") {
@@ -53,10 +60,7 @@ export default function SearchTabs() {
             }
         }
 
-        current.set("filters", newFilters.join(","));
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`, { scroll: false });
+        setFilters(newFilters.join(","));
     };
 
     return (

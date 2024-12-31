@@ -4,8 +4,8 @@ import { Box, Typography, Pagination, Stack } from "@mui/material";
 import CardItemProfile, { FavoriteType } from "./CardItemProfile";
 import ReviewItemProfile from "./ReviewItemProfile";
 import { motion } from "framer-motion";
-import { useSearchParams, useRouter } from "next/navigation";
 import ProfileSearchBar from "./ProfileSearchBar";
+import { useQueryState } from "nuqs";
 
 interface ITabContentProps {
     type: string;
@@ -15,12 +15,27 @@ interface ITabContentProps {
 }
 
 export default function TabContent({ type, userLoggedIn, userInPage, additionalData }: ITabContentProps) {
-    const searchParams = useSearchParams();
-    const router = useRouter();
-    const mainTab = searchParams.get("maintab") || "bookmarks";
-    const currentSearch = searchParams.get("search") || "";
+    const [mainTab, setMainTab] = useQueryState("maintab", {
+        defaultValue: "mobies",
+        parse: (value) => value || "movies",
+        history: "push",
+        shallow: false,
+    });
 
-    const page = Number(searchParams?.get("page")) || 1;
+    const [search, setSearch] = useQueryState("search", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [page, setPage] = useQueryState("page", {
+        defaultValue: 1,
+        parse: (value) => Number(value) || 1,
+        history: "push",
+        shallow: false,
+    });
+
     const perPage = 10;
     const totalItems = additionalData.total || 0;
     const totalPages = Math.ceil(totalItems / perPage);
@@ -29,12 +44,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const endIndex = Math.min(page * perPage, totalItems);
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
-        const current = new URLSearchParams(Array.from(searchParams.entries()));
-        current.set("page", value.toString());
-
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`, { scroll: false });
+        setPage(value);
     };
 
     const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "actor" | "crew" => {
@@ -102,16 +112,16 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     };
 
     const getEmptyStateMessage = () => {
-        if (currentSearch) {
+        if (search) {
             switch (mainTab) {
                 case "reviews":
-                    return `No ${type.toLowerCase()} reviews found matching "${currentSearch}"`;
+                    return `No ${type.toLowerCase()} reviews found matching "${search}"`;
                 case "upvotes":
-                    return `No upvoted ${type.toLowerCase()} reviews found matching "${currentSearch}"`;
+                    return `No upvoted ${type.toLowerCase()} reviews found matching "${search}"`;
                 case "downvotes":
-                    return `No downvoted ${type.toLowerCase()} reviews found matching "${currentSearch}"`;
+                    return `No downvoted ${type.toLowerCase()} reviews found matching "${search}"`;
                 default:
-                    return `No ${type.toLowerCase()} bookmarks found matching "${currentSearch}"`;
+                    return `No ${type.toLowerCase()} bookmarks found matching "${search}"`;
             }
         }
 
@@ -162,7 +172,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     >
                         <Typography variant="body2" color="text.secondary">
                             Showing {startIndex}-{endIndex} of {totalItems} items
-                            {currentSearch && ` for "${currentSearch}"`}
+                            {search && ` for "${search}"`}
                         </Typography>
                     </Box>
                 )}
@@ -172,21 +182,15 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                         display: "grid",
                         gridTemplateColumns: {
                             xs:
-                                searchParams.get("maintab") === "reviews" ||
-                                searchParams.get("maintab") === "upvotes" ||
-                                searchParams.get("maintab") === "downvotes"
+                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes"
                                     ? "repeat(auto-fill, minmax(300px, 1fr))"
                                     : "repeat(auto-fill, minmax(100px, 1fr))",
                             sm:
-                                searchParams.get("maintab") === "reviews" ||
-                                searchParams.get("maintab") === "upvotes" ||
-                                searchParams.get("maintab") === "downvotes"
+                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes"
                                     ? "repeat(2, minmax(350px, 1fr))"
                                     : "repeat(3, minmax(120px, 1fr))",
                             md:
-                                searchParams.get("maintab") === "reviews" ||
-                                searchParams.get("maintab") === "upvotes" ||
-                                searchParams.get("maintab") === "downvotes"
+                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes"
                                     ? "repeat(3, minmax(300px, 1fr))"
                                     : "repeat(5, minmax(140px, 1fr))",
                         },
@@ -201,10 +205,9 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                 >
                     {additionalData.items.length > 0 ? (
                         additionalData.items.map((item: any, index: number) => {
-                            const mainTab = searchParams?.get("maintab") || "bookmarks";
-
                             if (mainTab === "reviews") {
                                 const reviewType = getReviewType(item);
+
                                 const reviewItem = {
                                     ...item,
                                     ...item[reviewType],
@@ -214,8 +217,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                         downvotes: item._count?.downvotes || 0,
                                     },
                                 };
-
-                                console.log(reviewType, reviewItem);
 
                                 return (
                                     <ReviewItemProfile
@@ -228,6 +229,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                 );
                             } else if (mainTab === "upvotes" || mainTab === "downvotes") {
                                 const reviewType = getReviewVotesType(item);
+
                                 const reviewItem = {
                                     ...item[reviewType],
                                     user: item[reviewType].user,
@@ -236,8 +238,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                         downvotes: item[reviewType]._count?.downvotes || 0,
                                     },
                                 };
-
-                                console.log(reviewType, reviewItem, item);
 
                                 return (
                                     <ReviewItemProfile
@@ -276,7 +276,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                             <Typography variant="h6" color="text.secondary" textAlign="center">
                                 {getEmptyStateMessage()}
                             </Typography>
-                            {currentSearch && (
+                            {search && (
                                 <Typography variant="body2" color="text.secondary" textAlign="center">
                                     Try adjusting your search to find what you&apos;re looking for
                                 </Typography>
