@@ -71,8 +71,8 @@ export default function MessageCompose({
     });
 
     const [section, setSection] = useQueryState("section", {
-        defaultValue: "inbox",
-        parse: (value) => value || "inbox",
+        defaultValue: "",
+        parse: (value) => value || "",
         history: "push",
         shallow: false,
     });

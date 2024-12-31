@@ -117,15 +117,15 @@ export default function UserPageContent({
     };
 
     const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "bookmarks",
-        parse: (value) => value || "bookmarks",
+        defaultValue: "",
+        parse: (value) => value || "",
         history: "push",
         shallow: false,
     });
 
     const [subTab, setSubTab] = useQueryState("subtab", {
-        defaultValue: "movies",
-        parse: (value) => value || "movies",
+        defaultValue: "",
+        parse: (value) => value || "",
         history: "push",
         shallow: false,
     });
@@ -138,8 +138,6 @@ export default function UserPageContent({
     const currentSubTab = useMemo(() => {
         const mainTabParam = mainTab;
         const currentSubTabs = subTabs[mainTabParam as keyof typeof subTabs];
-
-        console.log(currentSubTabs, subTab);
 
         if (!subTab) return 0;
 
@@ -253,6 +251,7 @@ export default function UserPageContent({
                             userLoggedIn={userLoggedIn}
                             userInPage={userInPage}
                             additionalData={additionalData}
+                            mainTab={mainTab}
                         />
                     </motion.div>
                 </>
