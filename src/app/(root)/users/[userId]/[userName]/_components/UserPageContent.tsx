@@ -117,15 +117,15 @@ export default function UserPageContent({
     };
 
     const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "movies",
-        parse: (value) => value || "movies",
+        defaultValue: "bookmarks",
+        parse: (value) => value || "bookmarks",
         history: "push",
         shallow: false,
     });
 
     const [subTab, setSubTab] = useQueryState("subtab", {
-        defaultValue: "bookmarks",
-        parse: (value) => value || "bookmarks",
+        defaultValue: "movies",
+        parse: (value) => value || "movies",
         history: "push",
         shallow: false,
     });
@@ -136,14 +136,15 @@ export default function UserPageContent({
     }, [mainTab, mainTabs]);
 
     const currentSubTab = useMemo(() => {
-        const mainTabParam = mainTab || mainTabs[0].param;
-        const subTabParam = subTab;
+        const mainTabParam = mainTab;
         const currentSubTabs = subTabs[mainTabParam as keyof typeof subTabs];
 
-        if (!subTabParam) return 0;
+        console.log(currentSubTabs, subTab);
 
-        const subTabIndex = currentSubTabs.findIndex(
-            (tab) => tab.toLowerCase().replace(/\s+/g, "") === subTabParam.toLowerCase().replace(/\s+/g, ""),
+        if (!subTab) return 0;
+
+        const subTabIndex = currentSubTabs!.findIndex(
+            (tab) => tab.toLowerCase().replace(/\s+/g, "") === subTab.toLowerCase().replace(/\s+/g, ""),
         );
 
         return subTabIndex === -1 ? 0 : subTabIndex;

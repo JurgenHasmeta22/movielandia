@@ -9,6 +9,7 @@ import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { Movie, Serie, Actor, Crew, Season, Episode, User } from "@prisma/client";
 import { useQueryState } from "nuqs";
+import { useRouter } from "next/navigation";
 
 interface SearchResults {
     movies: { items: Movie[]; total: number };
@@ -42,6 +43,8 @@ const filters = [
 ];
 
 const SearchField = () => {
+    const router = useRouter();
+
     const [filtersSearch, setFiltersSearch] = useQueryState("filters", {
         defaultValue: "all",
         parse: (value) => value || "all",
@@ -72,11 +75,9 @@ const SearchField = () => {
 
     const handleSearch = () => {
         if (inputValue) {
-            setTerm(encodeURIComponent(inputValue));
-            setFiltersSearch(selectedFilters.join(","));
+            router.push(`/search?term=${encodeURIComponent(inputValue)}&filters=${selectedFilters.join(",")}`);
         } else {
-            setTerm("");
-            setFiltersSearch("");
+            router.push("/search");
         }
 
         setShowResults(false);
