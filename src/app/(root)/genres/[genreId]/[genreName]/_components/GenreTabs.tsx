@@ -4,8 +4,8 @@ import { Box, Typography } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
-import { useRouter, useSearchParams } from "next/navigation";
 import { JSX } from "react";
+import { useQueryState } from "nuqs";
 
 interface TabOption {
     label: string;
@@ -20,12 +20,16 @@ const tabOptions: TabOption[] = [
 ];
 
 const GenreTabs = () => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const selectedFilters = searchParams.get("filters")?.split(",") || ["all"];
+    const [filters, setFilters] = useQueryState("filters", {
+        defaultValue: "all",
+        parse: (value) => value || "all",
+        history: "push",
+        shallow: false
+    });
+
+    const selectedFilters = filters?.split(",") || ["all"];
 
     const handleTabClick = (value: string) => {
-        const current = new URLSearchParams(Array.from(searchParams.entries()));
         let newFilters: string[];
 
         if (value === "all") {
@@ -36,6 +40,7 @@ const GenreTabs = () => {
             } else {
                 if (selectedFilters.includes(value)) {
                     newFilters = selectedFilters.filter((f) => f !== value);
+                    
                     if (newFilters.length === 0) newFilters = ["all"];
                 } else {
                     newFilters = [...selectedFilters, value];
@@ -43,10 +48,7 @@ const GenreTabs = () => {
             }
         }
 
-        current.set("filters", newFilters.join(","));
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`, { scroll: false });
+        setFilters(newFilters.join(","));
     };
 
     return (

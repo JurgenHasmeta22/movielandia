@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition } from "react";
 import {
     Box,
     Typography,
@@ -14,7 +14,7 @@ import {
     Chip,
     CircularProgress,
 } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { editMessage, sendMessage } from "@/actions/user/userMessages.actions";
 import { showToast } from "@/utils/helpers/toast";
@@ -22,6 +22,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useTheme } from "@mui/material/styles";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useQueryState } from "nuqs";
 
 interface User {
     id: number;
@@ -48,9 +49,33 @@ export default function MessageCompose({
     const theme = useTheme();
     const router = useRouter();
 
-    const searchParams = useSearchParams();
-    const currentSearchQuery = searchParams.get("search") || "";
-    const selectedUserId = searchParams.get("selectedUser");
+    const [search, setSearch] = useQueryState("search", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [selectedUserId, setSelectedUserId] = useQueryState("selectedUser", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [editMessageId, setEditMessageId] = useQueryState("editMessageId", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [section, setSection] = useQueryState("section", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
 
     const [messageText, setMessageText] = useState("");
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -61,7 +86,7 @@ export default function MessageCompose({
     useEffect(() => {
         if (initialSelectedUser) {
             setSelectedUser(initialSelectedUser);
-        } else if (selectedUserId) {
+        } else if (selectedUser) {
             const user = searchResults.find((user) => user.id === Number(selectedUserId));
 
             if (user) {
@@ -85,36 +110,26 @@ export default function MessageCompose({
         }
     }, [initialMessageToEdit]);
 
-    const handleSearchChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const value = event.target.value;
-            const params = new URLSearchParams(searchParams);
+    function handleSearchChange(event: any) {
+        const value = event.target.value;
 
-            if (value) {
-                params.set("search", value);
-                params.delete("selectedUser");
-            } else {
-                params.delete("search");
-            }
-
-            router.push(`/messages?${params.toString()}`, { scroll: false });
-        },
-        [searchParams],
-    );
+        if (value) {
+            setSearch(value);
+            setSelectedUserId("");
+        } else {
+            setSearch("");
+        }
+    }
 
     const handleSelectUser = (user: User) => {
-        const params = new URLSearchParams(searchParams);
-        params.delete("search");
-        params.set("selectedUser", user.id.toString());
-        router.push(`/messages?${params.toString()}`, { scroll: false });
+        setSearch("");
+        setSelectedUserId(user.id.toString());
     };
 
-    const handleClearSelection = useCallback(() => {
-        const params = new URLSearchParams(searchParams);
-        params.delete("search");
-        params.delete("selectedUser");
-        router.push(`/messages?${params.toString()}`, { scroll: false });
-    }, [searchParams]);
+    const handleClearSelection = () => {
+        setSearch("");
+        setSelectedUserId("");
+    };
 
     const handleSendMessage = async () => {
         if ((!selectedUser && !isEditing) || !messageText.trim() || isPending) return;
@@ -129,11 +144,9 @@ export default function MessageCompose({
                     showToast("success", "Message sent successfully!");
                 }
 
-                const params = new URLSearchParams(searchParams);
-                params.set("section", "sent");
-                params.delete("editMessageId");
-                params.delete("selectedUser");
-                router.push(`/messages?${params.toString()}`);
+                setSection("sent");
+                setEditMessageId("");
+                setSelectedUserId("");
             } catch (error) {
                 console.error("Failed to send/edit message:", error);
                 router.refresh();
@@ -181,13 +194,13 @@ export default function MessageCompose({
             ) : (
                 <TextField
                     label="To"
-                    value={currentSearchQuery}
+                    value={search}
                     onChange={handleSearchChange}
                     placeholder="Search users..."
                     fullWidth
                 />
             )}
-            {!selectedUser && currentSearchQuery && searchResults.length > 0 && (
+            {!selectedUser && search && searchResults.length > 0 && (
                 <Paper sx={{ mt: 1, maxHeight: 200, overflow: "auto" }}>
                     <List>
                         {searchResults.map((user) => (
