@@ -5,14 +5,7 @@ import { prisma } from "../../../prisma/config/prisma";
 type ReviewType = "movie" | "serie" | "season" | "episode" | "actor" | "crew";
 
 interface VotesResponse {
-    items: Array<{
-        user: {
-            id: number;
-            userName: string;
-            bio: string;
-            avatar: { photoSrc: string } | null;
-        };
-    }>;
+    items: any;
     total: number;
 }
 
@@ -24,15 +17,6 @@ export async function getUpvotesByReviewId(
 ): Promise<VotesResponse> {
     const skip = (page - 1) * perPage;
 
-    const userSelect = {
-        select: {
-            id: true,
-            userName: true,
-            bio: true,
-            avatar: true,
-        },
-    };
-
     let upvotes;
     let total;
 
@@ -41,7 +25,7 @@ export async function getUpvotesByReviewId(
             [upvotes, total] = await Promise.all([
                 prisma.upvoteMovieReview.findMany({
                     where: { movieReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -50,12 +34,11 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-
         case "serie":
             [upvotes, total] = await Promise.all([
                 prisma.upvoteSerieReview.findMany({
                     where: { serieReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -64,12 +47,11 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-
         case "season":
             [upvotes, total] = await Promise.all([
                 prisma.upvoteSeasonReview.findMany({
                     where: { seasonReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -78,12 +60,11 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-
         case "episode":
             [upvotes, total] = await Promise.all([
                 prisma.upvoteEpisodeReview.findMany({
                     where: { episodeReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -92,12 +73,11 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-
         case "actor":
             [upvotes, total] = await Promise.all([
                 prisma.upvoteActorReview.findMany({
                     where: { actorReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -106,12 +86,11 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-
         case "crew":
             [upvotes, total] = await Promise.all([
                 prisma.upvoteCrewReview.findMany({
                     where: { crewReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -120,7 +99,6 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-
         default:
             throw new Error("Invalid review type");
     }
@@ -139,15 +117,6 @@ export async function getDownvotesByReviewId(
 ): Promise<VotesResponse> {
     const skip = (page - 1) * perPage;
 
-    const userSelect = {
-        select: {
-            id: true,
-            userName: true,
-            bio: true,
-            avatar: true,
-        },
-    };
-
     let downvotes;
     let total;
 
@@ -156,7 +125,7 @@ export async function getDownvotesByReviewId(
             [downvotes, total] = await Promise.all([
                 prisma.downvoteMovieReview.findMany({
                     where: { movieReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -165,12 +134,11 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-
         case "serie":
             [downvotes, total] = await Promise.all([
                 prisma.downvoteSerieReview.findMany({
                     where: { serieReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -179,12 +147,11 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-
         case "season":
             [downvotes, total] = await Promise.all([
                 prisma.downvoteSeasonReview.findMany({
                     where: { seasonReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -193,12 +160,11 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-
         case "episode":
             [downvotes, total] = await Promise.all([
                 prisma.downvoteEpisodeReview.findMany({
                     where: { episodeReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -207,12 +173,11 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-
         case "actor":
             [downvotes, total] = await Promise.all([
                 prisma.downvoteActorReview.findMany({
                     where: { actorReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -221,12 +186,11 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-
         case "crew":
             [downvotes, total] = await Promise.all([
                 prisma.downvoteCrewReview.findMany({
                     where: { crewReviewId: reviewId },
-                    include: { user: userSelect },
+                    include: { user: true },
                     skip,
                     take: perPage,
                 }),
@@ -235,7 +199,6 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-
         default:
             throw new Error("Invalid review type");
     }

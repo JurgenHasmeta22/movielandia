@@ -1,6 +1,6 @@
 import { getFollowing } from "@/actions/user/userFollow.actions";
 import { getUserById } from "@/actions/user/user.actions";
-import FollowingContent from "./_components/FollowingContent";
+import FollowingPageContent from "./_components/FollowingPageContent";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { notFound, redirect } from "next/navigation";
@@ -52,7 +52,7 @@ export default async function FollowingPage(props: IFollowingPageProps) {
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <FollowingContent userInPage={userInPage} userLoggedIn={userSession} following={following} />
+            <FollowingPageContent userInPage={userInPage} userLoggedIn={userSession} following={following} />
         </Suspense>
     );
 }
