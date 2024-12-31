@@ -1,7 +1,7 @@
 "use client";
 
 import { useStore } from "@/store/store";
-import { AppBar, Box, Button, IconButton, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, useTheme } from "@mui/material";
 import AuthButtons from "../authButtons/AuthButtons";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -16,8 +16,6 @@ import { showToast } from "@/utils/helpers/toast";
 import SearchField from "../searchField/SearchField";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
-import MuiNextLink from "../muiNextLink/MuiNextLink";
-import EmailIcon from "@mui/icons-material/Email";
 import MessageCounter from "./MessageCounter";
 
 interface IHeaderContentProps {

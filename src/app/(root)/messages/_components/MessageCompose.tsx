@@ -121,17 +121,17 @@ export default function MessageCompose({
             setSearch(value);
             setSelectedUserId(null);
         } else {
-            setSearch("");
+            setSearch(null);
         }
     }
 
     const handleSelectUser = (user: User) => {
-        setSearch("");
+        setSearch(null);
         setSelectedUserId(user.id.toString());
     };
 
     const handleClearSelection = () => {
-        setSearch("");
+        setSearch(null);
         setSelectedUserId(null);
         setSelectedUser(null);
     };

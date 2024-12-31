@@ -95,7 +95,7 @@ export default function MessagesPageContent({
     const navigateToSection = (section: string) => {
         setSection(section);
         setEditMessageId(null);
-        setSearch("");
+        setSearch(null);
     };
 
     return (
