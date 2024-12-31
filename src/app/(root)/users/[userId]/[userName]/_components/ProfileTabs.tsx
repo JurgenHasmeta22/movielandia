@@ -44,7 +44,7 @@ export default function ProfileTabs({
         const cleanSubTabValue = subTabValue.toLowerCase().replace(/\s+/g, "");
 
         setPage(null);
-        setSearch("");
+        setSearch(null);
         setMainTab(mainTabValue);
         setSubTab(cleanSubTabValue);
     };

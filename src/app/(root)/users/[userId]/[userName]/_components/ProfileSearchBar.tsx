@@ -62,7 +62,7 @@ export default function ProfileSearchBar() {
             setSearch(debouncedSearch.trim());
             setPage(1);
         } else {
-            setSearch("");
+            setSearch(null);
             setPage(1);
         }
 

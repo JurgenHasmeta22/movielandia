@@ -1,17 +1,7 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import {
-    Box,
-    Drawer,
-    IconButton,
-    useMediaQuery,
-    useTheme,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Button,
-} from "@mui/material";
+import { Box, Drawer, IconButton, useMediaQuery, useTheme, Button } from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect } from "react";
 import { Session } from "next-auth";
@@ -21,7 +11,6 @@ import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import SearchField from "../searchField/SearchField";
 import { Genre } from "@prisma/client";
 import EmailIcon from "@mui/icons-material/Email";
-import Link from "next/link";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
 

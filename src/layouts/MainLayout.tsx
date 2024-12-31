@@ -13,12 +13,12 @@ export default function MainLayout({ children }: Readonly<IMainLayoutProps>) {
     return (
         <Grid container>
             <Grid size={{ xs: 12 }}>
-                <Header />
-                <main style={{ paddingTop: 50, paddingBottom: 22 }}>
-                    <NuqsAdapter>{children}</NuqsAdapter>
-                </main>
-                <ScrollToTop />
-                <Footer />
+                <NuqsAdapter>
+                    <Header />
+                    <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
+                    <ScrollToTop />
+                    <Footer />
+                </NuqsAdapter>
             </Grid>
         </Grid>
     );
