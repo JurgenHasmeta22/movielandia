@@ -42,7 +42,6 @@ export default function ProfileTabs({
 
     const updateURL = (mainTabValue: string, subTabValue: string) => {
         const cleanSubTabValue = subTabValue.toLowerCase().replace(/\s+/g, "");
-
         setPage(null);
         setSearch(null);
         setMainTab(mainTabValue);
@@ -52,14 +51,12 @@ export default function ProfileTabs({
     const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[newValue].param;
         const firstSubTab = subTabs[mainTabParam as keyof typeof subTabs][0];
-
         updateURL(mainTabParam, firstSubTab);
     };
 
     const handleSubTabChange = (_: React.SyntheticEvent, newValue: number) => {
         const mainTabParam = mainTabs[currentMainTab].param;
         const selectedSubTab = subTabs[mainTabParam as keyof typeof subTabs][newValue];
-
         updateURL(mainTabParam, selectedSubTab);
     };
 

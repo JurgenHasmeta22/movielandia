@@ -16,8 +16,8 @@ interface ITabContentProps {
 
 export default function TabContent({ type, userLoggedIn, userInPage, additionalData }: ITabContentProps) {
     const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "mobies",
-        parse: (value) => value || "movies",
+        defaultValue: "bookmarks",
+        parse: (value) => value || "bookmarks",
         history: "push",
         shallow: false,
     });

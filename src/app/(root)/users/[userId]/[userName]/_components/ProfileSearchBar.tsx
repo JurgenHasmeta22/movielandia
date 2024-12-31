@@ -16,22 +16,22 @@ export default function ProfileSearchBar() {
     });
 
     const [page, setPage] = useQueryState("page", {
-        defaultValue: 1,
-        parse: (value) => Number(value) || 1,
+        defaultValue: "1",
+        parse: (value) => Number(value) || "1",
         history: "push",
         shallow: false,
     });
 
     const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "movies",
-        parse: (value) => value || "movies",
+        defaultValue: "bookmarks",
+        parse: (value) => value || "bookmarks",
         history: "push",
         shallow: false,
     });
 
     const [subTab, setSubTab] = useQueryState("subtab", {
-        defaultValue: "bookmarks",
-        parse: (value) => value || "bookmarks",
+        defaultValue: "movies",
+        parse: (value) => value || "movies",
         history: "push",
         shallow: false,
     });
@@ -60,10 +60,10 @@ export default function ProfileSearchBar() {
 
         if (debouncedSearch.trim()) {
             setSearch(debouncedSearch.trim());
-            setPage(1);
+            setPage("1");
         } else {
             setSearch(null);
-            setPage(1);
+            setPage("1");
         }
 
         setIsSearching(false);
