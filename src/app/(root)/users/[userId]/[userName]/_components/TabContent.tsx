@@ -12,16 +12,10 @@ interface ITabContentProps {
     userLoggedIn: any;
     userInPage: any;
     additionalData: any;
+    mainTab: string;
 }
 
-export default function TabContent({ type, userLoggedIn, userInPage, additionalData }: ITabContentProps) {
-    const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "bookmarks",
-        parse: (value) => value || "bookmarks",
-        history: "push",
-        shallow: false,
-    });
-
+export default function TabContent({ type, userLoggedIn, userInPage, additionalData, mainTab }: ITabContentProps) {
     const [search, setSearch] = useQueryState("search", {
         defaultValue: "",
         parse: (value) => value || "",
@@ -30,8 +24,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     });
 
     const [page, setPage] = useQueryState("page", {
-        defaultValue: 1,
-        parse: (value) => Number(value) || 1,
+        defaultValue: "1",
         history: "push",
         shallow: false,
     });
@@ -40,11 +33,11 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const totalItems = additionalData.total || 0;
     const totalPages = Math.ceil(totalItems / perPage);
 
-    const startIndex = (page - 1) * perPage + 1;
-    const endIndex = Math.min(page * perPage, totalItems);
+    const startIndex = (Number(page) - 1) * perPage + 1;
+    const endIndex = Math.min(Number(page) * perPage, totalItems);
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
+        setPage(String(value));
     };
 
     const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "actor" | "crew" => {
@@ -155,10 +148,13 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     width: "100%",
                 }}
             >
-                {(mainTab === "bookmarks" ||
-                    mainTab === "reviews" ||
-                    mainTab === "upvotes" ||
-                    mainTab === "downvotes") && <ProfileSearchBar />}
+                <ProfileSearchBar
+                    search={search}
+                    page={Number(page)}
+                    mainTab={mainTab}
+                    setPage={setPage}
+                    setSearch={setSearch}
+                />
                 {totalItems > 0 && (
                     <Box
                         sx={{
@@ -288,7 +284,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     <Stack spacing={2} alignItems="center" sx={{ mt: { xs: 1, sm: 2 } }}>
                         <Pagination
                             count={Math.max(1, totalPages)}
-                            page={page}
+                            page={Number(page)}
                             onChange={handlePageChange}
                             size="large"
                             shape="rounded"

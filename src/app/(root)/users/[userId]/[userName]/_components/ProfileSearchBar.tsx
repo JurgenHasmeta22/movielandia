@@ -5,30 +5,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useCallback, useState, useMemo, useEffect } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useQueryState } from "nuqs";
+import { Options, useQueryState } from "nuqs";
 
-export default function ProfileSearchBar() {
-    const [search, setSearch] = useQueryState("search", {
-        defaultValue: "",
-        parse: (value) => value || "",
-        history: "push",
-        shallow: false,
-    });
+interface IProfileSearchBar {
+    search: string;
+    page: number;
+    mainTab: string;
+    setPage: (value: string | ((old: string) => string | null) | null, options?: Options) => Promise<URLSearchParams>;
+    setSearch: (value: string | ((old: string) => string | null) | null, options?: Options) => Promise<URLSearchParams>;
+}
 
-    const [page, setPage] = useQueryState("page", {
-        defaultValue: "1",
-        parse: (value) => Number(value) || "1",
-        history: "push",
-        shallow: false,
-    });
-
-    const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "bookmarks",
-        parse: (value) => value || "bookmarks",
-        history: "push",
-        shallow: false,
-    });
-
+export default function ProfileSearchBar({ search, page, mainTab, setPage, setSearch }: IProfileSearchBar) {
     const [subTab, setSubTab] = useQueryState("subtab", {
         defaultValue: "movies",
         parse: (value) => value || "movies",

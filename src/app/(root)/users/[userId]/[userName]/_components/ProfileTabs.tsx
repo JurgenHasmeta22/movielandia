@@ -26,7 +26,7 @@ export default function ProfileTabs({
     setMainTab,
     setSubTab,
 }: ProfileTabsProps) {
-    const [search, setSearch] = useQueryState("maintab", {
+    const [search, setSearch] = useQueryState("search", {
         defaultValue: "",
         parse: (value) => value || "",
         history: "push",
@@ -34,8 +34,8 @@ export default function ProfileTabs({
     });
 
     const [page, setPage] = useQueryState("page", {
-        defaultValue: null,
-        parse: (value) => Number(value) || 1,
+        defaultValue: "1",
+        parse: (value) => Number(value) || "1",
         history: "push",
         shallow: false,
     });
