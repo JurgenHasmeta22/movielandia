@@ -280,7 +280,7 @@ export default function EpisodePage({
                 }}
             >
                 <Accordion
-                    defaultExpanded={false}
+                    defaultExpanded={true}
                     sx={{
                         bgcolor: theme.vars.palette.secondary.light,
                         borderRadius: "12px",

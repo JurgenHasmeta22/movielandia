@@ -260,7 +260,7 @@ export default function MoviePageContent({
                 }}
             >
                 <Accordion
-                    defaultExpanded={false}
+                    defaultExpanded={true}
                     sx={{
                         bgcolor: theme.vars.palette.secondary.light,
                         borderRadius: "12px",

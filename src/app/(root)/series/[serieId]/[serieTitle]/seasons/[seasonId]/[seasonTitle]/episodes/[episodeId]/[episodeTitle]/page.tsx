@@ -6,7 +6,7 @@ import { getEpisodeById, getRelatedEpisodes } from "@/actions/episode.actions";
 import { Episode } from "@prisma/client";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { Suspense } from "react";
-import EpisodePageContent from "../../_components/EpisodePageContent";
+import EpisodePageContent from "./_components/EpisodePageContent";
 
 interface IEpisodeProps {
     params: {
