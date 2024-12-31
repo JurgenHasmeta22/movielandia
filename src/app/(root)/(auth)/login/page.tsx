@@ -35,10 +35,9 @@ export default async function Login() {
                     src="/images/backgrounds/netflix.png"
                     alt="Background Image"
                     fill
-                    priority
+                    priority={true}
                     style={{
                         objectFit: "cover",
-                        // backgroundPosition: "fixed",
                     }}
                 />
                 <Box
