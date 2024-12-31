@@ -4,7 +4,7 @@ import { DetailsPageCard } from "@/components/root/detailsPageCard/DetailsPageCa
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { ListDetail } from "@/components/root/listDetail/ListDetail";
 import Review from "@/components/root/review/Review";
-import { Box, Stack, Button, Typography, useTheme } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
@@ -53,16 +53,9 @@ export default function EpisodePage({
         isEditMode,
         setIsEditMode,
         setOpen,
-        setIsOpenVotesModal,
         openModal,
         textEditorRef,
         reviewRef,
-        setListModalDataType,
-        setUpvotesPageModal,
-        setDownvotesPageModal,
-        setSelectedReview,
-        setHasMoreDownvotesModal,
-        setHasMoreUpvotesModal,
     } = usePageDetailsData();
 
     const router = useRouter();
@@ -236,44 +229,6 @@ export default function EpisodePage({
     }
     // #endregion
 
-    // #region "Modal handlers"
-    const handleOpenUpvotesModal = (reviewData: any) => {
-        setListModalDataType("upvotes");
-        const hasMoreUpvotes = reviewData?._count?.upvotes !== reviewData?.upvotes?.length;
-        setHasMoreUpvotesModal(hasMoreUpvotes);
-        setSelectedReview(reviewData);
-
-        openModal({
-            onClose: () => handleCloseModal(),
-            title: "Users who upvoted this review",
-            subTitle: "Users list",
-            hasList: true,
-        });
-    };
-
-    const handleOpenDownvotesModal = (reviewData: any) => {
-        setListModalDataType("downvotes");
-        const hasMoreDownvotes = reviewData?._count?.downvotes !== reviewData?.downvotes?.length;
-        setHasMoreDownvotesModal(hasMoreDownvotes);
-        setSelectedReview(reviewData);
-
-        openModal({
-            onClose: () => handleCloseModal(),
-            title: "Users who downvoted this review",
-            subTitle: "Users list",
-            hasList: true,
-        });
-    };
-
-    const handleCloseModal = () => {
-        setIsOpenVotesModal(false);
-        setListModalDataType(null);
-        setUpvotesPageModal(1);
-        setDownvotesPageModal(1);
-        setSelectedReview(null);
-    };
-    // #endregion
-
     // #region "Focus functions"
     const handleFocusTextEditor = () => {
         if (textEditorRef.current) {
@@ -419,8 +374,6 @@ export default function EpisodePage({
                                                     handleDownvote={onDownVoteEpisode}
                                                     type="episode"
                                                     data={episode}
-                                                    handleOpenUpvotesModal={handleOpenUpvotesModal}
-                                                    handleOpenDownvotesModal={handleOpenDownvotesModal}
                                                 />
                                             ),
                                     )}

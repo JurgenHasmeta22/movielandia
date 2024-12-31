@@ -17,22 +17,12 @@ import {
     InputLabel,
     SxProps,
     Typography,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    CircularProgress,
-    Box,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useStore } from "@/store/store";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 interface IModalProps {
     onClose?: () => void;
@@ -45,7 +35,6 @@ interface IModalProps {
     title: string;
     actions?: ActionConfig[];
     subTitle?: string;
-    hasList?: boolean;
 }
 
 type FieldConfig = {
@@ -75,19 +64,7 @@ const Modal: React.FC<IModalProps> = ({
     actions,
     onDataChange,
     subTitle,
-    hasList,
 }) => {
-    const {
-        selectedReview,
-        upvotesPageModal,
-        setUpvotesPageModal,
-        downvotesPageModal,
-        setDownvotesPageModal,
-        hasMoreUpvotesModal,
-        hasMoreDownvotesModal,
-        listModalDataType,
-    } = useStore();
-
     const router = useRouter();
 
     const {
@@ -127,69 +104,7 @@ const Modal: React.FC<IModalProps> = ({
             </DialogTitle>
             <DialogContent>
                 <DialogContentText fontSize={"16px"}>{subTitle}</DialogContentText>
-                {hasList ? (
-                    <Box id="scrollableDiv">
-                        <InfiniteScroll
-                            dataLength={
-                                listModalDataType === "upvotes"
-                                    ? selectedReview.upvotes?.length || 0
-                                    : selectedReview.downvotes?.length || 0
-                            }
-                            next={() => {
-                                if (listModalDataType === "upvotes") {
-                                    setUpvotesPageModal(upvotesPageModal + 1);
-                                } else if (listModalDataType === "downvotes") {
-                                    setDownvotesPageModal(downvotesPageModal + 1);
-                                }
-                            }}
-                            hasMore={listModalDataType === "upvotes" ? hasMoreUpvotesModal : hasMoreDownvotesModal}
-                            loader={
-                                <Box display={"flex"} alignItems={"center"} justifyContent={"center"} sx={{ mt: 1 }}>
-                                    <CircularProgress size={20} thickness={2} />
-                                </Box>
-                            }
-                            height={"auto"}
-                            endMessage={
-                                <Typography sx={{ textAlign: "center" }} variant="body1">
-                                    You have seen it all
-                                </Typography>
-                            }
-                            scrollableTarget="scrollableDiv"
-                        >
-                            <List>
-                                {(listModalDataType === "upvotes"
-                                    ? selectedReview?.upvotes
-                                    : selectedReview?.downvotes
-                                )?.map((item: any, index: number) => (
-                                    <ListItem
-                                        key={index}
-                                        alignItems="center"
-                                        sx={{ justifyContent: "flex-start", cursor: "pointer" }}
-                                        onClick={() => {
-                                            router.push(`/users/${item.user.id}/${item.user.userName}`);
-                                            onClose && onClose();
-                                        }}
-                                    >
-                                        <ListItemAvatar>
-                                            {item.user.avatar?.photoSrc ? (
-                                                <Image
-                                                    alt={item.user.userName}
-                                                    height={50}
-                                                    width={50}
-                                                    style={{ borderRadius: 20 }}
-                                                    src={item.user.avatar?.photoSrc}
-                                                />
-                                            ) : (
-                                                <PersonOutlinedIcon sx={{ fontSize: 24, mr: 1 }} />
-                                            )}
-                                        </ListItemAvatar>
-                                        <ListItemText primary={item.user.userName} />
-                                    </ListItem>
-                                ))}
-                            </List>
-                        </InfiniteScroll>
-                    </Box>
-                ) : fields ? (
+                {fields ? (
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={4} sx={{ mt: 2 }}>
                             {fields.map((field, index: number) => (
