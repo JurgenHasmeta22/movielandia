@@ -5,15 +5,20 @@ import { Box, List, ListItemButton, ListItemIcon, ListItemText, useTheme } from 
 import InboxIcon from "@mui/icons-material/Inbox";
 import SendIcon from "@mui/icons-material/Send";
 import EditIcon from "@mui/icons-material/Edit";
-import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 interface MessagedSidebarProps {
     navigateToSection: (section: string) => void;
 }
 
 const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) => {
-    const searchParams = useSearchParams();
-    const currentSection = searchParams.get("section") || "inbox";
+    const [section, setSection] = useQueryState("section", {
+        defaultValue: "inbox",
+        parse: (value) => value || "inbox",
+        history: "push",
+        shallow: false,
+    });
+
     const theme = useTheme();
 
     return (
@@ -22,7 +27,7 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("inbox")}
                     sx={{
-                        backgroundColor: currentSection === "inbox" ? theme.palette.secondary.light : "transparent",
+                        backgroundColor: section === "inbox" ? theme.palette.secondary.light : "transparent",
                         "&:hover": {
                             backgroundColor: theme.palette.secondary.light,
                         },
@@ -36,7 +41,7 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("sent")}
                     sx={{
-                        backgroundColor: currentSection === "sent" ? theme.palette.secondary.light : "transparent",
+                        backgroundColor: section === "sent" ? theme.palette.secondary.light : "transparent",
                         "&:hover": {
                             backgroundColor: theme.palette.secondary.light,
                         },
@@ -50,7 +55,7 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({ navigateToSection }) 
                 <ListItemButton
                     onClick={() => navigateToSection("compose")}
                     sx={{
-                        backgroundColor: currentSection === "compose" ? theme.palette.secondary.light : "transparent",
+                        backgroundColor: section === "compose" ? theme.palette.secondary.light : "transparent",
                         "&:hover": {
                             backgroundColor: theme.palette.secondary.light,
                         },

@@ -3,12 +3,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { TextField, InputAdornment, useTheme, IconButton, Box, ClickAwayListener } from "@mui/material";
 import { Clear, Search } from "@mui/icons-material";
-import { useRouter, useSearchParams } from "next/navigation";
 import SearchAutocomplete from "./SearchAutocomplete";
 import { useDebounce } from "@/hooks/useDebounce";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { Movie, Serie, Actor, Crew, Season, Episode, User } from "@prisma/client";
+import { useQueryState } from "nuqs";
 
 interface SearchResults {
     movies: { items: Movie[]; total: number };
@@ -30,41 +30,53 @@ const emptyResults = {
     users: { items: [], total: 0 },
 };
 
-const SearchField = () => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+const filters = [
+    { label: "All", value: "all" },
+    { label: "Movies", value: "movies" },
+    { label: "Series", value: "series" },
+    { label: "Actors", value: "actors" },
+    { label: "Crew", value: "crew" },
+    { label: "Seasons", value: "seasons" },
+    { label: "Episodes", value: "episodes" },
+    { label: "Users", value: "users" },
+];
 
-    // Get initial filters from URL or default to "all"
+const SearchField = () => {
+    const [filtersSearch, setFiltersSearch] = useQueryState("filters", {
+        defaultValue: "all",
+        parse: (value) => value || "all",
+        history: "push",
+        shallow: false,
+    });
+
     const getInitialFilters = () => {
-        const urlFilters = searchParams.get("filters")?.split(",") || [];
+        const urlFilters = filtersSearch?.split(",") || [];
         return urlFilters.length > 0 ? urlFilters : ["all"];
     };
 
-    const [inputValue, setInputValue] = useState(searchParams.get("term") || "");
+    const [term, setTerm] = useQueryState("term", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
+    const [inputValue, setInputValue] = useState(term);
+    const [selectedFilters, setSelectedFilters] = useState<string[]>(getInitialFilters());
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
-    const [selectedFilters, setSelectedFilters] = useState<string[]>(getInitialFilters());
     const [results, setResults] = useState<SearchResults>(emptyResults);
 
-    const debouncedSearch = useDebounce(inputValue, 300);
+    const debouncedSearch = useDebounce(inputValue, 50);
     const theme = useTheme();
-
-    const filters = [
-        { label: "All", value: "all" },
-        { label: "Movies", value: "movies" },
-        { label: "Series", value: "series" },
-        { label: "Actors", value: "actors" },
-        { label: "Crew", value: "crew" },
-        { label: "Seasons", value: "seasons" },
-        { label: "Episodes", value: "episodes" },
-        { label: "Users", value: "users" },
-    ];
 
     const handleSearch = () => {
         if (inputValue) {
-            router.push(`/search?term=${encodeURIComponent(inputValue)}&filters=${selectedFilters.join(",")}`);
+            setTerm(encodeURIComponent(inputValue));
+            setFiltersSearch(selectedFilters.join(","));
         } else {
-            router.push("/search");
+            setTerm("");
+            setFiltersSearch("");
         }
 
         setShowResults(false);
@@ -164,12 +176,12 @@ const SearchField = () => {
 
     // Updated selected filters when URL params change
     useEffect(() => {
-        const urlFilters = searchParams.get("filters")?.split(",") || [];
+        const urlFilters = filtersSearch?.split(",") || [];
 
         if (urlFilters.length > 0) {
             setSelectedFilters(urlFilters);
         }
-    }, [searchParams]);
+    }, [filtersSearch]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;

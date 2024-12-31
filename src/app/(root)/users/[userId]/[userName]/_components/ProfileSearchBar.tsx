@@ -3,21 +3,42 @@
 import { Box, InputAdornment, TextField, CircularProgress, IconButton, ClickAwayListener } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useState, useMemo, useEffect } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useQueryState } from "nuqs";
 
 export default function ProfileSearchBar() {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+    const [search, setSearch] = useQueryState("search", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
 
-    const [inputValue, setInputValue] = useState(searchParams.get("search")?.toString() ?? "");
+    const [page, setPage] = useQueryState("page", {
+        defaultValue: 1,
+        parse: (value) => Number(value) || 1,
+        history: "push",
+        shallow: false,
+    });
+
+    const [mainTab, setMainTab] = useQueryState("maintab", {
+        defaultValue: "movies",
+        parse: (value) => value || "movies",
+        history: "push",
+        shallow: false,
+    });
+
+    const [subTab, setSubTab] = useQueryState("subtab", {
+        defaultValue: "bookmarks",
+        parse: (value) => value || "bookmarks",
+        history: "push",
+        shallow: false,
+    });
+
+    const [inputValue, setInputValue] = useState(search);
     const [isSearching, setIsSearching] = useState(false);
-    const debouncedSearch = useDebounce(inputValue, 300);
-
-    const mainTab = searchParams.get("maintab") || "bookmarks";
-    const subTab = searchParams.get("subtab") || "movies";
+    const debouncedSearch = useDebounce(inputValue, 50);
 
     const getPlaceholder = useMemo(() => {
         const contentType = subTab.toLowerCase();
@@ -37,33 +58,22 @@ export default function ProfileSearchBar() {
     const updateSearchParams = useCallback(() => {
         setIsSearching(true);
 
-        const params = new URLSearchParams(searchParams.toString());
-
         if (debouncedSearch.trim()) {
-            params.set("search", debouncedSearch.trim());
-
-            // Only reset page if the search term actually changed
-            if (params.get("search") !== searchParams.get("search")) {
-                params.set("page", "1");
-            }
+            setSearch(debouncedSearch.trim());
+            setPage(1);
         } else {
-            params.delete("search");
-
-            // Only reset page if we're clearing a previous search
-            if (searchParams.has("search")) {
-                params.set("page", "1");
-            }
+            setSearch("");
+            setPage(1);
         }
 
-        router.push(`${pathname}?${params.toString()}`, { scroll: false });
         setIsSearching(false);
-    }, [debouncedSearch, pathname, router, searchParams]);
+    }, [debouncedSearch]);
 
     useEffect(() => {
-        if (debouncedSearch !== searchParams.get("search")?.toString()) {
+        if (debouncedSearch !== search) {
             updateSearchParams();
         }
-    }, [debouncedSearch, searchParams, updateSearchParams]);
+    }, [debouncedSearch]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);

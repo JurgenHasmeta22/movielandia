@@ -1,12 +1,12 @@
 "use client";
 
 import { Box, Container, Typography, Paper, Stack, Avatar, Button, CircularProgress } from "@mui/material";
-import { useSearchParams } from "next/navigation";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { motion } from "framer-motion";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
+import { useQueryState } from "nuqs";
 
 interface NotificationsPageContentProps {
     notifications: any;
@@ -15,8 +15,13 @@ interface NotificationsPageContentProps {
 }
 
 export default function NotificationsPageContent({ notifications, userId, userName }: NotificationsPageContentProps) {
-    const searchParams = useSearchParams();
-    const currentPage = Number(searchParams.get("page")) || 1;
+    const [page, setPage] = useQueryState("page", {
+        defaultValue: 1,
+        parse: (value) => Number(value) || 1,
+        history: "push",
+        shallow: false,
+    });
+
     const totalPages = Math.ceil(notifications.total / 10);
 
     return (
@@ -127,7 +132,7 @@ export default function NotificationsPageContent({ notifications, userId, userNa
                 )}
             </Stack>
             <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 2 }}>
-                <PaginationControl currentPage={currentPage} pageCount={totalPages} />
+                <PaginationControl currentPage={page} pageCount={totalPages} />
             </Box>
         </Container>
     );

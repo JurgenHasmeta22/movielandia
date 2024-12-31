@@ -57,22 +57,22 @@ export default function MessageCompose({
     });
 
     const [selectedUserId, setSelectedUserId] = useQueryState("selectedUser", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: null,
+        parse: (value) => value || null,
         history: "push",
         shallow: false,
     });
 
     const [editMessageId, setEditMessageId] = useQueryState("editMessageId", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: null,
+        parse: (value) => value || null,
         history: "push",
         shallow: false,
     });
 
     const [section, setSection] = useQueryState("section", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: "inbox",
+        parse: (value) => value || "inbox",
         history: "push",
         shallow: false,
     });
@@ -101,7 +101,11 @@ export default function MessageCompose({
         if (initialMessageToEdit) {
             setMessageText(initialMessageToEdit.text);
             setIsEditing(true);
-            setSelectedUser(initialMessageToEdit.receiver);
+
+            if (selectedUserId) {
+                setSelectedUser(initialMessageToEdit.receiver);
+            }
+
             setInitialText(initialMessageToEdit.text);
         } else {
             setMessageText("");
@@ -115,7 +119,7 @@ export default function MessageCompose({
 
         if (value) {
             setSearch(value);
-            setSelectedUserId("");
+            setSelectedUserId(null);
         } else {
             setSearch("");
         }
@@ -128,7 +132,8 @@ export default function MessageCompose({
 
     const handleClearSelection = () => {
         setSearch("");
-        setSelectedUserId("");
+        setSelectedUserId(null);
+        setSelectedUser(null);
     };
 
     const handleSendMessage = async () => {
@@ -145,8 +150,8 @@ export default function MessageCompose({
                 }
 
                 setSection("sent");
-                setEditMessageId("");
-                setSelectedUserId("");
+                setEditMessageId(null);
+                setSelectedUserId(null);
             } catch (error) {
                 console.error("Failed to send/edit message:", error);
                 router.refresh();

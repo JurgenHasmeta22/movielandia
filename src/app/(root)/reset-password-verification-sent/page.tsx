@@ -1,11 +1,15 @@
 "use client";
 
 import { Box, Container, Typography } from "@mui/material";
-import { useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 export default function ResetPasswordVerifyPage() {
-    const searchParams = useSearchParams();
-    const email = searchParams.get("email");
+    const [email, setEmail] = useQueryState("email", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
 
     return (
         <Container

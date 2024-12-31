@@ -24,7 +24,7 @@ const GenreTabs = () => {
         defaultValue: "all",
         parse: (value) => value || "all",
         history: "push",
-        shallow: false
+        shallow: false,
     });
 
     const selectedFilters = filters?.split(",") || ["all"];
@@ -40,7 +40,7 @@ const GenreTabs = () => {
             } else {
                 if (selectedFilters.includes(value)) {
                     newFilters = selectedFilters.filter((f) => f !== value);
-                    
+
                     if (newFilters.length === 0) newFilters = ["all"];
                 } else {
                     newFilters = [...selectedFilters, value];
