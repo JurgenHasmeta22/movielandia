@@ -10,6 +10,32 @@ Ensure that the context provided in this document is consistently applied and ad
 
 MovieLandia24 is a dynamic social media platform designed for cinema enthusiasts. It allows users to explore, review, and engage with content related to movies, TV series, actors, crew members, seasons, and episodes. Users can also upvote or downvote reviews, bookmark their favorite content, and take advantage of many other interactive features within the platform.
 
+## Project Structure
+
+```
+movielandia/
+├── src/
+│   ├── actions/         # Server actions for data mutations
+│   ├── app/            # Next.js app router pages & layouts
+│   │   ├── (admin)/    # Admin dashboard routes
+│   │   └── (root)/     # Main app routes
+│   ├── components/     # Reusable UI components
+│   ├── constants/      # Global constants
+│   ├── hooks/          # Custom React hooks
+│   ├── layouts/        # Layout components
+│   ├── middleware.ts   # Auth & routing middleware
+│   ├── providers/      # Context providers
+│   ├── store/          # Zustand store
+│   ├── types/          # TypeScript definitions
+│   └── utils/          # Helper functions
+├── prisma/
+│   ├── migrations/     # Database migrations
+│   ├── schema/         # Database models
+│   |── seed/           # Seed data scripts
+|   |── config/         # Prisma config file
+└── emails/             # Email templates
+```
+
 ## Tech Stack
 
 The application is built using the Next.js App Router and React, ensuring seamless navigation and a responsive user experience. For styling, it leverages Material UI, offering a modern and consistent design across the platform. Zustand is used for global state management, providing efficient handling of application state. Animations are powered by Framer Motion, delivering smooth and engaging transitions. For email functionality, the platform integrates React Email and Resend, while React Hook Form combined with Zod is used for robust form validation, ensuring a user-friendly and reliable experience.
