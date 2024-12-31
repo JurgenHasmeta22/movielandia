@@ -6,6 +6,7 @@ import Sidebar from "@/components/admin/sidebar/Sidebar";
 import TopBar from "@/components/admin/topBar/TopBar";
 import { SidebarItems } from "@/components/admin/sidebar/components/SidebarItems";
 import { useStore } from "@/store/store";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 interface IAdminLayoutProps {
     children: React.ReactNode;
@@ -28,7 +29,7 @@ export default function AdminLayout({ children }: Readonly<IAdminLayoutProps>) {
                         ml: 4,
                     }}
                 >
-                    {children}
+                    <NuqsAdapter>{children}</NuqsAdapter>
                 </Box>
             </Grid>
         </Grid>
