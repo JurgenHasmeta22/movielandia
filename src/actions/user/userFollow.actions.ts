@@ -184,8 +184,6 @@ export async function getFollowers(
                     },
                 });
 
-                console.log(existingFollow);
-
                 followStatus = existingFollow
                     ? {
                           isFollowing: true,
