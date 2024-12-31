@@ -430,16 +430,15 @@ export async function searchCrewMembersByTitle(
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const query = {
+    const crews = await prisma.crew.findMany({
         where: {
-            fullname: { contains: fullname },
+            fullname: { contains: fullname, mode: "insensitive" },
         },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 12 : 0,
         take: 12,
-    };
+    });
 
-    const crews = await prisma.crew.findMany(query);
     const crewIds = crews.map((crew: Crew) => crew.id);
 
     const crewRatings = await prisma.crewReview.groupBy({

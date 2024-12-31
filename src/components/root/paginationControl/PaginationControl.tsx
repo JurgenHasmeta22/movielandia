@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React from "react";
 import { Box, Pagination, PaginationItem } from "@mui/material";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 interface PaginationControlProps {
     currentPage: number;
@@ -11,22 +11,15 @@ interface PaginationControlProps {
 }
 
 export default function PaginationControl({ currentPage, pageCount, urlParamName = "page" }: PaginationControlProps) {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString());
-            params.set(name, value);
-            return params.toString();
-        },
-        [searchParams],
-    );
+    const [page, setPage] = useQueryState(urlParamName, {
+        defaultValue: "1",
+        parse: (value) => value || "1",
+        shallow: false,
+    });
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         if (value === currentPage) return;
-        router.push(pathname + "?" + createQueryString(urlParamName, value.toString()), { scroll: false });
+        setPage(value.toString());
     };
 
     return (

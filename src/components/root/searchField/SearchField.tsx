@@ -60,7 +60,6 @@ const SearchField = () => {
     const [term, setTerm] = useQueryState("term", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 

@@ -570,16 +570,13 @@ export async function searchMoviesByTitle(title: string, queryParams: any, userI
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const query = {
-        where: {
-            title: { contains: title },
-        },
+    const movies = await prisma.movie.findMany({
+        where: { title: { contains: title, mode: "insensitive" } },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 12 : 0,
         take: 12,
-    };
+    });
 
-    const movies = await prisma.movie.findMany(query);
     const movieIds = movies.map((movie: Movie) => movie.id);
 
     const movieRatings = await prisma.movieReview.groupBy({

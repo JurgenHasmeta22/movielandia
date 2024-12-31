@@ -70,7 +70,6 @@ export default function MessagesPageContent({
     const [search, setSearch] = useQueryState("search", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 
@@ -84,7 +83,6 @@ export default function MessagesPageContent({
     const [editMessageId, setEditMessageId] = useQueryState("editMessageId", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 

@@ -9,7 +9,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
-import { useRouter, useSearchParams } from "next/navigation";
 import { JSX } from "react";
 import { useQueryState } from "nuqs";
 
@@ -31,8 +30,6 @@ const tabOptions: TabOption[] = [
 ];
 
 export default function SearchTabs() {
-    const router = useRouter();
-
     const [filters, setFilters] = useQueryState("filters", {
         defaultValue: "all",
         parse: (value) => value || "all",

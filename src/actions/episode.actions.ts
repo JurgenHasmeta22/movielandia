@@ -479,16 +479,15 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const query = {
+    const episodes = await prisma.episode.findMany({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 12 : 0,
         take: 12,
-    };
+    });
 
-    const episodes = await prisma.episode.findMany(query);
     const episodeIds = episodes.map((episode: Episode) => episode.id);
 
     const episodeRatings = await prisma.episodeReview.groupBy({

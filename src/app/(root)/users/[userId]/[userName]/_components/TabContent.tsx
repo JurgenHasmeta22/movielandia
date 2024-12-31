@@ -19,7 +19,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const [search, setSearch] = useQueryState("search", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 

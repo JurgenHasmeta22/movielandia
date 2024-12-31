@@ -19,11 +19,11 @@ interface SearchAutocompleteProps {
     };
     selectedFilters: string[];
     searchTerm: string;
+    showInitialState: boolean;
     onFilterChange: (filter: string) => void;
     onShowMore: () => void;
     onClose: () => void;
     onResultClick: () => void;
-    showInitialState: boolean;
 }
 
 const SearchAutocomplete = ({
@@ -162,10 +162,6 @@ const SearchAutocomplete = ({
         </Box>
     );
 
-    if (loading) {
-        return <LoadingState />;
-    }
-
     const getTotalResults = () => {
         return Object.values(results).reduce((sum, category) => {
             return sum + (category?.total || 0);
@@ -216,7 +212,9 @@ const SearchAutocomplete = ({
         return `View all ${categoriesText} results`;
     };
 
-    const sectionDivider = <Divider sx={{ my: 1, width: "100%" }} />;
+    if (loading) {
+        return <LoadingState />;
+    }
 
     return (
         <Box
@@ -298,7 +296,9 @@ const SearchAutocomplete = ({
                             </Box>
                         </Box>
                     )}
-                    {shouldShowSection("movies") && shouldShowSection("series") && sectionDivider}
+                    {shouldShowSection("movies") && shouldShowSection("series") && (
+                        <Divider sx={{ my: 1, width: "100%" }} />
+                    )}
                     {shouldShowSection("series") && (
                         <Box>
                             <SectionTitle
@@ -322,7 +322,9 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-                    {shouldShowSection("series") && shouldShowSection("actors") && sectionDivider}
+                    {shouldShowSection("series") && shouldShowSection("actors") && (
+                        <Divider sx={{ my: 1, width: "100%" }} />
+                    )}
                     {shouldShowSection("actors") && (
                         <Box>
                             <SectionTitle
@@ -349,7 +351,9 @@ const SearchAutocomplete = ({
                             </Box>
                         </Box>
                     )}
-                    {shouldShowSection("actors") && shouldShowSection("crew") && sectionDivider}
+                    {shouldShowSection("actors") && shouldShowSection("crew") && (
+                        <Divider sx={{ my: 1, width: "100%" }} />
+                    )}
                     {shouldShowSection("crew") && (
                         <Box>
                             <SectionTitle
@@ -376,7 +380,9 @@ const SearchAutocomplete = ({
                             </Box>
                         </Box>
                     )}
-                    {shouldShowSection("crew") && shouldShowSection("seasons") && sectionDivider}
+                    {shouldShowSection("crew") && shouldShowSection("seasons") && (
+                        <Divider sx={{ my: 1, width: "100%" }} />
+                    )}
                     {shouldShowSection("seasons") && (
                         <Box>
                             <SectionTitle
@@ -400,7 +406,9 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-                    {shouldShowSection("seasons") && shouldShowSection("episodes") && sectionDivider}
+                    {shouldShowSection("seasons") && shouldShowSection("episodes") && (
+                        <Divider sx={{ my: 1, width: "100%" }} />
+                    )}
                     {shouldShowSection("episodes") && (
                         <Box>
                             <SectionTitle
@@ -424,7 +432,9 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-                    {shouldShowSection("episodes") && shouldShowSection("users") && sectionDivider}
+                    {shouldShowSection("episodes") && shouldShowSection("users") && (
+                        <Divider sx={{ my: 1, width: "100%" }} />
+                    )}
                     {shouldShowSection("users") && (
                         <Box>
                             <SectionTitle

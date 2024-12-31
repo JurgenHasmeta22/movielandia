@@ -52,21 +52,18 @@ export default function MessageCompose({
     const [search, setSearch] = useQueryState("search", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 
     const [selectedUserId, setSelectedUserId] = useQueryState("selectedUser", {
         defaultValue: null,
         parse: (value) => value || null,
-        history: "push",
         shallow: false,
     });
 
     const [editMessageId, setEditMessageId] = useQueryState("editMessageId", {
         defaultValue: null,
         parse: (value) => value || null,
-        history: "push",
         shallow: false,
     });
 

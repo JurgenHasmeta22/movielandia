@@ -490,16 +490,15 @@ export async function searchSeasonsByTitle(title: string, queryParams: any, user
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const query = {
+    const seasons = await prisma.season.findMany({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 12 : 0,
         take: 12,
-    };
+    });
 
-    const seasons = await prisma.season.findMany(query);
     const seasonIds = seasons.map((season: Season) => season.id);
 
     const seasonRatings = await prisma.seasonReview.groupBy({

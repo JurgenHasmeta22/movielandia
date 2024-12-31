@@ -29,7 +29,6 @@ export default function ProfileTabs({
     const [search, setSearch] = useQueryState("search", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 

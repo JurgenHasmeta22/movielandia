@@ -325,16 +325,15 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const query = {
+    const actors = await prisma.actor.findMany({
         where: {
-            fullname: { contains: fullname },
+            fullname: { contains: fullname, mode: "insensitive" },
         },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 12 : 0,
         take: 12,
-    };
+    });
 
-    const actors = await prisma.actor.findMany(query);
     const actorIds = actors.map((actor: Actor) => actor.id);
 
     const actorRatings = await prisma.actorReview.groupBy({

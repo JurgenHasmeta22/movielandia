@@ -1,9 +1,10 @@
 "use client";
 
 import { Box, Container, Pagination, Stack, Typography, Button } from "@mui/material";
-import { useSearchParams, useRouter } from "next/navigation";
 import UserListItem from "../../_components/UserListItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRouter } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 interface FollowingContentProps {
     userInPage: {
@@ -47,20 +48,20 @@ interface FollowingContentProps {
 }
 
 export default function FollowingContent({ userInPage, following, userLoggedIn }: FollowingContentProps) {
-    const searchParams = useSearchParams();
     const router = useRouter();
 
-    const page = Number(searchParams?.get("page")) || 1;
+    const [page, setPage] = useQueryState("page", {
+        defaultValue: "1",
+        parse: (value) => value || "1",
+        history: "push",
+        shallow: false,
+    });
+
     const perPage = 10;
     const totalPages = Math.ceil(following.total / perPage);
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
-        const current = new URLSearchParams(Array.from(searchParams.entries()));
-        current.set("page", value.toString());
-
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
-        router.push(`${window.location.pathname}${query}`, { scroll: false });
+        setPage(value.toString());
     };
 
     return (
@@ -94,7 +95,7 @@ export default function FollowingContent({ userInPage, following, userLoggedIn }
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                     <Pagination
                         count={totalPages}
-                        page={page}
+                        page={Number(page)}
                         onChange={handlePageChange}
                         color="primary"
                         size="large"

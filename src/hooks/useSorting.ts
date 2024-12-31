@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useQueryState } from "nuqs";
 
 type SortingOptions = {
     sortBy: string;
@@ -8,31 +8,48 @@ type SortingOptions = {
 };
 
 export function useSorting(type: string) {
-    const searchParams = useSearchParams();
-    const router = useRouter();
+    const [typeSortBy, setTypeSortBy] = useQueryState(`${type}SortBy`, {
+        defaultValue: "",
+        parse: (value) => value || "",
+        shallow: false,
+    });
+
+    const [sortByDefault, setSortByDefault] = useQueryState("sortBy", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        shallow: false,
+    });
+
+    const [typeAscOrDesc, setTypeAscOrDesc] = useQueryState(`${type}AscOrDesc`, {
+        defaultValue: "",
+        parse: (value) => value || "",
+        shallow: false,
+    });
+
+    const [ascOrDescDefault, setAscOrDescDefault] = useQueryState("ascOrDesc", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        shallow: false,
+    });
 
     function handleChangeSorting({ sortBy, ascOrDesc }: SortingOptions) {
-        const newSearchParams = new URLSearchParams(searchParams.toString());
-
         if (sortBy === "none" || !sortBy) {
             if (type !== "details") {
-                newSearchParams.delete(`${type}SortBy`);
-                newSearchParams.delete(`${type}AscOrDesc`);
+                setTypeSortBy(null);
+                setTypeAscOrDesc(null);
             } else {
-                newSearchParams.delete("sortBy");
-                newSearchParams.delete("ascOrDesc");
+                setSortByDefault(null);
+                setAscOrDescDefault(null);
             }
         } else {
             if (type !== "details") {
-                newSearchParams.set(`${type}SortBy`, sortBy);
-                newSearchParams.set(`${type}AscOrDesc`, ascOrDesc);
+                setTypeSortBy(sortBy);
+                setTypeAscOrDesc(ascOrDesc);
             } else {
-                newSearchParams.set("sortBy", sortBy);
-                newSearchParams.set("ascOrDesc", ascOrDesc);
+                setSortByDefault(sortBy);
+                setAscOrDescDefault(ascOrDesc);
             }
         }
-
-        router.push(`?${newSearchParams.toString()}`, { scroll: false });
     }
 
     return handleChangeSorting;
