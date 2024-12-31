@@ -1,9 +1,9 @@
 import { getUpvotesByReviewId } from "@/actions/review/reviewVotes.actions";
-import UpvotesContent from "./_components/UpvotesContent";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { Suspense } from "react";
+import SerieReviewUpvotesPageContent from "./_components/SerieReviewUpvotesPageContent";
 
 interface IUpvotesPageProps {
     params: {
@@ -32,11 +32,11 @@ export default async function UpvotesPage(props: IUpvotesPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    const upvotes = await getUpvotesByReviewId(Number(params.reviewId), page);
+    const upvotes = await getUpvotesByReviewId(Number(params.reviewId), "serie", page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <UpvotesContent upvotes={upvotes} userLoggedIn={userSession} />
+            <SerieReviewUpvotesPageContent upvotes={upvotes} userLoggedIn={userSession} />
         </Suspense>
     );
 }

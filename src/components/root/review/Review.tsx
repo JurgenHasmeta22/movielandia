@@ -9,7 +9,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import type {} from "@mui/material/themeCssVarsAugmentation";
@@ -88,6 +88,7 @@ const Review: React.FC<IReviewProps> = ({
     const [isClickedDownvote, setIsClickedDownvote] = useState(false);
 
     const router = useRouter();
+    const pathname = usePathname();
     const theme = useTheme();
 
     const { label, color } = getRatingLabelAndColor(review.rating);
@@ -296,16 +297,22 @@ const Review: React.FC<IReviewProps> = ({
                         </IconButton>
                     </motion.div>
                     <Button
-                        disabled={review?.upvotes?.length === 0}
-                        onClick={() => {}}
+                        disabled={review._count.upvotes === 0}
+                        onClick={() => {
+                            if (review._count.upvotes > 0) {
+                                router.push(`${pathname}/reviews/${review.id}/upvotes`);
+                            }
+                        }}
                         sx={{
                             "&:hover": {
                                 backgroundColor: "transparent",
+                                textDecoration: review._count.upvotes > 0 ? "underline" : "none",
                             },
                             color: theme.vars.palette.primary.main,
                             p: 0,
                             minWidth: "auto",
                             ml: 1,
+                            cursor: review._count.upvotes > 0 ? "pointer" : "default",
                         }}
                     >
                         <Typography>{review._count.upvotes}</Typography>
@@ -334,15 +341,22 @@ const Review: React.FC<IReviewProps> = ({
                         </IconButton>
                     </motion.div>
                     <Button
-                        disabled={review?.downvotes?.length === 0}
-                        onClick={() => {}}
+                        disabled={review._count.downvotes === 0}
+                        onClick={() => {
+                            if (review._count.downvotes > 0) {
+                                router.push(`${pathname}/reviews/${review.id}/downvotes`);
+                            }
+                        }}
                         sx={{
                             "&:hover": {
                                 backgroundColor: "transparent",
+                                textDecoration: review._count.downvotes > 0 ? "underline" : "none",
                             },
+                            color: theme.vars.palette.primary.main,
                             p: 0,
                             minWidth: "auto",
                             ml: 1,
+                            cursor: review._count.downvotes > 0 ? "pointer" : "default",
                         }}
                     >
                         <Typography>{review._count.downvotes}</Typography>

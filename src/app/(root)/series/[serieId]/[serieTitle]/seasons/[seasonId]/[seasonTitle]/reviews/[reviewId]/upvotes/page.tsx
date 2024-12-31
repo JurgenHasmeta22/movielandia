@@ -1,5 +1,5 @@
 import { getUpvotesByReviewId } from "@/actions/review/reviewVotes.actions";
-import UpvotesContent from "./_components/UpvotesContent";
+import SeasonReviewUpvotesPageContent from "./_components/SeasonReviewUpvotesPageContent";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -32,11 +32,11 @@ export default async function UpvotesPage(props: IUpvotesPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    const upvotes = await getUpvotesByReviewId(Number(params.reviewId), page);
+    const upvotes = await getUpvotesByReviewId(Number(params.reviewId), "season", page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <UpvotesContent upvotes={upvotes} userLoggedIn={userSession} />
+            <SeasonReviewUpvotesPageContent upvotes={upvotes} userLoggedIn={userSession} />
         </Suspense>
     );
 }

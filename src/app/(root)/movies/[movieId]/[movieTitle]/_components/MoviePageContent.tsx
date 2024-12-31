@@ -68,6 +68,8 @@ export default function MoviePageContent({
         if (!session?.user || !movie) return;
 
         try {
+            console.log(movie.id, review, rating, session.user.id);
+
             await addReviewMovie({
                 movieId: movie.id,
                 userId: Number(session.user.id),
