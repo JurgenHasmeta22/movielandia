@@ -7,7 +7,6 @@ export default function ResetPasswordVerifyPage() {
     const [email, setEmail] = useQueryState("email", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 

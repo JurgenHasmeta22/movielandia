@@ -52,14 +52,12 @@ const MessagesList: React.FC<MessagesListProps> = ({ messages, currentSection, c
     const [editMessageId, setEditMessageId] = useQueryState("editMessageId", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 
     const [selectedUserId, setSelectedUserId] = useQueryState("selectedUser", {
         defaultValue: "",
         parse: (value) => value || "",
-        history: "push",
         shallow: false,
     });
 

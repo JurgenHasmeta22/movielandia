@@ -580,16 +580,15 @@ export async function searchSeriesByTitle(title: string, queryParams: any, userI
         orderByObject[sortBy] = ascOrDesc;
     }
 
-    const query = {
+    const series = await prisma.serie.findMany({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
         orderBy: orderByObject,
         skip: page ? (page - 1) * 12 : 0,
         take: 12,
-    };
+    });
 
-    const series = await prisma.serie.findMany(query);
     const serieIds = series.map((serie) => serie.id);
 
     const serieRatings = await prisma.serieReview.groupBy({
