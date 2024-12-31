@@ -50,16 +50,9 @@ export default function CrewPageContent({
         isEditMode,
         setIsEditMode,
         setOpen,
-        setIsOpenVotesModal,
         openModal,
         textEditorRef,
         reviewRef,
-        setListModalDataType,
-        setUpvotesPageModal,
-        setDownvotesPageModal,
-        setSelectedReview,
-        setHasMoreDownvotesModal,
-        setHasMoreUpvotesModal,
     } = usePageDetailsData();
 
     const theme = useTheme();
@@ -232,44 +225,6 @@ export default function CrewPageContent({
     }
     // #endregion
 
-    // #region "Modal handlers"
-    const handleOpenUpvotesModal = (reviewData: any) => {
-        setListModalDataType("upvotes");
-        const hasMoreUpvotes = reviewData?._count?.upvotes !== reviewData?.upvotes?.length;
-        setHasMoreUpvotesModal(hasMoreUpvotes);
-        setSelectedReview(reviewData);
-
-        openModal({
-            onClose: () => handleCloseModal(),
-            title: "Users who upvoted this review",
-            subTitle: "Users list",
-            hasList: true,
-        });
-    };
-
-    const handleOpenDownvotesModal = (reviewData: any) => {
-        setListModalDataType("downvotes");
-        const hasMoreDownvotes = reviewData?._count?.downvotes !== reviewData?.downvotes?.length;
-        setHasMoreDownvotesModal(hasMoreDownvotes);
-        setSelectedReview(reviewData);
-
-        openModal({
-            onClose: () => handleCloseModal(),
-            title: "Users who downvoted this review",
-            subTitle: "Users list",
-            hasList: true,
-        });
-    };
-
-    const handleCloseModal = () => {
-        setIsOpenVotesModal(false);
-        setListModalDataType(null);
-        setUpvotesPageModal(1);
-        setDownvotesPageModal(1);
-        setSelectedReview(null);
-    };
-    // #endregion
-
     // #region "Focus handlers"
     const handleFocusTextEditor = () => {
         if (textEditorRef.current) {
@@ -417,8 +372,6 @@ export default function CrewPageContent({
                                             handleDownvote={onDownVoteCrew}
                                             type="crew"
                                             data={crew}
-                                            handleOpenUpvotesModal={handleOpenUpvotesModal}
-                                            handleOpenDownvotesModal={handleOpenDownvotesModal}
                                         />
                                     ),
                             )}

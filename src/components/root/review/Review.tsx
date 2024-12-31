@@ -27,8 +27,6 @@ interface IReviewProps {
     handleFocusTextEditor: () => void;
     handleUpvote: (reviewId: number, isAlreadyUpvotedOrDownvoted: boolean) => void;
     handleDownvote: (reviewId: number, isAlreadyUpvotedOrDownvoted: boolean) => void;
-    handleOpenUpvotesModal: (review: any) => void;
-    handleOpenDownvotesModal: (review: any) => void;
 }
 
 type Review = {
@@ -61,8 +59,6 @@ const Review: React.FC<IReviewProps> = ({
     setRating,
     handleUpvote,
     handleDownvote,
-    handleOpenUpvotesModal,
-    handleOpenDownvotesModal,
     ref,
 }) => {
     // #region "State, hooks, theme, also colorFunction utils"
@@ -98,14 +94,6 @@ const Review: React.FC<IReviewProps> = ({
     // #endregion
 
     // #region "Event handlers and other functions"
-    async function onClickUpvotesReviewList() {
-        handleOpenUpvotesModal(review);
-    }
-
-    async function onClickDownvotesReviewList() {
-        handleOpenDownvotesModal(review);
-    }
-
     async function handleClickUpVoteReview() {
         setIsClickedUpvote(true);
 
@@ -309,9 +297,7 @@ const Review: React.FC<IReviewProps> = ({
                     </motion.div>
                     <Button
                         disabled={review?.upvotes?.length === 0}
-                        onClick={() => {
-                            onClickUpvotesReviewList();
-                        }}
+                        onClick={() => {}}
                         sx={{
                             "&:hover": {
                                 backgroundColor: "transparent",
@@ -349,9 +335,7 @@ const Review: React.FC<IReviewProps> = ({
                     </motion.div>
                     <Button
                         disabled={review?.downvotes?.length === 0}
-                        onClick={() => {
-                            onClickDownvotesReviewList();
-                        }}
+                        onClick={() => {}}
                         sx={{
                             "&:hover": {
                                 backgroundColor: "transparent",

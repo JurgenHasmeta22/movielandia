@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useModal } from "@/providers/ModalProvider";
-import { useStore } from "@/store/store";
 
 /* 
     This hook is used to store the data of the page details, because i use movie, serie, actor, season, episode, crew
@@ -19,18 +18,8 @@ export function usePageDetailsData() {
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
     const { openModal } = useModal();
-
     const textEditorRef = useRef<any>(null);
     const reviewRef = useRef<any>(null);
-
-    const {
-        setListModalDataType,
-        setUpvotesPageModal,
-        setDownvotesPageModal,
-        setSelectedReview,
-        setHasMoreDownvotesModal,
-        setHasMoreUpvotesModal,
-    } = useStore();
 
     return {
         session,
@@ -47,11 +36,5 @@ export function usePageDetailsData() {
         openModal,
         textEditorRef,
         reviewRef,
-        setListModalDataType,
-        setUpvotesPageModal,
-        setDownvotesPageModal,
-        setSelectedReview,
-        setHasMoreDownvotesModal,
-        setHasMoreUpvotesModal,
     };
 }
