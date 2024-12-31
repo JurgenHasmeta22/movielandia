@@ -1,5 +1,5 @@
 import { getDownvotesByReviewId } from "@/actions/review/reviewVotes.actions";
-import DownvotesContent from "./_components/DownvotesContent";
+import EpisodeReviewDownvotesPageContent from "./_components/EpisodeReviewDownvotesPageContent";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -32,11 +32,11 @@ export default async function DownvotesPage(props: IDownvotesPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    const downvotes = await getDownvotesByReviewId(Number(params.reviewId), page);
+    const downvotes = await getDownvotesByReviewId(Number(params.reviewId), "episode", page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <DownvotesContent downvotes={downvotes} userLoggedIn={userSession} />
+            <EpisodeReviewDownvotesPageContent downvotes={downvotes} userLoggedIn={userSession} />
         </Suspense>
     );
 }
