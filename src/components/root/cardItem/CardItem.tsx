@@ -250,7 +250,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                             fill
                             sizes="(max-width: 600px) 140px, 160px"
                             style={{ objectFit: "cover" }}
-                            priority
+                            priority={false}
                         />
                         <Box
                             className="hoverOverlay"

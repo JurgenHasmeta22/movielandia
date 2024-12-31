@@ -95,6 +95,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                         alt="MovieLandia24"
                         height={70}
                         width={200}
+                        priority={true}
                         style={{ pointerEvents: "none" }}
                     />
                 </Button>

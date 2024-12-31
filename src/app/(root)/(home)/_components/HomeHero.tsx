@@ -58,7 +58,7 @@ const HomeHeroSection = () => {
                     src="/images/backgrounds/netflix.png"
                     alt="Background Image"
                     fill
-                    priority
+                    priority={true}
                     style={{ objectFit: "cover", objectPosition: "center" }}
                 />
             </Box>

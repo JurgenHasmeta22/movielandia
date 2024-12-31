@@ -35,7 +35,7 @@ export default async function Register() {
                     src="/images/backgrounds/netflix.png"
                     alt="Background Image"
                     fill
-                    priority
+                    priority={true}
                     style={{
                         objectFit: "cover",
                     }}
