@@ -74,7 +74,7 @@ The application includes a wide array of features:
 - **PostgreSQL:** Main database.
 - **Resend:** For sending transactional emails.
 
-#### Key Points to keep in mind about the project\*\*
+#### Key Points to keep in mind about the project
 
 - **Component Reusability:** Build reusable components.
 - **Server Actions:** Use server actions for data handling and mutations.
@@ -143,9 +143,20 @@ movielandia/
 - Use functional and declarative programming patterns, avoid classes.
 - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
 - Implement accessibility features on elements.
+- **Accessibility Guidelines:** - **ARIA Attributes:** Use ARIA attributes to provide semantic information about elements for assistive technologies. - **Alternative Text:** Provide alternative text for all images using the `alt` attribute. - **Keyboard Navigation:** Ensure that all interactive elements are accessible via keyboard navigation. - **Color Contrast:** Ensure sufficient color contrast between text and background colors. - **Semantic HTML:** Use semantic HTML elements to structure the content.
 - Ensure proper error handling and graceful degradation.
+- **Error Handling:** - **Try-Catch Blocks:** Use try-catch blocks to handle errors in asynchronous operations and server actions. - **User-Friendly Messages:** Display user-friendly error messages using `react-toastify`. - **Error Logging:** Log errors to the console or a logging service for debugging purposes. - **Graceful Degradation:** Ensure that the application degrades gracefully in case of errors or failures.
 - Use const instead of functions, for example, const toggle = () =>. Also, define a type if possible, so basically use arrow functions instead of functions.
 - Use early returns whenever possible to make the code more readable.
+- **Component Reusability:**
+    - **Design for Reusability:** Design components to be reusable across different parts of the application.
+    - **Props:** Use props to pass data and configuration options to components.
+    - **Composition:** Use composition to combine smaller components into larger ones.
+    - **Avoid Hardcoding:** Avoid hardcoding values or logic within components.
+- **URL State Management with `nuqs`:**
+    - **State Persistence:** Use `nuqs` to manage state in the URL, allowing users to bookmark and share specific application states.
+    - **URL Params:** Use URL parameters to store and retrieve state values.
+    - **Synchronization:** Ensure that the URL state is synchronized with the application state.
 
 ### Framework Practices
 
@@ -155,6 +166,7 @@ movielandia/
     - Avoid for data fetching or state management.
 - Organize files for exported components, helpers, static content, and types.
 - Use server actions for data fetching and state management in components
+    - **Server Actions Usage:** Use server actions for data mutations and fetching data that requires server-side logic. For example, use server actions to handle form submissions, database updates, and any operation that requires access to environment variables or server-side resources. Avoid using server actions for simple UI updates or client-side logic. When using server actions for data fetching, ensure that you are using `use server` directive at the top of the file.
 
 ### UI Styling Practices
 
@@ -171,6 +183,7 @@ movielandia/
 ### Performance Optimization
 
 - Optimize Web Vitals (LCP, CLS, FID) to improve overall performance.
+- **Performance Optimization Techniques:** - **Image Optimization:** Use WebP format for images, include size attributes (`width` and `height`), and implement lazy loading using the `loading="lazy"` attribute. - **Code Splitting:** Implement dynamic imports for non-critical components to reduce the initial bundle size. - **Caching:** Implement caching strategies for frequently accessed data to reduce server load and improve response times. - **Minimize Bundle Size:** Remove unused code and dependencies to reduce the size of the JavaScript bundle.
 - Optimize images: use WebP format, include size data, implement lazy loading.
 - Use dynamic loading for non-critical components.
 
@@ -179,6 +192,7 @@ movielandia/
 - Database Modeling with Prisma: Utilize Prisma for efficient and flexible database modeling. It ensures that the data structure is well-defined and aligns with the existing schema, allowing for seamless integration and consistency across the application.
 
 - Data Validation: Before performing any Create, Read, Update, or Delete (CRUD) operations, always verify the existence and integrity of the relevant database entities. This prevents issues such as orphaned records, data inconsistencies, and ensures data accuracy.
+- **Database Practices:** - **Indexing:** Use indexes on frequently queried columns to improve query performance. - **Query Optimization:** Optimize database queries to reduce execution time. Use Prisma's query methods efficiently and avoid unnecessary joins or complex queries. - **Error Handling:** Implement proper error handling for database operations. Catch database errors and provide user-friendly messages. Log errors for debugging purposes. - **Data Integrity:** Ensure data integrity by using Prisma's validation features and implementing proper data validation logic.
 
 ### Git Usage
 
@@ -199,9 +213,4 @@ movielandia/
 - Keep the summary line concise
 - Include description for non-obvious changes
 - Reference issue numbers when applicable
-
-##### Example of Git Usage:
-
-<strong>style:</strong> Added new theme styling changes to the project
-<strong>fix:</strong> Fixed the issue with the login form not submitting
-<strong>feat:</strong> Added a feature to see the followers of a user after clicking its button and opening a new page there where i can follow them
+- **Commit Message Examples:** - `fix: resolved issue with user login failing on mobile` - `feat: implemented user profile update functionality` - `perf: optimized image loading on the home page` - `docs: updated the README with new setup instructions` - `style: adjusted spacing on the user profile page` - `refactor: extracted user authentication logic into a separate module` - `test: added unit tests for the user service` - `chore: updated dependencies to the latest versions`
