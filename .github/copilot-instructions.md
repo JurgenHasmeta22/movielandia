@@ -53,27 +53,63 @@ movielandia/
 
 ## General Behaviour Instructions Guidelines
 
-- Follow requirements, reduce complexity, write full code, think step-by-step, prefer iteration, focus on readable code, implement fully, ensure completeness, include imports, be concise, state if unsure, return complete solutions, prioritize modularity.
+- Follow requirements
+- Reduce complexity
+- Write full code
+- Think step-by-step
+- Prefer iteration
+- Focus on readable code
+- Implement fully
+- Avoid implementing nonsensical stuff
+- Remove TODOs or random comments implement all the code needed
+- Ensure completeness
+- Include imports
+- Be concise
+- Return complete solutions
+- Prioritize modularity
+- If you are uncertain about any aspect of the request or the correct implementation, explicitly state your uncertainty rather than making assumptions.
 
 ## Coding Implementation Instructions Guidelines
 
-- Write correct, DRY, functional code. Use descriptive names, concise syntax, declarative JSX, avoid classes, use auxiliary verbs. Implement accessibility, ensure error handling. Use const, arrow functions. Use early returns. Design for reusability. Avoid hardcoding. Use `nuqs` for URL state.
+- Write correct, DRY, functional code.
+- Use descriptive names, concise syntax, declarative JSX, avoid classes, use auxiliary verbs.
+- Implement accessibility, ensure error handling. Use const, arrow functions.
+- Use early returns. Design for reusability. Avoid hardcoding.
+- Use `nuqs` for URL state.
 
 ### Framework Practices
 
-- Limit 'use client', organize files, use server actions for data.
+- For optimal Next.js data flow
+- Minimize 'use client'
+- Maintain organized files
+- Always use Server Actions for data mutation
+- Leverage Route Handlers for data fetching in Client Components
+- And utilize Server Actions for data fetching within Server Components.
 
 ### UI Styling Practices
 
-- Material UI with Emotion & sx props, avoid styled-components, theme customization, responsive design, consistent spacing.
+- Material UI with Emotion & sx props
+- Avoid styled-components
+- Theme customization
+- Responsive design
+- Consistent spacing.
 
 ### Performance Optimization
 
-- Optimize Web Vitals, image optimization, code splitting, caching, minimize bundle size.
+- Optimize Web Vitals
+- Image optimization
+- Code splitting
+- Caching
+- Minimize bundle size.
 
 ### Database Practices
 
-- Prisma for modeling, validate before CRUD, use indexing, optimize queries, handle errors, ensure data integrity.
+- Prisma for modeling
+- validate before CRUD
+- Use indexing
+- Optimize queries
+- Handle errors
+- Ensure data integrity.
 
 ### Git Usage
 
@@ -87,4 +123,3 @@ movielandia/
 
 - Use lowercase messages. _Example:_ `fix: login issue`
 - Keep summary concise (under 50 chars). _Example:_ `feat: update profile`
-- Reference issue numbers. _Example:_ `fix: login (fixes #123)`
