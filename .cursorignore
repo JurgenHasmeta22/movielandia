@@ -5,5 +5,4 @@ prisma/migrations/
 prisma/seed/
 prisma/erd/
 prisma/dbml/
-repomix.config.json
 package-lock.json

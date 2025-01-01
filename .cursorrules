@@ -8,7 +8,85 @@ Ensure that the context provided in this document is consistently applied and ad
 
 ## Project Context
 
-MovieLandia24 is a dynamic social media platform designed for cinema enthusiasts. It allows users to explore, review, and engage with content related to movies, TV series, actors, crew members, seasons, and episodes. Users can also upvote or downvote reviews, bookmark their favorite content, and take advantage of many other interactive features within the platform.
+### High-Level Overview
+
+MovieLandia24 is a full-stack Next.js/React web application for discovering and engaging with movies, TV series, actors, and crew members. It provides user account management, content browsing, reviews, ratings, bookmarking, social interactions, messaging, and administrative tools.
+
+### Architecture
+
+The codebase employs a layered architecture:
+
+1.  **Presentation Layer:** Handles UI rendering and user interactions using React components (functional with hooks and class-based), organized by feature. (e.g., `src/components/admin`, `src/components/root`).
+2.  **Business Logic Layer:** Encapsulates core application logic for data fetching, processing, and state management (`src/actions`, `src/hooks`, `src/utils`).
+3.  **Data Access Layer:** Abstracts database interactions using Prisma as an ORM for PostgreSQL, with Zod for schema validation (`prisma/schema`, `src/schemas`).
+4.  **API Layer:** Exposes serverless functions ( `src/app/api`) for HTTP requests and backend access.
+5.  **External Services Layer:** Manages interactions with email services such as Resend (`emails` folder).
+
+### Features and Functionality
+
+The application includes a wide array of features:
+
+#### User Authentication and Management:
+
+- **Registration:** Handles signup using `next-auth` `CredentialsProvider` and bcrypt for password hashing, sends verification emails with Resend.
+- **Login:** Implements authentication with `next-auth`, including `CredentialsProvider`, password verification with bcrypt, and JWT session token management.
+- **Password Reset:** Manages password resets through token generation (using `randomUUID`), email verification (Resend API and React Email), and password updating.
+- **Google OAuth:** Implements Google authentication via `GoogleProvider`, creating new users if needed.
+- **Profile Management:** Allows users to manage profile details, access bookmarked content and their social interactions.
+
+#### Content Discovery and Interaction:
+
+- **Content Browsing:** Uses Next.js dynamic routes for server-side rendered content pages with sorting and pagination handled through Prisma.
+- **Search:** Implements a serverless API endpoint for dynamic searching, querying the database and returning results based on filters.
+- **Content Details:** Shows detailed information for movies, series, etc.
+- **Reviews and Ratings:** Provides a text editor (`react-quill-new`, `quill-resize-image`) for reviews, backed by Prisma for storing them and vote management.
+- **Bookmarking:** Uses Prisma to store user bookmarks of movies, series, etc.
+
+#### User Social Interactions:
+
+- **Following/Unfollowing:** Manages user relationships in `UserFollow` table, triggering a notification to the followed user.
+- **Messaging:** Allows direct messaging via `src/actions/user/userMessages.actions.ts`, using Prisma for storage and retrieval.
+
+#### Admin Functionalities:
+
+- **Admin Panel:** Uses a protected layout with user role validation handled by NextAuth.js middleware.
+- **CRUD Operations:** Provides dynamic form building (`FormAdvanced`) and validation (using Zod), enabling admin users to create, update, and delete data in the database (using Prisma).
+- **Data Export:** Exports table data to PDF, CSV, and Excel formats using `jspdf`, `jspdf-autotable`, `xlsx`.
+
+### Technologies, Libraries, and Frameworks
+
+- **Next.js:** For SSR, routing, APIs.
+- **React:** For UI components.
+- **Material UI:** For accessible UI elements and styling.
+- **Prisma:** As an ORM to interact with PostgreSQL.
+- **Zod:** For schema definitions and data validation.
+- **NextAuth.js:** For authentication and session management.
+- **Resend:** As an email service provider.
+- **React Hook Form:** For form management and validations.
+- **React Toastify:** For toast notifications.
+- **Framer Motion:** For UI animations.
+- **Zustand:** For state management.
+- **`react-quill-new` & `quill-resize-image`:** For rich text editor with image resize functionalities.
+- **`nuqs`**: To handle URL based state management and persist across navigations.
+
+#### External Dependencies or Integrations
+
+- **PostgreSQL:** Main database.
+- **Resend:** For sending transactional emails.
+
+#### Key Points to keep in mind about the project\*\*
+
+- **Component Reusability:** Build reusable components.
+- **Server Actions:** Use server actions for data handling and mutations.
+- **Data Fetching:** Utilize server components for improved performance.
+- **State Management:** Use Zustand effectively for global and shared state.
+- **Validation:** Implement Zod for data validation.
+- **Error Handling:** Use try-catch blocks and `react-toastify` to display user-friendly messages.
+- **Use of Hooks:** Use custom hooks for code reusability.
+- **Database Querying:** Employ Prisma's type-safe query methods.
+- **External APIs:** Use environment variables for authentication with third-party APIs.
+- **URL State:** Leverage `nuqs` for easier state management using URL params, and enabling bookmarkable states.
+- **Asynchronous Operations:** Handle pending async states with `useTransition` for better UX.
 
 ## Project Structure
 
@@ -35,10 +113,6 @@ movielandia/
 |   |── config/         # Prisma config file
 └── emails/             # Email templates
 ```
-
-## Tech Stack
-
-The application is built using the Next.js App Router and React, ensuring seamless navigation and a responsive user experience. For styling, it leverages Material UI, offering a modern and consistent design across the platform. Zustand is used for global state management, providing efficient handling of application state. Animations are powered by Framer Motion, delivering smooth and engaging transitions. For email functionality, the platform integrates React Email and Resend, while React Hook Form combined with Zod is used for robust form validation, ensuring a user-friendly and reliable experience.
 
 ## General Behaviour Instructions Guidelines
 
