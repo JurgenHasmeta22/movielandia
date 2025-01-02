@@ -376,7 +376,7 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
 
     const count = await prisma.actor.count({
         where: {
-            fullname: { contains: fullname },
+            fullname: { contains: fullname, mode: "insensitive" },
         },
     });
 

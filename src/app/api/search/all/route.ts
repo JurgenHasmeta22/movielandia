@@ -13,7 +13,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
         const filters = searchParams.get("filters")?.split(",") || [];
         const take = 5;
 
-        // If "all" is selected or no filters specified, search all categories
         const shouldSearchAll = filters.includes("all") || filters.length === 0;
 
         const queries = [];

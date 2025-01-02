@@ -631,7 +631,7 @@ export async function searchSeriesByTitle(title: string, queryParams: any, userI
 
     const count = await prisma.serie.count({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
     });
 

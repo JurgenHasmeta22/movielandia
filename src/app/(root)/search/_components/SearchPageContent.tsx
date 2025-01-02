@@ -54,145 +54,130 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     const selectedFilters = searchParams?.filters?.split(",") || ["all"];
     const itemsPerPage = 12;
 
-    // #region "Movies data"
-    const pageMovies = Number(searchParams?.pageMovies) || 1;
-    const moviesSortBy = searchParams?.moviesSortBy ?? "";
-    const moviesAscOrDesc = searchParams?.moviesAscOrDesc ?? "";
-    const queryParamsMovies: IQueryParams = { page: pageMovies };
+    let movies: Movie[] = [],
+        moviesCount = 0,
+        pageCountMovies = 0;
+    let series: Serie[] = [],
+        seriesCount = 0,
+        pageCountSeries = 0;
+    let actors: Actor[] = [],
+        actorsCount = 0,
+        pageCountActors = 0;
+    let crews: Crew[] = [],
+        crewsCount = 0,
+        pageCountCrews = 0;
+    let episodes: Episode[] = [],
+        episodesCount = 0,
+        pageCountEpisodes = 0;
+    let seasons: Season[] = [],
+        seasonsCount = 0,
+        pageCountSeasons = 0;
+    let users: User[] = [],
+        usersCount = 0,
+        pageCountUsers = 0;
 
-    if (moviesSortBy) {
-        queryParamsMovies.sortBy = moviesSortBy;
+    const shouldFetchData = (type: string) => selectedFilters.includes("all") || selectedFilters.includes(type);
+
+    if (shouldFetchData("movies")) {
+        const pageMovies = Number(searchParams?.pageMovies) || 1;
+        const queryParamsMovies: IQueryParams = {
+            page: pageMovies,
+            sortBy: searchParams?.moviesSortBy ?? "",
+            ascOrDesc: searchParams?.moviesAscOrDesc ?? "",
+        };
+
+        const moviesData = await searchMoviesByTitle(term, queryParamsMovies, Number(session?.user?.id));
+        movies = moviesData.movies;
+        moviesCount = moviesData.count;
+        pageCountMovies = Math.ceil(moviesCount / itemsPerPage);
     }
 
-    if (moviesAscOrDesc) {
-        queryParamsMovies.ascOrDesc = moviesAscOrDesc;
+    if (shouldFetchData("series")) {
+        const pageSeries = Number(searchParams?.pageSeries) || 1;
+        const queryParamsSeries: IQueryParams = {
+            page: pageSeries,
+            sortBy: searchParams?.seriesSortBy ?? "",
+            ascOrDesc: searchParams?.seriesAscOrDesc ?? "",
+        };
+
+        const seriesData = await searchSeriesByTitle(term, queryParamsSeries, Number(session?.user?.id));
+        series = seriesData.rows;
+        seriesCount = seriesData.count;
+        pageCountSeries = Math.ceil(seriesCount / itemsPerPage);
     }
 
-    const moviesData = await searchMoviesByTitle(term, queryParamsMovies, Number(session?.user?.id));
-    const movies: Movie[] = moviesData.movies;
-    const moviesCount: number = moviesData.count;
-    const pageCountMovies = Math.ceil(moviesCount / itemsPerPage);
-    // #endregion
+    if (shouldFetchData("actors")) {
+        const pageActors = Number(searchParams?.pageActors) || 1;
+        const queryParamsActors: IQueryParams = {
+            page: pageActors,
+            sortBy: searchParams?.actorsSortBy ?? "",
+            ascOrDesc: searchParams?.actorsAscOrDesc ?? "",
+        };
 
-    // #region "Series data"
-    const pageSeries = Number(searchParams?.pageSeries) || 1;
-    const seriesSortBy = searchParams?.seriesSortBy ?? "";
-    const seriesAscOrDesc = searchParams?.seriesAscOrDesc ?? "";
-    const queryParamsSeries: IQueryParams = { page: pageSeries };
-
-    if (seriesSortBy) {
-        queryParamsSeries.sortBy = seriesSortBy;
+        const actorsData = await searchActorsByTitle(term, queryParamsActors, Number(session?.user?.id));
+        actors = actorsData.actors;
+        actorsCount = actorsData.count;
+        pageCountActors = Math.ceil(actorsCount / itemsPerPage);
     }
 
-    if (seriesAscOrDesc) {
-        queryParamsSeries.ascOrDesc = seriesAscOrDesc;
+    if (shouldFetchData("crew")) {
+        const pageCrews = Number(searchParams?.pageCrews) || 1;
+        const queryParamsCrews: IQueryParams = {
+            page: pageCrews,
+            sortBy: searchParams?.crewSortBy ?? "",
+            ascOrDesc: searchParams?.crewAscOrDesc ?? "",
+        };
+
+        const crewsData = await searchCrewMembersByFullname(term, queryParamsCrews, Number(session?.user?.id));
+        crews = crewsData.crews;
+        crewsCount = crewsData.count;
+        pageCountCrews = Math.ceil(crewsCount / itemsPerPage);
     }
 
-    const seriesData = await searchSeriesByTitle(term, queryParamsSeries, Number(session?.user?.id));
-    const series: Serie[] = seriesData.rows;
-    const seriesCount: number = seriesData.count;
-    const pageCountSeries = Math.ceil(seriesCount / itemsPerPage);
-    // #endregion
+    if (shouldFetchData("episodes")) {
+        const pageEpisodes = Number(searchParams?.pageEpisodes) || 1;
+        const queryParamsEpisodes: IQueryParams = {
+            page: pageEpisodes,
+            sortBy: searchParams?.episodesSortBy ?? "",
+            ascOrDesc: searchParams?.episodesAscOrDesc ?? "",
+        };
 
-    // #region "Actors data"
-    const pageActors = Number(searchParams?.pageActors) || 1;
-    const actorsSortBy = searchParams?.actorsSortBy ?? "";
-    const actorsAscOrDesc = searchParams?.actorsAscOrDesc ?? "";
-    const queryParamsActors: IQueryParams = { page: pageActors };
-
-    if (actorsSortBy) {
-        queryParamsActors.sortBy = actorsSortBy;
+        const episodesData = await searchEpisodesByTitle(term, queryParamsEpisodes, Number(session?.user?.id));
+        episodes = episodesData.episodes;
+        episodesCount = episodesData.count;
+        pageCountEpisodes = Math.ceil(episodesCount / itemsPerPage);
     }
 
-    if (actorsAscOrDesc) {
-        queryParamsActors.ascOrDesc = actorsAscOrDesc;
+    if (shouldFetchData("seasons")) {
+        const pageSeasons = Number(searchParams?.pageSeasons) || 1;
+        const queryParamsSeasons: IQueryParams = {
+            page: pageSeasons,
+            sortBy: searchParams?.seasonsSortBy ?? "",
+            ascOrDesc: searchParams?.seasonsAscOrDesc ?? "",
+        };
+
+        const seasonsData = await searchSeasonsByTitle(term, queryParamsSeasons, Number(session?.user?.id));
+        seasons = seasonsData.seasons;
+        seasonsCount = seasonsData.count;
+        pageCountSeasons = Math.ceil(seasonsCount / itemsPerPage);
     }
 
-    const actorsData = await searchActorsByTitle(term, queryParamsActors, Number(session?.user?.id));
-    const actors: Actor[] = actorsData.actors;
-    const actorsCount: number = actorsData.count;
-    const pageCountActors = Math.ceil(actorsCount / itemsPerPage);
-    // #endregion
+    if (shouldFetchData("users")) {
+        const pageUsers = Number(searchParams?.pageUsers) || 1;
+        const queryParamsUsers: IQueryParams = {
+            page: pageUsers,
+            sortBy: searchParams?.usersSortBy ?? "",
+            ascOrDesc: searchParams?.usersAscOrDesc ?? "",
+        };
 
-    // #region "Crews data"
-    const pageCrews = Number(searchParams?.pageCrews) || 1;
-    const crewsSortBy = searchParams?.crewSortBy ?? "";
-    const crewsAscOrDesc = searchParams?.crewAscOrDesc ?? "";
-    const queryParamsCrews: IQueryParams = { page: pageCrews };
-
-    if (crewsSortBy) {
-        queryParamsCrews.sortBy = crewsSortBy;
+        const usersData = await searchUsersByUsername(term, queryParamsUsers);
+        users = usersData.users;
+        usersCount = usersData.count;
+        pageCountUsers = Math.ceil(usersCount / itemsPerPage);
     }
 
-    if (actorsAscOrDesc) {
-        queryParamsActors.ascOrDesc = actorsAscOrDesc;
-    }
-
-    const crewsData = await searchCrewMembersByFullname(term, queryParamsCrews, Number(session?.user?.id));
-    const crews: Crew[] = crewsData.crews;
-    const crewsCount: number = crewsData.count;
-    const pageCountCrews = Math.ceil(crewsCount / itemsPerPage);
-    // #endregion
-
-    // #region "Episodes data"
-    const pageEpisodes = Number(searchParams?.pageEpisodes) || 1;
-    const episodesSortBy = searchParams?.episodesSortBy ?? "";
-    const episodesAscOrDesc = searchParams?.episodesAscOrDesc ?? "";
-    const queryParamsEpisodes: IQueryParams = { page: pageEpisodes };
-
-    if (episodesSortBy) {
-        queryParamsEpisodes.sortBy = episodesSortBy;
-    }
-
-    if (episodesAscOrDesc) {
-        queryParamsEpisodes.ascOrDesc = episodesAscOrDesc;
-    }
-
-    const episodesData = await searchEpisodesByTitle(term, queryParamsEpisodes, Number(session?.user?.id));
-    const episodes: Episode[] = episodesData.episodes;
-    const episodesCount: number = episodesData.count;
-    const pageCountEpisodes = Math.ceil(episodesCount / itemsPerPage);
-    // #endregion
-
-    // #region "Seasons data"
-    const pageSeasons = Number(searchParams?.pageSeasons) || 1;
-    const seasonsSortBy = searchParams?.seasonsSortBy ?? "";
-    const seasonsAscOrDesc = searchParams?.seasonsAscOrDesc ?? "";
-    const queryParamsSeasons: IQueryParams = { page: pageSeasons };
-
-    if (seasonsSortBy) {
-        queryParamsSeasons.sortBy = seasonsSortBy;
-    }
-
-    if (seasonsAscOrDesc) {
-        queryParamsSeasons.ascOrDesc = seasonsAscOrDesc;
-    }
-
-    const seasonsData = await searchSeasonsByTitle(term, queryParamsSeasons, Number(session?.user?.id));
-    const seasons: Season[] = seasonsData.seasons;
-    const seasonsCount: number = seasonsData.count;
-    const pageCountSeasons = Math.ceil(seasonsCount / itemsPerPage);
-    // #endregion
-
-    // #region "Users data"
-    const pageUsers = Number(searchParams?.pageUsers) || 1;
-    const usersSortBy = searchParams?.usersSortBy ?? "";
-    const usersAscOrDesc = searchParams?.usersAscOrDesc ?? "";
-    const queryParamsUsers: IQueryParams = { page: pageUsers };
-
-    if (usersSortBy) {
-        queryParamsUsers.sortBy = usersSortBy;
-    }
-
-    if (usersAscOrDesc) {
-        queryParamsUsers.ascOrDesc = usersAscOrDesc;
-    }
-
-    const usersData = await searchUsersByUsername(term, queryParamsUsers);
-    const users: User[] = usersData.users;
-    const usersCount: number = usersData.count;
-    const pageCountUsers = Math.ceil(usersCount / itemsPerPage);
-    // #endregion
+    const totalResults =
+        moviesCount + seriesCount + actorsCount + seasonsCount + episodesCount + usersCount + crewsCount;
 
     const shouldShowSection = (type: string) => {
         if (selectedFilters.includes("all")) return true;
@@ -236,15 +221,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     }}
                 >
                     {term
-                        ? `Found ${
-                              moviesCount +
-                              seriesCount +
-                              actorsCount +
-                              seasonsCount +
-                              episodesCount +
-                              usersCount +
-                              crewsCount
-                          } results across all categories`
+                        ? `Found ${totalResults} results across all categories`
                         : "Explore our vast collection of movies, series, actors and more"}
                 </Typography>
             </Box>
@@ -262,9 +239,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Movies matching "${term}"` : "Movies"}
                         data={movies}
                         count={moviesCount}
-                        sortBy={moviesSortBy}
-                        ascOrDesc={moviesAscOrDesc}
-                        page={Number(pageMovies)}
+                        sortBy={searchParams?.moviesSortBy ?? ""}
+                        ascOrDesc={searchParams?.moviesAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageMovies) || 1}
                         pageCount={pageCountMovies}
                         dataType="Movies"
                         cardType="movie"
@@ -275,9 +252,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Series matching "${term}"` : "Series"}
                         data={series}
                         count={seriesCount}
-                        sortBy={seriesSortBy}
-                        ascOrDesc={seriesAscOrDesc}
-                        page={Number(pageSeries)}
+                        sortBy={searchParams?.seriesSortBy ?? ""}
+                        ascOrDesc={searchParams?.seriesAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageSeries) || 1}
                         pageCount={pageCountSeries}
                         dataType="Series"
                         cardType="serie"
@@ -288,9 +265,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Actors matching "${term}"` : "Actors"}
                         data={actors}
                         count={actorsCount}
-                        sortBy={actorsSortBy}
-                        ascOrDesc={actorsAscOrDesc}
-                        page={Number(pageActors)}
+                        sortBy={searchParams?.actorsSortBy ?? ""}
+                        ascOrDesc={searchParams?.actorsAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageActors) || 1}
                         pageCount={pageCountActors}
                         dataType="Actors"
                         cardType="actor"
@@ -302,9 +279,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Crews matching "${term}"` : "Crews"}
                         data={crews}
                         count={crewsCount}
-                        sortBy={crewsSortBy}
-                        ascOrDesc={crewsAscOrDesc}
-                        page={Number(pageCrews)}
+                        sortBy={searchParams?.crewSortBy ?? ""}
+                        ascOrDesc={searchParams?.crewAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageCrews) || 1}
                         pageCount={pageCountCrews}
                         dataType="Crew"
                         cardType="crew"
@@ -316,9 +293,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Seasons matching "${term}"` : "Seasons"}
                         data={seasons}
                         count={seasonsCount}
-                        sortBy={seasonsSortBy}
-                        ascOrDesc={seasonsAscOrDesc}
-                        page={Number(pageSeasons)}
+                        sortBy={searchParams?.seasonsSortBy ?? ""}
+                        ascOrDesc={searchParams?.seasonsAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageSeasons) || 1}
                         pageCount={pageCountSeasons}
                         dataType="Seasons"
                         cardType="season"
@@ -329,9 +306,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Episodes matching "${term}"` : "Episodes"}
                         data={episodes}
                         count={episodesCount}
-                        sortBy={episodesSortBy}
-                        ascOrDesc={episodesAscOrDesc}
-                        page={Number(pageEpisodes)}
+                        sortBy={searchParams?.episodesSortBy ?? ""}
+                        ascOrDesc={searchParams?.episodesAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageEpisodes) || 1}
                         pageCount={pageCountEpisodes}
                         dataType="Episodes"
                         cardType="episode"
@@ -342,9 +319,9 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         title={term ? `Users matching "${term}"` : "Users"}
                         data={users}
                         count={usersCount}
-                        sortBy={usersSortBy}
-                        ascOrDesc={usersAscOrDesc}
-                        page={Number(pageUsers)}
+                        sortBy={searchParams?.usersSortBy ?? ""}
+                        ascOrDesc={searchParams?.usersAscOrDesc ?? ""}
+                        page={Number(searchParams?.pageUsers) || 1}
                         pageCount={pageCountUsers}
                         dataType="Users"
                         cardType="user"

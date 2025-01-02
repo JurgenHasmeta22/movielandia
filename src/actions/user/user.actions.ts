@@ -348,7 +348,7 @@ export async function searchUsersByUsername(userName: string, queryParams: any):
 
     const count = await prisma.user.count({
         where: {
-            userName: { contains: userName },
+            userName: { contains: userName, mode: "insensitive" },
         },
     });
 

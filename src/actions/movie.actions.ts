@@ -619,7 +619,7 @@ export async function searchMoviesByTitle(title: string, queryParams: any, userI
 
     const count = await prisma.movie.count({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
     });
 

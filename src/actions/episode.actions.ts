@@ -532,7 +532,7 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
 
     const count = await prisma.episode.count({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
     });
 
