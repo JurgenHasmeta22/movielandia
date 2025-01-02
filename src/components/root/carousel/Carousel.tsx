@@ -82,7 +82,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 3000,
         pauseOnHover: true,
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />,
@@ -172,21 +172,19 @@ const Carousel = ({ data, type }: ICarouselProps) => {
                                 maxWidth: "100%",
                             }}
                         >
-                            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-                                <Image
-                                    src={element.photoSrcProd}
-                                    alt={`Slide ${index}`}
-                                    height={320}
-                                    width={220}
-                                    priority
-                                    style={{
-                                        objectFit: "contain",
-                                        objectPosition: "center",
-                                        borderRadius: "12px",
-                                        boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
-                                    }}
-                                />
-                            </motion.div>
+                            <Image
+                                src={element.photoSrcProd}
+                                alt={`Slide ${index}`}
+                                height={320}
+                                width={220}
+                                priority
+                                style={{
+                                    objectFit: "contain",
+                                    objectPosition: "center",
+                                    borderRadius: "12px",
+                                    boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                                }}
+                            />
                             <Box
                                 sx={{
                                     position: "absolute",

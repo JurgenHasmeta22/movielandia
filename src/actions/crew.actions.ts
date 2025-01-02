@@ -481,7 +481,7 @@ export async function searchCrewMembersByFullname(
 
     const count = await prisma.crew.count({
         where: {
-            fullname: { contains: fullname },
+            fullname: { contains: fullname, mode: "insensitive" },
         },
     });
 

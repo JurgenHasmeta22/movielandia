@@ -543,7 +543,7 @@ export async function searchSeasonsByTitle(title: string, queryParams: any, user
 
     const count = await prisma.season.count({
         where: {
-            title: { contains: title },
+            title: { contains: title, mode: "insensitive" },
         },
     });
 

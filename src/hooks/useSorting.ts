@@ -10,6 +10,8 @@ type SortingOptions = {
 const getDefaultSortByField = (type: string): string => {
     switch (type) {
         case "movie":
+        case "episode":
+        case "season":
         case "serie":
             return "title";
         case "actor":

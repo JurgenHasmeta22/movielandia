@@ -20,6 +20,8 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
     const getDefaultSortByField = (typeEntity: string): string => {
         switch (typeEntity) {
             case "movies":
+            case "episodes":
+            case "seasons":
             case "series":
                 return "title";
             case "actors":
