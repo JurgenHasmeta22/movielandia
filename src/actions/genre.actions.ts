@@ -51,9 +51,7 @@ export async function getGenresWithFilters({
         }
     }
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "name"] = ascOrDesc || "asc";
 
     const genres = await prisma.genre.findMany({
         where: filters,
@@ -109,9 +107,7 @@ export async function getGenreById(
 
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "title"] = ascOrDesc || "asc";
 
     const genre = await prisma.genre.findFirst({
         where: {

@@ -10,7 +10,7 @@ interface ActorsPageContentProps {
     searchParams:
         | {
               actorsAscOrDesc?: string;
-              page?: string;
+              pageActors?: string;
               actorsSortBy?: string;
           }
         | undefined;
@@ -19,7 +19,7 @@ interface ActorsPageContentProps {
 
 export default async function ActorsPageContent({ searchParams, session }: ActorsPageContentProps) {
     const ascOrDesc = searchParams?.actorsAscOrDesc ?? "";
-    const page = searchParams?.page ? Number(searchParams.page) : 1;
+    const page = searchParams?.pageActors ? Number(searchParams.pageActors) : 1;
     const sortBy = searchParams?.actorsSortBy ?? "";
 
     const queryParams = {
