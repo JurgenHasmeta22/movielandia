@@ -140,7 +140,7 @@ export default async function GenrePageContent({ params, searchParams, session }
                         fontSize: { xs: 28, sm: 32, md: 40 },
                         fontWeight: 800,
                         mb: 2,
-                        mt: 4,
+                        mt: 8,
                     }}
                 >
                     All Movies of Genre {genre.name}
