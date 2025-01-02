@@ -197,7 +197,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
     const getDisplayTitle = () => {
         if (path === "actors" || path === "crew") {
             const personData = data as ActorCardData | CrewCardData;
-            return `${personData.fullname} (${personData.debut})`;
+            return `${personData.fullname} Debut Year: (${personData.debut})`;
         }
 
         if (type === "user") {

@@ -475,9 +475,7 @@ export async function searchEpisodesByTitle(title: string, queryParams: any, use
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "title"] = ascOrDesc || "asc";
 
     const episodes = await prisma.episode.findMany({
         where: {

@@ -19,8 +19,8 @@ interface ActorModelParams {
 // #region "GET Methods"
 export async function getActorsWithFilters(
     {
-        sortBy,
-        ascOrDesc,
+        sortBy = "fullname",
+        ascOrDesc = "asc",
         perPage = 12,
         page = 1,
         name,
@@ -321,9 +321,7 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "fullname"] = ascOrDesc || "asc";
 
     const actors = await prisma.actor.findMany({
         where: {

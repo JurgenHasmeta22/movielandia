@@ -17,9 +17,30 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
     const handleChangeSorting = useSorting(dataType);
     const sortOptions = getSortOptions(type, dataType);
 
+    const getDefaultSortByField = (typeEntity: string): string => {
+        switch (typeEntity) {
+            case "movies":
+            case "series":
+                return "title";
+            case "actors":
+            case "crew":
+                return "fullname";
+            case "users":
+                return "userName";
+            case "genres":
+                return "name";
+            case "details":
+                return "createdAt";
+            default:
+                return "createdAt";
+        }
+    };
+
+    const defaultValue = getDefaultSortByField(dataType);
+
     const handleSortTypeChange = (event: any) => {
         const newSortBy = event.target.value as string;
-        handleChangeSorting({ sortBy: newSortBy, ascOrDesc: newSortBy === "none" ? "" : ascOrDesc || "asc" });
+        handleChangeSorting({ sortBy: newSortBy, ascOrDesc: ascOrDesc || "asc" });
     };
 
     const handleOrderChange = (event: any) => {
@@ -40,7 +61,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                 </InputLabel>
                 <Select
                     labelId="sort-by-label"
-                    value={sortBy || "none"}
+                    value={sortBy || defaultValue}
                     sx={{
                         mt: 2,
                     }}
@@ -52,9 +73,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                                 <SwapVertIcon />
                             </SvgIcon>
                             <Typography fontSize="15px">
-                                {value !== "none"
-                                    ? sortOptions.find((option) => option.value === value)?.label
-                                    : "None"}
+                                {sortOptions.find((option) => option.value === value)?.label}
                             </Typography>
                         </Box>
                     )}
@@ -66,29 +85,27 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     ))}
                 </Select>
             </FormControl>
-            {sortBy !== "none" && (
-                <FormControl>
-                    <InputLabel
-                        id="ordering-label"
-                        sx={{
-                            fontSize: 20,
-                        }}
-                    >
-                        Ordering
-                    </InputLabel>
-                    <Select
-                        labelId="ordering-label"
-                        value={ascOrDesc || "asc"}
-                        onChange={handleOrderChange}
-                        sx={{
-                            mt: 2,
-                        }}
-                    >
-                        <MenuItem value="asc">Ascending</MenuItem>
-                        <MenuItem value="desc">Descending</MenuItem>
-                    </Select>
-                </FormControl>
-            )}
+            <FormControl>
+                <InputLabel
+                    id="ordering-label"
+                    sx={{
+                        fontSize: 20,
+                    }}
+                >
+                    Ordering
+                </InputLabel>
+                <Select
+                    labelId="ordering-label"
+                    value={ascOrDesc || "asc"}
+                    onChange={handleOrderChange}
+                    sx={{
+                        mt: 2,
+                    }}
+                >
+                    <MenuItem value="asc">Ascending</MenuItem>
+                    <MenuItem value="desc">Descending</MenuItem>
+                </Select>
+            </FormControl>
         </Box>
     );
 }

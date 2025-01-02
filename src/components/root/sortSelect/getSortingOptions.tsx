@@ -4,23 +4,29 @@ interface SortOption {
 }
 
 export const getSortOptions = (type: string, dataType: string): SortOption[] => {
-    const commonOptions: SortOption[] = [{ value: "none", label: "None" }];
-
     if (dataType === "actors" || dataType === "crew") {
-        return [...commonOptions, { value: "fullname", label: "Full Name" }];
+        return [
+            { value: "fullname", label: "Full Name" },
+            { value: "debut", label: "Debut" },
+        ];
     }
 
     if (dataType === "users") {
-        return [...commonOptions, { value: "userName", label: "Username" }];
+        return [
+            { value: "userName", label: "Username" },
+            { value: "email", label: "Email" },
+        ];
     }
 
     if (dataType === "seasons") {
-        return [...commonOptions, { value: "title", label: "Title" }, { value: "ratingImdb", label: "Rating Imdb" }];
+        return [
+            { value: "title", label: "Title" },
+            { value: "ratingImdb", label: "Rating Imdb" },
+        ];
     }
 
     if (dataType === "movies" || dataType === "series" || dataType === "episodes") {
         return [
-            ...commonOptions,
             { value: "title", label: "Title" },
             { value: "ratingImdb", label: "Rating Imdb" },
             { value: "duration", label: "Duration" },
@@ -28,8 +34,7 @@ export const getSortOptions = (type: string, dataType: string): SortOption[] => 
     }
 
     if (type === "list") {
-        const listOptions = [...commonOptions];
-
+        const listOptions: SortOption[] = [];
         return listOptions;
     } else {
         return [
