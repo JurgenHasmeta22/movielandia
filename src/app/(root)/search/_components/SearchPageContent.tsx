@@ -8,7 +8,7 @@ import { searchSeasonsByTitle } from "@/actions/season.actions";
 import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import { searchUsersByUsername } from "@/actions/user/user.actions";
 import SearchList from "./SearchList";
-import { searchCrewMembersByTitle } from "@/actions/crew.actions";
+import { searchCrewMembersByFullname } from "@/actions/crew.actions";
 import SearchTabs from "./SearchTabs";
 // #endregion
 
@@ -128,7 +128,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
         queryParamsActors.ascOrDesc = actorsAscOrDesc;
     }
 
-    const crewsData = await searchCrewMembersByTitle(term, queryParamsCrews, Number(session?.user?.id));
+    const crewsData = await searchCrewMembersByFullname(term, queryParamsCrews, Number(session?.user?.id));
     const crews: Crew[] = crewsData.crews;
     const crewsCount: number = crewsData.count;
     const pageCountCrews = Math.ceil(crewsCount / itemsPerPage);

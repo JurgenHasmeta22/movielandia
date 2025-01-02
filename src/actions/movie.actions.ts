@@ -25,8 +25,8 @@ type RatingsMap = {
 // #region "GET Methods"
 export async function getMoviesWithFilters(
     {
-        sortBy,
-        ascOrDesc,
+        sortBy = "title",
+        ascOrDesc = "asc",
         perPage = 12,
         page = 1,
         title,
@@ -566,9 +566,7 @@ export async function searchMoviesByTitle(title: string, queryParams: any, userI
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "title"] = ascOrDesc || "asc";
 
     const movies = await prisma.movie.findMany({
         where: { title: { contains: title, mode: "insensitive" } },

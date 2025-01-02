@@ -486,9 +486,7 @@ export async function searchSeasonsByTitle(title: string, queryParams: any, user
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "title"] = ascOrDesc || "asc";
 
     const seasons = await prisma.season.findMany({
         where: {

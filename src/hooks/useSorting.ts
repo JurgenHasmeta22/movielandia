@@ -7,33 +7,54 @@ type SortingOptions = {
     ascOrDesc: string;
 };
 
+const getDefaultSortByField = (type: string): string => {
+    switch (type) {
+        case "movie":
+        case "serie":
+            return "title";
+        case "actor":
+        case "crew":
+            return "fullName";
+        case "user":
+            return "userName";
+        case "genre":
+            return "name";
+        case "details":
+            return "createdAt";
+        default:
+            return "createdAt";
+    }
+};
+
 export function useSorting(type: string) {
+    const defaultSortBy = getDefaultSortByField(type);
+
     const [typeSortBy, setTypeSortBy] = useQueryState(`${type}SortBy`, {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: defaultSortBy,
+        parse: (value) => value || defaultSortBy,
         shallow: false,
     });
 
     const [sortByDefault, setSortByDefault] = useQueryState("sortBy", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: defaultSortBy,
+        parse: (value) => value || defaultSortBy,
         shallow: false,
     });
 
     const [typeAscOrDesc, setTypeAscOrDesc] = useQueryState(`${type}AscOrDesc`, {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: "asc",
+        parse: (value) => value || "asc",
         shallow: false,
     });
 
     const [ascOrDescDefault, setAscOrDescDefault] = useQueryState("ascOrDesc", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: "asc",
+        parse: (value) => value || "asc",
         shallow: false,
     });
 
     function handleChangeSorting({ sortBy, ascOrDesc }: SortingOptions) {
-        if (sortBy === "none" || !sortBy) {
+        if (!sortBy) {
             if (type !== "details") {
                 setTypeSortBy(null);
                 setTypeAscOrDesc(null);

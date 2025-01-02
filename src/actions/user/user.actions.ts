@@ -335,9 +335,7 @@ export async function searchUsersByUsername(userName: string, queryParams: any):
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "userName"] = ascOrDesc || "asc";
 
     const users = await prisma.user.findMany({
         where: {
