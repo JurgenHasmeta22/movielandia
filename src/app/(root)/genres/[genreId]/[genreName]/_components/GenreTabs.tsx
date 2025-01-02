@@ -21,8 +21,8 @@ const tabOptions: TabOption[] = [
 
 const GenreTabs = () => {
     const [filters, setFilters] = useQueryState("filters", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: "all",
+        parse: (value) => value || "all",
         history: "push",
         shallow: false,
     });
