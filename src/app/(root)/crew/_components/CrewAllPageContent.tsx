@@ -10,7 +10,7 @@ interface CrewPageContentProps {
     searchParams:
         | {
               crewAscOrDesc?: string;
-              page?: string;
+              pageCrews?: string;
               crewSortBy?: string;
           }
         | undefined;
@@ -19,7 +19,7 @@ interface CrewPageContentProps {
 
 export default async function CrewAllPageContent({ searchParams, session }: CrewPageContentProps) {
     const ascOrDesc = searchParams?.crewAscOrDesc ?? "";
-    const page = searchParams?.page ? Number(searchParams.page) : 1;
+    const page = searchParams?.pageCrews ? Number(searchParams.pageCrews) : 1;
     const sortBy = searchParams?.crewSortBy ?? "";
 
     const queryParams = {

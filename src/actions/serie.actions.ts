@@ -25,8 +25,8 @@ type RatingsMap = {
 // #region "GET Methods"
 export async function getSeriesWithFilters(
     {
-        sortBy = "title",
-        ascOrDesc = "asc",
+        sortBy,
+        ascOrDesc,
         perPage = 12,
         page = 1,
         title,
@@ -53,9 +53,7 @@ export async function getSeriesWithFilters(
         }
     }
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "title"] = ascOrDesc || "asc";
 
     const series = await prisma.serie.findMany({
         where: filters,

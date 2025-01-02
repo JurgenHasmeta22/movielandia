@@ -19,8 +19,8 @@ interface CrewModelParams {
 // #region "GET Methods"
 export async function getCrewMembersWithFilters(
     {
-        sortBy = "fullname",
-        ascOrDesc = "asc",
+        sortBy,
+        ascOrDesc,
         perPage = 12,
         page = 1,
         fullname,
@@ -47,9 +47,7 @@ export async function getCrewMembersWithFilters(
         }
     }
 
-    if (sortBy && ascOrDesc) {
-        orderByObject[sortBy] = ascOrDesc;
-    }
+    orderByObject[sortBy || "fullname"] = ascOrDesc || "asc";
 
     const crew = await prisma.crew.findMany({
         where: filters,
