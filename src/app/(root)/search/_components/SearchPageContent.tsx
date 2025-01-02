@@ -184,6 +184,23 @@ export default async function SearchPageContent({ searchParams, session }: Searc
         return selectedFilters.includes(type.toLowerCase());
     };
 
+    const formatSelectedFilters = (filters: string[]) => {
+        if (filters.includes("all")) return "across all categories";
+
+        const formattedFilters = filters.map((filter) => filter.charAt(0).toUpperCase() + filter.slice(1));
+
+        if (formattedFilters.length === 1) {
+            return `in ${formattedFilters[0]}`;
+        }
+
+        if (formattedFilters.length === 2) {
+            return `in ${formattedFilters.join(" and ")}`;
+        }
+
+        const lastFilter = formattedFilters.pop();
+        return `in ${formattedFilters.join(", ")}, and ${lastFilter}`;
+    };
+
     return (
         <Box
             sx={{
@@ -221,7 +238,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                     }}
                 >
                     {term
-                        ? `Found ${totalResults} results across all categories`
+                        ? `Found ${totalResults} results ${formatSelectedFilters(selectedFilters)}`
                         : "Explore our vast collection of movies, series, actors and more"}
                 </Typography>
             </Box>
