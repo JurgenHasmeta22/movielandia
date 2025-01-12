@@ -21,7 +21,7 @@ import { onBookmarkPerson, onRemoveBookmarkPerson } from "@/utils/features/perso
 // #region "Types and Interfaces"
 export type CardItemType = "movie" | "serie" | "season" | "episode" | "person" | "user";
 
-export type PathType = "movies" | "actors" | "crew" | null;
+export type PathType = "movies" | "persons" | "crew" | null;
 
 interface BaseCardData {
     id: number;

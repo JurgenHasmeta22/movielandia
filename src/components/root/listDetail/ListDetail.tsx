@@ -14,7 +14,7 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
     if (!data || data.length === 0) return null;
 
     const getTitle = () => {
-        if (type === "actor") {
+        if (type === "person") {
             return roleData === "cast" ? "Cast" : `Starred ${roleData}`;
         }
 
@@ -36,10 +36,10 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
     };
 
     const getItemData = (item: any) => {
-        if (type === "actor") {
+        if (type === "person") {
             if (roleData === "Movies") return item.movie;
             if (roleData === "Series") return item.serie;
-            if (roleData === "cast") return item.actor;
+            if (roleData === "cast") return item.person;
         }
 
         if (type === "crew") {
@@ -52,10 +52,10 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
     };
 
     const getItemPath = () => {
-        if (type === "actor") {
+        if (type === "person") {
             if (roleData === "Movies") return "movies";
             if (roleData === "Series") return "series";
-            if (roleData === "cast") return "actors";
+            if (roleData === "cast") return "persons";
         }
 
         if (type === "crew") {

@@ -2,7 +2,7 @@
   <h1 style="color: #30969f;">🎬 MovieLandia24</h1>
 
   <p align="center" style="font-size: 1.1em; color: #777; line-height: 1.5;">
-    <strong>MovieLandia24</strong> is a dynamic, full-stack social platform crafted for cinema enthusiasts. It empowers users to explore, rate, review, bookmark, and connect around a rich database of movies, TV series, actors, crew members, seasons, and episodes. Enjoy a seamless experience with interactive features that enhance your engagement with the world of cinema.
+    <strong>MovieLandia24</strong> is a dynamic, full-stack social platform crafted for cinema enthusiasts. It empowers users to explore, rate, review, bookmark, and connect around a rich database of movies, TV series, persons, crew members, seasons, and episodes. Enjoy a seamless experience with interactive features that enhance your engagement with the world of cinema.
   </p>
 
   <p align="center" style="font-size: 1.05em; color: #555;">
@@ -60,7 +60,7 @@
         <li>Multi-provider authentication with Google OAuth and email/password credentials, managed with NextAuth.js.</li>
         <li>Personalize your experience by customizing your user profile.</li>
         <li>Save and access favorite content through the bookmarking functionality.</li>
-        <li>Rate and submit reviews to share your thoughts about movies, series, and actors.</li>
+        <li>Rate and submit reviews to share your thoughts about movies, series, and persons.</li>
         <li>Connect with other users using the follow/unfollow mechanism.</li>
         <li>Securely recover account passwords through a password reset flow.</li>
           <li>Activate your account through email verification to access more features.</li>

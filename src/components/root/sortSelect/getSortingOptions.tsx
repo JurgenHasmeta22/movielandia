@@ -4,7 +4,7 @@ interface SortOption {
 }
 
 export const getSortOptions = (type: string, dataType: string): SortOption[] => {
-    if (dataType === "actors" || dataType === "crew") {
+    if (dataType === "persons" || dataType === "crew") {
         return [
             { value: "fullname", label: "Full Name" },
             { value: "debut", label: "Debut" },

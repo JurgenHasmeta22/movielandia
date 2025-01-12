@@ -25,7 +25,7 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                     header: "Debut",
                 },
             ];
-        case "actors":
+        case "persons":
             return [
                 {
                     accessorKey: "fullname",

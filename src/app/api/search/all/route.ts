@@ -32,15 +32,15 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
         if (shouldSearchAll || filters.includes("actors")) {
             queries.push(
-                prisma.actor.findMany({ where: { fullname: { contains: searchTerm, mode: "insensitive" } }, take }),
-                prisma.actor.count({ where: { fullname: { contains: searchTerm, mode: "insensitive" } } }),
+                prisma.person.findMany({ where: { fullname: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.person.count({ where: { fullname: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 
         if (shouldSearchAll || filters.includes("crew")) {
             queries.push(
-                prisma.crew.findMany({ where: { fullname: { contains: searchTerm, mode: "insensitive" } }, take }),
-                prisma.crew.count({ where: { fullname: { contains: searchTerm, mode: "insensitive" } } }),
+                prisma.person.findMany({ where: { fullname: { contains: searchTerm, mode: "insensitive" } }, take }),
+                prisma.person.count({ where: { fullname: { contains: searchTerm, mode: "insensitive" } } }),
             );
         }
 

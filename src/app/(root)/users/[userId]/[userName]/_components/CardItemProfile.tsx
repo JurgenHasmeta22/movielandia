@@ -31,7 +31,7 @@ interface FavoriteSerie {
 
 interface FavoriteActor {
     id: number;
-    actor: Actor;
+    person: Actor;
 }
 
 interface FavoriteCrew {
@@ -144,13 +144,13 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
         }
     }
 
-    async function onRemoveBookmarkActor(actor: Actor) {
-        if (!userLoggedIn || !actor) return;
+    async function onRemoveBookmarkActor(person: Actor) {
+        if (!userLoggedIn || !person) return;
 
         try {
             await removeFavoriteActorToUser(
                 Number(userLoggedIn.id),
-                actor.id,
+                person.id,
                 `/users/${userLoggedIn.id}/${userLoggedIn.userName}?tab=favActors`,
             );
 
@@ -192,7 +192,7 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
             case "Series":
                 return (favItem as FavoriteSerie).serie.photoSrcProd;
             case "Actors":
-                return (favItem as FavoriteActor).actor.photoSrcProd;
+                return (favItem as FavoriteActor).person.photoSrcProd;
             case "Crew":
                 return (favItem as FavoriteCrew).crew.photoSrcProd;
             case "Seasons":
@@ -211,7 +211,7 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
             case "Series":
                 return (favItem as FavoriteSerie).serie.title;
             case "Actors":
-                return (favItem as FavoriteActor).actor.fullname;
+                return (favItem as FavoriteActor).person.fullname;
             case "Crew":
                 return (favItem as FavoriteCrew).crew.fullname;
             case "Seasons":
@@ -238,7 +238,7 @@ const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLo
                     await onRemoveBookmarkSerie((favItem as FavoriteSerie).serie);
                     break;
                 case "Actors":
-                    await onRemoveBookmarkActor((favItem as FavoriteActor).actor);
+                    await onRemoveBookmarkActor((favItem as FavoriteActor).person);
                     break;
                 case "Crew":
                     await onRemoveBookmarkCrew((favItem as FavoriteCrew).crew);

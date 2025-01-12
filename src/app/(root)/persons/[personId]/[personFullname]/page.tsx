@@ -2,15 +2,15 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getActorById } from "@/actions/actor.actions";
-import { Actor } from "@prisma/client";
-import ActorPageContent from "./_components/ActorPageContent";
+import { getPersonById } from "@/actions/person.actions";
+import { Person } from "@prisma/client";
+import PersonPageContent from "./_components/PersonPageContent";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
-interface IActorProps {
+interface IPersonProps {
     params: {
-        actorId: string;
+        personId: string;
     };
     searchParams?: Promise<{
         reviewsAscOrDesc: string | undefined;
@@ -21,29 +21,29 @@ interface IActorProps {
     }>;
 }
 
-export async function generateMetadata(props: IActorProps): Promise<Metadata> {
+export async function generateMetadata(props: IPersonProps): Promise<Metadata> {
     const params = await props.params;
-    const { actorId } = params;
+    const { personId } = params;
 
-    let actor: Actor;
+    let person: Person;
 
     try {
-        actor = await getActorById(Number(actorId), {});
+        person = await getPersonById(Number(personId), {});
     } catch (error) {
         return notFound();
     }
 
-    const { description, photoSrcProd } = actor;
+    const { description, photoSrcProd } = person;
 
-    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/actors/${actor.fullname}`;
+    const pageUrl = `${process.env.NEXT_PUBLIC_PROJECT_URL}/persons/${person.fullname}`;
 
     return {
-        title: `${actor.fullname} | Actor`,
-        description: `${actor.description}`,
+        title: `${person.fullname} | Person`,
+        description: `${person.description}`,
         openGraph: {
             type: "video.tv_show",
             url: pageUrl,
-            title: `${actor.fullname} | Actor`,
+            title: `${person.fullname} | Person`,
             description,
             images: photoSrcProd
                 ? [
@@ -61,7 +61,7 @@ export async function generateMetadata(props: IActorProps): Promise<Metadata> {
             card: "summary_large_image",
             site: "@movieLandia24",
             creator: "movieLandia24",
-            title: `${actor.fullname} | Actor`,
+            title: `${person.fullname} | Person`,
             description,
             images: photoSrcProd
                 ? [
@@ -79,11 +79,11 @@ export async function generateMetadata(props: IActorProps): Promise<Metadata> {
     };
 }
 
-export default async function ActorPage(props: IActorProps) {
+export default async function PersonPage(props: IPersonProps) {
     const session = await getServerSession(authOptions);
 
     const params = await props.params;
-    const { actorId } = params;
+    const { personId } = params;
 
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
@@ -104,24 +104,24 @@ export default async function ActorPage(props: IActorProps) {
         userId: Number(session?.user?.id),
     };
 
-    let actor;
+    let person;
 
     try {
-        actor = await getActorById(Number(actorId), searchParamsValues);
+        person = await getPersonById(Number(personId), searchParamsValues);
     } catch (error) {
         return notFound();
     }
 
     const perPage = 6;
-    const reviewsPageCount = Math.ceil(actor.totalReviews / 5);
-    const starredMoviesPageCount = Math.ceil(actor.totalMovies / perPage);
-    const starredSeriesPageCount = Math.ceil(actor.totalSeries / perPage);
+    const reviewsPageCount = Math.ceil(person.totalReviews / 5);
+    const starredMoviesPageCount = Math.ceil(person.totalMovies / perPage);
+    const starredSeriesPageCount = Math.ceil(person.totalSeries / perPage);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <ActorPageContent
+            <PersonPageContent
                 searchParamsValues={searchParamsValues}
-                actor={actor}
+                person={person}
                 reviewsPageCount={reviewsPageCount}
                 starredMoviesPageCount={starredMoviesPageCount}
                 starredSeriesPageCount={starredSeriesPageCount}

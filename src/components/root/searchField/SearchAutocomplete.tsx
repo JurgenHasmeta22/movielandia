@@ -11,7 +11,7 @@ interface SearchAutocompleteProps {
     results: {
         movies: { items: Movie[]; total: number };
         series: { items: Serie[]; total: number };
-        actors: { items: Actor[]; total: number };
+        persons: { items: Actor[]; total: number };
         crews: { items: Crew[]; total: number };
         seasons: { items: Season[]; total: number };
         episodes: { items: Episode[]; total: number };
@@ -43,7 +43,7 @@ const SearchAutocomplete = ({
         { label: "All", value: "all" },
         { label: "Movies", value: "movies" },
         { label: "Series", value: "series" },
-        { label: "Actors", value: "actors" },
+        { label: "Actors", value: "persons" },
         { label: "Crew", value: "crew" },
         { label: "Seasons", value: "seasons" },
         { label: "Episodes", value: "episodes" },
@@ -158,7 +158,7 @@ const SearchAutocomplete = ({
     const InitialState = () => (
         <Box sx={{ py: 4, textAlign: "center", color: theme.vars.palette.text.secondary }}>
             <Typography variant="body1">Select a category and start typing to search</Typography>
-            <Typography variant="caption">You can search across movies, series, actors, and more</Typography>
+            <Typography variant="caption">You can search across movies, series, persons, and more</Typography>
         </Box>
     );
 
@@ -322,25 +322,25 @@ const SearchAutocomplete = ({
                             )}
                         </Box>
                     )}
-                    {shouldShowSection("series") && shouldShowSection("actors") && (
+                    {shouldShowSection("series") && shouldShowSection("persons") && (
                         <Divider sx={{ my: 1, width: "100%" }} />
                     )}
-                    {shouldShowSection("actors") && (
+                    {shouldShowSection("persons") && (
                         <Box>
                             <SectionTitle
                                 title="Actors"
-                                shownCount={results.actors.items.length}
-                                totalCount={results.actors.total}
+                                shownCount={results.persons.items.length}
+                                totalCount={results.persons.total}
                             />
                             <Box sx={{ mt: 1 }}>
-                                {results.actors.items.length > 0 ? (
+                                {results.persons.items.length > 0 ? (
                                     <Stack spacing={1}>
-                                        {results.actors.items.map((actor) => (
+                                        {results.persons.items.map((person) => (
                                             <SearchResultCard
-                                                key={actor.id}
-                                                data={actor}
-                                                type="actor"
-                                                path="actors"
+                                                key={person.id}
+                                                data={person}
+                                                type="person"
+                                                path="persons"
                                                 onResultClick={onResultClick}
                                             />
                                         ))}
@@ -351,7 +351,7 @@ const SearchAutocomplete = ({
                             </Box>
                         </Box>
                     )}
-                    {shouldShowSection("actors") && shouldShowSection("crew") && (
+                    {shouldShowSection("persons") && shouldShowSection("crew") && (
                         <Divider sx={{ my: 1, width: "100%" }} />
                     )}
                     {shouldShowSection("crew") && (

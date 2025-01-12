@@ -12,7 +12,7 @@ import { getGenresWithFilters } from "@/actions/genre.actions";
 import { getUsersWithFilters } from "@/actions/user/user.actions";
 import { getMoviesWithFilters } from "@/actions/movie.actions";
 import { getSeriesWithFilters } from "@/actions/serie.actions";
-import { getActorsWithFilters } from "@/actions/actor.actions";
+import { getActorsWithFilters } from "@/actions/person.actions";
 import { getEpisodesWithFilters } from "@/actions/episode.actions";
 import { getSeasonsWithFilters } from "@/actions/season.actions";
 import { getCrewMembersWithFilters } from "@/actions/crew.actions";
@@ -175,7 +175,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                                 ? "userName"
                                 : page === "genres"
                                   ? "name"
-                                  : page === "actors"
+                                  : page === "persons"
                                     ? "name"
                                     : page === "crew"
                                       ? "fullname"
@@ -236,9 +236,9 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                     setRows(response.rows);
                     setRowsCount(response.count);
                     break;
-                case "actors":
+                case "persons":
                     response = await getActorsWithFilters(queryParams);
-                    setRows(response.actors);
+                    setRows(response.persons);
                     setRowsCount(response.count);
                     break;
                 case "episodes":

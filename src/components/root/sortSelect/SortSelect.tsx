@@ -24,7 +24,7 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
             case "seasons":
             case "series":
                 return "title";
-            case "actors":
+            case "persons":
             case "crew":
                 return "fullname";
             case "users":

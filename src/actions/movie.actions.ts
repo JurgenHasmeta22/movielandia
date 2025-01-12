@@ -140,13 +140,8 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
             include: {
                 genres: { select: { genre: true } },
                 cast: {
-                    include: { actor: true },
+                    include: { person: true },
                     skip: queryParams.castPage ? (queryParams.castPage - 1) * 5 : 0,
-                    take: 5,
-                },
-                crew: {
-                    include: { crew: true },
-                    skip: queryParams.crewPage ? (queryParams.crewPage - 1) * 5 : 0,
                     take: 5,
                 },
                 reviews: {
@@ -231,9 +226,8 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
             isReviewed = !!existingReview;
         }
 
-        const [totalCast, totalCrew] = await Promise.all([
-            prisma.castMovie.count({ where: { movieId: movie.id } }),
-            prisma.crewMovie.count({ where: { movieId: movie.id } }),
+        const [totalCast] = await Promise.all([
+            prisma.personMovie.count({ where: { movieId: movie.id } }),
         ]);
 
         return {
@@ -241,7 +235,6 @@ export async function getMovieById(movieId: number, queryParams: any): Promise<M
             averageRating,
             totalReviews,
             totalCast,
-            totalCrew,
             ...(userId && { isBookmarked, isReviewed }),
         };
     } catch (error) {
@@ -272,7 +265,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
             where: { title: titleFinal },
             include: {
                 genres: { select: { genre: true } },
-                cast: { include: { actor: true } },
+                cast: { include: { person: true } },
                 reviews: {
                     include: {
                         user: true,

@@ -32,7 +32,7 @@ export default async function DownvotesPage(props: IDownvotesPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    const downvotes = await getDownvotesByReviewId(Number(params.reviewId), "actor", page);
+    const downvotes = await getDownvotesByReviewId(Number(params.reviewId), "person", page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>

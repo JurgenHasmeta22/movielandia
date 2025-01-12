@@ -105,7 +105,7 @@ export function DetailsPageCard({
                 >
                     <Image
                         src={data.photoSrcProd}
-                        alt={type !== "actor" && type !== "crew" ? data.title : data.fullname}
+                        alt={type !== "person" && type !== "crew" ? data.title : data.fullname}
                         height={317}
                         width={214}
                         priority
@@ -131,7 +131,7 @@ export function DetailsPageCard({
                         }}
                         color={theme.vars.palette.primary.main}
                     >
-                        {type !== "actor" && type !== "crew" ? data.title : data.fullname}
+                        {type !== "person" && type !== "crew" ? data.title : data.fullname}
                     </Typography>
                     <Box sx={{ mb: 2, display: "flex", flexDirection: "row", alignItems: "center" }}>
                         <Typography
@@ -180,7 +180,7 @@ export function DetailsPageCard({
                             borderRadius: 2,
                         }}
                     >
-                        {type !== "season" && type !== "serie" && type !== "actor" && type !== "crew" && (
+                        {type !== "season" && type !== "serie" && type !== "person" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <AccessTime fontSize="small" color="primary" />
                                 <Typography variant="body1" sx={{ fontWeight: 700 }}>
@@ -192,13 +192,13 @@ export function DetailsPageCard({
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <CalendarToday fontSize="small" color="primary" />
                             <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                                {type !== "actor" && type !== "crew" ? "Aired on:" : "Debut year:"}
+                                {type !== "person" && type !== "crew" ? "Aired on:" : "Debut year:"}
                             </Typography>
                             <Typography variant="body2">
-                                {type !== "actor" && type !== "crew" ? formatDate(data.dateAired) : data.debut}
+                                {type !== "person" && type !== "crew" ? formatDate(data.dateAired) : data.debut}
                             </Typography>
                         </Box>
-                        {type !== "actor" && type !== "crew" && (
+                        {type !== "person" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <Star fontSize="small" color="primary" />
                                 <Typography variant="body1" sx={{ fontWeight: 700 }}>
@@ -258,7 +258,7 @@ export function DetailsPageCard({
                                             }}
                                         >
                                             {cast.map((person, index) => (
-                                                <PersonRoleCard key={index} data={person.actor} type="actor" />
+                                                <PersonRoleCard key={index} data={person.person} type="person" />
                                             ))}
                                         </Box>
                                         <PaginationPersonControl
@@ -311,7 +311,7 @@ export function DetailsPageCard({
                         </Box>
                     )}
                     <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
-                        {type !== "actor" && (
+                        {type !== "person" && (
                             <Button
                                 variant="contained"
                                 startIcon={<YouTube />}

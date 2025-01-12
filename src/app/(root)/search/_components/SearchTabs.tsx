@@ -24,7 +24,7 @@ const tabOptions: TabOption[] = [
     { label: "Series", icon: <LiveTvIcon />, value: "series" },
     { label: "Seasons", icon: <PlaylistPlayIcon />, value: "seasons" },
     { label: "Episodes", icon: <PlayCircleOutlineIcon />, value: "episodes" },
-    { label: "Actors", icon: <PersonIcon />, value: "actors" },
+    { label: "Actors", icon: <PersonIcon />, value: "persons" },
     { label: "Crew", icon: <GroupWorkIcon />, value: "crew" },
     { label: "Users", icon: <PersonOutlineIcon />, value: "users" },
 ];

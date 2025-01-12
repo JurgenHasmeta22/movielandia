@@ -173,8 +173,7 @@ const Footer = (): React.JSX.Element => {
                                     People
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/actors" icon={RecentActorsIcon} text="Actors" />
-                                    <FooterLink href="/crew" icon={GroupsIcon} text="Crew" />
+                                    <FooterLink href="/persons" icon={RecentActorsIcon} text="Persons" />
                                 </Stack>
                             </Box>
                             <Box sx={{ width: { xs: "100%", sm: "auto" } }}>

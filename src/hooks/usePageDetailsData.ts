@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useModal } from "@/providers/ModalProvider";
 
 /* 
-    This hook is used to store the data of the page details, because i use movie, serie, actor, season, episode, crew
+    This hook is used to store the data of the page details, because i use movie, serie, person, season, episode, crew
     so i needed a custom hook to extract all those data
 */
 export function usePageDetailsData() {

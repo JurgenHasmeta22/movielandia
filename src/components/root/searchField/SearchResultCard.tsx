@@ -6,9 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-type ResultType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
+type ResultType = "movie" | "serie" | "season" | "episode" | "person" | "crew" | "user";
 
-type PathType = "movies" | "actors" | "crew" | null;
+type PathType = "movies" | "persons" | "crew" | null;
 
 interface BaseResultData {
     id: number;
@@ -52,19 +52,11 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
                 return `/series/${data.id}/${formatTitle((data as MediaResultData).title)}`;
             case "movie":
                 return `/movies/${data.id}/${formatTitle((data as MediaResultData).title)}`;
-            case "actor":
+            case "person":
                 if (path === "movies") {
                     return `/movies/${data.id}/${formatTitle((data as MediaResultData).title)}`;
-                } else if (path === "actors") {
-                    return `/actors/${data.id}/${formatTitle((data as PersonResultData).fullname)}`;
-                }
-
-                return `/series/${data.id}/${formatTitle((data as MediaResultData).title)}`;
-            case "crew":
-                if (path === "movies") {
-                    return `/movies/${data.id}/${formatTitle((data as MediaResultData).title)}`;
-                } else if (path === "crew") {
-                    return `/crew/${data.id}/${formatTitle((data as PersonResultData).fullname)}`;
+                } else if (path === "persons") {
+                    return `/persons/${data.id}/${formatTitle((data as PersonResultData).fullname)}`;
                 }
 
                 return `/series/${data.id}/${formatTitle((data as MediaResultData).title)}`;
@@ -90,7 +82,7 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
     };
 
     const getDisplayTitle = () => {
-        if (type === "actor" || type === "crew") {
+        if (type === "person" || type === "crew") {
             const personData = data as PersonResultData;
             return `${personData.fullname}${personData.debut ? ` (${personData.debut})` : ""}`;
         }

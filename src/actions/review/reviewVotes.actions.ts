@@ -2,7 +2,7 @@
 
 import { prisma } from "../../../prisma/config/prisma";
 
-type ReviewType = "movie" | "serie" | "season" | "episode" | "actor" | "crew";
+type ReviewType = "movie" | "serie" | "season" | "episode" | "person" | "crew";
 
 interface VotesResponse {
     items: any;
@@ -73,16 +73,16 @@ export async function getUpvotesByReviewId(
                 }),
             ]);
             break;
-        case "actor":
+        case "person":
             [upvotes, total] = await Promise.all([
                 prisma.upvoteActorReview.findMany({
-                    where: { actorReviewId: reviewId },
+                    where: { personReviewId: reviewId },
                     include: { user: true },
                     skip,
                     take: perPage,
                 }),
                 prisma.upvoteActorReview.count({
-                    where: { actorReviewId: reviewId },
+                    where: { personReviewId: reviewId },
                 }),
             ]);
             break;
@@ -173,16 +173,16 @@ export async function getDownvotesByReviewId(
                 }),
             ]);
             break;
-        case "actor":
+        case "person":
             [downvotes, total] = await Promise.all([
                 prisma.downvoteActorReview.findMany({
-                    where: { actorReviewId: reviewId },
+                    where: { personReviewId: reviewId },
                     include: { user: true },
                     skip,
                     take: perPage,
                 }),
                 prisma.downvoteActorReview.count({
-                    where: { actorReviewId: reviewId },
+                    where: { personReviewId: reviewId },
                 }),
             ]);
             break;

@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 interface SearchResults {
     movies: { items: Movie[]; total: number };
     series: { items: Serie[]; total: number };
-    actors: { items: Actor[]; total: number };
+    persons: { items: Actor[]; total: number };
     crews: { items: Crew[]; total: number };
     seasons: { items: Season[]; total: number };
     episodes: { items: Episode[]; total: number };
@@ -24,7 +24,7 @@ interface SearchResults {
 const emptyResults = {
     movies: { items: [], total: 0 },
     series: { items: [], total: 0 },
-    actors: { items: [], total: 0 },
+    persons: { items: [], total: 0 },
     crews: { items: [], total: 0 },
     seasons: { items: [], total: 0 },
     episodes: { items: [], total: 0 },
@@ -35,7 +35,7 @@ const filters = [
     { label: "All", value: "all" },
     { label: "Movies", value: "movies" },
     { label: "Series", value: "series" },
-    { label: "Actors", value: "actors" },
+    { label: "Actors", value: "persons" },
     { label: "Crew", value: "crew" },
     { label: "Seasons", value: "seasons" },
     { label: "Episodes", value: "episodes" },
@@ -156,7 +156,7 @@ const SearchField = () => {
             setResults({
                 movies: data.movies || { items: [], total: 0 },
                 series: data.series || { items: [], total: 0 },
-                actors: data.actors || { items: [], total: 0 },
+                persons: data.persons || { items: [], total: 0 },
                 crews: data.crews || { items: [], total: 0 },
                 seasons: data.seasons || { items: [], total: 0 },
                 episodes: data.episodes || { items: [], total: 0 },

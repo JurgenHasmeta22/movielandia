@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { Actor, Crew, Episode, Movie, Season, Serie, User } from "@prisma/client";
 import { searchMoviesByTitle } from "@/actions/movie.actions";
 import { searchSeriesByTitle } from "@/actions/serie.actions";
-import { searchActorsByTitle } from "@/actions/actor.actions";
+import { searchActorsByTitle } from "@/actions/person.actions";
 import { searchSeasonsByTitle } from "@/actions/season.actions";
 import { searchEpisodesByTitle } from "@/actions/episode.actions";
 import { searchUsersByUsername } from "@/actions/user/user.actions";
@@ -21,9 +21,9 @@ interface SearchPageContentProps {
         seriesAscOrDesc?: string;
         pageSeries?: string;
         seriesSortBy?: string;
-        actorsAscOrDesc?: string;
+        personsAscOrDesc?: string;
         pageActors?: string;
-        actorsSortBy?: string;
+        personsSortBy?: string;
         crewAscOrDesc?: string;
         pageCrews?: string;
         crewSortBy?: string;
@@ -60,8 +60,8 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     let series: Serie[] = [],
         seriesCount = 0,
         pageCountSeries = 0;
-    let actors: Actor[] = [],
-        actorsCount = 0,
+    let persons: Actor[] = [],
+        personsCount = 0,
         pageCountActors = 0;
     let crews: Crew[] = [],
         crewsCount = 0,
@@ -106,18 +106,18 @@ export default async function SearchPageContent({ searchParams, session }: Searc
         pageCountSeries = Math.ceil(seriesCount / itemsPerPage);
     }
 
-    if (shouldFetchData("actors")) {
+    if (shouldFetchData("persons")) {
         const pageActors = Number(searchParams?.pageActors) || 1;
         const queryParamsActors: IQueryParams = {
             page: pageActors,
-            sortBy: searchParams?.actorsSortBy ?? "",
-            ascOrDesc: searchParams?.actorsAscOrDesc ?? "",
+            sortBy: searchParams?.personsSortBy ?? "",
+            ascOrDesc: searchParams?.personsAscOrDesc ?? "",
         };
 
-        const actorsData = await searchActorsByTitle(term, queryParamsActors, Number(session?.user?.id));
-        actors = actorsData.actors;
-        actorsCount = actorsData.count;
-        pageCountActors = Math.ceil(actorsCount / itemsPerPage);
+        const personsData = await searchActorsByTitle(term, queryParamsActors, Number(session?.user?.id));
+        persons = personsData.persons;
+        personsCount = personsData.count;
+        pageCountActors = Math.ceil(personsCount / itemsPerPage);
     }
 
     if (shouldFetchData("crew")) {
@@ -177,7 +177,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     }
 
     const totalResults =
-        moviesCount + seriesCount + actorsCount + seasonsCount + episodesCount + usersCount + crewsCount;
+        moviesCount + seriesCount + personsCount + seasonsCount + episodesCount + usersCount + crewsCount;
 
     const shouldShowSection = (type: string) => {
         if (selectedFilters.includes("all")) return true;
@@ -239,7 +239,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                 >
                     {term
                         ? `Found ${totalResults} results ${formatSelectedFilters(selectedFilters)}`
-                        : "Explore our vast collection of movies, series, actors and more"}
+                        : "Explore our vast collection of movies, series, persons and more"}
                 </Typography>
             </Box>
             <SearchTabs />
@@ -277,18 +277,18 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         cardType="serie"
                     />
                 )}
-                {shouldShowSection("actors") && (!term || actorsCount > 0) && (
+                {shouldShowSection("persons") && (!term || personsCount > 0) && (
                     <SearchList
                         title={term ? `Actors matching "${term}"` : "Actors"}
-                        data={actors}
-                        count={actorsCount}
-                        sortBy={searchParams?.actorsSortBy ?? ""}
-                        ascOrDesc={searchParams?.actorsAscOrDesc ?? ""}
+                        data={persons}
+                        count={personsCount}
+                        sortBy={searchParams?.personsSortBy ?? ""}
+                        ascOrDesc={searchParams?.personsAscOrDesc ?? ""}
                         page={Number(searchParams?.pageActors) || 1}
                         pageCount={pageCountActors}
                         dataType="Actors"
-                        cardType="actor"
-                        path="actors"
+                        cardType="person"
+                        path="persons"
                     />
                 )}
                 {shouldShowSection("crew") && (!term || crewsCount > 0) && (

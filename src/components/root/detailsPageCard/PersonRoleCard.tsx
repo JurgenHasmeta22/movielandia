@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 interface PersonRoleCardProps {
     data: any;
-    type: "actor" | "crew";
+    type: "person" | "crew";
 }
 
 const PersonRoleCard = ({ data, type }: PersonRoleCardProps) => {
@@ -16,7 +16,7 @@ const PersonRoleCard = ({ data, type }: PersonRoleCardProps) => {
     return (
         <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
             <Link
-                href={`/${type === "actor" ? "actors" : "crew"}/${data.id}/${encodeURIComponent(
+                href={`/${type === "person" ? "persons" : "crew"}/${data.id}/${encodeURIComponent(
                     data.fullname.split(" ").join("-"),
                 )}`}
                 style={{ textDecoration: "none" }}

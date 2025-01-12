@@ -39,12 +39,12 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
         setPage(String(value));
     };
 
-    const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "actor" | "crew" => {
+    const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "person" | "crew" => {
         if (item.movie || item.movieId) return "movie";
         if (item.serie || item.serieId) return "serie";
         if (item.season || item.seasonId) return "season";
         if (item.episode || item.episodeId) return "episode";
-        if (item.actor || item.actorId) return "actor";
+        if (item.person || item.personId) return "person";
         if (item.crew || item.crewId) return "crew";
 
         return "movie";
@@ -52,12 +52,12 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
 
     const getReviewVotesType = (
         item: any,
-    ): "movieReview" | "serieReview" | "seasonReview" | "episodeReview" | "actorReview" | "crewReview" => {
+    ): "movieReview" | "serieReview" | "seasonReview" | "episodeReview" | "personReview" | "crewReview" => {
         if (item.movieReview || item.movieReviewId) return "movieReview";
         if (item.serieReview || item.serieReviewId) return "serieReview";
         if (item.seasonReview || item.seasonReviewId) return "seasonReview";
         if (item.episodeReview || item.episodeReviewId) return "episodeReview";
-        if (item.actorReview || item.actorReviewId) return "actorReview";
+        if (item.personReview || item.personReviewId) return "personReview";
         if (item.crewReview || item.crewReviewId) return "crewReview";
 
         return "movieReview";
@@ -75,10 +75,8 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                 return `/movies/${favItem.movie.id}/${formatTitle(favItem.movie.title)}`;
             case "series":
                 return `/series/${favItem.serie.id}/${formatTitle(favItem.serie.title)}`;
-            case "actors":
-                return `/actors/${favItem.actor.id}/${formatTitle(favItem.actor.fullname)}`;
-            case "crew":
-                return `/crew/${favItem.crew.id}/${formatTitle(favItem.crew.fullname)}`;
+            case "persons":
+                return `/persons/${favItem.person.id}/${formatTitle(favItem.person.fullname)}`;
             case "seasons": {
                 const season = favItem.season;
 

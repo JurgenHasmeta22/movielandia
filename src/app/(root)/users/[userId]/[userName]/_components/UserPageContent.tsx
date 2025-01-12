@@ -107,7 +107,7 @@ export default function UserPageContent({
                 return <PlaylistPlayIcon />;
             case "episodes":
                 return <PlayCircleOutlineIcon />;
-            case "actors":
+            case "persons":
                 return <PersonIcon />;
             case "crew":
                 return <GroupWorkIcon />;

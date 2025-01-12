@@ -2,7 +2,7 @@
 
 ## Project Context
 
-MovieLandia24 is a Next.js/React application for discovering movies, TV series, actors, and crew, with user accounts, browsing, reviews, social features following, messaging, notifications system, and admin dashboard.
+MovieLandia24 is a Next.js/React application for discovering movies, TV series, persons, and crew, with user accounts, browsing, reviews, social features following, messaging, notifications system, and admin dashboard.
 
 ### Architecture
 

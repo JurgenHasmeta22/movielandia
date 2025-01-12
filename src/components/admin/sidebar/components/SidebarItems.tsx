@@ -46,16 +46,10 @@ export const SidebarItems = [
         index: 5,
     },
     {
-        label: "Actors",
-        to: "/admin/actors",
+        label: "Persons",
+        to: "/admin/persons",
         icon: <PersonIcon />,
         index: 6,
-    },
-    {
-        label: "Crews",
-        to: "/admin/crews",
-        icon: <GroupWorkIcon />,
-        index: 7,
     },
     {
         label: "Genres",

@@ -14,7 +14,7 @@ const getDefaultSortByField = (type: string): string => {
         case "season":
         case "serie":
             return "title";
-        case "actor":
+        case "person":
         case "crew":
             return "fullName";
         case "user":

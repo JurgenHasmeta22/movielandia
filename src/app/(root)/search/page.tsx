@@ -13,9 +13,9 @@ interface ISearchProps {
         seriesAscOrDesc?: string;
         pageSeries?: string;
         seriesSortBy?: string;
-        actorsAscOrDesc?: string;
+        personsAscOrDesc?: string;
         pageActors?: string;
-        actorsSortBy?: string;
+        personsSortBy?: string;
         seasonsAscOrDesc?: string;
         pageSeasons?: string;
         seasonsSortBy?: string;
@@ -32,12 +32,12 @@ interface ISearchProps {
 export const metadata: Metadata = {
     title: "Search Movies, Series, Actors and More | High-Quality and Always Updated",
     description:
-        "Search through our vast collection of movies, series, actors, episodes, and more. Our content is always updated with the newest releases.",
+        "Search through our vast collection of movies, series, persons, episodes, and more. Our content is always updated with the newest releases.",
     openGraph: {
         type: "website",
         url: `${process.env.NEXT_PUBLIC_PROJECT_URL}/search`,
         title: "Search Movies, Series, Actors and More",
-        description: "Search through our vast collection of movies, series, actors, episodes, and more.",
+        description: "Search through our vast collection of movies, series, persons, episodes, and more.",
         siteName: "MovieLandia24",
     },
     twitter: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
         site: "@movieLandia24",
         creator: "movieLandia24",
         title: "Search Movies, Series, Actors and More",
-        description: "Search through our vast collection of movies, series, actors, episodes, and more.",
+        description: "Search through our vast collection of movies, series, persons, episodes, and more.",
     },
     robots: {
         index: true,

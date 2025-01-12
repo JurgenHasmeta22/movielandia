@@ -32,7 +32,7 @@ export default async function UpvotesPage(props: IUpvotesPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
     const page = Number(searchParams?.page) || 1;
 
-    const upvotes = await getUpvotesByReviewId(Number(params.reviewId), "actor", page);
+    const upvotes = await getUpvotesByReviewId(Number(params.reviewId), "person", page);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>

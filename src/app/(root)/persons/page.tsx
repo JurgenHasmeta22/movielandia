@@ -2,31 +2,31 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import ActorsPageContent from "./_components/ActorsPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import PersonsPageContent from "./_components/PersonsPageContent";
 
-interface IActorsProps {
-    searchParams?: Promise<{ actorsAscOrDesc?: string; page?: string; actorsSortBy?: string }>;
+interface IPersonsProps {
+    searchParams?: Promise<{ personsAscOrDesc?: string; page?: string; personsSortBy?: string }>;
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
 export const metadata: Metadata = {
-    title: "Check Actors | High-Quality and Always Updated",
-    description: "Discover the most amazing actors.",
+    title: "Check Persons | High-Quality and Always Updated",
+    description: "Discover the most amazing persons.",
     openGraph: {
         type: "video.other",
-        url: `${baseUrl}/actors`,
-        title: "Actors",
-        description: "Discover the most amazing actors in high quality.",
+        url: `${baseUrl}/persons`,
+        title: "Persons",
+        description: "Discover the most amazing persons in high quality.",
         siteName: "MovieLandia24",
     },
     twitter: {
         card: "summary_large_image",
         site: "@movieLandia24",
         creator: "movieLandia24",
-        title: "Actors",
-        description: "Discover the most amazing actors in high quality.",
+        title: "Persons",
+        description: "Discover the most amazing persons in high quality.",
     },
     robots: {
         index: true,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function Actors(props: IActorsProps) {
+export default async function Persons(props: IPersonsProps) {
     const session = await getServerSession(authOptions);
 
     const searchParams = await props.searchParams;
@@ -42,7 +42,7 @@ export default async function Actors(props: IActorsProps) {
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <ActorsPageContent searchParams={searchParams} session={session} />
+            <PersonsPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );
 }

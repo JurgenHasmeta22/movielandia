@@ -17,7 +17,7 @@ interface MediaListProps {
     page: number;
     pageCount: number;
     dataType: "Movies" | "Series" | "Actors" | "Seasons" | "Episodes" | "Users" | "Crew";
-    cardType: "movie" | "serie" | "actor" | "season" | "episode" | "user" | "crew";
+    cardType: "movie" | "serie" | "person" | "season" | "episode" | "user" | "crew";
     path?: PathType;
 }
 

@@ -117,21 +117,21 @@ export default async function UserPage(props: IUserDetailsProps) {
         if (mainTab === "bookmarks") {
             additionalData = await getUserFavorites(
                 Number(userId),
-                subTab.toLowerCase() as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
+                subTab.toLowerCase() as "movies" | "series" | "persons" | "crew" | "seasons" | "episodes",
                 page,
                 search,
             );
         } else if (mainTab === "reviews") {
             additionalData = await getUserReviews(
                 Number(userId),
-                subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
+                subTab as "movies" | "series" | "persons" | "crew" | "seasons" | "episodes",
                 page,
                 search,
             );
         } else if (mainTab === "upvotes" || mainTab === "downvotes") {
             additionalData = await getUserVotes(
                 Number(userId),
-                subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
+                subTab as "movies" | "series" | "persons" | "crew" | "seasons" | "episodes",
                 mainTab,
                 search,
                 page,

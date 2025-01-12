@@ -4,7 +4,7 @@ import { prisma } from "../../../prisma/config/prisma";
 
 export async function getUserFavorites(
     userId: number,
-    type: "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
+    type: "movies" | "series" | "persons" | "crew" | "seasons" | "episodes",
     page: number = 1,
     search: string = "",
 ) {
@@ -86,12 +86,12 @@ export async function getUserFavorites(
                 ]);
                 break;
 
-            case "actors":
+            case "persons":
                 [items, total] = await Promise.all([
                     prisma.userActorFavorite.findMany({
                         where: {
                             userId,
-                            actor: {
+                            person: {
                                 fullname: {
                                     contains: search,
                                     mode: "insensitive",
@@ -99,7 +99,7 @@ export async function getUserFavorites(
                             },
                         },
                         include: {
-                            actor: true,
+                            person: true,
                         },
                         skip,
                         take: perPage,
@@ -110,7 +110,7 @@ export async function getUserFavorites(
                     prisma.userActorFavorite.count({
                         where: {
                             userId,
-                            actor: {
+                            person: {
                                 fullname: {
                                     contains: search,
                                     mode: "insensitive",
@@ -254,7 +254,7 @@ export async function getUserFavorites(
 
 export async function getUserReviews(
     userId: number,
-    subTab: "movies" | "series" | "seasons" | "episodes" | "actors" | "crew",
+    subTab: "movies" | "series" | "seasons" | "episodes" | "persons" | "crew",
     page: number = 1,
     search: string = "",
     limit: number = 10,
@@ -262,7 +262,7 @@ export async function getUserReviews(
     const skip = (page - 1) * limit;
     const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
 
-    const titleField = singularSubTab === "actor" || singularSubTab === "crew" ? "fullname" : "title";
+    const titleField = singularSubTab === "person" || singularSubTab === "crew" ? "fullname" : "title";
 
     const [reviews, total] = await Promise.all([
         prisma.user.findUnique({
@@ -311,7 +311,7 @@ export async function getUserReviews(
 
 export async function getUserVotes(
     userId: number,
-    subTab: "movies" | "series" | "seasons" | "episodes" | "actors" | "crew",
+    subTab: "movies" | "series" | "seasons" | "episodes" | "persons" | "crew",
     mainTab: "upvotes" | "downvotes",
     search: string = "",
     page: number = 1,
@@ -320,7 +320,7 @@ export async function getUserVotes(
     const skip = (page - 1) * limit;
     const singularSubTab = subTab === "crew" ? "crew" : subTab.slice(0, -1);
     const type = mainTab === "upvotes" ? "upvoted" : mainTab === "downvotes" ? "downvoted" : mainTab;
-    const titleField = singularSubTab === "actor" || singularSubTab === "crew" ? "fullname" : "title";
+    const titleField = singularSubTab === "person" || singularSubTab === "crew" ? "fullname" : "title";
 
     const [votes, total] = await Promise.all([
         prisma.user.findUnique({

@@ -125,7 +125,7 @@ const Carousel = ({ data, type }: ICarouselProps) => {
     };
 
     const getTitleOrName = (type: string, element: any) => {
-        return type === "actors" || type === "crew" ? element.fullname : element.title;
+        return type === "persons" || type === "crew" ? element.fullname : element.title;
     };
 
     const generateSlug = (text: string) => {

@@ -1,4 +1,4 @@
-import { deleteActorById } from "@/actions/actor.actions";
+import { deleteActorById } from "@/actions/person.actions";
 import { deleteCrewMemberById } from "@/actions/crew.actions";
 import { deleteEpisodeById } from "@/actions/episode.actions";
 import { deleteGenreById } from "@/actions/genre.actions";
@@ -35,7 +35,7 @@ export const handleDeleteById = async ({ page, id }: IDeleteHandler) => {
             case "users":
                 response = await deleteUserById(Number(id));
                 break;
-            case "actors":
+            case "persons":
                 response = await deleteActorById(Number(id));
                 break;
             case "episodes":

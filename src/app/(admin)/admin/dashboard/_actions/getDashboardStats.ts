@@ -18,7 +18,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
             prisma.movie.count(),
             prisma.serie.count(),
             prisma.genre.count(),
-            prisma.actor.count(),
+            prisma.person.count(),
             prisma.episode.count(),
             prisma.season.count(),
             prisma.user.count(),
