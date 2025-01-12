@@ -11,20 +11,20 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import FormAdvanced from "@/components/admin/form/Form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Actor, Prisma } from "@prisma/client";
-import { addActor } from "@/actions/actor.actions";
-import { actorSchema } from "@/schemas/actor.schema";
+import { Person, Prisma } from "@prisma/client";
+import { addPerson } from "@/actions/person.actions";
+import { personSchema } from "@/schemas/person.schema";
 
-const AddActorAdminPage = () => {
+const AddPersonAdminPage = () => {
     const formRef = useRef<any>(null);
     const router = useRouter();
 
     const breadcrumbs = [
-        <Link key="1" href="/admin/actors" style={{ textDecoration: "none" }}>
-            Actors
+        <Link key="1" href="/admin/persons" style={{ textDecoration: "none" }}>
+            Persons
         </Link>,
-        <Link key="2" href="/admin/actors/create" style={{ textDecoration: "none" }}>
-            New Actor
+        <Link key="2" href="/admin/persons/create" style={{ textDecoration: "none" }}>
+            New Person
         </Link>,
     ];
 
@@ -35,7 +35,7 @@ const AddActorAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: Prisma.ActorCreateInput = {
+        const payload: Prisma.PersonCreateInput = {
             fullname: values.fullname,
             photoSrc: values.photoSrc,
             photoSrcProd: values.photoSrcProd,
@@ -44,26 +44,26 @@ const AddActorAdminPage = () => {
         };
 
         try {
-            const response: Actor | null = await addActor(payload);
+            const response: Person | null = await addPerson(payload);
 
             if (response) {
                 toast.success(CONSTANTS.ADD__SUCCESS);
-                router.push("/admin/actors");
+                router.push("/admin/persons");
             } else {
                 toast.error(CONSTANTS.ADD__FAILURE);
             }
         } catch (error) {
-            console.error("Error creating actor:", error);
+            console.error("Error creating person:", error);
             toast.error(CONSTANTS.ADD__FAILURE);
         }
     };
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/actors" />
-            <HeaderDashboard title="Actor" subtitle="Add an actor" />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/persons" />
+            <HeaderDashboard title="Person" subtitle="Add an person" />
             <FormAdvanced
-                schema={actorSchema}
+                schema={personSchema}
                 defaultValues={{
                     fullname: "",
                     photoSrc: "",
@@ -141,4 +141,4 @@ const AddActorAdminPage = () => {
     );
 };
 
-export default AddActorAdminPage;
+export default AddPersonAdminPage;

@@ -13,8 +13,7 @@ import {
     RemoveReviewSerieParams,
     RemoveReviewSeasonParams,
     RemoveReviewEpisodeParams,
-    RemoveReviewActorParams,
-    RemoveReviewCrewParams,
+    RemoveReviewPersonParams,
 } from "./user.actions";
 
 // #region "Reviews"
@@ -222,39 +221,39 @@ export const addReviewEpisode = async ({
     }
 };
 
-export const addReviewActor = async ({
+export const addReviewPerson = async ({
     content,
     createdAt = new Date(),
     rating,
     userId,
-    actorId,
-}: Prisma.ActorReviewCreateManyInput): Promise<void> => {
+    personId,
+}: Prisma.PersonReviewCreateManyInput): Promise<void> => {
     try {
-        const existingReview = await prisma.actorReview.findFirst({
+        const existingReview = await prisma.personReview.findFirst({
             where: {
                 userId,
-                actorId,
+                personId,
             },
         });
 
         if (!existingReview) {
-            const actor = await prisma.actor.findUnique({
+            const person = await prisma.person.findUnique({
                 where: {
-                    id: actorId,
+                    id: personId,
                 },
             });
 
-            if (!actor) {
-                throw new Error("Actor not found.");
+            if (!person) {
+                throw new Error("Person not found.");
             }
 
-            const reviewAdded = await prisma.actorReview.create({
+            const reviewAdded = await prisma.personReview.create({
                 data: {
                     content,
                     createdAt,
                     rating,
                     userId,
-                    actorId,
+                    personId,
                 },
             });
 
@@ -265,57 +264,7 @@ export const addReviewActor = async ({
                 throw new Error("Failed to add review.");
             }
         } else {
-            throw new Error("You have already reviewed this actor.");
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-};
-
-export const addReviewCrew = async ({
-    content,
-    createdAt = new Date(),
-    rating,
-    userId,
-    crewId,
-}: Prisma.CrewReviewCreateManyInput): Promise<void> => {
-    try {
-        const existingReview = await prisma.crewReview.findFirst({
-            where: {
-                userId,
-                crewId,
-            },
-        });
-
-        if (!existingReview) {
-            const crew = await prisma.crew.findUnique({
-                where: {
-                    id: crewId,
-                },
-            });
-
-            if (!crew) {
-                throw new Error("Crew not found.");
-            }
-
-            const reviewAdded = await prisma.crewReview.create({
-                data: {
-                    content,
-                    createdAt,
-                    rating,
-                    userId,
-                    crewId,
-                },
-            });
-
-            if (reviewAdded) {
-                const referer = getReferer();
-                revalidatePath(`${referer}`, "page");
-            } else {
-                throw new Error("Failed to add review.");
-            }
-        } else {
-            throw new Error("You have already reviewed this crew.");
+            throw new Error("You have already reviewed this person.");
         }
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
@@ -504,31 +453,31 @@ export const updateReviewEpisode = async ({
     }
 };
 
-export const updateReviewActor = async ({
+export const updateReviewPerson = async ({
     content,
     updatedAt = new Date(),
     rating,
     userId,
-    actorId,
-}: Prisma.ActorReviewCreateManyInput): Promise<void> => {
+    personId,
+}: Prisma.PersonReviewCreateManyInput): Promise<void> => {
     try {
-        const existingReview = await prisma.actorReview.findFirst({
+        const existingReview = await prisma.personReview.findFirst({
             where: {
-                AND: [{ userId }, { actorId }],
+                AND: [{ userId }, { personId }],
             },
             include: {
-                actor: true,
+                person: true,
             },
         });
 
         if (existingReview) {
-            const reviewUpdated = await prisma.actorReview.update({
+            const reviewUpdated = await prisma.personReview.update({
                 data: {
                     content,
                     updatedAt,
                     rating,
                     userId,
-                    actorId,
+                    personId,
                 },
                 where: {
                     id: existingReview.id,
@@ -542,52 +491,7 @@ export const updateReviewActor = async ({
                 throw new Error("Failed to update review.");
             }
         } else {
-            throw new Error("Actor not found.");
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-};
-
-export const updateReviewCrew = async ({
-    content,
-    updatedAt = new Date(),
-    rating,
-    userId,
-    crewId,
-}: Prisma.CrewReviewCreateManyInput): Promise<void> => {
-    try {
-        const existingReview = await prisma.crewReview.findFirst({
-            where: {
-                AND: [{ userId }, { crewId }],
-            },
-            include: {
-                crew: true,
-            },
-        });
-
-        if (existingReview) {
-            const reviewUpdated = await prisma.crewReview.update({
-                data: {
-                    content,
-                    updatedAt,
-                    rating,
-                    userId,
-                    crewId,
-                },
-                where: {
-                    id: existingReview.id,
-                },
-            });
-
-            if (reviewUpdated) {
-                const referer = getReferer();
-                revalidatePath(`${referer}`, "page");
-            } else {
-                throw new Error("Failed to update review.");
-            }
-        } else {
-            throw new Error("Crew not found.");
+            throw new Error("Person not found.");
         }
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
@@ -716,19 +620,19 @@ export const removeReviewEpisode = async ({ userId, episodeId }: RemoveReviewEpi
     }
 };
 
-export const removeReviewActor = async ({ userId, actorId }: RemoveReviewActorParams): Promise<void> => {
+export const removeReviewPerson = async ({ userId, personId }: RemoveReviewPersonParams): Promise<void> => {
     try {
-        const existingReview = await prisma.actorReview.findFirst({
+        const existingReview = await prisma.personReview.findFirst({
             where: {
-                AND: [{ userId }, { actorId }],
+                AND: [{ userId }, { personId }],
             },
             include: {
-                actor: true,
+                person: true,
             },
         });
 
         if (existingReview) {
-            const result = await prisma.actorReview.delete({
+            const result = await prisma.personReview.delete({
                 where: { id: existingReview.id },
             });
 
@@ -740,36 +644,6 @@ export const removeReviewActor = async ({ userId, actorId }: RemoveReviewActorPa
             }
         } else {
             throw new Error("Review not found.");
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-};
-
-export const removeReviewCrew = async ({ userId, crewId }: RemoveReviewCrewParams): Promise<void> => {
-    try {
-        const existingReview = await prisma.crewReview.findFirst({
-            where: {
-                AND: [{ userId }, { crewId }],
-            },
-            include: {
-                crew: true,
-            },
-        });
-
-        if (existingReview) {
-            const result = await prisma.crewReview.delete({
-                where: { id: existingReview.id },
-            });
-
-            if (result) {
-                const referer = getReferer();
-                revalidatePath(`${referer}`, "page");
-            } else {
-                throw new Error("Failed to delete review.");
-            }
-        } else {
-            throw new Error("Crew not found.");
         }
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");

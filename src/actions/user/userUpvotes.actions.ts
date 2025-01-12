@@ -8,8 +8,7 @@ import {
     VoteSerieReviewParams,
     VoteSeasonReviewParams,
     VoteEpisodeReviewParams,
-    VoteActorReviewParams,
-    VoteCrewReviewParams,
+    VotePersonReviewParams,
 } from "./user.actions";
 
 // #region "Upvotes"
@@ -141,20 +140,20 @@ export async function addUpvoteEpisodeReview({
     }
 }
 
-export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: VoteActorReviewParams): Promise<any> {
+export async function addUpvotePersonReview({ userId, personId, personReviewId }: VotePersonReviewParams): Promise<any> {
     try {
-        const existingUpvoteActorReview = await prisma.upvoteActorReview.findFirst({
+        const existingUpvotePersonReview = await prisma.upvotePersonReview.findFirst({
             where: {
-                AND: [{ userId }, { actorId }, { actorReviewId }],
+                AND: [{ userId }, { personId }, { personReviewId }],
             },
         });
 
-        if (!existingUpvoteActorReview) {
-            const upvoteAdded = await prisma.upvoteActorReview.create({
+        if (!existingUpvotePersonReview) {
+            const upvoteAdded = await prisma.upvotePersonReview.create({
                 data: {
                     userId,
-                    actorId,
-                    actorReviewId,
+                    personId,
+                    personReviewId,
                 },
             });
 
@@ -162,36 +161,7 @@ export async function addUpvoteActorReview({ userId, actorId, actorReviewId }: V
                 const referer = await getReferer();
                 revalidatePath(referer);
             } else {
-                throw new Error("Failed to upvote actor");
-            }
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function addUpvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
-    try {
-        const existingUpvoteCrewReview = await prisma.upvoteCrewReview.findFirst({
-            where: {
-                AND: [{ userId }, { crewId }, { crewReviewId }],
-            },
-        });
-
-        if (!existingUpvoteCrewReview) {
-            const upvoteAdded = await prisma.upvoteCrewReview.create({
-                data: {
-                    userId,
-                    crewId,
-                    crewReviewId,
-                },
-            });
-
-            if (upvoteAdded) {
-                const referer = await getReferer();
-                revalidatePath(referer);
-            } else {
-                throw new Error("Failed to upvote crew");
+                throw new Error("Failed to upvote person");
             }
         }
     } catch (error) {
@@ -309,16 +279,16 @@ export async function removeUpvoteEpisodeReview({
     }
 }
 
-export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }: VoteActorReviewParams): Promise<any> {
+export async function removeUpvotePersonReview({ userId, personId, personReviewId }: VotePersonReviewParams): Promise<any> {
     try {
-        const existingUpvote = await prisma.upvoteActorReview.findFirst({
+        const existingUpvote = await prisma.upvotePersonReview.findFirst({
             where: {
-                AND: [{ userId }, { actorReviewId }, { actorId }],
+                AND: [{ userId }, { personReviewId }, { personId }],
             },
         });
 
         if (existingUpvote) {
-            const result = await prisma.upvoteActorReview.delete({
+            const result = await prisma.upvotePersonReview.delete({
                 where: { id: existingUpvote.id },
             });
 
@@ -326,32 +296,7 @@ export async function removeUpvoteActorReview({ userId, actorId, actorReviewId }
                 const referer = await getReferer();
                 revalidatePath(referer);
             } else {
-                throw new Error("Failed to remove upvote actor");
-            }
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function removeUpvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
-    try {
-        const existingUpvote = await prisma.upvoteCrewReview.findFirst({
-            where: {
-                AND: [{ userId }, { crewReviewId }, { crewId }],
-            },
-        });
-
-        if (existingUpvote) {
-            const result = await prisma.upvoteCrewReview.delete({
-                where: { id: existingUpvote.id },
-            });
-
-            if (result) {
-                const referer = await getReferer();
-                revalidatePath(referer);
-            } else {
-                throw new Error("Failed to remove upvote crew");
+                throw new Error("Failed to remove upvote person");
             }
         }
     } catch (error) {

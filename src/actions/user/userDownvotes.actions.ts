@@ -8,8 +8,7 @@ import {
     VoteSerieReviewParams,
     VoteSeasonReviewParams,
     VoteEpisodeReviewParams,
-    VoteActorReviewParams,
-    VoteCrewReviewParams,
+    VotePersonReviewParams,
 } from "./user.actions";
 
 // #region "Downvotes"
@@ -141,20 +140,20 @@ export async function addDownvoteEpisodeReview({
     }
 }
 
-export async function addDownvoteActorReview({ userId, actorId, actorReviewId }: VoteActorReviewParams): Promise<any> {
+export async function addDownvotePersonReview({ userId, personId, personReviewId }: VotePersonReviewParams): Promise<any> {
     try {
-        const existingDownvoteActorReview = await prisma.downvoteActorReview.findFirst({
+        const existingDownvotePersonReview = await prisma.downvotePersonReview.findFirst({
             where: {
-                AND: [{ userId }, { actorId }, { actorReviewId }],
+                AND: [{ userId }, { personId }, { personReviewId }],
             },
         });
 
-        if (!existingDownvoteActorReview) {
-            const downvoteAdded = await prisma.downvoteActorReview.create({
+        if (!existingDownvotePersonReview) {
+            const downvoteAdded = await prisma.downvotePersonReview.create({
                 data: {
                     userId,
-                    actorId,
-                    actorReviewId,
+                    personId,
+                    personReviewId,
                 },
             });
 
@@ -162,36 +161,7 @@ export async function addDownvoteActorReview({ userId, actorId, actorReviewId }:
                 const referer = await getReferer();
                 revalidatePath(referer);
             } else {
-                throw new Error("Failed to downvote actor");
-            }
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function addDownvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
-    try {
-        const existingDownvoteCrewReview = await prisma.downvoteCrewReview.findFirst({
-            where: {
-                AND: [{ userId }, { crewId }, { crewReviewId }],
-            },
-        });
-
-        if (!existingDownvoteCrewReview) {
-            const downvoteAdded = await prisma.downvoteCrewReview.create({
-                data: {
-                    userId,
-                    crewId,
-                    crewReviewId,
-                },
-            });
-
-            if (downvoteAdded) {
-                const referer = await getReferer();
-                revalidatePath(referer);
-            } else {
-                throw new Error("Failed to downvote crew");
+                throw new Error("Failed to downvote person");
             }
         }
     } catch (error) {
@@ -317,20 +287,20 @@ export async function removeDownvoteEpisodeReview({
     }
 }
 
-export async function removeDownvoteActorReview({
+export async function removeDownvotePersonReview({
     userId,
-    actorId,
-    actorReviewId,
-}: VoteActorReviewParams): Promise<any> {
+    personId,
+    personReviewId,
+}: VotePersonReviewParams): Promise<any> {
     try {
-        const existingDownvote = await prisma.downvoteActorReview.findFirst({
+        const existingDownvote = await prisma.downvotePersonReview.findFirst({
             where: {
-                AND: [{ userId }, { actorReviewId }, { actorId }],
+                AND: [{ userId }, { personReviewId }, { personId }],
             },
         });
 
         if (existingDownvote) {
-            const result = await prisma.downvoteActorReview.delete({
+            const result = await prisma.downvotePersonReview.delete({
                 where: { id: existingDownvote.id },
             });
 
@@ -338,32 +308,7 @@ export async function removeDownvoteActorReview({
                 const referer = await getReferer();
                 revalidatePath(referer);
             } else {
-                throw new Error("Failed to remove downvote actor");
-            }
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function removeDownvoteCrewReview({ userId, crewId, crewReviewId }: VoteCrewReviewParams): Promise<any> {
-    try {
-        const existingDownvote = await prisma.downvoteCrewReview.findFirst({
-            where: {
-                AND: [{ userId }, { crewReviewId }, { crewId }],
-            },
-        });
-
-        if (existingDownvote) {
-            const result = await prisma.downvoteCrewReview.delete({
-                where: { id: existingDownvote.id },
-            });
-
-            if (result) {
-                const referer = await getReferer();
-                revalidatePath(referer);
-            } else {
-                throw new Error("Failed to remove downvote crew");
+                throw new Error("Failed to remove downvote person");
             }
         }
     } catch (error) {

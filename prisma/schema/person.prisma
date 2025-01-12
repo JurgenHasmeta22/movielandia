@@ -7,8 +7,8 @@ model Person {
     photoSrcProd          String                 @default("")
     description           String                 @default("")
     debut                 String                 @default("")
-    producedMovies        PersonMovie[]
-    producedSeries        PersonSerie[]
+    partInMovies          PersonMovie[]
+    partInSeries          PersonSerie[]
     reviews               PersonReview[]
     usersWhoRatedIt       UserPersonRating[]
     usersWhoBookmarkedIt  UserPersonFavorite[]

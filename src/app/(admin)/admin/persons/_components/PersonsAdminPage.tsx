@@ -6,24 +6,24 @@ import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard"
 import { useRouter } from "next/navigation";
 import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 
-const ActorsAdminPage = () => {
+const PersonsAdminPage = () => {
     const router = useRouter();
 
-    function handleAddActor() {
-        router.push("/admin/actors/create");
+    function handleAddPerson() {
+        router.push("/admin/persons/create");
     }
 
     const { table } = TableAdmin({
-        page: "actors",
-        handleAddItem: handleAddActor,
+        page: "persons",
+        handleAddItem: handleAddPerson,
     });
 
     return (
         <Box m="20px">
-            <HeaderDashboard title="Actors" subtitle="List of actors" />
+            <HeaderDashboard title="Persons" subtitle="List of persons" />
             <MaterialReactTable table={table} />
         </Box>
     );
 };
 
-export default ActorsAdminPage;
+export default PersonsAdminPage;

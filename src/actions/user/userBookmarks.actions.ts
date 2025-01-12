@@ -155,74 +155,37 @@ export async function addFavoriteEpisodeToUser(userId: number, episodeId: number
     }
 }
 
-export async function addFavoriteActorToUser(userId: number, actorId: number): Promise<void> {
+export async function addFavoritePersonToUser(userId: number, personId: number): Promise<void> {
     try {
-        const existingFavorite = await prisma.userActorFavorite.findFirst({
+        const existingFavorite = await prisma.userPersonFavorite.findFirst({
             where: {
-                AND: [{ userId }, { actorId }],
+                AND: [{ userId }, { personId }],
             },
         });
 
         if (existingFavorite) {
-            throw new Error("This actor is already in your favorites.");
+            throw new Error("This person is already in your favorites.");
         }
 
-        const actor = await prisma.actor.findUnique({
+        const person = await prisma.person.findUnique({
             where: {
-                id: actorId,
+                id: personId,
             },
         });
 
-        if (!actor) {
-            throw new Error("Actor not found.");
+        if (!person) {
+            throw new Error("Person not found.");
         }
 
-        const result = await prisma.userActorFavorite.create({
-            data: { userId, actorId },
+        const result = await prisma.userPersonFavorite.create({
+            data: { userId, personId },
         });
 
         if (result) {
             const referer = getReferer();
             revalidatePath(`${referer}`, "page");
         } else {
-            throw new Error("Failed to add actor to favorites.");
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function addFavoriteCrewToUser(userId: number, crewId: number): Promise<void> {
-    try {
-        const existingFavorite = await prisma.userCrewFavorite.findFirst({
-            where: {
-                AND: [{ userId }, { crewId }],
-            },
-        });
-
-        if (existingFavorite) {
-            throw new Error("This crew is already in your favorites.");
-        }
-
-        const crew = await prisma.crew.findUnique({
-            where: {
-                id: crewId,
-            },
-        });
-
-        if (!crew) {
-            throw new Error("crew not found.");
-        }
-
-        const result = await prisma.userCrewFavorite.create({
-            data: { userId, crewId },
-        });
-
-        if (result) {
-            const referer = getReferer();
-            revalidatePath(`${referer}`, "page");
-        } else {
-            throw new Error("Failed to add crew to favorites.");
+            throw new Error("Failed to add person to favorites.");
         }
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
@@ -367,68 +330,34 @@ export async function removeFavoriteEpisodeToUser(userId: number, episodeId: num
     }
 }
 
-export async function removeFavoriteActorToUser(userId: number, actorId: number, pathFrom?: string): Promise<void> {
+export async function removeFavoritePersonToUser(userId: number, personId: number, pathFrom?: string): Promise<void> {
     try {
-        const existingFavorite = await prisma.userActorFavorite.findFirst({
+        const existingFavorite = await prisma.userPersonFavorite.findFirst({
             where: {
-                AND: [{ userId }, { actorId }],
+                AND: [{ userId }, { personId }],
             },
             include: {
-                actor: true,
+                person: true,
             },
         });
 
         if (!existingFavorite) {
-            throw new Error("Favorite actor not found.");
+            throw new Error("Favorite person not found.");
         }
 
-        const result = await prisma.userActorFavorite.delete({
+        const result = await prisma.userPersonFavorite.delete({
             where: { id: existingFavorite.id },
         });
 
         if (result) {
-            if (pathFrom && pathFrom === "/profile?tab=favActors") {
-                revalidatePath("/profile?tab=favActors");
+            if (pathFrom && pathFrom === "/profile?tab=favPersons") {
+                revalidatePath("/profile?tab=favPersons");
             } else {
                 const referer = getReferer();
                 revalidatePath(`${referer}`, "page");
             }
         } else {
-            throw new Error("Failed to remove actor from favorites.");
-        }
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function removeFavoriteCrewToUser(userId: number, crewId: number, pathFrom?: string): Promise<void> {
-    try {
-        const existingFavorite = await prisma.userCrewFavorite.findFirst({
-            where: {
-                AND: [{ userId }, { crewId }],
-            },
-            include: {
-                crew: true,
-            },
-        });
-
-        if (!existingFavorite) {
-            throw new Error("Favorite crew not found.");
-        }
-
-        const result = await prisma.userCrewFavorite.delete({
-            where: { id: existingFavorite.id },
-        });
-
-        if (result) {
-            if (pathFrom && pathFrom === "/profile?tab=favCrew") {
-                revalidatePath("/profile?tab=favCrew");
-            } else {
-                const referer = getReferer();
-                revalidatePath(`${referer}`, "page");
-            }
-        } else {
-            throw new Error("Failed to remove crew from favorites.");
+            throw new Error("Failed to remove person from favorites.");
         }
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");

@@ -1,11 +1,11 @@
 "use server";
 
-import { Actor, Prisma } from "@prisma/client";
+import { Person, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
 import { FilterOperator } from "@/types/filterOperators";
 
-interface ActorModelParams {
+interface PersonModelParams {
     sortBy?: string;
     ascOrDesc?: string;
     perPage?: number;
@@ -17,7 +17,7 @@ interface ActorModelParams {
 }
 
 // #region "GET Methods"
-export async function getActorsWithFilters(
+export async function getPersonsWithFilters(
     {
         sortBy,
         ascOrDesc,
@@ -27,7 +27,7 @@ export async function getActorsWithFilters(
         filterValue,
         filterNameString,
         filterOperatorString,
-    }: ActorModelParams,
+    }: PersonModelParams,
     userId?: number,
 ): Promise<any | null> {
     const filters: any = {};
@@ -49,18 +49,18 @@ export async function getActorsWithFilters(
 
     orderByObject[sortBy || "fullname"] = ascOrDesc || "asc";
 
-    const actors = await prisma.actor.findMany({
+    const persons = await prisma.person.findMany({
         where: filters,
         orderBy: orderByObject,
         skip,
         take,
     });
 
-    const actorIds = actors.map((actor: Actor) => actor.id);
+    const personIds = persons.map((person: Person) => person.id);
 
-    const actorRatings = await prisma.actorReview.groupBy({
-        by: ["actorId"],
-        where: { actorId: { in: actorIds } },
+    const personRatings = await prisma.personReview.groupBy({
+        by: ["personId"],
+        where: { personId: { in: personIds } },
         _avg: {
             rating: true,
         },
@@ -69,8 +69,8 @@ export async function getActorsWithFilters(
         },
     });
 
-    const actorRatingsMap: RatingsMap = actorRatings.reduce((map, rating) => {
-        map[rating.actorId] = {
+    const personRatingsMap: RatingsMap = personRatings.reduce((map, rating) => {
+        map[rating.personId] = {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
@@ -78,48 +78,48 @@ export async function getActorsWithFilters(
         return map;
     }, {} as RatingsMap);
 
-    const actorsFinal = await Promise.all(
-        actors.map(async (actor) => {
-            const { ...properties } = actor;
+    const personsFinal = await Promise.all(
+        persons.map(async (person) => {
+            const { ...properties } = person;
 
             let isBookmarked = false;
 
             if (userId) {
-                const existingFavorite = await prisma.userActorFavorite.findFirst({
+                const existingFavorite = await prisma.userPersonFavorite.findFirst({
                     where: {
-                        AND: [{ userId }, { actorId: actor.id }],
+                        AND: [{ userId }, { personId: person.id }],
                     },
                 });
 
                 isBookmarked = !!existingFavorite;
             }
 
-            const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+            const ratingsInfo = personRatingsMap[person.id] || { averageRating: 0, totalReviews: 0 };
 
             return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
         }),
     );
 
-    const actorsCount = await prisma.actor.count();
+    const personsCount = await prisma.person.count();
 
-    if (actorsFinal) {
-        return { actors: actorsFinal, count: actorsCount };
+    if (personsFinal) {
+        return { persons: personsFinal, count: personsCount };
     } else {
         return null;
     }
 }
 
-export async function getActors(): Promise<any | null> {
-    const actorsAll = await prisma.actor.findMany();
+export async function getPersons(): Promise<any | null> {
+    const personsAll = await prisma.person.findMany();
 
-    if (actorsAll) {
-        return actorsAll;
+    if (personsAll) {
+        return personsAll;
     } else {
         return null;
     }
 }
 
-export async function getActorById(actorId: number, queryParams: any): Promise<Actor | any | null> {
+export async function getPersonById(personId: number, queryParams: any): Promise<Person | any | null> {
     const {
         reviewsPage,
         reviewsAscOrDesc,
@@ -142,17 +142,17 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
     }
 
     try {
-        const actor = await prisma.actor.findFirst({
+        const person = await prisma.person.findFirst({
             where: {
-                id: actorId,
+                id: personId,
             },
             include: {
-                starredMovies: {
+                partInMovies: {
                     include: { movie: true },
                     skip: starredMoviesPage ? (starredMoviesPage - 1) * 6 : 0,
                     take: 6,
                 },
-                starredSeries: {
+                partInSeries: {
                     include: { serie: true },
                     skip: starredSeriesPage ? (starredSeriesPage - 1) * 6 : 0,
                     take: 6,
@@ -182,13 +182,13 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
             },
         });
 
-        if (actor) {
-            const totalReviews = await prisma.actorReview.count({
-                where: { actorId: actor.id },
+        if (person) {
+            const totalReviews = await prisma.personReview.count({
+                where: { personId: person.id },
             });
 
-            const ratings = await prisma.actorReview.findMany({
-                where: { actorId: actor.id },
+            const ratings = await prisma.personReview.findMany({
+                where: { personId: person.id },
                 select: { rating: true },
             });
 
@@ -199,48 +199,48 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
             let isReviewed = false;
 
             if (userId) {
-                for (const review of actor.reviews) {
-                    const existingUpvote = await prisma.upvoteActorReview.findFirst({
+                for (const review of person.reviews) {
+                    const existingUpvote = await prisma.upvotePersonReview.findFirst({
                         where: {
-                            AND: [{ userId }, { actorId: actor.id }, { actorReviewId: review.id }],
+                            AND: [{ userId }, { personId: person.id }, { personReviewId: review.id }],
                         },
                     });
 
-                    const existingDownvote = await prisma.downvoteActorReview.findFirst({
+                    const existingDownvote = await prisma.downvotePersonReview.findFirst({
                         where: {
-                            AND: [{ userId }, { actorId: actor.id }, { actorReviewId: review.id }],
+                            AND: [{ userId }, { personId: person.id }, { personReviewId: review.id }],
                         },
                     });
 
-                    // @ts-expect-error type
+                    // @ts-expect-error Type
                     review.isUpvoted = !!existingUpvote;
 
-                    // @ts-expect-error type
+                    // @ts-expect-error Type
                     review.isDownvoted = !!existingDownvote;
                 }
 
-                const existingFavorite = await prisma.userActorFavorite.findFirst({
+                const existingFavorite = await prisma.userPersonFavorite.findFirst({
                     where: {
-                        AND: [{ userId }, { actorId: actor.id }],
+                        AND: [{ userId }, { personId: person.id }],
                     },
                 });
                 isBookmarked = !!existingFavorite;
 
-                const existingReview = await prisma.actorReview.findFirst({
+                const existingReview = await prisma.personReview.findFirst({
                     where: {
-                        AND: [{ userId }, { actorId: actor.id }],
+                        AND: [{ userId }, { personId: person.id }],
                     },
                 });
                 isReviewed = !!existingReview;
             }
 
             const [totalMovies, totalSeries] = await Promise.all([
-                prisma.castMovie.count({ where: { actorId: actor.id } }),
-                prisma.castSerie.count({ where: { actorId: actor.id } }),
+                prisma.personMovie.count({ where: { personId: person.id } }),
+                prisma.personSerie.count({ where: { personId: person.id } }),
             ]);
 
             return {
-                ...actor,
+                ...person,
                 averageRating,
                 totalReviews,
                 totalMovies,
@@ -248,28 +248,28 @@ export async function getActorById(actorId: number, queryParams: any): Promise<A
                 ...(userId && { isBookmarked, isReviewed }),
             };
         } else {
-            return "Actor not found";
+            return "Person not found";
         }
     } catch (error) {
-        throw new Error("Actor not found");
+        throw new Error("Person not found");
     }
 }
 // #endregion
 
 // #region "Other Methods UPDATE, CREATE, DELETE, and SEARCH"
-export async function updateActorById(actorParam: Prisma.ActorUpdateInput, id: string): Promise<Actor | null> {
-    const actor: Actor | null = await prisma.actor.findUnique({
+export async function updatePersonById(personParam: Prisma.PersonUpdateInput, id: string): Promise<Person | null> {
+    const person: Person | null = await prisma.person.findUnique({
         where: { id: Number(id) },
     });
 
-    if (actor) {
-        const actorUpdated = await prisma.actor.update({
+    if (person) {
+        const personUpdated = await prisma.person.update({
             where: { id: Number(id) },
-            data: actorParam,
+            data: personParam,
         });
 
-        if (actorUpdated) {
-            return actorUpdated;
+        if (personUpdated) {
+            return personUpdated;
         } else {
             return null;
         }
@@ -278,35 +278,35 @@ export async function updateActorById(actorParam: Prisma.ActorUpdateInput, id: s
     }
 }
 
-export async function addActor(actorParam: Prisma.ActorCreateInput): Promise<Actor | null> {
+export async function addPerson(personParam: Prisma.PersonCreateInput): Promise<Person | null> {
     try {
-        const actorCreated = await prisma.actor.create({
-            data: actorParam,
+        const personCreated = await prisma.person.create({
+            data: personParam,
         });
 
-        if (actorCreated) {
-            return actorCreated;
+        if (personCreated) {
+            return personCreated;
         }
     } catch (error) {
-        console.error("Error creating actor:", error);
+        console.error("Error creating person:", error);
         return null;
     }
 
     return null;
 }
 
-export async function deleteActorById(id: number): Promise<string | null> {
-    const actor: Actor | null = await prisma.actor.findUnique({
+export async function deletePersonById(id: number): Promise<string | null> {
+    const person: Person | null = await prisma.person.findUnique({
         where: { id },
     });
 
-    if (actor) {
-        const result = await prisma.actor.delete({
+    if (person) {
+        const result = await prisma.person.delete({
             where: { id },
         });
 
         if (result) {
-            return "Actor deleted successfully";
+            return "Person deleted successfully";
         } else {
             return null;
         }
@@ -315,13 +315,13 @@ export async function deleteActorById(id: number): Promise<string | null> {
     }
 }
 
-export async function searchActorsByTitle(fullname: string, queryParams: any, userId?: number): Promise<any | null> {
+export async function searchPersonsByTitle(fullname: string, queryParams: any, userId?: number): Promise<any | null> {
     const { page, ascOrDesc, sortBy } = queryParams;
     const orderByObject: any = {};
 
     orderByObject[sortBy || "fullname"] = ascOrDesc || "asc";
 
-    const actors = await prisma.actor.findMany({
+    const persons = await prisma.person.findMany({
         where: {
             fullname: { contains: fullname, mode: "insensitive" },
         },
@@ -330,11 +330,11 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
         take: 12,
     });
 
-    const actorIds = actors.map((actor: Actor) => actor.id);
+    const personIds = persons.map((person: Person) => person.id);
 
-    const actorRatings = await prisma.actorReview.groupBy({
-        by: ["actorId"],
-        where: { actorId: { in: actorIds } },
+    const personRatings = await prisma.personReview.groupBy({
+        by: ["personId"],
+        where: { personId: { in: personIds } },
         _avg: {
             rating: true,
         },
@@ -343,8 +343,8 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
         },
     });
 
-    const actorRatingsMap: RatingsMap = actorRatings.reduce((map, rating) => {
-        map[rating.actorId] = {
+    const personRatingsMap: RatingsMap = personRatings.reduce((map, rating) => {
+        map[rating.personId] = {
             averageRating: rating._avg.rating || 0,
             totalReviews: rating._count.rating,
         };
@@ -352,36 +352,36 @@ export async function searchActorsByTitle(fullname: string, queryParams: any, us
         return map;
     }, {} as RatingsMap);
 
-    const actorsFinal = await Promise.all(
-        actors.map(async (actor) => {
-            const { ...properties } = actor;
+    const personsFinal = await Promise.all(
+        persons.map(async (person) => {
+            const { ...properties } = person;
 
             let isBookmarked = false;
 
             if (userId) {
-                const existingFavorite = await prisma.userActorFavorite.findFirst({
+                const existingFavorite = await prisma.userPersonFavorite.findFirst({
                     where: {
-                        AND: [{ userId }, { actorId: actor.id }],
+                        AND: [{ userId }, { personId: person.id }],
                     },
                 });
 
                 isBookmarked = !!existingFavorite;
             }
 
-            const ratingsInfo = actorRatingsMap[actor.id] || { averageRating: 0, totalReviews: 0 };
+            const ratingsInfo = personRatingsMap[person.id] || { averageRating: 0, totalReviews: 0 };
 
             return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
         }),
     );
 
-    const count = await prisma.actor.count({
+    const count = await prisma.person.count({
         where: {
             fullname: { contains: fullname, mode: "insensitive" },
         },
     });
 
-    if (actors) {
-        return { actors: actorsFinal, count };
+    if (persons) {
+        return { persons: personsFinal, count };
     } else {
         return null;
     }

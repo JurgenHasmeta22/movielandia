@@ -14,12 +14,12 @@ import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
-import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
-import { removeDownvoteActorReview, addDownvoteActorReview } from "@/actions/user/userDownvotes.actions";
-import { addReviewActor, removeReviewActor, updateReviewActor } from "@/actions/user/userReviews.actions";
-import { removeUpvoteActorReview, addUpvoteActorReview } from "@/actions/user/userUpvotes.actions";
+import { onBookmarkPerson, onRemoveBookmarkPerson } from "@/utils/features/personFeaturesUtils";
+import { removeDownvotePersonReview, addDownvotePersonReview } from "@/actions/user/userDownvotes.actions";
+import { addReviewPerson, removeReviewPerson, updateReviewPerson } from "@/actions/user/userReviews.actions";
+import { removeUpvotePersonReview, addUpvotePersonReview } from "@/actions/user/userUpvotes.actions";
 
-interface IActorPageContentProps {
+interface IPersonPageContentProps {
     searchParamsValues: {
         reviewsAscOrDesc: string | undefined;
         reviewsPage: number;
@@ -27,19 +27,19 @@ interface IActorPageContentProps {
         starredMoviesPage: number;
         starredSeriesPage: number;
     };
-    actor: any;
+    person: any;
     reviewsPageCount: number;
     starredMoviesPageCount: number;
     starredSeriesPageCount: number;
 }
 
-export default function ActorPageContent({
+export default function PersonPageContent({
     searchParamsValues,
-    actor,
+    person,
     reviewsPageCount,
     starredMoviesPageCount,
     starredSeriesPageCount,
-}: IActorPageContentProps) {
+}: IPersonPageContentProps) {
     // #region "Data for the page"
     const {
         session,
@@ -62,11 +62,11 @@ export default function ActorPageContent({
 
     // #region "Review"
     async function onSubmitReview() {
-        if (!session?.user || !actor) return;
+        if (!session?.user || !person) return;
 
         try {
-            await addReviewActor({
-                actorId: actor.id,
+            await addReviewPerson({
+                personId: person.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -85,7 +85,7 @@ export default function ActorPageContent({
     }
 
     async function onSubmitRemoveReview() {
-        if (!session?.user || !actor) return;
+        if (!session?.user || !person) return;
 
         openModal({
             onClose: () => setOpen(false),
@@ -105,8 +105,8 @@ export default function ActorPageContent({
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            await removeReviewActor({
-                                actorId: actor.id,
+                            await removeReviewPerson({
+                                personId: person.id,
                                 userId: Number(session?.user?.id),
                             });
 
@@ -134,11 +134,11 @@ export default function ActorPageContent({
     }
 
     async function onSubmitUpdateReview() {
-        if (!session?.user || !actor) return;
+        if (!session?.user || !person) return;
 
         try {
-            await updateReviewActor({
-                actorId: actor.id,
+            await updateReviewPerson({
+                personId: person.id,
                 userId: Number(session?.user?.id),
                 content: review,
                 rating: rating ? rating : 0,
@@ -160,66 +160,66 @@ export default function ActorPageContent({
     // #endregion
 
     // #region "Upvote, Downvote"
-    async function onUpvoteActor(actorReviewId: number, isAlreadyUpvoted: boolean) {
-        if (!session?.user || !actorReviewId) return;
+    async function onUpvotePerson(personReviewId: number, isAlreadyUpvoted: boolean) {
+        if (!session?.user || !personReviewId) return;
 
         try {
             if (isAlreadyUpvoted) {
-                await removeUpvoteActorReview({
+                await removeUpvotePersonReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor.id,
-                    actorReviewId,
+                    personId: person.id,
+                    personReviewId,
                 });
             } else {
-                await removeDownvoteActorReview({
+                await removeDownvotePersonReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor.id,
-                    actorReviewId,
+                    personId: person.id,
+                    personReviewId,
                 });
 
-                await addUpvoteActorReview({
+                await addUpvotePersonReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor.id,
-                    actorReviewId,
+                    personId: person.id,
+                    personReviewId,
                 });
             }
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
-                showToast("error", "An unexpected error occurred while upvoting the actor.");
+                showToast("error", "An unexpected error occurred while upvoting the person.");
             }
         }
     }
 
-    async function onDownVoteActor(actorReviewId: number, isAlreadyDownvoted: boolean) {
-        if (!session?.user || (!actor && !actorReviewId)) return;
+    async function onDownVotePerson(personReviewId: number, isAlreadyDownvoted: boolean) {
+        if (!session?.user || (!person && !personReviewId)) return;
 
         try {
             if (isAlreadyDownvoted) {
-                await removeDownvoteActorReview({
+                await removeDownvotePersonReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor.id,
-                    actorReviewId,
+                    personId: person.id,
+                    personReviewId,
                 });
             } else {
-                await removeUpvoteActorReview({
+                await removeUpvotePersonReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor.id,
-                    actorReviewId,
+                    personId: person.id,
+                    personReviewId,
                 });
 
-                await addDownvoteActorReview({
+                await addDownvotePersonReview({
                     userId: Number(session?.user?.id),
-                    actorId: actor.id,
-                    actorReviewId,
+                    personId: person.id,
+                    personReviewId,
                 });
             }
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
             } else {
-                showToast("error", "An unexpected error occurred while downvoting the actor.");
+                showToast("error", "An unexpected error occurred while downvoting the person.");
             }
         }
     }
@@ -250,11 +250,11 @@ export default function ActorPageContent({
     return (
         <Stack flexDirection={"column"} rowGap={4}>
             <DetailsPageCard
-                data={actor}
-                type="actor"
-                isBookmarked={actor.isBookmarked}
-                onBookmark={() => onBookmarkActor(session!, actor)}
-                onRemoveBookmark={() => onRemoveBookmarkActor(session!, actor)}
+                data={person}
+                type="person"
+                isBookmarked={person.isBookmarked}
+                onBookmark={() => onBookmarkPerson(session!, person)}
+                onRemoveBookmark={() => onRemoveBookmarkPerson(session!, person)}
             />
             <Box
                 sx={{
@@ -307,7 +307,7 @@ export default function ActorPageContent({
                             }}
                         >
                             Reviews
-                            {actor.totalReviews >= 0 && (
+                            {person.totalReviews >= 0 && (
                                 <Typography
                                     component="span"
                                     sx={{
@@ -318,7 +318,7 @@ export default function ActorPageContent({
                                         borderRadius: "16px",
                                     }}
                                 >
-                                    ({actor.totalReviews ? actor.totalReviews : 0})
+                                    ({person.totalReviews ? person.totalReviews : 0})
                                 </Typography>
                             )}
                         </Typography>
@@ -337,9 +337,9 @@ export default function ActorPageContent({
                                 rowGap: 2,
                             }}
                         >
-                            {actor.reviews!.length > 0 ? (
+                            {person.reviews!.length > 0 ? (
                                 <ReviewsHeader
-                                    data={actor}
+                                    data={person}
                                     sortBy={searchParamsValues.reviewsSortBy!}
                                     ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
                                     sortingDataType="reviews"
@@ -352,10 +352,10 @@ export default function ActorPageContent({
                                         color: theme.vars.palette.text.secondary,
                                     }}
                                 >
-                                    No reviews yet. Be the first to review this actor!
+                                    No reviews yet. Be the first to review this person!
                                 </Typography>
                             )}
-                            {actor.reviews.map(
+                            {person.reviews.map(
                                 (review: any, index: number) =>
                                     (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
                                         <Review
@@ -368,14 +368,14 @@ export default function ActorPageContent({
                                             handleFocusTextEditor={handleFocusTextEditor}
                                             ref={reviewRef}
                                             setRating={setRating}
-                                            handleUpvote={onUpvoteActor}
-                                            handleDownvote={onDownVoteActor}
-                                            type="actor"
-                                            data={actor}
+                                            handleUpvote={onUpvotePerson}
+                                            handleDownvote={onDownVotePerson}
+                                            type="person"
+                                            data={person}
                                         />
                                     ),
                             )}
-                            {session?.user && (!actor.isReviewed || isEditMode) && (
+                            {session?.user && (!person.isReviewed || isEditMode) && (
                                 <TextEditorForm
                                     review={review}
                                     setReview={setReview}
@@ -390,7 +390,7 @@ export default function ActorPageContent({
                                     onSubmitUpdateReview={onSubmitUpdateReview}
                                 />
                             )}
-                            {actor.totalReviews > 0 && (
+                            {person.totalReviews > 0 && (
                                 <PaginationControl
                                     currentPage={Number(searchParamsValues.reviewsPage)}
                                     pageCount={reviewsPageCount}
@@ -402,7 +402,7 @@ export default function ActorPageContent({
                 </Accordion>
             </Box>
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                <ListDetail data={actor.starredMovies} type="actor" roleData="Movies" />
+                <ListDetail data={person.starredMovies} type="person" roleData="Movies" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.starredMoviesPage)}
                     pageCount={starredMoviesPageCount}
@@ -410,7 +410,7 @@ export default function ActorPageContent({
                 />
             </Box>
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
-                <ListDetail data={actor.starredSeries} type="actor" roleData="Series" />
+                <ListDetail data={person.starredSeries} type="person" roleData="Series" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.starredSeriesPage)}
                     pageCount={starredSeriesPageCount}

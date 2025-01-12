@@ -9,18 +9,18 @@ import { toast } from "react-toastify";
 import * as CONSTANTS from "@/constants/Constants";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
-import { Actor, Prisma } from "@prisma/client";
+import { Person, Prisma } from "@prisma/client";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/form/Form";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useParams, useRouter } from "next/navigation";
-import { deleteActorById, getActorById, updateActorById } from "@/actions/actor.actions";
+import { deletePersonById, getPersonById, updatePersonById } from "@/actions/person.actions";
 import Link from "next/link";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-import { actorSchema } from "@/schemas/actor.schema";
+import { personSchema } from "@/schemas/person.schema";
 
-const ActorAdminPage = () => {
-    const [actor, setActor] = useState<Actor | null>(null);
+const PersonAdminPage = () => {
+    const [person, setPerson] = useState<Person | null>(null);
     const [formData, setFormData] = useState<any>({});
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(false);
@@ -31,11 +31,11 @@ const ActorAdminPage = () => {
     const formRef = useRef<any>(null);
 
     const breadcrumbs = [
-        <Link key="1" href="/admin/actors" style={{ textDecoration: "none" }}>
-            Actors
+        <Link key="1" href="/admin/persons" style={{ textDecoration: "none" }}>
+            Persons
         </Link>,
-        <Link key="2" href={`/admin/actors/${params?.id}`} style={{ textDecoration: "none" }}>
-            {actor?.fullname || `Actor ${params?.id}`}
+        <Link key="2" href={`/admin/persons/${params?.id}`} style={{ textDecoration: "none" }}>
+            {person?.fullname || `Person ${params?.id}`}
         </Link>,
     ];
 
@@ -48,7 +48,7 @@ const ActorAdminPage = () => {
     };
 
     const handleFormSubmit = async (values: any) => {
-        const payload: Prisma.ActorUpdateInput = {
+        const payload: Prisma.PersonUpdateInput = {
             fullname: values.fullname,
             photoSrc: values.photoSrc,
             photoSrcProd: values.photoSrcProd,
@@ -56,28 +56,28 @@ const ActorAdminPage = () => {
             debut: values.debut,
         };
 
-        const response: Actor | null = await updateActorById(payload, String(actor?.id));
+        const response: Person | null = await updatePersonById(payload, String(person?.id));
 
         if (response) {
             toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getActor();
+            getPerson();
         } else {
             toast.error(CONSTANTS.UPDATE__FAILURE);
         }
     };
 
-    async function getActor(): Promise<void> {
+    async function getPerson(): Promise<void> {
         setLoading(true);
-        const response: Actor | null = await getActorById(Number(params.id), {});
+        const response: Person | null = await getPersonById(Number(params.id), {});
 
         if (response) {
-            setActor(response);
+            setPerson(response);
             setLoading(false);
         }
     }
 
     useEffect(() => {
-        getActor();
+        getPerson();
     }, []);
 
     if (loading) {
@@ -86,16 +86,16 @@ const ActorAdminPage = () => {
 
     return (
         <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/actors"} />
-            <HeaderDashboard title={"Actor"} subtitle={"Edit actor"} />
+            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/persons"} />
+            <HeaderDashboard title={"Person"} subtitle={"Edit person"} />
             <FormAdvanced
                 defaultValues={{
-                    id: actor?.id,
-                    fullname: actor?.fullname,
-                    photoSrc: actor?.photoSrc,
-                    photoSrcProd: actor?.photoSrcProd,
-                    description: actor?.description,
-                    debut: actor?.debut,
+                    id: person?.id,
+                    fullname: person?.fullname,
+                    photoSrc: person?.photoSrc,
+                    photoSrcProd: person?.photoSrcProd,
+                    description: person?.description,
+                    debut: person?.debut,
                 }}
                 fields={[
                     {
@@ -136,7 +136,7 @@ const ActorAdminPage = () => {
                         type: "text",
                     },
                 ]}
-                schema={actorSchema}
+                schema={personSchema}
                 onSubmit={handleFormSubmit}
                 formRef={formRef}
                 actions={[
@@ -145,7 +145,7 @@ const ActorAdminPage = () => {
                         onClick: async () => {
                             openModal({
                                 onClose: () => setOpen(false),
-                                title: `Delete selected actor ${formData.name}`,
+                                title: `Delete selected person ${formData.name}`,
                                 actions: [
                                     {
                                         label: CONSTANTS.MODAL__DELETE__NO,
@@ -160,11 +160,11 @@ const ActorAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteActorById(actor?.id!);
+                                            const response = await deletePersonById(person?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                router.push("/admin/actors");
+                                                router.push("/admin/persons");
                                             } else {
                                                 toast.success(CONSTANTS.DELETE__FAILURE);
                                             }
@@ -217,4 +217,4 @@ const ActorAdminPage = () => {
     );
 };
 
-export default ActorAdminPage;
+export default PersonAdminPage;

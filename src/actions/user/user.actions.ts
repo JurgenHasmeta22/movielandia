@@ -70,14 +70,9 @@ export interface RemoveReviewEpisodeParams {
     episodeId: number;
 }
 
-export interface RemoveReviewActorParams {
+export interface RemoveReviewPersonParams {
     userId: number;
-    actorId: number;
-}
-
-export interface RemoveReviewCrewParams {
-    userId: number;
-    crewId: number;
+    personId: number;
 }
 
 export interface VoteMovieReviewParams {
@@ -104,16 +99,10 @@ export interface VoteEpisodeReviewParams {
     episodeReviewId: number;
 }
 
-export interface VoteActorReviewParams {
+export interface VotePersonReviewParams {
     userId: number;
-    actorId: number;
-    actorReviewId: number;
-}
-
-export interface VoteCrewReviewParams {
-    userId: number;
-    crewId: number;
-    crewReviewId: number;
+    personId: number;
+    personReviewId: number;
 }
 
 export interface UserModelParams {

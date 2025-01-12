@@ -15,12 +15,11 @@ import { onBookmarkEpisode, onRemoveBookmarkEpisode } from "@/utils/features/epi
 import { onBookmarkSeason, onRemoveBookmarkSeason } from "@/utils/features/seasonFeaturesUtils";
 import { onBookmarkMovie, onRemoveBookmarkMovie } from "@/utils/features/movieFeaturesUtils";
 import { onBookmarkSerie, onRemoveBookmarkSerie } from "@/utils/features/serieFeaturesUtils";
-import { onBookmarkActor, onRemoveBookmarkActor } from "@/utils/features/actorFeaturesUtils";
-import { onBookmarkCrew, onRemoveBookmarkCrew } from "@/utils/features/crewFeaturesUtils";
+import { onBookmarkPerson, onRemoveBookmarkPerson } from "@/utils/features/personFeaturesUtils";
 // #endregion
 
 // #region "Types and Interfaces"
-export type CardItemType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
+export type CardItemType = "movie" | "serie" | "season" | "episode" | "person" | "user";
 
 export type PathType = "movies" | "actors" | "crew" | null;
 
@@ -53,7 +52,7 @@ interface EpisodeCardData extends RatedCardData {
     title: string;
 }
 
-interface ActorCardData extends RatedCardData {
+interface PersonCardData extends RatedCardData {
     fullname: string;
     debut: string;
 }
@@ -72,7 +71,7 @@ type CardData =
     | SerieCardData
     | SeasonCardData
     | EpisodeCardData
-    | ActorCardData
+    | PersonCardData
     | CrewCardData
     | UserCardData;
 
@@ -100,8 +99,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
         serie: onBookmarkSerie,
         season: onBookmarkSeason,
         episode: onBookmarkEpisode,
-        actor: onBookmarkActor,
-        crew: onBookmarkCrew,
+        person: onBookmarkPerson,
     } as const;
 
     const removeBookmarkFunctions = {
@@ -109,8 +107,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
         serie: onRemoveBookmarkSerie,
         season: onRemoveBookmarkSeason,
         episode: onRemoveBookmarkEpisode,
-        actor: onRemoveBookmarkActor,
-        crew: onRemoveBookmarkCrew,
+        person: onRemoveBookmarkPerson,
     } as const;
 
     const handleBookmarkClick = async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -146,19 +143,11 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                 return `/series/${data.id}/${formatTitle((data as SerieCardData).title)}`;
             case "movie":
                 return `/movies/${data.id}/${formatTitle((data as MovieCardData).title)}`;
-            case "actor":
+            case "person":
                 if (path === "movies") {
                     return `/movies/${data.id}/${formatTitle((data as MovieCardData).title)}`;
-                } else if (path === "actors") {
-                    return `/actors/${data.id}/${formatTitle((data as ActorCardData).fullname)}`;
-                }
-
-                return `/series/${data.id}/${formatTitle((data as SerieCardData).title)}`;
-            case "crew":
-                if (path === "movies") {
-                    return `/movies/${data.id}/${formatTitle((data as MovieCardData).title)}`;
-                } else if (path === "crew") {
-                    return `/crew/${data.id}/${formatTitle((data as CrewCardData).fullname)}`;
+                } else if (path === "persons") {
+                    return `/persons/${data.id}/${formatTitle((data as PersonCardData).fullname)}`;
                 }
 
                 return `/series/${data.id}/${formatTitle((data as SerieCardData).title)}`;
@@ -195,8 +184,8 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
     };
 
     const getDisplayTitle = () => {
-        if (path === "actors" || path === "crew") {
-            const personData = data as ActorCardData | CrewCardData;
+        if (path === "persons") {
+            const personData = data as PersonCardData;
             return `${personData.fullname} Debut Year: (${personData.debut})`;
         }
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const actorSchema = z.object({
+export const personSchema = z.object({
     fullname: z.string().min(1, { message: "required" }),
     photoSrc: z.string().min(1, { message: "required" }),
     photoSrcProd: z.string().min(1, { message: "required" }),

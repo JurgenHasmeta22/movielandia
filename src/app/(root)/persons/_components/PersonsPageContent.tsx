@@ -1,26 +1,26 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Actor } from "@prisma/client";
-import { getActorsWithFilters } from "@/actions/actor.actions";
+import { Person } from "@prisma/client";
+import { getPersonsWithFilters } from "@/actions/person.actions";
 import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 
-interface ActorsPageContentProps {
+interface PersonsPageContentProps {
     searchParams:
         | {
-              actorsAscOrDesc?: string;
-              pageActors?: string;
-              actorsSortBy?: string;
+              personsAscOrDesc?: string;
+              pagePersons?: string;
+              personsSortBy?: string;
           }
         | undefined;
     session: any;
 }
 
-export default async function ActorsPageContent({ searchParams, session }: ActorsPageContentProps) {
-    const ascOrDesc = searchParams?.actorsAscOrDesc ?? "";
-    const page = searchParams?.pageActors ? Number(searchParams.pageActors) : 1;
-    const sortBy = searchParams?.actorsSortBy ?? "";
+export default async function PersonsPageContent({ searchParams, session }: PersonsPageContentProps) {
+    const ascOrDesc = searchParams?.personsAscOrDesc ?? "";
+    const page = searchParams?.pagePersons ? Number(searchParams.pagePersons) : 1;
+    const sortBy = searchParams?.personsSortBy ?? "";
 
     const queryParams = {
         ascOrDesc,
@@ -29,14 +29,14 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
     };
 
     const itemsPerPage = 12;
-    const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
-    const actors = actorsData.actors;
-    const actorsCarouselImages: Actor[] = actorsData.actors.slice(0, 5);
-    const actorsCount = actorsData.count;
-    const pageCount = Math.ceil(actorsCount / itemsPerPage);
+    const personsData = await getPersonsWithFilters(queryParams, Number(session?.user?.id));
+    const persons = personsData.persons;
+    const personsCarouselImages: Person[] = personsData.persons.slice(0, 5);
+    const personsCount = personsData.count;
+    const pageCount = Math.ceil(personsCount / itemsPerPage);
 
     const startIndex = (page - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(startIndex + itemsPerPage - 1, actorsCount);
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, personsCount);
 
     return (
         <Box
@@ -48,7 +48,7 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
             }}
         >
             <Box component="section">
-                <Carousel data={actorsCarouselImages} type="actors" />
+                <Carousel data={personsCarouselImages} type="persons" />
             </Box>
             <Box
                 component="section"
@@ -97,7 +97,7 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
                                 },
                             }}
                         >
-                            Actors
+                            Persons
                         </Typography>
                         <Typography
                             variant="h5"
@@ -110,11 +110,11 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
                                 top: { sm: 2 },
                             }}
                         >
-                            {startIndex} – {endIndex} of {actorsCount} actors
+                            {startIndex} – {endIndex} of {personsCount} persons
                         </Typography>
                     </Box>
                     <Box>
-                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="actors" />
+                        <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="persons" />
                     </Box>
                 </Box>
                 <Box
@@ -138,11 +138,11 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
                             mb: { xs: 3, md: 4 },
                         }}
                     >
-                        {actors.map((actor: Actor) => (
-                            <CardItem key={actor.id} data={actor} type="actor" path="actors" />
+                        {persons.map((person: Person) => (
+                            <CardItem key={person.id} data={person} type="person" path="persons" />
                         ))}
                     </Stack>
-                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} urlParamName="pageActors" />
+                    <PaginationControl currentPage={Number(page)} pageCount={pageCount} urlParamName="pagePersons" />
                 </Box>
             </Box>
         </Box>
