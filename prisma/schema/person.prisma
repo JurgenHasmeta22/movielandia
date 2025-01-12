@@ -1,0 +1,51 @@
+model Person {
+    id                    Int                    @id @default(autoincrement())
+    fullname              String
+    photoSrc              String                 @default("")
+    role                  String                 @default("")
+    otherRole             String                 @default("")
+    photoSrcProd          String                 @default("")
+    description           String                 @default("")
+    debut                 String                 @default("")
+    producedMovies        PersonMovie[]
+    producedSeries        PersonSerie[]
+    reviews               PersonReview[]
+    usersWhoRatedIt       UserPersonRating[]
+    usersWhoBookmarkedIt  UserPersonFavorite[]
+    upvotePersonReviews   UpvotePersonReview[]
+    downvotePersonReviews DownvotePersonReview[]
+}
+
+model PersonReview {
+    id        Int                    @id @default(autoincrement())
+    content   String                 @default("")
+    rating    Float?
+    createdAt DateTime               @default(now())
+    updatedAt DateTime?
+    userId    Int
+    personId  Int
+    user      User                   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    person    Person                 @relation(fields: [personId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    upvotes   UpvotePersonReview[]
+    downvotes DownvotePersonReview[]
+}
+
+model UpvotePersonReview {
+    id             Int           @id @default(autoincrement())
+    userId         Int
+    personId       Int
+    personReviewId Int
+    user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    person         Person        @relation(fields: [personId], references: [id], onDelete: Cascade)
+    personReview   PersonReview? @relation(fields: [personReviewId], references: [id], onDelete: Cascade)
+}
+
+model DownvotePersonReview {
+    id             Int           @id @default(autoincrement())
+    userId         Int
+    personId       Int
+    personReviewId Int
+    user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    person         Person        @relation(fields: [personId], references: [id], onDelete: Cascade)
+    personReview   PersonReview? @relation(fields: [personReviewId], references: [id], onDelete: Cascade)
+}

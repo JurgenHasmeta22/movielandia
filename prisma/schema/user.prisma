@@ -15,20 +15,17 @@ model User {
   favGenres               UserGenreFavorite[]
   favSeasons              UserSeasonFavorite[]
   favEpisodes             UserEpisodeFavorite[]
-  favActors               UserActorFavorite[]
-  favCrew                 UserCrewFavorite[]
+  favPersons               UserPersonFavorite[]
   ratingsInMovie          UserMovieRating[]
   ratingsInSerie          UserSerieRating[]
   ratingsInSeason         UserSeasonRating[]
   ratingsInEpisode        UserEpisodeRating[]
-  ratingsInActor          UserActorRating[]
-  ratingsInCrew           UserCrewRating[]
+  ratingsInPerson          UserPersonRating[]
   movieReviews            MovieReview[]
   serieReviews            SerieReview[]
   seasonReviews           SeasonReview[]
   episodeReviews          EpisodeReview[]
-  actorReviews            ActorReview[]
-  crewReviews             CrewReview[]
+  personReviews            PersonReview[]
   movieReviewsUpvoted     UpvoteMovieReview[]
   movieReviewsDownvoted   DownvoteMovieReview[]
   serieReviewsUpvoted     UpvoteSerieReview[]
@@ -37,10 +34,8 @@ model User {
   seasonReviewsDownvoted  DownvoteSeasonReview[]
   episodeReviewsUpvoted   UpvoteEpisodeReview[]
   episodeReviewsDownvoted DownvoteEpisodeReview[]
-  actorReviewsUpvoted     UpvoteActorReview[]
-  actorReviewsDownvoted   DownvoteActorReview[]
-  crewReviewsUpvoted      UpvoteCrewReview[]
-  crewReviewsDownvoted    DownvoteCrewReview[]
+  personReviewsUpvoted     UpvotePersonReview[]
+  personReviewsDownvoted   DownvotePersonReview[]
   avatar                  Avatar?
   followers               UserFollow[]            @relation("UserFollowing")
   following               UserFollow[]            @relation("UserFollowers")
@@ -151,22 +146,13 @@ model UserEpisodeRating {
   episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model UserActorRating {
+model UserPersonRating {
   id      Int   @id @default(autoincrement())
   rating  Float
   userId  Int
   user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  actorId Int
-  actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
-model UserCrewRating {
-  id     Int   @id @default(autoincrement())
-  rating Float
-  userId Int
-  user   User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  crewId Int
-  crew   Crew  @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  personId Int
+  person   Person @relation(fields: [personId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model UserMovieFavorite {
@@ -209,20 +195,12 @@ model UserSeasonFavorite {
   season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model UserActorFavorite {
+model UserPersonFavorite {
   id      Int   @id @default(autoincrement())
   userId  Int
-  actorId Int
+  personId Int
   user    User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
-model UserCrewFavorite {
-  id     Int  @id @default(autoincrement())
-  userId Int
-  crewId Int
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  crew   Crew @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  person   Person @relation(fields: [personId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Notification {

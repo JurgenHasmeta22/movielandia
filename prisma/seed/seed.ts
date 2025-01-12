@@ -1,10 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import { actors } from "./data/actors";
-import { crew } from "./data/crew";
 import { episodes } from "./data/episodes";
 import { genres } from "./data/genres";
 import { movies } from "./data/movies";
-import { movieGenres, serieGenres, castMovies, castSeries, crewMovies, crewSeries, downvoteCrewReviews, crewReviews, downvoteMovieReviews, movieReviews, upvoteCrewReviews, upvoteMovieReviews } from "./data/relationships";
+import { movieGenres, serieGenres, personMovies, personSeries, personMovies, personSeries, downvotePersonReviews, personReviews, downvoteMovieReviews, movieReviews, upvotePersonReviews, upvoteMovieReviews } from "./data/relationships";
 import { seasons } from "./data/seasons";
 import { series } from "./data/series";
 import { users } from "./data/users";
@@ -17,15 +15,12 @@ async function createStuff() {
     try {
         await prisma.serieGenre.deleteMany();
         await prisma.movieGenre.deleteMany();
-        await prisma.castMovie.deleteMany();
-        await prisma.castSerie.deleteMany();
-        await prisma.actor.deleteMany();
-        await prisma.crewMovie.deleteMany();
-        await prisma.crewSerie.deleteMany();
-        // await prisma.crewReview.deleteMany();
-        // await prisma.upvoteCrewReview.deleteMany();
-        // await prisma.downvoteCrewReview.deleteMany();
-        await prisma.crew.deleteMany();
+        await prisma.personMovie.deleteMany();
+        await prisma.personSerie.deleteMany();
+        await prisma.person.deleteMany();
+        await prisma.personReview.deleteMany();
+        await prisma.upvotePersonReview.deleteMany();
+        await prisma.downvotePersonReview.deleteMany();
         await prisma.movieReview.deleteMany();
         await prisma.upvoteMovieReview.deleteMany();
         await prisma.downvoteMovieReview.deleteMany();
@@ -60,15 +55,9 @@ async function createStuff() {
             await prisma.episode.create({ data: episode });
         }
 
-        for (const actor of actors) {
-            await prisma.actor.create({
-                data: actor,
-            });
-        }
-
-        for (const crewMember of crew) {
-            await prisma.crew.create({
-                data: crewMember,
+        for (const person of persons) {
+            await prisma.person.create({
+                data: person,
             });
         }
 
@@ -84,27 +73,27 @@ async function createStuff() {
             });
         }
 
-        for (const castMovie of castMovies) {
-            await prisma.castMovie.create({
-                data: castMovie,
+        for (const personMovie of personMovies) {
+            await prisma.personMovie.create({
+                data: personMovie,
             });
         }
 
-        for (const castSerie of castSeries) {
-            await prisma.castSerie.create({
-                data: castSerie,
+        for (const personSerie of personSeries) {
+            await prisma.personSerie.create({
+                data: personSerie,
             });
         }
 
-        for (const crewMovie of crewMovies) {
-            await prisma.crewMovie.create({
-                data: crewMovie,
+        for (const personMovie of personMovies) {
+            await prisma.personMovie.create({
+                data: personMovie,
             });
         }
 
-        for (const crewSerie of crewSeries) {
-            await prisma.crewSerie.create({
-                data: crewSerie,
+        for (const personSerie of personSeries) {
+            await prisma.personSerie.create({
+                data: personSerie,
             });
         }
 
@@ -126,23 +115,23 @@ async function createStuff() {
             });
         }
 
-        // for (const crewReviewsData of crewReviews) {
-        //     await prisma.crewReview.create({
-        //         data: crewReviewsData,
-        //     });
-        // }
+        for (const personReviewsData of personReviews) {
+            await prisma.personReview.create({
+                data: personReviewsData,
+            });
+        }
 
-        // for (const crewReviewsData of crewReviews) {
-        //     await prisma.crewReview.create({
-        //         data: crewReviewsData,
-        //     });
-        // }
+        for (const personReviewsData of personReviews) {
+            await prisma.personReview.create({
+                data: personReviewsData,
+            });
+        }
 
-        // for (const downvoteCrewReviewsData of downvoteCrewReviews) {
-        //     await prisma.downvoteCrewReview.create({
-        //         data: downvoteCrewReviewsData,
-        //     });
-        // }
+        for (const downvotePersonReviewsData of downvotePersonReviews) {
+            await prisma.downvotePersonReview.create({
+                data: downvotePersonReviewsData,
+            });
+        }
 
         console.log("Database seeding completed successfully.");
     } catch (error) {
