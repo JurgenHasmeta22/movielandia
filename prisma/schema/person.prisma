@@ -3,7 +3,7 @@ model Person {
     fullname              String
     photoSrc              String                 @default("")
     role                  String                 @default("")
-    otherRole             String                 @default("")
+    otherRole             String?                @default("")
     photoSrcProd          String                 @default("")
     description           String                 @default("")
     debut                 String                 @default("")

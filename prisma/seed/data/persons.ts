@@ -1,4 +1,4 @@
-export const actors = [
+export const persons = [
     {
         id: 1,
         fullname: "Tom Holland",
@@ -6,6 +6,7 @@ export const actors = [
         debut: "2012",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 2,
@@ -14,6 +15,7 @@ export const actors = [
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 3,
@@ -22,6 +24,7 @@ export const actors = [
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 4,
@@ -30,6 +33,7 @@ export const actors = [
         debut: "2012",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 5,
@@ -38,6 +42,7 @@ export const actors = [
         debut: "2014",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 6,
@@ -46,6 +51,7 @@ export const actors = [
         debut: "2015",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 7,
@@ -54,6 +60,7 @@ export const actors = [
         debut: "1999",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 8,
@@ -62,6 +69,7 @@ export const actors = [
         debut: "2013",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 9,
@@ -70,6 +78,7 @@ export const actors = [
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 10,
@@ -78,6 +87,7 @@ export const actors = [
         debut: "2007",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 11,
@@ -86,6 +96,7 @@ export const actors = [
         debut: "1999",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 12,
@@ -94,6 +105,7 @@ export const actors = [
         debut: "2005",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 13,
@@ -102,6 +114,7 @@ export const actors = [
         debut: "2009",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 14,
@@ -110,6 +123,7 @@ export const actors = [
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 15,
@@ -118,6 +132,7 @@ export const actors = [
         debut: "2006",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 16,
@@ -126,6 +141,7 @@ export const actors = [
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 17,
@@ -134,6 +150,7 @@ export const actors = [
         debut: "2006",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 18,
@@ -142,6 +159,7 @@ export const actors = [
         debut: "2001",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 19,
@@ -150,6 +168,7 @@ export const actors = [
         debut: "1996",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 20,
@@ -158,6 +177,7 @@ export const actors = [
         debut: "1992",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 21,
@@ -166,6 +186,7 @@ export const actors = [
         debut: "1984",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 22,
@@ -174,6 +195,7 @@ export const actors = [
         debut: "1994",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 23,
@@ -182,6 +204,7 @@ export const actors = [
         debut: "2013",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 24,
@@ -190,6 +213,7 @@ export const actors = [
         debut: "1987",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 25,
@@ -198,6 +222,7 @@ export const actors = [
         debut: "1996",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 26,
@@ -206,6 +231,7 @@ export const actors = [
         debut: "2006",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 27,
@@ -214,6 +240,7 @@ export const actors = [
         debut: "2007",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 28,
@@ -222,6 +249,7 @@ export const actors = [
         debut: "2008",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 29,
@@ -230,6 +258,7 @@ export const actors = [
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 30,
@@ -238,6 +267,7 @@ export const actors = [
         debut: "2008",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 31,
@@ -246,6 +276,7 @@ export const actors = [
         debut: "1997",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 32,
@@ -254,6 +285,7 @@ export const actors = [
         debut: "1996",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 33,
@@ -262,6 +294,7 @@ export const actors = [
         debut: "2010",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 34,
@@ -270,6 +303,7 @@ export const actors = [
         debut: "2009",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 35,
@@ -278,6 +312,7 @@ export const actors = [
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 36,
@@ -286,6 +321,7 @@ export const actors = [
         debut: "2003",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 37,
@@ -294,6 +330,7 @@ export const actors = [
         debut: "2001",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 38,
@@ -302,6 +339,7 @@ export const actors = [
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 39,
@@ -310,6 +348,7 @@ export const actors = [
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 40,
@@ -318,6 +357,7 @@ export const actors = [
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 41,
@@ -326,6 +366,7 @@ export const actors = [
         debut: "2005",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 42,
@@ -334,6 +375,7 @@ export const actors = [
         debut: "2014",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 43,
@@ -342,6 +384,7 @@ export const actors = [
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 44,
@@ -350,6 +393,7 @@ export const actors = [
         debut: "2009",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 45,
@@ -358,6 +402,7 @@ export const actors = [
         debut: "2003",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 46,
@@ -366,6 +411,7 @@ export const actors = [
         debut: "1987",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 47,
@@ -374,6 +420,7 @@ export const actors = [
         debut: "1993",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 48,
@@ -382,6 +429,7 @@ export const actors = [
         debut: "2013",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 49,
@@ -390,6 +438,7 @@ export const actors = [
         debut: "2000",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
     },
     {
         id: 50,
@@ -398,5 +447,206 @@ export const actors = [
         debut: "2011",
         photoSrc: "http://localhost:4000/images/placeholder.jpg",
         photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        role: "Actor"
+    },
+    {
+        id: 51,
+        fullname: "Steven Spielberg",
+        otherRole: "Director",
+        description: "A renowned filmmaker known for iconic films such as 'Jurassic Park' and 'E.T.'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1971",
+        role: "Crew",
+    },
+    {
+        id: 52,
+        fullname: "Christopher Nolan",
+        otherRole: "Director",
+        description: "Director known for his work on 'Inception' and 'The Dark Knight' trilogy.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1998",
+        role: "Crew",
+    },
+    {
+        id: 53,
+        fullname: "Roger Deakins",
+        otherRole: "Cinematographer",
+        description: "Celebrated cinematographer recognized for his work on 'Blade Runner 2049' and '1917'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1984",
+        role: "Crew",
+    },
+    {
+        id: 54,
+        fullname: "Emmanuel Lubezki",
+        otherRole: "Cinematographer",
+        description: "Award-winning cinematographer known for his work on 'Gravity' and 'Birdman'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1991",
+        role: "Crew",
+    },
+    {
+        id: 55,
+        fullname: "Hans Zimmer",
+        otherRole: "Composer",
+        description: "A celebrated composer known for scores in 'The Lion King' and 'Inception'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1984",
+        role: "Crew",
+    },
+    {
+        id: 56,
+        fullname: "John Williams",
+        otherRole: "Composer",
+        description: "A legendary composer known for 'Star Wars', 'Jurassic Park', and 'Harry Potter'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1958",
+        role: "Crew",
+    },
+    {
+        id: 57,
+        fullname: "Quentin Tarantino",
+        otherRole: "Writer",
+        description: "Writer and director known for 'Pulp Fiction' and 'Kill Bill'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1992",
+        role: "Crew",
+    },
+    {
+        id: 58,
+        fullname: "Aaron Sorkin",
+        otherRole: "Writer",
+        description: "Known for his distinctive dialogue in 'The West Wing' and 'The Social Network'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1988",
+        role: "Crew",
+    },
+    {
+        id: 59,
+        fullname: "Denis Villeneuve",
+        otherRole: "Director",
+        description: "Critically acclaimed director known for 'Arrival' and 'Dune'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1998",
+        role: "Crew",
+    },
+    {
+        id: 60,
+        fullname: "Greta Gerwig",
+        otherRole: "Director",
+        description: "Director and writer known for 'Lady Bird' and 'Little Women'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2006",
+        role: "Crew",
+    },
+    {
+        id: 61,
+        fullname: "Rachel Morrison",
+        otherRole: "Cinematographer",
+        description: "Known for her work on 'Mudbound' and 'Black Panther'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2004",
+        role: "Crew",
+    },
+    {
+        id: 62,
+        fullname: "Howard Shore",
+        otherRole: "Composer",
+        description: "Composer for 'The Lord of the Rings' and 'The Departed'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1979",
+        role: "Crew",
+    },
+    {
+        id: 63,
+        fullname: "Lynn Shelton",
+        otherRole: "Director",
+        description: "Director of indie films like 'Humpday' and 'Your Sister's Sister'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2006",
+        role: "Crew",
+    },
+    {
+        id: 64,
+        fullname: "Wally Pfister",
+        otherRole: "Cinematographer",
+        description: "Known for his cinematography on 'Inception' and 'The Dark Knight'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1990",
+        role: "Crew",
+    },
+    {
+        id: 65,
+        fullname: "Nora Ephron",
+        otherRole: "Writer",
+        description: "Screenwriter and director of romantic comedies like 'When Harry Met Sally'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1983",
+        role: "Crew",
+    },
+    {
+        id: 66,
+        fullname: "Spike Lee",
+        otherRole: "Director",
+        description: "Known for films that address race relations like 'Do the Right Thing'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1986",
+        role: "Crew",
+    },
+    {
+        id: 67,
+        fullname: "Robert Richardson",
+        otherRole: "Cinematographer",
+        description: "Worked on 'Inglourious Basterds' and 'Shutter Island'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1985",
+        role: "Crew",
+    },
+    {
+        id: 68,
+        fullname: "Trent Reznor",
+        otherRole: "Composer",
+        description: "Composer for films such as 'The Social Network' and 'Gone Girl'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "2008",
+        role: "Crew",
+    },
+    {
+        id: 69,
+        fullname: "Sofia Coppola",
+        otherRole: "Director",
+        description: "Director known for 'Lost in Translation' and 'The Virgin Suicides'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1999",
+        role: "Crew",
+    },
+    {
+        id: 70,
+        fullname: "Michael Giacchino",
+        otherRole: "Composer",
+        description: "Known for his work on Pixar films and 'Jurassic World'.",
+        photoSrc: "http://localhost:4000/images/placeholder.jpg",
+        photoSrcProd: "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+        debut: "1997",
+        role: "Crew",
     },
 ];

@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { episodes } from "./data/episodes";
+import { persons } from "./data/persons";
 import { genres } from "./data/genres";
 import { movies } from "./data/movies";
-import { movieGenres, serieGenres, personMovies, personSeries, personMovies, personSeries, downvotePersonReviews, personReviews, downvoteMovieReviews, movieReviews, upvotePersonReviews, upvoteMovieReviews } from "./data/relationships";
+import { movieGenres, serieGenres, personSeries, personMovies, downvotePersonReviews, personReviews, downvoteMovieReviews, movieReviews, upvoteMovieReviews } from "./data/relationships";
 import { seasons } from "./data/seasons";
 import { series } from "./data/series";
 import { users } from "./data/users";

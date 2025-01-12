@@ -6,4 +6,6 @@ export const actorSchema = z.object({
     photoSrcProd: z.string().min(1, { message: "required" }),
     description: z.string().min(1, { message: "required" }),
     debut: z.string().min(1, { message: "required" }),
+    role: z.string().min(1, { message: "required" }),
+    otherRole: z.string().min(1, { message: "optional" }),
 });
