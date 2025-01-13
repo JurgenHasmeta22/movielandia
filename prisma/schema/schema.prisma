@@ -5,10 +5,12 @@ generator client {
 
 // generator erd {
 //     provider = "prisma-erd-generator"
+//     output = "prisma/erd/"
 // }
 
 // generator dbml {
 //     provider = "prisma-dbml-generator"
+//     output = "prisma/dmbl/"
 // }
 
 datasource db {
