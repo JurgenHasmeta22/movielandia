@@ -79,7 +79,7 @@ export default function RegisterForm() {
     }
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "300px", margin: "0 auto", px: 1 }}>
+        <Box sx={{ width: "100%", maxWidth: "350px", margin: "0 auto", px: 3 }}>
             <form onSubmit={handleSubmit(handleSubmitRegister)}>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
                     <Box
@@ -98,7 +98,7 @@ export default function RegisterForm() {
                             style={{ pointerEvents: "none" }}
                         />
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 3 }}>
                         <FormControl variant="outlined" size="small">
                             <Controller
                                 name="userName"
@@ -120,7 +120,12 @@ export default function RegisterForm() {
                                             },
                                         }}
                                         sx={{
+                                            minHeight: "50px",
                                             "& .MuiFormHelperText-root": {
+                                                position: "absolute",
+                                                bottom: "-15px",
+                                                margin: 0,
+                                                lineHeight: 1.2,
                                                 whiteSpace: "normal",
                                                 overflowWrap: "break-word",
                                                 wordWrap: "break-word",
@@ -152,7 +157,12 @@ export default function RegisterForm() {
                                             },
                                         }}
                                         sx={{
+                                            minHeight: "50px",
                                             "& .MuiFormHelperText-root": {
+                                                position: "absolute",
+                                                bottom: "-15px",
+                                                margin: 0,
+                                                lineHeight: 1.2,
                                                 whiteSpace: "normal",
                                                 overflowWrap: "break-word",
                                                 wordWrap: "break-word",
@@ -195,7 +205,12 @@ export default function RegisterForm() {
                                             },
                                         }}
                                         sx={{
+                                            minHeight: "60px",
                                             "& .MuiFormHelperText-root": {
+                                                position: "absolute",
+                                                bottom: "-18px",
+                                                margin: 0,
+                                                lineHeight: 1.2,
                                                 whiteSpace: "normal",
                                                 overflowWrap: "break-word",
                                                 wordWrap: "break-word",
@@ -238,7 +253,12 @@ export default function RegisterForm() {
                                             },
                                         }}
                                         sx={{
+                                            minHeight: "40px",
                                             "& .MuiFormHelperText-root": {
+                                                position: "absolute",
+                                                bottom: "-15px",
+                                                margin: 0,
+                                                lineHeight: 1.2,
                                                 whiteSpace: "normal",
                                                 overflowWrap: "break-word",
                                                 wordWrap: "break-word",
@@ -249,7 +269,7 @@ export default function RegisterForm() {
                                 )}
                             />
                         </FormControl>
-                        <FormControl variant="outlined" size="small">
+                        <FormControl variant="outlined" size="small" sx={{ mt: 2 }}>
                             <Controller
                                 name="acceptTerms"
                                 control={control}
@@ -334,7 +354,7 @@ export default function RegisterForm() {
                                 )}
                             />
                             {errors.acceptTerms && (
-                                <FormHelperText error sx={{ mt: 0.5, ml: "32px" }}>
+                                <FormHelperText error sx={{ mt: 0.5, ml: "32px", position: "static" }}>
                                     {errors.acceptTerms.message}
                                 </FormHelperText>
                             )}
