@@ -78,83 +78,87 @@ export default function LoginForm() {
                         </Typography>
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <EmailIcon />
-                                <FormLabel component={"label"}>Email</FormLabel>
-                            </Box>
-                            <FormControl>
-                                <Controller
-                                    name="email"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            type="email"
-                                            autoComplete="username"
-                                            size="small"
-                                            fullWidth
-                                            error={!!errors.email}
-                                            helperText={errors.email?.message}
-                                            sx={{
-                                                "& .MuiFormHelperText-root": {
-                                                    whiteSpace: "normal",
-                                                    overflowWrap: "break-word",
-                                                    wordWrap: "break-word",
-                                                    maxWidth: "200px",
-                                                },
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </FormControl>
-                        </Box>
-                        <Box display={"flex"} flexDirection={"column"} rowGap={1}>
-                            <Box display={"flex"} flexDirection="row" columnGap={1}>
-                                <PasswordIcon />
-                                <FormLabel component={"label"}>Password</FormLabel>
-                            </Box>
-                            <FormControl>
-                                <Controller
-                                    name="password"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <TextField
-                                            {...field}
-                                            type={showPassword ? "text" : "password"}
-                                            autoComplete="current-password"
-                                            size="small"
-                                            fullWidth
-                                            error={!!errors.password}
-                                            helperText={errors.password?.message}
-                                            slotProps={{
-                                                input: {
-                                                    endAdornment: (
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                onClick={handleClickShowPassword}
-                                                                onMouseDown={handleMouseDownPassword}
-                                                                edge="end"
-                                                            >
-                                                                {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    ),
-                                                },
-                                            }}
-                                            sx={{
-                                                "& .MuiFormHelperText-root": {
-                                                    whiteSpace: "normal",
-                                                    overflowWrap: "break-word",
-                                                    wordWrap: "break-word",
-                                                    maxWidth: "200px",
-                                                },
-                                            }}
-                                        />
-                                    )}
-                                />
-                            </FormControl>
-                        </Box>
+                        <FormControl>
+                            <Controller
+                                name="email"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        type="email"
+                                        placeholder="Email"
+                                        autoComplete="username"
+                                        size="small"
+                                        fullWidth
+                                        error={!!errors.email}
+                                        helperText={errors.email?.message}
+                                        slotProps={{
+                                            input: {
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <EmailIcon />
+                                                    </InputAdornment>
+                                                ),
+                                            },
+                                        }}
+                                        sx={{
+                                            "& .MuiFormHelperText-root": {
+                                                whiteSpace: "normal",
+                                                overflowWrap: "break-word",
+                                                wordWrap: "break-word",
+                                                maxWidth: "200px",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <Controller
+                                name="password"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Password"
+                                        autoComplete="current-password"
+                                        size="small"
+                                        fullWidth
+                                        error={!!errors.password}
+                                        helperText={errors.password?.message}
+                                        slotProps={{
+                                            input: {
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <PasswordIcon />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            onClick={handleClickShowPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                        >
+                                                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            },
+                                        }}
+                                        sx={{
+                                            "& .MuiFormHelperText-root": {
+                                                whiteSpace: "normal",
+                                                overflowWrap: "break-word",
+                                                wordWrap: "break-word",
+                                                maxWidth: "200px",
+                                            },
+                                        }}
+                                    />
+                                )}
+                            />
+                        </FormControl>
                     </Box>
                     <Box
                         sx={{
