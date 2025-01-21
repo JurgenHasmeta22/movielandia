@@ -61,7 +61,7 @@ export default function LoginForm() {
     }
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto" }}>
+        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 2 }}>
             <form onSubmit={handleSubmit(handleSubmitLogin)}>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
                     <Box
@@ -105,11 +105,16 @@ export default function LoginForm() {
                                             },
                                         }}
                                         sx={{
+                                            minHeight: "50px",
                                             "& .MuiFormHelperText-root": {
+                                                position: "absolute",
+                                                bottom: "-15px",
+                                                margin: 0,
+                                                lineHeight: 1.2,
                                                 whiteSpace: "normal",
                                                 overflowWrap: "break-word",
                                                 wordWrap: "break-word",
-                                                maxWidth: "200px",
+                                                maxWidth: "100%",
                                             },
                                         }}
                                     />
@@ -151,11 +156,16 @@ export default function LoginForm() {
                                             },
                                         }}
                                         sx={{
+                                            minHeight: "60px",
                                             "& .MuiFormHelperText-root": {
+                                                position: "absolute",
+                                                bottom: "-18px",
+                                                margin: 0,
+                                                lineHeight: 1.2,
                                                 whiteSpace: "normal",
                                                 overflowWrap: "break-word",
                                                 wordWrap: "break-word",
-                                                maxWidth: "200px",
+                                                maxWidth: "100%",
                                             },
                                         }}
                                     />
