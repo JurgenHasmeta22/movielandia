@@ -104,20 +104,26 @@ export default function RegisterForm() {
                     </Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
-                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                            <PersonIcon />
-                            <FormLabel>Username</FormLabel>
-                        </Box>
+                    <FormControl variant="outlined" size="small">
                         <Controller
                             name="userName"
                             control={control}
                             render={({ field }) => (
                                 <TextField
                                     {...field}
+                                    placeholder="Username"
                                     size="small"
                                     error={!!errors.userName}
                                     helperText={errors.userName?.message}
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PersonIcon />
+                                                </InputAdornment>
+                                            ),
+                                        },
+                                    }}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             whiteSpace: "normal",
@@ -130,20 +136,27 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                            <EmailIcon />
-                            <FormLabel>Email</FormLabel>
-                        </Box>
+
+                    <FormControl variant="outlined" size="small">
                         <Controller
                             name="email"
                             control={control}
                             render={({ field }) => (
                                 <TextField
                                     {...field}
+                                    placeholder="Email"
                                     size="small"
                                     error={!!errors.email}
                                     helperText={errors.email?.message}
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <EmailIcon />
+                                                </InputAdornment>
+                                            ),
+                                        },
+                                    }}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             whiteSpace: "normal",
@@ -156,11 +169,8 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                            <PasswordIcon />
-                            <FormLabel>Password</FormLabel>
-                        </Box>
+
+                    <FormControl variant="outlined" size="small">
                         <Controller
                             name="password"
                             control={control}
@@ -168,9 +178,17 @@ export default function RegisterForm() {
                                 <TextField
                                     {...field}
                                     type={showPassword ? "text" : "password"}
+                                    placeholder="Password"
                                     size="small"
+                                    error={!!errors.password}
+                                    helperText={errors.password?.message}
                                     slotProps={{
                                         input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PasswordIcon />
+                                                </InputAdornment>
+                                            ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <IconButton
@@ -183,8 +201,6 @@ export default function RegisterForm() {
                                             ),
                                         },
                                     }}
-                                    error={!!errors.password}
-                                    helperText={errors.password?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             whiteSpace: "normal",
@@ -197,11 +213,8 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl variant="outlined" size="small" sx={{ rowGap: 1 }}>
-                        <Box display={"flex"} flexDirection="row" alignItems="center" columnGap={1}>
-                            <PasswordIcon />
-                            <FormLabel>Confirm Password</FormLabel>
-                        </Box>
+
+                    <FormControl variant="outlined" size="small">
                         <Controller
                             name="confirmPassword"
                             control={control}
@@ -209,9 +222,17 @@ export default function RegisterForm() {
                                 <TextField
                                     {...field}
                                     type={showPasswordConfirm ? "text" : "password"}
+                                    placeholder="Confirm Password"
                                     size="small"
+                                    error={!!errors.confirmPassword}
+                                    helperText={errors.confirmPassword?.message}
                                     slotProps={{
                                         input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PasswordIcon />
+                                                </InputAdornment>
+                                            ),
                                             endAdornment: (
                                                 <InputAdornment position="end">
                                                     <IconButton
@@ -224,8 +245,6 @@ export default function RegisterForm() {
                                             ),
                                         },
                                     }}
-                                    error={!!errors.confirmPassword}
-                                    helperText={errors.confirmPassword?.message}
                                     sx={{
                                         "& .MuiFormHelperText-root": {
                                             whiteSpace: "normal",
@@ -238,6 +257,7 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
+
                     <FormControl variant="outlined" size="small">
                         <Controller
                             name="acceptTerms"
