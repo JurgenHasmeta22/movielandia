@@ -5,7 +5,6 @@ import {
     Box,
     Button,
     FormControl,
-    FormLabel,
     IconButton,
     InputAdornment,
     TextField,
@@ -25,6 +24,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/schemas/auth.schema";
+import Image from "next/image";
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -67,15 +67,18 @@ export default function LoginForm() {
                     <Box
                         display={"flex"}
                         flexDirection="row"
-                        columnGap={1}
                         alignItems={"center"}
                         justifyContent={"center"}
                         sx={{ pb: 4 }}
                     >
-                        <LockOutlinedIcon fontSize="large" />
-                        <Typography variant="h2" textAlign={"center"}>
-                            Sign In
-                        </Typography>
+                        <Image
+                            src={"/icons/movielandia24-logo.png"}
+                            alt="MovieLandia24"
+                            height={70}
+                            width={220}
+                            priority={true}
+                            style={{ pointerEvents: "none" }}
+                        />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
                         <FormControl>
