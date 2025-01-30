@@ -5,12 +5,12 @@ generator client {
 
 // generator erd {
 //     provider = "prisma-erd-generator"
-//     output = "prisma/erd/"
+//     output = "Movielandia.svg"
 // }
 
 // generator dbml {
 //     provider = "prisma-dbml-generator"
-//     output = "prisma/dmbl/"
+//     output = "Movielandia.dbml"
 // }
 
 datasource db {
