@@ -2,53 +2,57 @@
 
 ## Project Context
 
-MovieLandia24 is a Next.js/React application for discovering movies, TV series, actors, and crew, with user accounts, browsing, reviews, social features following, messaging, notifications system, and admin dashboard.
+MovieLandia24 is a robust and feature-rich full-stack web application for cinema enthusiasts, built using Next.js and React. It allows users to explore and interact with a rich database of movies, TV series, actors, and crew, offering user accounts, content browsing, review and rating functionalities, social networking features, and a dedicated admin dashboard for content and user management.
 
-### Architecture
+### Architecture (**Key Strengths Highlighted**)
 
-1. **Presentation:** React components (`src/components`), and App Router (`src/app`).
-2. **Business Logic:** Data handling (`src/actions`, `src/hooks`, `src/utils`).
-3. **Data Access:** Prisma, Zod (`prisma/schema`, `prisma/schemas`).
-4. **API:** Serverless functions, API Routes Handlers (`src/app/api`).
-5. **External Services:** Resend (`emails`).
+1.  **Modern Next.js App Router Foundation:** Leverages Next.js App Router for a well-organized and performant structure, with clear route groups (`(admin)`, `(root)`, `(auth)`, `(home)`) for modularity and separation of concerns.
+2.  **Server Actions-Centric Logic:** Employs Server Actions (`src/actions`) as the primary mechanism for handling data mutations and server-side operations, optimizing data flow and form handling directly within React components.
+3.  **Layered Data Management:** Implements a robust data layer using Prisma ORM (`prisma/`) for type-safe database interactions with PostgreSQL, and Zod (`src/schemas/`) for comprehensive data validation, ensuring data integrity across the application.
+4.  **Modular and Reusable Components:** Features a well-structured component library (`src/components/`) with reusable UI elements categorized by domain and function, promoting maintainability and scalability.
+5.  **React Email & Resend for Modern Emails:** The application implements a robust email system using React Email for template creation (`emails/`) and Resend for email sending, highlighting a modern approach to transactional emails within a React application.
 
-### Features
+### Features (Enhanced Descriptions)
 
-- User Management (Registration, Login, Password Reset, Google OAuth, Profile).
-- Content (Browsing, Search, Details, Reviews/Ratings, Bookmarking).
-- Social (Following/Unfollowing, Messaging).
-- Admin (Panel, CRUD, Data Export).
+- **User Management:** Comprehensive user account system including registration, login, password reset, Google OAuth integration, and customizable user profiles.
+- **Content Discovery & Engagement:** Feature-rich content browsing, advanced search capabilities, detailed content pages, user review and rating system, and bookmarking functionality for various content types.
+- **Social Networking:** Integrated social features enabling users to follow/unfollow others, direct messaging between users, and a notification system to enhance user interaction and community building.
+- **Admin Dashboard:** Robust admin panel featuring dynamic data tables (Material React Table), full CRUD operations, role-based user management, content moderation, and data export capabilities, providing robust backend control.
 
 ### Technologies
 
-- Next.js, React, Material UI, Prisma, Zod, NextAuth.js, Resend, React Hook Form, React Toastify, Framer Motion, Zustand, `nuqs`.
+- **Frontend Framework:** Next.js 15 (App Router), React 19
+- **UI Library:** Material UI v6
+- **ORM:** Prisma
+- **Validation:** Zod
+- **Authentication:** NextAuth.js (Google OAuth, Credentials)
+- **Email:** React Email, Resend
+- **Form Handling:** React Hook Form
+- **State Management:** `Zustand` Global State Management, `nuqs` URL State Management
+- **Enhancements:** `Framer Motion` (animations), `Material React Table v3` (data grids), `React Hook Form`, `React Toastify`, `React Quill`, `jsPDF` & `AutoTable` (PDF generation), `React Slick` (carousel).
 
-## Project Structure
+## Project Structure (Concise Overview)
 
 ```
-
 movielandia/
 ├── src/
-│ ├── actions/
-│ ├── app/
-│ │ ├── (admin)/
-│ │ └── (root)/
-│ ├── components/
-│ ├── constants/
-│ ├── hooks/
-│ ├── layouts/
-│ ├── middleware.ts
-│ ├── providers/
-│ ├── store/
-│ ├── types/
-│ └── utils/
+│   ├── actions/         # Business logic & Server Actions for data operations
+│   ├── app/            # Next.js App Router: routes, layouts, UI components
+│   │   ├── (admin)/    # Route group for Admin Dashboard features
+│   │   └── (root)/     # Main application route group
+│   ├── components/     # Reusable & modular UI components
+│   ├── constants/      # Application-wide constants
+│   ├── hooks/          # Custom React Hooks for reusable logic
+│   ├── layouts/        # Layout components for page structure
+│   ├── middleware.ts   # Authentication & route protection middleware
+│   ├── providers/      # React Context Providers
+│   ├── store/          # Zustand store for global application state
+│   ├── types/          # TypeScript type definitions
+│   └── utils/          # Helper functions, utilities, theme configuration
 ├── prisma/
-│ ├── migrations/
-│ ├── schema/
-│ |── seed/
-| |── config/
-└── emails/
-
+│   ├── schema/         # Database schema definitions (Prisma)
+│   └── ...             # Prisma migrations, seed data, config
+└── emails/             # React Email templates
 ```
 
 ## General Behaviour Instructions Guidelines
