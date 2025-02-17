@@ -8,16 +8,13 @@ model Crew {
     debut        String @default("01/01/1990")
 
     // Relations
-    producedMovies CrewMovie[]
-    producedSeries CrewSerie[]
-
-    reviews CrewReview[]
-
+    producedMovies       CrewMovie[]
+    producedSeries       CrewSerie[]
+    reviews              CrewReview[]
     usersWhoRatedIt      UserCrewRating[]
     usersWhoBookmarkedIt UserCrewFavorite[]
-
-    upvoteCrewReviews   UpvoteCrewReview[]
-    downvoteCrewReviews DownvoteCrewReview[]
+    upvoteCrewReviews    UpvoteCrewReview[]
+    downvoteCrewReviews  DownvoteCrewReview[]
 }
 
 model CrewReview {
@@ -32,9 +29,8 @@ model CrewReview {
     crewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    crew Crew @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+    user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    crew      Crew                 @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     upvotes   UpvoteCrewReview[]
     downvotes DownvoteCrewReview[]
 
@@ -50,8 +46,7 @@ model UpvoteCrewReview {
     crewReviewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+    user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
     crew       Crew        @relation(fields: [crewId], references: [id], onDelete: Cascade)
     crewReview CrewReview? @relation(fields: [crewReviewId], references: [id], onDelete: Cascade)
 
@@ -67,8 +62,7 @@ model DownvoteCrewReview {
     crewReviewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+    user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
     crew       Crew        @relation(fields: [crewId], references: [id], onDelete: Cascade)
     crewReview CrewReview? @relation(fields: [crewReviewId], references: [id], onDelete: Cascade)
 
