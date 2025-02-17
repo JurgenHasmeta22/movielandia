@@ -132,9 +132,8 @@ export const castMovies = [
     { id: 44, movieId: 2, actorId: 1 },
     { id: 45, movieId: 3, actorId: 1 },
     { id: 46, movieId: 4, actorId: 1 },
-    { id: 47, movieId: 5, actorId: 1 },
-    { id: 48, movieId: 6, actorId: 1 },
-    { id: 49, movieId: 7, actorId: 1 },
+    { id: 47, movieId: 6, actorId: 1 },
+    { id: 48, movieId: 7, actorId: 1 },
 ];
 
 export const castSeries = [
