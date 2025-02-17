@@ -1,13 +1,15 @@
 model Season {
     id           Int    @id @default(autoincrement())
-    title        String @default("")
+    title        String @default("Season")
     photoSrc     String @default("")
     photoSrcProd String @default("")
     trailerSrc   String @default("")
-    description  String @default("")
+    description  String @default("Season desc")
     dateAired    String @default("01/01/1990")
-    ratingImdb   Float  @default(5.0)
-    serieId      Int    @default(1)
+    ratingImdb   Float  @default(1.0)
+
+    // FK Keys
+    serieId Int @default(1)
 
     // Relations
     serie    Serie     @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -15,7 +17,6 @@ model Season {
 
     usersWhoBookmarkedIt UserSeasonFavorite[]
     usersWhoRatedIt      UserSeasonRating[]
-
     reviews              SeasonReview[]
     UpvoteSeasonReview   UpvoteSeasonReview[]
     DownvoteSeasonReview DownvoteSeasonReview[]
@@ -33,9 +34,8 @@ model SeasonReview {
     seasonId Int
 
     // Relations
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+    user      User                   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    season    Season                 @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     upvotes   UpvoteSeasonReview[]
     downvotes DownvoteSeasonReview[]
 
@@ -51,8 +51,7 @@ model UpvoteSeasonReview {
     seasonReviewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+    user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
     season       Season        @relation(fields: [seasonId], references: [id], onDelete: Cascade)
     seasonReview SeasonReview? @relation(fields: [seasonReviewId], references: [id], onDelete: Cascade)
 
@@ -68,8 +67,7 @@ model DownvoteSeasonReview {
     seasonReviewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+    user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
     season       Season        @relation(fields: [seasonId], references: [id], onDelete: Cascade)
     seasonReview SeasonReview? @relation(fields: [seasonReviewId], references: [id], onDelete: Cascade)
 

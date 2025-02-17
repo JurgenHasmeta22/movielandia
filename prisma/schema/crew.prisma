@@ -1,11 +1,11 @@
 model Crew {
     id           Int    @id @default(autoincrement())
-    fullname     String
+    fullname     String @default("Crew1")
     photoSrc     String @default("")
     role         String @default("")
     photoSrcProd String @default("")
-    description  String @default("")
-    debut        String @default("")
+    description  String @default("Desc example")
+    debut        String @default("01/01/1990")
 
     // Relations
     producedMovies CrewMovie[]

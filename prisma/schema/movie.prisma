@@ -1,23 +1,21 @@
 model Movie {
     id           Int    @id @default(autoincrement())
-    title        String @default("")
+    title        String @default("Movie")
     photoSrc     String @default("")
     photoSrcProd String @default("")
     trailerSrc   String @default("")
-    duration     Int    @default(100)
-    ratingImdb   Float  @default(5.0)
+    duration     Int    @default(120)
+    ratingImdb   Float  @default(1.0)
     dateAired    String @default("11/12/2005")
-    description  String @default("")
+    description  String @default("Movie desc")
 
     // Relations
     cast                 CastMovie[]
     crew                 CrewMovie[]
     genres               MovieGenre[]
     reviews              MovieReview[]
-
     usersWhoBookmarkedIt UserMovieFavorite[]
     usersWhoRatedIt      UserMovieRating[]
-
     upvoteMovieReviews   UpvoteMovieReview[]
     downvoteMovieReviews DownvoteMovieReview[]
 }
@@ -36,7 +34,6 @@ model MovieReview {
     // Relations
     user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     movie     Movie                 @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    
     upvotes   UpvoteMovieReview[]
     downvotes DownvoteMovieReview[]
 }
@@ -51,7 +48,6 @@ model UpvoteMovieReview {
 
     // Relations
     user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    
     movie       Movie        @relation(fields: [movieId], references: [id], onDelete: Cascade)
     movieReview MovieReview? @relation(fields: [movieReviewId], references: [id], onDelete: Cascade)
 
@@ -68,7 +64,6 @@ model DownvoteMovieReview {
 
     // Relations
     user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    
     movie       Movie        @relation(fields: [movieId], references: [id], onDelete: Cascade)
     movieReview MovieReview? @relation(fields: [movieReviewId], references: [id], onDelete: Cascade)
 

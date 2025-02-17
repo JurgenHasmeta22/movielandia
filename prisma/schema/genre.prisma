@@ -1,10 +1,9 @@
 model Genre {
-  id                   Int                 @id @default(autoincrement())
-  name                 String              @default("")
-  
-  // Relations
-  movies               MovieGenre[]
-  series               SerieGenre[]
-  
-  usersWhoBookmarkedIt UserGenreFavorite[]
+    id   Int    @id @default(autoincrement())
+    name String @default("Other")
+
+    // Relations
+    movies               MovieGenre[]
+    series               SerieGenre[]
+    usersWhoBookmarkedIt UserGenreFavorite[]
 }
