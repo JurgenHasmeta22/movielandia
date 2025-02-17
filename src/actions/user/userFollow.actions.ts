@@ -10,15 +10,15 @@ export async function follow(followerId: number, followingId: number): Promise<v
             throw new Error("You cannot follow yourself.");
         }
 
-        const existingFollow = await prisma.userFollow.findFirst({
-            where: {
-                AND: [{ followerId }, { followingId }],
-            },
-        });
+        // const existingFollow = await prisma.userFollow.findFirst({
+        //     where: {
+        //         AND: [{ followerId }, { followingId }],
+        //     },
+        // });
 
-        if (existingFollow) {
-            throw new Error("You already follow this user.");
-        }
+        // if (existingFollow) {
+        //     throw new Error("You already follow this user.");
+        // }
 
         await prisma.$transaction([
             prisma.userFollow.create({
