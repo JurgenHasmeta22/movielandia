@@ -13,8 +13,27 @@ const prisma = new PrismaClient({
     log: ["query", "info", "warn", "error"],
 });
 
+// #region "Utils"
+function getRandomRating(): number {
+    return Number((Math.random() * (9.9 - 1.0) + 1.0).toFixed(1));
+}
+
+function getRandomDate(): string {
+    const start = new Date(1950, 0, 1).getTime(); // Jan 1, 1950
+    const end = new Date().getTime(); // Today
+    const randomTimestamp = Math.floor(Math.random() * (end - start) + start);
+
+    return new Date(randomTimestamp).toISOString().split("T")[0]; // Format: YYYY-MM-DD
+}
+
+function getRandomDuration(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+// #endregion
+
 async function createStuff() {
     try {
+        // #region "Deleting data"
         await prisma.serieGenre.deleteMany();
         await prisma.movieGenre.deleteMany();
 
@@ -40,7 +59,9 @@ async function createStuff() {
         await prisma.genre.deleteMany();
         await prisma.episode.deleteMany();
         await prisma.user.deleteMany();
+        // #endregion
 
+        // #region "Base seeding data"
         for (const user of users) {
             await prisma.user.create({ data: user });
         }
@@ -120,6 +141,91 @@ async function createStuff() {
         for (const downvoteCrewReviewsData of downvoteCrewReviews) {
             await prisma.downvoteCrewReview.create({ data: downvoteCrewReviewsData });
         }
+        // #endregion
+
+        // #region "Additional seeding random"
+        const NUM_MOVIES = 300;
+
+        for (let i = 0; i < NUM_MOVIES; i++) {
+            await prisma.movie.create({
+                data: {
+                    id: movies.length + i + 1,
+                    title: `Movie ${i + 1}`,
+                    photoSrc: "http://localhost:4000/images/placeholder.jpg",
+                    photoSrcProd:
+                        "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg",
+                    trailerSrc: "",
+                    duration: getRandomDuration(80, 180),
+                    ratingImdb: getRandomRating(),
+                    dateAired: getRandomDate(),
+                    description: `Description for Movie ${i + 1}`,
+                },
+            });
+        }
+
+        const NUM_SERIES = 300;
+        const MAX_SEASONS = 3;
+        const MAX_EPISODES = 7;
+        const BASE_SERIE_NAME = "Serie";
+        const BASE_PHOTO_SRC = "http://localhost:4000/images/placeholder.jpg";
+        const BASE_PHOTO_SRC_PROD =
+            "https://movielandia-avenger22s-projects.vercel.app/images/placeholder.jpg";
+        const BASE_TRAILER_SRC = "https://www.youtube.com/watch?v=BJYJksHREIc";
+
+        for (let i = 0; i < NUM_SERIES; i++) {
+            const serieTitle = `${BASE_SERIE_NAME} ${i + 1}`;
+            const createdSerie = await prisma.serie.create({
+                data: {
+                    id: series.length + i + 1,
+                    title: serieTitle,
+                    photoSrc: BASE_PHOTO_SRC,
+                    photoSrcProd: BASE_PHOTO_SRC_PROD,
+                    trailerSrc: BASE_TRAILER_SRC,
+                    description: `${serieTitle} description`,
+                    dateAired: getRandomDate(),
+                    ratingImdb: getRandomRating(),
+                },
+            });
+
+            for (let seasonNum = 1; seasonNum <= MAX_SEASONS; seasonNum++) {
+                const seasonTitle = `${serieTitle} Season ${seasonNum}`;
+                const createdSeason = await prisma.season.create({
+                    data: {
+                        id: seasons.length + i + 1,
+                        title: seasonTitle,
+                        photoSrc: BASE_PHOTO_SRC,
+                        photoSrcProd: BASE_PHOTO_SRC_PROD,
+                        trailerSrc: BASE_TRAILER_SRC,
+                        description: `${seasonTitle} description`,
+                        dateAired: getRandomDate(),
+                        ratingImdb: getRandomRating(),
+                        serieId: createdSerie.id,
+                    },
+                });
+
+                for (let episodeNum = 1; episodeNum <= MAX_EPISODES; episodeNum++) {
+                    const seasonNumPadded = seasonNum.toString().padStart(2, "0");
+                    const episodeNumPadded = episodeNum.toString().padStart(2, "0");
+                    const episodeTitle = `${BASE_SERIE_NAME} S${seasonNumPadded} E${episodeNumPadded}`;
+
+                    await prisma.episode.create({
+                        data: {
+                            id: episodes.length + i + 1,
+                            title: episodeTitle,
+                            photoSrc: BASE_PHOTO_SRC,
+                            photoSrcProd: BASE_PHOTO_SRC_PROD,
+                            trailerSrc: BASE_TRAILER_SRC,
+                            description: `${episodeTitle} description`,
+                            duration: getRandomDuration(20, 45),
+                            dateAired: getRandomDate(),
+                            ratingImdb: getRandomRating(),
+                            seasonId: createdSeason.id,
+                        },
+                    });
+                }
+            }
+        }
+        // #endregion
 
         console.log("Database seeding completed successfully.");
     } catch (error) {
