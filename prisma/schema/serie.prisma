@@ -1,23 +1,21 @@
 model Serie {
     id           Int    @id @default(autoincrement())
-    title        String @default("")
+    title        String @default("Serie")
     photoSrc     String @default("")
     photoSrcProd String @default("")
     trailerSrc   String @default("")
-    description  String @default("")
+    description  String @default("Serie desc")
     dateAired    String @default("01/01/2020")
-    ratingImdb   Float  @default(5.0)
+    ratingImdb   Float  @default(1.0)
 
     // Relations
-    cast    CastSerie[]
-    crew    CrewSerie[]
-    seasons Season[]
-    reviews SerieReview[]
-    genres  SerieGenre[]
-
+    cast                 CastSerie[]
+    crew                 CrewSerie[]
+    seasons              Season[]
+    reviews              SerieReview[]
+    genres               SerieGenre[]
     usersWhoBookmarkedIt UserSerieFavorite[]
     usersWhoRatedIt      UserSerieRating[]
-
     upvoteSerieReviews   UpvoteSerieReview[]
     downvoteSerieReviews DownvoteSerieReview[]
 }
@@ -31,8 +29,7 @@ model UpvoteSerieReview {
     serieReviewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+    user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
     serie       Serie        @relation(fields: [serieId], references: [id], onDelete: Cascade)
     serieReview SerieReview? @relation(fields: [serieReviewId], references: [id], onDelete: Cascade)
 
@@ -48,8 +45,7 @@ model DownvoteSerieReview {
     serieReviewId Int
 
     // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+    user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
     serie       Serie        @relation(fields: [serieId], references: [id], onDelete: Cascade)
     serieReview SerieReview? @relation(fields: [serieReviewId], references: [id], onDelete: Cascade)
 
@@ -68,9 +64,8 @@ model SerieReview {
     serieId Int
 
     // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+    user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    serie     Serie                 @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     upvotes   UpvoteSerieReview[]
     downvotes DownvoteSerieReview[]
 
