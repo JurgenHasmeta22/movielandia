@@ -36,7 +36,6 @@ export interface AddReviewSerieParams {
 
 export interface UpdateReviewMovieParams {
     content: string;
-    updatedAt?: Date;
     rating: number;
     userId: number;
     movieId: number;
@@ -44,7 +43,6 @@ export interface UpdateReviewMovieParams {
 
 export interface UpdateReviewSerieParams {
     content: string;
-    updatedAt?: Date;
     rating: number;
     userId: number;
     serieId: number;

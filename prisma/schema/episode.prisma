@@ -1,13 +1,13 @@
 model Episode {
-    id           Int    @id @default(autoincrement())
-    title        String @default("Episode")
-    photoSrc     String @default("")
-    photoSrcProd String @default("")
-    trailerSrc   String @default("")
-    description  String @default("Episode description")
-    duration     Int    @default(45)
-    dateAired    String @default("01/01/1990")
-    ratingImdb   Float  @default(1.0)
+    id           Int     @id @default(autoincrement())
+    title        String?
+    photoSrc     String?
+    photoSrcProd String?
+    trailerSrc   String?
+    description  String?
+    duration     Int?
+    dateAired    String?
+    ratingImdb   Float?
 
     // FK Keys
     seasonId Int
@@ -22,11 +22,11 @@ model Episode {
 }
 
 model EpisodeReview {
-    id        Int       @id @default(autoincrement())
+    id        Int      @id @default(autoincrement())
     content   String?
     rating    Float?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime? @updatedAt
 
     // FK Keys
     userId    Int

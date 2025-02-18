@@ -326,7 +326,6 @@ export const addReviewCrew = async ({
 // #region "Update Review"
 export const updateReviewMovie = async ({
     content,
-    updatedAt = new Date(),
     rating,
     userId,
     movieId,
@@ -345,7 +344,6 @@ export const updateReviewMovie = async ({
             const reviewUpdated = await prisma.movieReview.update({
                 data: {
                     content,
-                    updatedAt,
                     rating,
                     userId,
                     movieId,
@@ -371,7 +369,6 @@ export const updateReviewMovie = async ({
 
 export const updateReviewSerie = async ({
     content,
-    updatedAt = new Date(),
     rating,
     userId,
     serieId,
@@ -390,7 +387,6 @@ export const updateReviewSerie = async ({
             const reviewUpdated = await prisma.serieReview.update({
                 data: {
                     content,
-                    updatedAt,
                     rating,
                     userId,
                     serieId,
@@ -416,7 +412,6 @@ export const updateReviewSerie = async ({
 
 export const updateReviewSeason = async ({
     content,
-    updatedAt = new Date(),
     rating,
     userId,
     seasonId,
@@ -435,7 +430,6 @@ export const updateReviewSeason = async ({
             const reviewUpdated = await prisma.seasonReview.update({
                 data: {
                     content,
-                    updatedAt,
                     rating,
                     userId,
                     seasonId,
@@ -461,7 +455,6 @@ export const updateReviewSeason = async ({
 
 export const updateReviewEpisode = async ({
     content,
-    updatedAt = new Date(),
     rating,
     userId,
     episodeId,
@@ -480,7 +473,6 @@ export const updateReviewEpisode = async ({
             const reviewUpdated = await prisma.episodeReview.update({
                 data: {
                     content,
-                    updatedAt,
                     rating,
                     userId,
                     episodeId,
@@ -506,7 +498,6 @@ export const updateReviewEpisode = async ({
 
 export const updateReviewActor = async ({
     content,
-    updatedAt = new Date(),
     rating,
     userId,
     actorId,
@@ -525,7 +516,6 @@ export const updateReviewActor = async ({
             const reviewUpdated = await prisma.actorReview.update({
                 data: {
                     content,
-                    updatedAt,
                     rating,
                     userId,
                     actorId,
@@ -551,7 +541,6 @@ export const updateReviewActor = async ({
 
 export const updateReviewCrew = async ({
     content,
-    updatedAt = new Date(),
     rating,
     userId,
     crewId,
@@ -570,7 +559,6 @@ export const updateReviewCrew = async ({
             const reviewUpdated = await prisma.crewReview.update({
                 data: {
                     content,
-                    updatedAt,
                     rating,
                     userId,
                     crewId,

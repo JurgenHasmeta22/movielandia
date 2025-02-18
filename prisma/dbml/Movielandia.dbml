@@ -4,11 +4,11 @@
 
 Table Actor {
   id Int [pk, increment]
-  fullname String [not null]
-  photoSrc String [not null, default: '']
-  photoSrcProd String [not null, default: '']
-  description String [not null, default: '']
-  debut String [not null, default: '']
+  fullname String
+  photoSrc String
+  photoSrcProd String
+  description String
+  debut String
   starredMovies CastMovie [not null]
   starredSeries CastSerie [not null]
   reviews ActorReview [not null]
@@ -20,7 +20,7 @@ Table Actor {
 
 Table ActorReview {
   id Int [pk, increment]
-  content String [not null, default: '']
+  content String
   rating Float
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
@@ -30,6 +30,10 @@ Table ActorReview {
   actor Actor [not null]
   upvotes UpvoteActorReview [not null]
   downvotes DownvoteActorReview [not null]
+
+  indexes {
+    (userId, actorId) [unique]
+  }
 }
 
 Table UpvoteActorReview {
@@ -40,6 +44,10 @@ Table UpvoteActorReview {
   user User [not null]
   actor Actor [not null]
   actorReview ActorReview
+
+  indexes {
+    (userId, actorId, actorReviewId) [unique]
+  }
 }
 
 Table DownvoteActorReview {
@@ -50,14 +58,16 @@ Table DownvoteActorReview {
   user User [not null]
   actor Actor [not null]
   actorReview ActorReview
+
+  indexes {
+    (userId, actorId, actorReviewId) [unique]
+  }
 }
 
 Table Account {
   id String [pk]
-  userId Int [not null]
   type String [not null]
   provider String [not null]
-  providerAccountId String [not null]
   refresh_token String
   access_token String
   expires_at Int
@@ -65,6 +75,8 @@ Table Account {
   scope String
   id_token String
   session_state String
+  userId Int [not null]
+  providerAccountId String [not null]
   user User [not null]
 
   indexes {
@@ -75,8 +87,8 @@ Table Account {
 Table Session {
   id String [pk]
   sessionToken String [unique, not null]
-  userId Int [not null]
   expires DateTime [not null]
+  userId Int [not null]
   user User [not null]
 }
 
@@ -90,14 +102,32 @@ Table VerificationToken {
   }
 }
 
+Table ActivateToken {
+  id Int [pk, increment]
+  token String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  activatedAt DateTime
+  userId Int [not null]
+  user User [not null]
+}
+
+Table ResetPasswordToken {
+  id Int [pk, increment]
+  token String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  resetPasswordAt DateTime
+  userId Int [not null]
+  user User [not null]
+}
+
 Table Crew {
   id Int [pk, increment]
-  fullname String [not null]
-  photoSrc String [not null, default: '']
-  role String [not null, default: '']
-  photoSrcProd String [not null, default: '']
-  description String [not null, default: '']
-  debut String [not null, default: '']
+  fullname String
+  photoSrc String
+  role String
+  photoSrcProd String
+  description String
+  debut String
   producedMovies CrewMovie [not null]
   producedSeries CrewSerie [not null]
   reviews CrewReview [not null]
@@ -109,7 +139,7 @@ Table Crew {
 
 Table CrewReview {
   id Int [pk, increment]
-  content String [not null, default: '']
+  content String
   rating Float
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
@@ -119,6 +149,10 @@ Table CrewReview {
   crew Crew [not null]
   upvotes UpvoteCrewReview [not null]
   downvotes DownvoteCrewReview [not null]
+
+  indexes {
+    (userId, crewId) [unique]
+  }
 }
 
 Table UpvoteCrewReview {
@@ -129,6 +163,10 @@ Table UpvoteCrewReview {
   user User [not null]
   crew Crew [not null]
   crewReview CrewReview
+
+  indexes {
+    (userId, crewId, crewReviewId) [unique]
+  }
 }
 
 Table DownvoteCrewReview {
@@ -139,18 +177,22 @@ Table DownvoteCrewReview {
   user User [not null]
   crew Crew [not null]
   crewReview CrewReview
+
+  indexes {
+    (userId, crewId, crewReviewId) [unique]
+  }
 }
 
 Table Episode {
   id Int [pk, increment]
-  title String [not null, default: '']
-  photoSrc String [not null, default: '']
-  photoSrcProd String [not null, default: '']
-  trailerSrc String [not null, default: '']
-  description String [not null, default: '']
-  duration Int [not null, default: 20]
-  dateAired String [not null, default: '01/01/1990']
-  ratingImdb Float [not null, default: 5]
+  title String
+  photoSrc String
+  photoSrcProd String
+  trailerSrc String
+  description String
+  duration Int
+  dateAired String
+  ratingImdb Float
   seasonId Int [not null]
   season Season [not null]
   usersWhoBookmarkedIt UserEpisodeFavorite [not null]
@@ -162,7 +204,7 @@ Table Episode {
 
 Table EpisodeReview {
   id Int [pk, increment]
-  content String [not null, default: '']
+  content String
   rating Float
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
@@ -172,6 +214,10 @@ Table EpisodeReview {
   episode Episode [not null]
   upvotes UpvoteEpisodeReview [not null]
   downvotes DownvoteEpisodeReview [not null]
+
+  indexes {
+    (userId, episodeId) [unique]
+  }
 }
 
 Table UpvoteEpisodeReview {
@@ -182,6 +228,10 @@ Table UpvoteEpisodeReview {
   user User [not null]
   episode Episode [not null]
   episodeReview EpisodeReview
+
+  indexes {
+    (userId, episodeId, episodeReviewId) [unique]
+  }
 }
 
 Table DownvoteEpisodeReview {
@@ -192,26 +242,62 @@ Table DownvoteEpisodeReview {
   user User [not null]
   episode Episode [not null]
   episodeReview EpisodeReview
+
+  indexes {
+    (userId, episodeId, episodeReviewId) [unique]
+  }
 }
 
 Table Genre {
   id Int [pk, increment]
-  name String [not null, default: '']
+  name String
   movies MovieGenre [not null]
   series SerieGenre [not null]
   usersWhoBookmarkedIt UserGenreFavorite [not null]
 }
 
+Table Inbox {
+  id Int [pk, increment]
+  participants UserInbox [not null]
+  messages Message [not null]
+}
+
+Table Message {
+  id Int [pk, increment]
+  text String
+  createdAt DateTime [default: `now()`, not null]
+  read Boolean [not null, default: false]
+  editedAt DateTime
+  senderId Int [not null]
+  receiverId Int [not null]
+  inboxId Int [not null]
+  receiver User [not null]
+  sender User [not null]
+  inbox Inbox [not null]
+}
+
+Table UserInbox {
+  id Int [pk, increment]
+  userId Int [not null]
+  inboxId Int [not null]
+  user User [not null]
+  inbox Inbox [not null]
+
+  indexes {
+    (userId, inboxId) [unique]
+  }
+}
+
 Table Movie {
   id Int [pk, increment]
-  title String [not null, default: '']
-  photoSrc String [not null, default: '']
-  photoSrcProd String [not null, default: '']
-  trailerSrc String [not null, default: '']
-  duration Int [not null, default: 100]
-  ratingImdb Float [not null, default: 5]
-  dateAired String [not null, default: '11/12/2005']
-  description String [not null, default: '']
+  title String
+  photoSrc String
+  photoSrcProd String
+  trailerSrc String
+  duration Int
+  ratingImdb Float
+  dateAired String
+  description String
   cast CastMovie [not null]
   crew CrewMovie [not null]
   genres MovieGenre [not null]
@@ -224,7 +310,7 @@ Table Movie {
 
 Table MovieReview {
   id Int [pk, increment]
-  content String [not null, default: '']
+  content String
   rating Float
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
@@ -244,6 +330,10 @@ Table UpvoteMovieReview {
   user User [not null]
   movie Movie [not null]
   movieReview MovieReview
+
+  indexes {
+    (userId, movieId, movieReviewId) [unique]
+  }
 }
 
 Table DownvoteMovieReview {
@@ -254,6 +344,10 @@ Table DownvoteMovieReview {
   user User [not null]
   movie Movie [not null]
   movieReview MovieReview
+
+  indexes {
+    (userId, movieId, movieReviewId) [unique]
+  }
 }
 
 Table CastMovie {
@@ -262,6 +356,10 @@ Table CastMovie {
   actorId Int [not null]
   movie Movie [not null]
   actor Actor [not null]
+
+  indexes {
+    (movieId, actorId) [unique]
+  }
 }
 
 Table CrewMovie {
@@ -270,6 +368,10 @@ Table CrewMovie {
   crewId Int [not null]
   movie Movie [not null]
   crew Crew [not null]
+
+  indexes {
+    (crewId, movieId) [unique]
+  }
 }
 
 Table MovieGenre {
@@ -278,18 +380,34 @@ Table MovieGenre {
   genreId Int [not null]
   movie Movie [not null]
   genre Genre [not null]
+
+  indexes {
+    (genreId, movieId) [unique]
+  }
+}
+
+Table Notification {
+  id Int [pk, increment]
+  type String
+  content String
+  status String [not null, default: 'unread']
+  createdAt DateTime [default: `now()`, not null]
+  userId Int [not null]
+  senderId Int [not null]
+  user User [not null]
+  sender User [not null]
 }
 
 Table Season {
   id Int [pk, increment]
-  title String [not null, default: '']
-  photoSrc String [not null, default: '']
-  photoSrcProd String [not null, default: '']
-  trailerSrc String [not null, default: '']
-  description String [not null, default: '']
-  dateAired String [not null, default: '01/01/1990']
-  ratingImdb Float [not null, default: 5]
-  serieId Int [not null, default: 1]
+  title String
+  photoSrc String
+  photoSrcProd String
+  trailerSrc String
+  description String
+  dateAired String
+  ratingImdb Float
+  serieId Int [not null]
   serie Serie [not null]
   episodes Episode [not null]
   usersWhoBookmarkedIt UserSeasonFavorite [not null]
@@ -301,7 +419,7 @@ Table Season {
 
 Table SeasonReview {
   id Int [pk, increment]
-  content String [not null, default: '']
+  content String
   rating Float
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
@@ -311,6 +429,10 @@ Table SeasonReview {
   season Season [not null]
   upvotes UpvoteSeasonReview [not null]
   downvotes DownvoteSeasonReview [not null]
+
+  indexes {
+    (userId, seasonId) [unique]
+  }
 }
 
 Table UpvoteSeasonReview {
@@ -321,6 +443,10 @@ Table UpvoteSeasonReview {
   user User [not null]
   season Season [not null]
   seasonReview SeasonReview
+
+  indexes {
+    (userId, seasonId, seasonReviewId) [unique]
+  }
 }
 
 Table DownvoteSeasonReview {
@@ -331,17 +457,21 @@ Table DownvoteSeasonReview {
   user User [not null]
   season Season [not null]
   seasonReview SeasonReview
+
+  indexes {
+    (userId, seasonId, seasonReviewId) [unique]
+  }
 }
 
 Table Serie {
   id Int [pk, increment]
-  title String [not null, default: '']
-  photoSrc String [not null, default: '']
-  photoSrcProd String [not null, default: '']
-  trailerSrc String [not null, default: '']
-  description String [not null, default: '']
-  dateAired String [not null, default: '01/01/2020']
-  ratingImdb Float [not null, default: 5]
+  title String
+  photoSrc String
+  photoSrcProd String
+  trailerSrc String
+  description String
+  dateAired String
+  ratingImdb Float
   cast CastSerie [not null]
   crew CrewSerie [not null]
   seasons Season [not null]
@@ -361,6 +491,10 @@ Table UpvoteSerieReview {
   user User [not null]
   serie Serie [not null]
   serieReview SerieReview
+
+  indexes {
+    (userId, serieId, serieReviewId) [unique]
+  }
 }
 
 Table DownvoteSerieReview {
@@ -371,11 +505,15 @@ Table DownvoteSerieReview {
   user User [not null]
   serie Serie [not null]
   serieReview SerieReview
+
+  indexes {
+    (userId, serieId, serieReviewId) [unique]
+  }
 }
 
 Table SerieReview {
   id Int [pk, increment]
-  content String [not null, default: '']
+  content String
   rating Float
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
@@ -385,6 +523,10 @@ Table SerieReview {
   serie Serie [not null]
   upvotes UpvoteSerieReview [not null]
   downvotes DownvoteSerieReview [not null]
+
+  indexes {
+    (userId, serieId) [unique]
+  }
 }
 
 Table SerieGenre {
@@ -393,6 +535,10 @@ Table SerieGenre {
   genreId Int [not null]
   serie Serie [not null]
   genre Genre [not null]
+
+  indexes {
+    (serieId, genreId) [unique]
+  }
 }
 
 Table CastSerie {
@@ -401,6 +547,10 @@ Table CastSerie {
   actorId Int [not null]
   serie Serie [not null]
   actor Actor [not null]
+
+  indexes {
+    (serieId, actorId) [unique]
+  }
 }
 
 Table CrewSerie {
@@ -409,20 +559,26 @@ Table CrewSerie {
   crewId Int [not null]
   serie Serie [not null]
   crew Crew [not null]
+
+  indexes {
+    (serieId, crewId) [unique]
+  }
 }
 
 Table User {
   id Int [pk, increment]
-  userName String [not null]
+  userName String [unique, not null]
   email String [unique, not null]
   password String
   role String [not null, default: 'User']
-  bio String [not null, default: '']
+  bio String
   active Boolean [not null, default: false]
   canResetPassword Boolean [not null, default: false]
   subscribed Boolean [not null, default: false]
   resetPassowrdTokens ResetPasswordToken [not null]
   activateTokens ActivateToken [not null]
+  accounts Account [not null]
+  sessions Session [not null]
   favMovies UserMovieFavorite [not null]
   favSeries UserSerieFavorite [not null]
   favGenres UserGenreFavorite [not null]
@@ -460,28 +616,8 @@ Table User {
   inboxs UserInbox [not null]
   messagesSent Message [not null]
   messagesReceived Message [not null]
-  accounts Account [not null]
-  sessions Session [not null]
   notificationsReceived Notification [not null]
   notificationsSent Notification [not null]
-}
-
-Table ActivateToken {
-  id Int [pk, increment]
-  token String [unique, not null]
-  createdAt DateTime [default: `now()`, not null]
-  activatedAt DateTime
-  userId Int [not null]
-  user User [not null]
-}
-
-Table ResetPasswordToken {
-  id Int [pk, increment]
-  token String [unique, not null]
-  createdAt DateTime [default: `now()`, not null]
-  resetPasswordAt DateTime
-  userId Int [not null]
-  user User [not null]
 }
 
 Table Avatar {
@@ -494,92 +630,92 @@ Table Avatar {
 Table UserFollow {
   id Int [pk, increment]
   state String [not null]
-  follower User [not null]
   followerId Int [not null]
-  following User [not null]
   followingId Int [not null]
-}
+  follower User [not null]
+  following User [not null]
 
-Table UserInbox {
-  id Int [pk, increment]
-  userId Int [not null]
-  inboxId Int [not null]
-  user User [not null]
-  inbox Inbox [not null]
-}
-
-Table Inbox {
-  id Int [pk, increment]
-  participants UserInbox [not null]
-  messages Message [not null]
-}
-
-Table Message {
-  id Int [pk, increment]
-  text String [not null]
-  sender User [not null]
-  senderId Int [not null]
-  receiver User [not null]
-  receiverId Int [not null]
-  inbox Inbox [not null]
-  inboxId Int [not null]
-  createdAt DateTime [default: `now()`, not null]
-  read Boolean [not null, default: false]
-  editedAt DateTime
+  indexes {
+    (followerId, followingId) [unique]
+  }
 }
 
 Table UserMovieRating {
   id Int [pk, increment]
   rating Float [not null]
   userId Int [not null]
-  user User [not null]
   movieId Int [not null]
+  user User [not null]
   movie Movie [not null]
+
+  indexes {
+    (userId, movieId) [unique]
+  }
 }
 
 Table UserSerieRating {
   id Int [pk, increment]
   rating Float [not null]
   userId Int [not null]
-  user User [not null]
   serieId Int [not null]
+  user User [not null]
   serie Serie [not null]
+
+  indexes {
+    (userId, serieId) [unique]
+  }
 }
 
 Table UserSeasonRating {
   id Int [pk, increment]
   rating Float [not null]
   userId Int [not null]
-  user User [not null]
   seasonId Int [not null]
+  user User [not null]
   season Season [not null]
+
+  indexes {
+    (userId, seasonId) [unique]
+  }
 }
 
 Table UserEpisodeRating {
   id Int [pk, increment]
   rating Float [not null]
   userId Int [not null]
-  user User [not null]
   episodeId Int [not null]
+  user User [not null]
   episode Episode [not null]
+
+  indexes {
+    (userId, episodeId) [unique]
+  }
 }
 
 Table UserActorRating {
   id Int [pk, increment]
   rating Float [not null]
   userId Int [not null]
-  user User [not null]
   actorId Int [not null]
+  user User [not null]
   actor Actor [not null]
+
+  indexes {
+    (userId, actorId) [unique]
+  }
 }
 
 Table UserCrewRating {
   id Int [pk, increment]
   rating Float [not null]
   userId Int [not null]
-  user User [not null]
   crewId Int [not null]
+  user User [not null]
   crew Crew [not null]
+
+  indexes {
+    (userId, crewId) [unique]
+  }
 }
 
 Table UserMovieFavorite {
@@ -588,6 +724,10 @@ Table UserMovieFavorite {
   movieId Int [not null]
   user User [not null]
   movie Movie [not null]
+
+  indexes {
+    (userId, movieId) [unique]
+  }
 }
 
 Table UserGenreFavorite {
@@ -596,6 +736,10 @@ Table UserGenreFavorite {
   genreId Int [not null]
   user User [not null]
   genre Genre [not null]
+
+  indexes {
+    (userId, genreId) [unique]
+  }
 }
 
 Table UserSerieFavorite {
@@ -604,6 +748,10 @@ Table UserSerieFavorite {
   serieId Int [not null]
   user User [not null]
   serie Serie [not null]
+
+  indexes {
+    (userId, serieId) [unique]
+  }
 }
 
 Table UserEpisodeFavorite {
@@ -612,6 +760,10 @@ Table UserEpisodeFavorite {
   episodeId Int [not null]
   user User [not null]
   episode Episode [not null]
+
+  indexes {
+    (userId, episodeId) [unique]
+  }
 }
 
 Table UserSeasonFavorite {
@@ -620,6 +772,10 @@ Table UserSeasonFavorite {
   seasonId Int [not null]
   user User [not null]
   season Season [not null]
+
+  indexes {
+    (userId, seasonId) [unique]
+  }
 }
 
 Table UserActorFavorite {
@@ -628,6 +784,10 @@ Table UserActorFavorite {
   actorId Int [not null]
   user User [not null]
   actor Actor [not null]
+
+  indexes {
+    (userId, actorId) [unique]
+  }
 }
 
 Table UserCrewFavorite {
@@ -636,18 +796,10 @@ Table UserCrewFavorite {
   crewId Int [not null]
   user User [not null]
   crew Crew [not null]
-}
 
-Table Notification {
-  id Int [pk, increment]
-  type String [not null]
-  content String [not null]
-  userId Int [not null]
-  user User [not null]
-  senderId Int [not null]
-  sender User [not null]
-  status String [not null, default: 'unread']
-  createdAt DateTime [default: `now()`, not null]
+  indexes {
+    (userId, crewId) [unique]
+  }
 }
 
 Ref: ActorReview.userId > User.id [delete: Cascade]
@@ -669,6 +821,10 @@ Ref: DownvoteActorReview.actorReviewId > ActorReview.id [delete: Cascade]
 Ref: Account.userId > User.id [delete: Cascade]
 
 Ref: Session.userId > User.id [delete: Cascade]
+
+Ref: ActivateToken.userId > User.id [delete: Cascade]
+
+Ref: ResetPasswordToken.userId > User.id [delete: Cascade]
 
 Ref: CrewReview.userId > User.id [delete: Cascade]
 
@@ -704,6 +860,16 @@ Ref: DownvoteEpisodeReview.episodeId > Episode.id [delete: Cascade]
 
 Ref: DownvoteEpisodeReview.episodeReviewId > EpisodeReview.id [delete: Cascade]
 
+Ref: Message.receiverId > User.id [delete: Cascade]
+
+Ref: Message.senderId > User.id [delete: Cascade]
+
+Ref: Message.inboxId > Inbox.id [delete: Cascade]
+
+Ref: UserInbox.userId > User.id [delete: Cascade]
+
+Ref: UserInbox.inboxId > Inbox.id [delete: Cascade]
+
 Ref: MovieReview.userId > User.id [delete: Cascade]
 
 Ref: MovieReview.movieId > Movie.id [delete: Cascade]
@@ -731,6 +897,10 @@ Ref: CrewMovie.crewId > Crew.id [delete: Cascade]
 Ref: MovieGenre.movieId > Movie.id [delete: Cascade]
 
 Ref: MovieGenre.genreId > Genre.id [delete: Cascade]
+
+Ref: Notification.userId > User.id [delete: Cascade]
+
+Ref: Notification.senderId > User.id [delete: Cascade]
 
 Ref: Season.serieId > Serie.id [delete: Cascade]
 
@@ -778,25 +948,11 @@ Ref: CrewSerie.serieId > Serie.id [delete: Cascade]
 
 Ref: CrewSerie.crewId > Crew.id [delete: Cascade]
 
-Ref: ActivateToken.userId > User.id [delete: Cascade]
-
-Ref: ResetPasswordToken.userId > User.id [delete: Cascade]
-
 Ref: Avatar.userId - User.id [delete: Cascade]
 
 Ref: UserFollow.followerId > User.id [delete: Cascade]
 
 Ref: UserFollow.followingId > User.id [delete: Cascade]
-
-Ref: UserInbox.userId > User.id [delete: Cascade]
-
-Ref: UserInbox.inboxId > Inbox.id [delete: Cascade]
-
-Ref: Message.senderId > User.id [delete: Cascade]
-
-Ref: Message.receiverId > User.id [delete: Cascade]
-
-Ref: Message.inboxId > Inbox.id [delete: Cascade]
 
 Ref: UserMovieRating.userId > User.id [delete: Cascade]
 
@@ -849,7 +1005,3 @@ Ref: UserActorFavorite.actorId > Actor.id [delete: Cascade]
 Ref: UserCrewFavorite.userId > User.id [delete: Cascade]
 
 Ref: UserCrewFavorite.crewId > Crew.id [delete: Cascade]
-
-Ref: Notification.userId > User.id [delete: Cascade]
-
-Ref: Notification.senderId > User.id [delete: Cascade]

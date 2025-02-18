@@ -1,10 +1,10 @@
 model Actor {
-    id           Int    @id @default(autoincrement())
-    fullname     String @default("Actor1")
-    photoSrc     String @default("")
-    photoSrcProd String @default("")
-    description  String @default("Desc example")
-    debut        String @default("01/01/1950")
+    id           Int     @id @default(autoincrement())
+    fullname     String?
+    photoSrc     String?
+    photoSrcProd String?
+    description  String?
+    debut        String?
 
     // Relations
     starredMovies        CastMovie[]
@@ -17,11 +17,11 @@ model Actor {
 }
 
 model ActorReview {
-    id        Int       @id @default(autoincrement())
-    content   String    @default("Content example")
+    id        Int      @id @default(autoincrement())
+    content   String?
     rating    Float?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime? @updatedAt
 
     // FK Keys
     userId  Int
