@@ -1,0 +1,631 @@
+model Actor {
+  id                   Int                   @id
+  fullname             String?
+  photoSrc             String?
+  photoSrcProd         String?
+  description          String?
+  debut                String?
+  starredMovies        CastMovie[]
+  starredSeries        CastSerie[]
+  reviews              ActorReview[]
+  usersWhoRatedIt      UserActorRating[]
+  usersWhoBookmarkedIt UserActorFavorite[]
+  upvoteActorReviews   UpvoteActorReview[]
+  downvoteActorReviews DownvoteActorReview[]
+}
+
+model ActorReview {
+  id        Int                   @id
+  content   String?
+  rating    Float?
+  createdAt DateTime
+  updatedAt DateTime?
+  userId    Int
+  actorId   Int
+  user      User                  @relation(fields: [userId], references: [id])
+  actor     Actor                 @relation(fields: [actorId], references: [id])
+  upvotes   UpvoteActorReview[]
+  downvotes DownvoteActorReview[]
+}
+
+model UpvoteActorReview {
+  id            Int          @id
+  userId        Int
+  actorId       Int
+  actorReviewId Int
+  user          User         @relation(fields: [userId], references: [id])
+  actor         Actor        @relation(fields: [actorId], references: [id])
+  actorReview   ActorReview? @relation(fields: [actorReviewId], references: [id])
+}
+
+model DownvoteActorReview {
+  id            Int          @id
+  userId        Int
+  actorId       Int
+  actorReviewId Int
+  user          User         @relation(fields: [userId], references: [id])
+  actor         Actor        @relation(fields: [actorId], references: [id])
+  actorReview   ActorReview? @relation(fields: [actorReviewId], references: [id])
+}
+
+model Account {
+  id                String  @id
+  type              String
+  provider          String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  userId            Int
+  providerAccountId String
+  user              User    @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  expires      DateTime
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+}
+
+model ActivateToken {
+  id          Int       @id
+  token       String    @unique
+  createdAt   DateTime
+  activatedAt DateTime?
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model ResetPasswordToken {
+  id              Int       @id
+  token           String    @unique
+  createdAt       DateTime
+  resetPasswordAt DateTime?
+  userId          Int
+  user            User      @relation(fields: [userId], references: [id])
+}
+
+model Crew {
+  id                   Int                  @id
+  fullname             String?
+  photoSrc             String?
+  role                 String?
+  photoSrcProd         String?
+  description          String?
+  debut                String?
+  producedMovies       CrewMovie[]
+  producedSeries       CrewSerie[]
+  reviews              CrewReview[]
+  usersWhoRatedIt      UserCrewRating[]
+  usersWhoBookmarkedIt UserCrewFavorite[]
+  upvoteCrewReviews    UpvoteCrewReview[]
+  downvoteCrewReviews  DownvoteCrewReview[]
+}
+
+model CrewReview {
+  id        Int                  @id
+  content   String?
+  rating    Float?
+  createdAt DateTime
+  updatedAt DateTime?
+  userId    Int
+  crewId    Int
+  user      User                 @relation(fields: [userId], references: [id])
+  crew      Crew                 @relation(fields: [crewId], references: [id])
+  upvotes   UpvoteCrewReview[]
+  downvotes DownvoteCrewReview[]
+}
+
+model UpvoteCrewReview {
+  id           Int         @id
+  userId       Int
+  crewId       Int
+  crewReviewId Int
+  user         User        @relation(fields: [userId], references: [id])
+  crew         Crew        @relation(fields: [crewId], references: [id])
+  crewReview   CrewReview? @relation(fields: [crewReviewId], references: [id])
+}
+
+model DownvoteCrewReview {
+  id           Int         @id
+  userId       Int
+  crewId       Int
+  crewReviewId Int
+  user         User        @relation(fields: [userId], references: [id])
+  crew         Crew        @relation(fields: [crewId], references: [id])
+  crewReview   CrewReview? @relation(fields: [crewReviewId], references: [id])
+}
+
+model Episode {
+  id                     Int                     @id
+  title                  String?
+  photoSrc               String?
+  photoSrcProd           String?
+  trailerSrc             String?
+  description            String?
+  duration               Int?
+  dateAired              String?
+  ratingImdb             Float?
+  seasonId               Int
+  season                 Season                  @relation(fields: [seasonId], references: [id])
+  usersWhoBookmarkedIt   UserEpisodeFavorite[]
+  usersWhoRatedIt        UserEpisodeRating[]
+  reviews                EpisodeReview[]
+  upvoteEpisodeReviews   UpvoteEpisodeReview[]
+  downvoteEpisodeReviews DownvoteEpisodeReview[]
+}
+
+model EpisodeReview {
+  id        Int                     @id
+  content   String?
+  rating    Float?
+  createdAt DateTime
+  updatedAt DateTime?
+  userId    Int
+  episodeId Int
+  user      User                    @relation(fields: [userId], references: [id])
+  episode   Episode                 @relation(fields: [episodeId], references: [id])
+  upvotes   UpvoteEpisodeReview[]
+  downvotes DownvoteEpisodeReview[]
+}
+
+model UpvoteEpisodeReview {
+  id              Int            @id
+  userId          Int
+  episodeId       Int
+  episodeReviewId Int
+  user            User           @relation(fields: [userId], references: [id])
+  episode         Episode        @relation(fields: [episodeId], references: [id])
+  episodeReview   EpisodeReview? @relation(fields: [episodeReviewId], references: [id])
+}
+
+model DownvoteEpisodeReview {
+  id              Int            @id
+  userId          Int
+  episodeId       Int
+  episodeReviewId Int
+  user            User           @relation(fields: [userId], references: [id])
+  episode         Episode        @relation(fields: [episodeId], references: [id])
+  episodeReview   EpisodeReview? @relation(fields: [episodeReviewId], references: [id])
+}
+
+model Genre {
+  id                   Int                 @id
+  name                 String?
+  movies               MovieGenre[]
+  series               SerieGenre[]
+  usersWhoBookmarkedIt UserGenreFavorite[]
+}
+
+model Inbox {
+  id           Int         @id
+  participants UserInbox[]
+  messages     Message[]
+}
+
+model Message {
+  id         Int       @id
+  text       String?
+  createdAt  DateTime
+  read       Boolean
+  editedAt   DateTime?
+  senderId   Int
+  receiverId Int
+  inboxId    Int
+  receiver   User      @relation("Receiver", fields: [receiverId], references: [id])
+  sender     User      @relation("Sender", fields: [senderId], references: [id])
+  inbox      Inbox     @relation(fields: [inboxId], references: [id])
+}
+
+model UserInbox {
+  id      Int   @id
+  userId  Int
+  inboxId Int
+  user    User  @relation(fields: [userId], references: [id])
+  inbox   Inbox @relation(fields: [inboxId], references: [id])
+}
+
+model Movie {
+  id                   Int                   @id
+  title                String?
+  photoSrc             String?
+  photoSrcProd         String?
+  trailerSrc           String?
+  duration             Int?
+  ratingImdb           Float?
+  dateAired            String?
+  description          String?
+  cast                 CastMovie[]
+  crew                 CrewMovie[]
+  genres               MovieGenre[]
+  reviews              MovieReview[]
+  usersWhoBookmarkedIt UserMovieFavorite[]
+  usersWhoRatedIt      UserMovieRating[]
+  upvoteMovieReviews   UpvoteMovieReview[]
+  downvoteMovieReviews DownvoteMovieReview[]
+}
+
+model MovieReview {
+  id        Int                   @id
+  content   String?
+  rating    Float?
+  createdAt DateTime
+  updatedAt DateTime?
+  userId    Int
+  movieId   Int
+  user      User                  @relation(fields: [userId], references: [id])
+  movie     Movie                 @relation(fields: [movieId], references: [id])
+  upvotes   UpvoteMovieReview[]
+  downvotes DownvoteMovieReview[]
+}
+
+model UpvoteMovieReview {
+  id            Int          @id
+  userId        Int
+  movieId       Int
+  movieReviewId Int
+  user          User         @relation(fields: [userId], references: [id])
+  movie         Movie        @relation(fields: [movieId], references: [id])
+  movieReview   MovieReview? @relation(fields: [movieReviewId], references: [id])
+}
+
+model DownvoteMovieReview {
+  id            Int          @id
+  userId        Int
+  movieId       Int
+  movieReviewId Int
+  user          User         @relation(fields: [userId], references: [id])
+  movie         Movie        @relation(fields: [movieId], references: [id])
+  movieReview   MovieReview? @relation(fields: [movieReviewId], references: [id])
+}
+
+model CastMovie {
+  id      Int   @id
+  movieId Int
+  actorId Int
+  movie   Movie @relation(fields: [movieId], references: [id])
+  actor   Actor @relation(fields: [actorId], references: [id])
+}
+
+model CrewMovie {
+  id      Int   @id
+  movieId Int
+  crewId  Int
+  movie   Movie @relation(fields: [movieId], references: [id])
+  crew    Crew  @relation(fields: [crewId], references: [id])
+}
+
+model MovieGenre {
+  id      Int   @id
+  movieId Int
+  genreId Int
+  movie   Movie @relation(fields: [movieId], references: [id])
+  genre   Genre @relation(fields: [genreId], references: [id])
+}
+
+model Notification {
+  id        Int      @id
+  type      String?
+  content   String?
+  status    String
+  createdAt DateTime
+  userId    Int
+  senderId  Int
+  user      User     @relation("NotificationReceiver", fields: [userId], references: [id])
+  sender    User     @relation("NotificationSender", fields: [senderId], references: [id])
+}
+
+model Season {
+  id                   Int                    @id
+  title                String?
+  photoSrc             String?
+  photoSrcProd         String?
+  trailerSrc           String?
+  description          String?
+  dateAired            String?
+  ratingImdb           Float?
+  serieId              Int
+  serie                Serie                  @relation(fields: [serieId], references: [id])
+  episodes             Episode[]
+  usersWhoBookmarkedIt UserSeasonFavorite[]
+  usersWhoRatedIt      UserSeasonRating[]
+  reviews              SeasonReview[]
+  UpvoteSeasonReview   UpvoteSeasonReview[]
+  DownvoteSeasonReview DownvoteSeasonReview[]
+}
+
+model SeasonReview {
+  id        Int                    @id
+  content   String?
+  rating    Float?
+  createdAt DateTime
+  updatedAt DateTime?
+  userId    Int
+  seasonId  Int
+  user      User                   @relation(fields: [userId], references: [id])
+  season    Season                 @relation(fields: [seasonId], references: [id])
+  upvotes   UpvoteSeasonReview[]
+  downvotes DownvoteSeasonReview[]
+}
+
+model UpvoteSeasonReview {
+  id             Int           @id
+  userId         Int
+  seasonId       Int
+  seasonReviewId Int
+  user           User          @relation(fields: [userId], references: [id])
+  season         Season        @relation(fields: [seasonId], references: [id])
+  seasonReview   SeasonReview? @relation(fields: [seasonReviewId], references: [id])
+}
+
+model DownvoteSeasonReview {
+  id             Int           @id
+  userId         Int
+  seasonId       Int
+  seasonReviewId Int
+  user           User          @relation(fields: [userId], references: [id])
+  season         Season        @relation(fields: [seasonId], references: [id])
+  seasonReview   SeasonReview? @relation(fields: [seasonReviewId], references: [id])
+}
+
+model Serie {
+  id                   Int                   @id
+  title                String?
+  photoSrc             String?
+  photoSrcProd         String?
+  trailerSrc           String?
+  description          String?
+  dateAired            String?
+  ratingImdb           Float?
+  cast                 CastSerie[]
+  crew                 CrewSerie[]
+  seasons              Season[]
+  reviews              SerieReview[]
+  genres               SerieGenre[]
+  usersWhoBookmarkedIt UserSerieFavorite[]
+  usersWhoRatedIt      UserSerieRating[]
+  upvoteSerieReviews   UpvoteSerieReview[]
+  downvoteSerieReviews DownvoteSerieReview[]
+}
+
+model UpvoteSerieReview {
+  id            Int          @id
+  userId        Int
+  serieId       Int
+  serieReviewId Int
+  user          User         @relation(fields: [userId], references: [id])
+  serie         Serie        @relation(fields: [serieId], references: [id])
+  serieReview   SerieReview? @relation(fields: [serieReviewId], references: [id])
+}
+
+model DownvoteSerieReview {
+  id            Int          @id
+  userId        Int
+  serieId       Int
+  serieReviewId Int
+  user          User         @relation(fields: [userId], references: [id])
+  serie         Serie        @relation(fields: [serieId], references: [id])
+  serieReview   SerieReview? @relation(fields: [serieReviewId], references: [id])
+}
+
+model SerieReview {
+  id        Int                   @id
+  content   String?
+  rating    Float?
+  createdAt DateTime
+  updatedAt DateTime?
+  userId    Int
+  serieId   Int
+  user      User                  @relation(fields: [userId], references: [id])
+  serie     Serie                 @relation(fields: [serieId], references: [id])
+  upvotes   UpvoteSerieReview[]
+  downvotes DownvoteSerieReview[]
+}
+
+model SerieGenre {
+  id      Int   @id
+  serieId Int
+  genreId Int
+  serie   Serie @relation(fields: [serieId], references: [id])
+  genre   Genre @relation(fields: [genreId], references: [id])
+}
+
+model CastSerie {
+  id      Int   @id
+  serieId Int
+  actorId Int
+  serie   Serie @relation(fields: [serieId], references: [id])
+  actor   Actor @relation(fields: [actorId], references: [id])
+}
+
+model CrewSerie {
+  id      Int   @id
+  serieId Int
+  crewId  Int
+  serie   Serie @relation(fields: [serieId], references: [id])
+  crew    Crew  @relation(fields: [crewId], references: [id])
+}
+
+model User {
+  id                      Int                     @id
+  userName                String                  @unique
+  email                   String                  @unique
+  password                String?
+  role                    String
+  bio                     String?
+  active                  Boolean
+  canResetPassword        Boolean
+  subscribed              Boolean
+  resetPassowrdTokens     ResetPasswordToken[]
+  activateTokens          ActivateToken[]
+  accounts                Account[]
+  sessions                Session[]
+  favMovies               UserMovieFavorite[]
+  favSeries               UserSerieFavorite[]
+  favGenres               UserGenreFavorite[]
+  favSeasons              UserSeasonFavorite[]
+  favEpisodes             UserEpisodeFavorite[]
+  favActors               UserActorFavorite[]
+  favCrew                 UserCrewFavorite[]
+  ratingsInMovie          UserMovieRating[]
+  ratingsInSerie          UserSerieRating[]
+  ratingsInSeason         UserSeasonRating[]
+  ratingsInEpisode        UserEpisodeRating[]
+  ratingsInActor          UserActorRating[]
+  ratingsInCrew           UserCrewRating[]
+  movieReviews            MovieReview[]
+  serieReviews            SerieReview[]
+  seasonReviews           SeasonReview[]
+  episodeReviews          EpisodeReview[]
+  actorReviews            ActorReview[]
+  crewReviews             CrewReview[]
+  movieReviewsUpvoted     UpvoteMovieReview[]
+  movieReviewsDownvoted   DownvoteMovieReview[]
+  serieReviewsUpvoted     UpvoteSerieReview[]
+  serieReviewsDownvoted   DownvoteSerieReview[]
+  seasonReviewsUpvoted    UpvoteSeasonReview[]
+  seasonReviewsDownvoted  DownvoteSeasonReview[]
+  episodeReviewsUpvoted   UpvoteEpisodeReview[]
+  episodeReviewsDownvoted DownvoteEpisodeReview[]
+  actorReviewsUpvoted     UpvoteActorReview[]
+  actorReviewsDownvoted   DownvoteActorReview[]
+  crewReviewsUpvoted      UpvoteCrewReview[]
+  crewReviewsDownvoted    DownvoteCrewReview[]
+  avatar                  Avatar?
+  followers               UserFollow[]            @relation("UserFollowing")
+  following               UserFollow[]            @relation("UserFollowers")
+  inboxs                  UserInbox[]
+  messagesSent            Message[]               @relation("Sender")
+  messagesReceived        Message[]               @relation("Receiver")
+  notificationsReceived   Notification[]          @relation("NotificationReceiver")
+  notificationsSent       Notification[]          @relation("NotificationSender")
+}
+
+model Avatar {
+  id       Int    @id
+  photoSrc String
+  userId   Int    @unique
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model UserFollow {
+  id          Int    @id
+  state       String
+  followerId  Int
+  followingId Int
+  follower    User   @relation("UserFollowers", fields: [followerId], references: [id])
+  following   User   @relation("UserFollowing", fields: [followingId], references: [id])
+}
+
+model UserMovieRating {
+  id      Int   @id
+  rating  Float
+  userId  Int
+  movieId Int
+  user    User  @relation(fields: [userId], references: [id])
+  movie   Movie @relation(fields: [movieId], references: [id])
+}
+
+model UserSerieRating {
+  id      Int   @id
+  rating  Float
+  userId  Int
+  serieId Int
+  user    User  @relation(fields: [userId], references: [id])
+  serie   Serie @relation(fields: [serieId], references: [id])
+}
+
+model UserSeasonRating {
+  id       Int    @id
+  rating   Float
+  userId   Int
+  seasonId Int
+  user     User   @relation(fields: [userId], references: [id])
+  season   Season @relation(fields: [seasonId], references: [id])
+}
+
+model UserEpisodeRating {
+  id        Int     @id
+  rating    Float
+  userId    Int
+  episodeId Int
+  user      User    @relation(fields: [userId], references: [id])
+  episode   Episode @relation(fields: [episodeId], references: [id])
+}
+
+model UserActorRating {
+  id      Int   @id
+  rating  Float
+  userId  Int
+  actorId Int
+  user    User  @relation(fields: [userId], references: [id])
+  actor   Actor @relation(fields: [actorId], references: [id])
+}
+
+model UserCrewRating {
+  id     Int   @id
+  rating Float
+  userId Int
+  crewId Int
+  user   User  @relation(fields: [userId], references: [id])
+  crew   Crew  @relation(fields: [crewId], references: [id])
+}
+
+model UserMovieFavorite {
+  id      Int   @id
+  userId  Int
+  movieId Int
+  user    User  @relation(fields: [userId], references: [id])
+  movie   Movie @relation(fields: [movieId], references: [id])
+}
+
+model UserGenreFavorite {
+  id      Int   @id
+  userId  Int
+  genreId Int
+  user    User  @relation(fields: [userId], references: [id])
+  genre   Genre @relation(fields: [genreId], references: [id])
+}
+
+model UserSerieFavorite {
+  id      Int   @id
+  userId  Int
+  serieId Int
+  user    User  @relation(fields: [userId], references: [id])
+  serie   Serie @relation(fields: [serieId], references: [id])
+}
+
+model UserEpisodeFavorite {
+  id        Int     @id
+  userId    Int
+  episodeId Int
+  user      User    @relation(fields: [userId], references: [id])
+  episode   Episode @relation(fields: [episodeId], references: [id])
+}
+
+model UserSeasonFavorite {
+  id       Int    @id
+  userId   Int
+  seasonId Int
+  user     User   @relation(fields: [userId], references: [id])
+  season   Season @relation(fields: [seasonId], references: [id])
+}
+
+model UserActorFavorite {
+  id      Int   @id
+  userId  Int
+  actorId Int
+  user    User  @relation(fields: [userId], references: [id])
+  actor   Actor @relation(fields: [actorId], references: [id])
+}
