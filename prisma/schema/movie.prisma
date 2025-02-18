@@ -7,7 +7,7 @@ model Movie {
     duration     Int?
     ratingImdb   Float?
     dateAired    String?
-    description  String?
+    description  String? @db.Text()
 
     // Relations
     cast                 CastMovie[]
@@ -21,10 +21,10 @@ model Movie {
 }
 
 model MovieReview {
-    id        Int      @id @default(autoincrement())
+    id        Int       @id @default(autoincrement())
     content   String?
     rating    Float?
-    createdAt DateTime @default(now())
+    createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
 
     // FK Keys

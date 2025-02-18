@@ -4,7 +4,7 @@ model Episode {
     photoSrc     String?
     photoSrcProd String?
     trailerSrc   String?
-    description  String?
+    description  String? @db.Text()
     duration     Int?
     dateAired    String?
     ratingImdb   Float?

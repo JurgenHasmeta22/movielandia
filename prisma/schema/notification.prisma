@@ -1,9 +1,9 @@
 model Notification {
-    id        Int      @id @default(autoincrement())
+    id        Int                @id @default(autoincrement())
     type      String?
     content   String?
-    status    String   @default("unread")
-    createdAt DateTime @default(now())
+    status    NotificationStatus @default(unread)
+    createdAt DateTime           @default(now())
 
     // FK Keys
     userId   Int
@@ -12,4 +12,9 @@ model Notification {
     // Relations
     user   User @relation("NotificationReceiver", fields: [userId], references: [id], onDelete: Cascade)
     sender User @relation("NotificationSender", fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+enum NotificationStatus {
+    read
+    unread
 }

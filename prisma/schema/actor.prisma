@@ -3,7 +3,7 @@ model Actor {
     fullname     String?
     photoSrc     String?
     photoSrcProd String?
-    description  String?
+    description  String? @db.Text()
     debut        String?
 
     // Relations
