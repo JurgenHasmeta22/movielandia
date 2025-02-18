@@ -11,7 +11,7 @@ model User {
     subscribed       Boolean  @default(false)
 
     // Relations
-    resetPassowrdTokens ResetPasswordToken[]
+    resetPasswordTokens ResetPasswordToken[]
     activateTokens      ActivateToken[]
     accounts            Account[]
     sessions            Session[]
@@ -56,7 +56,7 @@ model User {
     followers UserFollow[] @relation("UserFollowing")
     following UserFollow[] @relation("UserFollowers")
 
-    inboxs           UserInbox[]
+    inboxes          UserInbox[]
     messagesSent     Message[]   @relation("Sender")
     messagesReceived Message[]   @relation("Receiver")
 
@@ -87,9 +87,10 @@ enum UserType {
 
 // #endregion
 
+// #region "User Follow"
 model UserFollow {
-    id    Int    @id @default(autoincrement())
-    state String
+    id    Int         @id @default(autoincrement())
+    state FollowState @default(pending)
 
     // FK Keys
     followerId  Int
@@ -101,6 +102,14 @@ model UserFollow {
 
     @@unique([followerId, followingId])
 }
+
+enum FollowState {
+    pending
+    accepted
+    rejected
+}
+
+// #endregion
 
 // #region "User Ratings"
 model UserMovieRating {

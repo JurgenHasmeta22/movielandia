@@ -4,7 +4,7 @@ model Serie {
     photoSrc     String?
     photoSrcProd String?
     trailerSrc   String?
-    description  String?
+    description  String? @db.Text()
     dateAired    String?
     ratingImdb   Float?
 
