@@ -1,10 +1,10 @@
 model User {
     id               Int     @id @default(autoincrement())
-    userName         String
+    userName         String  @unique
     email            String  @unique
     password         String?
     role             String  @default("User")
-    bio              String  @default("Bio example")
+    bio              String?
     active           Boolean @default(false)
     canResetPassword Boolean @default(false)
     subscribed       Boolean @default(false)
@@ -57,36 +57,10 @@ model User {
 
     inboxs           UserInbox[]
     messagesSent     Message[]   @relation("Sender")
-    messagesReceived Message[]   @relation("Reciever")
+    messagesReceived Message[]   @relation("Receiver")
 
     notificationsReceived Notification[] @relation("NotificationReceiver")
     notificationsSent     Notification[] @relation("NotificationSender")
-}
-
-model ActivateToken {
-    id          Int       @id @default(autoincrement())
-    token       String    @unique
-    createdAt   DateTime  @default(now())
-    activatedAt DateTime?
-
-    // FK Keys
-    userId Int
-
-    // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
-model ResetPasswordToken {
-    id              Int       @id @default(autoincrement())
-    token           String    @unique
-    createdAt       DateTime  @default(now())
-    resetPasswordAt DateTime?
-
-    // FK Keys
-    userId Int
-
-    // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Avatar {
@@ -115,46 +89,7 @@ model UserFollow {
     @@unique([followerId, followingId])
 }
 
-model UserInbox {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId  Int
-    inboxId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    inbox Inbox @relation(fields: [inboxId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, inboxId])
-}
-
-model Inbox {
-    id Int @id @default(autoincrement())
-
-    // Relations
-    participants UserInbox[]
-    messages     Message[]
-}
-
-model Message {
-    id        Int       @id @default(autoincrement())
-    text      String    @default("Text example")
-    createdAt DateTime  @default(now())
-    read      Boolean   @default(false)
-    editedAt  DateTime?
-
-    // FK Keys
-    senderId   Int
-    receiverId Int
-    inboxId    Int
-
-    // Relations
-    receiver User  @relation("Reciever", fields: [receiverId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    sender   User  @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    inbox    Inbox @relation(fields: [inboxId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
+// #region "User Ratings"
 model UserMovieRating {
     id     Int   @id @default(autoincrement())
     rating Float
@@ -244,7 +179,9 @@ model UserCrewRating {
 
     @@unique([userId, crewId])
 }
+// #endregion
 
+// #region "User Favorites"
 model UserMovieFavorite {
     id Int @id @default(autoincrement())
 
@@ -342,19 +279,4 @@ model UserCrewFavorite {
 
     @@unique([userId, crewId])
 }
-
-model Notification {
-    id        Int      @id @default(autoincrement())
-    type      String
-    content   String?
-    status    String   @default("unread")
-    createdAt DateTime @default(now())
-
-    // FK Keys
-    userId   Int
-    senderId Int
-
-    // Relations
-    user   User @relation("NotificationReceiver", fields: [userId], references: [id], onDelete: Cascade)
-    sender User @relation("NotificationSender", fields: [senderId], references: [id], onDelete: Cascade)
-}
+// #endregion

@@ -1,13 +1,13 @@
 model Movie {
-    id           Int    @id @default(autoincrement())
-    title        String @default("Movie")
-    photoSrc     String @default("")
-    photoSrcProd String @default("")
-    trailerSrc   String @default("")
-    duration     Int    @default(120)
-    ratingImdb   Float  @default(1.0)
-    dateAired    String @default("11/12/2005")
-    description  String @default("Movie desc")
+    id           Int     @id @default(autoincrement())
+    title        String?
+    photoSrc     String?
+    photoSrcProd String?
+    trailerSrc   String?
+    duration     Int?
+    ratingImdb   Float?
+    dateAired    String?
+    description  String?
 
     // Relations
     cast                 CastMovie[]
@@ -21,11 +21,11 @@ model Movie {
 }
 
 model MovieReview {
-    id        Int       @id @default(autoincrement())
+    id        Int      @id @default(autoincrement())
     content   String?
     rating    Float?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime? @updatedAt
 
     // FK Keys
     userId  Int

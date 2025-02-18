@@ -1,15 +1,15 @@
 model Season {
-    id           Int    @id @default(autoincrement())
-    title        String @default("Season")
-    photoSrc     String @default("")
-    photoSrcProd String @default("")
-    trailerSrc   String @default("")
-    description  String @default("Season desc")
-    dateAired    String @default("01/01/1990")
-    ratingImdb   Float  @default(1.0)
+    id           Int     @id @default(autoincrement())
+    title        String?
+    photoSrc     String?
+    photoSrcProd String?
+    trailerSrc   String?
+    description  String?
+    dateAired    String?
+    ratingImdb   Float?
 
     // FK Keys
-    serieId Int @default(1)
+    serieId Int
 
     // Relations
     serie                Serie                  @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -22,11 +22,11 @@ model Season {
 }
 
 model SeasonReview {
-    id        Int       @id @default(autoincrement())
+    id        Int      @id @default(autoincrement())
     content   String?
     rating    Float?
-    createdAt DateTime  @default(now())
-    updatedAt DateTime?
+    createdAt DateTime @default(now())
+    updatedAt DateTime? @updatedAt
 
     // FK Keys
     userId   Int
