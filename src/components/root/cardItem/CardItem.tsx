@@ -206,8 +206,9 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
         }
 
         const mediaData = data as MovieCardData | SerieCardData | SeasonCardData | EpisodeCardData;
+        const year = mediaData.dateAired ? new Date(mediaData.dateAired).getFullYear() : "N/A";
 
-        return `${mediaData.title} (${mediaData.dateAired?.split("/")[2]})`;
+        return `${mediaData.title} (${year})`;
     };
 
     return (
