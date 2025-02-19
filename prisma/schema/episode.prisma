@@ -1,6 +1,6 @@
 model Episode {
     id           Int     @id @default(autoincrement())
-    title        String?
+    title        String
     photoSrc     String?
     photoSrcProd String?
     trailerSrc   String?
@@ -19,13 +19,15 @@ model Episode {
     reviews                EpisodeReview[]
     upvoteEpisodeReviews   UpvoteEpisodeReview[]
     downvoteEpisodeReviews DownvoteEpisodeReview[]
+
+    @@index([title(sort: Asc)])
 }
 
 model EpisodeReview {
-    id        Int      @id @default(autoincrement())
+    id        Int       @id @default(autoincrement())
     content   String?
     rating    Float?
-    createdAt DateTime @default(now())
+    createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
 
     // FK Keys
