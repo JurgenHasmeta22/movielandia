@@ -6,6 +6,9 @@ model Actor {
     description  String @db.Text()
     debut        String
 
+    // New relation field for PlaylistActor
+    playlistItems PlaylistActor[]
+
     // Relations
     starredMovies        CastMovie[]
     starredSeries        CastSerie[]

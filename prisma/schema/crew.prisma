@@ -7,6 +7,9 @@ model Crew {
     description  String @db.Text()
     debut        String
 
+    // New relation field for PlaylistCrew
+    playlistItems PlaylistCrew[]
+
     // Relations
     producedMovies       CrewMovie[]
     producedSeries       CrewSerie[]

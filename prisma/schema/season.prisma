@@ -11,6 +11,9 @@ model Season {
     // FK Keys
     serieId Int
 
+    // New relation field for PlaylistSeason
+    playlistItems PlaylistSeason[]
+
     // Relations
     serie                 Serie                  @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     episodes              Episode[]

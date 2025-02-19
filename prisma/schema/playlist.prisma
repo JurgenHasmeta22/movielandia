@@ -1,0 +1,112 @@
+enum PlaylistType {
+    Movie
+    Serie
+    Season
+    Episode
+    Actor
+    Crew
+}
+
+model Playlist {
+    id        Int          @id @default(autoincrement())
+    name      String
+    type      PlaylistType
+    createdAt DateTime     @default(now())
+    updatedAt DateTime     @updatedAt
+
+    // FK Keys
+    userId Int
+
+    // Relations
+    user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    movieItems   PlaylistMovie[]
+    serieItems   PlaylistSerie[]
+    seasonItems  PlaylistSeason[]
+    episodeItems PlaylistEpisode[]
+    actorItems   PlaylistActor[]
+    crewItems    PlaylistCrew[]
+}
+
+model PlaylistMovie {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    playlistId Int
+    movieId    Int
+
+    // Relations
+    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    movie    Movie    @relation("MoviePlaylist", fields: [movieId], references: [id], onDelete: Cascade)
+
+    @@unique([playlistId, movieId])
+}
+
+model PlaylistSerie {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    playlistId Int
+    serieId    Int
+
+    // Relations
+    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    serie    Serie    @relation("SeriePlaylist", fields: [serieId], references: [id], onDelete: Cascade)
+
+    @@unique([playlistId, serieId])
+}
+
+model PlaylistSeason {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    playlistId Int
+    seasonId   Int
+
+    // Relations
+    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    season   Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+    @@unique([playlistId, seasonId])
+}
+
+model PlaylistEpisode {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    playlistId Int
+    episodeId  Int
+
+    // Relations
+    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    episode  Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+    @@unique([playlistId, episodeId])
+}
+
+model PlaylistActor {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    playlistId Int
+    actorId    Int
+
+    // Relations
+    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    actor    Actor    @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+    @@unique([playlistId, actorId])
+}
+
+model PlaylistCrew {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    playlistId Int
+    crewId     Int
+
+    // Relations
+    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    crew     Crew     @relation(fields: [crewId], references: [id], onDelete: Cascade)
+
+    @@unique([playlistId, crewId])
+}
