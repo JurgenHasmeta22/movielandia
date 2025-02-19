@@ -1,11 +1,11 @@
 model Crew {
     id           Int     @id @default(autoincrement())
     fullname     String
-    photoSrc     String?
-    role         String?
-    photoSrcProd String?
-    description  String? @db.Text()
-    debut        String?
+    photoSrc     String
+    role         String
+    photoSrcProd String
+    description  String @db.Text()
+    debut        String
 
     // Relations
     producedMovies       CrewMovie[]

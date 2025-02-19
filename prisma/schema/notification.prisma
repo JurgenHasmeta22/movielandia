@@ -1,7 +1,7 @@
 model Notification {
     id        Int                @id @default(autoincrement())
-    type      String?
-    content   String?
+    type      NotificationType
+    content   String             @db.Text()
     status    NotificationStatus @default(unread)
     createdAt DateTime           @default(now())
 
@@ -17,4 +17,11 @@ model Notification {
 enum NotificationStatus {
     read
     unread
+}
+
+enum NotificationType {
+    follow_request
+    message_received
+    liked_review
+    disliked_review
 }

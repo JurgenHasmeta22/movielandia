@@ -1,13 +1,13 @@
 model Movie {
     id           Int     @id @default(autoincrement())
     title        String
-    photoSrc     String?
-    photoSrcProd String?
-    trailerSrc   String?
-    duration     Int?
-    ratingImdb   Float?
-    dateAired    String?
-    description  String? @db.Text()
+    photoSrc     String
+    photoSrcProd String
+    trailerSrc   String
+    duration     Int
+    ratingImdb   Float
+    dateAired    String
+    description  String @db.Text()
 
     // Relations
     cast                 CastMovie[]

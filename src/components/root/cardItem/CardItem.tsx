@@ -92,7 +92,6 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
 
     const params = useParams();
     const theme = useTheme();
-
     const isTouchDevice = typeof window !== "undefined" && "ontouchstart" in window;
 
     const bookmarkFunctions = {
@@ -165,6 +164,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
             case "season": {
                 const serieId = typeof params.serieId === "string" ? params.serieId : "";
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
+
                 return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle((data as SeasonCardData).title)}`;
             }
             case "episode": {
@@ -172,6 +172,7 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
                 const seasonId = typeof params.seasonId === "string" ? params.seasonId : "";
                 const seasonTitle = typeof params.seasonTitle === "string" ? formatTitle(params.seasonTitle) : "";
+
                 return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${data.id}/${formatTitle((data as EpisodeCardData).title)}`;
             }
             case "user":

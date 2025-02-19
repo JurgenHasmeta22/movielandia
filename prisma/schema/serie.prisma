@@ -1,12 +1,12 @@
 model Serie {
     id           Int     @id @default(autoincrement())
     title        String
-    photoSrc     String?
-    photoSrcProd String?
-    trailerSrc   String?
-    description  String? @db.Text()
-    dateAired    String?
-    ratingImdb   Float?
+    photoSrc     String
+    photoSrcProd String
+    trailerSrc   String
+    description  String @db.Text()
+    dateAired    String
+    ratingImdb   Float
 
     // Relations
     cast                 CastSerie[]
