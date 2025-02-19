@@ -126,24 +126,14 @@ export function DetailsPageCard({
                         gutterBottom
                         fontWeight="bold"
                         sx={{
-                            fontSize: "3rem",
-                            letterSpacing: "0.3rem",
+                            fontSize: "2.3rem",
+                            letterSpacing: "0.1rem",
                         }}
                         color={theme.vars.palette.primary.main}
                     >
                         {type !== "actor" && type !== "crew" ? data.title : data.fullname}
                     </Typography>
                     <Box sx={{ mb: 2, display: "flex", flexDirection: "row", alignItems: "center" }}>
-                        <Typography
-                            component="h2"
-                            sx={{
-                                fontWeight: 600,
-                                fontSize: "1.1rem",
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            Genres:
-                        </Typography>
                         <Box
                             sx={{
                                 display: "flex",
@@ -182,18 +172,12 @@ export function DetailsPageCard({
                     >
                         {type !== "season" && type !== "serie" && type !== "actor" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <AccessTime fontSize="small" color="primary" />
-                                <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                                    Duration:
-                                </Typography>
+                                <AccessTime fontSize="medium" color="primary" />
                                 <Typography variant="body1">{data.duration} mins</Typography>
                             </Box>
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <CalendarToday fontSize="small" color="primary" />
-                            <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                                {type !== "actor" && type !== "crew" ? "Aired on:" : "Debut year:"}
-                            </Typography>
+                            <CalendarToday fontSize="medium" color="primary" />
                             <Typography variant="body2">
                                 {type !== "actor" && type !== "crew"
                                     ? formatDate(new Date(data.dateAired))
@@ -202,18 +186,17 @@ export function DetailsPageCard({
                         </Box>
                         {type !== "actor" && type !== "crew" && (
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <Star fontSize="small" color="primary" />
-                                <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                                    IMDB Rating:
-                                </Typography>
+                                <Image src={"/icons/imdb.svg"} alt={"Imdb rating"} height={28} width={28} priority />
                                 <Typography variant="body2">{data.ratingImdb}</Typography>
                             </Box>
                         )}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <StarRateIcon color="primary" />
-                            <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                                Average Rating:
-                            </Typography>
+                            <StarRateIcon
+                                sx={{
+                                    color: "gold",
+                                }}
+                                fontSize="medium"
+                            />
                             <Typography variant="body2">
                                 {data.averageRating === 0 ? "N/A" : data.averageRating.toFixed(2)}
                             </Typography>
@@ -240,6 +223,7 @@ export function DetailsPageCard({
                                             mb: 2,
                                             fontWeight: 600,
                                             color: theme.vars.palette.primary.main,
+                                            fontSize: 16,
                                         }}
                                     >
                                         Featured Cast
@@ -279,6 +263,7 @@ export function DetailsPageCard({
                                             mb: 2,
                                             fontWeight: 600,
                                             color: theme.vars.palette.primary.main,
+                                            fontSize: 16,
                                         }}
                                     >
                                         Featured Crew

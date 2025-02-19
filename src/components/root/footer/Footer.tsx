@@ -15,19 +15,17 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import InfoIcon from "@mui/icons-material/Info";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import GroupsIcon from "@mui/icons-material/Groups";
-import { motion } from "framer-motion";
 import { subscribeNewsletter } from "@/actions/auth.actions";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import Link from "next/link";
 
 const FooterLink = ({ href, icon: Icon, text }: { href: string; icon: any; text: string }) => {
     const theme = useTheme();
 
     return (
         <Button
-            component={MuiNextLink}
             href={href}
-            prefetch={false}
             sx={{
                 textDecoration: "none",
                 textTransform: "capitalize",
@@ -54,8 +52,6 @@ const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
 
     return (
         <IconButton
-            component={motion.button}
-            whileHover={{ scale: 1.1 }}
             href={href}
             target="_blank"
             rel="noopener"
@@ -76,7 +72,6 @@ const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
-
     const [email, setEmail] = useState("");
 
     const handleSubscribe = async () => {
@@ -199,7 +194,7 @@ const Footer = (): React.JSX.Element => {
                                         },
                                     }}
                                 >
-                                    Company
+                                    Other
                                 </Typography>
                                 <Stack spacing={1}>
                                     <FooterLink href="/about-us" icon={InfoIcon} text="About Us" />
@@ -329,33 +324,45 @@ const Footer = (): React.JSX.Element => {
                         }}
                     >
                         <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                            2024 MovieLandia24. All rights reserved.
+                            2025 MovieLandia24. All rights reserved.
                         </Typography>
                         <Stack direction="row" spacing={3}>
-                            <Typography
-                                variant="body2"
-                                component={MuiNextLink}
+                            <Link
                                 href="/privacy"
-                                sx={{
-                                    opacity: 0.8,
+                                passHref
+                                style={{
                                     textDecoration: "none",
-                                    "&:hover": { color: theme.vars.palette.red.main },
                                 }}
                             >
-                                Privacy Policy
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                component={MuiNextLink}
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        opacity: 0.8,
+                                        textDecoration: "none",
+                                        "&:hover": { color: theme.vars.palette.red.main },
+                                    }}
+                                >
+                                    Privacy Policy
+                                </Typography>
+                            </Link>
+                            <Link
                                 href="/terms"
-                                sx={{
-                                    opacity: 0.8,
+                                passHref
+                                style={{
                                     textDecoration: "none",
-                                    "&:hover": { color: theme.vars.palette.red.main },
                                 }}
                             >
-                                Terms of Service
-                            </Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        opacity: 0.8,
+                                        textDecoration: "none",
+                                        "&:hover": { color: theme.vars.palette.red.main },
+                                    }}
+                                >
+                                    Terms of Service
+                                </Typography>
+                            </Link>
                         </Stack>
                     </Stack>
                 </Stack>

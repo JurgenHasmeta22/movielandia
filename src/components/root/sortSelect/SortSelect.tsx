@@ -5,6 +5,7 @@ import { Box, Select, MenuItem, SvgIcon, Typography, FormControl, InputLabel } f
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useSorting } from "@/hooks/useSorting";
 import { getSortOptions } from "@/components/root/sortSelect/getSortingOptions";
+import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 
 interface ISortSelectProps {
     sortBy: string;
@@ -53,14 +54,6 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
     return (
         <Box sx={{ display: "flex", alignItems: "start", gap: 2 }}>
             <FormControl>
-                <InputLabel
-                    id="sort-by-label"
-                    sx={{
-                        fontSize: 20,
-                    }}
-                >
-                    Sort By
-                </InputLabel>
                 <Select
                     labelId="sort-by-label"
                     value={sortBy || defaultValue}
@@ -88,14 +81,6 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                 </Select>
             </FormControl>
             <FormControl>
-                <InputLabel
-                    id="ordering-label"
-                    sx={{
-                        fontSize: 20,
-                    }}
-                >
-                    Ordering
-                </InputLabel>
                 <Select
                     labelId="ordering-label"
                     value={ascOrDesc || "asc"}
@@ -103,6 +88,14 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     sx={{
                         mt: 2,
                     }}
+                    renderValue={(value) => (
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                            <SvgIcon fontSize="small">
+                                <SortByAlphaIcon />
+                            </SvgIcon>
+                            <Typography fontSize="15px">{value === "asc" ? "Ascending" : "Descending"}</Typography>
+                        </Box>
+                    )}
                 >
                     <MenuItem value="asc">Ascending</MenuItem>
                     <MenuItem value="desc">Descending</MenuItem>
