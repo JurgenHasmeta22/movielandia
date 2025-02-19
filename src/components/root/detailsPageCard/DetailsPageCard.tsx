@@ -195,7 +195,9 @@ export function DetailsPageCard({
                                 {type !== "actor" && type !== "crew" ? "Aired on:" : "Debut year:"}
                             </Typography>
                             <Typography variant="body2">
-                                {type !== "actor" && type !== "crew" ? formatDate(data.dateAired) : data.debut}
+                                {type !== "actor" && type !== "crew"
+                                    ? formatDate(new Date(data.dateAired))
+                                    : data.debut}
                             </Typography>
                         </Box>
                         {type !== "actor" && type !== "crew" && (
