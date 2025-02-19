@@ -40,11 +40,17 @@ const GenreTabs = () => {
             } else {
                 if (selectedFilters.includes(value)) {
                     newFilters = selectedFilters.filter((f) => f !== value);
-
                     if (newFilters.length === 0) newFilters = ["all"];
                 } else {
                     newFilters = [...selectedFilters, value];
                 }
+            }
+
+            // If both Movies and Series are selected, set to "all"
+            const nonAll = newFilters.filter((f) => f !== "all");
+
+            if (nonAll.length === 2 && nonAll.includes("movies") && nonAll.includes("series")) {
+                newFilters = ["all"];
             }
         }
 

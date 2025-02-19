@@ -57,21 +57,27 @@ export default async function SearchPageContent({ searchParams, session }: Searc
     let movies: Movie[] = [],
         moviesCount = 0,
         pageCountMovies = 0;
+
     let series: Serie[] = [],
         seriesCount = 0,
         pageCountSeries = 0;
+
     let actors: Actor[] = [],
         actorsCount = 0,
         pageCountActors = 0;
+
     let crews: Crew[] = [],
         crewsCount = 0,
         pageCountCrews = 0;
+
     let episodes: Episode[] = [],
         episodesCount = 0,
         pageCountEpisodes = 0;
+
     let seasons: Season[] = [],
         seasonsCount = 0,
         pageCountSeasons = 0;
+
     let users: User[] = [],
         usersCount = 0,
         pageCountUsers = 0;
@@ -198,6 +204,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
         }
 
         const lastFilter = formattedFilters.pop();
+
         return `in ${formattedFilters.join(", ")}, and ${lastFilter}`;
     };
 
@@ -223,7 +230,7 @@ export default async function SearchPageContent({ searchParams, session }: Searc
                         fontSize: { xs: 28, sm: 32, md: 40 },
                         fontWeight: 800,
                         mb: 2,
-                        mt: 8,
+                        mt: 12,
                     }}
                 >
                     {term ? `Search Results for "${term}"` : "Browse All"}

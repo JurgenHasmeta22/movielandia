@@ -230,7 +230,7 @@ const SearchField = () => {
             <Box sx={{ position: "relative", width: "100%" }}>
                 <form onSubmit={handleSubmit} style={{ display: "flex" }}>
                     <TextField
-                        placeholder="Search for anything..."
+                        placeholder="Search"
                         size="small"
                         value={inputValue}
                         onChange={handleInputChange}
