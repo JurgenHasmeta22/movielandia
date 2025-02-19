@@ -6,4 +6,6 @@ model Genre {
     movies               MovieGenre[]
     series               SerieGenre[]
     usersWhoBookmarkedIt UserGenreFavorite[]
+
+    @@index([name])
 }

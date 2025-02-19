@@ -1,6 +1,6 @@
 model Actor {
     id           Int     @id @default(autoincrement())
-    fullname     String?
+    fullname     String
     photoSrc     String?
     photoSrcProd String?
     description  String? @db.Text()
@@ -14,6 +14,8 @@ model Actor {
     usersWhoBookmarkedIt UserActorFavorite[]
     upvoteActorReviews   UpvoteActorReview[]
     downvoteActorReviews DownvoteActorReview[]
+
+    @@index([fullname(sort: Asc)])
 }
 
 model ActorReview {

@@ -67,6 +67,8 @@ model User {
     reportedContentReceived ReportedContent[] @relation("ReportedUser")
     moderationLogsCreated   ModerationLog[]   @relation("ModeratorUser")
     moderationLogsTargeted  ModerationLog[]   @relation("TargetUser")
+
+    @@index([userName(sort: Asc)])
 }
 
 model Avatar {

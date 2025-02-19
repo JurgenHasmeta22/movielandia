@@ -1,6 +1,6 @@
 model Crew {
     id           Int     @id @default(autoincrement())
-    fullname     String?
+    fullname     String
     photoSrc     String?
     role         String?
     photoSrcProd String?
@@ -15,6 +15,8 @@ model Crew {
     usersWhoBookmarkedIt UserCrewFavorite[]
     upvoteCrewReviews    UpvoteCrewReview[]
     downvoteCrewReviews  DownvoteCrewReview[]
+
+    @@index([fullname(sort: Desc)])
 }
 
 model CrewReview {
