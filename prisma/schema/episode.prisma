@@ -1,13 +1,13 @@
 model Episode {
     id           Int     @id @default(autoincrement())
     title        String
-    photoSrc     String?
-    photoSrcProd String?
-    trailerSrc   String?
-    description  String? @db.Text()
-    duration     Int?
-    dateAired    String?
-    ratingImdb   Float?
+    photoSrc     String
+    photoSrcProd String
+    trailerSrc   String
+    description  String @db.Text()
+    duration     Int
+    dateAired    String
+    ratingImdb   Float
 
     // FK Keys
     seasonId Int

@@ -8,7 +8,7 @@ model Inbox {
 
 model Message {
     id        Int      @id @default(autoincrement())
-    text      String?
+    text      String   @db.Text()
     createdAt DateTime @default(now())
     read      Boolean  @default(false)
     editedAt  DateTime? @updatedAt
