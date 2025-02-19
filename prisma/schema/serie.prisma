@@ -5,7 +5,7 @@ model Serie {
     photoSrcProd String
     trailerSrc   String
     description  String @db.Text()
-    dateAired    String
+    dateAired    DateTime?
     ratingImdb   Float
 
     // Relations

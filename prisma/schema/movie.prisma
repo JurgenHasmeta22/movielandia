@@ -6,7 +6,7 @@ model Movie {
     trailerSrc   String
     duration     Int
     ratingImdb   Float
-    dateAired    String
+    dateAired    DateTime?
     description  String @db.Text()
 
     // Relations
