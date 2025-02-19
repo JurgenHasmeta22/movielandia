@@ -4,7 +4,7 @@
 
 MovieLandia24 is a robust and feature-rich full-stack web application for cinema enthusiasts, built using Next.js and React. It allows users to explore and interact with a rich database of movies, TV series, actors, and crew, offering user accounts, content browsing, review and rating functionalities, social networking features, and a dedicated admin dashboard for content and user management.
 
-### Architecture (**Key Strengths Highlighted**)
+### Architecture
 
 1.  **Modern Next.js App Router Foundation:** Leverages Next.js App Router for a well-organized and performant structure, with clear route groups (`(admin)`, `(root)`, `(auth)`, `(home)`) for modularity and separation of concerns.
 2.  **Server Actions-Centric Logic:** Employs Server Actions (`src/actions`) as the primary mechanism for handling data mutations and server-side operations, optimizing data flow and form handling directly within React components.
