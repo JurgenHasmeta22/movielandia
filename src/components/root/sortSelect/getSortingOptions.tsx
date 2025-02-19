@@ -22,14 +22,24 @@ export const getSortOptions = (type: string, dataType: string): SortOption[] => 
         return [
             { value: "title", label: "Title" },
             { value: "ratingImdb", label: "Rating Imdb" },
+            { value: "dateAired", label: "Date Aired" },
         ];
     }
 
-    if (dataType === "movies" || dataType === "series" || dataType === "episodes") {
+    if (dataType === "movies" || dataType === "episodes") {
         return [
             { value: "title", label: "Title" },
             { value: "ratingImdb", label: "Rating Imdb" },
             { value: "duration", label: "Duration" },
+            { value: "dateAired", label: "Date Aired" },
+        ];
+    }
+
+    if (dataType === "series") {
+        return [
+            { value: "title", label: "Title" },
+            { value: "ratingImdb", label: "Rating Imdb" },
+            { value: "dateAired", label: "Date Aired" },
         ];
     }
 

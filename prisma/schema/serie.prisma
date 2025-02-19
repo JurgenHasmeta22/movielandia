@@ -20,6 +20,8 @@ model Serie {
     downvoteSerieReviews DownvoteSerieReview[]
 
     @@index([title(sort: Asc)])
+    @@index([dateAired])
+    @@index([ratingImdb])
 }
 
 model UpvoteSerieReview {

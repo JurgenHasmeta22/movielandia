@@ -16,13 +16,14 @@ model Actor {
     downvoteActorReviews DownvoteActorReview[]
 
     @@index([fullname(sort: Asc)])
+    @@index([debut])
 }
 
 model ActorReview {
-    id        Int      @id @default(autoincrement())
+    id        Int       @id @default(autoincrement())
     content   String?
     rating    Float?
-    createdAt DateTime @default(now())
+    createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
 
     // FK Keys

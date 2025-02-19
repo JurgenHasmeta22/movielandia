@@ -21,6 +21,9 @@ model Episode {
     downvoteEpisodeReviews DownvoteEpisodeReview[]
 
     @@index([title(sort: Asc)])
+    @@index([duration])
+    @@index([ratingImdb])
+    @@index([dateAired])
 }
 
 model EpisodeReview {

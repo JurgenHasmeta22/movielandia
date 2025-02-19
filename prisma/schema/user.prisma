@@ -69,6 +69,7 @@ model User {
     moderationLogsTargeted  ModerationLog[]   @relation("TargetUser")
 
     @@index([userName(sort: Asc)])
+    @@index([email])
 }
 
 model Avatar {

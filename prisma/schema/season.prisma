@@ -21,6 +21,8 @@ model Season {
     downvoteSeasonReviews DownvoteSeasonReview[]
 
     @@index([title(sort: Asc)])
+    @@index([ratingImdb])
+    @@index([dateAired])
 }
 
 model SeasonReview {
