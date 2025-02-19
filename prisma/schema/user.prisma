@@ -1,4 +1,14 @@
-// #region "User"
+enum UserType {
+    User
+    Admin
+}
+
+enum FollowState {
+    pending
+    accepted
+    rejected
+}
+
 model User {
     id               Int      @id @default(autoincrement())
     userName         String   @unique
@@ -83,14 +93,6 @@ model Avatar {
     user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-enum UserType {
-    User
-    Admin
-}
-
-// #endregion
-
-// #region "User Follow"
 model UserFollow {
     id    Int         @id @default(autoincrement())
     state FollowState @default(pending)
@@ -105,205 +107,3 @@ model UserFollow {
 
     @@unique([followerId, followingId])
 }
-
-enum FollowState {
-    pending
-    accepted
-    rejected
-}
-
-// #endregion
-
-// #region "User Ratings"
-model UserMovieRating {
-    id     Int   @id @default(autoincrement())
-    rating Float
-
-    // FK Keys
-    userId  Int
-    movieId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, movieId])
-}
-
-model UserSerieRating {
-    id     Int   @id @default(autoincrement())
-    rating Float
-
-    // FK Keys
-    userId  Int
-    serieId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, serieId])
-}
-
-model UserSeasonRating {
-    id     Int   @id @default(autoincrement())
-    rating Float
-
-    // FK Keys
-    userId   Int
-    seasonId Int
-
-    // Relations
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, seasonId])
-}
-
-model UserEpisodeRating {
-    id     Int   @id @default(autoincrement())
-    rating Float
-
-    // FK Keys
-    userId    Int
-    episodeId Int
-
-    // Relations
-    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, episodeId])
-}
-
-model UserActorRating {
-    id     Int   @id @default(autoincrement())
-    rating Float
-
-    // FK Keys
-    userId  Int
-    actorId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    actor Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, actorId])
-}
-
-model UserCrewRating {
-    id     Int   @id @default(autoincrement())
-    rating Float
-
-    // FK Keys
-    userId Int
-    crewId Int
-
-    // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    crew Crew @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, crewId])
-}
-
-// #endregion
-
-// #region "User Favorites"
-model UserMovieFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId  Int
-    movieId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, movieId])
-}
-
-model UserGenreFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId  Int
-    genreId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, genreId])
-}
-
-model UserSerieFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId  Int
-    serieId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, serieId])
-}
-
-model UserEpisodeFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys 
-    userId    Int
-    episodeId Int
-
-    // Relations
-    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, episodeId])
-}
-
-model UserSeasonFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId   Int
-    seasonId Int
-
-    // Relations
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, seasonId])
-}
-
-model UserActorFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId  Int
-    actorId Int
-
-    // Relations
-    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    actor Actor @relation(fields: [actorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, actorId])
-}
-
-model UserCrewFavorite {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId Int
-    crewId Int
-
-    // Relations
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    crew Crew @relation(fields: [crewId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-    @@unique([userId, crewId])
-}
-
-// #endregion
