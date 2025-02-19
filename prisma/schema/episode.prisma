@@ -6,7 +6,7 @@ model Episode {
     trailerSrc   String
     description  String @db.Text()
     duration     Int
-    dateAired    String
+    dateAired    DateTime?
     ratingImdb   Float
 
     // FK Keys
