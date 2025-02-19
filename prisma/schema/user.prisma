@@ -20,6 +20,9 @@ model User {
     canResetPassword Boolean  @default(false)
     subscribed       Boolean  @default(false)
 
+    // New relation field for Playlists
+    playlists        Playlist[]
+
     // Relations
     resetPasswordTokens ResetPasswordToken[]
     activateTokens      ActivateToken[]

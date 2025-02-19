@@ -18,6 +18,7 @@ model Serie {
     usersWhoRatedIt      UserSerieRating[]
     upvoteSerieReviews   UpvoteSerieReview[]
     downvoteSerieReviews DownvoteSerieReview[]
+    playlistItems        PlaylistSerie[] @relation("SeriePlaylist")
 
     @@index([title(sort: Asc)])
     @@index([dateAired])
