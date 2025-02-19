@@ -140,7 +140,7 @@ export default async function GenrePageContent({ params, searchParams, session }
                         fontSize: { xs: 28, sm: 32, md: 40 },
                         fontWeight: 800,
                         mb: 2,
-                        mt: 8,
+                        mt: 12,
                     }}
                 >
                     All Movies of Genre {genre.name}
@@ -157,9 +157,7 @@ export default async function GenrePageContent({ params, searchParams, session }
                     {getSubtitleText()}
                 </Typography>
             </Box>
-
             <GenreTabs />
-
             <Box
                 sx={{
                     display: "flex",

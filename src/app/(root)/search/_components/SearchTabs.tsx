@@ -39,6 +39,9 @@ export default function SearchTabs() {
 
     const selectedFilters = filters?.split(",") || ["all"];
 
+    // List of all non-"all" filters
+    const allFilterValues = tabOptions.filter((tab) => tab.value !== "all").map((tab) => tab.value);
+
     const handleTabClick = (value: string) => {
         let newFilters: string[];
 
@@ -54,6 +57,11 @@ export default function SearchTabs() {
                 } else {
                     newFilters = [...selectedFilters, value];
                 }
+            }
+            // If selected filters (excluding "all") equal all available filters, set to "all"
+            const nonAll = newFilters.filter((f) => f !== "all");
+            if (nonAll.length === allFilterValues.length) {
+                newFilters = ["all"];
             }
         }
 
