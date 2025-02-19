@@ -20,6 +20,9 @@ model Movie {
     downvoteMovieReviews DownvoteMovieReview[]
 
     @@index([title(sort: Asc)])
+    @@index([duration])
+    @@index([ratingImdb])
+    @@index([dateAired])
 }
 
 model MovieReview {
