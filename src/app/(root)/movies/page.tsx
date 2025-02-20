@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import MoviesPageContent from "./_components/MoviesPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
-import LoadingSkeleton from "@/components/root/loadingSkeleton/LoadingSkeleton";
 
 interface IMoviesProps {
     searchParams?: Promise<{ moviesAscOrDesc?: string; page?: string; moviesSortBy?: string }>;
@@ -33,7 +32,7 @@ export default async function Movies(props: IMoviesProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSkeleton />}>
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <MoviesPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );

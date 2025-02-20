@@ -99,7 +99,7 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
         }
 
         const mediaData = data as MediaResultData;
-        
+
         return `${mediaData.title}${mediaData.dateAired ? ` (${new Date(mediaData.dateAired).getFullYear()})` : ""}`;
     };
 
