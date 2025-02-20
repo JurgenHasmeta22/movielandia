@@ -28,7 +28,7 @@ interface BaseCardData {
     id: number;
     photoSrcProd?: string;
     description?: string;
-    dateAired?: string;
+    dateAired?: Date | null;
     isBookmarked?: boolean;
 }
 
