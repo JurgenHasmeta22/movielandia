@@ -7,14 +7,13 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 type ResultType = "movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
-
 type PathType = "movies" | "actors" | "crew" | null;
 
 interface BaseResultData {
     id: number;
     photoSrcProd?: string;
     description?: string;
-    dateAired?: string;
+    dateAired?: Date | null;
 }
 
 interface MediaResultData extends BaseResultData {
@@ -100,7 +99,8 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
         }
 
         const mediaData = data as MediaResultData;
-        return `${mediaData.title}${mediaData.dateAired ? ` (${mediaData.dateAired.split("/")[2]})` : ""}`;
+        
+        return `${mediaData.title}${mediaData.dateAired ? ` (${new Date(mediaData.dateAired).getFullYear()})` : ""}`;
     };
 
     const getDescription = () => {

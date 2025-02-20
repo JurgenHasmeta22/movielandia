@@ -54,9 +54,9 @@ type FavoriteItem = FavoriteMovie | FavoriteSerie | FavoriteActor | FavoriteCrew
 interface CardItemProfileProps {
     favItem: FavoriteItem;
     type: FavoriteType;
-    getItemUrl: (favItem: FavoriteItem) => string | undefined;
     userLoggedIn: User | null;
     userInPage: User | null;
+    getItemUrl: (favItem: FavoriteItem) => string | undefined;
 }
 
 const CardItemProfile: React.FC<CardItemProfileProps> = ({ favItem, type, userLoggedIn, getItemUrl, userInPage }) => {
