@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import GenrePageContent from "./_components/GenrePageContent";
-import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import LoadingSkeletonGenre from "@/components/root/loadingSkeleton/LoadingSkeletonGenre";
 
 interface IGenreProps {
     params: {
@@ -70,7 +70,7 @@ export default async function GenrePage(props: IGenreProps): Promise<React.JSX.E
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonGenre />}>
             <GenrePageContent params={props.params} searchParams={searchParams} session={session} />
         </Suspense>
     );

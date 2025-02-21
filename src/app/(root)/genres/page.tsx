@@ -75,9 +75,11 @@ export default async function Genres() {
                     },
                 }}
             >
-                {genres.map((genre: Genre, index: number) => (
-                    <GenreItem key={index} genre={genre} />
-                ))}
+                {genres?.length! > 0 ? (
+                    genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)
+                ) : (
+                    <Typography>No genres available.</Typography>
+                )}
             </Stack>
         </Box>
     );

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SearchPageContent from "./_components/SearchPageContent";
-import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import LoadingSkeletonSearch from "@/components/root/loadingSkeleton/LoadingSkeletonSearch";
 
 interface ISearchProps {
     searchParams?: Promise<{
@@ -60,7 +60,7 @@ export default async function Search(props: ISearchProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonSearch />}>
             <SearchPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );
