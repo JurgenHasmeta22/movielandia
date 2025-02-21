@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SeriesPageContent from "./_components/SeriesPageContent";
-import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import LoadingSkeletonWithLatest from "@/components/root/loadingSkeleton/LoadingSkeletonWithLatest";
 
 interface ISeriesProps {
     searchParams?: Promise<{ seriesAscOrDesc?: string; page?: string; seriesSortBy?: string }>;
@@ -44,7 +44,7 @@ export default async function Series(props: ISeriesProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonWithLatest />}>
             <SeriesPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );
