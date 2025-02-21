@@ -56,22 +56,14 @@ export function useSorting(type: string) {
     });
 
     function handleChangeSorting({ sortBy, ascOrDesc }: SortingOptions) {
-        if (!sortBy) {
-            if (type !== "details") {
-                setTypeSortBy(null);
-                setTypeAscOrDesc(null);
-            } else {
-                setSortByDefault(null);
-                setAscOrDescDefault(null);
-            }
+        const actualSortBy = sortBy || defaultSortBy;
+
+        if (type !== "details") {
+            setTypeSortBy(actualSortBy);
+            setTypeAscOrDesc(ascOrDesc);
         } else {
-            if (type !== "details") {
-                setTypeSortBy(sortBy);
-                setTypeAscOrDesc(ascOrDesc);
-            } else {
-                setSortByDefault(sortBy);
-                setAscOrDescDefault(ascOrDesc);
-            }
+            setSortByDefault(actualSortBy);
+            setAscOrDescDefault(ascOrDesc);
         }
     }
 
