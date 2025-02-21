@@ -106,9 +106,7 @@ export async function getMoviesWithFilters(
         }),
     );
 
-    const moviesCount = await prisma.movie.count();
-
-    return { movies: moviesFinal, count: moviesCount };
+    return { movies: moviesFinal };
 }
 
 export async function getMovies(): Promise<any | null> {
@@ -501,6 +499,16 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
     );
 
     return movies.length > 0 ? movies : null;
+}
+
+export async function getMoviesTotalCount(): Promise<number> {
+    try {
+        const count = await prisma.movie.count({});
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching movies total count:", error);
+        throw new Error("Could not retrieve movies count");
+    }
 }
 // #endregion
 

@@ -1,11 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Serie } from "@prisma/client";
-import { getLatestSeries, getSeriesWithFilters } from "@/actions/serie.actions";
+import { getLatestSeries, getSeriesTotalCount, getSeriesWithFilters } from "@/actions/serie.actions";
 import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
+import { unstable_cache } from "next/cache";
 
 interface SeriesPageContentProps {
     searchParams:
@@ -30,7 +31,13 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
 
     const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
     const series = seriesData.rows;
-    const seriesCount = seriesData.count;
+
+    // Cache the series count for 1 day (86400 seconds)
+    const cachedGetSeriesTotalCount = unstable_cache(async () => await getSeriesTotalCount(), ["seriesCount"], {
+        revalidate: 86400,
+        tags: ["seriesCount"],
+    });
+    const seriesCount = await cachedGetSeriesTotalCount();
 
     const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
     const latestSeries = await getLatestSeries();

@@ -1,11 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Movie } from "@prisma/client";
-import { getLatestMovies, getMoviesWithFilters } from "@/actions/movie.actions";
+import { getLatestMovies, getMoviesTotalCount, getMoviesWithFilters } from "@/actions/movie.actions";
 import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
+import { unstable_cache } from "next/cache";
 
 interface MoviesPageContentProps {
     searchParams:
@@ -19,18 +20,22 @@ interface MoviesPageContentProps {
 }
 
 export default async function MoviesPageContent({ searchParams, session }: MoviesPageContentProps) {
-    const ascOrDesc = searchParams?.moviesAscOrDesc ?? "";
-    const page = searchParams?.pageMovies ? Number(searchParams.pageMovies) : 1;
-    const sortBy = searchParams?.moviesSortBy ?? "";
-    const queryParams = {
-        ascOrDesc,
-        page,
-        sortBy,
+    const { ascOrDesc, page, sortBy } = {
+        ascOrDesc: searchParams?.moviesAscOrDesc ?? "",
+        page: searchParams?.pageMovies ? Number(searchParams.pageMovies) : 1,
+        sortBy: searchParams?.moviesSortBy ?? "",
     };
+    const queryParams = { ascOrDesc, page, sortBy };
 
     const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
     const movies = moviesData.movies;
-    const moviesCount = moviesData.count;
+
+    // Cache the movies count for 1 day (86400 seconds)
+    const cachedGetMoviesTotalCount = unstable_cache(async () => await getMoviesTotalCount(), ["moviesCount"], {
+        revalidate: 86400,
+        tags: ["moviesCount"],
+    });
+    const moviesCount = await cachedGetMoviesTotalCount();
 
     const moviesCarouselImages: Movie[] = moviesData.movies.slice(0, 5);
     const latestMovies = await getLatestMovies();
