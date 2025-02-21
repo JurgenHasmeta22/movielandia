@@ -2,12 +2,10 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { notFound } from "next/navigation";
-import UserPageContent from "./_components/UserPageContent";
-import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { Suspense } from "react";
 import { getUserById } from "@/actions/user/user.actions";
-import { getFollowers, getFollowing, getPendingFollowRequests } from "@/actions/user/userFollow.actions";
-import { getUserFavorites, getUserReviews, getUserVotes } from "@/actions/user/userProfile.actions";
+import UserPageContentWrapper from "./_components/UserPageContentWrapper";
+import LoadingSkeletonUserProfile from "@/components/root/loadingSkeleton/LoadingSkeletonUserProfile";
 
 interface IUserDetailsProps {
     params: {
@@ -73,7 +71,6 @@ export async function generateMetadata(props: IUserDetailsProps): Promise<Metada
 
 export default async function UserPage(props: IUserDetailsProps) {
     const session = await getServerSession(authOptions);
-
     const userSession = session?.user
         ? {
               id: Number(session.user.id),
@@ -93,64 +90,9 @@ export default async function UserPage(props: IUserDetailsProps) {
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
-    const mainTab = searchParams?.maintab || "bookmarks";
-    const subTab = searchParams?.subtab || "movies";
-    const page = searchParams?.page ? Number(searchParams.page) : 1;
-    const search = searchParams?.search || "";
-
-    let userInPage;
-    let additionalData: any = { items: [], total: 0 };
-    let userFollowers: any;
-    let userFollowing: any;
-    let userPendingFollowers: any;
-
-    try {
-        userInPage = await getUserById(Number(userId), userSession?.id);
-        userFollowers = await getFollowers(Number(userId));
-        userFollowing = await getFollowing(Number(userId));
-        userPendingFollowers = await getPendingFollowRequests(Number(userId));
-
-        if (!userInPage) {
-            return notFound();
-        }
-
-        if (mainTab === "bookmarks") {
-            additionalData = await getUserFavorites(
-                Number(userId),
-                subTab.toLowerCase() as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
-                page,
-                search,
-            );
-        } else if (mainTab === "reviews") {
-            additionalData = await getUserReviews(
-                Number(userId),
-                subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
-                page,
-                search,
-            );
-        } else if (mainTab === "upvotes" || mainTab === "downvotes") {
-            additionalData = await getUserVotes(
-                Number(userId),
-                subTab as "movies" | "series" | "actors" | "crew" | "seasons" | "episodes",
-                mainTab,
-                search,
-                page,
-            );
-        }
-    } catch (error) {
-        return notFound();
-    }
-
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <UserPageContent
-                userLoggedIn={userSession}
-                userInPage={userInPage}
-                additionalData={additionalData}
-                userFollowers={userFollowers}
-                userFollowing={userFollowing}
-                userPendingFollowers={userPendingFollowers}
-            />
+        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonUserProfile />}>
+            <UserPageContentWrapper searchParams={searchParams} userSession={userSession} userId={userId} />
         </Suspense>
     );
 }
