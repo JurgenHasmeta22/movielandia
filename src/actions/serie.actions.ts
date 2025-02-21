@@ -106,12 +106,20 @@ export async function getSeriesWithFilters(
         }),
     );
 
-    const count = await prisma.serie.count();
-
     if (seriesFinal) {
-        return { rows: seriesFinal, count };
+        return { rows: seriesFinal };
     } else {
         return null;
+    }
+}
+
+export async function getSeriesTotalCount(): Promise<number> {
+    try {
+        const count = await prisma.serie.count({});
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching series total count:", error);
+        throw new Error("Could not retrieve series count");
     }
 }
 

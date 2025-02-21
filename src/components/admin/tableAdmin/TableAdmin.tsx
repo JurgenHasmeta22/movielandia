@@ -10,8 +10,8 @@ import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { getGenresWithFilters } from "@/actions/genre.actions";
 import { getUsersWithFilters } from "@/actions/user/user.actions";
-import { getMoviesWithFilters } from "@/actions/movie.actions";
-import { getSeriesWithFilters } from "@/actions/serie.actions";
+import { getMoviesTotalCount, getMoviesWithFilters } from "@/actions/movie.actions";
+import { getSeriesTotalCount, getSeriesWithFilters } from "@/actions/serie.actions";
 import { getActorsWithFilters } from "@/actions/actor.actions";
 import { getEpisodesWithFilters } from "@/actions/episode.actions";
 import { getSeasonsWithFilters } from "@/actions/season.actions";
@@ -218,13 +218,15 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
             switch (page) {
                 case "series":
                     response = await getSeriesWithFilters(queryParams);
+                    const seriesCount = await getSeriesTotalCount();
                     setRows(response.rows);
-                    setRowsCount(response.count);
+                    setRowsCount(seriesCount);
                     break;
                 case "movies":
                     response = await getMoviesWithFilters(queryParams);
+                    const moviesCount = await getMoviesTotalCount();
                     setRows(response.movies);
-                    setRowsCount(response.count);
+                    setRowsCount(moviesCount);
                     break;
                 case "genres":
                     response = await getGenresWithFilters(queryParams);
