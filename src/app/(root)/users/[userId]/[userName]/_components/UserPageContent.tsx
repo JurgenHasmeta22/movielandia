@@ -13,7 +13,6 @@ import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import { useRouter } from "next/navigation";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import ProfileStats from "./ProfileStats";
@@ -69,8 +68,6 @@ export default function UserPageContent({
     userFollowing,
     userPendingFollowers,
 }: UserPageProps) {
-    const router = useRouter();
-
     // #region "Profile follow view logic"
     const canViewProfile = useMemo(() => {
         if (!userLoggedIn) return false;
