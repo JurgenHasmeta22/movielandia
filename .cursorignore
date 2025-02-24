@@ -6,3 +6,5 @@ prisma/seed/
 prisma/erd/
 prisma/dbml/
 package-lock.json
+codebase-docs/
+.github/
