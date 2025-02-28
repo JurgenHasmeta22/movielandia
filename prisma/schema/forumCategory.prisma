@@ -7,6 +7,11 @@ model ForumCategory {
     order       Int      @default(0)
     isActive    Boolean  @default(true)
     slug        String   @unique
+    topicCount  Int      @default(0)
+    postCount   Int      @default(0)
+    lastPostAt  DateTime?
+    lastPostId  Int?     @unique
+    lastPost    ForumPost? @relation("CategoryLastPost", fields: [lastPostId], references: [id], onDelete: SetNull)
 
     // Relations
     topics     ForumTopic[]
@@ -14,6 +19,7 @@ model ForumCategory {
 
     @@index([name(sort: Asc)])
     @@index([order])
+    @@index([lastPostId])
 }
 
 model UserForumModerator {

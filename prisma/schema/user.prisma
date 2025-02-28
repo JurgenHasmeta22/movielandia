@@ -97,6 +97,10 @@ model User {
     reportedContentReceived  ReportedContent[]        @relation("ReportedUser")
     moderationLogsCreated    ModerationLog[]          @relation("ModeratorUser")
     moderationLogsTargeted   ModerationLog[]          @relation("TargetUser")
+    forumStats               ForumUserStats?
+    topicsClosed             ForumTopic[]         @relation("TopicCloser")
+    postsAnswered            ForumPost[]          @relation("PostAnswerer")
+    postsEdited              ForumPostHistory[]   @relation("PostEditor")
 
     @@index([userName(sort: Asc)])
     @@index([email])
@@ -126,4 +130,16 @@ model UserFollow {
     following User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
     @@unique([followerId, followingId])
+}
+
+model ForumUserStats {
+    id              Int      @id @default(autoincrement())
+    userId          Int      @unique
+    user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    topicCount      Int      @default(0)
+    postCount       Int      @default(0)
+    replyCount      Int      @default(0)
+    upvotesReceived Int      @default(0)
+    reputation      Int      @default(0)
+    lastPostAt      DateTime?
 }

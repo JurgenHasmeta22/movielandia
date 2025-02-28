@@ -1,3 +1,11 @@
+enum PostType {
+    Normal
+    Announcement
+    Sticky
+    Question
+    Answered
+}
+
 model ForumPost {
     id          Int       @id @default(autoincrement())
     content     String    @db.Text()
@@ -8,6 +16,15 @@ model ForumPost {
     lastEditAt  DateTime?
     isModerated Boolean   @default(false)
     slug        String    @unique
+    type        PostType  @default(Normal)
+    isAnswer    Boolean   @default(false)
+    answeredAt  DateTime?
+    answeredById Int?
+    answeredBy   User?    @relation("PostAnswerer", fields: [answeredById], references: [id])
+    isDeleted   Boolean   @default(false)
+    deletedAt   DateTime?
+    deletedById Int?
+    deletedBy   User?     @relation("PostDeleter", fields: [deletedById], references: [id])
 
     // FK Keys
     topicId Int
@@ -20,9 +37,13 @@ model ForumPost {
     replies   ForumReply[]
     upvotes   UpvoteForumPost[]
     downvotes DownvoteForumPost[]
+    history   ForumPostHistory[]
+    lastPostCategory ForumCategory? @relation("CategoryLastPost")
 
     @@index([createdAt])
     @@index([isModerated]) // Add this for moderation queries
+    @@index([topicId])
+    @@index([isDeleted])
 }
 
 model Attachment {
@@ -40,8 +61,8 @@ model Attachment {
     userId Int
 
     // Relations
-    post User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    user ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+    post ForumPost      @relation(fields: [postId], references: [id], onDelete: Cascade)
 
     @@index([uploadedAt])
     @@index([mimeType])
@@ -73,4 +94,14 @@ model DownvoteForumPost {
     post ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
 
     @@unique([userId, postId])
+}
+
+model ForumPostHistory {
+    id          Int      @id @default(autoincrement())
+    postId      Int
+    post        ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+    content     String   @db.Text()
+    editedAt    DateTime @default(now())
+    editedById  Int
+    editedBy    User     @relation("PostEditor", fields: [editedById], references: [id])
 }
