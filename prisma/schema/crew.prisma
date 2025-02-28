@@ -9,6 +9,7 @@ model Crew {
 
     // New relation field for PlaylistCrew
     playlistItems PlaylistCrew[]
+    playlistActivities PlaylistActivityCrew[]
 
     // Relations
     producedMovies       CrewMovie[]
@@ -19,7 +20,7 @@ model Crew {
     upvoteCrewReviews    UpvoteCrewReview[]
     downvoteCrewReviews  DownvoteCrewReview[]
 
-    @@index([fullname(sort: Desc)])
+    @@index([fullname(sort: Asc)])
 }
 
 model CrewReview {
