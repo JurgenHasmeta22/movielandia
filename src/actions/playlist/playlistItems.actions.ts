@@ -17,10 +17,7 @@ export async function addMovieToPlaylist(movieId: number, { playlistId, userId, 
             prisma.playlist.findFirst({
                 where: {
                     id: playlistId,
-                    OR: [
-                        { userId },
-                        { sharedWith: { some: { userId, canEdit: true } } },
-                    ],
+                    OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
                 },
             }),
             prisma.playlistMovie.findUnique({
@@ -78,10 +75,7 @@ export async function removeMovieFromPlaylist(movieId: number, playlistId: numbe
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 
@@ -127,10 +121,7 @@ export async function addSerieToPlaylist(serieId: number, { playlistId, userId, 
             prisma.playlist.findFirst({
                 where: {
                     id: playlistId,
-                    OR: [
-                        { userId },
-                        { sharedWith: { some: { userId, canEdit: true } } },
-                    ],
+                    OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
                 },
             }),
             prisma.playlistSerie.findUnique({
@@ -188,10 +179,7 @@ export async function removeSerieFromPlaylist(serieId: number, playlistId: numbe
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 
@@ -237,10 +225,7 @@ export async function addSeasonToPlaylist(seasonId: number, { playlistId, userId
             prisma.playlist.findFirst({
                 where: {
                     id: playlistId,
-                    OR: [
-                        { userId },
-                        { sharedWith: { some: { userId, canEdit: true } } },
-                    ],
+                    OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
                 },
             }),
             prisma.playlistSeason.findUnique({
@@ -298,10 +283,7 @@ export async function removeSeasonFromPlaylist(seasonId: number, playlistId: num
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 
@@ -347,10 +329,7 @@ export async function addEpisodeToPlaylist(episodeId: number, { playlistId, user
             prisma.playlist.findFirst({
                 where: {
                     id: playlistId,
-                    OR: [
-                        { userId },
-                        { sharedWith: { some: { userId, canEdit: true } } },
-                    ],
+                    OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
                 },
             }),
             prisma.playlistEpisode.findUnique({
@@ -408,10 +387,7 @@ export async function removeEpisodeFromPlaylist(episodeId: number, playlistId: n
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 
@@ -457,10 +433,7 @@ export async function addActorToPlaylist(actorId: number, { playlistId, userId, 
             prisma.playlist.findFirst({
                 where: {
                     id: playlistId,
-                    OR: [
-                        { userId },
-                        { sharedWith: { some: { userId, canEdit: true } } },
-                    ],
+                    OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
                 },
             }),
             prisma.playlistActor.findUnique({
@@ -518,10 +491,7 @@ export async function removeActorFromPlaylist(actorId: number, playlistId: numbe
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 
@@ -567,10 +537,7 @@ export async function addCrewToPlaylist(crewId: number, { playlistId, userId, no
             prisma.playlist.findFirst({
                 where: {
                     id: playlistId,
-                    OR: [
-                        { userId },
-                        { sharedWith: { some: { userId, canEdit: true } } },
-                    ],
+                    OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
                 },
             }),
             prisma.playlistCrew.findUnique({
@@ -628,10 +595,7 @@ export async function removeCrewFromPlaylist(crewId: number, playlistId: number,
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 

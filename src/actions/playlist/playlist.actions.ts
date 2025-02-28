@@ -16,15 +16,7 @@ interface PlaylistParams {
 
 // #region "GET Methods"
 export async function getPlaylists(userId: number, params: PlaylistParams = {}) {
-    const {
-        page = 1,
-        perPage = 12,
-        sortBy = "createdAt",
-        ascOrDesc = "desc",
-        type,
-        isPrivate,
-        isArchived,
-    } = params;
+    const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", type, isPrivate, isArchived } = params;
 
     const skip = (page - 1) * perPage;
     const where: Prisma.PlaylistWhereInput = {
@@ -79,10 +71,7 @@ export async function getPlaylistById(playlistId: number, userId: number) {
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId } } }],
             },
             include: {
                 movieItems: {
@@ -133,12 +122,7 @@ export async function getPlaylistById(playlistId: number, userId: number) {
     }
 }
 
-export async function getPlaylistMovies(
-    playlistId: number,
-    userId: number,
-    page: number = 1,
-    limit: number = 10
-) {
+export async function getPlaylistMovies(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
@@ -147,10 +131,7 @@ export async function getPlaylistMovies(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
                 include: {
@@ -163,10 +144,10 @@ export async function getPlaylistMovies(
                             ratingImdb: true,
                             dateAired: true,
                             duration: true,
-                        }
+                        },
                     },
                 },
-                orderBy: { orderIndex: 'asc' },
+                orderBy: { orderIndex: "asc" },
                 skip,
                 take: limit,
             }),
@@ -174,10 +155,7 @@ export async function getPlaylistMovies(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
             }),
@@ -189,12 +167,7 @@ export async function getPlaylistMovies(
     }
 }
 
-export async function getPlaylistSeries(
-    playlistId: number,
-    userId: number,
-    page: number = 1,
-    limit: number = 10
-) {
+export async function getPlaylistSeries(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
@@ -203,10 +176,7 @@ export async function getPlaylistSeries(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
                 include: {
@@ -218,10 +188,10 @@ export async function getPlaylistSeries(
                             photoSrcProd: true,
                             ratingImdb: true,
                             dateAired: true,
-                        }
+                        },
                     },
                 },
-                orderBy: { orderIndex: 'asc' },
+                orderBy: { orderIndex: "asc" },
                 skip,
                 take: limit,
             }),
@@ -229,10 +199,7 @@ export async function getPlaylistSeries(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
             }),
@@ -244,12 +211,7 @@ export async function getPlaylistSeries(
     }
 }
 
-export async function getPlaylistActors(
-    playlistId: number,
-    userId: number,
-    page: number = 1,
-    limit: number = 10
-) {
+export async function getPlaylistActors(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
@@ -258,10 +220,7 @@ export async function getPlaylistActors(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
                 include: {
@@ -272,10 +231,10 @@ export async function getPlaylistActors(
                             photoSrc: true,
                             photoSrcProd: true,
                             debut: true,
-                        }
+                        },
                     },
                 },
-                orderBy: { orderIndex: 'asc' },
+                orderBy: { orderIndex: "asc" },
                 skip,
                 take: limit,
             }),
@@ -283,10 +242,7 @@ export async function getPlaylistActors(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
             }),
@@ -298,12 +254,7 @@ export async function getPlaylistActors(
     }
 }
 
-export async function getPlaylistCrew(
-    playlistId: number,
-    userId: number,
-    page: number = 1,
-    limit: number = 10
-) {
+export async function getPlaylistCrew(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
@@ -312,10 +263,7 @@ export async function getPlaylistCrew(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
                 include: {
@@ -326,10 +274,10 @@ export async function getPlaylistCrew(
                             photoSrc: true,
                             photoSrcProd: true,
                             debut: true,
-                        }
+                        },
                     },
                 },
-                orderBy: { orderIndex: 'asc' },
+                orderBy: { orderIndex: "asc" },
                 skip,
                 take: limit,
             }),
@@ -337,10 +285,7 @@ export async function getPlaylistCrew(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
             }),
@@ -352,12 +297,7 @@ export async function getPlaylistCrew(
     }
 }
 
-export async function getPlaylistSeasons(
-    playlistId: number,
-    userId: number,
-    page: number = 1,
-    limit: number = 10
-) {
+export async function getPlaylistSeasons(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
@@ -366,10 +306,7 @@ export async function getPlaylistSeasons(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
                 include: {
@@ -386,13 +323,13 @@ export async function getPlaylistSeasons(
                             serie: {
                                 select: {
                                     id: true,
-                                    title: true
-                                }
-                            }
-                        }
+                                    title: true,
+                                },
+                            },
+                        },
                     },
                 },
-                orderBy: { orderIndex: 'asc' },
+                orderBy: { orderIndex: "asc" },
                 skip,
                 take: limit,
             }),
@@ -400,10 +337,7 @@ export async function getPlaylistSeasons(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
             }),
@@ -415,12 +349,7 @@ export async function getPlaylistSeasons(
     }
 }
 
-export async function getPlaylistEpisodes(
-    playlistId: number,
-    userId: number,
-    page: number = 1,
-    limit: number = 10
-) {
+export async function getPlaylistEpisodes(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
@@ -429,10 +358,7 @@ export async function getPlaylistEpisodes(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
                 include: {
@@ -453,15 +379,15 @@ export async function getPlaylistEpisodes(
                                     serie: {
                                         select: {
                                             id: true,
-                                            title: true
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                                            title: true,
+                                        },
+                                    },
+                                },
+                            },
+                        },
                     },
                 },
-                orderBy: { orderIndex: 'asc' },
+                orderBy: { orderIndex: "asc" },
                 skip,
                 take: limit,
             }),
@@ -469,10 +395,7 @@ export async function getPlaylistEpisodes(
                 where: {
                     playlistId,
                     playlist: {
-                        OR: [
-                            { userId },
-                            { sharedWith: { some: { userId } } },
-                        ],
+                        OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
             }),
@@ -522,10 +445,7 @@ export async function updatePlaylist(
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                OR: [
-                    { userId },
-                    { sharedWith: { some: { userId, canEdit: true } } },
-                ],
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 

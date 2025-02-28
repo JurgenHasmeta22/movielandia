@@ -5,7 +5,12 @@ import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
 import { PlaylistType } from "@prisma/client";
 
-export async function sharePlaylist(playlistId: number, userId: number, targetUserId: number, canEdit: boolean = false) {
+export async function sharePlaylist(
+    playlistId: number,
+    userId: number,
+    targetUserId: number,
+    canEdit: boolean = false,
+) {
     try {
         // Check if playlist exists and user is the owner
         const playlist = await prisma.playlist.findFirst({
