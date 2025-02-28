@@ -1,3 +1,9 @@
+enum TopicStatus {
+    Open
+    Closed
+    Archived
+}
+
 model ForumTopic {
     id          Int      @id @default(autoincrement())
     title       String
@@ -10,6 +16,10 @@ model ForumTopic {
     viewCount   Int      @default(0)
     lastPostAt  DateTime @default(now())
     isModerated Boolean  @default(false)
+    status      TopicStatus @default(Open)
+    closedAt    DateTime?
+    closedById  Int?
+    closedBy    User?       @relation("TopicCloser", fields: [closedById], references: [id])
 
     // FK Keys
     categoryId Int
