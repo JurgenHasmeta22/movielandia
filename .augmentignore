@@ -1,8 +1,7 @@
-/public/
-/codebase-docs/
-/.github/
-/.cursor/
+public/
+prisma/erd/
+prisma/dbml/
 package-lock.json
-.cursorignore
-/prisma/dbml/
-/prisma/erd/
+codebase-docs/
+.github/
+.cursor/

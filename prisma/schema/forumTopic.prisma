@@ -1,0 +1,67 @@
+model ForumTopic {
+    id        Int      @id @default(autoincrement())
+    title     String
+    content   String   @db.Text()
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isPinned  Boolean  @default(false)
+    isLocked  Boolean  @default(false)
+
+    // FK Keys
+    categoryId Int
+    userId     Int
+
+    // Relations
+    category             ForumCategory            @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    user                 User                     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    posts                ForumPost[]
+    usersWhoBookmarkedIt UserForumTopicFavorite[]
+    upvotes              UpvoteForumTopic[] 
+    downvotes            DownvoteForumTopic[]
+
+    @@index([title(sort: Asc)])
+    @@index([createdAt])
+    @@index([isPinned])
+}
+
+model UserForumTopicFavorite {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    userId  Int
+    topicId Int
+
+    // Relations
+    user  User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    topic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+    @@unique([userId, topicId])
+}
+
+model UpvoteForumTopic {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    userId  Int
+    topicId Int
+
+    // Relations
+    user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    topic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, topicId])
+}
+
+model DownvoteForumTopic {
+    id Int @id @default(autoincrement())
+
+    // FK Keys
+    userId  Int
+    topicId Int
+
+    // Relations
+    user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    topic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, topicId])
+}

@@ -21,7 +21,7 @@ model User {
     subscribed       Boolean  @default(false)
 
     // New relation field for Playlists
-    playlists        Playlist[]
+    playlists Playlist[]
 
     // Relations
     resetPasswordTokens ResetPasswordToken[]
@@ -80,6 +80,17 @@ model User {
     reportedContentReceived ReportedContent[] @relation("ReportedUser")
     moderationLogsCreated   ModerationLog[]   @relation("ModeratorUser")
     moderationLogsTargeted  ModerationLog[]   @relation("TargetUser")
+
+    forumTopics           ForumTopic[]
+    forumPosts            ForumPost[]
+    forumReplies          ForumReply[]
+    forumTopicUpvotes     UpvoteForumTopic[]
+    forumTopicDownvotes   DownvoteForumTopic[]
+    forumPostUpvotes      UpvoteForumPost[]
+    forumPostDownvotes    DownvoteForumPost[]
+    forumReplyUpvotes     UpvoteForumReply[]
+    forumReplyDownvotes   DownvoteForumReply[]
+    forumTopicsBookmarked UserForumTopicFavorite[]
 
     @@index([userName(sort: Asc)])
     @@index([email])
