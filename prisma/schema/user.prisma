@@ -20,15 +20,13 @@ model User {
     canResetPassword Boolean  @default(false)
     subscribed       Boolean  @default(false)
 
-    // New relation field for Playlists
-    playlists Playlist[]
-
-    // Relations
+    // Auth Relations
     resetPasswordTokens ResetPasswordToken[]
     activateTokens      ActivateToken[]
     accounts            Account[]
     sessions            Session[]
 
+    // Content Favorites Relations
     favMovies   UserMovieFavorite[]
     favSeries   UserSerieFavorite[]
     favGenres   UserGenreFavorite[]
@@ -36,7 +34,9 @@ model User {
     favEpisodes UserEpisodeFavorite[]
     favActors   UserActorFavorite[]
     favCrew     UserCrewFavorite[]
+    playlists   Playlist[]
 
+    // Ratings Relations
     ratingsInMovie   UserMovieRating[]
     ratingsInSerie   UserSerieRating[]
     ratingsInSeason  UserSeasonRating[]
@@ -44,6 +44,7 @@ model User {
     ratingsInActor   UserActorRating[]
     ratingsInCrew    UserCrewRating[]
 
+    // Reviews Relations
     movieReviews   MovieReview[]
     serieReviews   SerieReview[]
     seasonReviews  SeasonReview[]
@@ -51,6 +52,7 @@ model User {
     actorReviews   ActorReview[]
     crewReviews    CrewReview[]
 
+    // Review Interactions Relations
     movieReviewsUpvoted     UpvoteMovieReview[]
     movieReviewsDownvoted   DownvoteMovieReview[]
     serieReviewsUpvoted     UpvoteSerieReview[]
@@ -64,33 +66,37 @@ model User {
     crewReviewsUpvoted      UpvoteCrewReview[]
     crewReviewsDownvoted    DownvoteCrewReview[]
 
-    avatar Avatar?
-
-    followers UserFollow[] @relation("UserFollowing")
-    following UserFollow[] @relation("UserFollowers")
-
+    // Social Relations
+    avatar           Avatar?
+    followers        UserFollow[] @relation("UserFollowing")
+    following        UserFollow[] @relation("UserFollowers")
     inboxes          UserInbox[]
-    messagesSent     Message[]   @relation("Sender")
-    messagesReceived Message[]   @relation("Receiver")
+    messagesSent     Message[]    @relation("Sender")
+    messagesReceived Message[]    @relation("Receiver")
 
+    // Notification Relations
     notificationsReceived Notification[] @relation("NotificationReceiver")
     notificationsSent     Notification[] @relation("NotificationSender")
 
+    // Forum Relations
+    forumTopics              ForumTopic[]
+    forumPosts               ForumPost[]
+    forumReplies             ForumReply[]
+    forumTopicUpvotes        UpvoteForumTopic[]
+    forumTopicDownvotes      DownvoteForumTopic[]
+    forumPostUpvotes         UpvoteForumPost[]
+    forumPostDownvotes       DownvoteForumPost[]
+    forumReplyUpvotes        UpvoteForumReply[]
+    forumReplyDownvotes      DownvoteForumReply[]
+    forumTopicsBookmarked    UserForumTopicFavorite[]
+    forumTopicsWatched       UserForumTopicWatch[]
+    forumModeratedCategories UserForumModerator[]
+
+    // Moderation Relations
     reportedContentCreated  ReportedContent[] @relation("ReportingUser")
     reportedContentReceived ReportedContent[] @relation("ReportedUser")
     moderationLogsCreated   ModerationLog[]   @relation("ModeratorUser")
     moderationLogsTargeted  ModerationLog[]   @relation("TargetUser")
-
-    forumTopics           ForumTopic[]
-    forumPosts            ForumPost[]
-    forumReplies          ForumReply[]
-    forumTopicUpvotes     UpvoteForumTopic[]
-    forumTopicDownvotes   DownvoteForumTopic[]
-    forumPostUpvotes      UpvoteForumPost[]
-    forumPostDownvotes    DownvoteForumPost[]
-    forumReplyUpvotes     UpvoteForumReply[]
-    forumReplyDownvotes   DownvoteForumReply[]
-    forumTopicsBookmarked UserForumTopicFavorite[]
 
     @@index([userName(sort: Asc)])
     @@index([email])

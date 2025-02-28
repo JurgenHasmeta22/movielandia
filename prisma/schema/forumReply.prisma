@@ -1,8 +1,12 @@
 model ForumReply {
-    id        Int       @id @default(autoincrement())
-    content   String    @db.Text()
-    createdAt DateTime  @default(now())
-    updatedAt DateTime? @updatedAt
+    id          Int       @id @default(autoincrement())
+    content     String    @db.Text()
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime? @updatedAt
+    isEdited    Boolean   @default(false)
+    editCount   Int       @default(0)
+    lastEditAt  DateTime?
+    isModerated Boolean   @default(false)
 
     // FK Keys
     postId Int
@@ -15,6 +19,7 @@ model ForumReply {
     downvotes DownvoteForumReply[]
 
     @@index([createdAt])
+    @@index([isModerated])
 }
 
 model UpvoteForumReply {
