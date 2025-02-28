@@ -7,7 +7,6 @@ model ForumPost {
     editCount   Int       @default(0)
     lastEditAt  DateTime?
     isModerated Boolean   @default(false)
-    attachments String[]
     slug        String    @unique
 
     // FK Keys
@@ -15,6 +14,7 @@ model ForumPost {
     userId  Int
 
     // Relations
+    attachments Attachment[] 
     topic     ForumTopic          @relation(fields: [topicId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     user      User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     replies   ForumReply[]
@@ -23,6 +23,28 @@ model ForumPost {
 
     @@index([createdAt])
     @@index([isModerated]) // Add this for moderation queries
+}
+
+model Attachment {
+    id          Int      @id @default(autoincrement())
+    filename    String   // Original filename
+    fileUrl     String   // Storage URL
+    fileSize    Int      // Size in bytes
+    mimeType    String   // File type (e.g., "image/jpeg", "application/pdf")
+    uploadedAt  DateTime @default(now())
+    isPublic    Boolean  @default(true)
+    description String?  @db.Text()
+
+    // FK Keys
+    postId Int
+    userId Int
+
+    // Relations
+    post User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+    @@index([uploadedAt])
+    @@index([mimeType])
 }
 
 model UpvoteForumPost {
