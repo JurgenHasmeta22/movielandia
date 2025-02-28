@@ -9,16 +9,6 @@ import { getReferer } from "./user.actions";
 // #region "Add Favorite"
 export async function addFavoriteSerieToUser(userId: number, serieId: number): Promise<void> {
     try {
-        // const existingFavorite = await prisma.userSerieFavorite.findFirst({
-        //     where: {
-        //         AND: [{ userId }, { serieId }],
-        //     },
-        // });
-
-        // if (existingFavorite) {
-        //     throw new Error("This serie is already in your favorites.");
-        // }
-
         const serie = await prisma.serie.findUnique({
             where: {
                 id: serieId,
@@ -46,16 +36,6 @@ export async function addFavoriteSerieToUser(userId: number, serieId: number): P
 
 export async function addFavoriteMovieToUser(userId: number, movieId: number): Promise<void> {
     try {
-        // const existingFavorite = await prisma.userMovieFavorite.findFirst({
-        //     where: {
-        //         AND: [{ userId }, { movieId }],
-        //     },
-        // });
-
-        // if (existingFavorite) {
-        //     throw new Error("This movie is already in your favorites.");
-        // }
-
         const movie = await prisma.movie.findUnique({
             where: {
                 id: movieId,
@@ -83,16 +63,6 @@ export async function addFavoriteMovieToUser(userId: number, movieId: number): P
 
 export async function addFavoriteSeasonToUser(userId: number, seasonId: number): Promise<void> {
     try {
-        // const existingFavorite = await prisma.userSeasonFavorite.findFirst({
-        //     where: {
-        //         AND: [{ userId }, { seasonId }],
-        //     },
-        // });
-
-        // if (existingFavorite) {
-        //     throw new Error("This season is already in your favorites.");
-        // }
-
         const season = await prisma.season.findUnique({
             where: {
                 id: seasonId,
