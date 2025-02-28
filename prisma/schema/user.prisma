@@ -91,12 +91,12 @@ model User {
     forumTopicsBookmarked    UserForumTopicFavorite[]
     forumTopicsWatched       UserForumTopicWatch[]
     forumModeratedCategories UserForumModerator[]
-
+    attachments              Attachment[]
     // Moderation Relations
-    reportedContentCreated  ReportedContent[] @relation("ReportingUser")
-    reportedContentReceived ReportedContent[] @relation("ReportedUser")
-    moderationLogsCreated   ModerationLog[]   @relation("ModeratorUser")
-    moderationLogsTargeted  ModerationLog[]   @relation("TargetUser")
+    reportedContentCreated   ReportedContent[]        @relation("ReportingUser")
+    reportedContentReceived  ReportedContent[]        @relation("ReportedUser")
+    moderationLogsCreated    ModerationLog[]          @relation("ModeratorUser")
+    moderationLogsTargeted   ModerationLog[]          @relation("TargetUser")
 
     @@index([userName(sort: Asc)])
     @@index([email])
