@@ -1,13 +1,13 @@
 model Movie {
-    id           Int     @id @default(autoincrement())
-    title        String
-    photoSrc     String
-    photoSrcProd String
-    trailerSrc   String
-    duration     Int
-    ratingImdb   Float
-    dateAired    DateTime?
-    description  String @db.Text()
+    id              Int      @id @default(autoincrement())
+    title           String
+    photoSrc        String
+    photoSrcProd    String
+    trailerSrc      String
+    duration        Int
+    ratingImdb      Float
+    dateAired       DateTime?
+    description     String @db.Text()
 
     // Relations
     cast                 CastMovie[]
@@ -19,6 +19,7 @@ model Movie {
     upvoteMovieReviews   UpvoteMovieReview[]
     downvoteMovieReviews DownvoteMovieReview[]
     playlistItems        PlaylistMovie[]
+    playlistActivities   PlaylistActivityMovie[]
 
     @@index([title(sort: Asc)])
     @@index([duration])

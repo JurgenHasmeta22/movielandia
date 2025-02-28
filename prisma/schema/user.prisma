@@ -105,10 +105,15 @@ model User {
     postsDeleted            ForumPost[]         @relation("PostDeleter")
 
     // Playlist Relations
-    playlists          Playlist[]
-    sharedPlaylists    PlaylistShare[]
-    playlistStats      UserPlaylistStats?
-    playlistActivities PlaylistActivity[]
+    playlists             Playlist[]
+    sharedPlaylists       PlaylistShare[]
+    playlistStats         UserPlaylistStats?
+    movieActivities       PlaylistActivityMovie[]
+    serieActivities       PlaylistActivitySerie[]
+    seasonActivities      PlaylistActivitySeason[]
+    episodeActivities     PlaylistActivityEpisode[]
+    actorActivities       PlaylistActivityActor[]
+    crewActivities        PlaylistActivityCrew[]
 
     // Added items tracking
     addedMovieItems   PlaylistMovie[]   @relation("AddedByUser")

@@ -20,6 +20,7 @@ model Season {
     upvoteSeasonReviews   UpvoteSeasonReview[]
     downvoteSeasonReviews DownvoteSeasonReview[]
     playlistItems         PlaylistSeason[]
+    playlistActivities    PlaylistActivitySeason[]
 
     @@index([title(sort: Asc)])
     @@index([ratingImdb])

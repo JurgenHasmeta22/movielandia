@@ -1,12 +1,12 @@
 model Serie {
-    id           Int     @id @default(autoincrement())
-    title        String
-    photoSrc     String
-    photoSrcProd String
-    trailerSrc   String
-    description  String @db.Text()
-    dateAired    DateTime?
-    ratingImdb   Float
+    id              Int      @id @default(autoincrement())
+    title           String
+    photoSrc        String
+    photoSrcProd    String
+    trailerSrc      String
+    description     String @db.Text()
+    dateAired       DateTime?
+    ratingImdb      Float
 
     // Relations
     cast                 CastSerie[]
@@ -19,6 +19,7 @@ model Serie {
     upvoteSerieReviews   UpvoteSerieReview[]
     downvoteSerieReviews DownvoteSerieReview[]
     playlistItems        PlaylistSerie[]
+    playlistActivities   PlaylistActivitySerie[]
 
     @@index([title(sort: Asc)])
     @@index([dateAired])

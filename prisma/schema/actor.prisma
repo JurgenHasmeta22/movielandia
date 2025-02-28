@@ -3,13 +3,12 @@ model Actor {
     fullname     String
     photoSrc     String
     photoSrcProd String
-    description  String @db.Text()
+    description  String  @db.Text()
     debut        String
 
-    // New relation field for PlaylistActor
-    playlistItems PlaylistActor[]
-
     // Relations
+    playlistItems        PlaylistActor[]
+    playlistActivities   PlaylistActivityActor[]
     starredMovies        CastMovie[]
     starredSeries        CastSerie[]
     reviews              ActorReview[]
