@@ -5,3 +5,5 @@ prisma/dbml/
 package-lock.json
 codebase-docs/
 .github/
+.augmentignore
+.augment-guidelines
