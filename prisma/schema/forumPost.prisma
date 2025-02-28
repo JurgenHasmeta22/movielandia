@@ -18,27 +18,27 @@ model ForumPost {
     slug        String    @unique
     type        PostType  @default(Normal)
     isAnswer    Boolean   @default(false)
-    answeredAt  DateTime?
-    answeredById Int?
-    answeredBy   User?    @relation("PostAnswerer", fields: [answeredById], references: [id])
     isDeleted   Boolean   @default(false)
+    answeredAt  DateTime?
     deletedAt   DateTime?
-    deletedById Int?
-    deletedBy   User?     @relation("PostDeleter", fields: [deletedById], references: [id])
 
     // FK Keys
-    topicId Int
-    userId  Int
+    topicId      Int
+    userId       Int
+    answeredById Int?
+    deletedById  Int?
 
     // Relations
-    attachments Attachment[] 
-    topic     ForumTopic          @relation(fields: [topicId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    user      User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-    replies   ForumReply[]
-    upvotes   UpvoteForumPost[]
-    downvotes DownvoteForumPost[]
-    history   ForumPostHistory[]
-    lastPostCategory ForumCategory? @relation("CategoryLastPost")
+    topic            ForumTopic          @relation(fields: [topicId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    user             User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    answeredBy       User?               @relation("PostAnswerer", fields: [answeredById], references: [id])
+    deletedBy        User?               @relation("PostDeleter", fields: [deletedById], references: [id])
+    attachments      Attachment[]
+    replies          ForumReply[]
+    upvotes          UpvoteForumPost[]
+    downvotes        DownvoteForumPost[]
+    history          ForumPostHistory[]
+    lastPostCategory ForumCategory?      @relation("CategoryLastPost")
 
     @@index([createdAt])
     @@index([isModerated])
@@ -49,10 +49,10 @@ model ForumPost {
 
 model Attachment {
     id          Int      @id @default(autoincrement())
-    filename    String   // Original filename
-    fileUrl     String   // Storage URL
-    fileSize    Int      // Size in bytes
-    mimeType    String   // File type (e.g., "image/jpeg", "application/pdf")
+    filename    String
+    fileUrl     String
+    fileSize    Int
+    mimeType    String
     uploadedAt  DateTime @default(now())
     isPublic    Boolean  @default(true)
     description String?  @db.Text()
@@ -62,8 +62,8 @@ model Attachment {
     userId Int
 
     // Relations
-    user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-    post ForumPost      @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    post ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
 
     @@index([uploadedAt])
     @@index([mimeType])
@@ -98,11 +98,15 @@ model DownvoteForumPost {
 }
 
 model ForumPostHistory {
-    id          Int      @id @default(autoincrement())
-    postId      Int
-    post        ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-    content     String   @db.Text()
-    editedAt    DateTime @default(now())
-    editedById  Int
-    editedBy    User     @relation("PostEditor", fields: [editedById], references: [id])
+    id       Int      @id @default(autoincrement())
+    content  String   @db.Text()
+    editedAt DateTime @default(now())
+
+    // FK Keys
+    postId     Int
+    editedById Int
+
+    // Relations
+    post     ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+    editedBy User      @relation("PostEditor", fields: [editedById], references: [id])
 }

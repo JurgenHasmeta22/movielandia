@@ -17,7 +17,7 @@ model ForumReply {
     user      User                 @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     upvotes   UpvoteForumReply[]
     downvotes DownvoteForumReply[]
-    history   ForumReplyHistory[]  // Added history tracking
+    history   ForumReplyHistory[]
 
     @@index([createdAt])
     @@index([isModerated])
@@ -51,15 +51,18 @@ model DownvoteForumReply {
     @@unique([userId, replyId])
 }
 
-// Added new model for reply history tracking
 model ForumReplyHistory {
-    id          Int      @id @default(autoincrement())
-    replyId     Int
-    reply       ForumReply @relation(fields: [replyId], references: [id], onDelete: Cascade)
-    content     String   @db.Text()
-    editedAt    DateTime @default(now())
-    editedById  Int
-    editedBy    User     @relation("ReplyEditor", fields: [editedById], references: [id])
+    id       Int      @id @default(autoincrement())
+    content  String   @db.Text()
+    editedAt DateTime @default(now())
+
+    // FK Keys
+    replyId    Int
+    editedById Int
+
+    // Relations
+    reply ForumReply @relation(fields: [replyId], references: [id], onDelete: Cascade)
+    editedBy User @relation("ReplyEditor", fields: [editedById], references: [id])
 
     @@index([editedAt])
 }
