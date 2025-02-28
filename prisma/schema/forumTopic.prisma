@@ -1,27 +1,49 @@
 model ForumTopic {
-    id        Int      @id @default(autoincrement())
-    title     String
-    content   String   @db.Text()
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    isPinned  Boolean  @default(false)
-    isLocked  Boolean  @default(false)
+    id          Int      @id @default(autoincrement())
+    title       String
+    content     String   @db.Text()
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    isPinned    Boolean  @default(false)
+    isLocked    Boolean  @default(false)
+    slug        String   @unique
+    viewCount   Int      @default(0)
+    lastPostAt  DateTime @default(now())
+    isModerated Boolean  @default(false)
 
     // FK Keys
     categoryId Int
     userId     Int
 
     // Relations
+    tags ForumTag[]
     category             ForumCategory            @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     user                 User                     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     posts                ForumPost[]
     usersWhoBookmarkedIt UserForumTopicFavorite[]
-    upvotes              UpvoteForumTopic[] 
+    upvotes              UpvoteForumTopic[]
     downvotes            DownvoteForumTopic[]
+    watchers             UserForumTopicWatch[]
 
     @@index([title(sort: Asc)])
     @@index([createdAt])
+    @@index([lastPostAt])
     @@index([isPinned])
+}
+
+model UserForumTopicWatch {
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+
+    // FK Keys
+    userId  Int
+    topicId Int
+
+    // Relations
+    user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    topic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, topicId])
 }
 
 model UserForumTopicFavorite {
