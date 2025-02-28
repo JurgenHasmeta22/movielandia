@@ -20,6 +20,7 @@ model ForumCategory {
     @@index([name(sort: Asc)])
     @@index([order])
     @@index([lastPostId])
+    @@index([isActive, order])  // Added compound index for active categories ordering
 }
 
 model UserForumModerator {

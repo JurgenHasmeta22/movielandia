@@ -41,9 +41,10 @@ model ForumPost {
     lastPostCategory ForumCategory? @relation("CategoryLastPost")
 
     @@index([createdAt])
-    @@index([isModerated]) // Add this for moderation queries
+    @@index([isModerated])
     @@index([topicId])
     @@index([isDeleted])
+    @@index([answeredAt])
 }
 
 model Attachment {
