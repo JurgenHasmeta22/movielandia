@@ -18,7 +18,7 @@ model Movie {
     usersWhoRatedIt      UserMovieRating[]
     upvoteMovieReviews   UpvoteMovieReview[]
     downvoteMovieReviews DownvoteMovieReview[]
-    playlistItems        PlaylistMovie[] @relation("MoviePlaylist")
+    playlistItems        PlaylistMovie[]
 
     @@index([title(sort: Asc)])
     @@index([duration])

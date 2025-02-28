@@ -1,10 +1,10 @@
 model Episode {
-    id           Int     @id @default(autoincrement())
+    id           Int       @id @default(autoincrement())
     title        String
     photoSrc     String
     photoSrcProd String
     trailerSrc   String
-    description  String @db.Text()
+    description  String    @db.Text()
     duration     Int
     dateAired    DateTime?
     ratingImdb   Float
@@ -12,10 +12,8 @@ model Episode {
     // FK Keys
     seasonId Int
 
-    // New relation field for PlaylistEpisode
-    playlistItems PlaylistEpisode[]
-
     // Relations
+    playlistItems PlaylistEpisode[]
     season                 Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     usersWhoBookmarkedIt   UserEpisodeFavorite[]
     usersWhoRatedIt        UserEpisodeRating[]
