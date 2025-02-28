@@ -101,6 +101,8 @@ model User {
     topicsClosed             ForumTopic[]         @relation("TopicCloser")
     postsAnswered            ForumPost[]          @relation("PostAnswerer")
     postsEdited              ForumPostHistory[]   @relation("PostEditor")
+    repliesEdited            ForumReplyHistory[]  @relation("ReplyEditor")
+    postsDeleted             ForumPost[]          @relation("PostDeleter")
 
     @@index([userName(sort: Asc)])
     @@index([email])
