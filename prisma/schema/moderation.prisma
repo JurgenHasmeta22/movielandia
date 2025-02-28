@@ -3,7 +3,7 @@ model ReportedContent {
     reportType        ReportType
     reason            String?
     createdAt         DateTime     @default(now())
-    status            ReportStatus @default(PENDING)
+    status            ReportStatus @default(Pending)
     resolutionDetails String?
 
     // FK Keys
@@ -38,22 +38,22 @@ model ModerationLog {
 }
 
 enum ModerationAction {
-    DELETE_REVIEW
-    DELETE_COMMENT
-    BAN_USER
-    WARN_USER
+    DeleteReview
+    DeleteComment
+    BanUser
+    WarnUser
 }
 
 enum ReportType {
-    REVIEW
-    COMMENT
-    USER
-    MESSAGE
-    OTHER
+    Review
+    Comment
+    User
+    Message
+    Other
 }
 
 enum ReportStatus {
-    PENDING
-    RESOLVED
-    REJECTED
+    Pending
+    Resolved
+    Rejected
 }

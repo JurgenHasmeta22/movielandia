@@ -34,7 +34,6 @@ model User {
     favEpisodes UserEpisodeFavorite[]
     favActors   UserActorFavorite[]
     favCrew     UserCrewFavorite[]
-    playlists   Playlist[]
 
     // Ratings Relations
     ratingsInMovie   UserMovieRating[]
@@ -92,17 +91,32 @@ model User {
     forumTopicsWatched       UserForumTopicWatch[]
     forumModeratedCategories UserForumModerator[]
     attachments              Attachment[]
+
     // Moderation Relations
-    reportedContentCreated   ReportedContent[]        @relation("ReportingUser")
-    reportedContentReceived  ReportedContent[]        @relation("ReportedUser")
-    moderationLogsCreated    ModerationLog[]          @relation("ModeratorUser")
-    moderationLogsTargeted   ModerationLog[]          @relation("TargetUser")
-    forumStats               ForumUserStats?
-    topicsClosed             ForumTopic[]         @relation("TopicCloser")
-    postsAnswered            ForumPost[]          @relation("PostAnswerer")
-    postsEdited              ForumPostHistory[]   @relation("PostEditor")
-    repliesEdited            ForumReplyHistory[]  @relation("ReplyEditor")
-    postsDeleted             ForumPost[]          @relation("PostDeleter")
+    reportedContentCreated  ReportedContent[]   @relation("ReportingUser")
+    reportedContentReceived ReportedContent[]   @relation("ReportedUser")
+    moderationLogsCreated   ModerationLog[]     @relation("ModeratorUser")
+    moderationLogsTargeted  ModerationLog[]     @relation("TargetUser")
+    forumStats              ForumUserStats?
+    topicsClosed            ForumTopic[]        @relation("TopicCloser")
+    postsAnswered           ForumPost[]         @relation("PostAnswerer")
+    postsEdited             ForumPostHistory[]  @relation("PostEditor")
+    repliesEdited           ForumReplyHistory[] @relation("ReplyEditor")
+    postsDeleted            ForumPost[]         @relation("PostDeleter")
+
+    // Playlist Relations
+    playlists          Playlist[]
+    sharedPlaylists    PlaylistShare[]
+    playlistStats      UserPlaylistStats?
+    playlistActivities PlaylistActivity[]
+
+    // Added items tracking
+    addedMovieItems   PlaylistMovie[]   @relation("AddedByUser")
+    addedSerieItems   PlaylistSerie[]   @relation("AddedBySerieUser")
+    addedSeasonItems  PlaylistSeason[]  @relation("AddedBySeasonUser")
+    addedEpisodeItems PlaylistEpisode[] @relation("AddedByEpisodeUser")
+    addedActorItems   PlaylistActor[]   @relation("AddedByActorUser")
+    addedCrewItems    PlaylistCrew[]    @relation("AddedByCrewUser")
 
     @@index([userName(sort: Asc)])
     @@index([email])
@@ -135,13 +149,25 @@ model UserFollow {
 }
 
 model ForumUserStats {
-    id              Int      @id @default(autoincrement())
-    userId          Int      @unique
-    user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    topicCount      Int      @default(0)
-    postCount       Int      @default(0)
-    replyCount      Int      @default(0)
-    upvotesReceived Int      @default(0)
-    reputation      Int      @default(0)
+    id              Int       @id @default(autoincrement())
+    userId          Int       @unique
+    user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    topicCount      Int       @default(0)
+    postCount       Int       @default(0)
+    replyCount      Int       @default(0)
+    upvotesReceived Int       @default(0)
+    reputation      Int       @default(0)
     lastPostAt      DateTime?
+}
+
+model UserPlaylistStats {
+    id              Int       @id @default(autoincrement())
+    userId          Int       @unique
+    totalPlaylists  Int       @default(0)
+    totalItems      Int       @default(0)
+    sharedPlaylists Int       @default(0)
+    lastPlaylistAt  DateTime?
+
+    // Relations
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
