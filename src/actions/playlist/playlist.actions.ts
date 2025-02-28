@@ -133,6 +133,358 @@ export async function getPlaylistById(playlistId: number, userId: number) {
     }
 }
 
+export async function getPlaylistMovies(
+    playlistId: number,
+    userId: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    const skip = (page - 1) * limit;
+
+    try {
+        const [movies, total] = await prisma.$transaction([
+            prisma.playlistMovie.findMany({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+                include: {
+                    movie: {
+                        select: {
+                            id: true,
+                            title: true,
+                            photoSrc: true,
+                            photoSrcProd: true,
+                            ratingImdb: true,
+                            dateAired: true,
+                            duration: true,
+                        }
+                    },
+                },
+                orderBy: { orderIndex: 'asc' },
+                skip,
+                take: limit,
+            }),
+            prisma.playlistMovie.count({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+            }),
+        ]);
+
+        return { items: movies, total };
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist movies");
+    }
+}
+
+export async function getPlaylistSeries(
+    playlistId: number,
+    userId: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    const skip = (page - 1) * limit;
+
+    try {
+        const [series, total] = await prisma.$transaction([
+            prisma.playlistSerie.findMany({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+                include: {
+                    serie: {
+                        select: {
+                            id: true,
+                            title: true,
+                            photoSrc: true,
+                            photoSrcProd: true,
+                            ratingImdb: true,
+                            dateAired: true,
+                        }
+                    },
+                },
+                orderBy: { orderIndex: 'asc' },
+                skip,
+                take: limit,
+            }),
+            prisma.playlistSerie.count({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+            }),
+        ]);
+
+        return { items: series, total };
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist series");
+    }
+}
+
+export async function getPlaylistActors(
+    playlistId: number,
+    userId: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    const skip = (page - 1) * limit;
+
+    try {
+        const [actors, total] = await prisma.$transaction([
+            prisma.playlistActor.findMany({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+                include: {
+                    actor: {
+                        select: {
+                            id: true,
+                            fullname: true,
+                            photoSrc: true,
+                            photoSrcProd: true,
+                            debut: true,
+                        }
+                    },
+                },
+                orderBy: { orderIndex: 'asc' },
+                skip,
+                take: limit,
+            }),
+            prisma.playlistActor.count({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+            }),
+        ]);
+
+        return { items: actors, total };
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist actors");
+    }
+}
+
+export async function getPlaylistCrew(
+    playlistId: number,
+    userId: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    const skip = (page - 1) * limit;
+
+    try {
+        const [crew, total] = await prisma.$transaction([
+            prisma.playlistCrew.findMany({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+                include: {
+                    crew: {
+                        select: {
+                            id: true,
+                            fullname: true,
+                            photoSrc: true,
+                            photoSrcProd: true,
+                            debut: true,
+                        }
+                    },
+                },
+                orderBy: { orderIndex: 'asc' },
+                skip,
+                take: limit,
+            }),
+            prisma.playlistCrew.count({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+            }),
+        ]);
+
+        return { items: crew, total };
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist crew");
+    }
+}
+
+export async function getPlaylistSeasons(
+    playlistId: number,
+    userId: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    const skip = (page - 1) * limit;
+
+    try {
+        const [seasons, total] = await prisma.$transaction([
+            prisma.playlistSeason.findMany({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+                include: {
+                    season: {
+                        select: {
+                            id: true,
+                            title: true,
+                            description: true,
+                            photoSrc: true,
+                            photoSrcProd: true,
+                            trailerSrc: true,
+                            dateAired: true,
+                            ratingImdb: true,
+                            serie: {
+                                select: {
+                                    id: true,
+                                    title: true
+                                }
+                            }
+                        }
+                    },
+                },
+                orderBy: { orderIndex: 'asc' },
+                skip,
+                take: limit,
+            }),
+            prisma.playlistSeason.count({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+            }),
+        ]);
+
+        return { items: seasons, total };
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist seasons");
+    }
+}
+
+export async function getPlaylistEpisodes(
+    playlistId: number,
+    userId: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    const skip = (page - 1) * limit;
+
+    try {
+        const [episodes, total] = await prisma.$transaction([
+            prisma.playlistEpisode.findMany({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+                include: {
+                    episode: {
+                        select: {
+                            id: true,
+                            title: true,
+                            description: true,
+                            photoSrc: true,
+                            photoSrcProd: true,
+                            trailerSrc: true,
+                            dateAired: true,
+                            ratingImdb: true,
+                            season: {
+                                select: {
+                                    id: true,
+                                    title: true,
+                                    serie: {
+                                        select: {
+                                            id: true,
+                                            title: true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                },
+                orderBy: { orderIndex: 'asc' },
+                skip,
+                take: limit,
+            }),
+            prisma.playlistEpisode.count({
+                where: {
+                    playlistId,
+                    playlist: {
+                        OR: [
+                            { userId },
+                            { sharedWith: { some: { userId } } },
+                        ],
+                    },
+                },
+            }),
+        ]);
+
+        return { items: episodes, total };
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist episodes");
+    }
+}
+// #endregion
+
 // #region "Mutation Methods"
 export async function createPlaylist(data: {
     name: string;
@@ -215,3 +567,4 @@ export async function deletePlaylist(playlistId: number, userId: number): Promis
         throw new Error(error instanceof Error ? error.message : "Failed to delete playlist");
     }
 }
+// #endregion
