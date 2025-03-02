@@ -10,7 +10,9 @@ export default async function VerifyRegisterPage(props: { searchParams: Promise<
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verifyRegister?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`,
+            `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verifyRegister?token=${encodeURIComponent(
+                token,
+            )}&email=${encodeURIComponent(email)}`,
         );
 
         if (!res.ok) {

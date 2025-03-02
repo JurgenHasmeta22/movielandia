@@ -86,7 +86,9 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     return `/seasons/${season.id}/${formatTitle(season.title)}`;
                 }
 
-                return `/series/${season.serie.id}/${formatTitle(season.serie.title)}/seasons/${season.id}/${formatTitle(season.title)}`;
+                return `/series/${season.serie.id}/${formatTitle(season.serie.title)}/seasons/${
+                    season.id
+                }/${formatTitle(season.title)}`;
             }
             case "episodes": {
                 const episode = favItem.episode;
@@ -96,7 +98,9 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     return `/episodes/${episode.id}/${formatTitle(episode.title)}`;
                 }
 
-                return `/series/${season.serie.id}/${formatTitle(season.serie.title)}/seasons/${season.id}/${formatTitle(season.title)}/episodes/${episode.id}/${formatTitle(episode.title)}`;
+                return `/series/${season.serie.id}/${formatTitle(season.serie.title)}/seasons/${
+                    season.id
+                }/${formatTitle(season.title)}/episodes/${episode.id}/${formatTitle(episode.title)}`;
             }
             default:
                 return undefined;

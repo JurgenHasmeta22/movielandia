@@ -115,7 +115,7 @@ export async function getSeriesWithFilters(
 
 export async function getSeriesTotalCount(): Promise<number> {
     try {
-        const count = await prisma.serie.count({});
+        const count = await prisma.serie.count();
         return count;
     } catch (error: unknown) {
         console.error("Error fetching series total count:", error);

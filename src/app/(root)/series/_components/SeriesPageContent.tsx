@@ -7,6 +7,7 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import { unstable_cache } from "next/cache";
+import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
 
 interface SeriesPageContentProps {
     searchParams:
@@ -20,27 +21,35 @@ interface SeriesPageContentProps {
 }
 
 export default async function SeriesPageContent({ searchParams, session }: SeriesPageContentProps) {
-    const ascOrDesc = searchParams?.seriesAscOrDesc ?? "";
-    const page = searchParams?.pageSeries ? Number(searchParams.pageSeries) : 1;
-    const sortBy = searchParams?.seriesSortBy ?? "";
-    const queryParams = {
-        ascOrDesc,
-        page,
-        sortBy,
+    const { ascOrDesc, page, sortBy } = {
+        ascOrDesc: searchParams?.seriesAscOrDesc ?? "",
+        page: searchParams?.pageSeries ? Number(searchParams.pageSeries) : 1,
+        sortBy: searchParams?.seriesSortBy ?? "",
     };
 
-    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
+    const queryParams = { ascOrDesc, page, sortBy };
+    const userId = session?.user?.id;
+
+    const seriesData = await getSeriesWithFilters(queryParams, Number(userId));
     const series = seriesData.rows;
 
-    // Cache the series count for 1 day (86400 seconds)
-    const cachedGetSeriesTotalCount = unstable_cache(async () => await getSeriesTotalCount(), ["seriesCount"], {
-        revalidate: 86400,
-        tags: ["seriesCount"],
-    });
+    const cachedGetSeriesTotalCount = unstable_cache(
+        async () => await getSeriesTotalCount(),
+        [CACHE_TAGS.SERIES, "count"],
+        {
+            revalidate: CACHE_TIMES.DAY,
+            tags: [CACHE_TAGS.SERIES],
+        },
+    );
     const seriesCount = await cachedGetSeriesTotalCount();
 
+    const cachedGetLatestSeries = unstable_cache(async () => await getLatestSeries(), [CACHE_TAGS.SERIES, "latest"], {
+        revalidate: CACHE_TIMES.HOUR,
+        tags: [CACHE_TAGS.SERIES],
+    });
+    const latestSeries = await cachedGetLatestSeries();
+
     const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
-    const latestSeries = await getLatestSeries();
 
     const itemsPerPage = 12;
     const pageCount = Math.ceil(seriesCount / itemsPerPage);

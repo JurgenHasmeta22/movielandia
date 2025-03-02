@@ -7,6 +7,7 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import { unstable_cache } from "next/cache";
+import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
 
 interface MoviesPageContentProps {
     searchParams:
@@ -25,20 +26,30 @@ export default async function MoviesPageContent({ searchParams, session }: Movie
         page: searchParams?.pageMovies ? Number(searchParams.pageMovies) : 1,
         sortBy: searchParams?.moviesSortBy ?? "",
     };
-    const queryParams = { ascOrDesc, page, sortBy };
 
-    const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
+    const queryParams = { ascOrDesc, page, sortBy };
+    const userId = session?.user?.id;
+
+    const moviesData = await getMoviesWithFilters(queryParams, Number(userId));
     const movies = moviesData.movies;
 
-    // Cache the movies count for 1 day (86400 seconds)
-    const cachedGetMoviesTotalCount = unstable_cache(async () => await getMoviesTotalCount(), ["moviesCount"], {
-        revalidate: 86400,
-        tags: ["moviesCount"],
-    });
+    const cachedGetMoviesTotalCount = unstable_cache(
+        async () => await getMoviesTotalCount(),
+        [CACHE_TAGS.MOVIES, "count"],
+        {
+            revalidate: CACHE_TIMES.DAY,
+            tags: [CACHE_TAGS.MOVIES],
+        },
+    );
     const moviesCount = await cachedGetMoviesTotalCount();
 
-    const moviesCarouselImages: Movie[] = moviesData.movies.slice(0, 5);
-    const latestMovies = await getLatestMovies();
+    const cachedGetLatestMovies = unstable_cache(async () => await getLatestMovies(), [CACHE_TAGS.MOVIES, "latest"], {
+        revalidate: CACHE_TIMES.HOUR,
+        tags: [CACHE_TAGS.MOVIES],
+    });
+    const latestMovies = await cachedGetLatestMovies();
+
+    const moviesCarouselImages = movies.slice(0, 5);
 
     const itemsPerPage = 12;
     const pageCount = Math.ceil(moviesCount / itemsPerPage);

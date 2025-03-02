@@ -165,7 +165,9 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                 const serieId = typeof params.serieId === "string" ? params.serieId : "";
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
 
-                return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle((data as SeasonCardData).title)}`;
+                return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle(
+                    (data as SeasonCardData).title,
+                )}`;
             }
             case "episode": {
                 const serieId = typeof params.serieId === "string" ? params.serieId : "";
@@ -173,7 +175,9 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
                 const seasonId = typeof params.seasonId === "string" ? params.seasonId : "";
                 const seasonTitle = typeof params.seasonTitle === "string" ? formatTitle(params.seasonTitle) : "";
 
-                return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${data.id}/${formatTitle((data as EpisodeCardData).title)}`;
+                return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${
+                    data.id
+                }/${formatTitle((data as EpisodeCardData).title)}`;
             }
             case "user":
                 return `/users/${data.id}/${formatTitle((data as UserCardData).userName)}`;

@@ -70,7 +70,9 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
             case "season": {
                 const serieId = typeof params.serieId === "string" ? params.serieId : "";
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
-                return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle((data as MediaResultData).title)}`;
+                return `/series/${serieId}/${serieTitle}/seasons/${data.id}/${formatTitle(
+                    (data as MediaResultData).title,
+                )}`;
             }
 
             case "episode": {
@@ -78,7 +80,9 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
                 const serieTitle = typeof params.serieTitle === "string" ? formatTitle(params.serieTitle) : "";
                 const seasonId = typeof params.seasonId === "string" ? params.seasonId : "";
                 const seasonTitle = typeof params.seasonTitle === "string" ? formatTitle(params.seasonTitle) : "";
-                return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${data.id}/${formatTitle((data as MediaResultData).title)}`;
+                return `/series/${serieId}/${serieTitle}/seasons/${seasonId}/${seasonTitle}/episodes/${
+                    data.id
+                }/${formatTitle((data as MediaResultData).title)}`;
             }
 
             case "user":

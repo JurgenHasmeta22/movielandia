@@ -12,7 +12,9 @@ export default async function VerifyResetPasswordPage(props: {
 
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verifyResetPassword?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`,
+            `${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verifyResetPassword?token=${encodeURIComponent(
+                token,
+            )}&email=${encodeURIComponent(email)}`,
         );
 
         if (!res.ok) {

@@ -109,6 +109,16 @@ export async function getCrewMembersWithFilters(
     }
 }
 
+export async function getCrewTotalCount(): Promise<number> {
+    try {
+        const count = await prisma.crew.count();
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching crew total count:", error);
+        throw new Error("Could not retrieve crew count");
+    }
+}
+
 export async function getCrewMemberById(crewId: number, queryParams: any): Promise<Crew | any | null> {
     const {
         reviewsPage,

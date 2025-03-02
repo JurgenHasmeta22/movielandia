@@ -119,6 +119,16 @@ export async function getActors(): Promise<any | null> {
     }
 }
 
+export async function getActorsTotalCount(): Promise<number> {
+    try {
+        const count = await prisma.actor.count();
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching actors total count:", error);
+        throw new Error("Could not retrieve actors count");
+    }
+}
+
 export async function getActorById(actorId: number, queryParams: any): Promise<Actor | any | null> {
     const {
         reviewsPage,

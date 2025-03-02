@@ -503,7 +503,7 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
 
 export async function getMoviesTotalCount(): Promise<number> {
     try {
-        const count = await prisma.movie.count({});
+        const count = await prisma.movie.count();
         return count;
     } catch (error: unknown) {
         console.error("Error fetching movies total count:", error);

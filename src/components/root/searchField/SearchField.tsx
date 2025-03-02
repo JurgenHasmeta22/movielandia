@@ -137,7 +137,9 @@ const SearchField = () => {
 
         try {
             const response = await fetch(
-                `/api/search/all?term=${encodeURIComponent(debouncedSearch.trim())}&filters=${selectedFilters.join(",")}`,
+                `/api/search/all?term=${encodeURIComponent(debouncedSearch.trim())}&filters=${selectedFilters.join(
+                    ",",
+                )}`,
                 {
                     method: "GET",
                     headers: {

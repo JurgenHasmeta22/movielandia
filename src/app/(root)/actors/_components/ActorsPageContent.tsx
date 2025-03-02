@@ -1,10 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
-import { getActorsWithFilters } from "@/actions/actor.actions";
+import { getActorsTotalCount, getActorsWithFilters } from "@/actions/actor.actions";
 import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
+import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
+import { unstable_cache } from "next/cache";
 
 interface ActorsPageContentProps {
     searchParams:
@@ -29,10 +31,20 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
     };
 
     const itemsPerPage = 12;
+
     const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
     const actors = actorsData.actors;
     const actorsCarouselImages: Actor[] = actorsData.actors.slice(0, 5);
-    const actorsCount = actorsData.count;
+
+    const cachedGetActorsTotalCount = unstable_cache(
+        async () => await getActorsTotalCount(),
+        [CACHE_TAGS.ACTORS, "count"],
+        {
+            revalidate: CACHE_TIMES.DAY,
+            tags: [CACHE_TAGS.ACTORS],
+        },
+    );
+    const actorsCount = await cachedGetActorsTotalCount();
     const pageCount = Math.ceil(actorsCount / itemsPerPage);
 
     const startIndex = (page - 1) * itemsPerPage + 1;

@@ -1,10 +1,12 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Crew } from "@prisma/client";
-import { getCrewMembersWithFilters } from "@/actions/crew.actions";
+import { getCrewMembersWithFilters, getCrewTotalCount } from "@/actions/crew.actions";
 import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
+import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
+import { unstable_cache } from "next/cache";
 
 interface CrewPageContentProps {
     searchParams:
@@ -33,7 +35,12 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
     const crewMembers = crewData.crewMembers;
     const crewCarouselImages: Crew[] = crewMembers.slice(0, 5);
 
-    const crewCount = crewData.count;
+    const cachedGetCrewTotalCount = unstable_cache(async () => await getCrewTotalCount(), [CACHE_TAGS.CREWS, "count"], {
+        revalidate: CACHE_TIMES.DAY,
+        tags: [CACHE_TAGS.CREWS],
+    });
+    const crewCount = await cachedGetCrewTotalCount();
+
     const pageCount = Math.ceil(crewCount / itemsPerPage);
 
     const startIndex = (page - 1) * itemsPerPage + 1;
