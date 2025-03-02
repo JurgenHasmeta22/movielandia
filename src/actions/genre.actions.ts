@@ -520,3 +520,21 @@ export async function searchGenresByName(name: string, page: number): Promise<Ge
     }
 }
 // #endregion
+
+export async function getGenreStats(genreId: number) {
+    const cachedStats = unstable_cache(
+        async () => {
+            const [moviesCount, seriesCount] = await Promise.all([
+                prisma.movie.count({ where: { genreId } }),
+                prisma.serie.count({ where: { genreId } })
+            ]);
+            return { moviesCount, seriesCount };
+        },
+        [`genre-stats-${genreId}`],
+        {
+            revalidate: CACHE_TIMES.HOUR,
+            tags: [CACHE_TAGS.GENRES],
+        }
+    );
+    return cachedStats();
+}

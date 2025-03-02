@@ -3,6 +3,8 @@ import { getGenres } from "@/actions/genre.actions";
 import { Box, Stack, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
+import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
@@ -33,7 +35,18 @@ export const metadata: Metadata = {
 };
 
 export default async function Genres() {
-    const genres = await getGenres();
+    const getCachedGenres = unstable_cache(
+        async () => {
+            return getGenres();
+        },
+        ["all-genres-page"],
+        {
+            revalidate: CACHE_TIMES.DAY,
+            tags: [CACHE_TAGS.GENRES],
+        }
+    );
+
+    const genres = await getCachedGenres();
 
     return (
         <Box
@@ -76,7 +89,9 @@ export default async function Genres() {
                 }}
             >
                 {genres?.length! > 0 ? (
-                    genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)
+                    genres?.map((genre: Genre, index: number) => (
+                        <GenreItem key={index} genre={genre} />
+                    ))
                 ) : (
                     <Typography>No genres available.</Typography>
                 )}

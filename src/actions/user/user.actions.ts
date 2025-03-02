@@ -5,6 +5,8 @@ import { Prisma, User } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cache } from "next/cache";
+import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
 
 // #region "Interfaces"
 export interface UserModelParams {
@@ -357,5 +359,29 @@ export async function searchUsersByUsername(userName: string, queryParams: any):
     }
 }
 // #endregion
+
+export async function getUserStats(userId: number) {
+    const cachedUserStats = unstable_cache(
+        async () => {
+            const [playlistStats, forumStats] = await Promise.all([
+                prisma.userPlaylistStats.findUnique({
+                    where: { userId }
+                }),
+                prisma.forumUserStats.findUnique({
+                    where: { userId }
+                })
+            ]);
+            
+            return { playlistStats, forumStats };
+        },
+        [`user-stats-${userId}`],
+        {
+            revalidate: CACHE_TIMES.HOUR,
+            tags: [CACHE_TAGS.USERS],
+        }
+    );
+
+    return cachedUserStats();
+}
 
 // #endregion
