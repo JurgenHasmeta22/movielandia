@@ -214,23 +214,25 @@ const RightPanel: React.FC<IDrawerProps> = ({
                                                     autoComplete={"on"}
                                                     helperText={errors[field.name]?.message as string | undefined}
                                                     error={!!errors[field.name]}
-                                                    slotProps={{input: {
-                                                        endAdornment: (
-                                                            <InputAdornment position="end">
-                                                                <IconButton
-                                                                    aria-label="toggle password visibility"
-                                                                    onClick={handleClickShowPassword}
-                                                                    onMouseDown={handleMouseDownPassword}
-                                                                >
-                                                                    {showPassword ? (
-                                                                        <Visibility color="primary" />
-                                                                    ) : (
-                                                                        <VisibilityOff color="primary" />
-                                                                    )}
-                                                                </IconButton>       
-                                                            </InputAdornment>
-                                                        ),
-                                                    }}}
+                                                    slotProps={{
+                                                        input: {
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    <IconButton
+                                                                        aria-label="toggle password visibility"
+                                                                        onClick={handleClickShowPassword}
+                                                                        onMouseDown={handleMouseDownPassword}
+                                                                    >
+                                                                        {showPassword ? (
+                                                                            <Visibility color="primary" />
+                                                                        ) : (
+                                                                            <VisibilityOff color="primary" />
+                                                                        )}
+                                                                    </IconButton>
+                                                                </InputAdornment>
+                                                            ),
+                                                        },
+                                                    }}
                                                 />
                                             )}
                                         />

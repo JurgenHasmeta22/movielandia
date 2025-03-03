@@ -46,14 +46,26 @@ const AuthButtons = ({
         <>
             {session && session.user ? (
                 <>
-                    <Box display={"flex"} flexDirection={"row"} onClick={openMenuProfile}>
+                    <Box
+                        display={"flex"}
+                        flexDirection={"row"}
+                        onClick={openMenuProfile}
+                        sx={{
+                            cursor: "pointer",
+                            "&:hover": {
+                                color: theme.vars.palette.green.main,
+                            },
+                        }}
+                    >
                         <PersonOutlinedIcon color="action" fontSize="medium" />
                         <Typography
                             variant="body1"
                             sx={{
-                                cursor: "pointer",
                                 paddingLeft: 1,
                                 color: theme.vars.palette.primary.main,
+                                fontSize: "0.95rem",
+                                fontWeight: 500,
+                                letterSpacing: "0.02em",
                             }}
                         >
                             {userName}
@@ -73,24 +85,19 @@ const AuthButtons = ({
                         }}
                     >
                         <MenuItem onClick={handleProfileClick} sx={{ color: theme.vars.palette.primary.main }}>
-                            <Typography variant="inherit">
+                            <Typography variant="inherit" sx={{ fontSize: "0.95rem" }}>
                                 {session?.user?.role === "Admin" ? "Go to Dashboard" : "My Profile"}
                             </Typography>
                         </MenuItem>
                         <MenuItem onClick={() => handleSignOut()} sx={{ color: theme.vars.palette.primary.main }}>
-                            <Typography variant="inherit">Sign Out</Typography>
+                            <Typography variant="inherit" sx={{ fontSize: "0.95rem" }}>
+                                Sign Out
+                            </Typography>
                         </MenuItem>
                     </Menu>
                 </>
             ) : (
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        flexShrink: 0,
-                        gap: 1,
-                    }}
-                >
+                <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0, gap: 1 }}>
                     <Button
                         LinkComponent={MuiNextLink}
                         href="/login"
@@ -103,6 +110,9 @@ const AuthButtons = ({
                             color: theme.vars.palette.primary.main,
                             textTransform: "none",
                             flexShrink: 0,
+                            fontSize: "0.95rem",
+                            fontWeight: 500,
+                            letterSpacing: "0.02em",
                             "&:hover": {
                                 backgroundColor: theme.vars.palette.green.main,
                                 color: theme.vars.palette.greyAccent.main,
@@ -115,15 +125,7 @@ const AuthButtons = ({
                         }}
                     >
                         <LockOpenIcon sx={{ fontSize: "1.2rem" }} />
-                        <Typography
-                            sx={{
-                                fontSize: "1rem",
-                                fontWeight: 500,
-                                whiteSpace: "nowrap",
-                            }}
-                        >
-                            Sign In
-                        </Typography>
+                        Sign In
                     </Button>
                     <Button
                         LinkComponent={MuiNextLink}
@@ -137,6 +139,9 @@ const AuthButtons = ({
                             color: theme.vars.palette.primary.main,
                             textTransform: "none",
                             flexShrink: 0,
+                            fontSize: "0.95rem",
+                            fontWeight: 500,
+                            letterSpacing: "0.02em",
                             "&:hover": {
                                 backgroundColor: theme.vars.palette.green.main,
                                 color: theme.vars.palette.greyAccent.main,
@@ -149,15 +154,7 @@ const AuthButtons = ({
                         }}
                     >
                         <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />
-                        <Typography
-                            sx={{
-                                fontSize: "1rem",
-                                fontWeight: 500,
-                                whiteSpace: "nowrap",
-                            }}
-                        >
-                            Sign Up
-                        </Typography>
+                        Sign Up
                     </Button>
                 </Box>
             )}

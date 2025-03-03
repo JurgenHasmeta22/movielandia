@@ -56,6 +56,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
     const isActive = (path: string) => {
         if (path === "/") return pathname === "/";
+        if (path === "/people") {
+            return pathname.startsWith("/actors") || pathname.startsWith("/crew");
+        }
         return pathname.startsWith(path);
     };
 
@@ -109,7 +112,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     />
                 </Button>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
+            <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0, paddingLeft: 4 }}>
                 <List
                     sx={{
                         display: "flex",
@@ -147,7 +150,19 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     </ListItem>
                     <ListItem sx={{ p: 0.5 }}>
                         <Box onMouseEnter={handlePeopleHover} onMouseLeave={handlePeopleLeave}>
-                            <Button variant="text" sx={getButtonStyle("/people")}>
+                            <Button
+                                variant="text"
+                                component="div"
+                                disableRipple
+                                sx={{
+                                    ...getButtonStyle("/people"),
+                                    cursor: "default",
+                                    pointerEvents: "none",
+                                    "&:hover": {
+                                        backgroundColor: "transparent",
+                                    },
+                                }}
+                            >
                                 <GroupIcon sx={{ fontSize: "1.2rem" }} />
                                 People
                             </Button>

@@ -44,15 +44,15 @@ export default function HeaderMobile({
     }, [isFullScreen, isDrawerOpen, setIsDrawerOpen]);
 
     return (
-        <Drawer 
-            variant="persistent" 
-            open={isDrawerOpen} 
-            onClose={() => setIsDrawerOpen(false)} 
+        <Drawer
+            variant="persistent"
+            open={isDrawerOpen}
+            onClose={() => setIsDrawerOpen(false)}
             component="aside"
             sx={{
-                '& .MuiDrawer-paper': {
+                "& .MuiDrawer-paper": {
                     width: 240,
-                    boxSizing: 'border-box',
+                    boxSizing: "border-box",
                 },
             }}
         >
@@ -92,12 +92,18 @@ export default function HeaderMobile({
                 <Box
                     sx={{
                         marginTop: 3,
-                        display: "flex",
-                        flexDirection: "row",
-                        columnGap: 3,
                         ml: 2,
                         mr: 2,
                         mb: 2,
+                        "& > div": {
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: 1,
+                            "& .MuiButton-root": {
+                                flex: 1,
+                                minWidth: "140px",
+                            },
+                        },
                     }}
                 >
                     <AuthButtons
