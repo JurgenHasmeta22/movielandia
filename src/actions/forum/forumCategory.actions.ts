@@ -208,14 +208,14 @@ export async function getForumStats() {
                 prisma.forumTopic.count(),
                 prisma.forumPost.count(),
             ]);
-            
+
             return { categoriesCount, topicsCount, postsCount };
         },
         ["forum-stats"],
         {
             revalidate: CACHE_TIMES.DAY,
             tags: [CACHE_TAGS.FORUM],
-        }
+        },
     );
 
     return cachedForumStats();

@@ -5,7 +5,7 @@ import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
+import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
 import { unstable_cache } from "next/cache";
 
 interface ActorsPageContentProps {
@@ -20,21 +20,25 @@ interface ActorsPageContentProps {
 }
 
 export default async function ActorsPageContent({ searchParams, session }: ActorsPageContentProps) {
-    const ascOrDesc = searchParams?.actorsAscOrDesc ?? "";
-    const page = searchParams?.pageActors ? Number(searchParams.pageActors) : 1;
-    const sortBy = searchParams?.actorsSortBy ?? "";
-
-    const queryParams = {
-        ascOrDesc,
-        page,
-        sortBy,
+    const { ascOrDesc, page, sortBy } = {
+        ascOrDesc: searchParams?.actorsAscOrDesc ?? "",
+        page: searchParams?.pageActors ? Number(searchParams.pageActors) : 1,
+        sortBy: searchParams?.actorsSortBy ?? "",
     };
 
-    const itemsPerPage = 12;
+    const queryParams = { ascOrDesc, page, sortBy };
+    const userId = session?.user?.id;
 
-    const actorsData = await getActorsWithFilters(queryParams, Number(session?.user?.id));
+    const cachedGetActorsWithFilters = unstable_cache(
+        async () => await getActorsWithFilters(queryParams, Number(userId)),
+        [CACHE_TAGS.ACTORS, "list", createFilterCacheKey("actors", queryParams)],
+        {
+            revalidate: CACHE_TIMES.HOUR,
+            tags: [CACHE_TAGS.ACTORS],
+        },
+    );
+    const actorsData = await cachedGetActorsWithFilters();
     const actors = actorsData.actors;
-    const actorsCarouselImages: Actor[] = actorsData.actors.slice(0, 5);
 
     const cachedGetActorsTotalCount = unstable_cache(
         async () => await getActorsTotalCount(),
@@ -45,31 +49,21 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
         },
     );
     const actorsCount = await cachedGetActorsTotalCount();
-    const pageCount = Math.ceil(actorsCount / itemsPerPage);
 
+    const actorsCarouselImages = actors.slice(0, 5);
+    const itemsPerPage = 12;
+    const pageCount = Math.ceil(actorsCount / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, actorsCount);
 
     return (
-        <Box
-            component="section"
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: { xs: 3, sm: 4, md: 5 },
-            }}
-        >
+        <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, sm: 4, md: 5 } }}>
             <Box component="section">
                 <Carousel data={actorsCarouselImages} type="actors" />
             </Box>
             <Box
                 component="section"
-                sx={{
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                    width: "100%",
-                    px: { xs: 2, sm: 3, md: 4 },
-                }}
+                sx={{ maxWidth: "1200px", margin: "0 auto", width: "100%", px: { xs: 2, sm: 3, md: 4 } }}
             >
                 <Box
                     sx={{
@@ -129,23 +123,14 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="actors" />
                     </Box>
                 </Box>
-                <Box
-                    sx={{
-                        width: "100%",
-                        overflow: "hidden",
-                        mt: { xs: 4, md: 5 },
-                    }}
-                >
+                <Box sx={{ width: "100%", overflow: "hidden", mt: { xs: 4, md: 5 } }}>
                     <Stack
                         direction="row"
                         flexWrap="wrap"
                         sx={{
                             columnGap: { xs: 1, sm: 2, md: 3 },
                             rowGap: { xs: 3, sm: 4, md: 5 },
-                            justifyContent: {
-                                xs: "center",
-                                md: "flex-start",
-                            },
+                            justifyContent: { xs: "center", md: "flex-start" },
                             mx: { xs: 1, sm: 2 },
                             mb: { xs: 3, md: 4 },
                         }}

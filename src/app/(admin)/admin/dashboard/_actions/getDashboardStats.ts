@@ -42,7 +42,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
         {
             revalidate: CACHE_TIMES.DAY,
             tags: Object.values(CACHE_TAGS),
-        }
+        },
     );
 
     return cachedStats();

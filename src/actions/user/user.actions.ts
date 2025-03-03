@@ -365,20 +365,20 @@ export async function getUserStats(userId: number) {
         async () => {
             const [playlistStats, forumStats] = await Promise.all([
                 prisma.userPlaylistStats.findUnique({
-                    where: { userId }
+                    where: { userId },
                 }),
                 prisma.forumUserStats.findUnique({
-                    where: { userId }
-                })
+                    where: { userId },
+                }),
             ]);
-            
+
             return { playlistStats, forumStats };
         },
         [`user-stats-${userId}`],
         {
             revalidate: CACHE_TIMES.HOUR,
             tags: [CACHE_TAGS.USERS],
-        }
+        },
     );
 
     return cachedUserStats();

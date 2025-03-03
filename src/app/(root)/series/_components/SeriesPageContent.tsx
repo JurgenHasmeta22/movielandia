@@ -7,7 +7,7 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import { unstable_cache } from "next/cache";
-import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
+import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
 
 interface SeriesPageContentProps {
     searchParams:
@@ -30,7 +30,15 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
     const queryParams = { ascOrDesc, page, sortBy };
     const userId = session?.user?.id;
 
-    const seriesData = await getSeriesWithFilters(queryParams, Number(userId));
+    const cachedGetSeriesWithFilters = unstable_cache(
+        async () => await getSeriesWithFilters(queryParams, Number(userId)),
+        [CACHE_TAGS.SERIES, "list", createFilterCacheKey("series", queryParams)],
+        {
+            revalidate: CACHE_TIMES.HOUR,
+            tags: [CACHE_TAGS.SERIES],
+        },
+    );
+    const seriesData = await cachedGetSeriesWithFilters();
     const series = seriesData.rows;
 
     const cachedGetSeriesTotalCount = unstable_cache(
@@ -44,7 +52,7 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
     const seriesCount = await cachedGetSeriesTotalCount();
 
     const cachedGetLatestSeries = unstable_cache(async () => await getLatestSeries(), [CACHE_TAGS.SERIES, "latest"], {
-        revalidate: CACHE_TIMES.HOUR,
+        revalidate: CACHE_TIMES.DAY,
         tags: [CACHE_TAGS.SERIES],
     });
     const latestSeries = await cachedGetLatestSeries();

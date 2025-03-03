@@ -5,7 +5,7 @@ import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
+import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
 import { unstable_cache } from "next/cache";
 
 interface CrewPageContentProps {
@@ -20,20 +20,25 @@ interface CrewPageContentProps {
 }
 
 export default async function CrewAllPageContent({ searchParams, session }: CrewPageContentProps) {
-    const ascOrDesc = searchParams?.crewAscOrDesc ?? "";
-    const page = searchParams?.pageCrews ? Number(searchParams.pageCrews) : 1;
-    const sortBy = searchParams?.crewSortBy ?? "";
-
-    const queryParams = {
-        ascOrDesc,
-        page,
-        sortBy,
+    const { ascOrDesc, page, sortBy } = {
+        ascOrDesc: searchParams?.crewAscOrDesc ?? "",
+        page: searchParams?.pageCrews ? Number(searchParams.pageCrews) : 1,
+        sortBy: searchParams?.crewSortBy ?? "",
     };
 
-    const itemsPerPage = 12;
-    const crewData = await getCrewMembersWithFilters(queryParams, Number(session?.user?.id));
+    const queryParams = { ascOrDesc, page, sortBy };
+    const userId = session?.user?.id;
+
+    const cachedGetCrewMembersWithFilters = unstable_cache(
+        async () => await getCrewMembersWithFilters(queryParams, Number(userId)),
+        [CACHE_TAGS.CREWS, "list", createFilterCacheKey("crews", queryParams)],
+        {
+            revalidate: CACHE_TIMES.HOUR,
+            tags: [CACHE_TAGS.CREWS],
+        },
+    );
+    const crewData = await cachedGetCrewMembersWithFilters();
     const crewMembers = crewData.crewMembers;
-    const crewCarouselImages: Crew[] = crewMembers.slice(0, 5);
 
     const cachedGetCrewTotalCount = unstable_cache(async () => await getCrewTotalCount(), [CACHE_TAGS.CREWS, "count"], {
         revalidate: CACHE_TIMES.DAY,
@@ -41,31 +46,20 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
     });
     const crewCount = await cachedGetCrewTotalCount();
 
+    const crewCarouselImages = crewMembers.slice(0, 5);
+    const itemsPerPage = 12;
     const pageCount = Math.ceil(crewCount / itemsPerPage);
-
     const startIndex = (page - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, crewCount);
 
     return (
-        <Box
-            component="section"
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: { xs: 3, sm: 4, md: 5 },
-            }}
-        >
+        <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, sm: 4, md: 5 } }}>
             <Box component="section">
                 <Carousel data={crewCarouselImages} type="crew" />
             </Box>
             <Box
                 component="section"
-                sx={{
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                    width: "100%",
-                    px: { xs: 2, sm: 3, md: 4 },
-                }}
+                sx={{ maxWidth: "1200px", margin: "0 auto", width: "100%", px: { xs: 2, sm: 3, md: 4 } }}
             >
                 <Box
                     sx={{
@@ -118,30 +112,21 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
                                 top: { sm: 2 },
                             }}
                         >
-                            {startIndex} – {endIndex} of {crewCount} crews
+                            {startIndex} – {endIndex} of {crewCount} crew members
                         </Typography>
                     </Box>
                     <Box>
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="crew" />
                     </Box>
                 </Box>
-                <Box
-                    sx={{
-                        width: "100%",
-                        overflow: "hidden",
-                        mt: { xs: 4, md: 5 },
-                    }}
-                >
+                <Box sx={{ width: "100%", overflow: "hidden", mt: { xs: 4, md: 5 } }}>
                     <Stack
                         direction="row"
                         flexWrap="wrap"
                         sx={{
                             columnGap: { xs: 1, sm: 2, md: 3 },
                             rowGap: { xs: 3, sm: 4, md: 5 },
-                            justifyContent: {
-                                xs: "center",
-                                md: "flex-start",
-                            },
+                            justifyContent: { xs: "center", md: "flex-start" },
                             mx: { xs: 1, sm: 2 },
                             mb: { xs: 3, md: 4 },
                         }}

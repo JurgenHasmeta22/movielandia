@@ -526,7 +526,7 @@ export async function getGenreStats(genreId: number) {
         async () => {
             const [moviesCount, seriesCount] = await Promise.all([
                 prisma.movie.count({ where: { genreId } }),
-                prisma.serie.count({ where: { genreId } })
+                prisma.serie.count({ where: { genreId } }),
             ]);
             return { moviesCount, seriesCount };
         },
@@ -534,7 +534,7 @@ export async function getGenreStats(genreId: number) {
         {
             revalidate: CACHE_TIMES.HOUR,
             tags: [CACHE_TAGS.GENRES],
-        }
+        },
     );
     return cachedStats();
 }

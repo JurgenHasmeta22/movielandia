@@ -7,7 +7,7 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import { unstable_cache } from "next/cache";
-import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
+import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
 
 interface MoviesPageContentProps {
     searchParams:
@@ -30,7 +30,15 @@ export default async function MoviesPageContent({ searchParams, session }: Movie
     const queryParams = { ascOrDesc, page, sortBy };
     const userId = session?.user?.id;
 
-    const moviesData = await getMoviesWithFilters(queryParams, Number(userId));
+    const cachedGetMoviesWithFilters = unstable_cache(
+        async () => await getMoviesWithFilters(queryParams, Number(userId)),
+        [CACHE_TAGS.MOVIES, "list", createFilterCacheKey("movies", queryParams)],
+        {
+            revalidate: CACHE_TIMES.HOUR,
+            tags: [CACHE_TAGS.MOVIES],
+        },
+    );
+    const moviesData = await cachedGetMoviesWithFilters();
     const movies = moviesData.movies;
 
     const cachedGetMoviesTotalCount = unstable_cache(
@@ -44,7 +52,7 @@ export default async function MoviesPageContent({ searchParams, session }: Movie
     const moviesCount = await cachedGetMoviesTotalCount();
 
     const cachedGetLatestMovies = unstable_cache(async () => await getLatestMovies(), [CACHE_TAGS.MOVIES, "latest"], {
-        revalidate: CACHE_TIMES.HOUR,
+        revalidate: CACHE_TIMES.DAY,
         tags: [CACHE_TAGS.MOVIES],
     });
     const latestMovies = await cachedGetLatestMovies();

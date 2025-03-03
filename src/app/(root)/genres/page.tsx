@@ -43,7 +43,7 @@ export default async function Genres() {
         {
             revalidate: CACHE_TIMES.DAY,
             tags: [CACHE_TAGS.GENRES],
-        }
+        },
     );
 
     const genres = await getCachedGenres();
@@ -89,9 +89,7 @@ export default async function Genres() {
                 }}
             >
                 {genres?.length! > 0 ? (
-                    genres?.map((genre: Genre, index: number) => (
-                        <GenreItem key={index} genre={genre} />
-                    ))
+                    genres?.map((genre: Genre, index: number) => <GenreItem key={index} genre={genre} />)
                 ) : (
                     <Typography>No genres available.</Typography>
                 )}
