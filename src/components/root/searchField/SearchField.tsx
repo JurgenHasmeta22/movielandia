@@ -232,23 +232,21 @@ const SearchField = () => {
             <Box sx={{ position: "relative", width: "100%" }}>
                 <form onSubmit={handleSubmit} style={{ display: "flex" }}>
                     <TextField
-                        placeholder="Search"
                         size="small"
+                        placeholder="Search..."
                         value={inputValue}
                         onChange={handleInputChange}
                         onFocus={handleFocus}
                         onKeyDown={handleKeyDown}
                         sx={{
-                            width: "100%",
+                            width: { xs: "100%", md: "240px" },
                             "& .MuiInputBase-root": {
-                                minWidth: 300,
-                                transition: "width 0.2s",
-                                width: showResults ? "100%" : 300,
+                                height: 38,
+                                fontSize: "0.92rem",
                             },
                         }}
                         slotProps={{
                             input: {
-                                sx: { py: 0.5, color: theme.vars.palette.primary.main },
                                 startAdornment: (
                                     <InputAdornment position="start">
                                         <IconButton type="submit" size="small" aria-label="search">

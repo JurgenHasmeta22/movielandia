@@ -214,7 +214,7 @@ const RightPanel: React.FC<IDrawerProps> = ({
                                                     autoComplete={"on"}
                                                     helperText={errors[field.name]?.message as string | undefined}
                                                     error={!!errors[field.name]}
-                                                    InputProps={{
+                                                    slotProps={{input: {
                                                         endAdornment: (
                                                             <InputAdornment position="end">
                                                                 <IconButton
@@ -227,10 +227,10 @@ const RightPanel: React.FC<IDrawerProps> = ({
                                                                     ) : (
                                                                         <VisibilityOff color="primary" />
                                                                     )}
-                                                                </IconButton>
+                                                                </IconButton>       
                                                             </InputAdornment>
                                                         ),
-                                                    }}
+                                                    }}}
                                                 />
                                             )}
                                         />

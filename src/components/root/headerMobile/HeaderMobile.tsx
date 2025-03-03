@@ -44,7 +44,18 @@ export default function HeaderMobile({
     }, [isFullScreen, isDrawerOpen, setIsDrawerOpen]);
 
     return (
-        <Drawer variant="persistent" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} component={"aside"}>
+        <Drawer 
+            variant="persistent" 
+            open={isDrawerOpen} 
+            onClose={() => setIsDrawerOpen(false)} 
+            component="aside"
+            sx={{
+                '& .MuiDrawer-paper': {
+                    width: 240,
+                    boxSizing: 'border-box',
+                },
+            }}
+        >
             <Box>
                 <Box
                     sx={{
@@ -54,31 +65,15 @@ export default function HeaderMobile({
                         marginTop: 1,
                     }}
                 >
-                    <IconButton
-                        onClick={() => {
-                            setIsDrawerOpen(false);
-                        }}
-                    >
+                    <IconButton onClick={() => setIsDrawerOpen(false)}>
                         <CloseOutlined />
                     </IconButton>
                 </Box>
                 <HeaderLinks genres={genres} />
-                <Box
-                    sx={{
-                        marginTop: 2,
-                        ml: 2,
-                        mr: 2,
-                    }}
-                >
+                <Box sx={{ marginTop: 2, ml: 2, mr: 2 }}>
                     <SearchField />
                 </Box>
-                <Box
-                    sx={{
-                        marginTop: 4,
-                        ml: 2,
-                        mr: 2,
-                    }}
-                >
+                <Box sx={{ marginTop: 4, ml: 2, mr: 2 }}>
                     {session?.user && (
                         <Button
                             LinkComponent={MuiNextLink}

@@ -120,13 +120,13 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 1,
+                                gap: 0.5,
                                 ml: "auto",
                                 height: "100%",
                                 flexShrink: 0,
                             }}
                         >
-                            <SearchField />
+                            <SearchField sx={{ width: { xs: "100%", md: "200px" } }} />
                             {session?.user && <MessageCounter session={session} />}
                             {session?.user && <NotificationMenu session={session} />}
                             <ThemeToggleButton />
