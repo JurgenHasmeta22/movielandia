@@ -13,7 +13,6 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import { formatDate } from "@/utils/helpers/utils";
 import { Playlist } from "@prisma/client";
 
-// Add this type mapping
 const tabToCardType: Record<string, CardItemType> = {
     movies: "movie",
     series: "serie",
@@ -25,7 +24,7 @@ const tabToCardType: Record<string, CardItemType> = {
 
 interface ListPageContentProps {
     playlist: Playlist;
-    username: string;
+    userName: string;
     currentUserId: number;
     content: any[];
     totalItems: number;
@@ -35,7 +34,7 @@ interface ListPageContentProps {
 
 export default function ListPageContent({
     playlist,
-    username,
+    userName,
     currentUserId,
     content,
     totalItems,
@@ -102,7 +101,7 @@ export default function ListPageContent({
                     )}
 
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
-                        <Typography variant="body2">Created by {username}</Typography>
+                        <Typography variant="body2">Created by {userName}</Typography>
                         <Typography variant="body2">Last updated {formatDate(playlist.updatedAt)}</Typography>
                         <Typography variant="body2">{playlist.itemCount} items</Typography>
                     </Stack>

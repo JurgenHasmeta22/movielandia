@@ -14,8 +14,8 @@ import { notFound } from "next/navigation";
 
 interface PageProps {
     params: {
-        id: string;
-        username: string;
+        userId: string;
+        userName: string;
         listId: string;
         listSlug: string;
     };
@@ -29,13 +29,14 @@ export default async function Page({ params, searchParams }: PageProps) {
     const session = await getServerSession(authOptions);
     const currentUserId = session?.user?.id ? Number(session.user.id) : 0;
 
-    const userId = Number(params.id);
+    const userId = Number(params.userId);
     const listId = Number(params.listId);
     const page = Number(searchParams.page) || 1;
     const tab = searchParams.tab || "movies";
     const itemsPerPage = 12;
 
     const playlist = await getPlaylistById(listId, userId);
+
     if (!playlist) {
         notFound();
     }
@@ -50,30 +51,35 @@ export default async function Page({ params, searchParams }: PageProps) {
             totalItems = total;
             break;
         }
+        
         case "series": {
             const { items, total } = await getPlaylistSeries(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
+
         case "seasons": {
             const { items, total } = await getPlaylistSeasons(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
+
         case "episodes": {
             const { items, total } = await getPlaylistEpisodes(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
+
         case "actors": {
             const { items, total } = await getPlaylistActors(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
+
         case "crew": {
             const { items, total } = await getPlaylistCrew(listId, currentUserId, page, itemsPerPage);
             content = items;
@@ -85,7 +91,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     return (
         <ListPageContent
             playlist={playlist}
-            username={params.username}
+            userName={params.userName}
             currentUserId={currentUserId}
             content={content}
             totalItems={totalItems}
