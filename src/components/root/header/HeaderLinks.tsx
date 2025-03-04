@@ -351,18 +351,19 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 if (isDrawerOpen) {
                                                                     setIsDrawerOpen(false);
                                                                 }
+
                                                                 handleGenresLeave();
                                                             }}
                                                         >
                                                             <Box
                                                                 sx={{
                                                                     cursor: "pointer",
-                                                                    padding: isDrawerOpen ? 0.75 : 1, // Reduced padding
+                                                                    padding: isDrawerOpen ? 0.75 : 1,
                                                                     textAlign: "center",
                                                                     transition: "background-color 0.2s",
                                                                     "&:hover": {
                                                                         backgroundColor:
-                                                                            theme.vars.palette.action.hover, // Using theme hover color
+                                                                            theme.vars.palette.action.hover,
                                                                         color: theme.vars.palette.primary.main,
                                                                     },
                                                                 }}
@@ -370,7 +371,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 <Typography
                                                                     component={"span"}
                                                                     sx={{
-                                                                        fontSize: "0.8rem", // Reduced from 0.875rem
+                                                                        fontSize: "0.8rem",
                                                                         fontWeight: 500,
                                                                         letterSpacing: "0.02em",
                                                                         color: "inherit",

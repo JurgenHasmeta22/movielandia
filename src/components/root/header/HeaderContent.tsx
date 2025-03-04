@@ -126,7 +126,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                 flexShrink: 0,
                             }}
                         >
-                            <SearchField sx={{ width: { xs: "100%", md: "200px" } }} />
+                            <SearchField />
                             {session?.user && <MessageCounter session={session} />}
                             {session?.user && <NotificationMenu session={session} />}
                             <ThemeToggleButton />

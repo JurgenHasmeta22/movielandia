@@ -70,7 +70,6 @@ const SearchField = () => {
     const [results, setResults] = useState<SearchResults>(emptyResults);
 
     const debouncedSearch = useDebounce(inputValue, 50);
-    const theme = useTheme();
 
     const handleSearch = () => {
         if (inputValue) {
@@ -130,6 +129,7 @@ const SearchField = () => {
         if (!debouncedSearch?.trim()) {
             setResults(emptyResults);
             setLoading(false);
+
             return;
         }
 
@@ -229,7 +229,7 @@ const SearchField = () => {
 
     return (
         <ClickAwayListener onClickAway={handleClose}>
-            <Box sx={{ position: "relative", width: "100%" }}>
+            <Box sx={{ position: "relative", width: { xs: "100%", md: "200px" } }}>
                 <form onSubmit={handleSubmit} style={{ display: "flex" }}>
                     <TextField
                         size="small"
