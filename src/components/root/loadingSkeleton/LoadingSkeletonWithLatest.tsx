@@ -29,8 +29,8 @@ export default function LoadingSkeletonWithLatest() {
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
                 <Skeleton variant="text" sx={{ width: "25%", height: 48 }} />
                 <Stack direction="row" spacing={2}>
-                    <Skeleton variant="rectangular" sx={{ width: 150, height: 40 }} />
-                    <Skeleton variant="rectangular" sx={{ width: 150, height: 40 }} />
+                    <Skeleton variant="rectangular" sx={{ width: 150, height: 50 }} />
+                    <Skeleton variant="rectangular" sx={{ width: 150, height: 50 }} />
                 </Stack>
             </Box>
 

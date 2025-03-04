@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Skeleton } from "@mui/material";
+import { Box, Skeleton, Stack } from "@mui/material";
 
 export default function LoadingSkeletonGenre() {
     return (
@@ -45,10 +45,10 @@ export default function LoadingSkeletonGenre() {
                         <Skeleton variant="text" sx={{ width: "200px", height: 32, mb: 1 }} />
                         <Skeleton variant="text" sx={{ width: "250px", height: 22 }} />
                     </Box>
-                    <Skeleton
-                        variant="rectangular"
-                        sx={{ width: { xs: 150, sm: 200 }, height: 40, mt: { xs: 1, sm: 0 } }}
-                    />
+                    <Stack direction="row" spacing={2}>
+                        <Skeleton variant="rectangular" sx={{ width: 150, height: 50 }} />
+                        <Skeleton variant="rectangular" sx={{ width: 150, height: 50 }} />
+                    </Stack>
                 </Box>
                 <Box sx={{ p: { xs: 2, sm: 3 } }}>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
@@ -83,10 +83,10 @@ export default function LoadingSkeletonGenre() {
                         <Skeleton variant="text" sx={{ width: "200px", height: 32, mb: 1 }} />
                         <Skeleton variant="text" sx={{ width: "250px", height: 22 }} />
                     </Box>
-                    <Skeleton
-                        variant="rectangular"
-                        sx={{ width: { xs: 150, sm: 200 }, height: 40, mt: { xs: 1, sm: 0 } }}
-                    />
+                    <Stack direction="row" spacing={2}>
+                        <Skeleton variant="rectangular" sx={{ width: 150, height: 50 }} />
+                        <Skeleton variant="rectangular" sx={{ width: 150, height: 50 }} />
+                    </Stack>
                 </Box>
                 <Box sx={{ p: { xs: 2, sm: 3 } }}>
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>

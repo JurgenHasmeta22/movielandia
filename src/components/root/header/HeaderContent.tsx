@@ -17,7 +17,6 @@ import SearchField from "../searchField/SearchField";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
 import MessageCounter from "./MessageCounter";
-import { motion } from "framer-motion";
 
 interface IHeaderContentProps {
     session: Session | null;
@@ -140,8 +139,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             <Box
                                 sx={{
                                     width: isSearchFocused ? 600 : 300,
-                                    transition: "width 0.3s ease-in-out",
-                                    position: "relative",
+                                    transition: "none",
                                 }}
                             >
                                 <SearchField
@@ -150,30 +148,27 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                 />
                             </Box>
 
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 1,
-                                    opacity: isSearchFocused ? 0 : 1,
-                                    visibility: isSearchFocused ? "hidden" : "visible",
-                                    transition: "opacity 0.3s ease-in-out",
-                                    position: "relative",
-                                    flexShrink: 0,
-                                }}
-                            >
-                                {session?.user && <MessageCounter session={session} />}
-                                {session?.user && <NotificationMenu session={session} />}
-                                <ThemeToggleButton />
-                                <AuthButtons
-                                    session={session}
-                                    userName={userName}
-                                    anchorElProfile={anchorElProfile}
-                                    closeMenuProfile={closeMenuProfile}
-                                    openMenuProfile={openMenuProfile}
-                                    handleSignOut={handleSignOut}
-                                />
-                            </Box>
+                            {!isSearchFocused && (
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "8px",
+                                    }}
+                                >
+                                    {session?.user && <MessageCounter session={session} />}
+                                    {session?.user && <NotificationMenu session={session} />}
+                                    <ThemeToggleButton />
+                                    <AuthButtons
+                                        session={session}
+                                        userName={userName}
+                                        anchorElProfile={anchorElProfile}
+                                        closeMenuProfile={closeMenuProfile}
+                                        openMenuProfile={openMenuProfile}
+                                        handleSignOut={handleSignOut}
+                                    />
+                                </Box>
+                            )}
                         </Box>
                     </Box>
                 </Toolbar>

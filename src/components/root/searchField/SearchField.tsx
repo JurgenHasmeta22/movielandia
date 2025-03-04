@@ -10,7 +10,6 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import { Movie, Serie, Actor, Crew, Season, Episode, User } from "@prisma/client";
 import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface SearchResults {
     movies: { items: Movie[]; total: number };
@@ -239,10 +238,12 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
     };
 
     const handleClose = () => {
+        setResults(emptyResults);
         setShowResults(false);
         setIsFocused(false);
         onFocusChange?.(false);
         onClose?.();
+
         if (!inputValue.trim()) {
             setInputValue("");
         }
@@ -291,64 +292,47 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
                             ),
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <AnimatePresence>
-                                        {isFocused && (
-                                            <motion.div
-                                                initial={{ opacity: 0, x: 20 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: 20 }}
-                                                transition={{ duration: 0.2 }}
-                                                style={{ display: "flex", gap: "4px" }}
+                                    {isFocused && (
+                                        <Box sx={{ display: "flex", gap: "4px" }}>
+                                            <IconButton
+                                                size="small"
+                                                onClick={() => {
+                                                    handleClose();
+                                                    setInputValue("");
+                                                }}
+                                                sx={{ mr: 0.5 }}
+                                                aria-label="collapse search"
                                             >
-                                                <IconButton
-                                                    size="small"
-                                                    onClick={() => {
-                                                        handleClose();
-                                                        setInputValue("");
-                                                    }}
-                                                    sx={{ mr: 0.5 }}
-                                                    aria-label="collapse search"
-                                                >
-                                                    <KeyboardReturn fontSize="small" />
-                                                </IconButton>
-                                                <IconButton
-                                                    size="small"
-                                                    onClick={handleClear}
-                                                    sx={{ mr: 0.5 }}
-                                                    aria-label="clear search"
-                                                >
-                                                    <Clear fontSize="small" />
-                                                </IconButton>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
+                                                <KeyboardReturn fontSize="small" />
+                                            </IconButton>
+                                            <IconButton
+                                                size="small"
+                                                onClick={handleClear}
+                                                sx={{ mr: 0.5 }}
+                                                aria-label="clear search"
+                                            >
+                                                <Clear fontSize="small" />
+                                            </IconButton>
+                                        </Box>
+                                    )}
                                 </InputAdornment>
                             ),
                         }}
                     />
                 </form>
-                <AnimatePresence>
-                    {showResults && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <SearchAutocomplete
-                                loading={loading}
-                                results={results}
-                                selectedFilters={selectedFilters}
-                                onFilterChange={handleFilterChange}
-                                searchTerm={inputValue}
-                                onShowMore={handleShowMore}
-                                onClose={handleClose}
-                                onResultClick={handleReset}
-                                showInitialState={!inputValue}
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                {showResults && (
+                    <SearchAutocomplete
+                        loading={loading}
+                        results={results}
+                        selectedFilters={selectedFilters}
+                        onFilterChange={handleFilterChange}
+                        searchTerm={inputValue}
+                        onShowMore={handleShowMore}
+                        onClose={handleClose}
+                        onResultClick={handleReset}
+                        showInitialState={!inputValue}
+                    />
+                )}
             </Box>
         </ClickAwayListener>
     );

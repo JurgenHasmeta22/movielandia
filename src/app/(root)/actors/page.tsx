@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ActorsPageContent from "./_components/ActorsPageContent";
-import LoadingSkeletonWithoutLatest from "@/components/root/loadingSkeleton/LoadingSkeletonWithoutLatest";
+import LoadingSkeletonWithoutLatestWithoutCarousel from "@/components/root/loadingSkeleton/LoadingSkeletonWithoutLatestWithoutCarousel";
 
 interface IActorsProps {
     searchParams?: Promise<{ actorsAscOrDesc?: string; page?: string; actorsSortBy?: string }>;
@@ -41,7 +41,7 @@ export default async function Actors(props: IActorsProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonWithoutLatest />}>
+        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonWithoutLatestWithoutCarousel />}>
             <ActorsPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );

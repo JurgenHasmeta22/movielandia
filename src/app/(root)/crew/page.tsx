@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import CrewAllPageContent from "./_components/CrewAllPageContent";
-import LoadingSkeletonWithoutLatest from "@/components/root/loadingSkeleton/LoadingSkeletonWithoutLatest";
+import LoadingSkeletonWithoutLatestWithoutCarousel from "@/components/root/loadingSkeleton/LoadingSkeletonWithoutLatestWithoutCarousel";
 
 interface ICrewProps {
     searchParams?: Promise<{ crewAscOrDesc?: string; page?: string; crewSortBy?: string }>;
@@ -41,7 +41,7 @@ export default async function Crews(props: ICrewProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonWithoutLatest />}>
+        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonWithoutLatestWithoutCarousel />}>
             <CrewAllPageContent searchParams={searchParams} session={session} />
         </Suspense>
     );
