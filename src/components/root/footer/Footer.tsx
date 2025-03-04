@@ -1,75 +1,25 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-    Box,
-    Typography,
-    IconButton,
-    Stack,
-    TextField,
-    Button,
-    useTheme,
-    Container,
-    Divider,
-    Icon,
-} from "@mui/material";
+import { Box, Typography, Stack, TextField, Button, useTheme, Container, Divider } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import MovieIcon from "@mui/icons-material/Movie";
+import TvIcon from "@mui/icons-material/Tv";
+import CategoryIcon from "@mui/icons-material/Category";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupIcon from "@mui/icons-material/Group";
+import InfoIcon from "@mui/icons-material/Info";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { subscribeNewsletter } from "@/actions/auth.actions";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Link from "next/link";
-
-const FooterLink = ({ href, text }: { href: string; text: string }) => {
-    const theme = useTheme();
-
-    return (
-        <Button
-            href={href}
-            sx={{
-                textDecoration: "none",
-                textTransform: "capitalize",
-                color: theme.vars.palette.primary.main,
-                transition: "all 0.2s ease-in-out",
-                minWidth: "160px",
-                justifyContent: "flex-start",
-                "&:hover": {
-                    transform: "translateX(8px)",
-                    color: theme.vars.palette.red.main,
-                },
-            }}
-        >
-            <Stack direction="row" alignItems="center" spacing={1.5} sx={{ width: "100%" }}>
-                <Icon sx={{ fontSize: 20, minWidth: "24px" }} />
-                <Typography variant="body1">{text}</Typography>
-            </Stack>
-        </Button>
-    );
-};
-
-const SocialButton = ({ href, icon: Icon }: { href: string; icon: any }) => {
-    const theme = useTheme();
-
-    return (
-        <IconButton
-            href={href}
-            target="_blank"
-            rel="noopener"
-            sx={{
-                color: theme.vars.palette.primary.main,
-                transition: "all 0.2s ease-in-out",
-                padding: "8px",
-                "&:hover": {
-                    color: theme.vars.palette.red.main,
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                },
-            }}
-        >
-            <Icon />
-        </IconButton>
-    );
-};
+import { FooterLink } from "./FooterLink";
+import { SocialButton } from "./SocialButton";
 
 const Footer = (): React.JSX.Element => {
     const theme = useTheme();
@@ -139,9 +89,9 @@ const Footer = (): React.JSX.Element => {
                                     Movies & TV
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/movies" text="Movies" />
-                                    <FooterLink href="/series" text="Series" />
-                                    <FooterLink href="/genres" text="Genres" />
+                                    <FooterLink href="/movies" text="Movies" icon={<MovieIcon />} />
+                                    <FooterLink href="/series" text="TV Series" icon={<TvIcon />} />
+                                    <FooterLink href="/genres" text="Genres" icon={<CategoryIcon />} />
                                 </Stack>
                             </Box>
                             <Box sx={{ width: { xs: "100%", sm: "auto" } }}>
@@ -169,8 +119,8 @@ const Footer = (): React.JSX.Element => {
                                     Cast & Crew
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/actors" text="Actors" />
-                                    <FooterLink href="/crew" text="Crew" />
+                                    <FooterLink href="/actors" text="Actors" icon={<PersonIcon />} />
+                                    <FooterLink href="/crew" text="Crew" icon={<GroupIcon />} />
                                 </Stack>
                             </Box>
                             <Box sx={{ width: { xs: "100%", sm: "auto" } }}>
@@ -198,10 +148,10 @@ const Footer = (): React.JSX.Element => {
                                     Other
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/about-us" text="About Us" />
-                                    <FooterLink href="/contact-us" text="Contact Us" />
-                                    <FooterLink href="/login" text="Sign In" />
-                                    <FooterLink href="/register" text="Sign Up" />
+                                    <FooterLink href="/about-us" text="About Us" icon={<InfoIcon />} />
+                                    <FooterLink href="/contact-us" text="Contact Us" icon={<ContactMailIcon />} />
+                                    <FooterLink href="/login" text="Sign In" icon={<LoginIcon />} />
+                                    <FooterLink href="/register" text="Sign Up" icon={<PersonAddIcon />} />
                                 </Stack>
                             </Box>
                         </Stack>
@@ -278,22 +228,23 @@ const Footer = (): React.JSX.Element => {
                                 </Typography>
                                 <Stack spacing={2}>
                                     <TextField
+                                        fullWidth
                                         variant="outlined"
-                                        size="small"
-                                        onChange={(e) => setEmail(e.target.value)}
                                         placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         sx={{
                                             "& .MuiOutlinedInput-root": {
-                                                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                                                "&:hover .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: theme.vars.palette.red.main,
+                                                color: "primary.main",
+                                                "& fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.23)",
                                                 },
-                                                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                                    borderColor: theme.vars.palette.red.main,
+                                                "&:hover fieldset": {
+                                                    borderColor: "primary.main",
                                                 },
-                                            },
-                                            "& .MuiOutlinedInput-input": {
-                                                color: theme.vars.palette.primary.main,
+                                                "&.Mui-focused fieldset": {
+                                                    borderColor: "primary.main",
+                                                },
                                             },
                                         }}
                                     />
@@ -301,11 +252,10 @@ const Footer = (): React.JSX.Element => {
                                         variant="contained"
                                         onClick={handleSubscribe}
                                         sx={{
-                                            py: 1,
-                                            color: theme.vars.palette.secondary.light,
-                                            bgcolor: theme.vars.palette.red.main,
+                                            bgcolor: "red.main",
+                                            color: "white",
                                             "&:hover": {
-                                                bgcolor: theme.vars.palette.red.dark,
+                                                bgcolor: "red.dark",
                                             },
                                         }}
                                     >
@@ -325,16 +275,10 @@ const Footer = (): React.JSX.Element => {
                         }}
                     >
                         <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                            2025 MovieLandia24. All rights reserved.
+                            © 2025 MovieLandia24. All rights reserved.
                         </Typography>
                         <Stack direction="row" spacing={3}>
-                            <Link
-                                href="/privacy"
-                                passHref
-                                style={{
-                                    textDecoration: "none",
-                                }}
-                            >
+                            <Link href="/privacy" style={{ textDecoration: "none" }}>
                                 <Typography
                                     variant="body2"
                                     sx={{
@@ -346,13 +290,7 @@ const Footer = (): React.JSX.Element => {
                                     Privacy Policy
                                 </Typography>
                             </Link>
-                            <Link
-                                href="/terms"
-                                passHref
-                                style={{
-                                    textDecoration: "none",
-                                }}
-                            >
+                            <Link href="/terms" style={{ textDecoration: "none" }}>
                                 <Typography
                                     variant="body2"
                                     sx={{

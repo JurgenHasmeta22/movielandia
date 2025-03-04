@@ -2,14 +2,16 @@
 
 import React from "react";
 import { Button, Typography, Menu, MenuItem, useTheme, Box } from "@mui/material";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Session } from "next-auth";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import { useRouter } from "next/navigation";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import LoginIcon from "@mui/icons-material/Login";
 
 interface IAuthButtonsProps {
     session: Session | null;
@@ -57,7 +59,14 @@ const AuthButtons = ({
                             },
                         }}
                     >
-                        <PersonOutlinedIcon color="action" fontSize="medium" />
+                        <PersonOutlinedIcon
+                            sx={{
+                                color: theme.vars.palette.primary.main,
+                                "&:hover": {
+                                    color: theme.vars.palette.green.main,
+                                },
+                            }}
+                        />
                         <Typography
                             variant="body1"
                             sx={{
@@ -66,6 +75,9 @@ const AuthButtons = ({
                                 fontSize: "0.95rem",
                                 fontWeight: 500,
                                 letterSpacing: "0.02em",
+                                "&:hover": {
+                                    color: theme.vars.palette.green.main,
+                                },
                             }}
                         >
                             {userName}
@@ -83,13 +95,54 @@ const AuthButtons = ({
                             vertical: "top",
                             horizontal: "left",
                         }}
+                        slotProps={{
+                            paper: {
+                                sx: {
+                                    mt: 1,
+                                    "& .MuiMenuItem-root": {
+                                        px: 2,
+                                        py: 1,
+                                        borderRadius: 1,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 1.5,
+                                        "& .MuiSvgIcon-root": {
+                                            fontSize: "1.25rem",
+                                            color: theme.vars.palette.primary.main,
+                                        },
+                                        "&:hover": {
+                                            backgroundColor: theme.vars.palette.action.hover,
+                                            "& .MuiSvgIcon-root": {
+                                                color: theme.vars.palette.green.main,
+                                            },
+                                            "& .MuiTypography-root": {
+                                                color: theme.vars.palette.green.main,
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        }}
                     >
-                        <MenuItem onClick={handleProfileClick} sx={{ color: theme.vars.palette.primary.main }}>
-                            <Typography variant="inherit" sx={{ fontSize: "0.95rem" }}>
-                                {session?.user?.role === "Admin" ? "Go to Dashboard" : "My Profile"}
-                            </Typography>
+                        <MenuItem onClick={handleProfileClick}>
+                            {session?.user?.role === "Admin" ? (
+                                <>
+                                    <DashboardIcon />
+                                    <Typography variant="inherit" sx={{ fontSize: "0.95rem" }}>
+                                        Go to Dashboard
+                                    </Typography>
+                                </>
+                            ) : (
+                                <>
+                                    <PersonOutlinedIcon />
+                                    <Typography variant="inherit" sx={{ fontSize: "0.95rem" }}>
+                                        My Profile
+                                    </Typography>
+                                </>
+                            )}
                         </MenuItem>
-                        <MenuItem onClick={() => handleSignOut()} sx={{ color: theme.vars.palette.primary.main }}>
+                        <MenuItem onClick={() => handleSignOut()}>
+                            <LogoutIcon />
                             <Typography variant="inherit" sx={{ fontSize: "0.95rem" }}>
                                 Sign Out
                             </Typography>
@@ -102,6 +155,7 @@ const AuthButtons = ({
                         LinkComponent={MuiNextLink}
                         href="/login"
                         variant="text"
+                        startIcon={<LoginIcon />}
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -113,6 +167,9 @@ const AuthButtons = ({
                             fontSize: "0.95rem",
                             fontWeight: 500,
                             letterSpacing: "0.02em",
+                            "& .MuiSvgIcon-root": {
+                                fontSize: "1.25rem",
+                            },
                             "&:hover": {
                                 backgroundColor: theme.vars.palette.green.main,
                                 color: theme.vars.palette.greyAccent.main,
@@ -124,13 +181,13 @@ const AuthButtons = ({
                             }
                         }}
                     >
-                        <LockOpenIcon sx={{ fontSize: "1.2rem" }} />
                         Sign In
                     </Button>
                     <Button
                         LinkComponent={MuiNextLink}
                         href="/register"
                         variant="text"
+                        startIcon={<PersonAddIcon />}
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -142,6 +199,9 @@ const AuthButtons = ({
                             fontSize: "0.95rem",
                             fontWeight: 500,
                             letterSpacing: "0.02em",
+                            "& .MuiSvgIcon-root": {
+                                fontSize: "1.25rem",
+                            },
                             "&:hover": {
                                 backgroundColor: theme.vars.palette.green.main,
                                 color: theme.vars.palette.greyAccent.main,
@@ -153,7 +213,6 @@ const AuthButtons = ({
                             }
                         }}
                     >
-                        <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />
                         Sign Up
                     </Button>
                 </Box>

@@ -9,6 +9,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import MovieIcon from "@mui/icons-material/Movie";
+import TvIcon from "@mui/icons-material/Tv";
+import CategoryIcon from "@mui/icons-material/Category";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupIcon from "@mui/icons-material/Group";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -77,8 +82,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     });
 
     const peopleLinks = [
-        { path: "/actors", name: "Actors" },
-        { path: "/crew", name: "Crew" },
+        { path: "/actors", name: "Actors", icon: <PersonIcon /> },
+        { path: "/crew", name: "Crew", icon: <GroupIcon /> },
     ];
 
     return (
@@ -124,6 +129,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             onClick={() => {
                                 if (isDrawerOpen) setIsDrawerOpen(false);
                             }}
+                            startIcon={<MovieIcon />}
                         >
                             Movies
                         </Button>
@@ -137,8 +143,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             onClick={() => {
                                 if (isDrawerOpen) setIsDrawerOpen(false);
                             }}
+                            startIcon={<TvIcon />}
                         >
-                            Series
+                            TV Series
                         </Button>
                     </ListItem>
                     <ListItem sx={{ p: 0.5 }}>
@@ -151,12 +158,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                     ...getButtonStyle("/people"),
                                     cursor: "default",
                                     pointerEvents: "none",
-                                    "&:hover": {
-                                        backgroundColor: "transparent",
-                                    },
                                 }}
+                                startIcon={<PersonIcon />}
                             >
-                                Cast & Crew
+                                People
                             </Button>
                             <Popper
                                 open={peopleOpen}
@@ -173,24 +178,13 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 <AnimatePresence>
                                     {peopleOpen && (
                                         <motion.div
-                                            initial={{ opacity: 0, scale: 0.6, y: -40 }}
-                                            animate={{
-                                                opacity: 1,
-                                                scale: 1,
-                                                y: 0,
-                                                transition: {
-                                                    type: "spring",
-                                                    stiffness: 200,
-                                                    damping: 20,
-                                                },
-                                            }}
-                                            exit={{
-                                                opacity: 0,
-                                                scale: 0.6,
-                                                y: -20,
-                                                transition: {
-                                                    duration: 0.2,
-                                                },
+                                            initial={{ opacity: 0, y: -20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -20 }}
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 260,
+                                                damping: 20,
                                             }}
                                             style={{ transformOrigin: "top" }}
                                         >
@@ -214,9 +208,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 color: theme.vars.palette.primary.main,
                                                             }}
                                                             onClick={() => {
-                                                                if (isDrawerOpen) {
-                                                                    setIsDrawerOpen(false);
-                                                                }
+                                                                if (isDrawerOpen) setIsDrawerOpen(false);
                                                                 handlePeopleLeave();
                                                             }}
                                                         >
@@ -224,18 +216,19 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 sx={{
                                                                     display: "flex",
                                                                     alignItems: "center",
-                                                                    gap: 0.75,
-                                                                    p: 1.25, // Reduced from 2
+                                                                    gap: 1,
+                                                                    p: 1.5,
                                                                     "&:hover": {
                                                                         backgroundColor:
-                                                                            theme.vars.palette.action.hover, // Using theme hover color
+                                                                            theme.vars.palette.action.hover,
                                                                         color: theme.vars.palette.primary.main,
                                                                     },
                                                                 }}
                                                             >
+                                                                {link.icon}
                                                                 <Typography sx={{ fontSize: "0.875rem" }}>
                                                                     {link.name}
-                                                                </Typography>{" "}
+                                                                </Typography>
                                                             </Box>
                                                         </Link>
                                                     </motion.div>
@@ -258,6 +251,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                     if (isDrawerOpen) setIsDrawerOpen(false);
                                     handleGenresLeave();
                                 }}
+                                startIcon={<CategoryIcon />}
                             >
                                 Genres
                             </Button>
