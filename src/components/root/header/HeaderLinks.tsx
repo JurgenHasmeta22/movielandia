@@ -7,25 +7,25 @@ import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MovieIcon from "@mui/icons-material/Movie";
 import TvIcon from "@mui/icons-material/Tv";
 import CategoryIcon from "@mui/icons-material/Category";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupIcon from "@mui/icons-material/Group";
-import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import RateReviewIcon from "@mui/icons-material/RateReview";
 import { useSession } from "next-auth/react";
-import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
-import { Suspense } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import { Suspense } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -38,8 +38,8 @@ const MyStuffLoadingButton = () => (
         component="div"
         disabled
         sx={{
-            minWidth: '120px', // Match the width of actual button to prevent layout shift
-            '& .MuiCircularProgress-root': {
+            minWidth: "120px", // Match the width of actual button to prevent layout shift
+            "& .MuiCircularProgress-root": {
                 marginRight: 1,
             },
         }}
@@ -58,6 +58,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const [myStuffAnchorEl, setMyStuffAnchorEl] = useState<null | HTMLElement>(null);
     const [activeMainTab, setActiveMainTab] = useState<string | null>(null);
     const [isSubMenuHovered, setIsSubMenuHovered] = useState(false);
+    const hoverTimeoutRef = useRef<NodeJS.Timeout>();
+    const currentTargetRef = useRef<HTMLElement | null>(null);
+    const subMenuTimeoutRef = useRef<NodeJS.Timeout>();
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
     const { data: session } = useSession();
     const router = useRouter();
@@ -93,24 +96,36 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
     const handleMyStuffHover = (event: React.MouseEvent<HTMLElement>) => {
         if (session?.user) {
-            setMyStuffAnchorEl(event.currentTarget);
-            setMyStuffOpen(true);
+            currentTargetRef.current = event.currentTarget;
+            clearTimeout(hoverTimeoutRef.current);
+            clearTimeout(subMenuTimeoutRef.current);
+            hoverTimeoutRef.current = setTimeout(() => {
+                setMyStuffAnchorEl(currentTargetRef.current);
+                setMyStuffOpen(true);
+            }, 50);
         }
     };
 
     const handleMyStuffLeave = () => {
+        clearTimeout(hoverTimeoutRef.current);
         if (!isSubMenuHovered) {
-            setMyStuffOpen(false);
-            setMyStuffAnchorEl(null);
-            setActiveMainTab(null);
+            subMenuTimeoutRef.current = setTimeout(() => {
+                setMyStuffOpen(false);
+                setMyStuffAnchorEl(null);
+                setActiveMainTab(null);
+            }, 100);
         }
     };
 
     const handleSubMenuEnter = () => {
+        clearTimeout(hoverTimeoutRef.current);
+        clearTimeout(subMenuTimeoutRef.current);
         setIsSubMenuHovered(true);
     };
 
     const handleSubMenuLeave = () => {
+        clearTimeout(hoverTimeoutRef.current);
+        clearTimeout(subMenuTimeoutRef.current);
         setIsSubMenuHovered(false);
         setMyStuffOpen(false);
         setMyStuffAnchorEl(null);
@@ -508,10 +523,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     {session?.user && (
                         <ListItem sx={{ width: "auto", p: 0.25 }}>
                             <Suspense fallback={<MyStuffLoadingButton />}>
-                                <Box 
-                                    onMouseEnter={handleMyStuffHover} 
+                                <Box
+                                    onMouseEnter={handleMyStuffHover}
                                     onMouseLeave={handleMyStuffLeave}
-                                    sx={{ position: 'relative' }}
+                                    sx={{ position: "relative" }}
                                 >
                                     <Button
                                         variant="text"
@@ -535,28 +550,28 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                         }}
                                         modifiers={[
                                             {
-                                                name: 'offset',
+                                                name: "offset",
                                                 options: {
                                                     offset: [0, -1], // Reduce the gap between main menu and submenu
                                                 },
                                             },
                                         ]}
                                     >
-                                        <Paper 
+                                        <Paper
                                             onMouseEnter={handleSubMenuEnter}
                                             onMouseLeave={handleSubMenuLeave}
-                                            sx={{ 
-                                                mt: 0.5, 
-                                                minWidth: 180, 
-                                                display: 'flex',
-                                                '&::before': {
+                                            sx={{
+                                                mt: 0.5,
+                                                minWidth: 180,
+                                                display: "flex",
+                                                "&::before": {
                                                     content: '""',
-                                                    position: 'absolute',
+                                                    position: "absolute",
                                                     top: -10,
                                                     left: 0,
                                                     right: 0,
                                                     height: 10,
-                                                }
+                                                },
                                             }}
                                         >
                                             <Box>
@@ -581,7 +596,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 px: 2,
                                                                 py: 1.5,
                                                                 transition: "all 0.2s",
-                                                                bgcolor: activeMainTab === tab.param ? 'action.selected' : 'transparent',
+                                                                bgcolor:
+                                                                    activeMainTab === tab.param
+                                                                        ? "action.selected"
+                                                                        : "transparent",
                                                                 "&:hover": {
                                                                     backgroundColor: theme.vars.palette.action.hover,
                                                                     color: theme.vars.palette.primary.main,
@@ -610,7 +628,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 ml: 1,
                                                                 minWidth: 180,
                                                                 borderLeft: 1,
-                                                                borderColor: 'divider',
+                                                                borderColor: "divider",
                                                             }}
                                                         >
                                                             {subTabs[activeMainTab]?.map((subTab, index) => (
@@ -645,8 +663,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                                 py: 1.5,
                                                                                 transition: "all 0.2s",
                                                                                 "&:hover": {
-                                                                                    backgroundColor: theme.vars.palette.action.hover,
-                                                                                    color: theme.vars.palette.primary.main,
+                                                                                    backgroundColor:
+                                                                                        theme.vars.palette.action.hover,
+                                                                                    color: theme.vars.palette.primary
+                                                                                        .main,
                                                                                 },
                                                                             }}
                                                                         >
