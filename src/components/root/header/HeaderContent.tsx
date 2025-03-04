@@ -68,20 +68,16 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         flexWrap: "nowrap",
                         py: 1.5,
                         backgroundColor: theme.vars.palette.primary.dark,
-                        minHeight: 72,
-                        px: 2,
+                        minHeight: { xs: 64, sm: 72 },
+                        px: { xs: 1, sm: 2 },
                     }}
                     component={"nav"}
                 >
-                    {/* Hamburger Button */}
+                    {/* Mobile Menu Button - Only show on mobile */}
                     <Box
                         sx={{
-                            display: {
-                                xs: "block",
-                                sm: "block",
-                                md: "none",
-                                lg: "none",
-                            },
+                            display: { xs: "block", md: "none" },
+                            order: { xs: 1, md: 0 },
                         }}
                     >
                         <IconButton
@@ -102,12 +98,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                     {/* Desktop Navigation */}
                     <Box
                         sx={{
-                            display: {
-                                xs: "none",
-                                sm: "none",
-                                md: "flex",
-                                lg: "flex",
-                            },
+                            display: { xs: "none", md: "flex" },
                             width: "100%",
                             alignItems: "center",
                         }}
@@ -157,33 +148,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         </Box>
                     </Box>
 
-                    {/* Hamburger Button */}
-                    <Box
-                        sx={{
-                            display: {
-                                xs: "block",
-                                sm: "block",
-                                md: "none",
-                                lg: "none",
-                            },
-                        }}
-                    >
-                        <IconButton
-                            aria-label="open drawer"
-                            edge="start"
-                            onClick={() => setIsDrawerOpen(true)}
-                            sx={{
-                                color: theme.vars.palette.primary.main,
-                                "&:hover": {
-                                    color: theme.vars.palette.green.main,
-                                },
-                            }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                    </Box>
-
-                    {/* Mobile Header Toggled sidebar */}
+                    {/* Mobile Header */}
                     <HeaderMobile
                         genres={genres}
                         anchorElProfile={anchorElProfile}

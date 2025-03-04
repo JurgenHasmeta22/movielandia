@@ -1,7 +1,7 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, Drawer, IconButton, useMediaQuery, useTheme, Button } from "@mui/material";
+import { Box, SwipeableDrawer, IconButton, useMediaQuery, useTheme, Button, Divider } from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect } from "react";
 import { Session } from "next-auth";
@@ -13,6 +13,7 @@ import { Genre } from "@prisma/client";
 import EmailIcon from "@mui/icons-material/Email";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
+import Image from "next/image";
 
 interface IHeaderMobileProps {
     genres: Genre[];
@@ -43,79 +44,146 @@ export default function HeaderMobile({
         }
     }, [isFullScreen, isDrawerOpen, setIsDrawerOpen]);
 
+    const iOS = typeof navigator !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
     return (
-        <Drawer
-            variant="persistent"
+        <SwipeableDrawer
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
+            variant="temporary"
+            anchor="left"
             open={isDrawerOpen}
             onClose={() => setIsDrawerOpen(false)}
-            component="aside"
+            onOpen={() => setIsDrawerOpen(true)}
             sx={{
+                display: { xs: "block", md: "none" },
                 "& .MuiDrawer-paper": {
-                    width: 240,
+                    width: { xs: "85%", sm: 320 },
                     boxSizing: "border-box",
+                    backgroundColor: theme.vars.palette.background.paper,
                 },
             }}
         >
-            <Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    overflow: "hidden",
+                }}
+            >
+                {/* Header */}
                 <Box
                     sx={{
                         display: "flex",
-                        placeContent: "end",
-                        marginRight: 2,
-                        marginTop: 1,
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        p: 2,
+                        borderBottom: 1,
+                        borderColor: "divider",
                     }}
                 >
-                    <IconButton onClick={() => setIsDrawerOpen(false)}>
+                    <MuiNextLink href="/" onClick={() => setIsDrawerOpen(false)}>
+                        <Image
+                            src="/icons/movielandia24-logo.png"
+                            alt="MovieLandia24"
+                            width={120}
+                            height={40}
+                            style={{ display: "block" }}
+                            priority
+                        />
+                    </MuiNextLink>
+                    <IconButton
+                        onClick={() => setIsDrawerOpen(false)}
+                        sx={{
+                            color: theme.vars.palette.primary.main,
+                            "&:hover": {
+                                color: theme.vars.palette.green.main,
+                            },
+                        }}
+                    >
                         <CloseOutlined />
                     </IconButton>
                 </Box>
-                <HeaderLinks genres={genres} />
-                <Box sx={{ marginTop: 2, ml: 2, mr: 2 }}>
+
+                {/* Search */}
+                <Box sx={{ p: 2 }}>
                     <SearchField />
                 </Box>
-                <Box sx={{ marginTop: 4, ml: 2, mr: 2 }}>
-                    {session?.user && (
-                        <Button
-                            LinkComponent={MuiNextLink}
-                            href="/messages"
-                            variant="text"
-                            sx={{
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        >
-                            <EmailIcon />
-                        </Button>
-                    )}
-                    {session?.user && <NotificationMenu session={session} />}
-                    <ThemeToggleButton />
-                </Box>
+
+                {/* Navigation */}
                 <Box
                     sx={{
-                        marginTop: 3,
-                        ml: 2,
-                        mr: 2,
-                        mb: 2,
-                        "& > div": {
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: 1,
-                            "& .MuiButton-root": {
-                                flex: 1,
-                                minWidth: "140px",
-                            },
-                        },
+                        flex: 1,
+                        overflowY: "auto",
+                        px: 2,
+                        py: 1,
                     }}
                 >
-                    <AuthButtons
-                        session={session}
-                        anchorElProfile={anchorElProfile}
-                        closeMenuProfile={closeMenuProfile}
-                        handleSignOut={handleSignOut}
-                        openMenuProfile={openMenuProfile}
-                        userName={userName}
-                    />
+                    <HeaderLinks genres={genres} />
+                </Box>
+
+                <Divider />
+
+                {/* User Actions */}
+                <Box
+                    sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                    }}
+                >
+                    {session?.user && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                gap: 1,
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Button
+                                LinkComponent={MuiNextLink}
+                                href="/messages"
+                                variant="outlined"
+                                size="small"
+                                startIcon={<EmailIcon />}
+                                onClick={() => setIsDrawerOpen(false)}
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    borderColor: theme.vars.palette.primary.main,
+                                    "&:hover": {
+                                        borderColor: theme.vars.palette.green.main,
+                                        color: theme.vars.palette.green.main,
+                                    },
+                                }}
+                            >
+                                Messages
+                            </Button>
+                            <NotificationMenu session={session} />
+                        </Box>
+                    )}
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        <ThemeToggleButton />
+                        <AuthButtons
+                            session={session}
+                            userName={userName}
+                            anchorElProfile={anchorElProfile}
+                            closeMenuProfile={closeMenuProfile}
+                            openMenuProfile={openMenuProfile}
+                            handleSignOut={handleSignOut}
+                        />
+                    </Box>
                 </Box>
             </Box>
-        </Drawer>
+        </SwipeableDrawer>
     );
 }

@@ -232,7 +232,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     type="button"
                     sx={{
                         padding: 0,
-                        mr: 2,
+                        mr: { xs: 1, sm: 2 },
                         "&:hover": { backgroundColor: "transparent" },
                         "&:active": { backgroundColor: "transparent" },
                     }}
@@ -255,18 +255,20 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     display: "flex",
                     alignItems: "center",
                     flex: "0 0 auto",
+                    flexWrap: { xs: "wrap", md: "nowrap" },
                 }}
             >
                 <List
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        gap: 1,
+                        flexWrap: { xs: "wrap", md: "nowrap" },
+                        gap: { xs: 0.5, sm: 1 },
                         m: 0,
                         p: 0,
                     }}
                 >
-                    <ListItem sx={{ width: "auto", p: 0.25 }}>
+                    <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Button
                             LinkComponent={MuiNextLink}
                             href="/movies"
@@ -280,7 +282,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             Movies
                         </Button>
                     </ListItem>
-                    <ListItem sx={{ width: "auto", p: 0.25 }}>
+                    <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Button
                             LinkComponent={MuiNextLink}
                             href="/series"
@@ -294,7 +296,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             TV Series
                         </Button>
                     </ListItem>
-                    <ListItem sx={{ width: "auto", p: 0.25 }}>
+                    <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Box onMouseEnter={handlePeopleHover} onMouseLeave={handlePeopleLeave}>
                             <Button
                                 variant="text"
@@ -386,7 +388,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             </Popper>
                         </Box>
                     </ListItem>
-                    <ListItem sx={{ width: "auto", p: 0.25 }}>
+                    <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Box onMouseEnter={handleGenresHover} onMouseLeave={handleGenresLeave}>
                             <Button
                                 LinkComponent={MuiNextLink}
@@ -521,7 +523,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                         </Box>
                     </ListItem>
                     {session?.user && (
-                        <ListItem sx={{ width: "auto", p: 0.25 }}>
+                        <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                             <Suspense fallback={<MyStuffLoadingButton />}>
                                 <Box
                                     onMouseEnter={handleMyStuffHover}
