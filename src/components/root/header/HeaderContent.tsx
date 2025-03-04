@@ -144,7 +144,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                     position: "relative",
                                 }}
                             >
-                                <SearchField 
+                                <SearchField
                                     onFocusChange={setIsSearchFocused}
                                     onClose={() => setIsSearchFocused(false)}
                                 />
