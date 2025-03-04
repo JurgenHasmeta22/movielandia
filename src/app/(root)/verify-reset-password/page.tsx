@@ -1,5 +1,8 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
+import VerificationLayout from "@/components/root/verificationLayout/VerificationLayout";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
 
 export default async function VerifyResetPasswordPage(props: {
     searchParams: Promise<{ token: string; email: string }>;
@@ -22,70 +25,38 @@ export default async function VerifyResetPasswordPage(props: {
             throw new Error(data.message || "Verification failed.");
         }
 
-        message = "Your email has been successfully verified. Now you can change the passowrd.";
+        message = "Your email has been successfully verified. Now you can change the password.";
     } catch (error: any) {
         isError = true;
         message = error.message || "Verification failed. Go back and check the email";
     }
 
     return (
-        <Container
-            sx={{
-                height: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    p: 8,
-                    boxShadow: 6,
-                    borderRadius: 4,
-                    backgroundColor: "background.paper",
-                }}
-            >
-                <Typography variant="h4" component="h1" gutterBottom>
-                    {isError ? "Verification Failed" : "Verification Successful"}
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 3 }}>
+        <VerificationLayout title={isError ? "Verification Failed" : "Verification Successful"}>
+            <Box sx={{ textAlign: "center" }}>
+                {isError ? (
+                    <ErrorIcon sx={{ fontSize: 60, color: "error.main", mb: 3 }} />
+                ) : (
+                    <CheckCircleIcon sx={{ fontSize: 60, color: "success.main", mb: 3 }} />
+                )}
+                <Typography variant="body1" sx={{ mb: 4 }}>
                     {message}
                 </Typography>
-                {isError ? (
-                    <Box>
-                        <Link
-                            href={"/register"}
-                            prefetch={false}
-                            style={{
-                                fontSize: "18px",
-                                fontWeight: 700,
-                                textTransform: "capitalize",
-                                textDecoration: "none",
-                            }}
-                        >
-                            Sign Up
-                        </Link>
-                    </Box>
-                ) : (
-                    <Box>
-                        <Link
-                            href={`/change-password?email=${encodeURIComponent(email)}`}
-                            prefetch={false}
-                            style={{
-                                fontSize: "18px",
-                                fontWeight: 700,
-                                textTransform: "capitalize",
-                                textDecoration: "none",
-                            }}
-                        >
-                            Change Password
-                        </Link>
-                    </Box>
-                )}
+                <Button
+                    component={Link}
+                    href={isError ? "/register" : `/change-password?email=${encodeURIComponent(email)}`}
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                        py: 1.5,
+                        fontSize: "1.1rem",
+                        textTransform: "none",
+                        fontWeight: 600,
+                    }}
+                >
+                    {isError ? "Sign Up" : "Change Password"}
+                </Button>
             </Box>
-        </Container>
+        </VerificationLayout>
     );
 }

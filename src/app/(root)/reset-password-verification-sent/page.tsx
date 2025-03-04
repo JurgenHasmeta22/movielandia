@@ -1,60 +1,18 @@
-"use client";
+import { Suspense } from "react";
+import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
+import ResetPasswordVerifyPageContent from "./_components/ResetPasswordVerifyPageContent";
 
-import { Box, Container, Typography } from "@mui/material";
-import { useQueryState } from "nuqs";
+interface ResetPasswordVerifyPageProps {
+    searchParams: Promise<{ email?: string }>;
+}
 
-export default function ResetPasswordVerifyPage() {
-    const [email, setEmail] = useQueryState("email", {
-        defaultValue: "",
-        parse: (value) => value || "",
-        shallow: false,
-    });
+export default async function ResetPasswordVerifyPage({ searchParams }: ResetPasswordVerifyPageProps) {
+    const searchParamsKey = JSON.stringify(searchParams);
+    const { email } = await searchParams;
 
     return (
-        <Container
-            sx={{
-                height: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
-            {email && email.length > 0 ? (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        p: 4,
-                        boxShadow: 6,
-                        borderRadius: 4,
-                        backgroundColor: "background.paper",
-                    }}
-                >
-                    <Typography variant="body1" sx={{ mb: 3 }}>
-                        We have sent a reset password verification link to <strong>{email}</strong>.
-                    </Typography>
-                    <Typography variant="body2">
-                        Please check your email and follow the instructions to reset your password.
-                    </Typography>
-                </Box>
-            ) : (
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        p: 4,
-                        boxShadow: 6,
-                        borderRadius: 4,
-                        backgroundColor: "background.paper",
-                    }}
-                >
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Email not provided
-                    </Typography>
-                </Box>
-            )}
-        </Container>
+        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+            <ResetPasswordVerifyPageContent email={email} />
+        </Suspense>
     );
 }
