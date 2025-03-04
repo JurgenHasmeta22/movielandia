@@ -65,16 +65,17 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const getButtonStyle = (path: string) => ({
         display: "flex",
         alignItems: "center",
-        gap: 0.3,
-        fontSize: "0.95rem",
+        gap: 0.5,
+        fontSize: "0.9rem", // Slightly reduced font size
         textTransform: "none",
         color: isActive(path) ? theme.vars.palette.green.main : theme.vars.palette.primary.main,
         borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
         borderRadius: 0,
         fontWeight: 500,
-        letterSpacing: "0.02em",
+        letterSpacing: "0.01em", // Slightly reduced letter spacing
         height: 42,
-        px: 1,
+        px: 1.5, // Increased horizontal padding
+        minWidth: 'auto', // Allow buttons to be more compact
         "&:hover": {
             backgroundColor: "transparent",
             color: theme.vars.palette.green.main,
@@ -95,6 +96,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     type="button"
                     sx={{
                         padding: 0,
+                        mr: 2, // Added margin right
                         "&:hover": { backgroundColor: "transparent" },
                         "&:active": { backgroundColor: "transparent" },
                     }}
@@ -105,22 +107,28 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     <Image
                         src={"/icons/movielandia24-logo.png"}
                         alt="MovieLandia24"
-                        height={55}
-                        width={170}
+                        height={50} // Slightly reduced
+                        width={160} // Slightly reduced
                         priority={true}
                         style={{ pointerEvents: "none" }}
                     />
                 </Button>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", flexShrink: 0, paddingLeft: 4 }}>
+            <Box sx={{ 
+                display: "flex", 
+                alignItems: "center",
+                flexShrink: 0,
+            }}>
                 <List
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", sm: "column", md: "row" },
-                        gap: { md: 0.2 },
+                        flexDirection: "row",
+                        gap: 1,
+                        m: 0,
+                        p: 0,
                     }}
                 >
-                    <ListItem sx={{ p: 0.5 }}>
+                    <ListItem sx={{ width: 'auto', p: 0.25 }}>
                         <Button
                             LinkComponent={MuiNextLink}
                             href="/movies"
@@ -134,7 +142,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             Movies
                         </Button>
                     </ListItem>
-                    <ListItem sx={{ p: 0.5 }}>
+                    <ListItem sx={{ width: 'auto', p: 0.25 }}>
                         <Button
                             LinkComponent={MuiNextLink}
                             href="/series"
@@ -148,7 +156,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             TV Series
                         </Button>
                     </ListItem>
-                    <ListItem sx={{ p: 0.5 }}>
+                    <ListItem sx={{ width: 'auto', p: 0.25 }}>
                         <Box onMouseEnter={handlePeopleHover} onMouseLeave={handlePeopleLeave}>
                             <Button
                                 variant="text"
@@ -240,7 +248,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             </Popper>
                         </Box>
                     </ListItem>
-                    <ListItem sx={{ p: 0.5 }}>
+                    <ListItem sx={{ width: 'auto', p: 0.25 }}>
                         <Box onMouseEnter={handleGenresHover} onMouseLeave={handleGenresLeave}>
                             <Button
                                 LinkComponent={MuiNextLink}

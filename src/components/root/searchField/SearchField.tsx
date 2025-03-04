@@ -10,6 +10,7 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import { Movie, Serie, Actor, Crew, Season, Episode, User } from "@prisma/client";
 import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface SearchResults {
     movies: { items: Movie[]; total: number };
@@ -74,6 +75,7 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
     const [showResults, setShowResults] = useState(false);
     const [results, setResults] = useState<SearchResults>(emptyResults);
     const [isFocused, setIsFocused] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     const theme = useTheme();
 
     const debouncedSearch = useDebounce(inputValue, 50);
@@ -241,6 +243,7 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
         setResults(emptyResults);
         setShowResults(false);
         setIsFocused(false);
+        setIsExpanded(false);
         onFocusChange?.(false);
         onClose?.();
 
@@ -266,75 +269,122 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
         handleClose();
     };
 
+    const handleSearchIconClick = () => {
+        setIsExpanded(true);
+        setIsFocused(true);
+        setShowResults(true); // Show autocomplete immediately
+        onFocusChange?.(true);
+    };
+
     return (
-        <ClickAwayListener onClickAway={handleClickAway}>
-            <Box sx={{ position: "relative", width: "100%" }}>
-                <form onSubmit={handleSubmit} style={{ display: "flex", width: "100%" }}>
-                    <TextField
-                        size="small"
-                        placeholder="Search..."
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        onFocus={handleFocusEnhanced}
-                        onKeyDown={handleKeyDown}
-                        sx={{
-                            width: "100%",
-                            "& .MuiInputBase-root": {
-                                height: 38,
-                                pr: 1,
-                            },
-                        }}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <Search sx={{ color: "text.secondary" }} />
-                                </InputAdornment>
-                            ),
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    {isFocused && (
-                                        <Box sx={{ display: "flex", gap: "4px" }}>
-                                            <IconButton
-                                                size="small"
-                                                onClick={() => {
-                                                    handleClose();
-                                                    setInputValue("");
-                                                }}
-                                                sx={{ mr: 0.5 }}
-                                                aria-label="collapse search"
-                                            >
-                                                <KeyboardReturn fontSize="small" />
-                                            </IconButton>
-                                            <IconButton
-                                                size="small"
-                                                onClick={handleClear}
-                                                sx={{ mr: 0.5 }}
-                                                aria-label="clear search"
-                                            >
-                                                <Clear fontSize="small" />
-                                            </IconButton>
-                                        </Box>
+        <Box sx={{ position: "relative", display: "flex", alignItems: "center" }}>
+            <AnimatePresence>
+                {!isExpanded ? (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <IconButton
+                            onClick={handleSearchIconClick}
+                            sx={{
+                                color: "text.secondary",
+                                p: 1, // Reduced padding
+                                '& .MuiSvgIcon-root': {
+                                    fontSize: '1.25rem', // Matched to other header icons
+                                },
+                                "&:hover": { 
+                                    color: "primary.main",
+                                    backgroundColor: "action.hover",
+                                },
+                            }}
+                        >
+                            <Search />
+                        </IconButton>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: "auto", opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        style={{ width: "100%" }}
+                    >
+                        <Box sx={{ width: "100%" }}>
+                            <ClickAwayListener onClickAway={handleClickAway}>
+                                <Box sx={{ position: "relative", width: "100%" }}>
+                                    <form onSubmit={handleSubmit} style={{ display: "flex", width: "100%" }}>
+                                        <TextField
+                                            autoFocus // Added to focus input automatically
+                                            size="small"
+                                            placeholder="Search..."
+                                            value={inputValue}
+                                            onChange={handleInputChange}
+                                            onFocus={handleFocusEnhanced}
+                                            onKeyDown={handleKeyDown}
+                                            sx={{
+                                                width: "100%",
+                                                "& .MuiInputBase-root": {
+                                                    height: 38,
+                                                    pr: 1,
+                                                },
+                                            }}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <Search sx={{ color: "text.secondary" }} />
+                                                    </InputAdornment>
+                                                ),
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        {isFocused && (
+                                                            <Box sx={{ display: "flex", gap: "4px" }}>
+                                                                <IconButton
+                                                                    size="small"
+                                                                    onClick={() => {
+                                                                        handleClose();
+                                                                        setInputValue("");
+                                                                    }}
+                                                                    sx={{ mr: 0.5 }}
+                                                                    aria-label="collapse search"
+                                                                >
+                                                                    <KeyboardReturn fontSize="small" />
+                                                                </IconButton>
+                                                                <IconButton
+                                                                    size="small"
+                                                                    onClick={handleClear}
+                                                                    sx={{ mr: 0.5 }}
+                                                                    aria-label="clear search"
+                                                                >
+                                                                    <Clear fontSize="small" />
+                                                                </IconButton>
+                                                            </Box>
+                                                        )}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                        />
+                                    </form>
+                                    {showResults && (
+                                        <SearchAutocomplete
+                                            loading={loading}
+                                            results={results}
+                                            selectedFilters={selectedFilters}
+                                            onFilterChange={handleFilterChange}
+                                            searchTerm={inputValue}
+                                            onShowMore={handleShowMore}
+                                            onClose={handleClose}
+                                            onResultClick={handleReset}
+                                            showInitialState={!inputValue}
+                                        />
                                     )}
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </form>
-                {showResults && (
-                    <SearchAutocomplete
-                        loading={loading}
-                        results={results}
-                        selectedFilters={selectedFilters}
-                        onFilterChange={handleFilterChange}
-                        searchTerm={inputValue}
-                        onShowMore={handleShowMore}
-                        onClose={handleClose}
-                        onResultClick={handleReset}
-                        showInitialState={!inputValue}
-                    />
+                                </Box>
+                            </ClickAwayListener>
+                        </Box>
+                    </motion.div>
                 )}
-            </Box>
-        </ClickAwayListener>
+            </AnimatePresence>
+        </Box>
     );
 };
 

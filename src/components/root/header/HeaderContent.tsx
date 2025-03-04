@@ -69,6 +69,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         py: 1.5,
                         backgroundColor: theme.vars.palette.primary.dark,
                         minHeight: 72,
+                        px: 2, // Slightly reduced horizontal padding
                     }}
                     component={"nav"}
                 >
@@ -110,52 +111,43 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             flexDirection: "row",
                             alignItems: "center",
                             width: "100%",
-                            gap: 2,
-                            px: 2,
+                            gap: 2, // Reduced gap
                         }}
                     >
-                        {/* Logo and Links - Fixed width container */}
-                        <Box
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                width: "auto",
-                                flexShrink: 0,
-                            }}
-                        >
+                        {/* Logo and Links */}
+                        <Box sx={{ 
+                            display: "flex", 
+                            alignItems: "center",
+                            minWidth: 0,
+                            flex: "1 1 auto", // Changed to auto growth
+                        }}>
                             <HeaderLinks genres={genres} />
                         </Box>
 
-                        {/* Search and Right Elements - Fixed positioning */}
+                        {/* Right side elements */}
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 2,
-                                ml: "auto",
-                                position: "relative",
+                                gap: 1.5,
+                                ml: 2, // Added margin left
+                                flex: "0 0 auto", // Changed to no growth
                             }}
                         >
-                            <Box
-                                sx={{
-                                    width: isSearchFocused ? 600 : 300,
-                                    transition: "none",
-                                }}
-                            >
+                            <Box sx={{ 
+                                width: '240px', // Fixed width for search
+                            }}>
                                 <SearchField
-                                    onFocusChange={setIsSearchFocused}
+                                    onFocusChange={handleSearchFocusChange}
                                     onClose={() => setIsSearchFocused(false)}
                                 />
                             </Box>
-
                             {!isSearchFocused && (
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "8px",
-                                    }}
-                                >
+                                <Box sx={{ 
+                                    display: "flex", 
+                                    alignItems: "center", 
+                                    gap: 1.5,
+                                }}>
                                     {session?.user && <MessageCounter session={session} />}
                                     {session?.user && <NotificationMenu session={session} />}
                                     <ThemeToggleButton />
@@ -171,18 +163,45 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             )}
                         </Box>
                     </Box>
+
+                    {/* Hamburger Button */}
+                    <Box
+                        sx={{
+                            display: {
+                                xs: "block",
+                                sm: "block",
+                                md: "none",
+                                lg: "none",
+                            },
+                        }}
+                    >
+                        <IconButton
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={() => setIsDrawerOpen(true)}
+                            sx={{
+                                color: theme.vars.palette.primary.main,
+                                "&:hover": {
+                                    color: theme.vars.palette.green.main,
+                                },
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Box>
+
+                    {/* Mobile Header Toggled sidebar */}
+                    <HeaderMobile
+                        genres={genres}
+                        anchorElProfile={anchorElProfile}
+                        openMenuProfile={openMenuProfile}
+                        closeMenuProfile={closeMenuProfile}
+                        handleSignOut={handleSignOut}
+                        session={session}
+                        userName={userName}
+                    />
                 </Toolbar>
             </AppBar>
-            {/* Mobile Header Toggled sidebar */}
-            <HeaderMobile
-                genres={genres}
-                anchorElProfile={anchorElProfile}
-                openMenuProfile={openMenuProfile}
-                closeMenuProfile={closeMenuProfile}
-                handleSignOut={handleSignOut}
-                session={session}
-                userName={userName}
-            />
         </>
     );
 }
