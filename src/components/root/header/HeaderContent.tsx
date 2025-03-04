@@ -69,7 +69,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         py: 1.5,
                         backgroundColor: theme.vars.palette.primary.dark,
                         minHeight: 72,
-                        px: 2, // Slightly reduced horizontal padding
+                        px: 2,
                     }}
                     component={"nav"}
                 >

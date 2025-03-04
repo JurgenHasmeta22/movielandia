@@ -56,9 +56,11 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
     const isActive = (path: string) => {
         if (path === "/") return pathname === "/";
+
         if (path === "/people") {
             return pathname.startsWith("/actors") || pathname.startsWith("/crew");
         }
+
         return pathname.startsWith(path);
     };
 
@@ -66,16 +68,16 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
         display: "flex",
         alignItems: "center",
         gap: 0.5,
-        fontSize: "0.9rem", // Slightly reduced font size
+        fontSize: "0.9rem",
         textTransform: "none",
         color: isActive(path) ? theme.vars.palette.green.main : theme.vars.palette.primary.main,
         borderBottom: isActive(path) ? `2px solid ${theme.vars.palette.green.main}` : "none",
         borderRadius: 0,
         fontWeight: 500,
-        letterSpacing: "0.01em", // Slightly reduced letter spacing
+        letterSpacing: "0.01em",
         height: 42,
-        px: 1.5, // Increased horizontal padding
-        minWidth: "auto", // Allow buttons to be more compact
+        px: 1.5,
+        minWidth: "auto",
         "&:hover": {
             backgroundColor: "transparent",
             color: theme.vars.palette.green.main,
@@ -93,7 +95,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                 sx={{
                     display: "flex",
                     alignItems: "center",
-                    flex: "0 0 auto", // Prevent flex growth
+                    flex: "0 0 auto",
                 }}
             >
                 <Button
@@ -124,7 +126,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                 sx={{
                     display: "flex",
                     alignItems: "center",
-                    flex: "0 0 auto", // Prevent flex growth
+                    flex: "0 0 auto",
                 }}
             >
                 <List
@@ -177,7 +179,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 }}
                                 startIcon={<PersonIcon />}
                             >
-                                People
+                                Cast & Crew
                             </Button>
                             <Popper
                                 open={peopleOpen}

@@ -186,7 +186,6 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
         fetchResults();
     }, [fetchResults]);
 
-    // Updated selected filters when URL params change
     useEffect(() => {
         const urlFilters = filtersSearch?.split(",") || [];
 
@@ -223,6 +222,7 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
             if (!showResults) {
                 setIsFocused(false);
                 onFocusChange?.(false);
+
                 // Reset input if there's no search term
                 if (!inputValue.trim()) {
                     setInputValue("");

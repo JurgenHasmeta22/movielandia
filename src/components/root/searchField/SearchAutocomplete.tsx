@@ -224,13 +224,13 @@ const SearchAutocomplete = ({
                 left: 0,
                 right: 0,
                 bgcolor: "background.paper",
-                borderRadius: { xs: "0 0 8px 8px", sm: 2 }, // Made responsive
-                boxShadow: 4, // Increased shadow
-                p: { xs: 1.5, sm: 2.5 }, // Made padding responsive
+                borderRadius: { xs: "0 0 8px 8px", sm: 2 },
+                boxShadow: 4,
+                p: { xs: 1.5, sm: 2.5 },
                 zIndex: 1000,
                 maxHeight: "80vh",
                 overflowY: "auto",
-                mt: 0.5, // Added margin top
+                mt: 0.5,
                 border: 1,
                 borderColor: "divider",
             }}
@@ -239,12 +239,12 @@ const SearchAutocomplete = ({
                 direction="row"
                 spacing={1}
                 sx={{
-                    mb: 2.5, // Increased from 2
-                    pb: 2.5, // Increased from 2
-                    borderBottom: 2, // Increased from 1
+                    mb: 2.5,
+                    pb: 2.5,
+                    borderBottom: 2,
                     borderColor: "divider",
                     flexWrap: "wrap",
-                    gap: { xs: 0.5, sm: 1 }, // Made gap responsive
+                    gap: { xs: 0.5, sm: 1 },
                     justifyContent: "center",
                 }}
             >
@@ -256,15 +256,15 @@ const SearchAutocomplete = ({
                         color={selectedFilters.includes(filter.value) ? "primary" : "default"}
                         variant={selectedFilters.includes(filter.value) ? "filled" : "outlined"}
                         sx={{
-                            borderRadius: 2, // Increased from 1
+                            borderRadius: 2,
                             minWidth: filter.value === "all" ? 80 : "auto",
-                            py: 0.25, // Added vertical padding
-                            fontSize: { xs: "0.75rem", sm: "0.875rem" }, // Made font size responsive
+                            py: 0.25,
+                            fontSize: { xs: "0.75rem", sm: "0.875rem" },
                             "&:hover": {
                                 bgcolor: selectedFilters.includes(filter.value)
                                     ? theme.vars.palette.primary.main
                                     : theme.vars.palette.action.hover,
-                                transform: "scale(1.05)", // Added hover effect
+                                transform: "scale(1.05)",
                                 transition: "transform 0.2s",
                             },
                         }}
