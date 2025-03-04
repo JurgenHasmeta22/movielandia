@@ -67,7 +67,7 @@ model User {
     email            String   @unique
     password         String?
     role             UserType @default(User)
-    bio              String   @db.Text()
+    bio              String?  @db.Text()
     active           Boolean  @default(false)
     canResetPassword Boolean  @default(false)
     subscribed       Boolean  @default(false)
