@@ -51,7 +51,7 @@ export default async function Page({ params, searchParams }: PageProps) {
             totalItems = total;
             break;
         }
-        
+
         case "series": {
             const { items, total } = await getPlaylistSeries(listId, currentUserId, page, itemsPerPage);
             content = items;

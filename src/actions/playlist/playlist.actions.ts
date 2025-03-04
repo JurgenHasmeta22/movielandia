@@ -59,9 +59,19 @@ export async function getUserPlaylists(userId: number, params: PlaylistParams = 
             prisma.playlist.count({ where }),
         ]);
 
-        return { items: playlists, total };
+        return {
+            items: playlists,
+            total,
+            success: true,
+        };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch user playlists");
+        console.error("Failed to fetch user playlists:", error);
+        return {
+            items: [],
+            total: 0,
+            success: false,
+            error: error instanceof Error ? error.message : "Failed to fetch user playlists",
+        };
     }
 }
 

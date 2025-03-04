@@ -133,7 +133,10 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     };
 
     const handleMainTabHover = (param: string) => {
-        setActiveMainTab(param);
+        const tab = myStuffTabs.find((t) => t.param === param);
+        if (!tab?.noSubMenu) {
+            setActiveMainTab(param);
+        }
     };
 
     const handleMainTabLeave = () => {
@@ -181,6 +184,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
             icon: <CollectionsBookmarkIcon />,
             param: "lists",
             href: session?.user ? `/users/${session.user.id}/${session.user.userName}/lists` : undefined,
+            noSubMenu: true, // Add this flag
         },
         { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
         { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
@@ -605,10 +609,20 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 onClick={() => {
                                                                     if (isDrawerOpen) setIsDrawerOpen(false);
                                                                     handleSubMenuLeave();
+                                                                    setActiveMainTab(null); // Add this to clear the active tab
+                                                                    setIsSubMenuHovered(false); // Add this to ensure sub-menu state is cleared
                                                                 }}
                                                             >
                                                                 <Box
-                                                                    onMouseEnter={() => handleMainTabHover(tab.param)}
+                                                                    onMouseEnter={() => {
+                                                                        if (!tab.noSubMenu) {
+                                                                            handleMainTabHover(tab.param);
+                                                                        } else {
+                                                                            // For Lists, clear any active sub-menu
+                                                                            setActiveMainTab(null);
+                                                                            setIsSubMenuHovered(false);
+                                                                        }
+                                                                    }}
                                                                     sx={{
                                                                         display: "flex",
                                                                         alignItems: "center",

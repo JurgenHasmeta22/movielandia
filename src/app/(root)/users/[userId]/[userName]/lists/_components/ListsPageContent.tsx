@@ -1,5 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 import { Playlist } from "@prisma/client";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import ListTypeSelect from "./ListTypeSelect";
@@ -34,17 +35,53 @@ export default function ListsPageContent({
         return (
             <Box
                 sx={{
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: "60vh",
                     px: { xs: 2, sm: 3, md: 4 },
-                    textAlign: "center",
-                    py: 4,
                 }}
             >
-                <Typography variant="h6" color="text.secondary">
-                    No lists found
-                </Typography>
+                <Paper
+                    elevation={0}
+                    sx={{
+                        py: 8,
+                        px: 4,
+                        textAlign: "center",
+                        backgroundColor: "transparent",
+                        maxWidth: 600,
+                    }}
+                >
+                    <PlaylistAddIcon
+                        sx={{
+                            fontSize: 80,
+                            color: "text.secondary",
+                            opacity: 0.6,
+                            mb: 3,
+                        }}
+                    />
+                    <Typography
+                        variant="h5"
+                        color="text.primary"
+                        sx={{
+                            mb: 2,
+                            fontWeight: 500,
+                        }}
+                    >
+                        No Lists Found
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        color="text.secondary"
+                        sx={{
+                            maxWidth: 450,
+                            mx: "auto",
+                            lineHeight: 1.6,
+                        }}
+                    >
+                        Start creating your first list to keep track of your favorite movies, TV shows, and more.
+                    </Typography>
+                </Paper>
             </Box>
         );
     }
