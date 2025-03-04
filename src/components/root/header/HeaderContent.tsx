@@ -108,48 +108,37 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                 md: "flex",
                                 lg: "flex",
                             },
-                            flexDirection: "row",
-                            alignItems: "center",
                             width: "100%",
-                            gap: 2, // Reduced gap
+                            alignItems: "center",
                         }}
                     >
-                        {/* Logo and Links */}
-                        <Box sx={{ 
-                            display: "flex", 
-                            alignItems: "center",
-                            minWidth: 0,
-                            flex: "1 1 auto", // Changed to auto growth
-                        }}>
-                            <HeaderLinks genres={genres} />
-                        </Box>
-
-                        {/* Right side elements */}
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 1.5,
-                                ml: 2, // Added margin left
-                                flex: "0 0 auto", // Changed to no growth
+                                flex: "0 0 auto",
                             }}
                         >
-                            <Box sx={{ 
-                                width: '240px', // Fixed width for search
-                            }}>
-                                <SearchField
-                                    onFocusChange={handleSearchFocusChange}
-                                    onClose={() => setIsSearchFocused(false)}
-                                />
-                            </Box>
+                            <HeaderLinks genres={genres} />
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.5,
+                                ml: "auto",
+                                flex: "0 0 auto",
+                            }}
+                        >
+                            {session?.user && <MessageCounter session={session} />}
+                            {session?.user && <NotificationMenu session={session} />}
+                            <SearchField
+                                onFocusChange={handleSearchFocusChange}
+                                onClose={() => setIsSearchFocused(false)}
+                            />
                             {!isSearchFocused && (
-                                <Box sx={{ 
-                                    display: "flex", 
-                                    alignItems: "center", 
-                                    gap: 1.5,
-                                }}>
-                                    {session?.user && <MessageCounter session={session} />}
-                                    {session?.user && <NotificationMenu session={session} />}
+                                <>
                                     <ThemeToggleButton />
                                     <AuthButtons
                                         session={session}
@@ -159,7 +148,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                         openMenuProfile={openMenuProfile}
                                         handleSignOut={handleSignOut}
                                     />
-                                </Box>
+                                </>
                             )}
                         </Box>
                     </Box>
