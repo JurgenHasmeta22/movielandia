@@ -42,7 +42,12 @@ const filters = [
     { label: "Users", value: "users" },
 ];
 
-const SearchField = () => {
+interface SearchFieldProps {
+    onFocusChange?: (focused: boolean) => void;
+    onClose?: () => void;
+}
+
+const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
     const router = useRouter();
 
     const [filtersSearch, setFiltersSearch] = useQueryState("filters", {
@@ -68,6 +73,8 @@ const SearchField = () => {
     const [loading, setLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
     const [results, setResults] = useState<SearchResults>(emptyResults);
+    const [isFocused, setIsFocused] = useState(false);
+    const theme = useTheme();
 
     const debouncedSearch = useDebounce(inputValue, 50);
 
@@ -201,6 +208,26 @@ const SearchField = () => {
         }
     };
 
+    const handleFocusEnhanced = () => {
+        setIsFocused(true);
+        onFocusChange?.(true);
+        handleFocus();
+    };
+
+    const handleBlurEnhanced = () => {
+        // Small delay to allow click events to process
+        setTimeout(() => {
+            if (!showResults) {
+                setIsFocused(false);
+                onFocusChange?.(false);
+                // Reset input if there's no search term
+                if (!inputValue.trim()) {
+                    setInputValue('');
+                }
+            }
+        }, 100);
+    };
+
     const handleFocus = () => {
         setShowResults(true);
 
@@ -212,6 +239,12 @@ const SearchField = () => {
 
     const handleClose = () => {
         setShowResults(false);
+        setIsFocused(false);
+        onFocusChange?.(false);
+        onClose?.();
+        if (!inputValue.trim()) {
+            setInputValue('');
+        }
     };
 
     const handleReset = () => {
@@ -227,43 +260,48 @@ const SearchField = () => {
         }
     };
 
+    const handleClickAway = () => {
+        handleClose();
+    };
+
     return (
-        <ClickAwayListener onClickAway={handleClose}>
-            <Box sx={{ position: "relative", width: { xs: "100%", md: "200px" } }}>
-                <form onSubmit={handleSubmit} style={{ display: "flex" }}>
+        <ClickAwayListener onClickAway={handleClickAway}>
+            <Box sx={{ position: "relative", width: "100%" }}>
+                <form onSubmit={handleSubmit} style={{ display: "flex", width: "100%" }}>
                     <TextField
                         size="small"
                         placeholder="Search..."
                         value={inputValue}
                         onChange={handleInputChange}
-                        onFocus={handleFocus}
+                        onFocus={handleFocusEnhanced}
                         onKeyDown={handleKeyDown}
                         sx={{
-                            width: { xs: "100%", md: "240px" },
+                            width: "100%",
                             "& .MuiInputBase-root": {
                                 height: 38,
-                                fontSize: "0.92rem",
+                                pr: 1,
                             },
                         }}
-                        slotProps={{
-                            input: {
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <IconButton type="submit" size="small" aria-label="search">
-                                            <Search />
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Search sx={{ color: "text.secondary" }} />
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    {isFocused && (
+                                        <IconButton
+                                            size="small"
+                                            onClick={handleClose}
+                                            sx={{ mr: 0.5 }}
+                                            aria-label="close search"
+                                        >
+                                            <Clear fontSize="small" />
                                         </IconButton>
-                                    </InputAdornment>
-                                ),
-                                endAdornment: inputValue && (
-                                    <InputAdornment position="end">
-                                        <Clear
-                                            sx={{ cursor: "pointer" }}
-                                            onClick={handleClear}
-                                            aria-label="clear search"
-                                        />
-                                    </InputAdornment>
-                                ),
-                            },
+                                    )}
+                                </InputAdornment>
+                            ),
                         }}
                     />
                 </form>

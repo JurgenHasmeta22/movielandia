@@ -111,9 +111,9 @@ export async function getMoviesWithFilters(
 }
 
 export async function getMoviesForHomePage(): Promise<Movie[]> {
-    // "use cache";
+    "use cache";
 
-    // cacheLife("days");
+    cacheLife("days");
 
     const movies = await prisma.movie.findMany({
         orderBy: { dateAired: "desc" },

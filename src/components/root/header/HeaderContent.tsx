@@ -17,6 +17,7 @@ import SearchField from "../searchField/SearchField";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
 import MessageCounter from "./MessageCounter";
+import { motion } from "framer-motion";
 
 interface IHeaderContentProps {
     session: Session | null;
@@ -26,10 +27,11 @@ interface IHeaderContentProps {
 
 export function HeaderContent({ session, genres, userName }: IHeaderContentProps) {
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
+    const theme = useTheme();
 
     const router = useRouter();
-    const theme = useTheme();
 
     const openMenuProfile = (event: any) => {
         setAnchorElProfile(event.currentTarget);
@@ -52,6 +54,10 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
         showToast("success", "You are succesfully logged out!");
     };
 
+    const handleSearchFocusChange = (focused: boolean) => {
+        setIsSearchFocused(focused);
+    };
+
     return (
         <>
             <AppBar position="fixed" component={"header"}>
@@ -59,12 +65,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                     sx={{
                         display: "flex",
                         flexDirection: "row",
-                        justifyContent: {
-                            xs: "flex-start",
-                            sm: "flex-start",
-                            md: "space-between",
-                            lg: "space-between",
-                        },
+                        justifyContent: "space-between",
                         flexWrap: "nowrap",
                         py: 1.5,
                         backgroundColor: theme.vars.palette.primary.dark,
@@ -86,9 +87,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                         <IconButton
                             aria-label="open drawer"
                             edge="start"
-                            onClick={() => {
-                                setIsDrawerOpen(true);
-                            }}
+                            onClick={() => setIsDrawerOpen(true)}
                             sx={{
                                 color: theme.vars.palette.primary.main,
                                 "&:hover": {
@@ -99,6 +98,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             <MenuIcon />
                         </IconButton>
                     </Box>
+
                     {/* Desktop Navigation */}
                     <Box
                         sx={{
@@ -110,34 +110,70 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                             },
                             flexDirection: "row",
                             alignItems: "center",
-                            justifyContent: "space-between",
                             width: "100%",
+                            gap: 2,
                             px: 2,
                         }}
                     >
-                        <HeaderLinks genres={genres} />
+                        {/* Logo and Links - Fixed width container */}
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 0.5,
-                                ml: "auto",
-                                height: "100%",
+                                width: "auto",
                                 flexShrink: 0,
                             }}
                         >
-                            <SearchField />
-                            {session?.user && <MessageCounter session={session} />}
-                            {session?.user && <NotificationMenu session={session} />}
-                            <ThemeToggleButton />
-                            <AuthButtons
-                                session={session}
-                                userName={userName}
-                                anchorElProfile={anchorElProfile}
-                                closeMenuProfile={closeMenuProfile}
-                                openMenuProfile={openMenuProfile}
-                                handleSignOut={handleSignOut}
-                            />
+                            <HeaderLinks genres={genres} />
+                        </Box>
+
+                        {/* Search and Right Elements - Fixed positioning */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 2,
+                                ml: "auto",
+                                position: "relative",
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    width: isSearchFocused ? 600 : 300,
+                                    transition: "width 0.3s ease-in-out",
+                                    position: "relative",
+                                }}
+                            >
+                                <SearchField 
+                                    onFocusChange={setIsSearchFocused}
+                                    onClose={() => setIsSearchFocused(false)}
+                                />
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                    opacity: isSearchFocused ? 0 : 1,
+                                    visibility: isSearchFocused ? "hidden" : "visible",
+                                    transition: "opacity 0.3s ease-in-out",
+                                    position: "relative",
+                                    flexShrink: 0,
+                                }}
+                            >
+                                {session?.user && <MessageCounter session={session} />}
+                                {session?.user && <NotificationMenu session={session} />}
+                                <ThemeToggleButton />
+                                <AuthButtons
+                                    session={session}
+                                    userName={userName}
+                                    anchorElProfile={anchorElProfile}
+                                    closeMenuProfile={closeMenuProfile}
+                                    openMenuProfile={openMenuProfile}
+                                    handleSignOut={handleSignOut}
+                                />
+                            </Box>
                         </Box>
                     </Box>
                 </Toolbar>

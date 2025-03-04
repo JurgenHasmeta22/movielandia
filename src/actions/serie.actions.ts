@@ -115,9 +115,9 @@ export async function getSeriesWithFilters(
 }
 
 export async function getSeriesForHomePage(): Promise<Serie[]> {
-    // "use cache";
+    "use cache";
 
-    // cacheLife("days");
+    cacheLife("days");
 
     const series = await prisma.serie.findMany({
         orderBy: { dateAired: "desc" },

@@ -1,5 +1,3 @@
-"use cache";
-
 import { Stack, Box, Container } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";
@@ -38,8 +36,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    cacheLife("days");
-
     const movies: Movie[] = await getMoviesForHomePage();
     const series: Serie[] = await getSeriesForHomePage();
 
