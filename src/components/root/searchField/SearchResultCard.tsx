@@ -120,58 +120,60 @@ const SearchResultCard = ({ data, type, path, onResultClick }: SearchResultCardP
             <Box
                 sx={{
                     display: "flex",
-                    gap: 1.5,
-                    p: 1.5,
+                    gap: 2,
+                    p: { xs: 1.5, sm: 2 },
                     borderRadius: 1,
                     transition: "all 0.2s",
                     "&:hover": {
                         bgcolor: theme.vars.palette.action.hover,
+                        transform: "translateX(4px)",
                     },
                 }}
             >
                 <Box
                     sx={{
                         position: "relative",
-                        width: 45,
-                        height: 65,
+                        width: { xs: 45, sm: 55 },
+                        height: { xs: 65, sm: 75 },
                         flexShrink: 0,
-                        borderRadius: 0.5,
+                        borderRadius: 1,
                         overflow: "hidden",
+                        boxShadow: 1,
                     }}
                 >
                     <Image
                         src={data.photoSrcProd || "/images/placeholder.jpg"}
                         alt={data.description || "No description available"}
                         fill
-                        sizes="45px"
+                        sizes="(max-width: 600px) 45px, 55px"
                         style={{ objectFit: "cover" }}
                         priority
                     />
                 </Box>
-                <Box sx={{ overflow: "hidden" }}>
+                <Box sx={{ overflow: "hidden", flex: 1 }}>
                     <Typography
-                        variant="subtitle2"
+                        variant="subtitle1"
                         sx={{
                             fontWeight: 600,
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
                             color: theme.vars.palette.text.primary,
-                            mb: 0.5,
+                            mb: 0.75,
                         }}
                     >
                         {getDisplayTitle()}
                     </Typography>
                     {getDescription() && (
                         <Typography
-                            variant="caption"
+                            variant="body2"
                             sx={{
                                 color: theme.vars.palette.text.secondary,
                                 display: "-webkit-box",
                                 WebkitLineClamp: 2,
                                 WebkitBoxOrient: "vertical",
                                 overflow: "hidden",
-                                lineHeight: 1.2,
+                                lineHeight: 1.4,
                             }}
                         >
                             {getDescription()}

@@ -2,8 +2,6 @@
 
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
-import { unstable_cache } from "next/cache";
-import { CACHE_TAGS, CACHE_TIMES } from "@/utils/cache.utils";
 import { getReferer } from "../user/user.actions";
 
 export async function createCategory(name: string, description: string, order: number = 0): Promise<void> {
@@ -201,22 +199,11 @@ export async function removeModerator(categoryId: number, userId: number): Promi
 }
 
 export async function getForumStats() {
-    const cachedForumStats = unstable_cache(
-        async () => {
-            const [categoriesCount, topicsCount, postsCount] = await Promise.all([
-                prisma.forumCategory.count(),
-                prisma.forumTopic.count(),
-                prisma.forumPost.count(),
-            ]);
+    const [categoriesCount, topicsCount, postsCount] = await Promise.all([
+        prisma.forumCategory.count(),
+        prisma.forumTopic.count(),
+        prisma.forumPost.count(),
+    ]);
 
-            return { categoriesCount, topicsCount, postsCount };
-        },
-        ["forum-stats"],
-        {
-            revalidate: CACHE_TIMES.DAY,
-            tags: [CACHE_TAGS.FORUM],
-        },
-    );
-
-    return cachedForumStats();
+    return { categoriesCount, topicsCount, postsCount };
 }

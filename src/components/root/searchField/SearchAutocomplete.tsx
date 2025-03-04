@@ -224,24 +224,27 @@ const SearchAutocomplete = ({
                 left: 0,
                 right: 0,
                 bgcolor: "background.paper",
-                borderRadius: 1,
-                boxShadow: theme.shadows[3],
-                p: 2,
+                borderRadius: { xs: "0 0 8px 8px", sm: 2 }, // Made responsive
+                boxShadow: 4, // Increased shadow
+                p: { xs: 1.5, sm: 2.5 }, // Made padding responsive
                 zIndex: 1000,
                 maxHeight: "80vh",
                 overflowY: "auto",
+                mt: 0.5, // Added margin top
+                border: 1,
+                borderColor: "divider",
             }}
         >
             <Stack
                 direction="row"
                 spacing={1}
                 sx={{
-                    mb: 2,
-                    pb: 2,
-                    borderBottom: 1,
+                    mb: 2.5, // Increased from 2
+                    pb: 2.5, // Increased from 2
+                    borderBottom: 2, // Increased from 1
                     borderColor: "divider",
                     flexWrap: "wrap",
-                    gap: 1,
+                    gap: { xs: 0.5, sm: 1 }, // Made gap responsive
                     justifyContent: "center",
                 }}
             >
@@ -253,12 +256,16 @@ const SearchAutocomplete = ({
                         color={selectedFilters.includes(filter.value) ? "primary" : "default"}
                         variant={selectedFilters.includes(filter.value) ? "filled" : "outlined"}
                         sx={{
-                            borderRadius: 1,
+                            borderRadius: 2, // Increased from 1
                             minWidth: filter.value === "all" ? 80 : "auto",
+                            py: 0.25, // Added vertical padding
+                            fontSize: { xs: "0.75rem", sm: "0.875rem" }, // Made font size responsive
                             "&:hover": {
                                 bgcolor: selectedFilters.includes(filter.value)
                                     ? theme.vars.palette.primary.main
                                     : theme.vars.palette.action.hover,
+                                transform: "scale(1.05)", // Added hover effect
+                                transition: "transform 0.2s",
                             },
                         }}
                     />
