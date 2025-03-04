@@ -14,8 +14,7 @@ interface PlaylistParams {
     isArchived?: boolean;
 }
 
-// #region "GET Methods"
-export async function getPlaylists(userId: number, params: PlaylistParams = {}) {
+export async function getUserPlaylists(userId: number, params: PlaylistParams = {}) {
     const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", type, isPrivate, isArchived } = params;
 
     const skip = (page - 1) * perPage;
@@ -62,7 +61,7 @@ export async function getPlaylists(userId: number, params: PlaylistParams = {}) 
 
         return { items: playlists, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlists");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch user playlists");
     }
 }
 

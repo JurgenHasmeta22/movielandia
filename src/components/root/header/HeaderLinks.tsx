@@ -176,6 +176,12 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     ];
 
     const myStuffTabs = [
+        {
+            label: "Lists",
+            icon: <CollectionsBookmarkIcon />,
+            param: "lists",
+            href: session?.user ? `/users/${session.user.id}/${session.user.userName}/lists` : undefined,
+        },
         { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
         { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
         { label: "Downvotes", icon: <ThumbDownIcon />, param: "downvotes" },
@@ -589,30 +595,71 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                             },
                                                         }}
                                                     >
-                                                        <Box
-                                                            onMouseEnter={() => handleMainTabHover(tab.param)}
-                                                            sx={{
-                                                                display: "flex",
-                                                                alignItems: "center",
-                                                                gap: 1,
-                                                                px: 2,
-                                                                py: 1.5,
-                                                                transition: "all 0.2s",
-                                                                bgcolor:
-                                                                    activeMainTab === tab.param
-                                                                        ? "action.selected"
-                                                                        : "transparent",
-                                                                "&:hover": {
-                                                                    backgroundColor: theme.vars.palette.action.hover,
+                                                        {tab.href ? (
+                                                            <Link
+                                                                href={tab.href}
+                                                                style={{
+                                                                    textDecoration: "none",
                                                                     color: theme.vars.palette.primary.main,
-                                                                },
-                                                            }}
-                                                        >
-                                                            {tab.icon}
-                                                            <Typography sx={{ fontSize: "0.875rem" }}>
-                                                                {tab.label}
-                                                            </Typography>
-                                                        </Box>
+                                                                }}
+                                                                onClick={() => {
+                                                                    if (isDrawerOpen) setIsDrawerOpen(false);
+                                                                    handleSubMenuLeave();
+                                                                }}
+                                                            >
+                                                                <Box
+                                                                    onMouseEnter={() => handleMainTabHover(tab.param)}
+                                                                    sx={{
+                                                                        display: "flex",
+                                                                        alignItems: "center",
+                                                                        gap: 1,
+                                                                        px: 2,
+                                                                        py: 1.5,
+                                                                        transition: "all 0.2s",
+                                                                        bgcolor:
+                                                                            activeMainTab === tab.param
+                                                                                ? "action.selected"
+                                                                                : "transparent",
+                                                                        "&:hover": {
+                                                                            backgroundColor:
+                                                                                theme.vars.palette.action.hover,
+                                                                            color: theme.vars.palette.primary.main,
+                                                                        },
+                                                                    }}
+                                                                >
+                                                                    {tab.icon}
+                                                                    <Typography sx={{ fontSize: "0.875rem" }}>
+                                                                        {tab.label}
+                                                                    </Typography>
+                                                                </Box>
+                                                            </Link>
+                                                        ) : (
+                                                            <Box
+                                                                onMouseEnter={() => handleMainTabHover(tab.param)}
+                                                                sx={{
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                    gap: 1,
+                                                                    px: 2,
+                                                                    py: 1.5,
+                                                                    transition: "all 0.2s",
+                                                                    bgcolor:
+                                                                        activeMainTab === tab.param
+                                                                            ? "action.selected"
+                                                                            : "transparent",
+                                                                    "&:hover": {
+                                                                        backgroundColor:
+                                                                            theme.vars.palette.action.hover,
+                                                                        color: theme.vars.palette.primary.main,
+                                                                    },
+                                                                }}
+                                                            >
+                                                                {tab.icon}
+                                                                <Typography sx={{ fontSize: "0.875rem" }}>
+                                                                    {tab.label}
+                                                                </Typography>
+                                                            </Box>
+                                                        )}
                                                     </motion.div>
                                                 ))}
                                             </Box>

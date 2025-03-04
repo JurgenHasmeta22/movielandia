@@ -59,7 +59,7 @@ export default function LoadingSkeletonSearch() {
             </Box>
 
             {/* Repeated Search List Sections Skeleton */}
-            {Array.from(new Array(3)).map((_, secIndex) => (
+            {Array.from(new Array(7)).map((_, secIndex) => (
                 <Box key={secIndex} sx={{ mb: 6 }}>
                     {/* Section Header with Title, Count, and Wider SortSelect Skeleton */}
                     <Box
