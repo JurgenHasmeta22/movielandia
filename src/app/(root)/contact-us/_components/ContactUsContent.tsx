@@ -86,7 +86,7 @@ const ContactUsContent = () => {
                                 component={motion.div}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
+                                transition={{ duration: 0.3, delay: 0.2 }}
                             >
                                 <Stack direction="row" spacing={2} alignItems="center">
                                     <EmailIcon
@@ -111,7 +111,7 @@ const ContactUsContent = () => {
                                 component={motion.div}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 }}
+                                transition={{ duration: 0.3, delay: 0.2 }}
                             >
                                 <Stack direction="row" spacing={2} alignItems="center">
                                     <PhoneIcon
@@ -136,7 +136,7 @@ const ContactUsContent = () => {
                                 component={motion.div}
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.6 }}
+                                transition={{ duration: 0.3, delay: 0.2 }}
                             >
                                 <Stack direction="row" spacing={2} alignItems="center">
                                     <LocationOnIcon
@@ -166,7 +166,7 @@ const ContactUsContent = () => {
                         component={motion.div}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
                     >
                         <Paper
                             elevation={0}

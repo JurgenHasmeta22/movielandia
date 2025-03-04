@@ -58,7 +58,7 @@ const AboutUsContent = () => {
                             component={motion.div}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
                         >
                             <MovieIcon sx={{ fontSize: 80, color: theme.vars.palette.red.main }} />
                             <Box>
@@ -82,7 +82,7 @@ const AboutUsContent = () => {
                             component={motion.div}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: 0.4 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
                         >
                             <TheatersIcon sx={{ fontSize: 80, color: theme.vars.palette.red.main }} />
                             <Box>
@@ -107,7 +107,7 @@ const AboutUsContent = () => {
                             component={motion.div}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: 0.6 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
                         >
                             <LocalMoviesIcon sx={{ fontSize: 80, color: theme.vars.palette.red.main }} />
                             <Box>

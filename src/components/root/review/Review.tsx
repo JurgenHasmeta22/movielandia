@@ -278,7 +278,7 @@ const Review: React.FC<IReviewProps> = ({
                     <motion.div
                         whileTap={{ scale: 1 }}
                         animate={isClickedUpvote ? { scale: [1, 1.5, 1] } : {}}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
                         <IconButton
                             size="medium"
@@ -322,7 +322,7 @@ const Review: React.FC<IReviewProps> = ({
                     <motion.div
                         whileTap={{ scale: 1 }}
                         animate={isClickedDownvote ? { scale: [1, 1.5, 1] } : {}}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
                         <IconButton
                             size="medium"
