@@ -6,7 +6,7 @@ import { Genre } from "@prisma/client";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MovieIcon from "@mui/icons-material/Movie";
@@ -14,6 +14,12 @@ import TvIcon from "@mui/icons-material/Tv";
 import CategoryIcon from "@mui/icons-material/Category";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupIcon from "@mui/icons-material/Group";
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import { useSession } from "next-auth/react";
 
 interface IHeaderLinksProps {
     genres: Genre[];
@@ -22,9 +28,13 @@ interface IHeaderLinksProps {
 export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const [genresOpen, setGenresOpen] = useState(false);
     const [peopleOpen, setPeopleOpen] = useState(false);
+    const [myStuffOpen, setMyStuffOpen] = useState(false);
     const [genresAnchorEl, setGenresAnchorEl] = useState<null | HTMLElement>(null);
     const [peopleAnchorEl, setPeopleAnchorEl] = useState<null | HTMLElement>(null);
+    const [myStuffAnchorEl, setMyStuffAnchorEl] = useState<null | HTMLElement>(null);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
+    const { data: session } = useSession();
+    const router = useRouter();
 
     const pathname = usePathname();
     const theme = useTheme();
@@ -32,6 +42,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     useEffect(() => {
         handleGenresLeave();
         handlePeopleLeave();
+        handleMyStuffLeave();
     }, [pathname]);
 
     const handleGenresHover = (event: React.MouseEvent<HTMLElement>) => {
@@ -52,6 +63,18 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const handlePeopleLeave = () => {
         setPeopleOpen(false);
         setPeopleAnchorEl(null);
+    };
+
+    const handleMyStuffHover = (event: React.MouseEvent<HTMLElement>) => {
+        if (session?.user) {
+            setMyStuffAnchorEl(event.currentTarget);
+            setMyStuffOpen(true);
+        }
+    };
+
+    const handleMyStuffLeave = () => {
+        setMyStuffOpen(false);
+        setMyStuffAnchorEl(null);
     };
 
     const isActive = (path: string) => {
@@ -87,6 +110,13 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const peopleLinks = [
         { path: "/actors", name: "Actors", icon: <PersonIcon /> },
         { path: "/crew", name: "Crew", icon: <GroupIcon /> },
+    ];
+
+    const myStuffTabs = [
+        { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
+        { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
+        { label: "Downvotes", icon: <ThumbDownIcon />, param: "downvotes" },
+        { label: "Reviews", icon: <RateReviewIcon />, param: "reviews" },
     ];
 
     return (
@@ -392,6 +422,97 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             </Popper>
                         </Box>
                     </ListItem>
+                    {session?.user && (
+                        <ListItem sx={{ width: "auto", p: 0.25 }}>
+                            <Box onMouseEnter={handleMyStuffHover} onMouseLeave={handleMyStuffLeave}>
+                                <Button
+                                    variant="text"
+                                    component="div"
+                                    disableRipple
+                                    sx={getButtonStyle("/users")}
+                                    startIcon={<CollectionsBookmarkIcon />}
+                                >
+                                    My Stuff
+                                </Button>
+                                <Popper
+                                    open={myStuffOpen}
+                                    anchorEl={myStuffAnchorEl}
+                                    placement={isDrawerOpen ? "right-start" : "bottom-start"}
+                                    sx={{
+                                        zIndex: 1300,
+                                        ...(isDrawerOpen && {
+                                            position: "fixed",
+                                            left: "240px",
+                                        }),
+                                    }}
+                                >
+                                    <AnimatePresence>
+                                        {myStuffOpen && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -20 }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 260,
+                                                    damping: 20,
+                                                }}
+                                                style={{ transformOrigin: "top" }}
+                                            >
+                                                <Paper sx={{ mt: 1, minWidth: 180 }}>
+                                                    {myStuffTabs.map((tab, index) => (
+                                                        <motion.div
+                                                            key={tab.param}
+                                                            initial={{ opacity: 0, x: -20 }}
+                                                            animate={{
+                                                                opacity: 1,
+                                                                x: 0,
+                                                                transition: {
+                                                                    delay: index * 0.1,
+                                                                },
+                                                            }}
+                                                        >
+                                                            <Link
+                                                                href={`/users/${session.user.id}/${session.user.name}?maintab=${tab.param}&subtab=movies`}
+                                                                style={{
+                                                                    textDecoration: "none",
+                                                                    color: theme.vars.palette.primary.main,
+                                                                }}
+                                                                onClick={() => {
+                                                                    if (isDrawerOpen) setIsDrawerOpen(false);
+                                                                    handleMyStuffLeave();
+                                                                }}
+                                                            >
+                                                                <Box
+                                                                    sx={{
+                                                                        display: "flex",
+                                                                        alignItems: "center",
+                                                                        gap: 1,
+                                                                        px: 2,
+                                                                        py: 1.5,
+                                                                        transition: "all 0.2s",
+                                                                        "&:hover": {
+                                                                            backgroundColor: theme.vars.palette.action.hover,
+                                                                            color: theme.vars.palette.primary.main,
+                                                                        },
+                                                                    }}
+                                                                >
+                                                                    {tab.icon}
+                                                                    <Typography sx={{ fontSize: "0.875rem" }}>
+                                                                        {tab.label}
+                                                                    </Typography>
+                                                                </Box>
+                                                            </Link>
+                                                        </motion.div>
+                                                    ))}
+                                                </Paper>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </Popper>
+                            </Box>
+                        </ListItem>
+                    )}
                 </List>
             </Box>
         </>

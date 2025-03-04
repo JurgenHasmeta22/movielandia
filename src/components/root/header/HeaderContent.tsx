@@ -131,14 +131,18 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
                                 flex: "0 0 auto",
                             }}
                         >
-                            {session?.user && <MessageCounter session={session} />}
-                            {session?.user && <NotificationMenu session={session} />}
                             <SearchField
                                 onFocusChange={handleSearchFocusChange}
                                 onClose={() => setIsSearchFocused(false)}
                             />
                             {!isSearchFocused && (
                                 <>
+                                    {session?.user && (
+                                        <>
+                                            <MessageCounter session={session} />
+                                            <NotificationMenu session={session} />
+                                        </>
+                                    )}
                                     <ThemeToggleButton />
                                     <AuthButtons
                                         session={session}

@@ -70,56 +70,59 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ account, profile }) {
             if (account?.provider === "google") {
-                const existingUser = await prisma.user.findUnique({
-                    where: { email: profile?.email },
-                    include: { accounts: true },
-                });
-
-                if (!existingUser) {
-                    // Creating a new user if doesn't exist for google auth0
-                    const newUser = await prisma.user.create({
-                        data: {
-                            email: profile?.email,
-                            userName: profile?.name ?? "Google User",
-                            active: true,
-                            role: "User",
-                        },
+                try {
+                    const existingUser = await prisma.user.findUnique({
+                        where: { email: profile?.email },
+                        include: { accounts: true },
                     });
 
-                    // Create the account link, this is the most important which fixed it
-                    await prisma.account.create({
-                        data: {
-                            userId: newUser.id,
-                            type: account.type,
-                            provider: account.provider,
-                            providerAccountId: account.providerAccountId,
-                            access_token: account.access_token,
-                            token_type: account.token_type,
-                            scope: account.scope,
-                            id_token: account.id_token,
-                        },
-                    });
+                    if (!existingUser) {
+                        const newUser = await prisma.user.create({
+                            data: {
+                                email: profile?.email!,
+                                userName: profile?.name ?? "Google User",
+                                active: true,
+                                role: "User",
+                            },
+                        });
+
+                        await prisma.account.create({
+                            data: {
+                                userId: newUser.id,
+                                type: account.type,
+                                provider: account.provider,
+                                providerAccountId: account.providerAccountId,
+                                access_token: account.access_token,
+                                token_type: account.token_type,
+                                scope: account.scope,
+                                id_token: account.id_token,
+                            },
+                        });
+
+                        return true;
+                    }
+
+                    // If user exists but no account is linked
+                    if (existingUser && !existingUser.accounts.length) {
+                        await prisma.account.create({
+                            data: {
+                                userId: existingUser.id,
+                                type: account.type,
+                                provider: account.provider,
+                                providerAccountId: account.providerAccountId,
+                                access_token: account.access_token,
+                                token_type: account.token_type,
+                                scope: account.scope,
+                                id_token: account.id_token,
+                            },
+                        });
+                    }
 
                     return true;
+                } catch (error) {
+                    console.error("Error in Google sign-in:", error);
+                    return false;
                 }
-
-                // If user exists but no account is linked, link the account
-                if (existingUser && !existingUser.accounts.length) {
-                    await prisma.account.create({
-                        data: {
-                            userId: existingUser.id,
-                            type: account.type,
-                            provider: account.provider,
-                            providerAccountId: account.providerAccountId,
-                            access_token: account.access_token,
-                            token_type: account.token_type,
-                            scope: account.scope,
-                            id_token: account.id_token,
-                        },
-                    });
-                }
-
-                return true;
             }
 
             return true;

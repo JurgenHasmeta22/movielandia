@@ -34,30 +34,30 @@ function getRandomDuration(min: number, max: number): number {
 async function createStuff() {
     try {
         // #region "Deleting data"
-        await prisma.serieGenre.deleteMany();
-        await prisma.movieGenre.deleteMany();
+        // await prisma.serieGenre.deleteMany();
+        // await prisma.movieGenre.deleteMany();
 
-        await prisma.castMovie.deleteMany();
-        await prisma.castSerie.deleteMany();
+        // await prisma.castMovie.deleteMany();
+        // await prisma.castSerie.deleteMany();
 
-        await prisma.actor.deleteMany();
-        await prisma.crewMovie.deleteMany();
-        await prisma.crewSerie.deleteMany();
+        // await prisma.actor.deleteMany();
+        // await prisma.crewMovie.deleteMany();
+        // await prisma.crewSerie.deleteMany();
 
-        await prisma.crewReview.deleteMany();
-        await prisma.upvoteCrewReview.deleteMany();
-        await prisma.downvoteCrewReview.deleteMany();
-        await prisma.crew.deleteMany();
+        // await prisma.crewReview.deleteMany();
+        // await prisma.upvoteCrewReview.deleteMany();
+        // await prisma.downvoteCrewReview.deleteMany();
+        // await prisma.crew.deleteMany();
 
-        await prisma.movieReview.deleteMany();
-        await prisma.upvoteMovieReview.deleteMany();
-        await prisma.downvoteMovieReview.deleteMany();
+        // await prisma.movieReview.deleteMany();
+        // await prisma.upvoteMovieReview.deleteMany();
+        // await prisma.downvoteMovieReview.deleteMany();
 
-        await prisma.season.deleteMany();
-        await prisma.serie.deleteMany();
-        await prisma.movie.deleteMany();
-        await prisma.genre.deleteMany();
-        await prisma.episode.deleteMany();
+        // await prisma.season.deleteMany();
+        // await prisma.serie.deleteMany();
+        // await prisma.movie.deleteMany();
+        // await prisma.genre.deleteMany();
+        // await prisma.episode.deleteMany();
         await prisma.user.deleteMany();
         // #endregion
 
@@ -67,81 +67,81 @@ async function createStuff() {
             await prisma.user.create({ data: user });
         }
 
-        for (const genre of genres) {
-            await prisma.genre.create({ data: genre });
-        }
+        // for (const genre of genres) {
+        //     await prisma.genre.create({ data: genre });
+        // }
 
-        for (const serie of series) {
-            await prisma.serie.create({ data: serie });
-        }
+        // for (const serie of series) {
+        //     await prisma.serie.create({ data: serie });
+        // }
 
-        for (const movie of movies) {
-            await prisma.movie.create({ data: movie });
-        }
+        // for (const movie of movies) {
+        //     await prisma.movie.create({ data: movie });
+        // }
 
-        for (const season of seasons) {
-            await prisma.season.create({ data: season });
-        }
+        // for (const season of seasons) {
+        //     await prisma.season.create({ data: season });
+        // }
 
-        for (const episode of episodes) {
-            await prisma.episode.create({ data: episode });
-        }
+        // for (const episode of episodes) {
+        //     await prisma.episode.create({ data: episode });
+        // }
 
-        for (const actor of actors) {
-            await prisma.actor.create({ data: actor });
-        }
+        // for (const actor of actors) {
+        //     await prisma.actor.create({ data: actor });
+        // }
 
-        for (const crewMember of crew) {
-            await prisma.crew.create({ data: crewMember });
-        }
+        // for (const crewMember of crew) {
+        //     await prisma.crew.create({ data: crewMember });
+        // }
 
-        for (const movieGenre of movieGenres) {
-            await prisma.movieGenre.create({ data: movieGenre });
-        }
+        // for (const movieGenre of movieGenres) {
+        //     await prisma.movieGenre.create({ data: movieGenre });
+        // }
 
-        for (const serieGenre of serieGenres) {
-            await prisma.serieGenre.create({ data: serieGenre });
-        }
+        // for (const serieGenre of serieGenres) {
+        //     await prisma.serieGenre.create({ data: serieGenre });
+        // }
 
-        for (const castMovie of castMovies) {
-            await prisma.castMovie.create({ data: castMovie });
-        }
+        // for (const castMovie of castMovies) {
+        //     await prisma.castMovie.create({ data: castMovie });
+        // }
 
-        for (const castSerie of castSeries) {
-            await prisma.castSerie.create({ data: castSerie });
-        }
+        // for (const castSerie of castSeries) {
+        //     await prisma.castSerie.create({ data: castSerie });
+        // }
 
-        for (const crewMovie of crewMovies) {
-            await prisma.crewMovie.create({ data: crewMovie });
-        }
+        // for (const crewMovie of crewMovies) {
+        //     await prisma.crewMovie.create({ data: crewMovie });
+        // }
 
-        for (const crewSerie of crewSeries) {
-            await prisma.crewSerie.create({ data: crewSerie });
-        }
+        // for (const crewSerie of crewSeries) {
+        //     await prisma.crewSerie.create({ data: crewSerie });
+        // }
 
-        for (const movieReviewsData of movieReviews) {
-            await prisma.movieReview.create({ data: movieReviewsData });
-        }
+        // for (const movieReviewsData of movieReviews) {
+        //     await prisma.movieReview.create({ data: movieReviewsData });
+        // }
 
-        for (const upvoteMovieReviewsData of upvoteMovieReviews) {
-            await prisma.upvoteMovieReview.create({ data: upvoteMovieReviewsData });
-        }
+        // for (const upvoteMovieReviewsData of upvoteMovieReviews) {
+        //     await prisma.upvoteMovieReview.create({ data: upvoteMovieReviewsData });
+        // }
 
-        for (const downvoteMovieReviewsData of downvoteMovieReviews) {
-            await prisma.downvoteMovieReview.create({ data: downvoteMovieReviewsData });
-        }
+        // for (const downvoteMovieReviewsData of downvoteMovieReviews) {
+        //     await prisma.downvoteMovieReview.create({ data: downvoteMovieReviewsData });
+        // }
 
-        for (const crewReviewsData of crewReviews) {
-            await prisma.crewReview.create({ data: crewReviewsData });
-        }
+        // for (const crewReviewsData of crewReviews) {
+        //     await prisma.crewReview.create({ data: crewReviewsData });
+        // }
 
-        for (const upvoteCrewReviewsData of upvoteCrewReviews) {
-            await prisma.upvoteCrewReview.create({ data: upvoteCrewReviewsData });
-        }
+        // for (const upvoteCrewReviewsData of upvoteCrewReviews) {
+        //     await prisma.upvoteCrewReview.create({ data: upvoteCrewReviewsData });
+        // }
 
-        for (const downvoteCrewReviewsData of downvoteCrewReviews) {
-            await prisma.downvoteCrewReview.create({ data: downvoteCrewReviewsData });
-        }
+        // for (const downvoteCrewReviewsData of downvoteCrewReviews) {
+        //     await prisma.downvoteCrewReview.create({ data: downvoteCrewReviewsData });
+        // }
         // #endregion
 
         // #region "Additional seeding random"
