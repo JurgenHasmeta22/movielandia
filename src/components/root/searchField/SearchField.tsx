@@ -47,9 +47,11 @@ const filters = [
 interface SearchFieldProps {
     onFocusChange?: (focused: boolean) => void;
     onClose?: () => void;
+    isMobile?: boolean;
+    customStyles?: React.CSSProperties | any;
 }
 
-const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
+const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchFieldProps) => {
     const router = useRouter();
 
     const [filtersSearch, setFiltersSearch] = useQueryState("filters", {
@@ -246,7 +248,9 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
         setIsFocused(false);
         setIsExpanded(false);
         onFocusChange?.(false);
-        onClose?.();
+        if (!isMobile) {
+            onClose?.();
+        }
 
         if (!inputValue.trim()) {
             setInputValue("");
@@ -278,7 +282,7 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
     };
 
     return (
-        <Box sx={{ position: "relative" }}>
+        <Box sx={{ position: "relative", ...(customStyles || {}) }}>
             {!isExpanded ? (
                 <IconButton
                     onClick={handleSearchIconClick}
@@ -296,7 +300,7 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
                     <Search />
                 </IconButton>
             ) : (
-                <Box sx={{ width: "400px" }}>
+                <Box sx={{ width: isMobile ? "100%" : "400px" }}>
                     <ClickAwayListener onClickAway={handleClickAway}>
                         <Box sx={{ position: "relative" }}>
                             <form onSubmit={handleSubmit}>
@@ -327,23 +331,21 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
                                                     <Box sx={{ display: "flex", gap: "4px" }}>
                                                         <IconButton
                                                             size="small"
-                                                            onClick={() => {
-                                                                handleClose();
-                                                                setInputValue("");
-                                                            }}
+                                                            onClick={handleClose}
                                                             sx={{ mr: 0.5 }}
                                                             aria-label="collapse search"
                                                         >
                                                             <KeyboardReturn fontSize="small" />
                                                         </IconButton>
-                                                        <IconButton
-                                                            size="small"
-                                                            onClick={handleClear}
-                                                            sx={{ mr: 0.5 }}
-                                                            aria-label="clear search"
-                                                        >
-                                                            <Clear fontSize="small" />
-                                                        </IconButton>
+                                                        {inputValue && (
+                                                            <IconButton
+                                                                size="small"
+                                                                onClick={handleReset}
+                                                                aria-label="clear search"
+                                                            >
+                                                                <Clear fontSize="small" />
+                                                            </IconButton>
+                                                        )}
                                                     </Box>
                                                 )}
                                             </InputAdornment>
@@ -372,6 +374,7 @@ const SearchField = ({ onFocusChange, onClose }: SearchFieldProps) => {
                                         onClose={handleClose}
                                         onResultClick={handleReset}
                                         showInitialState={!inputValue}
+                                        isMobile={isMobile}
                                     />
                                 </Box>
                             )}

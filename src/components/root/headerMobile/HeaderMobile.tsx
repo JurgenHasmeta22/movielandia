@@ -11,9 +11,9 @@ import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import SearchField from "../searchField/SearchField";
 import { Genre } from "@prisma/client";
 import EmailIcon from "@mui/icons-material/Email";
-import MuiNextLink from "../muiNextLink/MuiNextLink";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IHeaderMobileProps {
     genres: Genre[];
@@ -72,7 +72,6 @@ export default function HeaderMobile({
                     overflow: "hidden",
                 }}
             >
-                {/* Header */}
                 <Box
                     sx={{
                         display: "flex",
@@ -83,7 +82,7 @@ export default function HeaderMobile({
                         borderColor: "divider",
                     }}
                 >
-                    <MuiNextLink href="/" onClick={() => setIsDrawerOpen(false)}>
+                    <Link href="/" onClick={() => setIsDrawerOpen(false)} style={{ display: "block" }}>
                         <Image
                             src="/icons/movielandia24-logo.png"
                             alt="MovieLandia24"
@@ -92,7 +91,7 @@ export default function HeaderMobile({
                             style={{ display: "block" }}
                             priority
                         />
-                    </MuiNextLink>
+                    </Link>
                     <IconButton
                         onClick={() => setIsDrawerOpen(false)}
                         sx={{
@@ -106,12 +105,29 @@ export default function HeaderMobile({
                     </IconButton>
                 </Box>
 
-                {/* Search */}
-                <Box sx={{ p: 2 }}>
-                    <SearchField />
+                <Box
+                    sx={{
+                        p: 2,
+                        width: "100%",
+                        "& > div": {
+                            width: "100%",
+                        },
+                        "& .MuiAutocomplete-popper": {
+                            maxWidth: "100%",
+                            position: "static !important",
+                            transform: "none !important",
+                        },
+                    }}
+                >
+                    <SearchField
+                        onClose={() => setIsDrawerOpen(false)}
+                        isMobile={true}
+                        customStyles={{
+                            width: "100%",
+                        }}
+                    />
                 </Box>
 
-                {/* Navigation */}
                 <Box
                     sx={{
                         flex: 1,
@@ -125,7 +141,6 @@ export default function HeaderMobile({
 
                 <Divider />
 
-                {/* User Actions */}
                 <Box
                     sx={{
                         p: 2,
@@ -143,24 +158,27 @@ export default function HeaderMobile({
                                 alignItems: "center",
                             }}
                         >
-                            <Button
-                                LinkComponent={MuiNextLink}
+                            <Link
                                 href="/messages"
-                                variant="outlined"
-                                size="small"
-                                startIcon={<EmailIcon />}
                                 onClick={() => setIsDrawerOpen(false)}
-                                sx={{
-                                    color: theme.vars.palette.primary.main,
-                                    borderColor: theme.vars.palette.primary.main,
-                                    "&:hover": {
-                                        borderColor: theme.vars.palette.green.main,
-                                        color: theme.vars.palette.green.main,
-                                    },
-                                }}
+                                style={{ textDecoration: "none" }}
                             >
-                                Messages
-                            </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    startIcon={<EmailIcon />}
+                                    sx={{
+                                        color: theme.vars.palette.primary.main,
+                                        borderColor: theme.vars.palette.primary.main,
+                                        "&:hover": {
+                                            borderColor: theme.vars.palette.green.main,
+                                            color: theme.vars.palette.green.main,
+                                        },
+                                    }}
+                                >
+                                    Messages
+                                </Button>
+                            </Link>
                             <NotificationMenu session={session} />
                         </Box>
                     )}

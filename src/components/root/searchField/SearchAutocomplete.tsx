@@ -24,6 +24,7 @@ interface SearchAutocompleteProps {
     onShowMore: () => void;
     onClose: () => void;
     onResultClick: () => void;
+    isMobile?: boolean;
 }
 
 const SearchAutocomplete = ({
@@ -36,8 +37,23 @@ const SearchAutocomplete = ({
     onClose,
     onResultClick,
     showInitialState,
+    isMobile,
 }: SearchAutocompleteProps) => {
     const theme = useTheme();
+
+    const handleItemClick = () => {
+        onResultClick();
+        if (!isMobile) {
+            onClose();
+        }
+    };
+
+    const handleShowMoreClick = () => {
+        onShowMore();
+        if (!isMobile) {
+            onClose();
+        }
+    };
 
     const filters = [
         { label: "All", value: "all" },
@@ -224,28 +240,28 @@ const SearchAutocomplete = ({
                 left: 0,
                 right: 0,
                 bgcolor: "background.paper",
-                borderRadius: { xs: "0 0 8px 8px", sm: 2 },
-                boxShadow: 4,
-                p: { xs: 1.5, sm: 2.5 },
+                borderRadius: { xs: 0, sm: 1 },
+                boxShadow: theme.shadows[3],
+                p: { xs: 1, sm: 2 },
                 zIndex: 1000,
-                maxHeight: "80vh",
+                maxHeight: { xs: "calc(100vh - 200px)", sm: "70vh" },
                 overflowY: "auto",
-                mt: 0.5,
-                border: 1,
-                borderColor: "divider",
+                mt: { xs: 0.5, sm: 1 },
+                ...(isMobile && {
+                    position: "relative",
+                    width: "100%",
+                    top: 0,
+                    maxWidth: "100vw",
+                }),
             }}
         >
             <Stack
-                direction="row"
-                spacing={1}
                 sx={{
-                    mb: 2.5,
-                    pb: 2.5,
-                    borderBottom: 2,
-                    borderColor: "divider",
-                    flexWrap: "wrap",
-                    gap: { xs: 0.5, sm: 1 },
-                    justifyContent: "center",
+                    mb: 2,
+                    px: { xs: 0.5, sm: 1 },
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gap: 1,
                 }}
             >
                 {filters.map((filter) => (
@@ -257,7 +273,7 @@ const SearchAutocomplete = ({
                         variant={selectedFilters.includes(filter.value) ? "filled" : "outlined"}
                         sx={{
                             borderRadius: 2,
-                            minWidth: filter.value === "all" ? 80 : "auto",
+                            width: "100%",
                             py: 0.25,
                             fontSize: { xs: "0.75rem", sm: "0.875rem" },
                             "&:hover": {
@@ -293,7 +309,7 @@ const SearchAutocomplete = ({
                                                 key={movie.id}
                                                 data={movie}
                                                 type="movie"
-                                                onResultClick={onResultClick}
+                                                onResultClick={handleItemClick}
                                             />
                                         ))}
                                     </Stack>
@@ -320,7 +336,7 @@ const SearchAutocomplete = ({
                                             key={serie.id}
                                             data={serie}
                                             type="serie"
-                                            onResultClick={onResultClick}
+                                            onResultClick={handleItemClick}
                                         />
                                     ))}
                                 </Stack>
@@ -348,7 +364,7 @@ const SearchAutocomplete = ({
                                                 data={actor}
                                                 type="actor"
                                                 path="actors"
-                                                onResultClick={onResultClick}
+                                                onResultClick={handleItemClick}
                                             />
                                         ))}
                                     </Stack>
@@ -377,7 +393,7 @@ const SearchAutocomplete = ({
                                                 data={crewMember}
                                                 type="crew"
                                                 path="crew"
-                                                onResultClick={onResultClick}
+                                                onResultClick={handleItemClick}
                                             />
                                         ))}
                                     </Stack>
@@ -404,7 +420,7 @@ const SearchAutocomplete = ({
                                             key={season.id}
                                             data={season}
                                             type="season"
-                                            onResultClick={onResultClick}
+                                            onResultClick={handleItemClick}
                                         />
                                     ))}
                                 </Stack>
@@ -430,7 +446,7 @@ const SearchAutocomplete = ({
                                             key={episode.id}
                                             data={episode}
                                             type="episode"
-                                            onResultClick={onResultClick}
+                                            onResultClick={handleItemClick}
                                         />
                                     ))}
                                 </Stack>
@@ -456,7 +472,7 @@ const SearchAutocomplete = ({
                                             key={user.id}
                                             data={user}
                                             type="user"
-                                            onResultClick={onResultClick}
+                                            onResultClick={handleItemClick}
                                         />
                                     ))}
                                 </Stack>
@@ -476,10 +492,7 @@ const SearchAutocomplete = ({
                             }}
                         >
                             <Button
-                                onClick={() => {
-                                    onShowMore();
-                                    onClose();
-                                }}
+                                onClick={handleShowMoreClick}
                                 variant="text"
                                 endIcon={<ArrowForward />}
                                 sx={{
