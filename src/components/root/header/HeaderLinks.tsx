@@ -3,11 +3,6 @@
 import { Box, Button, List, ListItem, Popper, Paper, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
-import MovieIcon from "@mui/icons-material/Movie";
-import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
-import SubtitlesIcon from "@mui/icons-material/Subtitles";
-import GroupIcon from "@mui/icons-material/Group";
-import WorkIcon from "@mui/icons-material/Work";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import Image from "next/image";
@@ -82,8 +77,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     });
 
     const peopleLinks = [
-        { path: "/actors", name: "Actors", icon: <GroupIcon /> },
-        { path: "/crew", name: "Crew", icon: <WorkIcon /> },
+        { path: "/actors", name: "Actors" },
+        { path: "/crew", name: "Crew" },
     ];
 
     return (
@@ -130,7 +125,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 if (isDrawerOpen) setIsDrawerOpen(false);
                             }}
                         >
-                            <MovieIcon sx={{ fontSize: "1.2rem" }} />
                             Movies
                         </Button>
                     </ListItem>
@@ -144,7 +138,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 if (isDrawerOpen) setIsDrawerOpen(false);
                             }}
                         >
-                            <LocalMoviesIcon sx={{ fontSize: "1.2rem" }} />
                             Series
                         </Button>
                     </ListItem>
@@ -163,8 +156,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                     },
                                 }}
                             >
-                                <GroupIcon sx={{ fontSize: "1.2rem" }} />
-                                People
+                                Cast & Crew
                             </Button>
                             <Popper
                                 open={peopleOpen}
@@ -241,7 +233,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                     },
                                                                 }}
                                                             >
-                                                                {link.icon}
                                                                 <Typography sx={{ fontSize: "0.875rem" }}>
                                                                     {link.name}
                                                                 </Typography>{" "}
@@ -268,7 +259,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                     handleGenresLeave();
                                 }}
                             >
-                                <SubtitlesIcon sx={{ fontSize: "1.2rem" }} />
                                 Genres
                             </Button>
                             <Popper

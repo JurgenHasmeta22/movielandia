@@ -1,26 +1,27 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Typography, IconButton, Stack, TextField, Button, useTheme, Container, Divider } from "@mui/material";
-import MovieIcon from "@mui/icons-material/Movie";
-import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import SubtitlesIcon from "@mui/icons-material/Subtitles";
+import {
+    Box,
+    Typography,
+    IconButton,
+    Stack,
+    TextField,
+    Button,
+    useTheme,
+    Container,
+    Divider,
+    Icon,
+} from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import MuiNextLink from "../muiNextLink/MuiNextLink";
-import RecentActorsIcon from "@mui/icons-material/RecentActors";
-import InfoIcon from "@mui/icons-material/Info";
-import ContactSupportIcon from "@mui/icons-material/ContactSupport";
-import GroupsIcon from "@mui/icons-material/Groups";
 import { subscribeNewsletter } from "@/actions/auth.actions";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import Link from "next/link";
 
-const FooterLink = ({ href, icon: Icon, text }: { href: string; icon: any; text: string }) => {
+const FooterLink = ({ href, text }: { href: string; text: string }) => {
     const theme = useTheme();
 
     return (
@@ -138,9 +139,9 @@ const Footer = (): React.JSX.Element => {
                                     Movies & TV
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/movies" icon={MovieIcon} text="Movies" />
-                                    <FooterLink href="/series" icon={LocalMoviesIcon} text="Series" />
-                                    <FooterLink href="/genres" icon={SubtitlesIcon} text="Genres" />
+                                    <FooterLink href="/movies" text="Movies" />
+                                    <FooterLink href="/series" text="Series" />
+                                    <FooterLink href="/genres" text="Genres" />
                                 </Stack>
                             </Box>
                             <Box sx={{ width: { xs: "100%", sm: "auto" } }}>
@@ -165,11 +166,11 @@ const Footer = (): React.JSX.Element => {
                                         },
                                     }}
                                 >
-                                    People
+                                    Cast & Crew
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/actors" icon={RecentActorsIcon} text="Actors" />
-                                    <FooterLink href="/crew" icon={GroupsIcon} text="Crew" />
+                                    <FooterLink href="/actors" text="Actors" />
+                                    <FooterLink href="/crew" text="Crew" />
                                 </Stack>
                             </Box>
                             <Box sx={{ width: { xs: "100%", sm: "auto" } }}>
@@ -197,10 +198,10 @@ const Footer = (): React.JSX.Element => {
                                     Other
                                 </Typography>
                                 <Stack spacing={1}>
-                                    <FooterLink href="/about-us" icon={InfoIcon} text="About Us" />
-                                    <FooterLink href="/contact-us" icon={ContactSupportIcon} text="Contact Us" />
-                                    <FooterLink href="/login" icon={LockOpenIcon} text="Sign In" />
-                                    <FooterLink href="/register" icon={AppRegistrationIcon} text="Sign Up" />
+                                    <FooterLink href="/about-us" text="About Us" />
+                                    <FooterLink href="/contact-us" text="Contact Us" />
+                                    <FooterLink href="/login" text="Sign In" />
+                                    <FooterLink href="/register" text="Sign Up" />
                                 </Stack>
                             </Box>
                         </Stack>
