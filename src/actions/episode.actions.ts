@@ -4,6 +4,7 @@ import { Episode, Prisma } from "@prisma/client";
 import { RatingsMap } from "./season.actions";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 interface EpisodeModelParams {
     sortBy?: string;
@@ -355,6 +356,10 @@ export async function getRelatedEpisodes(
     page: number = 1,
     perPage: number = 6,
 ): Promise<{ episodes: Episode[] | null; count: number }> {
+    "use cache"
+
+    cacheLife("days");
+
     const skip = (page - 1) * perPage;
 
     const episode = await prisma.episode.findFirst({

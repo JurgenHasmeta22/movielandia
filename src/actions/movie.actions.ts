@@ -3,6 +3,7 @@
 import { Movie, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 interface MovieModelParams {
     sortBy?: string;
@@ -365,6 +366,10 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
 }
 
 export async function getLatestMovies(userId?: number): Promise<Movie[] | null> {
+    "use cache"
+
+    cacheLife("days");
+
     const movies = await prisma.movie.findMany({
         orderBy: {
             dateAired: "desc",
@@ -411,7 +416,6 @@ export async function getLatestMovies(userId?: number): Promise<Movie[] | null> 
             }
 
             const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
-
             return { ...properties, ...ratingsInfo, ...(userId && { isBookmarked }) };
         }),
     );
@@ -424,6 +428,10 @@ export async function getLatestMovies(userId?: number): Promise<Movie[] | null> 
 }
 
 export async function getRelatedMovies(id: number, userId?: number): Promise<Movie[] | null> {
+    "use cache"
+
+    cacheLife("days");
+
     const movie = await prisma.movie.findFirst({
         where: { id },
     });
@@ -502,6 +510,10 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
 }
 
 export async function getMoviesTotalCount(): Promise<number> {
+    "use cache";
+
+    cacheLife("days");
+
     try {
         const count = await prisma.movie.count();
         return count;

@@ -4,6 +4,7 @@ import { Crew, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 interface CrewModelParams {
     sortBy?: string;
@@ -110,6 +111,10 @@ export async function getCrewMembersWithFilters(
 }
 
 export async function getCrewTotalCount(): Promise<number> {
+    "use cache";
+
+    cacheLife('days');
+
     try {
         const count = await prisma.crew.count();
         return count;

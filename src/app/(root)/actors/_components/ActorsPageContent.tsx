@@ -1,12 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Actor } from "@prisma/client";
 import { getActorsTotalCount, getActorsWithFilters } from "@/actions/actor.actions";
-import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
-import { unstable_cache } from "next/cache";
 
 interface ActorsPageContentProps {
     searchParams:
@@ -29,28 +26,10 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
     const queryParams = { ascOrDesc, page, sortBy };
     const userId = session?.user?.id;
 
-    const cachedGetActorsWithFilters = unstable_cache(
-        async () => await getActorsWithFilters(queryParams, Number(userId)),
-        [CACHE_TAGS.ACTORS, "list", createFilterCacheKey("actors", queryParams)],
-        {
-            revalidate: CACHE_TIMES.HOUR,
-            tags: [CACHE_TAGS.ACTORS],
-        },
-    );
-    const actorsData = await cachedGetActorsWithFilters();
+    const actorsData = await getActorsWithFilters(queryParams, Number(userId));
     const actors = actorsData.actors;
+    const actorsCount = await getActorsTotalCount();
 
-    const cachedGetActorsTotalCount = unstable_cache(
-        async () => await getActorsTotalCount(),
-        [CACHE_TAGS.ACTORS, "count"],
-        {
-            revalidate: CACHE_TIMES.DAY,
-            tags: [CACHE_TAGS.ACTORS],
-        },
-    );
-    const actorsCount = await cachedGetActorsTotalCount();
-
-    const actorsCarouselImages = actors.slice(0, 5);
     const itemsPerPage = 12;
     const pageCount = Math.ceil(actorsCount / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage + 1;
@@ -58,12 +37,9 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
 
     return (
         <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, sm: 4, md: 5 } }}>
-            <Box component="section">
-                <Carousel data={actorsCarouselImages} type="actors" />
-            </Box>
             <Box
                 component="section"
-                sx={{ maxWidth: "1200px", margin: "0 auto", width: "100%", px: { xs: 2, sm: 3, md: 4 } }}
+                sx={{ maxWidth: "1200px", margin: "0 auto", width: "100%", mt: 8, px: { xs: 2, sm: 3, md: 4 } }}
             >
                 <Box
                     sx={{
@@ -123,7 +99,7 @@ export default async function ActorsPageContent({ searchParams, session }: Actor
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="actors" />
                     </Box>
                 </Box>
-                <Box sx={{ width: "100%", overflow: "hidden", mt: { xs: 4, md: 5 } }}>
+                <Box sx={{ width: "100%", overflow: "hidden", mt: { xs: 4, md: 5 }, mb: 4 }}>
                     <Stack
                         direction="row"
                         flexWrap="wrap"

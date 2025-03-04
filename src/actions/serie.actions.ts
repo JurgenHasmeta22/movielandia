@@ -3,6 +3,7 @@
 import { Prisma, Serie } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 interface SerieModelParams {
     sortBy?: string;
@@ -114,6 +115,10 @@ export async function getSeriesWithFilters(
 }
 
 export async function getSeriesTotalCount(): Promise<number> {
+    "use cache";
+
+    cacheLife("days");
+
     try {
         const count = await prisma.serie.count();
         return count;
@@ -385,6 +390,10 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
 }
 
 export async function getLatestSeries(userId?: number): Promise<Serie[] | null> {
+    "use cache"
+
+    cacheLife("days");
+
     const series = await prisma.serie.findMany({
         orderBy: {
             dateAired: "desc",
@@ -444,6 +453,10 @@ export async function getLatestSeries(userId?: number): Promise<Serie[] | null> 
 }
 
 export async function getRelatedSeries(id: number, userId?: number): Promise<Serie[] | null> {
+    "use cache"
+    
+    cacheLife("days");
+
     const serie = await prisma.serie.findFirst({
         where: { id },
     });

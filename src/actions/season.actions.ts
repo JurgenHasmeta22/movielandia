@@ -3,6 +3,7 @@
 import { Season, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 interface SeasonModelParams {
     sortBy?: string;
@@ -317,6 +318,10 @@ export async function getSeasonByTitle(
 }
 
 export async function getLatestSeasons(serieId: number): Promise<Season[] | null> {
+    "use cache"
+
+    cacheLife("days");
+
     const seasonsWithEpisodes = await prisma.season.findMany({
         orderBy: {
             dateAired: "desc",
@@ -368,6 +373,10 @@ export async function getRelatedSeasons(
     page: number = 1,
     perPage: number = 6,
 ): Promise<{ seasons: Season[] | null; count: number }> {
+    "use cache"
+
+    cacheLife("days");
+
     const skip = (page - 1) * perPage;
 
     const season = await prisma.season.findFirst({

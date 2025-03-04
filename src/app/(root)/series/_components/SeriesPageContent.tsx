@@ -6,8 +6,6 @@ import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { LatestList } from "@/components/root/latestList/LatestList";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import { unstable_cache } from "next/cache";
-import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
 
 interface SeriesPageContentProps {
     searchParams:
@@ -30,33 +28,11 @@ export default async function SeriesPageContent({ searchParams, session }: Serie
     const queryParams = { ascOrDesc, page, sortBy };
     const userId = session?.user?.id;
 
-    const cachedGetSeriesWithFilters = unstable_cache(
-        async () => await getSeriesWithFilters(queryParams, Number(userId)),
-        [CACHE_TAGS.SERIES, "list", createFilterCacheKey("series", queryParams)],
-        {
-            revalidate: CACHE_TIMES.HOUR,
-            tags: [CACHE_TAGS.SERIES],
-        },
-    );
-    const seriesData = await cachedGetSeriesWithFilters();
+    const seriesData = await getSeriesWithFilters(queryParams, Number(userId));
     const series = seriesData.rows;
+    const seriesCount = await getSeriesTotalCount();
 
-    const cachedGetSeriesTotalCount = unstable_cache(
-        async () => await getSeriesTotalCount(),
-        [CACHE_TAGS.SERIES, "count"],
-        {
-            revalidate: CACHE_TIMES.DAY,
-            tags: [CACHE_TAGS.SERIES],
-        },
-    );
-    const seriesCount = await cachedGetSeriesTotalCount();
-
-    const cachedGetLatestSeries = unstable_cache(async () => await getLatestSeries(), [CACHE_TAGS.SERIES, "latest"], {
-        revalidate: CACHE_TIMES.DAY,
-        tags: [CACHE_TAGS.SERIES],
-    });
-    const latestSeries = await cachedGetLatestSeries();
-
+    const latestSeries = await getLatestSeries();
     const seriesCarouselImages: Serie[] = seriesData.rows.slice(0, 5);
 
     const itemsPerPage = 12;

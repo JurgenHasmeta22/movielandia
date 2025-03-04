@@ -3,6 +3,7 @@
 import { Genre, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 type RatingsMap = {
     [key: number]: {
@@ -66,6 +67,10 @@ export async function getGenresWithFilters({
 }
 
 export async function getGenres(): Promise<Genre[] | null> {
+    "use cache"
+
+    cacheLife("days");
+
     const genres = await prisma.genre.findMany();
 
     if (genres) {
@@ -142,11 +147,11 @@ export async function getGenreById(
                     result.map(async (item) => {
                         const isBookmarked = userId
                             ? await prisma.userMovieFavorite.findFirst({
-                                  where: {
-                                      userId,
-                                      movieId: item.movie.id,
-                                  },
-                              })
+                                where: {
+                                    userId,
+                                    movieId: item.movie.id,
+                                },
+                            })
                             : null;
 
                         return {
@@ -211,11 +216,11 @@ export async function getGenreById(
                     result.map(async (item) => {
                         const isBookmarked = userId
                             ? await prisma.userSerieFavorite.findFirst({
-                                  where: {
-                                      userId,
-                                      serieId: item.serie.id,
-                                  },
-                              })
+                                where: {
+                                    userId,
+                                    serieId: item.serie.id,
+                                },
+                            })
                             : null;
 
                         return {
@@ -520,21 +525,3 @@ export async function searchGenresByName(name: string, page: number): Promise<Ge
     }
 }
 // #endregion
-
-export async function getGenreStats(genreId: number) {
-    const cachedStats = unstable_cache(
-        async () => {
-            const [moviesCount, seriesCount] = await Promise.all([
-                prisma.movie.count({ where: { genreId } }),
-                prisma.serie.count({ where: { genreId } }),
-            ]);
-            return { moviesCount, seriesCount };
-        },
-        [`genre-stats-${genreId}`],
-        {
-            revalidate: CACHE_TIMES.HOUR,
-            tags: [CACHE_TAGS.GENRES],
-        },
-    );
-    return cachedStats();
-}

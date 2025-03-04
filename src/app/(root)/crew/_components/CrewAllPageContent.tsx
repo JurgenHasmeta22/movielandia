@@ -1,12 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Crew } from "@prisma/client";
 import { getCrewMembersWithFilters, getCrewTotalCount } from "@/actions/crew.actions";
-import Carousel from "@/components/root/carousel/Carousel";
 import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import { CACHE_TAGS, CACHE_TIMES, createFilterCacheKey } from "@/utils/cache.utils";
-import { unstable_cache } from "next/cache";
 
 interface CrewPageContentProps {
     searchParams:
@@ -29,24 +26,10 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
     const queryParams = { ascOrDesc, page, sortBy };
     const userId = session?.user?.id;
 
-    const cachedGetCrewMembersWithFilters = unstable_cache(
-        async () => await getCrewMembersWithFilters(queryParams, Number(userId)),
-        [CACHE_TAGS.CREWS, "list", createFilterCacheKey("crews", queryParams)],
-        {
-            revalidate: CACHE_TIMES.HOUR,
-            tags: [CACHE_TAGS.CREWS],
-        },
-    );
-    const crewData = await cachedGetCrewMembersWithFilters();
+    const crewData = await getCrewMembersWithFilters(queryParams, Number(userId));
     const crewMembers = crewData.crewMembers;
+    const crewCount = await getCrewTotalCount();
 
-    const cachedGetCrewTotalCount = unstable_cache(async () => await getCrewTotalCount(), [CACHE_TAGS.CREWS, "count"], {
-        revalidate: CACHE_TIMES.DAY,
-        tags: [CACHE_TAGS.CREWS],
-    });
-    const crewCount = await cachedGetCrewTotalCount();
-
-    const crewCarouselImages = crewMembers.slice(0, 5);
     const itemsPerPage = 12;
     const pageCount = Math.ceil(crewCount / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage + 1;
@@ -54,12 +37,9 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
 
     return (
         <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, sm: 4, md: 5 } }}>
-            <Box component="section">
-                <Carousel data={crewCarouselImages} type="crew" />
-            </Box>
             <Box
                 component="section"
-                sx={{ maxWidth: "1200px", margin: "0 auto", width: "100%", px: { xs: 2, sm: 3, md: 4 } }}
+                sx={{ maxWidth: "1200px", margin: "0 auto", width: "100%", mt: 8, px: { xs: 2, sm: 3, md: 4 } }}
             >
                 <Box
                     sx={{
@@ -119,7 +99,7 @@ export default async function CrewAllPageContent({ searchParams, session }: Crew
                         <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="list" dataType="crew" />
                     </Box>
                 </Box>
-                <Box sx={{ width: "100%", overflow: "hidden", mt: { xs: 4, md: 5 } }}>
+                <Box sx={{ width: "100%", overflow: "hidden", mt: { xs: 4, md: 5 }, mb: 4 }}>
                     <Stack
                         direction="row"
                         flexWrap="wrap"
