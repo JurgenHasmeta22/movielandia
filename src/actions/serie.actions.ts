@@ -114,6 +114,40 @@ export async function getSeriesWithFilters(
     }
 }
 
+export async function getSeriesForHomePage(): Promise<Serie[]> {
+    // "use cache";
+
+    // cacheLife("days");
+
+    const series = await prisma.serie.findMany({
+        orderBy: { dateAired: "desc" },
+        take: 6,
+    });
+
+    const serieIds = series.map((serie) => serie.id);
+
+    const serieRatings = await prisma.serieReview.groupBy({
+        by: ["serieId"],
+        where: { serieId: { in: serieIds } },
+        _avg: { rating: true },
+        _count: { rating: true },
+    });
+
+    const serieRatingsMap: RatingsMap = serieRatings.reduce((map, rating) => {
+        map[rating.serieId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    return series.map((serie) => {
+        const ratingsInfo = serieRatingsMap[serie.id] || { averageRating: 0, totalReviews: 0 };
+        return { ...serie, ...ratingsInfo };
+    });
+}
+
 export async function getSeriesTotalCount(): Promise<number> {
     "use cache";
 
@@ -390,7 +424,7 @@ export async function getSerieByTitle(title: string, queryParams: any): Promise<
 }
 
 export async function getLatestSeries(userId?: number): Promise<Serie[] | null> {
-    "use cache"
+    "use cache";
 
     cacheLife("days");
 
@@ -453,8 +487,8 @@ export async function getLatestSeries(userId?: number): Promise<Serie[] | null> 
 }
 
 export async function getRelatedSeries(id: number, userId?: number): Promise<Serie[] | null> {
-    "use cache"
-    
+    "use cache";
+
     cacheLife("days");
 
     const serie = await prisma.serie.findFirst({

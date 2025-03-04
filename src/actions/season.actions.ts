@@ -318,7 +318,7 @@ export async function getSeasonByTitle(
 }
 
 export async function getLatestSeasons(serieId: number): Promise<Season[] | null> {
-    "use cache"
+    "use cache";
 
     cacheLife("days");
 
@@ -373,7 +373,7 @@ export async function getRelatedSeasons(
     page: number = 1,
     perPage: number = 6,
 ): Promise<{ seasons: Season[] | null; count: number }> {
-    "use cache"
+    "use cache";
 
     cacheLife("days");
 

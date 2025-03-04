@@ -124,7 +124,7 @@ export async function getActorsTotalCount(): Promise<number> {
     "use cache";
 
     cacheLife("days");
-    
+
     try {
         const count = await prisma.actor.count();
         return count;

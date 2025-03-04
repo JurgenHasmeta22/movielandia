@@ -67,7 +67,7 @@ export async function getGenresWithFilters({
 }
 
 export async function getGenres(): Promise<Genre[] | null> {
-    "use cache"
+    "use cache";
 
     cacheLife("days");
 
@@ -147,11 +147,11 @@ export async function getGenreById(
                     result.map(async (item) => {
                         const isBookmarked = userId
                             ? await prisma.userMovieFavorite.findFirst({
-                                where: {
-                                    userId,
-                                    movieId: item.movie.id,
-                                },
-                            })
+                                  where: {
+                                      userId,
+                                      movieId: item.movie.id,
+                                  },
+                              })
                             : null;
 
                         return {
@@ -216,11 +216,11 @@ export async function getGenreById(
                     result.map(async (item) => {
                         const isBookmarked = userId
                             ? await prisma.userSerieFavorite.findFirst({
-                                where: {
-                                    userId,
-                                    serieId: item.serie.id,
-                                },
-                            })
+                                  where: {
+                                      userId,
+                                      serieId: item.serie.id,
+                                  },
+                              })
                             : null;
 
                         return {

@@ -110,6 +110,40 @@ export async function getMoviesWithFilters(
     return { movies: moviesFinal };
 }
 
+export async function getMoviesForHomePage(): Promise<Movie[]> {
+    // "use cache";
+
+    // cacheLife("days");
+
+    const movies = await prisma.movie.findMany({
+        orderBy: { dateAired: "desc" },
+        take: 6,
+    });
+
+    const movieIds = movies.map((movie) => movie.id);
+
+    const movieRatings = await prisma.movieReview.groupBy({
+        by: ["movieId"],
+        where: { movieId: { in: movieIds } },
+        _avg: { rating: true },
+        _count: { rating: true },
+    });
+
+    const movieRatingsMap: RatingsMap = movieRatings.reduce((map, rating) => {
+        map[rating.movieId] = {
+            averageRating: rating._avg.rating || 0,
+            totalReviews: rating._count.rating,
+        };
+
+        return map;
+    }, {} as RatingsMap);
+
+    return movies.map((movie) => {
+        const ratingsInfo = movieRatingsMap[movie.id] || { averageRating: 0, totalReviews: 0 };
+        return { ...movie, ...ratingsInfo };
+    });
+}
+
 export async function getMovies(): Promise<any | null> {
     const moviesAll = await prisma.movie.findMany();
 
@@ -366,7 +400,7 @@ export async function getMovieByTitle(title: string, queryParams: any): Promise<
 }
 
 export async function getLatestMovies(userId?: number): Promise<Movie[] | null> {
-    "use cache"
+    "use cache";
 
     cacheLife("days");
 
@@ -428,7 +462,7 @@ export async function getLatestMovies(userId?: number): Promise<Movie[] | null> 
 }
 
 export async function getRelatedMovies(id: number, userId?: number): Promise<Movie[] | null> {
-    "use cache"
+    "use cache";
 
     cacheLife("days");
 

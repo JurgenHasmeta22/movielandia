@@ -113,7 +113,7 @@ export async function getCrewMembersWithFilters(
 export async function getCrewTotalCount(): Promise<number> {
     "use cache";
 
-    cacheLife('days');
+    cacheLife("days");
 
     try {
         const count = await prisma.crew.count();

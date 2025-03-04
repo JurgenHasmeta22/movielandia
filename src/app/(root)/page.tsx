@@ -1,14 +1,15 @@
+"use cache";
+
 import { Stack, Box, Container } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth/next";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 import HomeHeroSection from "./(home)/_components/HomeHero";
 import ListHomeSection from "./(home)/_components/ListHomeSection";
 import MarketingSection from "./(home)/_components/MarketingSection";
 import NewsletterSection from "./(home)/_components/NewsletterSection";
-import { getMoviesWithFilters } from "@/actions/movie.actions";
-import { getSeriesWithFilters } from "@/actions/serie.actions";
+import { getMoviesForHomePage } from "@/actions/movie.actions";
+import { getSeriesForHomePage } from "@/actions/serie.actions";
 
 export const metadata: Metadata = {
     title: "MovieLandia24 - Your Ultimate Destination for Movies",
@@ -37,17 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    const session = await getServerSession(authOptions);
+    cacheLife("days");
 
-    const queryParams = {
-        page: 1,
-    };
-
-    const moviesData = await getMoviesWithFilters(queryParams, Number(session?.user?.id));
-    const movies: Movie[] = moviesData.movies;
-
-    const seriesData = await getSeriesWithFilters(queryParams, Number(session?.user?.id));
-    const series: Serie[] = seriesData.rows;
+    const movies: Movie[] = await getMoviesForHomePage();
+    const series: Serie[] = await getSeriesForHomePage();
 
     return (
         <Box
