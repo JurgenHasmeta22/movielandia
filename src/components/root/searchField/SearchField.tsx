@@ -10,8 +10,6 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import { Movie, Serie, Actor, Crew, Season, Episode, User } from "@prisma/client";
 import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { styled } from "@mui/material/styles";
 
 interface SearchResults {
     movies: { items: Movie[]; total: number };
@@ -99,6 +97,7 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
         setLoading(false);
         setShowResults(true);
         setSelectedFilters(["all"]);
+        setFiltersSearch("all");
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -218,21 +217,6 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
         handleFocus();
     };
 
-    const handleBlurEnhanced = () => {
-        // Small delay to allow click events to process
-        setTimeout(() => {
-            if (!showResults) {
-                setIsFocused(false);
-                onFocusChange?.(false);
-
-                // Reset input if there's no search term
-                if (!inputValue.trim()) {
-                    setInputValue("");
-                }
-            }
-        }, 100);
-    };
-
     const handleFocus = () => {
         setShowResults(true);
 
@@ -248,6 +232,7 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
         setIsFocused(false);
         setIsExpanded(false);
         onFocusChange?.(false);
+
         if (!isMobile) {
             onClose?.();
         }
@@ -257,7 +242,7 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
         }
     };
 
-    const handleReset = () => {
+    const onResultClick = () => {
         setInputValue("");
         setResults(emptyResults);
         setShowResults(false);
@@ -277,7 +262,7 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
     const handleSearchIconClick = () => {
         setIsExpanded(true);
         setIsFocused(true);
-        setShowResults(true); // Show autocomplete immediately
+        setShowResults(true);
         onFocusChange?.(true);
     };
 
@@ -329,6 +314,16 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
                                             <InputAdornment position="end">
                                                 {isFocused && (
                                                     <Box sx={{ display: "flex", gap: "4px" }}>
+                                                        {inputValue && (
+                                                            <IconButton
+                                                                size="small"
+                                                                onClick={handleClear}
+                                                                sx={{ mr: 0.5 }}
+                                                                aria-label="clear search"
+                                                            >
+                                                                <Clear fontSize="small" />
+                                                            </IconButton>
+                                                        )}
                                                         <IconButton
                                                             size="small"
                                                             onClick={handleClose}
@@ -337,15 +332,6 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
                                                         >
                                                             <KeyboardReturn fontSize="small" />
                                                         </IconButton>
-                                                        {inputValue && (
-                                                            <IconButton
-                                                                size="small"
-                                                                onClick={handleReset}
-                                                                aria-label="clear search"
-                                                            >
-                                                                <Clear fontSize="small" />
-                                                            </IconButton>
-                                                        )}
                                                     </Box>
                                                 )}
                                             </InputAdornment>
@@ -372,7 +358,7 @@ const SearchField = ({ onFocusChange, onClose, isMobile, customStyles }: SearchF
                                         searchTerm={inputValue}
                                         onShowMore={handleShowMore}
                                         onClose={handleClose}
-                                        onResultClick={handleReset}
+                                        onResultClick={onResultClick}
                                         showInitialState={!inputValue}
                                         isMobile={isMobile}
                                     />

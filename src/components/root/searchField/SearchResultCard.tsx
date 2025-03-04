@@ -27,7 +27,7 @@ interface PersonResultData extends BaseResultData {
 
 interface UserResultData extends BaseResultData {
     userName: string;
-    bio?: string;
+    bio?: string | null;
 }
 
 type ResultData = MediaResultData | PersonResultData | UserResultData;

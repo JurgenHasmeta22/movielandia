@@ -6,25 +6,27 @@ import { Chip, Stack } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material";
 import SearchResultCard from "./SearchResultCard";
 
+interface SearchResults {
+    movies: { items: Movie[]; total: number };
+    series: { items: Serie[]; total: number };
+    actors: { items: Actor[]; total: number };
+    crews: { items: Crew[]; total: number };
+    seasons: { items: Season[]; total: number };
+    episodes: { items: Episode[]; total: number };
+    users: { items: User[]; total: number };
+}
+
 interface SearchAutocompleteProps {
     loading: boolean;
-    results: {
-        movies: { items: Movie[]; total: number };
-        series: { items: Serie[]; total: number };
-        actors: { items: Actor[]; total: number };
-        crews: { items: Crew[]; total: number };
-        seasons: { items: Season[]; total: number };
-        episodes: { items: Episode[]; total: number };
-        users: { items: User[]; total: number };
-    };
+    results: SearchResults;
     selectedFilters: string[];
     searchTerm: string;
     showInitialState: boolean;
+    isMobile?: boolean;
     onFilterChange: (filter: string) => void;
     onShowMore: () => void;
     onClose: () => void;
     onResultClick: () => void;
-    isMobile?: boolean;
 }
 
 const SearchAutocomplete = ({
@@ -43,6 +45,7 @@ const SearchAutocomplete = ({
 
     const handleItemClick = () => {
         onResultClick();
+
         if (!isMobile) {
             onClose();
         }
@@ -50,6 +53,7 @@ const SearchAutocomplete = ({
 
     const handleShowMoreClick = () => {
         onShowMore();
+
         if (!isMobile) {
             onClose();
         }
