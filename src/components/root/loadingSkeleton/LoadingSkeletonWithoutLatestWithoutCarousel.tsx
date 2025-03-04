@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, Skeleton, Stack } from "@mui/material";
 
-export default function LoadingSkeletonWithoutLatest() {
+export default function LoadingSkeletonWithoutLatestWithoutCarousel() {
     return (
         <Box
             sx={{
@@ -14,19 +14,8 @@ export default function LoadingSkeletonWithoutLatest() {
                 py: { xs: 3, md: 4 },
             }}
         >
-            {/* Section 1: Carousel with overlay text */}
-            <Box sx={{ position: "relative", mt: 2, mb: 6 }}>
-                <Skeleton
-                    variant="rectangular"
-                    sx={{ width: "100%", height: { xs: "100vh", md: "90vh", lg: "100vh" } }}
-                />
-                <Box sx={{ position: "absolute", bottom: 16, left: 16 }}>
-                    <Skeleton variant="text" sx={{ width: "30%", height: 32 }} />
-                </Box>
-            </Box>
-
-            {/* Section 2: Movies Header with SortSelect */}
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
+            {/* Section 1: Movies Header with SortSelect */}
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3, mt: 6 }}>
                 <Skeleton variant="text" sx={{ width: "25%", height: 48 }} />
                 <Stack direction="row" spacing={2}>
                     <Skeleton variant="rectangular" sx={{ width: 150, height: 40 }} />
@@ -34,7 +23,7 @@ export default function LoadingSkeletonWithoutLatest() {
                 </Stack>
             </Box>
 
-            {/* Section 3: Movie List (12 items in 2 rows of 6) */}
+            {/* Section 2: Movie List (12 items in 2 rows of 6) */}
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 4 }}>
                 {Array.from(new Array(12)).map((_, index) => (
                     <Box key={index} sx={{ flex: "1 1 calc(16.66% - 16px)" }}>
@@ -43,7 +32,7 @@ export default function LoadingSkeletonWithoutLatest() {
                 ))}
             </Box>
 
-            {/* Section 4: Pagination */}
+            {/* Section 3: Pagination */}
             <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mb: 4 }}>
                 <Skeleton variant="rectangular" sx={{ width: 200, height: 40 }} />
             </Stack>

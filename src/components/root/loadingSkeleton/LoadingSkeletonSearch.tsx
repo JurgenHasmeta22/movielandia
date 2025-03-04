@@ -17,8 +17,8 @@ export default function LoadingSkeletonSearch() {
             <Box
                 sx={{
                     textAlign: "center",
-                    mt: { xs: 4, md: 6 },
-                    mb: { xs: 4, md: 6 },
+                    mt: { xs: 6, md: 8 },
+                    mb: { xs: 6, md: 8 },
                 }}
             >
                 <Skeleton
@@ -41,7 +41,7 @@ export default function LoadingSkeletonSearch() {
             </Box>
 
             {/* SearchTabs Skeleton */}
-            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 6 }}>
                 <Box
                     sx={{
                         display: "flex",
@@ -90,14 +90,24 @@ export default function LoadingSkeletonSearch() {
                                 }}
                             />
                         </Box>
-                        <Skeleton
-                            variant="rectangular"
-                            sx={{
-                                width: { xs: 150, sm: 200 },
-                                height: 40,
-                                mt: { xs: 1, sm: 0 },
-                            }}
-                        />
+                        <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+                            <Skeleton
+                                variant="rectangular"
+                                sx={{
+                                    width: { xs: 120, sm: 150 },
+                                    height: 50,
+                                    mt: { xs: 1, sm: 0 },
+                                }}
+                            />
+                            <Skeleton
+                                variant="rectangular"
+                                sx={{
+                                    width: { xs: 120, sm: 150 },
+                                    height: 50,
+                                    mt: { xs: 1, sm: 0 },
+                                }}
+                            />
+                        </Box>
                     </Box>
 
                     {/* Grid of Skeleton Cards */}

@@ -15,8 +15,11 @@ export default function LoadingSkeletonWithLatest() {
             }}
         >
             {/* Section 1: Carousel with overlay text */}
-            <Box sx={{ position: "relative", mt: 8, mb: 14 }}>
-                <Skeleton variant="rectangular" sx={{ width: "100%", height: { xs: "40vh", md: "60vh" } }} />
+            <Box sx={{ position: "relative", mt: 2, mb: 6 }}>
+                <Skeleton
+                    variant="rectangular"
+                    sx={{ width: "100%", height: { xs: "100vh", md: "90vh", lg: "100vh" } }}
+                />
                 <Box sx={{ position: "absolute", bottom: 16, left: 16 }}>
                     <Skeleton variant="text" sx={{ width: "30%", height: 32 }} />
                 </Box>

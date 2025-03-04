@@ -8,6 +8,7 @@ import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import MainLayout from "@/layouts/MainLayout";
 import { Montserrat } from "next/font/google";
 import "../globals.css";
+import ProgressLoadingProvider from "@/providers/ProgressLoadingProvider";
 
 const montserrat = Montserrat({
     weight: ["300", "400", "500", "700"],
@@ -53,8 +54,10 @@ export default function RootLayout({
                         <ToastProvider>
                             <ModalProvider>
                                 <RightPanelProvider>
-                                    <InitColorSchemeScript attribute="class" />
-                                    <MainLayout>{children}</MainLayout>
+                                    <ProgressLoadingProvider>
+                                        <InitColorSchemeScript attribute="class" />
+                                        <MainLayout>{children}</MainLayout>
+                                    </ProgressLoadingProvider>
                                 </RightPanelProvider>
                             </ModalProvider>
                         </ToastProvider>
