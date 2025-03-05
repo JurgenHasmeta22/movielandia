@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import SortSelect from "../sortSelect/SortSelect";
 
 interface IReviewsProps {
@@ -12,16 +12,42 @@ interface IReviewsProps {
 
 const ReviewsHeader = ({ data, sortBy, ascOrDesc, sortingDataType }: IReviewsProps) => {
     return (
-        <Stack direction="row" justifyContent="space-between" alignItems="center" px={3}>
-            <Box>
-                <Typography variant="h3" align="center">
-                    {data.totalReviews} Reviews
+        <Box sx={{ mb: 4 }}>
+            <Box sx={{ 
+                display: "flex", 
+                justifyContent: "space-between", 
+                alignItems: "center",
+                mb: 2
+            }}>
+                <Typography 
+                    variant="h4" 
+                    sx={{
+                        fontWeight: 700,
+                        letterSpacing: 0.5
+                    }}
+                >
+                    Reviews
+                    <Typography 
+                        component="span" 
+                        variant="h5" 
+                        sx={{ 
+                            ml: 1,
+                            color: 'text.secondary',
+                            fontWeight: 400
+                        }}
+                    >
+                        ({data.totalReviews})
+                    </Typography>
                 </Typography>
+                <SortSelect 
+                    sortBy={sortBy} 
+                    ascOrDesc={ascOrDesc} 
+                    type="details" 
+                    dataType={sortingDataType} 
+                />
             </Box>
-            <Box>
-                <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="details" dataType={sortingDataType} />
-            </Box>
-        </Stack>
+            <Divider sx={{ mb: 3 }} />
+        </Box>
     );
 };
 

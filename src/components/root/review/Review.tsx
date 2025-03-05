@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { format } from "date-fns";
-import { Box, Paper, Typography, IconButton, useTheme, Rating, Button } from "@mui/material";
+import { Box, Paper, Typography, IconButton, useTheme, Rating, Button, Tooltip, Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -118,248 +118,171 @@ const Review: React.FC<IReviewProps> = ({
 
     return (
         <Paper
+            elevation={2}
             sx={{
                 p: 3,
-                mt: 2,
-                mx: 3,
-                backgroundColor:
-                    review.user.id === Number(session?.user?.id)
-                        ? theme.vars.palette.blue.dark
-                        : theme.vars.palette.background.default,
+                mb: 3,
+                borderRadius: 2,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: (theme) => theme.shadows[4]
+                }
             }}
         >
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mb: 1,
-                }}
-            >
+            <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                 <Box
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        flexWrap: "wrap",
-                        gap: 1,
-                        cursor: "pointer",
+                        gap: 2,
+                        cursor: "pointer"
                     }}
-                    onClick={() => {
-                        router.push(`/users/${review.user.id}/${review.user.userName}`);
-                    }}
+                    onClick={() => router.push(`/users/${review.user.id}/${review.user.userName}`)}
                 >
                     {review.user.avatar?.photoSrc ? (
                         <Image
                             alt={review.user.userName}
-                            height={50}
-                            width={50}
+                            height={48}
+                            width={48}
                             style={{
-                                borderRadius: 20,
+                                borderRadius: '50%',
+                                objectFit: 'cover'
                             }}
                             src={review.user.avatar?.photoSrc}
                         />
                     ) : (
-                        <PersonOutlinedIcon
-                            sx={{
-                                fontSize: 24,
-                                mr: 1,
-                                color: theme.vars.palette.primary.main,
-                            }}
-                        />
+                        <PersonOutlinedIcon sx={{ fontSize: 48 }} />
                     )}
-                    <Typography
-                        variant="h6"
-                        sx={{
-                            color:
-                                review.user.id === Number(session?.user?.id)
-                                    ? theme.vars.palette.blue.main
-                                    : theme.vars.palette.primary.main,
-                            fontWeight: review.user.id === Number(session?.user?.id) ? 900 : 300,
-                            letterSpacing: 1,
-                        }}
-                    >
-                        {review.user.userName}
-                    </Typography>
-                    {review.user.id === Number(session?.user?.id) && (
-                        <Typography component={"span"} paddingLeft={1} color="primary">
-                            - You
+                    <Box>
+                        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                            {review.user.userName}
+                            {review.user.id === Number(session?.user?.id) && (
+                                <Typography component="span" sx={{ ml: 1, color: "primary.main" }}>
+                                    (You)
+                                </Typography>
+                            )}
                         </Typography>
-                    )}
+                        <Typography variant="caption" color="text.secondary">
+                            {!review.updatedAt
+                                ? format(new Date(review.createdAt), "MMMM dd, yyyy HH:mm")
+                                : `Edited ${format(new Date(review.updatedAt), "MMMM dd, yyyy HH:mm")}`}
+                        </Typography>
+                    </Box>
                 </Box>
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        flexWrap: "wrap",
-                        gap: 1,
+                
+                {review.user.id === Number(session?.user?.id) && !isEditMode && (
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                        <Tooltip title="Edit review">
+                            <IconButton
+                                size="small"
+                                color="primary"
+                                onClick={() => {
+                                    setIsEditMode(true);
+                                    setReview(review.content);
+                                    setRating(review.rating);
+                                }}
+                            >
+                                <EditIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Delete review">
+                            <Box ref={ref} tabIndex={-1}>
+                                <IconButton size="small" color="error" onClick={handleRemoveReview}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </Box>
+                        </Tooltip>
+                    </Box>
+                )}
+            </Box>
+
+            <Box sx={{ mb: 2 }}>
+                <Rating
+                    value={review.rating}
+                    readOnly
+                    max={10}
+                    precision={0.5}
+                    sx={{ mb: 1 }}
+                />
+                <Typography 
+                    variant="subtitle1" 
+                    sx={{ 
+                        color: getRatingLabelAndColor(review.rating).color,
+                        fontWeight: 600
                     }}
                 >
-                    <Typography variant="body1" sx={{ display: "flex", flexWrap: "wrap" }}>
-                        {review.updatedAt && (
-                            <Typography component={"span"} color="primary">
-                                Edited
-                            </Typography>
-                        )}
-                        {!review.updatedAt ? (
-                            <Typography component={"span"} paddingLeft={1}>
-                                {format(new Date(review.createdAt), "MMMM dd, yyyy HH:mm")}
-                            </Typography>
-                        ) : (
-                            <Typography component={"span"} paddingLeft={1}>
-                                {format(new Date(review.updatedAt), "MMMM dd, yyyy HH:mm")}
-                            </Typography>
-                        )}
-                    </Typography>
-                    {review.user.id === Number(session?.user?.id) && !isEditMode && (
-                        <IconButton
-                            size="medium"
-                            color="success"
-                            onClick={() => {
-                                setIsEditMode(true);
-                                setReview(review.content);
-                                setRating(review.rating);
-                            }}
-                        >
-                            <EditIcon fontSize="medium" />
-                        </IconButton>
-                    )}
-                    {review.user.id === Number(session?.user?.id) && !isEditMode && (
-                        <Box ref={ref} tabIndex={-1}>
-                            <IconButton size="medium" color="error" onClick={() => handleRemoveReview()}>
-                                <CloseIcon fontSize="medium" />
-                            </IconButton>
-                        </Box>
-                    )}
-                </Box>
+                    {getRatingLabelAndColor(review.rating).label}
+                </Typography>
             </Box>
+
             <Box
                 dangerouslySetInnerHTML={{ __html: review.content }}
                 sx={{
+                    mb: 3,
                     wordWrap: "break-word",
-                    "& img": { maxWidth: "70%", height: "auto" },
+                    "& img": { maxWidth: "100%", height: "auto" },
                 }}
             />
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    mt: 1,
-                }}
-            >
+
+            <Divider sx={{ mb: 2 }} />
+
+            <Box sx={{ display: "flex", justifyContent: "center", gap: 4 }}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Typography variant="body1" fontSize={19} fontWeight={900} sx={{ mr: 1, color, letterSpacing: 2 }}>
-                        {label}
-                    </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Rating
-                        name={`review-rating-${review.id}`}
-                        value={review?.rating}
-                        readOnly
-                        max={10}
-                        precision={0.5}
-                    />
-                    <Typography variant="body2" fontSize={14} fontWeight={700} sx={{ ml: 1 }}>
-                        {review?.rating ? review?.rating?.toFixed(1) : "0.0"}
-                    </Typography>
-                </Box>
-            </Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    mt: 1,
-                    columnGap: 4,
-                }}
-            >
-                <Box display={"flex"} alignItems={"center"}>
                     <motion.div
-                        whileTap={{ scale: 1 }}
-                        animate={isClickedUpvote ? { scale: [1, 1.5, 1] } : {}}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        whileTap={{ scale: 0.95 }}
+                        animate={isClickedUpvote ? { scale: [1, 1.2, 1] } : {}}
                     >
-                        <IconButton
-                            size="medium"
-                            disabled={session?.user && review.user.id !== Number(session?.user?.id) ? false : true}
-                            onClick={async () => {
-                                handleClickUpVoteReview();
-                            }}
-                            sx={{
-                                color: review.isUpvoted
-                                    ? theme.vars.palette.green.main
-                                    : theme.vars.palette.primary.main,
-                                pr: 0.5,
-                            }}
-                        >
-                            <ThumbUpIcon fontSize="medium" />
-                        </IconButton>
+                        <Tooltip title={session?.user ? "Upvote" : "Sign in to upvote"}>
+                            <IconButton
+                                disabled={!session?.user || review.user.id === Number(session?.user?.id)}
+                                onClick={handleClickUpVoteReview}
+                                sx={{
+                                    color: review.isUpvoted ? "success.main" : "action.active"
+                                }}
+                            >
+                                <ThumbUpIcon />
+                            </IconButton>
+                        </Tooltip>
                     </motion.div>
                     <Button
                         disabled={review._count.upvotes === 0}
-                        onClick={() => {
-                            if (review._count.upvotes > 0) {
-                                router.push(`${pathname}/reviews/${review.id}/upvotes`);
-                            }
-                        }}
+                        onClick={() => router.push(`${pathname}/reviews/${review.id}/upvotes`)}
                         sx={{
-                            "&:hover": {
-                                backgroundColor: "transparent",
-                                textDecoration: review._count.upvotes > 0 ? "underline" : "none",
-                            },
-                            color: theme.vars.palette.primary.main,
-                            p: 0,
-                            minWidth: "auto",
-                            ml: 1,
-                            cursor: review._count.upvotes > 0 ? "pointer" : "default",
+                            minWidth: 'auto',
+                            "&:hover": { backgroundColor: "transparent" }
                         }}
                     >
-                        <Typography>{review._count.upvotes}</Typography>
+                        {review._count.upvotes}
                     </Button>
                 </Box>
-                <Box display={"flex"} alignItems={"center"}>
+
+                <Box sx={{ display: "flex", alignItems: "center" }}>
                     <motion.div
-                        whileTap={{ scale: 1 }}
-                        animate={isClickedDownvote ? { scale: [1, 1.5, 1] } : {}}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        whileTap={{ scale: 0.95 }}
+                        animate={isClickedDownvote ? { scale: [1, 1.2, 1] } : {}}
                     >
-                        <IconButton
-                            size="medium"
-                            disabled={session?.user && review.user.id !== Number(session?.user?.id) ? false : true}
-                            onClick={async () => {
-                                handleClickDownVoteReview();
-                            }}
-                            sx={{
-                                color: review.isDownvoted
-                                    ? theme.vars.palette.red.main
-                                    : theme.vars.palette.primary.main,
-                                pr: 0.5,
-                            }}
-                        >
-                            <ThumbDownIcon fontSize="medium" />
-                        </IconButton>
+                        <Tooltip title={session?.user ? "Downvote" : "Sign in to downvote"}>
+                            <IconButton
+                                disabled={!session?.user || review.user.id === Number(session?.user?.id)}
+                                onClick={handleClickDownVoteReview}
+                                sx={{
+                                    color: review.isDownvoted ? "error.main" : "action.active"
+                                }}
+                            >
+                                <ThumbDownIcon />
+                            </IconButton>
+                        </Tooltip>
                     </motion.div>
                     <Button
                         disabled={review._count.downvotes === 0}
-                        onClick={() => {
-                            if (review._count.downvotes > 0) {
-                                router.push(`${pathname}/reviews/${review.id}/downvotes`);
-                            }
-                        }}
+                        onClick={() => router.push(`${pathname}/reviews/${review.id}/downvotes`)}
                         sx={{
-                            "&:hover": {
-                                backgroundColor: "transparent",
-                                textDecoration: review._count.downvotes > 0 ? "underline" : "none",
-                            },
-                            color: theme.vars.palette.primary.main,
-                            p: 0,
-                            minWidth: "auto",
-                            ml: 1,
-                            cursor: review._count.downvotes > 0 ? "pointer" : "default",
+                            minWidth: 'auto',
+                            "&:hover": { backgroundColor: "transparent" }
                         }}
                     >
-                        <Typography>{review._count.downvotes}</Typography>
+                        {review._count.downvotes}
                     </Button>
                 </Box>
             </Box>

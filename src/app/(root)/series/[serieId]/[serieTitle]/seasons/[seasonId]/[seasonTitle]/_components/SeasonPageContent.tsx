@@ -256,7 +256,7 @@ export default function SeasonPageContent({
     // #endregion
 
     return (
-        <Stack flexDirection={"column"} rowGap={2}>
+        <Stack flexDirection={"column"} rowGap={4}>
             <DetailsPageCard
                 data={season}
                 type="season"
@@ -274,168 +274,193 @@ export default function SeasonPageContent({
             />
             <Box
                 sx={{
-                    maxWidth: "900px",
+                    maxWidth: "1000px",
                     width: "100%",
                     mx: "auto",
-                    my: 4,
-                    "& .MuiAccordion-root": {
-                        mb: 2,
-                    },
+                    px: { xs: 2, sm: 3 },
+                    py: 4,
                 }}
             >
-                <Accordion
-                    defaultExpanded={true}
+                {/* Reviews Header Section */}
+                <Box 
                     sx={{
-                        bgcolor: theme.vars.palette.secondary.light,
-                        borderRadius: "12px",
-                        "&:before": {
-                            display: "none",
-                        },
-                        "& .MuiAccordionSummary-root": {
-                            borderRadius: "12px",
-                            transition: "background-color 0.2s",
-                            "&:hover": {
-                                bgcolor: theme.vars.palette.secondary.dark,
-                            },
-                        },
-                        "& .MuiAccordionSummary-expandIconWrapper": {
-                            color: theme.vars.palette.primary.main,
-                            transition: "transform 0.3s",
-                            "&.Mui-expanded": {
-                                transform: "rotate(180deg)",
-                            },
-                        },
+                        display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        justifyContent: 'space-between',
+                        alignItems: { xs: 'flex-start', sm: 'center' },
+                        gap: 2,
+                        mb: 4,
+                        pb: 2,
+                        borderBottom: `1px solid ${theme.vars.palette.divider}`,
                     }}
                 >
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="reviews-content"
-                        id="reviews-header"
-                    >
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                fontWeight: 600,
-                                color: theme.vars.palette.primary.main,
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1,
-                            }}
-                        >
-                            Reviews
+                    <Box>
+                        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
+                            <Typography
+                                variant="h5"
+                                sx={{
+                                    fontWeight: 700,
+                                    color: theme.vars.palette.text.primary,
+                                }}
+                            >
+                                User Reviews
+                            </Typography>
                             {season.totalReviews >= 0 && (
                                 <Typography
                                     component="span"
                                     sx={{
-                                        color: theme.vars.palette.primary.main,
-                                        fontSize: "0.9rem",
-                                        fontWeight: 600,
-                                        py: 0.5,
-                                        borderRadius: "16px",
-                                    }}
-                                >
-                                    ({season.totalReviews ? season.totalReviews : 0})
-                                </Typography>
-                            )}
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails
-                        sx={{
-                            p: { xs: 2, sm: 3 },
-                            borderTop: `1px solid ${theme.vars.palette.divider}`,
-                        }}
-                    >
-                        <Box
-                            component="section"
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                rowGap: 2,
-                            }}
-                        >
-                            {season.reviews?.length > 0 ? (
-                                <>
-                                    <ReviewsHeader
-                                        data={season}
-                                        sortingDataType="reviews"
-                                        sortBy={searchParamsValues.reviewsSortBy!}
-                                        ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-                                    />
-                                    {season.reviews!.map(
-                                        (review: any, index: number) =>
-                                            (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
-                                                <Review
-                                                    key={index}
-                                                    review={review}
-                                                    handleRemoveReview={onSubmitRemoveReview}
-                                                    isEditMode={isEditMode}
-                                                    setIsEditMode={setIsEditMode}
-                                                    setReview={setReview}
-                                                    handleFocusTextEditor={handleFocusTextEditor}
-                                                    ref={reviewRef}
-                                                    setRating={setRating}
-                                                    handleUpvote={onUpvoteSeason}
-                                                    handleDownvote={onDownVoteSeason}
-                                                    type="season"
-                                                    data={season}
-                                                />
-                                            ),
-                                    )}
-                                </>
-                            ) : (
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        textAlign: "center",
                                         color: theme.vars.palette.text.secondary,
+                                        fontSize: "1rem",
                                     }}
                                 >
-                                    No reviews yet. Be the first to review this season!
+                                    ({season.totalReviews})
                                 </Typography>
-                            )}
-                            {session?.user && (!season.isReviewed || isEditMode) && (
-                                <TextEditorForm
-                                    review={review}
-                                    setReview={setReview}
-                                    rating={rating}
-                                    setRating={setRating}
-                                    isEditMode={isEditMode}
-                                    setIsEditMode={setIsEditMode}
-                                    setOpen={setOpen}
-                                    textEditorRef={textEditorRef}
-                                    handleFocusReview={handleFocusReview}
-                                    onSubmitReview={onSubmitReview}
-                                    onSubmitUpdateReview={onSubmitUpdateReview}
-                                />
-                            )}
-                            {season.totalReviews > 0 && (
-                                <PaginationControl
-                                    currentPage={Number(searchParamsValues.reviewsPage)!}
-                                    pageCount={reviewsPageCount}
-                                    urlParamName="reviewsPage"
-                                />
                             )}
                         </Box>
-                    </AccordionDetails>
-                </Accordion>
+                    </Box>
+                    
+                    {season.reviews && season.reviews.length > 0 && (
+                        <Box sx={{ minWidth: 200 }}>
+                            <ReviewsHeader
+                                data={season}
+                                sortingDataType="reviews"
+                                sortBy={searchParamsValues.reviewsSortBy!}
+                                ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
+                            />
+                        </Box>
+                    )}
+                </Box>
+
+                {/* Write Review Section */}
+                {session?.user && (!season.isReviewed || isEditMode) && (
+                    <Box 
+                        sx={{ 
+                            mb: 4,
+                            p: 3,
+                            bgcolor: theme.vars.palette.background.paper,
+                            borderRadius: 1,
+                            border: `1px solid ${theme.vars.palette.divider}`,
+                        }}
+                    >
+                        <Typography 
+                            variant="h6" 
+                            sx={{ 
+                                mb: 2,
+                                fontWeight: 600,
+                                color: theme.vars.palette.text.primary 
+                            }}
+                        >
+                            {isEditMode ? "Edit your review" : "Write a review"}
+                        </Typography>
+                        <TextEditorForm
+                            review={review}
+                            setReview={setReview}
+                            rating={rating}
+                            setRating={setRating}
+                            isEditMode={isEditMode}
+                            setIsEditMode={setIsEditMode}
+                            setOpen={setOpen}
+                            textEditorRef={textEditorRef}
+                            handleFocusReview={handleFocusReview}
+                            onSubmitReview={onSubmitReview}
+                            onSubmitUpdateReview={onSubmitUpdateReview}
+                        />
+                    </Box>
+                )}
+
+                {/* Reviews List Section */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    {season.reviews && season.reviews.length > 0 ? (
+                        season.reviews.map(
+                            (review: any, index: number) =>
+                                (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            bgcolor: theme.vars.palette.background.paper,
+                                            borderRadius: 1,
+                                            border: `1px solid ${theme.vars.palette.divider}`,
+                                            p: { xs: 2, sm: 3 },
+                                            '&:hover': {
+                                                bgcolor: theme.vars.palette.action.hover,
+                                            }
+                                        }}
+                                    >
+                                        <Review
+                                            review={review}
+                                            handleRemoveReview={onSubmitRemoveReview}
+                                            isEditMode={isEditMode}
+                                            setIsEditMode={setIsEditMode}
+                                            setReview={setReview}
+                                            handleFocusTextEditor={handleFocusTextEditor}
+                                            ref={reviewRef}
+                                            setRating={setRating}
+                                            handleUpvote={onUpvoteSeason}
+                                            handleDownvote={onDownVoteSeason}
+                                            type="season"
+                                            data={season}
+                                        />
+                                    </Box>
+                                )
+                        )
+                    ) : (
+                        <Box 
+                            sx={{
+                                textAlign: "center",
+                                py: 6,
+                                bgcolor: theme.vars.palette.background.paper,
+                                borderRadius: 1,
+                                border: `1px solid ${theme.vars.palette.divider}`,
+                            }}
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    color: theme.vars.palette.text.secondary,
+                                    mb: 1
+                                }}
+                            >
+                                No reviews yet
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    color: theme.vars.palette.text.secondary
+                                }}
+                            >
+                                Be the first to review this season!
+                            </Typography>
+                        </Box>
+                    )}
+                </Box>
+
+                {/* Pagination Section */}
+                {season.totalReviews > 0 && (
+                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                        <PaginationControl
+                            currentPage={Number(searchParamsValues.reviewsPage)}
+                            pageCount={reviewsPageCount}
+                            urlParamName="reviewsPage"
+                        />
+                    </Box>
+                )}
             </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+
+            {/* Related Seasons Section */}
+            {relatedSeasons && relatedSeasons.length !== 0 && (
+                <Box sx={{ mb: 6 }}>
+                    <ListDetail data={relatedSeasons} type="season" roleData="related" />
+                </Box>
+            )}
+
+            {/* Episodes Section */}
+            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={season.episodes} type="episode" roleData="episode" />
                 <PaginationControl
                     currentPage={Number(searchParamsValues.episodesPage)}
                     pageCount={episodesPageCount}
                     urlParamName="episodesPage"
                 />
-            </Box>
-            <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
-                <ListDetail data={relatedSeasons!} type="season" roleData="related" />
-                {relatedSeasons && (
-                    <PaginationControl
-                        currentPage={searchParamsValues.relatedPage}
-                        pageCount={relatedPageCount}
-                        urlParamName="relatedPage"
-                    />
-                )}
             </Box>
         </Stack>
     );

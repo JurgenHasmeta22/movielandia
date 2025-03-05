@@ -258,108 +258,117 @@ export default function CrewPageContent({
             />
             <Box
                 sx={{
-                    maxWidth: "900px",
+                    maxWidth: "1000px",
                     width: "100%",
                     mx: "auto",
-                    my: 4,
-                    "& .MuiAccordion-root": {
-                        mb: 2,
-                    },
+                    px: { xs: 2, sm: 3 },
+                    py: 4,
                 }}
             >
-                <Accordion
-                    defaultExpanded={true}
+                {/* Reviews Header Section */}
+                <Box 
                     sx={{
-                        bgcolor: theme.vars.palette.secondary.light,
-                        borderRadius: "12px",
-                        "&:before": {
-                            display: "none",
-                        },
-                        "& .MuiAccordionSummary-root": {
-                            borderRadius: "12px",
-                            transition: "background-color 0.2s",
-                            "&:hover": {
-                                bgcolor: theme.vars.palette.secondary.dark,
-                            },
-                        },
-                        "& .MuiAccordionSummary-expandIconWrapper": {
-                            color: theme.vars.palette.primary.main,
-                            transition: "transform 0.3s",
-                            "&.Mui-expanded": {
-                                transform: "rotate(180deg)",
-                            },
-                        },
+                        display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        justifyContent: 'space-between',
+                        alignItems: { xs: 'flex-start', sm: 'center' },
+                        gap: 2,
+                        mb: 4,
+                        pb: 2,
+                        borderBottom: `1px solid ${theme.vars.palette.divider}`,
                     }}
                 >
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="reviews-content"
-                        id="reviews-header"
-                    >
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                fontWeight: 600,
-                                color: theme.vars.palette.primary.main,
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1,
-                            }}
-                        >
-                            Reviews
+                    <Box>
+                        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
+                            <Typography
+                                variant="h5"
+                                sx={{
+                                    fontWeight: 700,
+                                    color: theme.vars.palette.text.primary,
+                                }}
+                            >
+                                User Reviews
+                            </Typography>
                             {crew.totalReviews >= 0 && (
                                 <Typography
-                                    component="span"
+                                    variant="subtitle1"
                                     sx={{
-                                        color: theme.vars.palette.primary.main,
-                                        fontSize: "0.9rem",
-                                        fontWeight: 600,
-                                        py: 0.5,
-                                        borderRadius: "16px",
-                                    }}
-                                >
-                                    ({crew.totalReviews ? crew.totalReviews : 0})
-                                </Typography>
-                            )}
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails
-                        sx={{
-                            p: { xs: 2, sm: 3 },
-                            borderTop: `1px solid ${theme.vars.palette.divider}`,
-                        }}
-                    >
-                        <Box
-                            component="section"
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                rowGap: 2,
-                            }}
-                        >
-                            {crew.reviews!.length > 0 ? (
-                                <ReviewsHeader
-                                    data={crew}
-                                    sortBy={searchParamsValues.reviewsSortBy!}
-                                    ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-                                    sortingDataType="reviews"
-                                />
-                            ) : (
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        textAlign: "center",
                                         color: theme.vars.palette.text.secondary,
                                     }}
                                 >
-                                    No reviews yet. Be the first to review this crew!
+                                    ({crew.totalReviews})
                                 </Typography>
                             )}
-                            {crew.reviews.map(
-                                (review: any, index: number) =>
-                                    (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                        </Box>
+                        {crew.reviews?.length > 0 && (
+                            <Box sx={{ minWidth: 200 }}>
+                                <ReviewsHeader
+                                    data={crew}
+                                    sortingDataType="reviews"
+                                    sortBy={searchParamsValues.reviewsSortBy!}
+                                    ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
+                                />
+                            </Box>
+                        )}
+                    </Box>
+                </Box>
+
+                {/* Write Review Section */}
+                {session?.user && (!crew.isReviewed || isEditMode) && (
+                    <Box 
+                        sx={{ 
+                            mb: 4,
+                            p: 3,
+                            bgcolor: theme.vars.palette.background.paper,
+                            borderRadius: 1,
+                            border: `1px solid ${theme.vars.palette.divider}`,
+                        }}
+                    >
+                        <Typography 
+                            variant="h6" 
+                            sx={{ 
+                                mb: 2,
+                                fontWeight: 600,
+                                color: theme.vars.palette.text.primary 
+                            }}
+                        >
+                            {isEditMode ? "Edit your review" : "Write a review"}
+                        </Typography>
+                        <TextEditorForm
+                            review={review}
+                            setReview={setReview}
+                            rating={rating}
+                            setRating={setRating}
+                            isEditMode={isEditMode}
+                            setIsEditMode={setIsEditMode}
+                            setOpen={setOpen}
+                            textEditorRef={textEditorRef}
+                            handleFocusReview={handleFocusReview}
+                            onSubmitReview={onSubmitReview}
+                            onSubmitUpdateReview={onSubmitUpdateReview}
+                        />
+                    </Box>
+                )}
+
+                {/* Reviews List Section */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    {crew.reviews && crew.reviews.length > 0 ? (
+                        crew.reviews.map(
+                            (review: any, index: number) =>
+                                (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            bgcolor: theme.vars.palette.background.paper,
+                                            borderRadius: 1,
+                                            border: `1px solid ${theme.vars.palette.divider}`,
+                                            p: { xs: 2, sm: 3 },
+                                            '&:hover': {
+                                                bgcolor: theme.vars.palette.action.hover,
+                                            }
+                                        }}
+                                    >
                                         <Review
-                                            key={index}
                                             review={review}
                                             handleRemoveReview={onSubmitRemoveReview}
                                             isEditMode={isEditMode}
@@ -373,34 +382,53 @@ export default function CrewPageContent({
                                             type="crew"
                                             data={crew}
                                         />
-                                    ),
-                            )}
-                            {session?.user && (!crew.isReviewed || isEditMode) && (
-                                <TextEditorForm
-                                    review={review}
-                                    setReview={setReview}
-                                    rating={rating}
-                                    setRating={setRating}
-                                    isEditMode={isEditMode}
-                                    setIsEditMode={setIsEditMode}
-                                    setOpen={setOpen}
-                                    textEditorRef={textEditorRef}
-                                    handleFocusReview={handleFocusReview}
-                                    onSubmitReview={onSubmitReview}
-                                    onSubmitUpdateReview={onSubmitUpdateReview}
-                                />
-                            )}
-                            {crew.totalReviews > 0 && (
-                                <PaginationControl
-                                    currentPage={Number(searchParamsValues.reviewsPage)}
-                                    pageCount={reviewsPageCount}
-                                    urlParamName="reviewsPage"
-                                />
-                            )}
+                                    </Box>
+                                )
+                        )
+                    ) : (
+                        <Box 
+                            sx={{
+                                textAlign: "center",
+                                py: 6,
+                                bgcolor: theme.vars.palette.background.paper,
+                                borderRadius: 1,
+                                border: `1px solid ${theme.vars.palette.divider}`,
+                            }}
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    color: theme.vars.palette.text.secondary,
+                                    mb: 1
+                                }}
+                            >
+                                No reviews yet
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    color: theme.vars.palette.text.secondary
+                                }}
+                            >
+                                Be the first to review this crew member!
+                            </Typography>
                         </Box>
-                    </AccordionDetails>
-                </Accordion>
+                    )}
+                </Box>
+
+                {/* Pagination Section */}
+                {crew.totalReviews > 0 && (
+                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                        <PaginationControl
+                            currentPage={Number(searchParamsValues.reviewsPage)}
+                            pageCount={reviewsPageCount}
+                            urlParamName="reviewsPage"
+                        />
+                    </Box>
+                )}
             </Box>
+
+            {/* Produced Movies Section */}
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <ListDetail data={crew.producedMovies} type="crew" roleData="Movies" />
                 <PaginationControl
@@ -409,6 +437,8 @@ export default function CrewPageContent({
                     urlParamName="producedMoviesPage"
                 />
             </Box>
+
+            {/* Produced Series Section */}
             <Box component="section" sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 6 }}>
                 <ListDetail data={crew.producedSeries} type="crew" roleData="Series" />
                 <PaginationControl

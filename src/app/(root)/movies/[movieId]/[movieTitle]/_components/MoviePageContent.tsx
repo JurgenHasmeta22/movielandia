@@ -248,110 +248,135 @@ export default function MoviePageContent({
                 currentCrewPage={Number(searchParamsValues.crewPage)!}
                 crewPageCount={crewPageCount}
             />
+            
             <Box
+                component="section"
                 sx={{
-                    maxWidth: "900px",
+                    maxWidth: "1000px",
                     width: "100%",
                     mx: "auto",
-                    my: 4,
-                    "& .MuiAccordion-root": {
-                        mb: 2,
-                    },
+                    px: { xs: 2, sm: 3 },
+                    py: 4,
                 }}
             >
-                <Accordion
-                    defaultExpanded={true}
+                {/* Reviews Header Section */}
+                <Box 
                     sx={{
-                        bgcolor: theme.vars.palette.secondary.light,
-                        borderRadius: "12px",
-                        "&:before": {
-                            display: "none",
-                        },
-                        "& .MuiAccordionSummary-root": {
-                            borderRadius: "12px",
-                            transition: "background-color 0.2s",
-                            "&:hover": {
-                                bgcolor: theme.vars.palette.secondary.dark,
-                            },
-                        },
-                        "& .MuiAccordionSummary-expandIconWrapper": {
-                            color: theme.vars.palette.primary.main,
-                            transition: "transform 0.3s",
-                            "&.Mui-expanded": {
-                                transform: "rotate(180deg)",
-                            },
-                        },
+                        display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        justifyContent: 'space-between',
+                        alignItems: { xs: 'flex-start', sm: 'center' },
+                        gap: 2,
+                        mb: 4,
+                        pb: 2,
+                        borderBottom: `1px solid ${theme.vars.palette.divider}`,
                     }}
                 >
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="reviews-content"
-                        id="reviews-header"
-                    >
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                fontWeight: 600,
-                                color: theme.vars.palette.primary.main,
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 1,
-                            }}
-                        >
-                            Reviews
-                            {movie.totalReviews >= 0 && (
-                                <Typography
-                                    component="span"
-                                    sx={{
-                                        color: theme.vars.palette.primary.main,
-                                        fontSize: "0.9rem",
-                                        fontWeight: 600,
-                                        py: 0.5,
-                                        borderRadius: "16px",
-                                    }}
-                                >
-                                    ({movie.totalReviews ? movie.totalReviews : 0})
+                    <Box>
+                        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
+                            <Typography
+                                variant="h5"
+                                sx={{
+                                    fontWeight: 700,
+                                    color: theme.vars.palette.text.primary,
+                                }}
+                            >
+                                User Reviews
+                            </Typography>
+                            <Typography 
+                                variant="subtitle1"
+                                sx={{ 
+                                    color: theme.vars.palette.text.secondary,
+                                    fontWeight: 500
+                                }}
+                            >
+                                ({movie.totalReviews || 0})
+                            </Typography>
+                        </Box>
+                        {movie.averageRating > 0 && (
+                            <Box 
+                                sx={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center',
+                                    gap: 1,
+                                    color: theme.vars.palette.text.secondary
+                                }}
+                            >
+                                <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                                    Average Rating: {movie.averageRating.toFixed(1)}/10
                                 </Typography>
-                            )}
-                        </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails
-                        sx={{
-                            p: { xs: 2, sm: 3 },
-                            borderTop: `1px solid ${theme.vars.palette.divider}`,
+                            </Box>
+                        )}
+                    </Box>
+                    
+                    {movie.reviews && movie.reviews.length > 0 && (
+                        <Box sx={{ minWidth: 200 }}>
+                            <ReviewsHeader
+                                data={movie}
+                                sortingDataType="reviews"
+                                sortBy={searchParamsValues.reviewsSortBy!}
+                                ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
+                            />
+                        </Box>
+                    )}
+                </Box>
+
+                {/* Write Review Section */}
+                {session?.user && (!movie.isReviewed || isEditMode) && (
+                    <Box 
+                        sx={{ 
+                            mb: 4,
+                            p: 3,
+                            bgcolor: theme.vars.palette.background.paper,
+                            borderRadius: 1,
+                            border: `1px solid ${theme.vars.palette.divider}`,
                         }}
                     >
-                        <Box
-                            component="section"
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                rowGap: 2,
+                        <Typography 
+                            variant="h6" 
+                            sx={{ 
+                                mb: 2,
+                                fontWeight: 600,
+                                color: theme.vars.palette.text.primary 
                             }}
                         >
-                            {movie.reviews!.length > 0 ? (
-                                <ReviewsHeader
-                                    data={movie}
-                                    sortingDataType="reviews"
-                                    sortBy={searchParamsValues.reviewsSortBy!}
-                                    ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-                                />
-                            ) : (
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        textAlign: "center",
-                                        color: theme.vars.palette.text.secondary,
-                                    }}
-                                >
-                                    No reviews yet. Be the first to review this movie!
-                                </Typography>
-                            )}
-                            {movie.reviews!.map(
-                                (review: any, index: number) =>
-                                    (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                            {isEditMode ? "Edit your review" : "Write a review"}
+                        </Typography>
+                        <TextEditorForm
+                            review={review}
+                            setReview={setReview}
+                            rating={rating}
+                            setRating={setRating}
+                            isEditMode={isEditMode}
+                            setIsEditMode={setIsEditMode}
+                            setOpen={setOpen}
+                            textEditorRef={textEditorRef}
+                            handleFocusReview={handleFocusReview}
+                            onSubmitReview={onSubmitReview}
+                            onSubmitUpdateReview={onSubmitUpdateReview}
+                        />
+                    </Box>
+                )}
+
+                {/* Reviews List Section */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    {movie.reviews && movie.reviews.length > 0 ? (
+                        movie.reviews.map(
+                            (review: any, index: number) =>
+                                (!isEditMode || review.user.id !== Number(session?.user?.id)) && (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            bgcolor: theme.vars.palette.background.paper,
+                                            borderRadius: 1,
+                                            border: `1px solid ${theme.vars.palette.divider}`,
+                                            p: { xs: 2, sm: 3 },
+                                            '&:hover': {
+                                                bgcolor: theme.vars.palette.action.hover,
+                                            }
+                                        }}
+                                    >
                                         <Review
-                                            key={index}
                                             review={review}
                                             handleRemoveReview={onSubmitRemoveReview}
                                             isEditMode={isEditMode}
@@ -365,34 +390,53 @@ export default function MoviePageContent({
                                             type="movie"
                                             data={movie}
                                         />
-                                    ),
-                            )}
-                            {session?.user && (!movie.isReviewed || isEditMode) && (
-                                <TextEditorForm
-                                    review={review}
-                                    setReview={setReview}
-                                    rating={rating}
-                                    setRating={setRating}
-                                    isEditMode={isEditMode}
-                                    setIsEditMode={setIsEditMode}
-                                    setOpen={setOpen}
-                                    textEditorRef={textEditorRef}
-                                    handleFocusReview={handleFocusReview}
-                                    onSubmitReview={onSubmitReview}
-                                    onSubmitUpdateReview={onSubmitUpdateReview}
-                                />
-                            )}
-                            {movie.totalReviews > 0 && (
-                                <PaginationControl
-                                    currentPage={Number(searchParamsValues.reviewsPage)!}
-                                    pageCount={reviewsPageCount}
-                                    urlParamName="reviewsPage"
-                                />
-                            )}
+                                    </Box>
+                                )
+                        )
+                    ) : (
+                        <Box 
+                            sx={{
+                                textAlign: "center",
+                                py: 6,
+                                bgcolor: theme.vars.palette.background.paper,
+                                borderRadius: 1,
+                                border: `1px solid ${theme.vars.palette.divider}`,
+                            }}
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    color: theme.vars.palette.text.secondary,
+                                    mb: 1
+                                }}
+                            >
+                                No reviews yet
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    color: theme.vars.palette.text.secondary
+                                }}
+                            >
+                                Be the first to review this movie!
+                            </Typography>
                         </Box>
-                    </AccordionDetails>
-                </Accordion>
+                    )}
+                </Box>
+
+                {/* Pagination Section */}
+                {movie.totalReviews > 0 && (
+                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                        <PaginationControl
+                            currentPage={Number(searchParamsValues.reviewsPage)!}
+                            pageCount={reviewsPageCount}
+                            urlParamName="reviewsPage"
+                        />
+                    </Box>
+                )}
             </Box>
+
+            {/* Related Movies Section */}
             {relatedMovies && relatedMovies.length !== 0 && (
                 <Box sx={{ mb: 6 }}>
                     <ListDetail data={relatedMovies} type="movie" roleData="related" />
