@@ -252,11 +252,23 @@ const SearchAutocomplete = ({
                 overflowY: "auto",
                 mt: { xs: 0.5, sm: 1 },
                 ...(isMobile && {
-                    position: "relative",
+                    position: "static",
                     width: "100%",
-                    top: 0,
-                    maxWidth: "100vw",
+                    maxWidth: "100%",
                 }),
+                "&::-webkit-scrollbar": {
+                    width: "8px",
+                },
+                "&::-webkit-scrollbar-track": {
+                    background: theme.vars.palette.background.default,
+                },
+                "&::-webkit-scrollbar-thumb": {
+                    background: theme.vars.palette.primary.main,
+                    borderRadius: "4px",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                    background: theme.vars.palette.primary.dark,
+                },
             }}
         >
             <Stack

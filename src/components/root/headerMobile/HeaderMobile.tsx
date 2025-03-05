@@ -109,14 +109,6 @@ export default function HeaderMobile({
                     sx={{
                         p: 2,
                         width: "100%",
-                        "& > div": {
-                            width: "100%",
-                        },
-                        "& .MuiAutocomplete-popper": {
-                            maxWidth: "100%",
-                            position: "static !important",
-                            transform: "none !important",
-                        },
                     }}
                 >
                     <SearchField
@@ -139,8 +131,6 @@ export default function HeaderMobile({
                     <HeaderLinks genres={genres} />
                 </Box>
 
-                <Divider />
-
                 <Box
                     sx={{
                         p: 2,
@@ -158,28 +148,26 @@ export default function HeaderMobile({
                                 alignItems: "center",
                             }}
                         >
-                            <Link
-                                href="/messages"
-                                onClick={() => setIsDrawerOpen(false)}
-                                style={{ textDecoration: "none" }}
-                            >
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    startIcon={<EmailIcon />}
-                                    sx={{
-                                        color: theme.vars.palette.primary.main,
-                                        borderColor: theme.vars.palette.primary.main,
-                                        "&:hover": {
-                                            borderColor: theme.vars.palette.green.main,
-                                            color: theme.vars.palette.green.main,
-                                        },
-                                    }}
+                            <Box sx={{ display: "flex", gap: 1 }}>
+                                <Link
+                                    href="/messages"
+                                    onClick={() => setIsDrawerOpen(false)}
+                                    style={{ textDecoration: "none" }}
                                 >
-                                    Messages
-                                </Button>
-                            </Link>
-                            <NotificationMenu session={session} />
+                                    <IconButton
+                                        size="small"
+                                        sx={{
+                                            color: theme.vars.palette.primary.main,
+                                            "&:hover": {
+                                                color: theme.vars.palette.green.main,
+                                            },
+                                        }}
+                                    >
+                                        <EmailIcon />
+                                    </IconButton>
+                                </Link>
+                                <NotificationMenu session={session} />
+                            </Box>
                         </Box>
                     )}
 
