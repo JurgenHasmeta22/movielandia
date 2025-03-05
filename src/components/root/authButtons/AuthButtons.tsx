@@ -53,7 +53,7 @@ const AuthButtons = ({
                         onClick={openMenuProfile}
                         sx={{
                             color: theme.vars.palette.primary.main,
-                            fontSize: 32,
+                            fontSize: "1.75rem", // Changed from 32 to match other icons
                             cursor: "pointer",
                             "&:hover": {
                                 color: theme.vars.palette.green.main,
@@ -84,7 +84,7 @@ const AuthButtons = ({
                                         alignItems: "center",
                                         gap: 1.5,
                                         "& .MuiSvgIcon-root": {
-                                            fontSize: "1.25rem",
+                                            fontSize: "1.25rem", // Consistent icon size in menu
                                             color: theme.vars.palette.primary.main,
                                         },
                                         "&:hover": {
@@ -132,7 +132,7 @@ const AuthButtons = ({
                         LinkComponent={MuiNextLink}
                         href="/login"
                         variant="text"
-                        startIcon={<LoginIcon />}
+                        startIcon={<LoginIcon sx={{ fontSize: "1.25rem" }} />} // Consistent icon size
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -164,7 +164,7 @@ const AuthButtons = ({
                         LinkComponent={MuiNextLink}
                         href="/register"
                         variant="text"
-                        startIcon={<PersonAddIcon />}
+                        startIcon={<PersonAddIcon sx={{ fontSize: "1.25rem" }} />} // Consistent icon size
                         sx={{
                             display: "flex",
                             alignItems: "center",

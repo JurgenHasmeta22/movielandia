@@ -248,7 +248,7 @@ export default function MoviePageContent({
                 currentCrewPage={Number(searchParamsValues.crewPage)!}
                 crewPageCount={crewPageCount}
             />
-            
+
             <Box
                 component="section"
                 sx={{
@@ -260,12 +260,12 @@ export default function MoviePageContent({
                 }}
             >
                 {/* Reviews Header Section */}
-                <Box 
+                <Box
                     sx={{
-                        display: 'flex',
-                        flexDirection: { xs: 'column', sm: 'row' },
-                        justifyContent: 'space-between',
-                        alignItems: { xs: 'flex-start', sm: 'center' },
+                        display: "flex",
+                        flexDirection: { xs: "column", sm: "row" },
+                        justifyContent: "space-between",
+                        alignItems: { xs: "flex-start", sm: "center" },
                         gap: 2,
                         mb: 4,
                         pb: 2,
@@ -273,7 +273,7 @@ export default function MoviePageContent({
                     }}
                 >
                     <Box>
-                        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "baseline", gap: 1.5, mb: 1 }}>
                             <Typography
                                 variant="h5"
                                 sx={{
@@ -283,23 +283,23 @@ export default function MoviePageContent({
                             >
                                 User Reviews
                             </Typography>
-                            <Typography 
+                            <Typography
                                 variant="subtitle1"
-                                sx={{ 
+                                sx={{
                                     color: theme.vars.palette.text.secondary,
-                                    fontWeight: 500
+                                    fontWeight: 500,
                                 }}
                             >
                                 ({movie.totalReviews || 0})
                             </Typography>
                         </Box>
                         {movie.averageRating > 0 && (
-                            <Box 
-                                sx={{ 
-                                    display: 'flex', 
-                                    alignItems: 'center',
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
                                     gap: 1,
-                                    color: theme.vars.palette.text.secondary
+                                    color: theme.vars.palette.text.secondary,
                                 }}
                             >
                                 <Typography variant="body2" sx={{ fontWeight: 500 }}>
@@ -308,7 +308,7 @@ export default function MoviePageContent({
                             </Box>
                         )}
                     </Box>
-                    
+
                     {movie.reviews && movie.reviews.length > 0 && (
                         <Box sx={{ minWidth: 200 }}>
                             <ReviewsHeader
@@ -323,8 +323,8 @@ export default function MoviePageContent({
 
                 {/* Write Review Section */}
                 {session?.user && (!movie.isReviewed || isEditMode) && (
-                    <Box 
-                        sx={{ 
+                    <Box
+                        sx={{
                             mb: 4,
                             p: 3,
                             bgcolor: theme.vars.palette.background.paper,
@@ -332,12 +332,12 @@ export default function MoviePageContent({
                             border: `1px solid ${theme.vars.palette.divider}`,
                         }}
                     >
-                        <Typography 
-                            variant="h6" 
-                            sx={{ 
+                        <Typography
+                            variant="h6"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
-                                color: theme.vars.palette.text.primary 
+                                color: theme.vars.palette.text.primary,
                             }}
                         >
                             {isEditMode ? "Edit your review" : "Write a review"}
@@ -359,7 +359,7 @@ export default function MoviePageContent({
                 )}
 
                 {/* Reviews List Section */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                     {movie.reviews && movie.reviews.length > 0 ? (
                         movie.reviews.map(
                             (review: any, index: number) =>
@@ -371,9 +371,9 @@ export default function MoviePageContent({
                                             borderRadius: 1,
                                             border: `1px solid ${theme.vars.palette.divider}`,
                                             p: { xs: 2, sm: 3 },
-                                            '&:hover': {
+                                            "&:hover": {
                                                 bgcolor: theme.vars.palette.action.hover,
-                                            }
+                                            },
                                         }}
                                     >
                                         <Review
@@ -391,10 +391,10 @@ export default function MoviePageContent({
                                             data={movie}
                                         />
                                     </Box>
-                                )
+                                ),
                         )
                     ) : (
-                        <Box 
+                        <Box
                             sx={{
                                 textAlign: "center",
                                 py: 6,
@@ -407,7 +407,7 @@ export default function MoviePageContent({
                                 variant="h6"
                                 sx={{
                                     color: theme.vars.palette.text.secondary,
-                                    mb: 1
+                                    mb: 1,
                                 }}
                             >
                                 No reviews yet
@@ -415,7 +415,7 @@ export default function MoviePageContent({
                             <Typography
                                 variant="body2"
                                 sx={{
-                                    color: theme.vars.palette.text.secondary
+                                    color: theme.vars.palette.text.secondary,
                                 }}
                             >
                                 Be the first to review this movie!
@@ -426,7 +426,7 @@ export default function MoviePageContent({
 
                 {/* Pagination Section */}
                 {movie.totalReviews > 0 && (
-                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
                         <PaginationControl
                             currentPage={Number(searchParamsValues.reviewsPage)!}
                             pageCount={reviewsPageCount}

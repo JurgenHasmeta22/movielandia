@@ -123,11 +123,11 @@ const Review: React.FC<IReviewProps> = ({
                 p: 3,
                 mb: 3,
                 borderRadius: 2,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: (theme) => theme.shadows[4]
-                }
+                transition: "all 0.3s ease",
+                "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: (theme) => theme.shadows[4],
+                },
             }}
         >
             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
@@ -136,7 +136,7 @@ const Review: React.FC<IReviewProps> = ({
                         display: "flex",
                         alignItems: "center",
                         gap: 2,
-                        cursor: "pointer"
+                        cursor: "pointer",
                     }}
                     onClick={() => router.push(`/users/${review.user.id}/${review.user.userName}`)}
                 >
@@ -146,8 +146,8 @@ const Review: React.FC<IReviewProps> = ({
                             height={48}
                             width={48}
                             style={{
-                                borderRadius: '50%',
-                                objectFit: 'cover'
+                                borderRadius: "50%",
+                                objectFit: "cover",
                             }}
                             src={review.user.avatar?.photoSrc}
                         />
@@ -170,13 +170,15 @@ const Review: React.FC<IReviewProps> = ({
                         </Typography>
                     </Box>
                 </Box>
-                
+
                 {review.user.id === Number(session?.user?.id) && !isEditMode && (
-                    <Box sx={{ 
-                        display: 'flex', 
-                        gap: 1,
-                        alignItems: 'center'
-                    }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: 1,
+                            alignItems: "center",
+                        }}
+                    >
                         <Tooltip title="Edit review">
                             <IconButton
                                 size="small"
@@ -191,12 +193,12 @@ const Review: React.FC<IReviewProps> = ({
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete review">
-                            <Box 
-                                ref={ref} 
+                            <Box
+                                ref={ref}
                                 tabIndex={-1}
-                                sx={{ 
-                                    display: 'flex',
-                                    alignItems: 'center'
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
                                 }}
                             >
                                 <IconButton size="small" color="error" onClick={handleRemoveReview}>
@@ -209,18 +211,12 @@ const Review: React.FC<IReviewProps> = ({
             </Box>
 
             <Box sx={{ mb: 2 }}>
-                <Rating
-                    value={review.rating}
-                    readOnly
-                    max={10}
-                    precision={0.5}
-                    sx={{ mb: 1 }}
-                />
-                <Typography 
-                    variant="subtitle1" 
-                    sx={{ 
+                <Rating value={review.rating} readOnly max={10} precision={0.5} sx={{ mb: 1 }} />
+                <Typography
+                    variant="subtitle1"
+                    sx={{
                         color: getRatingLabelAndColor(review.rating).color,
-                        fontWeight: 600
+                        fontWeight: 600,
                     }}
                 >
                     {getRatingLabelAndColor(review.rating).label}
@@ -240,16 +236,13 @@ const Review: React.FC<IReviewProps> = ({
 
             <Box sx={{ display: "flex", justifyContent: "center", gap: 4 }}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <motion.div
-                        whileTap={{ scale: 0.95 }}
-                        animate={isClickedUpvote ? { scale: [1, 1.2, 1] } : {}}
-                    >
+                    <motion.div whileTap={{ scale: 0.95 }} animate={isClickedUpvote ? { scale: [1, 1.2, 1] } : {}}>
                         <Tooltip title={session?.user ? "Upvote" : "Sign in to upvote"}>
                             <IconButton
                                 disabled={!session?.user || review.user.id === Number(session?.user?.id)}
                                 onClick={handleClickUpVoteReview}
                                 sx={{
-                                    color: review.isUpvoted ? "success.main" : "action.active"
+                                    color: review.isUpvoted ? "success.main" : "action.active",
                                 }}
                             >
                                 <ThumbUpIcon />
@@ -260,8 +253,8 @@ const Review: React.FC<IReviewProps> = ({
                         disabled={review._count.upvotes === 0}
                         onClick={() => router.push(`${pathname}/reviews/${review.id}/upvotes`)}
                         sx={{
-                            minWidth: 'auto',
-                            "&:hover": { backgroundColor: "transparent" }
+                            minWidth: "auto",
+                            "&:hover": { backgroundColor: "transparent" },
                         }}
                     >
                         {review._count.upvotes}
@@ -269,16 +262,13 @@ const Review: React.FC<IReviewProps> = ({
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <motion.div
-                        whileTap={{ scale: 0.95 }}
-                        animate={isClickedDownvote ? { scale: [1, 1.2, 1] } : {}}
-                    >
+                    <motion.div whileTap={{ scale: 0.95 }} animate={isClickedDownvote ? { scale: [1, 1.2, 1] } : {}}>
                         <Tooltip title={session?.user ? "Downvote" : "Sign in to downvote"}>
                             <IconButton
                                 disabled={!session?.user || review.user.id === Number(session?.user?.id)}
                                 onClick={handleClickDownVoteReview}
                                 sx={{
-                                    color: review.isDownvoted ? "error.main" : "action.active"
+                                    color: review.isDownvoted ? "error.main" : "action.active",
                                 }}
                             >
                                 <ThumbDownIcon />
@@ -289,8 +279,8 @@ const Review: React.FC<IReviewProps> = ({
                         disabled={review._count.downvotes === 0}
                         onClick={() => router.push(`${pathname}/reviews/${review.id}/downvotes`)}
                         sx={{
-                            minWidth: 'auto',
-                            "&:hover": { backgroundColor: "transparent" }
+                            minWidth: "auto",
+                            "&:hover": { backgroundColor: "transparent" },
                         }}
                     >
                         {review._count.downvotes}

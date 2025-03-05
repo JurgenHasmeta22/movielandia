@@ -260,12 +260,12 @@ export default function SeriePageContent({
                 }}
             >
                 {/* Reviews Header Section */}
-                <Box 
+                <Box
                     sx={{
-                        display: 'flex',
-                        flexDirection: { xs: 'column', sm: 'row' },
-                        justifyContent: 'space-between',
-                        alignItems: { xs: 'flex-start', sm: 'center' },
+                        display: "flex",
+                        flexDirection: { xs: "column", sm: "row" },
+                        justifyContent: "space-between",
+                        alignItems: { xs: "flex-start", sm: "center" },
                         gap: 2,
                         mb: 4,
                         pb: 2,
@@ -273,7 +273,7 @@ export default function SeriePageContent({
                     }}
                 >
                     <Box>
-                        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "baseline", gap: 1.5, mb: 1 }}>
                             <Typography
                                 variant="h5"
                                 sx={{
@@ -296,7 +296,7 @@ export default function SeriePageContent({
                             )}
                         </Box>
                     </Box>
-                    
+
                     {serie.reviews && serie.reviews.length > 0 && (
                         <Box sx={{ minWidth: 200 }}>
                             <ReviewsHeader
@@ -311,8 +311,8 @@ export default function SeriePageContent({
 
                 {/* Write Review Section */}
                 {session?.user && (!serie.isReviewed || isEditMode) && (
-                    <Box 
-                        sx={{ 
+                    <Box
+                        sx={{
                             mb: 4,
                             p: 3,
                             bgcolor: theme.vars.palette.background.paper,
@@ -320,12 +320,12 @@ export default function SeriePageContent({
                             border: `1px solid ${theme.vars.palette.divider}`,
                         }}
                     >
-                        <Typography 
-                            variant="h6" 
-                            sx={{ 
+                        <Typography
+                            variant="h6"
+                            sx={{
                                 mb: 2,
                                 fontWeight: 600,
-                                color: theme.vars.palette.text.primary 
+                                color: theme.vars.palette.text.primary,
                             }}
                         >
                             {isEditMode ? "Edit your review" : "Write a review"}
@@ -347,7 +347,7 @@ export default function SeriePageContent({
                 )}
 
                 {/* Reviews List Section */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                     {serie.reviews && serie.reviews.length > 0 ? (
                         serie.reviews.map(
                             (review: any, index: number) =>
@@ -359,9 +359,9 @@ export default function SeriePageContent({
                                             borderRadius: 1,
                                             border: `1px solid ${theme.vars.palette.divider}`,
                                             p: { xs: 2, sm: 3 },
-                                            '&:hover': {
+                                            "&:hover": {
                                                 bgcolor: theme.vars.palette.action.hover,
-                                            }
+                                            },
                                         }}
                                     >
                                         <Review
@@ -379,10 +379,10 @@ export default function SeriePageContent({
                                             data={serie}
                                         />
                                     </Box>
-                                )
+                                ),
                         )
                     ) : (
-                        <Box 
+                        <Box
                             sx={{
                                 textAlign: "center",
                                 py: 6,
@@ -395,7 +395,7 @@ export default function SeriePageContent({
                                 variant="h6"
                                 sx={{
                                     color: theme.vars.palette.text.secondary,
-                                    mb: 1
+                                    mb: 1,
                                 }}
                             >
                                 No reviews yet
@@ -403,7 +403,7 @@ export default function SeriePageContent({
                             <Typography
                                 variant="body2"
                                 sx={{
-                                    color: theme.vars.palette.text.secondary
+                                    color: theme.vars.palette.text.secondary,
                                 }}
                             >
                                 Be the first to review this serie!
@@ -414,7 +414,7 @@ export default function SeriePageContent({
 
                 {/* Pagination Section */}
                 {serie.totalReviews > 0 && (
-                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                    <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
                         <PaginationControl
                             currentPage={Number(searchParamsValues.reviewsPage)}
                             pageCount={reviewsPageCount}

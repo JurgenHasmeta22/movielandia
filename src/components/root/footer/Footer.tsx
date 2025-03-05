@@ -43,6 +43,9 @@ const Footer = (): React.JSX.Element => {
                 color: theme.vars.palette.primary.main,
                 py: 6,
                 borderTop: `1px solid ${theme.vars.palette.divider}`,
+                "& a": {
+                    textDecoration: "none !important",
+                },
             }}
             component="footer"
         >
@@ -69,21 +72,10 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
+                                        fontSize: { xs: "1.25rem", sm: "1.35rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
-                                        position: "relative",
-                                        display: "inline-block",
-                                        "&::after": {
-                                            content: '""',
-                                            position: "absolute",
-                                            bottom: -4,
-                                            left: 12,
-                                            width: "80%",
-                                            height: 2,
-                                            bgcolor: "primary.main",
-                                            borderRadius: 1,
-                                        },
                                     }}
                                 >
                                     Movies & TV
@@ -99,21 +91,10 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
+                                        fontSize: { xs: "1.25rem", sm: "1.35rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
-                                        position: "relative",
-                                        display: "inline-block",
-                                        "&::after": {
-                                            content: '""',
-                                            position: "absolute",
-                                            bottom: -4,
-                                            left: 12,
-                                            width: "80%",
-                                            height: 2,
-                                            bgcolor: "primary.main",
-                                            borderRadius: 1,
-                                        },
                                     }}
                                 >
                                     Cast & Crew
@@ -128,21 +109,10 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
+                                        fontSize: { xs: "1.25rem", sm: "1.35rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
-                                        position: "relative",
-                                        display: "inline-block",
-                                        "&::after": {
-                                            content: '""',
-                                            position: "absolute",
-                                            bottom: -4,
-                                            left: 12,
-                                            width: "80%",
-                                            height: 2,
-                                            bgcolor: "primary.main",
-                                            borderRadius: 1,
-                                        },
                                     }}
                                 >
                                     Other
@@ -169,21 +139,10 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
+                                        fontSize: { xs: "1.25rem", sm: "1.35rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
-                                        position: "relative",
-                                        display: "inline-block",
-                                        "&::after": {
-                                            content: '""',
-                                            position: "absolute",
-                                            bottom: -4,
-                                            left: 12,
-                                            width: "80%",
-                                            height: 2,
-                                            bgcolor: "primary.main",
-                                            borderRadius: 1,
-                                        },
                                     }}
                                 >
                                     Follow Us
@@ -208,20 +167,9 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
+                                        fontSize: { xs: "1.25rem", sm: "1.35rem" },
                                         fontWeight: 700,
                                         color: theme.vars.palette.red.main,
-                                        position: "relative",
-                                        display: "inline-block",
-                                        "&::after": {
-                                            content: '""',
-                                            position: "absolute",
-                                            bottom: -4,
-                                            left: 0,
-                                            width: "80%",
-                                            height: 2,
-                                            bgcolor: "primary.main",
-                                            borderRadius: 1,
-                                        },
                                     }}
                                 >
                                     Newsletter
@@ -283,7 +231,6 @@ const Footer = (): React.JSX.Element => {
                                     variant="body2"
                                     sx={{
                                         opacity: 0.8,
-                                        textDecoration: "none",
                                         "&:hover": { color: theme.vars.palette.red.main },
                                     }}
                                 >
@@ -295,7 +242,6 @@ const Footer = (): React.JSX.Element => {
                                     variant="body2"
                                     sx={{
                                         opacity: 0.8,
-                                        textDecoration: "none",
                                         "&:hover": { color: theme.vars.palette.red.main },
                                     }}
                                 >
