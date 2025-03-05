@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LoginIcon from "@mui/icons-material/Login";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 interface IAuthButtonsProps {
     session: Session | null;
@@ -48,41 +49,17 @@ const AuthButtons = ({
         <>
             {session && session.user ? (
                 <>
-                    <Box
-                        display={"flex"}
-                        flexDirection={"row"}
+                    <AccountCircleOutlinedIcon
                         onClick={openMenuProfile}
                         sx={{
+                            color: theme.vars.palette.primary.main,
+                            fontSize: 32,
                             cursor: "pointer",
                             "&:hover": {
                                 color: theme.vars.palette.green.main,
                             },
                         }}
-                    >
-                        <PersonOutlinedIcon
-                            sx={{
-                                color: theme.vars.palette.primary.main,
-                                "&:hover": {
-                                    color: theme.vars.palette.green.main,
-                                },
-                            }}
-                        />
-                        <Typography
-                            variant="body1"
-                            sx={{
-                                paddingLeft: 1,
-                                color: theme.vars.palette.primary.main,
-                                fontSize: "0.95rem",
-                                fontWeight: 500,
-                                letterSpacing: "0.02em",
-                                "&:hover": {
-                                    color: theme.vars.palette.green.main,
-                                },
-                            }}
-                        >
-                            {userName}
-                        </Typography>
-                    </Box>
+                    />
                     <Menu
                         anchorEl={anchorElProfile}
                         open={Boolean(anchorElProfile)}

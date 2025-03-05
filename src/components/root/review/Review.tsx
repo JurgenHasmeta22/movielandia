@@ -172,7 +172,11 @@ const Review: React.FC<IReviewProps> = ({
                 </Box>
                 
                 {review.user.id === Number(session?.user?.id) && !isEditMode && (
-                    <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Box sx={{ 
+                        display: 'flex', 
+                        gap: 1,
+                        alignItems: 'center'
+                    }}>
                         <Tooltip title="Edit review">
                             <IconButton
                                 size="small"
@@ -187,7 +191,14 @@ const Review: React.FC<IReviewProps> = ({
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete review">
-                            <Box ref={ref} tabIndex={-1}>
+                            <Box 
+                                ref={ref} 
+                                tabIndex={-1}
+                                sx={{ 
+                                    display: 'flex',
+                                    alignItems: 'center'
+                                }}
+                            >
                                 <IconButton size="small" color="error" onClick={handleRemoveReview}>
                                     <CloseIcon />
                                 </IconButton>
