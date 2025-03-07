@@ -253,8 +253,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     <Image
                         src={"/icons/movielandia24-logo.png"}
                         alt="MovieLandia24"
-                        height={50}
-                        width={160}
+                        height={60}
+                        width={192}
                         priority={true}
                         style={{ pointerEvents: "none" }}
                     />

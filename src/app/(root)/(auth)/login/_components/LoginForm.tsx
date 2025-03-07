@@ -74,8 +74,8 @@ export default function LoginForm() {
                         <Image
                             src={"/icons/movielandia24-logo.png"}
                             alt="MovieLandia24"
-                            height={70}
-                            width={220}
+                            height={85}
+                            width={270}
                             priority={true}
                             style={{ pointerEvents: "none" }}
                         />

@@ -153,7 +153,7 @@ export async function getUsersWithFilters({
     filterValue,
     filterNameString,
     filterOperatorString,
-}: UserModelParams): Promise<{ users: User[]; }> {
+}: UserModelParams): Promise<{ users: User[] }> {
     const filters: any = {};
     const orderByObject: any = {};
 

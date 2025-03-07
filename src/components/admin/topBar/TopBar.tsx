@@ -93,8 +93,8 @@ const TopBar = () => {
                             <Image
                                 src="/icons/movielandia24-logo.png"
                                 alt="MovieLandia24 Admin"
-                                height={80}
-                                width={200}
+                                height={96}
+                                width={240}
                                 priority
                                 style={{
                                     objectFit: "contain",
