@@ -220,21 +220,36 @@ export default function RegisterForm() {
                         />
                     </FormControl>
                     <FormControl size="small" fullWidth>
+                        <InputLabel id="gender-label">Gender</InputLabel>
                         <Controller
                             name="gender"
                             control={control}
                             render={({ field }) => (
                                 <>
                                     <Select
+                                        labelId="gender-label"
+                                        label="Gender"
                                         {...field}
                                         error={!!errors.gender}
-                                        label="Gender"
                                         value={field.value || ""}
                                         startAdornment={
                                             <InputAdornment position="start">
                                                 <WcIcon />
                                             </InputAdornment>
                                         }
+                                        MenuProps={{
+                                            anchorOrigin: {
+                                                vertical: "bottom",
+                                                horizontal: "right",
+                                            },
+                                            transformOrigin: {
+                                                vertical: "top",
+                                                horizontal: "right",
+                                            },
+                                            PaperProps: {
+                                                sx: { mt: 1 },
+                                            },
+                                        }}
                                         sx={{
                                             borderRadius: "8px",
                                             "& .MuiOutlinedInput-notchedOutline": {
@@ -281,20 +296,51 @@ export default function RegisterForm() {
                         />
                     </FormControl>
                     <FormControl size="small" fullWidth>
+                        <InputLabel id="countryFrom-label">Country</InputLabel>
                         <Controller
                             name="countryFrom"
                             control={control}
                             render={({ field }) => (
                                 <>
                                     <Select
+                                        labelId="countryFrom-label"
+                                        label="Country"
                                         {...field}
                                         error={!!errors.countryFrom}
-                                        label="Country"
                                         startAdornment={
                                             <InputAdornment position="start">
                                                 <PublicIcon />
                                             </InputAdornment>
                                         }
+                                        MenuProps={{
+                                            anchorOrigin: {
+                                                vertical: 'bottom',
+                                                horizontal: 'left',
+                                            },
+                                            transformOrigin: {
+                                                vertical: 'top',
+                                                horizontal: 'left',
+                                            },
+                                            PaperProps: {
+                                                sx: {
+                                                    mt: 1,
+                                                    maxHeight: '300px',
+                                                    '&::-webkit-scrollbar': {
+                                                        width: '8px',
+                                                    },
+                                                    '&::-webkit-scrollbar-track': {
+                                                        background: 'transparent',
+                                                    },
+                                                    '&::-webkit-scrollbar-thumb': {
+                                                        backgroundColor: 'primary.main',
+                                                        borderRadius: '4px',
+                                                    },
+                                                    '&::-webkit-scrollbar-thumb:hover': {
+                                                        backgroundColor: 'primary.dark',
+                                                    },
+                                                }
+                                            }
+                                        }}
                                         sx={{
                                             borderRadius: "8px",
                                             "& .MuiOutlinedInput-notchedOutline": {
