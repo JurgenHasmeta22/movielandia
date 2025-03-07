@@ -15,17 +15,20 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: { label: "Email", type: "email" },
+                emailOrUsername: { label: "Email or Username", type: "text" },
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) {
+                if (!credentials?.emailOrUsername || !credentials?.password) {
                     throw new Error("Invalid credentials");
                 }
 
-                const user = await prisma.user.findUnique({
+                const user = await prisma.user.findFirst({
                     where: {
-                        email: credentials.email,
+                        OR: [
+                            { email: credentials.emailOrUsername },
+                            { userName: credentials.emailOrUsername }
+                        ],
                     },
                 });
 
@@ -40,14 +43,11 @@ export const authOptions: NextAuthOptions = {
                 const dbPassword = user.password!;
                 let isPasswordValid = false;
 
-                // Checking if the password in the database is hashed
                 const isHashedPassword = dbPassword.length === 60 && dbPassword.startsWith("$2b$");
 
                 if (isHashedPassword) {
-                    // Comparing using bcrypt for hashed passwords
                     isPasswordValid = await compare(credentials.password, dbPassword);
                 } else {
-                    // Plain text comparison for unencrypted passwords
                     isPasswordValid = credentials.password === dbPassword;
                 }
 

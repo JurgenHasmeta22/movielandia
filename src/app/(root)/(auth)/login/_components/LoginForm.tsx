@@ -17,7 +17,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
-import EmailIcon from "@mui/icons-material/Email";
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import PasswordIcon from "@mui/icons-material/Password";
 import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -36,17 +36,17 @@ export default function LoginForm() {
         formState: { errors, isSubmitting },
     } = useForm({
         resolver: zodResolver(loginSchema),
-        defaultValues: { email: "", password: "" },
+        defaultValues: { emailOrUsername: "", password: "" },
         mode: "onChange",
     });
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-    async function handleSubmitLogin(values: { email: string; password: string }) {
+    async function handleSubmitLogin(values: { emailOrUsername: string; password: string }) {
         const result = await signIn("credentials", {
             redirect: false,
-            email: values.email,
+            emailOrUsername: values.emailOrUsername,
             password: values.password,
             callbackUrl: "/",
         });
@@ -83,23 +83,22 @@ export default function LoginForm() {
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>
                         <FormControl>
                             <Controller
-                                name="email"
+                                name="emailOrUsername"
                                 control={control}
                                 render={({ field }) => (
                                     <TextField
                                         {...field}
-                                        type="email"
-                                        placeholder="Email"
+                                        placeholder="Email or Username"
                                         autoComplete="username"
                                         size="small"
                                         fullWidth
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
+                                        error={!!errors.emailOrUsername}
+                                        helperText={errors.emailOrUsername?.message}
                                         slotProps={{
                                             input: {
                                                 startAdornment: (
                                                     <InputAdornment position="start">
-                                                        <EmailIcon />
+                                                        <AlternateEmailIcon />
                                                     </InputAdornment>
                                                 ),
                                             },
