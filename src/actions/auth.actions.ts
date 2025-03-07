@@ -55,6 +55,7 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
                     from: "MovieLandia24 <onboarding@resend.dev>",
                     to: [email],
                     subject: "Registration Verification - Movielandia24",
+                    // @ts-ignore
                     react: RegistrationEmail({ userName, email, token: token.token }),
                 });
 
@@ -88,6 +89,7 @@ export async function resetPassword(userData: IResetPassword): Promise<any> {
             from: "MovieLandia24 <onboarding@resend.dev>",
             to: [email],
             subject: "Password Reset - Movielandia24",
+            // @ts-ignore
             react: ResetPasswordEmail({ userName: user.userName, email, token: token.token }),
         });
 
@@ -122,6 +124,7 @@ export async function subscribeNewsletter(userData: INewsletterSubscribe): Promi
             from: "MovieLandia24 <onboarding@resend.dev>",
             to: email,
             subject: "MovieLandia24 Newsletter!",
+            // @ts-ignore
             react: NewsletterEmail({ userName: user.userName }),
         });
 

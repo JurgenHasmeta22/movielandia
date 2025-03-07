@@ -54,9 +54,9 @@ export default function LoginForm() {
         if (result?.error) {
             showToast("error", result?.error);
         } else if (result?.url) {
+            showToast("success", "Login successful! You will be redirected shortly.");
             router.push(result.url);
             router.refresh();
-            showToast("success", "You are successfully logged in!");
         }
     }
 

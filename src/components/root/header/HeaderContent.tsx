@@ -48,9 +48,9 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
             setIsDrawerOpen(false);
         }
 
+        showToast("success", "Logout successful! You will be redirected shortly.");
         router.push("/login");
         router.refresh();
-        showToast("success", "You are succesfully logged out!");
     };
 
     const handleSearchFocusChange = (focused: boolean) => {

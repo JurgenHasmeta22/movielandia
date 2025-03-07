@@ -27,10 +27,12 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { signIn } from "next-auth/react";
 import { registerSchema } from "@/schemas/auth.schema";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+    const router = useRouter();
 
     const {
         control,
@@ -69,6 +71,7 @@ export default function RegisterForm() {
 
         try {
             await signUp(userData);
+            showToast("success", "Registration successful! Please check your email to activate your account.");
         } catch (error) {
             if (error instanceof Error) {
                 showToast("error", `Error: ${error.message}`);
