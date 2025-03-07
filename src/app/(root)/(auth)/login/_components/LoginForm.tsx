@@ -64,13 +64,16 @@ export default function LoginForm() {
         <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 2 }}>
             <form onSubmit={handleSubmit(handleSubmitLogin)}>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
-                    <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>
+                    <Box sx={{ mb: 6, display: "flex", justifyContent: "center" }}>
                         <Image
                             src="/icons/movielandia24-logo.png"
                             alt="MovieLandia24"
-                            height={55}
-                            width={170}
+                            height={75}
+                            width={240}
                             priority
+                            style={{
+                                objectFit: "contain",
+                            }}
                         />
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2 }}>

@@ -14,6 +14,10 @@ interface IRegister {
     email: string;
     password: string;
     userName: string;
+    birthday: Date;
+    gender: "Male" | "Female";
+    phone: string;
+    countryFrom: string;
 }
 
 interface IResetPassword {
@@ -28,7 +32,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function signUp(userData: IRegister): Promise<User | null | undefined> {
     try {
-        const { email, password, userName } = userData;
+        const { email, password, userName, birthday, gender, phone, countryFrom } = userData;
 
         const existingUser: User | null = await prisma.user.findUnique({
             where: { email },
@@ -40,7 +44,16 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
             const hash = hashSync(password, 7);
 
             const user: User | null = await prisma.user.create({
-                data: { email, password: hash, userName, active: false },
+                data: {
+                    email,
+                    password: hash,
+                    userName,
+                    birthday,
+                    active: false,
+                    gender,
+                    phone,
+                    countryFrom,
+                },
             });
 
             const token = await prisma.activateToken.create({
@@ -55,7 +68,6 @@ export async function signUp(userData: IRegister): Promise<User | null | undefin
                     from: "MovieLandia24 <onboarding@resend.dev>",
                     to: [email],
                     subject: "Registration Verification - Movielandia24",
-                    // @ts-ignore
                     react: RegistrationEmail({ userName, email, token: token.token }),
                 });
 

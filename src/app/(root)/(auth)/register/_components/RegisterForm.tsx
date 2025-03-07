@@ -10,7 +10,11 @@ import {
     TextField,
     Typography,
     Divider,
+    MenuItem,
+    Select,
+    InputLabel,
     Checkbox,
+    FormControlLabel,
     FormHelperText,
     Link,
 } from "@mui/material";
@@ -21,6 +25,9 @@ import EmailIcon from "@mui/icons-material/Email";
 import PasswordIcon from "@mui/icons-material/Password";
 import PersonIcon from "@mui/icons-material/Person";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PhoneIcon from "@mui/icons-material/Phone";
+import PublicIcon from "@mui/icons-material/Public";
+import WcIcon from "@mui/icons-material/Wc";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -28,23 +35,53 @@ import { signIn } from "next-auth/react";
 import { registerSchema } from "@/schemas/auth.schema";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import CakeIcon from "@mui/icons-material/Cake";
+import { z } from "zod";
+
+interface RegisterFormValues {
+    userName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    gender: "Male" | "Female";
+    birthday: string;
+    phone: string;
+    countryFrom: string;
+    acceptTerms: boolean;
+}
+
+const countries = [
+    "United States",
+    "United Kingdom",
+    "Canada",
+    "Australia",
+    "Germany",
+    "France",
+    "Spain",
+    "Italy",
+    "Japan",
+    "Brazil",
+];
 
 export default function RegisterForm() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-    const router = useRouter();
 
     const {
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm({
-        resolver: zodResolver(registerSchema),
+    } = useForm<RegisterFormValues>({
+        resolver: zodResolver(registerSchema as z.ZodType<RegisterFormValues>),
         defaultValues: {
             userName: "",
             email: "",
             password: "",
             confirmPassword: "",
+            gender: "Male",
+            birthday: "",
+            phone: "",
+            countryFrom: "",
             acceptTerms: false,
         },
         mode: "onChange",
@@ -56,306 +93,345 @@ export default function RegisterForm() {
     const handleClickShowPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
     const handleMouseDownPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm);
 
-    async function handleSubmitRegister(values: {
-        userName: string;
-        email: string;
-        password: string;
-        confirmPassword: string;
-        acceptTerms: boolean;
-    }) {
-        const userData = {
+    async function handleSubmitRegister(values: RegisterFormValues) {
+        if (!values.birthday) {
+            throw new Error("Birthday is required");
+        }
+
+        await signUp({
             userName: values.userName,
             email: values.email,
+            gender: values.gender as "Male" | "Female",
+            phone: values.phone,
+            birthday: new Date(values.birthday),
             password: values.password,
-        };
+            countryFrom: values.countryFrom,
+        });
 
-        try {
-            await signUp(userData);
-            showToast("success", "Registration successful! Please check your email to activate your account.");
-        } catch (error) {
-            if (error instanceof Error) {
-                showToast("error", `Error: ${error.message}`);
-            } else {
-                showToast("error", "An unexpected error occurred while registering the user.");
-            }
-        }
+        showToast("success", "Registration successful! Please check your email to activate your account.");
     }
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "350px", margin: "0 auto", px: 3 }}>
+        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 3 }}>
             <form onSubmit={handleSubmit(handleSubmitRegister)}>
-                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}>
-                    <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>
+                <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2.5 }}>
+                    <Box sx={{ mb: 6, display: "flex", justifyContent: "center" }}>
                         <Image
                             src="/icons/movielandia24-logo.png"
                             alt="MovieLandia24"
-                            height={55}
-                            width={170}
+                            height={75}
+                            width={240}
                             priority
+                            style={{
+                                objectFit: "contain",
+                            }}
                         />
                     </Box>
-                    <Box sx={{ display: "flex", flexDirection: "column", rowGap: 3 }}>
-                        <FormControl variant="outlined" size="small">
-                            <Controller
-                                name="userName"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
+                    <FormControl>
+                        <Controller
+                            name="userName"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    placeholder="Username"
+                                    size="small"
+                                    error={!!errors.userName}
+                                    helperText={errors.userName?.message}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <PersonIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "8px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Controller
+                            name="email"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    placeholder="Email"
+                                    size="small"
+                                    error={!!errors.email}
+                                    helperText={errors.email?.message}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <EmailIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "8px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <Controller
+                            name="birthday"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    type="date"
+                                    label="Birthday"
+                                    size="small"
+                                    error={!!errors.birthday}
+                                    helperText={errors.birthday?.message}
+                                    value={field.value || ""} // Ensure value is never null
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <CakeIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "8px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl size="small" fullWidth>
+                        <Controller
+                            name="gender"
+                            control={control}
+                            render={({ field }) => (
+                                <>
+                                    <InputLabel id="gender-label">Gender</InputLabel>
+                                    <Select
                                         {...field}
-                                        placeholder="Username"
-                                        size="small"
-                                        error={!!errors.userName}
-                                        helperText={errors.userName?.message}
-                                        slotProps={{
-                                            input: {
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <PersonIcon />
-                                                    </InputAdornment>
-                                                ),
-                                            },
-                                        }}
+                                        labelId="gender-label"
+                                        label="Gender"
+                                        error={!!errors.gender}
+                                        value={field.value || ""} // Using empty string as fallback
+                                        startAdornment={
+                                            <InputAdornment position="start">
+                                                <WcIcon />
+                                            </InputAdornment>
+                                        }
                                         sx={{
-                                            minHeight: "50px",
-                                            "& .MuiFormHelperText-root": {
-                                                position: "absolute",
-                                                bottom: "-15px",
-                                                margin: 0,
-                                                lineHeight: 1.2,
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "100%",
+                                            borderRadius: "8px",
+                                            "& .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: errors.gender ? "error.main" : "inherit",
                                             },
-                                        }}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                        <FormControl variant="outlined" size="small">
-                            <Controller
-                                name="email"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        placeholder="Email"
-                                        size="small"
-                                        error={!!errors.email}
-                                        helperText={errors.email?.message}
-                                        slotProps={{
-                                            input: {
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <EmailIcon />
-                                                    </InputAdornment>
-                                                ),
-                                            },
-                                        }}
-                                        sx={{
-                                            minHeight: "50px",
-                                            "& .MuiFormHelperText-root": {
-                                                position: "absolute",
-                                                bottom: "-15px",
-                                                margin: 0,
-                                                lineHeight: 1.2,
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "100%",
-                                            },
-                                        }}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                        <FormControl variant="outlined" size="small">
-                            <Controller
-                                name="password"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="Password"
-                                        size="small"
-                                        error={!!errors.password}
-                                        helperText={errors.password?.message}
-                                        slotProps={{
-                                            input: {
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <PasswordIcon />
-                                                    </InputAdornment>
-                                                ),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                        >
-                                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            },
-                                        }}
-                                        sx={{
-                                            minHeight: "60px",
-                                            "& .MuiFormHelperText-root": {
-                                                position: "absolute",
-                                                bottom: "-18px",
-                                                margin: 0,
-                                                lineHeight: 1.2,
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "100%",
-                                            },
-                                        }}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                        <FormControl variant="outlined" size="small">
-                            <Controller
-                                name="confirmPassword"
-                                control={control}
-                                render={({ field }) => (
-                                    <TextField
-                                        {...field}
-                                        type={showPasswordConfirm ? "text" : "password"}
-                                        placeholder="Confirm Password"
-                                        size="small"
-                                        error={!!errors.confirmPassword}
-                                        helperText={errors.confirmPassword?.message}
-                                        slotProps={{
-                                            input: {
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <PasswordIcon />
-                                                    </InputAdornment>
-                                                ),
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={handleClickShowPasswordConfirm}
-                                                            onMouseDown={handleMouseDownPasswordConfirm}
-                                                        >
-                                                            {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                ),
-                                            },
-                                        }}
-                                        sx={{
-                                            minHeight: "40px",
-                                            "& .MuiFormHelperText-root": {
-                                                position: "absolute",
-                                                bottom: "-15px",
-                                                margin: 0,
-                                                lineHeight: 1.2,
-                                                whiteSpace: "normal",
-                                                overflowWrap: "break-word",
-                                                wordWrap: "break-word",
-                                                maxWidth: "100%",
-                                            },
-                                        }}
-                                    />
-                                )}
-                            />
-                        </FormControl>
-                        <FormControl variant="outlined" size="small" sx={{ mt: 2 }}>
-                            <Controller
-                                name="acceptTerms"
-                                control={control}
-                                render={({ field }) => (
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 1,
                                         }}
                                     >
-                                        <Checkbox
-                                            {...field}
-                                            size="medium"
-                                            checked={field.value}
-                                            sx={{
-                                                p: 0.5,
-                                                mt: "-2px",
-                                            }}
-                                        />
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                flexWrap: "wrap",
-                                                gap: 0.5,
-                                                fontSize: "0.95rem",
-                                            }}
-                                        >
-                                            <Typography
-                                                component="span"
-                                                sx={{
-                                                    fontSize: "inherit",
-                                                    lineHeight: 1.5,
-                                                    fontWeight: 500,
-                                                    color: "text.primary",
-                                                }}
-                                            >
-                                                I agree to the
-                                            </Typography>
-                                            <Link
-                                                href="/terms"
-                                                target="_blank"
-                                                sx={{
-                                                    textDecoration: "none",
-                                                    color: "primary.main",
-                                                    fontSize: "inherit",
-                                                    lineHeight: 1.5,
-                                                    "&:hover": {
-                                                        textDecoration: "underline",
-                                                    },
-                                                }}
-                                            >
-                                                Terms of Service
-                                            </Link>
-                                            <Typography
-                                                component="span"
-                                                sx={{
-                                                    fontSize: "inherit",
-                                                    lineHeight: 1.5,
-                                                }}
-                                            >
-                                                and
-                                            </Typography>
-                                            <Link
-                                                href="/privacy"
-                                                target="_blank"
-                                                sx={{
-                                                    textDecoration: "none",
-                                                    color: "primary.main",
-                                                    fontSize: "inherit",
-                                                    lineHeight: 1.5,
-                                                    "&:hover": {
-                                                        textDecoration: "underline",
-                                                    },
-                                                }}
-                                            >
-                                                Privacy Policy
-                                            </Link>
-                                        </Box>
-                                    </Box>
-                                )}
-                            />
-                            {errors.acceptTerms && (
-                                <FormHelperText error sx={{ mt: 0.5, ml: "32px", position: "static" }}>
-                                    {errors.acceptTerms.message}
-                                </FormHelperText>
+                                        <MenuItem value="Male">Male</MenuItem>
+                                        <MenuItem value="Female">Female</MenuItem>
+                                    </Select>
+                                    {errors.gender && <FormHelperText error>{errors.gender.message}</FormHelperText>}
+                                </>
                             )}
-                        </FormControl>
-                    </Box>
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Controller
+                            name="phone"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    placeholder="Phone Number"
+                                    size="small"
+                                    error={!!errors.phone}
+                                    helperText={errors.phone?.message}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <PhoneIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "8px",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl size="small">
+                        <Controller
+                            name="countryFrom"
+                            control={control}
+                            render={({ field }) => (
+                                <>
+                                    <InputLabel id="country-label">Country</InputLabel>
+                                    <Select
+                                        {...field}
+                                        labelId="country-label"
+                                        label="Country"
+                                        error={!!errors.countryFrom}
+                                        startAdornment={
+                                            <InputAdornment position="start">
+                                                <PublicIcon />
+                                            </InputAdornment>
+                                        }
+                                        sx={{
+                                            borderRadius: "8px",
+                                            "& .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: errors.countryFrom ? "error.main" : "inherit",
+                                            },
+                                        }}
+                                    >
+                                        {countries.map((country) => (
+                                            <MenuItem key={country} value={country}>
+                                                {country}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    {errors.countryFrom && (
+                                        <FormHelperText error>{errors.countryFrom.message}</FormHelperText>
+                                    )}
+                                </>
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl variant="outlined" size="small">
+                        <Controller
+                            name="password"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Password"
+                                    size="small"
+                                    error={!!errors.password}
+                                    helperText={errors.password?.message}
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PasswordIcon />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        },
+                                    }}
+                                    sx={{
+                                        minHeight: "60px",
+                                        "& .MuiFormHelperText-root": {
+                                            position: "absolute",
+                                            bottom: "-18px",
+                                            margin: 0,
+                                            lineHeight: 1.2,
+                                            whiteSpace: "normal",
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "100%",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl variant="outlined" size="small">
+                        <Controller
+                            name="confirmPassword"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    type={showPasswordConfirm ? "text" : "password"}
+                                    placeholder="Confirm Password"
+                                    size="small"
+                                    error={!!errors.confirmPassword}
+                                    helperText={errors.confirmPassword?.message}
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PasswordIcon />
+                                                </InputAdornment>
+                                            ),
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        onClick={handleClickShowPasswordConfirm}
+                                                        onMouseDown={handleMouseDownPasswordConfirm}
+                                                    >
+                                                        {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        },
+                                    }}
+                                    sx={{
+                                        minHeight: "40px",
+                                        "& .MuiFormHelperText-root": {
+                                            position: "absolute",
+                                            bottom: "-15px",
+                                            margin: 0,
+                                            lineHeight: 1.2,
+                                            whiteSpace: "normal",
+                                            overflowWrap: "break-word",
+                                            wordWrap: "break-word",
+                                            maxWidth: "100%",
+                                        },
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl error={!!errors.acceptTerms}>
+                        <FormControlLabel
+                            control={
+                                <Controller
+                                    name="acceptTerms"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Checkbox {...field} checked={field.value} color="primary" />
+                                    )}
+                                />
+                            }
+                            label={
+                                <Typography variant="body2">
+                                    I accept the{" "}
+                                    <Link href="/terms" target="_blank">
+                                        Terms of Service
+                                    </Link>{" "}
+                                    and{" "}
+                                    <Link href="/privacy" target="_blank">
+                                        Privacy Policy
+                                    </Link>
+                                </Typography>
+                            }
+                        />
+                        {errors.acceptTerms && <FormHelperText error>{errors.acceptTerms.message}</FormHelperText>}
+                    </FormControl>
                     <Box
                         sx={{
                             display: "flex",

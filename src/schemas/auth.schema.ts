@@ -18,30 +18,34 @@ export const registerSchema = z
             .string()
             .min(3, "Username must be at least 3 characters")
             .max(20, "Username can't be longer than 20 characters")
-            .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores")
-            .min(1, "Username is a required field"),
-        email: z.string().email("Invalid email format").min(1, "Email is a required field"),
+            .regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
+        email: z.string().email("Invalid email format"),
         password: z
             .string()
             .min(8, "Password must be at least 8 characters")
             .regex(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase, one number, and one special character",
-            )
-            .min(1, "Password is a required field"),
-        confirmPassword: z.string().min(1, "Please confirm your password"),
-        acceptTerms: z.boolean().refine((val) => val === true, {
-            message: "You must accept the Terms of Service and Privacy Policy",
-        }),
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
+            ),
+        confirmPassword: z.string(),
+        birthday: z
+            .string()
+            .nullable()
+            .refine((date) => {
+                if (!date) return false;
+                const birthDate = new Date(date);
+                const today = new Date();
+                const minDate = new Date(1900, 0, 1);
+                return birthDate >= minDate && birthDate <= today;
+            }, "Please enter a valid date between 1900 and today"),
+        gender: z.enum(["Male", "Female"]).nullable(),
+        phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format"),
+        countryFrom: z.string().min(1, "Please select a country"),
+        acceptTerms: z.boolean().refine((val) => val === true, "You must accept the terms and conditions"),
     })
-    .superRefine((data, ctx) => {
-        if (data.password !== data.confirmPassword) {
-            ctx.addIssue({
-                code: "custom",
-                path: ["confirmPassword"],
-                message: "Passwords must match",
-            });
-        }
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords don't match",
+        path: ["confirmPassword"],
     });
 
 export const contactSchema = z.object({

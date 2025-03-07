@@ -61,16 +61,26 @@ enum FollowState {
     rejected
 }
 
+enum Gender {
+    Male
+    Female
+}
+
 model User {
-    id               Int      @id @default(autoincrement())
-    userName         String   @unique
-    email            String   @unique
+    id               Int       @id @default(autoincrement())
+    userName         String    @unique
+    email            String    @unique
     password         String?
-    role             UserType @default(User)
-    bio              String?  @db.Text()
-    active           Boolean  @default(false)
-    canResetPassword Boolean  @default(false)
-    subscribed       Boolean  @default(false)
+    role             UserType  @default(User)
+    bio              String?   @db.Text()
+    age              Int?
+    birthday         DateTime? // Added birthday field
+    gender           Gender    @default(Male)
+    phone            String    @default("+11234567890")
+    countryFrom      String    @default("United States")
+    active           Boolean   @default(false)
+    canResetPassword Boolean   @default(false)
+    subscribed       Boolean   @default(false)
 
     // Auth Relations
     resetPasswordTokens ResetPasswordToken[]
@@ -177,6 +187,7 @@ model User {
 
     @@index([userName(sort: Asc)])
     @@index([email])
+    @@index([countryFrom])
 }
 
 model Avatar {
