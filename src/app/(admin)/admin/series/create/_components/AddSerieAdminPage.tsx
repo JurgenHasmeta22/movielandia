@@ -18,6 +18,9 @@ import { serieSchema } from "@/schemas/serie.schema";
 interface IAddSerie {
     title: string;
     photoSrc: string;
+    photoSrcProd: string;
+    trailerSrc: string;
+    description: string;
     dateAired: string;
     ratingImdb: string | number;
 }
@@ -43,6 +46,9 @@ const AddSerieAdminPage = () => {
         const payload = {
             title: values.title,
             photoSrc: values.photoSrc,
+            photoSrcProd: values.photoSrcProd,
+            trailerSrc: values.trailerSrc,
+            description: values.description,
             ratingImdb: Number(values.ratingImdb),
             dateAired: values.dateAired,
         };
@@ -59,39 +65,46 @@ const AddSerieAdminPage = () => {
 
     const formFields = [
         {
-            key: 'title',
             name: "title",
             label: "Title",
             variant: "filled",
-            type: "text",
+            type: "text" as const,
         },
         {
-            key: 'photoSrc',
             name: "photoSrc",
             label: "Photo src",
             variant: "filled",
-            type: "text",
+            type: "text" as const,
         },
         {
-            key: 'photoSrcProd',
             name: "photoSrcProd",
             label: "Photo src prod",
             variant: "filled",
-            type: "text",
+            type: "text" as const,
         },
         {
-            key: 'dateAired',
+            name: "trailerSrc",
+            label: "Trailer src",
+            variant: "filled",
+            type: "text" as const,
+        },
+        {
+            name: "description",
+            label: "Description",
+            variant: "filled",
+            type: "textarea" as const,
+        },
+        {
             name: "dateAired",
             label: "Date aired",
             variant: "filled",
-            type: "date",
+            type: "date" as const,
         },
         {
-            key: 'ratingImdb',
             name: "ratingImdb",
             label: "Rating imdb",
             variant: "filled",
-            type: "text",
+            type: "number" as const,
         },
     ];
 
@@ -104,6 +117,8 @@ const AddSerieAdminPage = () => {
                     title: "",
                     photoSrc: "",
                     photoSrcProd: "",
+                    description: "",
+                    trailerSrc: "",
                     dateAired: "",
                     ratingImdb: "",
                 }}

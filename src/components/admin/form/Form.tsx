@@ -41,8 +41,11 @@ type FieldOption = {
 type FieldConfig = {
     name: string;
     label: string;
-    type: "text" | "select" | "multiselect" | "date" | "password";
-    options?: FieldOption[];
+    type: "text" | "number" | "date" | "select" | "password" | "textarea" | "multiselect";
+    required?: boolean;
+    options?: { value: string | number; label: string }[];
+    multiline?: boolean;
+    rows?: number;
     disabled?: boolean;
     span?: number;
     helperText?: React.ReactNode;

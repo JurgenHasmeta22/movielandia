@@ -164,7 +164,7 @@ const SerieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteSerieById(serie?.id);
+                                            const response = await deleteSerieById(serie?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
