@@ -9,13 +9,13 @@ import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { useRouter } from "next/navigation";
 import { getGenresWithFilters } from "@/actions/genre.actions";
-import { getUsersWithFilters } from "@/actions/user/user.actions";
+import { getUsersTotalCount, getUsersWithFilters } from "@/actions/user/user.actions";
 import { getMoviesTotalCount, getMoviesWithFilters } from "@/actions/movie.actions";
 import { getSeriesTotalCount, getSeriesWithFilters } from "@/actions/serie.actions";
-import { getActorsWithFilters } from "@/actions/actor.actions";
-import { getEpisodesWithFilters } from "@/actions/episode.actions";
-import { getSeasonsWithFilters } from "@/actions/season.actions";
-import { getCrewMembersWithFilters } from "@/actions/crew.actions";
+import { getActorsTotalCount, getActorsWithFilters } from "@/actions/actor.actions";
+import { getEpisodesTotalCount, getEpisodesWithFilters } from "@/actions/episode.actions";
+import { getSeasonsTotalCount, getSeasonsWithFilters } from "@/actions/season.actions";
+import { getCrewMembersWithFilters, getCrewTotalCount } from "@/actions/crew.actions";
 import { getColumns } from "./utils/tableColumns";
 import { handleDeleteById, handleMassiveDelete } from "./utils/tableDelete";
 import { TableToolbar } from "./components/TableToolbar";
@@ -28,20 +28,6 @@ interface ITableAdminProps {
     handleAddItem: () => void;
 }
 
-// const mapFilterOperator = (operator: string): FilterOperator => {
-//     switch (operator) {
-//         case "contains":
-//             return "equals";
-//         case "greaterThan":
-//             return "gt";
-//         case "lessThan":
-//             return "lt";
-//         case "equals":
-//             return "equals";
-//         default:
-//             return "equals";
-//     }
-// };
 // #endregion
 
 const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
@@ -61,8 +47,8 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
         pageIndex: 0,
         pageSize: 10,
     });
-    const [open, setOpen] = useState(false);
 
+    const [open, setOpen] = useState(false);
     const router = useRouter();
     const { openModal } = useModal();
     // #endregion
@@ -176,7 +162,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                                 : page === "genres"
                                   ? "name"
                                   : page === "actors"
-                                    ? "name"
+                                    ? "fullname"
                                     : page === "crew"
                                       ? "fullname"
                                       : "title",
@@ -187,6 +173,7 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 
                 if (columnFilters?.length > 0) {
                     const filterValue = columnFilters[0].value;
+
                     const processedValue =
                         !isNaN(Number(filterValue)) && typeof filterValue !== "boolean"
                             ? Number(filterValue)
@@ -235,28 +222,33 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
                     break;
                 case "users":
                     response = await getUsersWithFilters(queryParams);
-                    setRows(response.rows);
-                    setRowsCount(response.count);
+                    const usersCount = await getUsersTotalCount();
+                    setRows(response.users);
+                    setRowsCount(usersCount);
                     break;
                 case "actors":
                     response = await getActorsWithFilters(queryParams);
+                    const actorsCount = await getActorsTotalCount();
                     setRows(response.actors);
-                    setRowsCount(response.count);
+                    setRowsCount(actorsCount);
                     break;
                 case "episodes":
                     response = await getEpisodesWithFilters(queryParams);
+                    const episodesCount = await getEpisodesTotalCount();
                     setRows(response.episodes);
-                    setRowsCount(response.count);
+                    setRowsCount(episodesCount);
                     break;
                 case "seasons":
                     response = await getSeasonsWithFilters(queryParams);
+                    const seasonsCount = await getSeasonsTotalCount();
                     setRows(response.seasons);
-                    setRowsCount(response.count);
+                    setRowsCount(seasonsCount);
                     break;
                 case "crews":
                     response = await getCrewMembersWithFilters(queryParams);
+                    const crewCoount = await getCrewTotalCount();
                     setRows(response.crewMembers);
-                    setRowsCount(response.count);
+                    setRowsCount(crewCoount);
                     break;
                 default:
                     response = { rows: [], count: 0 };

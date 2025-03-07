@@ -57,8 +57,7 @@ export async function getEpisodesWithFilters({
     });
 
     if (episodes) {
-        const epispodesCount = await prisma.episode.count();
-        return { episodes, count: epispodesCount };
+        return { episodes };
     } else {
         return null;
     }
@@ -71,6 +70,20 @@ export async function getEpisodes(): Promise<any | null> {
         return episodesAll;
     } else {
         return null;
+    }
+}
+
+export async function getEpisodesTotalCount(): Promise<number> {
+    "use cache";
+
+    cacheLife("days");
+
+    try {
+        const count = await prisma.episode.count();
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching episodes total count:", error);
+        throw new Error("Could not retrieve episodes count");
     }
 }
 

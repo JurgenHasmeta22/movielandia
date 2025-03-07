@@ -63,9 +63,7 @@ export async function getSeasonsWithFilters({
     });
 
     if (seasons) {
-        const seasonsCount = await prisma.season.count();
-
-        return { seasons, count: seasonsCount };
+        return { seasons };
     } else {
         return null;
     }
@@ -78,6 +76,20 @@ export async function getSeasons(): Promise<any | null> {
         return seasonsAll;
     } else {
         return null;
+    }
+}
+
+export async function getSeasonsTotalCount(): Promise<number> {
+    "use cache";
+
+    cacheLife("days");
+
+    try {
+        const count = await prisma.season.count();
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching seasons total count:", error);
+        throw new Error("Could not retrieve seasons count");
     }
 }
 

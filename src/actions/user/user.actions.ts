@@ -5,6 +5,7 @@ import { Prisma, User } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { FilterOperator } from "@/types/filterOperators";
+import { unstable_cacheLife as cacheLife } from "next/cache";
 
 // #region "Interfaces"
 export interface UserModelParams {
@@ -152,7 +153,7 @@ export async function getUsersWithFilters({
     filterValue,
     filterNameString,
     filterOperatorString,
-}: UserModelParams): Promise<{ users: User[]; count: number }> {
+}: UserModelParams): Promise<{ users: User[]; }> {
     const filters: any = {};
     const orderByObject: any = {};
 
@@ -181,9 +182,7 @@ export async function getUsersWithFilters({
         take,
     });
 
-    const usersCount = await prisma.user.count();
-
-    return { users, count: usersCount };
+    return { users };
 }
 
 export async function getUsers(): Promise<any | null> {
@@ -193,6 +192,20 @@ export async function getUsers(): Promise<any | null> {
         return users;
     } else {
         return null;
+    }
+}
+
+export async function getUsersTotalCount(): Promise<number> {
+    "use cache";
+
+    cacheLife("days");
+
+    try {
+        const count = await prisma.user.count();
+        return count;
+    } catch (error: unknown) {
+        console.error("Error fetching users total count:", error);
+        throw new Error("Could not retrieve users count");
     }
 }
 

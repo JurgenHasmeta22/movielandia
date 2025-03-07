@@ -65,6 +65,10 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                 {
                     accessorKey: "dateAired",
                     header: "Date Aired",
+                    Cell: ({ cell }) => {
+                        const date = cell.getValue<Date>();
+                        return date ? new Date(date).toLocaleDateString() : '';
+                    },
                 },
                 {
                     accessorKey: "ratingImdb",
@@ -100,6 +104,10 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                 {
                     accessorKey: "dateAired",
                     header: "Date Aired",
+                    Cell: ({ cell }) => {
+                        const date = cell.getValue<Date>();
+                        return date ? new Date(date).toLocaleDateString() : '';
+                    },
                 },
                 {
                     accessorKey: "ratingImdb",
@@ -131,6 +139,10 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                 {
                     accessorKey: "dateAired",
                     header: "Date Aired",
+                    Cell: ({ cell }) => {
+                        const date = cell.getValue<Date>();
+                        return date ? new Date(date).toLocaleDateString() : '';
+                    },
                 },
                 {
                     accessorKey: "ratingImdb",
@@ -156,8 +168,16 @@ export const getColumns = (page: string): MRT_ColumnDef<any>[] => {
                     header: "Description",
                 },
                 {
+                    accessorKey: "duration",
+                    header: "Duration (minutes)",
+                },
+                {
                     accessorKey: "dateAired",
                     header: "Date Aired",
+                    Cell: ({ cell }) => {
+                        const date = cell.getValue<Date>();
+                        return date ? new Date(date).toLocaleDateString() : '';
+                    },
                 },
                 {
                     accessorKey: "ratingImdb",
