@@ -43,7 +43,7 @@ interface RegisterFormValues {
     email: string;
     password: string;
     confirmPassword: string;
-    gender: "Male" | "Female";
+    gender: string;
     birthday: string;
     phone: string;
     countryFrom: string;
@@ -78,7 +78,7 @@ export default function RegisterForm() {
             email: "",
             password: "",
             confirmPassword: "",
-            gender: "Male",
+            gender: "",
             birthday: "",
             phone: "",
             countryFrom: "",
@@ -112,7 +112,7 @@ export default function RegisterForm() {
     }
 
     return (
-        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 3 }}>
+        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 2 }}>
             <form onSubmit={handleSubmit(handleSubmitRegister)}>
                 <Box sx={{ display: "flex", flexDirection: "column", rowGap: 2.5 }}>
                     <Box sx={{ mb: 6, display: "flex", justifyContent: "center" }}>
@@ -127,7 +127,7 @@ export default function RegisterForm() {
                             }}
                         />
                     </Box>
-                    <FormControl>
+                    <FormControl fullWidth>
                         <Controller
                             name="userName"
                             control={control}
@@ -136,14 +136,17 @@ export default function RegisterForm() {
                                     {...field}
                                     placeholder="Username"
                                     size="small"
+                                    fullWidth
                                     error={!!errors.userName}
                                     helperText={errors.userName?.message}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <PersonIcon />
-                                            </InputAdornment>
-                                        ),
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PersonIcon />
+                                                </InputAdornment>
+                                            ),
+                                        },
                                     }}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -154,7 +157,7 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl>
+                    <FormControl fullWidth>
                         <Controller
                             name="email"
                             control={control}
@@ -163,14 +166,17 @@ export default function RegisterForm() {
                                     {...field}
                                     placeholder="Email"
                                     size="small"
+                                    fullWidth
                                     error={!!errors.email}
                                     helperText={errors.email?.message}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <EmailIcon />
-                                            </InputAdornment>
-                                        ),
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <EmailIcon />
+                                                </InputAdornment>
+                                            ),
+                                        },
                                     }}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -189,20 +195,20 @@ export default function RegisterForm() {
                                 <TextField
                                     {...field}
                                     type="date"
-                                    label="Birthday"
                                     size="small"
+                                    fullWidth
+                                    label="Birthday"
                                     error={!!errors.birthday}
                                     helperText={errors.birthday?.message}
-                                    value={field.value || ""} // Ensure value is never null
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <CakeIcon />
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                    InputLabelProps={{
-                                        shrink: true,
+                                    value={field.value || ""}
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <CakeIcon />
+                                                </InputAdornment>
+                                            ),
+                                        },
                                     }}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -219,13 +225,11 @@ export default function RegisterForm() {
                             control={control}
                             render={({ field }) => (
                                 <>
-                                    <InputLabel id="gender-label">Gender</InputLabel>
                                     <Select
                                         {...field}
-                                        labelId="gender-label"
-                                        label="Gender"
                                         error={!!errors.gender}
-                                        value={field.value || ""} // Using empty string as fallback
+                                        label="Gender"
+                                        value={field.value || ""}
                                         startAdornment={
                                             <InputAdornment position="start">
                                                 <WcIcon />
@@ -246,7 +250,7 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl>
+                    <FormControl fullWidth>
                         <Controller
                             name="phone"
                             control={control}
@@ -255,14 +259,17 @@ export default function RegisterForm() {
                                     {...field}
                                     placeholder="Phone Number"
                                     size="small"
+                                    fullWidth
                                     error={!!errors.phone}
                                     helperText={errors.phone?.message}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <PhoneIcon />
-                                            </InputAdornment>
-                                        ),
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <PhoneIcon />
+                                                </InputAdornment>
+                                            ),
+                                        },
                                     }}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
@@ -273,18 +280,16 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl size="small">
+                    <FormControl size="small" fullWidth>
                         <Controller
                             name="countryFrom"
                             control={control}
                             render={({ field }) => (
                                 <>
-                                    <InputLabel id="country-label">Country</InputLabel>
                                     <Select
                                         {...field}
-                                        labelId="country-label"
-                                        label="Country"
                                         error={!!errors.countryFrom}
+                                        label="Country"
                                         startAdornment={
                                             <InputAdornment position="start">
                                                 <PublicIcon />
@@ -310,7 +315,7 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl variant="outlined" size="small">
+                    <FormControl variant="outlined" size="small" fullWidth>
                         <Controller
                             name="password"
                             control={control}
@@ -320,6 +325,7 @@ export default function RegisterForm() {
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Password"
                                     size="small"
+                                    fullWidth
                                     error={!!errors.password}
                                     helperText={errors.password?.message}
                                     slotProps={{
@@ -358,7 +364,7 @@ export default function RegisterForm() {
                             )}
                         />
                     </FormControl>
-                    <FormControl variant="outlined" size="small">
+                    <FormControl variant="outlined" size="small" fullWidth>
                         <Controller
                             name="confirmPassword"
                             control={control}
@@ -368,6 +374,7 @@ export default function RegisterForm() {
                                     type={showPasswordConfirm ? "text" : "password"}
                                     placeholder="Confirm Password"
                                     size="small"
+                                    fullWidth
                                     error={!!errors.confirmPassword}
                                     helperText={errors.confirmPassword?.message}
                                     slotProps={{
