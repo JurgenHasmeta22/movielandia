@@ -85,15 +85,15 @@ const TopBar = () => {
                             href={"/admin"}
                             sx={{
                                 padding: 0,
-                                minWidth: 'auto',
-                                '&:hover': { backgroundColor: 'transparent' }
+                                minWidth: "auto",
+                                "&:hover": { backgroundColor: "transparent" },
                             }}
                         >
                             <Image
                                 src="/icons/movielandia24-logo.png"
                                 alt="MovieLandia24 Admin"
-                                height={40}
-                                width={128}
+                                height={55}
+                                width={170}
                                 priority
                             />
                         </IconButton>

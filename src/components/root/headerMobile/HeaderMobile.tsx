@@ -86,8 +86,8 @@ export default function HeaderMobile({
                         <Image
                             src="/icons/movielandia24-logo.png"
                             alt="MovieLandia24"
-                            width={120}
-                            height={38}
+                            height={55}
+                            width={170}
                             priority
                         />
                     </Link>

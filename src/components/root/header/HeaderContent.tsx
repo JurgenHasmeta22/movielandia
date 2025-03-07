@@ -28,8 +28,8 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
     const [anchorElProfile, setAnchorElProfile] = useState<null | HTMLElement>(null);
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
-    const theme = useTheme();
 
+    const theme = useTheme();
     const router = useRouter();
 
     const openMenuProfile = (event: any) => {
@@ -42,6 +42,7 @@ export function HeaderContent({ session, genres, userName }: IHeaderContentProps
 
     const handleSignOut = async () => {
         closeMenuProfile();
+
         await signOut({ redirect: false });
 
         if (isDrawerOpen) {

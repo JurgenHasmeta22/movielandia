@@ -7,7 +7,7 @@ import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MovieIcon from "@mui/icons-material/Movie";
 import TvIcon from "@mui/icons-material/Tv";
@@ -134,6 +134,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
     const handleMainTabHover = (param: string) => {
         const tab = myStuffTabs.find((t) => t.param === param);
+
         if (!tab?.noSubMenu) {
             setActiveMainTab(param);
         }
@@ -243,20 +244,14 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     sx={{
                         padding: 0,
                         mr: { xs: 1, sm: 2 },
-                        minWidth: 'auto',
-                        '&:hover': { backgroundColor: 'transparent' }
+                        minWidth: "auto",
+                        "&:hover": { backgroundColor: "transparent" },
                     }}
                     onClick={() => {
                         if (isDrawerOpen) setIsDrawerOpen(false);
                     }}
                 >
-                    <Image
-                        src={"/icons/movielandia24-logo.png"}
-                        alt="MovieLandia24"
-                        height={40}
-                        width={128}
-                        priority
-                    />
+                    <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={55} width={170} priority />
                 </Button>
             </Box>
             <Box
