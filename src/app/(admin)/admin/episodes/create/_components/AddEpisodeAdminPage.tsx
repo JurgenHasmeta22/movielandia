@@ -69,6 +69,72 @@ const AddEpisodeAdminPage = () => {
         }
     };
 
+    const formFields = [
+        {
+            key: 'title',
+            name: "title",
+            label: "Title",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'photoSrc',
+            name: "photoSrc",
+            label: "Photo Src",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'photoSrcProd',
+            name: "photoSrcProd",
+            label: "Photo Src Prod",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'trailerSrc',
+            name: "trailerSrc",
+            label: "Trailer Src",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'description',
+            name: "description",
+            label: "Description",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'duration',
+            name: "duration",
+            label: "Duration (minutes)",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'dateAired',
+            name: "dateAired",
+            label: "Date Aired",
+            variant: "filled",
+            type: "date",
+        },
+        {
+            key: 'ratingImdb',
+            name: "ratingImdb",
+            label: "Rating IMDB",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'seasonId',
+            name: "seasonId",
+            label: "Season ID",
+            variant: "filled",
+            type: "text",
+        },
+    ];
+
     return (
         <Box m="20px">
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/episodes" />
@@ -88,62 +154,7 @@ const AddEpisodeAdminPage = () => {
                     ratingImdb: "",
                     seasonId: "",
                 }}
-                fields={[
-                    {
-                        name: "title",
-                        label: "Title",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "photoSrc",
-                        label: "Photo Src",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "photoSrcProd",
-                        label: "Photo Src Prod",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "trailerSrc",
-                        label: "Trailer Src",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "description",
-                        label: "Description",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "duration",
-                        label: "Duration (minutes)",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "dateAired",
-                        label: "Date Aired",
-                        type: "date",
-                        variant: "filled",
-                    },
-                    {
-                        name: "ratingImdb",
-                        label: "Rating IMDB",
-                        type: "text",
-                        variant: "filled",
-                    },
-                    {
-                        name: "seasonId",
-                        label: "Season ID",
-                        type: "text",
-                        variant: "filled",
-                    },
-                ]}
+                fields={formFields}
                 actions={[
                     {
                         label: CONSTANTS.FORM__UPDATE__BUTTON,

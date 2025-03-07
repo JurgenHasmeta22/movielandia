@@ -57,6 +57,44 @@ const AddSerieAdminPage = () => {
         }
     };
 
+    const formFields = [
+        {
+            key: 'title',
+            name: "title",
+            label: "Title",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'photoSrc',
+            name: "photoSrc",
+            label: "Photo src",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'photoSrcProd',
+            name: "photoSrcProd",
+            label: "Photo src prod",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'dateAired',
+            name: "dateAired",
+            label: "Date aired",
+            variant: "filled",
+            type: "date",
+        },
+        {
+            key: 'ratingImdb',
+            name: "ratingImdb",
+            label: "Rating imdb",
+            variant: "filled",
+            type: "text",
+        },
+    ];
+
     return (
         <Box m="20px">
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/series"} />
@@ -69,38 +107,7 @@ const AddSerieAdminPage = () => {
                     dateAired: "",
                     ratingImdb: "",
                 }}
-                fields={[
-                    {
-                        name: "title",
-                        label: "Title",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "photoSrc",
-                        label: "Photo src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "photoSrcProd",
-                        label: "Photo src prod",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "dateAired",
-                        label: "Date aired",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "ratingImdb",
-                        label: "Rating imdb",
-                        variant: "filled",
-                        type: "text",
-                    },
-                ]}
+                fields={formFields}
                 actions={[
                     {
                         label: CONSTANTS.FORM__UPDATE__BUTTON,

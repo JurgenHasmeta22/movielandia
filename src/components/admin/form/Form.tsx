@@ -166,25 +166,28 @@ const FormAdvanced: React.FC<IFormProps> = ({
                                     );
                                 case "date":
                                     return (
-                                        <Controller
-                                            key={index}
-                                            name={field.name}
-                                            control={control}
-                                            defaultValue={""}
-                                            render={({ field: controllerField }) => (
-                                                <TextField
-                                                    label={field.label}
-                                                    variant={field.variant}
-                                                    {...controllerField}
-                                                    sx={field.sx}
-                                                    size="small"
-                                                    type="date"
-                                                    slotProps={{ inputLabel: { shrink: true } }}
-                                                    helperText={helperText}
-                                                    error={error}
-                                                />
-                                            )}
-                                        />
+                                        <Box display={"flex"} flexDirection={"column"} rowGap={1} key={index}>
+                                            <FormLabel>{field.label}</FormLabel>
+                                            <Controller
+                                                name={field.name}
+                                                control={control}
+                                                defaultValue={""}
+                                                render={({ field: controllerField }) => (
+                                                    <TextField
+                                                        {...controllerField}
+                                                        type="date"
+                                                        variant={field.variant}
+                                                        size="small"
+                                                        sx={{ ...field.sx }}
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        helperText={helperText}
+                                                        error={error}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
                                     );
                                 case "password":
                                     return (

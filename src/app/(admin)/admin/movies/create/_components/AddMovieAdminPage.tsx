@@ -52,6 +52,65 @@ const AddMovieAdminPage = () => {
         }
     };
 
+    const formFields = [
+        {
+            key: 'title',
+            name: "title",
+            label: "Title",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'photoSrc',
+            name: "photoSrc",
+            label: "Photo src",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'photoSrcProd',
+            name: "photoSrcProd",
+            label: "Photo src prod",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'trailerSrc',
+            name: "trailerSrc",
+            label: "Trailer src",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'duration',
+            name: "duration",
+            label: "Duration",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'ratingImdb',
+            name: "ratingImdb",
+            label: "Rating imdb",
+            variant: "filled",
+            type: "text",
+        },
+        {
+            key: 'dateAired',
+            name: "dateAired",
+            label: "Date aired",
+            variant: "filled",
+            type: "date",
+        },
+        {
+            key: 'description',
+            name: "description",
+            label: "Description",
+            variant: "filled",
+            type: "text",
+        },
+    ];
+
     return (
         <Box m="20px">
             <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
@@ -66,56 +125,7 @@ const AddMovieAdminPage = () => {
                     dateAired: "",
                     description: "",
                 }}
-                fields={[
-                    {
-                        name: "title",
-                        label: "Title",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "photoSrc",
-                        label: "Photo src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "photoSrcProd",
-                        label: "Photo src prod",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "trailerSrc",
-                        label: "Trailer src",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "duration",
-                        label: "Duration",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "ratingImdb",
-                        label: "Rating imdb",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "dateAired",
-                        label: "Date aired",
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "description",
-                        label: "Description",
-                        variant: "filled",
-                        type: "text",
-                    },
-                ]}
+                fields={formFields}
                 actions={[
                     {
                         label: CONSTANTS.FORM__UPDATE__BUTTON,

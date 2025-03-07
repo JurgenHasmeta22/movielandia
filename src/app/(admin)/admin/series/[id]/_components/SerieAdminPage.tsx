@@ -128,7 +128,7 @@ const SerieAdminPage = () => {
                         name: "dateAired",
                         label: "Date aired",
                         variant: "filled",
-                        type: "text",
+                        type: "date",
                     },
                     {
                         name: "ratingImdb",

@@ -144,7 +144,7 @@ const MovieAdminPage = () => {
                         name: "dateAired",
                         label: "Date aired",
                         variant: "filled",
-                        type: "text",
+                        type: "date",
                     },
                     {
                         name: "ratingImdb",
@@ -186,7 +186,7 @@ const MovieAdminPage = () => {
                                     {
                                         label: CONSTANTS.MODAL__DELETE__YES,
                                         onClick: async () => {
-                                            const response = await deleteMovieById(movie?.id);
+                                            const response = await deleteMovieById(movie?.id!);
 
                                             if (response) {
                                                 toast.success(CONSTANTS.DELETE__SUCCESS);
