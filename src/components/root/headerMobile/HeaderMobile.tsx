@@ -82,16 +82,12 @@ export default function HeaderMobile({
                         borderColor: "divider",
                     }}
                 >
-                    <Link href="/" onClick={() => setIsDrawerOpen(false)} style={{ display: "block" }}>
+                    <Link href="/" onClick={() => setIsDrawerOpen(false)}>
                         <Image
                             src="/icons/movielandia24-logo.png"
                             alt="MovieLandia24"
                             width={120}
                             height={38}
-                            style={{
-                                display: "block",
-                                objectFit: "contain",
-                            }}
                             priority
                         />
                     </Link>

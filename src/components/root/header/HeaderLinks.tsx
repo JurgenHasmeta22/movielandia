@@ -243,8 +243,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     sx={{
                         padding: 0,
                         mr: { xs: 1, sm: 2 },
-                        "&:hover": { backgroundColor: "transparent" },
-                        "&:active": { backgroundColor: "transparent" },
+                        minWidth: 'auto',
+                        '&:hover': { backgroundColor: 'transparent' }
                     }}
                     onClick={() => {
                         if (isDrawerOpen) setIsDrawerOpen(false);
@@ -253,10 +253,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     <Image
                         src={"/icons/movielandia24-logo.png"}
                         alt="MovieLandia24"
-                        height={60}
-                        width={192}
-                        priority={true}
-                        style={{ pointerEvents: "none" }}
+                        height={40}
+                        width={128}
+                        priority
                     />
                 </Button>
             </Box>

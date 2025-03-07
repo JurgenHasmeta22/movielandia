@@ -84,21 +84,17 @@ const TopBar = () => {
                             LinkComponent={MuiNextLink}
                             href={"/admin"}
                             sx={{
-                                p: 0,
-                                "&:hover": {
-                                    backgroundColor: "transparent",
-                                },
+                                padding: 0,
+                                minWidth: 'auto',
+                                '&:hover': { backgroundColor: 'transparent' }
                             }}
                         >
                             <Image
                                 src="/icons/movielandia24-logo.png"
                                 alt="MovieLandia24 Admin"
-                                height={96}
-                                width={240}
+                                height={40}
+                                width={128}
                                 priority
-                                style={{
-                                    objectFit: "contain",
-                                }}
                             />
                         </IconButton>
                     </Box>
