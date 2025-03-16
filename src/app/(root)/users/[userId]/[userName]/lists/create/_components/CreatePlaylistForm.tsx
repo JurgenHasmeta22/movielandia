@@ -1,75 +1,37 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { 
-    Box, 
-    Button, 
-    FormControl, 
-    InputLabel, 
-    Select, 
-    MenuItem, 
-    TextField,
-    FormHelperText
-} from "@mui/material";
-import { createPlaylist } from "@/actions/playlist/playlist.actions";
-import ContentSelector from "./ContentSelector";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { Box, Button, TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
+import { createPlaylist } from "@/actions/playlist/playlist.actions";
 import { showToast } from "@/utils/helpers/toast";
-
-const playlistSchema = z.object({
-    name: z.string()
-        .min(1, "Playlist name is required")
-        .max(50, "Playlist name cannot exceed 50 characters"),
-    description: z.string()
-        .max(500, "Description cannot exceed 500 characters")
-        .optional(),
-    type: z.enum(["Custom", "Watchlist", "Favorites", "Watched"] as const),
-    isPrivate: z.boolean()
-});
-
-type PlaylistFormData = z.infer<typeof playlistSchema>;
+import { playlistSchema, type PlaylistFormData } from "@/schemas/playlist.schema";
 
 interface CreatePlaylistFormProps {
     userId: number;
 }
 
 export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) {
-    const router = useRouter();
-
-    const [showContentSelector, setShowContentSelector] = useState(false);
-    const [playlistId, setPlaylistId] = useState<number | null>(null);
-
     const {
         control,
         handleSubmit,
-        formState: { errors, isSubmitting }
+        formState: { errors, isSubmitting },
     } = useForm<PlaylistFormData>({
         resolver: zodResolver(playlistSchema),
         defaultValues: {
             name: "",
             description: "",
             type: "Custom",
-            isPrivate: false
-        }
+            isPrivate: false,
+        },
     });
 
     const onSubmit = async (data: PlaylistFormData) => {
         try {
-            const playlist = await createPlaylist({
+            await createPlaylist({
                 ...data,
-                userId
+                userId,
             });
-            
-            if (data.type === "Custom") {
-                setPlaylistId(playlist.id);
-                setShowContentSelector(true);
-            } else {
-                showToast("success", "Playlist created successfully!");
-                router.push(`/playlists/${playlist.id}`);
-            }
         } catch (error) {
             showToast("error", "Failed to create playlist. Please try again.");
             console.error("Failed to create playlist:", error);
@@ -77,9 +39,25 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
     };
 
     return (
-        <Box sx={{ width: "100%", maxWidth: 600, margin: "0 auto", px: 2 }}>
+        <Box
+            sx={{
+                width: "100%",
+                maxWidth: 600,
+                mx: "auto",
+                bgcolor: "background.paper",
+                borderRadius: 1,
+                p: { xs: 2, sm: 3 },
+                boxShadow: 1,
+            }}
+        >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5, my: 2 }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2.5,
+                    }}
+                >
                     <Controller
                         name="name"
                         control={control}
@@ -87,9 +65,9 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                             <TextField
                                 {...field}
                                 label="Playlist Name"
-                                fullWidth
                                 error={!!errors.name}
                                 helperText={errors.name?.message}
+                                fullWidth
                             />
                         )}
                     />
@@ -101,11 +79,11 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                             <TextField
                                 {...field}
                                 label="Description"
-                                fullWidth
                                 multiline
                                 rows={3}
                                 error={!!errors.description}
                                 helperText={errors.description?.message}
+                                fullWidth
                             />
                         )}
                     />
@@ -115,16 +93,13 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                         control={control}
                         render={({ field }) => (
                             <FormControl error={!!errors.type}>
-                                <InputLabel>Playlist Type</InputLabel>
-                                <Select {...field} label="Playlist Type">
+                                <InputLabel>Type</InputLabel>
+                                <Select {...field} label="Type">
                                     <MenuItem value="Custom">Custom</MenuItem>
                                     <MenuItem value="Watchlist">Watchlist</MenuItem>
                                     <MenuItem value="Favorites">Favorites</MenuItem>
-                                    <MenuItem value="Watched">Watched</MenuItem>
                                 </Select>
-                                {errors.type && (
-                                    <FormHelperText>{errors.type.message}</FormHelperText>
-                                )}
+                                {errors.type && <FormHelperText>{errors.type.message}</FormHelperText>}
                             </FormControl>
                         )}
                     />
@@ -132,42 +107,28 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                     <Controller
                         name="isPrivate"
                         control={control}
-                        render={({ field }) => (
+                        render={({ field: { onChange, value, ...field } }) => (
                             <FormControl error={!!errors.isPrivate}>
                                 <InputLabel>Privacy</InputLabel>
                                 <Select
                                     {...field}
+                                    value={value ? "private" : "public"}
+                                    onChange={(e) => onChange(e.target.value === "private")}
                                     label="Privacy"
                                 >
-                                    <MenuItem value={"false"}>Public</MenuItem>
-                                    <MenuItem value={"true"}>Private</MenuItem>
+                                    <MenuItem value="public">Public</MenuItem>
+                                    <MenuItem value="private">Private</MenuItem>
                                 </Select>
-                                {errors.isPrivate && (
-                                    <FormHelperText>{errors.isPrivate.message}</FormHelperText>
-                                )}
+                                {errors.isPrivate && <FormHelperText>{errors.isPrivate.message}</FormHelperText>}
                             </FormControl>
                         )}
                     />
 
-                    <Button 
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        disabled={isSubmitting}
-                    >
+                    <Button type="submit" variant="contained" color="primary" fullWidth disabled={isSubmitting}>
                         Create Playlist
                     </Button>
                 </Box>
             </form>
-
-            {showContentSelector && playlistId && (
-                <ContentSelector 
-                    playlistId={playlistId}
-                    userId={userId}
-                    onComplete={() => router.push(`/playlists/${playlistId}`)}
-                />
-            )}
         </Box>
     );
 }

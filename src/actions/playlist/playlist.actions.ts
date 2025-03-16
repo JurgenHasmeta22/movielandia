@@ -3,6 +3,8 @@
 import { Playlist, PlaylistType, Prisma } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { getReferer } from "../user/user.actions";
 
 interface PlaylistParams {
     page?: number;
@@ -424,17 +426,17 @@ export async function createPlaylist(data: {
     type: PlaylistType;
     isPrivate: boolean;
     userId: number;
-}): Promise<Playlist> {
+}): Promise<void> {
     try {
-        const playlist = await prisma.playlist.create({
+        await prisma.playlist.create({
             data: {
                 ...data,
                 itemCount: 0,
             },
         });
 
-        revalidatePath("/playlists");
-        return playlist;
+        const path = `/users/${data.userId}/${await getReferer()}/lists`;
+        redirect(path);
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Failed to create playlist");
     }
@@ -462,13 +464,13 @@ export async function updatePlaylist(
             throw new Error("Playlist not found or you don't have permission to edit");
         }
 
-        const updatedPlaylist = await prisma.playlist.update({
+        await prisma.playlist.update({
             where: { id: playlistId },
             data,
         });
 
-        revalidatePath("/playlists");
-        return updatedPlaylist;
+        const path = `/users/${userId}/${await getReferer()}/lists`;
+        redirect(path);
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Failed to update playlist");
     }
@@ -479,7 +481,7 @@ export async function deletePlaylist(playlistId: number, userId: number): Promis
         const playlist = await prisma.playlist.findFirst({
             where: {
                 id: playlistId,
-                userId, // Only owner can delete
+                userId,
             },
         });
 
@@ -491,7 +493,8 @@ export async function deletePlaylist(playlistId: number, userId: number): Promis
             where: { id: playlistId },
         });
 
-        revalidatePath("/playlists");
+        const path = `/users/${userId}/${await getReferer()}/lists`;
+        redirect(path);
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Failed to delete playlist");
     }
