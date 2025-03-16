@@ -10,6 +10,13 @@ interface AddItemParams {
     note?: string;
 }
 
+interface AddItemsParams {
+    listId: number;
+    userId: number;
+    type: string;
+    itemIds: number[];
+}
+
 // #region "Movie Items"
 export async function addMovieToList(movieId: number, { listId, userId, note }: AddItemParams) {
     try {
@@ -585,3 +592,42 @@ export async function removeCrewFromList(crewId: number, listId: number, userId:
     }
 }
 // #endregion
+
+export async function addItemsToList({ listId, userId, type, itemIds }: AddItemsParams) {
+    try {
+        const list = await prisma.list.findFirst({
+            where: {
+                id: listId,
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
+            },
+        });
+
+        if (!list) {
+            throw new Error("List not found or you don't have permission to edit");
+        }
+
+        const addActions = itemIds.map(async (itemId, index) => {
+            switch (type.toLowerCase()) {
+                case "movie":
+                    return addMovieToList(itemId, { listId, userId });
+                case "serie":
+                    return addSerieToList(itemId, { listId, userId });
+                case "actor":
+                    return addActorToList(itemId, { listId, userId });
+                case "crew":
+                    return addCrewToList(itemId, { listId, userId });
+                case "season":
+                    return addSeasonToList(itemId, { listId, userId });
+                case "episode":
+                    return addEpisodeToList(itemId, { listId, userId });
+                default:
+                    throw new Error("Invalid content type");
+            }
+        });
+
+        await Promise.all(addActions);
+        revalidatePath(`/users/${userId}/lists/${listId}`);
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to add items to list");
+    }
+}
