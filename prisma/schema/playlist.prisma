@@ -1,41 +1,35 @@
-/*
+/**
  * Playlist Models - Core entities for managing user content collections
- * 
  * Playlist System Capabilities:
- * 
  * 1. Playlist Types & Management
- *    - Create custom playlists
- *    - Automatic system playlists (Watchlist, Favorites, Watched)
- *    - Public/Private visibility settings
- *    - Archive functionality
- *    - Default playlist designation
- *    - Track item counts and view history
- * 
+ * - Create custom playlists
+ * - Automatic system playlists (Watchlist, Favorites, Watched)
+ * - Public/Private visibility settings
+ * - Archive functionality
+ * - Default playlist designation
+ * - Track item counts and view history
  * 2. Content Organization
- *    - Add/remove multiple content types:
- *      • Movies
- *      • TV Series
- *      • Seasons
- *      • Episodes
- *      • Actors
- *      • Crew Members
- *    - Custom ordering of items (orderIndex)
- *    - Add notes to playlist items
- *    - Track addition dates
- * 
+ * - Add/remove multiple content types:
+ * • Movies
+ * • TV Series
+ * • Seasons
+ * • Episodes
+ * • Actors
+ * • Crew Members
+ * - Custom ordering of items (orderIndex)
+ * - Add notes to playlist items
+ * - Track addition dates
  * 3. Sharing & Collaboration
- *    - Share playlists with other users
- *    - Control edit permissions for shared playlists
- *    - Track sharing history
- * 
+ * - Share playlists with other users
+ * - Control edit permissions for shared playlists
+ * - Track sharing history
  * 4. Activity Tracking
- *    - Log all playlist actions:
- *      • Creation/Updates/Deletion
- *      • Item additions/removals
- *      • Sharing/Unsharing
- *    - Store metadata for each action
- *    - Track user responsibility for actions
- * 
+ * - Log all playlist actions:
+ * • Creation/Updates/Deletion
+ * • Item additions/removals
+ * • Sharing/Unsharing
+ * - Store metadata for each action
+ * - Track user responsibility for actions
  * Integration Points:
  * - User system (ownership, sharing, activity tracking)
  * - Content systems (movies, series, seasons, episodes)
@@ -53,15 +47,14 @@ enum PlaylistActionType {
 }
 
 model Playlist {
-    id           Int          @id @default(autoincrement())
+    id           Int       @id @default(autoincrement())
     name         String
-    description  String?      @db.Text()
-    isPrivate    Boolean      @default(false)
-    isArchived   Boolean      @default(false)
-    isDefault    Boolean      @default(false)
-    itemCount    Int          @default(0)
-    createdAt    DateTime     @default(now())
-    updatedAt    DateTime     @updatedAt
+    description  String?   @db.Text()
+    isPrivate    Boolean   @default(false)
+    isArchived   Boolean   @default(false)
+    isDefault    Boolean   @default(false)
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
     lastViewedAt DateTime?
 
     // FK Keys

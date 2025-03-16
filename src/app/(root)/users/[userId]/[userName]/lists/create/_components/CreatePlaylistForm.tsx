@@ -7,12 +7,15 @@ import { createPlaylist } from "@/actions/playlist/playlist.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { playlistSchema, type PlaylistFormData } from "@/schemas/playlist.schema";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useRouter, usePathname } from "next/navigation";
 
 interface CreatePlaylistFormProps {
     userId: number;
 }
 
 export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) {
+    const router = useRouter();
+    const pathname = usePathname();
     const {
         control,
         handleSubmit,
@@ -28,12 +31,19 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
 
     const onSubmit = async (data: PlaylistFormData) => {
         try {
-            await createPlaylist({
+            const result = await createPlaylist({
                 ...data,
                 userId,
             });
 
+            if (!result) {
+                throw new Error("Failed to create playlist");
+            }
+
+            const basePath = pathname.split("/lists")[0];
+            
             showToast("success", "Playlist created successfully!");
+            router.push(`${basePath}/lists/${result.id}/${encodeURIComponent(result.name)}/add-items`);
         } catch (error) {
             showToast("error", "Failed to create playlist. Please try again.");
             console.error("Failed to create playlist:", error);
@@ -97,9 +107,7 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                                     <MenuItem value="public">Public</MenuItem>
                                     <MenuItem value="private">Private</MenuItem>
                                 </Select>
-                                {errors.isPrivate && (
-                                    <FormHelperText>{errors.isPrivate.message}</FormHelperText>
-                                )}
+                                {errors.isPrivate && <FormHelperText>{errors.isPrivate.message}</FormHelperText>}
                             </FormControl>
                         )}
                     />

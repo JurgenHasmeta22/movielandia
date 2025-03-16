@@ -3,7 +3,6 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
-import { PlaylistType } from "@prisma/client";
 
 export async function sharePlaylist(
     playlistId: number,

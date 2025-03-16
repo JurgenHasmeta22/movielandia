@@ -422,7 +422,7 @@ export async function getPlaylistEpisodes(playlistId: number, userId: number, pa
 
 // #region "Mutation Methods"
 export async function createPlaylist(data: PlaylistFormData & { userId: number }) {
-    try {
+    try {        
         const playlist = await prisma.playlist.create({
             data: {
                 name: data.name,
@@ -436,16 +436,9 @@ export async function createPlaylist(data: PlaylistFormData & { userId: number }
             throw new Error("Failed to create playlist");
         }
 
-        const playlistSlug = slugify(playlist.name);
-        const currentPath = await getReferer();
-        const path = currentPath.replace('/create', `/${playlist.id}/${playlistSlug}/add-items`);
-        redirect(path);
-    } catch (error) {
-        if (isRedirectError(error)) {
-            throw error
-        } else {
-            console.log('Other error')
-        }
+        return playlist;
+    }  catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error has occurred");
     }
 }
 
