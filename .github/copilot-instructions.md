@@ -4,25 +4,12 @@
 
 MovieLandia24 is a robust and feature-rich full-stack web application for cinema enthusiasts, built using Next.js and React. It allows users to explore and interact with a rich database of movies, TV series, actors, and crew, offering user accounts, content browsing, review and rating functionalities, social networking features, and a dedicated admin dashboard for content and user management.
 
-### Architecture of Codebase
+## Architecture of Codebase
 
 1.  **Modern Next.js App Router Foundation:** Leverages Next.js App Router for a well-organized and performant structure, with clear route groups (`(admin)`, `(root)`, `(auth)`, `(home)`) for modularity and separation of concerns.
 2.  **Server Actions-Centric Logic:** Employs Server Actions (`src/actions`) as the primary mechanism for handling data mutations and server-side operations, optimizing data flow and form handling directly within React components.
 3.  **Layered Data Management:** Implements a robust data layer using Prisma ORM (`prisma/`) for type-safe database interactions with PostgreSQL, and Zod (`src/schemas/`) for comprehensive data validation, ensuring data integrity across the application.
 4.  **Modular and Reusable Components:** Features a well-structured component library (`src/components/`) with reusable UI elements categorized by domain and function, promoting maintainability and scalability.
-5.  **React Email & Resend for Modern Emails:** The application implements a robust email system using React Email for template creation (`emails/`) and Resend for email sending, highlighting a modern approach to transactional emails within a React application.
-
-### Technologies
-
-- **Frontend Framework:** Next.js 15 (App Router), React 19
-- **UI Library:** Material UI v6
-- **ORM:** Prisma
-- **Validation:** Zod
-- **Authentication:** NextAuth.js (Google OAuth, Credentials)
-- **Email:** React Email, Resend
-- **Form Handling:** React Hook Form
-- **State Management:** `Zustand` Global State Management, `nuqs` URL State Management
-- **Other Libraries:** `Framer Motion` (animations), `Material React Table v3` (data grids), `React Hook Form`, `React Toastify`, `React Quill`, `jsPDF` & `AutoTable` (PDF generation), `React Slick` (carousel).
 
 ## General Behaviour Instructions Guidelines
 
@@ -80,39 +67,10 @@ MovieLandia24 is a robust and feature-rich full-stack web application for cinema
 - Handle errors
 - Ensure data integrity.
 
-### Git Usage
+## Git Usage
 
-#### Commit Message Prefixes:
-
-- **fix:** Bug fix. _Example:_ `fix: user login`
-- **feat:** New feature. _Example:_ `feat: user profile update`
-- **perf:** Performance improvement.
-
-#### Rules for Git Usage:
-
-- Use lowercase messages. _Example:_ `fix: login issue`
-- Keep summary concise (under 50 chars). _Example:_ `feat: update profile`
-
-## Project Structure
-
-```
-movielandia/
-├── src/
-│   ├── actions/         # Business logic & Server Actions for data operations
-│   ├── app/            # Next.js App Router: routes, layouts, UI components
-│   │   ├── (admin)/    # Route group for Admin Dashboard features
-│   │   └── (root)/     # Main application route group
-│   ├── components/     # Reusable & modular UI components
-│   ├── constants/      # Application-wide constants
-│   ├── hooks/          # Custom React Hooks for reusable logic
-│   ├── layouts/        # Layout components for page structure
-│   ├── middleware.ts   # Authentication & route protection middleware
-│   ├── providers/      # React Context Providers
-│   ├── store/          # Zustand store for global application state
-│   ├── types/          # TypeScript type definitions
-│   └── utils/          # Helper functions, utilities, theme configuration
-├── prisma/
-│   ├── schema/         # Database schema definitions (Prisma)
-│   └── ...             # Prisma migrations, seed data, config
-└── emails/             # React Email templates
-```
+- Generate a concise commit message (max 70 characters) summarizing the changes from `git diff`.
+- Use Conventional Commit prefixes (`docs:`, `feat:`, `fix:`, `chore:`, etc.) to categorize the change.
+- Clearly describe what was modified, added, or fixed. Format: `{type}[(scope)]: {description}`.
+- Use the terminal command `git diff` to retrieve the changes.
+- Format the output in Markdown with a heading.
