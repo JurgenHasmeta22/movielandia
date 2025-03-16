@@ -32,6 +32,8 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                 ...data,
                 userId,
             });
+
+            showToast("success", "Playlist created successfully!");
         } catch (error) {
             showToast("error", "Failed to create playlist. Please try again.");
             console.error("Failed to create playlist:", error);
@@ -51,13 +53,7 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
             }}
         >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2.5,
-                    }}
-                >
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
                     <Controller
                         name="name"
                         control={control}
@@ -101,7 +97,9 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                                     <MenuItem value="public">Public</MenuItem>
                                     <MenuItem value="private">Private</MenuItem>
                                 </Select>
-                                {errors.isPrivate && <FormHelperText>{errors.isPrivate.message}</FormHelperText>}
+                                {errors.isPrivate && (
+                                    <FormHelperText>{errors.isPrivate.message}</FormHelperText>
+                                )}
                             </FormControl>
                         )}
                     />

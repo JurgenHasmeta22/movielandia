@@ -2,9 +2,11 @@
 
 import { Playlist, Prisma } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getReferer } from "../user/user.actions";
+import type { PlaylistFormData } from "@/schemas/playlist.schema";
+import { slugify } from "@/utils/helpers/string";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 interface PlaylistParams {
     page?: number;
@@ -66,6 +68,7 @@ export async function getUserPlaylists(userId: number, params: PlaylistParams = 
         };
     } catch (error) {
         console.error("Failed to fetch user playlists:", error);
+
         return {
             items: [],
             total: 0,
@@ -418,24 +421,31 @@ export async function getPlaylistEpisodes(playlistId: number, userId: number, pa
 // #endregion
 
 // #region "Mutation Methods"
-export async function createPlaylist(data: {
-    name: string;
-    description?: string;
-    isPrivate: boolean;
-    userId: number;
-}): Promise<void> {
+export async function createPlaylist(data: PlaylistFormData & { userId: number }) {
     try {
-        await prisma.playlist.create({
+        const playlist = await prisma.playlist.create({
             data: {
-                ...data,
-                itemCount: 0,
+                name: data.name,
+                description: data.description,
+                isPrivate: data.isPrivate,
+                userId: data.userId,
             },
         });
 
-        const path = `/users/${data.userId}/${await getReferer()}/lists`;
+        if (!playlist) {
+            throw new Error("Failed to create playlist");
+        }
+
+        const playlistSlug = slugify(playlist.name);
+        const currentPath = await getReferer();
+        const path = currentPath.replace('/create', `/${playlist.id}/${playlistSlug}/add-items`);
         redirect(path);
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to create playlist");
+        if (isRedirectError(error)) {
+            throw error
+        } else {
+            console.log('Other error')
+        }
     }
 }
 
@@ -494,6 +504,40 @@ export async function deletePlaylist(playlistId: number, userId: number): Promis
         redirect(path);
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Failed to delete playlist");
+    }
+}
+
+export async function getPlaylistForAddItems(playlistId: number) {
+    try {
+        const playlist = await prisma.playlist.findUnique({
+            where: { id: playlistId },
+            include: {
+                movieItems: { select: { id: true } },
+                serieItems: { select: { id: true } },
+                seasonItems: { select: { id: true } },
+                episodeItems: { select: { id: true } },
+                actorItems: { select: { id: true } },
+                crewItems: { select: { id: true } },
+            }
+        });
+
+        if (!playlist) {
+            return null;
+        }
+
+        // Determine existing type
+        const existingType =
+            playlist.movieItems.length > 0 ? "Movie" :
+                playlist.serieItems.length > 0 ? "Serie" :
+                    playlist.seasonItems.length > 0 ? "Season" :
+                        playlist.episodeItems.length > 0 ? "Episode" :
+                            playlist.actorItems.length > 0 ? "Actor" :
+                                playlist.crewItems.length > 0 ? "Crew" :
+                                    null;
+
+        return { playlist, existingType };
+    } catch (error: any) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
 // #endregion

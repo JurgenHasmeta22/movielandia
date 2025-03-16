@@ -1,7 +1,6 @@
 import { getAllNotifications } from "@/actions/user/userFollow.actions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
 import NotificationsPageContent from "./_components/NotificationsPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { Suspense } from "react";

@@ -131,7 +131,7 @@ export interface UserModelParams {
 // #region "Utils"
 export async function getReferer() {
     const headersList = headers() as any;
-    const referer = headersList.get("referer");
+    const referer = await headersList.get("referer");
 
     if (referer) {
         return referer;
