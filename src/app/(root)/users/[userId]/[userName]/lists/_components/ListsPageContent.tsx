@@ -5,10 +5,10 @@ import { Playlist } from "@prisma/client";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import ListTypeSelect from "./ListTypeSelect";
 import ListCard from "@/components/root/listCard/ListCard";
 import { useRouter } from "next/navigation";
 import AddIcon from "@mui/icons-material/Add";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 interface ListsPageContentProps {
     lists: Playlist[];
@@ -19,7 +19,6 @@ interface ListsPageContentProps {
         listsAscOrDesc?: string;
         pageLists?: string;
         listsSortBy?: string;
-        listsType?: string;
     };
     session: any;
     userId: number;
@@ -44,7 +43,6 @@ export default function ListsPageContent({
     const startIndex = (currentPage - 1) * itemsPerPage + 1;
     const endIndex = Math.min(startIndex + itemsPerPage - 1, listsCount);
 
-    const type = searchParams?.listsType;
     const sortBy = searchParams?.listsSortBy ?? "createdAt";
     const ascOrDesc = searchParams?.listsAscOrDesc ?? "desc";
 
@@ -55,7 +53,7 @@ export default function ListsPageContent({
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    minHeight: "60vh",
+                    height: "100vh",
                     px: { xs: 2, sm: 3, md: 4 },
                 }}
             >
@@ -77,14 +75,7 @@ export default function ListsPageContent({
                             mb: 3,
                         }}
                     />
-                    <Typography
-                        variant="h5"
-                        color="text.primary"
-                        sx={{
-                            mb: 2,
-                            fontWeight: 500,
-                        }}
-                    >
+                    <Typography variant="h5" color="text.primary" sx={{ mb: 2, fontWeight: 500 }}>
                         {isOwnProfile ? "No Lists Found" : `${userName} hasn't created any lists yet`}
                     </Typography>
                     <Typography
@@ -105,13 +96,19 @@ export default function ListsPageContent({
                         <Button
                             variant="contained"
                             color="primary"
-                            startIcon={<AddIcon />}
-                            onClick={() => router.push("/playlists/create")}
-                            sx={{
-                                mt: 2,
+                            startIcon={<AddCircleOutlineIcon />}
+                            onClick={() => router.push(`/users/${userId}/${userName}/lists/create`)}
+                            sx={{ 
                                 textTransform: "none",
-                                px: 3,
-                                py: 1,
+                                bgcolor: 'primary.main',
+                                '&:hover': {
+                                    bgcolor: 'primary.light',
+                                },
+                                '& .MuiButton-startIcon': {
+                                    color: 'rgba(0, 0, 0, 0.87)',
+                                },
+                                color: 'rgba(0, 0, 0, 0.87)',
+                                fontWeight: 500,
                             }}
                         >
                             Create New List
@@ -124,63 +121,88 @@ export default function ListsPageContent({
 
     return (
         <Box
-            component="section"
             sx={{
+                height: "100vh",
                 display: "flex",
                 flexDirection: "column",
-                gap: { xs: 3, sm: 4, md: 5 },
-                maxWidth: "1200px",
-                margin: "0 auto",
-                width: "100%",
                 px: { xs: 2, sm: 3, md: 4 },
+                py: { xs: 2, sm: 3 },
+                maxWidth: "1200px",
+                mx: "auto",
+                width: "100%",
+                mt: { xs: 4, sm: 5 }, // Reduced top margin
             }}
         >
             <Box
                 sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    flexDirection: { xs: "column", sm: "row" },
+                    alignItems: "center",
+                    mb: { xs: 3, sm: 4 },
+                    flexWrap: "wrap",
                     gap: 2,
                 }}
             >
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Typography
-                        variant="body2"
-                        sx={{
-                            color: "text.secondary",
-                            position: { sm: "relative" },
-                            top: { sm: 2 },
-                        }}
-                    >
+                    <Typography variant="body2" sx={{ color: "text.secondary" }}>
                         {startIndex} – {endIndex} of {listsCount} lists
                     </Typography>
+                    {isOwnProfile && (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<AddCircleOutlineIcon />}
+                            onClick={() => router.push(`/users/${userId}/${userName}/lists/create`)}
+                            sx={{ 
+                                textTransform: "none",
+                                bgcolor: 'primary.main',
+                                '&:hover': {
+                                    bgcolor: 'primary.light',
+                                },
+                                '& .MuiButton-startIcon': {
+                                    color: 'rgba(0, 0, 0, 0.87)',
+                                },
+                                color: 'rgba(0, 0, 0, 0.87)',
+                                fontWeight: 500,
+                            }}
+                        >
+                            Create New List
+                        </Button>
+                    )}
                 </Box>
-                <Box sx={{ display: "flex", gap: 2 }}>
-                    <ListTypeSelect type={type} />
-                    <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="lists" dataType="lists" />
-                </Box>
+                <SortSelect 
+                    sortBy={sortBy} 
+                    ascOrDesc={ascOrDesc} 
+                    type="lists" 
+                    dataType="lists"
+                    sx={{ minWidth: 200 }}
+                />
             </Box>
-            <Stack
-                direction="row"
-                flexWrap="wrap"
-                sx={{
-                    columnGap: { xs: 2, sm: 3 },
-                    rowGap: { xs: 3, sm: 4 },
-                    justifyContent: {
-                        xs: "center",
-                        md: "flex-start",
-                    },
-                }}
-            >
-                {lists.map((list: Playlist) => (
-                    <ListCard key={list.id} playlist={list} username={userName} userId={userId} />
-                ))}
-            </Stack>
 
-            {pageCount > 1 && (
-                <PaginationControl currentPage={currentPage} pageCount={pageCount} urlParamName="pageLists" />
-            )}
+            <Box sx={{ flex: 1, overflow: "auto" }}>
+                <Stack
+                    direction="row"
+                    flexWrap="wrap"
+                    sx={{
+                        columnGap: { xs: 2, sm: 3 },
+                        rowGap: { xs: 3, sm: 4 },
+                        justifyContent: {
+                            xs: "center",
+                            md: "flex-start",
+                        },
+                    }}
+                >
+                    {lists.map((list: Playlist) => (
+                        <ListCard key={list.id} playlist={list} username={userName} userId={userId} />
+                    ))}
+                </Stack>
+
+                {pageCount > 1 && (
+                    <Box sx={{ mt: 4, mb: 2 }}>
+                        <PaginationControl currentPage={currentPage} pageCount={pageCount} urlParamName="pageLists" />
+                    </Box>
+                )}
+            </Box>
         </Box>
     );
 }
