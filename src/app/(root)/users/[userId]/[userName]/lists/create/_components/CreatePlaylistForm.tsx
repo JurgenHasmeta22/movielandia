@@ -104,8 +104,18 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                             </FormControl>
                         )}
                     />
-                    <Button type="submit" variant="contained" color="primary" fullWidth disabled={isSubmitting}>
-                        Create Playlist
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        fullWidth
+                        disabled={isSubmitting}
+                        sx={{
+                            textTransform: "none",
+                            transition: "all 0.2s ease-in-out",
+                        }}
+                    >
+                        Create List
                     </Button>
                 </Box>
             </form>

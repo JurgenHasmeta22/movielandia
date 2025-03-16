@@ -8,7 +8,7 @@ import SortSelect from "@/components/root/sortSelect/SortSelect";
 import ListCard from "@/components/root/listCard/ListCard";
 import { useRouter } from "next/navigation";
 import AddIcon from "@mui/icons-material/Add";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 interface ListsPageContentProps {
     lists: Playlist[];
@@ -98,16 +98,16 @@ export default function ListsPageContent({
                             color="primary"
                             startIcon={<AddCircleOutlineIcon />}
                             onClick={() => router.push(`/users/${userId}/${userName}/lists/create`)}
-                            sx={{ 
+                            sx={{
                                 textTransform: "none",
-                                bgcolor: 'primary.main',
-                                '&:hover': {
-                                    bgcolor: 'primary.light',
+                                bgcolor: "primary.main",
+                                "&:hover": {
+                                    bgcolor: "primary.light",
                                 },
-                                '& .MuiButton-startIcon': {
-                                    color: 'rgba(0, 0, 0, 0.87)',
+                                "& .MuiButton-startIcon": {
+                                    color: "rgba(0, 0, 0, 0.87)",
                                 },
-                                color: 'rgba(0, 0, 0, 0.87)',
+                                color: "rgba(0, 0, 0, 0.87)",
                                 fontWeight: 500,
                             }}
                         >
@@ -130,7 +130,7 @@ export default function ListsPageContent({
                 maxWidth: "1200px",
                 mx: "auto",
                 width: "100%",
-                mt: { xs: 4, sm: 5 }, // Reduced top margin
+                mt: { xs: 4, sm: 5 },
             }}
         >
             <Box
@@ -153,30 +153,25 @@ export default function ListsPageContent({
                             color="primary"
                             startIcon={<AddCircleOutlineIcon />}
                             onClick={() => router.push(`/users/${userId}/${userName}/lists/create`)}
-                            sx={{ 
+                            sx={{
                                 textTransform: "none",
-                                bgcolor: 'primary.main',
-                                '&:hover': {
-                                    bgcolor: 'primary.light',
+                                bgcolor: "primary.main",
+                                "&:hover": {
+                                    bgcolor: "primary.light",
                                 },
-                                '& .MuiButton-startIcon': {
-                                    color: 'rgba(0, 0, 0, 0.87)',
+                                "& .MuiButton-startIcon": {
+                                    color: "rgba(0, 0, 0, 0.87)",
                                 },
-                                color: 'rgba(0, 0, 0, 0.87)',
+                                color: "rgba(0, 0, 0, 0.87)",
                                 fontWeight: 500,
                             }}
                         >
+                            <AddIcon />
                             Create New List
                         </Button>
                     )}
                 </Box>
-                <SortSelect 
-                    sortBy={sortBy} 
-                    ascOrDesc={ascOrDesc} 
-                    type="lists" 
-                    dataType="lists"
-                    sx={{ minWidth: 200 }}
-                />
+                <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="lists" dataType="lists" />
             </Box>
 
             <Box sx={{ flex: 1, overflow: "auto" }}>

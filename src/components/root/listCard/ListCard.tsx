@@ -27,21 +27,21 @@ export default function ListCard({ playlist, username, userId }: ListCardProps) 
 
     return (
         <Link
-            href={`/users/${userId}/${username}/lists/${playlist.id}/${playlist.slug}`}
-            style={{ textDecoration: 'none' }}
+            href={`/users/${userId}/${username}/lists/${playlist.id}/${playlist.name}`}
+            style={{ textDecoration: "none" }}
         >
             <Card
                 elevation={1}
                 sx={{
-                    width: { xs: '100%', sm: 280 },
-                    height: 'auto',
+                    width: { xs: "100%", sm: 280 },
+                    height: "auto",
                     minHeight: 180,
                     maxHeight: 220,
-                    display: 'flex',
-                    flexDirection: 'column',
+                    display: "flex",
+                    flexDirection: "column",
                 }}
             >
-                <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Box sx={{ p: 2, display: "flex", flexDirection: "column", height: "100%" }}>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
                         <Typography
                             variant="h6"
@@ -83,22 +83,22 @@ export default function ListCard({ playlist, username, userId }: ListCardProps) 
                             display: "-webkit-box",
                             WebkitLineClamp: 2,
                             WebkitBoxOrient: "vertical",
-                            mb: 'auto',
+                            mb: "auto",
                             flexGrow: 1,
                         }}
                     >
                         {playlist.description || "No description"}
                     </Typography>
 
-                    <Stack 
-                        direction="row" 
-                        justifyContent="space-between" 
-                        alignItems="center" 
-                        sx={{ 
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        sx={{
                             mt: 2,
                             pt: 1,
-                            borderTop: '1px solid',
-                            borderColor: 'divider',
+                            borderTop: "1px solid",
+                            borderColor: "divider",
                         }}
                     >
                         <Typography variant="caption" color="text.secondary">
