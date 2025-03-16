@@ -1,6 +1,6 @@
 "use server";
 
-import { Playlist, PlaylistType, Prisma } from "@prisma/client";
+import { Playlist, Prisma } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -11,18 +11,16 @@ interface PlaylistParams {
     perPage?: number;
     sortBy?: string;
     ascOrDesc?: string;
-    type?: PlaylistType;
     isPrivate?: boolean;
     isArchived?: boolean;
 }
 
 export async function getUserPlaylists(userId: number, params: PlaylistParams = {}) {
-    const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", type, isPrivate, isArchived } = params;
+    const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", isPrivate, isArchived } = params;
 
     const skip = (page - 1) * perPage;
     const where: Prisma.PlaylistWhereInput = {
         userId,
-        ...(type && { type }),
         ...(typeof isPrivate === "boolean" && { isPrivate }),
         ...(typeof isArchived === "boolean" && { isArchived }),
     };
@@ -423,7 +421,6 @@ export async function getPlaylistEpisodes(playlistId: number, userId: number, pa
 export async function createPlaylist(data: {
     name: string;
     description?: string;
-    type: PlaylistType;
     isPrivate: boolean;
     userId: number;
 }): Promise<void> {

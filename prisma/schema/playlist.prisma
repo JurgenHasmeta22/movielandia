@@ -42,13 +42,6 @@
  * - People systems (actors, crew)
  */
 
-enum PlaylistType {
-    Custom
-    Watchlist
-    Favorites
-    Watched
-}
-
 enum PlaylistActionType {
     Created
     Updated
@@ -63,7 +56,6 @@ model Playlist {
     id           Int          @id @default(autoincrement())
     name         String
     description  String?      @db.Text()
-    type         PlaylistType
     isPrivate    Boolean      @default(false)
     isArchived   Boolean      @default(false)
     isDefault    Boolean      @default(false)
@@ -92,7 +84,6 @@ model Playlist {
     crewActivities    PlaylistActivityCrew[]
 
     @@index([userId])
-    @@index([type])
     @@index([createdAt])
     @@index([isDefault])
 }

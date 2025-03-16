@@ -21,7 +21,6 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
         defaultValues: {
             name: "",
             description: "",
-            type: "Custom",
             isPrivate: false,
         },
     });
@@ -71,7 +70,6 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                             />
                         )}
                     />
-
                     <Controller
                         name="description"
                         control={control}
@@ -87,23 +85,6 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                             />
                         )}
                     />
-
-                    <Controller
-                        name="type"
-                        control={control}
-                        render={({ field }) => (
-                            <FormControl error={!!errors.type}>
-                                <InputLabel>Type</InputLabel>
-                                <Select {...field} label="Type">
-                                    <MenuItem value="Custom">Custom</MenuItem>
-                                    <MenuItem value="Watchlist">Watchlist</MenuItem>
-                                    <MenuItem value="Favorites">Favorites</MenuItem>
-                                </Select>
-                                {errors.type && <FormHelperText>{errors.type.message}</FormHelperText>}
-                            </FormControl>
-                        )}
-                    />
-
                     <Controller
                         name="isPrivate"
                         control={control}
@@ -123,7 +104,6 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                             </FormControl>
                         )}
                     />
-
                     <Button type="submit" variant="contained" color="primary" fullWidth disabled={isSubmitting}>
                         Create Playlist
                     </Button>
