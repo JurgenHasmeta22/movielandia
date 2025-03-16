@@ -72,7 +72,7 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
-                                        fontSize: { xs: "1rem", sm: "1.1rem" },
+                                        fontSize: { xs: "1rem", sm: "0.9rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
@@ -91,7 +91,7 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
-                                        fontSize: { xs: "1rem", sm: "1.1rem" },
+                                        fontSize: { xs: "1rem", sm: "0.9rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
@@ -139,7 +139,7 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
-                                        fontSize: { xs: "1rem", sm: "1.1rem" },
+                                        fontSize: { xs: "1rem", sm: "0.9rem" },
                                         fontWeight: 700,
                                         pl: "12px",
                                         color: theme.vars.palette.red.main,
@@ -167,7 +167,7 @@ const Footer = (): React.JSX.Element => {
                                     variant="h6"
                                     sx={{
                                         mb: 2,
-                                        fontSize: { xs: "1rem", sm: "1.1rem" },
+                                        fontSize: { xs: "1rem", sm: "0.9rem" },
                                         fontWeight: 700,
                                         color: theme.vars.palette.red.main,
                                     }}

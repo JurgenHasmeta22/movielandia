@@ -1,10 +1,14 @@
-import { Box, Container, Paper, Stack, Typography } from "@mui/material";
+"use client";
+
+import { Box, Paper, Stack, Typography, Button } from "@mui/material";
 import { Playlist } from "@prisma/client";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import ListTypeSelect from "./ListTypeSelect";
 import ListCard from "@/components/root/listCard/ListCard";
+import { useRouter } from "next/navigation";
+import AddIcon from "@mui/icons-material/Add";
 
 interface ListsPageContentProps {
     lists: Playlist[];
@@ -23,14 +27,27 @@ interface ListsPageContentProps {
 }
 
 export default function ListsPageContent({
-    lists = [],
-    listsCount = 0,
+    lists,
+    listsCount,
     itemsPerPage,
     currentPage,
     searchParams,
+    session,
     userId,
     userName,
 }: ListsPageContentProps) {
+    const router = useRouter();
+
+    const isOwnProfile = Number(session?.user?.id) === userId;
+
+    const pageCount = Math.ceil(listsCount / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage + 1;
+    const endIndex = Math.min(startIndex + itemsPerPage - 1, listsCount);
+
+    const type = searchParams?.listsType;
+    const sortBy = searchParams?.listsSortBy ?? "createdAt";
+    const ascOrDesc = searchParams?.listsAscOrDesc ?? "desc";
+
     if (!lists || lists.length === 0) {
         return (
             <Box
@@ -68,7 +85,7 @@ export default function ListsPageContent({
                             fontWeight: 500,
                         }}
                     >
-                        No Lists Found
+                        {isOwnProfile ? "No Lists Found" : `${userName} hasn't created any lists yet`}
                     </Typography>
                     <Typography
                         variant="body1"
@@ -77,22 +94,33 @@ export default function ListsPageContent({
                             maxWidth: 450,
                             mx: "auto",
                             lineHeight: 1.6,
+                            mb: isOwnProfile ? 4 : 0,
                         }}
                     >
-                        Start creating your first list to keep track of your favorite movies, TV shows, and more.
+                        {isOwnProfile
+                            ? "Start creating your first list to keep track of your favorite movies, TV shows, and more."
+                            : "Check back later for new lists from this user."}
                     </Typography>
+                    {isOwnProfile && (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<AddIcon />}
+                            onClick={() => router.push("/playlists/create")}
+                            sx={{
+                                mt: 2,
+                                textTransform: "none",
+                                px: 3,
+                                py: 1,
+                            }}
+                        >
+                            Create New List
+                        </Button>
+                    )}
                 </Paper>
             </Box>
         );
     }
-
-    const pageCount = Math.ceil(listsCount / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage + 1;
-    const endIndex = Math.min(startIndex + itemsPerPage - 1, listsCount);
-
-    const type = searchParams?.listsType;
-    const sortBy = searchParams?.listsSortBy ?? "createdAt";
-    const ascOrDesc = searchParams?.listsAscOrDesc ?? "desc";
 
     return (
         <Box
