@@ -22,36 +22,52 @@ import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
 import { addItemsToList } from "@/actions/list/listItems.actions";
 
-const CONTENT_TYPES = ["Movie", "Serie", "Actor", "Crew", "Season", "Episode"];
-
 interface AddItemsFormProps {
     items: any[];
     totalPages: number;
     currentPage: number;
-    selectedType: string;
     listId: number;
     userId: number;
 }
+
+const CONTENT_TYPES = ["Movie", "Serie", "Actor", "Crew", "Season", "Episode"];
 
 export default function AddItemsForm({
     items,
     totalPages,
     currentPage,
-    selectedType,
     listId,
     userId
 }: AddItemsFormProps) {
     const router = useRouter();
     
-    const [type, setType] = useQueryState("type");
-    const [page, setPage] = useQueryState("page");
+    const [type, setType] = useQueryState("type", {
+        defaultValue: "movies",
+        parse: (value) => value || "movies",
+        history: "push",
+        shallow: false,
+    });
+
+    const [page, setPage] = useQueryState("page", {
+        defaultValue: 1,
+        parse: (value) => value || 1,
+        history: "push",
+        shallow: false,
+    });
 
     const [selectedItems, setSelectedItems] = useState(new Set<number>());
     const [loading, setLoading] = useState(false);
 
-    const handleTypeChange = (newType: string) => {
-        setType(newType.toLowerCase());
-        setPage("1");
+    const getSelectValue = (urlType: string) => {
+        return urlType.slice(0, -1).charAt(0).toUpperCase() + urlType.slice(1, -1);
+    };
+
+    const handleTypeChange = (event: any) => {
+        const selectedType = event.target.value; // e.g., "Movie"
+        const urlType = selectedType.toLowerCase() + 's'; // e.g., "movies"
+        
+        setType(urlType);
+        setPage(1);
         setSelectedItems(new Set());
     };
 
@@ -78,11 +94,12 @@ export default function AddItemsForm({
         }
 
         setLoading(true);
+
         try {
             await addItemsToList({
                 listId,
                 userId,
-                type: selectedType,
+                type,
                 itemIds: Array.from(selectedItems)
             });
             
@@ -100,18 +117,17 @@ export default function AddItemsForm({
             <FormControl fullWidth sx={{ mb: 3 }}>
                 <InputLabel>Content Type</InputLabel>
                 <Select
-                    value={selectedType}
-                    onChange={(e) => handleTypeChange(e.target.value)}
+                    value={getSelectValue(type)}
+                    onChange={handleTypeChange}
                     label="Content Type"
                 >
-                    {CONTENT_TYPES.map((type) => (
-                        <MenuItem key={type} value={type.toLowerCase()}>
-                            {type}s
+                    {CONTENT_TYPES.map((contentType) => (
+                        <MenuItem key={contentType} value={contentType}>
+                            {contentType}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
-
             <List>
                 {items.map((item) => (
                     <ListItem 
@@ -136,7 +152,6 @@ export default function AddItemsForm({
                     </ListItem>
                 ))}
             </List>
-
             {totalPages > 1 && (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                     <Pagination
@@ -146,7 +161,6 @@ export default function AddItemsForm({
                     />
                 </Box>
             )}
-
             <Button
                 fullWidth
                 variant="contained"
