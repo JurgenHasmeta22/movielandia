@@ -3,9 +3,9 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
-import { createPlaylist } from "@/actions/playlist/playlist.actions";
+import { createPlaylist } from "@/actions/list/list.actions";
 import { showToast } from "@/utils/helpers/toast";
-import { playlistSchema, type PlaylistFormData } from "@/schemas/playlist.schema";
+import { playlistSchema, type PlaylistFormData } from "@/schemas/list.schema";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -41,7 +41,7 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
             }
 
             const basePath = pathname.split("/lists")[0];
-            
+
             showToast("success", "Playlist created successfully!");
             router.push(`${basePath}/lists/${result.id}/${encodeURIComponent(result.name)}/add-items`);
         } catch (error) {

@@ -4,58 +4,58 @@ import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
 
-export async function sharePlaylist(
-    playlistId: number,
+export async function shareList(
+    listId: number,
     userId: number,
     targetUserId: number,
     canEdit: boolean = false,
 ) {
     try {
-        // Check if playlist exists and user is the owner
-        const playlist = await prisma.playlist.findFirst({
+        // Check if list exists and user is the owner
+        const list = await prisma.list.findFirst({
             where: {
-                id: playlistId,
+                id: listId,
                 userId, // Only owner can share
             },
         });
 
-        if (!playlist) {
-            throw new Error("Playlist not found or you don't have permission to share");
+        if (!list) {
+            throw new Error("List not found or you don't have permission to share");
         }
 
         // Check if share already exists
-        const existingShare = await prisma.playlistShare.findUnique({
+        const existingShare = await prisma.listShare.findUnique({
             where: {
-                playlistId_userId: {
-                    playlistId,
+                listId_userId: {
+                    listId,
                     userId: targetUserId,
                 },
             },
         });
 
         if (existingShare) {
-            throw new Error("Playlist is already shared with this user");
+            throw new Error("List is already shared with this user");
         }
 
         // Create share and update stats in a transaction
         await prisma.$transaction([
-            prisma.playlistShare.create({
+            prisma.listShare.create({
                 data: {
-                    playlistId,
+                    listId,
                     userId: targetUserId,
                     canEdit,
                 },
             }),
             // Update user stats
-            prisma.userPlaylistStats.upsert({
+            prisma.userListStats.upsert({
                 where: { userId },
                 create: {
                     userId,
-                    sharedPlaylists: 1,
-                    totalPlaylists: 1,
+                    sharedLists: 1,
+                    totalLists: 1,
                 },
                 update: {
-                    sharedPlaylists: { increment: 1 },
+                    sharedLists: { increment: 1 },
                 },
             }),
         ]);
@@ -63,53 +63,53 @@ export async function sharePlaylist(
         const referer = getReferer();
         revalidatePath(`${referer}`, "page");
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to share playlist");
+        throw new Error(error instanceof Error ? error.message : "Failed to share list");
     }
 }
 
-export async function unsharePlaylist(playlistId: number, userId: number, targetUserId: number) {
+export async function unshareList(listId: number, userId: number, targetUserId: number) {
     try {
-        // Check if playlist exists and user is the owner
-        const playlist = await prisma.playlist.findFirst({
+        // Check if list exists and user is the owner
+        const list = await prisma.list.findFirst({
             where: {
-                id: playlistId,
+                id: listId,
                 userId, // Only owner can unshare
             },
         });
 
-        if (!playlist) {
-            throw new Error("Playlist not found or you don't have permission to unshare");
+        if (!list) {
+            throw new Error("List not found or you don't have permission to unshare");
         }
 
         // Check if share exists
-        const existingShare = await prisma.playlistShare.findUnique({
+        const existingShare = await prisma.listShare.findUnique({
             where: {
-                playlistId_userId: {
-                    playlistId,
+                listId_userId: {
+                    listId,
                     userId: targetUserId,
                 },
             },
         });
 
         if (!existingShare) {
-            throw new Error("Playlist is not shared with this user");
+            throw new Error("List is not shared with this user");
         }
 
         // Remove share and update stats in a transaction
         await prisma.$transaction([
-            prisma.playlistShare.delete({
+            prisma.listShare.delete({
                 where: {
-                    playlistId_userId: {
-                        playlistId,
+                    listId_userId: {
+                        listId,
                         userId: targetUserId,
                     },
                 },
             }),
             // Update user stats
-            prisma.userPlaylistStats.update({
+            prisma.userListStats.update({
                 where: { userId },
                 data: {
-                    sharedPlaylists: { decrement: 1 },
+                    sharedLists: { decrement: 1 },
                 },
             }),
         ]);
@@ -117,6 +117,6 @@ export async function unsharePlaylist(playlistId: number, userId: number, target
         const referer = getReferer();
         revalidatePath(`${referer}`, "page");
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to unshare playlist");
+        throw new Error(error instanceof Error ? error.message : "Failed to unshare list");
     }
 }

@@ -1,14 +1,13 @@
 "use server";
 
-import { Playlist, Prisma } from "@prisma/client";
+import { List, Prisma } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { redirect } from "next/navigation";
 import { getReferer } from "../user/user.actions";
-import type { PlaylistFormData } from "@/schemas/playlist.schema";
+import type { ListFormData } from "@/schemas/list.schema";
 import { slugify } from "@/utils/helpers/string";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-interface PlaylistParams {
+interface ListParams {
     page?: number;
     perPage?: number;
     sortBy?: string;
@@ -17,19 +16,20 @@ interface PlaylistParams {
     isArchived?: boolean;
 }
 
-export async function getUserPlaylists(userId: number, params: PlaylistParams = {}) {
+export async function getUserLists(userId: number, params: ListParams = {}) {
     const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", isPrivate, isArchived } = params;
 
     const skip = (page - 1) * perPage;
-    const where: Prisma.PlaylistWhereInput = {
+    
+    const where: Prisma.ListWhereInput = {
         userId,
         ...(typeof isPrivate === "boolean" && { isPrivate }),
         ...(typeof isArchived === "boolean" && { isArchived }),
     };
 
     try {
-        const [playlists, total] = await prisma.$transaction([
-            prisma.playlist.findMany({
+        const [lists, total] = await prisma.$transaction([
+            prisma.list.findMany({
                 where,
                 orderBy: { [sortBy]: ascOrDesc },
                 skip,
@@ -58,31 +58,31 @@ export async function getUserPlaylists(userId: number, params: PlaylistParams = 
                     },
                 },
             }),
-            prisma.playlist.count({ where }),
+            prisma.list.count({ where }),
         ]);
 
         return {
-            items: playlists,
+            items: lists,
             total,
             success: true,
         };
     } catch (error) {
-        console.error("Failed to fetch user playlists:", error);
+        console.error("Failed to fetch user lists:", error);
 
         return {
             items: [],
             total: 0,
             success: false,
-            error: error instanceof Error ? error.message : "Failed to fetch user playlists",
+            error: error instanceof Error ? error.message : "Failed to fetch user lists",
         };
     }
 }
 
-export async function getPlaylistById(playlistId: number, userId: number) {
+export async function getListById(listId: number, userId: number) {
     try {
-        const playlist = await prisma.playlist.findFirst({
+        const list = await prisma.list.findFirst({
             where: {
-                id: playlistId,
+                id: listId,
                 OR: [{ userId }, { sharedWith: { some: { userId } } }],
             },
             include: {
@@ -124,25 +124,25 @@ export async function getPlaylistById(playlistId: number, userId: number) {
             },
         });
 
-        if (!playlist) {
-            throw new Error("Playlist not found");
+        if (!list) {
+            throw new Error("List not found");
         }
 
-        return playlist;
+        return list;
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list");
     }
 }
 
-export async function getPlaylistMovies(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
+export async function getListMovies(listId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
         const [movies, total] = await prisma.$transaction([
-            prisma.playlistMovie.findMany({
+            prisma.listMovie.findMany({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -163,10 +163,10 @@ export async function getPlaylistMovies(playlistId: number, userId: number, page
                 skip,
                 take: limit,
             }),
-            prisma.playlistMovie.count({
+            prisma.listMovie.count({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -175,19 +175,19 @@ export async function getPlaylistMovies(playlistId: number, userId: number, page
 
         return { items: movies, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist movies");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list movies");
     }
 }
 
-export async function getPlaylistSeries(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
+export async function getListSeries(listId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
         const [series, total] = await prisma.$transaction([
-            prisma.playlistSerie.findMany({
+            prisma.listSerie.findMany({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -207,10 +207,10 @@ export async function getPlaylistSeries(playlistId: number, userId: number, page
                 skip,
                 take: limit,
             }),
-            prisma.playlistSerie.count({
+            prisma.listSerie.count({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -219,19 +219,19 @@ export async function getPlaylistSeries(playlistId: number, userId: number, page
 
         return { items: series, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist series");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list series");
     }
 }
 
-export async function getPlaylistActors(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
+export async function getListActors(listId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
         const [actors, total] = await prisma.$transaction([
-            prisma.playlistActor.findMany({
+            prisma.listActor.findMany({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -250,10 +250,10 @@ export async function getPlaylistActors(playlistId: number, userId: number, page
                 skip,
                 take: limit,
             }),
-            prisma.playlistActor.count({
+            prisma.listActor.count({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -262,19 +262,19 @@ export async function getPlaylistActors(playlistId: number, userId: number, page
 
         return { items: actors, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist actors");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list actors");
     }
 }
 
-export async function getPlaylistCrew(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
+export async function getListCrew(listId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
         const [crew, total] = await prisma.$transaction([
-            prisma.playlistCrew.findMany({
+            prisma.listCrew.findMany({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -293,10 +293,10 @@ export async function getPlaylistCrew(playlistId: number, userId: number, page: 
                 skip,
                 take: limit,
             }),
-            prisma.playlistCrew.count({
+            prisma.listCrew.count({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -305,19 +305,19 @@ export async function getPlaylistCrew(playlistId: number, userId: number, page: 
 
         return { items: crew, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist crew");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list crew");
     }
 }
 
-export async function getPlaylistSeasons(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
+export async function getListSeasons(listId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
         const [seasons, total] = await prisma.$transaction([
-            prisma.playlistSeason.findMany({
+            prisma.listSeason.findMany({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -345,10 +345,10 @@ export async function getPlaylistSeasons(playlistId: number, userId: number, pag
                 skip,
                 take: limit,
             }),
-            prisma.playlistSeason.count({
+            prisma.listSeason.count({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -357,19 +357,19 @@ export async function getPlaylistSeasons(playlistId: number, userId: number, pag
 
         return { items: seasons, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist seasons");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list seasons");
     }
 }
 
-export async function getPlaylistEpisodes(playlistId: number, userId: number, page: number = 1, limit: number = 10) {
+export async function getListEpisodes(listId: number, userId: number, page: number = 1, limit: number = 10) {
     const skip = (page - 1) * limit;
 
     try {
         const [episodes, total] = await prisma.$transaction([
-            prisma.playlistEpisode.findMany({
+            prisma.listEpisode.findMany({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -403,10 +403,10 @@ export async function getPlaylistEpisodes(playlistId: number, userId: number, pa
                 skip,
                 take: limit,
             }),
-            prisma.playlistEpisode.count({
+            prisma.listEpisode.count({
                 where: {
-                    playlistId,
-                    playlist: {
+                    listId,
+                    list: {
                         OR: [{ userId }, { sharedWith: { some: { userId } } }],
                     },
                 },
@@ -415,15 +415,15 @@ export async function getPlaylistEpisodes(playlistId: number, userId: number, pa
 
         return { items: episodes, total };
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to fetch playlist episodes");
+        throw new Error(error instanceof Error ? error.message : "Failed to fetch list episodes");
     }
 }
 // #endregion
 
 // #region "Mutation Methods"
-export async function createPlaylist(data: PlaylistFormData & { userId: number }) {
-    try {        
-        const playlist = await prisma.playlist.create({
+export async function createList(data: ListFormData & { userId: number }) {
+    try {
+        const list = await prisma.list.create({
             data: {
                 name: data.name,
                 description: data.description,
@@ -432,18 +432,18 @@ export async function createPlaylist(data: PlaylistFormData & { userId: number }
             },
         });
 
-        if (!playlist) {
-            throw new Error("Failed to create playlist");
+        if (!list) {
+            throw new Error("Failed to create list");
         }
 
-        return playlist;
-    }  catch (error) {
+        return list;
+    } catch (error) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error has occurred");
     }
 }
 
-export async function updatePlaylist(
-    playlistId: number,
+export async function updateList(
+    listId: number,
     userId: number,
     data: {
         name?: string;
@@ -451,59 +451,59 @@ export async function updatePlaylist(
         isPrivate?: boolean;
         isArchived?: boolean;
     },
-): Promise<Playlist> {
+): Promise<List> {
     try {
-        const playlist = await prisma.playlist.findFirst({
+        const list = await prisma.list.findFirst({
             where: {
-                id: playlistId,
+                id: listId,
                 OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
             },
         });
 
-        if (!playlist) {
-            throw new Error("Playlist not found or you don't have permission to edit");
+        if (!list) {
+            throw new Error("List not found or you don't have permission to edit");
         }
 
-        await prisma.playlist.update({
-            where: { id: playlistId },
+        await prisma.list.update({
+            where: { id: listId },
             data,
         });
 
         const path = `/users/${userId}/${await getReferer()}/lists`;
         redirect(path);
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to update playlist");
+        throw new Error(error instanceof Error ? error.message : "Failed to update list");
     }
 }
 
-export async function deletePlaylist(playlistId: number, userId: number): Promise<void> {
+export async function deleteList(listId: number, userId: number): Promise<void> {
     try {
-        const playlist = await prisma.playlist.findFirst({
+        const list = await prisma.list.findFirst({
             where: {
-                id: playlistId,
+                id: listId,
                 userId,
             },
         });
 
-        if (!playlist) {
-            throw new Error("Playlist not found or you don't have permission to delete");
+        if (!list) {
+            throw new Error("List not found or you don't have permission to delete");
         }
 
-        await prisma.playlist.delete({
-            where: { id: playlistId },
+        await prisma.list.delete({
+            where: { id: listId },
         });
 
         const path = `/users/${userId}/${await getReferer()}/lists`;
         redirect(path);
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "Failed to delete playlist");
+        throw new Error(error instanceof Error ? error.message : "Failed to delete list");
     }
 }
 
-export async function getPlaylistForAddItems(playlistId: number) {
+export async function getListForAddItems(listId: number) {
     try {
-        const playlist = await prisma.playlist.findUnique({
-            where: { id: playlistId },
+        const list = await prisma.list.findUnique({
+            where: { id: listId },
             include: {
                 movieItems: { select: { id: true } },
                 serieItems: { select: { id: true } },
@@ -511,24 +511,30 @@ export async function getPlaylistForAddItems(playlistId: number) {
                 episodeItems: { select: { id: true } },
                 actorItems: { select: { id: true } },
                 crewItems: { select: { id: true } },
-            }
+            },
         });
 
-        if (!playlist) {
+        if (!list) {
             return null;
         }
 
         // Determine existing type
         const existingType =
-            playlist.movieItems.length > 0 ? "Movie" :
-                playlist.serieItems.length > 0 ? "Serie" :
-                    playlist.seasonItems.length > 0 ? "Season" :
-                        playlist.episodeItems.length > 0 ? "Episode" :
-                            playlist.actorItems.length > 0 ? "Actor" :
-                                playlist.crewItems.length > 0 ? "Crew" :
-                                    null;
+            list.movieItems.length > 0
+                ? "Movie"
+                : list.serieItems.length > 0
+                  ? "Serie"
+                  : list.seasonItems.length > 0
+                    ? "Season"
+                    : list.episodeItems.length > 0
+                      ? "Episode"
+                      : list.actorItems.length > 0
+                        ? "Actor"
+                        : list.crewItems.length > 0
+                          ? "Crew"
+                          : null;
 
-        return { playlist, existingType };
+        return { list, existingType };
     } catch (error: any) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }

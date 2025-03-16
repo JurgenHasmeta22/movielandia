@@ -14,8 +14,8 @@ model Episode {
 
     // Relations
     season               Season                   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-    playlistItems        PlaylistEpisode[]
-    playlistActivities   PlaylistActivityEpisode[]
+    listItems        ListEpisode[]
+    listActivities   ListActivityEpisode[]
     usersWhoBookmarkedIt   UserEpisodeFavorite[]
     usersWhoRatedIt        UserEpisodeRating[]
     reviews                EpisodeReview[]

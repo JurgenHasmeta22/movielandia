@@ -1,14 +1,14 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import {
-    getPlaylistById,
-    getPlaylistMovies,
-    getPlaylistSeries,
-    getPlaylistActors,
-    getPlaylistCrew,
-    getPlaylistSeasons,
-    getPlaylistEpisodes,
-} from "@/actions/playlist/playlist.actions";
+    getListById,
+    getListMovies,
+    getListSeries,
+    getListActors,
+    getListCrew,
+    getListSeasons,
+    getListEpisodes,
+} from "@/actions/list/list.actions";
 import ListPageContent from "./_components/ListPageContent";
 import { notFound } from "next/navigation";
 
@@ -35,9 +35,9 @@ export default async function Page({ params, searchParams }: PageProps) {
     const tab = searchParams.tab || "movies";
     const itemsPerPage = 12;
 
-    const playlist = await getPlaylistById(listId, userId);
+    const list = await getListById(listId, userId);
 
-    if (!playlist) {
+    if (!list) {
         notFound();
     }
 
@@ -46,42 +46,42 @@ export default async function Page({ params, searchParams }: PageProps) {
 
     switch (tab) {
         case "movies": {
-            const { items, total } = await getPlaylistMovies(listId, currentUserId, page, itemsPerPage);
+            const { items, total } = await getListMovies(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
         case "series": {
-            const { items, total } = await getPlaylistSeries(listId, currentUserId, page, itemsPerPage);
+            const { items, total } = await getListSeries(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
         case "seasons": {
-            const { items, total } = await getPlaylistSeasons(listId, currentUserId, page, itemsPerPage);
+            const { items, total } = await getListSeasons(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
         case "episodes": {
-            const { items, total } = await getPlaylistEpisodes(listId, currentUserId, page, itemsPerPage);
+            const { items, total } = await getListEpisodes(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
         case "actors": {
-            const { items, total } = await getPlaylistActors(listId, currentUserId, page, itemsPerPage);
+            const { items, total } = await getListActors(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
         case "crew": {
-            const { items, total } = await getPlaylistCrew(listId, currentUserId, page, itemsPerPage);
+            const { items, total } = await getListCrew(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
@@ -90,7 +90,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
     return (
         <ListPageContent
-            playlist={playlist}
+            list={list}
             userName={params.userName}
             currentUserId={currentUserId}
             content={content}

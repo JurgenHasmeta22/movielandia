@@ -1,19 +1,39 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Button, Checkbox, FormControlLabel, TextField, Typography, Paper, Stack, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import {
+    Box,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    TextField,
+    Typography,
+    Paper,
+    Stack,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
-import { PlaylistTypeValue } from "@/schemas/playlist.schema";
-import { addMovieToPlaylist, addSerieToPlaylist, addActorToPlaylist, addCrewToPlaylist, addSeasonToPlaylist, addEpisodeToPlaylist } from "@/actions/playlist/playlistItems.actions";
+import { ListTypeValue } from "@/schemas/list.schema";
+import {
+    addMovieToList,
+    addSerieToList,
+    addActorToList,
+    addCrewToList,
+    addSeasonToList,
+    addEpisodeToList,
+} from "@/actions/list/listItems.actions";
 import { showToast } from "@/utils/helpers/toast";
 import SaveIcon from "@mui/icons-material/Save";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDebounce } from "@/hooks/useDebounce";
 
 interface AddItemsFormProps {
-    playlistId: number;
+    listId: number;
     userId: number;
-    existingType: PlaylistTypeValue | null;
+    existingType: ListTypeValue | null;
 }
 
 interface ItemType {
@@ -23,21 +43,21 @@ interface ItemType {
     photoSrc?: string;
 }
 
-const PLAYLIST_TYPES: PlaylistTypeValue[] = ["Movie", "Serie", "Season", "Episode", "Actor", "Crew"];
+const PLAYLIST_TYPES: ListTypeValue[] = ["Movie", "Serie", "Season", "Episode", "Actor", "Crew"];
 
-export default function AddItemsForm({ playlistId, userId, existingType }: AddItemsFormProps) {
+export default function AddItemsForm({ listId, userId, existingType }: AddItemsFormProps) {
     const router = useRouter();
-    const [selectedType, setSelectedType] = useState<PlaylistTypeValue | "">("");
+    const [selectedType, setSelectedType] = useState<ListTypeValue | "">("");
     const [searchTerm, setSearchTerm] = useState("");
     const [items, setItems] = useState<ItemType[]>([]);
     const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
     const [loading, setLoading] = useState(false);
-    
+
     const debouncedSearch = useDebounce(searchTerm, 300);
 
     const handleSearch = async () => {
         if (!debouncedSearch || !selectedType) return;
-        
+
         setLoading(true);
         try {
             const response = await fetch(`/api/search/${selectedType.toLowerCase()}?q=${debouncedSearch}`);
@@ -74,29 +94,29 @@ export default function AddItemsForm({ playlistId, userId, existingType }: AddIt
         setLoading(true);
         try {
             const addItemPromises = Array.from(selectedItems).map(async (itemId) => {
-                const params = { playlistId, userId };
-                
+                const params = { listId, userId };
+
                 switch (selectedType) {
                     case "Movie":
-                        return addMovieToPlaylist(itemId, params);
+                        return addMovieToList(itemId, params);
                     case "Serie":
-                        return addSerieToPlaylist(itemId, params);
+                        return addSerieToList(itemId, params);
                     case "Season":
-                        return addSeasonToPlaylist(itemId, params);
+                        return addSeasonToList(itemId, params);
                     case "Episode":
-                        return addEpisodeToPlaylist(itemId, params);
+                        return addEpisodeToList(itemId, params);
                     case "Actor":
-                        return addActorToPlaylist(itemId, params);
+                        return addActorToList(itemId, params);
                     case "Crew":
-                        return addCrewToPlaylist(itemId, params);
+                        return addCrewToList(itemId, params);
                 }
             });
 
             await Promise.all(addItemPromises);
             showToast("success", "Items added successfully");
-            router.push(`/users/${userId}/lists/${playlistId}`);
+            router.push(`/users/${userId}/lists/${listId}`);
         } catch (error) {
-            showToast("error", "Failed to add items to playlist");
+            showToast("error", "Failed to add items to list");
         } finally {
             setLoading(false);
         }
@@ -105,7 +125,7 @@ export default function AddItemsForm({ playlistId, userId, existingType }: AddIt
     return (
         <Box sx={{ maxWidth: 800, mx: "auto", width: "100%" }}>
             <Typography variant="h5" sx={{ mb: 3 }}>
-                Add Items to Your Playlist
+                Add Items to Your List
             </Typography>
 
             {!existingType && (
@@ -113,7 +133,7 @@ export default function AddItemsForm({ playlistId, userId, existingType }: AddIt
                     <InputLabel>Select Content Type</InputLabel>
                     <Select
                         value={selectedType}
-                        onChange={(e) => setSelectedType(e.target.value as PlaylistTypeValue)}
+                        onChange={(e) => setSelectedType(e.target.value as ListTypeValue)}
                         label="Select Content Type"
                     >
                         {PLAYLIST_TYPES.map((type) => (
@@ -124,7 +144,7 @@ export default function AddItemsForm({ playlistId, userId, existingType }: AddIt
                     </Select>
                 </FormControl>
             )}
-            
+
             {(selectedType || existingType) && (
                 <>
                     <TextField
@@ -133,32 +153,27 @@ export default function AddItemsForm({ playlistId, userId, existingType }: AddIt
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         InputProps={{
-                            endAdornment: (
-                                <SearchIcon 
-                                    sx={{ cursor: "pointer" }} 
-                                    onClick={handleSearch}
-                                />
-                            ),
+                            endAdornment: <SearchIcon sx={{ cursor: "pointer" }} onClick={handleSearch} />,
                         }}
                         sx={{ mb: 3 }}
                     />
 
                     <Stack spacing={2} sx={{ mb: 3 }}>
                         {items.map((item) => (
-                            <Paper 
+                            <Paper
                                 key={item.id}
-                                sx={{ 
+                                sx={{
                                     p: 2,
                                     display: "flex",
                                     alignItems: "center",
                                     cursor: "pointer",
-                                    '&:hover': { bgcolor: 'action.hover' }
+                                    "&:hover": { bgcolor: "action.hover" },
                                 }}
                                 onClick={() => toggleItem(item.id)}
                             >
                                 <FormControlLabel
                                     control={
-                                        <Checkbox 
+                                        <Checkbox
                                             checked={selectedItems.has(item.id)}
                                             onChange={() => toggleItem(item.id)}
                                         />

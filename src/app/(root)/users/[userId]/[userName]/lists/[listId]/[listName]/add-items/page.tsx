@@ -4,26 +4,22 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Box } from "@mui/material";
 import { notFound } from "next/navigation";
 import AddItemsForm from "./_components/AddItemsForm";
-import { getPlaylistForAddItems } from "@/actions/playlist/playlist.actions";
+import { getListForAddItems } from "@/actions/list/list.actions";
 
 export const metadata: Metadata = {
     title: "Add Items to Playlist | MovieLandia24",
-    description: "Add items to your playlist",
+    description: "Add items to your list",
 };
 
-export default async function AddPlaylistItemsPage({
-    params,
-}: {
-    params: { playlistId: string; userId: string };
-}) {
+export default async function AddPlaylistItemsPage({ params }: { params: { listId: string; userId: string } }) {
     const session = await getServerSession(authOptions);
-    const result = await getPlaylistForAddItems(parseInt(params.playlistId));
-    
+    const result = await getListForAddItems(parseInt(params.listId));
+
     if (!result) {
         notFound();
     }
 
-    const { playlist, existingType } = result;
+    const { list, existingType } = result;
 
     return (
         <Box
@@ -37,8 +33,8 @@ export default async function AddPlaylistItemsPage({
                 bgcolor: "background.default",
             }}
         >
-            <AddItemsForm 
-                playlistId={parseInt(params.playlistId)} 
+            <AddItemsForm
+                listId={parseInt(params.listId)}
                 userId={parseInt(params.userId)}
                 existingType={existingType}
             />

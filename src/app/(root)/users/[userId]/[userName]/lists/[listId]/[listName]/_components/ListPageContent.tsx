@@ -11,7 +11,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import CardItem, { CardItemType } from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { formatDate } from "@/utils/helpers/utils";
-import { Playlist } from "@prisma/client";
+import { List } from "@prisma/client";
 
 const tabToCardType: Record<string, CardItemType> = {
     movies: "movie",
@@ -23,7 +23,7 @@ const tabToCardType: Record<string, CardItemType> = {
 };
 
 interface ListPageContentProps {
-    playlist: Playlist;
+    list: List;
     userName: string;
     currentUserId: number;
     content: any[];
@@ -33,7 +33,7 @@ interface ListPageContentProps {
 }
 
 export default function ListPageContent({
-    playlist,
+    list,
     userName,
     content,
     totalItems,
@@ -74,17 +74,17 @@ export default function ListPageContent({
                             variant="h1"
                             sx={{ fontSize: { xs: 24, sm: 28, md: 32 }, fontWeight: 800, color: "text.primary" }}
                         >
-                            {playlist.name}
+                            {list.name}
                         </Typography>
                         <Stack direction="row" spacing={1}>
-                            {playlist.isPrivate && (
+                            {list.isPrivate && (
                                 <Tooltip title="Private list">
                                     <IconButton size="small">
                                         <LockIcon />
                                     </IconButton>
                                 </Tooltip>
                             )}
-                            {playlist.isArchived && (
+                            {list.isArchived && (
                                 <Tooltip title="Archived list">
                                     <IconButton size="small">
                                         <ArchiveIcon />
@@ -94,16 +94,16 @@ export default function ListPageContent({
                         </Stack>
                     </Stack>
 
-                    {playlist.description && (
+                    {list.description && (
                         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "800px" }}>
-                            {playlist.description}
+                            {list.description}
                         </Typography>
                     )}
 
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
                         <Typography variant="body2">Created by {userName}</Typography>
-                        <Typography variant="body2">Last updated {formatDate(playlist.updatedAt)}</Typography>
-                        <Typography variant="body2">{playlist.itemCount} items</Typography>
+                        <Typography variant="body2">Last updated {formatDate(list.updatedAt)}</Typography>
+                        <Typography variant="body2">{list.itemCount} items</Typography>
                     </Stack>
                 </Stack>
                 {/* Tabs */}

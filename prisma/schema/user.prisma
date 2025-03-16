@@ -1,52 +1,44 @@
-/*
+/**
  * User Model - Core entity representing application users
- * 
  * User Capabilities:
- * 
  * 1. Authentication & Profile
- *    - Register and login (email/password or Google OAuth)
- *    - Manage profile (username, email, password, bio)
- *    - Upload and manage avatar
- *    - Reset password and account activation
- * 
+ * - Register and login (email/password or Google OAuth)
+ * - Manage profile (username, email, password, bio)
+ * - Upload and manage avatar
+ * - Reset password and account activation
  * 2. Content Interaction
- *    - Bookmark favorites (movies, series, seasons, episodes, actors, crew)
- *    - Rate content (0-10 stars for movies, series, seasons, episodes, actors, crew)
- *    - Write, edit and manage reviews for all content types
- *    - Interact with others' reviews (upvote/downvote)
- *    - Create and manage personal playlists of various content
- * 
+ * - Bookmark favorites (movies, series, seasons, episodes, actors, crew)
+ * - Rate content (0-10 stars for movies, series, seasons, episodes, actors, crew)
+ * - Write, edit and manage reviews for all content types
+ * - Interact with others' reviews (upvote/downvote)
+ * - Create and manage personal lists of various content
  * 3. Social Features
- *    - Follow/unfollow other users (with pending/accepted/rejected states)
- *    - Send/receive direct messages through inbox system
- *    - Receive notifications for social interactions
- * 
+ * - Follow/unfollow other users (with pending/accepted/rejected states)
+ * - Send/receive direct messages through inbox system
+ * - Receive notifications for social interactions
  * 4. Forum Participation
- *    - Create and manage forum topics
- *    - Post replies and participate in discussions
- *    - Upvote/downvote forum content (topics, posts, replies)
- *    - Bookmark favorite topics
- *    - Watch topics for updates
- *    - Moderate forum categories (if given moderator rights)
- *    - Upload attachments to forum posts
- * 
+ * - Create and manage forum topics
+ * - Post replies and participate in discussions
+ * - Upvote/downvote forum content (topics, posts, replies)
+ * - Bookmark favorite topics
+ * - Watch topics for updates
+ * - Moderate forum categories (if given moderator rights)
+ * - Upload attachments to forum posts
  * 5. Content Management (Admin Only)
- *    - Moderate user content
- *    - Handle reported content
- *    - Create moderation logs
- *    - Close topics
- *    - Edit/delete forum posts
- * 
- * 6. Playlist Management
- *    - Create and manage personal playlists
- *    - Add various content types to playlists
- *    - Share playlists with other users
- *    - Track playlist statistics
- *    - Record playlist activities
- * 
+ * - Moderate user content
+ * - Handle reported content
+ * - Create moderation logs
+ * - Close topics
+ * - Edit/delete forum posts
+ * 6. List Management
+ * - Create and manage personal lists
+ * - Add various content types to lists
+ * - Share lists with other users
+ * - Track list statistics
+ * - Record list activities
  * Stats & Tracking:
  * - Forum activity statistics (topics, posts, replies, reputation)
- * - Playlist usage statistics
+ * - List usage statistics
  * - Content interaction history
  */
 
@@ -74,7 +66,7 @@ model User {
     role             UserType  @default(User)
     bio              String?   @db.Text()
     age              Int?
-    birthday         DateTime? // Added birthday field
+    birthday         DateTime? 
     gender           Gender    @default(Male)
     phone            String    @default("+11234567890")
     countryFrom      String    @default("United States")
@@ -166,24 +158,22 @@ model User {
     repliesEdited           ForumReplyHistory[] @relation("ReplyEditor")
     postsDeleted            ForumPost[]         @relation("PostDeleter")
 
-    // Playlist Relations
-    playlists             Playlist[]
-    sharedPlaylists       PlaylistShare[]
-    playlistStats         UserPlaylistStats?
-    movieActivities       PlaylistActivityMovie[]
-    serieActivities       PlaylistActivitySerie[]
-    seasonActivities      PlaylistActivitySeason[]
-    episodeActivities     PlaylistActivityEpisode[]
-    actorActivities       PlaylistActivityActor[]
-    crewActivities        PlaylistActivityCrew[]
-
-    // Added items tracking
-    addedMovieItems   PlaylistMovie[]   @relation("AddedByUser")
-    addedSerieItems   PlaylistSerie[]   @relation("AddedBySerieUser")
-    addedSeasonItems  PlaylistSeason[]  @relation("AddedBySeasonUser")
-    addedEpisodeItems PlaylistEpisode[] @relation("AddedByEpisodeUser")
-    addedActorItems   PlaylistActor[]   @relation("AddedByActorUser")
-    addedCrewItems    PlaylistCrew[]    @relation("AddedByCrewUser")
+    // List Relations
+    lists             List[]
+    sharedLists       ListShare[]
+    listStats         UserListStats?
+    movieActivities   ListActivityMovie[]
+    serieActivities   ListActivitySerie[]
+    seasonActivities  ListActivitySeason[]
+    episodeActivities ListActivityEpisode[]
+    actorActivities   ListActivityActor[]
+    crewActivities    ListActivityCrew[]
+    addedMovieItems   ListMovie[]   @relation("AddedByUser")
+    addedSerieItems   ListSerie[]   @relation("AddedBySerieUser")
+    addedSeasonItems  ListSeason[]  @relation("AddedBySeasonUser")
+    addedEpisodeItems ListEpisode[] @relation("AddedByEpisodeUser")
+    addedActorItems   ListActor[]   @relation("AddedByActorUser")
+    addedCrewItems    ListCrew[]    @relation("AddedByCrewUser")
 
     @@index([userName(sort: Asc)])
     @@index([email])
@@ -228,13 +218,13 @@ model ForumUserStats {
     lastPostAt      DateTime?
 }
 
-model UserPlaylistStats {
-    id              Int       @id @default(autoincrement())
-    userId          Int       @unique
-    totalPlaylists  Int       @default(0)
-    totalItems      Int       @default(0)
-    sharedPlaylists Int       @default(0)
-    lastPlaylistAt  DateTime?
+model UserListStats {
+    id          Int       @id @default(autoincrement())
+    userId      Int       @unique
+    totalLists  Int       @default(0)
+    totalItems  Int       @default(0)
+    sharedLists Int       @default(0)
+    lastListAt  DateTime?
 
     // Relations
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)

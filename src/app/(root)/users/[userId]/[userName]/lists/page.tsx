@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getUserPlaylists } from "@/actions/playlist/playlist.actions";
+import { getUserPlaylists } from "@/actions/list/list.actions";
 import ListsPageContent from "./_components/ListsPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 

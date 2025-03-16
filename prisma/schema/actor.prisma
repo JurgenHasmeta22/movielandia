@@ -7,8 +7,8 @@ model Actor {
     debut        String
 
     // Relations
-    playlistItems        PlaylistActor[]
-    playlistActivities   PlaylistActivityActor[]
+    listItems        ListActor[]
+    listActivities   ListActivityActor[]
     starredMovies        CastMovie[]
     starredSeries        CastSerie[]
     reviews              ActorReview[]

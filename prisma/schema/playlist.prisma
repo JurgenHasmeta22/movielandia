@@ -1,12 +1,12 @@
 /**
- * Playlist Models - Core entities for managing user content collections
- * Playlist System Capabilities:
- * 1. Playlist Types & Management
- * - Create custom playlists
- * - Automatic system playlists (Watchlist, Favorites, Watched)
+ * List Models - Core entities for managing user content collections
+ * List System Capabilities:
+ * 1. List Types & Management
+ * - Create custom lists
+ * - Automatic system lists (Watchlist, Favorites, Watched)
  * - Public/Private visibility settings
  * - Archive functionality
- * - Default playlist designation
+ * - Default list designation
  * - Track item counts and view history
  * 2. Content Organization
  * - Add/remove multiple content types:
@@ -17,14 +17,14 @@
  * • Actors
  * • Crew Members
  * - Custom ordering of items (orderIndex)
- * - Add notes to playlist items
+ * - Add notes to list items
  * - Track addition dates
  * 3. Sharing & Collaboration
- * - Share playlists with other users
- * - Control edit permissions for shared playlists
+ * - Share lists with other users
+ * - Control edit permissions for shared lists
  * - Track sharing history
  * 4. Activity Tracking
- * - Log all playlist actions:
+ * - Log all list actions:
  * • Creation/Updates/Deletion
  * • Item additions/removals
  * • Sharing/Unsharing
@@ -36,7 +36,7 @@
  * - People systems (actors, crew)
  */
 
-enum PlaylistActionType {
+enum ListActionType {
     Created
     Updated
     Deleted
@@ -46,7 +46,7 @@ enum PlaylistActionType {
     Unshared
 }
 
-model Playlist {
+model List {
     id           Int       @id @default(autoincrement())
     name         String
     description  String?   @db.Text()
@@ -61,278 +61,278 @@ model Playlist {
     userId Int
 
     // Relations
-    user              User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    movieItems        PlaylistMovie[]
-    serieItems        PlaylistSerie[]
-    seasonItems       PlaylistSeason[]
-    episodeItems      PlaylistEpisode[]
-    actorItems        PlaylistActor[]
-    crewItems         PlaylistCrew[]
-    sharedWith        PlaylistShare[]
-    movieActivities   PlaylistActivityMovie[]
-    serieActivities   PlaylistActivitySerie[]
-    seasonActivities  PlaylistActivitySeason[]
-    episodeActivities PlaylistActivityEpisode[]
-    actorActivities   PlaylistActivityActor[]
-    crewActivities    PlaylistActivityCrew[]
+    user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+    movieItems        ListMovie[]
+    serieItems        ListSerie[]
+    seasonItems       ListSeason[]
+    episodeItems      ListEpisode[]
+    actorItems        ListActor[]
+    crewItems         ListCrew[]
+    sharedWith        ListShare[]
+    movieActivities   ListActivityMovie[]
+    serieActivities   ListActivitySerie[]
+    seasonActivities  ListActivitySeason[]
+    episodeActivities ListActivityEpisode[]
+    actorActivities   ListActivityActor[]
+    crewActivities    ListActivityCrew[]
 
     @@index([userId])
     @@index([createdAt])
     @@index([isDefault])
 }
 
-model PlaylistShare {
+model ListShare {
     id       Int      @id @default(autoincrement())
     canEdit  Boolean  @default(false)
     sharedAt DateTime @default(now())
 
     // FK Keys
-    playlistId Int
-    userId     Int
+    listId Int
+    userId Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([playlistId, userId])
+    @@unique([listId, userId])
 }
 
-model PlaylistMovie {
+model ListMovie {
     id         Int      @id @default(autoincrement())
     addedAt    DateTime @default(now())
     note       String?  @db.Text()
     orderIndex Int      @default(0)
 
     // FK Keys
-    playlistId Int
-    movieId    Int
-    userId     Int
+    listId  Int
+    movieId Int
+    userId  Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    movie    Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
-    user     User     @relation("AddedByUser", fields: [userId], references: [id])
+    list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+    movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+    user  User  @relation("AddedByUser", fields: [userId], references: [id])
 
-    @@unique([playlistId, movieId])
-    @@index([playlistId, orderIndex])
+    @@unique([listId, movieId])
+    @@index([listId, orderIndex])
 }
 
-model PlaylistSerie {
+model ListSerie {
     id         Int      @id @default(autoincrement())
     addedAt    DateTime @default(now())
     note       String?  @db.Text()
     orderIndex Int      @default(0)
 
     // FK Keys
-    playlistId Int
-    serieId    Int
-    userId     Int
+    listId  Int
+    serieId Int
+    userId  Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    serie    Serie    @relation(fields: [serieId], references: [id], onDelete: Cascade)
-    user     User     @relation("AddedBySerieUser", fields: [userId], references: [id])
+    list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+    serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+    user  User  @relation("AddedBySerieUser", fields: [userId], references: [id])
 
-    @@unique([playlistId, serieId])
-    @@index([playlistId, orderIndex])
+    @@unique([listId, serieId])
+    @@index([listId, orderIndex])
 }
 
-model PlaylistSeason {
+model ListSeason {
     id         Int      @id @default(autoincrement())
     addedAt    DateTime @default(now())
     note       String?  @db.Text()
     orderIndex Int      @default(0)
 
     // FK Keys
-    playlistId Int
-    seasonId   Int
-    userId     Int
+    listId   Int
+    seasonId Int
+    userId   Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    season   Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-    user     User     @relation("AddedBySeasonUser", fields: [userId], references: [id])
+    list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+    season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+    user   User   @relation("AddedBySeasonUser", fields: [userId], references: [id])
 
-    @@unique([playlistId, seasonId])
-    @@index([playlistId, orderIndex])
+    @@unique([listId, seasonId])
+    @@index([listId, orderIndex])
 }
 
-model PlaylistEpisode {
+model ListEpisode {
     id         Int      @id @default(autoincrement())
     addedAt    DateTime @default(now())
     note       String?  @db.Text()
     orderIndex Int      @default(0)
 
     // FK Keys
-    playlistId Int
-    episodeId  Int
-    userId     Int
+    listId    Int
+    episodeId Int
+    userId    Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    episode  Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
-    user     User     @relation("AddedByEpisodeUser", fields: [userId], references: [id])
+    list    List    @relation(fields: [listId], references: [id], onDelete: Cascade)
+    episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+    user    User    @relation("AddedByEpisodeUser", fields: [userId], references: [id])
 
-    @@unique([playlistId, episodeId])
-    @@index([playlistId, orderIndex])
+    @@unique([listId, episodeId])
+    @@index([listId, orderIndex])
 }
 
-model PlaylistActor {
+model ListActor {
     id         Int      @id @default(autoincrement())
     addedAt    DateTime @default(now())
     note       String?  @db.Text()
     orderIndex Int      @default(0)
 
     // FK Keys
-    playlistId Int
-    actorId    Int
-    userId     Int
+    listId  Int
+    actorId Int
+    userId  Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    actor    Actor    @relation(fields: [actorId], references: [id], onDelete: Cascade)
-    user     User     @relation("AddedByActorUser", fields: [userId], references: [id])
+    list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+    actor Actor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+    user  User  @relation("AddedByActorUser", fields: [userId], references: [id])
 
-    @@unique([playlistId, actorId])
-    @@index([playlistId, orderIndex])
+    @@unique([listId, actorId])
+    @@index([listId, orderIndex])
 }
 
-model PlaylistCrew {
+model ListCrew {
     id         Int      @id @default(autoincrement())
     addedAt    DateTime @default(now())
     note       String?  @db.Text()
     orderIndex Int      @default(0)
 
     // FK Keys
-    playlistId Int
-    crewId     Int
-    userId     Int
+    listId Int
+    crewId Int
+    userId Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    crew     Crew     @relation(fields: [crewId], references: [id], onDelete: Cascade)
-    user     User     @relation("AddedByCrewUser", fields: [userId], references: [id])
+    list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+    crew Crew @relation(fields: [crewId], references: [id], onDelete: Cascade)
+    user User @relation("AddedByCrewUser", fields: [userId], references: [id])
 
-    @@unique([playlistId, crewId])
-    @@index([playlistId, orderIndex])
+    @@unique([listId, crewId])
+    @@index([listId, orderIndex])
 }
 
-model PlaylistActivityMovie {
-    id         Int                @id @default(autoincrement())
-    actionType PlaylistActionType
+model ListActivityMovie {
+    id         Int            @id @default(autoincrement())
+    actionType ListActionType
     metadata   Json?
-    createdAt  DateTime           @default(now())
+    createdAt  DateTime       @default(now())
 
     // FK Keys
-    playlistId Int
-    movieId    Int
-    userId     Int
+    listId  Int
+    movieId Int
+    userId  Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    movie    Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+    movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([playlistId, createdAt])
+    @@index([listId, createdAt])
     @@index([userId, createdAt])
 }
 
-model PlaylistActivitySerie {
-    id         Int                @id @default(autoincrement())
-    actionType PlaylistActionType
+model ListActivitySerie {
+    id         Int            @id @default(autoincrement())
+    actionType ListActionType
     metadata   Json?
-    createdAt  DateTime           @default(now())
+    createdAt  DateTime       @default(now())
 
     // FK Keys
-    playlistId Int
-    serieId    Int
-    userId     Int
+    listId  Int
+    serieId Int
+    userId  Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    serie    Serie    @relation(fields: [serieId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+    serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([playlistId, createdAt])
+    @@index([listId, createdAt])
     @@index([userId, createdAt])
 }
 
-model PlaylistActivitySeason {
-    id         Int                @id @default(autoincrement())
-    actionType PlaylistActionType
+model ListActivitySeason {
+    id         Int            @id @default(autoincrement())
+    actionType ListActionType
     metadata   Json?
-    createdAt  DateTime           @default(now())
+    createdAt  DateTime       @default(now())
 
     // FK Keys
-    playlistId Int
-    seasonId   Int
-    userId     Int
+    listId   Int
+    seasonId Int
+    userId   Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    season   Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+    season Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([playlistId, createdAt])
+    @@index([listId, createdAt])
     @@index([userId, createdAt])
 }
 
-model PlaylistActivityEpisode {
-    id         Int                @id @default(autoincrement())
-    actionType PlaylistActionType
+model ListActivityEpisode {
+    id         Int            @id @default(autoincrement())
+    actionType ListActionType
     metadata   Json?
-    createdAt  DateTime           @default(now())
+    createdAt  DateTime       @default(now())
 
     // FK Keys
-    playlistId Int
-    episodeId  Int
-    userId     Int
+    listId    Int
+    episodeId Int
+    userId    Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    episode  Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list    List    @relation(fields: [listId], references: [id], onDelete: Cascade)
+    episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([playlistId, createdAt])
+    @@index([listId, createdAt])
     @@index([userId, createdAt])
 }
 
-model PlaylistActivityActor {
-    id         Int                @id @default(autoincrement())
-    actionType PlaylistActionType
+model ListActivityActor {
+    id         Int            @id @default(autoincrement())
+    actionType ListActionType
     metadata   Json?
-    createdAt  DateTime           @default(now())
+    createdAt  DateTime       @default(now())
 
     // FK Keys
-    playlistId Int
-    actorId    Int
-    userId     Int
+    listId  Int
+    actorId Int
+    userId  Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    actor    Actor    @relation(fields: [actorId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list  List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+    actor Actor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([playlistId, createdAt])
+    @@index([listId, createdAt])
     @@index([userId, createdAt])
 }
 
-model PlaylistActivityCrew {
-    id         Int                @id @default(autoincrement())
-    actionType PlaylistActionType
+model ListActivityCrew {
+    id         Int            @id @default(autoincrement())
+    actionType ListActionType
     metadata   Json?
-    createdAt  DateTime           @default(now())
+    createdAt  DateTime       @default(now())
 
     // FK Keys
-    playlistId Int
-    crewId     Int
-    userId     Int
+    listId Int
+    crewId Int
+    userId Int
 
     // Relations
-    playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-    crew     Crew     @relation(fields: [crewId], references: [id], onDelete: Cascade)
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+    crew Crew @relation(fields: [crewId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([playlistId, createdAt])
+    @@index([listId, createdAt])
     @@index([userId, createdAt])
 }
