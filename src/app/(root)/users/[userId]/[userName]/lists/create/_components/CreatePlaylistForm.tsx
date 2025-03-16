@@ -6,6 +6,7 @@ import { Box, Button, TextField, FormControl, InputLabel, Select, MenuItem, Form
 import { createPlaylist } from "@/actions/playlist/playlist.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { playlistSchema, type PlaylistFormData } from "@/schemas/playlist.schema";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 interface CreatePlaylistFormProps {
     userId: number;
@@ -110,6 +111,7 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                         color="secondary"
                         fullWidth
                         disabled={isSubmitting}
+                        startIcon={<AddCircleOutlineIcon />}
                         sx={{
                             textTransform: "none",
                             transition: "all 0.2s ease-in-out",

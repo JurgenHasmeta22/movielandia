@@ -35,7 +35,6 @@ interface ListPageContentProps {
 export default function ListPageContent({
     playlist,
     userName,
-    currentUserId,
     content,
     totalItems,
     currentTab,
@@ -64,6 +63,7 @@ export default function ListPageContent({
                 width: "100%",
                 px: { xs: 2, sm: 3, md: 4 },
                 py: { xs: 3, sm: 4 },
+                mt: 6,
             }}
         >
             <Stack spacing={4}>
@@ -106,7 +106,6 @@ export default function ListPageContent({
                         <Typography variant="body2">{playlist.itemCount} items</Typography>
                     </Stack>
                 </Stack>
-
                 {/* Tabs */}
                 <Tabs
                     value={tab || currentTab}
@@ -123,7 +122,6 @@ export default function ListPageContent({
                     <Tab label="Actors" value="actors" icon={<PersonIcon />} />
                     <Tab label="Crew" value="crew" icon={<GroupIcon />} />
                 </Tabs>
-
                 {/* Content */}
                 <Stack
                     direction="row"
@@ -141,7 +139,6 @@ export default function ListPageContent({
                         />
                     ))}
                 </Stack>
-
                 {/* Pagination */}
                 {pageCount > 1 && (
                     <PaginationControl

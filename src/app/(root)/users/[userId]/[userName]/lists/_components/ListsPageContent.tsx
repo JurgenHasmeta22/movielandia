@@ -7,7 +7,6 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import ListCard from "@/components/root/listCard/ListCard";
 import { useRouter } from "next/navigation";
-import AddIcon from "@mui/icons-material/Add";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 interface ListsPageContentProps {
@@ -166,14 +165,12 @@ export default function ListsPageContent({
                                 fontWeight: 500,
                             }}
                         >
-                            <AddIcon />
                             Create New List
                         </Button>
                     )}
                 </Box>
                 <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="lists" dataType="lists" />
             </Box>
-
             <Box sx={{ flex: 1, overflow: "auto" }}>
                 <Stack
                     direction="row"
