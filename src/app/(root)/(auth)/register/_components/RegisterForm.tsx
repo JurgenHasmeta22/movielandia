@@ -314,32 +314,32 @@ export default function RegisterForm() {
                                         }
                                         MenuProps={{
                                             anchorOrigin: {
-                                                vertical: 'bottom',
-                                                horizontal: 'left',
+                                                vertical: "bottom",
+                                                horizontal: "left",
                                             },
                                             transformOrigin: {
-                                                vertical: 'top',
-                                                horizontal: 'left',
+                                                vertical: "top",
+                                                horizontal: "left",
                                             },
                                             PaperProps: {
                                                 sx: {
                                                     mt: 1,
-                                                    maxHeight: '300px',
-                                                    '&::-webkit-scrollbar': {
-                                                        width: '8px',
+                                                    maxHeight: "300px",
+                                                    "&::-webkit-scrollbar": {
+                                                        width: "8px",
                                                     },
-                                                    '&::-webkit-scrollbar-track': {
-                                                        background: 'transparent',
+                                                    "&::-webkit-scrollbar-track": {
+                                                        background: "transparent",
                                                     },
-                                                    '&::-webkit-scrollbar-thumb': {
-                                                        backgroundColor: 'primary.main',
-                                                        borderRadius: '4px',
+                                                    "&::-webkit-scrollbar-thumb": {
+                                                        backgroundColor: "primary.main",
+                                                        borderRadius: "4px",
                                                     },
-                                                    '&::-webkit-scrollbar-thumb:hover': {
-                                                        backgroundColor: 'primary.dark',
+                                                    "&::-webkit-scrollbar-thumb:hover": {
+                                                        backgroundColor: "primary.dark",
                                                     },
-                                                }
-                                            }
+                                                },
+                                            },
                                         }}
                                         sx={{
                                             borderRadius: "8px",
