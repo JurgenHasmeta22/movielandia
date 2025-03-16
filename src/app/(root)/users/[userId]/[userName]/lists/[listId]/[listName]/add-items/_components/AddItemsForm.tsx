@@ -8,19 +8,15 @@ import {
     InputLabel,
     Select,
     MenuItem,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemIcon,
     Checkbox,
     Button,
     Pagination,
-    ListItemButton
 } from "@mui/material";
 import { SaveOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
 import { addItemsToList } from "@/actions/list/listItems.actions";
+import ListCard from "@/components/root/listCard/ListCard";
 
 interface AddItemsFormProps {
     items: any[];
@@ -63,8 +59,8 @@ export default function AddItemsForm({
     };
 
     const handleTypeChange = (event: any) => {
-        const selectedType = event.target.value; // e.g., "Movie"
-        const urlType = selectedType.toLowerCase() + 's'; // e.g., "movies"
+        const selectedType = event.target.value;
+        const urlType = selectedType.toLowerCase() + 's';
         
         setType(urlType);
         setPage(1);
@@ -128,32 +124,68 @@ export default function AddItemsForm({
                     ))}
                 </Select>
             </FormControl>
-            <List>
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    justifyContent: 'flex-start',
+                }}
+            >
                 {items.map((item) => (
-                    <ListItem 
-                        key={item.id} 
-                        dense
-                        disablePadding
+                    <Box 
+                        key={item.id}
+                        sx={{ 
+                            position: 'relative',
+                            cursor: 'pointer',
+                            '&:hover .checkbox': {
+                                opacity: 1,
+                            },
+                            flexBasis: {
+                                xs: '100%',
+                                sm: 'calc(50% - 16px)',
+                                md: 'calc(33.333% - 16px)',
+                                lg: 'calc(25% - 16px)',
+                            },
+                            minWidth: 0,
+                        }}
+                        onClick={() => toggleItem(item.id)}
                     >
-                        <ListItemButton onClick={() => toggleItem(item.id)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={selectedItems.has(item.id)}
-                                    tabIndex={-1}
-                                    disableRipple
-                                />
-                            </ListItemIcon>
-                            <ListItemText 
-                                primary={item.title || item.name}
-                                secondary={item.releaseDate || item.firstAirDate}
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: 8,
+                                right: 8,
+                                zIndex: 2,
+                                bgcolor: 'background.paper',
+                                borderRadius: '50%',
+                                opacity: selectedItems.has(item.id) ? 1 : 0.7,
+                                transition: 'opacity 0.2s',
+                            }}
+                            className="checkbox"
+                        >
+                            <Checkbox
+                                checked={selectedItems.has(item.id)}
+                                onClick={(e) => e.stopPropagation()}
+                                sx={{ 
+                                    '&.Mui-checked': {
+                                        color: 'primary.main',
+                                    }
+                                }}
                             />
-                        </ListItemButton>
-                    </ListItem>
+                        </Box>
+                        <ListCard
+                            list={item}
+                            username={item.userName}
+                            userId={item.userId}
+                        />
+                    </Box>
                 ))}
-            </List>
+            </Box>
+
             {totalPages > 1 && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, mb: 2 }}>
                     <Pagination
                         count={totalPages}
                         page={currentPage}
@@ -161,6 +193,7 @@ export default function AddItemsForm({
                     />
                 </Box>
             )}
+
             <Button
                 fullWidth
                 variant="contained"
@@ -169,7 +202,7 @@ export default function AddItemsForm({
                 startIcon={<SaveOutlined />}
                 sx={{ mt: 2 }}
             >
-                Save Selected Items
+                Save Selected Items ({selectedItems.size})
             </Button>
         </Box>
     );

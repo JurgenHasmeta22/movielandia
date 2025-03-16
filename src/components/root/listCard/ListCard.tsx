@@ -1,30 +1,46 @@
-import { Box, Typography, IconButton, Stack, Tooltip, Card } from "@mui/material";
-import { List } from "@prisma/client";
+import { Box, Typography, Stack, Tooltip, Card } from "@mui/material";
 import Link from "next/link";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { formatDate } from "@/utils/helpers/utils";
 
 interface ListCardProps {
-    list: List & {
-        _count?: {
-            movieItems: number;
-            serieItems: number;
-            seasonItems: number;
-            episodeItems: number;
-            actorItems: number;
-            crewItems: number;
-        };
-    };
+    list: any;
     username: string;
     userId: number;
 }
 
+const getTotalItems = (counts: Record<string, number>) => {
+    return Object.values(counts).reduce((acc, curr) => acc + curr, 0);
+};
+
 export default function ListCard({ list, username, userId }: ListCardProps) {
-    const totalItems = list._count ? Object.values(list._count).reduce((acc, curr) => acc + curr, 0) : list.itemCount;
+    const getListPath = () => {
+        const formattedUsername = encodeURIComponent(username);
+        const formattedListName = list?.name ? 
+            encodeURIComponent(list.name.trim().toLowerCase().split(/\s+/).join("-")) : 
+            "";
+        
+        return `/users/${userId}/${formattedUsername}/lists/${list.id}/${formattedListName}`;
+    };
+
+    const getDisplayName = () => {
+        return list?.name || "Untitled List";
+    };
+
+    const getFormattedDate = () => {
+        try {
+            return list?.createdAt ? formatDate(new Date(list.createdAt)) : "No date";
+        } catch (error) {
+            return "Invalid date";
+        }
+    };
 
     return (
-        <Link href={`/users/${userId}/${username}/lists/${list.id}/${list.name}`} style={{ textDecoration: "none" }}>
+        <Link 
+            href={getListPath()}
+            style={{ textDecoration: "none" }}
+        >
             <Card
                 elevation={1}
                 sx={{
@@ -34,6 +50,10 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                     maxHeight: 220,
                     display: "flex",
                     flexDirection: "column",
+                    transition: "transform 0.2s ease-in-out",
+                    "&:hover": {
+                        transform: "translateY(-4px)",
+                    }
                 }}
             >
                 <Box sx={{ p: 2, display: "flex", flexDirection: "column", height: "100%" }}>
@@ -49,21 +69,17 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                                 whiteSpace: "nowrap",
                             }}
                         >
-                            {list.name}
+                            {getDisplayName()}
                         </Typography>
-                        <Stack direction="row" spacing={0.5}>
-                            {list.isPrivate && (
+                        <Stack direction="row" spacing={1}>
+                            {list?.isPrivate && (
                                 <Tooltip title="Private list">
-                                    <IconButton size="small">
-                                        <LockIcon fontSize="small" />
-                                    </IconButton>
+                                    <LockIcon fontSize="small" color="action" />
                                 </Tooltip>
                             )}
-                            {list.isArchived && (
+                            {list?.isArchived && (
                                 <Tooltip title="Archived list">
-                                    <IconButton size="small">
-                                        <ArchiveIcon fontSize="small" />
-                                    </IconButton>
+                                    <ArchiveIcon fontSize="small" color="action" />
                                 </Tooltip>
                             )}
                         </Stack>
@@ -82,7 +98,7 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                             flexGrow: 1,
                         }}
                     >
-                        {list.description || "No description"}
+                        {list?.description || "No description"}
                     </Typography>
 
                     <Stack
@@ -97,10 +113,10 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                         }}
                     >
                         <Typography variant="caption" color="text.secondary">
-                            {totalItems} items
+                            {list?._count ? getTotalItems(list._count) : 0} items
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
-                            {formatDate(list.createdAt)}
+                            {getFormattedDate()}
                         </Typography>
                     </Stack>
                 </Box>
