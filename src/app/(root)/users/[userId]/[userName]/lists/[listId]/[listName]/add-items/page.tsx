@@ -20,15 +20,11 @@ interface PageProps {
 
 export default async function AddItemsPage({ params, searchParams }: PageProps) {
     const session = await getServerSession(authOptions);
-    
+
     const page = Number(searchParams?.page) || 1;
     const type = searchParams?.type || "movies";
 
-    const data = await getUserFavorites(
-        Number(params.userId),
-        type.toLowerCase() as any,
-        page
-    );
+    const data = await getUserFavorites(Number(params.userId), type.toLowerCase() as any, page);
 
     const pageCount = Math.ceil((data.total || 0) / 12);
 

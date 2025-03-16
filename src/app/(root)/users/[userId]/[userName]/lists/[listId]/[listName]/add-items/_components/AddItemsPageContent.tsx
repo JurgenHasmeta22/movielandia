@@ -28,12 +28,7 @@ interface AddItemsPageContentProps {
     totalPages: number;
 }
 
-export default function AddItemsPageContent({ 
-    params, 
-    searchParams, 
-    items,
-    totalPages 
-}: AddItemsPageContentProps) {
+export default function AddItemsPageContent({ params, searchParams, items, totalPages }: AddItemsPageContentProps) {
     const { userId, listId } = params;
     const page = Number(searchParams?.page) || 1;
 

@@ -2,16 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { 
-    Box, 
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Checkbox,
-    Button,
-    Pagination,
-} from "@mui/material";
+import { Box, FormControl, InputLabel, Select, MenuItem, Checkbox, Button, Pagination } from "@mui/material";
 import { SaveOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
@@ -26,17 +17,18 @@ interface AddItemsFormProps {
     userId: number;
 }
 
-const CONTENT_TYPES = ["Movie", "Serie", "Actor", "Crew", "Season", "Episode"];
+const CONTENT_TYPES = [
+    { label: "Movie", value: "movies" },
+    { label: "Serie", value: "series" },
+    { label: "Actor", value: "actors" },
+    { label: "Crew", value: "crew" },
+    { label: "Season", value: "seasons" },
+    { label: "Episode", value: "episodes" },
+];
 
-export default function AddItemsForm({
-    items,
-    totalPages,
-    currentPage,
-    listId,
-    userId
-}: AddItemsFormProps) {
+export default function AddItemsForm({ items, totalPages, currentPage, listId, userId }: AddItemsFormProps) {
     const router = useRouter();
-    
+
     const [type, setType] = useQueryState("type", {
         defaultValue: "movies",
         parse: (value) => value || "movies",
@@ -54,15 +46,9 @@ export default function AddItemsForm({
     const [selectedItems, setSelectedItems] = useState(new Set<number>());
     const [loading, setLoading] = useState(false);
 
-    const getSelectValue = (urlType: string) => {
-        return urlType.slice(0, -1).charAt(0).toUpperCase() + urlType.slice(1, -1);
-    };
-
     const handleTypeChange = (event: any) => {
-        const selectedType = event.target.value;
-        const urlType = selectedType.toLowerCase() + 's';
-        
-        setType(urlType);
+        const newType = event.target.value;
+        setType(newType);
         setPage(1);
         setSelectedItems(new Set());
     };
@@ -73,13 +59,11 @@ export default function AddItemsForm({
 
     const toggleItem = (itemId: number) => {
         const newSelected = new Set(selectedItems);
-
         if (selectedItems.has(itemId)) {
             newSelected.delete(itemId);
         } else {
             newSelected.add(itemId);
         }
-
         setSelectedItems(newSelected);
     };
 
@@ -96,9 +80,9 @@ export default function AddItemsForm({
                 listId,
                 userId,
                 type,
-                itemIds: Array.from(selectedItems)
+                itemIds: Array.from(selectedItems),
             });
-            
+
             showToast("success", "Items added successfully");
             router.push(`/users/${userId}/lists/${listId}`);
         } catch (error) {
@@ -112,14 +96,10 @@ export default function AddItemsForm({
         <Box>
             <FormControl fullWidth sx={{ mb: 3 }}>
                 <InputLabel>Content Type</InputLabel>
-                <Select
-                    value={getSelectValue(type)}
-                    onChange={handleTypeChange}
-                    label="Content Type"
-                >
-                    {CONTENT_TYPES.map((contentType) => (
-                        <MenuItem key={contentType} value={contentType}>
-                            {contentType}
+                <Select value={type} onChange={handleTypeChange} label="Content Type">
+                    {CONTENT_TYPES.map(({ label, value }) => (
+                        <MenuItem key={value} value={value}>
+                            {label}
                         </MenuItem>
                     ))}
                 </Select>
@@ -127,26 +107,26 @@ export default function AddItemsForm({
 
             <Box
                 sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
+                    display: "flex",
+                    flexWrap: "wrap",
                     gap: 2,
-                    justifyContent: 'flex-start',
+                    justifyContent: "flex-start",
                 }}
             >
                 {items.map((item) => (
-                    <Box 
+                    <Box
                         key={item.id}
-                        sx={{ 
-                            position: 'relative',
-                            cursor: 'pointer',
-                            '&:hover .checkbox': {
+                        sx={{
+                            position: "relative",
+                            cursor: "pointer",
+                            "&:hover .checkbox": {
                                 opacity: 1,
                             },
                             flexBasis: {
-                                xs: '100%',
-                                sm: 'calc(50% - 16px)',
-                                md: 'calc(33.333% - 16px)',
-                                lg: 'calc(25% - 16px)',
+                                xs: "100%",
+                                sm: "calc(50% - 16px)",
+                                md: "calc(33.333% - 16px)",
+                                lg: "calc(25% - 16px)",
                             },
                             minWidth: 0,
                         }}
@@ -154,43 +134,35 @@ export default function AddItemsForm({
                     >
                         <Box
                             sx={{
-                                position: 'absolute',
+                                position: "absolute",
                                 top: 8,
                                 right: 8,
                                 zIndex: 2,
-                                bgcolor: 'background.paper',
-                                borderRadius: '50%',
+                                bgcolor: "background.paper",
+                                borderRadius: "50%",
                                 opacity: selectedItems.has(item.id) ? 1 : 0.7,
-                                transition: 'opacity 0.2s',
+                                transition: "opacity 0.2s",
                             }}
                             className="checkbox"
                         >
                             <Checkbox
                                 checked={selectedItems.has(item.id)}
                                 onClick={(e) => e.stopPropagation()}
-                                sx={{ 
-                                    '&.Mui-checked': {
-                                        color: 'primary.main',
-                                    }
+                                sx={{
+                                    "&.Mui-checked": {
+                                        color: "primary.main",
+                                    },
                                 }}
                             />
                         </Box>
-                        <ListCard
-                            list={item}
-                            username={item.userName}
-                            userId={item.userId}
-                        />
+                        <ListCard list={item} username={item.userName} userId={item.userId} />
                     </Box>
                 ))}
             </Box>
 
             {totalPages > 1 && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, mb: 2 }}>
-                    <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={handlePageChange}
-                    />
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 2 }}>
+                    <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
                 </Box>
             )}
 
