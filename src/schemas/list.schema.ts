@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const listSchema = z.object({
-    name: z.string().min(1, { message: "Playlist name is required" }),
+    name: z.string().min(1, { message: "List name is required" }),
     description: z.string().optional(),
     isPrivate: z.boolean(),
 });
 
-export type PlaylistFormData = z.infer<typeof listSchema>;
+export type ListFormData = z.infer<typeof listSchema>;

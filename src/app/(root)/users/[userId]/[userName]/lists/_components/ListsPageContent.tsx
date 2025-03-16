@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Paper, Stack, Typography, Button } from "@mui/material";
-import { Playlist } from "@prisma/client";
+import { List } from "@prisma/client";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 interface ListsPageContentProps {
-    lists: Playlist[];
+    lists: List[];
     listsCount: number;
     itemsPerPage: number;
     currentPage: number;
@@ -184,8 +184,8 @@ export default function ListsPageContent({
                         },
                     }}
                 >
-                    {lists.map((list: Playlist) => (
-                        <ListCard key={list.id} playlist={list} username={userName} userId={userId} />
+                    {lists.map((list: List) => (
+                        <ListCard key={list.id} list={list} username={userName} userId={userId} />
                     ))}
                 </Stack>
 

@@ -7,11 +7,11 @@ import AddItemsForm from "./_components/AddItemsForm";
 import { getListForAddItems } from "@/actions/list/list.actions";
 
 export const metadata: Metadata = {
-    title: "Add Items to Playlist | MovieLandia24",
+    title: "Add Items to List | MovieLandia24",
     description: "Add items to your list",
 };
 
-export default async function AddPlaylistItemsPage({ params }: { params: { listId: string; userId: string } }) {
+export default async function AddListItemsPage({ params }: { params: { listId: string; userId: string } }) {
     const session = await getServerSession(authOptions);
     const result = await getListForAddItems(parseInt(params.listId));
 

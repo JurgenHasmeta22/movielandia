@@ -4,7 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/navigation";
 
-const CreatePlaylistHeader = () => {
+const CreateListHeader = () => {
     const router = useRouter();
 
     return (
@@ -47,4 +47,4 @@ const CreatePlaylistHeader = () => {
     );
 };
 
-export default CreatePlaylistHeader;
+export default CreateListHeader;

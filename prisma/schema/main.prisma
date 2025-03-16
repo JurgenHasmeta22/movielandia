@@ -29,7 +29,7 @@ datasource db {
  * 1. User & Authentication (7 tables)
  *    - Core: User, Account, Session
  *    - Security: VerificationToken, ActivateToken, ResetPasswordToken
- *    - Stats: UserPlaylistStats
+ *    - Stats: UserListStats
  * 
  * 2. Content Management (4 tables)
  *    - Movie, Serie, Season, Episode
@@ -53,10 +53,10 @@ datasource db {
  *    - Reviews: MovieReview, SerieReview, SeasonReview, EpisodeReview, ActorReview, CrewReview
  *    - Ratings: UserMovieRating, UserSerieRating, UserSeasonRating, UserEpisodeRating, UserActorRating, UserCrewRating
  * 
- * 7. Playlist System (8 tables)
- *    - Core: Playlist
- *    - Content Links: PlaylistMovie, PlaylistSerie, PlaylistSeason, PlaylistEpisode, PlaylistActor, PlaylistCrew
- *    - Sharing: PlaylistShare
+ * 7. List System (8 tables)
+ *    - Core: List
+ *    - Content Links: ListMovie, ListSerie, ListSeason, ListEpisode, ListActor, ListCrew
+ *    - Sharing: ListShare
  * 
  * 8. Cast & Crew Relations (4 tables)
  *    - Movie Relations: CastMovie, CrewMovie
@@ -74,7 +74,7 @@ datasource db {
  * - Rich user interaction capabilities
  * - Extensive social features
  * - Robust review and rating system
- * - Flexible playlist management
+ * - Flexible list management
  * - Advanced forum functionality
  * 
  * Note: All tables include appropriate indexes and relations

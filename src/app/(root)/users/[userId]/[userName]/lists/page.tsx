@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getUserPlaylists } from "@/actions/list/list.actions";
+import { getUserLists } from "@/actions/list/list.actions";
 import ListsPageContent from "./_components/ListsPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
@@ -46,12 +46,11 @@ export default async function ListsPage(props: PageProps) {
     let listsCount;
 
     try {
-        const result = await getUserPlaylists(userId, {
+        const result = await getUserLists(userId, {
             page,
             perPage: itemsPerPage,
             sortBy,
             ascOrDesc,
-            type: type as any,
         });
 
         lists = result.items;

@@ -2,16 +2,16 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import CreatePlaylistForm from "./_components/CreatePlaylistForm";
-import CreatePlaylistHeader from "./_components/CreatePlaylistHeader";
+import CreateListForm from "./_components/CreateListForm";
+import CreateListHeader from "./_components/CreateListHeader";
 import { Box } from "@mui/material";
 
 export const metadata: Metadata = {
-    title: "Create Playlist | MovieLandia24",
-    description: "Create a new playlist for your favorite content",
+    title: "Create List | MovieLandia24",
+    description: "Create a new list for your favorite content",
 };
 
-export default async function CreatePlaylistPage() {
+export default async function CreateListPage() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user) {
@@ -38,8 +38,8 @@ export default async function CreatePlaylistPage() {
                     flex: 1,
                 }}
             >
-                <CreatePlaylistHeader />
-                <CreatePlaylistForm userId={Number(session.user.id)} />
+                <CreateListHeader />
+                <CreateListForm userId={Number(session.user.id)} />
             </Box>
         </Box>
     );

@@ -1,12 +1,12 @@
 import { Box, Typography, IconButton, Stack, Tooltip, Card } from "@mui/material";
-import { Playlist } from "@prisma/client";
+import { List } from "@prisma/client";
 import Link from "next/link";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { formatDate } from "@/utils/helpers/utils";
 
 interface ListCardProps {
-    playlist: Playlist & {
+    list: List & {
         _count?: {
             movieItems: number;
             serieItems: number;
@@ -20,14 +20,14 @@ interface ListCardProps {
     userId: number;
 }
 
-export default function ListCard({ playlist, username, userId }: ListCardProps) {
-    const totalItems = playlist._count
-        ? Object.values(playlist._count).reduce((acc, curr) => acc + curr, 0)
-        : playlist.itemCount;
+export default function ListCard({ list, username, userId }: ListCardProps) {
+    const totalItems = list._count
+        ? Object.values(list._count).reduce((acc, curr) => acc + curr, 0)
+        : list.itemCount;
 
     return (
         <Link
-            href={`/users/${userId}/${username}/lists/${playlist.id}/${playlist.name}`}
+            href={`/users/${userId}/${username}/lists/${list.id}/${list.name}`}
             style={{ textDecoration: "none" }}
         >
             <Card
@@ -54,17 +54,17 @@ export default function ListCard({ playlist, username, userId }: ListCardProps) 
                                 whiteSpace: "nowrap",
                             }}
                         >
-                            {playlist.name}
+                            {list.name}
                         </Typography>
                         <Stack direction="row" spacing={0.5}>
-                            {playlist.isPrivate && (
+                            {list.isPrivate && (
                                 <Tooltip title="Private list">
                                     <IconButton size="small">
                                         <LockIcon fontSize="small" />
                                     </IconButton>
                                 </Tooltip>
                             )}
-                            {playlist.isArchived && (
+                            {list.isArchived && (
                                 <Tooltip title="Archived list">
                                     <IconButton size="small">
                                         <ArchiveIcon fontSize="small" />
@@ -87,7 +87,7 @@ export default function ListCard({ playlist, username, userId }: ListCardProps) 
                             flexGrow: 1,
                         }}
                     >
-                        {playlist.description || "No description"}
+                        {list.description || "No description"}
                     </Typography>
 
                     <Stack
@@ -105,7 +105,7 @@ export default function ListCard({ playlist, username, userId }: ListCardProps) 
                             {totalItems} items
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
-                            {formatDate(playlist.createdAt)}
+                            {formatDate(list.createdAt)}
                         </Typography>
                     </Stack>
                 </Box>

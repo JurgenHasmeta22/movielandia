@@ -3,25 +3,25 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, TextField, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@mui/material";
-import { createPlaylist } from "@/actions/list/list.actions";
+import { createList } from "@/actions/list/list.actions";
 import { showToast } from "@/utils/helpers/toast";
-import { playlistSchema, type PlaylistFormData } from "@/schemas/list.schema";
+import { listSchema, type ListFormData } from "@/schemas/list.schema";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useRouter, usePathname } from "next/navigation";
 
-interface CreatePlaylistFormProps {
+interface CreateListFormProps {
     userId: number;
 }
 
-export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) {
+export default function CreateListForm({ userId }: CreateListFormProps) {
     const router = useRouter();
     const pathname = usePathname();
     const {
         control,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<PlaylistFormData>({
-        resolver: zodResolver(playlistSchema),
+    } = useForm<ListFormData>({
+        resolver: zodResolver(listSchema),
         defaultValues: {
             name: "",
             description: "",
@@ -29,24 +29,24 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
         },
     });
 
-    const onSubmit = async (data: PlaylistFormData) => {
+    const onSubmit = async (data: ListFormData) => {
         try {
-            const result = await createPlaylist({
+            const result = await createList({
                 ...data,
                 userId,
             });
 
             if (!result) {
-                throw new Error("Failed to create playlist");
+                throw new Error("Failed to create list");
             }
 
             const basePath = pathname.split("/lists")[0];
 
-            showToast("success", "Playlist created successfully!");
+            showToast("success", "List created successfully!");
             router.push(`${basePath}/lists/${result.id}/${encodeURIComponent(result.name)}/add-items`);
         } catch (error) {
-            showToast("error", "Failed to create playlist. Please try again.");
-            console.error("Failed to create playlist:", error);
+            showToast("error", "Failed to create list. Please try again.");
+            console.error("Failed to create list:", error);
         }
     };
 
@@ -70,7 +70,7 @@ export default function CreatePlaylistForm({ userId }: CreatePlaylistFormProps) 
                         render={({ field }) => (
                             <TextField
                                 {...field}
-                                label="Playlist Name"
+                                label="List Name"
                                 error={!!errors.name}
                                 helperText={errors.name?.message}
                                 fullWidth
