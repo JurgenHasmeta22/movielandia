@@ -20,7 +20,7 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
     const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", isPrivate, isArchived } = params;
 
     const skip = (page - 1) * perPage;
-    
+
     const where: Prisma.ListWhereInput = {
         userId,
         ...(typeof isPrivate === "boolean" && { isPrivate }),

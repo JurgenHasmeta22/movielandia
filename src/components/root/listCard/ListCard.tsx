@@ -21,15 +21,10 @@ interface ListCardProps {
 }
 
 export default function ListCard({ list, username, userId }: ListCardProps) {
-    const totalItems = list._count
-        ? Object.values(list._count).reduce((acc, curr) => acc + curr, 0)
-        : list.itemCount;
+    const totalItems = list._count ? Object.values(list._count).reduce((acc, curr) => acc + curr, 0) : list.itemCount;
 
     return (
-        <Link
-            href={`/users/${userId}/${username}/lists/${list.id}/${list.name}`}
-            style={{ textDecoration: "none" }}
-        >
+        <Link href={`/users/${userId}/${username}/lists/${list.id}/${list.name}`} style={{ textDecoration: "none" }}>
             <Card
                 elevation={1}
                 sx={{

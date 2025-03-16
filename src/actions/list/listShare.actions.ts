@@ -4,12 +4,7 @@ import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
 
-export async function shareList(
-    listId: number,
-    userId: number,
-    targetUserId: number,
-    canEdit: boolean = false,
-) {
+export async function shareList(listId: number, userId: number, targetUserId: number, canEdit: boolean = false) {
     try {
         // Check if list exists and user is the owner
         const list = await prisma.list.findFirst({
