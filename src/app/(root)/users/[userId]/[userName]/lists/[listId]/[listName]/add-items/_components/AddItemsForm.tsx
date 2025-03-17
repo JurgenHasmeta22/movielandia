@@ -16,6 +16,7 @@ interface AddItemsFormProps {
     currentPage: number;
     listId: number;
     userId: number;
+    listName: string;
 }
 
 const CONTENT_TYPES = [
@@ -27,7 +28,7 @@ const CONTENT_TYPES = [
     { label: "Episode", value: "episodes" },
 ];
 
-export default function AddItemsForm({ items, totalPages, currentPage, listId, userId }: AddItemsFormProps) {
+export default function AddItemsForm({ items, totalPages, currentPage, listId, userId, listName }: AddItemsFormProps) {
     const router = useRouter();
 
     const [type, setType] = useQueryState("type", {
@@ -39,28 +40,27 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
 
     const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
 
-    const getItemId = (item: any, type: string): number => {
+    const getItemId = (item: any, type: string): number | null => {
         switch (type) {
             case "movies":
-                return item.movie.id;
+                return item?.movie?.id;
             case "series":
-                return item.serie.id;
+                return item?.serie?.id;
             case "seasons":
-                return item.season.id;
+                return item?.season?.id;
             case "episodes":
-                return item.episode.id;
+                return item?.episode?.id;
             case "actors":
-                return item.actor.id;
+                return item?.actor?.id;
             case "crew":
-                return item.crew.id;
+                return item?.crew?.id;
             default:
-                return item.id;
+                return null;
         }
     };
 
     const handleTypeChange = async (event: any) => {
         setType(event.target.value);
-        setSelectedItems(new Set());
     };
 
     const toggleItem = (itemId: number) => {
@@ -87,7 +87,7 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
             });
 
             showToast("success", "Items added successfully");
-            router.push(`/users/${userId}/lists/${listId}`);
+            router.push(`/users/${userId}/lists/${listId}/${listName}`);
         } catch (error) {
             showToast("error", "Failed to add items to list");
         }
@@ -121,7 +121,9 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
                                 key={item.id}
                                 item={item}
                                 type={type}
-                                isSelected={selectedItems.has(getItemId(item, type))}
+                                isSelected={
+                                    (selectedItems.size > 0 && selectedItems.has(getItemId(item, type)!)) ?? false
+                                }
                                 onToggle={toggleItem}
                             />
                         ))

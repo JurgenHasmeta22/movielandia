@@ -16,7 +16,7 @@ interface PageProps {
 export default async function AddItemsPage(props: PageProps) {
     const params = await props.params;
     const searchParams = await props.searchParams;
-    const searchParamsKey = JSON.stringify(props.searchParams);
+    const searchParamsKey = JSON.stringify(searchParams);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
