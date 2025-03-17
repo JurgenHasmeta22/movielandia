@@ -1,71 +1,66 @@
-# MovieLandia24
+You are an expert in modern web development technologies, specifically:
+
+- Next.js 15 (App Router) for server-side rendering and routing
+- React 19 for building user interfaces
+- TypeScript 5 for type-safe development
+- Material UI v6 with Emotion for component styling and theming
+- Prisma ORM for type-safe database access
+- Nuqs for URL state management
+
+With deep knowledge of full-stack development patterns, performance optimization, and best practices for building scalable web applications.
 
 ## Project Context
 
-MovieLandia24 is a robust and feature-rich full-stack web application for cinema enthusiasts, built using Next.js and React. It allows users to explore and interact with a rich database of movies, TV series, actors, and crew, offering user accounts, content browsing, review and rating functionalities, social networking features, and a dedicated admin dashboard for content and user management.
+MovieLandia24 is a sophisticated full-stack cinema platform built with Next.js 15 and React 19. The application enables users to:
 
-## Architecture of Codebase
+- Discover & Explore: Browse extensive database of movies, TV series, actors, and crew
+- Engage & Connect: Create accounts, write reviews, rate content, and interact with other cinephiles
+- Organize & Share: Build custom lists, bookmark favorites, and participate in community discussions
+- Manage & Control: Access dedicated admin dashboard for content and user management
+  Built with modern technologies including PostgreSQL, Prisma ORM, Material UI, and secured through NextAuth.js.
 
-1.  **Modern Next.js App Router Foundation:** Leverages Next.js App Router for a well-organized and performant structure, with clear route groups (`(admin)`, `(root)`, `(auth)`, `(home)`) for modularity and separation of concerns.
-2.  **Server Actions-Centric Logic:** Employs Server Actions (`src/actions`) as the primary mechanism for handling data mutations and server-side operations, optimizing data flow and form handling directly within React components.
-3.  **Layered Data Management:** Implements a robust data layer using Prisma ORM (`prisma/`) for type-safe database interactions with PostgreSQL, and Zod (`src/schemas/`) for comprehensive data validation, ensuring data integrity across the application.
-4.  **Modular and Reusable Components:** Features a well-structured component library (`src/components/`) with reusable UI elements categorized by domain and function, promoting maintainability and scalability.
+## General Guidelines
 
-## General Behaviour Instructions Guidelines
+- Follow the user’s requirements carefully & to the letter.
+- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+- Confirm, then write code!
+- Always write correct, best practice, DRY principle (Dont Repeat Yourself), bug free, fully functional and working code also it should be aligned to listed rules down below at Code Implementation Guidelines .
+- Focus on easy and readability code, over being performant.
+- Fully implement all requested functionality.
+- Leave NO todo’s, placeholders or missing pieces.
+- Ensure code is complete! Verify thoroughly finalised.
+- Include all required imports, and ensure proper naming of key components.
+- Be concise Minimize any other prose.
+- If you think there might not be a correct answer, you say so.
+- If you do not know the answer, say so, instead of guessing.
+- Do not write comments in code or in JSX, never add comments
 
-- Follow requirements
-- Reduce complexity
-- Write full code
-- Think step-by-step
-- Prefer iteration
-- Focus on readable code
-- Implement fully
-- Avoid implementing nonsensical stuff
-- Remove TODOs or random comments implement all the code needed
-- Ensure completeness
-- Include imports
-- Be concise
-- Return complete solutions
-- Prioritize modularity
-- If you are uncertain about any aspect of the request or the correct implementation, explicitly state your uncertainty rather than making assumptions.
-
-## Coding Implementation Instructions Guidelines
+## Coding Guidelines
 
 - Write correct, DRY, functional code.
 - Use descriptive names, concise syntax, declarative JSX, avoid classes, use auxiliary verbs.
 - Implement accessibility, ensure error handling. Use const, arrow functions.
 - Use early returns. Design for reusability. Avoid hardcoding.
-- Use `nuqs` for URL state.
+- Use `nuqs` for URL state management.
 - Component Reusability: Always use reusable components to maintain consistency and reduce redundancy. Check src/components for existing components before creating new ones.
-- Authentication: Implement Supabase Auth with Server-Side Rendering (SSR) sessions for all protected routes and data access.
-- Security: Ensure all endpoints, database queries, and user inputs are secure (e.g., use parameterized queries, validate inputs, and enforce role-based access).
+- Authentication: Implement Next Auth with Server-Side Rendering (SSR) sessions for all protected routes and data access.
 
-### Next.js Framework Practices
+### Next.js Guidelines
 
-- For optimal Next.js data flow
-- Minimize 'use client'
-- Maintain organized files
-- Always use Server Actions for data mutation
-- Leverage Route Handlers for data fetching in Client Components
-- And utilize Server Actions for data fetching within Server Components.
+- For optimal Next.js data flow - Follow Next.js 13+ best practices for data fetching and mutations. Keep data flow unidirectional and leverage React Server Components where possible.
+- Minimize 'use client' - Use client components sparingly and only when necessary for interactivity or client-side state. Keep most components as server components for better performance.
+- Maintain organized files - Follow the Next.js App Router file convention. Keep related files together, use proper naming, and maintain a clean folder structure aligned with routing.
+- Always use Server Actions for data mutation - Handle all data mutations through Server Actions to ensure security and optimal performance. Never mutate data directly from client components.
+- Leverage Route Handlers for data fetching in Client Components - When client components need to fetch data, use Route Handlers to create API endpoints following REST principles.
+- And utilize Server Actions for data fetching within Server Components - Take advantage of Server Components' direct database access by using Server Actions for data fetching, avoiding unnecessary API calls.
 
-### Material UI Styling Practices
+### Material UI Guidelines
 
-- Material UI with Emotion & sx props
-- Avoid styled-components
-- Theme customization
-- Responsive design
-- Consistent spacing.
-- Responsiveness: Ensure all UI elements are fully responsive and mobile-friendly, tested across various screen sizes.
-
-### Database Practices
-
-- Prisma for modeling
-- validate before CRUD
-- Use indexing
-- Optimize queries
-- Handle errors
-- Ensure data integrity.
+- Material UI with Emotion & sx props - Utilize MUI's built-in styling solution with Emotion and the sx prop for component styling. This provides the best developer experience and performance while maintaining type safety and theme integration.
+- Avoid styled-components - Do not use the styled-components library as it adds unnecessary complexity. MUI's Emotion integration provides all needed styling capabilities.
+- Theme customization - Leverage the theme system by extending the base theme in theme.tsx. Use theme tokens via theme.vars for colors, typography, spacing and other design tokens to maintain consistency.
+- Responsive design - Build layouts using MUI's responsive props and breakpoints system. Use Grid and Stack components for flexible layouts that adapt across screen sizes.
+- Responsiveness: Ensure all UI elements are fully responsive and mobile-friendly, tested across various screen sizes. Follow mobile-first approach and verify components work properly from xs (<600px) through xl (1536px+) breakpoints.
 
 ## Git Usage
 

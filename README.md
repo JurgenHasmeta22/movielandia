@@ -2,7 +2,9 @@
   <h1 style="color: #30969f;">🎬 MovieLandia24</h1>
 
   <p align="center" style="font-size: 1.1em; color: #777; line-height: 1.5;">
-    <strong>MovieLandia24</strong> is a dynamic, full-stack social platform built for cinema lovers. Explore a vast universe of movies, series, actors, and crew. Rate, review, bookmark, and connect with a community passionate about film. Enjoy a seamless and engaging platform designed to elevate your cinematic journey.
+    <strong>MovieLandia24</strong> is a full-stack social platform built for cinema lovers. 
+    Explore a vast universe of movies, series, actors, and crew. 
+    Rate, review, bookmark, and connect with a community passionate about film. Enjoy a seamless and engaging platform designed to elevate your cinematic journey.
   </p>
 
   <p align="center" style="font-size: 1.05em; color: #555;">
@@ -23,7 +25,10 @@
 
 <h2 style="color:#30969f;" id="tech-stack">⚡ Tech Stack</h2>
 <p style="font-size:1.1em;">
-  MovieLandia24 is built upon a robust and modern technology stack, prioritizing performance, scalability, and developer experience.  At its core, Next.js 15 App Router and React 19 deliver a dynamic and engaging user interface with seamless navigation. Material UI, enhanced by Emotion, provides a consistent and visually appealing design system.  Zustand ensures efficient state management, while Framer Motion enriches the UI with fluid animations.  For transactional emails, React Email and Resend are integrated for a streamlined and reliable email delivery system.
+  MovieLandia24 is built upon a robust and modern technology stack, prioritizing performance, scalability, and developer experience.  
+  At its core, Next.js 15 App Router and React 19 deliver a dynamic and engaging user interface with seamless navigation. Material UI, enhanced by Emotion, provides a consistent and visually appealing design system.  
+  Zustand ensures efficient state management, while Framer Motion enriches the UI with fluid animations.  
+  For transactional emails, React Email and Resend are integrated for a streamlined and reliable email delivery system.
 </p>
   <ul style="list-style-type: none; padding-left: 0;">
     <li><img src="https://img.shields.io/badge/-Framework-black?style=flat-square&logo=javascript" alt="Framework Icon" style="margin-right: 5px;"/> <strong>Framework:</strong> <a href="https://nextjs.org/" style="color:#30969f;" target="_blank">Next.js 15</a> (App Router) - For server-side rendering, routing, and API capabilities.</li>
