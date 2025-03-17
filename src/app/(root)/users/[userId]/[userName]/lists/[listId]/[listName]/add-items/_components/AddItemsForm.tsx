@@ -9,6 +9,7 @@ import { showToast } from "@/utils/helpers/toast";
 import { addItemsToList } from "@/actions/list/listItems.actions";
 import SelectableListCard from "@/components/root/selectableListCard/SelectableListCard";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import { updateList } from "@/actions/list/list.actions";
 
 interface AddItemsFormProps {
     items: any[];
@@ -77,7 +78,9 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
 
     async function onSave() {
         try {
-            console.log(Array.from(selectedItems), listId, userId, type);
+            await updateList(listId, userId, {
+                contentType: type.slice(0, -1) as any,
+            });
 
             await addItemsToList({
                 listId,

@@ -17,7 +17,7 @@ interface PageProps {
         userId: string;
         userName: string;
         listId: string;
-        listSlug: string;
+        listName: string;
     };
     searchParams: {
         tab?: string;
@@ -31,8 +31,8 @@ export default async function Page({ params, searchParams }: PageProps) {
 
     const userId = Number(params.userId);
     const listId = Number(params.listId);
+
     const page = Number(searchParams.page) || 1;
-    const tab = searchParams.tab || "movies";
     const itemsPerPage = 12;
 
     const list = await getListById(listId, userId);
@@ -44,36 +44,36 @@ export default async function Page({ params, searchParams }: PageProps) {
     let content: any;
     let totalItems = 0;
 
-    switch (tab) {
-        case "movies": {
+    switch (list.contentType) {
+        case "movie": {
             const { items, total } = await getListMovies(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
-        case "series": {
+        case "serie": {
             const { items, total } = await getListSeries(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
-        case "seasons": {
+        case "season": {
             const { items, total } = await getListSeasons(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
-        case "episodes": {
+        case "episode": {
             const { items, total } = await getListEpisodes(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
             break;
         }
 
-        case "actors": {
+        case "actor": {
             const { items, total } = await getListActors(listId, currentUserId, page, itemsPerPage);
             content = items;
             totalItems = total;
@@ -95,7 +95,6 @@ export default async function Page({ params, searchParams }: PageProps) {
             currentUserId={currentUserId}
             content={content}
             totalItems={totalItems}
-            currentTab={tab}
             currentPage={page}
         />
     );

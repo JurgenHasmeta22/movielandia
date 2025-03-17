@@ -6,6 +6,7 @@ interface PageProps {
     params: {
         userId: string;
         listId: string;
+        listName: string;
     };
     searchParams?: {
         page?: string;

@@ -1,26 +1,14 @@
 "use client";
 
-import { Box, Stack, Typography, Tabs, Tab, Tooltip, IconButton } from "@mui/material";
+import { Box, Stack, Typography, Tooltip, IconButton } from "@mui/material";
 import { useQueryState } from "nuqs";
-import MovieIcon from "@mui/icons-material/Movie";
-import TvIcon from "@mui/icons-material/Tv";
-import PersonIcon from "@mui/icons-material/Person";
-import GroupIcon from "@mui/icons-material/Group";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import CardItem, { CardItemType } from "@/components/root/cardItem/CardItem";
+import CardItem from "@/components/root/cardItem/CardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { formatDate } from "@/utils/helpers/utils";
 import { List } from "@prisma/client";
 
-const tabToCardType: Record<string, CardItemType> = {
-    movies: "movie",
-    series: "serie",
-    seasons: "season",
-    episodes: "episode",
-    actors: "actor",
-    crew: "crew",
-};
 
 interface ListPageContentProps {
     list: List;
@@ -28,7 +16,6 @@ interface ListPageContentProps {
     currentUserId: number;
     content: any[];
     totalItems: number;
-    currentTab: string;
     currentPage: number;
 }
 
@@ -37,15 +24,8 @@ export default function ListPageContent({
     userName,
     content,
     totalItems,
-    currentTab,
     currentPage,
 }: ListPageContentProps) {
-    const [tab, setTab] = useQueryState<string>("tab", {
-        history: "push",
-        shallow: true,
-        parse: (value: string | null) => value ?? currentTab,
-    });
-
     const [page, setPage] = useQueryState<number>("page", {
         history: "push",
         shallow: true,
@@ -103,25 +83,9 @@ export default function ListPageContent({
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
                         <Typography variant="body2">Created by {userName}</Typography>
                         <Typography variant="body2">Last updated {formatDate(list.updatedAt)}</Typography>
-                        <Typography variant="body2">{list.itemCount} items</Typography>
+                        <Typography variant="body2">{totalItems} items</Typography>
                     </Stack>
                 </Stack>
-                {/* Tabs */}
-                <Tabs
-                    value={tab || currentTab}
-                    onChange={(_, value) => {
-                        setTab(value);
-                        setPage(1);
-                    }}
-                    sx={{ borderBottom: 1, borderColor: "divider" }}
-                >
-                    <Tab label="Movies" value="movies" icon={<MovieIcon />} />
-                    <Tab label="TV Series" value="series" icon={<TvIcon />} />
-                    <Tab label="Seasons" value="seasons" icon={<TvIcon />} />
-                    <Tab label="Episodes" value="episodes" icon={<TvIcon />} />
-                    <Tab label="Actors" value="actors" icon={<PersonIcon />} />
-                    <Tab label="Crew" value="crew" icon={<GroupIcon />} />
-                </Tabs>
                 {/* Content */}
                 <Stack
                     direction="row"
@@ -133,9 +97,9 @@ export default function ListPageContent({
                 >
                     {content.map((item) => (
                         <CardItem
-                            key={item[(tab || currentTab).slice(0, -1)]?.id}
-                            data={item[(tab || currentTab).slice(0, -1)]}
-                            type={tabToCardType[tab || currentTab]}
+                            key={item.id}
+                            data={item}
+                            type={item.contentType}
                         />
                     ))}
                 </Stack>

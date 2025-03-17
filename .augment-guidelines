@@ -33,7 +33,6 @@ MovieLandia24 is a sophisticated full-stack cinema platform built with Next.js 1
 - Be concise Minimize any other prose.
 - If you think there might not be a correct answer, you say so.
 - If you do not know the answer, say so, instead of guessing.
-- Do not write comments in code or in JSX, never add comments
 
 ## Coding Guidelines
 
@@ -44,6 +43,9 @@ MovieLandia24 is a sophisticated full-stack cinema platform built with Next.js 1
 - Use `nuqs` for URL state management.
 - Component Reusability: Always use reusable components to maintain consistency and reduce redundancy. Check src/components for existing components before creating new ones.
 - Authentication: Implement Next Auth with Server-Side Rendering (SSR) sessions for all protected routes and data access.
+- Do not add empty line space between JSX components
+- Do not use calc() function in sx prop or in styling in general
+- Do not write comments in code or in JSX, never add comments
 
 ### Next.js Guidelines
 
@@ -53,6 +55,7 @@ MovieLandia24 is a sophisticated full-stack cinema platform built with Next.js 1
 - Data Mutations: Use Server Actions only. No API route handlers for mutations.
 - Client Fetching: Use Route Handlers for REST API endpoints in Client Components.
 - Server Fetching: Use Server Actions for direct DB access in Server Components.
+- Never use direct prisma call in RSC (server components), awlays call a server action instead
 
 ### Material UI Guidelines
 

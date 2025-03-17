@@ -1,11 +1,10 @@
 "use server";
 
-import { List, Prisma } from "@prisma/client";
+import { ContentType, List, Prisma } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { redirect } from "next/navigation";
 import { getReferer } from "../user/user.actions";
 import type { ListFormData } from "@/schemas/list.schema";
-import { slugify } from "@/utils/helpers/string";
 
 interface ListParams {
     page?: number;
@@ -84,43 +83,6 @@ export async function getListById(listId: number, userId: number) {
             where: {
                 id: listId,
                 OR: [{ userId }, { sharedWith: { some: { userId } } }],
-            },
-            include: {
-                movieItems: {
-                    include: { movie: true },
-                    orderBy: { orderIndex: "asc" },
-                },
-                serieItems: {
-                    include: { serie: true },
-                    orderBy: { orderIndex: "asc" },
-                },
-                seasonItems: {
-                    include: { season: true },
-                    orderBy: { orderIndex: "asc" },
-                },
-                episodeItems: {
-                    include: { episode: true },
-                    orderBy: { orderIndex: "asc" },
-                },
-                actorItems: {
-                    include: { actor: true },
-                    orderBy: { orderIndex: "asc" },
-                },
-                crewItems: {
-                    include: { crew: true },
-                    orderBy: { orderIndex: "asc" },
-                },
-                sharedWith: {
-                    include: {
-                        user: {
-                            select: {
-                                id: true,
-                                userName: true,
-                                avatar: true,
-                            },
-                        },
-                    },
-                },
             },
         });
 
@@ -450,6 +412,7 @@ export async function updateList(
         description?: string;
         isPrivate?: boolean;
         isArchived?: boolean;
+        contentType: ContentType;
     },
 ): Promise<List> {
     try {
@@ -464,13 +427,12 @@ export async function updateList(
             throw new Error("List not found or you don't have permission to edit");
         }
 
-        await prisma.list.update({
+        const updatedList = await prisma.list.update({
             where: { id: listId },
             data,
         });
 
-        const path = `/users/${userId}/${await getReferer()}/lists`;
-        redirect(path);
+        return updatedList;
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Failed to update list");
     }
@@ -523,16 +485,16 @@ export async function getListForAddItems(listId: number) {
             list.movieItems.length > 0
                 ? "Movie"
                 : list.serieItems.length > 0
-                  ? "Serie"
-                  : list.seasonItems.length > 0
-                    ? "Season"
-                    : list.episodeItems.length > 0
-                      ? "Episode"
-                      : list.actorItems.length > 0
-                        ? "Actor"
-                        : list.crewItems.length > 0
-                          ? "Crew"
-                          : null;
+                    ? "Serie"
+                    : list.seasonItems.length > 0
+                        ? "Season"
+                        : list.episodeItems.length > 0
+                            ? "Episode"
+                            : list.actorItems.length > 0
+                                ? "Actor"
+                                : list.crewItems.length > 0
+                                    ? "Crew"
+                                    : null;
 
         return { list, existingType };
     } catch (error: any) {

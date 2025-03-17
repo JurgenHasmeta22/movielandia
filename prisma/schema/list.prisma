@@ -46,15 +46,26 @@ enum ListActionType {
     Unshared
 }
 
+enum ContentType {
+    movie
+    serie
+    season
+    episode
+    actor
+    crew
+    user
+}
+
 model List {
-    id           Int       @id @default(autoincrement())
+    id           Int          @id @default(autoincrement())
     name         String
-    description  String?   @db.Text()
-    isPrivate    Boolean   @default(false)
-    isArchived   Boolean   @default(false)
-    isDefault    Boolean   @default(false)
-    createdAt    DateTime  @default(now())
-    updatedAt    DateTime  @updatedAt
+    description  String?      @db.Text()
+    isPrivate    Boolean      @default(false)
+    isArchived   Boolean      @default(false)
+    isDefault    Boolean      @default(false)
+    createdAt    DateTime     @default(now())
+    contentType  ContentType?
+    updatedAt    DateTime     @updatedAt
     lastViewedAt DateTime?
 
     // FK Keys
