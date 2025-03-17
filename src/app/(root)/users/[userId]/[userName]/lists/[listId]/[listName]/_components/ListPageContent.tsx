@@ -1,14 +1,14 @@
 "use client";
 
-import { Box, Stack, Typography, Tooltip, IconButton } from "@mui/material";
-import { useQueryState } from "nuqs";
+import { Box, Stack, Typography, Tooltip, IconButton, Button } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
-import CardItem from "@/components/root/cardItem/CardItem";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ListDetailCardItem from "@/components/root/listDetailCardItem/ListDetailCardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import { formatDate } from "@/utils/helpers/utils";
 import { List } from "@prisma/client";
-
+import { useRouter } from "next/navigation";
 
 interface ListPageContentProps {
     list: List;
@@ -19,19 +19,8 @@ interface ListPageContentProps {
     currentPage: number;
 }
 
-export default function ListPageContent({
-    list,
-    userName,
-    content,
-    totalItems,
-    currentPage,
-}: ListPageContentProps) {
-    const [page, setPage] = useQueryState<number>("page", {
-        history: "push",
-        shallow: true,
-        parse: (value: string | null) => Number(value) || currentPage,
-    });
-
+export default function ListPageContent({ list, userName, content, totalItems, currentPage }: ListPageContentProps) {
+    const router = useRouter();
     const pageCount = Math.ceil(totalItems / 12);
 
     return (
@@ -47,7 +36,43 @@ export default function ListPageContent({
             }}
         >
             <Stack spacing={4}>
-                {/* Header */}
+                <Stack direction="row" alignItems="center" spacing={3}>
+                    <Button
+                        variant="outlined"
+                        startIcon={<ArrowBackIcon />}
+                        onClick={() => {
+                            router.back();
+                            router.refresh();
+                        }}
+                        sx={{
+                            textTransform: "uppercase",
+                            fontWeight: 600,
+                            color: "text.primary",
+                            borderColor: "divider",
+                            "&:hover": {
+                                borderColor: "primary.main",
+                            },
+                        }}
+                    >
+                        GO BACK
+                    </Button>
+                    <Stack>
+                        <Typography
+                            variant="overline"
+                            sx={{
+                                fontSize: { xs: 15, sm: 18, md: 22 },
+                                fontWeight: 700,
+                                color: "text.secondary",
+                                letterSpacing: 1,
+                                textTransform: "capitalize",
+                                minWidth: 200,
+                            }}
+                        >
+                            {list.contentType} custom list
+                        </Typography>
+                    </Stack>
+                </Stack>
+
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                         <Typography
@@ -86,31 +111,26 @@ export default function ListPageContent({
                         <Typography variant="body2">{totalItems} items</Typography>
                     </Stack>
                 </Stack>
-                {/* Content */}
-                <Stack
-                    direction="row"
-                    flexWrap="wrap"
+                <Box
                     sx={{
+                        display: "grid",
+                        gridTemplateColumns: {
+                            xs: "repeat(auto-fill, minmax(120px, 1fr))",
+                            sm: "repeat(auto-fill, minmax(140px, 1fr))",
+                            md: "repeat(auto-fill, minmax(150px, 1fr))",
+                            lg: "repeat(auto-fill, minmax(160px, 1fr))",
+                        },
                         gap: { xs: 2, sm: 3, md: 4 },
-                        justifyContent: { xs: "center", md: "flex-start" },
+                        justifyItems: "center",
                     }}
                 >
                     {content.map((item) => (
-                        <CardItem
-                            key={item.id}
-                            data={item}
-                            type={item.contentType}
-                        />
+                        <ListDetailCardItem key={item.id} data={item} type={list.contentType!} />
                     ))}
-                </Stack>
-                {/* Pagination */}
-                {pageCount > 1 && (
-                    <PaginationControl
-                        currentPage={Number(page) || currentPage}
-                        pageCount={pageCount}
-                        urlParamName="page"
-                    />
-                )}
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <PaginationControl currentPage={currentPage} pageCount={pageCount} urlParamName="page" />
+                </Box>
             </Stack>
         </Box>
     );
