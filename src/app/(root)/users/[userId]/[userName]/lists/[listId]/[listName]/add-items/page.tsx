@@ -25,9 +25,14 @@ export default async function AddItemsPage(props: PageProps) {
 
     const page = Number(searchParams?.page) || 1;
     const type = searchParams?.type;
+    
+    let data;
+    let pageCount;
 
-    const data = await getUserFavorites(Number(params?.userId), type!.toLowerCase() as any, page);
-    const pageCount = Math.ceil((data.total || 0) / 12);
+    if (type) {
+        data = await getUserFavorites(Number(params?.userId), type!.toLowerCase() as any, page);
+        pageCount = Math.ceil((data.total || 0) / 12);
+    }
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -35,8 +40,8 @@ export default async function AddItemsPage(props: PageProps) {
                 params={params}
                 searchParams={searchParams}
                 session={session}
-                items={data.items}
-                totalPages={pageCount}
+                items={data?.items || []}
+                totalPages={pageCount! || 1}
             />
         </Suspense>
     );

@@ -595,19 +595,19 @@ export async function removeCrewFromList(crewId: number, listId: number, userId:
 
 export async function addItemsToList({ listId, userId, type, itemIds }: AddItemsParams) {
     try {
-        // const list = await prisma.list.findFirst({
-        //     where: {
-        //         id: listId,
-        //         OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
-        //     },
-        // });
+        const list = await prisma.list.findFirst({
+            where: {
+                id: listId,
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
+            },
+        });
 
-        // if (!list) {
-        //     throw new Error("List not found or you don't have permission to edit");
-        // }
+        if (!list) {
+            throw new Error("List not found or you don't have permission to edit");
+        }
 
         const addActions = itemIds.map(async (itemId) => {
-            switch (type.toLowerCase()) {
+            switch (type) {
                 case "movies":
                     return addMovieToList(itemId, { listId, userId });
                 case "series":
