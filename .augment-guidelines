@@ -47,17 +47,17 @@ MovieLandia24 is a sophisticated full-stack cinema platform built with Next.js 1
 
 ### Next.js Guidelines
 
-- For optimal Next.js data flow - Follow Next.js 13+ best practices for data fetching and mutations. Keep data flow unidirectional and leverage React Server Components where possible.
-- Minimize 'use client' - Use client components sparingly and only when necessary for interactivity or client-side state. Keep most components as server components for better performance.
-- Maintain organized files - Follow the Next.js App Router file convention. Keep related files together, use proper naming, and maintain a clean folder structure aligned with routing.
-- Always use Server Actions for data mutation - Handle all data mutations through Server Actions to ensure security and optimal performance. Never mutate data directly from client components.
-- Leverage Route Handlers for data fetching in Client Components - When client components need to fetch data, use Route Handlers to create API endpoints following REST principles.
-- And utilize Server Actions for data fetching within Server Components - Take advantage of Server Components' direct database access by using Server Actions for data fetching, avoiding unnecessary API calls.
+- Data Flow: Use Next.js 13+ patterns. Keep unidirectional flow, prefer Server Components.
+- Client Usage: Limit 'use client' to interactive needs only. Default to server components.
+- File Structure: Follow App Router conventions. Group related files, align with routing.
+- Data Mutations: Use Server Actions only. No API route handlers for mutations.
+- Client Fetching: Use Route Handlers for REST API endpoints in Client Components.
+- Server Fetching: Use Server Actions for direct DB access in Server Components.
 
 ### Material UI Guidelines
 
-- Material UI with Emotion & sx props - Utilize MUI's built-in styling solution with Emotion and the sx prop for component styling. This provides the best developer experience and performance while maintaining type safety and theme integration.
-- Avoid styled-components - Do not use the styled-components library as it adds unnecessary complexity. MUI's Emotion integration provides all needed styling capabilities.
-- Theme customization - Leverage the theme system by extending the base theme in theme.tsx. Use theme tokens via theme.vars for colors, typography, spacing and other design tokens to maintain consistency.
-- Responsive design - Build layouts using MUI's responsive props and breakpoints system. Use Grid and Stack components for flexible layouts that adapt across screen sizes.
-- Responsiveness: Ensure all UI elements are fully responsive and mobile-friendly, tested across various screen sizes. Follow mobile-first approach and verify components work properly from xs (<600px) through xl (1536px+) breakpoints.
+- Styling: Use MUI's Emotion integration with sx props. No styled-components.
+- Theme: Use theme.vars for tokens (colors, typography, spacing) via theme.tsx.
+- Layout: Use MUI Grid/Stack with responsive props and breakpoints.
+- Components: Leverage built-in MUI components for consistency.
+- Responsive: Follow mobile-first, test xs to xl breakpoints (<600px to 1536px+).
