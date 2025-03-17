@@ -595,30 +595,30 @@ export async function removeCrewFromList(crewId: number, listId: number, userId:
 
 export async function addItemsToList({ listId, userId, type, itemIds }: AddItemsParams) {
     try {
-        const list = await prisma.list.findFirst({
-            where: {
-                id: listId,
-                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
-            },
-        });
+        // const list = await prisma.list.findFirst({
+        //     where: {
+        //         id: listId,
+        //         OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
+        //     },
+        // });
 
-        if (!list) {
-            throw new Error("List not found or you don't have permission to edit");
-        }
+        // if (!list) {
+        //     throw new Error("List not found or you don't have permission to edit");
+        // }
 
-        const addActions = itemIds.map(async (itemId, index) => {
+        const addActions = itemIds.map(async (itemId) => {
             switch (type.toLowerCase()) {
-                case "movie":
+                case "movies":
                     return addMovieToList(itemId, { listId, userId });
-                case "serie":
+                case "series":
                     return addSerieToList(itemId, { listId, userId });
-                case "actor":
+                case "actors":
                     return addActorToList(itemId, { listId, userId });
                 case "crew":
                     return addCrewToList(itemId, { listId, userId });
-                case "season":
+                case "seasons":
                     return addSeasonToList(itemId, { listId, userId });
-                case "episode":
+                case "episodes":
                     return addEpisodeToList(itemId, { listId, userId });
                 default:
                     throw new Error("Invalid content type");

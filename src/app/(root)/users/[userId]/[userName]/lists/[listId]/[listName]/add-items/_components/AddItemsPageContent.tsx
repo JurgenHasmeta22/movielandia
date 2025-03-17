@@ -30,7 +30,7 @@ interface AddItemsPageContentProps {
 
 export default function AddItemsPageContent({ params, searchParams, items, totalPages }: AddItemsPageContentProps) {
     const { userId, listId } = params;
-    const page = Number(searchParams?.page) || 1;
+    const currentPage = searchParams?.page ? Number(searchParams.page) : 1;
 
     return (
         <Box sx={{ maxWidth: 1200, mx: "auto", p: 3, mt: 8, mb: 6 }}>
@@ -40,7 +40,7 @@ export default function AddItemsPageContent({ params, searchParams, items, total
             <AddItemsForm
                 items={items}
                 totalPages={totalPages}
-                currentPage={page}
+                currentPage={currentPage}
                 listId={Number(listId)}
                 userId={Number(userId)}
             />

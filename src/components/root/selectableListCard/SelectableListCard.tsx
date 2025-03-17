@@ -76,7 +76,6 @@ export default function SelectableListCard({ item, type, isSelected, onToggle }:
                 maxWidth: 400,
                 bgcolor: "background.paper",
                 borderRadius: 1,
-                overflow: "hidden",
                 cursor: "pointer",
                 "&:hover": {
                     bgcolor: "action.hover",

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Box, FormControl, InputLabel, Select, MenuItem, Button, Stack } from "@mui/material";
+import { Box, FormControl, InputLabel, Select, MenuItem, Button, Stack, Container, Typography } from "@mui/material";
 import { SaveOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
@@ -29,31 +29,37 @@ const CONTENT_TYPES = [
 
 export default function AddItemsForm({ items, totalPages, currentPage, listId, userId }: AddItemsFormProps) {
     const router = useRouter();
-    const [type, setType] = useQueryState("type", { defaultValue: "movies" });
+
+    const [type, setType] = useQueryState("type", {
+        defaultValue: "",
+        parse: (value) => value || "",
+        history: "push",
+        shallow: false,
+    });
+
     const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
-    const [loading, setLoading] = useState(false);
 
     const getItemId = (item: any, type: string): number => {
         switch (type) {
             case "movies":
-                return item.movie?.id;
+                return item.movie.id;
             case "series":
-                return item.serie?.id;
+                return item.serie.id;
             case "seasons":
-                return item.season?.id;
+                return item.season.id;
             case "episodes":
-                return item.episode?.id;
+                return item.episode.id;
             case "actors":
-                return item.actor?.id;
+                return item.actor.id;
             case "crew":
-                return item.crew?.id;
+                return item.crew.id;
             default:
                 return item.id;
         }
     };
 
     const handleTypeChange = async (event: any) => {
-        await setType(event.target.value);
+        setType(event.target.value);
         setSelectedItems(new Set());
     };
 
@@ -70,14 +76,9 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
     };
 
     async function onSave() {
-        if (selectedItems.size === 0) {
-            showToast("error", "Please select at least one item");
-            return;
-        }
-
-        setLoading(true);
-
         try {
+            console.log(Array.from(selectedItems), listId, userId, type);
+
             await addItemsToList({
                 listId,
                 userId,
@@ -89,48 +90,69 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
             router.push(`/users/${userId}/lists/${listId}`);
         } catch (error) {
             showToast("error", "Failed to add items to list");
-        } finally {
-            setLoading(false);
         }
     }
 
     return (
-        <Box>
-            <FormControl fullWidth sx={{ mb: 3 }}>
-                <InputLabel>Content Type</InputLabel>
-                <Select value={type} onChange={handleTypeChange} label="Content Type">
-                    {CONTENT_TYPES.map(({ label, value }) => (
-                        <MenuItem key={value} value={value}>
-                            {label}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-            <Stack spacing={2} sx={{ mb: 3 }}>
-                {items.map((item) => (
-                    <SelectableListCard
-                        key={item.id}
-                        item={item}
-                        type={type}
-                        isSelected={selectedItems.has(getItemId(item, type))}
-                        onToggle={toggleItem}
-                    />
-                ))}
-            </Stack>
-            {totalPages > 1 && (
-                <Box sx={{ mb: 3 }}>
-                    <PaginationControl currentPage={currentPage} pageCount={totalPages} />
+        <Container maxWidth="md" sx={{ py: 2 }}>
+            <Stack spacing={4} alignItems="center">
+                <FormControl sx={{ width: { xs: "100%", sm: "400px" } }}>
+                    <InputLabel>Content Type</InputLabel>
+                    <Select value={type} onChange={handleTypeChange} label="Content Type">
+                        {CONTENT_TYPES.map(({ label, value }) => (
+                            <MenuItem key={value} value={value}>
+                                {label}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 2,
+                        width: "100%",
+                        justifyContent: "flex-start",
+                    }}
+                >
+                    {items && items.length > 0 ? (
+                        items.map((item) => (
+                            <SelectableListCard
+                                key={item.id}
+                                item={item}
+                                type={type}
+                                isSelected={selectedItems.has(getItemId(item, type))}
+                                onToggle={toggleItem}
+                            />
+                        ))
+                    ) : (
+                        <Typography
+                            variant="body1"
+                            sx={{ textAlign: "center", width: "100%", py: 4, color: "text.secondary" }}
+                        >
+                            No items found for the selected content type
+                        </Typography>
+                    )}
                 </Box>
-            )}
-            <Button
-                fullWidth
-                variant="contained"
-                onClick={onSave}
-                disabled={loading || selectedItems.size === 0}
-                startIcon={<SaveOutlined />}
-            >
-                Save Selected Items
-            </Button>
-        </Box>
+                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 2 }}>
+                    <PaginationControl currentPage={currentPage} pageCount={Math.max(1, totalPages)} />
+                </Box>
+                <Button
+                    variant="contained"
+                    onClick={onSave}
+                    disabled={selectedItems.size === 0}
+                    startIcon={<SaveOutlined />}
+                    sx={{
+                        fontSize: "0.85rem",
+                        py: 1,
+                        fontWeight: 600,
+                        textTransform: "none",
+                        minWidth: { xs: "100%", sm: "300px" },
+                    }}
+                >
+                    Save Selected Items
+                </Button>
+            </Stack>
+        </Container>
     );
 }
