@@ -438,7 +438,7 @@ export async function updateList(
     }
 }
 
-export async function deleteList(listId: number, userId: number): Promise<void> {
+export async function deleteList(listId: number, userId: number): Promise<any> {
     try {
         const list = await prisma.list.findFirst({
             where: {
@@ -451,12 +451,11 @@ export async function deleteList(listId: number, userId: number): Promise<void> 
             throw new Error("List not found or you don't have permission to delete");
         }
 
-        await prisma.list.delete({
+        const deletedList = await prisma.list.delete({
             where: { id: listId },
         });
 
-        const path = `/users/${userId}/${await getReferer()}/lists`;
-        redirect(path);
+        return deletedList;
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Failed to delete list");
     }

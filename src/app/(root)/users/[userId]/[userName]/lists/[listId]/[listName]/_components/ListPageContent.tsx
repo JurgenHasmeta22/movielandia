@@ -6,6 +6,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ListDetailCardItem from "@/components/root/listDetailCardItem/ListDetailCardItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import ListDetailHeader from "@/components/root/listDetailHeader/ListDetailHeader";
 import { formatDate } from "@/utils/helpers/utils";
 import { List } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -19,7 +20,7 @@ interface ListPageContentProps {
     currentPage: number;
 }
 
-export default function ListPageContent({ list, userName, content, totalItems, currentPage }: ListPageContentProps) {
+export default function ListPageContent({ list, userName, currentUserId, content, totalItems, currentPage }: ListPageContentProps) {
     const router = useRouter();
     const pageCount = Math.ceil(totalItems / 12);
 
@@ -72,15 +73,13 @@ export default function ListPageContent({ list, userName, content, totalItems, c
                         </Typography>
                     </Stack>
                 </Stack>
-
+                <ListDetailHeader 
+                    listId={list.id} 
+                    userId={list.userId} 
+                    listTitle={list.name} 
+                />
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
-                        <Typography
-                            variant="h1"
-                            sx={{ fontSize: { xs: 24, sm: 28, md: 32 }, fontWeight: 800, color: "text.primary" }}
-                        >
-                            {list.name}
-                        </Typography>
                         <Stack direction="row" spacing={1}>
                             {list.isPrivate && (
                                 <Tooltip title="Private list">
@@ -98,13 +97,11 @@ export default function ListPageContent({ list, userName, content, totalItems, c
                             )}
                         </Stack>
                     </Stack>
-
                     {list.description && (
                         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "800px" }}>
                             {list.description}
                         </Typography>
                     )}
-
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
                         <Typography variant="body2">Created by {userName}</Typography>
                         <Typography variant="body2">Last updated {formatDate(list.updatedAt)}</Typography>
@@ -125,7 +122,7 @@ export default function ListPageContent({ list, userName, content, totalItems, c
                     }}
                 >
                     {content.map((item) => (
-                        <ListDetailCardItem key={item.id} data={item} type={list.contentType!} />
+                        <ListDetailCardItem key={item.id} data={item} type={list.contentType!} userId={currentUserId} listId={list.id} />
                     ))}
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
