@@ -18,23 +18,11 @@ const getTotalItems = (counts: Record<string, number>) => {
 export default function ListCard({ list, username, userId }: ListCardProps) {
     const getListPath = () => {
         const formattedUsername = encodeURIComponent(username);
-        const formattedListName = getDisplayName()
-            ? encodeURIComponent(getDisplayName().trim().toLowerCase().split(/\s+/).join("-"))
+        const formattedListName = list.name
+            ? encodeURIComponent(list.name.trim().toLowerCase().split(/\s+/).join("-"))
             : "";
 
         return `/users/${userId}/${formattedUsername}/lists/${list.id}/${formattedListName}`;
-    };
-
-    const getDisplayName = () => {
-        if (list.title) return list.title;
-        if (list.fullname) return list.fullname;
-        if (list.userName) return list.userName;
-        if (list.name) return list.name;
-        return "Untitled";
-    };
-
-    const getImageSrc = () => {
-        return list.photoSrcProd || list.photo || list.image || "/images/placeholder.jpg";
     };
 
     const getFormattedDate = () => {
@@ -59,19 +47,6 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                 }}
             >
                 <Box sx={{ p: 2, display: "flex", gap: 2 }}>
-                    <Box sx={{ position: "relative", width: 60, height: 60, flexShrink: 0 }}>
-                        <Image
-                            src={getImageSrc()}
-                            alt={list?.description || "No description available"}
-                            fill
-                            sizes="60px"
-                            style={{
-                                objectFit: "cover",
-                                borderRadius: "8px",
-                            }}
-                        />
-                    </Box>
-
                     <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
                         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
                             <Typography
@@ -85,7 +60,7 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                                     whiteSpace: "nowrap",
                                 }}
                             >
-                                {getDisplayName()}
+                                {list.name}
                             </Typography>
                             <Stack direction="row" spacing={1}>
                                 {list?.isPrivate && (

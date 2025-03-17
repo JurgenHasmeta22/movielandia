@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Box, FormControl, InputLabel, Select, MenuItem, Checkbox, Button, Pagination } from "@mui/material";
+import { Box, FormControl, InputLabel, Select, MenuItem, Button, Stack } from "@mui/material";
 import { SaveOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
 import { addItemsToList } from "@/actions/list/listItems.actions";
-import ListCard from "@/components/root/listCard/ListCard";
+import SelectableListCard from "@/components/root/selectableListCard/SelectableListCard";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 
 interface AddItemsFormProps {
     items: any[];
@@ -28,42 +29,43 @@ const CONTENT_TYPES = [
 
 export default function AddItemsForm({ items, totalPages, currentPage, listId, userId }: AddItemsFormProps) {
     const router = useRouter();
-
-    const [type, setType] = useQueryState("type", {
-        defaultValue: "movies",
-        parse: (value) => value || "movies",
-        history: "push",
-        shallow: false,
-    });
-
-    const [page, setPage] = useQueryState("page", {
-        defaultValue: 1,
-        parse: (value) => value || 1,
-        history: "push",
-        shallow: false,
-    });
-
-    const [selectedItems, setSelectedItems] = useState(new Set<number>());
+    const [type, setType] = useQueryState("type", { defaultValue: "movies" });
+    const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
     const [loading, setLoading] = useState(false);
 
-    const handleTypeChange = (event: any) => {
-        const newType = event.target.value;
-        setType(newType);
-        setPage(1);
-        setSelectedItems(new Set());
+    const getItemId = (item: any, type: string): number => {
+        switch (type) {
+            case "movies":
+                return item.movie?.id;
+            case "series":
+                return item.serie?.id;
+            case "seasons":
+                return item.season?.id;
+            case "episodes":
+                return item.episode?.id;
+            case "actors":
+                return item.actor?.id;
+            case "crew":
+                return item.crew?.id;
+            default:
+                return item.id;
+        }
     };
 
-    const handlePageChange = (_: any, value: number) => {
-        setPage(value.toString());
+    const handleTypeChange = async (event: any) => {
+        await setType(event.target.value);
+        setSelectedItems(new Set());
     };
 
     const toggleItem = (itemId: number) => {
         const newSelected = new Set(selectedItems);
+
         if (selectedItems.has(itemId)) {
             newSelected.delete(itemId);
         } else {
             newSelected.add(itemId);
         }
+
         setSelectedItems(newSelected);
     };
 
@@ -79,7 +81,7 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
             await addItemsToList({
                 listId,
                 userId,
-                type,
+                type: type,
                 itemIds: Array.from(selectedItems),
             });
 
@@ -104,77 +106,30 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
                     ))}
                 </Select>
             </FormControl>
-
-            <Box
-                sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 2,
-                    justifyContent: "flex-start",
-                }}
-            >
+            <Stack spacing={2} sx={{ mb: 3 }}>
                 {items.map((item) => (
-                    <Box
+                    <SelectableListCard
                         key={item.id}
-                        sx={{
-                            position: "relative",
-                            cursor: "pointer",
-                            "&:hover .checkbox": {
-                                opacity: 1,
-                            },
-                            flexBasis: {
-                                xs: "100%",
-                                sm: "calc(50% - 16px)",
-                                md: "calc(33.333% - 16px)",
-                                lg: "calc(25% - 16px)",
-                            },
-                            minWidth: 0,
-                        }}
-                        onClick={() => toggleItem(item.id)}
-                    >
-                        <Box
-                            sx={{
-                                position: "absolute",
-                                top: 8,
-                                right: 8,
-                                zIndex: 2,
-                                bgcolor: "background.paper",
-                                borderRadius: "50%",
-                                opacity: selectedItems.has(item.id) ? 1 : 0.7,
-                                transition: "opacity 0.2s",
-                            }}
-                            className="checkbox"
-                        >
-                            <Checkbox
-                                checked={selectedItems.has(item.id)}
-                                onClick={(e) => e.stopPropagation()}
-                                sx={{
-                                    "&.Mui-checked": {
-                                        color: "primary.main",
-                                    },
-                                }}
-                            />
-                        </Box>
-                        <ListCard list={item} username={item.userName} userId={item.userId} />
-                    </Box>
+                        item={item}
+                        type={type}
+                        isSelected={selectedItems.has(getItemId(item, type))}
+                        onToggle={toggleItem}
+                    />
                 ))}
-            </Box>
-
+            </Stack>
             {totalPages > 1 && (
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 2 }}>
-                    <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
+                <Box sx={{ mb: 3 }}>
+                    <PaginationControl currentPage={currentPage} pageCount={totalPages} />
                 </Box>
             )}
-
             <Button
                 fullWidth
                 variant="contained"
                 onClick={onSave}
                 disabled={loading || selectedItems.size === 0}
                 startIcon={<SaveOutlined />}
-                sx={{ mt: 2 }}
             >
-                Save Selected Items ({selectedItems.size})
+                Save Selected Items
             </Button>
         </Box>
     );

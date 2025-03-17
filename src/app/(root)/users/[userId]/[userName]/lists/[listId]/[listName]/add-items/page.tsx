@@ -25,7 +25,6 @@ export default async function AddItemsPage({ params, searchParams }: PageProps) 
     const type = searchParams?.type || "movies";
 
     const data = await getUserFavorites(Number(params.userId), type.toLowerCase() as any, page);
-
     const pageCount = Math.ceil((data.total || 0) / 12);
 
     return (
