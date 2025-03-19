@@ -35,8 +35,7 @@ function getRandomDuration(min: number, max: number): number {
 // #endregion
 
 // #region "Seeding data"
-async function createStuff() {
-    try {
+async function main() {
         // #region "Deleting data"
         await prisma.serieGenre.deleteMany();
         await prisma.movieGenre.deleteMany();
@@ -390,14 +389,16 @@ async function createStuff() {
         //     }
         // }
         // #endregion
-
-        console.log("Database seeding completed successfully.");
-    } catch (error) {
-        console.error("Error seeding database:", error);
-    } finally {
-        await prisma.$disconnect();
-    }
 }
 // #endregion
 
-createStuff();
+main()
+  .then(async () => {
+    console.log("Database seeding completed successfully.");
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })

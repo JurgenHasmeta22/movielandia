@@ -3,6 +3,9 @@
 const nextConfig = {
     experimental: {
         useCache: true,
+        serverActions: {
+            bodySizeLimit: '50mb',
+        },
     },
     images: {
         remotePatterns: [
