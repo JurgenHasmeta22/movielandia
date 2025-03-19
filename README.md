@@ -110,6 +110,111 @@ movielandia/
 └── emails/             # Email templates
 </code></pre>
 
+<h2 style="color:#30969f;" id="detailed-structure">📑 Detailed Structure</h2>
+
+<details>
+<summary style="color: #30969f; cursor: pointer; font-weight: bold;">Source (src/) Directory</summary>
+
+- **actions/**
+
+    - Server-side data mutations using Next.js Server Actions
+    - Organized by domain (user, movie, series, etc.)
+    - Type-safe database operations with Prisma client
+    - Input validation using Zod schemas
+
+- **app/**
+
+    - **(admin)/** - Protected admin dashboard routes
+        - User management, content moderation
+        - Analytics and reporting interfaces
+        - System configuration panels
+    - **(root)/** - Main application routes
+        - Public pages (home, movies, series)
+        - Protected user features (profile, lists)
+        - Authentication pages (login, register)
+
+- **components/**
+
+    - **common/** - Reusable UI primitives
+    - **features/** - Domain-specific components
+    - **forms/** - Form components and validators
+    - **layouts/** - Page layout components
+    - **ui/** - Shared UI components
+
+- **constants/**
+
+    - Application-wide enums and constants
+    - Configuration values
+
+- **hooks/**
+
+    - Custom React hooks for shared logic
+
+- **layouts/**
+
+    - Root layout with providers
+    - Admin dashboard layout
+    - Public pages layout
+    - Authentication pages layout
+
+- **providers/**
+
+    - Context providers for global state
+    - Theme provider (Material UI)
+    - Authentication provider
+    - Toast notifications provider
+
+- **store/**
+
+    - Zustand store configurations
+    - State management logic
+    - Store selectors and actions
+
+- **types/**
+
+    - TypeScript type definitions
+    - Utility types
+
+- **utils**
+    - Helper functions and utilities
+      </details>
+
+<details>
+<summary style="color: #30969f; cursor: pointer; font-weight: bold;">Prisma Directory</summary>
+
+- **migrations/**
+
+    - Database migration history
+    - Schema change tracking
+    - Data transformations
+
+- **schema/**
+
+    - Domain-specific schema files
+    - Model definitions and relations
+    - Enums and composite types
+    - Database indices and constraints
+
+- **seed/**
+
+    - Initial data seeders
+    - Test data generators
+    - Development data setup
+
+- **config/**
+    - Prisma client configuration
+    - Connection pooling settings
+    - Database connection options
+      </details>
+
+<details>
+<summary style="color: #30969f; cursor: pointer; font-weight: bold;">Emails Directory</summary>
+
+- React Email templates
+- Transactional email layouts
+- Email components and styles
+  </details>
+
 ---
 
 <div align="center">
