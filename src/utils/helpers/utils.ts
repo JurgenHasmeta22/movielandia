@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import ImageKit from "imagekit"
+import ImageKit from "imagekit";
 
 export const IS_BROWSER = typeof window !== "undefined" && typeof window?.document !== "undefined";
 
@@ -11,7 +11,7 @@ export const formatDate = (date: Date) => {
 };
 
 export const imagekit = new ImageKit({
-  publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
-  privateKey: process.env.PRIVATE_KEY!,
-  urlEndpoint: process.env.NEXT_PUBLIC_URL_ENDPOINT!,
+    publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
+    privateKey: process.env.PRIVATE_KEY!,
+    urlEndpoint: process.env.NEXT_PUBLIC_URL_ENDPOINT!,
 });

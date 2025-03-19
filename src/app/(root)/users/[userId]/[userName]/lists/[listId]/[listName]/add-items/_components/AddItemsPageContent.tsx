@@ -19,10 +19,10 @@ interface AddItemsPageContentProps {
 
 export default async function AddItemsPageContent({ params, searchParams }: AddItemsPageContentProps) {
     const { userId, listId, listName } = params;
-    
+
     const currentPage = searchParams?.page ? Number(searchParams.page) : 1;
     const type = searchParams?.type;
-    
+
     let data: any = { items: [], total: 0 };
     let pageCount = 1;
 
@@ -45,7 +45,7 @@ export default async function AddItemsPageContent({ params, searchParams }: AddI
                 totalPages={pageCount}
                 currentPage={currentPage}
                 listId={Number(listId)}
-                userId={Number(userId)} 
+                userId={Number(userId)}
                 listName={listName}
             />
         </Box>

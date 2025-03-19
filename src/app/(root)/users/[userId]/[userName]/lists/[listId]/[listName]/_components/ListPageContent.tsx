@@ -20,7 +20,14 @@ interface ListPageContentProps {
     currentPage: number;
 }
 
-export default function ListPageContent({ list, userName, currentUserId, content, totalItems, currentPage }: ListPageContentProps) {
+export default function ListPageContent({
+    list,
+    userName,
+    currentUserId,
+    content,
+    totalItems,
+    currentPage,
+}: ListPageContentProps) {
     const router = useRouter();
     const pageCount = Math.ceil(totalItems / 12);
 
@@ -73,11 +80,7 @@ export default function ListPageContent({ list, userName, currentUserId, content
                         </Typography>
                     </Stack>
                 </Stack>
-                <ListDetailHeader 
-                    listId={list.id} 
-                    userId={list.userId} 
-                    listTitle={list.name} 
-                />
+                <ListDetailHeader listId={list.id} userId={list.userId} listTitle={list.name} />
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                         <Stack direction="row" spacing={1}>
@@ -122,7 +125,13 @@ export default function ListPageContent({ list, userName, currentUserId, content
                     }}
                 >
                     {content.map((item) => (
-                        <ListDetailCardItem key={item.id} data={item} type={list.contentType!} userId={currentUserId} listId={list.id} />
+                        <ListDetailCardItem
+                            key={item.id}
+                            data={item}
+                            type={list.contentType!}
+                            userId={currentUserId}
+                            listId={list.id}
+                        />
                     ))}
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "center" }}>

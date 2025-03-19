@@ -5,13 +5,13 @@ import { Close } from "@mui/icons-material";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
-import { 
+import {
     removeMovieFromList,
     removeSerieFromList,
     removeSeasonFromList,
     removeEpisodeFromList,
     removeActorFromList,
-    removeCrewFromList 
+    removeCrewFromList,
 } from "@/actions/list/listItems.actions";
 
 interface DeleteListItemButtonProps {
@@ -71,9 +71,9 @@ export const DeleteListItemButton = ({ itemId, listId, userId, contentType }: De
                 "&:hover": {
                     bgcolor: "error.main",
                     "& .MuiSvgIcon-root": {
-                        color: "common.white"
-                    }
-                }
+                        color: "common.white",
+                    },
+                },
             }}
         >
             <Close fontSize="small" />

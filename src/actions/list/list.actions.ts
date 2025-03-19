@@ -484,16 +484,16 @@ export async function getListForAddItems(listId: number) {
             list.movieItems.length > 0
                 ? "Movie"
                 : list.serieItems.length > 0
-                    ? "Serie"
-                    : list.seasonItems.length > 0
-                        ? "Season"
-                        : list.episodeItems.length > 0
-                            ? "Episode"
-                            : list.actorItems.length > 0
-                                ? "Actor"
-                                : list.crewItems.length > 0
-                                    ? "Crew"
-                                    : null;
+                  ? "Serie"
+                  : list.seasonItems.length > 0
+                    ? "Season"
+                    : list.episodeItems.length > 0
+                      ? "Episode"
+                      : list.actorItems.length > 0
+                        ? "Actor"
+                        : list.crewItems.length > 0
+                          ? "Crew"
+                          : null;
 
         return { list, existingType };
     } catch (error: any) {
