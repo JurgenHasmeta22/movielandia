@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "../../../prisma/config/prisma";
+import { io } from "@/server";
 
 export const getUserInbox = async (page: number = 1, userLoggedInId: number) => {
     const perPage = 10;
@@ -83,24 +84,43 @@ export const getSentMessages = async (page: number = 1, userLoggedInId: number) 
 };
 
 export const sendMessage = async (receiverId: number, text: string, userLoggedInId: number) => {
-    const inbox = await prisma.inbox.create({
-        data: {
-            participants: {
-                create: [{ userId: userLoggedInId }, { userId: receiverId }],
+    try {
+        const inbox = await prisma.inbox.create({
+            data: {
+                participants: {
+                    create: [{ userId: userLoggedInId }, { userId: receiverId }],
+                },
             },
-        },
-    });
+        });
 
-    const message = await prisma.message.create({
-        data: {
-            text,
+        const message = await prisma.message.create({
+            data: {
+                text,
+                senderId: userLoggedInId,
+                receiverId,
+                inboxId: inbox.id,
+            },
+            include: {
+                sender: {
+                    include: {
+                        avatar: true,
+                    },
+                },
+            },
+        });
+
+        // Emit socket event
+        io.emit("sendMessage", {
             senderId: userLoggedInId,
             receiverId,
+            text,
             inboxId: inbox.id,
-        },
-    });
+        });
 
-    return message;
+        return message;
+    } catch (error) {
+        throw new Error("Failed to send message");
+    }
 };
 
 export const deleteMessage = async (messageId: number) => {

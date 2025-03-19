@@ -1,10 +1,7 @@
 "use client";
 
-import {
-    getPaginatedNotifications,
-    getUnreadNotificationsCount,
-    markNotificationsAsRead,
-} from "@/actions/user/userFollow.actions";
+import { getUnreadNotificationsCount, markNotificationsAsRead } from "@/actions/user/userFollow.actions";
+import { socket } from "@/lib/socket";
 import { theme } from "@/utils/theme/theme";
 import {
     Box,
@@ -72,6 +69,43 @@ export default function NotificationMenu({ session }: INotificationMenu) {
     };
 
     useEffect(() => {
+        if (session?.user?.id) {
+            socket.connect();
+            socket.emit("addUser", Number(session.user.id));
+
+            socket.on("getNotification", (notification) => {
+                setUnreadCount((prev) => prev + 1);
+
+                if (isOpen) {
+                    setNotifications((prev) => [notification, ...prev]);
+                }
+            });
+
+            socket.on("notificationsRead", ({ userId }) => {
+                if (userId === Number(session.user.id)) {
+                    setUnreadCount(0);
+                }
+            });
+
+            const fetchNotifications = async () => {
+                const count = await getUnreadNotificationsCount(Number(session.user.id));
+                setUnreadCount(count);
+            };
+
+            fetchNotifications();
+        }
+
+        return () => {
+            socket.off("getNotification");
+            socket.off("notificationsRead");
+
+            if (session?.user?.id) {
+                socket.disconnect();
+            }
+        };
+    }, [session, isOpen]);
+
+    useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 const first = entries[0];
@@ -83,6 +117,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
         );
 
         const currentLoaderRef = loaderRef.current;
+
         if (currentLoaderRef) {
             observer.observe(currentLoaderRef);
         }
@@ -116,17 +151,6 @@ export default function NotificationMenu({ session }: INotificationMenu) {
     const handleClickAway = () => {
         setNotificationAnchorEl(null);
     };
-
-    useEffect(() => {
-        if (session?.user?.id) {
-            const fetchNotifications = async () => {
-                const count = await getUnreadNotificationsCount(Number(session.user.id));
-                setUnreadCount(count);
-            };
-
-            fetchNotifications();
-        }
-    }, [session]);
 
     return (
         <Box>

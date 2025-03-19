@@ -12,7 +12,9 @@
         "seed": "npx prisma migrate dev && tsx prisma/seed/seed.ts",
         "lint": "next lint",
         "scan": "next dev & npx react-scan@latest localhost:4000",
-        "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss,prisma} --config ./.prettierrc"
+        "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss,prisma} --config ./.prettierrc",
+        "socket": "tsx src/server.ts",
+        "dev:all": "concurrently \"npm run dev\" \"npm run socket\""
     },
     "dependencies": {
         "@bprogress/next": "^3.2.10",

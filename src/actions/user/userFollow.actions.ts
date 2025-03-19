@@ -3,6 +3,7 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "./user.actions";
+import { io } from "@/server";
 
 export async function follow(followerId: number, followingId: number): Promise<void> {
     try {
@@ -10,17 +11,7 @@ export async function follow(followerId: number, followingId: number): Promise<v
             throw new Error("You cannot follow yourself.");
         }
 
-        // const existingFollow = await prisma.userFollow.findFirst({
-        //     where: {
-        //         AND: [{ followerId }, { followingId }],
-        //     },
-        // });
-
-        // if (existingFollow) {
-        //     throw new Error("You already follow this user.");
-        // }
-
-        await prisma.$transaction([
+        const [follow, notification] = await prisma.$transaction([
             prisma.userFollow.create({
                 data: {
                     followerId,
@@ -36,13 +27,28 @@ export async function follow(followerId: number, followingId: number): Promise<v
                     senderId: followerId,
                     status: "unread",
                 },
+                include: {
+                    sender: {
+                        select: {
+                            userName: true,
+                            avatar: true,
+                        },
+                    },
+                },
             }),
         ]);
+
+        io.emit("sendNotification", {
+            type: "follow_request",
+            receiverId: followingId,
+            senderId: followerId,
+            content: "sent you a follow request",
+        });
 
         const referer = getReferer();
         revalidatePath(`${referer}`, "page");
     } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+        throw new Error(error instanceof Error ? error.message : "Failed to follow user");
     }
 }
 
@@ -356,6 +362,7 @@ export async function markNotificationsAsRead(userId: number): Promise<void> {
         },
     });
 
+    io.emit("notificationsRead", { userId });
     revalidatePath("/notifications");
 }
 
@@ -366,7 +373,7 @@ export const getAllNotifications = async (userId: number, page: number = 1) => {
     const [notifications, total] = await Promise.all([
         prisma.notification.findMany({
             where: {
-                userId: userId, // Changed from receiverId to userId
+                userId,
             },
             include: {
                 sender: {
@@ -383,7 +390,7 @@ export const getAllNotifications = async (userId: number, page: number = 1) => {
         }),
         prisma.notification.count({
             where: {
-                userId: userId, // Changed from receiverId to userId
+                userId,
             },
         }),
     ]);
