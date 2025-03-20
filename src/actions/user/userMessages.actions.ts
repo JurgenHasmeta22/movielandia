@@ -1,7 +1,6 @@
 "use server";
 
 import { prisma } from "../../../prisma/config/prisma";
-import { io } from "@/server";
 
 export const getUserInbox = async (page: number = 1, userLoggedInId: number) => {
     const perPage = 10;
@@ -109,13 +108,12 @@ export const sendMessage = async (receiverId: number, text: string, userLoggedIn
             },
         });
 
-        // Emit socket event
-        io.emit("sendMessage", {
-            senderId: userLoggedInId,
-            receiverId,
-            text,
-            inboxId: inbox.id,
-        });
+        // socket.emit("sendMessage", {
+        //     senderId: userLoggedInId,
+        //     receiverId,
+        //     text,
+        //     inboxId: inbox.id,
+        // });
 
         return message;
     } catch (error) {

@@ -252,9 +252,8 @@ const SearchAutocomplete = ({
                 overflowY: "auto",
                 mt: { xs: 0.5, sm: 1 },
                 ...(isMobile && {
-                    position: "static",
-                    width: "100%",
-                    maxWidth: "100%",
+                    width: "90%",
+                    maxWidth: "90%",
                 }),
                 "&::-webkit-scrollbar": {
                     width: "8px",
