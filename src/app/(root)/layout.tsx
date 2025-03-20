@@ -40,12 +40,12 @@ export const metadata = {
         },
     },
     viewport: {
-        width: 'device-width',
+        width: "device-width",
         initialScale: 1,
         maximumScale: 1,
-        userScalable: 'no',
-        viewportFit: 'cover'
-    }
+        userScalable: "no",
+        viewportFit: "cover",
+    },
 };
 
 export default function RootLayout({
@@ -74,4 +74,3 @@ export default function RootLayout({
         </html>
     );
 }
-

@@ -82,6 +82,14 @@ app.prepare().then(() => {
                     senderId,
                     status: "unread",
                 },
+                include: {
+                    sender: {
+                        include: {
+                            avatar: true,
+                            userName: true,
+                        }
+                    }
+                }
             });
 
             if (receiver) {
@@ -104,3 +112,4 @@ app.prepare().then(() => {
             console.log(`> Ready on http://${hostname}:${port}`);
         });
 });
+

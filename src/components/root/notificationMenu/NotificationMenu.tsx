@@ -77,32 +77,51 @@ export default function NotificationMenu({ session }: INotificationMenu) {
                 setUnreadCount((prev) => prev + 1);
 
                 if (isOpen) {
-                    setNotifications((prev) => [notification, ...prev]);
+                    setNotifications((prev) => {
+                        const exists = prev.some((n) => n.id === notification.id);
+
+                        if (exists) return prev;
+                        return [notification, ...prev];
+                    });
                 }
             });
 
+            // Listen for notification read status changes
             socket.on("notificationsRead", ({ userId }) => {
                 if (userId === Number(session.user.id)) {
                     setUnreadCount(0);
                 }
             });
 
-            const fetchNotifications = async () => {
-                const count = await getUnreadNotificationsCount(Number(session.user.id));
-                setUnreadCount(count);
+            // Initial fetch of unread count
+            const fetchUnreadCount = async () => {
+                try {
+                    const count = await getUnreadNotificationsCount(Number(session.user.id));
+                    setUnreadCount(count);
+                } catch (error) {
+                    console.error("Error fetching unread count:", error);
+                }
             };
 
-            fetchNotifications();
+            fetchUnreadCount();
+
+            // Refresh unread count when window gains focus
+            const handleFocus = () => {
+                fetchUnreadCount();
+            };
+
+            window.addEventListener("focus", handleFocus);
+
+            return () => {
+                socket.off("getNotification");
+                socket.off("notificationsRead");
+                window.removeEventListener("focus", handleFocus);
+
+                if (session?.user?.id) {
+                    socket.disconnect();
+                }
+            };
         }
-
-        return () => {
-            socket.off("getNotification");
-            socket.off("notificationsRead");
-
-            if (session?.user?.id) {
-                socket.disconnect();
-            }
-        };
     }, [session, isOpen]);
 
     useEffect(() => {
