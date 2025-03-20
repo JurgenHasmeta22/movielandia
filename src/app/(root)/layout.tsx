@@ -39,6 +39,13 @@ export const metadata = {
             site: twitterSite,
         },
     },
+    viewport: {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1,
+        userScalable: 'no',
+        viewportFit: 'cover'
+    }
 };
 
 export default function RootLayout({
@@ -67,3 +74,4 @@ export default function RootLayout({
         </html>
     );
 }
+
