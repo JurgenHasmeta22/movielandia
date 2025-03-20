@@ -90,16 +90,6 @@ export async function addFavoriteSeasonToUser(userId: number, seasonId: number):
 
 export async function addFavoriteEpisodeToUser(userId: number, episodeId: number): Promise<void> {
     try {
-        // const existingFavorite = await prisma.userEpisodeFavorite.findFirst({
-        //     where: {
-        //         AND: [{ userId }, { episodeId }],
-        //     },
-        // });
-
-        // if (existingFavorite) {
-        //     throw new Error("This episode is already in your favorites.");
-        // }
-
         const episode = await prisma.episode.findUnique({
             where: {
                 id: episodeId,
@@ -127,16 +117,6 @@ export async function addFavoriteEpisodeToUser(userId: number, episodeId: number
 
 export async function addFavoriteActorToUser(userId: number, actorId: number): Promise<void> {
     try {
-        // const existingFavorite = await prisma.userActorFavorite.findFirst({
-        //     where: {
-        //         AND: [{ userId }, { actorId }],
-        //     },
-        // });
-
-        // if (existingFavorite) {
-        //     throw new Error("This actor is already in your favorites.");
-        // }
-
         const actor = await prisma.actor.findUnique({
             where: {
                 id: actorId,
@@ -164,16 +144,6 @@ export async function addFavoriteActorToUser(userId: number, actorId: number): P
 
 export async function addFavoriteCrewToUser(userId: number, crewId: number): Promise<void> {
     try {
-        // const existingFavorite = await prisma.userCrewFavorite.findFirst({
-        //     where: {
-        //         AND: [{ userId }, { crewId }],
-        //     },
-        // });
-
-        // if (existingFavorite) {
-        //     throw new Error("This crew is already in your favorites.");
-        // }
-
         const crew = await prisma.crew.findUnique({
             where: {
                 id: crewId,
@@ -407,3 +377,4 @@ export async function removeFavoriteCrewToUser(userId: number, crewId: number, p
 // #endregion
 
 // #endregion
+
