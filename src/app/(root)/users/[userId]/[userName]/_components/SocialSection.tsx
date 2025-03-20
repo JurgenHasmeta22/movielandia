@@ -61,7 +61,7 @@ export default function SocialSection({
                     type: "follow_request",
                     receiverId: Number(userInPage.id),
                     senderId: Number(userLoggedIn.id),
-                    content: "sent you a follow request",
+                    content: `${userLoggedIn.userName} sent you a follow request`,
                 });
 
                 router.refresh();

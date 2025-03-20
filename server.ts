@@ -86,7 +86,6 @@ app.prepare().then(() => {
                     sender: {
                         include: {
                             avatar: true,
-                            userName: true,
                         }
                     }
                 }

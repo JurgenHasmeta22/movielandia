@@ -4,6 +4,7 @@ import ScrollToTop from "@/components/root/scrollToTop/ScrollToTop";
 import Header from "@/components/root/header/Header";
 import Footer from "@/components/root/footer/Footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import Socket from "@/components/root/socket/Socket";
 
 interface IMainLayoutProps {
     children: React.ReactNode;
@@ -15,6 +16,7 @@ export default function MainLayout({ children }: Readonly<IMainLayoutProps>) {
             <Grid size={{ xs: 12 }}>
                 <NuqsAdapter>
                     <Header />
+                    <Socket />
                     <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
                     <ScrollToTop />
                     <Footer />
