@@ -43,6 +43,7 @@
         "jspdf": "^3.0.1",
         "jspdf-autotable": "^5.0.2",
         "material-react-table": "^3.2.1",
+        "neverthrow": "^8.2.0",
         "next": "^15.2.3",
         "next-auth": "^4.24.11",
         "nuqs": "^2.4.1",
