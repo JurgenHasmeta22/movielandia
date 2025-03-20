@@ -144,6 +144,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
         if (session?.user?.id) {
             await markNotificationsAsRead(Number(session.user.id));
             setUnreadCount(0);
+            socket.emit("notificationsRead", { userId: Number(session.user.id) });
             await fetchNotifications(1);
         }
     };

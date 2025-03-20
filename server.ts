@@ -9,9 +9,8 @@ interface OnlineUser {
 }
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = "localhost";
+const hostname = dev ? "localhost" : process.env.NEXT_PUBLIC_PROJECT_URL;
 const port = 4000;
-
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 

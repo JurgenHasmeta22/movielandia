@@ -1,22 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import {
-    Box,
-    Button,
-    IconButton,
-    Typography,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    useTheme,
-    Stack,
-    CircularProgress,
-    Tooltip,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+import { useTransition } from "react";
+import { Box, Button, IconButton, useTheme, Stack, CircularProgress, Tooltip } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { showToast } from "@/utils/helpers/toast";
@@ -24,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { follow, unfollow } from "@/actions/user/userFollow.actions";
 import MessageIcon from "@mui/icons-material/Message";
 import Link from "next/link";
+import { socket } from "@/socket";
 
 interface SocialSectionProps {
     userLoggedIn: {
@@ -70,6 +56,14 @@ export default function SocialSection({
             try {
                 await follow(Number(userLoggedIn.id), Number(userInPage.id));
                 showToast("success", "Follow request sent successfully!");
+
+                socket.emit("sendNotification", {
+                    type: "follow_request",
+                    receiverId: Number(userInPage.id),
+                    senderId: Number(userLoggedIn.id),
+                    content: "sent you a follow request",
+                });
+
                 router.refresh();
             } catch (error: any) {
                 console.error(`Error following user: ${error.message}`);

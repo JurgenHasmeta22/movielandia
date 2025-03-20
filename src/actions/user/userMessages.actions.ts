@@ -108,13 +108,6 @@ export const sendMessage = async (receiverId: number, text: string, userLoggedIn
             },
         });
 
-        // socket.emit("sendMessage", {
-        //     senderId: userLoggedInId,
-        //     receiverId,
-        //     text,
-        //     inboxId: inbox.id,
-        // });
-
         return message;
     } catch (error) {
         throw new Error("Failed to send message");

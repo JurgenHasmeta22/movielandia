@@ -23,6 +23,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useTheme } from "@mui/material/styles";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useQueryState } from "nuqs";
+// import { socket } from "@/socket";
 
 interface User {
     id: number;
@@ -144,6 +145,13 @@ export default function MessageCompose({
                 } else if (selectedUser) {
                     await sendMessage(selectedUser.id, messageText, Number(userLoggedIn.id));
                     showToast("success", "Message sent successfully!");
+
+                    // socket.emit("sendMessage", {
+                    //     senderId: Number(userLoggedIn.id),
+                    //     receiverId: selectedUser.id,
+                    //     text: messageText,
+                    //     inboxId: inbox.id,
+                    // });
                 }
 
                 setSection("sent");

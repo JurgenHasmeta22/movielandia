@@ -37,13 +37,6 @@ export async function follow(followerId: number, followingId: number): Promise<v
             }),
         ]);
 
-        // io.emit("sendNotification", {
-        //     type: "follow_request",
-        //     receiverId: followingId,
-        //     senderId: followerId,
-        //     content: "sent you a follow request",
-        // });
-
         const referer = getReferer();
         revalidatePath(`${referer}`, "page");
     } catch (error) {
@@ -361,7 +354,6 @@ export async function markNotificationsAsRead(userId: number): Promise<void> {
         },
     });
 
-    // io.emit("notificationsRead", { userId });
     revalidatePath("/notifications");
 }
 
