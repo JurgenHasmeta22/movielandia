@@ -1,7 +1,7 @@
 "use client";
 
 import { markNotificationsAsRead } from "@/actions/user/userFollow.actions";
-import { socket } from "@/lib/socket";
+import { socket } from "@/socket";
 import { theme } from "@/utils/theme/theme";
 import {
     Box,
