@@ -12,9 +12,7 @@
         "seed": "npx prisma migrate dev && tsx prisma/seed/seed.ts",
         "lint": "next lint",
         "scan": "next dev & npx react-scan@latest localhost:4000",
-        "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss,prisma} --config ./.prettierrc",
-        "socket": "tsx src/server.ts",
-        "dev:all": "concurrently \"npm run dev\" \"npm run socket\""
+        "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss,prisma} --config ./.prettierrc"
     },
     "dependencies": {
         "@bprogress/next": "^3.2.10",
@@ -53,21 +51,19 @@
         "react-dom": "^19.0.0",
         "react-email": "3.0.7",
         "react-hook-form": "^7.54.2",
-        "react-quill-new": "^3.4.1",
+        "react-quill-new": "^3.4.4",
         "react-slick": "^0.30.3",
         "react-toastify": "^11.0.5",
         "resend": "^4.1.2",
         "sharp": "^0.33.5",
         "slick-carousel": "^1.8.1",
-        "socket.io": "^4.8.1",
-        "socket.io-client": "^4.8.1",
         "xlsx": "^0.18.5",
         "zod": "^3.24.2",
         "zustand": "^5.0.3"
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.2",
-        "@types/node": "^22.13.10",
+        "@types/node": "^22.13.11",
         "@types/react": "^19.0.12",
         "@types/react-dom": "^19.0.4",
         "@types/react-slick": "^0.23.13",

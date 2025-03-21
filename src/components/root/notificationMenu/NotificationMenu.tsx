@@ -1,7 +1,6 @@
 "use client";
 
 import { markNotificationsAsRead } from "@/actions/user/userFollow.actions";
-import { socket } from "@/socket";
 import { theme } from "@/utils/theme/theme";
 import {
     Box,
@@ -32,12 +31,6 @@ export default function NotificationMenu({ session }: INotificationMenu) {
     const [notifications, setNotifications] = useState<any[]>([]);
     const [isOpen, setIsOpen] = useState(false);
     const [notificationAnchorEl, setNotificationAnchorEl] = useState<null | HTMLElement>(null);
-
-    useEffect(() => {
-        socket.on("getNotification", (data: any) => {
-            setNotifications((prev) => [...prev, data]);
-        });
-    }, []);
 
     const handleMarkAllAsRead = async () => {
         if (session?.user?.id) {
