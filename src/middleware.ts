@@ -44,7 +44,6 @@ export default async function middleware(req: NextRequestWithAuth, event: NextFe
     return authMiddleware(req, event);
 }
 
-// Prevented pages if a user is not logged in
 export const config = {
     matcher: ["/login", "/register", "/users/:path*", "/admin/:path*", "/notifications", "/messages/:path"],
 };
