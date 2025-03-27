@@ -2,7 +2,7 @@
 
 import { Typography, Button, Box } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
-import MovieIcon from "@mui/icons-material/Movie";
+import TvIcon from "@mui/icons-material/Tv";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -115,9 +115,9 @@ const HomeHeroSection = () => {
                 <Box
                     sx={{
                         display: "flex",
-                        gap: "1.5rem",
+                        gap: "1.2rem",
                         justifyContent: "center",
-                        marginTop: "1rem",
+                        marginTop: { xs: 1, md: 2 },
                         flexWrap: "wrap",
                     }}
                 >
@@ -125,22 +125,18 @@ const HomeHeroSection = () => {
                         <Button
                             component={Link}
                             href="/movies"
-                            variant="outlined"
-                            size="large"
+                            variant="contained"
                             startIcon={<LocalMoviesIcon />}
                             sx={{
-                                px: { xs: 3, md: 4 },
-                                py: { xs: 1.5, md: 2 },
-                                fontSize: { xs: 16, md: 18 },
-                                fontWeight: 700,
-                                borderRadius: 2,
+                                px: { xs: 2.5, md: 3 },
+                                py: { xs: 1.2, md: 1.5 },
+                                fontSize: { xs: 15, md: 16 },
+                                fontWeight: 600,
+                                borderRadius: 50,
                                 textTransform: "none",
-                                borderWidth: 2,
+                                boxShadow: "0 4px 12px rgba(255, 138, 101, 0.3)",
+                                background: "linear-gradient(135deg, #ff8a65 0%, #ff5722 100%)",
                                 color: "common.white",
-                                borderColor: "common.white",
-                                backdropFilter: "blur(4px)",
-                                backgroundColor: "rgba(255,255,255,0.05)",
-                                "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
                             }}
                         >
                             Explore Movies
@@ -151,21 +147,19 @@ const HomeHeroSection = () => {
                             component={Link}
                             href="/series"
                             variant="outlined"
-                            size="large"
-                            startIcon={<MovieIcon />}
+                            startIcon={<TvIcon />}
                             sx={{
-                                px: { xs: 3, md: 4 },
-                                py: { xs: 1.5, md: 2 },
-                                fontSize: { xs: 16, md: 18 },
-                                fontWeight: 700,
-                                borderRadius: 2,
+                                px: { xs: 2.5, md: 3 },
+                                py: { xs: 1.2, md: 1.5 },
+                                fontSize: { xs: 15, md: 16 },
+                                fontWeight: 600,
+                                borderRadius: 50,
                                 textTransform: "none",
                                 borderWidth: 2,
                                 color: "common.white",
-                                borderColor: "common.white",
-                                backdropFilter: "blur(4px)",
+                                borderColor: "rgba(255,255,255,0.7)",
+                                backdropFilter: "blur(8px)",
                                 backgroundColor: "rgba(255,255,255,0.05)",
-                                "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
                             }}
                         >
                             Browse Series
