@@ -1,5 +1,6 @@
 "use client";
 
+// #region Imports
 import { Box, Button, List, ListItem, Popper, Paper, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { Genre } from "@prisma/client";
@@ -9,6 +10,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { Suspense } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+
+// #region Icons
 import MovieIcon from "@mui/icons-material/Movie";
 import TvIcon from "@mui/icons-material/Tv";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -19,18 +25,20 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-import { useSession } from "next-auth/react";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
-import { Suspense } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+// #endregion
+// #endregion
 
+// #region Types
 interface IHeaderLinksProps {
     genres: Genre[];
 }
+// #endregion
 
+// #region Helper Components
 const MyStuffLoadingButton = () => (
     <Button
         variant="text"
@@ -47,8 +55,10 @@ const MyStuffLoadingButton = () => (
         My Stuff
     </Button>
 );
+// #endregion
 
 export function HeaderLinks({ genres }: IHeaderLinksProps) {
+    // #region State, Hooks
     const [genresOpen, setGenresOpen] = useState(false);
     const [peopleOpen, setPeopleOpen] = useState(false);
     const [myStuffOpen, setMyStuffOpen] = useState(false);
@@ -58,25 +68,28 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const [activeMainTab, setActiveMainTab] = useState<string | null>(null);
     const [isSubMenuHovered, setIsSubMenuHovered] = useState(false);
 
-    // @ts-expect-error no parameters
-    const hoverTimeoutRef = useRef<NodeJS.Timeout>();
-    const currentTargetRef = useRef<HTMLElement | null>(null);
-    // @ts-expect-error no parameters
-    const subMenuTimeoutRef = useRef<NodeJS.Timeout>();
-
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
     const { data: session } = useSession();
 
     const pathname = usePathname();
     const theme = useTheme();
+    // #endregion
 
+    // #region Refs
+    // @ts-expect-error no parameters
+    const hoverTimeoutRef = useRef<NodeJS.Timeout>();
+    const currentTargetRef = useRef<HTMLElement | null>(null);
+    // @ts-expect-error no parameters
+    const subMenuTimeoutRef = useRef<NodeJS.Timeout>();
+    const menuPaperRef = useRef<HTMLDivElement | null>(null);
+    // #endregion
+
+    // #region UseEffects
     useEffect(() => {
         handleGenresLeave();
         handlePeopleLeave();
         handleSubMenuLeave();
     }, [pathname]);
-
-    const menuPaperRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -97,7 +110,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [myStuffOpen, myStuffAnchorEl]);
+    // #endregion
 
+    // #region Event Handlers
     const handleGenresHover = (event: React.MouseEvent<HTMLElement>) => {
         setGenresAnchorEl(event.currentTarget);
         setGenresOpen(true);
@@ -169,7 +184,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
             setActiveMainTab(param);
         }
     };
+    // #endregion
 
+    // #region Helper Functions
     const isActive = (path: string) => {
         if (path === "/") return pathname === "/";
 
@@ -253,9 +270,14 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
             { label: "Crew", icon: <GroupIcon /> },
         ],
     };
+    // #endregion
 
+    // #region Render JSX
     return (
         <>
+            {
+                //#region Logo
+            }
             <Box
                 sx={{
                     display: "flex",
@@ -280,6 +302,13 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     <Image src={"/icons/movielandia24-logo.png"} alt="MovieLandia24" height={55} width={170} priority />
                 </Button>
             </Box>
+            {
+                //#endregion
+            }
+
+            {
+                //#region Navigation
+            }
             <Box
                 sx={{
                     display: "flex",
@@ -288,6 +317,9 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     flexWrap: { xs: "wrap", md: "nowrap" },
                 }}
             >
+                {
+                    //#region Navigation Links
+                }
                 <List
                     sx={{
                         display: "flex",
@@ -298,12 +330,33 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                         p: 0,
                     }}
                 >
+                    {
+                        //#region Movies Link
+                    }
                     <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Button
                             LinkComponent={MuiNextLink}
                             href="/movies"
                             variant="text"
-                            sx={getButtonStyle("/movies")}
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.5,
+                                fontSize: "0.9rem",
+                                textTransform: "none",
+                                color: isActive("/movies") ? "#4caf50" : theme.vars.palette.primary.main,
+                                borderBottom: isActive("/movies") ? `2px solid #4caf50` : "none",
+                                borderRadius: 0,
+                                fontWeight: 500,
+                                letterSpacing: "0.01em",
+                                height: 42,
+                                px: 1.5,
+                                minWidth: "auto",
+                                "&:hover": {
+                                    backgroundColor: "transparent",
+                                    color: "#4caf50",
+                                },
+                            }}
                             onClick={() => {
                                 if (isDrawerOpen) setIsDrawerOpen(false);
                             }}
@@ -312,12 +365,37 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             Movies
                         </Button>
                     </ListItem>
+                    {
+                        //#endregion Movies Link
+                    }
+
+                    {
+                        //#region TV Series Link
+                    }
                     <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Button
                             LinkComponent={MuiNextLink}
                             href="/series"
                             variant="text"
-                            sx={getButtonStyle("/series")}
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.5,
+                                fontSize: "0.9rem",
+                                textTransform: "none",
+                                color: isActive("/series") ? "#4caf50" : theme.vars.palette.primary.main,
+                                borderBottom: isActive("/series") ? `2px solid #4caf50` : "none",
+                                borderRadius: 0,
+                                fontWeight: 500,
+                                letterSpacing: "0.01em",
+                                height: 42,
+                                px: 1.5,
+                                minWidth: "auto",
+                                "&:hover": {
+                                    backgroundColor: "transparent",
+                                    color: "#4caf50",
+                                },
+                            }}
                             onClick={() => {
                                 if (isDrawerOpen) setIsDrawerOpen(false);
                             }}
@@ -326,6 +404,13 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             TV Series
                         </Button>
                     </ListItem>
+                    {
+                        //#endregion TV Series Link
+                    }
+
+                    {
+                        //#region Cast & Crew Dropdown
+                    }
                     <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Box onMouseEnter={handlePeopleHover} onMouseLeave={handlePeopleLeave}>
                             <Button
@@ -418,6 +503,13 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             </Popper>
                         </Box>
                     </ListItem>
+                    {
+                        //#endregion Cast & Crew Dropdown
+                    }
+
+                    {
+                        //#region Genres Dropdown
+                    }
                     <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                         <Box onMouseEnter={handleGenresHover} onMouseLeave={handleGenresLeave}>
                             <Button
@@ -552,6 +644,13 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             </Popper>
                         </Box>
                     </ListItem>
+                    {
+                        //#endregion Genres Dropdown
+                    }
+
+                    {
+                        //#region My Stuff Dropdown
+                    }
                     {session?.user && (
                         <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
                             <Suspense fallback={<MyStuffLoadingButton />}>
@@ -679,7 +778,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                         "&:hover": {
                                                                             backgroundColor:
                                                                                 theme.vars.palette.action.hover,
-                                                                            color: theme.vars.palette.green.main,
+                                                                            color: "#4caf50",
                                                                         },
                                                                     }}
                                                                 >
@@ -706,7 +805,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                     "&:hover": {
                                                                         backgroundColor:
                                                                             theme.vars.palette.action.hover,
-                                                                        color: theme.vars.palette.green.main,
+                                                                        color: "#4caf50",
                                                                     },
                                                                 }}
                                                             >
@@ -770,8 +869,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                                 "&:hover": {
                                                                                     backgroundColor:
                                                                                         theme.vars.palette.action.hover,
-                                                                                    color: theme.vars.palette.green
-                                                                                        .main,
+                                                                                    color: "#4caf50",
                                                                                 },
                                                                             }}
                                                                         >
@@ -793,8 +891,18 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                             </Suspense>
                         </ListItem>
                     )}
+                    {
+                        //#endregion My Stuff Dropdown
+                    }
                 </List>
+                {
+                    //#endregion Navigation Links
+                }
             </Box>
+            {
+                //#endregion Navigation
+            }
         </>
     );
+    // #endregion
 }
