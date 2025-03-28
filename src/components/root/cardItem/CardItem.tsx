@@ -3,7 +3,6 @@
 // #region "Imports"
 import React, { useState, useTransition } from "react";
 import { Box, Card, Typography, Button, useTheme, CircularProgress } from "@mui/material";
-import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import StarRateIcon from "@mui/icons-material/StarRate";
@@ -216,171 +215,164 @@ const CardItem: React.FC<ICardItemProps> = ({ data, type, path, isAutocomplete =
     };
 
     return (
-        <motion.div
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            onClick={handleCardClick}
-            onMouseLeave={handleMouseLeave}
-        >
-            <Link href={getPath()} tabIndex={0} aria-label={getDisplayTitle()}>
-                <Card
+        <Link href={getPath()} tabIndex={0} aria-label={getDisplayTitle()}>
+            <Card
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: isAutocomplete ? { xs: "120px", sm: "140px" } : { xs: "140px", sm: "160px" },
+                    height: "100%",
+                    position: "relative",
+                    borderRadius: 2,
+                    overflow: "hidden",
+                    boxShadow: theme.shadows[4],
+                    transition: "box-shadow 0.3s ease-in-out",
+                    "&:hover": {
+                        boxShadow: theme.shadows[8],
+                    },
+                }}
+            >
+                <Box
                     sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: isAutocomplete ? { xs: "120px", sm: "140px" } : { xs: "140px", sm: "160px" },
-                        height: "100%",
                         position: "relative",
-                        borderRadius: 2,
+                        height: isAutocomplete ? { xs: "180px", sm: "210px" } : { xs: "210px", sm: "240px" },
+                        width: "100%",
                         overflow: "hidden",
-                        boxShadow: theme.shadows[4],
-                        transition: "box-shadow 0.3s ease-in-out",
-                        "&:hover": {
-                            boxShadow: theme.shadows[8],
+                        "&:hover .hoverOverlay": {
+                            opacity: 1,
                         },
                     }}
                 >
+                    <Image
+                        src={data.photoSrcProd || "/images/placeholder.jpg"}
+                        alt={data.description || "No description available"}
+                        fill
+                        sizes="(max-width: 600px) 140px, 160px"
+                        style={{ objectFit: "cover" }}
+                        priority={false}
+                    />
                     <Box
+                        className="hoverOverlay"
                         sx={{
-                            position: "relative",
-                            height: isAutocomplete ? { xs: "180px", sm: "210px" } : { xs: "210px", sm: "240px" },
-                            width: "100%",
-                            overflow: "hidden",
-                            "&:hover .hoverOverlay": {
-                                opacity: 1,
-                            },
+                            position: "absolute",
+                            inset: 0,
+                            bgcolor: "rgba(0, 0, 0, 0.7)",
+                            opacity: isHovered ? 1 : 0,
+                            transition: "opacity 0.3s ease-in-out",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            p: { xs: 1.5, sm: 2 },
                         }}
                     >
-                        <Image
-                            src={data.photoSrcProd || "/images/placeholder.jpg"}
-                            alt={data.description || "No description available"}
-                            fill
-                            sizes="(max-width: 600px) 140px, 160px"
-                            style={{ objectFit: "cover" }}
-                            priority={false}
-                        />
-                        <Box
-                            className="hoverOverlay"
-                            sx={{
-                                position: "absolute",
-                                inset: 0,
-                                bgcolor: "rgba(0, 0, 0, 0.7)",
-                                opacity: isHovered ? 1 : 0,
-                                transition: "opacity 0.3s ease-in-out",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between",
-                                p: { xs: 1.5, sm: 2 },
-                            }}
-                        >
-                            <Box>
-                                <Typography
-                                    color="white"
-                                    sx={{
-                                        fontSize: { xs: "0.75rem", sm: "0.85rem" },
-                                        fontWeight: 500,
-                                        lineHeight: 1.4,
-                                        mb: 1,
-                                    }}
-                                >
-                                    {getDisplayTitle()}
-                                </Typography>
+                        <Box>
+                            <Typography
+                                color="white"
+                                sx={{
+                                    fontSize: { xs: "0.75rem", sm: "0.85rem" },
+                                    fontWeight: 500,
+                                    lineHeight: 1.4,
+                                    mb: 1,
+                                }}
+                            >
+                                {getDisplayTitle()}
+                            </Typography>
 
-                                {type !== "user" && "ratingImdb" in data && (
-                                    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}>
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                            <Box sx={{ display: "flex", alignItems: "center", height: "1rem" }}>
-                                                <Image src="/icons/imdb.svg" alt="IMDb" width={32} height={16} />
-                                            </Box>
-                                            <Typography
-                                                variant="caption"
-                                                sx={{
-                                                    color: "white",
-                                                }}
-                                            >
-                                                {data.ratingImdb?.toFixed(1) || "N/A"}
-                                            </Typography>
+                            {type !== "user" && "ratingImdb" in data && (
+                                <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}>
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", height: "1rem" }}>
+                                            <Image src="/icons/imdb.svg" alt="IMDb" width={32} height={16} />
                                         </Box>
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                            <StarRateIcon sx={{ color: "#FFD700", fontSize: "1rem" }} />
-                                            <Typography
-                                                variant="caption"
-                                                sx={{
-                                                    color: "white",
-                                                }}
-                                            >
-                                                {data.averageRating && data.averageRating !== 0.0
-                                                    ? data.averageRating.toFixed(1)
-                                                    : "N/A"}
-                                            </Typography>
-                                        </Box>
+                                        <Typography
+                                            variant="caption"
+                                            sx={{
+                                                color: "white",
+                                            }}
+                                        >
+                                            {data.ratingImdb?.toFixed(1) || "N/A"}
+                                        </Typography>
                                     </Box>
-                                )}
-                                {data.description && (
-                                    <Typography
-                                        variant="caption"
-                                        sx={{
-                                            color: "white",
-                                            display: "-webkit-box",
-                                            WebkitLineClamp: 3,
-                                            WebkitBoxOrient: "vertical",
-                                            overflow: "hidden",
-                                        }}
-                                    >
-                                        {data.description}
-                                    </Typography>
-                                )}
-                            </Box>
-                            {session?.user?.userName && type !== "user" && (
-                                <Box
-                                    onClick={handleBookmarkClick}
-                                    sx={{
-                                        mt: "auto",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 1,
-                                    }}
-                                >
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        disabled={isPending}
-                                        sx={{
-                                            minWidth: "auto",
-                                            p: 1,
-                                            borderColor: "white",
-                                            cursor: isPending ? "not-allowed" : "pointer",
-                                            opacity: isPending ? 0.7 : 1,
-                                            "&:hover": {
-                                                borderColor: "white",
-                                                bgcolor: "rgba(255, 255, 255, 0.1)",
-                                            },
-                                        }}
-                                    >
-                                        {isPending ? (
-                                            <CircularProgress size={20} sx={{ color: "white" }} />
-                                        ) : data.isBookmarked ? (
-                                            <BookmarkIcon sx={{ color: theme.vars.palette.error.main }} />
-                                        ) : (
-                                            <BookmarkBorderIcon sx={{ color: "white" }} />
-                                        )}
-                                    </Button>
-                                    <Typography
-                                        variant="body2"
-                                        sx={{
-                                            color: "white",
-                                            textTransform: "capitalize",
-                                            fontSize: { xs: "0.75rem", sm: "0.85rem" },
-                                        }}
-                                    >
-                                        {isPending ? "Processing..." : data.isBookmarked ? "Bookmarked" : "Bookmark"}
-                                    </Typography>
+                                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                        <StarRateIcon sx={{ color: "#FFD700", fontSize: "1rem" }} />
+                                        <Typography
+                                            variant="caption"
+                                            sx={{
+                                                color: "white",
+                                            }}
+                                        >
+                                            {data.averageRating && data.averageRating !== 0.0
+                                                ? data.averageRating.toFixed(1)
+                                                : "N/A"}
+                                        </Typography>
+                                    </Box>
                                 </Box>
                             )}
+                            {data.description && (
+                                <Typography
+                                    variant="caption"
+                                    sx={{
+                                        color: "white",
+                                        display: "-webkit-box",
+                                        WebkitLineClamp: 3,
+                                        WebkitBoxOrient: "vertical",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    {data.description}
+                                </Typography>
+                            )}
                         </Box>
+                        {session?.user?.userName && type !== "user" && (
+                            <Box
+                                onClick={handleBookmarkClick}
+                                sx={{
+                                    mt: "auto",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                }}
+                            >
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    disabled={isPending}
+                                    sx={{
+                                        minWidth: "auto",
+                                        p: 1,
+                                        borderColor: "white",
+                                        cursor: isPending ? "not-allowed" : "pointer",
+                                        opacity: isPending ? 0.7 : 1,
+                                        "&:hover": {
+                                            borderColor: "white",
+                                            bgcolor: "rgba(255, 255, 255, 0.1)",
+                                        },
+                                    }}
+                                >
+                                    {isPending ? (
+                                        <CircularProgress size={20} sx={{ color: "white" }} />
+                                    ) : data.isBookmarked ? (
+                                        <BookmarkIcon sx={{ color: theme.vars.palette.error.main }} />
+                                    ) : (
+                                        <BookmarkBorderIcon sx={{ color: "white" }} />
+                                    )}
+                                </Button>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: "white",
+                                        textTransform: "capitalize",
+                                        fontSize: { xs: "0.75rem", sm: "0.85rem" },
+                                    }}
+                                >
+                                    {isPending ? "Processing..." : data.isBookmarked ? "Bookmarked" : "Bookmark"}
+                                </Typography>
+                            </Box>
+                        )}
                     </Box>
-                </Card>
-            </Link>
-        </motion.div>
+                </Box>
+            </Card>
+        </Link>
     );
 };
 

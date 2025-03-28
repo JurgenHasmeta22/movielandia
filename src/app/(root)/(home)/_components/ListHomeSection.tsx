@@ -300,11 +300,6 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                                 key={index}
                                 sx={{
                                     px: 1,
-                                    transition: "transform 0.3s ease",
-                                    "&:hover": {
-                                        transform: "translateY(-8px)",
-                                        zIndex: 10,
-                                    },
                                 }}
                             >
                                 <CardItem data={cardData} type={type} path={path} />
