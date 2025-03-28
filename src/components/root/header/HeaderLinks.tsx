@@ -6,7 +6,7 @@ import { Genre } from "@prisma/client";
 import { useStore } from "@/store/store";
 import MuiNextLink from "../muiNextLink/MuiNextLink";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MovieIcon from "@mui/icons-material/Movie";
@@ -31,14 +31,13 @@ interface IHeaderLinksProps {
     genres: Genre[];
 }
 
-// Create a loading component for My Stuff button
 const MyStuffLoadingButton = () => (
     <Button
         variant="text"
         component="div"
         disabled
         sx={{
-            minWidth: "120px", // Match the width of actual button to prevent layout shift
+            minWidth: "120px",
             "& .MuiCircularProgress-root": {
                 marginRight: 1,
             },
@@ -58,12 +57,15 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const [myStuffAnchorEl, setMyStuffAnchorEl] = useState<null | HTMLElement>(null);
     const [activeMainTab, setActiveMainTab] = useState<string | null>(null);
     const [isSubMenuHovered, setIsSubMenuHovered] = useState(false);
+
+    // @ts-expect-error no parameters
     const hoverTimeoutRef = useRef<NodeJS.Timeout>();
     const currentTargetRef = useRef<HTMLElement | null>(null);
+    // @ts-expect-error no parameters
     const subMenuTimeoutRef = useRef<NodeJS.Timeout>();
+
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
     const { data: session } = useSession();
-    const router = useRouter();
 
     const pathname = usePathname();
     const theme = useTheme();
@@ -71,8 +73,30 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     useEffect(() => {
         handleGenresLeave();
         handlePeopleLeave();
-        handleMyStuffLeave();
+        handleSubMenuLeave();
     }, [pathname]);
+
+    const menuPaperRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                myStuffOpen &&
+                myStuffAnchorEl &&
+                !myStuffAnchorEl.contains(event.target as Node) &&
+                menuPaperRef.current &&
+                !menuPaperRef.current.contains(event.target as Node)
+            ) {
+                handleSubMenuLeave();
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [myStuffOpen, myStuffAnchorEl]);
 
     const handleGenresHover = (event: React.MouseEvent<HTMLElement>) => {
         setGenresAnchorEl(event.currentTarget);
@@ -99,21 +123,23 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
             currentTargetRef.current = event.currentTarget;
             clearTimeout(hoverTimeoutRef.current);
             clearTimeout(subMenuTimeoutRef.current);
-            hoverTimeoutRef.current = setTimeout(() => {
-                setMyStuffAnchorEl(currentTargetRef.current);
-                setMyStuffOpen(true);
-            }, 50);
+
+            // Open immediately without delay for better responsiveness
+            setMyStuffAnchorEl(currentTargetRef.current);
+            setMyStuffOpen(true);
         }
     };
 
     const handleMyStuffLeave = () => {
         clearTimeout(hoverTimeoutRef.current);
+
         if (!isSubMenuHovered) {
+            // Increasing timeout to prevent accidental closures
             subMenuTimeoutRef.current = setTimeout(() => {
                 setMyStuffOpen(false);
                 setMyStuffAnchorEl(null);
                 setActiveMainTab(null);
-            }, 100);
+            }, 200);
         }
     };
 
@@ -126,10 +152,14 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
     const handleSubMenuLeave = () => {
         clearTimeout(hoverTimeoutRef.current);
         clearTimeout(subMenuTimeoutRef.current);
-        setIsSubMenuHovered(false);
-        setMyStuffOpen(false);
-        setMyStuffAnchorEl(null);
-        setActiveMainTab(null);
+
+        // Adding a small delay before closing to improve user experience
+        subMenuTimeoutRef.current = setTimeout(() => {
+            setIsSubMenuHovered(false);
+            setMyStuffOpen(false);
+            setMyStuffAnchorEl(null);
+            setActiveMainTab(null);
+        }, 150);
     };
 
     const handleMainTabHover = (param: string) => {
@@ -138,10 +168,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
         if (!tab?.noSubMenu) {
             setActiveMainTab(param);
         }
-    };
-
-    const handleMainTabLeave = () => {
-        setActiveMainTab(null);
     };
 
     const isActive = (path: string) => {
@@ -185,7 +211,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
             icon: <CollectionsBookmarkIcon />,
             param: "lists",
             href: session?.user ? `/users/${session.user.id}/${session.user.userName}/lists` : undefined,
-            noSubMenu: true, // Add this flag
+            noSubMenu: true,
         },
         { label: "Bookmarks", icon: <BookmarkIcon />, param: "bookmarks" },
         { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
@@ -532,7 +558,19 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                 <Box
                                     onMouseEnter={handleMyStuffHover}
                                     onMouseLeave={handleMyStuffLeave}
-                                    sx={{ position: "relative" }}
+                                    sx={{
+                                        position: "relative",
+                                        // Add a larger hover area to improve detection
+                                        "&::before": {
+                                            content: '""',
+                                            position: "absolute",
+                                            top: -5,
+                                            left: -5,
+                                            right: -5,
+                                            bottom: -5,
+                                            zIndex: -1,
+                                        },
+                                    }}
                                 >
                                     <Button
                                         variant="text"
@@ -558,18 +596,29 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                             {
                                                 name: "offset",
                                                 options: {
-                                                    offset: [0, -1], // Reduce the gap between main menu and submenu
+                                                    offset: [0, 5], // Add a small gap for better visual separation
+                                                },
+                                            },
+                                            {
+                                                name: "preventOverflow",
+                                                enabled: true,
+                                                options: {
+                                                    boundary: document.body,
                                                 },
                                             },
                                         ]}
                                     >
                                         <Paper
+                                            ref={menuPaperRef}
                                             onMouseEnter={handleSubMenuEnter}
                                             onMouseLeave={handleSubMenuLeave}
                                             sx={{
                                                 mt: 0.5,
-                                                minWidth: 180,
+                                                width: "auto",
+                                                maxWidth: 450, // Maximum width for both menus combined
                                                 display: "flex",
+                                                boxShadow: 3,
+                                                overflow: "hidden",
                                                 "&::before": {
                                                     content: '""',
                                                     position: "absolute",
@@ -580,7 +629,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                 },
                                             }}
                                         >
-                                            <Box>
+                                            <Box sx={{ width: 180 }}>
                                                 {myStuffTabs.map((tab, index) => (
                                                     <motion.div
                                                         key={tab.param}
@@ -603,8 +652,8 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                 onClick={() => {
                                                                     if (isDrawerOpen) setIsDrawerOpen(false);
                                                                     handleSubMenuLeave();
-                                                                    setActiveMainTab(null); // Add this to clear the active tab
-                                                                    setIsSubMenuHovered(false); // Add this to ensure sub-menu state is cleared
+                                                                    setActiveMainTab(null);
+                                                                    setIsSubMenuHovered(false);
                                                                 }}
                                                             >
                                                                 <Box
@@ -614,7 +663,6 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                         } else {
                                                                             // For Lists, clear any active sub-menu
                                                                             setActiveMainTab(null);
-                                                                            setIsSubMenuHovered(false);
                                                                         }
                                                                     }}
                                                                     sx={{
@@ -631,7 +679,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                         "&:hover": {
                                                                             backgroundColor:
                                                                                 theme.vars.palette.action.hover,
-                                                                            color: theme.vars.palette.primary.main,
+                                                                            color: theme.vars.palette.green.main,
                                                                         },
                                                                     }}
                                                                 >
@@ -658,7 +706,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                     "&:hover": {
                                                                         backgroundColor:
                                                                             theme.vars.palette.action.hover,
-                                                                        color: theme.vars.palette.primary.main,
+                                                                        color: theme.vars.palette.green.main,
                                                                     },
                                                                 }}
                                                             >
@@ -680,12 +728,12 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                         transition={{ duration: 0.2 }}
                                                     >
                                                         <Paper
-                                                            elevation={3}
+                                                            elevation={0}
                                                             sx={{
-                                                                ml: 1,
-                                                                minWidth: 180,
+                                                                width: 180,
                                                                 borderLeft: 1,
                                                                 borderColor: "divider",
+                                                                backgroundColor: "transparent",
                                                             }}
                                                         >
                                                             {subTabs[activeMainTab]?.map((subTab, index) => (
@@ -722,7 +770,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                                                                                 "&:hover": {
                                                                                     backgroundColor:
                                                                                         theme.vars.palette.action.hover,
-                                                                                    color: theme.vars.palette.primary
+                                                                                    color: theme.vars.palette.green
                                                                                         .main,
                                                                                 },
                                                                             }}
