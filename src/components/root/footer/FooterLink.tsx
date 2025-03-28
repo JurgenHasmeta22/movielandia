@@ -20,17 +20,40 @@ export const FooterLink = ({ href, text, icon }: FooterLinkProps) => {
                 textTransform: "capitalize",
                 color: theme.vars.palette.primary.main,
                 transition: "all 0.2s ease-in-out",
-                minWidth: "160px",
+                minWidth: "auto",
+                padding: "6px 8px",
+                borderRadius: "8px",
                 justifyContent: "flex-start",
+                opacity: 0.85,
                 "&:hover": {
-                    transform: "translateX(8px)",
+                    backgroundColor: "rgba(255, 255, 255, 0.03)",
+                    transform: "translateX(5px)",
                     color: theme.vars.palette.red.main,
+                    opacity: 1,
                 },
             }}
         >
             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ width: "100%" }}>
-                {icon && <Icon component={() => icon} sx={{ fontSize: 20, minWidth: "24px" }} />}
-                <Typography variant="body1">{text}</Typography>
+                {icon && (
+                    <Icon
+                        component={() => icon}
+                        sx={{
+                            fontSize: 18,
+                            minWidth: "20px",
+                            color: "inherit",
+                            opacity: 0.9,
+                        }}
+                    />
+                )}
+                <Typography
+                    variant="body2"
+                    sx={{
+                        fontWeight: 500,
+                        fontSize: { xs: "0.875rem", md: "0.9rem" },
+                    }}
+                >
+                    {text}
+                </Typography>
             </Stack>
         </Button>
     );

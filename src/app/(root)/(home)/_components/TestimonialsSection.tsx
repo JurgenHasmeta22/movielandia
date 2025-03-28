@@ -16,36 +16,36 @@ const testimonials = [
         avatar: "/images/avatars/avatar1.jpg",
         role: "Film Enthusiast",
         rating: 5,
-        text: "MovieLandia24 has completely transformed how I discover new films. The recommendations are spot-on, and I love being able to create custom watchlists for different moods and occasions."
+        text: "MovieLandia24 has completely transformed how I discover new films. The recommendations are spot-on, and I love being able to create custom watchlists for different moods and occasions.",
     },
     {
         name: "Michael Chen",
         avatar: "/images/avatars/avatar2.jpg",
         role: "TV Series Buff",
         rating: 4.5,
-        text: "As someone who watches a lot of TV series, I appreciate how well-organized everything is on MovieLandia24. The episode tracking feature is particularly useful, and the community discussions add so much value."
+        text: "As someone who watches a lot of TV series, I appreciate how well-organized everything is on MovieLandia24. The episode tracking feature is particularly useful, and the community discussions add so much value.",
     },
     {
         name: "Emma Rodriguez",
         avatar: "/images/avatars/avatar3.jpg",
         role: "Aspiring Filmmaker",
         rating: 5,
-        text: "The depth of information about directors, cinematographers, and other crew members is impressive. MovieLandia24 has become an invaluable resource for my film studies and creative projects."
+        text: "The depth of information about directors, cinematographers, and other crew members is impressive. MovieLandia24 has become an invaluable resource for my film studies and creative projects.",
     },
     {
         name: "David Wilson",
         avatar: "/images/avatars/avatar4.jpg",
         role: "Movie Collector",
         rating: 4.5,
-        text: "I've been using MovieLandia24 to catalog my personal collection, and it's been a game-changer. The interface is intuitive, and the database is incredibly comprehensive."
+        text: "I've been using MovieLandia24 to catalog my personal collection, and it's been a game-changer. The interface is intuitive, and the database is incredibly comprehensive.",
     },
     {
         name: "Olivia Thompson",
         avatar: "/images/avatars/avatar5.jpg",
         role: "Cinema Critic",
         rating: 5,
-        text: "The review system on MovieLandia24 is exceptional. I can express my thoughts in detail, and the community engagement with reviews creates meaningful conversations about cinema."
-    }
+        text: "The review system on MovieLandia24 is exceptional. I can express my thoughts in detail, and the community engagement with reviews creates meaningful conversations about cinema.",
+    },
 ];
 
 const TestimonialsSection = () => {
@@ -81,20 +81,18 @@ const TestimonialsSection = () => {
                 breakpoint: 960,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 1
-                }
+                    slidesToScroll: 1,
+                },
             },
             {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
+                    slidesToScroll: 1,
+                },
+            },
+        ],
     };
-
-
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -114,9 +112,8 @@ const TestimonialsSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor: theme.palette.mode === "dark"
-                    ? "rgba(25, 118, 210, 0.05)"
-                    : "rgba(25, 118, 210, 0.02)",
+                backgroundColor:
+                    theme.palette.mode === "dark" ? "rgba(25, 118, 210, 0.05)" : "rgba(25, 118, 210, 0.02)",
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
@@ -171,7 +168,8 @@ const TestimonialsSection = () => {
                                     fontSize: { xs: "0.9rem", sm: "1rem" },
                                 }}
                             >
-                                Join thousands of satisfied users who have discovered their next favorite movies and shows through MovieLandia24.
+                                Join thousands of satisfied users who have discovered their next favorite movies and
+                                shows through MovieLandia24.
                             </Typography>
                         </motion.div>
                     </Box>
@@ -203,7 +201,7 @@ const TestimonialsSection = () => {
                                                 sx={{
                                                     fontSize: 40,
                                                     color: theme.palette.primary.main,
-                                                    opacity: 0.3
+                                                    opacity: 0.3,
                                                 }}
                                             />
                                         </Box>
@@ -215,12 +213,12 @@ const TestimonialsSection = () => {
                                                 lineHeight: 1.6,
                                                 mb: 3,
                                                 flexGrow: 1,
-                                                minHeight: { xs: 'auto', sm: '120px', md: '150px' }
+                                                minHeight: { xs: "auto", sm: "120px", md: "150px" },
                                             }}
                                         >
-                                            "{testimonial.text}"
+                                            &quot;{testimonial.text}&quot;
                                         </Typography>
-                                        <Box sx={{ display: "flex", alignItems: "center", mt: 'auto' }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", mt: "auto" }}>
                                             <Avatar
                                                 src={testimonial.avatar}
                                                 alt={testimonial.name}

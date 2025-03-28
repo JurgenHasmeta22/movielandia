@@ -28,8 +28,8 @@ const HomeHeroSection = () => {
     const buttonHoverVariants = {
         hover: {
             scale: 1.05,
-            transition: { duration: 0.3, ease: "easeInOut" }
-        }
+            transition: { duration: 0.3, ease: "easeInOut" },
+        },
     };
 
     return (
@@ -57,7 +57,8 @@ const HomeHeroSection = () => {
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.5) 100%)",
+                        background:
+                            "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.5) 100%)",
                     },
                 }}
             >
@@ -71,18 +72,14 @@ const HomeHeroSection = () => {
             </Box>
 
             <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2, py: { xs: 4, sm: 5 } }}>
-                <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={containerVariants}
-                >
+                <motion.div initial="hidden" animate="visible" variants={containerVariants}>
                     <Stack
                         spacing={{ xs: 2, sm: 2.5, md: 3 }}
                         sx={{
                             maxWidth: { xs: "100%", md: "65%", lg: "55%" },
                             textAlign: { xs: "center", md: "left" },
                             mx: { xs: "auto", md: 0 },
-                            py: { xs: 4, md: 0 }
+                            py: { xs: 4, md: 0 },
                         }}
                     >
                         <motion.div variants={itemVariants}>
@@ -95,7 +92,7 @@ const HomeHeroSection = () => {
                                     lineHeight: 1.1,
                                     color: theme.vars.palette.common.white,
                                     textShadow: "0 2px 10px rgba(0,0,0,0.3)",
-                                    mb: { xs: 1, md: 1.5 }
+                                    mb: { xs: 1, md: 1.5 },
                                 }}
                             >
                                 Dive into MovieLandia24
@@ -110,7 +107,7 @@ const HomeHeroSection = () => {
                                     fontWeight: 700,
                                     color: "rgba(255,255,255,0.9)",
                                     textShadow: "0 1px 3px rgba(0,0,0,0.2)",
-                                    mb: { xs: 1, md: 2 }
+                                    mb: { xs: 1, md: 2 },
                                 }}
                             >
                                 Your Gateway to the World of Cinema!
@@ -125,11 +122,11 @@ const HomeHeroSection = () => {
                                     color: "rgba(255,255,255,0.8)",
                                     maxWidth: { xs: "100%", md: "85%" },
                                     lineHeight: 1.6,
-                                    mb: { xs: 2, md: 3 }
+                                    mb: { xs: 2, md: 3 },
                                 }}
                             >
-                                Explore the latest blockbusters and timeless classics in our curated collection of movies and
-                                series. Discover, rate, and share your favorite cinematic experiences.
+                                Explore the latest blockbusters and timeless classics in our curated collection of
+                                movies and series. Discover, rate, and share your favorite cinematic experiences.
                             </Typography>
                         </motion.div>
 
@@ -138,13 +135,10 @@ const HomeHeroSection = () => {
                             spacing={{ xs: 2, sm: 3 }}
                             sx={{
                                 justifyContent: { xs: "center", md: "flex-start" },
-                                mt: { xs: 0.5, md: 1.5 }
+                                mt: { xs: 0.5, md: 1.5 },
                             }}
                         >
-                            <motion.div
-                                variants={itemVariants}
-                                whileHover="hover"
-                            >
+                            <motion.div variants={itemVariants} whileHover="hover">
                                 <Button
                                     component={Link}
                                     href="/movies"
@@ -164,18 +158,15 @@ const HomeHeroSection = () => {
                                         width: { xs: "100%", sm: "auto" },
                                         "&:hover": {
                                             transform: "translateY(-2px)",
-                                            boxShadow: "0 10px 25px rgba(255, 87, 34, 0.4)"
-                                        }
+                                            boxShadow: "0 10px 25px rgba(255, 87, 34, 0.4)",
+                                        },
                                     }}
                                 >
                                     Explore Movies
                                 </Button>
                             </motion.div>
 
-                            <motion.div
-                                variants={itemVariants}
-                                whileHover="hover"
-                            >
+                            <motion.div variants={itemVariants} whileHover="hover">
                                 <Button
                                     component={Link}
                                     href="/series"
@@ -198,8 +189,8 @@ const HomeHeroSection = () => {
                                         "&:hover": {
                                             borderColor: theme.vars.palette.common.white,
                                             backgroundColor: "rgba(255,255,255,0.1)",
-                                            transform: "translateY(-2px)"
-                                        }
+                                            transform: "translateY(-2px)",
+                                        },
                                     }}
                                 >
                                     Browse Series
@@ -219,13 +210,13 @@ const HomeHeroSection = () => {
                                     alignItems: "center",
                                     gap: 2,
                                     mt: 4,
-                                    opacity: 0.8
+                                    opacity: 0.8,
                                 }}
                             >
                                 <Typography
                                     sx={{
                                         fontSize: "0.875rem",
-                                        color: "rgba(255,255,255,0.7)"
+                                        color: "rgba(255,255,255,0.7)",
                                     }}
                                 >
                                     Featuring thousands of titles across all genres

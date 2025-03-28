@@ -14,23 +14,27 @@ const steps = [
     {
         icon: <ExploreIcon sx={{ fontSize: 40 }} />,
         title: "Discover",
-        description: "Browse our extensive collection of movies, TV series, actors, and crew members. Use filters to find exactly what you're looking for."
+        description:
+            "Browse our extensive collection of movies, TV series, actors, and crew members. Use filters to find exactly what you're looking for.",
     },
     {
         icon: <BookmarkAddIcon sx={{ fontSize: 40 }} />,
         title: "Save",
-        description: "Create watchlists, bookmark your favorites, and keep track of what you want to watch next. Never lose track of a great recommendation."
+        description:
+            "Create watchlists, bookmark your favorites, and keep track of what you want to watch next. Never lose track of a great recommendation.",
     },
     {
         icon: <RateReviewIcon sx={{ fontSize: 40 }} />,
         title: "Review",
-        description: "Share your thoughts by rating and reviewing content. Help others discover great movies and shows through your insights."
+        description:
+            "Share your thoughts by rating and reviewing content. Help others discover great movies and shows through your insights.",
     },
     {
         icon: <ShareIcon sx={{ fontSize: 40 }} />,
         title: "Connect",
-        description: "Join discussions, follow other users with similar tastes, and become part of our vibrant community of film enthusiasts."
-    }
+        description:
+            "Join discussions, follow other users with similar tastes, and become part of our vibrant community of film enthusiasts.",
+    },
 ];
 
 const HowItWorksSection = () => {
@@ -54,9 +58,7 @@ const HowItWorksSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor: theme.palette.mode === "dark"
-                    ? "rgba(0, 0, 0, 0.3)"
-                    : "rgba(255, 255, 255, 0.9)",
+                backgroundColor: theme.palette.mode === "dark" ? "rgba(0, 0, 0, 0.3)" : "rgba(255, 255, 255, 0.9)",
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
@@ -111,7 +113,8 @@ const HowItWorksSection = () => {
                                     fontSize: { xs: "0.9rem", sm: "1rem" },
                                 }}
                             >
-                                Get started with MovieLandia24 in just a few simple steps and unlock the full potential of your cinematic journey.
+                                Get started with MovieLandia24 in just a few simple steps and unlock the full potential
+                                of your cinematic journey.
                             </Typography>
                         </motion.div>
                     </Box>

@@ -19,14 +19,18 @@ export const SocialButton = ({ href, icon: Icon }: SocialButtonProps) => {
             sx={{
                 color: theme.vars.palette.primary.main,
                 transition: "all 0.2s ease-in-out",
-                padding: "8px",
+                padding: "10px",
+                borderRadius: "8px",
+                opacity: 0.85,
                 "&:hover": {
                     color: theme.vars.palette.red.main,
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    backgroundColor: "rgba(255, 255, 255, 0.08)",
+                    transform: "translateY(-3px)",
+                    opacity: 1,
                 },
             }}
         >
-            <Icon />
+            <Icon sx={{ fontSize: 20 }} />
         </IconButton>
     );
 };
