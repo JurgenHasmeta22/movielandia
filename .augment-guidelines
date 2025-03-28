@@ -61,3 +61,10 @@ MovieLandia24 is a sophisticated full-stack cinema platform built with Next.js 1
 - Layout: Use MUI Grid/Stack with responsive props and breakpoints.
 - Components: Leverage built-in MUI components for consistency.
 - Responsive: Follow mobile-first, test xs to xl breakpoints (<600px to 1536px+).
+
+## Windows Development Environment
+
+- Operating System: Windows 11
+- Terminal: PowerShell
+- Use semicolon (;) instead of && for command chaining
+- Example: `npm build ; npm start` instead of `npm build && npm start`

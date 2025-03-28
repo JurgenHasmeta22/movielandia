@@ -1,7 +1,7 @@
 "use client";
 
 import { CloseOutlined } from "@mui/icons-material";
-import { Box, SwipeableDrawer, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import { Box, SwipeableDrawer, IconButton, useMediaQuery, useTheme, Typography, Divider, Paper } from "@mui/material";
 import { useStore } from "@/store/store";
 import { useEffect } from "react";
 import { Session } from "next-auth";
@@ -10,9 +10,9 @@ import { HeaderLinks } from "../header/HeaderLinks";
 import ThemeToggleButton from "../themeToggleButton/ThemeToggleButton";
 import SearchField from "../searchField/SearchField";
 import { Genre } from "@prisma/client";
-import EmailIcon from "@mui/icons-material/Email";
 import NotificationMenu from "../notificationMenu/NotificationMenu";
-import Link from "next/link";
+import MessageCounter from "../header/MessageCounter";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface IHeaderMobileProps {
     genres: Genre[];
@@ -34,6 +34,7 @@ export default function HeaderMobile({
     session,
 }: IHeaderMobileProps) {
     const { isDrawerOpen, setIsDrawerOpen } = useStore();
+
     const theme = useTheme();
     const isFullScreen = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -41,78 +42,99 @@ export default function HeaderMobile({
         if (isFullScreen && isDrawerOpen) {
             setIsDrawerOpen(false);
         }
-    }, [isFullScreen, isDrawerOpen, setIsDrawerOpen]);
+    }, [isFullScreen, isDrawerOpen]);
 
     const iOS = typeof navigator !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
     return (
-        <SwipeableDrawer
-            disableBackdropTransition={!iOS}
-            disableDiscovery={iOS}
-            variant="temporary"
-            anchor="left"
-            open={isDrawerOpen}
-            onClose={() => setIsDrawerOpen(false)}
-            onOpen={() => setIsDrawerOpen(true)}
-            sx={{
-                display: { xs: "block", md: "none" },
-                "& .MuiDrawer-paper": {
-                    width: { xs: "85%", sm: 320 },
-                    boxSizing: "border-box",
-                    backgroundColor: theme.vars.palette.background.paper,
-                },
-            }}
-        >
-            <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                <Box sx={{ p: 1, borderBottom: 1, borderColor: "divider" }}>
-                    <IconButton
-                        onClick={() => setIsDrawerOpen(false)}
-                        sx={{
-                            color: theme.vars.palette.primary.main,
-                            "&:hover": { color: theme.vars.palette.green.main },
-                        }}
-                    >
-                        <CloseOutlined />
-                    </IconButton>
-                </Box>
-                <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                    <Box sx={{ width: "100%" }}>
-                        <HeaderLinks genres={genres} />
-                    </Box>
-                    {session?.user && (
-                        <Box sx={{ mt: "auto", borderTop: 1, borderColor: "divider" }}>
-                            <Box sx={{ p: 1 }}>
-                                <SearchField
-                                    onClose={() => setIsDrawerOpen(false)}
-                                    isMobile={true}
-                                    customStyles={{ width: "100%", mb: 1 }}
-                                />
-                                <Box sx={{ display: "flex", gap: 0.5 }}>
-                                    <Link
-                                        href="/messages"
-                                        onClick={() => setIsDrawerOpen(false)}
-                                        style={{ textDecoration: "none" }}
-                                    >
-                                        <IconButton size="small" sx={{ color: theme.vars.palette.primary.main }}>
-                                            <EmailIcon />
-                                        </IconButton>
-                                    </Link>
-                                    <NotificationMenu session={session} />
-                                    <ThemeToggleButton />
-                                    <AuthButtons
-                                        session={session}
-                                        userName={userName}
-                                        anchorElProfile={anchorElProfile}
-                                        closeMenuProfile={closeMenuProfile}
-                                        openMenuProfile={openMenuProfile}
-                                        handleSignOut={handleSignOut}
-                                    />
-                                </Box>
-                            </Box>
+        <AnimatePresence>
+            <SwipeableDrawer
+                disableBackdropTransition={!iOS}
+                disableDiscovery={iOS}
+                variant="temporary"
+                anchor="left"
+                open={isDrawerOpen}
+                onClose={() => setIsDrawerOpen(false)}
+                onOpen={() => setIsDrawerOpen(true)}
+                sx={{
+                    display: { xs: "block", md: "none" },
+                    "& .MuiDrawer-paper": {
+                        width: { xs: "85%", sm: 320 },
+                        boxSizing: "border-box",
+                        backgroundColor: theme.vars.palette.background.paper,
+                        boxShadow: 1,
+                    },
+                }}
+            >
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ height: "100%" }}
+                >
+                    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                        <Box
+                            sx={{
+                                p: 1.5,
+                                borderBottom: 1,
+                                borderColor: "divider",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <IconButton
+                                onClick={() => setIsDrawerOpen(false)}
+                                sx={{
+                                    color: theme.vars.palette.primary.main,
+                                    "&:hover": { color: theme.vars.palette.green.main },
+                                }}
+                            >
+                                <CloseOutlined />
+                            </IconButton>
                         </Box>
-                    )}
-                </Box>
-            </Box>
-        </SwipeableDrawer>
+                        <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                            <Box sx={{ width: "100%" }}>
+                                <HeaderLinks genres={genres} />
+                            </Box>
+                            {session?.user && (
+                                <Box sx={{ mt: "auto", borderTop: 1, borderColor: "divider" }}>
+                                    <Paper elevation={0} sx={{ p: 2, bgcolor: "transparent" }}>
+                                        <SearchField
+                                            onClose={() => setIsDrawerOpen(false)}
+                                            isMobile={true}
+                                            customStyles={{ width: "100%", mb: 2 }}
+                                        />
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                mt: 1,
+                                            }}
+                                        >
+                                            <Box sx={{ display: "flex", gap: 1 }}>
+                                                <MessageCounter session={session} />
+                                                <NotificationMenu session={session} />
+                                                <ThemeToggleButton />
+                                            </Box>
+                                            <AuthButtons
+                                                session={session}
+                                                userName={userName}
+                                                anchorElProfile={anchorElProfile}
+                                                closeMenuProfile={closeMenuProfile}
+                                                openMenuProfile={openMenuProfile}
+                                                handleSignOut={handleSignOut}
+                                            />
+                                        </Box>
+                                    </Paper>
+                                </Box>
+                            )}
+                        </Box>
+                    </Box>
+                </motion.div>
+            </SwipeableDrawer>
+        </AnimatePresence>
     );
 }
