@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Container, Typography, Grid, useTheme, Paper } from "@mui/material";
+import { Box, Container, Typography, useTheme, Paper } from "@mui/material";
 import ExploreIcon from "@mui/icons-material/Explore";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import RateReviewIcon from "@mui/icons-material/RateReview";
@@ -54,8 +54,8 @@ const HowItWorksSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor: theme.palette.mode === "dark" 
-                    ? "rgba(0, 0, 0, 0.3)" 
+                backgroundColor: theme.palette.mode === "dark"
+                    ? "rgba(0, 0, 0, 0.3)"
                     : "rgba(255, 255, 255, 0.9)",
                 position: "relative",
                 width: "100%",
@@ -116,97 +116,111 @@ const HowItWorksSection = () => {
                         </motion.div>
                     </Box>
 
-                    <Grid container spacing={3} sx={{ mt: 2 }}>
+                    <Box
+                        sx={{
+                            display: "grid",
+                            gridTemplateColumns: {
+                                xs: "1fr",
+                                sm: "repeat(2, 1fr)",
+                                md: "repeat(4, 1fr)",
+                            },
+                            gap: 3,
+                            mt: 2,
+                        }}
+                    >
                         {steps.map((step, index) => (
-                            <Grid item xs={12} sm={6} md={3} key={index}>
-                                <motion.div
-                                    variants={itemVariants}
-                                    custom={index}
-                                    whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                            <motion.div
+                                key={index}
+                                variants={itemVariants}
+                                custom={index}
+                                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                                style={{ height: "100%" }}
+                            >
+                                <Paper
+                                    elevation={0}
+                                    sx={{
+                                        p: 3,
+                                        height: "100%",
+                                        borderRadius: 3,
+                                        textAlign: "center",
+                                        border: "1px solid",
+                                        borderColor: "divider",
+                                        backgroundColor: theme.palette.background.paper,
+                                        position: "relative",
+                                        overflow: "hidden",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        "&::before": {
+                                            content: '""',
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
+                                            width: "100%",
+                                            height: "4px",
+                                            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+                                        },
+                                    }}
                                 >
-                                    <Paper
-                                        elevation={0}
+                                    <Box
                                         sx={{
-                                            p: 3,
-                                            height: "100%",
-                                            borderRadius: 3,
-                                            textAlign: "center",
-                                            border: "1px solid",
-                                            borderColor: "divider",
-                                            backgroundColor: theme.palette.background.paper,
-                                            position: "relative",
-                                            overflow: "hidden",
-                                            "&::before": {
-                                                content: '""',
-                                                position: "absolute",
-                                                top: 0,
-                                                left: 0,
-                                                width: "100%",
-                                                height: "4px",
-                                                background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                                            },
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            width: 70,
+                                            height: 70,
+                                            borderRadius: "50%",
+                                            backgroundColor: `${theme.palette.primary.main}15`,
+                                            color: theme.palette.primary.main,
+                                            mx: "auto",
+                                            mb: 2,
                                         }}
                                     >
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                width: 70,
-                                                height: 70,
-                                                borderRadius: "50%",
-                                                backgroundColor: `${theme.palette.primary.main}15`,
-                                                color: theme.palette.primary.main,
-                                                mx: "auto",
-                                                mb: 2,
-                                            }}
-                                        >
-                                            {step.icon}
-                                        </Box>
-                                        <Typography
-                                            variant="h6"
-                                            sx={{
-                                                fontWeight: 700,
-                                                mb: 1.5,
-                                                fontSize: { xs: "1.1rem", sm: "1.25rem" },
-                                            }}
-                                        >
-                                            {step.title}
-                                        </Typography>
-                                        <Typography
-                                            variant="body2"
-                                            sx={{
-                                                color: "text.secondary",
-                                                lineHeight: 1.6,
-                                                fontSize: { xs: "0.85rem", sm: "0.9rem" },
-                                            }}
-                                        >
-                                            {step.description}
-                                        </Typography>
-                                        <Box
-                                            sx={{
-                                                position: "absolute",
-                                                top: 15,
-                                                right: 15,
-                                                width: 24,
-                                                height: 24,
-                                                borderRadius: "50%",
-                                                backgroundColor: theme.palette.primary.main,
-                                                color: "#fff",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                fontSize: "0.8rem",
-                                                fontWeight: 700,
-                                            }}
-                                        >
-                                            {index + 1}
-                                        </Box>
-                                    </Paper>
-                                </motion.div>
-                            </Grid>
+                                        {step.icon}
+                                    </Box>
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            fontWeight: 700,
+                                            mb: 1.5,
+                                            fontSize: { xs: "1.1rem", sm: "1.25rem" },
+                                        }}
+                                    >
+                                        {step.title}
+                                    </Typography>
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            color: "text.secondary",
+                                            lineHeight: 1.6,
+                                            fontSize: { xs: "0.85rem", sm: "0.9rem" },
+                                            flexGrow: 1,
+                                        }}
+                                    >
+                                        {step.description}
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            position: "absolute",
+                                            top: 15,
+                                            right: 15,
+                                            width: 24,
+                                            height: 24,
+                                            borderRadius: "50%",
+                                            backgroundColor: theme.palette.primary.main,
+                                            color: "#fff",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontSize: "0.8rem",
+                                            fontWeight: 700,
+                                        }}
+                                    >
+                                        {index + 1}
+                                    </Box>
+                                </Paper>
+                            </motion.div>
                         ))}
-                    </Grid>
+                    </Box>
                 </motion.div>
             </Container>
         </Box>

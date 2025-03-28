@@ -75,6 +75,7 @@ const TestimonialsSection = () => {
         autoplaySpeed: 5000,
         pauseOnHover: true,
         arrows: true,
+        adaptiveHeight: false,
         responsive: [
             {
                 breakpoint: 960,
@@ -92,6 +93,8 @@ const TestimonialsSection = () => {
             }
         ]
     };
+
+
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -111,8 +114,8 @@ const TestimonialsSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor: theme.palette.mode === "dark" 
-                    ? "rgba(25, 118, 210, 0.05)" 
+                backgroundColor: theme.palette.mode === "dark"
+                    ? "rgba(25, 118, 210, 0.05)"
                     : "rgba(25, 118, 210, 0.02)",
                 position: "relative",
                 width: "100%",
@@ -176,7 +179,7 @@ const TestimonialsSection = () => {
                     <Box sx={{ mt: 4, px: { xs: 1, md: 2 } }}>
                         <Slider {...settings}>
                             {testimonials.map((testimonial, index) => (
-                                <Box key={index} sx={{ px: 2 }}>
+                                <Box key={index} sx={{ px: 2, height: "100%" }}>
                                     <Paper
                                         elevation={0}
                                         sx={{
@@ -196,12 +199,12 @@ const TestimonialsSection = () => {
                                         }}
                                     >
                                         <Box sx={{ mb: 2 }}>
-                                            <FormatQuoteIcon 
-                                                sx={{ 
-                                                    fontSize: 40, 
+                                            <FormatQuoteIcon
+                                                sx={{
+                                                    fontSize: 40,
                                                     color: theme.palette.primary.main,
                                                     opacity: 0.3
-                                                }} 
+                                                }}
                                             />
                                         </Box>
                                         <Typography
@@ -209,14 +212,15 @@ const TestimonialsSection = () => {
                                                 fontSize: "0.95rem",
                                                 fontStyle: "italic",
                                                 color: "text.secondary",
+                                                lineHeight: 1.6,
                                                 mb: 3,
                                                 flexGrow: 1,
-                                                lineHeight: 1.6,
+                                                minHeight: { xs: 'auto', sm: '120px', md: '150px' }
                                             }}
                                         >
                                             "{testimonial.text}"
                                         </Typography>
-                                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", mt: 'auto' }}>
                                             <Avatar
                                                 src={testimonial.avatar}
                                                 alt={testimonial.name}
