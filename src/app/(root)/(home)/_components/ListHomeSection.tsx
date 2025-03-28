@@ -1,10 +1,16 @@
 "use client";
 
 import CardItem from "@/components/root/cardItem/CardItem";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Stack, Typography, useTheme, IconButton } from "@mui/material";
 import { Genre, Movie, Serie } from "@prisma/client";
 import NextLink from "next/link";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import Slider from "react-slick";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useState, useEffect } from "react";
 
 type MovieWithBookmark = Movie & {
     isBookmarked?: boolean;
@@ -22,8 +28,83 @@ interface IListHomeSectionProps {
     path?: string;
 }
 
+const CustomNextArrow = (props: any) => {
+    const { onClick } = props;
+    const theme = useTheme();
+
+    return (
+        <IconButton
+            onClick={onClick}
+            sx={{
+                position: "absolute",
+                top: "50%",
+                right: { xs: "-30px", sm: "-40px", md: "-50px" },
+                transform: "translateY(-50%)",
+                zIndex: 2,
+                color: theme.vars.palette.common.white,
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                width: { xs: 40, sm: 46, md: 50 },
+                height: { xs: 40, sm: 46, md: 50 },
+                boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                "&:hover": {
+                    backgroundColor: theme.vars.palette.primary.main,
+                },
+            }}
+        >
+            <NavigateNextIcon sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />
+        </IconButton>
+    );
+};
+
+const CustomPrevArrow = (props: any) => {
+    const { onClick } = props;
+    const theme = useTheme();
+
+    return (
+        <IconButton
+            onClick={onClick}
+            sx={{
+                position: "absolute",
+                top: "50%",
+                left: { xs: "-30px", sm: "-40px", md: "-50px" },
+                transform: "translateY(-50%)",
+                zIndex: 2,
+                color: theme.vars.palette.common.white,
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                width: { xs: 40, sm: 46, md: 50 },
+                height: { xs: 40, sm: 46, md: 50 },
+                boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                "&:hover": {
+                    backgroundColor: theme.vars.palette.primary.main,
+                },
+            }}
+        >
+            <NavigateBeforeIcon sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />
+        </IconButton>
+    );
+};
+
 const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionProps) => {
     const theme = useTheme();
+    const [slidesPerView, setSlidesPerView] = useState(6);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+
+            if (width < 480) setSlidesPerView(1);
+            else if (width < 600) setSlidesPerView(2);
+            else if (width < 768) setSlidesPerView(3);
+            else if (width < 1024) setSlidesPerView(4);
+            else if (width < 1280) setSlidesPerView(5);
+            else setSlidesPerView(6);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const getSectionTitle = () => {
         switch (type) {
@@ -75,28 +156,30 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
             }}
         >
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: { xs: 1, md: 2 } }}>
-                <Typography
-                    variant="h2"
-                    sx={{
-                        fontWeight: 800,
-                        fontSize: { xs: 24, sm: 28, md: 32 },
-                        color: theme.vars.palette.text.primary,
-                        position: "relative",
-                        display: "inline-block",
-                        "&::after": {
-                            content: '""',
-                            position: "absolute",
-                            bottom: -8,
-                            left: 0,
-                            width: "100%",
-                            height: 3,
-                            backgroundColor: theme.vars.palette.primary.main,
-                            borderRadius: 1,
-                        },
-                    }}
-                >
-                    {getSectionTitle()}
-                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                    <Typography
+                        variant="h2"
+                        sx={{
+                            fontWeight: 800,
+                            fontSize: { xs: 24, sm: 28, md: 32 },
+                            color: theme.vars.palette.text.primary,
+                            position: "relative",
+                            display: "inline-block",
+                            "&::after": {
+                                content: '""',
+                                position: "absolute",
+                                bottom: -8,
+                                left: 0,
+                                width: "100%",
+                                height: 3,
+                                backgroundColor: theme.vars.palette.primary.main,
+                                borderRadius: 1,
+                            },
+                        }}
+                    >
+                        {getSectionTitle()}
+                    </Typography>
+                </Box>
                 <NextLink
                     href={link}
                     style={{
@@ -126,23 +209,84 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
             <Box
                 sx={{
                     width: "100%",
-                    overflow: "hidden",
+                    overflow: "visible",
                     mt: { xs: 4, md: 5 },
+                    px: { xs: 6, sm: 8, md: 10 },
+                    position: "relative",
+                    "& .slick-track": {
+                        display: "flex",
+                        margin: "0 -8px",
+                        gap: 0.2,
+                    },
+                    "& .slick-slide": {
+                        height: "auto",
+                        opacity: 0.85,
+                        transition: "all 0.3s ease",
+                        transform: "scale(0.95)",
+                        "& > div": {
+                            height: "100%",
+                        },
+                    },
+                    "& .slick-active": {
+                        opacity: 1,
+                        transform: "scale(1)",
+                    },
+                    "& .slick-current": {
+                        opacity: 1,
+                        transform: "scale(1.02)",
+                    },
                 }}
             >
-                <Stack
-                    direction="row"
-                    flexWrap="wrap"
-                    sx={{
-                        columnGap: { xs: 1, sm: 2, md: 3 },
-                        rowGap: { xs: 3, sm: 4, md: 5 },
-                        justifyContent: {
-                            xs: "center",
-                            md: "flex-start",
+                <Slider
+                    dots={false}
+                    infinite={data.length > 6}
+                    speed={600}
+                    slidesToShow={slidesPerView}
+                    slidesToScroll={slidesPerView > 2 ? Math.floor(slidesPerView / 2) : 1}
+                    cssEase="cubic-bezier(0.23, 1, 0.32, 1)"
+                    autoplay={true}
+                    autoplaySpeed={5000}
+                    pauseOnHover={true}
+                    initialSlide={0}
+                    nextArrow={<CustomNextArrow />}
+                    prevArrow={<CustomPrevArrow />}
+                    responsive={[
+                        {
+                            breakpoint: 1280,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 3,
+                            },
                         },
-                        mx: { xs: 1, sm: 2 },
-                        mb: { xs: 3, md: 4 },
-                    }}
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 4,
+                                slidesToScroll: 2,
+                            },
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 2,
+                            },
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                            },
+                        },
+                    ]}
                 >
                     {data?.map((item, index) => {
                         const cardData = transformItemToCardData(item);
@@ -151,9 +295,23 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                             return null;
                         }
 
-                        return <CardItem key={index} data={cardData} type={type} path={path} />;
+                        return (
+                            <Box
+                                key={index}
+                                sx={{
+                                    px: 1,
+                                    transition: "transform 0.3s ease",
+                                    "&:hover": {
+                                        transform: "translateY(-8px)",
+                                        zIndex: 10,
+                                    },
+                                }}
+                            >
+                                <CardItem data={cardData} type={type} path={path} />
+                            </Box>
+                        );
                     })}
-                </Stack>
+                </Slider>
             </Box>
         </Box>
     );

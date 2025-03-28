@@ -117,7 +117,7 @@ export async function getMoviesForHomePage(): Promise<Movie[]> {
 
     const movies = await prisma.movie.findMany({
         orderBy: { dateAired: "desc" },
-        take: 6,
+        take: 18,
     });
 
     const movieIds = movies.map((movie) => movie.id);

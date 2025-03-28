@@ -121,7 +121,7 @@ export async function getSeriesForHomePage(): Promise<Serie[]> {
 
     const series = await prisma.serie.findMany({
         orderBy: { dateAired: "desc" },
-        take: 6,
+        take: 18,
     });
 
     const serieIds = series.map((serie) => serie.id);
