@@ -1,13 +1,17 @@
 "use client";
 
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button, Box, Container, Stack, useTheme } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import TvIcon from "@mui/icons-material/Tv";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const HomeHeroSection = () => {
+    const theme = useTheme();
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -21,18 +25,21 @@ const HomeHeroSection = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
     };
 
+    const buttonHoverVariants = {
+        hover: {
+            scale: 1.05,
+            transition: { duration: 0.3, ease: "easeInOut" }
+        }
+    };
+
     return (
         <Box
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                minHeight: "100vh",
                 position: "relative",
-                textAlign: "center",
+                minHeight: { xs: "85vh", sm: "90vh", md: "95vh" },
                 overflow: "hidden",
-                padding: "3rem 0",
+                display: "flex",
+                alignItems: "center",
             }}
         >
             <Box
@@ -50,7 +57,7 @@ const HomeHeroSection = () => {
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        background: "linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)",
+                        background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.5) 100%)",
                     },
                 }}
             >
@@ -62,111 +69,172 @@ const HomeHeroSection = () => {
                     style={{ objectFit: "cover", objectPosition: "center" }}
                 />
             </Box>
-            <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={containerVariants}
-                style={{
-                    maxWidth: "75%",
-                    margin: "0 auto",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1.5rem",
-                    zIndex: 1,
-                }}
-            >
-                <motion.div variants={itemVariants}>
-                    <Typography
-                        variant="h1"
-                        fontSize={{ xs: 36, sm: 48, md: 64, lg: 72 }}
-                        fontWeight={900}
-                        letterSpacing={{ xs: 1, md: 2 }}
-                        sx={{ color: "#fff", textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}
-                    >
-                        Dive into MovieLandia24
-                    </Typography>
-                </motion.div>
-                <motion.div variants={itemVariants}>
-                    <Typography
-                        variant="h2"
-                        fontSize={{ xs: 22, sm: 28, md: 36, lg: 42 }}
-                        fontWeight={700}
-                        sx={{ color: "#fff", textShadow: "1px 1px 3px rgba(0,0,0,0.4)", opacity: 0.95 }}
-                    >
-                        Your Gateway to the World of Cinema!
-                    </Typography>
-                </motion.div>
-                <motion.div variants={itemVariants}>
-                    <Typography
-                        variant="body1"
-                        fontSize={{ xs: 16, sm: 18, md: 20 }}
-                        fontWeight={500}
+
+            <Container maxWidth="xl" sx={{ position: "relative", zIndex: 2, py: { xs: 4, sm: 5 } }}>
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={containerVariants}
+                >
+                    <Stack
+                        spacing={{ xs: 2, sm: 2.5, md: 3 }}
                         sx={{
-                            color: "grey.100",
-                            maxWidth: { xs: "100%", md: "80%" },
-                            mx: "auto",
-                            opacity: 0.9,
+                            maxWidth: { xs: "100%", md: "65%", lg: "55%" },
+                            textAlign: { xs: "center", md: "left" },
+                            mx: { xs: "auto", md: 0 },
+                            py: { xs: 4, md: 0 }
                         }}
                     >
-                        Explore the latest blockbusters and timeless classics in our curated collection of movies and
-                        series.
-                    </Typography>
+                        <motion.div variants={itemVariants}>
+                            <Typography
+                                component="h1"
+                                sx={{
+                                    fontSize: { xs: "2rem", sm: "2.75rem", md: "3.5rem", lg: "4rem" },
+                                    fontWeight: 900,
+                                    letterSpacing: { xs: "-0.5px", md: "-1px" },
+                                    lineHeight: 1.1,
+                                    color: theme.vars.palette.common.white,
+                                    textShadow: "0 2px 10px rgba(0,0,0,0.3)",
+                                    mb: { xs: 1, md: 1.5 }
+                                }}
+                            >
+                                Dive into MovieLandia24
+                            </Typography>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants}>
+                            <Typography
+                                component="h2"
+                                sx={{
+                                    fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
+                                    fontWeight: 700,
+                                    color: "rgba(255,255,255,0.9)",
+                                    textShadow: "0 1px 3px rgba(0,0,0,0.2)",
+                                    mb: { xs: 1, md: 2 }
+                                }}
+                            >
+                                Your Gateway to the World of Cinema!
+                            </Typography>
+                        </motion.div>
+
+                        <motion.div variants={itemVariants}>
+                            <Typography
+                                sx={{
+                                    fontSize: { xs: "0.9rem", sm: "1rem", md: "1.125rem" },
+                                    fontWeight: 400,
+                                    color: "rgba(255,255,255,0.8)",
+                                    maxWidth: { xs: "100%", md: "85%" },
+                                    lineHeight: 1.6,
+                                    mb: { xs: 2, md: 3 }
+                                }}
+                            >
+                                Explore the latest blockbusters and timeless classics in our curated collection of movies and
+                                series. Discover, rate, and share your favorite cinematic experiences.
+                            </Typography>
+                        </motion.div>
+
+                        <Stack
+                            direction={{ xs: "column", sm: "row" }}
+                            spacing={{ xs: 2, sm: 3 }}
+                            sx={{
+                                justifyContent: { xs: "center", md: "flex-start" },
+                                mt: { xs: 0.5, md: 1.5 }
+                            }}
+                        >
+                            <motion.div
+                                variants={itemVariants}
+                                whileHover="hover"
+                            >
+                                <Button
+                                    component={Link}
+                                    href="/movies"
+                                    variant="contained"
+                                    startIcon={<PlayArrowIcon />}
+                                    sx={{
+                                        px: { xs: 2.5, md: 3.5 },
+                                        py: { xs: 1.25, md: 1.5 },
+                                        fontSize: { xs: "0.9rem", md: "1rem" },
+                                        fontWeight: 600,
+                                        borderRadius: "12px",
+                                        textTransform: "none",
+                                        boxShadow: "0 8px 20px rgba(255, 87, 34, 0.3)",
+                                        background: "linear-gradient(135deg, #ff8a65 0%, #ff5722 100%)",
+                                        color: theme.vars.palette.common.white,
+                                        transition: "all 0.3s ease",
+                                        width: { xs: "100%", sm: "auto" },
+                                        "&:hover": {
+                                            transform: "translateY(-2px)",
+                                            boxShadow: "0 10px 25px rgba(255, 87, 34, 0.4)"
+                                        }
+                                    }}
+                                >
+                                    Explore Movies
+                                </Button>
+                            </motion.div>
+
+                            <motion.div
+                                variants={itemVariants}
+                                whileHover="hover"
+                            >
+                                <Button
+                                    component={Link}
+                                    href="/series"
+                                    variant="outlined"
+                                    startIcon={<TvIcon />}
+                                    sx={{
+                                        px: { xs: 2.5, md: 3.5 },
+                                        py: { xs: 1.25, md: 1.5 },
+                                        fontSize: { xs: "0.9rem", md: "1rem" },
+                                        fontWeight: 600,
+                                        borderRadius: "12px",
+                                        textTransform: "none",
+                                        borderWidth: 2,
+                                        color: theme.vars.palette.common.white,
+                                        borderColor: "rgba(255,255,255,0.7)",
+                                        backdropFilter: "blur(8px)",
+                                        backgroundColor: "rgba(255,255,255,0.05)",
+                                        transition: "all 0.3s ease",
+                                        width: { xs: "100%", sm: "auto" },
+                                        "&:hover": {
+                                            borderColor: theme.vars.palette.common.white,
+                                            backgroundColor: "rgba(255,255,255,0.1)",
+                                            transform: "translateY(-2px)"
+                                        }
+                                    }}
+                                >
+                                    Browse Series
+                                </Button>
+                            </motion.div>
+                        </Stack>
+
+                        <motion.div
+                            variants={itemVariants}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.2, duration: 1 }}
+                        >
+                            <Box
+                                sx={{
+                                    display: { xs: "none", md: "flex" },
+                                    alignItems: "center",
+                                    gap: 2,
+                                    mt: 4,
+                                    opacity: 0.8
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: "0.875rem",
+                                        color: "rgba(255,255,255,0.7)"
+                                    }}
+                                >
+                                    Featuring thousands of titles across all genres
+                                </Typography>
+                            </Box>
+                        </motion.div>
+                    </Stack>
                 </motion.div>
-                <Box
-                    sx={{
-                        display: "flex",
-                        gap: "1.2rem",
-                        justifyContent: "center",
-                        marginTop: { xs: 1, md: 2 },
-                        flexWrap: "wrap",
-                    }}
-                >
-                    <motion.div variants={itemVariants}>
-                        <Button
-                            component={Link}
-                            href="/movies"
-                            variant="contained"
-                            startIcon={<LocalMoviesIcon />}
-                            sx={{
-                                px: { xs: 2.5, md: 3 },
-                                py: { xs: 1.2, md: 1.5 },
-                                fontSize: { xs: 15, md: 16 },
-                                fontWeight: 600,
-                                borderRadius: 50,
-                                textTransform: "none",
-                                boxShadow: "0 4px 12px rgba(255, 138, 101, 0.3)",
-                                background: "linear-gradient(135deg, #ff8a65 0%, #ff5722 100%)",
-                                color: "common.white",
-                            }}
-                        >
-                            Explore Movies
-                        </Button>
-                    </motion.div>
-                    <motion.div variants={itemVariants}>
-                        <Button
-                            component={Link}
-                            href="/series"
-                            variant="outlined"
-                            startIcon={<TvIcon />}
-                            sx={{
-                                px: { xs: 2.5, md: 3 },
-                                py: { xs: 1.2, md: 1.5 },
-                                fontSize: { xs: 15, md: 16 },
-                                fontWeight: 600,
-                                borderRadius: 50,
-                                textTransform: "none",
-                                borderWidth: 2,
-                                color: "common.white",
-                                borderColor: "rgba(255,255,255,0.7)",
-                                backdropFilter: "blur(8px)",
-                                backgroundColor: "rgba(255,255,255,0.05)",
-                            }}
-                        >
-                            Browse Series
-                        </Button>
-                    </motion.div>
-                </Box>
-            </motion.div>
+            </Container>
         </Box>
     );
 };
