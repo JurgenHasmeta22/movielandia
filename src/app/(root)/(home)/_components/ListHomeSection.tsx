@@ -216,7 +216,6 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                     "& .slick-track": {
                         display: "flex",
                         margin: "0 -8px",
-                        gap: 0.2,
                     },
                     "& .slick-slide": {
                         height: "auto",

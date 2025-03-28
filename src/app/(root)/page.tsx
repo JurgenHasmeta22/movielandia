@@ -6,6 +6,9 @@ import HomeHeroSection from "./(home)/_components/HomeHero";
 import ListHomeSection from "./(home)/_components/ListHomeSection";
 import MarketingSection from "./(home)/_components/MarketingSection";
 import NewsletterSection from "./(home)/_components/NewsletterSection";
+import FaqSection from "./(home)/_components/FaqSection";
+import TestimonialsSection from "./(home)/_components/TestimonialsSection";
+import HowItWorksSection from "./(home)/_components/HowItWorksSection";
 import { getMoviesForHomePage } from "@/actions/movie.actions";
 import { getSeriesForHomePage } from "@/actions/serie.actions";
 
@@ -49,7 +52,7 @@ export default async function Home() {
         >
             <HomeHeroSection />
             <MarketingSection />
-            <NewsletterSection />
+            <HowItWorksSection />
             <Container maxWidth="xl">
                 <Stack>
                     <ListHomeSection
@@ -68,6 +71,9 @@ export default async function Home() {
                     />
                 </Stack>
             </Container>
+            <TestimonialsSection />
+            <FaqSection />
+            <NewsletterSection />
         </Box>
     );
 }
