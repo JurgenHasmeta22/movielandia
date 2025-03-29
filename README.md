@@ -103,44 +103,25 @@ npm run dev
 
 Visit [http://localhost:4000](http://localhost:4000) to see the app in action!
 
-<h2 id="structure">📂 Project Structure</h2>
-
-```
-movielandia/
-├── src/                # Application source code
-│   ├── actions/        # Server actions
-│   ├── app/            # Next.js pages & layouts
-│   ├── components/     # UI components
-│   ├── hooks/          # Custom React hooks
-│   ├── providers/      # Context providers
-│   ├── store/          # Zustand store
-│   └── utils/          # Helper functions
-├── prisma/             # Database configuration
-└── emails/             # Email templates
-```
-
-<details>
-<summary><b>Detailed Structure</b></summary>
-
-### Core Directories
-
-- **src/app**: Next.js App Router pages organized by domain
-
-    - **(admin)**: Protected admin dashboard routes
-    - **(root)**: Main public and authenticated user routes
-
-- **src/components**: Reusable UI components organized by domain and function
-
-    - **common**: Shared UI primitives
-    - **features**: Domain-specific components
-    - **forms**: Form components with validation
-
-- **prisma**: Database configuration and management
-    - **schema**: Type-safe database models
-    - **migrations**: Database version control
-    - **seed**: Development data setup
-
-</details>
+<h2 id="structure">Env variables</h2>
+<p>Create a <code>.env.local</code> with the following variables:</p>
+<pre style="background-color:#f0f0f0; padding:10px; overflow:auto">
+    <code>
+        DATABASE_URL=""
+        NEXTAUTH_URL=""
+        NEXTAUTH_SECRET=""
+        GOOGLE_CLIENT_ID=""
+        GOOGLE_CLIENT_SECRET=""
+        RESEND_API_KEY=""
+        POSTGRES_URL=""
+        POSTGRES_PRISMA_URL=""
+        POSTGRES_URL_NO_SSL=""
+        POSTGRES_URL_NON_POOLING=""
+        POSTGRES_HOST=""
+        POSTGRES_PASSWORD=""
+        POSTGRES_DATABASE=""
+    </code>
+</pre>
 
 <div align="center">
   <p>
