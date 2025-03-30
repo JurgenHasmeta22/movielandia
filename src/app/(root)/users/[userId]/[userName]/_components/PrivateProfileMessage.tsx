@@ -12,7 +12,7 @@ export default function PrivateProfileMessage() {
                 p: 4,
                 mt: 3,
                 textAlign: "center",
-                bgcolor: (theme) => (theme.palette.mode === "dark" ? "background.paper" : "grey.50"),
+                bgcolor: (theme) => theme.vars.palette.background.paper,
             }}
         >
             <Stack spacing={3} alignItems="center">

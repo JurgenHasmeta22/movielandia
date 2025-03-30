@@ -40,8 +40,7 @@ const NewsletterSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor:
-                    theme.palette.mode === "dark" ? "rgba(25, 118, 210, 0.05)" : "rgba(25, 118, 210, 0.02)",
+                backgroundColor: theme.vars.palette.background.default,
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
@@ -78,8 +77,8 @@ const NewsletterSection = () => {
                                 sx={{
                                     display: "inline-flex",
                                     alignItems: "center",
-                                    backgroundColor: `${theme.palette.primary.main}15`,
-                                    color: theme.palette.primary.main,
+                                    backgroundColor: `${theme.vars.palette.primary.main}15`,
+                                    color: theme.vars.palette.primary.main,
                                     px: 2,
                                     py: 1,
                                     borderRadius: 2,
@@ -99,7 +98,7 @@ const NewsletterSection = () => {
                                     fontSize: { xs: 28, sm: 32, md: 40 },
                                     fontWeight: 800,
                                     mb: 2,
-                                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                    background: `linear-gradient(45deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.secondary.main})`,
                                     backgroundClip: "text",
                                     WebkitBackgroundClip: "text",
                                     color: "transparent",
@@ -114,7 +113,7 @@ const NewsletterSection = () => {
                                 variant="h3"
                                 sx={{
                                     fontSize: { xs: 16, sm: 18 },
-                                    color: "text.secondary",
+                                    color: theme.vars.palette.text.secondary,
                                     mb: 4,
                                     maxWidth: "600px",
                                     mx: "auto",
@@ -145,7 +144,7 @@ const NewsletterSection = () => {
                                         type="email"
                                         sx={{
                                             "& .MuiOutlinedInput-root": {
-                                                backgroundColor: theme.palette.background.paper,
+                                                backgroundColor: theme.vars.palette.background.paper,
                                                 height: 56,
                                             },
                                         }}
@@ -162,14 +161,14 @@ const NewsletterSection = () => {
                                             textTransform: "none",
                                             fontSize: 16,
                                             fontWeight: 600,
-                                            color: theme.palette.background.default,
-                                            background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
+                                            color: theme.vars.palette.background.default,
+                                            background: `linear-gradient(45deg, ${theme.vars.palette.secondary.main}, ${theme.vars.palette.primary.main})`,
                                             boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
                                             transition: "all 0.2s ease-in-out",
                                             "&:hover": {
                                                 transform: "translateY(-2px)",
                                                 boxShadow: "0 12px 20px rgba(0, 0, 0, 0.15)",
-                                                background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                                background: `linear-gradient(45deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.secondary.main})`,
                                             },
                                             "&:active": {
                                                 transform: "translateY(0)",
@@ -182,7 +181,7 @@ const NewsletterSection = () => {
                             </Box>
                         </motion.div>
                         <motion.div variants={itemVariants}>
-                            <Typography variant="caption" sx={{ display: "block", mt: 2, color: "text.secondary" }}>
+                            <Typography variant="caption" sx={{ display: "block", mt: 2, color: theme.vars.palette.text.secondary }}>
                                 By subscribing, you agree to our Privacy Policy and Terms of Service.
                             </Typography>
                         </motion.div>

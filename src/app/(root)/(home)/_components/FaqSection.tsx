@@ -56,7 +56,7 @@ const FaqSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor: theme.palette.mode === "dark" ? "rgba(0, 0, 0, 0.2)" : "rgba(245, 245, 245, 0.8)",
+                backgroundColor: theme.vars.palette.background.default,
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
@@ -75,8 +75,8 @@ const FaqSection = () => {
                                 sx={{
                                     display: "inline-flex",
                                     alignItems: "center",
-                                    backgroundColor: `${theme.palette.primary.main}15`,
-                                    color: theme.palette.primary.main,
+                                    backgroundColor: `${theme.vars.palette.primary.main}15`,
+                                    color: theme.vars.palette.primary.main,
                                     px: 2,
                                     py: 1,
                                     borderRadius: 2,
@@ -105,7 +105,7 @@ const FaqSection = () => {
                             <Typography
                                 variant="body1"
                                 sx={{
-                                    color: "text.secondary",
+                                    color: theme.vars.palette.text.secondary,
                                     maxWidth: "800px",
                                     mx: "auto",
                                     fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -133,19 +133,16 @@ const FaqSection = () => {
                                         "&:before": {
                                             display: "none",
                                         },
-                                        backgroundColor: theme.palette.background.paper,
+                                        backgroundColor: theme.vars.palette.background.paper,
                                     }}
                                 >
                                     <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon sx={{ color: theme.palette.primary.main }} />}
+                                        expandIcon={<ExpandMoreIcon sx={{ color: theme.vars.palette.primary.main }} />}
                                         sx={{
                                             px: 3,
                                             py: 1.5,
                                             "&:hover": {
-                                                backgroundColor:
-                                                    theme.palette.mode === "dark"
-                                                        ? "rgba(255, 255, 255, 0.05)"
-                                                        : "rgba(0, 0, 0, 0.02)",
+                                                backgroundColor: theme.vars.palette.action.hover,
                                             },
                                         }}
                                     >
@@ -159,15 +156,12 @@ const FaqSection = () => {
                                         sx={{
                                             px: 3,
                                             py: 2,
-                                            backgroundColor:
-                                                theme.palette.mode === "dark"
-                                                    ? "rgba(0, 0, 0, 0.1)"
-                                                    : "rgba(0, 0, 0, 0.01)",
+                                            backgroundColor: theme.vars.palette.action.selected,
                                         }}
                                     >
                                         <Typography
                                             sx={{
-                                                color: "text.secondary",
+                                                color: theme.vars.palette.text.secondary,
                                                 lineHeight: 1.6,
                                                 fontSize: { xs: "0.9rem", sm: "1rem" },
                                             }}

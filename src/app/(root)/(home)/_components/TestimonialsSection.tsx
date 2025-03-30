@@ -112,8 +112,7 @@ const TestimonialsSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor:
-                    theme.palette.mode === "dark" ? "rgba(25, 118, 210, 0.05)" : "rgba(25, 118, 210, 0.02)",
+                backgroundColor: theme.vars.palette.background.default,
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
@@ -132,8 +131,8 @@ const TestimonialsSection = () => {
                                 sx={{
                                     display: "inline-flex",
                                     alignItems: "center",
-                                    backgroundColor: `${theme.palette.primary.main}15`,
-                                    color: theme.palette.primary.main,
+                                    backgroundColor: `${theme.vars.palette.primary.main}15`,
+                                    color: theme.vars.palette.primary.main,
                                     px: 2,
                                     py: 1,
                                     borderRadius: 2,
@@ -162,7 +161,7 @@ const TestimonialsSection = () => {
                             <Typography
                                 variant="body1"
                                 sx={{
-                                    color: "text.secondary",
+                                    color: theme.vars.palette.text.secondary,
                                     maxWidth: "800px",
                                     mx: "auto",
                                     fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -188,7 +187,7 @@ const TestimonialsSection = () => {
                                             flexDirection: "column",
                                             border: "1px solid",
                                             borderColor: "divider",
-                                            backgroundColor: theme.palette.background.paper,
+                                            backgroundColor: theme.vars.palette.background.paper,
                                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
                                             "&:hover": {
                                                 transform: "translateY(-5px)",
@@ -200,7 +199,7 @@ const TestimonialsSection = () => {
                                             <FormatQuoteIcon
                                                 sx={{
                                                     fontSize: 40,
-                                                    color: theme.palette.primary.main,
+                                                    color: theme.vars.palette.primary.main,
                                                     opacity: 0.3,
                                                 }}
                                             />
@@ -209,7 +208,7 @@ const TestimonialsSection = () => {
                                             sx={{
                                                 fontSize: "0.95rem",
                                                 fontStyle: "italic",
-                                                color: "text.secondary",
+                                                color: theme.vars.palette.text.secondary,
                                                 lineHeight: 1.6,
                                                 mb: 3,
                                                 flexGrow: 1,
@@ -228,7 +227,7 @@ const TestimonialsSection = () => {
                                                 <Typography sx={{ fontWeight: 600, fontSize: "0.95rem" }}>
                                                     {testimonial.name}
                                                 </Typography>
-                                                <Typography sx={{ color: "text.secondary", fontSize: "0.85rem" }}>
+                                                <Typography sx={{ color: theme.vars.palette.text.secondary, fontSize: "0.85rem" }}>
                                                     {testimonial.role}
                                                 </Typography>
                                                 <Rating

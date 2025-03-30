@@ -58,7 +58,7 @@ const HowItWorksSection = () => {
             component="section"
             sx={{
                 py: { xs: 6, md: 8 },
-                backgroundColor: theme.palette.mode === "dark" ? "rgba(0, 0, 0, 0.3)" : "rgba(255, 255, 255, 0.9)",
+                backgroundColor: theme.vars.palette.background.default,
                 position: "relative",
                 width: "100%",
                 overflow: "hidden",
@@ -77,8 +77,8 @@ const HowItWorksSection = () => {
                                 sx={{
                                     display: "inline-flex",
                                     alignItems: "center",
-                                    backgroundColor: `${theme.palette.primary.main}15`,
-                                    color: theme.palette.primary.main,
+                                    backgroundColor: `${theme.vars.palette.primary.main}15`,
+                                    color: theme.vars.palette.primary.main,
                                     px: 2,
                                     py: 1,
                                     borderRadius: 2,
@@ -107,7 +107,7 @@ const HowItWorksSection = () => {
                             <Typography
                                 variant="body1"
                                 sx={{
-                                    color: "text.secondary",
+                                    color: theme.vars.palette.text.secondary,
                                     maxWidth: "800px",
                                     mx: "auto",
                                     fontSize: { xs: "0.9rem", sm: "1rem" },
@@ -148,7 +148,7 @@ const HowItWorksSection = () => {
                                         textAlign: "center",
                                         border: "1px solid",
                                         borderColor: "divider",
-                                        backgroundColor: theme.palette.background.paper,
+                                        backgroundColor: theme.vars.palette.background.paper,
                                         position: "relative",
                                         overflow: "hidden",
                                         display: "flex",
@@ -160,7 +160,7 @@ const HowItWorksSection = () => {
                                             left: 0,
                                             width: "100%",
                                             height: "4px",
-                                            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+                                            background: `linear-gradient(90deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.primary.light})`,
                                         },
                                     }}
                                 >
@@ -172,8 +172,8 @@ const HowItWorksSection = () => {
                                             width: 70,
                                             height: 70,
                                             borderRadius: "50%",
-                                            backgroundColor: `${theme.palette.primary.main}15`,
-                                            color: theme.palette.primary.main,
+                                            backgroundColor: `${theme.vars.palette.primary.main}15`,
+                                            color: theme.vars.palette.primary.main,
                                             mx: "auto",
                                             mb: 2,
                                         }}
@@ -193,7 +193,7 @@ const HowItWorksSection = () => {
                                     <Typography
                                         variant="body2"
                                         sx={{
-                                            color: "text.secondary",
+                                            color: theme.vars.palette.text.secondary,
                                             lineHeight: 1.6,
                                             fontSize: { xs: "0.85rem", sm: "0.9rem" },
                                             flexGrow: 1,
@@ -209,7 +209,7 @@ const HowItWorksSection = () => {
                                             width: 24,
                                             height: 24,
                                             borderRadius: "50%",
-                                            backgroundColor: theme.palette.primary.main,
+                                            backgroundColor: theme.vars.palette.primary.main,
                                             color: "#fff",
                                             display: "flex",
                                             alignItems: "center",
