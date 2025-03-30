@@ -181,7 +181,10 @@ const NewsletterSection = () => {
                             </Box>
                         </motion.div>
                         <motion.div variants={itemVariants}>
-                            <Typography variant="caption" sx={{ display: "block", mt: 2, color: theme.vars.palette.text.secondary }}>
+                            <Typography
+                                variant="caption"
+                                sx={{ display: "block", mt: 2, color: theme.vars.palette.text.secondary }}
+                            >
                                 By subscribing, you agree to our Privacy Policy and Terms of Service.
                             </Typography>
                         </motion.div>

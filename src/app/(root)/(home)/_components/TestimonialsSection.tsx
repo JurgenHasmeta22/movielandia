@@ -227,7 +227,12 @@ const TestimonialsSection = () => {
                                                 <Typography sx={{ fontWeight: 600, fontSize: "0.95rem" }}>
                                                     {testimonial.name}
                                                 </Typography>
-                                                <Typography sx={{ color: theme.vars.palette.text.secondary, fontSize: "0.85rem" }}>
+                                                <Typography
+                                                    sx={{
+                                                        color: theme.vars.palette.text.secondary,
+                                                        fontSize: "0.85rem",
+                                                    }}
+                                                >
                                                     {testimonial.role}
                                                 </Typography>
                                                 <Rating

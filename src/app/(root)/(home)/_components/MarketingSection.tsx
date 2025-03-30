@@ -6,6 +6,7 @@ import UpdateIcon from "@mui/icons-material/Update";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import DevicesIcon from "@mui/icons-material/Devices";
 import { motion } from "framer-motion";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const features = [
     {
@@ -51,7 +52,7 @@ const MarketingSection = () => {
             component="section"
             sx={{
                 py: { xs: 4, md: 5 },
-                backgroundColor: theme.palette.background.default,
+                backgroundColor: theme.vars.palette.background.default,
                 position: "relative",
                 width: "100%",
             }}
@@ -83,7 +84,7 @@ const MarketingSection = () => {
                                     fontSize: { xs: 28, sm: 32, md: 40 },
                                     fontWeight: 800,
                                     mb: 2,
-                                    backgroundColor: theme.vars.palette.background.default,
+                                    background: `linear-gradient(45deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.secondary.main})`,
                                     backgroundClip: "text",
                                     WebkitBackgroundClip: "text",
                                     color: "transparent",
@@ -126,13 +127,13 @@ const MarketingSection = () => {
                                         textAlign: "center",
                                         p: 3,
                                         borderRadius: 4,
-                                        backgroundColor: theme.palette.background.paper,
+                                        backgroundColor: theme.vars.palette.background.paper,
                                         height: "100%",
                                     }}
                                 >
                                     <Box
                                         sx={{
-                                            color: theme.palette.primary.main,
+                                            color: theme.vars.palette.primary.main,
                                             mb: 2,
                                             display: "flex",
                                             justifyContent: "center",
