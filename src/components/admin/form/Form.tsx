@@ -12,7 +12,7 @@ import {
     InputAdornment,
     IconButton,
     Stack,
-    Grid2 as Grid,
+    Grid,
     Box,
     FormLabel,
     Typography,
