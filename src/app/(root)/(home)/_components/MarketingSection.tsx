@@ -83,7 +83,7 @@ const MarketingSection = () => {
                                     fontSize: { xs: 28, sm: 32, md: 40 },
                                     fontWeight: 800,
                                     mb: 2,
-                                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                                    backgroundColor: theme.vars.palette.background.default,
                                     backgroundClip: "text",
                                     WebkitBackgroundClip: "text",
                                     color: "transparent",
