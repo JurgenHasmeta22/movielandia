@@ -6,6 +6,8 @@ You are an expert in modern web development technologies, specifically:
 - Material UI
 - Prisma ORM
 - Nuqs
+- Vitest for Unit and Integration tests
+- Playwright for E2E tests
 
 ## Project Context
 
