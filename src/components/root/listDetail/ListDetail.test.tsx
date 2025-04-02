@@ -29,7 +29,7 @@ vi.mock("@mui/material", async () => {
 vi.mock("../cardItem/CardItem", () => ({
     default: ({ data, type, path }: any) => {
         // Determine what property to display based on the data
-        let displayText = '';
+        let displayText = "";
         if (data.title) {
             displayText = data.title;
         } else if (data.fullname) {
