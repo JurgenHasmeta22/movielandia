@@ -32,9 +32,9 @@ vi.mock("next/image", () => ({
         // Use different data-testid for IMDb icon vs. main image
         const testId = src.includes("/icons/") ? "icon-image" : "card-image";
         return (
-            <img
-                src={src}
-                alt={alt}
+            <div
+                data-src={src}
+                data-alt={alt}
                 data-testid={testId}
                 style={{
                     objectFit: style?.objectFit || "cover",
@@ -189,7 +189,7 @@ describe("CardItem Component", () => {
             renderCardItem(movieData, "movie");
 
             const image = screen.getByTestId("card-image");
-            expect(image.getAttribute("src")).toBe("/test-movie.jpg");
+            expect(image.getAttribute("data-src")).toBe("/test-movie.jpg");
             expect(screen.getByText("Test Movie (2023)")).toBeDefined();
             expect(screen.getByText("A test movie description")).toBeDefined();
             expect(screen.getByText("8.5")).toBeDefined();
@@ -202,7 +202,7 @@ describe("CardItem Component", () => {
             renderCardItem(serieData, "serie");
 
             const image = screen.getByTestId("card-image");
-            expect(image.getAttribute("src")).toBe("/test-serie.jpg");
+            expect(image.getAttribute("data-src")).toBe("/test-serie.jpg");
             expect(screen.getByText("Test Serie (2022)")).toBeDefined();
             expect(screen.getByText("A test serie description")).toBeDefined();
         });
@@ -213,7 +213,7 @@ describe("CardItem Component", () => {
             renderCardItem(actorData, "actor", "actors");
 
             const image = screen.getByTestId("card-image");
-            expect(image.getAttribute("src")).toBe("/test-actor.jpg");
+            expect(image.getAttribute("data-src")).toBe("/test-actor.jpg");
             expect(screen.getByText("Test Actor Debut Year: (2010)")).toBeDefined();
             expect(screen.getByText("A test actor description")).toBeDefined();
         });
@@ -224,7 +224,7 @@ describe("CardItem Component", () => {
             renderCardItem(userData, "user");
 
             const image = screen.getByTestId("card-image");
-            expect(image.getAttribute("src")).toBe("/test-user.jpg");
+            expect(image.getAttribute("data-src")).toBe("/test-user.jpg");
             expect(screen.getByText("testuser")).toBeDefined();
             expect(screen.getByText("A test user description")).toBeDefined();
             // User cards should not have ratings
@@ -563,7 +563,7 @@ describe("CardItem Component", () => {
             renderCardItem(dataWithoutImage, "movie");
 
             const image = screen.getByTestId("card-image");
-            expect(image.getAttribute("src")).toBe("/images/placeholder.jpg");
+            expect(image.getAttribute("data-src")).toBe("/images/placeholder.jpg");
         });
 
         it("should handle missing description", () => {

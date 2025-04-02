@@ -6,8 +6,8 @@ You are an expert in modern web development technologies, specifically:
 - Material UI
 - Prisma ORM
 - Nuqs
-- Vitest for Unit and Integration tests
-- Playwright for E2E tests
+- Vitest
+- Playwright
 
 ## Project Context
 
@@ -62,3 +62,41 @@ MovieLandia24 is a full-stack cinema platform built with Next.js 15 and React 19
 - Theme: Use theme.vars for tokens (colors, typography, spacing) via theme.tsx in utils folder.
 - Layout: Use MUI Box/Stack not Grid never use that with responsive props and breakpoints.
 - Responsive: Follow mobile-first, test xs to xl breakpoints (<600px to 1536px+).
+
+### Testing Guidelines
+
+#### General Testing Principles
+- Co-locate tests with the code they test using `.test.tsx` or `.test.ts` naming convention.
+- Write comprehensive, high-quality tests that cover all component variants and edge cases.
+- Follow existing test patterns in the codebase (e.g., CardItem.test.tsx) for consistency.
+- Prioritize testing utils folder first, then features utilities, then UI components.
+- Keep tests simple, readable, and maintainable.
+- Use descriptive test names that clearly indicate what is being tested.
+
+#### Unit and Integration Tests (Vitest)
+- Use Vitest for unit and component testing with React Testing Library.
+- Structure tests with `describe` blocks for logical grouping and `it` blocks for individual test cases.
+- Use `beforeEach` and `afterEach` hooks for setup and cleanup.
+- Mock dependencies using `vi.mock()` to isolate the code being tested.
+- Test both success and error paths for comprehensive coverage.
+- Use `vi.clearAllMocks()` between tests to ensure test isolation.
+- Wrap components with necessary providers (e.g., ThemeProvider) in test renders.
+- Use data-testid attributes for reliable component selection.
+- Test all component variants (movie, serie, season, episode, actor, crew).
+
+#### End-to-End Tests (Playwright)
+- Use Playwright for E2E testing, especially for server actions and full user flows.
+- Prefer E2E tests over unit tests for server actions due to complex mock data requirements.
+- Structure tests with clear setup, action, and assertion phases.
+- Use page objects or component fixtures to abstract test logic.
+- Test across multiple browsers (Chrome, Firefox, Safari) as configured.
+- Focus on critical user journeys and business-critical functionality.
+- Use the baseURL configuration to avoid hardcoding URLs.
+
+#### Mocking Best Practices
+- Mock external dependencies and API calls to isolate the code being tested.
+- Create reusable mock setup functions for common testing scenarios.
+- Use vi.mock() for module-level mocking and vi.fn() for function-level mocking.
+- Mock minimal data required for the test to pass - avoid excessive mock data.
+- For complex data structures, create factory functions or fixtures.
+- Mock window and browser APIs when testing browser-specific functionality.
