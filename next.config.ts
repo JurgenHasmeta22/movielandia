@@ -6,6 +6,7 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '50mb',
         },
+        // reactCompiler: true,
     },
     images: {
         remotePatterns: [
