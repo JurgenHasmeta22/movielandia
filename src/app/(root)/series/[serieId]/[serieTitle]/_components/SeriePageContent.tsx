@@ -26,6 +26,7 @@ interface ISeriePageContentProps {
         castPage: number;
         crewPage: number;
         seasonsPage: number;
+        relatedPage: number;
     };
     serie: any;
     relatedSeries: Serie[] | null;
@@ -33,6 +34,7 @@ interface ISeriePageContentProps {
     castPageCount: number;
     crewPageCount: number;
     seasonsPageCount: number;
+    relatedPageCount: number;
 }
 
 export default function SeriePageContent({
@@ -43,6 +45,7 @@ export default function SeriePageContent({
     castPageCount,
     crewPageCount,
     seasonsPageCount,
+    relatedPageCount,
 }: ISeriePageContentProps) {
     const theme = useTheme();
 
@@ -428,6 +431,13 @@ export default function SeriePageContent({
             {relatedSeries && relatedSeries.length !== 0 && (
                 <Box sx={{ mb: 6 }}>
                     <ListDetail data={relatedSeries} type="serie" roleData="related" />
+                    <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+                        <PaginationControl
+                            currentPage={searchParamsValues.relatedPage}
+                            pageCount={relatedPageCount}
+                            urlParamName="relatedPage"
+                        />
+                    </Box>
                 </Box>
             )}
 

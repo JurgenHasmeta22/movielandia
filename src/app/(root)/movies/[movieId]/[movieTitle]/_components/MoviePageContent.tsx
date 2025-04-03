@@ -27,12 +27,14 @@ interface IMoviePageContentProps {
         reviewsSortBy: string;
         castPage: number;
         crewPage: number;
+        relatedPage: number;
     };
     movie: any;
     relatedMovies: Movie[] | null;
     reviewsPageCount: number;
     castPageCount: number;
     crewPageCount: number;
+    relatedPageCount: number;
 }
 
 export default function MoviePageContent({
@@ -42,6 +44,7 @@ export default function MoviePageContent({
     reviewsPageCount,
     castPageCount,
     crewPageCount,
+    relatedPageCount,
 }: IMoviePageContentProps) {
     // #region "Data for the page"
     const {
@@ -440,6 +443,13 @@ export default function MoviePageContent({
             {relatedMovies && relatedMovies.length !== 0 && (
                 <Box sx={{ mb: 6 }}>
                     <ListDetail data={relatedMovies} type="movie" roleData="related" />
+                    <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+                        <PaginationControl
+                            currentPage={searchParamsValues.relatedPage}
+                            pageCount={relatedPageCount}
+                            urlParamName="relatedPage"
+                        />
+                    </Box>
                 </Box>
             )}
         </Stack>

@@ -450,6 +450,13 @@ export default function SeasonPageContent({
             {relatedSeasons && relatedSeasons.length !== 0 && (
                 <Box sx={{ mb: 6 }}>
                     <ListDetail data={relatedSeasons} type="season" roleData="related" />
+                    <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+                        <PaginationControl
+                            currentPage={searchParamsValues.relatedPage}
+                            pageCount={relatedPageCount}
+                            urlParamName="relatedPage"
+                        />
+                    </Box>
                 </Box>
             )}
 

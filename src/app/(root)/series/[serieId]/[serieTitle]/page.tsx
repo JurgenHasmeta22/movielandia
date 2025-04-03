@@ -19,6 +19,7 @@ interface ISerieProps {
         castPage?: string;
         crewPage?: string;
         seasonsPage?: string;
+        relatedPage?: string;
     };
 }
 
@@ -95,6 +96,7 @@ export default async function SeriePage(props: ISerieProps) {
     const castPage = searchParams?.castPage ? Number(searchParams.castPage) : 1;
     const crewPage = searchParams?.crewPage ? Number(searchParams.crewPage) : 1;
     const seasonsPage = searchParams?.seasonsPage ? Number(searchParams.seasonsPage) : 1;
+    const relatedPage = searchParams?.relatedPage ? Number(searchParams.relatedPage) : 1;
 
     const searchParamsValues = {
         reviewsAscOrDesc,
@@ -114,12 +116,17 @@ export default async function SeriePage(props: ISerieProps) {
         return notFound();
     }
 
-    const relatedSeries = await getRelatedSeries(Number(serieId), Number(session?.user?.id));
+    const { series: relatedSeries, count: totalRelated } = await getRelatedSeries(
+        Number(serieId),
+        Number(session?.user?.id),
+        relatedPage,
+    );
 
     const pageCountReviews = Math.ceil(serie.totalReviews / 5);
     const castPageCount = Math.ceil(serie.totalCast / 5);
     const crewPageCount = Math.ceil(serie.totalCrew / 5);
     const seasonsPageCount = Math.ceil(serie.totalSeasons / 6);
+    const relatedPageCount = Math.ceil(totalRelated / 6);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -131,6 +138,7 @@ export default async function SeriePage(props: ISerieProps) {
                     castPage: Number(castPage) || 1,
                     crewPage: Number(crewPage) || 1,
                     seasonsPage: Number(seasonsPage) || 1,
+                    relatedPage: relatedPage,
                 }}
                 serie={serie}
                 relatedSeries={relatedSeries}
@@ -138,6 +146,7 @@ export default async function SeriePage(props: ISerieProps) {
                 castPageCount={castPageCount}
                 crewPageCount={crewPageCount}
                 seasonsPageCount={seasonsPageCount}
+                relatedPageCount={relatedPageCount}
             />
         </Suspense>
     );

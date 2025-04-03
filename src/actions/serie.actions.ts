@@ -486,10 +486,17 @@ export async function getLatestSeries(userId?: number): Promise<Serie[] | null> 
     }
 }
 
-export async function getRelatedSeries(id: number, userId?: number): Promise<Serie[] | null> {
+export async function getRelatedSeries(
+    id: number,
+    userId?: number,
+    page: number = 1,
+    perPage: number = 6,
+): Promise<{ series: Serie[] | null; count: number }> {
     "use cache";
 
     cacheLife("days");
+
+    const skip = (page - 1) * perPage;
 
     const serie = await prisma.serie.findFirst({
         where: { id },
@@ -501,7 +508,7 @@ export async function getRelatedSeries(id: number, userId?: number): Promise<Ser
     });
 
     if (!seriesGenres.length) {
-        return null;
+        return { series: null, count: 0 };
     }
 
     const genreIds = seriesGenres.map((sg) => sg.genreId);
@@ -517,11 +524,16 @@ export async function getRelatedSeries(id: number, userId?: number): Promise<Ser
     const relatedSerieIds = relatedSerieIdsByGenre.map((rs) => rs.serieId);
 
     if (!relatedSerieIds.length) {
-        return null;
+        return { series: null, count: 0 };
     }
+
+    // Get total count for pagination
+    const totalCount = relatedSerieIds.length;
 
     const relatedSeries = await prisma.serie.findMany({
         where: { id: { in: relatedSerieIds } },
+        skip,
+        take: perPage,
     });
 
     const serieRatings = await prisma.serieReview.groupBy({
@@ -565,7 +577,7 @@ export async function getRelatedSeries(id: number, userId?: number): Promise<Ser
         }),
     );
 
-    return series.length > 0 ? series : null;
+    return { series: series.length > 0 ? series : null, count: totalCount };
 }
 // #endregion
 

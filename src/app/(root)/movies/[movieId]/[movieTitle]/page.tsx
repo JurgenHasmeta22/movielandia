@@ -18,6 +18,7 @@ interface IMoviePageProps {
         reviewsSortBy: string;
         crewPage: string;
         castPage: string;
+        relatedPage?: string;
     }>;
 }
 
@@ -94,6 +95,7 @@ export default async function MoviePage(props: IMoviePageProps) {
 
     const castPage = searchParams?.castPage ? Number(searchParams.castPage) : 1;
     const crewPage = searchParams?.crewPage ? Number(searchParams.crewPage) : 1;
+    const relatedPage = searchParams?.relatedPage ? Number(searchParams.relatedPage) : 1;
 
     const searchParamsValues = {
         reviewsAscOrDesc,
@@ -112,11 +114,16 @@ export default async function MoviePage(props: IMoviePageProps) {
         return notFound();
     }
 
-    const relatedMovies = await getRelatedMovies(Number(movieId), Number(session?.user?.id));
+    const { movies: relatedMovies, count: totalRelated } = await getRelatedMovies(
+        Number(movieId),
+        Number(session?.user?.id),
+        relatedPage,
+    );
 
     const reviewsPageCount = Math.ceil(movie.totalReviews / 5);
     const castPageCount = Math.ceil(movie.totalCast / 5);
     const crewPageCount = Math.ceil(movie.totalCrew / 5);
+    const relatedPageCount = Math.ceil(totalRelated / 6);
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
@@ -127,12 +134,14 @@ export default async function MoviePage(props: IMoviePageProps) {
                     reviewsSortBy,
                     castPage: Number(castPage) || 1,
                     crewPage: Number(crewPage) || 1,
+                    relatedPage: relatedPage,
                 }}
                 movie={movie}
                 relatedMovies={relatedMovies}
                 reviewsPageCount={reviewsPageCount}
                 castPageCount={castPageCount}
                 crewPageCount={crewPageCount}
+                relatedPageCount={relatedPageCount}
             />
         </Suspense>
     );

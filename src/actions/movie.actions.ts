@@ -461,10 +461,17 @@ export async function getLatestMovies(userId?: number): Promise<Movie[] | null> 
     }
 }
 
-export async function getRelatedMovies(id: number, userId?: number): Promise<Movie[] | null> {
+export async function getRelatedMovies(
+    id: number,
+    userId?: number,
+    page: number = 1,
+    perPage: number = 6,
+): Promise<{ movies: Movie[] | null; count: number }> {
     "use cache";
 
     cacheLife("days");
+
+    const skip = (page - 1) * perPage;
 
     const movie = await prisma.movie.findFirst({
         where: { id },
@@ -476,7 +483,7 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
     });
 
     if (!movieGenres.length) {
-        return null;
+        return { movies: null, count: 0 };
     }
 
     const genreIds = movieGenres.map((mg) => mg.genreId);
@@ -492,11 +499,16 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
     const relatedMovieIds = relatedMovieIdsByGenre.map((rm) => rm.movieId);
 
     if (!relatedMovieIds.length) {
-        return null;
+        return { movies: null, count: 0 };
     }
+
+    // Get total count for pagination
+    const totalCount = relatedMovieIds.length;
 
     const relatedMovies = await prisma.movie.findMany({
         where: { id: { in: relatedMovieIds } },
+        skip,
+        take: perPage,
     });
 
     const movieRatings = await prisma.movieReview.groupBy({
@@ -540,7 +552,7 @@ export async function getRelatedMovies(id: number, userId?: number): Promise<Mov
         }),
     );
 
-    return movies.length > 0 ? movies : null;
+    return { movies: movies.length > 0 ? movies : null, count: totalCount };
 }
 
 export async function getMoviesTotalCount(): Promise<number> {
