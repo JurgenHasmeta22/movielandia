@@ -96,8 +96,8 @@ export async function getGenreById(
     userId?: number,
 ): Promise<any | null> {
     const filters: any = {};
-    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 20 : 0;
-    const take = perPage || 20;
+    const skip = perPage ? (page ? (page - 1) * perPage : 0) : page ? (page - 1) * 12 : 0;
+    const take = perPage || 12;
 
     if (name) filters.name = { contains: name };
 

@@ -15,6 +15,7 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
         defaultValue: "1",
         parse: (value) => value || "1",
         shallow: false,
+        history: "push",
     });
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
