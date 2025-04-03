@@ -6,6 +6,8 @@ You are an expert in modern web development technologies, specifically:
 - Material UI
 - Prisma ORM
 - Nuqs
+- Vitest
+- Playwright
 
 ## Project Context
 
@@ -60,3 +62,36 @@ MovieLandia24 is a full-stack cinema platform built with Next.js 15 and React 19
 - Theme: Use theme.vars for tokens (colors, typography, spacing) via theme.tsx in utils folder.
 - Layout: Use MUI Box/Stack not Grid never use that with responsive props and breakpoints.
 - Responsive: Follow mobile-first, test xs to xl breakpoints (<600px to 1536px+).
+
+### Testing Guidelines
+
+#### General Principles
+
+- Co-locate tests using `.test.tsx` or `.test.ts` naming convention
+- Write comprehensive tests covering all variants and edge cases
+- Follow existing patterns (e.g., CardItem.test.tsx) for consistency
+- Keep tests simple, readable, and maintainable
+- Use descriptive test names
+
+#### Unit Tests (Vitest)
+
+- Use React Testing Library for component testing
+- Structure with `describe` and `it` blocks
+- Mock dependencies with `vi.mock()`
+- Test success and error paths
+- Use data-testid for selections
+
+#### E2E Tests (Playwright)
+
+- Use for server actions and critical user flows
+- Test across configured browsers
+- Focus on business-critical functionality
+- Use baseURL configuration
+- Structure with setup, action, assertion phases
+
+#### Mocking
+
+- Mock external dependencies and APIs
+- Create reusable mock setups
+- Use minimal required mock data
+- Mock browser APIs when needed
