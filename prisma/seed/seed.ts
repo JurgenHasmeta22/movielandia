@@ -1,17 +1,40 @@
 // #region "Imports"
 import { PrismaClient } from "@prisma/client";
 import { generateDynamicSeedData, SeedStep } from "./dynamicSeed";
+import { movies } from "./data/movies";
+import { series } from "./data/series";
+import { seasons } from "./data/seasons";
+import { episodes } from "./data/episodes";
+import { actors } from "./data/actors";
+import { crew } from "./data/crew";
+import { genres } from "./data/genres";
+import { users } from "./data/users";
+// Import relationship data from relationships.ts
+import {
+    movieGenres,
+    serieGenres,
+    castMovies,
+    castSeries,
+    crewMovies,
+    crewSeries,
+    movieReviews,
+    upvoteMovieReviews,
+    downvoteMovieReviews,
+    crewReviews,
+    upvoteCrewReviews,
+    downvoteCrewReviews
+} from "./data/relationships";
 // #endregion
 
 const prisma = new PrismaClient({
     log: ["query", "info", "warn", "error"],
 });
 
+// #region "Delete data function"
+async function deleteData() {
+    console.log("Deleting existing data...");
 
-// #region "Seeding data"
-async function main() {
-    // #region "Deleting data"
-    /*
+    // Delete relationships first to avoid foreign key constraints
     await prisma.serieGenre.deleteMany();
     await prisma.movieGenre.deleteMany();
 
@@ -20,14 +43,12 @@ async function main() {
     await prisma.actorReview.deleteMany();
     await prisma.upvoteActorReview.deleteMany();
     await prisma.downvoteActorReview.deleteMany();
-    await prisma.actor.deleteMany();
 
     await prisma.crewMovie.deleteMany();
     await prisma.crewSerie.deleteMany();
     await prisma.crewReview.deleteMany();
     await prisma.upvoteCrewReview.deleteMany();
     await prisma.downvoteCrewReview.deleteMany();
-    await prisma.crew.deleteMany();
 
     await prisma.movieReview.deleteMany();
     await prisma.upvoteMovieReview.deleteMany();
@@ -75,139 +96,30 @@ async function main() {
     await prisma.listCrew.deleteMany();
     await prisma.list.deleteMany();
 
+    // Delete main entities
+    await prisma.episode.deleteMany();
     await prisma.season.deleteMany();
     await prisma.serie.deleteMany();
     await prisma.movie.deleteMany();
+    await prisma.actor.deleteMany();
+    await prisma.crew.deleteMany();
     await prisma.genre.deleteMany();
-    await prisma.episode.deleteMany();
     await prisma.user.deleteMany();
-    */
-    // #endregion
 
-    // #region "User data stuff"
-    /*
-    const createdUsers = [];
+    console.log("All existing data deleted successfully.");
+}
+// #endregion
 
-    for (let i = 1; i <= 10; i++) {
-        const user = await prisma.user.create({
-            data: {
-                id: i,
-                userName: `user${i}`,
-                email: `user${i}@example.com`,
-                password: "hashedpassword123",
-                role: i === 1 ? "Admin" : "User",
-                bio: `I'm user ${i}, a movie enthusiast!`,
-                age: 20 + i,
-                birthday: new Date(1990 + i, 0, 1),
-                gender: i % 2 === 0 ? "Male" : "Female",
-                countryFrom: "United States",
-                active: true,
-            }
-        });
+// #region "Base seeding function"
+async function baseSeeding() {
+    console.log("Starting base seeding...");
 
-        createdUsers.push(user);
+    for (const user of users) {
+        // @ts-ignore - Ignore TypeScript error for password field
+        await prisma.user.create({ data: user });
     }
 
-    for (const user of createdUsers) {
-        const otherUsers = createdUsers.filter(u => u.id !== user.id);
-        const randomUsers = otherUsers.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-        for (const followedUser of randomUsers) {
-            await prisma.userFollow.create({
-                data: {
-                    followerId: user.id,
-                    followingId: followedUser.id,
-                    state: "accepted"
-                }
-            });
-        }
-    }
-
-    for (const user of createdUsers) {
-        for (let movieId = 1; movieId <= 5; movieId++) {
-            await prisma.userMovieRating.create({
-                data: {
-                    userId: user.id,
-                    movieId,
-                    rating: getRandomRating()
-                }
-            });
-
-            if (Math.random() > 0.5) {
-                await prisma.userMovieFavorite.create({
-                    data: {
-                        userId: user.id,
-                        movieId
-                    }
-                });
-            }
-        }
-
-        for (let movieId = 1; movieId <= 3; movieId++) {
-            const review = await prisma.movieReview.create({
-                data: {
-                    userId: user.id,
-                    movieId,
-                    content: `Review for movie ${movieId} by user ${user.id}`,
-                    rating: getRandomRating(),
-                    createdAt: new Date()
-                }
-            });
-
-            const otherUsers = createdUsers.filter(u => u.id !== user.id);
-
-            for (const voter of otherUsers.slice(0, 2)) {
-                if (Math.random() > 0.5) {
-                    await prisma.upvoteMovieReview.create({
-                        data: {
-                            userId: voter.id,
-                            movieId,
-                            movieReviewId: review.id
-                        }
-                    });
-                } else {
-                    await prisma.downvoteMovieReview.create({
-                        data: {
-                            userId: voter.id,
-                            movieId,
-                            movieReviewId: review.id
-                        }
-                    });
-                }
-            }
-        }
-
-        const list = await prisma.list.create({
-            data: {
-                userId: user.id,
-                name: `${user.userName}'s Watchlist`,
-                description: "My favorite movies and shows",
-                contentType: "movie",
-                isPrivate: false
-            }
-        });
-
-        for (let movieId = 1; movieId <= 3; movieId++) {
-            await prisma.listMovie.create({
-                data: {
-                    listId: list.id,
-                    movieId,
-                    userId: user.id,
-                    note: `Added movie ${movieId} to watchlist`
-                }
-            });
-        }
-    }
-    */
-    // #endregion
-
-    // #region "Base seeding data"
-    /*
-    // for (const user of users) {
-    //     // @ts-ignore
-    //     await prisma.user.create({ data: user });
-    // }
-
+    // Create main entities
     for (const genre of genres) {
         await prisma.genre.create({ data: genre });
     }
@@ -236,6 +148,7 @@ async function main() {
         await prisma.crew.create({ data: crewMember });
     }
 
+    // Create relationships
     for (const movieGenre of movieGenres) {
         await prisma.movieGenre.create({ data: movieGenre });
     }
@@ -260,6 +173,7 @@ async function main() {
         await prisma.crewSerie.create({ data: crewSerie });
     }
 
+    // Create reviews and interactions
     for (const movieReviewsData of movieReviews) {
         await prisma.movieReview.create({ data: movieReviewsData });
     }
@@ -283,22 +197,39 @@ async function main() {
     for (const downvoteCrewReviewsData of downvoteCrewReviews) {
         await prisma.downvoteCrewReview.create({ data: downvoteCrewReviewsData });
     }
-    */
-    // #endregion
 
-    console.log("Skipping base seeding and proceeding directly to dynamic seeding...");
+    console.log("Base seeding completed successfully.");
 }
 // #endregion
 
-console.log("Starting dynamic seeding only from relationships step...");
+const config = {
+    useDynamicSeeding: true, // Set to false to use base seeding instead
+    deleteBeforeSeeding: false, // Set to true to delete all data before seeding
+    dynamicSeedingStartStep: SeedStep.Reviews // Which step to start from for dynamic seeding
+};
 
-generateDynamicSeedData(SeedStep.Relationships)
-    .then(async () => {
-        console.log("Dynamic database seeding completed successfully.");
+async function main() {
+    try {
+        if (config.deleteBeforeSeeding) {
+            await deleteData();
+        }
+
+        if (config.useDynamicSeeding) {
+            console.log(`Starting dynamic seeding from ${SeedStep[config.dynamicSeedingStartStep]} step...`);
+            await generateDynamicSeedData(config.dynamicSeedingStartStep);
+            console.log("Dynamic database seeding completed successfully.");
+        } else {
+            console.log("Using base seeding...");
+            await baseSeeding();
+            console.log("Base database seeding completed successfully.");
+        }
+
         await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-        console.error(e);
+    } catch (error) {
+        console.error("Error during seeding:", error);
         await prisma.$disconnect();
         process.exit(1);
-    })
+    }
+}
+
+main();

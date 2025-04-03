@@ -4,7 +4,7 @@ export default interface AppStoreState {
 
     isDrawerOpen: boolean;
     setIsDrawerOpen: (data: boolean) => void;
-    
+
     isEditModeReview: boolean;
     setIsEditModeReview: (data: boolean) => void;
 }

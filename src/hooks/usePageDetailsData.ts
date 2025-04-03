@@ -14,7 +14,7 @@ export function usePageDetailsData() {
     const [review, setReview] = useState<string>("");
     const [rating, setRating] = useState<number | null>(null);
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
-    
+
     const [open, setOpen] = useState<boolean>(false);
     const [openVotesModal, setIsOpenVotesModal] = useState(false);
 

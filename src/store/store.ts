@@ -12,7 +12,7 @@ export const useStore = create<AppStoreState>()(
 
             isDrawerOpen: false,
             setIsDrawerOpen: (data) => set({ isDrawerOpen: data }),
-            
+
             isEditModeReview: false,
             setIsEditModeReview: (data) => set({ isEditModeReview: data }),
         }),
