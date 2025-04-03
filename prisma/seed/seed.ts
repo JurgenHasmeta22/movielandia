@@ -1,6 +1,6 @@
 // #region "Imports"
 import { PrismaClient } from "@prisma/client";
-import { generateDynamicSeedData } from "./dynamicSeed";
+import { generateDynamicSeedData, SeedStep } from "./dynamicSeed";
 // #endregion
 
 const prisma = new PrismaClient({
@@ -290,9 +290,9 @@ async function main() {
 }
 // #endregion
 
-console.log("Starting dynamic seeding only...");
+console.log("Starting dynamic seeding only from relationships step...");
 
-generateDynamicSeedData()
+generateDynamicSeedData(SeedStep.Relationships)
     .then(async () => {
         console.log("Dynamic database seeding completed successfully.");
         await prisma.$disconnect();

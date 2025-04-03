@@ -297,6 +297,7 @@ async function generateRelationships(): Promise<void> {
 
         for (const actor of selectedActors) {
             const relationshipKey = `${movie.id}-${actor.id}`;
+
             if (existingMovieActorRelationships.has(relationshipKey)) {
                 console.log(`Skipping duplicate castMovie relationship: Movie ${movie.id} - Actor ${actor.id}`);
                 continue;
@@ -324,7 +325,18 @@ async function generateRelationships(): Promise<void> {
     }
 
     console.log("Assigning actors to series...");
-    let castSerieId = await prisma.castSerie.count();
+
+    const highestCastSerieId = await prisma.castSerie.findFirst({
+        orderBy: {
+            id: 'desc'
+        },
+        select: {
+            id: true
+        }
+    });
+
+    let castSerieId = highestCastSerieId ? highestCastSerieId.id : 0;
+    console.log(`Starting castSerie IDs from ${castSerieId + 1}`);
 
     const existingCastSeries = await prisma.castSerie.findMany({
         select: {
@@ -339,17 +351,34 @@ async function generateRelationships(): Promise<void> {
         existingRelationships.add(`${rel.serieId}-${rel.actorId}`);
     }
 
+    console.log(`Found ${existingRelationships.size} existing castSerie relationships`);
+
     for (const serie of series) {
         if (serie.id <= 5) continue;
 
         const actorCount = Math.floor(Math.random() * 6) + 3;
         const selectedActors = faker.helpers.arrayElements(actors, actorCount);
 
+        console.log(`Processing serie ${serie.id} with ${selectedActors.length} actors`);
+
         for (const actor of selectedActors) {
             const relationshipKey = `${serie.id}-${actor.id}`;
 
             if (existingRelationships.has(relationshipKey)) {
                 console.log(`Skipping duplicate castSerie relationship: Serie ${serie.id} - Actor ${actor.id}`);
+                continue;
+            }
+
+            const existingRelation = await prisma.castSerie.findFirst({
+                where: {
+                    serieId: serie.id,
+                    actorId: actor.id
+                }
+            });
+
+            if (existingRelation) {
+                console.log(`Found existing castSerie in DB: Serie ${serie.id} - Actor ${actor.id}`);
+                existingRelationships.add(relationshipKey);
                 continue;
             }
 
@@ -364,10 +393,14 @@ async function generateRelationships(): Promise<void> {
                         actorId: actor.id
                     }
                 });
+
+                console.log(`Created castSerie: ID ${castSerieId}, Serie ${serie.id} - Actor ${actor.id}`);
             } catch (error: any) {
                 if (error.code === 'P2002') {
                     console.log(`Skipping duplicate castSerie relationship: Serie ${serie.id} - Actor ${actor.id}`);
+                    castSerieId--;
                 } else {
+                    console.error(`Error creating castSerie: ${error.message}`);
                     throw error;
                 }
             }
@@ -375,6 +408,7 @@ async function generateRelationships(): Promise<void> {
     }
 
     console.log("Assigning crew to movies...");
+
     let crewMovieId = await prisma.crewMovie.count();
 
     const existingCrewMovies = await prisma.crewMovie.findMany({
@@ -392,6 +426,7 @@ async function generateRelationships(): Promise<void> {
 
     for (const movie of movies) {
         if (movie.id <= 10) continue;
+
         const crewCount = Math.floor(Math.random() * 4) + 2;
         const selectedCrew = faker.helpers.arrayElements(crew, crewCount);
 
@@ -425,7 +460,18 @@ async function generateRelationships(): Promise<void> {
     }
 
     console.log("Assigning crew to series...");
-    let crewSerieId = await prisma.crewSerie.count();
+
+    const highestCrewSerieId = await prisma.crewSerie.findFirst({
+        orderBy: {
+            id: 'desc'
+        },
+        select: {
+            id: true
+        }
+    });
+
+    let crewSerieId = highestCrewSerieId ? highestCrewSerieId.id : 0;
+    console.log(`Starting crewSerie IDs from ${crewSerieId + 1}`);
 
     const existingCrewSeries = await prisma.crewSerie.findMany({
         select: {
@@ -440,16 +486,33 @@ async function generateRelationships(): Promise<void> {
         existingSerieCrewRelationships.add(`${rel.serieId}-${rel.crewId}`);
     }
 
+    console.log(`Found ${existingSerieCrewRelationships.size} existing crewSerie relationships`);
+
     for (const serie of series) {
         if (serie.id <= 5) continue;
+
         const crewCount = Math.floor(Math.random() * 4) + 2;
         const selectedCrew = faker.helpers.arrayElements(crew, crewCount);
+        console.log(`Processing serie ${serie.id} with ${selectedCrew.length} crew members`);
 
         for (const crewMember of selectedCrew) {
             const relationshipKey = `${serie.id}-${crewMember.id}`;
 
             if (existingSerieCrewRelationships.has(relationshipKey)) {
                 console.log(`Skipping duplicate crewSerie relationship: Serie ${serie.id} - Crew ${crewMember.id}`);
+                continue;
+            }
+
+            const existingRelation = await prisma.crewSerie.findFirst({
+                where: {
+                    serieId: serie.id,
+                    crewId: crewMember.id
+                }
+            });
+
+            if (existingRelation) {
+                console.log(`Found existing crewSerie in DB: Serie ${serie.id} - Crew ${crewMember.id}`);
+                existingSerieCrewRelationships.add(relationshipKey);
                 continue;
             }
 
@@ -464,10 +527,14 @@ async function generateRelationships(): Promise<void> {
                         crewId: crewMember.id
                     }
                 });
+
+                console.log(`Created crewSerie: ID ${crewSerieId}, Serie ${serie.id} - Crew ${crewMember.id}`);
             } catch (error: any) {
                 if (error.code === 'P2002') {
                     console.log(`Skipping duplicate crewSerie relationship: Serie ${serie.id} - Crew ${crewMember.id}`);
+                    crewSerieId--;
                 } else {
+                    console.error(`Error creating crewSerie: ${error.message}`);
                     throw error;
                 }
             }
@@ -839,7 +906,16 @@ async function generateReviewsAndRatings(): Promise<void> {
 // #endregion
 
 // #region "Main Function"
-export async function generateDynamicSeedData() {
+export enum SeedStep {
+    Movies = 1,
+    Series = 2,
+    Actors = 3,
+    Crew = 4,
+    Relationships = 5,
+    Reviews = 6
+}
+
+export async function generateDynamicSeedData(startFromStep: SeedStep = SeedStep.Movies) {
     console.log("Starting dynamic data seeding...");
 
     const existingMoviesCount = await prisma.movie.count();
@@ -864,23 +940,47 @@ export async function generateDynamicSeedData() {
     const newCrewCount = 100;
 
     try {
-        console.log("Generating new movies...");
-        await generateMovies(newMoviesCount, existingMoviesCount);
+        if (startFromStep <= SeedStep.Movies) {
+            console.log("Generating new movies...");
+            await generateMovies(newMoviesCount, existingMoviesCount);
+        } else {
+            console.log("Skipping movie generation...");
+        }
 
-        console.log("Generating new series and seasons...");
-        await generateSeries(newSeriesCount, existingSeriesCount, existingSeasonsCount);
+        if (startFromStep <= SeedStep.Series) {
+            console.log("Generating new series and seasons...");
+            await generateSeries(newSeriesCount, existingSeriesCount, existingSeasonsCount);
+        } else {
+            console.log("Skipping series generation...");
+        }
 
-        console.log("Generating new actors...");
-        await generateActors(newActorsCount, existingActorsCount);
+        if (startFromStep <= SeedStep.Actors) {
+            console.log("Generating new actors...");
+            await generateActors(newActorsCount, existingActorsCount);
+        } else {
+            console.log("Skipping actors generation...");
+        }
 
-        console.log("Generating new crew members...");
-        await generateCrew(newCrewCount, existingCrewCount);
+        if (startFromStep <= SeedStep.Crew) {
+            console.log("Generating new crew members...");
+            await generateCrew(newCrewCount, existingCrewCount);
+        } else {
+            console.log("Skipping crew generation...");
+        }
 
-        console.log("Generating relationships between entities...");
-        await generateRelationships();
+        if (startFromStep <= SeedStep.Relationships) {
+            console.log("Generating relationships between entities...");
+            await generateRelationships();
+        } else {
+            console.log("Skipping relationships generation...");
+        }
 
-        console.log("Generating reviews and ratings...");
-        await generateReviewsAndRatings();
+        if (startFromStep <= SeedStep.Reviews) {
+            console.log("Generating reviews and ratings...");
+            await generateReviewsAndRatings();
+        } else {
+            console.log("Skipping reviews and ratings generation...");
+        }
 
         console.log("Dynamic seeding completed successfully!");
     } catch (error) {
