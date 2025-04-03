@@ -1,41 +1,17 @@
 // #region "Imports"
 import { PrismaClient } from "@prisma/client";
-import { actors } from "./data/actors";
-import { crew } from "./data/crew";
-import { episodes } from "./data/episodes";
-import { genres } from "./data/genres";
-import { movies } from "./data/movies";
-import { movieGenres, serieGenres, castMovies, castSeries, crewMovies, crewSeries, downvoteCrewReviews, crewReviews, downvoteMovieReviews, movieReviews, upvoteCrewReviews, upvoteMovieReviews } from "./data/relationships";
-import { seasons } from "./data/seasons";
-import { series } from "./data/series";
-import { users } from "./data/users";
+import { generateDynamicSeedData } from "./dynamicSeed";
 // #endregion
 
 const prisma = new PrismaClient({
     log: ["query", "info", "warn", "error"],
 });
 
-// #region "Utils"
-function getRandomRating(): number {
-    return Number((Math.random() * (9.9 - 1.0) + 1.0).toFixed(1));
-}
-
-function getRandomDate(): string {
-    const start = new Date(1950, 0, 1).getTime(); // Jan 1, 1950
-    const end = new Date().getTime(); // Today
-    const randomTimestamp = Math.floor(Math.random() * (end - start) + start);
-
-    return new Date(randomTimestamp).toISOString().split("T")[0]; // Format: YYYY-MM-DD
-}
-
-function getRandomDuration(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-// #endregion
 
 // #region "Seeding data"
 async function main() {
     // #region "Deleting data"
+    /*
     await prisma.serieGenre.deleteMany();
     await prisma.movieGenre.deleteMany();
 
@@ -105,9 +81,11 @@ async function main() {
     await prisma.genre.deleteMany();
     await prisma.episode.deleteMany();
     await prisma.user.deleteMany();
+    */
     // #endregion
 
     // #region "User data stuff"
+    /*
     const createdUsers = [];
 
     for (let i = 1; i <= 10; i++) {
@@ -220,9 +198,11 @@ async function main() {
             });
         }
     }
+    */
     // #endregion
 
     // #region "Base seeding data"
+    /*
     // for (const user of users) {
     //     // @ts-ignore
     //     await prisma.user.create({ data: user });
@@ -303,17 +283,22 @@ async function main() {
     for (const downvoteCrewReviewsData of downvoteCrewReviews) {
         await prisma.downvoteCrewReview.create({ data: downvoteCrewReviewsData });
     }
+    */
     // #endregion
+
+    console.log("Skipping base seeding and proceeding directly to dynamic seeding...");
 }
 // #endregion
 
-main()
+console.log("Starting dynamic seeding only...");
+
+generateDynamicSeedData()
     .then(async () => {
-        console.log("Database seeding completed successfully.");
-        await prisma.$disconnect()
+        console.log("Dynamic database seeding completed successfully.");
+        await prisma.$disconnect();
     })
     .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
+        console.error(e);
+        await prisma.$disconnect();
+        process.exit(1);
     })
