@@ -38,20 +38,20 @@ const CustomNextArrow = (props: any) => {
             sx={{
                 position: "absolute",
                 top: "50%",
-                right: { xs: "-30px", sm: "-40px", md: "-50px" },
+                right: { xs: "-12px", sm: "-15px", md: "-18px" },
                 transform: "translateY(-50%)",
                 zIndex: 2,
                 color: theme.vars.palette.common.white,
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
-                width: { xs: 40, sm: 46, md: 50 },
-                height: { xs: 40, sm: 46, md: 50 },
-                boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                width: { xs: 24, sm: 28, md: 32 },
+                height: { xs: 24, sm: 28, md: 32 },
+                boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
                 "&:hover": {
                     backgroundColor: theme.vars.palette.primary.main,
                 },
             }}
         >
-            <NavigateNextIcon sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />
+            <NavigateNextIcon sx={{ fontSize: { xs: 16, sm: 18, md: 20 } }} />
         </IconButton>
     );
 };
@@ -66,20 +66,20 @@ const CustomPrevArrow = (props: any) => {
             sx={{
                 position: "absolute",
                 top: "50%",
-                left: { xs: "-30px", sm: "-40px", md: "-50px" },
+                left: { xs: "-12px", sm: "-15px", md: "-18px" },
                 transform: "translateY(-50%)",
                 zIndex: 2,
                 color: theme.vars.palette.common.white,
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
-                width: { xs: 40, sm: 46, md: 50 },
-                height: { xs: 40, sm: 46, md: 50 },
-                boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+                width: { xs: 24, sm: 28, md: 32 },
+                height: { xs: 24, sm: 28, md: 32 },
+                boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
                 "&:hover": {
                     backgroundColor: theme.vars.palette.primary.main,
                 },
             }}
         >
-            <NavigateBeforeIcon sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />
+            <NavigateBeforeIcon sx={{ fontSize: { xs: 16, sm: 18, md: 20 } }} />
         </IconButton>
     );
 };
@@ -241,11 +241,8 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                     infinite={data.length > 6}
                     speed={600}
                     slidesToShow={slidesPerView}
-                    slidesToScroll={slidesPerView > 2 ? Math.floor(slidesPerView / 2) : 1}
+                    slidesToScroll={slidesPerView}
                     cssEase="cubic-bezier(0.23, 1, 0.32, 1)"
-                    autoplay={true}
-                    autoplaySpeed={5000}
-                    pauseOnHover={true}
                     initialSlide={0}
                     nextArrow={<CustomNextArrow />}
                     prevArrow={<CustomPrevArrow />}
@@ -254,28 +251,28 @@ const ListHomeSection = ({ data, type, link, linkText, path }: IListHomeSectionP
                             breakpoint: 1280,
                             settings: {
                                 slidesToShow: 5,
-                                slidesToScroll: 3,
+                                slidesToScroll: 5,
                             },
                         },
                         {
                             breakpoint: 1024,
                             settings: {
                                 slidesToShow: 4,
-                                slidesToScroll: 2,
+                                slidesToScroll: 4,
                             },
                         },
                         {
                             breakpoint: 768,
                             settings: {
                                 slidesToShow: 3,
-                                slidesToScroll: 2,
+                                slidesToScroll: 3,
                             },
                         },
                         {
                             breakpoint: 600,
                             settings: {
                                 slidesToShow: 2,
-                                slidesToScroll: 1,
+                                slidesToScroll: 2,
                             },
                         },
                         {

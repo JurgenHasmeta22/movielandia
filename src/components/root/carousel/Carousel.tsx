@@ -37,16 +37,16 @@ const CustomNextArrow = ({ onClick }: ArrowProps) => {
             sx={{
                 position: "absolute",
                 top: "50%",
-                right: { xs: "16px", sm: "32px", md: "48px" },
+                right: { xs: "16px", sm: "24px", md: "32px" },
                 transform: "translateY(-50%)",
                 zIndex: 2,
-                color: "#e0e0e0",
-                backgroundColor: "rgba(20, 20, 20, 0.7)",
-                width: { xs: 40, sm: 48, md: 56 },
-                height: { xs: 40, sm: 48, md: 56 },
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                width: { xs: 32, sm: 36, md: 40 },
+                height: { xs: 32, sm: 36, md: 40 },
                 transition: "all 0.2s ease-in-out",
                 "&:hover": {
-                    backgroundColor: "rgba(20, 20, 20, 0.9)",
+                    backgroundColor: "#4cceac",
                     transform: "translateY(-50%) scale(1.05)",
                 },
                 "&:focus-visible": {
@@ -55,7 +55,7 @@ const CustomNextArrow = ({ onClick }: ArrowProps) => {
                 },
             }}
         >
-            <NavigateNextIcon sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />
+            <NavigateNextIcon sx={{ fontSize: { xs: 20, sm: 24, md: 28 } }} />
         </IconButton>
     );
 };
@@ -68,16 +68,16 @@ const CustomPrevArrow = ({ onClick }: ArrowProps) => {
             sx={{
                 position: "absolute",
                 top: "50%",
-                left: { xs: "16px", sm: "32px", md: "48px" },
+                left: { xs: "16px", sm: "24px", md: "32px" },
                 transform: "translateY(-50%)",
                 zIndex: 2,
-                color: "#e0e0e0",
-                backgroundColor: "rgba(20, 20, 20, 0.7)",
-                width: { xs: 40, sm: 48, md: 56 },
-                height: { xs: 40, sm: 48, md: 56 },
+                color: "white",
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
+                width: { xs: 32, sm: 36, md: 40 },
+                height: { xs: 32, sm: 36, md: 40 },
                 transition: "all 0.2s ease-in-out",
                 "&:hover": {
-                    backgroundColor: "rgba(20, 20, 20, 0.9)",
+                    backgroundColor: "#4cceac",
                     transform: "translateY(-50%) scale(1.05)",
                 },
                 "&:focus-visible": {
@@ -86,7 +86,7 @@ const CustomPrevArrow = ({ onClick }: ArrowProps) => {
                 },
             }}
         >
-            <NavigateBeforeIcon sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />
+            <NavigateBeforeIcon sx={{ fontSize: { xs: 20, sm: 24, md: 28 } }} />
         </IconButton>
     );
 };
@@ -95,62 +95,15 @@ const Carousel = ({ data, type }: CarouselProps) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 800,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        pauseOnHover: true,
         nextArrow: <CustomNextArrow />,
         prevArrow: <CustomPrevArrow />,
-        beforeChange: (_: number, next: number) => setCurrentSlide(next),
         fade: true,
         cssEase: "cubic-bezier(0.87, 0, 0.13, 1)",
-        dotsClass: "slick-dots custom-dots",
-        appendDots: (dots: React.ReactNode) => (
-            <Box
-                component={motion.div}
-                sx={{
-                    position: "absolute",
-                    bottom: { xs: "24px", sm: "28px", md: "32px" },
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    zIndex: 5,
-                    "& .slick-dots": {
-                        position: "static",
-                        display: "flex !important",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: 1,
-                    },
-                    "& .slick-dots li": {
-                        margin: "0 6px",
-                        width: "auto",
-                        height: "auto",
-                    },
-                    "& .slick-dots li button": {
-                        width: { xs: "10px", sm: "12px" },
-                        height: { xs: "10px", sm: "12px" },
-                        borderRadius: "50%",
-                        backgroundColor: "rgba(224, 224, 224, 0.5)",
-                        transition: "all 0.3s ease",
-                        padding: 0,
-                        "&:before": {
-                            display: "none",
-                        },
-                    },
-                    "& .slick-dots li.slick-active button": {
-                        backgroundColor: "#4cceac",
-                        transform: "scale(1.2)",
-                    },
-                }}
-            >
-                <ul>{dots}</ul>
-            </Box>
-        ),
         responsive: [
             {
                 breakpoint: 960,
@@ -167,6 +120,7 @@ const Carousel = ({ data, type }: CarouselProps) => {
                 },
             },
         ],
+        beforeChange: (_: number, next: number) => setCurrentSlide(next),
     };
 
     const getTitleOrName = (type: string, element: CarouselItem): string => {
@@ -191,6 +145,24 @@ const Carousel = ({ data, type }: CarouselProps) => {
                 mb: 2,
                 borderRadius: { xs: 0, sm: 2 },
                 boxShadow: { xs: "none", sm: "rgba(0, 0, 0, 0.1) 0px 8px 24px" },
+                "& .slick-slider": {
+                    height: "100%",
+                },
+                "& .slick-list": {
+                    height: "100%",
+                },
+                "& .slick-track": {
+                    height: "100%",
+                },
+                "& .slick-slide": {
+                    height: "100%",
+                    "& > div": {
+                        height: "100%",
+                    },
+                },
+                "& .slick-dots": {
+                    bottom: { xs: "32px", sm: "40px", md: "48px" },
+                },
             }}
         >
             <Slider {...settings}>
