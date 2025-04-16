@@ -96,10 +96,38 @@ MovieLandia24 is a full-stack cinema platform built with Next.js 15 and React 19
 - Use minimal required mock data
 - Mock browser APIs when needed
 
-## Git Usage
+## Git Commits
 
-- Generate a concise commit message (max 70 characters) summarizing the changes from `git diff`.
-- Use Conventional Commit prefixes (`docs:`, `feat:`, `fix:`, `chore:`, etc.) to categorize the change.
-- Clearly describe what was modified, added, or fixed. Format: `{type}[(scope)]: {description}`.
-- Use the terminal command `git diff` to retrieve the changes.
-- Format the output in Markdown with a heading.
+- Format: <gitmoji> type(scope): description
+- Types: feat, fix, docs, style, refactor, perf, test, chore, ci, build, revert
+- Subject: imperative mood, <50 chars (max 72), no period
+- Separate subject from body with blank line
+- Body explains what/why, not how
+- use `git --no-pager diff` to view changes
+- don't create a commit file
+- generate a message only, don't commit
+
+## Common Gitmojis
+
+✨ :sparkles: New features
+🐛 :bug: Bug fixes
+💄 :lipstick: UI/style updates
+♻️ :recycle: Refactoring
+📝 :memo: Documentation
+🔧 :wrench: Configuration
+🎨 :art: Code structure
+🚀 :rocket: Performance
+🔥 :fire: Removing code
+✅ :white_check_mark: Tests
+🔒 :lock: Security
+⬆️ :arrow_up: Upgrade deps
+⬇️ :arrow_down: Downgrade deps
+🎉 :tada: Initial commits
+🚧 :construction: WIP
+💡 :bulb: Comments/docs
+🔍 :mag: SEO
+📱 :iphone: Responsive
+♿️ :wheelchair: Accessibility
+🔀 :twisted_rightwards_arrows: Merging
+🚚 :truck: Moving/renaming
+💥 :boom: Breaking changes
