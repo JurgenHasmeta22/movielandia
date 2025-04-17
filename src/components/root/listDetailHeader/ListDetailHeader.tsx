@@ -1,11 +1,13 @@
 "use client";
 
-import { Box, Button, Typography, Stack } from "@mui/material";
+import { Box, Button, Typography, Stack, Chip } from "@mui/material";
 import { DeleteForever, DeleteSweep } from "@mui/icons-material";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
-import { deleteList } from "@/actions/list/list.actions";
+import { deleteList, getListContentType } from "@/actions/list/list.actions";
+import ContentTypeLabel from "../contentTypeLabel/ContentTypeLabel";
+import { useEffect, useState } from "react";
 
 interface ListDetailHeaderProps {
     listId: number;
@@ -16,6 +18,20 @@ interface ListDetailHeaderProps {
 export default function ListDetailHeader({ listId, userId, listTitle }: ListDetailHeaderProps) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const [contentType, setContentType] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchContentType = async () => {
+            try {
+                const type = await getListContentType(listId);
+                setContentType(type);
+            } catch (error) {
+                console.error("Failed to fetch content type:", error);
+            }
+        };
+
+        fetchContentType();
+    }, [listId]);
 
     const handleDeleteAllItems = () => {
         startTransition(async () => {
@@ -50,9 +66,14 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
                 mb: 4,
             }}
         >
-            <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: 500 }}>
-                {listTitle}
-            </Typography>
+            <Stack direction="row" spacing={2} alignItems="center">
+                <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: 500 }}>
+                    {listTitle}
+                </Typography>
+                {contentType && (
+                    <ContentTypeLabel contentType={contentType} size="medium" />
+                )}
+            </Stack>
             <Stack direction="row" spacing={1}>
                 <Button
                     variant="outlined"

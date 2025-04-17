@@ -167,7 +167,7 @@ export default function ListDetailCardItem({
                         sx={{
                             display: "flex",
                             flexDirection: "column",
-                            width: { xs: 70, sm: 80, md: 90, lg: 100 },
+                            width: { xs: 65, sm: 75, md: 85, lg: 95 },
                             gap: 1,
                         }}
                     >
@@ -192,7 +192,7 @@ export default function ListDetailCardItem({
                                 src={getPhotoSrc() || "/images/placeholder.jpg"}
                                 alt={getTitle()}
                                 fill
-                                sizes="(max-width: 600px) 70px, (max-width: 900px) 80px, (max-width: 1200px) 90px, 100px"
+                                sizes="(max-width: 600px) 65px, (max-width: 900px) 75px, (max-width: 1200px) 85px, 95px"
                                 style={{ objectFit: "cover" }}
                                 priority
                             />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useTransition } from "react";
-import { Box, Stack, Typography, Tooltip, IconButton, Button } from "@mui/material";
+import { Box, Stack, Typography, Tooltip, IconButton, Button, Divider } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -178,21 +178,7 @@ export default function ListPageContent({
                     >
                         GO BACK
                     </Button>
-                    <Stack>
-                        <Typography
-                            variant="overline"
-                            sx={{
-                                fontSize: { xs: 15, sm: 18, md: 22 },
-                                fontWeight: 700,
-                                color: "text.secondary",
-                                letterSpacing: 1,
-                                textTransform: "capitalize",
-                                minWidth: 200,
-                            }}
-                        >
-                            {list.contentType ? `${list.contentType} custom list` : "Custom list"}
-                        </Typography>
-                    </Stack>
+
                 </Stack>
                 <ListDetailHeader listId={list.id} userId={list.userId} listTitle={list.name} />
                 <Stack spacing={2}>
@@ -238,7 +224,9 @@ export default function ListPageContent({
                     )}
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
                         <Typography variant="body2">Created by {userName}</Typography>
+                        <Divider orientation="vertical" flexItem />
                         <Typography variant="body2">Last updated {formatDate(list.updatedAt)}</Typography>
+                        <Divider orientation="vertical" flexItem />
                         <Typography variant="body2">{totalItems} items</Typography>
                     </Stack>
                 </Stack>
@@ -252,12 +240,12 @@ export default function ListPageContent({
                             sx={{
                                 display: "grid",
                                 gridTemplateColumns: {
-                                    xs: "repeat(auto-fill, minmax(120px, 1fr))",
-                                    sm: "repeat(auto-fill, minmax(140px, 1fr))",
-                                    md: "repeat(auto-fill, minmax(150px, 1fr))",
-                                    lg: "repeat(auto-fill, minmax(160px, 1fr))",
+                                    xs: "repeat(auto-fill, minmax(80px, 1fr))",
+                                    sm: "repeat(auto-fill, minmax(90px, 1fr))",
+                                    md: "repeat(auto-fill, minmax(100px, 1fr))",
+                                    lg: "repeat(auto-fill, minmax(110px, 1fr))",
                                 },
-                                gap: { xs: 2, sm: 3, md: 4 },
+                                gap: { xs: 1, sm: 1.5, md: 2 },
                                 justifyItems: "center",
                                 padding: 2,
                                 bgcolor: "action.hover",
@@ -284,12 +272,12 @@ export default function ListPageContent({
                         sx={{
                             display: "grid",
                             gridTemplateColumns: {
-                                xs: "repeat(auto-fill, minmax(120px, 1fr))",
-                                sm: "repeat(auto-fill, minmax(140px, 1fr))",
-                                md: "repeat(auto-fill, minmax(150px, 1fr))",
-                                lg: "repeat(auto-fill, minmax(160px, 1fr))",
+                                xs: "repeat(auto-fill, minmax(80px, 1fr))",
+                                sm: "repeat(auto-fill, minmax(90px, 1fr))",
+                                md: "repeat(auto-fill, minmax(100px, 1fr))",
+                                lg: "repeat(auto-fill, minmax(110px, 1fr))",
                             },
-                            gap: { xs: 2, sm: 3, md: 4 },
+                            gap: { xs: 1, sm: 1.5, md: 2 },
                             justifyItems: "center",
                         }}
                     >
