@@ -6,6 +6,7 @@ import { useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import { deleteList, getListContentType } from "@/actions/list/list.actions";
+import { removeAllItemsFromList } from "@/actions/list/listItems.actions";
 import ContentTypeLabel from "../contentTypeLabel/ContentTypeLabel";
 import { useEffect, useState } from "react";
 
@@ -37,6 +38,7 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
     const handleDeleteAllItems = () => {
         startTransition(async () => {
             try {
+                await removeAllItemsFromList(listId, userId);
                 showToast("success", "All items removed from list");
                 router.refresh();
             } catch (error) {
@@ -52,10 +54,9 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
 
                 // Extract the username from the pathname
                 const pathParts = pathname.split("/");
-                const userIdIndex = pathParts.findIndex(part => part === userId.toString());
-                const userName = userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ?
-                    pathParts[userIdIndex + 1] :
-                    "user";
+                const userIdIndex = pathParts.findIndex((part) => part === userId.toString());
+                const userName =
+                    userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ? pathParts[userIdIndex + 1] : "user";
 
                 showToast("success", "List deleted successfully");
                 router.push(`/users/${userId}/${userName}/lists`);
@@ -79,9 +80,7 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
                 <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: 500 }}>
                     {listTitle}
                 </Typography>
-                {contentType && (
-                    <ContentTypeLabel contentType={contentType} size="medium" />
-                )}
+                {contentType && <ContentTypeLabel contentType={contentType} size="medium" />}
             </Stack>
             <Stack direction="row" spacing={1}>
                 <Button

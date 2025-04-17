@@ -17,20 +17,15 @@ import { useRouter } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import { reorderListItems } from "@/actions/list/listReorder.actions";
 import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+    DragEndEvent,
 } from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  rectSortingStrategy,
-} from "@dnd-kit/sortable";
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy } from "@dnd-kit/sortable";
 
 interface ListPageContentProps {
     list: List;
@@ -68,7 +63,7 @@ export default function ListPageContent({
         }),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
-        })
+        }),
     );
 
     const handleDragEnd = (event: DragEndEvent) => {
@@ -178,7 +173,6 @@ export default function ListPageContent({
                     >
                         GO BACK
                     </Button>
-
                 </Stack>
                 <ListDetailHeader listId={list.id} userId={list.userId} listTitle={list.name} />
                 <Stack spacing={2}>
@@ -201,7 +195,7 @@ export default function ListPageContent({
                         </Stack>
 
                         {/* Only show reorder controls if the user is the owner or has edit permissions */}
-                        {(list.userId === currentUserId) && (
+                        {list.userId === currentUserId && (
                             <Button
                                 variant="outlined"
                                 color={isEditMode ? "success" : "primary"}
@@ -229,27 +223,29 @@ export default function ListPageContent({
                     )}
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
                         <Stack direction="row" spacing={1}>
-                            <Typography variant="body2" fontWeight="bold">Owner:</Typography>
+                            <Typography variant="body2" fontWeight="bold">
+                                Owner:
+                            </Typography>
                             <Typography variant="body2">{userName}</Typography>
                         </Stack>
                         <Divider orientation="vertical" flexItem />
                         <Stack direction="row" spacing={1}>
-                            <Typography variant="body2" fontWeight="bold">Updated:</Typography>
+                            <Typography variant="body2" fontWeight="bold">
+                                Updated:
+                            </Typography>
                             <Typography variant="body2">{formatDate(list.updatedAt)}</Typography>
                         </Stack>
                         <Divider orientation="vertical" flexItem />
                         <Stack direction="row" spacing={1}>
-                            <Typography variant="body2" fontWeight="bold">Items:</Typography>
+                            <Typography variant="body2" fontWeight="bold">
+                                Items:
+                            </Typography>
                             <Typography variant="body2">{totalItems}</Typography>
                         </Stack>
                     </Stack>
                 </Stack>
                 {isEditMode ? (
-                    <DndContext
-                        sensors={sensors}
-                        collisionDetection={closestCenter}
-                        onDragEnd={handleDragEnd}
-                    >
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                         <Box
                             sx={{
                                 display: "grid",
@@ -266,7 +262,10 @@ export default function ListPageContent({
                                 borderRadius: 1,
                             }}
                         >
-                            <SortableContext items={(items || []).map(item => getItemId(item))} strategy={rectSortingStrategy}>
+                            <SortableContext
+                                items={(items || []).map((item) => getItemId(item))}
+                                strategy={rectSortingStrategy}
+                            >
                                 {(items || []).map((item) => (
                                     <DraggableListItem
                                         key={getItemId(item)}

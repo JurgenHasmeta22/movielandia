@@ -631,3 +631,109 @@ export async function addItemsToList({ listId, userId, type, itemIds }: AddItems
         throw new Error(error instanceof Error ? error.message : "Failed to add items to list");
     }
 }
+
+export async function removeAllItemsFromList(listId: number, userId: number) {
+    try {
+        // First check if the user has permission to edit the list
+        const list = await prisma.list.findFirst({
+            where: {
+                id: listId,
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
+            },
+            select: {
+                id: true,
+                contentType: true,
+            },
+        });
+
+        if (!list) {
+            throw new Error("List not found or you don't have permission to edit");
+        }
+
+        // Get counts for each type of item to determine if we need to delete anything
+        const [movieCount, serieCount, seasonCount, episodeCount, actorCount, crewCount] = await Promise.all([
+            prisma.listMovie.count({ where: { listId } }),
+            prisma.listSerie.count({ where: { listId } }),
+            prisma.listSeason.count({ where: { listId } }),
+            prisma.listEpisode.count({ where: { listId } }),
+            prisma.listActor.count({ where: { listId } }),
+            prisma.listCrew.count({ where: { listId } }),
+        ]);
+
+        // Create transaction operations for each type of item
+        const operations = [];
+
+        // Delete all movie items if any exist
+        if (movieCount > 0) {
+            operations.push(
+                prisma.listMovie.deleteMany({
+                    where: { listId },
+                }),
+            );
+        }
+
+        // Delete all serie items if any exist
+        if (serieCount > 0) {
+            operations.push(
+                prisma.listSerie.deleteMany({
+                    where: { listId },
+                }),
+            );
+        }
+
+        // Delete all season items if any exist
+        if (seasonCount > 0) {
+            operations.push(
+                prisma.listSeason.deleteMany({
+                    where: { listId },
+                }),
+            );
+        }
+
+        // Delete all episode items if any exist
+        if (episodeCount > 0) {
+            operations.push(
+                prisma.listEpisode.deleteMany({
+                    where: { listId },
+                }),
+            );
+        }
+
+        // Delete all actor items if any exist
+        if (actorCount > 0) {
+            operations.push(
+                prisma.listActor.deleteMany({
+                    where: { listId },
+                }),
+            );
+        }
+
+        // Delete all crew items if any exist
+        if (crewCount > 0) {
+            operations.push(
+                prisma.listCrew.deleteMany({
+                    where: { listId },
+                }),
+            );
+        }
+
+        // Add operation to reset content type
+        operations.push(
+            prisma.list.update({
+                where: { id: listId },
+                data: { contentType: null },
+            }),
+        );
+
+        // Execute all operations in a transaction
+        await prisma.$transaction(operations);
+
+        const referer = getReferer();
+        revalidatePath(`${referer}`, "page");
+
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to remove all items from list:", error);
+        throw new Error(error instanceof Error ? error.message : "Failed to remove all items from list");
+    }
+}

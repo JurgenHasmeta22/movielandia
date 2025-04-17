@@ -45,10 +45,11 @@ export default function CreateListForm({ userId }: CreateListFormProps) {
 
             // Extract the username from the pathname or session
             const pathParts = pathname.split("/");
-            const userIdIndex = pathParts.findIndex(part => part === userId.toString());
-            const userName = userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ?
-                pathParts[userIdIndex + 1] :
-                session?.user?.name?.replace(/\s+/g, "") || "user";
+            const userIdIndex = pathParts.findIndex((part) => part === userId.toString());
+            const userName =
+                userIdIndex >= 0 && userIdIndex + 1 < pathParts.length
+                    ? pathParts[userIdIndex + 1]
+                    : session?.user?.name?.replace(/\s+/g, "") || "user";
 
             showToast("success", "List created successfully!");
             router.push(`/users/${userId}/${userName}/lists/${formatTitleForUrl(result.id, result.name)}/add-items`);

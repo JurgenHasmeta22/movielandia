@@ -93,10 +93,9 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
 
             // Extract the username from the pathname
             const pathParts = pathname.split("/");
-            const userIdIndex = pathParts.findIndex(part => part === userId.toString());
-            const userName = userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ?
-                pathParts[userIdIndex + 1] :
-                "user";
+            const userIdIndex = pathParts.findIndex((part) => part === userId.toString());
+            const userName =
+                userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ? pathParts[userIdIndex + 1] : "user";
 
             showToast("success", "Items added successfully");
             router.push(`/users/${userId}/${userName}/lists/${formatTitleForUrl(listId, listName)}`);
