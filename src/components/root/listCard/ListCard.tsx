@@ -4,6 +4,7 @@ import Image from "next/image";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import { formatDate } from "@/utils/helpers/utils";
+import { formatForUrl } from "@/utils/helpers/formatUrl";
 
 interface ListCardProps {
     list: any;
@@ -18,9 +19,7 @@ const getTotalItems = (counts: Record<string, number>) => {
 export default function ListCard({ list, username, userId }: ListCardProps) {
     const getListPath = () => {
         const formattedUsername = encodeURIComponent(username);
-        const formattedListName = list.name
-            ? encodeURIComponent(list.name.trim().toLowerCase().split(/\s+/).join("-"))
-            : "";
+        const formattedListName = list.name ? formatForUrl(list.name) : "";
 
         return `/users/${userId}/${formattedUsername}/lists/${list.id}/${formattedListName}`;
     };
@@ -39,9 +38,7 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                 elevation={1}
                 sx={{
                     width: { xs: "100%", sm: 280 },
-                    height: "auto",
-                    minHeight: 180,
-                    maxHeight: 220,
+                    height: 180,
                     display: "flex",
                     flexDirection: "column",
                 }}

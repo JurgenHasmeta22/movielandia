@@ -8,6 +8,8 @@ import { showToast } from "@/utils/helpers/toast";
 import { listSchema, type ListFormData } from "@/schemas/list.schema";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useRouter, usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { formatTitleForUrl } from "@/utils/helpers/formatUrl";
 
 interface CreateListFormProps {
     userId: number;
@@ -16,6 +18,7 @@ interface CreateListFormProps {
 export default function CreateListForm({ userId }: CreateListFormProps) {
     const router = useRouter();
     const pathname = usePathname();
+    const { data: session } = useSession();
     const {
         control,
         handleSubmit,
@@ -40,10 +43,15 @@ export default function CreateListForm({ userId }: CreateListFormProps) {
                 throw new Error("Failed to create list");
             }
 
-            const basePath = pathname.split("/lists")[0];
+            // Extract the username from the pathname or session
+            const pathParts = pathname.split("/");
+            const userIdIndex = pathParts.findIndex(part => part === userId.toString());
+            const userName = userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ?
+                pathParts[userIdIndex + 1] :
+                session?.user?.name?.replace(/\s+/g, "") || "user";
 
             showToast("success", "List created successfully!");
-            router.push(`${basePath}/lists/${result.id}/${encodeURIComponent(result.name)}/add-items`);
+            router.push(`/users/${userId}/${userName}/lists/${formatTitleForUrl(result.id, result.name)}/add-items`);
         } catch (error) {
             showToast("error", "Failed to create list. Please try again.");
             console.error("Failed to create list:", error);

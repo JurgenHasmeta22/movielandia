@@ -121,7 +121,7 @@ export default function ListsPageContent({
     return (
         <Box
             sx={{
-                height: "100vh",
+                minHeight: "calc(100vh - 200px)",
                 display: "flex",
                 flexDirection: "column",
                 px: { xs: 2, sm: 3, md: 4 },
@@ -171,7 +171,7 @@ export default function ListsPageContent({
                 </Box>
                 <SortSelect sortBy={sortBy} ascOrDesc={ascOrDesc} type="lists" dataType="lists" />
             </Box>
-            <Box sx={{ flex: 1, overflow: "auto" }}>
+            <Box sx={{ flex: 1, overflow: "visible" }}>
                 <Stack
                     direction="row"
                     flexWrap="wrap"

@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Button, Typography, Stack, Chip } from "@mui/material";
+import { Box, Button, Typography, Stack } from "@mui/material";
 import { DeleteForever, DeleteSweep } from "@mui/icons-material";
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
 import { deleteList, getListContentType } from "@/actions/list/list.actions";
 import ContentTypeLabel from "../contentTypeLabel/ContentTypeLabel";
@@ -17,6 +17,7 @@ interface ListDetailHeaderProps {
 
 export default function ListDetailHeader({ listId, userId, listTitle }: ListDetailHeaderProps) {
     const router = useRouter();
+    const pathname = usePathname();
     const [isPending, startTransition] = useTransition();
     const [contentType, setContentType] = useState<any>(null);
 
@@ -48,8 +49,16 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
         startTransition(async () => {
             try {
                 await deleteList(listId, userId);
+
+                // Extract the username from the pathname
+                const pathParts = pathname.split("/");
+                const userIdIndex = pathParts.findIndex(part => part === userId.toString());
+                const userName = userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ?
+                    pathParts[userIdIndex + 1] :
+                    "user";
+
                 showToast("success", "List deleted successfully");
-                router.back();
+                router.push(`/users/${userId}/${userName}/lists`);
                 router.refresh();
             } catch (error) {
                 showToast("error", error instanceof Error ? error.message : "Failed to delete list");

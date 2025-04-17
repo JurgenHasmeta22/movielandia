@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Box, FormControl, InputLabel, Select, MenuItem, Button, Stack, Container, Typography } from "@mui/material";
 import { SaveOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
+import { formatTitleForUrl } from "@/utils/helpers/formatUrl";
 import { addItemsToList } from "@/actions/list/listItems.actions";
 import SelectableListCard from "@/components/root/selectableListCard/SelectableListCard";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
@@ -31,6 +32,7 @@ const CONTENT_TYPES = [
 
 export default function AddItemsForm({ items, totalPages, currentPage, listId, userId, listName }: AddItemsFormProps) {
     const router = useRouter();
+    const pathname = usePathname();
 
     const [type, setType] = useQueryState("type", {
         defaultValue: "",
@@ -89,8 +91,15 @@ export default function AddItemsForm({ items, totalPages, currentPage, listId, u
                 itemIds: Array.from(selectedItems),
             });
 
+            // Extract the username from the pathname
+            const pathParts = pathname.split("/");
+            const userIdIndex = pathParts.findIndex(part => part === userId.toString());
+            const userName = userIdIndex >= 0 && userIdIndex + 1 < pathParts.length ?
+                pathParts[userIdIndex + 1] :
+                "user";
+
             showToast("success", "Items added successfully");
-            router.push(`/users/${userId}/lists/${listId}/${listName}`);
+            router.push(`/users/${userId}/${userName}/lists/${formatTitleForUrl(listId, listName)}`);
         } catch (error) {
             showToast("error", "Failed to add items to list");
         }

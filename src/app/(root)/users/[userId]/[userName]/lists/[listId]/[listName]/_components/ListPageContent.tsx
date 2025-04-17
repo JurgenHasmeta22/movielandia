@@ -218,16 +218,30 @@ export default function ListPageContent({
                         )}
                     </Stack>
                     {list.description && (
-                        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "800px" }}>
-                            {list.description}
-                        </Typography>
+                        <Stack direction="row" spacing={1} alignItems="flex-start">
+                            <Typography variant="body2" fontWeight="bold" color="text.secondary">
+                                Description:
+                            </Typography>
+                            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "800px" }}>
+                                {list.description}
+                            </Typography>
+                        </Stack>
                     )}
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ color: "text.secondary" }}>
-                        <Typography variant="body2">Created by {userName}</Typography>
+                        <Stack direction="row" spacing={1}>
+                            <Typography variant="body2" fontWeight="bold">Owner:</Typography>
+                            <Typography variant="body2">{userName}</Typography>
+                        </Stack>
                         <Divider orientation="vertical" flexItem />
-                        <Typography variant="body2">Last updated {formatDate(list.updatedAt)}</Typography>
+                        <Stack direction="row" spacing={1}>
+                            <Typography variant="body2" fontWeight="bold">Updated:</Typography>
+                            <Typography variant="body2">{formatDate(list.updatedAt)}</Typography>
+                        </Stack>
                         <Divider orientation="vertical" flexItem />
-                        <Typography variant="body2">{totalItems} items</Typography>
+                        <Stack direction="row" spacing={1}>
+                            <Typography variant="body2" fontWeight="bold">Items:</Typography>
+                            <Typography variant="body2">{totalItems}</Typography>
+                        </Stack>
                     </Stack>
                 </Stack>
                 {isEditMode ? (
