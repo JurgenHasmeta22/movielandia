@@ -88,28 +88,28 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
             PaperProps={{
                 sx: {
                     borderRadius: 1,
-                    bgcolor: '#1e2330', // Dark background matching the screenshot
+                    bgcolor: "#1e2330", // Dark background matching the screenshot
                     boxShadow: 3,
-                    overflow: 'hidden',
-                    '& .MuiDialogContent-root': {
+                    overflow: "hidden",
+                    "& .MuiDialogContent-root": {
                         p: 3,
-                    }
-                }
+                    },
+                },
             }}
         >
             <DialogTitle
                 sx={{
                     fontSize: "1.1rem",
                     fontWeight: 500,
-                    bgcolor: '#2c3347', // Darker header background
-                    color: '#fff',
+                    bgcolor: "#2c3347", // Darker header background
+                    color: "#fff",
                     py: 2,
                     px: 3,
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
                 }}
             >
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <SaveIcon sx={{ mr: 1.5, color: '#fff', fontSize: '1.2rem' }} />
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <SaveIcon sx={{ mr: 1.5, color: "#fff", fontSize: "1.2rem" }} />
                     <Typography variant="h6" component="span" fontWeight={500} fontSize="1.1rem">
                         Edit List
                     </Typography>
@@ -121,28 +121,28 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                         position: "absolute",
                         right: 8,
                         top: 8,
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        '&:hover': {
-                            color: '#fff',
-                        }
+                        color: "rgba(255, 255, 255, 0.7)",
+                        "&:hover": {
+                            color: "#fff",
+                        },
                     }}
                 >
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <DialogContent sx={{ bgcolor: '#1e2330', p: '24px !important' }}>
+                <DialogContent sx={{ bgcolor: "#1e2330", p: "24px !important" }}>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                         <Box>
                             <Typography
                                 variant="subtitle2"
                                 component="label"
                                 sx={{
-                                    display: 'block',
+                                    display: "block",
                                     mb: 1,
-                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    color: "rgba(255, 255, 255, 0.7)",
                                     fontWeight: 400,
-                                    fontSize: '0.9rem'
+                                    fontSize: "0.9rem",
                                 }}
                             >
                                 List Name
@@ -161,28 +161,31 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <TitleIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }} fontSize="small" />
+                                                    <TitleIcon
+                                                        sx={{ color: "rgba(255, 255, 255, 0.7)" }}
+                                                        fontSize="small"
+                                                    />
                                                 </InputAdornment>
                                             ),
                                         }}
                                         sx={{
-                                            '& .MuiOutlinedInput-root': {
+                                            "& .MuiOutlinedInput-root": {
                                                 borderRadius: 1,
-                                                bgcolor: '#2c3347',
-                                                color: '#fff',
-                                                '& fieldset': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                                bgcolor: "#2c3347",
+                                                color: "#fff",
+                                                "& fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.2)",
                                                 },
-                                                '&:hover fieldset': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                                "&:hover fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.3)",
                                                 },
-                                                '&.Mui-focused fieldset': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                                }
+                                                "&.Mui-focused fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.5)",
+                                                },
                                             },
-                                            '& .MuiFormHelperText-root': {
-                                                color: theme.palette.error.main
-                                            }
+                                            "& .MuiFormHelperText-root": {
+                                                color: theme.palette.error.main,
+                                            },
                                         }}
                                     />
                                 )}
@@ -194,11 +197,11 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                                 variant="subtitle2"
                                 component="label"
                                 sx={{
-                                    display: 'block',
+                                    display: "block",
                                     mb: 1,
-                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    color: "rgba(255, 255, 255, 0.7)",
                                     fontWeight: 400,
-                                    fontSize: '0.9rem'
+                                    fontSize: "0.9rem",
                                 }}
                             >
                                 Description
@@ -218,29 +221,35 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                                         variant="outlined"
                                         InputProps={{
                                             startAdornment: (
-                                                <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1 }}>
-                                                    <DescriptionIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }} fontSize="small" />
+                                                <InputAdornment
+                                                    position="start"
+                                                    sx={{ alignSelf: "flex-start", mt: 1 }}
+                                                >
+                                                    <DescriptionIcon
+                                                        sx={{ color: "rgba(255, 255, 255, 0.7)" }}
+                                                        fontSize="small"
+                                                    />
                                                 </InputAdornment>
                                             ),
                                         }}
                                         sx={{
-                                            '& .MuiOutlinedInput-root': {
+                                            "& .MuiOutlinedInput-root": {
                                                 borderRadius: 1,
-                                                bgcolor: '#2c3347',
-                                                color: '#fff',
-                                                '& fieldset': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                                bgcolor: "#2c3347",
+                                                color: "#fff",
+                                                "& fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.2)",
                                                 },
-                                                '&:hover fieldset': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                                "&:hover fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.3)",
                                                 },
-                                                '&.Mui-focused fieldset': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.5)',
-                                                }
+                                                "&.Mui-focused fieldset": {
+                                                    borderColor: "rgba(255, 255, 255, 0.5)",
+                                                },
                                             },
-                                            '& .MuiFormHelperText-root': {
-                                                color: theme.palette.error.main
-                                            }
+                                            "& .MuiFormHelperText-root": {
+                                                color: theme.palette.error.main,
+                                            },
                                         }}
                                     />
                                 )}
@@ -252,11 +261,11 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                                 variant="subtitle2"
                                 component="label"
                                 sx={{
-                                    display: 'block',
+                                    display: "block",
                                     mb: 1,
-                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    color: "rgba(255, 255, 255, 0.7)",
                                     fontWeight: 400,
-                                    fontSize: '0.9rem'
+                                    fontSize: "0.9rem",
                                 }}
                             >
                                 Privacy Setting
@@ -273,33 +282,43 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                                             displayEmpty
                                             sx={{
                                                 borderRadius: 1,
-                                                bgcolor: '#2c3347',
-                                                color: '#fff',
-                                                '& .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                                bgcolor: "#2c3347",
+                                                color: "#fff",
+                                                "& .MuiOutlinedInput-notchedOutline": {
+                                                    borderColor: "rgba(255, 255, 255, 0.2)",
                                                 },
-                                                '&:hover .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                                "&:hover .MuiOutlinedInput-notchedOutline": {
+                                                    borderColor: "rgba(255, 255, 255, 0.3)",
                                                 },
-                                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                    borderColor: "rgba(255, 255, 255, 0.5)",
                                                 },
-                                                '& .MuiSelect-select': {
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                }
+                                                "& .MuiSelect-select": {
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                },
                                             }}
                                         >
-                                            <MenuItem value="public" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                <PublicIcon fontSize="small" sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.7)' }} />
+                                            <MenuItem value="public" sx={{ display: "flex", alignItems: "center" }}>
+                                                <PublicIcon
+                                                    fontSize="small"
+                                                    sx={{ mr: 1, color: "rgba(255, 255, 255, 0.7)" }}
+                                                />
                                                 <Typography>Public</Typography>
                                             </MenuItem>
-                                            <MenuItem value="private" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                <LockIcon fontSize="small" sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.7)' }} />
+                                            <MenuItem value="private" sx={{ display: "flex", alignItems: "center" }}>
+                                                <LockIcon
+                                                    fontSize="small"
+                                                    sx={{ mr: 1, color: "rgba(255, 255, 255, 0.7)" }}
+                                                />
                                                 <Typography>Private</Typography>
                                             </MenuItem>
                                         </Select>
-                                        {errors.isPrivate && <FormHelperText sx={{ color: theme.palette.error.main }}>{errors.isPrivate.message}</FormHelperText>}
+                                        {errors.isPrivate && (
+                                            <FormHelperText sx={{ color: theme.palette.error.main }}>
+                                                {errors.isPrivate.message}
+                                            </FormHelperText>
+                                        )}
                                     </FormControl>
                                 )}
                             />
@@ -310,13 +329,13 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                     sx={{
                         p: 0,
                         m: 0,
-                        bgcolor: '#1e2330',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                        justifyContent: 'flex-end',
-                        height: 56
+                        bgcolor: "#1e2330",
+                        borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                        justifyContent: "flex-end",
+                        height: 56,
                     }}
                 >
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', pr: 2 }}>
+                    <Box sx={{ display: "flex", justifyContent: "flex-end", width: "100%", pr: 2 }}>
                         <Button
                             type="submit"
                             variant="contained"
@@ -327,11 +346,11 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                                 borderRadius: 1,
                                 fontWeight: 500,
                                 px: 2,
-                                bgcolor: '#495057',
-                                color: '#fff',
-                                '&:hover': {
-                                    bgcolor: '#343a40'
-                                }
+                                bgcolor: "#495057",
+                                color: "#fff",
+                                "&:hover": {
+                                    bgcolor: "#343a40",
+                                },
                             }}
                         >
                             Save Changes

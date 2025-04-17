@@ -66,13 +66,14 @@ export default function ListPageContent({
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
     // Format shared users data for the modal
-    const sharedUsers = list.sharedWith?.map(share => ({
-        id: share.user.id,
-        userName: share.user.userName,
-        avatar: share.user.avatar,
-        canEdit: share.canEdit,
-        sharedAt: share.sharedAt
-    })) || [];
+    const sharedUsers =
+        list.sharedWith?.map((share) => ({
+            id: share.user.id,
+            userName: share.user.userName,
+            avatar: share.user.avatar,
+            canEdit: share.canEdit,
+            sharedAt: share.sharedAt,
+        })) || [];
 
     useEffect(() => {
         setItems(content);
@@ -198,7 +199,12 @@ export default function ListPageContent({
                         GO BACK
                     </Button>
                 </Stack>
-                <ListDetailHeader listId={list.id} userId={list.userId} listTitle={list.name} currentUserId={currentUserId} />
+                <ListDetailHeader
+                    listId={list.id}
+                    userId={list.userId}
+                    listTitle={list.name}
+                    currentUserId={currentUserId}
+                />
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                         <Stack direction="row" spacing={1}>
@@ -237,7 +243,8 @@ export default function ListPageContent({
                             )}
 
                             {/* Reorder button - only visible to list owner or users with edit permissions */}
-                            {(list.userId === currentUserId || list.sharedWith?.some(share => share.user.id === currentUserId && share.canEdit)) && (
+                            {(list.userId === currentUserId ||
+                                list.sharedWith?.some((share) => share.user.id === currentUserId && share.canEdit)) && (
                                 <Button
                                     variant="outlined"
                                     color={isEditMode ? "success" : "primary"}

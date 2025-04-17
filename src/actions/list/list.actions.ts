@@ -18,7 +18,15 @@ interface ListParams {
 }
 
 export async function getUserLists(userId: number, params: ListParams = {}) {
-    const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", isPrivate, isArchived, sharedWithMe = false } = params;
+    const {
+        page = 1,
+        perPage = 12,
+        sortBy = "createdAt",
+        ascOrDesc = "desc",
+        isPrivate,
+        isArchived,
+        sharedWithMe = false,
+    } = params;
 
     const skip = (page - 1) * perPage;
 
@@ -46,30 +54,30 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
     // For shared lists, we need to include the permission level
     const sharedWithInclude = sharedWithMe
         ? {
-            where: {
-                userId,
-            },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        userName: true,
-                        avatar: true,
-                    },
-                },
-            },
-        }
+              where: {
+                  userId,
+              },
+              include: {
+                  user: {
+                      select: {
+                          id: true,
+                          userName: true,
+                          avatar: true,
+                      },
+                  },
+              },
+          }
         : {
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        userName: true,
-                        avatar: true,
-                    },
-                },
-            },
-        };
+              include: {
+                  user: {
+                      select: {
+                          id: true,
+                          userName: true,
+                          avatar: true,
+                      },
+                  },
+              },
+          };
 
     try {
         const [lists, total] = await prisma.$transaction([

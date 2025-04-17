@@ -51,7 +51,7 @@ export default function ListDetailHeader({ listId, userId, listTitle, currentUse
                     description: list.description || "",
                     isPrivate: list.isPrivate,
                 });
-                
+
                 setIsEditModalOpen(true);
             }
         } catch (error) {

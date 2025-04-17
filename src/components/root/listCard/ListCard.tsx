@@ -76,16 +76,25 @@ export default function ListCard({ list, username, userId, isSharedView = false 
                                     </Tooltip>
                                 )}
                                 {!isSharedView && list?.sharedWith?.length > 0 && (
-                                    <Tooltip title={`Shared with ${list.sharedWith.length} user${list.sharedWith.length > 1 ? 's' : ''}`}>
+                                    <Tooltip
+                                        title={`Shared with ${list.sharedWith.length} user${list.sharedWith.length > 1 ? "s" : ""}`}
+                                    >
                                         <ShareIcon fontSize="small" color="primary" />
                                     </Tooltip>
                                 )}
                                 {isSharedView && (
-                                    <Tooltip title={list.sharedWith?.find((share: any) => share.userId === userId)?.canEdit ? "You can edit this list" : "View only"}>
-                                        {list.sharedWith?.find((share: any) => share.userId === userId)?.canEdit ?
-                                            <EditIcon fontSize="small" color="primary" /> :
-                                            <VisibilityIcon fontSize="small" color="action" />
+                                    <Tooltip
+                                        title={
+                                            list.sharedWith?.find((share: any) => share.userId === userId)?.canEdit
+                                                ? "You can edit this list"
+                                                : "View only"
                                         }
+                                    >
+                                        {list.sharedWith?.find((share: any) => share.userId === userId)?.canEdit ? (
+                                            <EditIcon fontSize="small" color="primary" />
+                                        ) : (
+                                            <VisibilityIcon fontSize="small" color="action" />
+                                        )}
                                     </Tooltip>
                                 )}
                             </Stack>
@@ -128,7 +137,7 @@ export default function ListCard({ list, username, userId, isSharedView = false 
                                         label={list.user.userName}
                                         size="small"
                                         variant="outlined"
-                                        sx={{ height: 20, '& .MuiChip-label': { fontSize: '0.65rem', px: 1 } }}
+                                        sx={{ height: 20, "& .MuiChip-label": { fontSize: "0.65rem", px: 1 } }}
                                     />
                                 </Tooltip>
                             )}

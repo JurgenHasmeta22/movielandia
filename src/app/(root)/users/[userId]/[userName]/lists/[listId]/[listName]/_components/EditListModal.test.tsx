@@ -38,7 +38,7 @@ describe("EditListModal", () => {
 
     it("renders the modal with initial values", () => {
         render(<EditListModal {...mockProps} />);
-        
+
         expect(screen.getByText("Edit List")).toBeInTheDocument();
         expect(screen.getByLabelText("List Name")).toHaveValue("Test List");
         expect(screen.getByLabelText("Description")).toHaveValue("Test Description");
@@ -48,16 +48,16 @@ describe("EditListModal", () => {
     it("updates list when form is submitted", async () => {
         // Mock successful update
         (updateList as any).mockResolvedValue({ id: 1, name: "Updated List" });
-        
+
         render(<EditListModal {...mockProps} />);
-        
+
         // Change form values
         fireEvent.change(screen.getByLabelText("List Name"), { target: { value: "Updated List" } });
         fireEvent.change(screen.getByLabelText("Description"), { target: { value: "Updated Description" } });
-        
+
         // Submit the form
         fireEvent.click(screen.getByText("Save Changes"));
-        
+
         await waitFor(() => {
             expect(updateList).toHaveBeenCalledWith(1, 1, {
                 name: "Updated List",
@@ -73,12 +73,12 @@ describe("EditListModal", () => {
         // Mock failed update
         const errorMessage = "Failed to update list";
         (updateList as any).mockRejectedValue(new Error(errorMessage));
-        
+
         render(<EditListModal {...mockProps} />);
-        
+
         // Submit the form without changes
         fireEvent.click(screen.getByText("Save Changes"));
-        
+
         await waitFor(() => {
             expect(updateList).toHaveBeenCalled();
             expect(showToast).toHaveBeenCalledWith("error", errorMessage);
@@ -88,9 +88,9 @@ describe("EditListModal", () => {
 
     it("closes the modal when cancel button is clicked", () => {
         render(<EditListModal {...mockProps} />);
-        
+
         fireEvent.click(screen.getByText("Cancel"));
-        
+
         expect(mockProps.onClose).toHaveBeenCalled();
     });
 });

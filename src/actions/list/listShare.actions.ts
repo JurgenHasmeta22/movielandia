@@ -36,7 +36,7 @@ export async function shareList(listId: number, userId: number, targetUserId: nu
         // Get list details for notification
         const listDetails = await prisma.list.findUnique({
             where: { id: listId },
-            select: { name: true }
+            select: { name: true },
         });
 
         // Create share and notification separately to avoid transaction issues
@@ -111,7 +111,7 @@ export async function unshareList(listId: number, userId: number, targetUserId: 
         // Get list details for notification
         const listDetails = await prisma.list.findUnique({
             where: { id: listId },
-            select: { name: true }
+            select: { name: true },
         });
 
         // Remove share and create notification separately to avoid transaction issues
@@ -182,7 +182,7 @@ export async function updateSharePermission(listId: number, userId: number, targ
         // Get list details for notification
         const listDetails = await prisma.list.findUnique({
             where: { id: listId },
-            select: { name: true }
+            select: { name: true },
         });
 
         // Update share permissions and create notification separately to avoid transaction issues
@@ -203,7 +203,7 @@ export async function updateSharePermission(listId: number, userId: number, targ
         await prisma.notification.create({
             data: {
                 type: NotificationType.list_permission_updated,
-                content: `updated your permissions for list "${listDetails?.name}" to ${canEdit ? 'edit' : 'view only'}`,
+                content: `updated your permissions for list "${listDetails?.name}" to ${canEdit ? "edit" : "view only"}`,
                 userId: targetUserId,
                 senderId: userId,
                 status: "unread",
