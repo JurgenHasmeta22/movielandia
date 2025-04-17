@@ -17,9 +17,17 @@ import {
     FormHelperText,
     IconButton,
     Box,
+    Typography,
+    alpha,
+    useTheme,
+    InputAdornment,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SaveIcon from "@mui/icons-material/Save";
+import TitleIcon from "@mui/icons-material/Title";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LockIcon from "@mui/icons-material/Lock";
+import PublicIcon from "@mui/icons-material/Public";
 import { updateList } from "@/actions/list/list.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { listSchema, type ListFormData } from "@/schemas/list.schema";
@@ -58,7 +66,7 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                 description: data.description,
                 isPrivate: data.isPrivate,
             });
-            
+
             showToast("success", "List updated successfully!");
             router.refresh(); // Refresh the page to show updated data
             onClose();
@@ -69,10 +77,43 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
         }
     };
 
+    const theme = useTheme();
+
     return (
-        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-            <DialogTitle sx={{ fontSize: "1.25rem", fontWeight: 500 }}>
-                Edit List
+        <Dialog
+            open={open}
+            onClose={onClose}
+            fullWidth
+            maxWidth="sm"
+            PaperProps={{
+                sx: {
+                    borderRadius: 1,
+                    bgcolor: '#1e2330', // Dark background matching the screenshot
+                    boxShadow: 3,
+                    overflow: 'hidden',
+                    '& .MuiDialogContent-root': {
+                        p: 3,
+                    }
+                }
+            }}
+        >
+            <DialogTitle
+                sx={{
+                    fontSize: "1.1rem",
+                    fontWeight: 500,
+                    bgcolor: '#2c3347', // Darker header background
+                    color: '#fff',
+                    py: 2,
+                    px: 3,
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                }}
+            >
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <SaveIcon sx={{ mr: 1.5, color: '#fff', fontSize: '1.2rem' }} />
+                    <Typography variant="h6" component="span" fontWeight={500} fontSize="1.1rem">
+                        Edit List
+                    </Typography>
+                </Box>
                 <IconButton
                     aria-label="close"
                     onClick={onClose}
@@ -80,77 +121,222 @@ export default function EditListModal({ open, onClose, listId, userId, initialVa
                         position: "absolute",
                         right: 8,
                         top: 8,
+                        color: 'rgba(255, 255, 255, 0.7)',
+                        '&:hover': {
+                            color: '#fff',
+                        }
                     }}
                 >
                     <CloseIcon />
                 </IconButton>
             </DialogTitle>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <DialogContent>
-                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5, mt: 1 }}>
-                        <Controller
-                            name="name"
-                            control={control}
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label="List Name"
-                                    error={!!errors.name}
-                                    helperText={errors.name?.message}
-                                    fullWidth
-                                />
-                            )}
-                        />
-                        <Controller
-                            name="description"
-                            control={control}
-                            render={({ field }) => (
-                                <TextField
-                                    {...field}
-                                    label="Description"
-                                    multiline
-                                    rows={3}
-                                    error={!!errors.description}
-                                    helperText={errors.description?.message}
-                                    fullWidth
-                                />
-                            )}
-                        />
-                        <Controller
-                            name="isPrivate"
-                            control={control}
-                            render={({ field: { onChange, value, ...field } }) => (
-                                <FormControl error={!!errors.isPrivate}>
-                                    <InputLabel>Privacy</InputLabel>
-                                    <Select
+                <DialogContent sx={{ bgcolor: '#1e2330', p: '24px !important' }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                        <Box>
+                            <Typography
+                                variant="subtitle2"
+                                component="label"
+                                sx={{
+                                    display: 'block',
+                                    mb: 1,
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    fontWeight: 400,
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                List Name
+                            </Typography>
+                            <Controller
+                                name="name"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
                                         {...field}
-                                        value={value ? "private" : "public"}
-                                        onChange={(e) => onChange(e.target.value === "private")}
-                                        label="Privacy"
-                                    >
-                                        <MenuItem value="public">Public</MenuItem>
-                                        <MenuItem value="private">Private</MenuItem>
-                                    </Select>
-                                    {errors.isPrivate && <FormHelperText>{errors.isPrivate.message}</FormHelperText>}
-                                </FormControl>
-                            )}
-                        />
+                                        placeholder="Enter list name"
+                                        error={!!errors.name}
+                                        helperText={errors.name?.message}
+                                        fullWidth
+                                        variant="outlined"
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <TitleIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }} fontSize="small" />
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                borderRadius: 1,
+                                                bgcolor: '#2c3347',
+                                                color: '#fff',
+                                                '& fieldset': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                                }
+                                            },
+                                            '& .MuiFormHelperText-root': {
+                                                color: theme.palette.error.main
+                                            }
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Typography
+                                variant="subtitle2"
+                                component="label"
+                                sx={{
+                                    display: 'block',
+                                    mb: 1,
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    fontWeight: 400,
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                Description
+                            </Typography>
+                            <Controller
+                                name="description"
+                                control={control}
+                                render={({ field }) => (
+                                    <TextField
+                                        {...field}
+                                        placeholder="Add a description (optional)"
+                                        multiline
+                                        rows={3}
+                                        error={!!errors.description}
+                                        helperText={errors.description?.message}
+                                        fullWidth
+                                        variant="outlined"
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1 }}>
+                                                    <DescriptionIcon sx={{ color: 'rgba(255, 255, 255, 0.7)' }} fontSize="small" />
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                borderRadius: 1,
+                                                bgcolor: '#2c3347',
+                                                color: '#fff',
+                                                '& fieldset': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                                }
+                                            },
+                                            '& .MuiFormHelperText-root': {
+                                                color: theme.palette.error.main
+                                            }
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Typography
+                                variant="subtitle2"
+                                component="label"
+                                sx={{
+                                    display: 'block',
+                                    mb: 1,
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    fontWeight: 400,
+                                    fontSize: '0.9rem'
+                                }}
+                            >
+                                Privacy Setting
+                            </Typography>
+                            <Controller
+                                name="isPrivate"
+                                control={control}
+                                render={({ field: { onChange, value, ...field } }) => (
+                                    <FormControl error={!!errors.isPrivate} fullWidth>
+                                        <Select
+                                            {...field}
+                                            value={value ? "private" : "public"}
+                                            onChange={(e) => onChange(e.target.value === "private")}
+                                            displayEmpty
+                                            sx={{
+                                                borderRadius: 1,
+                                                bgcolor: '#2c3347',
+                                                color: '#fff',
+                                                '& .MuiOutlinedInput-notchedOutline': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                                },
+                                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                                                },
+                                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                                },
+                                                '& .MuiSelect-select': {
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                }
+                                            }}
+                                        >
+                                            <MenuItem value="public" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                <PublicIcon fontSize="small" sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.7)' }} />
+                                                <Typography>Public</Typography>
+                                            </MenuItem>
+                                            <MenuItem value="private" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                <LockIcon fontSize="small" sx={{ mr: 1, color: 'rgba(255, 255, 255, 0.7)' }} />
+                                                <Typography>Private</Typography>
+                                            </MenuItem>
+                                        </Select>
+                                        {errors.isPrivate && <FormHelperText sx={{ color: theme.palette.error.main }}>{errors.isPrivate.message}</FormHelperText>}
+                                    </FormControl>
+                                )}
+                            />
+                        </Box>
                     </Box>
                 </DialogContent>
-                <DialogActions sx={{ px: 3, pb: 3 }}>
-                    <Button onClick={onClose} variant="outlined" disabled={isPending}>
-                        Cancel
-                    </Button>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={isPending}
-                        startIcon={<SaveIcon />}
-                        sx={{ textTransform: "none" }}
-                    >
-                        Save Changes
-                    </Button>
+                <DialogActions
+                    sx={{
+                        p: 0,
+                        m: 0,
+                        bgcolor: '#1e2330',
+                        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                        justifyContent: 'flex-end',
+                        height: 56
+                    }}
+                >
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%', pr: 2 }}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disabled={isPending}
+                            startIcon={<SaveIcon />}
+                            sx={{
+                                textTransform: "none",
+                                borderRadius: 1,
+                                fontWeight: 500,
+                                px: 2,
+                                bgcolor: '#495057',
+                                color: '#fff',
+                                '&:hover': {
+                                    bgcolor: '#343a40'
+                                }
+                            }}
+                        >
+                            Save Changes
+                        </Button>
+                    </Box>
                 </DialogActions>
             </form>
         </Dialog>
