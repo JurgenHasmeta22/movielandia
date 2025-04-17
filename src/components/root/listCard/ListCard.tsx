@@ -1,8 +1,12 @@
-import { Box, Typography, Stack, Tooltip, Card } from "@mui/material";
+import { Box, Typography, Stack, Tooltip, Card, Chip, Avatar } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 import LockIcon from "@mui/icons-material/Lock";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import ShareIcon from "@mui/icons-material/Share";
+import PeopleIcon from "@mui/icons-material/People";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { formatDate } from "@/utils/helpers/utils";
 import { formatForUrl } from "@/utils/helpers/formatUrl";
 
@@ -10,13 +14,14 @@ interface ListCardProps {
     list: any;
     username: string;
     userId: number;
+    isSharedView?: boolean;
 }
 
 const getTotalItems = (counts: Record<string, number>) => {
     return Object.values(counts).reduce((acc, curr) => acc + curr, 0);
 };
 
-export default function ListCard({ list, username, userId }: ListCardProps) {
+export default function ListCard({ list, username, userId, isSharedView = false }: ListCardProps) {
     const getListPath = () => {
         const formattedUsername = encodeURIComponent(username);
         const formattedListName = list.name ? formatForUrl(list.name) : "";
@@ -70,6 +75,19 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                                         <ArchiveIcon fontSize="small" color="action" />
                                     </Tooltip>
                                 )}
+                                {!isSharedView && list?.sharedWith?.length > 0 && (
+                                    <Tooltip title={`Shared with ${list.sharedWith.length} user${list.sharedWith.length > 1 ? 's' : ''}`}>
+                                        <ShareIcon fontSize="small" color="primary" />
+                                    </Tooltip>
+                                )}
+                                {isSharedView && (
+                                    <Tooltip title={list.sharedWith?.find((share: any) => share.userId === userId)?.canEdit ? "You can edit this list" : "View only"}>
+                                        {list.sharedWith?.find((share: any) => share.userId === userId)?.canEdit ?
+                                            <EditIcon fontSize="small" color="primary" /> :
+                                            <VisibilityIcon fontSize="small" color="action" />
+                                        }
+                                    </Tooltip>
+                                )}
                             </Stack>
                         </Stack>
 
@@ -103,9 +121,22 @@ export default function ListCard({ list, username, userId }: ListCardProps) {
                             <Typography variant="caption" color="text.secondary">
                                 {list?._count ? getTotalItems(list._count) : 0} items
                             </Typography>
-                            <Typography variant="caption" color="text.secondary">
-                                {getFormattedDate()}
-                            </Typography>
+                            {isSharedView && list.user && (
+                                <Tooltip title={`Owner: ${list.user.userName}`}>
+                                    <Chip
+                                        avatar={<Avatar src={list.user.avatar?.photoSrc} alt={list.user.userName} />}
+                                        label={list.user.userName}
+                                        size="small"
+                                        variant="outlined"
+                                        sx={{ height: 20, '& .MuiChip-label': { fontSize: '0.65rem', px: 1 } }}
+                                    />
+                                </Tooltip>
+                            )}
+                            {!isSharedView && (
+                                <Typography variant="caption" color="text.secondary">
+                                    {getFormattedDate()}
+                                </Typography>
+                            )}
                         </Stack>
                     </Box>
                 </Box>

@@ -14,18 +14,62 @@ interface ListParams {
     ascOrDesc?: string;
     isPrivate?: boolean;
     isArchived?: boolean;
+    sharedWithMe?: boolean;
 }
 
 export async function getUserLists(userId: number, params: ListParams = {}) {
-    const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", isPrivate, isArchived } = params;
+    const { page = 1, perPage = 12, sortBy = "createdAt", ascOrDesc = "desc", isPrivate, isArchived, sharedWithMe = false } = params;
 
     const skip = (page - 1) * perPage;
 
-    const where: Prisma.ListWhereInput = {
-        userId,
-        ...(typeof isPrivate === "boolean" && { isPrivate }),
-        ...(typeof isArchived === "boolean" && { isArchived }),
-    };
+    let where: Prisma.ListWhereInput;
+
+    if (sharedWithMe) {
+        // Get lists shared with the user
+        where = {
+            sharedWith: {
+                some: {
+                    userId,
+                },
+            },
+            ...(typeof isArchived === "boolean" && { isArchived }),
+        };
+    } else {
+        // Get lists owned by the user
+        where = {
+            userId,
+            ...(typeof isPrivate === "boolean" && { isPrivate }),
+            ...(typeof isArchived === "boolean" && { isArchived }),
+        };
+    }
+
+    // For shared lists, we need to include the permission level
+    const sharedWithInclude = sharedWithMe
+        ? {
+            where: {
+                userId,
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        userName: true,
+                        avatar: true,
+                    },
+                },
+            },
+        }
+        : {
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        userName: true,
+                        avatar: true,
+                    },
+                },
+            },
+        };
 
     try {
         const [lists, total] = await prisma.$transaction([
@@ -35,6 +79,13 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
                 skip,
                 take: perPage,
                 include: {
+                    user: {
+                        select: {
+                            id: true,
+                            userName: true,
+                            avatar: true,
+                        },
+                    },
                     _count: {
                         select: {
                             movieItems: true,
@@ -45,17 +96,7 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
                             crewItems: true,
                         },
                     },
-                    sharedWith: {
-                        include: {
-                            user: {
-                                select: {
-                                    id: true,
-                                    userName: true,
-                                    avatar: true,
-                                },
-                            },
-                        },
-                    },
+                    sharedWith: sharedWithInclude,
                 },
             }),
             prisma.list.count({ where }),
@@ -88,7 +129,23 @@ export async function getListById(listId: number, userId?: number) {
             where.OR = [{ userId }, { sharedWith: { some: { userId } } }];
         }
 
-        const list = await prisma.list.findFirst({ where });
+        const list = await prisma.list.findFirst({
+            where,
+            include: {
+                sharedWith: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                userName: true,
+                                email: true,
+                                avatar: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
 
         if (!list) {
             throw new Error("List not found");

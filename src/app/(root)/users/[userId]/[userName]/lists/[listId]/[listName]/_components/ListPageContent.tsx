@@ -7,6 +7,8 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
+import ShareIcon from "@mui/icons-material/Share";
+import ShareListModal from "./ShareListModal";
 import ListDetailCardItem from "@/components/root/listDetailCardItem/ListDetailCardItem";
 import DraggableListItem from "@/components/root/draggableListItem/DraggableListItem";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
@@ -28,7 +30,19 @@ import {
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy } from "@dnd-kit/sortable";
 
 interface ListPageContentProps {
-    list: List;
+    list: List & {
+        sharedWith?: {
+            user: {
+                id: number;
+                userName: string;
+                avatar?: {
+                    photoSrc: string;
+                } | null;
+            };
+            canEdit: boolean;
+            sharedAt: Date;
+        }[];
+    };
     userName: string;
     currentUserId: number;
     content: any[];
@@ -49,6 +63,16 @@ export default function ListPageContent({
     const [isEditMode, setIsEditMode] = useState(false);
     const [items, setItems] = useState(content);
     const [isPending, startTransition] = useTransition();
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+    // Format shared users data for the modal
+    const sharedUsers = list.sharedWith?.map(share => ({
+        id: share.user.id,
+        userName: share.user.userName,
+        avatar: share.user.avatar,
+        canEdit: share.canEdit,
+        sharedAt: share.sharedAt
+    })) || [];
 
     useEffect(() => {
         setItems(content);
@@ -194,22 +218,41 @@ export default function ListPageContent({
                             )}
                         </Stack>
 
-                        {/* Only show reorder controls if the user is the owner or has edit permissions */}
-                        {list.userId === currentUserId && (
-                            <Button
-                                variant="outlined"
-                                color={isEditMode ? "success" : "primary"}
-                                startIcon={isEditMode ? <SaveIcon /> : <EditIcon />}
-                                onClick={toggleEditMode}
-                                disabled={isPending}
-                                sx={{
-                                    textTransform: "none",
-                                    fontWeight: 600,
-                                }}
-                            >
-                                {isEditMode ? "Save Order" : "Reorder Items"}
-                            </Button>
-                        )}
+                        {/* Action buttons for list owner */}
+                        <Stack direction="row" spacing={2}>
+                            {/* Share button - only visible to list owner */}
+                            {list.userId === currentUserId && (
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    startIcon={<ShareIcon />}
+                                    onClick={() => setIsShareModalOpen(true)}
+                                    sx={{
+                                        textTransform: "none",
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    Share List
+                                </Button>
+                            )}
+
+                            {/* Reorder button - only visible to list owner or users with edit permissions */}
+                            {(list.userId === currentUserId || list.sharedWith?.some(share => share.user.id === currentUserId && share.canEdit)) && (
+                                <Button
+                                    variant="outlined"
+                                    color={isEditMode ? "success" : "primary"}
+                                    startIcon={isEditMode ? <SaveIcon /> : <EditIcon />}
+                                    onClick={toggleEditMode}
+                                    disabled={isPending}
+                                    sx={{
+                                        textTransform: "none",
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    {isEditMode ? "Save Order" : "Reorder Items"}
+                                </Button>
+                            )}
+                        </Stack>
                     </Stack>
                     {list.description && (
                         <Stack direction="row" spacing={1} alignItems="flex-start">
@@ -310,6 +353,15 @@ export default function ListPageContent({
                     <PaginationControl currentPage={currentPage} pageCount={pageCount} urlParamName="page" />
                 </Box>
             </Stack>
+
+            {/* Share List Modal */}
+            <ShareListModal
+                open={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
+                listId={list.id}
+                userId={currentUserId}
+                sharedUsers={sharedUsers}
+            />
         </Box>
     );
 }

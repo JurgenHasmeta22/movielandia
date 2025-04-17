@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Paper, Stack, Typography, Button } from "@mui/material";
+import { Box, Paper, Stack, Typography, Button, Tabs, Tab } from "@mui/material";
 import { List } from "@prisma/client";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
@@ -8,6 +8,9 @@ import SortSelect from "@/components/root/sortSelect/SortSelect";
 import ListCard from "@/components/root/listCard/ListCard";
 import { useRouter } from "next/navigation";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import ShareIcon from "@mui/icons-material/Share";
+import { useQueryState } from "nuqs";
+import { useState, useEffect } from "react";
 
 interface ListsPageContentProps {
     lists: List[];
@@ -18,10 +21,14 @@ interface ListsPageContentProps {
         listsAscOrDesc?: string;
         pageLists?: string;
         listsSortBy?: string;
+        listsView?: string;
     };
     session: any;
     userId: number;
     userName: string;
+    sharedLists?: List[];
+    sharedListsCount?: number;
+    view?: string;
 }
 
 export default function ListsPageContent({
@@ -33,8 +40,19 @@ export default function ListsPageContent({
     session,
     userId,
     userName,
+    sharedLists = [],
+    sharedListsCount = 0,
+    view,
 }: ListsPageContentProps) {
     const router = useRouter();
+    const [listsView, setListsView] = useQueryState("listsView");
+
+    // Initialize the view state based on the URL parameter
+    useEffect(() => {
+        if (view && view !== listsView) {
+            setListsView(view);
+        }
+    }, [view, listsView, setListsView]);
 
     const isOwnProfile = Number(session?.user?.id) === userId;
 
@@ -118,6 +136,11 @@ export default function ListsPageContent({
         );
     }
 
+    // Handle tab change
+    const handleTabChange = (_event: React.SyntheticEvent, newValue: string) => {
+        setListsView(newValue === "my" ? null : newValue);
+    };
+
     return (
         <Box
             sx={{
@@ -132,6 +155,32 @@ export default function ListsPageContent({
                 mt: { xs: 4, sm: 5 },
             }}
         >
+            {/* Tabs for My Lists and Shared with me - only show for own profile */}
+            {isOwnProfile && (
+                <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
+                    <Tabs
+                        value={listsView === "shared" ? "shared" : "my"}
+                        onChange={handleTabChange}
+                        aria-label="list view tabs"
+                    >
+                        <Tab
+                            label="My Lists"
+                            value="my"
+                            icon={<PlaylistAddIcon />}
+                            iconPosition="start"
+                            sx={{ textTransform: "none" }}
+                        />
+                        <Tab
+                            label="Shared with me"
+                            value="shared"
+                            icon={<ShareIcon />}
+                            iconPosition="start"
+                            sx={{ textTransform: "none" }}
+                            disabled={sharedListsCount === 0}
+                        />
+                    </Tabs>
+                </Box>
+            )}
             <Box
                 sx={{
                     display: "flex",
@@ -185,7 +234,13 @@ export default function ListsPageContent({
                     }}
                 >
                     {lists.map((list: List) => (
-                        <ListCard key={list.id} list={list} username={userName} userId={userId} />
+                        <ListCard
+                            key={list.id}
+                            list={list}
+                            username={userName}
+                            userId={userId}
+                            isSharedView={listsView === "shared"}
+                        />
                     ))}
                 </Stack>
 
