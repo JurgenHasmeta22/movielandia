@@ -174,7 +174,7 @@ export default function ListPageContent({
                         GO BACK
                     </Button>
                 </Stack>
-                <ListDetailHeader listId={list.id} userId={list.userId} listTitle={list.name} />
+                <ListDetailHeader listId={list.id} userId={list.userId} listTitle={list.name} currentUserId={currentUserId} />
                 <Stack spacing={2}>
                     <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
                         <Stack direction="row" spacing={1}>

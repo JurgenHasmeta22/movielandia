@@ -5,6 +5,7 @@ import { prisma } from "../../../prisma/config/prisma";
 import { redirect } from "next/navigation";
 import { getReferer } from "../user/user.actions";
 import type { ListFormData } from "@/schemas/list.schema";
+import { revalidatePath } from "next/cache";
 
 interface ListParams {
     page?: number;
@@ -77,14 +78,17 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
     }
 }
 
-export async function getListById(listId: number, userId: number) {
+export async function getListById(listId: number, userId?: number) {
     try {
-        const list = await prisma.list.findFirst({
-            where: {
-                id: listId,
-                OR: [{ userId }, { sharedWith: { some: { userId } } }],
-            },
-        });
+        const where: Prisma.ListWhereInput = {
+            id: listId,
+        };
+
+        if (userId) {
+            where.OR = [{ userId }, { sharedWith: { some: { userId } } }];
+        }
+
+        const list = await prisma.list.findFirst({ where });
 
         if (!list) {
             throw new Error("List not found");
@@ -431,6 +435,9 @@ export async function updateList(
             where: { id: listId },
             data,
         });
+
+        const referer = getReferer();
+        revalidatePath(`${referer}`, "page");
 
         return updatedList;
     } catch (error) {

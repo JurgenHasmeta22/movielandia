@@ -1,26 +1,32 @@
 "use client";
 
 import { Box, Button, Typography, Stack } from "@mui/material";
-import { DeleteForever, DeleteSweep } from "@mui/icons-material";
+import { DeleteForever, DeleteSweep, Edit } from "@mui/icons-material";
 import { useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { showToast } from "@/utils/helpers/toast";
-import { deleteList, getListContentType } from "@/actions/list/list.actions";
+import { deleteList, getListContentType, getListById } from "@/actions/list/list.actions";
 import { removeAllItemsFromList } from "@/actions/list/listItems.actions";
 import ContentTypeLabel from "../contentTypeLabel/ContentTypeLabel";
 import { useEffect, useState } from "react";
+import EditListModal from "@/app/(root)/users/[userId]/[userName]/lists/[listId]/[listName]/_components/EditListModal";
 
 interface ListDetailHeaderProps {
     listId: number;
     userId: number;
     listTitle: string;
+    currentUserId?: number;
 }
 
-export default function ListDetailHeader({ listId, userId, listTitle }: ListDetailHeaderProps) {
+export default function ListDetailHeader({ listId, userId, listTitle, currentUserId }: ListDetailHeaderProps) {
     const router = useRouter();
     const pathname = usePathname();
     const [isPending, startTransition] = useTransition();
     const [contentType, setContentType] = useState<any>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [listDetails, setListDetails] = useState<{ name: string; description: string; isPrivate: boolean } | null>(
+        null,
+    );
 
     useEffect(() => {
         const fetchContentType = async () => {
@@ -34,6 +40,25 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
 
         fetchContentType();
     }, [listId]);
+
+    const handleOpenEditModal = async () => {
+        try {
+            const list = await getListById(listId);
+
+            if (list) {
+                setListDetails({
+                    name: list.name,
+                    description: list.description || "",
+                    isPrivate: list.isPrivate,
+                });
+                
+                setIsEditModalOpen(true);
+            }
+        } catch (error) {
+            showToast("error", "Failed to load list details");
+            console.error("Failed to load list details:", error);
+        }
+    };
 
     const handleDeleteAllItems = () => {
         startTransition(async () => {
@@ -52,7 +77,6 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
             try {
                 await deleteList(listId, userId);
 
-                // Extract the username from the pathname
                 const pathParts = pathname.split("/");
                 const userIdIndex = pathParts.findIndex((part) => part === userId.toString());
                 const userName =
@@ -68,42 +92,69 @@ export default function ListDetailHeader({ listId, userId, listTitle }: ListDeta
     };
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                mb: 4,
-            }}
-        >
-            <Stack direction="row" spacing={2} alignItems="center">
-                <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: 500 }}>
-                    {listTitle}
-                </Typography>
-                {contentType && <ContentTypeLabel contentType={contentType} size="medium" />}
-            </Stack>
-            <Stack direction="row" spacing={1}>
-                <Button
-                    variant="outlined"
-                    color="error"
-                    startIcon={<DeleteSweep />}
-                    onClick={handleDeleteAllItems}
-                    disabled={isPending}
-                    sx={{ textTransform: "none" }}
-                >
-                    Delete All Items
-                </Button>
-                <Button
-                    variant="outlined"
-                    color="error"
-                    startIcon={<DeleteForever />}
-                    onClick={handleDeleteList}
-                    disabled={isPending}
-                    sx={{ textTransform: "none" }}
-                >
-                    Delete List
-                </Button>
-            </Stack>
-        </Box>
+        <>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 4,
+                }}
+            >
+                <Stack direction="row" spacing={2} alignItems="center">
+                    <Typography variant="h1" sx={{ fontSize: "1.5rem", fontWeight: 500 }}>
+                        {listTitle}
+                    </Typography>
+                    {contentType && <ContentTypeLabel contentType={contentType} size="medium" />}
+                </Stack>
+                <Stack direction="row" spacing={1}>
+                    {currentUserId === userId && (
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            startIcon={<Edit />}
+                            onClick={handleOpenEditModal}
+                            disabled={isPending}
+                            sx={{ textTransform: "none" }}
+                        >
+                            Edit List
+                        </Button>
+                    )}
+                    <Button
+                        variant="outlined"
+                        color="error"
+                        startIcon={<DeleteSweep />}
+                        onClick={handleDeleteAllItems}
+                        disabled={isPending}
+                        sx={{ textTransform: "none" }}
+                    >
+                        Delete All Items
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="error"
+                        startIcon={<DeleteForever />}
+                        onClick={handleDeleteList}
+                        disabled={isPending}
+                        sx={{ textTransform: "none" }}
+                    >
+                        Delete List
+                    </Button>
+                </Stack>
+            </Box>
+            {isEditModalOpen && listDetails && (
+                <EditListModal
+                    open={isEditModalOpen}
+                    onClose={() => setIsEditModalOpen(false)}
+                    listId={listId}
+                    userId={userId}
+                    initialValues={{
+                        name: listDetails.name,
+                        description: listDetails.description,
+                        isPrivate: listDetails.isPrivate,
+                    }}
+                />
+            )}
+        </>
     );
 }
