@@ -4,6 +4,7 @@ import { Box, Typography, useTheme, IconButton } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { CardItemType } from "../cardItem/CardItem";
+import { ContentType } from "@prisma/client";
 import { motion } from "framer-motion";
 import { Close } from "@mui/icons-material";
 import { useTransition } from "react";
@@ -20,7 +21,7 @@ import {
 
 interface ListDetailCardItemProps {
     data: any;
-    type: CardItemType;
+    type: CardItemType | ContentType | null;
     listId: number;
     userId: number;
     showActions?: boolean;

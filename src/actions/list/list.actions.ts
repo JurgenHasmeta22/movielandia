@@ -412,7 +412,7 @@ export async function updateList(
         description?: string;
         isPrivate?: boolean;
         isArchived?: boolean;
-        contentType: ContentType;
+        contentType?: ContentType;
     },
 ): Promise<List> {
     try {
@@ -461,6 +461,33 @@ export async function deleteList(listId: number, userId: number): Promise<any> {
     }
 }
 
+export async function updateListContentType(listId: number, userId: number, contentType: ContentType): Promise<List> {
+    try {
+        const list = await prisma.list.findFirst({
+            where: {
+                id: listId,
+                OR: [{ userId }, { sharedWith: { some: { userId, canEdit: true } } }],
+            },
+        });
+
+        if (!list) {
+            throw new Error("List not found or you don't have permission to edit");
+        }
+
+        const updatedList = await prisma.list.update({
+            where: { id: listId },
+            data: { contentType },
+        });
+
+        const referer = getReferer();
+        revalidatePath(`${referer}`, "page");
+
+        return updatedList;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to update list content type");
+    }
+}
+
 export async function getListForAddItems(listId: number) {
     try {
         const list = await prisma.list.findUnique({
@@ -500,4 +527,69 @@ export async function getListForAddItems(listId: number) {
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
+
+export async function getListContentType(listId: number) {
+    try {
+        const list = await prisma.list.findUnique({
+            where: { id: listId },
+            select: { contentType: true },
+        });
+
+        return list?.contentType || null;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "Failed to get list content type");
+    }
+}
+
+export async function detectAndUpdateListContentType(listId: number, userId: number): Promise<ContentType | null> {
+    try {
+        // Check for movies
+        const { total: movieTotal } = await getListMovies(listId, userId, 1, 1);
+        if (movieTotal > 0) {
+            await updateListContentType(listId, userId, "movie");
+            return "movie";
+        }
+
+        // Check for series
+        const { total: serieTotal } = await getListSeries(listId, userId, 1, 1);
+        if (serieTotal > 0) {
+            await updateListContentType(listId, userId, "serie");
+            return "serie";
+        }
+
+        // Check for seasons
+        const { total: seasonTotal } = await getListSeasons(listId, userId, 1, 1);
+        if (seasonTotal > 0) {
+            await updateListContentType(listId, userId, "season");
+            return "season";
+        }
+
+        // Check for episodes
+        const { total: episodeTotal } = await getListEpisodes(listId, userId, 1, 1);
+        if (episodeTotal > 0) {
+            await updateListContentType(listId, userId, "episode");
+            return "episode";
+        }
+
+        // Check for actors
+        const { total: actorTotal } = await getListActors(listId, userId, 1, 1);
+        if (actorTotal > 0) {
+            await updateListContentType(listId, userId, "actor");
+            return "actor";
+        }
+
+        // Check for crew
+        const { total: crewTotal } = await getListCrew(listId, userId, 1, 1);
+        if (crewTotal > 0) {
+            await updateListContentType(listId, userId, "crew");
+            return "crew";
+        }
+
+        return null;
+    } catch (error) {
+        console.error("Failed to detect and update list content type:", error);
+        return null;
+    }
+}
+
 // #endregion
