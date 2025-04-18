@@ -62,6 +62,28 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     onChange={handleSortTypeChange}
                     displayEmpty
                     startAdornment={<SwapVertIcon fontSize="small" sx={{ mr: 1 }} />}
+                    MenuProps={{
+                        disableScrollLock: false,
+                        PaperProps: {
+                            sx: {
+                                maxHeight: 300,
+                                mt: 1,
+                                "&::-webkit-scrollbar": {
+                                    width: "8px",
+                                },
+                                "&::-webkit-scrollbar-track": {
+                                    background: "transparent",
+                                },
+                                "&::-webkit-scrollbar-thumb": {
+                                    backgroundColor: "rgba(155, 155, 155, 0.5)",
+                                    borderRadius: "4px",
+                                },
+                                "&::-webkit-scrollbar-thumb:hover": {
+                                    backgroundColor: "rgba(155, 155, 155, 0.7)",
+                                },
+                            },
+                        },
+                    }}
                 >
                     {sortOptions.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -78,6 +100,28 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     label="Order"
                     onChange={handleOrderChange}
                     startAdornment={<SortByAlphaIcon fontSize="small" sx={{ mr: 1 }} />}
+                    MenuProps={{
+                        disableScrollLock: false,
+                        PaperProps: {
+                            sx: {
+                                maxHeight: 300,
+                                mt: 1,
+                                "&::-webkit-scrollbar": {
+                                    width: "8px",
+                                },
+                                "&::-webkit-scrollbar-track": {
+                                    background: "transparent",
+                                },
+                                "&::-webkit-scrollbar-thumb": {
+                                    backgroundColor: "rgba(155, 155, 155, 0.5)",
+                                    borderRadius: "4px",
+                                },
+                                "&::-webkit-scrollbar-thumb:hover": {
+                                    backgroundColor: "rgba(155, 155, 155, 0.7)",
+                                },
+                            },
+                        },
+                    }}
                 >
                     <MenuItem value="asc">Ascending</MenuItem>
                     <MenuItem value="desc">Descending</MenuItem>

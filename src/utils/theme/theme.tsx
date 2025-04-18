@@ -265,6 +265,11 @@ export const theme = responsiveFontSizes(
                     disableFocusRipple: true,
                     disableTouchRipple: true,
                 },
+                styleOverrides: {
+                    root: {
+                        textTransform: 'capitalize',
+                    },
+                },
             },
             MuiListItemButton: {
                 defaultProps: {

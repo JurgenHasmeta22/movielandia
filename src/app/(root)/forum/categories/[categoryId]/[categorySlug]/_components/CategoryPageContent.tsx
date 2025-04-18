@@ -144,6 +144,9 @@ export default function CategoryPageContent({
                             startIcon={<SearchIcon />}
                             href={`/forum/search?categoryId=${category.id}`}
                             component={Link}
+                            sx={{
+                                textTransform: "capitalize"
+                            }}
                         >
                             Search in Category
                         </Button>
@@ -177,6 +180,28 @@ export default function CategoryPageContent({
                             label="Status"
                             onChange={handleStatusChange}
                             startAdornment={<FilterAltIcon fontSize="small" sx={{ mr: 1 }} />}
+                            MenuProps={{
+                                disableScrollLock: false,
+                                PaperProps: {
+                                    sx: {
+                                        maxHeight: 300,
+                                        mt: 1,
+                                        "&::-webkit-scrollbar": {
+                                            width: "8px",
+                                        },
+                                        "&::-webkit-scrollbar-track": {
+                                            background: "transparent",
+                                        },
+                                        "&::-webkit-scrollbar-thumb": {
+                                            backgroundColor: "rgba(155, 155, 155, 0.5)",
+                                            borderRadius: "4px",
+                                        },
+                                        "&::-webkit-scrollbar-thumb:hover": {
+                                            backgroundColor: "rgba(155, 155, 155, 0.7)",
+                                        },
+                                    },
+                                },
+                            }}
                         >
                             <MenuItem value="all">All</MenuItem>
                             <MenuItem value="Open">Open</MenuItem>
