@@ -68,6 +68,8 @@ export default function TagSelector({
                 renderTags={(tagValue, getTagProps) =>
                     tagValue.map((option, index) => (
                         <Chip
+                            // @ts-ignore
+                            key={option.id}
                             label={option.name}
                             {...getTagProps({ index })}
                             sx={{

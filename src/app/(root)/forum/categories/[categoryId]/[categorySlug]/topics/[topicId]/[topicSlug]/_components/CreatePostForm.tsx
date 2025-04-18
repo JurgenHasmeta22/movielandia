@@ -6,7 +6,6 @@ import { createPost } from "@/actions/forum/forumPost.actions";
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
-
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface CreatePostFormProps {
@@ -69,7 +68,6 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
                     style={{ minHeight: "200px", marginBottom: "50px" }}
                 />
             </Paper>
-
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button type="submit" variant="contained" color="primary" disabled={isSubmitting || !content.trim()}>
                     {isSubmitting ? "Posting..." : "Post Reply"}

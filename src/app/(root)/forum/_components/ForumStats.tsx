@@ -28,7 +28,15 @@ export default function ForumStats({ stats }: ForumStatsProps) {
             }}
         >
             <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 3 }}>
-                <Box sx={{ flex: 1, display: "flex", alignItems: "center", flexDirection: "column", textAlign: "center" }}>
+                <Box
+                    sx={{
+                        flex: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        textAlign: "center",
+                    }}
+                >
                     <ForumIcon sx={{ fontSize: 40, color: theme.vars.palette.primary.main, mb: 1 }} />
                     <Typography variant="h6" fontWeight="bold" color="primary">
                         {stats.categoriesCount}
@@ -37,8 +45,15 @@ export default function ForumStats({ stats }: ForumStatsProps) {
                         Categories
                     </Typography>
                 </Box>
-
-                <Box sx={{ flex: 1, display: "flex", alignItems: "center", flexDirection: "column", textAlign: "center" }}>
+                <Box
+                    sx={{
+                        flex: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        textAlign: "center",
+                    }}
+                >
                     <TopicIcon sx={{ fontSize: 40, color: theme.vars.palette.primary.main, mb: 1 }} />
                     <Typography variant="h6" fontWeight="bold" color="primary">
                         {stats.topicsCount}
@@ -47,8 +62,15 @@ export default function ForumStats({ stats }: ForumStatsProps) {
                         Topics
                     </Typography>
                 </Box>
-
-                <Box sx={{ flex: 1, display: "flex", alignItems: "center", flexDirection: "column", textAlign: "center" }}>
+                <Box
+                    sx={{
+                        flex: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        textAlign: "center",
+                    }}
+                >
                     <ChatIcon sx={{ fontSize: 40, color: theme.vars.palette.primary.main, mb: 1 }} />
                     <Typography variant="h6" fontWeight="bold" color="primary">
                         {stats.postsCount}

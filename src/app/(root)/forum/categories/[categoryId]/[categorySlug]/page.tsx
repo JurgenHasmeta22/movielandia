@@ -70,19 +70,18 @@ export default async function CategoryPage(props: ICategoryPageProps) {
     const currentOrder = searchParams?.order || "desc";
     const limit = 10;
 
-    // Parse tag IDs if present
     let tagIds: number[] | undefined;
+
     if (searchParams?.tags) {
         tagIds = searchParams.tags.split(",").map((id) => parseInt(id));
     }
 
-    // Parse status if present
     let status: TopicStatus | undefined;
+
     if (searchParams?.status && searchParams.status !== "all") {
         status = searchParams.status as TopicStatus;
     }
 
-    // Fetch topics in the server component with filters
     const topics = await getTopics(category.id, currentPage, limit, currentSortBy, currentOrder, tagIds, status);
 
     return (

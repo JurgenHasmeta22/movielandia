@@ -1,19 +1,6 @@
 "use client";
 
-import {
-    Box,
-    Container,
-    Typography,
-    Button,
-    Breadcrumbs,
-    Link as MuiLink,
-    Chip,
-    Avatar,
-    Divider,
-    Paper,
-} from "@mui/material";
-import { useRef } from "react";
-import { useRouter } from "next/navigation";
+import { Box, Container, Typography, Breadcrumbs, Link as MuiLink, Chip, Avatar, Paper } from "@mui/material";
 import { useQueryState } from "nuqs";
 import Link from "next/link";
 import { ForumCategory, ForumTopic, ForumTag } from "@prisma/client";
@@ -26,7 +13,6 @@ import { formatDistanceToNow, format } from "date-fns";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import TagDisplay from "@/app/(root)/forum/_components/TagDisplay";
-
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ITopicPageContentProps {
@@ -50,15 +36,7 @@ interface ITopicPageContentProps {
     currentPage: number;
 }
 
-export default function TopicPageContent({
-    topic,
-    category,
-    searchParams,
-    session,
-    posts,
-    currentPage,
-}: ITopicPageContentProps) {
-    const router = useRouter();
+export default function TopicPageContent({ topic, category, session, posts, currentPage }: ITopicPageContentProps) {
     const [page, setPage] = useQueryState("page");
     const limit = 10;
 
@@ -82,7 +60,6 @@ export default function TopicPageContent({
                 </MuiLink>
                 <Typography color="text.primary">{topic.title}</Typography>
             </Breadcrumbs>
-
             <Paper
                 elevation={0}
                 sx={{
@@ -100,7 +77,6 @@ export default function TopicPageContent({
                         {topic.title}
                     </Typography>
                 </Box>
-
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}>
                     <Avatar
                         src={topic.user.avatar?.photoSrc || ""}
@@ -117,7 +93,6 @@ export default function TopicPageContent({
                         </Link>{" "}
                         {format(new Date(topic.createdAt), "PPP")}
                     </Typography>
-
                     {topic.status !== "Open" && (
                         <Chip
                             label={topic.status}
@@ -127,13 +102,10 @@ export default function TopicPageContent({
                         />
                     )}
                 </Box>
-
                 <Box sx={{ mb: 3 }}>
                     <ReactQuill value={topic.content} readOnly={true} theme="snow" modules={{ toolbar: false }} />
                 </Box>
-
                 {topic.tags && topic.tags.length > 0 && <TagDisplay tags={topic.tags} label="Tags" size="medium" />}
-
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Typography variant="body2" color="text.secondary">
                         Last updated: {formatDistanceToNow(new Date(topic.updatedAt), { addSuffix: true })}
@@ -143,11 +115,9 @@ export default function TopicPageContent({
                     </Typography>
                 </Box>
             </Paper>
-
             <Typography variant="h5" component="h2" fontWeight="bold" sx={{ mb: 3 }}>
                 Replies
             </Typography>
-
             <PostList
                 posts={posts}
                 currentPage={currentPage}
@@ -156,7 +126,6 @@ export default function TopicPageContent({
                 userLoggedIn={session?.user}
                 topicLocked={topic.isLocked}
             />
-
             {session?.user && !topic.isLocked && (
                 <Box sx={{ mt: 4 }}>
                     <Typography variant="h6" component="h3" fontWeight="bold" sx={{ mb: 2 }}>

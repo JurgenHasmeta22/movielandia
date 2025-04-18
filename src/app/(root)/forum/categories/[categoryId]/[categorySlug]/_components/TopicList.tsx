@@ -16,8 +16,8 @@ interface TopicListProps {
     };
     currentPage: number;
     totalPages: number;
-    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
     userLoggedIn: any;
+    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
 export default function TopicList({ topics, currentPage, totalPages, onPageChange, userLoggedIn }: TopicListProps) {
@@ -98,7 +98,6 @@ export default function TopicList({ topics, currentPage, totalPages, onPageChang
                                 </Typography>
                             </Box>
                         </Box>
-
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
                             <Avatar
                                 src={topic.user.avatar?.photoSrc || ""}
@@ -116,7 +115,6 @@ export default function TopicList({ topics, currentPage, totalPages, onPageChang
                                 {formatDistanceToNow(new Date(topic.createdAt), { addSuffix: true })}
                             </Typography>
                         </Box>
-
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
                             <Box>
                                 {topic.status !== "Open" && (
@@ -138,7 +136,6 @@ export default function TopicList({ topics, currentPage, totalPages, onPageChang
                     </Paper>
                 ))}
             </Stack>
-
             {totalPages > 1 && (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                     <Pagination

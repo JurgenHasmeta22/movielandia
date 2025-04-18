@@ -7,7 +7,6 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { formatDistanceToNow, format } from "date-fns";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
-
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface PostListProps {
@@ -17,9 +16,9 @@ interface PostListProps {
     };
     currentPage: number;
     totalPages: number;
-    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
     userLoggedIn: any;
     topicLocked: boolean;
+    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
 export default function PostList({
@@ -117,13 +116,11 @@ export default function PostList({
                                 modules={{ toolbar: false }}
                             />
                         </Box>
-
                         {post.isEdited && (
                             <Typography variant="body2" color="text.secondary" sx={{ mt: 2, fontStyle: "italic" }}>
                                 Last edited: {formatDistanceToNow(new Date(post.updatedAt), { addSuffix: true })}
                             </Typography>
                         )}
-
                         {userLoggedIn && userLoggedIn.id === post.user.id && !topicLocked && (
                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
                                 <Button
@@ -139,7 +136,6 @@ export default function PostList({
                     </Paper>
                 ))}
             </Stack>
-
             {totalPages > 1 && (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                     <Pagination

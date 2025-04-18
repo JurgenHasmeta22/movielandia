@@ -37,7 +37,6 @@ export const metadata: Metadata = {
 export default async function CreateTopicPage(props: ICreateTopicPageProps) {
     const session = await getServerSession(authOptions);
 
-    // Redirect to login if not authenticated
     if (!session?.user) {
         redirect("/auth/signin?callbackUrl=/forum");
     }

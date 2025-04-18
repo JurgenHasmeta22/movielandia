@@ -21,7 +21,6 @@ import { ForumCategory } from "@prisma/client";
 import TopicList from "./TopicList";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useState, useEffect } from "react";
-
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SortIcon from "@mui/icons-material/Sort";
 import SearchIcon from "@mui/icons-material/Search";
@@ -68,7 +67,6 @@ export default function CategoryPageContent({
     useEffect(() => {
         const fetchTags = async () => {
             try {
-                // Parse selected tags from URL if any
                 if (tagIds) {
                     const parsedTagIds = tagIds.split(",").map((id) => parseInt(id));
                     setSelectedTags(parsedTagIds);
@@ -91,23 +89,23 @@ export default function CategoryPageContent({
 
     const handleSortChange = (event: SelectChangeEvent) => {
         setSortBy(event.target.value === "lastPostAt" ? null : event.target.value);
-        setPage(null); // Reset to first page when sorting changes
+        setPage(null);
     };
 
     const handleOrderChange = (event: SelectChangeEvent) => {
         setOrder(event.target.value === "desc" ? null : event.target.value);
-        setPage(null); // Reset to first page when order changes
+        setPage(null);
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
         setStatus(event.target.value === "all" ? null : event.target.value);
-        setPage(null); // Reset to first page when status changes
+        setPage(null);
     };
 
     const handleTagChange = (newTagIds: number[]) => {
         setSelectedTags(newTagIds);
         setTagIds(newTagIds.length > 0 ? newTagIds.join(",") : null);
-        setPage(null); // Reset to first page when tags change
+        setPage(null);
     };
 
     const clearFilters = () => {
@@ -127,7 +125,6 @@ export default function CategoryPageContent({
                 </MuiLink>
                 <Typography color="text.primary">{category.name}</Typography>
             </Breadcrumbs>
-
             <Box sx={{ mb: 4 }}>
                 <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
                     {category.name}
@@ -136,7 +133,6 @@ export default function CategoryPageContent({
                     {category.description}
                 </Typography>
             </Box>
-
             <Paper
                 elevation={0}
                 sx={{
@@ -169,7 +165,6 @@ export default function CategoryPageContent({
                         )}
                     </Box>
                 </Box>
-
                 <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 3 }}>
                     <FormControl size="small" sx={{ minWidth: 150 }}>
                         <InputLabel id="sort-by-label">Sort By</InputLabel>
@@ -186,7 +181,6 @@ export default function CategoryPageContent({
                             <MenuItem value="viewCount">View Count</MenuItem>
                         </Select>
                     </FormControl>
-
                     <FormControl size="small" sx={{ minWidth: 150 }}>
                         <InputLabel id="order-label">Order</InputLabel>
                         <Select labelId="order-label" value={currentOrder} label="Order" onChange={handleOrderChange}>
@@ -194,7 +188,6 @@ export default function CategoryPageContent({
                             <MenuItem value="asc">Ascending</MenuItem>
                         </Select>
                     </FormControl>
-
                     <FormControl size="small" sx={{ minWidth: 150 }}>
                         <InputLabel id="status-label">Status</InputLabel>
                         <Select
@@ -210,7 +203,6 @@ export default function CategoryPageContent({
                             <MenuItem value="Archived">Archived</MenuItem>
                         </Select>
                     </FormControl>
-
                     <Button
                         variant="outlined"
                         color="secondary"
@@ -221,7 +213,6 @@ export default function CategoryPageContent({
                         Clear Filters
                     </Button>
                 </Box>
-
                 <TagSelector
                     selectedTags={selectedTags}
                     onChange={handleTagChange}
@@ -229,7 +220,6 @@ export default function CategoryPageContent({
                     placeholder="Select tags to filter topics"
                 />
             </Paper>
-
             <TopicList
                 topics={topics}
                 currentPage={currentPage}

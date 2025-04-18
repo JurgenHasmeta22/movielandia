@@ -61,6 +61,7 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                     userId,
                     selectedTags.length > 0 ? selectedTags : undefined,
                 );
+
                 toast.success("Topic created successfully!");
                 router.push(`/forum/categories/${category.id}/${category.slug}/topics/${result.id}/${result.slug}`);
             } catch (error) {
@@ -86,7 +87,6 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                 </MuiLink>
                 <Typography color="text.primary">Create Topic</Typography>
             </Breadcrumbs>
-
             <Box sx={{ mb: 4 }}>
                 <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
                     Create New Topic
@@ -95,7 +95,6 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                     Start a new discussion in the {category.name} category.
                 </Typography>
             </Box>
-
             <Paper
                 elevation={0}
                 sx={{
@@ -122,7 +121,6 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                         sx={{ mb: 3 }}
                         disabled={isPending}
                     />
-
                     <Typography variant="subtitle1" gutterBottom>
                         Content
                     </Typography>
@@ -145,7 +143,6 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                             readOnly={isPending}
                         />
                     </Box>
-
                     <TagSelector
                         selectedTags={selectedTags}
                         onChange={setSelectedTags}
@@ -153,7 +150,6 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                         placeholder="Select tags for your topic"
                         disabled={isPending}
                     />
-
                     <Box sx={{ display: "flex", justifyContent: "space-between", mt: 4 }}>
                         <Button
                             variant="outlined"

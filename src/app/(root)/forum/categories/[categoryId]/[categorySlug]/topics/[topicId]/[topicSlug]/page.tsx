@@ -75,7 +75,6 @@ export default async function TopicPage(props: ITopicPageProps) {
         return notFound();
     }
 
-    // Verify that the topic belongs to the specified category
     if (topic.categoryId !== category.id) {
         return notFound();
     }
@@ -86,7 +85,6 @@ export default async function TopicPage(props: ITopicPageProps) {
     const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
     const limit = 10;
 
-    // Fetch posts in the server component
     const posts = await getPostsByTopicId(topic.id, currentPage, limit);
 
     return (
