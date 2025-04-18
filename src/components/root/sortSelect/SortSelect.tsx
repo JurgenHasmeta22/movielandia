@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Select, MenuItem, SvgIcon, Typography, FormControl, InputLabel } from "@mui/material";
+import { Box, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { useSorting } from "@/hooks/useSorting";
 import { getSortOptions } from "@/components/root/sortSelect/getSortingOptions";
@@ -52,26 +52,16 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
     };
 
     return (
-        <Box sx={{ display: "flex", alignItems: "start", gap: 2 }}>
-            <FormControl>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+                <InputLabel id="sort-by-label">Sort By</InputLabel>
                 <Select
                     labelId="sort-by-label"
                     value={sortBy || defaultValue}
-                    sx={{
-                        mt: 2,
-                    }}
+                    label="Sort By"
                     onChange={handleSortTypeChange}
                     displayEmpty
-                    renderValue={(value) => (
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                            <SvgIcon fontSize="small">
-                                <SwapVertIcon />
-                            </SvgIcon>
-                            <Typography fontSize="15px">
-                                {sortOptions.find((option) => option.value === value)?.label}
-                            </Typography>
-                        </Box>
-                    )}
+                    startAdornment={<SwapVertIcon fontSize="small" sx={{ mr: 1 }} />}
                 >
                     {sortOptions.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -80,22 +70,14 @@ export default function SortSelect({ sortBy, ascOrDesc, type, dataType }: ISortS
                     ))}
                 </Select>
             </FormControl>
-            <FormControl>
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+                <InputLabel id="ordering-label">Order</InputLabel>
                 <Select
                     labelId="ordering-label"
                     value={ascOrDesc || "asc"}
+                    label="Order"
                     onChange={handleOrderChange}
-                    sx={{
-                        mt: 2,
-                    }}
-                    renderValue={(value) => (
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                            <SvgIcon fontSize="small">
-                                <SortByAlphaIcon />
-                            </SvgIcon>
-                            <Typography fontSize="15px">{value === "asc" ? "Ascending" : "Descending"}</Typography>
-                        </Box>
-                    )}
+                    startAdornment={<SortByAlphaIcon fontSize="small" sx={{ mr: 1 }} />}
                 >
                     <MenuItem value="asc">Ascending</MenuItem>
                     <MenuItem value="desc">Descending</MenuItem>

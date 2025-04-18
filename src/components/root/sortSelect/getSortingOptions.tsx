@@ -48,7 +48,7 @@ export const getSortOptions = (type: string, dataType: string): SortOption[] => 
             { value: "lastPostAt", label: "Last Activity" },
             { value: "createdAt", label: "Creation Date" },
             { value: "title", label: "Title" },
-            { value: "viewCount", label: "View Count" }
+            { value: "viewCount", label: "View Count" },
         ];
     }
 

@@ -28,8 +28,8 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
                     p: 4,
                     textAlign: "center",
                     borderRadius: 2,
-                    backgroundColor: theme.vars.palette.secondary.light,
-                    border: `1px solid ${theme.vars.palette.primary.light}`,
+                    backgroundColor: theme.vars.palette.background.paper,
+                    border: `1px solid ${theme.vars.palette.divider}`,
                 }}
             >
                 <TopicIcon sx={{ fontSize: 60, color: theme.vars.palette.primary.main, mb: 2, opacity: 0.7 }} />
@@ -63,8 +63,8 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
                         sx={{
                             p: 3,
                             borderRadius: 2,
-                            backgroundColor: theme.vars.palette.secondary.light,
-                            border: `1px solid ${theme.vars.palette.primary.light}`,
+                            backgroundColor: theme.vars.palette.background.paper,
+                            border: `1px solid ${theme.vars.palette.divider}`,
                             transition: "all 0.2s ease-in-out",
                             "&:hover": {
                                 borderColor: theme.vars.palette.primary.main,

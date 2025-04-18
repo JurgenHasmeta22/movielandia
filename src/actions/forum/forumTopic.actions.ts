@@ -108,6 +108,16 @@ export async function getTopics(params: TopicsParams) {
         topicsAscOrDesc = "asc",
     } = params;
 
+    console.log("getTopics called with params:", {
+        categoryId,
+        page,
+        limit,
+        tagIds,
+        status,
+        topicsSortBy,
+        topicsAscOrDesc,
+    });
+
     const orderByObject: any = {};
     const finalSortBy = topicsSortBy;
     const finalOrder = topicsAscOrDesc;
@@ -129,7 +139,22 @@ export async function getTopics(params: TopicsParams) {
     }
 
     if (status) {
-        whereClause.status = status;
+        let statusValue: TopicStatus;
+
+        if (typeof status === "string") {
+            if (status === "Open") statusValue = TopicStatus.Open;
+            else if (status === "Closed") statusValue = TopicStatus.Closed;
+            else if (status === "Archived") statusValue = TopicStatus.Archived;
+            else {
+                console.error(`Invalid status string: ${status}`);
+                statusValue = TopicStatus.Open;
+            }
+        } else {
+            statusValue = status;
+        }
+
+        whereClause.status = statusValue;
+        console.log(`Filtering by status: ${statusValue}`);
     }
 
     const [topics, total] = await Promise.all([
@@ -209,7 +234,7 @@ export async function getTopicById(topicId: number, includeViews: boolean = fals
     return topic;
 }
 
-export async function toggleTopicPin(topicId: number, userId: number): Promise<void> {
+export async function toggleTopicPin(topicId: number, _userId: number): Promise<void> {
     try {
         const topic = await prisma.forumTopic.findUnique({
             where: { id: topicId },

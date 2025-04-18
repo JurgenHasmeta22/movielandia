@@ -56,6 +56,7 @@ export default function TagSelector({
                 onChange={handleTagChange}
                 getOptionLabel={(option) => option.name}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
+                size="small"
                 renderInput={(params) => (
                     <TextField
                         {...params}
@@ -63,6 +64,7 @@ export default function TagSelector({
                         label={label}
                         placeholder={placeholder}
                         disabled={disabled || loading}
+                        size="small"
                     />
                 )}
                 renderTags={(tagValue, getTagProps) =>
@@ -71,6 +73,7 @@ export default function TagSelector({
                             // @ts-ignore
                             key={option.id}
                             label={option.name}
+                            size="small"
                             {...getTagProps({ index })}
                             sx={{
                                 backgroundColor: option.color || undefined,

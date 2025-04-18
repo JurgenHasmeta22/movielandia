@@ -49,12 +49,12 @@ export default function CategoryPageContent({
 }: ICategoryPageContentProps) {
     const router = useRouter();
 
-    const [page, setPage] = useQueryState("page");
-    const [topicsSortBy, setTopicsSortBy] = useQueryState("topicsSortBy");
-    const [topicsAscOrDesc, setTopicsAscOrDesc] = useQueryState("topicsAscOrDesc");
+    const [_topicsPage, setTopicsPage] = useQueryState("topicsPage", { shallow: false });
+    const [_topicsSortBy, setTopicsSortBy] = useQueryState("topicsSortBy", { shallow: false });
+    const [_topicsAscOrDesc, setTopicsAscOrDesc] = useQueryState("topicsAscOrDesc", { shallow: false });
 
-    const [tagIds, setTagIds] = useQueryState("tags");
-    const [status, setStatus] = useQueryState("status");
+    const [tagIds, setTagIds] = useQueryState("tags", { shallow: false });
+    const [status, setStatus] = useQueryState("status", { shallow: false });
 
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     const limit = 10;
@@ -79,15 +79,23 @@ export default function CategoryPageContent({
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
-        setStatus(event.target.value === "all" ? null : event.target.value);
-        setPage(null);
+        const selectedStatus = event.target.value;
+
+        if (selectedStatus === "all") {
+            setStatus(null);
+        } else if (["Open", "Closed", "Archived"].includes(selectedStatus)) {
+            setStatus(selectedStatus);
+        }
+
+        setTopicsPage(null);
     };
 
     const handleTagChange = (newTagIds: number[]) => {
         setSelectedTags(newTagIds);
         const newTagIdsString = newTagIds.length > 0 ? newTagIds.join(",") : null;
+
         setTagIds(newTagIdsString);
-        setPage(null);
+        setTopicsPage(null);
     };
 
     const clearFilters = () => {
@@ -96,7 +104,7 @@ export default function CategoryPageContent({
         setTagIds(null);
         setStatus(null);
         setSelectedTags([]);
-        setPage(null);
+        setTopicsPage(null);
     };
 
     return (
@@ -121,8 +129,8 @@ export default function CategoryPageContent({
                     p: 3,
                     mb: 3,
                     borderRadius: 2,
-                    backgroundColor: (theme) => theme.vars.palette.secondary.light,
-                    border: (theme) => `1px solid ${theme.vars.palette.primary.light}`,
+                    backgroundColor: (theme) => theme.vars.palette.background.paper,
+                    border: (theme) => `1px solid ${theme.vars.palette.divider}`,
                 }}
             >
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
@@ -147,7 +155,15 @@ export default function CategoryPageContent({
                         )}
                     </Box>
                 </Box>
-                <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 3 }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row" },
+                        gap: 2,
+                        mb: 3,
+                        alignItems: "center",
+                    }}
+                >
                     <SortSelect sortBy={currentSortBy} ascOrDesc={currentOrder} type="list" dataType="topics" />
                     <FormControl size="small" sx={{ minWidth: 150 }}>
                         <InputLabel id="status-label">Status</InputLabel>
@@ -164,13 +180,7 @@ export default function CategoryPageContent({
                             <MenuItem value="Archived">Archived</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button
-                        variant="outlined"
-                        color="secondary"
-                        size="small"
-                        onClick={clearFilters}
-                        sx={{ height: 40 }}
-                    >
+                    <Button variant="outlined" color="secondary" size="small" onClick={clearFilters}>
                         Clear Filters
                     </Button>
                 </Box>
