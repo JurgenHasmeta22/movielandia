@@ -8,6 +8,7 @@ import PushPinIcon from "@mui/icons-material/PushPin";
 import LockIcon from "@mui/icons-material/Lock";
 import TagDisplay from "@/app/(root)/forum/_components/TagDisplay";
 import { formatDistanceToNow } from "date-fns";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface TopicListProps {
     topics: {

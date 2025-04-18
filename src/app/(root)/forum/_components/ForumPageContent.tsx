@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Typography, Paper, Button, Stack, Divider, ButtonGroup } from "@mui/material";
+import { Box, Container, Typography, Button, ButtonGroup } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import Link from "next/link";
@@ -27,7 +27,7 @@ interface IForumPageContentProps {
 
 export default function ForumPageContent({ session, categories, stats, currentPage }: IForumPageContentProps) {
     const router = useRouter();
-    const [page, setPage] = useQueryState("page");
+    const [_page, setPage] = useQueryState("page");
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value === 1 ? null : value.toString());
@@ -54,7 +54,7 @@ export default function ForumPageContent({ session, categories, stats, currentPa
                             Search Forum
                         </Button>
                     </ButtonGroup>
-                    {session?.user?.role === "ADMIN" && (
+                    {session?.user?.role === "Admin" && (
                         <Button
                             variant="contained"
                             color="primary"

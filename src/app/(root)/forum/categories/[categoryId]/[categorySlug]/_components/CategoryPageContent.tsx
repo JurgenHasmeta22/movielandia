@@ -26,6 +26,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TagSelector from "@/app/(root)/forum/_components/TagSelector";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
+import { AddCircleOutlined } from "@mui/icons-material";
 
 interface ICategoryPageContentProps {
     category: ForumCategory;
@@ -93,7 +94,6 @@ export default function CategoryPageContent({
     const handleTagChange = (newTagIds: number[]) => {
         setSelectedTags(newTagIds);
         const newTagIdsString = newTagIds.length > 0 ? newTagIds.join(",") : null;
-
         setTagIds(newTagIdsString);
         setTopicsPage(null);
     };
@@ -147,9 +147,13 @@ export default function CategoryPageContent({
                         >
                             Search in Category
                         </Button>
-
                         {session?.user && (
-                            <Button variant="contained" color="primary" onClick={handleCreateTopic}>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                startIcon={<AddCircleOutlined />}
+                                onClick={handleCreateTopic}
+                            >
                                 Create Topic
                             </Button>
                         )}
@@ -180,7 +184,7 @@ export default function CategoryPageContent({
                             <MenuItem value="Archived">Archived</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="outlined" color="secondary" size="small" onClick={clearFilters}>
+                    <Button variant="outlined" size="small" onClick={clearFilters}>
                         Clear Filters
                     </Button>
                 </Box>

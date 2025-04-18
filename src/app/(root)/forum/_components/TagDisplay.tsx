@@ -39,21 +39,20 @@ export default function TagDisplay({ tags, size = "small", clickable = true, wra
             >
                 {tags.map((tag) =>
                     clickable ? (
-                        <Link key={tag.id} href={`/forum/tags/${tag.id}`} passHref style={{ textDecoration: "none" }}>
-                            <Chip
-                                label={tag.name}
-                                size={size}
-                                sx={{
-                                    backgroundColor: tag.color || undefined,
-                                    color: tag.color ? "white" : undefined,
-                                    cursor: "pointer",
-                                    mb: wrap ? 0.5 : 0,
-                                    "&:hover": {
-                                        opacity: 0.9,
-                                    },
-                                }}
-                            />
-                        </Link>
+                        <Chip
+                            key={tag.id}
+                            label={tag.name}
+                            size={size}
+                            sx={{
+                                backgroundColor: tag.color || undefined,
+                                color: tag.color ? "white" : undefined,
+                                cursor: "pointer",
+                                mb: wrap ? 0.5 : 0,
+                                "&:hover": {
+                                    opacity: 0.9,
+                                },
+                            }}
+                        />
                     ) : (
                         <Chip
                             key={tag.id}
