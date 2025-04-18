@@ -226,7 +226,7 @@ async function baseSeeding() {
 const config = {
     useDynamicSeeding: true, // Set to false to use base seeding instead
     deleteBeforeSeeding: false, // Set to true to delete all data before seeding
-    dynamicSeedingStartStep: SeedStep.Forum // Which step to start from for dynamic seeding
+    dynamicSeedingStartStep: SeedStep.ForumTags // Which step to start from for dynamic seeding
 };
 
 async function main() {

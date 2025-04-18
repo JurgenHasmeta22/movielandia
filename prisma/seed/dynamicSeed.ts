@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { generateForumDataMinimal } from "./forumSeedMinimal";
+import { generateForumTagData } from "./forumTagSeed";
 
 const prisma = new PrismaClient();
 
@@ -914,7 +915,8 @@ export enum SeedStep {
     Crew = 4,
     Relationships = 5,
     Reviews = 6,
-    Forum = 7
+    Forum = 7,
+    ForumTags = 8
 }
 
 export async function generateDynamicSeedData(startFromStep: SeedStep = SeedStep.Movies) {
@@ -989,6 +991,13 @@ export async function generateDynamicSeedData(startFromStep: SeedStep = SeedStep
             await generateForumDataMinimal();
         } else {
             console.log("Skipping forum data generation...");
+        }
+
+        if (startFromStep <= SeedStep.ForumTags) {
+            console.log("Generating forum tag data...");
+            await generateForumTagData();
+        } else {
+            console.log("Skipping forum tag data generation...");
         }
 
         console.log("Dynamic seeding completed successfully!");
