@@ -74,16 +74,12 @@ export default async function UserPageContentWrapper({
                     Number(userId),
                     page,
                     search,
-                    "createdAt",
-                    "asc"
                 );
             } else if (subTab.toLowerCase() === "replies") {
                 additionalData = await getUserForumReplies(
                     Number(userId),
                     page,
                     search,
-                    "createdAt",
-                    "asc"
                 );
             }
         }

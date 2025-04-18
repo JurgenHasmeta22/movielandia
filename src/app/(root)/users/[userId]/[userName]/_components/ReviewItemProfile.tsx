@@ -8,7 +8,6 @@ import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ReviewItemProfileProps {

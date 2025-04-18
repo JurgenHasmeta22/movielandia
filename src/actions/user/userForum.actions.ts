@@ -2,20 +2,16 @@
 
 import { prisma } from "../../../prisma/config/prisma";
 
-/**
- * Get forum topics created by a user with pagination, sorting, and search
- */
 export async function getUserForumTopics(
     userId: number,
     page: number = 1,
     search: string = "",
     sortBy: string = "createdAt",
-    sortOrder: "asc" | "desc" = "desc"
+    sortOrder: "asc" | "desc" = "asc"
 ) {
     const perPage = 10;
     const skip = (page - 1) * perPage;
 
-    // Create sort object based on parameters
     const orderBy: any = {};
     orderBy[sortBy] = sortOrder;
 
@@ -74,20 +70,16 @@ export async function getUserForumTopics(
     }
 }
 
-/**
- * Get forum replies created by a user with pagination, sorting, and search
- */
 export async function getUserForumReplies(
     userId: number,
     page: number = 1,
     search: string = "",
     sortBy: string = "createdAt",
-    sortOrder: "asc" | "desc" = "desc"
+    sortOrder: "asc" | "desc" = "asc"
 ) {
     const perPage = 10;
     const skip = (page - 1) * perPage;
 
-    // Create sort object based on parameters
     const orderBy: any = {};
     orderBy[sortBy] = sortOrder;
 
@@ -151,6 +143,7 @@ export async function getUserForumReplies(
         };
     } catch (error) {
         console.error("Error fetching user forum replies:", error);
+
         return {
             items: [],
             total: 0,

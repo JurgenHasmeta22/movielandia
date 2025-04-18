@@ -37,8 +37,17 @@ interface ForumReplyItemProfileProps {
 }
 
 export default function ForumReplyItemProfile({ reply }: ForumReplyItemProfileProps) {
-    const topicUrl = `/forum/categories/${reply.post.topic.category.id}/${reply.post.topic.category.slug}/topics/${reply.post.topic.id}/${reply.post.topic.slug}`;
-    
+    const getReplyInfo = () => {
+        return {
+            title: reply.post.topic.title,
+            link: `/forum/categories/${reply.post.topic.category.id}/${reply.post.topic.category.slug}/topics/${reply.post.topic.id}/${reply.post.topic.slug}`,
+        };
+    };
+
+    const { title, link } = getReplyInfo();
+
+    if (!title || !link) return null;
+
     return (
         <Paper
             elevation={1}
@@ -55,7 +64,7 @@ export default function ForumReplyItemProfile({ reply }: ForumReplyItemProfilePr
                 height: "100%",
             }}
         >
-            <Link href={topicUrl} style={{ textDecoration: "none", color: "inherit" }}>
+            <Link href={link} style={{ textDecoration: "none", color: "inherit" }}>
                 <Typography
                     variant="h6"
                     sx={{
@@ -70,7 +79,7 @@ export default function ForumReplyItemProfile({ reply }: ForumReplyItemProfilePr
                         fontSize: { xs: "1rem", sm: "1.1rem" },
                     }}
                 >
-                    Reply to: {reply.post.topic.title}
+                    Reply to: {title}
                 </Typography>
             </Link>
 
@@ -93,26 +102,19 @@ export default function ForumReplyItemProfile({ reply }: ForumReplyItemProfilePr
 
             <Box sx={{ mb: 1.5 }}>
                 <Typography variant="caption" color="text.secondary">
-                    <strong>In response to:</strong>{" "}
-                    {reply.post.content.replace(/<[^>]*>?/gm, "").substring(0, 100)}
+                    <strong>In response to:</strong> {reply.post.content.replace(/<[^>]*>?/gm, "").substring(0, 100)}
                     {reply.post.content.length > 100 ? "..." : ""}
                 </Typography>
             </Box>
 
-            <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                justifyContent="space-between"
-                sx={{ mt: "auto" }}
-            >
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" sx={{ mt: "auto" }}>
                 <Stack direction="row" spacing={1} alignItems="center">
                     <Typography variant="caption" color="text.secondary">
                         {formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true })}
                     </Typography>
-                    
+
                     {reply.isEdited && (
-                        <Tooltip title={`Edited ${reply.editCount} ${reply.editCount === 1 ? 'time' : 'times'}`}>
+                        <Tooltip title={`Edited ${reply.editCount} ${reply.editCount === 1 ? "time" : "times"}`}>
                             <Box sx={{ display: "flex", alignItems: "center" }}>
                                 <EditIcon fontSize="small" sx={{ fontSize: "0.9rem", color: "text.secondary" }} />
                             </Box>
@@ -132,7 +134,10 @@ export default function ForumReplyItemProfile({ reply }: ForumReplyItemProfilePr
 
                     <Tooltip title="Downvotes">
                         <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <ThumbDownIcon fontSize="small" sx={{ mr: 0.5, fontSize: "1rem", color: "text.secondary" }} />
+                            <ThumbDownIcon
+                                fontSize="small"
+                                sx={{ mr: 0.5, fontSize: "1rem", color: "text.secondary" }}
+                            />
                             <Typography variant="caption" color="text.secondary">
                                 {reply._count.downvotes}
                             </Typography>

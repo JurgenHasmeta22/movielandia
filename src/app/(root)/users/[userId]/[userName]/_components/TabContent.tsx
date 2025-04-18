@@ -278,6 +278,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                     );
                                 }
                             }
+                            
                             return (
                                 <CardItemProfile
                                     key={index}
