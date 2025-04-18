@@ -267,7 +267,7 @@ export const theme = responsiveFontSizes(
                 },
                 styleOverrides: {
                     root: {
-                        textTransform: 'capitalize',
+                        textTransform: "capitalize",
                     },
                 },
             },

@@ -145,7 +145,7 @@ export default function CategoryPageContent({
                             href={`/forum/search?categoryId=${category.id}`}
                             component={Link}
                             sx={{
-                                textTransform: "capitalize"
+                                textTransform: "capitalize",
                             }}
                         >
                             Search in Category

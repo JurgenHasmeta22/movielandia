@@ -285,3 +285,35 @@ export async function toggleTopicLock(topicId: number, userId: number): Promise<
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
+
+export async function deleteTopic(topicId: number, userId: number): Promise<void> {
+    try {
+        const topic = await prisma.forumTopic.findFirst({
+            where: {
+                id: topicId,
+                userId,
+            },
+        });
+
+        if (!topic) {
+            throw new Error("Topic not found or you don't have permission to delete.");
+        }
+
+        await prisma.forumPost.deleteMany({
+            where: { topicId },
+        });
+
+        const result = await prisma.forumTopic.delete({
+            where: { id: topicId },
+        });
+
+        if (!result) {
+            throw new Error("Failed to delete topic.");
+        }
+
+        const referer = getReferer();
+        revalidatePath(`${referer}`, "page");
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+    }
+}

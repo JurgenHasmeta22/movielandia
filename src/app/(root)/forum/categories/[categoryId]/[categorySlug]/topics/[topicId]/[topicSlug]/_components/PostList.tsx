@@ -3,12 +3,21 @@
 import { Box, Paper, Typography, Stack, Avatar, Divider, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ChatIcon from "@mui/icons-material/Chat";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { formatDistanceToNow, format } from "date-fns";
 import TextEditor from "@/components/root/textEditor/TextEditor";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import type {} from "@mui/material/themeCssVarsAugmentation";
+import EditReplyModal from "./EditReplyModal";
+import { useModal } from "@/providers/ModalProvider";
+import { deleteReply } from "@/actions/forum/forumReply.actions";
+import { showToast } from "@/utils/helpers/toast";
+import * as CONSTANTS from "@/constants/Constants";
+import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 
 interface PostListProps {
     posts: {
@@ -23,7 +32,10 @@ interface PostListProps {
 
 export default function PostList({ posts, currentPage, totalPages, userLoggedIn, topicLocked }: PostListProps) {
     const theme = useTheme();
+    const router = useRouter();
+    const { openModal } = useModal();
     const editorRefs = useRef<{ [key: number]: React.RefObject<any> }>({});
+    const [editingReply, setEditingReply] = useState<{ id: number; content: string } | null>(null);
 
     posts.items.forEach((post) => {
         if (!editorRefs.current[post.id]) {
@@ -73,8 +85,14 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                         sx={{
                             p: 3,
                             borderRadius: 2,
-                            backgroundColor: theme.vars.palette.secondary.light,
-                            border: `1px solid ${theme.vars.palette.primary.light}`,
+                            backgroundColor:
+                                userLoggedIn && userLoggedIn.id === post.user.id
+                                    ? "rgba(25, 118, 210, 0.05)"
+                                    : theme.vars.palette.secondary.light,
+                            border:
+                                userLoggedIn && userLoggedIn.id === post.user.id
+                                    ? "1px solid rgba(25, 118, 210, 0.3)"
+                                    : `1px solid ${theme.vars.palette.primary.light}`,
                         }}
                     >
                         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
@@ -123,14 +141,23 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                             </Typography>
                         )}
                         {userLoggedIn && userLoggedIn.id === post.user.id && !topicLocked && (
-                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 1 }}>
                                 <Button
                                     variant="outlined"
                                     size="small"
-                                    component={Link}
-                                    href={`/forum/posts/${post.id}/edit?returnUrl=/forum/categories/${post.topic?.categoryId}/${post.topic?.category?.slug}/topics/${post.topic?.id}/${post.topic?.slug}`}
+                                    startIcon={<EditIcon />}
+                                    onClick={() => setEditingReply({ id: post.id, content: post.content })}
                                 >
                                     Edit
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    color="error"
+                                    startIcon={<DeleteIcon />}
+                                    onClick={() => handleDeleteReply(post.id)}
+                                >
+                                    Delete
                                 </Button>
                             </Box>
                         )}
@@ -142,6 +169,58 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     <PaginationControl pageCount={totalPages} currentPage={currentPage} />
                 </Box>
             )}
+
+            {/* Edit Reply Modal */}
+            {editingReply && userLoggedIn && (
+                <EditReplyModal
+                    open={!!editingReply}
+                    onClose={() => setEditingReply(null)}
+                    reply={editingReply}
+                    userId={userLoggedIn.id}
+                    onSuccess={() => router.refresh()}
+                />
+            )}
         </>
     );
+
+    // Function to handle reply deletion
+    function handleDeleteReply(replyId: number) {
+        if (!userLoggedIn) return;
+
+        openModal({
+            title: "Delete Reply",
+            subTitle: "Are you sure you want to delete this reply? This action cannot be undone.",
+            actions: [
+                {
+                    label: CONSTANTS.MODAL__DELETE__NO,
+                    onClick: () => {},
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#ff5252",
+                    },
+                    icon: <WarningOutlined />,
+                },
+                {
+                    label: CONSTANTS.MODAL__DELETE__YES,
+                    onClick: async () => {
+                        try {
+                            await deleteReply(replyId, userLoggedIn.id);
+                            showToast("success", "Reply deleted successfully!");
+                            router.refresh();
+                        } catch (error) {
+                            showToast("error", error instanceof Error ? error.message : "Failed to delete reply");
+                        }
+                    },
+                    type: "submit",
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#30969f",
+                    },
+                    icon: <CheckOutlined />,
+                },
+            ],
+        });
+    }
 }
