@@ -238,6 +238,7 @@ export default function RegisterForm() {
                                             </InputAdornment>
                                         }
                                         MenuProps={{
+                                            disableScrollLock: true,
                                             anchorOrigin: {
                                                 vertical: "bottom",
                                                 horizontal: "right",
@@ -313,6 +314,7 @@ export default function RegisterForm() {
                                             </InputAdornment>
                                         }
                                         MenuProps={{
+                                            disableScrollLock: true,
                                             anchorOrigin: {
                                                 vertical: "bottom",
                                                 horizontal: "left",

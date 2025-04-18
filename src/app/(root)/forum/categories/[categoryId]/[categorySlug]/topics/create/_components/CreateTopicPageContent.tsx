@@ -84,7 +84,7 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                 >
                     {category.name}
                 </MuiLink>
-                <Typography color="text.primary">Create Topic</Typography>
+                <Typography>Create Topic</Typography>
             </Breadcrumbs>
             <Box sx={{ mb: 4 }}>
                 <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
@@ -151,7 +151,6 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                         <Button
                             type="submit"
                             variant="contained"
-                            color="primary"
                             disabled={isPending || !title.trim() || !content.trim()}
                         >
                             {isPending ? "Creating..." : "Create Topic"}

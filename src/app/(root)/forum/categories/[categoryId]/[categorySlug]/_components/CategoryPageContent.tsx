@@ -153,7 +153,7 @@ export default function CategoryPageContent({
                         {session?.user && (
                             <Button
                                 variant="contained"
-                                color="secondary"
+                                color="primary"
                                 startIcon={<AddCircleOutlined />}
                                 onClick={handleCreateTopic}
                             >
@@ -181,26 +181,7 @@ export default function CategoryPageContent({
                             onChange={handleStatusChange}
                             startAdornment={<FilterAltIcon fontSize="small" sx={{ mr: 1 }} />}
                             MenuProps={{
-                                disableScrollLock: false,
-                                PaperProps: {
-                                    sx: {
-                                        maxHeight: 300,
-                                        mt: 1,
-                                        "&::-webkit-scrollbar": {
-                                            width: "8px",
-                                        },
-                                        "&::-webkit-scrollbar-track": {
-                                            background: "transparent",
-                                        },
-                                        "&::-webkit-scrollbar-thumb": {
-                                            backgroundColor: "rgba(155, 155, 155, 0.5)",
-                                            borderRadius: "4px",
-                                        },
-                                        "&::-webkit-scrollbar-thumb:hover": {
-                                            backgroundColor: "rgba(155, 155, 155, 0.7)",
-                                        },
-                                    },
-                                },
+                                disableScrollLock: true,
                             }}
                         >
                             <MenuItem value="all">All</MenuItem>
