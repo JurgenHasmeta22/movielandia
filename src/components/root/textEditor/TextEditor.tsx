@@ -24,20 +24,22 @@ interface ITextEditorProps {
 }
 
 const getModules = (isDisabled: boolean | undefined) => ({
-    toolbar: isDisabled ? false : [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        [{ font: [] }],
-        [{ size: ["small", false, "large", "huge"] }],
-        ["bold", "italic", "underline", "strike"],
-        [{ color: [] }, { background: [] }],
-        [{ align: ["", "center", "right", "justify"] }],
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ indent: "-1" }, { indent: "+1" }],
-        [{ script: "sub" }, { script: "super" }],
-        ["blockquote", "code-block"],
-        ["link", "image", "video"],
-        [{ direction: "rtl" }],
-    ],
+    toolbar: isDisabled
+        ? false
+        : [
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              [{ font: [] }],
+              [{ size: ["small", false, "large", "huge"] }],
+              ["bold", "italic", "underline", "strike"],
+              [{ color: [] }, { background: [] }],
+              [{ align: ["", "center", "right", "justify"] }],
+              [{ list: "ordered" }, { list: "bullet" }],
+              [{ indent: "-1" }, { indent: "+1" }],
+              [{ script: "sub" }, { script: "super" }],
+              ["blockquote", "code-block"],
+              ["link", "image", "video"],
+              [{ direction: "rtl" }],
+          ],
     // resize: {
     //     locale: {},
     // },

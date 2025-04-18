@@ -39,14 +39,12 @@ interface ForumReplyItemProfileProps {
 export default function ForumReplyItemProfile({ reply }: ForumReplyItemProfileProps) {
     const getReplyInfo = () => {
         return {
-            title: reply?.post?.topic?.title!,
-            link: `/forum/categories/${reply?.post?.topic?.category?.id!}/${reply?.post?.topic?.category?.slug!}/topics/${reply?.post?.topic?.id!}/${reply?.post?.topic?.slug!}`,
+            title: reply.post.topic.title,
+            link: `/forum/categories/${reply.post.topic.category.id}/${reply.post.topic.category.slug}/topics/${reply.post.topic.id}/${reply.post.topic.slug}`,
         };
     };
 
     const { title, link } = getReplyInfo();
-
-    if (!title || !link) return null;
 
     return (
         <Paper

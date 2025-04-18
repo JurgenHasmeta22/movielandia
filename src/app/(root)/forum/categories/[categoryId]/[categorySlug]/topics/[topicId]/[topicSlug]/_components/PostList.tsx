@@ -6,7 +6,7 @@ import Link from "next/link";
 import ChatIcon from "@mui/icons-material/Chat";
 import { formatDistanceToNow, format } from "date-fns";
 import TextEditor from "@/components/root/textEditor/TextEditor";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 interface PostListProps {
     posts: {
@@ -29,7 +29,13 @@ export default function PostList({
     topicLocked,
 }: PostListProps) {
     const theme = useTheme();
-    const editorRefs = useRef<{[key: number]: React.RefObject<any>}>({});
+    const editorRefs = useRef<{ [key: number]: React.RefObject<any> }>({});
+
+    posts.items.forEach(post => {
+        if (!editorRefs.current[post.id]) {
+            editorRefs.current[post.id] = React.createRef();
+        }
+    });
 
     if (posts.items.length === 0) {
         return (
@@ -112,7 +118,7 @@ export default function PostList({
                             <TextEditor
                                 value={post.content}
                                 onChange={() => {}}
-                                ref={editorRefs.current[post.id] = editorRefs.current[post.id] || useRef(null)}
+                                ref={editorRefs.current[post.id]}
                                 isDisabled={true}
                                 type="post"
                             />

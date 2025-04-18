@@ -118,8 +118,7 @@ export default function TagSelector({
                                         "&:hover": { bgcolor: "action.hover" },
                                         display: "flex",
                                         alignItems: "center",
-                                        borderBottom: (theme) =>
-                                            `1px solid ${theme.vars.palette.divider}`,
+                                        borderBottom: (theme) => `1px solid ${theme.vars.palette.divider}`,
                                         "&:last-child": {
                                             borderBottom: "none",
                                         },

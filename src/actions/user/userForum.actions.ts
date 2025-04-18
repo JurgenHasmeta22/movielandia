@@ -7,7 +7,7 @@ export async function getUserForumTopics(
     page: number = 1,
     search: string = "",
     sortBy: string = "createdAt",
-    sortOrder: "asc" | "desc" = "asc"
+    sortOrder: "asc" | "desc" = "asc",
 ) {
     const perPage = 10;
     const skip = (page - 1) * perPage;
@@ -75,7 +75,7 @@ export async function getUserForumReplies(
     page: number = 1,
     search: string = "",
     sortBy: string = "createdAt",
-    sortOrder: "asc" | "desc" = "asc"
+    sortOrder: "asc" | "desc" = "asc",
 ) {
     const perPage = 10;
     const skip = (page - 1) * perPage;

@@ -36,15 +36,13 @@ interface ForumTopicItemProfileProps {
 export default function ForumTopicItemProfile({ topic }: ForumTopicItemProfileProps) {
     const getTopicInfo = () => {
         return {
-            title: topic?.title,
-            link: `/forum/categories/${topic?.category?.id!}/${topic?.category?.slug!}/topics/${topic?.id}/${topic?.slug!}`,
-            categoryLink: `/forum/categories/${topic?.category?.id!}/${topic?.category?.slug!}`,
+            title: topic.title,
+            link: `/forum/categories/${topic.category.id}/${topic.category.slug}/topics/${topic.id}/${topic.slug}`,
+            categoryLink: `/forum/categories/${topic.category.id}/${topic.category.slug}`,
         };
     };
 
     const { title, link, categoryLink } = getTopicInfo();
-
-    if (!title || !link || !categoryLink) return null;
 
     return (
         <Paper

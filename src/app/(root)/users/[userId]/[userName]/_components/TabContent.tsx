@@ -7,7 +7,7 @@ import ForumTopicItemProfile from "./ForumTopicItemProfile";
 import ForumReplyItemProfile from "./ForumReplyItemProfile";
 import { motion } from "framer-motion";
 import ProfileSearchBar from "./ProfileSearchBar";
-import { useQueryState } from "nuqs";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface ITabContentProps {
     type: string;
@@ -18,16 +18,11 @@ interface ITabContentProps {
 }
 
 export default function TabContent({ type, userLoggedIn, userInPage, additionalData, mainTab }: ITabContentProps) {
-    const [search, setSearch] = useQueryState("search", {
-        defaultValue: "",
-        parse: (value) => value || "",
-        shallow: false,
-    });
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-    const [page, setPage] = useQueryState("page", {
-        defaultValue: "1",
-        shallow: false,
-    });
+    const search = searchParams.get("search") || "";
+    const page = searchParams.get("page") || "1";
 
     const perPage = 10;
     const totalItems = additionalData.total || 0;
@@ -37,7 +32,9 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
     const endIndex = Math.min(Number(page) * perPage, totalItems);
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
-        setPage(String(value));
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", String(value));
+        router.push(`?${params.toString()}`, { scroll: false });
     };
 
     const getReviewType = (item: any): "movie" | "serie" | "season" | "episode" | "actor" | "crew" => {
@@ -162,13 +159,7 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     width: "100%",
                 }}
             >
-                <ProfileSearchBar
-                    search={search}
-                    page={Number(page)}
-                    mainTab={mainTab}
-                    setPage={setPage}
-                    setSearch={setSearch}
-                />
+                <ProfileSearchBar search={search} page={Number(page)} mainTab={mainTab} />
                 {totalItems > 0 && (
                     <Box
                         sx={{

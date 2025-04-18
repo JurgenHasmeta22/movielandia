@@ -70,17 +70,9 @@ export default async function UserPageContentWrapper({
             );
         } else if (mainTab === "forum") {
             if (subTab.toLowerCase() === "topics") {
-                additionalData = await getUserForumTopics(
-                    Number(userId),
-                    page,
-                    search,
-                );
+                additionalData = await getUserForumTopics(Number(userId), page, search);
             } else if (subTab.toLowerCase() === "replies") {
-                additionalData = await getUserForumReplies(
-                    Number(userId),
-                    page,
-                    search,
-                );
+                additionalData = await getUserForumReplies(Number(userId), page, search);
             }
         }
     } catch (error) {

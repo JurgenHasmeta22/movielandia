@@ -5,23 +5,18 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useCallback, useState, useMemo, useEffect } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
-import { Options, useQueryState } from "nuqs";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface IProfileSearchBar {
     search: string;
     page: number;
     mainTab: string;
-    setPage: (value: string | ((old: string) => string | null) | null, options?: Options) => Promise<URLSearchParams>;
-    setSearch: (value: string | ((old: string) => string | null) | null, options?: Options) => Promise<URLSearchParams>;
 }
 
-export default function ProfileSearchBar({ search, page, mainTab, setPage, setSearch }: IProfileSearchBar) {
-    const [subTab, setSubTab] = useQueryState("subtab", {
-        defaultValue: "movies",
-        parse: (value) => value || "movies",
-        history: "push",
-        shallow: false,
-    });
+export default function ProfileSearchBar({ search, page, mainTab }: IProfileSearchBar) {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const subTab = searchParams.get("subtab") || "movies";
 
     const [inputValue, setInputValue] = useState(search);
     const [isSearching, setIsSearching] = useState(false);
@@ -44,17 +39,19 @@ export default function ProfileSearchBar({ search, page, mainTab, setPage, setSe
 
     const updateSearchParams = useCallback(() => {
         setIsSearching(true);
+        const params = new URLSearchParams(searchParams.toString());
 
         if (debouncedSearch.trim()) {
-            setSearch(debouncedSearch.trim());
-            setPage("1");
+            params.set("search", debouncedSearch.trim());
+            params.set("page", "1");
         } else {
-            setSearch(null);
-            setPage("1");
+            params.delete("search");
+            params.set("page", "1");
         }
 
+        router.push(`?${params.toString()}`, { scroll: false });
         setIsSearching(false);
-    }, [debouncedSearch]);
+    }, [debouncedSearch, router, searchParams]);
 
     useEffect(() => {
         if (debouncedSearch !== search) {
