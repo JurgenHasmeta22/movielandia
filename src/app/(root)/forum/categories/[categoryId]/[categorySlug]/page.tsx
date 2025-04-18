@@ -16,8 +16,8 @@ interface ICategoryPageProps {
     };
     searchParams?: Promise<{
         page?: string;
-        sortBy?: string;
-        order?: string;
+        topicsSortBy?: string;
+        topicsAscOrDesc?: string;
         tags?: string;
         status?: string;
     }>;
@@ -66,8 +66,8 @@ export default async function CategoryPage(props: ICategoryPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
-    const currentSortBy = searchParams?.sortBy || "lastPostAt";
-    const currentOrder = searchParams?.order || "desc";
+    const currentSortBy = searchParams?.topicsSortBy || "lastPostAt";
+    const currentOrder = searchParams?.topicsAscOrDesc || "desc";
     const limit = 10;
 
     let tagIds: number[] | undefined;
@@ -82,13 +82,20 @@ export default async function CategoryPage(props: ICategoryPageProps) {
         status = searchParams.status as TopicStatus;
     }
 
-    const topics = await getTopics(category.id, currentPage, limit, currentSortBy, currentOrder, tagIds, status);
+    const topics = await getTopics({
+        categoryId: category.id,
+        page: currentPage,
+        limit,
+        tagIds,
+        status,
+        topicsSortBy: searchParams?.topicsSortBy,
+        topicsAscOrDesc: searchParams?.topicsAscOrDesc
+    });
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <CategoryPageContent
                 category={category}
-                searchParams={searchParams}
                 session={session}
                 topics={topics}
                 currentPage={currentPage}

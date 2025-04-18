@@ -22,19 +22,13 @@ import TopicList from "./TopicList";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useState, useEffect } from "react";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import SortIcon from "@mui/icons-material/Sort";
 import SearchIcon from "@mui/icons-material/Search";
 import TagSelector from "@/app/(root)/forum/_components/TagSelector";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import SortSelect from "@/components/root/sortSelect/SortSelect";
 
 interface ICategoryPageContentProps {
     category: ForumCategory;
-    searchParams?: {
-        page?: string;
-        sortBy?: string;
-        order?: string;
-        tags?: string;
-        status?: string;
-    };
     session: any;
     topics: {
         items: any[];
@@ -54,18 +48,19 @@ export default function CategoryPageContent({
     currentOrder,
 }: ICategoryPageContentProps) {
     const router = useRouter();
+
     const [page, setPage] = useQueryState("page");
-    const [sortBy, setSortBy] = useQueryState("sortBy");
-    const [order, setOrder] = useQueryState("order");
+    const [topicsSortBy, setTopicsSortBy] = useQueryState("topicsSortBy");
+    const [topicsAscOrDesc, setTopicsAscOrDesc] = useQueryState("topicsAscOrDesc");
+
     const [tagIds, setTagIds] = useQueryState("tags");
     const [status, setStatus] = useQueryState("status");
 
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
-
     const limit = 10;
 
     useEffect(() => {
-        const fetchTags = async () => {
+        const setTagsData = async () => {
             try {
                 if (tagIds) {
                     const parsedTagIds = tagIds.split(",").map((id) => parseInt(id));
@@ -76,25 +71,11 @@ export default function CategoryPageContent({
             }
         };
 
-        fetchTags();
+        setTagsData();
     }, [tagIds]);
-
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value === 1 ? null : value.toString());
-    };
 
     const handleCreateTopic = () => {
         router.push(`/forum/categories/${category.id}/${category.slug}/topics/create`);
-    };
-
-    const handleSortChange = (event: SelectChangeEvent) => {
-        setSortBy(event.target.value === "lastPostAt" ? null : event.target.value);
-        setPage(null);
-    };
-
-    const handleOrderChange = (event: SelectChangeEvent) => {
-        setOrder(event.target.value === "desc" ? null : event.target.value);
-        setPage(null);
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
@@ -104,13 +85,14 @@ export default function CategoryPageContent({
 
     const handleTagChange = (newTagIds: number[]) => {
         setSelectedTags(newTagIds);
-        setTagIds(newTagIds.length > 0 ? newTagIds.join(",") : null);
+        const newTagIdsString = newTagIds.length > 0 ? newTagIds.join(",") : null;
+        setTagIds(newTagIdsString);
         setPage(null);
     };
 
     const clearFilters = () => {
-        setSortBy(null);
-        setOrder(null);
+        setTopicsSortBy(null);
+        setTopicsAscOrDesc(null);
         setTagIds(null);
         setStatus(null);
         setSelectedTags([]);
@@ -166,28 +148,7 @@ export default function CategoryPageContent({
                     </Box>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 3 }}>
-                    <FormControl size="small" sx={{ minWidth: 150 }}>
-                        <InputLabel id="sort-by-label">Sort By</InputLabel>
-                        <Select
-                            labelId="sort-by-label"
-                            value={currentSortBy}
-                            label="Sort By"
-                            onChange={handleSortChange}
-                            startAdornment={<SortIcon fontSize="small" sx={{ mr: 1 }} />}
-                        >
-                            <MenuItem value="lastPostAt">Last Activity</MenuItem>
-                            <MenuItem value="createdAt">Creation Date</MenuItem>
-                            <MenuItem value="title">Title</MenuItem>
-                            <MenuItem value="viewCount">View Count</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl size="small" sx={{ minWidth: 150 }}>
-                        <InputLabel id="order-label">Order</InputLabel>
-                        <Select labelId="order-label" value={currentOrder} label="Order" onChange={handleOrderChange}>
-                            <MenuItem value="desc">Descending</MenuItem>
-                            <MenuItem value="asc">Ascending</MenuItem>
-                        </Select>
-                    </FormControl>
+                    <SortSelect sortBy={currentSortBy} ascOrDesc={currentOrder} type="list" dataType="topics" />
                     <FormControl size="small" sx={{ minWidth: 150 }}>
                         <InputLabel id="status-label">Status</InputLabel>
                         <Select
@@ -220,13 +181,16 @@ export default function CategoryPageContent({
                     placeholder="Select tags to filter topics"
                 />
             </Paper>
-            <TopicList
-                topics={topics}
-                currentPage={currentPage}
-                totalPages={Math.ceil(topics.total / limit)}
-                onPageChange={handlePageChange}
-                userLoggedIn={session?.user}
-            />
+            <TopicList topics={topics} userLoggedIn={session?.user} />
+            {Math.ceil(topics.total / limit) > 1 && (
+                <Box sx={{ mt: 4 }}>
+                    <PaginationControl
+                        currentPage={currentPage}
+                        pageCount={Math.ceil(topics.total / limit)}
+                        urlParamName="page"
+                    />
+                </Box>
+            )}
         </Container>
     );
 }

@@ -43,6 +43,15 @@ export const getSortOptions = (type: string, dataType: string): SortOption[] => 
         ];
     }
 
+    if (dataType === "topics") {
+        return [
+            { value: "lastPostAt", label: "Last Activity" },
+            { value: "createdAt", label: "Creation Date" },
+            { value: "title", label: "Title" },
+            { value: "viewCount", label: "View Count" }
+        ];
+    }
+
     if (type === "list") {
         const listOptions: SortOption[] = [];
         return listOptions;

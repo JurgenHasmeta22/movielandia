@@ -87,15 +87,30 @@ export async function updateTopic(
     }
 }
 
-export async function getTopics(
-    categoryId?: number,
-    page: number = 1,
-    limit: number = 10,
-    sortBy: string = "lastPostAt",
-    order: string = "desc",
-    tagIds?: number[],
-    status?: TopicStatus,
-) {
+interface TopicsParams {
+    categoryId?: number;
+    page?: number;
+    limit?: number;
+    tagIds?: number[];
+    status?: TopicStatus;
+    topicsSortBy?: string;
+    topicsAscOrDesc?: string;
+}
+
+export async function getTopics(params: TopicsParams) {
+    const {
+        categoryId,
+        page = 1,
+        limit = 10,
+        tagIds,
+        status,
+        topicsSortBy = "lastPostAt",
+        topicsAscOrDesc = "desc",
+    } = params;
+
+    const finalSortBy = topicsSortBy;
+    const finalOrder = topicsAscOrDesc;
+
     const skip = (page - 1) * limit;
     let whereClause: any = {};
 
@@ -140,7 +155,7 @@ export async function getTopics(
                     },
                 },
             },
-            orderBy: [{ isPinned: "desc" }, { [sortBy]: order }],
+            orderBy: [{ isPinned: "desc" }, { [finalSortBy]: finalOrder }],
             skip,
             take: limit,
         }),

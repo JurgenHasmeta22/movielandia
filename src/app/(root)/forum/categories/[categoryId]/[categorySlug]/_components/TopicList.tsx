@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Paper, Typography, Pagination, Stack, Chip, Avatar, Button } from "@mui/material";
+import { Box, Paper, Typography, Stack, Chip, Avatar, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 import TopicIcon from "@mui/icons-material/Topic";
@@ -14,13 +14,10 @@ interface TopicListProps {
         items: any[];
         total: number;
     };
-    currentPage: number;
-    totalPages: number;
     userLoggedIn: any;
-    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-export default function TopicList({ topics, currentPage, totalPages, onPageChange, userLoggedIn }: TopicListProps) {
+export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
     const theme = useTheme();
 
     if (topics.items.length === 0) {
@@ -136,19 +133,6 @@ export default function TopicList({ topics, currentPage, totalPages, onPageChang
                     </Paper>
                 ))}
             </Stack>
-            {totalPages > 1 && (
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                    <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={onPageChange}
-                        color="primary"
-                        size="large"
-                        showFirstButton
-                        showLastButton
-                    />
-                </Box>
-            )}
         </>
     );
 }
