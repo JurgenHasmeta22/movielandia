@@ -105,11 +105,13 @@ export async function getTopics(params: TopicsParams) {
         tagIds,
         status,
         topicsSortBy = "lastPostAt",
-        topicsAscOrDesc = "desc",
+        topicsAscOrDesc = "asc",
     } = params;
 
+    const orderByObject: any = {};
     const finalSortBy = topicsSortBy;
     const finalOrder = topicsAscOrDesc;
+    orderByObject[finalSortBy] = finalOrder;
 
     const skip = (page - 1) * limit;
     let whereClause: any = {};
@@ -155,7 +157,7 @@ export async function getTopics(params: TopicsParams) {
                     },
                 },
             },
-            orderBy: [{ isPinned: "desc" }, { [finalSortBy]: finalOrder }],
+            orderBy: orderByObject,
             skip,
             take: limit,
         }),

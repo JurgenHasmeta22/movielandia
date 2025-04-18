@@ -66,8 +66,8 @@ export default async function CategoryPage(props: ICategoryPageProps) {
     const searchParamsKey = JSON.stringify(searchParams);
 
     const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
-    const currentSortBy = searchParams?.topicsSortBy || "lastPostAt";
-    const currentOrder = searchParams?.topicsAscOrDesc || "desc";
+    const currentSortBy = searchParams?.topicsSortBy ?? "";
+    const currentOrder = searchParams?.topicsAscOrDesc ?? "";
     const limit = 10;
 
     let tagIds: number[] | undefined;
@@ -89,7 +89,7 @@ export default async function CategoryPage(props: ICategoryPageProps) {
         tagIds,
         status,
         topicsSortBy: searchParams?.topicsSortBy,
-        topicsAscOrDesc: searchParams?.topicsAscOrDesc
+        topicsAscOrDesc: searchParams?.topicsAscOrDesc,
     });
 
     return (
