@@ -174,8 +174,11 @@ export default function ForumSearchPageContent({
                     <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                         <Button
                             variant="outlined"
-                            color="secondary"
+                            color="primary"
                             startIcon={<FilterAltIcon />}
+                            sx={{
+                                textTransform: "capitalize",
+                            }}
                             onClick={() => setShowFilters(!showFilters)}
                         >
                             {showFilters ? "Hide Filters" : "Show Filters"}

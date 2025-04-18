@@ -184,7 +184,14 @@ export default function CategoryPageContent({
                             <MenuItem value="Archived">Archived</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="outlined" size="small" onClick={clearFilters}>
+                    <Button
+                        variant="outlined"
+                        size="medium"
+                        sx={{
+                            textTransform: "capitalize",
+                        }}
+                        onClick={clearFilters}
+                    >
                         Clear Filters
                     </Button>
                 </Box>
