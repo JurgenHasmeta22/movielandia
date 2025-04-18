@@ -19,6 +19,7 @@ interface ISearchPageProps {
         status?: string;
         dateFrom?: string;
         dateTo?: string;
+        tab?: string;
     }>;
 }
 
@@ -35,6 +36,7 @@ export default async function SearchPage(props: ISearchPageProps) {
 
     const query = searchParams?.q || "";
     const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
+    const currentTab = searchParams?.tab || "all";
     const limit = 10;
 
     const filters: any = {};
@@ -81,6 +83,7 @@ export default async function SearchPage(props: ISearchPageProps) {
                 query={query}
                 searchResults={searchResults}
                 currentPage={currentPage}
+                currentTab={currentTab}
                 session={session}
                 allTags={allTags}
                 category={category}

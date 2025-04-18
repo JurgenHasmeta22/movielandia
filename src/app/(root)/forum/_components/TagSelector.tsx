@@ -60,7 +60,7 @@ export default function TagSelector({
                 onChange(newSelectedTags.map((tag) => tag.id));
             }
         }
-        
+
         setInputValue("");
         setIsOpen(false);
     };

@@ -35,6 +35,7 @@ interface SearchPageContentProps {
     query: string;
     searchResults: ForumSearchResult;
     currentPage: number;
+    currentTab?: string;
     session: any;
     allTags: ForumTag[];
     category: ForumCategory | null;
@@ -52,6 +53,7 @@ export default function ForumSearchPageContent({
     query,
     searchResults,
     currentPage,
+    currentTab = "all",
     category,
     filters,
 }: SearchPageContentProps) {
@@ -65,8 +67,7 @@ export default function ForumSearchPageContent({
     const [status, setStatus] = useQueryState("status", { shallow: false });
     const [dateFrom, setDateFrom] = useQueryState("dateFrom", { shallow: false });
     const [dateTo, setDateTo] = useQueryState("dateTo", { shallow: false });
-
-    const [tabValue, setTabValue] = useState(0);
+    const [tab, setTab] = useQueryState("tab", { shallow: false, defaultValue: currentTab });
     const [showFilters, setShowFilters] = useState(false);
     const [selectedTags, setSelectedTags] = useState<number[]>(filters.tagIds || []);
 
@@ -77,7 +78,8 @@ export default function ForumSearchPageContent({
     };
 
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue);
+        const tabNames = ["all", "topics", "posts", "replies"];
+        setTab(newValue === 0 ? null : tabNames[newValue]);
     };
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
@@ -272,7 +274,14 @@ export default function ForumSearchPageContent({
                         </Typography>
                     </Box>
                     <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
-                        <Tabs value={tabValue} onChange={handleTabChange} aria-label="search results tabs">
+                        <Tabs
+                            value={(() => {
+                                const tabNames = ["all", "topics", "posts", "replies"];
+                                return tabNames.indexOf(tab || "all");
+                            })()}
+                            onChange={handleTabChange}
+                            aria-label="search results tabs"
+                        >
                             <Tab label={`All (${totalResults})`} />
                             <Tab label={`Topics (${searchResults.topics.total})`} />
                             <Tab label={`Posts (${searchResults.posts.total})`} />
@@ -281,7 +290,10 @@ export default function ForumSearchPageContent({
                     </Box>
                     <ForumSearchResultsList
                         searchResults={searchResults}
-                        tabValue={tabValue}
+                        tabValue={(() => {
+                            const tabNames = ["all", "topics", "posts", "replies"];
+                            return tabNames.indexOf(tab || "all");
+                        })()}
                         currentPage={currentPage}
                         onPageChange={handlePageChange}
                     />
