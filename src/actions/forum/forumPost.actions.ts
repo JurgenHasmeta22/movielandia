@@ -130,10 +130,10 @@ export async function getPostsByTopicId(topicId: number, page: number = 1, limit
                         category: {
                             select: {
                                 id: true,
-                                slug: true
-                            }
-                        }
-                    }
+                                slug: true,
+                            },
+                        },
+                    },
                 },
             },
             orderBy: {
@@ -206,19 +206,19 @@ export async function getPostById(postId: number) {
                             select: {
                                 id: true,
                                 name: true,
-                                slug: true
-                            }
-                        }
-                    }
+                                slug: true,
+                            },
+                        },
+                    },
                 },
                 user: {
                     select: {
                         id: true,
                         userName: true,
-                        avatar: true
-                    }
-                }
-            }
+                        avatar: true,
+                    },
+                },
+            },
         });
 
         return post;

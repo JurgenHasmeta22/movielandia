@@ -3,8 +3,15 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
+import { TopicStatus } from "@prisma/client";
 
-export async function createTopic(title: string, content: string, categoryId: number, userId: number): Promise<void> {
+export async function createTopic(
+    title: string,
+    content: string,
+    categoryId: number,
+    userId: number,
+    tagIds?: number[],
+): Promise<any> {
     try {
         const result = await prisma.forumTopic.create({
             data: {
@@ -13,12 +20,19 @@ export async function createTopic(title: string, content: string, categoryId: nu
                 categoryId,
                 userId,
                 slug: title.toLowerCase().replace(/\s+/g, "-"),
+                tags:
+                    tagIds && tagIds.length > 0
+                        ? {
+                              connect: tagIds.map((id) => ({ id })),
+                          }
+                        : undefined,
             },
         });
 
         if (result) {
             const referer = getReferer();
             revalidatePath(`${referer}`, "page");
+            return result;
         } else {
             throw new Error("Failed to create topic.");
         }
@@ -27,7 +41,13 @@ export async function createTopic(title: string, content: string, categoryId: nu
     }
 }
 
-export async function updateTopic(topicId: number, title: string, content: string, userId: number): Promise<void> {
+export async function updateTopic(
+    topicId: number,
+    title: string,
+    content: string,
+    userId: number,
+    tagIds?: number[],
+): Promise<any> {
     try {
         const topic = await prisma.forumTopic.findFirst({
             where: {
@@ -46,12 +66,19 @@ export async function updateTopic(topicId: number, title: string, content: strin
                 title,
                 content,
                 slug: title.toLowerCase().replace(/\s+/g, "-"),
+                tags: tagIds
+                    ? {
+                          set: [],
+                          connect: tagIds.map((id) => ({ id })),
+                      }
+                    : undefined,
             },
         });
 
         if (result) {
             const referer = getReferer();
             revalidatePath(`${referer}`, "page");
+            return result;
         } else {
             throw new Error("Failed to update topic.");
         }
@@ -60,9 +87,33 @@ export async function updateTopic(topicId: number, title: string, content: strin
     }
 }
 
-export async function getTopics(categoryId?: number, page: number = 1, limit: number = 10) {
+export async function getTopics(
+    categoryId?: number,
+    page: number = 1,
+    limit: number = 10,
+    sortBy: string = "lastPostAt",
+    order: string = "desc",
+    tagIds?: number[],
+    status?: TopicStatus,
+) {
     const skip = (page - 1) * limit;
-    const whereClause = categoryId ? { categoryId } : {};
+    let whereClause: any = {};
+
+    if (categoryId) {
+        whereClause.categoryId = categoryId;
+    }
+
+    if (tagIds && tagIds.length > 0) {
+        whereClause.tags = {
+            some: {
+                id: { in: tagIds },
+            },
+        };
+    }
+
+    if (status) {
+        whereClause.status = status;
+    }
 
     const [topics, total] = await Promise.all([
         prisma.forumTopic.findMany({
@@ -82,13 +133,14 @@ export async function getTopics(categoryId?: number, page: number = 1, limit: nu
                         slug: true,
                     },
                 },
+                tags: true,
                 _count: {
                     select: {
                         posts: true,
                     },
                 },
             },
-            orderBy: [{ isPinned: "desc" }, { lastPostAt: "desc" }],
+            orderBy: [{ isPinned: "desc" }, { [sortBy]: order }],
             skip,
             take: limit,
         }),
@@ -103,7 +155,15 @@ export async function getTopics(categoryId?: number, page: number = 1, limit: nu
     };
 }
 
-export async function getTopicById(topicId: number) {
+export async function getTopicById(topicId: number, includeViews: boolean = false) {
+    // If includeViews is true, increment the view count
+    if (includeViews) {
+        await prisma.forumTopic.update({
+            where: { id: topicId },
+            data: { viewCount: { increment: 1 } },
+        });
+    }
+
     const topic = await prisma.forumTopic.findUnique({
         where: { id: topicId },
         include: {
@@ -121,6 +181,7 @@ export async function getTopicById(topicId: number) {
                     slug: true,
                 },
             },
+            tags: true,
         },
     });
 
