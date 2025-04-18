@@ -34,8 +34,8 @@ export default function ForumPageContent({ session, categories, stats, currentPa
     };
 
     return (
-        <Container maxWidth="xl" sx={{ py: 4 }}>
-            <Box sx={{ mb: 4 }}>
+        <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
+            <Box sx={{ mb: 4, mt: 1 }}>
                 <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
                     Community Forum
                 </Typography>

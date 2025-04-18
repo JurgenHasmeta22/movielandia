@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Box, Chip, Stack, TextField } from "@mui/material";
+import { Box, Chip, Stack, TextField, Typography } from "@mui/material";
 import { getAllTags } from "@/actions/forum/forumTag.actions";
 
 interface TagSelectorProps {
@@ -100,11 +100,12 @@ export default function TagSelector({
                             zIndex: 1300,
                             width: "100%",
                             mt: 0.5,
-                            maxHeight: "200px",
+                            maxHeight: "300px",
                             overflowY: "auto",
-                            bgcolor: "background.paper",
+                            bgcolor: (theme) => theme.vars.palette.background.paper,
                             borderRadius: 1,
                             boxShadow: 3,
+                            border: (theme) => `1px solid ${theme.vars.palette.divider}`,
                         }}
                     >
                         <Stack>
@@ -112,13 +113,28 @@ export default function TagSelector({
                                 <Box
                                     key={tag.id}
                                     sx={{
-                                        p: 1,
+                                        p: 1.5,
                                         cursor: "pointer",
                                         "&:hover": { bgcolor: "action.hover" },
+                                        display: "flex",
+                                        alignItems: "center",
+                                        borderBottom: (theme) =>
+                                            `1px solid ${theme.vars.palette.divider}`,
+                                        "&:last-child": {
+                                            borderBottom: "none",
+                                        },
                                     }}
                                     onClick={() => handleTagSelect(tag.id)}
                                 >
-                                    {tag.name}
+                                    <Chip
+                                        label={tag.name}
+                                        size="small"
+                                        sx={{
+                                            backgroundColor: tag.color || undefined,
+                                            color: tag.color ? "white" : undefined,
+                                            mr: 1,
+                                        }}
+                                    />
                                 </Box>
                             ))}
                         </Stack>
@@ -127,21 +143,27 @@ export default function TagSelector({
             </Box>
 
             {selectedTagObjects.length > 0 && (
-                <Stack direction="row" spacing={0.5} sx={{ mt: 1, flexWrap: "wrap" }}>
-                    {selectedTagObjects.map((tag) => (
-                        <Chip
-                            key={tag.id}
-                            label={tag.name}
-                            size="small"
-                            onDelete={() => handleDelete(tag)}
-                            sx={{
-                                backgroundColor: tag.color || undefined,
-                                color: tag.color ? "white" : undefined,
-                                margin: "2px",
-                            }}
-                        />
-                    ))}
-                </Stack>
+                <Box sx={{ mt: 1.5, mb: 0.5 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                        Selected tags:
+                    </Typography>
+                    <Stack direction="row" spacing={0.5} sx={{ flexWrap: "wrap" }}>
+                        {selectedTagObjects.map((tag) => (
+                            <Chip
+                                key={tag.id}
+                                label={tag.name}
+                                size="small"
+                                onDelete={() => handleDelete(tag)}
+                                sx={{
+                                    backgroundColor: tag.color || undefined,
+                                    color: tag.color ? "white" : undefined,
+                                    margin: "2px",
+                                    fontWeight: 500,
+                                }}
+                            />
+                        ))}
+                    </Stack>
+                </Box>
             )}
         </Box>
     );

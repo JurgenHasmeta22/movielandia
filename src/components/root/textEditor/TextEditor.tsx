@@ -23,8 +23,8 @@ interface ITextEditorProps {
     onChange: (value: string) => void;
 }
 
-const modules = {
-    toolbar: [
+const getModules = (isDisabled: boolean | undefined) => ({
+    toolbar: isDisabled ? false : [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         [{ font: [] }],
         [{ size: ["small", false, "large", "huge"] }],
@@ -50,7 +50,7 @@ const modules = {
             "list autofill": true,
         },
     },
-};
+});
 
 const formats = [
     "header",
@@ -114,6 +114,7 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
             <Box
                 sx={{
                     ".ql-toolbar": {
+                        display: isDisabled ? "none" : "block",
                         backgroundColor: theme.vars.palette.secondary.light,
                         border: `1px solid ${theme.vars.palette.primary.light}`,
                         borderTopLeftRadius: "8px",
@@ -168,8 +169,8 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     ".ql-container": {
                         backgroundColor: theme.vars.palette.secondary.light,
                         border: `1px solid ${theme.vars.palette.primary.light}`,
-                        borderBottomLeftRadius: "8px",
-                        borderBottomRightRadius: "8px",
+                        borderRadius: isDisabled ? "8px" : "0 0 8px 8px",
+                        borderTop: isDisabled ? `1px solid ${theme.vars.palette.primary.light}` : "none",
                         fontSize: "16px",
                         minHeight: "200px",
                     },
@@ -247,7 +248,7 @@ const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRa
                     theme="snow"
                     value={value}
                     onChange={onChange}
-                    modules={modules}
+                    modules={getModules(isDisabled)}
                     formats={formats}
                     readOnly={isDisabled}
                     // @ts-expect-error ref

@@ -10,10 +10,9 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import LockIcon from "@mui/icons-material/Lock";
 import { formatDistanceToNow, format } from "date-fns";
-import dynamic from "next/dynamic";
-import "react-quill-new/dist/quill.snow.css";
 import TagDisplay from "@/app/(root)/forum/_components/TagDisplay";
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import TextEditor from "@/components/root/textEditor/TextEditor";
+import { useRef } from "react";
 
 interface ITopicPageContentProps {
     topic: ForumTopic & {
@@ -37,15 +36,16 @@ interface ITopicPageContentProps {
 }
 
 export default function TopicPageContent({ topic, category, session, posts, currentPage }: ITopicPageContentProps) {
-    const [page, setPage] = useQueryState("page");
+    const [_page, setPage] = useQueryState("page");
     const limit = 10;
+    const editorRef = useRef(null);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value === 1 ? null : value.toString());
     };
 
     return (
-        <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" sx={{ mb: 3 }}>
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum
@@ -103,7 +103,13 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                     )}
                 </Box>
                 <Box sx={{ mb: 3 }}>
-                    <ReactQuill value={topic.content} readOnly={true} theme="snow" modules={{ toolbar: false }} />
+                    <TextEditor
+                        value={topic.content}
+                        onChange={() => {}}
+                        ref={editorRef}
+                        isDisabled={true}
+                        type="topic"
+                    />
                 </Box>
                 {topic.tags && topic.tags.length > 0 && <TagDisplay tags={topic.tags} label="Tags" size="medium" />}
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

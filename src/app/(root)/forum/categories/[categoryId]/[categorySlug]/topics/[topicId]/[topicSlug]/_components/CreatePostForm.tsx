@@ -1,12 +1,10 @@
 "use client";
 
 import { Box, Button, Paper } from "@mui/material";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { createPost } from "@/actions/forum/forumPost.actions";
 import { toast } from "react-toastify";
-import dynamic from "next/dynamic";
-import "react-quill-new/dist/quill.snow.css";
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import TextEditor from "@/components/root/textEditor/TextEditor";
 
 interface CreatePostFormProps {
     topicId: number;
@@ -16,6 +14,7 @@ interface CreatePostFormProps {
 export default function CreatePostForm({ topicId, userId }: CreatePostFormProps) {
     const [content, setContent] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const editorRef = useRef(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -51,21 +50,12 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
                     border: (theme) => `1px solid ${theme.vars.palette.primary.light}`,
                 }}
             >
-                <ReactQuill
-                    theme="snow"
+                <TextEditor
                     value={content}
                     onChange={setContent}
-                    placeholder="Write your reply here..."
-                    modules={{
-                        toolbar: [
-                            [{ header: [1, 2, 3, false] }],
-                            ["bold", "italic", "underline", "strike"],
-                            [{ list: "ordered" }, { list: "bullet" }],
-                            ["link", "image"],
-                            ["clean"],
-                        ],
-                    }}
-                    style={{ minHeight: "200px", marginBottom: "50px" }}
+                    ref={editorRef}
+                    isDisabled={isSubmitting}
+                    type="reply"
                 />
             </Paper>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

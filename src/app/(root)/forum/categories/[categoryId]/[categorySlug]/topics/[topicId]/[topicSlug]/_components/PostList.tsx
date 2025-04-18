@@ -5,9 +5,8 @@ import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 import ChatIcon from "@mui/icons-material/Chat";
 import { formatDistanceToNow, format } from "date-fns";
-import dynamic from "next/dynamic";
-import "react-quill-new/dist/quill.snow.css";
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import TextEditor from "@/components/root/textEditor/TextEditor";
+import { useRef } from "react";
 
 interface PostListProps {
     posts: {
@@ -30,6 +29,7 @@ export default function PostList({
     topicLocked,
 }: PostListProps) {
     const theme = useTheme();
+    const editorRefs = useRef<{[key: number]: React.RefObject<any>}>({});
 
     if (posts.items.length === 0) {
         return (
@@ -109,11 +109,12 @@ export default function PostList({
                         <Divider sx={{ my: 2 }} />
 
                         <Box sx={{ mb: 2 }}>
-                            <ReactQuill
+                            <TextEditor
                                 value={post.content}
-                                readOnly={true}
-                                theme="snow"
-                                modules={{ toolbar: false }}
+                                onChange={() => {}}
+                                ref={editorRefs.current[post.id] = editorRefs.current[post.id] || useRef(null)}
+                                isDisabled={true}
+                                type="post"
                             />
                         </Box>
                         {post.isEdited && (

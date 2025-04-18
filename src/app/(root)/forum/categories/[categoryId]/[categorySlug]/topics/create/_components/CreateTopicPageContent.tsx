@@ -18,11 +18,9 @@ import { ForumCategory } from "@prisma/client";
 import { createTopic } from "@/actions/forum/forumTopic.actions";
 import { toast } from "react-toastify";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import dynamic from "next/dynamic";
-import "react-quill-new/dist/quill.snow.css";
 import TagSelector from "@/app/(root)/forum/_components/TagSelector";
-
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
+import TextEditor from "@/components/root/textEditor/TextEditor";
+import { useRef } from "react";
 
 interface ICreateTopicPageContentProps {
     category: ForumCategory;
@@ -36,6 +34,7 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
+    const editorRef = useRef(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -72,7 +71,7 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
     };
 
     return (
-        <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" sx={{ mb: 3 }}>
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum
@@ -124,23 +123,13 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                     <Typography variant="subtitle1" gutterBottom>
                         Content
                     </Typography>
-                    <Box sx={{ mb: 3 }}>
-                        <ReactQuill
-                            theme="snow"
+                    <Box sx={{ mb: 5 }}>
+                        <TextEditor
                             value={content}
                             onChange={setContent}
-                            placeholder="Write your topic content here..."
-                            modules={{
-                                toolbar: [
-                                    [{ header: [1, 2, 3, false] }],
-                                    ["bold", "italic", "underline", "strike"],
-                                    [{ list: "ordered" }, { list: "bullet" }],
-                                    ["link", "image"],
-                                    ["clean"],
-                                ],
-                            }}
-                            style={{ minHeight: "200px", marginBottom: "50px" }}
-                            readOnly={isPending}
+                            ref={editorRef}
+                            isDisabled={isPending}
+                            type="topic"
                         />
                     </Box>
                     <TagSelector
