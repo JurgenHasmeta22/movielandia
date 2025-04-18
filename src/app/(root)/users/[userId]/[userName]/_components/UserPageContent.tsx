@@ -75,6 +75,7 @@ export default function UserPageContent({
     const canViewProfile = useMemo(() => {
         if (!userLoggedIn) return false;
         if (userLoggedIn.id === userInPage.id) return true;
+
         return userInPage.isFollowed && userInPage.isFollowedStatus === "accepted";
     }, [userLoggedIn, userInPage]);
     // #endregion
@@ -123,15 +124,15 @@ export default function UserPageContent({
     };
 
     const [mainTab, setMainTab] = useQueryState("maintab", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: "bookmarks",
+        parse: (value) => value || "bookmarks",
         history: "push",
         shallow: false,
     });
 
     const [subTab, setSubTab] = useQueryState("subtab", {
-        defaultValue: "",
-        parse: (value) => value || "",
+        defaultValue: "movies",
+        parse: (value) => value || "movies",
         history: "push",
         shallow: false,
     });

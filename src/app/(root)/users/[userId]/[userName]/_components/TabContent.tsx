@@ -26,7 +26,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
 
     const [page, setPage] = useQueryState("page", {
         defaultValue: "1",
-        history: "push",
         shallow: false,
     });
 
