@@ -176,3 +176,32 @@ export async function markPostAsAnswer(postId: number, userId: number): Promise<
         throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
     }
 }
+
+export async function getPostById(postId: number) {
+    try {
+        const post = await prisma.forumPost.findUnique({
+            where: { id: postId },
+            include: {
+                topic: {
+                    select: {
+                        id: true,
+                        title: true,
+                        slug: true,
+                        isLocked: true
+                    }
+                },
+                user: {
+                    select: {
+                        id: true,
+                        userName: true,
+                        avatar: true
+                    }
+                }
+            }
+        });
+
+        return post;
+    } catch (error) {
+        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
+    }
+}

@@ -7,6 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
+import ForumIcon from "@mui/icons-material/Forum";
 
 export const SidebarItems = [
     {
@@ -62,5 +63,11 @@ export const SidebarItems = [
         to: "/admin/genres",
         icon: <MovieIcon />,
         index: 8,
+    },
+    {
+        label: "Forum",
+        to: "/admin/forum",
+        icon: <ForumIcon />,
+        index: 9,
     },
 ];

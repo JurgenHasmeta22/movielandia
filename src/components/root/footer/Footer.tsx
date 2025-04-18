@@ -16,6 +16,7 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EmailIcon from "@mui/icons-material/Email";
+import ForumIcon from "@mui/icons-material/Forum";
 import { subscribeNewsletter } from "@/actions/auth.actions";
 import { showToast } from "@/utils/helpers/toast";
 import type {} from "@mui/material/themeCssVarsAugmentation";
@@ -101,6 +102,7 @@ const Footer = (): React.JSX.Element => {
                                     <FooterLink href="/movies" text="Movies" icon={<MovieIcon />} />
                                     <FooterLink href="/series" text="TV Series" icon={<TvIcon />} />
                                     <FooterLink href="/genres" text="Genres" icon={<CategoryIcon />} />
+                                    <FooterLink href="/forum" text="Forum" icon={<ForumIcon />} />
                                 </Stack>
                             </Box>
                             <Box sx={{ flex: "1 1 0" }}>

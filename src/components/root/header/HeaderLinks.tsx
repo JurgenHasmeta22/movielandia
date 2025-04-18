@@ -29,6 +29,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import ForumIcon from "@mui/icons-material/Forum";
 // #endregion
 // #endregion
 
@@ -406,6 +407,45 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
                     </ListItem>
                     {
                         //#endregion TV Series Link
+                    }
+
+                    {
+                        //#region Forum Link
+                    }
+                    <ListItem sx={{ width: "auto", p: { xs: 0.125, sm: 0.25 } }}>
+                        <Button
+                            LinkComponent={MuiNextLink}
+                            href="/forum"
+                            variant="text"
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.5,
+                                fontSize: "0.9rem",
+                                textTransform: "none",
+                                color: isActive("/forum") ? "#4caf50" : theme.vars.palette.primary.main,
+                                borderBottom: isActive("/forum") ? `2px solid #4caf50` : "none",
+                                borderRadius: 0,
+                                fontWeight: 500,
+                                letterSpacing: "0.01em",
+                                height: 42,
+                                px: 1.5,
+                                minWidth: "auto",
+                                "&:hover": {
+                                    backgroundColor: "transparent",
+                                    color: "#4caf50",
+                                },
+                            }}
+                            onClick={() => {
+                                if (isDrawerOpen) setIsDrawerOpen(false);
+                            }}
+                            startIcon={<ForumIcon />}
+                        >
+                            Forum
+                        </Button>
+                    </ListItem>
+                    {
+                        //#endregion Forum Link
                     }
 
                     {
