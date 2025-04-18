@@ -156,7 +156,8 @@ export default function CategoryPageContent({
                             variant="contained"
                             color="secondary"
                             startIcon={<SearchIcon />}
-                            onClick={() => router.push(`/forum/search?categoryId=${category.id}`)}
+                            href={`/forum/search?categoryId=${category.id}`}
+                            component={Link}
                         >
                             Search in Category
                         </Button>

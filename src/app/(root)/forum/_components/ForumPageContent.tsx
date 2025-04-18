@@ -3,6 +3,7 @@
 import { Box, Container, Typography, Paper, Button, Stack, Divider, ButtonGroup } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
+import Link from "next/link";
 import ForumCategoryList from "./ForumCategoryList";
 import ForumStats from "./ForumStats";
 import SearchIcon from "@mui/icons-material/Search";
@@ -57,11 +58,7 @@ export default function ForumPageContent({
                 </Typography>
                 <Box>
                     <ButtonGroup variant="contained" sx={{ mr: 2 }}>
-                        <Button
-                            color="secondary"
-                            startIcon={<SearchIcon />}
-                            onClick={() => router.push("/forum/search")}
-                        >
+                        <Button color="secondary" startIcon={<SearchIcon />} href="/forum/search" component={Link}>
                             Search Forum
                         </Button>
                     </ButtonGroup>
