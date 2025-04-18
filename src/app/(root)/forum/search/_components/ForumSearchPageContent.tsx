@@ -29,6 +29,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ClearIcon from "@mui/icons-material/Clear";
 import TagSelector from "@/app/(root)/forum/_components/TagSelector";
 import { ForumSearchResult } from "@/actions/forum/forumSearch.actions";
+import ForumSearchResultsList from "./ForumSearchResultsList";
 
 interface SearchPageContentProps {
     query: string;
@@ -47,17 +48,6 @@ interface SearchPageContentProps {
     };
 }
 
-const SearchResultsList = () => {
-    return (
-        <Box sx={{ p: 3, textAlign: "center" }}>
-            <Typography variant="h6">Search Results Component</Typography>
-            <Typography variant="body2" color="text.secondary">
-                This component will display search results when implemented.
-            </Typography>
-        </Box>
-    );
-};
-
 export default function ForumSearchPageContent({
     query,
     searchResults,
@@ -67,14 +57,14 @@ export default function ForumSearchPageContent({
 }: SearchPageContentProps) {
     const [searchQuery, setSearchQuery] = useState(query);
 
-    const [_q, setQ] = useQueryState("q");
-    const [_page, setPage] = useQueryState("page");
-    const [categoryId, setCategoryId] = useQueryState("categoryId");
-    const [_userId, setUserId] = useQueryState("userId");
-    const [_tags, setTags] = useQueryState("tags");
-    const [status, setStatus] = useQueryState("status");
-    const [dateFrom, setDateFrom] = useQueryState("dateFrom");
-    const [dateTo, setDateTo] = useQueryState("dateTo");
+    const [_q, setQ] = useQueryState("q", { shallow: false });
+    const [_page, setPage] = useQueryState("page", { shallow: false });
+    const [categoryId, setCategoryId] = useQueryState("categoryId", { shallow: false });
+    const [_userId, setUserId] = useQueryState("userId", { shallow: false });
+    const [_tags, setTags] = useQueryState("tags", { shallow: false });
+    const [status, setStatus] = useQueryState("status", { shallow: false });
+    const [dateFrom, setDateFrom] = useQueryState("dateFrom", { shallow: false });
+    const [dateTo, setDateTo] = useQueryState("dateTo", { shallow: false });
 
     const [tabValue, setTabValue] = useState(0);
     const [showFilters, setShowFilters] = useState(false);
@@ -289,7 +279,7 @@ export default function ForumSearchPageContent({
                             <Tab label={`Replies (${searchResults.replies.total})`} />
                         </Tabs>
                     </Box>
-                    <SearchResultsList
+                    <ForumSearchResultsList
                         searchResults={searchResults}
                         tabValue={tabValue}
                         currentPage={currentPage}
