@@ -137,23 +137,21 @@ export default function UserPageContent({
         shallow: false,
     });
 
-    const currentMainTab = useMemo(() => {
-        const mainTabParam = mainTab;
-        return mainTabParam ? mainTabs.findIndex((tab) => tab.param === mainTabParam) : 0;
-    }, [mainTab, mainTabs]);
+    const getCurrentMainTabIndex = () => {
+        return mainTab ? mainTabs.findIndex((tab) => tab.param === mainTab) : 0;
+    };
 
-    const currentSubTab = useMemo(() => {
-        const mainTabParam = mainTab;
-        const currentSubTabs = subTabs[mainTabParam as keyof typeof subTabs];
+    const getCurrentSubTabIndex = () => {
+        const currentSubTabs = subTabs[mainTab as keyof typeof subTabs];
 
-        if (!subTab) return 0;
+        if (!subTab || !currentSubTabs) return 0;
 
-        const subTabIndex = currentSubTabs!.findIndex(
+        const subTabIndex = currentSubTabs.findIndex(
             (tab) => tab.toLowerCase().replace(/\s+/g, "") === subTab.toLowerCase().replace(/\s+/g, ""),
         );
 
         return subTabIndex === -1 ? 0 : subTabIndex;
-    }, [subTab, subTabs, mainTabs]);
+    };
     // #endregion
 
     const getMainTabDescription = (mainTab: string) => {
@@ -226,7 +224,7 @@ export default function UserPageContent({
                                 mb: 1,
                             }}
                         >
-                            {userInPage.userName}&apos;s {mainTabs[currentMainTab].label}
+                            {userInPage.userName}&apos;s {mainTabs[getCurrentMainTabIndex()].label}
                         </Typography>
                         <Typography
                             variant="body2"
@@ -235,7 +233,7 @@ export default function UserPageContent({
                                 fontSize: { xs: "0.875rem", sm: "1rem" },
                             }}
                         >
-                            {getMainTabDescription(mainTabs[currentMainTab].param)}
+                            {getMainTabDescription(mainTabs[getCurrentMainTabIndex()].param)}
                         </Typography>
                         <Divider sx={{ mt: 2 }} />
                     </Box>
@@ -243,20 +241,20 @@ export default function UserPageContent({
                         mainTabs={mainTabs}
                         subTabs={subTabs}
                         getSubTabIcon={getSubTabIcon}
-                        currentMainTab={currentMainTab}
-                        currentSubTab={currentSubTab}
+                        currentMainTab={getCurrentMainTabIndex()}
+                        currentSubTab={getCurrentSubTabIndex()}
                         setMainTab={setMainTab}
                         setSubTab={setSubTab}
                     />
                     <motion.div
-                        key={`${currentMainTab}-${currentSubTab}`}
+                        key={`${mainTab}-${subTab}`}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
                     >
                         <TabContent
-                            type={subTabs[mainTabs[currentMainTab].param as keyof typeof subTabs][currentSubTab]}
+                            type={subTabs[mainTab as keyof typeof subTabs][getCurrentSubTabIndex()]}
                             userLoggedIn={userLoggedIn}
                             userInPage={userInPage}
                             additionalData={additionalData}
