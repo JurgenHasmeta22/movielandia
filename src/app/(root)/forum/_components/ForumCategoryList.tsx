@@ -1,59 +1,32 @@
 "use client";
 
 import { Box, Paper, Typography, Pagination, Stack, Divider, Button } from "@mui/material";
-import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useTheme } from "@mui/material/styles";
 import ForumIcon from "@mui/icons-material/Forum";
 import { ForumCategory } from "@prisma/client";
-import { getCategories } from "@/actions/forum/forumCategory.actions";
 import { formatDistanceToNow } from "date-fns";
 
 interface ForumCategoryListProps {
+  categories: {
+    items: ForumCategory[];
+    total: number;
+  };
   currentPage: number;
   onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-export default function ForumCategoryList({ currentPage, onPageChange }: ForumCategoryListProps) {
+export default function ForumCategoryList({ categories, currentPage, onPageChange }: ForumCategoryListProps) {
   const theme = useTheme();
-  const [isPending, startTransition] = useTransition();
-  const [categories, setCategories] = useState<{
-    items: ForumCategory[];
-    total: number;
-  }>({ items: [], total: 0 });
-  
   const limit = 10;
   const totalPages = Math.ceil(categories.total / limit);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      startTransition(async () => {
-        try {
-          const result = await getCategories(currentPage, limit);
-          setCategories(result);
-        } catch (error) {
-          console.error("Error fetching categories:", error);
-        }
-      });
-    };
-
-    fetchCategories();
-  }, [currentPage]);
-
-  if (isPending) {
-    return (
-      <Box sx={{ py: 4, textAlign: "center" }}>
-        <Typography>Loading categories...</Typography>
-      </Box>
-    );
-  }
-
   if (categories.items.length === 0) {
     return (
-      <Paper 
-        elevation={0} 
-        sx={{ 
-          p: 4, 
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
           textAlign: "center",
           borderRadius: 2,
           backgroundColor: theme.vars.palette.secondary.light,
@@ -106,18 +79,18 @@ export default function ForumCategoryList({ currentPage, onPageChange }: ForumCa
                 </Typography>
               </Box>
             </Box>
-            
+
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               {category.description}
             </Typography>
-            
+
             {category.lastPostAt && (
               <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
                 <Typography variant="body2" color="text.secondary">
                   Last activity: {formatDistanceToNow(new Date(category.lastPostAt), { addSuffix: true })}
                 </Typography>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   size="small"
                   component={Link}
                   href={`/forum/categories/${category.id}/${category.slug}`}

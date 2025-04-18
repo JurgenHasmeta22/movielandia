@@ -1,13 +1,11 @@
 "use client";
 
 import { Box, Container, Typography, Button, Breadcrumbs, Link as MuiLink } from "@mui/material";
-import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import Link from "next/link";
 import { ForumCategory } from "@prisma/client";
 import TopicList from "./TopicList";
-import { getTopics } from "@/actions/forum/forumTopic.actions";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 interface ICategoryPageContentProps {
@@ -18,39 +16,20 @@ interface ICategoryPageContentProps {
     order?: string;
   };
   session: any;
-}
-
-export default function CategoryPageContent({ category, searchParams, session }: ICategoryPageContentProps) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [page, setPage] = useQueryState("page");
-  const [sortBy, setSortBy] = useQueryState("sortBy");
-  const [order, setOrder] = useQueryState("order");
-  
-  const [topics, setTopics] = useState<{
+  topics: {
     items: any[];
     total: number;
-  }>({ items: [], total: 0 });
-  
-  const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
-  const currentSortBy = searchParams?.sortBy || "lastPostAt";
-  const currentOrder = searchParams?.order || "desc";
+  };
+  currentPage: number;
+  currentSortBy: string;
+  currentOrder: string;
+}
+
+export default function CategoryPageContent({ category, session, topics, currentPage }: ICategoryPageContentProps) {
+  const router = useRouter();
+  const [page, setPage] = useQueryState("page");
+
   const limit = 10;
-
-  useEffect(() => {
-    const fetchTopics = async () => {
-      startTransition(async () => {
-        try {
-          const result = await getTopics(category.id, currentPage, limit);
-          setTopics(result);
-        } catch (error) {
-          console.error("Error fetching topics:", error);
-        }
-      });
-    };
-
-    fetchTopics();
-  }, [category.id, currentPage, currentSortBy, currentOrder]);
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value === 1 ? null : value.toString());
@@ -83,8 +62,8 @@ export default function CategoryPageContent({ category, searchParams, session }:
           Topics
         </Typography>
         {session?.user && (
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             color="primary"
             onClick={handleCreateTopic}
           >
@@ -92,11 +71,10 @@ export default function CategoryPageContent({ category, searchParams, session }:
           </Button>
         )}
       </Box>
-      
-      <TopicList 
-        topics={topics} 
-        isPending={isPending} 
-        currentPage={currentPage} 
+
+      <TopicList
+        topics={topics}
+        currentPage={currentPage}
         totalPages={Math.ceil(topics.total / limit)}
         onPageChange={handlePageChange}
         userLoggedIn={session?.user}

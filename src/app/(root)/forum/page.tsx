@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getCategories, getForumStats } from "@/actions/forum/forumCategory.actions";
 import ForumPageContent from "./_components/ForumPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
@@ -35,13 +36,25 @@ export const metadata: Metadata = {
 
 export default async function Forum(props: IForumProps) {
   const session = await getServerSession(authOptions);
-  
+
   const searchParams = await props.searchParams;
   const searchParamsKey = JSON.stringify(searchParams);
 
+  const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
+  const limit = 10;
+
+  const categories = await getCategories(currentPage, limit);
+  const stats = await getForumStats();
+
   return (
     <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-      <ForumPageContent searchParams={searchParams} session={session} />
+      <ForumPageContent
+        searchParams={searchParams}
+        session={session}
+        categories={categories}
+        stats={stats}
+        currentPage={currentPage}
+      />
     </Suspense>
   );
 }

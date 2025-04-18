@@ -15,7 +15,6 @@ interface PostListProps {
     items: any[];
     total: number;
   };
-  isPending: boolean;
   currentPage: number;
   totalPages: number;
   onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
@@ -23,31 +22,22 @@ interface PostListProps {
   topicLocked: boolean;
 }
 
-export default function PostList({ 
-  posts, 
-  isPending, 
-  currentPage, 
-  totalPages, 
+export default function PostList({
+  posts,
+  currentPage,
+  totalPages,
   onPageChange,
   userLoggedIn,
   topicLocked
 }: PostListProps) {
   const theme = useTheme();
 
-  if (isPending) {
-    return (
-      <Box sx={{ py: 4, textAlign: "center" }}>
-        <Typography>Loading posts...</Typography>
-      </Box>
-    );
-  }
-
   if (posts.items.length === 0) {
     return (
-      <Paper 
-        elevation={0} 
-        sx={{ 
-          p: 4, 
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
           textAlign: "center",
           borderRadius: 2,
           backgroundColor: theme.vars.palette.secondary.light,
@@ -62,8 +52,8 @@ export default function PostList({
           Be the first to reply to this topic!
         </Typography>
         {userLoggedIn && !topicLocked && (
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             color="primary"
             onClick={() => document.getElementById("reply-form")?.scrollIntoView({ behavior: "smooth" })}
           >
@@ -90,8 +80,8 @@ export default function PostList({
           >
             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Avatar 
-                  src={post.user.avatar?.photoSrc || ""} 
+                <Avatar
+                  src={post.user.avatar?.photoSrc || ""}
                   alt={post.user.userName}
                   sx={{ width: 32, height: 32 }}
                 />
@@ -110,9 +100,9 @@ export default function PostList({
                 #{currentPage > 1 ? (currentPage - 1) * 10 + posts.items.indexOf(post) + 1 : posts.items.indexOf(post) + 1}
               </Typography>
             </Box>
-            
+
             <Divider sx={{ my: 2 }} />
-            
+
             <Box sx={{ mb: 2 }}>
               <ReactQuill
                 value={post.content}
@@ -121,17 +111,17 @@ export default function PostList({
                 modules={{ toolbar: false }}
               />
             </Box>
-            
+
             {post.isEdited && (
               <Typography variant="body2" color="text.secondary" sx={{ mt: 2, fontStyle: "italic" }}>
                 Last edited: {formatDistanceToNow(new Date(post.updatedAt), { addSuffix: true })}
               </Typography>
             )}
-            
+
             {userLoggedIn && userLoggedIn.id === post.user.id && !topicLocked && (
               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   size="small"
                   component={Link}
                   href={`/forum/posts/${post.id}/edit`}

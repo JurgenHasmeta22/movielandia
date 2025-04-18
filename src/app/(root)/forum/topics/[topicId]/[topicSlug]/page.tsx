@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getTopicById } from "@/actions/forum/forumTopic.actions";
 import { getCategoryById } from "@/actions/forum/forumCategory.actions";
+import { getPostsByTopicId } from "@/actions/forum/forumPost.actions";
 import { notFound } from "next/navigation";
 import TopicPageContent from "./_components/TopicPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -20,14 +21,14 @@ interface ITopicPageProps {
 
 export async function generateMetadata({ params }: ITopicPageProps): Promise<Metadata> {
   const topic = await getTopicById(Number(params.topicId));
-  
+
   if (!topic) {
     return {
       title: "Topic Not Found | MovieLandia24",
       description: "The requested forum topic could not be found.",
     };
   }
-  
+
   return {
     title: `${topic.title} | Forum | MovieLandia24`,
     description: topic.content.substring(0, 160),
@@ -52,27 +53,35 @@ export async function generateMetadata({ params }: ITopicPageProps): Promise<Met
 export default async function TopicPage(props: ITopicPageProps) {
   const session = await getServerSession(authOptions);
   const topic = await getTopicById(Number(props.params.topicId));
-  
+
   if (!topic) {
     return notFound();
   }
-  
+
   const category = await getCategoryById(topic.categoryId);
-  
+
   if (!category) {
     return notFound();
   }
-  
+
   const searchParams = await props.searchParams;
   const searchParamsKey = JSON.stringify(searchParams);
 
+  const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
+  const limit = 10;
+
+  // Fetch posts in the server component
+  const posts = await getPostsByTopicId(topic.id, currentPage, limit);
+
   return (
     <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-      <TopicPageContent 
-        topic={topic} 
+      <TopicPageContent
+        topic={topic}
         category={category}
-        searchParams={searchParams} 
-        session={session} 
+        searchParams={searchParams}
+        session={session}
+        posts={posts}
+        currentPage={currentPage}
       />
     </Suspense>
   );

@@ -13,37 +13,27 @@ interface TopicListProps {
     items: any[];
     total: number;
   };
-  isPending: boolean;
   currentPage: number;
   totalPages: number;
   onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
   userLoggedIn: any;
 }
 
-export default function TopicList({ 
-  topics, 
-  isPending, 
-  currentPage, 
-  totalPages, 
+export default function TopicList({
+  topics,
+  currentPage,
+  totalPages,
   onPageChange,
   userLoggedIn
 }: TopicListProps) {
   const theme = useTheme();
 
-  if (isPending) {
-    return (
-      <Box sx={{ py: 4, textAlign: "center" }}>
-        <Typography>Loading topics...</Typography>
-      </Box>
-    );
-  }
-
   if (topics.items.length === 0) {
     return (
-      <Paper 
-        elevation={0} 
-        sx={{ 
-          p: 4, 
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
           textAlign: "center",
           borderRadius: 2,
           backgroundColor: theme.vars.palette.secondary.light,
@@ -58,8 +48,8 @@ export default function TopicList({
           There are no topics in this category yet. Be the first to start a discussion!
         </Typography>
         {userLoggedIn && (
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             color="primary"
             component={Link}
             href={`/forum/topics/create?categoryId=${topics.items[0]?.categoryId || ""}`}
@@ -114,10 +104,10 @@ export default function TopicList({
                 </Typography>
               </Box>
             </Box>
-            
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-              <Avatar 
-                src={topic.user.avatar?.photoSrc || ""} 
+              <Avatar
+                src={topic.user.avatar?.photoSrc || ""}
                 alt={topic.user.userName}
                 sx={{ width: 24, height: 24 }}
               />
@@ -129,14 +119,14 @@ export default function TopicList({
                 {" "}{formatDistanceToNow(new Date(topic.createdAt), { addSuffix: true })}
               </Typography>
             </Box>
-            
+
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
               <Box>
                 {topic.status !== "Open" && (
-                  <Chip 
-                    label={topic.status} 
-                    size="small" 
-                    color={topic.status === "Closed" ? "error" : "warning"} 
+                  <Chip
+                    label={topic.status}
+                    size="small"
+                    color={topic.status === "Closed" ? "error" : "warning"}
                     sx={{ mr: 1 }}
                   />
                 )}

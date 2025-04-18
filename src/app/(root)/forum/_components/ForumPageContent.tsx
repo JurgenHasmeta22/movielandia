@@ -1,38 +1,31 @@
 "use client";
 
 import { Box, Container, Typography, Paper, Button, Stack, Divider } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import ForumCategoryList from "./ForumCategoryList";
 import ForumStats from "./ForumStats";
-import { getForumStats } from "@/actions/forum/forumCategory.actions";
 
 interface IForumPageContentProps {
   searchParams?: {
     page?: string;
   };
   session: any;
+  categories: {
+    items: any[];
+    total: number;
+  };
+  stats: {
+    categoriesCount: number;
+    topicsCount: number;
+    postsCount: number;
+  };
+  currentPage: number;
 }
 
-export default function ForumPageContent({ searchParams, session }: IForumPageContentProps) {
+export default function ForumPageContent({ searchParams, session, categories, stats, currentPage }: IForumPageContentProps) {
   const router = useRouter();
   const [page, setPage] = useQueryState("page");
-  const [stats, setStats] = useState<{ categoriesCount: number; topicsCount: number; postsCount: number } | null>(null);
-  const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const forumStats = await getForumStats();
-        setStats(forumStats);
-      } catch (error) {
-        console.error("Error fetching forum stats:", error);
-      }
-    };
-
-    fetchStats();
-  }, []);
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value === 1 ? null : value.toString());
@@ -56,8 +49,8 @@ export default function ForumPageContent({ searchParams, session }: IForumPageCo
           Categories
         </Typography>
         {session?.user?.role === "ADMIN" && (
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             color="primary"
             onClick={() => router.push("/forum/categories/create")}
           >
@@ -65,8 +58,8 @@ export default function ForumPageContent({ searchParams, session }: IForumPageCo
           </Button>
         )}
       </Box>
-      
-      <ForumCategoryList currentPage={currentPage} onPageChange={handlePageChange} />
+
+      <ForumCategoryList categories={categories} currentPage={currentPage} onPageChange={handlePageChange} />
     </Container>
   );
 }
