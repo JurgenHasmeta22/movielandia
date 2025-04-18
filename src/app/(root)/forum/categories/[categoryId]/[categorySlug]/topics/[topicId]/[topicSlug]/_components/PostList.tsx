@@ -183,7 +183,6 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
         </>
     );
 
-    // Function to handle reply deletion
     function handleDeleteReply(replyId: number) {
         if (!userLoggedIn) return;
 
@@ -205,7 +204,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-C                            await deleteReply(replyId, Number(userLoggedIn.id));
+                            await deleteReply(replyId, Number(userLoggedIn.id));
                             showToast("success", "Reply deleted successfully!");
                             router.refresh();
                         } catch (error) {
