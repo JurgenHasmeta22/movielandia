@@ -31,7 +31,7 @@ export default function PostList({
     const theme = useTheme();
     const editorRefs = useRef<{ [key: number]: React.RefObject<any> }>({});
 
-    posts.items.forEach(post => {
+    posts.items.forEach((post) => {
         if (!editorRefs.current[post.id]) {
             editorRefs.current[post.id] = React.createRef();
         }
