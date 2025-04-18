@@ -126,7 +126,7 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                             {topic.title}
                         </Typography>
                     </Box>
-                    {session?.user && session.user.id === topic.user.id && (
+                    {session?.user && Number(session.user.id) === topic.userId && (
                         <Box sx={{ display: "flex", gap: 1 }}>
                             <Button
                                 variant="outlined"

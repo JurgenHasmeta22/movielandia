@@ -5,17 +5,12 @@ import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
-// import { Quill } from "react-quill-new";
-// import { IS_BROWSER } from "@/utils/helpers/utils";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
-// const QuillResizeImage = dynamic(() => import("quill-resize-image"), { ssr: false });
-// import QuillResizeImage from "quill-resize-image";
 import "react-quill-new/dist/quill.snow.css";
 
 interface ITextEditorProps {
     value: string;
-    ref?: any;
     rating?: number | null;
     setRating?: React.Dispatch<React.SetStateAction<number | null>>;
     isDisabled?: boolean;
@@ -40,9 +35,6 @@ const getModules = (isDisabled: boolean | undefined) => ({
               ["link", "image", "video"],
               [{ direction: "rtl" }],
           ],
-    // resize: {
-    //     locale: {},
-    // },
     clipboard: {
         matchVisual: false,
     },
@@ -76,222 +68,243 @@ const formats = [
     "direction",
 ];
 
-// if (IS_BROWSER) {
-//     Quill.register("modules/resize", QuillResizeImage);
-// }
+const TextEditor = React.forwardRef<any, ITextEditorProps>(
+    ({ value, onChange, rating, setRating, isDisabled, type }, ref) => {
+        const theme = useTheme();
 
-const TextEditor: React.FC<ITextEditorProps> = ({ value, onChange, rating, setRating, ref, isDisabled, type }) => {
-    const theme = useTheme();
+        useEffect(() => {
+            if (!ref || !value) return;
 
-    useEffect(() => {
-        const resizeImages = () => {
-            const quillEditor = ref?.current?.getEditor?.();
+            const resizeImages = () => {
+                try {
+                    if (typeof ref === "object" && ref.current && ref.current.getEditor) {
+                        const quillEditor = ref.current.getEditor();
 
-            if (quillEditor) {
-                const images = quillEditor.container.querySelectorAll("img");
+                        if (quillEditor && quillEditor.container) {
+                            const images = quillEditor.container.querySelectorAll("img");
 
-                images.forEach((img: HTMLImageElement) => {
-                    img.style.maxWidth = "50%";
-                    img.style.maxHeight = "auto";
-                });
+                            images.forEach((img: HTMLImageElement) => {
+                                img.style.maxWidth = "50%";
+                                img.style.maxHeight = "auto";
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error resizing images:", error);
+                }
+            };
+
+            let editorInstance;
+
+            try {
+                if (typeof ref === "object" && ref.current && ref.current.getEditor) {
+                    editorInstance = ref.current.getEditor();
+                }
+            } catch (error) {
+                console.error("Error getting editor instance:", error);
+                return;
             }
-        };
 
-        const editorInstance = ref?.current?.getEditor?.();
-
-        if (editorInstance) {
-            resizeImages();
-            editorInstance.on("text-change", resizeImages);
-        }
-
-        return () => {
             if (editorInstance) {
-                editorInstance.off("text-change", resizeImages);
-            }
-        };
-    }, [ref, value]);
+                try {
+                    resizeImages();
+                    editorInstance.on("text-change", resizeImages);
 
-    return (
-        <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
-            <Box
-                sx={{
-                    ".ql-toolbar": {
-                        display: isDisabled ? "none" : "block",
-                        backgroundColor: theme.vars.palette.secondary.light,
-                        border: `1px solid ${theme.vars.palette.primary.light}`,
-                        borderTopLeftRadius: "8px",
-                        borderTopRightRadius: "8px",
-                        "& .ql-stroke": {
-                            stroke: theme.vars.palette.primary.main,
-                        },
-                        "& .ql-fill": {
-                            fill: theme.vars.palette.primary.main,
-                        },
-                        "& .ql-picker": {
-                            color: theme.vars.palette.primary.main,
-                        },
-                        "& .ql-picker-options": {
-                            backgroundColor: theme.vars.palette.secondary.light,
-                            border: `1px solid ${theme.vars.palette.primary.light}`,
-                        },
-                        "& button:hover .ql-stroke": {
-                            stroke: theme.vars.palette.blue.main,
-                        },
-                        "& button:hover .ql-fill": {
-                            fill: theme.vars.palette.blue.main,
-                        },
-                        "& .ql-picker-label:hover": {
-                            color: theme.vars.palette.blue.main,
-                        },
-                        "& .ql-color .ql-picker-options": {
-                            padding: "5px",
-                            width: "152px",
-                        },
-                        "& .ql-color .ql-picker-item": {
-                            width: "16px",
-                            height: "16px",
-                            margin: "2px",
-                        },
-                        "& .ql-background .ql-picker-options": {
-                            padding: "5px",
-                            width: "152px",
-                        },
-                        "& .ql-background .ql-picker-item": {
-                            width: "16px",
-                            height: "16px",
-                            margin: "2px",
-                        },
-                        "& .ql-size .ql-picker-options": {
-                            minWidth: "100px",
-                        },
-                        "& .ql-align .ql-picker-options": {
-                            minWidth: "100px",
-                        },
-                    },
-                    ".ql-container": {
-                        backgroundColor: theme.vars.palette.secondary.light,
-                        border: `1px solid ${theme.vars.palette.primary.light}`,
-                        borderRadius: isDisabled ? "8px" : "0 0 8px 8px",
-                        borderTop: isDisabled ? `1px solid ${theme.vars.palette.primary.light}` : "none",
-                        fontSize: "16px",
-                        minHeight: "200px",
-                    },
-                    ".ql-editor": {
-                        color: theme.vars.palette.primary.main,
-                        padding: "20px",
-                        "&.ql-blank::before": {
-                            color: theme.vars.palette.primary.main,
-                            opacity: 0.6,
-                            fontStyle: "normal",
-                            fontSize: "16px",
-                            left: "20px",
-                            right: "20px",
-                        },
-                        "p, h1, h2, h3": {
-                            color: theme.vars.palette.primary.main,
-                            margin: "0 0 0.5em 0",
-                        },
-                        h1: { fontSize: "2em" },
-                        h2: { fontSize: "1.5em" },
-                        h3: { fontSize: "1.17em" },
-                        a: {
-                            color: theme.vars.palette.blue.main,
-                            textDecoration: "underline",
-                        },
-                        blockquote: {
-                            borderLeft: `4px solid ${theme.vars.palette.primary.main}`,
-                            color: theme.vars.palette.primary.main,
-                            opacity: 0.9,
-                            margin: "0.5em 0",
-                            padding: "0.5em 1em",
-                        },
-                        ul: {
-                            color: theme.vars.palette.primary.main,
-                        },
-                        ol: {
-                            color: theme.vars.palette.primary.main,
-                        },
-                        "& pre.ql-syntax": {
-                            backgroundColor: theme.vars.palette.secondary.dark,
-                            color: theme.vars.palette.primary.light,
-                            padding: "1em",
-                            borderRadius: "4px",
-                            fontFamily: "monospace",
-                            fontSize: "14px",
-                            overflow: "auto",
-                        },
-                        "& sup": {
-                            fontSize: "0.75em",
-                            verticalAlign: "super",
-                        },
-                        "& sub": {
-                            fontSize: "0.75em",
-                            verticalAlign: "sub",
-                        },
-                        "&[dir='rtl']": {
-                            textAlign: "right",
-                        },
-                        "& .ql-indent-1": { paddingLeft: "3em" },
-                        "& .ql-indent-2": { paddingLeft: "6em" },
-                        "& .ql-indent-3": { paddingLeft: "9em" },
-                        "& .ql-indent-4": { paddingLeft: "12em" },
-                        "& .ql-indent-5": { paddingLeft: "15em" },
-                        "& .ql-align-center": { textAlign: "center" },
-                        "& .ql-align-right": { textAlign: "right" },
-                        "& .ql-align-justify": { textAlign: "justify" },
-                        wordWrap: "break-word",
-                        overflowWrap: "break-word",
-                        minWidth: "100%",
-                        whiteSpace: "pre-wrap",
-                    },
-                }}
-            >
-                <ReactQuill
-                    theme="snow"
-                    value={value}
-                    onChange={onChange}
-                    modules={getModules(isDisabled)}
-                    formats={formats}
-                    readOnly={isDisabled}
-                    // @ts-expect-error ref
-                    ref={ref!}
-                />
-            </Box>
-            {type === "review" && (
+                    return () => {
+                        try {
+                            editorInstance.off("text-change", resizeImages);
+                        } catch (error) {
+                            console.error("Error removing event listener:", error);
+                        }
+                    };
+                } catch (error) {
+                    console.error("Error setting up editor event listeners:", error);
+                }
+            }
+        }, [ref, value]);
+
+        return (
+            <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
                 <Box
                     sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "flex-start",
-                        mt: 2,
+                        ".ql-toolbar": {
+                            display: isDisabled ? "none" : "block",
+                            backgroundColor: theme.vars.palette.secondary.light,
+                            border: `1px solid ${theme.vars.palette.primary.light}`,
+                            borderTopLeftRadius: "8px",
+                            borderTopRightRadius: "8px",
+                            "& .ql-stroke": {
+                                stroke: theme.vars.palette.primary.main,
+                            },
+                            "& .ql-fill": {
+                                fill: theme.vars.palette.primary.main,
+                            },
+                            "& .ql-picker": {
+                                color: theme.vars.palette.primary.main,
+                            },
+                            "& .ql-picker-options": {
+                                backgroundColor: theme.vars.palette.secondary.light,
+                                border: `1px solid ${theme.vars.palette.primary.light}`,
+                            },
+                            "& button:hover .ql-stroke": {
+                                stroke: theme.vars.palette.blue.main,
+                            },
+                            "& button:hover .ql-fill": {
+                                fill: theme.vars.palette.blue.main,
+                            },
+                            "& .ql-picker-label:hover": {
+                                color: theme.vars.palette.blue.main,
+                            },
+                            "& .ql-color .ql-picker-options": {
+                                padding: "5px",
+                                width: "152px",
+                            },
+                            "& .ql-color .ql-picker-item": {
+                                width: "16px",
+                                height: "16px",
+                                margin: "2px",
+                            },
+                            "& .ql-background .ql-picker-options": {
+                                padding: "5px",
+                                width: "152px",
+                            },
+                            "& .ql-background .ql-picker-item": {
+                                width: "16px",
+                                height: "16px",
+                                margin: "2px",
+                            },
+                            "& .ql-size .ql-picker-options": {
+                                minWidth: "100px",
+                            },
+                            "& .ql-align .ql-picker-options": {
+                                minWidth: "100px",
+                            },
+                        },
+                        ".ql-container": {
+                            backgroundColor: theme.vars.palette.secondary.light,
+                            border: `1px solid ${theme.vars.palette.primary.light}`,
+                            borderRadius: isDisabled ? "8px" : "0 0 8px 8px",
+                            borderTop: isDisabled ? `1px solid ${theme.vars.palette.primary.light}` : "none",
+                            fontSize: "16px",
+                            minHeight: "200px",
+                        },
+                        ".ql-editor": {
+                            color: theme.vars.palette.primary.main,
+                            padding: "20px",
+                            "&.ql-blank::before": {
+                                color: theme.vars.palette.primary.main,
+                                opacity: 0.6,
+                                fontStyle: "normal",
+                                fontSize: "16px",
+                                left: "20px",
+                                right: "20px",
+                            },
+                            "p, h1, h2, h3": {
+                                color: theme.vars.palette.primary.main,
+                                margin: "0 0 0.5em 0",
+                            },
+                            h1: { fontSize: "2em" },
+                            h2: { fontSize: "1.5em" },
+                            h3: { fontSize: "1.17em" },
+                            a: {
+                                color: theme.vars.palette.blue.main,
+                                textDecoration: "underline",
+                            },
+                            blockquote: {
+                                borderLeft: `4px solid ${theme.vars.palette.primary.main}`,
+                                color: theme.vars.palette.primary.main,
+                                opacity: 0.9,
+                                margin: "0.5em 0",
+                                padding: "0.5em 1em",
+                            },
+                            ul: {
+                                color: theme.vars.palette.primary.main,
+                            },
+                            ol: {
+                                color: theme.vars.palette.primary.main,
+                            },
+                            "& pre.ql-syntax": {
+                                backgroundColor: theme.vars.palette.secondary.dark,
+                                color: theme.vars.palette.primary.light,
+                                padding: "1em",
+                                borderRadius: "4px",
+                                fontFamily: "monospace",
+                                fontSize: "14px",
+                                overflow: "auto",
+                            },
+                            "& sup": {
+                                fontSize: "0.75em",
+                                verticalAlign: "super",
+                            },
+                            "& sub": {
+                                fontSize: "0.75em",
+                                verticalAlign: "sub",
+                            },
+                            "&[dir='rtl']": {
+                                textAlign: "right",
+                            },
+                            "& .ql-indent-1": { paddingLeft: "3em" },
+                            "& .ql-indent-2": { paddingLeft: "6em" },
+                            "& .ql-indent-3": { paddingLeft: "9em" },
+                            "& .ql-indent-4": { paddingLeft: "12em" },
+                            "& .ql-indent-5": { paddingLeft: "15em" },
+                            "& .ql-align-center": { textAlign: "center" },
+                            "& .ql-align-right": { textAlign: "right" },
+                            "& .ql-align-justify": { textAlign: "justify" },
+                            wordWrap: "break-word",
+                            overflowWrap: "break-word",
+                            minWidth: "100%",
+                            whiteSpace: "pre-wrap",
+                        },
                     }}
                 >
-                    <Rating
-                        name="review-rating"
-                        value={rating}
-                        onChange={(event, newValue) => {
-                            setRating!(newValue);
-                        }}
-                        size="medium"
-                        max={10}
-                        precision={0.5}
+                    <ReactQuill
+                        theme="snow"
+                        value={value}
+                        onChange={onChange}
+                        modules={getModules(isDisabled)}
+                        formats={formats}
                         readOnly={isDisabled}
+                        // @ts-expect-error ref
+                        ref={ref!}
                     />
-                    <Typography
-                        variant="body2"
-                        fontSize={16}
-                        fontWeight={700}
+                </Box>
+                {type === "review" && (
+                    <Box
                         sx={{
-                            ml: 1,
-                            color: theme.vars.palette.primary.main,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "flex-start",
+                            mt: 2,
                         }}
                     >
-                        {rating?.toFixed(1)}
-                    </Typography>
-                </Box>
-            )}
-        </Box>
-    );
-};
+                        <Rating
+                            name="review-rating"
+                            value={rating}
+                            onChange={(event, newValue) => {
+                                setRating!(newValue);
+                            }}
+                            size="medium"
+                            max={10}
+                            precision={0.5}
+                            readOnly={isDisabled}
+                        />
+                        <Typography
+                            variant="body2"
+                            fontSize={16}
+                            fontWeight={700}
+                            sx={{
+                                ml: 1,
+                                color: theme.vars.palette.primary.main,
+                            }}
+                        >
+                            {rating?.toFixed(1)}
+                        </Typography>
+                    </Box>
+                )}
+            </Box>
+        );
+    },
+);
 
 export default TextEditor;

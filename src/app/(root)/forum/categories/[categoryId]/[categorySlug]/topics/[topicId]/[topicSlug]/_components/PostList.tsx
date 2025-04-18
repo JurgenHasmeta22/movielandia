@@ -86,11 +86,11 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                             p: 3,
                             borderRadius: 2,
                             backgroundColor:
-                                userLoggedIn && userLoggedIn.id === post.user.id
+                                userLoggedIn && Number(userLoggedIn.id) === post.user.id
                                     ? "rgba(25, 118, 210, 0.05)"
                                     : theme.vars.palette.secondary.light,
                             border:
-                                userLoggedIn && userLoggedIn.id === post.user.id
+                                userLoggedIn && Number(userLoggedIn.id) === post.user.id
                                     ? "1px solid rgba(25, 118, 210, 0.3)"
                                     : `1px solid ${theme.vars.palette.primary.light}`,
                         }}
@@ -140,7 +140,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                 Last edited: {formatDistanceToNow(new Date(post.updatedAt), { addSuffix: true })}
                             </Typography>
                         )}
-                        {userLoggedIn && userLoggedIn.id === post.user.id && !topicLocked && (
+                        {userLoggedIn && Number(userLoggedIn.id) === post.user.id && !topicLocked && (
                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 1 }}>
                                 <Button
                                     variant="outlined"
