@@ -41,11 +41,11 @@ export default function EditPostPageContent({ post, session }: IEditPostPageCont
         startTransition(async () => {
             try {
                 await updatePost(post.id, content, Number(session.user.id));
-                showToast("Post updated successfully!", "success");
+                showToast("success", "Post updated successfully!");
                 router.push(`/forum/topics/${post.topic.id}/${post.topic.slug}`);
             } catch (error) {
                 setError(error instanceof Error ? error.message : "An error occurred while updating your post.");
-                showToast("Failed to update post.", "error");
+                showToast("error", "Failed to update post.");
             }
         });
     };

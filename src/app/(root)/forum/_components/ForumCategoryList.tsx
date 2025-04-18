@@ -82,11 +82,9 @@ export default function ForumCategoryList({ categories, currentPage, onPageChang
                                 </Typography>
                             </Box>
                         </Box>
-
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                             {category.description}
                         </Typography>
-
                         {category.lastPostAt && (
                             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
                                 <Typography variant="body2" color="text.secondary">
@@ -106,7 +104,6 @@ export default function ForumCategoryList({ categories, currentPage, onPageChang
                     </Paper>
                 ))}
             </Stack>
-
             {totalPages > 1 && (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                     <Pagination

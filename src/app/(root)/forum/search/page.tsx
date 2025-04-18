@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 export default async function SearchPage(props: ISearchPageProps) {
     const session = await getServerSession(authOptions);
+
     const searchParams = await props.searchParams;
     const searchParamsKey = JSON.stringify(searchParams);
 
@@ -36,7 +37,6 @@ export default async function SearchPage(props: ISearchPageProps) {
     const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
     const limit = 10;
 
-    // Parse filters
     const filters: any = {};
 
     if (searchParams?.categoryId) {
@@ -63,16 +63,14 @@ export default async function SearchPage(props: ISearchPageProps) {
         filters.dateTo = new Date(searchParams.dateTo);
     }
 
-    // Fetch search results
     const searchResults = query
         ? await searchForumContent(query, currentPage, limit, filters)
         : { topics: { items: [], total: 0 }, posts: { items: [], total: 0 }, replies: { items: [], total: 0 } };
 
-    // Fetch all tags for the filter
     const allTags = await getAllTags();
 
-    // Fetch category details if categoryId is provided
     let category = null;
+
     if (searchParams?.categoryId) {
         category = await getCategoryById(parseInt(searchParams.categoryId));
     }

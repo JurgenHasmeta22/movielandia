@@ -1,9 +1,6 @@
 "use client";
 
-/* eslint-disable */
-// Disable eslint for this file to ignore deprecation warnings and unused variables
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import {
     Box,
@@ -65,13 +62,11 @@ export default function SearchPageContent({
     query,
     searchResults,
     currentPage,
-    session,
-    allTags,
     category,
     filters,
 }: SearchPageContentProps) {
-    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState(query);
+
     const [q, setQ] = useQueryState("q");
     const [page, setPage] = useQueryState("page");
     const [categoryId, setCategoryId] = useQueryState("categoryId");
@@ -198,13 +193,11 @@ export default function SearchPageContent({
                             Search
                         </Button>
                     </Box>
-
                     {showFilters && (
                         <Box sx={{ mt: 3 }}>
                             <Typography variant="h6" gutterBottom>
                                 Search Filters
                             </Typography>
-
                             <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 2 }}>
                                 <Box sx={{ flex: 1 }}>
                                     <FormControl fullWidth size="small">
@@ -216,14 +209,12 @@ export default function SearchPageContent({
                                             onChange={handleCategoryChange}
                                         >
                                             <MenuItem value="">All Categories</MenuItem>
-                                            {/* This would ideally be populated with all categories */}
                                             {category && (
                                                 <MenuItem value={category.id.toString()}>{category.name}</MenuItem>
                                             )}
                                         </Select>
                                     </FormControl>
                                 </Box>
-
                                 <Box sx={{ flex: 1 }}>
                                     <FormControl fullWidth size="small">
                                         <InputLabel id="status-label">Topic Status</InputLabel>
@@ -241,7 +232,6 @@ export default function SearchPageContent({
                                     </FormControl>
                                 </Box>
                             </Box>
-
                             <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 2 }}>
                                 <Box sx={{ flex: 1 }}>
                                     <TextField
@@ -254,7 +244,6 @@ export default function SearchPageContent({
                                         size="small"
                                     />
                                 </Box>
-
                                 <Box sx={{ flex: 1 }}>
                                     <TextField
                                         fullWidth
@@ -267,14 +256,12 @@ export default function SearchPageContent({
                                     />
                                 </Box>
                             </Box>
-
                             <TagSelector
                                 selectedTags={selectedTags}
                                 onChange={handleTagChange}
                                 label="Filter by Tags"
                                 placeholder="Select tags to filter results"
                             />
-
                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
                                 <Button variant="outlined" color="secondary" onClick={clearFilters}>
                                     Clear All Filters
@@ -284,7 +271,6 @@ export default function SearchPageContent({
                     )}
                 </Box>
             </Paper>
-
             {query && (
                 <>
                     <Box sx={{ mb: 3 }}>
@@ -295,7 +281,6 @@ export default function SearchPageContent({
                             Found {totalResults} results
                         </Typography>
                     </Box>
-
                     <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
                         <Tabs value={tabValue} onChange={handleTabChange} aria-label="search results tabs">
                             <Tab label={`All (${totalResults})`} />
@@ -304,7 +289,6 @@ export default function SearchPageContent({
                             <Tab label={`Replies (${searchResults.replies.total})`} />
                         </Tabs>
                     </Box>
-
                     <SearchResultsList
                         searchResults={searchResults}
                         tabValue={tabValue}

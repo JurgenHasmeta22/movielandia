@@ -23,34 +23,28 @@ export default function SearchResultsList({
     const theme = useTheme();
     const limit = 10;
 
-    // Determine which results to show based on the selected tab
     let items: any[] = [];
     let total = 0;
 
     if (tabValue === 0) {
-        // All results - combine and sort by date
         const allItems = [
             ...searchResults.topics.items.map((item) => ({ ...item, type: "topic" })),
             ...searchResults.posts.items.map((item) => ({ ...item, type: "post" })),
             ...searchResults.replies.items.map((item) => ({ ...item, type: "reply" })),
         ];
 
-        // Sort by createdAt in descending order
         items = allItems
             .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
             .slice(0, limit);
 
         total = searchResults.topics.total + searchResults.posts.total + searchResults.replies.total;
     } else if (tabValue === 1) {
-        // Topics only
         items = searchResults.topics.items.map((item) => ({ ...item, type: "topic" }));
         total = searchResults.topics.total;
     } else if (tabValue === 2) {
-        // Posts only
         items = searchResults.posts.items.map((item) => ({ ...item, type: "post" }));
         total = searchResults.posts.total;
     } else if (tabValue === 3) {
-        // Replies only
         items = searchResults.replies.items.map((item) => ({ ...item, type: "reply" }));
         total = searchResults.replies.total;
     }
@@ -91,7 +85,6 @@ export default function SearchResultsList({
                             border: `1px solid ${theme.vars.palette.primary.light}`,
                         }}
                     >
-                        {/* Topic Result */}
                         {item.type === "topic" && (
                             <>
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
@@ -105,14 +98,11 @@ export default function SearchResultsList({
                                         </Typography>
                                     </Link>
                                 </Box>
-
                                 <Typography variant="body2" sx={{ mb: 2 }}>
                                     {item.content.replace(/<[^>]*>?/gm, "").substring(0, 200)}
                                     {item.content.length > 200 ? "..." : ""}
                                 </Typography>
-
                                 {item.tags && item.tags.length > 0 && <TagDisplay tags={item.tags} size="small" />}
-
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 2 }}>
                                     <Avatar
                                         src={item.user.avatar?.photoSrc || ""}
@@ -139,8 +129,6 @@ export default function SearchResultsList({
                                 </Box>
                             </>
                         )}
-
-                        {/* Post Result */}
                         {item.type === "post" && (
                             <>
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
@@ -154,12 +142,10 @@ export default function SearchResultsList({
                                         </Typography>
                                     </Link>
                                 </Box>
-
                                 <Typography variant="body2" sx={{ mb: 2 }}>
                                     {item.content.replace(/<[^>]*>?/gm, "").substring(0, 200)}
                                     {item.content.length > 200 ? "..." : ""}
                                 </Typography>
-
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 2 }}>
                                     <Avatar
                                         src={item.user.avatar?.photoSrc || ""}
@@ -186,8 +172,6 @@ export default function SearchResultsList({
                                 </Box>
                             </>
                         )}
-
-                        {/* Reply Result */}
                         {item.type === "reply" && (
                             <>
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
@@ -201,12 +185,10 @@ export default function SearchResultsList({
                                         </Typography>
                                     </Link>
                                 </Box>
-
                                 <Typography variant="body2" sx={{ mb: 2 }}>
                                     {item.content.replace(/<[^>]*>?/gm, "").substring(0, 200)}
                                     {item.content.length > 200 ? "..." : ""}
                                 </Typography>
-
                                 <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 2 }}>
                                     <Avatar
                                         src={item.user.avatar?.photoSrc || ""}
@@ -236,7 +218,6 @@ export default function SearchResultsList({
                     </Paper>
                 ))}
             </Stack>
-
             {Math.ceil(total / limit) > 1 && (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                     <Pagination

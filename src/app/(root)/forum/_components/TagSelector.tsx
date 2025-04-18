@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Box, Chip, Autocomplete, TextField, Typography } from "@mui/material";
+import { Box, Chip, Autocomplete, TextField } from "@mui/material";
 import { getAllTags } from "@/actions/forum/forumTag.actions";
 
 interface TagSelectorProps {
@@ -29,10 +29,8 @@ export default function TagSelector({
                 const allTags = await getAllTags();
                 setTags(allTags);
 
-                // Set selected tag objects based on selectedTags IDs
                 const selected = allTags.filter((tag) => selectedTags.includes(tag.id));
                 setSelectedTagObjects(selected);
-
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching tags:", error);
@@ -70,7 +68,6 @@ export default function TagSelector({
                 renderTags={(tagValue, getTagProps) =>
                     tagValue.map((option, index) => (
                         <Chip
-                            key={option.id}
                             label={option.name}
                             {...getTagProps({ index })}
                             sx={{

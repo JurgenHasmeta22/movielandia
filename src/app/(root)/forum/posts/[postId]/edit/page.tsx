@@ -35,7 +35,6 @@ export default async function EditPostPage(props: IEditPostPageProps) {
         return notFound();
     }
 
-    // Check if the user is the author of the post
     if (post.userId !== Number(session.user.id)) {
         redirect(`/forum/topics/${post.topicId}`);
     }

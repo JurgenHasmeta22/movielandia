@@ -25,13 +25,7 @@ interface IForumPageContentProps {
     currentPage: number;
 }
 
-export default function ForumPageContent({
-    searchParams,
-    session,
-    categories,
-    stats,
-    currentPage,
-}: IForumPageContentProps) {
+export default function ForumPageContent({ session, categories, stats, currentPage }: IForumPageContentProps) {
     const router = useRouter();
     const [page, setPage] = useQueryState("page");
 
@@ -49,9 +43,7 @@ export default function ForumPageContent({
                     Join discussions about your favorite movies and series with other movie enthusiasts.
                 </Typography>
             </Box>
-
             {stats && <ForumStats stats={stats} />}
-
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, mt: 4 }}>
                 <Typography variant="h5" component="h2" fontWeight="bold">
                     Categories
@@ -62,7 +54,6 @@ export default function ForumPageContent({
                             Search Forum
                         </Button>
                     </ButtonGroup>
-
                     {session?.user?.role === "ADMIN" && (
                         <Button
                             variant="contained"
@@ -74,7 +65,6 @@ export default function ForumPageContent({
                     )}
                 </Box>
             </Box>
-
             <ForumCategoryList categories={categories} currentPage={currentPage} onPageChange={handlePageChange} />
         </Container>
     );
