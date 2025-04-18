@@ -122,6 +122,19 @@ export async function getPostsByTopicId(topicId: number, page: number = 1, limit
                         avatar: true,
                     },
                 },
+                topic: {
+                    select: {
+                        id: true,
+                        slug: true,
+                        categoryId: true,
+                        category: {
+                            select: {
+                                id: true,
+                                slug: true
+                            }
+                        }
+                    }
+                },
             },
             orderBy: {
                 createdAt: "asc",
@@ -187,7 +200,15 @@ export async function getPostById(postId: number) {
                         id: true,
                         title: true,
                         slug: true,
-                        isLocked: true
+                        isLocked: true,
+                        categoryId: true,
+                        category: {
+                            select: {
+                                id: true,
+                                name: true,
+                                slug: true
+                            }
+                        }
                     }
                 },
                 user: {

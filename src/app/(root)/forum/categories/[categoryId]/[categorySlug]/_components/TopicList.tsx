@@ -89,7 +89,7 @@ export default function TopicList({
                 {topic.isLocked && (
                   <LockIcon fontSize="small" color="error" />
                 )}
-                <Link href={`/forum/topics/${topic.id}/${topic.slug}`} style={{ textDecoration: "none" }}>
+                <Link href={`/forum/categories/${topic.categoryId}/${topic.category?.slug || "category"}/topics/${topic.id}/${topic.slug}`} style={{ textDecoration: "none" }}>
                   <Typography variant="h6" color="primary" fontWeight="bold">
                     {topic.title}
                   </Typography>

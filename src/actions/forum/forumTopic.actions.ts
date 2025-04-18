@@ -75,6 +75,13 @@ export async function getTopics(categoryId?: number, page: number = 1, limit: nu
                         avatar: true,
                     },
                 },
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                        slug: true,
+                    },
+                },
                 _count: {
                     select: {
                         posts: true,
@@ -111,6 +118,7 @@ export async function getTopicById(topicId: number) {
                 select: {
                     id: true,
                     name: true,
+                    slug: true,
                 },
             },
         },

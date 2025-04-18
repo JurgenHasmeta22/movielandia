@@ -36,7 +36,7 @@ export default function CategoryPageContent({ category, session, topics, current
   };
 
   const handleCreateTopic = () => {
-    router.push(`/forum/topics/create?categoryId=${category.id}`);
+    router.push(`/forum/categories/${category.id}/${category.slug}/topics/create`);
   };
 
   return (
