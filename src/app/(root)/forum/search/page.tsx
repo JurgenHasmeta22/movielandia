@@ -6,7 +6,7 @@ import { searchForumContent } from "@/actions/forum/forumSearch.actions";
 import { getAllTags } from "@/actions/forum/forumTag.actions";
 import { getCategoryById } from "@/actions/forum/forumCategory.actions";
 import { TopicStatus } from "@prisma/client";
-import SearchPageContent from "./_components/SearchPageContent";
+import ForumSearchPageContent from "./_components/ForumSearchPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 
 interface ISearchPageProps {
@@ -77,7 +77,7 @@ export default async function SearchPage(props: ISearchPageProps) {
 
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <SearchPageContent
+            <ForumSearchPageContent
                 query={query}
                 searchResults={searchResults}
                 currentPage={currentPage}

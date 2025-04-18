@@ -108,7 +108,7 @@ export default function CategoryPageContent({
     };
 
     return (
-        <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" sx={{ mb: 3 }}>
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum

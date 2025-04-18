@@ -14,7 +14,7 @@ interface SearchResultsListProps {
     onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-export default function SearchResultsList({
+export default function ForumSearchResultsList({
     searchResults,
     tabValue,
     currentPage,

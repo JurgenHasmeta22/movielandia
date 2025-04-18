@@ -47,7 +47,7 @@ interface SearchPageContentProps {
     };
 }
 
-const SearchResultsList = ({ searchResults, tabValue, currentPage, onPageChange }: any) => {
+const SearchResultsList = () => {
     return (
         <Box sx={{ p: 3, textAlign: "center" }}>
             <Typography variant="h6">Search Results Component</Typography>
@@ -58,7 +58,7 @@ const SearchResultsList = ({ searchResults, tabValue, currentPage, onPageChange 
     );
 };
 
-export default function SearchPageContent({
+export default function ForumSearchPageContent({
     query,
     searchResults,
     currentPage,
@@ -67,11 +67,11 @@ export default function SearchPageContent({
 }: SearchPageContentProps) {
     const [searchQuery, setSearchQuery] = useState(query);
 
-    const [q, setQ] = useQueryState("q");
-    const [page, setPage] = useQueryState("page");
+    const [_q, setQ] = useQueryState("q");
+    const [_page, setPage] = useQueryState("page");
     const [categoryId, setCategoryId] = useQueryState("categoryId");
-    const [userId, setUserId] = useQueryState("userId");
-    const [tags, setTags] = useQueryState("tags");
+    const [_userId, setUserId] = useQueryState("userId");
+    const [_tags, setTags] = useQueryState("tags");
     const [status, setStatus] = useQueryState("status");
     const [dateFrom, setDateFrom] = useQueryState("dateFrom");
     const [dateTo, setDateTo] = useQueryState("dateTo");
@@ -134,7 +134,7 @@ export default function SearchPageContent({
     const totalResults = searchResults.topics.total + searchResults.posts.total + searchResults.replies.total;
 
     return (
-        <Container maxWidth="xl" sx={{ py: 4 }}>
+        <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" sx={{ mb: 3 }}>
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum
