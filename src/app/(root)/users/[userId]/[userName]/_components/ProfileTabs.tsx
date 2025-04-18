@@ -1,8 +1,8 @@
 "use client";
 
 import { Tab, Tabs, Paper } from "@mui/material";
-import { Options, useQueryState } from "nuqs";
 import { JSX } from "react";
+import { useRouter } from "next/navigation";
 
 interface ProfileTabsProps {
     mainTabs: any[];
@@ -10,11 +10,6 @@ interface ProfileTabsProps {
     currentMainTab: number;
     currentSubTab: number;
     getSubTabIcon: (label: string) => JSX.Element;
-    setMainTab: (
-        value: string | ((old: string) => string | null) | null,
-        options?: Options,
-    ) => Promise<URLSearchParams>;
-    setSubTab: (value: string | ((old: string) => string | null) | null, options?: Options) => Promise<URLSearchParams>;
 }
 
 export default function ProfileTabs({
@@ -23,27 +18,16 @@ export default function ProfileTabs({
     getSubTabIcon,
     currentMainTab,
     currentSubTab,
-    setMainTab,
-    setSubTab,
 }: ProfileTabsProps) {
-    const [_search, setSearch] = useQueryState("search", {
-        defaultValue: "",
-        parse: (value) => value || "",
-        shallow: false,
-    });
+    const router = useRouter();
 
-    const [_page, setPage] = useQueryState("page", {
-        defaultValue: "1",
-        parse: (value) => Number(value) || "1",
-        shallow: false,
-    });
-
-    const updateURL = (mainTabValue: string, subTabValue: string) => {
+    const updateURL = async (mainTabValue: string, subTabValue: string) => {
         const cleanSubTabValue = subTabValue.toLowerCase().replace(/\s+/g, "");
-        setPage(null);
-        setSearch(null);
-        setMainTab(mainTabValue);
-        setSubTab(cleanSubTabValue);
+        const searchParams = new URLSearchParams();
+
+        searchParams.set("maintab", mainTabValue);
+        searchParams.set("subtab", cleanSubTabValue);
+        router.push(`?${searchParams.toString()}`, { scroll: false });
     };
 
     const handleMainTabChange = (_: React.SyntheticEvent, newValue: number) => {

@@ -88,6 +88,7 @@ export default async function UserPage(props: IUserDetailsProps) {
     const userId = params.userId;
 
     const searchParams = await props.searchParams;
+    // Create a unique key that includes all search parameters to force remounting
     const searchParamsKey = JSON.stringify(searchParams);
 
     return (

@@ -47,7 +47,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
         if (item.episode || item.episodeId) return "episode";
         if (item.actor || item.actorId) return "actor";
         if (item.crew || item.crewId) return "crew";
-
         return "movie";
     };
 
@@ -60,7 +59,6 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
         if (item.episodeReview || item.episodeReviewId) return "episodeReview";
         if (item.actorReview || item.actorReviewId) return "actorReview";
         if (item.crewReview || item.crewReviewId) return "crewReview";
-
         return "movieReview";
     };
 
@@ -194,15 +192,24 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                         display: "grid",
                         gridTemplateColumns: {
                             xs:
-                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes" || mainTab === "forum"
+                                mainTab === "reviews" ||
+                                mainTab === "upvotes" ||
+                                mainTab === "downvotes" ||
+                                mainTab === "forum"
                                     ? "repeat(auto-fill, minmax(300px, 1fr))"
                                     : "repeat(auto-fill, minmax(100px, 1fr))",
                             sm:
-                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes" || mainTab === "forum"
+                                mainTab === "reviews" ||
+                                mainTab === "upvotes" ||
+                                mainTab === "downvotes" ||
+                                mainTab === "forum"
                                     ? "repeat(2, minmax(350px, 1fr))"
                                     : "repeat(3, minmax(120px, 1fr))",
                             md:
-                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes" || mainTab === "forum"
+                                mainTab === "reviews" ||
+                                mainTab === "upvotes" ||
+                                mainTab === "downvotes" ||
+                                mainTab === "forum"
                                     ? "repeat(3, minmax(300px, 1fr))"
                                     : "repeat(5, minmax(140px, 1fr))",
                         },
@@ -262,22 +269,12 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                 );
                             } else if (mainTab === "forum") {
                                 if (type.toLowerCase() === "topics") {
-                                    return (
-                                        <ForumTopicItemProfile
-                                            key={index}
-                                            topic={item}
-                                        />
-                                    );
+                                    return <ForumTopicItemProfile key={index} topic={item} />;
                                 } else {
-                                    return (
-                                        <ForumReplyItemProfile
-                                            key={index}
-                                            reply={item}
-                                        />
-                                    );
+                                    return <ForumReplyItemProfile key={index} reply={item} />;
                                 }
                             }
-                            
+
                             return (
                                 <CardItemProfile
                                     key={index}
