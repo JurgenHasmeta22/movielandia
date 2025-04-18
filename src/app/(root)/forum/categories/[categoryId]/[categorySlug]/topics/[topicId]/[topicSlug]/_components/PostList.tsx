@@ -205,7 +205,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            await deleteReply(replyId, userLoggedIn.id);
+C                            await deleteReply(replyId, Number(userLoggedIn.id));
                             showToast("success", "Reply deleted successfully!");
                             router.refresh();
                         } catch (error) {

@@ -153,7 +153,7 @@ export default function CategoryPageContent({
                         {session?.user && (
                             <Button
                                 variant="contained"
-                                color="primary"
+                                color="secondary"
                                 startIcon={<AddCircleOutlined />}
                                 onClick={handleCreateTopic}
                             >
