@@ -1,12 +1,14 @@
 "use client";
 
-import { Box, Paper, Typography, Pagination, Stack, Avatar, Divider, Button } from "@mui/material";
+import { Box, Paper, Typography, Stack, Avatar, Divider, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
 import ChatIcon from "@mui/icons-material/Chat";
 import { formatDistanceToNow, format } from "date-fns";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import React, { useRef } from "react";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface PostListProps {
     posts: {
@@ -17,17 +19,9 @@ interface PostListProps {
     totalPages: number;
     userLoggedIn: any;
     topicLocked: boolean;
-    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-export default function PostList({
-    posts,
-    currentPage,
-    totalPages,
-    onPageChange,
-    userLoggedIn,
-    topicLocked,
-}: PostListProps) {
+export default function PostList({ posts, currentPage, totalPages, userLoggedIn, topicLocked }: PostListProps) {
     const theme = useTheme();
     const editorRefs = useRef<{ [key: number]: React.RefObject<any> }>({});
 
@@ -145,15 +139,7 @@ export default function PostList({
             </Stack>
             {totalPages > 1 && (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                    <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={onPageChange}
-                        color="primary"
-                        size="large"
-                        showFirstButton
-                        showLastButton
-                    />
+                    <PaginationControl pageCount={totalPages} currentPage={currentPage} />
                 </Box>
             )}
         </>

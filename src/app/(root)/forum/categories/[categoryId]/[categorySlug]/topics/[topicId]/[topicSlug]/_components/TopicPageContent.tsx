@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, Container, Typography, Breadcrumbs, Link as MuiLink, Chip, Avatar, Paper } from "@mui/material";
-import { useQueryState } from "nuqs";
 import Link from "next/link";
 import { ForumCategory, ForumTopic, ForumTag } from "@prisma/client";
 import PostList from "./PostList";
@@ -36,13 +35,8 @@ interface ITopicPageContentProps {
 }
 
 export default function TopicPageContent({ topic, category, session, posts, currentPage }: ITopicPageContentProps) {
-    const [_page, setPage] = useQueryState("page");
     const limit = 10;
     const editorRef = useRef(null);
-
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value === 1 ? null : value.toString());
-    };
 
     return (
         <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
@@ -128,7 +122,6 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                 posts={posts}
                 currentPage={currentPage}
                 totalPages={Math.ceil(posts.total / limit)}
-                onPageChange={handlePageChange}
                 userLoggedIn={session?.user}
                 topicLocked={topic.isLocked}
             />
