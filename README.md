@@ -7,7 +7,6 @@
   </p>
 
   <p align="center">
-    <a href="#features">✨ Features</a> •
     <a href="#tech">⚙️ Tech</a> •
     <a href="#start">🚀 Quick Start</a> •
     <a href="#structure">📂 Structure</a>
@@ -22,15 +21,6 @@
 </div>
 
 <hr>
-
-<h2 id="features">✨ Features</h2>
-
-- 🎞️ **Explore** vast libraries of movies and series
-- ⭐ **Rate & Review** your favorite content
-- 👥 **Connect** with a community of film enthusiasts
-- 📋 **Create** custom watchlists and collections
-- 🔍 **Discover** new content through personalized recommendations
-- 📱 **Enjoy** a responsive experience across all devices
 
 <h2 id="tech">⚙️ Technology Stack</h2>
 

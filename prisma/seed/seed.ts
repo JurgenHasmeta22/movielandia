@@ -96,6 +96,27 @@ async function deleteData() {
     await prisma.listCrew.deleteMany();
     await prisma.list.deleteMany();
 
+    // Delete forum data
+    await prisma.upvoteForumReply.deleteMany();
+    await prisma.downvoteForumReply.deleteMany();
+    await prisma.forumReplyHistory.deleteMany();
+    await prisma.forumReply.deleteMany();
+
+    await prisma.upvoteForumPost.deleteMany();
+    await prisma.downvoteForumPost.deleteMany();
+    await prisma.forumPost.deleteMany();
+
+    await prisma.upvoteForumTopic.deleteMany();
+    await prisma.downvoteForumTopic.deleteMany();
+    await prisma.userForumTopicFavorite.deleteMany();
+    await prisma.userForumTopicWatch.deleteMany();
+    await prisma.forumTopic.deleteMany();
+
+    await prisma.userForumModerator.deleteMany();
+    await prisma.forumUserStats.deleteMany();
+    await prisma.forumTag.deleteMany();
+    await prisma.forumCategory.deleteMany();
+
     // Delete main entities
     await prisma.episode.deleteMany();
     await prisma.season.deleteMany();
@@ -205,7 +226,7 @@ async function baseSeeding() {
 const config = {
     useDynamicSeeding: true, // Set to false to use base seeding instead
     deleteBeforeSeeding: false, // Set to true to delete all data before seeding
-    dynamicSeedingStartStep: SeedStep.Reviews // Which step to start from for dynamic seeding
+    dynamicSeedingStartStep: SeedStep.Forum // Which step to start from for dynamic seeding
 };
 
 async function main() {

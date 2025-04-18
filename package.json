@@ -96,6 +96,6 @@
     },
     "prisma": {
         "schema": "prisma/schema",
-        "seed": "ts-node prisma/seed/seed.ts"
+        "seed": "tsx prisma/seed/seed.ts"
     }
 }
