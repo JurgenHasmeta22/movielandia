@@ -13,6 +13,9 @@ import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
+import ForumIcon from "@mui/icons-material/Forum";
+import TopicIcon from "@mui/icons-material/Topic";
+import ReplyIcon from "@mui/icons-material/Reply";
 import ProfileHeader from "./ProfileHeader";
 import ProfileInfo from "./ProfileInfo";
 import ProfileStats from "./ProfileStats";
@@ -83,6 +86,7 @@ export default function UserPageContent({
             { label: "Upvotes", icon: <ThumbUpIcon />, param: "upvotes" },
             { label: "Downvotes", icon: <ThumbDownIcon />, param: "downvotes" },
             { label: "Reviews", icon: <RateReviewIcon />, param: "reviews" },
+            { label: "Forum", icon: <ForumIcon />, param: "forum" },
         ],
         [],
     );
@@ -92,6 +96,7 @@ export default function UserPageContent({
         reviews: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
         upvotes: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
         downvotes: ["Movies", "Series", "Seasons", "Episodes", "Actors", "Crew"],
+        forum: ["Topics", "Replies"],
     };
 
     const getSubTabIcon = (label: string) => {
@@ -108,6 +113,10 @@ export default function UserPageContent({
                 return <PersonIcon />;
             case "crew":
                 return <GroupWorkIcon />;
+            case "topics":
+                return <TopicIcon />;
+            case "replies":
+                return <ReplyIcon />;
             default:
                 return <BookmarkIcon />;
         }
@@ -156,6 +165,8 @@ export default function UserPageContent({
                 return "Reviews this user disagreed with";
             case "reviews":
                 return "User's reviews and ratings";
+            case "forum":
+                return "User's forum activity";
             default:
                 return "";
         }

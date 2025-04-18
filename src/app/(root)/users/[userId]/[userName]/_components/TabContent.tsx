@@ -3,6 +3,8 @@
 import { Box, Typography, Pagination, Stack } from "@mui/material";
 import CardItemProfile, { FavoriteType } from "./CardItemProfile";
 import ReviewItemProfile from "./ReviewItemProfile";
+import ForumTopicItemProfile from "./ForumTopicItemProfile";
+import ForumReplyItemProfile from "./ForumReplyItemProfile";
 import { motion } from "framer-motion";
 import ProfileSearchBar from "./ProfileSearchBar";
 import { useQueryState } from "nuqs";
@@ -116,6 +118,12 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                     return `No upvoted ${type.toLowerCase()} reviews found matching "${search}"`;
                 case "downvotes":
                     return `No downvoted ${type.toLowerCase()} reviews found matching "${search}"`;
+                case "forum":
+                    if (type.toLowerCase() === "topics") {
+                        return `No forum topics found matching "${search}"`;
+                    } else {
+                        return `No forum replies found matching "${search}"`;
+                    }
                 default:
                     return `No ${type.toLowerCase()} bookmarks found matching "${search}"`;
             }
@@ -128,6 +136,12 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                 return `No ${type.toLowerCase()} reviews have been upvoted yet`;
             case "downvotes":
                 return `No ${type.toLowerCase()} reviews have been downvoted yet`;
+            case "forum":
+                if (type.toLowerCase() === "topics") {
+                    return "No forum topics have been created yet";
+                } else {
+                    return "No forum replies have been posted yet";
+                }
             default:
                 return `No ${type.toLowerCase()} have been bookmarked yet`;
         }
@@ -181,15 +195,15 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                         display: "grid",
                         gridTemplateColumns: {
                             xs:
-                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes"
+                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes" || mainTab === "forum"
                                     ? "repeat(auto-fill, minmax(300px, 1fr))"
                                     : "repeat(auto-fill, minmax(100px, 1fr))",
                             sm:
-                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes"
+                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes" || mainTab === "forum"
                                     ? "repeat(2, minmax(350px, 1fr))"
                                     : "repeat(3, minmax(120px, 1fr))",
                             md:
-                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes"
+                                mainTab === "reviews" || mainTab === "upvotes" || mainTab === "downvotes" || mainTab === "forum"
                                     ? "repeat(3, minmax(300px, 1fr))"
                                     : "repeat(5, minmax(140px, 1fr))",
                         },
@@ -247,6 +261,22 @@ export default function TabContent({ type, userLoggedIn, userInPage, additionalD
                                         userLoggedIn={userLoggedIn}
                                     />
                                 );
+                            } else if (mainTab === "forum") {
+                                if (type.toLowerCase() === "topics") {
+                                    return (
+                                        <ForumTopicItemProfile
+                                            key={index}
+                                            topic={item}
+                                        />
+                                    );
+                                } else {
+                                    return (
+                                        <ForumReplyItemProfile
+                                            key={index}
+                                            reply={item}
+                                        />
+                                    );
+                                }
                             }
                             return (
                                 <CardItemProfile

@@ -1,6 +1,7 @@
 import { getUserById } from "@/actions/user/user.actions";
 import { getFollowers, getFollowing, getPendingFollowRequests } from "@/actions/user/userFollow.actions";
 import { getUserFavorites, getUserReviews, getUserVotes } from "@/actions/user/userProfile.actions";
+import { getUserForumTopics, getUserForumReplies } from "@/actions/user/userForum.actions";
 import { notFound } from "next/navigation";
 import UserPageContent from "./UserPageContent";
 
@@ -67,6 +68,24 @@ export default async function UserPageContentWrapper({
                 search,
                 page,
             );
+        } else if (mainTab === "forum") {
+            if (subTab.toLowerCase() === "topics") {
+                additionalData = await getUserForumTopics(
+                    Number(userId),
+                    page,
+                    search,
+                    "createdAt",
+                    "asc"
+                );
+            } else if (subTab.toLowerCase() === "replies") {
+                additionalData = await getUserForumReplies(
+                    Number(userId),
+                    page,
+                    search,
+                    "createdAt",
+                    "asc"
+                );
+            }
         }
     } catch (error) {
         return notFound();
@@ -75,6 +94,7 @@ export default async function UserPageContentWrapper({
     return (
         <UserPageContent
             userLoggedIn={userSession}
+            // @ts-expect-error type user
             userInPage={userInPage}
             additionalData={additionalData}
             userFollowers={userFollowers}
