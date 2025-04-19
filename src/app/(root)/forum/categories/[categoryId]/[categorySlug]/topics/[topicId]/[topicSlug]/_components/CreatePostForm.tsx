@@ -28,10 +28,10 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
 
         try {
             await createPost(content, topicId, userId);
-            toast.success("Your reply has been posted successfully!");
+            toast.success("Your post has been created successfully!");
             setContent("");
         } catch (error) {
-            toast.error("Failed to post your reply. Please try again.");
+            toast.error("Failed to create your post. Please try again.");
             console.error("Error creating post:", error);
         } finally {
             setIsSubmitting(false);
@@ -39,7 +39,7 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
     };
 
     return (
-        <Box component="form" onSubmit={handleSubmit} id="reply-form">
+        <Box component="form" onSubmit={handleSubmit} id="post-form">
             <Paper
                 elevation={0}
                 sx={{
@@ -55,12 +55,12 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
                     onChange={setContent}
                     ref={editorRef}
                     isDisabled={isSubmitting}
-                    type="reply"
+                    type="post"
                 />
             </Paper>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button size="large" type="submit" variant="outlined" color="primary" disabled={isSubmitting || !content.trim()}>
-                    {isSubmitting ? "Posting..." : "Post Reply"}
+                    {isSubmitting ? "Creating..." : "Create Post"}
                 </Button>
             </Box>
         </Box>

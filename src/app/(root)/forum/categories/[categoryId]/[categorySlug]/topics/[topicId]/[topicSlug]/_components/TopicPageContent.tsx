@@ -195,7 +195,7 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                 </Box>
             </Paper>
             <Typography variant="h5" component="h2" fontWeight="bold" sx={{ mb: 3 }}>
-                Replies
+                Posts
             </Typography>
             <PostList
                 posts={posts}
@@ -207,7 +207,7 @@ export default function TopicPageContent({ topic, category, session, posts, curr
             {session?.user && !topic.isLocked && (
                 <Box sx={{ mt: 4 }}>
                     <Typography variant="h6" component="h3" fontWeight="bold" sx={{ mb: 2 }}>
-                        Post a Reply
+                        Create a Post
                     </Typography>
                     <CreatePostForm topicId={topic.id} userId={Number(session.user.id)} />
                 </Box>

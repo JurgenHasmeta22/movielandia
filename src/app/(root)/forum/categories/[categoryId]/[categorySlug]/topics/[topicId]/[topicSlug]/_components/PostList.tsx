@@ -12,9 +12,9 @@ import TextEditor from "@/components/root/textEditor/TextEditor";
 import React, { useRef, useState } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import EditReplyModal from "./EditReplyModal";
+import EditPostModal from "./EditPostModal";
 import { useModal } from "@/providers/ModalProvider";
-import { deleteReply } from "@/actions/forum/forumReply.actions";
+import { deletePost } from "@/actions/forum/forumPost.actions";
 import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
@@ -35,7 +35,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
     const router = useRouter();
     const { openModal } = useModal();
     const editorRefs = useRef<{ [key: number]: React.RefObject<any> }>({});
-    const [editingReply, setEditingReply] = useState<{ id: number; content: string } | null>(null);
+    const [editingPost, setEditingPost] = useState<{ id: number; content: string } | null>(null);
 
     posts.items.forEach((post) => {
         if (!editorRefs.current[post.id]) {
@@ -57,30 +57,30 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
             >
                 <ChatIcon sx={{ fontSize: 60, color: theme.vars.palette.primary.main, mb: 2, opacity: 0.7 }} />
                 <Typography variant="h6" gutterBottom>
-                    No replies yet
+                    No posts yet
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    Be the first to reply to this topic!
+                    Be the first to post in this topic!
                 </Typography>
                 {userLoggedIn && !topicLocked && (
                     <Button
                         variant="contained"
                         color="secondary"
-                        onClick={() => document.getElementById("reply-form")?.scrollIntoView({ behavior: "smooth" })}
+                        onClick={() => document.getElementById("post-form")?.scrollIntoView({ behavior: "smooth" })}
                     >
-                        Post a Reply
+                        Create a Post
                     </Button>
                 )}
             </Paper>
         );
     }
 
-    function handleDeleteReply(replyId: number) {
+    function handleDeletePost(postId: number) {
         if (!userLoggedIn) return;
 
         openModal({
-            title: "Delete Reply",
-            subTitle: "Are you sure you want to delete this reply? This action cannot be undone.",
+            title: "Delete Post",
+            subTitle: "Are you sure you want to delete this post? This action cannot be undone.",
             actions: [
                 {
                     label: CONSTANTS.MODAL__DELETE__NO,
@@ -96,10 +96,11 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     label: CONSTANTS.MODAL__DELETE__YES,
                     onClick: async () => {
                         try {
-                            await deleteReply(replyId, Number(userLoggedIn.id));
-                            showToast("success", "Reply deleted successfully!");
+                            await deletePost(postId, Number(userLoggedIn.id));
+                            showToast("success", "Post deleted successfully!");
+                            router.refresh();
                         } catch (error) {
-                            showToast("error", error instanceof Error ? error.message : "Failed to delete reply");
+                            showToast("error", error instanceof Error ? error.message : "Failed to delete post");
                         }
                     },
                     type: "submit",
@@ -185,7 +186,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                     variant="outlined"
                                     size="medium"
                                     startIcon={<EditIcon />}
-                                    onClick={() => setEditingReply({ id: post.id, content: post.content })}
+                                    onClick={() => setEditingPost({ id: post.id, content: post.content })}
                                 >
                                     Edit
                                 </Button>
@@ -194,7 +195,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                     size="medium"
                                     color="error"
                                     startIcon={<DeleteIcon />}
-                                    onClick={() => handleDeleteReply(post.id)}
+                                    onClick={() => handleDeletePost(post.id)}
                                 >
                                     Delete
                                 </Button>
@@ -208,11 +209,11 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     <PaginationControl pageCount={totalPages} currentPage={currentPage} />
                 </Box>
             )}
-            {editingReply && userLoggedIn && (
-                <EditReplyModal
-                    open={!!editingReply}
-                    onClose={() => setEditingReply(null)}
-                    reply={editingReply}
+            {editingPost && userLoggedIn && (
+                <EditPostModal
+                    open={!!editingPost}
+                    onClose={() => setEditingPost(null)}
+                    post={editingPost}
                     userId={userLoggedIn.id}
                     onSuccess={() => router.refresh()}
                 />
