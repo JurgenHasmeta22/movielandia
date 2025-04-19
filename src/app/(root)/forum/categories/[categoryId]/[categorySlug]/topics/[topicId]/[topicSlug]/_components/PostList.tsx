@@ -8,8 +8,8 @@ import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { formatDistanceToNow, format } from "date-fns";
-import TextEditor from "@/components/root/textEditor/TextEditor";
-import React, { useRef, useState } from "react";
+import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
+import React, { useState } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import EditPostModal from "./EditPostModal";
@@ -34,14 +34,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
     const theme = useTheme();
     const router = useRouter();
     const { openModal } = useModal();
-    const editorRefs = useRef<{ [key: number]: React.RefObject<any> }>({});
     const [editingPost, setEditingPost] = useState<{ id: number; content: string } | null>(null);
-
-    posts.items.forEach((post) => {
-        if (!editorRefs.current[post.id]) {
-            editorRefs.current[post.id] = React.createRef();
-        }
-    });
 
     if (posts.items.length === 0) {
         return (
@@ -166,13 +159,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                         <Divider sx={{ my: 2 }} />
 
                         <Box sx={{ mb: 2 }}>
-                            <TextEditor
-                                value={post.content}
-                                onChange={() => {}}
-                                ref={editorRefs.current[post.id]}
-                                isDisabled={true}
-                                type="post"
-                            />
+                            <RichTextDisplay content={post.content} type="post" />
                         </Box>
                         {post.isEdited && (
                             <Typography variant="body2" color="text.secondary" sx={{ mt: 2, fontStyle: "italic" }}>

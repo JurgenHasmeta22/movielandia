@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useMemo, useCallback } from "react";
 import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
@@ -18,7 +18,7 @@ interface ITextEditorProps {
     onChange: (value: string) => void;
 }
 
-const getModules = (isDisabled: boolean | undefined) => ({
+const getModulesConfig = (isDisabled: boolean | undefined) => ({
     toolbar: isDisabled
         ? false
         : [
@@ -46,7 +46,7 @@ const getModules = (isDisabled: boolean | undefined) => ({
     },
 });
 
-const formats = [
+const formatsArray = [
     "header",
     "font",
     "size",
@@ -71,21 +71,10 @@ const formats = [
 const TextEditor = React.forwardRef<any, ITextEditorProps>(
     ({ value, onChange, rating, setRating, isDisabled, type }, ref) => {
         const theme = useTheme();
-
-        useEffect(() => {
-            if (!ref || !value) return;
-
-            let editorInstance;
-
-            try {
-                if (typeof ref === "object" && ref.current && ref.current.getEditor) {
-                    editorInstance = ref.current.getEditor();
-                }
-            } catch (error) {
-                console.error("Error getting editor instance:", error);
-                return;
-            }
-        }, [ref, value]);
+        const formats = useMemo(() => formatsArray, []);
+        const getModules = useCallback((isDisabled: boolean | undefined) => {
+            return getModulesConfig(isDisabled);
+        }, [isDisabled]);
 
         return (
             <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
@@ -272,5 +261,4 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
 );
 
 TextEditor.displayName = "TextEditor";
-
 export default TextEditor;

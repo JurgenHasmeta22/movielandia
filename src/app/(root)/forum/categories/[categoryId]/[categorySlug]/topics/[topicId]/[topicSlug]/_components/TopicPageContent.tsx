@@ -13,8 +13,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { formatDistanceToNow, format } from "date-fns";
 import TagDisplay from "@/app/(root)/forum/_components/TagDisplay";
-import TextEditor from "@/components/root/textEditor/TextEditor";
-import { useRef, useState } from "react";
+import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
+import { useState } from "react";
 import EditTopicModal from "./EditTopicModal";
 import { useModal } from "@/providers/ModalProvider";
 import { deleteTopic } from "@/actions/forum/forumTopic.actions";
@@ -46,7 +46,7 @@ interface ITopicPageContentProps {
 export default function TopicPageContent({ topic, category, session, posts, currentPage }: ITopicPageContentProps) {
     const router = useRouter();
     const { openModal } = useModal();
-    const editorRef = useRef(null);
+
     const [editingTopic, setEditingTopic] = useState(false);
     const limit = 10;
 
@@ -176,13 +176,7 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                     )}
                 </Box>
                 <Box sx={{ mb: 3 }}>
-                    <TextEditor
-                        value={topic.content}
-                        onChange={() => {}}
-                        ref={editorRef}
-                        isDisabled={true}
-                        type="topic"
-                    />
+                    <RichTextDisplay content={topic.content} type="topic" />
                 </Box>
                 {topic.tags && topic.tags.length > 0 && <TagDisplay tags={topic.tags} label="Tags" size="medium" />}
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

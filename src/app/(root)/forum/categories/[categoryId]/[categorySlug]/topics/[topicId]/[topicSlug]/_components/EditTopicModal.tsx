@@ -18,7 +18,6 @@ import TextEditor from "@/components/root/textEditor/TextEditor";
 import { updateTopic } from "@/actions/forum/forumTopic.actions";
 import { showToast } from "@/utils/helpers/toast";
 import TagSelector from "@/app/(root)/forum/_components/TagSelector";
-import { useRouter } from "next/navigation";
 
 interface EditTopicModalProps {
     open: boolean;
@@ -39,7 +38,6 @@ export default function EditTopicModal({ open, onClose, topic, userId }: EditTop
     const [selectedTags, setSelectedTags] = useState<number[]>(topic.tags?.map((tag) => tag.id) || []);
     const [error, setError] = useState<string | null>(null);
 
-    const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
 

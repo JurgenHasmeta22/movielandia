@@ -16,7 +16,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { updatePost } from "@/actions/forum/forumPost.actions";
 import { showToast } from "@/utils/helpers/toast";
-import { useRouter } from "next/navigation";
 
 interface EditPostModalProps {
     open: boolean;
@@ -31,10 +30,9 @@ interface EditPostModalProps {
 export default function EditPostModal({ open, onClose, post, userId }: EditPostModalProps) {
     const [content, setContent] = useState(post.content);
     const [error, setError] = useState<string | null>(null);
-
+    
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
-    const router = useRouter();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
