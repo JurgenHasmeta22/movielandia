@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { updatePost } from "@/actions/forum/forumPost.actions";
 import { showToast } from "@/utils/helpers/toast";
+import { useRouter } from "next/navigation";
 
 interface EditPostModalProps {
     open: boolean;
@@ -25,14 +26,15 @@ interface EditPostModalProps {
     };
     userId: number;
     onClose: () => void;
-    onSuccess?: () => void;
 }
 
-export default function EditPostModal({ open, onClose, post, userId, onSuccess }: EditPostModalProps) {
+export default function EditPostModal({ open, onClose, post, userId }: EditPostModalProps) {
     const [content, setContent] = useState(post.content);
     const [error, setError] = useState<string | null>(null);
+
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
+    const router = useRouter();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,10 +51,6 @@ export default function EditPostModal({ open, onClose, post, userId, onSuccess }
                 await updatePost(post.id, content, Number(userId));
                 showToast("success", "Post updated successfully!");
                 onClose();
-
-                if (onSuccess) {
-                    onSuccess();
-                }
             } catch (error) {
                 setError(error instanceof Error ? error.message : "An error occurred while updating your post.");
                 showToast("error", "Failed to update post.");
@@ -75,7 +73,9 @@ export default function EditPostModal({ open, onClose, post, userId, onSuccess }
                 },
             }}
         >
-            <DialogTitle sx={{ bgcolor: "#1e2330", color: "white", p: 3, borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}>
+            <DialogTitle
+                sx={{ bgcolor: "#1e2330", color: "white", p: 3, borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
+            >
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <Typography variant="h6" component="div" fontWeight="bold">
                         Edit Post

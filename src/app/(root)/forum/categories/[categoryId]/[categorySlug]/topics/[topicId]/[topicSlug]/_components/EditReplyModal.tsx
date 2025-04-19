@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { updateReply } from "@/actions/forum/forumReply.actions";
 import { showToast } from "@/utils/helpers/toast";
+import { useRouter } from "next/navigation";
 
 interface EditReplyModalProps {
     open: boolean;
@@ -25,12 +26,13 @@ interface EditReplyModalProps {
     };
     userId: number;
     onClose: () => void;
-    onSuccess?: () => void;
 }
 
-export default function EditReplyModal({ open, onClose, reply, userId, onSuccess }: EditReplyModalProps) {
+export default function EditReplyModal({ open, onClose, reply, userId }: EditReplyModalProps) {
     const [content, setContent] = useState(reply.content);
     const [error, setError] = useState<string | null>(null);
+
+    const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
 
@@ -49,10 +51,6 @@ export default function EditReplyModal({ open, onClose, reply, userId, onSuccess
                 await updateReply(reply.id, content, Number(userId));
                 showToast("success", "Reply updated successfully!");
                 onClose();
-
-                if (onSuccess) {
-                    onSuccess();
-                }
             } catch (error) {
                 setError(error instanceof Error ? error.message : "An error occurred while updating your reply.");
                 showToast("error", "Failed to update reply.");
@@ -89,7 +87,9 @@ export default function EditReplyModal({ open, onClose, reply, userId, onSuccess
                     alignItems: "center",
                 }}
             >
-                <Typography variant="h6" component="div">Edit Reply</Typography>
+                <Typography variant="h6" component="div">
+                    Edit Reply
+                </Typography>
                 <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>

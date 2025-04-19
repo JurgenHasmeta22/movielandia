@@ -219,7 +219,6 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                     topic={topic}
                     userId={Number(session.user.id)}
                     categoryId={category.id}
-                    onSuccess={() => router.refresh()}
                 />
             )}
         </Container>

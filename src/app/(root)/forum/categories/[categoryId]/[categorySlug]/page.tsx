@@ -56,7 +56,8 @@ export async function generateMetadata({ params }: ICategoryPageProps): Promise<
 
 export default async function CategoryPage(props: ICategoryPageProps) {
     const session = await getServerSession(authOptions);
-    const category = await getCategoryById(Number(props.params.categoryId));
+    const params = await props.params;
+    const category = await getCategoryById(Number(params.categoryId));
 
     if (!category) {
         return notFound();
@@ -79,7 +80,6 @@ export default async function CategoryPage(props: ICategoryPageProps) {
     let status: TopicStatus | undefined;
 
     if (searchParams?.status && searchParams.status !== "all") {
-        // Ensure the status is a valid TopicStatus enum value
         if (["Open", "Closed", "Archived"].includes(searchParams.status)) {
             status = searchParams.status as TopicStatus;
             console.log(`Using status filter: ${status}`);

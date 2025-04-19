@@ -36,12 +36,13 @@ export const metadata: Metadata = {
 
 export default async function CreateTopicPage(props: ICreateTopicPageProps) {
     const session = await getServerSession(authOptions);
+    const params = await props.params;
 
     if (!session?.user) {
         redirect("/auth/signin?callbackUrl=/forum");
     }
 
-    const category = await getCategoryById(Number(props.params.categoryId));
+    const category = await getCategoryById(Number(params.categoryId));
 
     if (!category) {
         return notFound();

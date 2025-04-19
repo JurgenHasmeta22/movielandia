@@ -18,6 +18,7 @@ import TextEditor from "@/components/root/textEditor/TextEditor";
 import { updateTopic } from "@/actions/forum/forumTopic.actions";
 import { showToast } from "@/utils/helpers/toast";
 import TagSelector from "@/app/(root)/forum/_components/TagSelector";
+import { useRouter } from "next/navigation";
 
 interface EditTopicModalProps {
     open: boolean;
@@ -30,14 +31,15 @@ interface EditTopicModalProps {
     };
     userId: number;
     categoryId: number;
-    onSuccess?: () => void;
 }
 
-export default function EditTopicModal({ open, onClose, topic, userId, categoryId, onSuccess }: EditTopicModalProps) {
+export default function EditTopicModal({ open, onClose, topic, userId }: EditTopicModalProps) {
     const [title, setTitle] = useState(topic.title);
     const [content, setContent] = useState(topic.content);
     const [selectedTags, setSelectedTags] = useState<number[]>(topic.tags?.map((tag) => tag.id) || []);
     const [error, setError] = useState<string | null>(null);
+
+    const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
 
@@ -61,9 +63,6 @@ export default function EditTopicModal({ open, onClose, topic, userId, categoryI
                 await updateTopic(topic.id, title, content, userId, selectedTags.length > 0 ? selectedTags : undefined);
                 showToast("success", "Topic updated successfully!");
                 onClose();
-                if (onSuccess) {
-                    onSuccess();
-                }
             } catch (error) {
                 setError(error instanceof Error ? error.message : "An error occurred while updating your topic.");
                 showToast("error", "Failed to update topic.");
@@ -100,7 +99,9 @@ export default function EditTopicModal({ open, onClose, topic, userId, categoryI
                     alignItems: "center",
                 }}
             >
-                <Typography variant="h6" component="div">Edit Topic</Typography>
+                <Typography variant="h6" component="div">
+                    Edit Topic
+                </Typography>
                 <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>

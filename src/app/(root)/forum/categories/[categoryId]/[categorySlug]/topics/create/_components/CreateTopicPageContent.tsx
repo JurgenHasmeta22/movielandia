@@ -76,12 +76,7 @@ export default function CreateTopicPageContent({ category, userId }: ICreateTopi
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum
                 </MuiLink>
-                <MuiLink
-                    component={Link}
-                    href={'/forum/categories'}
-                    underline="hover"
-                    color="inherit"
-                >
+                <MuiLink component={Link} href={"/forum/categories"} underline="hover" color="inherit">
                     Categories
                 </MuiLink>
                 <MuiLink

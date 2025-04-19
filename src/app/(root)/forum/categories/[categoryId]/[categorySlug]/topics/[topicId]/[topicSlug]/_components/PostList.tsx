@@ -98,7 +98,6 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                         try {
                             await deletePost(postId, Number(userLoggedIn.id));
                             showToast("success", "Post deleted successfully!");
-                            router.refresh();
                         } catch (error) {
                             showToast("error", error instanceof Error ? error.message : "Failed to delete post");
                         }
@@ -215,7 +214,6 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     onClose={() => setEditingPost(null)}
                     post={editingPost}
                     userId={userLoggedIn.id}
-                    onSuccess={() => router.refresh()}
                 />
             )}
         </>

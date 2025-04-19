@@ -6,8 +6,8 @@ import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 interface ITextEditorProps {
     value: string;
@@ -75,25 +75,6 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
         useEffect(() => {
             if (!ref || !value) return;
 
-            const resizeImages = () => {
-                try {
-                    if (typeof ref === "object" && ref.current && ref.current.getEditor) {
-                        const quillEditor = ref.current.getEditor();
-
-                        if (quillEditor && quillEditor.container) {
-                            const images = quillEditor.container.querySelectorAll("img");
-
-                            images.forEach((img: HTMLImageElement) => {
-                                img.style.maxWidth = "50%";
-                                img.style.maxHeight = "auto";
-                            });
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error resizing images:", error);
-                }
-            };
-
             let editorInstance;
 
             try {
@@ -103,23 +84,6 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
             } catch (error) {
                 console.error("Error getting editor instance:", error);
                 return;
-            }
-
-            if (editorInstance) {
-                try {
-                    resizeImages();
-                    editorInstance.on("text-change", resizeImages);
-
-                    return () => {
-                        try {
-                            editorInstance.off("text-change", resizeImages);
-                        } catch (error) {
-                            console.error("Error removing event listener:", error);
-                        }
-                    };
-                } catch (error) {
-                    console.error("Error setting up editor event listeners:", error);
-                }
             }
         }, [ref, value]);
 
@@ -306,5 +270,7 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
         );
     },
 );
+
+TextEditor.displayName = "TextEditor";
 
 export default TextEditor;

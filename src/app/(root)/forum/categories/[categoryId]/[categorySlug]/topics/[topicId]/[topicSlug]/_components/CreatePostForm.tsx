@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { createPost } from "@/actions/forum/forumPost.actions";
 import { toast } from "react-toastify";
 import TextEditor from "@/components/root/textEditor/TextEditor";
+import { useRouter } from "next/navigation";
 
 interface CreatePostFormProps {
     topicId: number;
@@ -14,7 +15,9 @@ interface CreatePostFormProps {
 export default function CreatePostForm({ topicId, userId }: CreatePostFormProps) {
     const [content, setContent] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+
     const editorRef = useRef(null);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -59,7 +62,13 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
                 />
             </Paper>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button size="large" type="submit" variant="outlined" color="primary" disabled={isSubmitting || !content.trim()}>
+                <Button
+                    size="large"
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                    disabled={isSubmitting || !content.trim()}
+                >
                     {isSubmitting ? "Creating..." : "Create Post"}
                 </Button>
             </Box>

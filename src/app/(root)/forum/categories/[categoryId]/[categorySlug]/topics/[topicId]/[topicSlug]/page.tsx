@@ -21,7 +21,8 @@ interface ITopicPageProps {
     }>;
 }
 
-export async function generateMetadata({ params }: ITopicPageProps): Promise<Metadata> {
+export async function generateMetadata(props: ITopicPageProps): Promise<Metadata> {
+    const params = await props.params;
     const topic = await getTopicById(Number(params.topicId));
 
     if (!topic) {
@@ -63,13 +64,14 @@ export async function generateMetadata({ params }: ITopicPageProps): Promise<Met
 
 export default async function TopicPage(props: ITopicPageProps) {
     const session = await getServerSession(authOptions);
-    const topic = await getTopicById(Number(props.params.topicId), true);
+    const params = await props.params;
+    const topic = await getTopicById(Number(params.topicId), true);
 
     if (!topic) {
         return notFound();
     }
 
-    const category = await getCategoryById(Number(props.params.categoryId));
+    const category = await getCategoryById(Number(params.categoryId));
 
     if (!category) {
         return notFound();

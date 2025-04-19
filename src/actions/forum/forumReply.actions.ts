@@ -28,7 +28,7 @@ export async function createReply(content: string, postId: number, userId: numbe
 }
 
 export async function updateReply(replyId: number, content: string, userId: number): Promise<void> {
-    try {        
+    try {
         const reply = await prisma.forumReply.findFirst({
             where: {
                 id: replyId,
