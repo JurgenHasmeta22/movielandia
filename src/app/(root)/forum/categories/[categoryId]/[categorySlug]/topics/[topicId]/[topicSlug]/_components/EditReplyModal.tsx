@@ -19,12 +19,12 @@ import { showToast } from "@/utils/helpers/toast";
 
 interface EditReplyModalProps {
     open: boolean;
-    onClose: () => void;
     reply: {
         id: number;
         content: string;
     };
     userId: number;
+    onClose: () => void;
     onSuccess?: () => void;
 }
 
@@ -46,9 +46,10 @@ export default function EditReplyModal({ open, onClose, reply, userId, onSuccess
 
         startTransition(async () => {
             try {
-                await updateReply(reply.id, content, userId);
+                await updateReply(reply.id, content, Number(userId));
                 showToast("success", "Reply updated successfully!");
                 onClose();
+
                 if (onSuccess) {
                     onSuccess();
                 }
@@ -112,12 +113,13 @@ export default function EditReplyModal({ open, onClose, reply, userId, onSuccess
                 </Box>
             </DialogContent>
             <DialogActions sx={{ px: 3, py: 2, borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                <Button onClick={onClose} variant="outlined" disabled={isPending}>
+                <Button onClick={onClose} variant="outlined" size="large" color="primary" disabled={isPending}>
                     Cancel
                 </Button>
                 <Button
                     onClick={handleSubmit}
-                    variant="contained"
+                    variant="outlined"
+                    size="large"
                     color="primary"
                     disabled={isPending || !content.trim()}
                 >

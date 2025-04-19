@@ -59,7 +59,7 @@ export default function CreatePostForm({ topicId, userId }: CreatePostFormProps)
                 />
             </Paper>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button type="submit" variant="contained" color="primary" disabled={isSubmitting || !content.trim()}>
+                <Button size="large" type="submit" variant="outlined" color="primary" disabled={isSubmitting || !content.trim()}>
                     {isSubmitting ? "Posting..." : "Post Reply"}
                 </Button>
             </Box>

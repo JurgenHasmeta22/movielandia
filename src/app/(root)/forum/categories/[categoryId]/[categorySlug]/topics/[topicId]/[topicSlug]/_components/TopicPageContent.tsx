@@ -44,13 +44,12 @@ interface ITopicPageContentProps {
 }
 
 export default function TopicPageContent({ topic, category, session, posts, currentPage }: ITopicPageContentProps) {
-    const limit = 10;
     const router = useRouter();
     const { openModal } = useModal();
     const editorRef = useRef(null);
     const [editingTopic, setEditingTopic] = useState(false);
+    const limit = 10;
 
-    // Function to handle topic deletion
     function handleDeleteTopic() {
         if (!session?.user) return;
 
@@ -98,6 +97,9 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum
                 </MuiLink>
+                <MuiLink component={Link} href={"/forum/categories"} underline="hover" color="inherit">
+                    Categories
+                </MuiLink>
                 <MuiLink
                     component={Link}
                     href={`/forum/categories/${category.id}/${category.slug}`}
@@ -130,7 +132,7 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                         <Box sx={{ display: "flex", gap: 1 }}>
                             <Button
                                 variant="outlined"
-                                size="small"
+                                size="medium"
                                 startIcon={<EditIcon />}
                                 onClick={() => setEditingTopic(true)}
                             >
@@ -138,7 +140,7 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                             </Button>
                             <Button
                                 variant="outlined"
-                                size="small"
+                                size="medium"
                                 color="error"
                                 startIcon={<DeleteIcon />}
                                 onClick={handleDeleteTopic}
@@ -210,7 +212,6 @@ export default function TopicPageContent({ topic, category, session, posts, curr
                     <CreatePostForm topicId={topic.id} userId={Number(session.user.id)} />
                 </Box>
             )}
-            {/* Edit Topic Modal */}
             {editingTopic && session?.user && (
                 <EditTopicModal
                     open={editingTopic}

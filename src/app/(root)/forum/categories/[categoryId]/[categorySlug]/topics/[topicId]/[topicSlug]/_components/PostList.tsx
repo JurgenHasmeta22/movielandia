@@ -65,7 +65,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                 {userLoggedIn && !topicLocked && (
                     <Button
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         onClick={() => document.getElementById("reply-form")?.scrollIntoView({ behavior: "smooth" })}
                     >
                         Post a Reply
@@ -73,6 +73,45 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                 )}
             </Paper>
         );
+    }
+
+    function handleDeleteReply(replyId: number) {
+        if (!userLoggedIn) return;
+
+        openModal({
+            title: "Delete Reply",
+            subTitle: "Are you sure you want to delete this reply? This action cannot be undone.",
+            actions: [
+                {
+                    label: CONSTANTS.MODAL__DELETE__NO,
+                    onClick: () => {},
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#ff5252",
+                    },
+                    icon: <WarningOutlined />,
+                },
+                {
+                    label: CONSTANTS.MODAL__DELETE__YES,
+                    onClick: async () => {
+                        try {
+                            await deleteReply(replyId, Number(userLoggedIn.id));
+                            showToast("success", "Reply deleted successfully!");
+                        } catch (error) {
+                            showToast("error", error instanceof Error ? error.message : "Failed to delete reply");
+                        }
+                    },
+                    type: "submit",
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#30969f",
+                    },
+                    icon: <CheckOutlined />,
+                },
+            ],
+        });
     }
 
     return (
@@ -144,7 +183,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 1 }}>
                                 <Button
                                     variant="outlined"
-                                    size="small"
+                                    size="medium"
                                     startIcon={<EditIcon />}
                                     onClick={() => setEditingReply({ id: post.id, content: post.content })}
                                 >
@@ -152,7 +191,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                 </Button>
                                 <Button
                                     variant="outlined"
-                                    size="small"
+                                    size="medium"
                                     color="error"
                                     startIcon={<DeleteIcon />}
                                     onClick={() => handleDeleteReply(post.id)}
@@ -169,8 +208,6 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                     <PaginationControl pageCount={totalPages} currentPage={currentPage} />
                 </Box>
             )}
-
-            {/* Edit Reply Modal */}
             {editingReply && userLoggedIn && (
                 <EditReplyModal
                     open={!!editingReply}
@@ -182,44 +219,4 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
             )}
         </>
     );
-
-    function handleDeleteReply(replyId: number) {
-        if (!userLoggedIn) return;
-
-        openModal({
-            title: "Delete Reply",
-            subTitle: "Are you sure you want to delete this reply? This action cannot be undone.",
-            actions: [
-                {
-                    label: CONSTANTS.MODAL__DELETE__NO,
-                    onClick: () => {},
-                    color: "secondary",
-                    variant: "contained",
-                    sx: {
-                        bgcolor: "#ff5252",
-                    },
-                    icon: <WarningOutlined />,
-                },
-                {
-                    label: CONSTANTS.MODAL__DELETE__YES,
-                    onClick: async () => {
-                        try {
-                            await deleteReply(replyId, Number(userLoggedIn.id));
-                            showToast("success", "Reply deleted successfully!");
-                            router.refresh();
-                        } catch (error) {
-                            showToast("error", error instanceof Error ? error.message : "Failed to delete reply");
-                        }
-                    },
-                    type: "submit",
-                    color: "secondary",
-                    variant: "contained",
-                    sx: {
-                        bgcolor: "#30969f",
-                    },
-                    icon: <CheckOutlined />,
-                },
-            ],
-        });
-    }
 }
