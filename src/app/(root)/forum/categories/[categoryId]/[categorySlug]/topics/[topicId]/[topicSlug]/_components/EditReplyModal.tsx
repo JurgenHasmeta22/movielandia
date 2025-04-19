@@ -89,7 +89,7 @@ export default function EditReplyModal({ open, onClose, reply, userId, onSuccess
                     alignItems: "center",
                 }}
             >
-                <Typography variant="h6">Edit Reply</Typography>
+                <Typography variant="h6" component="div">Edit Reply</Typography>
                 <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>

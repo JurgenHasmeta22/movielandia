@@ -4,8 +4,6 @@ model ForumReply {
     createdAt   DateTime  @default(now())
     updatedAt   DateTime? @updatedAt
     isEdited    Boolean   @default(false)
-    editCount   Int       @default(0)
-    lastEditAt  DateTime?
     isModerated Boolean   @default(false)
 
     // FK Keys

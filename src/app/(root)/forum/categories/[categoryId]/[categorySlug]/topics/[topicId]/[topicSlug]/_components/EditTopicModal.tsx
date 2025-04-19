@@ -100,7 +100,7 @@ export default function EditTopicModal({ open, onClose, topic, userId, categoryI
                     alignItems: "center",
                 }}
             >
-                <Typography variant="h6">Edit Topic</Typography>
+                <Typography variant="h6" component="div">Edit Topic</Typography>
                 <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>

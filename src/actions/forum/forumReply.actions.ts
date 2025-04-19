@@ -12,7 +12,6 @@ export async function createReply(content: string, postId: number, userId: numbe
                 postId,
                 userId,
                 isEdited: false,
-                editCount: 0,
                 isModerated: false,
             },
         });
@@ -29,7 +28,7 @@ export async function createReply(content: string, postId: number, userId: numbe
 }
 
 export async function updateReply(replyId: number, content: string, userId: number): Promise<void> {
-    try {
+    try {        
         const reply = await prisma.forumReply.findFirst({
             where: {
                 id: replyId,
@@ -46,8 +45,6 @@ export async function updateReply(replyId: number, content: string, userId: numb
             data: {
                 content,
                 isEdited: true,
-                editCount: { increment: 1 },
-                lastEditAt: new Date(),
             },
         });
 
@@ -55,7 +52,6 @@ export async function updateReply(replyId: number, content: string, userId: numb
             throw new Error("Failed to update reply.");
         }
 
-        // Create history record
         await prisma.forumReplyHistory.create({
             data: {
                 replyId,
@@ -138,7 +134,6 @@ export async function getRepliesByPostId(postId: number, page: number = 1, limit
 
 export async function upvoteReply(replyId: number, userId: number): Promise<void> {
     try {
-        // Check if user has already upvoted
         const existingUpvote = await prisma.upvoteForumReply.findFirst({
             where: {
                 userId,
@@ -147,14 +142,12 @@ export async function upvoteReply(replyId: number, userId: number): Promise<void
         });
 
         if (existingUpvote) {
-            // Remove upvote if it exists
             await prisma.upvoteForumReply.delete({
                 where: {
                     id: existingUpvote.id,
                 },
             });
         } else {
-            // Remove any existing downvote
             const existingDownvote = await prisma.downvoteForumReply.findFirst({
                 where: {
                     userId,
@@ -170,7 +163,6 @@ export async function upvoteReply(replyId: number, userId: number): Promise<void
                 });
             }
 
-            // Create new upvote
             await prisma.upvoteForumReply.create({
                 data: {
                     userId,
@@ -188,7 +180,6 @@ export async function upvoteReply(replyId: number, userId: number): Promise<void
 
 export async function downvoteReply(replyId: number, userId: number): Promise<void> {
     try {
-        // Check if user has already downvoted
         const existingDownvote = await prisma.downvoteForumReply.findFirst({
             where: {
                 userId,
@@ -197,14 +188,12 @@ export async function downvoteReply(replyId: number, userId: number): Promise<vo
         });
 
         if (existingDownvote) {
-            // Remove downvote if it exists
             await prisma.downvoteForumReply.delete({
                 where: {
                     id: existingDownvote.id,
                 },
             });
         } else {
-            // Remove any existing upvote
             const existingUpvote = await prisma.upvoteForumReply.findFirst({
                 where: {
                     userId,
@@ -220,7 +209,6 @@ export async function downvoteReply(replyId: number, userId: number): Promise<vo
                 });
             }
 
-            // Create new downvote
             await prisma.downvoteForumReply.create({
                 data: {
                     userId,

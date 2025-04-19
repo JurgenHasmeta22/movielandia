@@ -56,8 +56,6 @@ export async function updatePost(postId: number, content: string, userId: number
             data: {
                 content,
                 isEdited: true,
-                editCount: { increment: 1 },
-                lastEditAt: new Date(),
             },
         });
 
