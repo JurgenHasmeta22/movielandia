@@ -30,7 +30,7 @@ interface EditPostModalProps {
 export default function EditPostModal({ open, onClose, post, userId }: EditPostModalProps) {
     const [content, setContent] = useState(post.content);
     const [error, setError] = useState<string | null>(null);
-    
+
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
 
@@ -72,18 +72,39 @@ export default function EditPostModal({ open, onClose, post, userId }: EditPostM
             }}
         >
             <DialogTitle
-                sx={{ bgcolor: "#1e2330", color: "white", p: 3, borderBottom: "1px solid rgba(255, 255, 255, 0.1)" }}
+                sx={{
+                    fontSize: "1.1rem",
+                    fontWeight: 500,
+                    bgcolor: "#2c3347",
+                    color: "#fff",
+                    py: 2,
+                    px: 3,
+                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                }}
             >
-                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <Typography variant="h6" component="div" fontWeight="bold">
-                        Edit Post
-                    </Typography>
-                    <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close" disabled={isPending}>
-                        <CloseIcon />
-                    </IconButton>
-                </Box>
+                <Typography variant="h6" component="div" fontWeight={500} fontSize="1.1rem">
+                    Edit Post
+                </Typography>
+                <IconButton
+                    edge="end"
+                    color="inherit"
+                    onClick={onClose}
+                    aria-label="close"
+                    disabled={isPending}
+                    sx={{
+                        color: "rgba(255, 255, 255, 0.7)",
+                        "&:hover": {
+                            color: "#fff",
+                        },
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
             </DialogTitle>
-            <DialogContent sx={{ bgcolor: "#1e2330", color: "white", p: 3 }}>
+            <DialogContent sx={{ bgcolor: "#1e2330", color: "white", p: 3, pt: 3 }}>
                 <Box component="form" onSubmit={handleSubmit}>
                     {error && (
                         <Alert severity="error" sx={{ mb: 2 }}>
@@ -101,16 +122,36 @@ export default function EditPostModal({ open, onClose, post, userId }: EditPostM
                     </Box>
                 </Box>
             </DialogContent>
-            <DialogActions sx={{ px: 3, py: 2, borderTop: "1px solid rgba(255, 255, 255, 0.1)" }}>
-                <Button onClick={onClose} variant="outlined" size="large" color="primary" disabled={isPending}>
+            <DialogActions sx={{ px: 3, py: 2, borderTop: "1px solid rgba(255, 255, 255, 0.1)", bgcolor: "#2c3347" }}>
+                <Button
+                    onClick={onClose}
+                    variant="outlined"
+                    size="medium"
+                    color="primary"
+                    disabled={isPending}
+                    sx={{
+                        borderColor: "rgba(255, 255, 255, 0.3)",
+                        color: "rgba(255, 255, 255, 0.7)",
+                        "&:hover": {
+                            borderColor: "rgba(255, 255, 255, 0.5)",
+                            color: "#fff",
+                        },
+                    }}
+                >
                     Cancel
                 </Button>
                 <Button
                     onClick={handleSubmit}
-                    variant="outlined"
-                    size="large"
+                    variant="contained"
+                    size="medium"
                     color="primary"
                     disabled={isPending || !content.trim()}
+                    sx={{
+                        bgcolor: "#30969f",
+                        "&:hover": {
+                            bgcolor: "#30969fcc",
+                        },
+                    }}
                 >
                     {isPending ? "Updating..." : "Update Post"}
                 </Button>

@@ -25,7 +25,7 @@ export default function EditPostPageContent({ post, session }: IEditPostPageCont
     const router = useRouter();
     const [content, setContent] = useState(post.content);
     const [error, setError] = useState<string | null>(null);
-    
+
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
 

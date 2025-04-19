@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useCallback } from "react";
+import React from "react";
 import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
@@ -18,23 +18,21 @@ interface ITextEditorProps {
     onChange: (value: string) => void;
 }
 
-const getModulesConfig = (isDisabled: boolean | undefined) => ({
-    toolbar: isDisabled
-        ? false
-        : [
-              [{ header: [1, 2, 3, 4, 5, 6, false] }],
-              [{ font: [] }],
-              [{ size: ["small", false, "large", "huge"] }],
-              ["bold", "italic", "underline", "strike"],
-              [{ color: [] }, { background: [] }],
-              [{ align: ["", "center", "right", "justify"] }],
-              [{ list: "ordered" }, { list: "bullet" }],
-              [{ indent: "-1" }, { indent: "+1" }],
-              [{ script: "sub" }, { script: "super" }],
-              ["blockquote", "code-block"],
-              ["link", "image", "video"],
-              [{ direction: "rtl" }],
-          ],
+const getModulesConfig = () => ({
+    toolbar: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ font: [] }],
+        [{ size: ["small", false, "large", "huge"] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ color: [] }, { background: [] }],
+        [{ align: ["", "center", "right", "justify"] }],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        [{ script: "sub" }, { script: "super" }],
+        ["blockquote", "code-block"],
+        ["link", "image", "video"],
+        [{ direction: "rtl" }],
+    ],
     clipboard: {
         matchVisual: false,
     },
@@ -71,17 +69,13 @@ const formatsArray = [
 const TextEditor = React.forwardRef<any, ITextEditorProps>(
     ({ value, onChange, rating, setRating, isDisabled, type }, ref) => {
         const theme = useTheme();
-        const formats = useMemo(() => formatsArray, []);
-        const getModules = useCallback((isDisabled: boolean | undefined) => {
-            return getModulesConfig(isDisabled);
-        }, [isDisabled]);
+        const formats = formatsArray;
 
         return (
             <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
                 <Box
                     sx={{
                         ".ql-toolbar": {
-                            display: isDisabled ? "none" : "block",
                             backgroundColor: theme.vars.palette.secondary.light,
                             border: `1px solid ${theme.vars.palette.primary.light}`,
                             borderTopLeftRadius: "8px",
@@ -215,7 +209,7 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                         theme="snow"
                         value={value}
                         onChange={onChange}
-                        modules={getModules(isDisabled)}
+                        modules={getModulesConfig()}
                         formats={formats}
                         readOnly={isDisabled}
                         // @ts-expect-error ref
