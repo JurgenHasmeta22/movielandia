@@ -1,11 +1,12 @@
 "use client";
 
-import { Box, Paper, Typography, Pagination, Stack, Divider, Button } from "@mui/material";
+import { Box, Paper, Typography, Stack, Button } from "@mui/material";
 import Link from "next/link";
 import { useTheme } from "@mui/material/styles";
 import ForumIcon from "@mui/icons-material/Forum";
 import { ForumCategory } from "@prisma/client";
 import { formatDistanceToNow } from "date-fns";
+import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 
 interface ForumCategoryListProps {
     categories: {
@@ -13,10 +14,9 @@ interface ForumCategoryListProps {
         total: number;
     };
     currentPage: number;
-    onPageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-export default function ForumCategoryList({ categories, currentPage, onPageChange }: ForumCategoryListProps) {
+export default function ForumCategoryList({ categories, currentPage }: ForumCategoryListProps) {
     const theme = useTheme();
     const limit = 10;
     const totalPages = Math.ceil(categories.total / limit);
@@ -104,19 +104,10 @@ export default function ForumCategoryList({ categories, currentPage, onPageChang
                     </Paper>
                 ))}
             </Stack>
-            {totalPages > 1 && (
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                    <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={onPageChange}
-                        color="primary"
-                        size="large"
-                        showFirstButton
-                        showLastButton
-                    />
-                </Box>
-            )}
+
+            <Box sx={{ mt: 4 }}>
+                <PaginationControl currentPage={currentPage} pageCount={totalPages} urlParamName="page" />
+            </Box>
         </>
     );
 }

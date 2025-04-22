@@ -49,14 +49,11 @@ export default function CategoryPageContent({
     currentOrder,
 }: ICategoryPageContentProps) {
     const router = useRouter();
-
     const [_topicsPage, setTopicsPage] = useQueryState("topicsPage", { shallow: false });
     const [_topicsSortBy, setTopicsSortBy] = useQueryState("topicsSortBy", { shallow: false });
     const [_topicsAscOrDesc, setTopicsAscOrDesc] = useQueryState("topicsAscOrDesc", { shallow: false });
-
     const [tagIds, setTagIds] = useQueryState("tags", { shallow: false });
     const [status, setStatus] = useQueryState("status", { shallow: false });
-
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     const limit = 10;
 
@@ -112,6 +109,9 @@ export default function CategoryPageContent({
             <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" sx={{ mb: 3 }}>
                 <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
                     Forum
+                </MuiLink>
+                <MuiLink component={Link} href="/forum" underline="hover" color="inherit">
+                    Categories
                 </MuiLink>
                 <Typography color="text.primary">{category.name}</Typography>
             </Breadcrumbs>

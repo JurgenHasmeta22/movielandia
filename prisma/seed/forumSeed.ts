@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 export async function generateForumData(): Promise<void> {
     console.log("Generating forum data...");
 
-    // Get all users
     const users = await prisma.user.findMany({ select: { id: true } });
     const existingCategoriesCount = await prisma.forumCategory.count();
     const existingTopicsCount = await prisma.forumTopic.count();
@@ -19,7 +18,6 @@ export async function generateForumData(): Promise<void> {
       - Posts: ${existingPostsCount}
     `);
 
-    // Generate forum categories if none exist
     if (existingCategoriesCount === 0) {
         console.log("Generating forum categories...");
         
@@ -32,10 +30,8 @@ export async function generateForumData(): Promise<void> {
         console.log(`Created ${forumCategories.length} forum categories.`);
     }
 
-    // Get all categories
     const categories = await prisma.forumCategory.findMany();
 
-    // Generate topics for each category
     console.log("Generating forum topics...");
     
     for (const category of categories) {
@@ -78,27 +74,22 @@ export async function generateForumData(): Promise<void> {
                                 content: postContent,
                                 slug: `post-${Date.now()}-${j}`,
                                 isEdited,
-                                editCount: isEdited ? Math.floor(Math.random() * 3) + 1 : 0,
-                                lastEditAt: isEdited ? faker.date.recent() : null,
                                 topicId: topic.id,
                                 userId: postUserId,
                             }
                         });
                         
-                        // Update the category and topic with the last post
+
                         await prisma.forumTopic.update({
                             where: { id: topic.id },
                             data: { lastPostAt: post.createdAt }
                         });
                         
-                        // Add some upvotes and downvotes to posts
                         const upvoteCount = Math.floor(Math.random() * 5);
                         const downvoteCount = Math.floor(Math.random() * 3);
-                        
                         const availableUsers = users.filter(u => u.id !== postUserId);
-                        
-                        // Add upvotes
                         const upvoters = faker.helpers.arrayElements(availableUsers, upvoteCount);
+                        
                         for (const upvoter of upvoters) {
                             await prisma.upvoteForumPost.create({
                                 data: {
@@ -108,9 +99,9 @@ export async function generateForumData(): Promise<void> {
                             });
                         }
                         
-                        // Add downvotes
                         const remainingUsers = availableUsers.filter(u => !upvoters.some(upvoter => upvoter.id === u.id));
                         const downvoters = faker.helpers.arrayElements(remainingUsers, downvoteCount);
+                        
                         for (const downvoter of downvoters) {
                             await prisma.downvoteForumPost.create({
                                 data: {
@@ -120,9 +111,8 @@ export async function generateForumData(): Promise<void> {
                             });
                         }
                         
-                        // Add some replies to posts (only for some posts)
-                        if (Math.random() < 0.4) { // 40% chance of having replies
-                            const replyCount = Math.floor(Math.random() * 3) + 1; // 1-3 replies per post
+                        if (Math.random() < 0.4) {
+                            const replyCount = Math.floor(Math.random() * 3) + 1;
                             
                             for (let k = 0; k < replyCount; k++) {
                                 const replyUserId = faker.helpers.arrayElement(users).id;
@@ -142,7 +132,6 @@ export async function generateForumData(): Promise<void> {
                     }
                 }
                 
-                // Update category counts
                 await prisma.forumCategory.update({
                     where: { id: category.id },
                     data: {
@@ -158,7 +147,6 @@ export async function generateForumData(): Promise<void> {
         }
     }
 
-    // Update user forum stats
     console.log("Updating user forum statistics...");
     
     for (const user of users) {
@@ -174,17 +162,14 @@ export async function generateForumData(): Promise<void> {
             }
         });
         
-        // Calculate reputation based on activity and upvotes
         const reputation = topicCount * 5 + postCount * 2 + replyCount + upvotesReceived * 3;
         
-        // Get the last post date
         const lastPost = await prisma.forumPost.findFirst({
             where: { userId: user.id },
             orderBy: { createdAt: 'desc' },
             select: { createdAt: true }
         });
         
-        // Create or update user forum stats
         const existingStats = await prisma.forumUserStats.findFirst({
             where: { userId: user.id }
         });

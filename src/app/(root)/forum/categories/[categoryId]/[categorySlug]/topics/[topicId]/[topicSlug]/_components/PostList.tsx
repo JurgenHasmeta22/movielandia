@@ -1,23 +1,22 @@
 "use client";
 
-import { Box, Paper, Typography, Stack, Avatar, Divider, Button } from "@mui/material";
+import { Box, Paper, Typography, Stack, Avatar, Divider, Button, CircularProgress } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { formatDistanceToNow, format } from "date-fns";
 import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
-import React, { useState } from "react";
+import React, { useState, useRef, useTransition } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import EditPostModal from "./EditPostModal";
 import { useModal } from "@/providers/ModalProvider";
-import { deletePost } from "@/actions/forum/forumPost.actions";
+import { deletePost, updatePost } from "@/actions/forum/forumPost.actions";
 import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
-import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+import { WarningOutlined, CheckOutlined, CancelOutlined, SaveOutlined } from "@mui/icons-material";
+import TextEditor from "@/components/root/textEditor/TextEditor";
 
 interface PostListProps {
     posts: {
@@ -32,9 +31,15 @@ interface PostListProps {
 
 export default function PostList({ posts, currentPage, totalPages, userLoggedIn, topicLocked }: PostListProps) {
     const theme = useTheme();
-    const router = useRouter();
     const { openModal } = useModal();
+
     const [editingPost, setEditingPost] = useState<{ id: number; content: string } | null>(null);
+    const [editContent, setEditContent] = useState("");
+    const [originalContent, setOriginalContent] = useState("");
+    
+    const [isPending, startTransition] = useTransition();
+    const [isEditMode, setIsEditMode] = useState(false);
+    const editorRef = useRef(null);
 
     if (posts.items.length === 0) {
         return (
@@ -107,6 +112,76 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
         });
     }
 
+    const handleStartEditing = (post: { id: number; content: string }) => {
+        setEditingPost(post);
+        setEditContent(post.content);
+        setOriginalContent(post.content);
+        setIsEditMode(true);
+    };
+
+    const handleCancelEditing = () => {
+        setEditingPost(null);
+        setEditContent("");
+        setOriginalContent("");
+        setIsEditMode(false);
+    };
+
+    const handleDiscardChanges = () => {
+        // If content hasn't changed, just close the editor
+        if (editContent === originalContent) {
+            handleCancelEditing();
+            return;
+        }
+
+        // Otherwise, show confirmation dialog
+        openModal({
+            title: "Discard Changes",
+            subTitle: "Are you sure you want to discard changes on this post?",
+            actions: [
+                {
+                    label: CONSTANTS.MODAL__DELETE__NO,
+                    onClick: () => {},
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#ff5252",
+                    },
+                    icon: <WarningOutlined />,
+                },
+                {
+                    label: CONSTANTS.MODAL__DELETE__YES,
+                    onClick: () => {
+                        handleCancelEditing();
+                    },
+                    type: "submit",
+                    color: "secondary",
+                    variant: "contained",
+                    sx: {
+                        bgcolor: "#30969f",
+                    },
+                    icon: <CheckOutlined />,
+                },
+            ],
+        });
+    };
+
+    const handleUpdatePost = async () => {
+        if (!editingPost || !userLoggedIn) return;
+
+        if (!editContent || editContent === "<p><br></p>") {
+            showToast("error", "Please enter some content for your post.");
+            return;
+        }
+
+        try {
+            await updatePost(editingPost.id, editContent, Number(userLoggedIn.id));
+            showToast("success", "Post updated successfully!");
+            handleCancelEditing();
+        } catch (error) {
+            showToast("error", error instanceof Error ? error.message : "Failed to update post");
+        }
+    };
+
     return (
         <>
             <Stack spacing={3}>
@@ -158,34 +233,79 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
 
                         <Divider sx={{ my: 2 }} />
 
-                        <Box sx={{ mb: 2 }}>
-                            <RichTextDisplay content={post.content} type="post" />
-                        </Box>
-                        {post.isEdited && (
-                            <Typography variant="body2" color="text.secondary" sx={{ mt: 2, fontStyle: "italic" }}>
-                                Last edited: {formatDistanceToNow(new Date(post.updatedAt), { addSuffix: true })}
-                            </Typography>
-                        )}
-                        {userLoggedIn && Number(userLoggedIn.id) === post.user.id && !topicLocked && (
-                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 1 }}>
-                                <Button
-                                    variant="outlined"
-                                    size="medium"
-                                    startIcon={<EditIcon />}
-                                    onClick={() => setEditingPost({ id: post.id, content: post.content })}
-                                >
-                                    Edit
-                                </Button>
-                                <Button
-                                    variant="outlined"
-                                    size="medium"
-                                    color="error"
-                                    startIcon={<DeleteIcon />}
-                                    onClick={() => handleDeletePost(post.id)}
-                                >
-                                    Delete
-                                </Button>
+                        {editingPost && editingPost.id === post.id ? (
+                            <Box sx={{ mb: 2 }}>
+                                <TextEditor
+                                    value={editContent}
+                                    onChange={setEditContent}
+                                    ref={editorRef}
+                                    isDisabled={isPending}
+                                    type="post"
+                                />
+                                <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap: 2 }}>
+                                    <Button
+                                        onClick={handleDiscardChanges}
+                                        color="error"
+                                        variant="contained"
+                                        disabled={isPending}
+                                        startIcon={<CancelOutlined />}
+                                    >
+                                        Discard Changes
+                                    </Button>
+                                    <Button
+                                        onClick={handleUpdatePost}
+                                        color="success"
+                                        variant="contained"
+                                        disabled={isPending || !editContent.trim()}
+                                        startIcon={
+                                            isPending ? (
+                                                <CircularProgress size={20} color="inherit" />
+                                            ) : (
+                                                <SaveOutlined />
+                                            )
+                                        }
+                                    >
+                                        {isPending ? "Saving..." : "Save Changes"}
+                                    </Button>
+                                </Box>
                             </Box>
+                        ) : (
+                            <>
+                                <Box sx={{ mb: 2 }}>
+                                    <RichTextDisplay content={post.content} type="post" />
+                                </Box>
+                                {post.isEdited && (
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        sx={{ mt: 2, fontStyle: "italic" }}
+                                    >
+                                        Last edited:{" "}
+                                        {formatDistanceToNow(new Date(post.updatedAt), { addSuffix: true })}
+                                    </Typography>
+                                )}
+                                {userLoggedIn && Number(userLoggedIn.id) === post.user.id && !topicLocked && (
+                                    <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 1 }}>
+                                        <Button
+                                            variant="outlined"
+                                            size="medium"
+                                            startIcon={<EditIcon />}
+                                            onClick={() => handleStartEditing({ id: post.id, content: post.content })}
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant="outlined"
+                                            size="medium"
+                                            color="error"
+                                            startIcon={<DeleteIcon />}
+                                            onClick={() => handleDeletePost(post.id)}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </Box>
+                                )}
+                            </>
                         )}
                     </Paper>
                 ))}
@@ -194,14 +314,6 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                     <PaginationControl pageCount={totalPages} currentPage={currentPage} />
                 </Box>
-            )}
-            {editingPost && userLoggedIn && (
-                <EditPostModal
-                    open={!!editingPost}
-                    onClose={() => setEditingPost(null)}
-                    post={editingPost}
-                    userId={userLoggedIn.id}
-                />
             )}
         </>
     );

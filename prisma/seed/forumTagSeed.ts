@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { forumTags } from "./data/forumTagData";
-import { faker } from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 
@@ -52,7 +51,6 @@ export async function generateForumTagData(): Promise<void> {
         
         const tagCount = Math.floor(Math.random() * 3) + 1;
         const selectedTagIds = [];
-        
         const shuffledTags = [...tags].sort(() => 0.5 - Math.random());
         
         for (let i = 0; i < Math.min(tagCount, shuffledTags.length); i++) {

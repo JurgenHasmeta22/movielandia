@@ -79,8 +79,6 @@ export async function generateForumDataMinimal(): Promise<void> {
                                 content: postContent,
                                 slug: `post-${Date.now()}-${j}`,
                                 isEdited,
-                                editCount: isEdited ? 1 : 0,
-                                lastEditAt: isEdited ? faker.date.recent() : null,
                                 topicId: topic.id,
                                 userId: postUserId,
                             }
@@ -95,8 +93,10 @@ export async function generateForumDataMinimal(): Promise<void> {
                         // Add just 1 upvote to the first post
                         if (j === 0) {
                             const availableUsers = users.filter(u => u.id !== postUserId);
+                            
                             if (availableUsers.length > 0) {
                                 const upvoter = faker.helpers.arrayElement(availableUsers);
+                                
                                 await prisma.upvoteForumPost.create({
                                     data: {
                                         userId: upvoter.id,
@@ -135,7 +135,6 @@ export async function generateForumDataMinimal(): Promise<void> {
                 });
                 
                 console.log(`Created topic "${title}" with ${postCount} posts`);
-                
             } catch (error) {
                 console.error(`Error creating topic for category ${category.id}:`, error);
             }

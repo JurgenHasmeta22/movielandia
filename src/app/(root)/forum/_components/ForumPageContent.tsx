@@ -2,7 +2,6 @@
 
 import { Box, Container, Typography, Button, ButtonGroup } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useQueryState } from "nuqs";
 import Link from "next/link";
 import ForumCategoryList from "./ForumCategoryList";
 import ForumStats from "./ForumStats";
@@ -27,11 +26,6 @@ interface IForumPageContentProps {
 
 export default function ForumPageContent({ session, categories, stats, currentPage }: IForumPageContentProps) {
     const router = useRouter();
-    const [_page, setPage] = useQueryState("page");
-
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value === 1 ? null : value.toString());
-    };
 
     return (
         <Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
@@ -65,7 +59,7 @@ export default function ForumPageContent({ session, categories, stats, currentPa
                     )}
                 </Box>
             </Box>
-            <ForumCategoryList categories={categories} currentPage={currentPage} onPageChange={handlePageChange} />
+            <ForumCategoryList categories={categories} currentPage={currentPage} />
         </Container>
     );
 }
