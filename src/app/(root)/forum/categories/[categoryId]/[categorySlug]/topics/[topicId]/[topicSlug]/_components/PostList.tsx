@@ -4,6 +4,7 @@
 import { Box, Paper, Typography, Stack, Avatar, Divider, Button, CircularProgress } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,7 +20,7 @@ import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined, CancelOutlined, SaveOutlined } from "@mui/icons-material";
 import TextEditor from "@/components/root/textEditor/TextEditor";
-import ReplyList from "./ReplyList";
+import PostReplies from "./PostReplies";
 import ReplyForm from "./ReplyForm";
 // #endregion
 
@@ -46,6 +47,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
     const [originalContent, setOriginalContent] = useState("");
     const [isPending, startUpdatePostTransition] = useTransition();
     const [isDeleting, startDeleteTransition] = useTransition();
+    
     const [replyingTo, setReplyingTo] = useState<{
         id: number;
         userName: string;
@@ -53,6 +55,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
         type: "post" | "reply";
     } | null>(null);
 
+    const searchParams = useSearchParams();
     const editorRef = useRef(null);
     // #endregion
 
@@ -383,21 +386,25 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                         </Box>
                                     )}
                                 </Box>
-                                {replyingTo && replyingTo.type === "post" && replyingTo.id === post.id && userLoggedIn && (
-                                    <ReplyForm
-                                        postId={post.id}
-                                        userId={Number(userLoggedIn.id)}
-                                        replyingTo={replyingTo}
-                                        onCancelReply={handleCancelReply}
-                                    />
-                                )}
-                                <ReplyList
+                                {replyingTo &&
+                                    replyingTo.type === "post" &&
+                                    replyingTo.id === post.id &&
+                                    userLoggedIn && (
+                                        <ReplyForm
+                                            postId={post.id}
+                                            userId={Number(userLoggedIn.id)}
+                                            replyingTo={replyingTo}
+                                            onCancelReply={handleCancelReply}
+                                        />
+                                    )}
+                                <PostReplies
                                     postId={post.id}
                                     userLoggedIn={userLoggedIn}
                                     topicLocked={topicLocked}
                                     onReplyToReply={handleReplyToReply}
                                     replyingTo={replyingTo}
                                     onCancelReply={handleCancelReply}
+                                    replyPage={Number(searchParams.get(`replyPage_${post.id}`)) || 1}
                                 />
                             </>
                         )}

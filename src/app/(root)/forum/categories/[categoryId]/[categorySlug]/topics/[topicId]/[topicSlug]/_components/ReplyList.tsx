@@ -1,13 +1,12 @@
 "use client";
 
 // #region "Imports"
-import { Box, Typography, Button, CircularProgress, Collapse } from "@mui/material";
-import React, { useState, useEffect, useTransition } from "react";
+import { Box, Typography, Button, Collapse } from "@mui/material";
+import React, { useState, useEffect } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import ReplyItem from "./ReplyItem";
 import ReplyForm from "./ReplyForm";
-import { getRepliesByPostId } from "@/actions/forum/forumReply.actions";
-import { useQueryState } from "nuqs";
+import { useRouter, useSearchParams } from "next/navigation";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -26,129 +25,44 @@ interface ReplyListProps {
         type: "post" | "reply";
     } | null;
     onCancelReply?: () => void;
+    replies: {
+        items: any[];
+        total: number;
+    };
+    currentPage: number;
+    limit: number;
 }
 // #endregion
 
-export default function ReplyList({ postId, userLoggedIn, topicLocked, onReplyToReply, replyingTo, onCancelReply }: ReplyListProps) {
+export default function ReplyList({
+    postId,
+    userLoggedIn,
+    topicLocked,
+    onReplyToReply,
+    replyingTo,
+    onCancelReply,
+    replies,
+    currentPage,
+    limit,
+}: ReplyListProps) {
     // #region "State and Hooks"
     const [expanded, setExpanded] = useState(false);
-    const [replies, setReplies] = useState<{ items: any[]; total: number }>({ items: [], total: 0 });
-    const [isLoading, startTransition] = useTransition();
-
-    const [replyPage, setReplyPage] = useQueryState(`replyPage_${postId}`, {
-        defaultValue: "1",
-        parse: (value) => value || "1",
-        shallow: false,
-        history: "push",
-    });
-
-    const currentPage = parseInt(replyPage);
-    const limit = 5; // Smaller limit for replies
-    // #endregion
-
-    // #region "Effects"
-    // Initial load of reply count
-    useEffect(() => {
-        startTransition(async () => {
-            const repliesData = await getRepliesByPostId(postId, 1, 1);
-            setReplies((prev) => ({ ...prev, total: repliesData.total }));
-        });
-    }, [postId]);
-
-    useEffect(() => {
-        if (expanded) {
-            startTransition(async () => {
-                const repliesData = await getRepliesByPostId(postId, currentPage, limit);
-                setReplies(repliesData);
-            });
-        }
-    }, [expanded, postId, currentPage]);
-
-    // Auto-expand when replying to a reply
-    useEffect(() => {
-        if (replyingTo && replyingTo.type === "reply" && !expanded) {
-            setExpanded(true);
-        }
-    }, [replyingTo, expanded]);
-
-    // Auto-expand when replying to a post and refetch when replies are modified
-    useEffect(() => {
-        const handleReplyCreated = () => {
-            // Always refetch the total count
-            startTransition(async () => {
-                const countData = await getRepliesByPostId(postId, 1, 1);
-                setReplies((prev) => ({ ...prev, total: countData.total }));
-            });
-
-            if (!expanded) {
-                setExpanded(true);
-            } else {
-                // Refetch replies if already expanded
-                startTransition(async () => {
-                    const repliesData = await getRepliesByPostId(postId, currentPage, limit);
-                    setReplies(repliesData);
-                });
-            }
-        };
-
-        const handleReplyModified = () => {
-            // Always refetch the total count
-            startTransition(async () => {
-                const countData = await getRepliesByPostId(postId, 1, 1);
-                setReplies((prev) => ({ ...prev, total: countData.total }));
-            });
-
-            if (expanded) {
-                // Refetch replies when a reply is modified (edited or deleted)
-                startTransition(async () => {
-                    const repliesData = await getRepliesByPostId(postId, currentPage, limit);
-                    setReplies(repliesData);
-                });
-            }
-        };
-
-        const handleReplyVoted = () => {
-            if (expanded) {
-                // Refetch replies when a reply is voted on
-                startTransition(async () => {
-                    const repliesData = await getRepliesByPostId(postId, currentPage, limit);
-                    setReplies(repliesData);
-                });
-            }
-        };
-
-        document.addEventListener("forum-reply-created", handleReplyCreated);
-        document.addEventListener("forum-reply-modified", handleReplyModified);
-        document.addEventListener("forum-reply-deleted", handleReplyModified);
-        document.addEventListener("forum-reply-voted", handleReplyVoted);
-
-        return () => {
-            document.removeEventListener("forum-reply-created", handleReplyCreated);
-            document.removeEventListener("forum-reply-modified", handleReplyModified);
-            document.removeEventListener("forum-reply-deleted", handleReplyModified);
-            document.removeEventListener("forum-reply-voted", handleReplyVoted);
-        };
-    }, [expanded, postId, currentPage, limit]);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const pageCount = Math.ceil(replies.total / limit);
     // #endregion
 
     // #region "Event Handlers"
     const handlePageChange = (page: number) => {
-        setReplyPage(page.toString());
+        const params = new URLSearchParams(Array.from(searchParams.entries()));
+        params.set(`replyPage_${postId}`, page.toString());
+        router.push(`?${params.toString()}`);
     };
 
     const toggleExpanded = () => {
         setExpanded(!expanded);
-
-        if (!expanded && replies.items.length === 0) {
-            startTransition(async () => {
-                const repliesData = await getRepliesByPostId(postId, currentPage, limit);
-                setReplies(repliesData);
-            });
-        }
     };
     // #endregion
-
-    const pageCount = Math.ceil(replies.total / limit);
 
     // #region "Render"
     return (
@@ -164,11 +78,7 @@ export default function ReplyList({ postId, userLoggedIn, topicLocked, onReplyTo
             </Button>
 
             <Collapse in={expanded}>
-                {isLoading ? (
-                    <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
-                        <CircularProgress size={30} />
-                    </Box>
-                ) : replies.items.length > 0 ? (
+                {replies.items.length > 0 ? (
                     <Box>
                         {replies.items.map((reply, index) => (
                             <React.Fragment key={reply.id}>
@@ -181,14 +91,18 @@ export default function ReplyList({ postId, userLoggedIn, topicLocked, onReplyTo
                                     index={index}
                                     currentPage={currentPage}
                                 />
-                                {replyingTo && replyingTo.type === "reply" && replyingTo.id === reply.id && userLoggedIn && onCancelReply && (
-                                    <ReplyForm
-                                        postId={postId}
-                                        userId={Number(userLoggedIn.id)}
-                                        replyingTo={replyingTo}
-                                        onCancelReply={onCancelReply}
-                                    />
-                                )}
+                                {replyingTo &&
+                                    replyingTo.type === "reply" &&
+                                    replyingTo.id === reply.id &&
+                                    userLoggedIn &&
+                                    onCancelReply && (
+                                        <ReplyForm
+                                            postId={postId}
+                                            userId={Number(userLoggedIn.id)}
+                                            replyingTo={replyingTo}
+                                            onCancelReply={onCancelReply}
+                                        />
+                                    )}
                             </React.Fragment>
                         ))}
 

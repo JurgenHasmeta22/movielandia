@@ -12,6 +12,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { format } from "date-fns";
 import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
 import React, { useState, useRef, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { updateReply, deleteReply, upvoteReply, downvoteReply } from "@/actions/forum/forumReply.actions";
 import { showToast } from "@/utils/helpers/toast";
@@ -25,10 +26,10 @@ interface ReplyItemProps {
     reply: any;
     userLoggedIn: any;
     topicLocked: boolean;
-    onReplyToReply: (reply: any) => void;
-    postId: number; // Used in the component props but not directly in the code
+    postId: number;
     index: number;
     currentPage: number;
+    onReplyToReply: (reply: any) => void;
 }
 // #endregion
 
@@ -37,7 +38,6 @@ export default function ReplyItem({
     userLoggedIn,
     topicLocked,
     onReplyToReply,
-    postId,
     index,
     currentPage,
 }: ReplyItemProps) {
@@ -52,6 +52,7 @@ export default function ReplyItem({
     const [isDeleting, startDeleteTransition] = useTransition();
     const [isUpvoting, startUpvoteTransition] = useTransition();
     const [isDownvoting, startDownvoteTransition] = useTransition();
+    const router = useRouter();
 
     const editorRef = useRef(null);
     // #endregion
@@ -81,11 +82,6 @@ export default function ReplyItem({
                             try {
                                 await deleteReply(replyId, Number(userLoggedIn.id));
                                 showToast("success", "Reply deleted successfully");
-
-                                // Dispatch event to notify that a reply was deleted
-                                document.dispatchEvent(
-                                    new CustomEvent("forum-reply-deleted", { detail: { replyId, postId } }),
-                                );
                             } catch (error) {
                                 showToast("error", error instanceof Error ? error.message : "Failed to delete reply");
                             }
@@ -175,11 +171,6 @@ export default function ReplyItem({
                 await updateReply(editingReply.id, editContent, Number(userLoggedIn.id));
                 setEditingReply(null);
                 showToast("success", "Reply updated successfully");
-
-                // Dispatch event to notify that a reply was modified
-                document.dispatchEvent(
-                    new CustomEvent("forum-reply-modified", { detail: { replyId: editingReply.id, postId } }),
-                );
             } catch (error) {
                 showToast("error", error instanceof Error ? error.message : "Failed to update reply");
             }
@@ -192,11 +183,6 @@ export default function ReplyItem({
         startUpvoteTransition(async () => {
             try {
                 await upvoteReply(replyId, Number(userLoggedIn.id));
-
-                // Dispatch event to notify that a reply was voted on
-                document.dispatchEvent(
-                    new CustomEvent("forum-reply-voted", { detail: { replyId, postId } })
-                );
             } catch (error) {
                 showToast("error", error instanceof Error ? error.message : "Failed to upvote reply");
             }
@@ -209,11 +195,6 @@ export default function ReplyItem({
         startDownvoteTransition(async () => {
             try {
                 await downvoteReply(replyId, Number(userLoggedIn.id));
-
-                // Dispatch event to notify that a reply was voted on
-                document.dispatchEvent(
-                    new CustomEvent("forum-reply-voted", { detail: { replyId, postId } })
-                );
             } catch (error) {
                 showToast("error", error instanceof Error ? error.message : "Failed to downvote reply");
             }
