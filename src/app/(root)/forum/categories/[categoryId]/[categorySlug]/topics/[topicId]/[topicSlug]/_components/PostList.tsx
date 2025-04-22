@@ -1,5 +1,6 @@
 "use client";
 
+// #region "Imports"
 import { Box, Paper, Typography, Stack, Avatar, Divider, Button, CircularProgress } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
@@ -17,7 +18,9 @@ import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined, CancelOutlined, SaveOutlined } from "@mui/icons-material";
 import TextEditor from "@/components/root/textEditor/TextEditor";
+// #endregion
 
+// #region "Interfaces"
 interface PostListProps {
     posts: {
         items: any[];
@@ -28,51 +31,23 @@ interface PostListProps {
     userLoggedIn: any;
     topicLocked: boolean;
 }
+// #endregion
 
 export default function PostList({ posts, currentPage, totalPages, userLoggedIn, topicLocked }: PostListProps) {
+    // #region "State, hooks"
     const theme = useTheme();
     const { openModal } = useModal();
 
     const [editingPost, setEditingPost] = useState<{ id: number; content: string } | null>(null);
     const [editContent, setEditContent] = useState("");
     const [originalContent, setOriginalContent] = useState("");
-    
-    const [isPending, startTransition] = useTransition();
-    const [isEditMode, setIsEditMode] = useState(false);
+    const [isPending, startUpdatePostTransition] = useTransition();
+    const [isDeleting, startDeleteTransition] = useTransition();
+
     const editorRef = useRef(null);
+    // #endregion
 
-    if (posts.items.length === 0) {
-        return (
-            <Paper
-                elevation={0}
-                sx={{
-                    p: 4,
-                    textAlign: "center",
-                    borderRadius: 2,
-                    backgroundColor: theme.vars.palette.secondary.light,
-                    border: `1px solid ${theme.vars.palette.primary.light}`,
-                }}
-            >
-                <ChatIcon sx={{ fontSize: 60, color: theme.vars.palette.primary.main, mb: 2, opacity: 0.7 }} />
-                <Typography variant="h6" gutterBottom>
-                    No posts yet
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    Be the first to post in this topic!
-                </Typography>
-                {userLoggedIn && !topicLocked && (
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => document.getElementById("post-form")?.scrollIntoView({ behavior: "smooth" })}
-                    >
-                        Create a Post
-                    </Button>
-                )}
-            </Paper>
-        );
-    }
-
+    // #region "Delete and Edit methods handlers"
     function handleDeletePost(postId: number) {
         if (!userLoggedIn) return;
 
@@ -92,13 +67,15 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                 },
                 {
                     label: CONSTANTS.MODAL__DELETE__YES,
-                    onClick: async () => {
-                        try {
-                            await deletePost(postId, Number(userLoggedIn.id));
-                            showToast("success", "Post deleted successfully!");
-                        } catch (error) {
-                            showToast("error", error instanceof Error ? error.message : "Failed to delete post");
-                        }
+                    onClick: () => {
+                        startDeleteTransition(async () => {
+                            try {
+                                await deletePost(postId, Number(userLoggedIn.id));
+                                showToast("success", "Post deleted successfully!");
+                            } catch (error) {
+                                showToast("error", error instanceof Error ? error.message : "Failed to delete post");
+                            }
+                        });
                     },
                     type: "submit",
                     color: "secondary",
@@ -116,24 +93,20 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
         setEditingPost(post);
         setEditContent(post.content);
         setOriginalContent(post.content);
-        setIsEditMode(true);
     };
 
     const handleCancelEditing = () => {
         setEditingPost(null);
         setEditContent("");
         setOriginalContent("");
-        setIsEditMode(false);
     };
 
     const handleDiscardChanges = () => {
-        // If content hasn't changed, just close the editor
         if (editContent === originalContent) {
             handleCancelEditing();
             return;
         }
 
-        // Otherwise, show confirmation dialog
         openModal({
             title: "Discard Changes",
             subTitle: "Are you sure you want to discard changes on this post?",
@@ -173,14 +146,51 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
             return;
         }
 
-        try {
-            await updatePost(editingPost.id, editContent, Number(userLoggedIn.id));
-            showToast("success", "Post updated successfully!");
-            handleCancelEditing();
-        } catch (error) {
-            showToast("error", error instanceof Error ? error.message : "Failed to update post");
-        }
+        startUpdatePostTransition(async () => {
+            try {
+                await updatePost(editingPost.id, editContent, Number(userLoggedIn.id));
+                showToast("success", "Post updated successfully!");
+                handleCancelEditing();
+            } catch (err) {
+                showToast("error", err instanceof Error ? err.message : "Failed to update post");
+            }
+        });
     };
+    // #endregion
+
+    // #region "No Posts JSX"
+    if (posts.items.length === 0) {
+        return (
+            <Paper
+                elevation={0}
+                sx={{
+                    p: 4,
+                    textAlign: "center",
+                    borderRadius: 2,
+                    backgroundColor: theme.vars.palette.secondary.light,
+                    border: `1px solid ${theme.vars.palette.primary.light}`,
+                }}
+            >
+                <ChatIcon sx={{ fontSize: 60, color: theme.vars.palette.primary.main, mb: 2, opacity: 0.7 }} />
+                <Typography variant="h6" gutterBottom>
+                    No posts yet
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                    Be the first to post in this topic!
+                </Typography>
+                {userLoggedIn && !topicLocked && (
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => document.getElementById("post-form")?.scrollIntoView({ behavior: "smooth" })}
+                    >
+                        Create a Post
+                    </Button>
+                )}
+            </Paper>
+        );
+    }
+    // #endregion
 
     return (
         <>
@@ -200,8 +210,28 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                 userLoggedIn && Number(userLoggedIn.id) === post.user.id
                                     ? "1px solid rgba(25, 118, 210, 0.3)"
                                     : `1px solid ${theme.vars.palette.primary.light}`,
+                            position: "relative",
                         }}
                     >
+                        {((isPending && editingPost?.id === post.id) || isDeleting) && (
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                    zIndex: 10,
+                                    borderRadius: 2,
+                                }}
+                            >
+                                <CircularProgress size={60} />
+                            </Box>
+                        )}
                         <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                                 <Avatar
@@ -230,9 +260,7 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                     : posts.items.indexOf(post) + 1}
                             </Typography>
                         </Box>
-
                         <Divider sx={{ my: 2 }} />
-
                         {editingPost && editingPost.id === post.id ? (
                             <Box sx={{ mb: 2 }}>
                                 <TextEditor
