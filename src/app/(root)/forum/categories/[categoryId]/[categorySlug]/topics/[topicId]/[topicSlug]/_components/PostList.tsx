@@ -19,6 +19,8 @@ import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined, CancelOutlined, SaveOutlined } from "@mui/icons-material";
 import TextEditor from "@/components/root/textEditor/TextEditor";
+import ReplyList from "./ReplyList";
+import ReplyForm from "./ReplyForm";
 // #endregion
 
 // #region "Interfaces"
@@ -44,6 +46,12 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
     const [originalContent, setOriginalContent] = useState("");
     const [isPending, startUpdatePostTransition] = useTransition();
     const [isDeleting, startDeleteTransition] = useTransition();
+    const [replyingTo, setReplyingTo] = useState<{
+        id: number;
+        userName: string;
+        content: string;
+        type: "post" | "reply";
+    } | null>(null);
 
     const editorRef = useRef(null);
     // #endregion
@@ -161,28 +169,27 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
     const handleReplyToPost = (post: any) => {
         if (!userLoggedIn) return;
 
-        const userName = post.user.userName;
-        const postDate = format(new Date(post.createdAt), "PPP 'at' p");
-        const postContent = post.content;
+        setReplyingTo({
+            id: post.id,
+            userName: post.user.userName,
+            content: post.content,
+            type: "post",
+        });
+    };
 
-        const postForm = document.getElementById("post-form");
+    const handleReplyToReply = (reply: any) => {
+        if (!userLoggedIn) return;
 
-        if (postForm) {
-            postForm.scrollIntoView({ behavior: "smooth" });
+        setReplyingTo({
+            id: reply.id,
+            userName: reply.user.userName,
+            content: reply.content,
+            type: "reply",
+        });
+    };
 
-            const replyEvent = new CustomEvent("forum-reply", {
-                detail: {
-                    originalPost: {
-                        id: post.id,
-                        userName: userName,
-                        postDate: postDate,
-                        content: postContent
-                    }
-                }
-            });
-            
-            document.dispatchEvent(replyEvent);
-        }
+    const handleCancelReply = () => {
+        setReplyingTo(null);
     };
     // #endregion
 
@@ -358,7 +365,9 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                                 variant="outlined"
                                                 size="small"
                                                 startIcon={<EditIcon />}
-                                                onClick={() => handleStartEditing({ id: post.id, content: post.content })}
+                                                onClick={() =>
+                                                    handleStartEditing({ id: post.id, content: post.content })
+                                                }
                                             >
                                                 Edit
                                             </Button>
@@ -374,6 +383,23 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                         </Box>
                                     )}
                                 </Box>
+                                {replyingTo &&
+                                    replyingTo.id === post.id &&
+                                    replyingTo.type === "post" &&
+                                    userLoggedIn && (
+                                        <ReplyForm
+                                            postId={post.id}
+                                            userId={Number(userLoggedIn.id)}
+                                            replyingTo={replyingTo}
+                                            onCancelReply={handleCancelReply}
+                                        />
+                                    )}
+                                <ReplyList
+                                    postId={post.id}
+                                    userLoggedIn={userLoggedIn}
+                                    topicLocked={topicLocked}
+                                    onReplyToReply={handleReplyToReply}
+                                />
                             </>
                         )}
                     </Paper>
