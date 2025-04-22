@@ -7,6 +7,7 @@ import Link from "next/link";
 import ChatIcon from "@mui/icons-material/Chat";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ReplyIcon from "@mui/icons-material/Reply";
 import { formatDistanceToNow, format } from "date-fns";
 import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
 import React, { useState, useRef, useTransition } from "react";
@@ -155,6 +156,33 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                 showToast("error", err instanceof Error ? err.message : "Failed to update post");
             }
         });
+    };
+
+    const handleReplyToPost = (post: any) => {
+        if (!userLoggedIn) return;
+
+        const userName = post.user.userName;
+        const postDate = format(new Date(post.createdAt), "PPP 'at' p");
+        const postContent = post.content;
+
+        const postForm = document.getElementById("post-form");
+
+        if (postForm) {
+            postForm.scrollIntoView({ behavior: "smooth" });
+
+            const replyEvent = new CustomEvent("forum-reply", {
+                detail: {
+                    originalPost: {
+                        id: post.id,
+                        userName: userName,
+                        postDate: postDate,
+                        content: postContent
+                    }
+                }
+            });
+            
+            document.dispatchEvent(replyEvent);
+        }
     };
     // #endregion
 
@@ -312,27 +340,40 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                         {formatDistanceToNow(new Date(post.updatedAt), { addSuffix: true })}
                                     </Typography>
                                 )}
-                                {userLoggedIn && Number(userLoggedIn.id) === post.user.id && !topicLocked && (
-                                    <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 1 }}>
+                                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2, gap: 1 }}>
+                                    {userLoggedIn && !topicLocked && (
                                         <Button
                                             variant="outlined"
-                                            size="medium"
-                                            startIcon={<EditIcon />}
-                                            onClick={() => handleStartEditing({ id: post.id, content: post.content })}
+                                            size="small"
+                                            startIcon={<ReplyIcon />}
+                                            onClick={() => handleReplyToPost(post)}
                                         >
-                                            Edit
+                                            Reply
                                         </Button>
-                                        <Button
-                                            variant="outlined"
-                                            size="medium"
-                                            color="error"
-                                            startIcon={<DeleteIcon />}
-                                            onClick={() => handleDeletePost(post.id)}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </Box>
-                                )}
+                                    )}
+
+                                    {userLoggedIn && Number(userLoggedIn.id) === post.user.id && !topicLocked && (
+                                        <Box sx={{ display: "flex", gap: 1 }}>
+                                            <Button
+                                                variant="outlined"
+                                                size="small"
+                                                startIcon={<EditIcon />}
+                                                onClick={() => handleStartEditing({ id: post.id, content: post.content })}
+                                            >
+                                                Edit
+                                            </Button>
+                                            <Button
+                                                variant="outlined"
+                                                size="small"
+                                                color="error"
+                                                startIcon={<DeleteIcon />}
+                                                onClick={() => handleDeletePost(post.id)}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </Box>
+                                    )}
+                                </Box>
                             </>
                         )}
                     </Paper>

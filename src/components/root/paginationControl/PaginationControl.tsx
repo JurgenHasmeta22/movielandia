@@ -8,9 +8,17 @@ interface PaginationControlProps {
     currentPage: number;
     pageCount: number;
     urlParamName?: string;
+    customUrlHandler?: boolean;
+    onPageChange?: (page: number) => void;
 }
 
-export default function PaginationControl({ currentPage, pageCount, urlParamName = "page" }: PaginationControlProps) {
+export default function PaginationControl({
+    currentPage,
+    pageCount,
+    urlParamName = "page",
+    customUrlHandler = false,
+    onPageChange
+}: PaginationControlProps) {
     const [page, setPage] = useQueryState(urlParamName, {
         defaultValue: "1",
         parse: (value) => value || "1",
@@ -20,7 +28,12 @@ export default function PaginationControl({ currentPage, pageCount, urlParamName
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         if (value === currentPage) return;
-        setPage(value.toString());
+
+        if (customUrlHandler && onPageChange) {
+            onPageChange(value);
+        } else {
+            setPage(value.toString());
+        }
     };
 
     return (

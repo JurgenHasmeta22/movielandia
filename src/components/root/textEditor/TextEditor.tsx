@@ -76,28 +76,28 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                 <Box
                     sx={{
                         ".ql-toolbar": {
-                            backgroundColor: theme.vars.palette.secondary.light,
-                            border: `1px solid ${theme.vars.palette.primary.light}`,
-                            borderTopLeftRadius: "8px",
-                            borderTopRightRadius: "8px",
+                            backgroundColor: (theme) => theme.vars.palette.background.paper,
+                            border: (theme) => `1px solid ${theme.vars.palette.divider}`,
+                            borderTopLeftRadius: "4px",
+                            borderTopRightRadius: "4px",
                             "& .ql-stroke": {
-                                stroke: theme.vars.palette.primary.main,
+                                stroke: (theme) => theme.vars.palette.text.secondary,
                             },
                             "& .ql-fill": {
-                                fill: theme.vars.palette.primary.main,
+                                fill: (theme) => theme.vars.palette.text.secondary,
                             },
                             "& .ql-picker": {
-                                color: theme.vars.palette.primary.main,
+                                color: (theme) => theme.vars.palette.text.secondary,
                             },
                             "& .ql-picker-options": {
-                                backgroundColor: theme.vars.palette.secondary.light,
-                                border: `1px solid ${theme.vars.palette.primary.light}`,
+                                backgroundColor: (theme) => theme.vars.palette.background.paper,
+                                border: (theme) => `1px solid ${theme.vars.palette.divider}`,
                             },
                             "& button:hover .ql-stroke": {
-                                stroke: theme.vars.palette.blue.main,
+                                stroke: (theme) => theme.vars.palette.primary.main,
                             },
                             "& button:hover .ql-fill": {
-                                fill: theme.vars.palette.blue.main,
+                                fill: (theme) => theme.vars.palette.primary.main,
                             },
                             "& .ql-picker-label:hover": {
                                 color: theme.vars.palette.blue.main,
@@ -128,51 +128,56 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                             },
                         },
                         ".ql-container": {
-                            backgroundColor: theme.vars.palette.secondary.light,
-                            border: `1px solid ${theme.vars.palette.primary.light}`,
-                            borderRadius: isDisabled ? "8px" : "0 0 8px 8px",
-                            borderTop: isDisabled ? `1px solid ${theme.vars.palette.primary.light}` : "none",
+                            backgroundColor: (theme) => theme.vars.palette.background.paper,
+                            border: (theme) => `1px solid ${theme.vars.palette.divider}`,
+                            borderRadius: isDisabled ? "4px" : "0 0 4px 4px",
+                            borderTop: isDisabled ?
+                                (theme) => `1px solid ${theme.vars.palette.divider}` :
+                                "none",
                             fontSize: "16px",
                             minHeight: "200px",
                         },
                         ".ql-editor": {
-                            color: theme.vars.palette.primary.main,
-                            padding: "20px",
+                            color: (theme) => theme.vars.palette.text.primary,
+                            padding: "16px",
                             "&.ql-blank::before": {
-                                color: theme.vars.palette.primary.main,
-                                opacity: 0.6,
+                                content: '""', // Empty content to hide the default placeholder
+                                color: (theme) => theme.vars.palette.text.disabled,
+                                opacity: 0,
                                 fontStyle: "normal",
                                 fontSize: "16px",
-                                left: "20px",
-                                right: "20px",
+                                left: "16px",
+                                right: "16px",
                             },
                             "p, h1, h2, h3": {
-                                color: theme.vars.palette.primary.main,
+                                color: (theme) => theme.vars.palette.text.primary,
                                 margin: "0 0 0.5em 0",
                             },
                             h1: { fontSize: "2em" },
                             h2: { fontSize: "1.5em" },
                             h3: { fontSize: "1.17em" },
                             a: {
-                                color: theme.vars.palette.blue.main,
+                                color: (theme) => theme.vars.palette.primary.main,
                                 textDecoration: "underline",
                             },
                             blockquote: {
-                                borderLeft: `4px solid ${theme.vars.palette.primary.main}`,
-                                color: theme.vars.palette.primary.main,
+                                borderLeft: (theme) => `4px solid ${theme.vars.palette.divider}`,
+                                color: (theme) => theme.vars.palette.text.secondary,
+                                backgroundColor: (theme) => theme.vars.palette.background.default,
                                 opacity: 0.9,
                                 margin: "0.5em 0",
                                 padding: "0.5em 1em",
+                                borderRadius: "2px",
                             },
                             ul: {
-                                color: theme.vars.palette.primary.main,
+                                color: (theme) => theme.vars.palette.text.primary,
                             },
                             ol: {
-                                color: theme.vars.palette.primary.main,
+                                color: (theme) => theme.vars.palette.text.primary,
                             },
                             "& pre.ql-syntax": {
-                                backgroundColor: theme.vars.palette.secondary.dark,
-                                color: theme.vars.palette.primary.light,
+                                backgroundColor: (theme) => theme.vars.palette.background.default,
+                                color: (theme) => theme.vars.palette.text.primary,
                                 padding: "1em",
                                 borderRadius: "4px",
                                 fontFamily: "monospace",
