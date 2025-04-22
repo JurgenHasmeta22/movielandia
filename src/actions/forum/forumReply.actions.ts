@@ -96,7 +96,7 @@ export async function deleteReply(replyId: number, userId: number): Promise<void
     }
 }
 
-export async function getRepliesByPostId(postId: number, page: number = 1, limit: number = 10) {
+export async function getRepliesByPostId(postId: number, page: number = 1, limit: number = 10, userId?: number) {
     const skip = (page - 1) * limit;
 
     const [replies, total] = await Promise.all([
@@ -110,10 +110,17 @@ export async function getRepliesByPostId(postId: number, page: number = 1, limit
                         avatar: true,
                     },
                 },
+                upvotes: userId ? {
+                    where: {
+                        userId: userId
+                    },
+                    select: {
+                        userId: true
+                    }
+                } : false,
                 _count: {
                     select: {
                         upvotes: true,
-                        downvotes: true,
                     },
                 },
             },
@@ -148,68 +155,7 @@ export async function upvoteReply(replyId: number, userId: number): Promise<void
                 },
             });
         } else {
-            const existingDownvote = await prisma.downvoteForumReply.findFirst({
-                where: {
-                    userId,
-                    replyId,
-                },
-            });
-
-            if (existingDownvote) {
-                await prisma.downvoteForumReply.delete({
-                    where: {
-                        id: existingDownvote.id,
-                    },
-                });
-            }
-
             await prisma.upvoteForumReply.create({
-                data: {
-                    userId,
-                    replyId,
-                },
-            });
-        }
-
-        const referer = getReferer();
-        revalidatePath(`${referer}`, "page");
-    } catch (error) {
-        throw new Error(error instanceof Error ? error.message : "An unexpected error occurred.");
-    }
-}
-
-export async function downvoteReply(replyId: number, userId: number): Promise<void> {
-    try {
-        const existingDownvote = await prisma.downvoteForumReply.findFirst({
-            where: {
-                userId,
-                replyId,
-            },
-        });
-
-        if (existingDownvote) {
-            await prisma.downvoteForumReply.delete({
-                where: {
-                    id: existingDownvote.id,
-                },
-            });
-        } else {
-            const existingUpvote = await prisma.upvoteForumReply.findFirst({
-                where: {
-                    userId,
-                    replyId,
-                },
-            });
-
-            if (existingUpvote) {
-                await prisma.upvoteForumReply.delete({
-                    where: {
-                        id: existingUpvote.id,
-                    },
-                });
-            }
-
-            await prisma.downvoteForumReply.create({
                 data: {
                     userId,
                     replyId,

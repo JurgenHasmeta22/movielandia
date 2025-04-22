@@ -11,15 +11,16 @@ interface RichTextDisplayProps {
 export default function RichTextDisplay({ content, type = "post" }: RichTextDisplayProps) {
     const [processedContent, setProcessedContent] = useState(content);
 
-    // Process content to highlight @mentions
     useEffect(() => {
         // Regular expression to find @username mentions
         const mentionRegex = /(@\w+)/g;
 
-        // Replace mentions with highlighted spans
         const highlightedContent = content.replace(
             mentionRegex,
-            '<span style="color: #1976d2; font-weight: bold;">$1</span>'
+            (match, username) => {
+                const usernameWithoutAt = username.substring(1);
+                return `<a href="/users/search?username=${usernameWithoutAt}" style="color: #1976d2; font-weight: bold; text-decoration: none; display: inline-block; margin-right: 4px;">${match}</a>`;
+            }
         );
 
         setProcessedContent(highlightedContent);

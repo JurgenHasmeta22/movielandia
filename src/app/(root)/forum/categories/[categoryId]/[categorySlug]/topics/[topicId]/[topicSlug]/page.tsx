@@ -95,8 +95,9 @@ export default async function TopicPage(props: ITopicPageProps) {
         posts.items.map(async (post) => {
             const replyPageParam = searchParams?.[`replyPage_${post.id}`];
             const replyPage = replyPageParam ? parseInt(replyPageParam) : 1;
-            const replies = await getRepliesByPostId(post.id, replyPage, 5);
-            
+            const userId = session?.user?.id ? Number(session.user.id) : undefined;
+            const replies = await getRepliesByPostId(post.id, replyPage, 5, userId);
+
             return {
                 ...post,
                 replies: replies,

@@ -100,7 +100,7 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                                 fill: (theme) => theme.vars.palette.primary.main,
                             },
                             "& .ql-picker-label:hover": {
-                                color: theme.vars.palette.blue.main,
+                                color: theme.vars.palette.primary.main,
                             },
                             "& .ql-color .ql-picker-options": {
                                 padding: "5px",
@@ -135,13 +135,13 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                                 (theme) => `1px solid ${theme.vars.palette.divider}` :
                                 "none",
                             fontSize: "16px",
-                            minHeight: "200px",
+                            minHeight: "250px",
                         },
                         ".ql-editor": {
                             color: (theme) => theme.vars.palette.text.primary,
-                            padding: "16px",
+                            padding: "20px",
                             "&.ql-blank::before": {
-                                content: '""', // Empty content to hide the default placeholder
+                                content: '""',
                                 color: (theme) => theme.vars.palette.text.disabled,
                                 opacity: 0,
                                 fontStyle: "normal",
@@ -233,7 +233,7 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                         <Rating
                             name="review-rating"
                             value={rating}
-                            onChange={(event, newValue) => {
+                            onChange={(_, newValue) => {
                                 setRating!(newValue);
                             }}
                             size="medium"

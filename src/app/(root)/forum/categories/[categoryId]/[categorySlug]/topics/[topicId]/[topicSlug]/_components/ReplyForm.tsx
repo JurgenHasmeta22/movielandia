@@ -37,7 +37,7 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
     // Initialize content with @username tag when replying to someone
     useEffect(() => {
         if (replyingTo) {
-            setContent(`<p><strong>@${replyingTo.userName}</strong> </p>`);
+            setContent(`<p><strong><a href="/users/search?username=${replyingTo.userName}" style="color: #1976d2; text-decoration: none;">@${replyingTo.userName}</a></strong>&nbsp;</p>`);
 
             // Focus the editor after setting initial content
             setTimeout(() => {
@@ -85,9 +85,9 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
                 <Paper
                     elevation={0}
                     sx={{
-                        p: 2,
-                        mb: 2,
-                        borderRadius: 1,
+                        p: 3,
+                        mb: 3,
+                        borderRadius: 2,
                         backgroundColor: (theme) => theme.vars.palette.secondary.light,
                         border: (theme) => `1px solid ${theme.vars.palette.primary.light}`,
                         position: "relative",
@@ -99,12 +99,12 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
                             bottom: 0,
                             width: "4px",
                             backgroundColor: (theme) => theme.vars.palette.primary.main,
-                            borderTopLeftRadius: 1,
-                            borderBottomLeftRadius: 1,
+                            borderTopLeftRadius: 2,
+                            borderBottomLeftRadius: 2,
                         }
                     }}
                 >
-                    <Typography variant="subtitle2" fontWeight="bold" gutterBottom color="primary">
+                    <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="primary" sx={{ mb: 2 }}>
                         Replying to {replyingTo.userName}:
                     </Typography>
                     <Box
@@ -113,39 +113,21 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             position: "relative",
-                            "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                height: "20px",
-                                background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.1))",
-                            },
                         }}
                         dangerouslySetInnerHTML={{ __html: replyingTo.content }}
                     />
                 </Paper>
             )}
 
-            <Paper
-                elevation={0}
-                sx={{
-                    p: 0,
-                    mb: 2,
-                    borderRadius: 1,
-                }}
-            >
-                <Box>
-                    <TextEditor
-                        value={content}
-                        onChange={setContent}
-                        ref={editorRef}
-                        isDisabled={isPending}
-                        type="post"
-                    />
-                </Box>
-            </Paper>
+            <Box sx={{ mb: 3 }}>
+                <TextEditor
+                    value={content}
+                    onChange={setContent}
+                    ref={editorRef}
+                    isDisabled={isPending}
+                    type="post"
+                />
+            </Box>
             <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1 }}>
                 <Button
                     size="medium"

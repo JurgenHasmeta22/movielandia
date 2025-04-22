@@ -8,13 +8,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { format } from "date-fns";
 import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
 import React, { useState, useRef, useTransition } from "react";
-import { useRouter } from "next/navigation";
+
 import TextEditor from "@/components/root/textEditor/TextEditor";
-import { updateReply, deleteReply, upvoteReply, downvoteReply } from "@/actions/forum/forumReply.actions";
+import { updateReply, deleteReply, upvoteReply } from "@/actions/forum/forumReply.actions";
 import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
 import { CancelOutlined, SaveOutlined, WarningOutlined, CheckOutlined } from "@mui/icons-material";
@@ -51,8 +50,6 @@ export default function ReplyItem({
     const [isPending, startUpdateReplyTransition] = useTransition();
     const [isDeleting, startDeleteTransition] = useTransition();
     const [isUpvoting, startUpvoteTransition] = useTransition();
-    const [isDownvoting, startDownvoteTransition] = useTransition();
-    const router = useRouter();
 
     const editorRef = useRef(null);
     // #endregion
@@ -188,18 +185,6 @@ export default function ReplyItem({
             }
         });
     }
-
-    function handleDownvote(replyId: number) {
-        if (!userLoggedIn) return;
-
-        startDownvoteTransition(async () => {
-            try {
-                await downvoteReply(replyId, Number(userLoggedIn.id));
-            } catch (error) {
-                showToast("error", error instanceof Error ? error.message : "Failed to downvote reply");
-            }
-        });
-    }
     // #endregion
 
     // #region "Render"
@@ -207,13 +192,13 @@ export default function ReplyItem({
         <Paper
             elevation={0}
             sx={{
-                p: 2,
+                p: 3,
                 borderRadius: 2,
                 backgroundColor: theme.vars.palette.background.paper,
                 border: `1px solid ${theme.vars.palette.divider}`,
                 position: "relative",
                 ml: 4,
-                mb: 1,
+                mb: 2,
             }}
         >
             {((isPending && editingReply?.id === reply.id) || isDeleting) && (
@@ -235,7 +220,7 @@ export default function ReplyItem({
                     <CircularProgress size={40} />
                 </Box>
             )}
-            <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Avatar
                         src={reply.user.avatar?.photoSrc || ""}
@@ -263,7 +248,7 @@ export default function ReplyItem({
 
             {editingReply?.id === reply.id ? (
                 <>
-                    <Box sx={{ mb: 2 }}>
+                    <Box sx={{ mb: 3 }}>
                         <TextEditor
                             value={editContent}
                             onChange={setEditContent}
@@ -305,22 +290,19 @@ export default function ReplyItem({
                                     size="small"
                                     onClick={() => handleUpvote(reply.id)}
                                     disabled={isUpvoting || !userLoggedIn}
-                                    sx={{ minWidth: "auto", p: 0.5 }}
+                                    sx={{
+                                        minWidth: "auto",
+                                        p: 0.5,
+                                        color: reply.upvotes?.some((u: any) => u.userId === Number(userLoggedIn?.id)) ? "success.main" : "inherit"
+                                    }}
                                 >
-                                    <ThumbUpIcon fontSize="small" />
+                                    {isUpvoting ? (
+                                        <CircularProgress size={16} color="inherit" />
+                                    ) : (
+                                        <ThumbUpIcon fontSize="small" />
+                                    )}
                                 </Button>
                                 <Typography variant="body2">{reply._count.upvotes}</Typography>
-                            </Box>
-                            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                <Button
-                                    size="small"
-                                    onClick={() => handleDownvote(reply.id)}
-                                    disabled={isDownvoting || !userLoggedIn}
-                                    sx={{ minWidth: "auto", p: 0.5 }}
-                                >
-                                    <ThumbDownIcon fontSize="small" />
-                                </Button>
-                                <Typography variant="body2">{reply._count.downvotes}</Typography>
                             </Box>
                         </Box>
                         <Box sx={{ display: "flex", gap: 1 }}>
