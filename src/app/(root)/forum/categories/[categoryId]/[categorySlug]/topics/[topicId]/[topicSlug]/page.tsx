@@ -5,6 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getTopicById } from "@/actions/forum/forumTopic.actions";
 import { getCategoryById } from "@/actions/forum/forumCategory.actions";
 import { getPostsByTopicId } from "@/actions/forum/forumPost.actions";
+import { getRepliesByPostId } from "@/actions/forum/forumReply.actions";
 import { notFound } from "next/navigation";
 import TopicPageContent from "./_components/TopicPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -18,11 +19,12 @@ interface ITopicPageProps {
     };
     searchParams?: Promise<{
         page?: string;
+        [key: string]: string | undefined;
     }>;
 }
 
 export async function generateMetadata(props: ITopicPageProps): Promise<Metadata> {
-    const params = await props.params;
+    const params = props.params;
     const topic = await getTopicById(Number(params.topicId));
 
     if (!topic) {
@@ -89,6 +91,25 @@ export default async function TopicPage(props: ITopicPageProps) {
 
     const posts = await getPostsByTopicId(topic.id, currentPage, limit);
 
+    const postsWithReplies = await Promise.all(
+        posts.items.map(async (post) => {
+            const replyPageParam = searchParams?.[`replyPage_${post.id}`];
+            const replyPage = replyPageParam ? parseInt(replyPageParam) : 1;
+            const replies = await getRepliesByPostId(post.id, replyPage, 5);
+            
+            return {
+                ...post,
+                replies: replies,
+                replyPage: replyPage
+            };
+        })
+    );
+
+    const postsData = {
+        items: postsWithReplies,
+        total: posts.total
+    };
+
     return (
         <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
             <TopicPageContent
@@ -96,7 +117,7 @@ export default async function TopicPage(props: ITopicPageProps) {
                 category={category}
                 searchParams={searchParams}
                 session={session}
-                posts={posts}
+                posts={postsData}
                 currentPage={currentPage}
             />
         </Suspense>

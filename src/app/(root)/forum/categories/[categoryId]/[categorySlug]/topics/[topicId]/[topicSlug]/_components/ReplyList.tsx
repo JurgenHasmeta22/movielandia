@@ -2,11 +2,11 @@
 
 // #region "Imports"
 import { Box, Typography, Button, Collapse } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import ReplyItem from "./ReplyItem";
 import ReplyForm from "./ReplyForm";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -53,10 +53,12 @@ export default function ReplyList({
     // #endregion
 
     // #region "Event Handlers"
+    const pathname = usePathname();
+
     const handlePageChange = (page: number) => {
         const params = new URLSearchParams(Array.from(searchParams.entries()));
         params.set(`replyPage_${postId}`, page.toString());
-        router.push(`?${params.toString()}`);
+        router.push(`${pathname}?${params.toString()}`);
     };
 
     const toggleExpanded = () => {
