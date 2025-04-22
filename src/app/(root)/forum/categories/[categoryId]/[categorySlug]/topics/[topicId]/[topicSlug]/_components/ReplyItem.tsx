@@ -1,5 +1,6 @@
 "use client";
 
+// #region "Imports"
 import { Box, Paper, Typography, Avatar, Button, CircularProgress } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { format } from "date-fns";
 import RichTextDisplay from "@/components/root/richTextDisplay/RichTextDisplay";
 import React, { useState, useRef, useTransition } from "react";
@@ -16,16 +18,19 @@ import { showToast } from "@/utils/helpers/toast";
 import * as CONSTANTS from "@/constants/Constants";
 import { CancelOutlined, SaveOutlined, WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useModal } from "@/providers/ModalProvider";
+// #endregion
 
+// #region "Interfaces"
 interface ReplyItemProps {
     reply: any;
     userLoggedIn: any;
     topicLocked: boolean;
     onReplyToReply: (reply: any) => void;
-    postId: number;
+    postId: number; // Used in the component props but not directly in the code
     index: number;
     currentPage: number;
 }
+// #endregion
 
 export default function ReplyItem({
     reply,
@@ -36,7 +41,7 @@ export default function ReplyItem({
     index,
     currentPage,
 }: ReplyItemProps) {
-    // #region "State and hooks"
+    // #region "State and Hooks"
     const theme = useTheme();
     const { openModal } = useModal();
 
@@ -46,11 +51,12 @@ export default function ReplyItem({
     const [isPending, startUpdateReplyTransition] = useTransition();
     const [isDeleting, startDeleteTransition] = useTransition();
     const [isUpvoting, startUpvoteTransition] = useTransition();
+    const [isDownvoting, startDownvoteTransition] = useTransition();
 
     const editorRef = useRef(null);
     // #endregion
-    
-    // #region "Delete and Edit methods handlers"
+
+    // #region "Event Handlers"
     function handleDeleteReply(replyId: number) {
         if (!userLoggedIn) return;
 
@@ -76,6 +82,7 @@ export default function ReplyItem({
                                 await deleteReply(replyId, Number(userLoggedIn.id));
                                 showToast("success", "Reply deleted successfully");
 
+                                // Dispatch event to notify that a reply was deleted
                                 document.dispatchEvent(
                                     new CustomEvent("forum-reply-deleted", { detail: { replyId, postId } }),
                                 );
@@ -105,7 +112,6 @@ export default function ReplyItem({
             if (editorRef.current) {
                 // @ts-ignore - ReactQuill editor has focus method
                 const editor = editorRef.current.getEditor();
-
                 if (editor) {
                     editor.focus();
                 }
@@ -170,6 +176,7 @@ export default function ReplyItem({
                 setEditingReply(null);
                 showToast("success", "Reply updated successfully");
 
+                // Dispatch event to notify that a reply was modified
                 document.dispatchEvent(
                     new CustomEvent("forum-reply-modified", { detail: { replyId: editingReply.id, postId } }),
                 );
@@ -185,13 +192,36 @@ export default function ReplyItem({
         startUpvoteTransition(async () => {
             try {
                 await upvoteReply(replyId, Number(userLoggedIn.id));
+
+                // Dispatch event to notify that a reply was voted on
+                document.dispatchEvent(
+                    new CustomEvent("forum-reply-voted", { detail: { replyId, postId } })
+                );
             } catch (error) {
                 showToast("error", error instanceof Error ? error.message : "Failed to upvote reply");
             }
         });
     }
+
+    function handleDownvote(replyId: number) {
+        if (!userLoggedIn) return;
+
+        startDownvoteTransition(async () => {
+            try {
+                await downvoteReply(replyId, Number(userLoggedIn.id));
+
+                // Dispatch event to notify that a reply was voted on
+                document.dispatchEvent(
+                    new CustomEvent("forum-reply-voted", { detail: { replyId, postId } })
+                );
+            } catch (error) {
+                showToast("error", error instanceof Error ? error.message : "Failed to downvote reply");
+            }
+        });
+    }
     // #endregion
 
+    // #region "Render"
     return (
         <Paper
             elevation={0}
@@ -300,6 +330,17 @@ export default function ReplyItem({
                                 </Button>
                                 <Typography variant="body2">{reply._count.upvotes}</Typography>
                             </Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                                <Button
+                                    size="small"
+                                    onClick={() => handleDownvote(reply.id)}
+                                    disabled={isDownvoting || !userLoggedIn}
+                                    sx={{ minWidth: "auto", p: 0.5 }}
+                                >
+                                    <ThumbDownIcon fontSize="small" />
+                                </Button>
+                                <Typography variant="body2">{reply._count.downvotes}</Typography>
+                            </Box>
                         </Box>
                         <Box sx={{ display: "flex", gap: 1 }}>
                             {userLoggedIn && !topicLocked && (
@@ -340,4 +381,5 @@ export default function ReplyItem({
             )}
         </Paper>
     );
+    // #endregion
 }

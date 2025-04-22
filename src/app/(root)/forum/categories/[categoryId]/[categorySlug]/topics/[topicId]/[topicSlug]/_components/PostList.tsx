@@ -383,22 +383,21 @@ export default function PostList({ posts, currentPage, totalPages, userLoggedIn,
                                         </Box>
                                     )}
                                 </Box>
-                                {replyingTo &&
-                                    replyingTo.id === post.id &&
-                                    replyingTo.type === "post" &&
-                                    userLoggedIn && (
-                                        <ReplyForm
-                                            postId={post.id}
-                                            userId={Number(userLoggedIn.id)}
-                                            replyingTo={replyingTo}
-                                            onCancelReply={handleCancelReply}
-                                        />
-                                    )}
+                                {replyingTo && replyingTo.type === "post" && replyingTo.id === post.id && userLoggedIn && (
+                                    <ReplyForm
+                                        postId={post.id}
+                                        userId={Number(userLoggedIn.id)}
+                                        replyingTo={replyingTo}
+                                        onCancelReply={handleCancelReply}
+                                    />
+                                )}
                                 <ReplyList
                                     postId={post.id}
                                     userLoggedIn={userLoggedIn}
                                     topicLocked={topicLocked}
                                     onReplyToReply={handleReplyToReply}
+                                    replyingTo={replyingTo}
+                                    onCancelReply={handleCancelReply}
                                 />
                             </>
                         )}

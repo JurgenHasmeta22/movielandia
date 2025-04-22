@@ -1,6 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
 
 interface RichTextDisplayProps {
     content: string;
@@ -8,6 +9,21 @@ interface RichTextDisplayProps {
 }
 
 export default function RichTextDisplay({ content, type = "post" }: RichTextDisplayProps) {
+    const [processedContent, setProcessedContent] = useState(content);
+
+    // Process content to highlight @mentions
+    useEffect(() => {
+        // Regular expression to find @username mentions
+        const mentionRegex = /(@\w+)/g;
+
+        // Replace mentions with highlighted spans
+        const highlightedContent = content.replace(
+            mentionRegex,
+            '<span style="color: #1976d2; font-weight: bold;">$1</span>'
+        );
+
+        setProcessedContent(highlightedContent);
+    }, [content]);
     return (
         <Box
             className="rich-text-display"
@@ -97,7 +113,7 @@ export default function RichTextDisplay({ content, type = "post" }: RichTextDisp
                     fontWeight: 600,
                 },
             })}
-            dangerouslySetInnerHTML={{ __html: content }}
+            dangerouslySetInnerHTML={{ __html: processedContent }}
         />
     );
 }

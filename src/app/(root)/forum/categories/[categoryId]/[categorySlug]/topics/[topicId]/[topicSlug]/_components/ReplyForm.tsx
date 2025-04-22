@@ -1,7 +1,8 @@
 "use client";
 
+// #region "Imports"
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { useState, useRef, useTransition } from "react";
+import { useState, useRef, useTransition, useEffect } from "react";
 import TextEditor from "@/components/root/textEditor/TextEditor";
 import { createReply } from "@/actions/forum/forumReply.actions";
 import { showToast } from "@/utils/helpers/toast";
@@ -10,7 +11,9 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useModal } from "@/providers/ModalProvider";
 import * as CONSTANTS from "@/constants/Constants";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
+// #endregion
 
+// #region "Interfaces"
 interface ReplyFormProps {
     postId: number;
     userId: number;
@@ -22,13 +25,38 @@ interface ReplyFormProps {
     } | null;
     onCancelReply: () => void;
 }
+// #endregion
 
 export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }: ReplyFormProps) {
+    // #region "State and Hooks"
     const [content, setContent] = useState("");
     const [isPending, startTransition] = useTransition();
     const editorRef = useRef(null);
     const { openModal } = useModal();
 
+    // Initialize content with @username tag when replying to someone
+    useEffect(() => {
+        if (replyingTo) {
+            setContent(`<p><strong>@${replyingTo.userName}</strong> </p>`);
+
+            // Focus the editor after setting initial content
+            setTimeout(() => {
+                if (editorRef.current) {
+                    // @ts-ignore - ReactQuill editor has focus method
+                    const editor = editorRef.current.getEditor();
+                    if (editor) {
+                        editor.focus();
+                        // Move cursor to end of text
+                        const length = editor.getLength();
+                        editor.setSelection(length, length);
+                    }
+                }
+            }, 100);
+        }
+    }, [replyingTo]);
+    // #endregion
+
+    // #region "Event Handlers"
     const handleSubmit = () => {
         if (!content.trim()) {
             showToast("error", "Please enter some content for your reply.");
@@ -39,7 +67,7 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
             try {
                 await createReply(content, postId, userId);
                 showToast("success", "Your reply has been created successfully!");
-                
+
                 document.dispatchEvent(new CustomEvent("forum-reply-created", { detail: { postId } }));
                 setContent("");
                 onCancelReply();
@@ -48,7 +76,9 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
             }
         });
     };
+    // #endregion
 
+    // #region "Render"
     return (
         <Box sx={{ mt: 2, ml: replyingTo?.type === "reply" ? 4 : 0 }}>
             {replyingTo && (
@@ -58,11 +88,23 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
                         p: 2,
                         mb: 2,
                         borderRadius: 1,
-                        backgroundColor: (theme) => theme.vars.palette.action.hover,
-                        border: (theme) => `1px solid ${theme.vars.palette.divider}`,
+                        backgroundColor: (theme) => theme.vars.palette.secondary.light,
+                        border: (theme) => `1px solid ${theme.vars.palette.primary.light}`,
+                        position: "relative",
+                        "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            bottom: 0,
+                            width: "4px",
+                            backgroundColor: (theme) => theme.vars.palette.primary.main,
+                            borderTopLeftRadius: 1,
+                            borderBottomLeftRadius: 1,
+                        }
                     }}
                 >
-                    <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
+                    <Typography variant="subtitle2" fontWeight="bold" gutterBottom color="primary">
                         Replying to {replyingTo.userName}:
                     </Typography>
                     <Box
@@ -160,4 +202,5 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
             </Box>
         </Box>
     );
+    // #endregion
 }
