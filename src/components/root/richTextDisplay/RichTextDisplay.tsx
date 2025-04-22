@@ -12,16 +12,16 @@ export default function RichTextDisplay({ content, type = "post" }: RichTextDisp
     const [processedContent, setProcessedContent] = useState(content);
 
     useEffect(() => {
-        // Regular expression to find @username mentions
-        const mentionRegex = /(@\w+)/g;
+        // Regular expression to find @username mentions that aren't already in a link
+        const mentionRegex = /(?<!<a[^>]*>)(@\w+)(?![^<]*<\/a>)/g;
 
-        const highlightedContent = content.replace(
-            mentionRegex,
-            (match, username) => {
-                const usernameWithoutAt = username.substring(1);
-                return `<a href="/users/search?username=${usernameWithoutAt}" style="color: #1976d2; font-weight: bold; text-decoration: none; display: inline-block; margin-right: 4px;">${match}</a>`;
-            }
-        );
+        // Process @username mentions that aren't already in links
+        const highlightedContent = content.replace(mentionRegex, (match, username) => {
+            const usernameWithoutAt = username.substring(1);
+            // We don't have the userId here, so we use username for both parts
+            // The link will still work as the server will handle the lookup
+            return `<a href="/users/${usernameWithoutAt}/${usernameWithoutAt}" target="_blank" rel="noopener noreferrer" style="color: #1976d2; font-weight: bold; text-decoration: none; display: inline-block; margin-right: 4px; background-color: rgba(25, 118, 210, 0.1); padding: 0 4px; border-radius: 4px;">${match}</a>`;
+        });
 
         setProcessedContent(highlightedContent);
     }, [content]);

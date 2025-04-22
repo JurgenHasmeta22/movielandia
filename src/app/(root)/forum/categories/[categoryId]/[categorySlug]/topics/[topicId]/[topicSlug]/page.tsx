@@ -101,14 +101,14 @@ export default async function TopicPage(props: ITopicPageProps) {
             return {
                 ...post,
                 replies: replies,
-                replyPage: replyPage
+                replyPage: replyPage,
             };
-        })
+        }),
     );
 
     const postsData = {
         items: postsWithReplies,
-        total: posts.total
+        total: posts.total,
     };
 
     return (

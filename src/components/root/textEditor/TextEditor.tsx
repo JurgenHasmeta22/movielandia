@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
@@ -17,6 +17,52 @@ interface ITextEditorProps {
     type: string;
     onChange: (value: string) => void;
 }
+
+// Custom Blot for @mentions that are non-deletable and clickable
+const configureMentionBlot = (Quill: any) => {
+    const Embed = Quill.import("blots/embed");
+
+    class MentionBlot extends Embed {
+        static create(data: { username: string; userId?: number }) {
+            const node = super.create();
+            node.setAttribute("data-username", data.username);
+            if (data.userId) node.setAttribute("data-userid", String(data.userId));
+            node.setAttribute("contenteditable", "false");
+            node.setAttribute("class", "mention-blot");
+
+            // Create the link element
+            const link = document.createElement("a");
+            // Use userId if available, otherwise fallback to username
+            const userId = data.userId || data.username;
+            link.href = `/users/${userId}/${data.username}`;
+
+            // Make sure it opens in a new tab
+            link.setAttribute("target", "_blank");
+            link.setAttribute("rel", "noopener noreferrer");
+            link.textContent = `@${data.username}`;
+            link.style.color = "#1976d2";
+            link.style.fontWeight = "bold";
+            link.style.textDecoration = "none";
+            link.style.marginRight = "4px";
+            link.style.cursor = "pointer";
+
+            node.appendChild(link);
+            return node;
+        }
+
+        static value(node: HTMLElement) {
+            return {
+                username: node.getAttribute("data-username"),
+                userId: node.hasAttribute("data-userid") ? Number(node.getAttribute("data-userid")) : undefined,
+            };
+        }
+    }
+
+    MentionBlot.blotName = "mention";
+    MentionBlot.tagName = "span";
+
+    Quill.register(MentionBlot);
+};
 
 const getModulesConfig = () => ({
     toolbar: [
@@ -64,12 +110,23 @@ const formatsArray = [
     "image",
     "video",
     "direction",
+    "mention", // Add mention format
 ];
 
 const TextEditor = React.forwardRef<any, ITextEditorProps>(
     ({ value, onChange, rating, setRating, isDisabled, type }, ref) => {
         const theme = useTheme();
         const formats = formatsArray;
+
+        // Register the MentionBlot when the component mounts
+        useEffect(() => {
+            if (typeof window !== "undefined") {
+                import("react-quill-new").then((module) => {
+                    const Quill = module.default.Quill;
+                    configureMentionBlot(Quill);
+                });
+            }
+        }, []);
 
         return (
             <Box sx={{ opacity: isDisabled ? 0.7 : 1, pointerEvents: isDisabled ? "none" : "auto" }}>
@@ -131,9 +188,7 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                             backgroundColor: (theme) => theme.vars.palette.background.paper,
                             border: (theme) => `1px solid ${theme.vars.palette.divider}`,
                             borderRadius: isDisabled ? "4px" : "0 0 4px 4px",
-                            borderTop: isDisabled ?
-                                (theme) => `1px solid ${theme.vars.palette.divider}` :
-                                "none",
+                            borderTop: isDisabled ? (theme) => `1px solid ${theme.vars.palette.divider}` : "none",
                             fontSize: "16px",
                             minHeight: "250px",
                         },
@@ -159,6 +214,15 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
                             a: {
                                 color: (theme) => theme.vars.palette.primary.main,
                                 textDecoration: "underline",
+                            },
+                            ".mention-blot": {
+                                display: "inline-block",
+                                backgroundColor: (theme) => `${theme.vars.palette.primary.light}20`,
+                                borderRadius: "4px",
+                                padding: "0 4px",
+                                margin: "0 2px",
+                                cursor: "default",
+                                userSelect: "all",
                             },
                             blockquote: {
                                 borderLeft: (theme) => `4px solid ${theme.vars.palette.divider}`,

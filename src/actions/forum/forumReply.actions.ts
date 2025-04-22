@@ -110,14 +110,16 @@ export async function getRepliesByPostId(postId: number, page: number = 1, limit
                         avatar: true,
                     },
                 },
-                upvotes: userId ? {
-                    where: {
-                        userId: userId
-                    },
-                    select: {
-                        userId: true
-                    }
-                } : false,
+                upvotes: userId
+                    ? {
+                          where: {
+                              userId: userId,
+                          },
+                          select: {
+                              userId: true,
+                          },
+                      }
+                    : false,
                 _count: {
                     select: {
                         upvotes: true,

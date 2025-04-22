@@ -37,18 +37,25 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
     // Initialize content with @username tag when replying to someone
     useEffect(() => {
         if (replyingTo) {
-            setContent(`<p><strong><a href="/users/search?username=${replyingTo.userName}" style="color: #1976d2; text-decoration: none;">@${replyingTo.userName}</a></strong>&nbsp;</p>`);
-
-            // Focus the editor after setting initial content
+            // Focus the editor first
             setTimeout(() => {
                 if (editorRef.current) {
                     // @ts-ignore - ReactQuill editor has focus method
                     const editor = editorRef.current.getEditor();
                     if (editor) {
+                        // Insert a mention blot at the beginning of the editor
+                        const newDelta = editor.clipboard.convert(`<p></p>`);
+                        editor.setContents(newDelta);
+
+                        // Insert the mention at the beginning
                         editor.focus();
-                        // Move cursor to end of text
-                        const length = editor.getLength();
-                        editor.setSelection(length, length);
+                        editor.insertEmbed(0, "mention", { username: replyingTo.userName, userId: replyingTo.id });
+
+                        // Add a space after the mention
+                        editor.insertText(1, " ");
+
+                        // Move cursor after the mention and space
+                        editor.setSelection(2, 2);
                     }
                 }
             }, 100);
@@ -101,7 +108,7 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
                             backgroundColor: (theme) => theme.vars.palette.primary.main,
                             borderTopLeftRadius: 2,
                             borderBottomLeftRadius: 2,
-                        }
+                        },
                     }}
                 >
                     <Typography variant="subtitle1" fontWeight="bold" gutterBottom color="primary" sx={{ mb: 2 }}>
@@ -120,13 +127,7 @@ export default function ReplyForm({ postId, userId, replyingTo, onCancelReply }:
             )}
 
             <Box sx={{ mb: 3 }}>
-                <TextEditor
-                    value={content}
-                    onChange={setContent}
-                    ref={editorRef}
-                    isDisabled={isPending}
-                    type="post"
-                />
+                <TextEditor value={content} onChange={setContent} ref={editorRef} isDisabled={isPending} type="post" />
             </Box>
             <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1 }}>
                 <Button

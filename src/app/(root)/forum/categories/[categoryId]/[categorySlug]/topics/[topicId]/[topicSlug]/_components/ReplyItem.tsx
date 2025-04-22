@@ -293,7 +293,9 @@ export default function ReplyItem({
                                     sx={{
                                         minWidth: "auto",
                                         p: 0.5,
-                                        color: reply.upvotes?.some((u: any) => u.userId === Number(userLoggedIn?.id)) ? "success.main" : "inherit"
+                                        color: reply.upvotes?.some((u: any) => u.userId === Number(userLoggedIn?.id))
+                                            ? "success.main"
+                                            : "inherit",
                                     }}
                                 >
                                     {isUpvoting ? (

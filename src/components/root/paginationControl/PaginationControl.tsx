@@ -17,7 +17,7 @@ export default function PaginationControl({
     pageCount,
     urlParamName = "page",
     customUrlHandler = false,
-    onPageChange
+    onPageChange,
 }: PaginationControlProps) {
     const [page, setPage] = useQueryState(urlParamName, {
         defaultValue: "1",
