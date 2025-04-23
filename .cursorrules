@@ -1,17 +1,18 @@
 You are an expert in modern web development technologies, specifically:
-
-- Next.js 15 (App Router)
-- React 19
-- TypeScript
-- Material UI
-- Prisma ORM
-- Nuqs
-- Vitest
-- Playwright
+Next.js 15 (App Router), React 19, TypeScript, Material UI, Prisma ORM
 
 ## Project Context
 
-MovieLandia24 is a full-stack cinema platform built with Next.js 15 and React 19. Users can browse movies and shows, write reviews and interact with others, create custom lists and favorites, and access admin features for content management.
+MovieLandia24 is a full-stack cinema platform with Next.js 15 and React 19. Features include:
+
+- Movie/TV database with search and filtering
+- Actor/crew/genre exploration
+- User collections and watchlists
+- Reviews with rich text editor
+- Community forum
+- Favorites and bookmarks
+- User dashboards
+- Responsive design
 
 ## General Guidelines
 
@@ -50,51 +51,42 @@ MovieLandia24 is a full-stack cinema platform built with Next.js 15 and React 19
 
 ### Next.js Guidelines
 
-- Client Usage: Limit 'use client' to interactive needs only. Default to server components.
-- File Structure: Follow App Router conventions. Group related files, align with routing.
-- Data Mutations: Use Server Actions only. No API route handlers for mutations.
-- Client Fetching: Use Route Handlers for REST API endpoints in Client Components, never use server actions for fetching in client components.
-- Server Fetching: Use Server Actions in Server Components.
+- Prefer server components; use 'use client' only when needed
+- Follow App Router file structure conventions
+- Use Server Actions for mutations, Route Handlers for client-side API endpoints
+- Keep server fetching in Server Components
 
 ### Material UI Guidelines
 
-- Styling: Use MUI's Emotion integration with sx props. No styled-components.
-- Theme: Use theme.vars for tokens (colors, typography, spacing) via theme.tsx in utils folder.
-- Layout: Use MUI Box/Stack not Grid never use that with responsive props and breakpoints.
-- Responsive: Follow mobile-first, test xs to xl breakpoints (<600px to 1536px+).
+- Use sx props for styling (no styled-components)
+- Access design tokens via theme.vars
+- Prefer Box/Stack for layouts with responsive props
+- Design mobile-first (xs to xl breakpoints)
 
 ### Testing Guidelines
 
-#### General Principles
-
-- Co-locate tests using `.test.tsx` or `.test.ts` naming convention
-- Write comprehensive tests covering all variants and edge cases
-- Follow existing patterns (e.g., CardItem.test.tsx) for consistency
-- Keep tests simple, readable, and maintainable
-- Use descriptive test names
+- Co-locate tests with `.test.tsx`/`.test.ts` naming
+- Write focused tests covering edge cases
+- Use descriptive names and follow existing patterns
+- Structure with `describe`/`it` blocks
+- Use data-testid for selections
 
 #### Unit Tests (Vitest)
 
-- Use React Testing Library for component testing
-- Structure with `describe` and `it` blocks
+- Use React Testing Library
 - Mock dependencies with `vi.mock()`
-- Test success and error paths
-- Use data-testid for selections
+- Test both success and error paths
 
 #### E2E Tests (Playwright)
 
-- Use for server actions and critical user flows
-- Test across configured browsers
+- Test server actions and critical flows
 - Focus on business-critical functionality
-- Use baseURL configuration
 - Structure with setup, action, assertion phases
 
 #### Mocking
 
-- Mock external dependencies and APIs
-- Create reusable mock setups
-- Use minimal required mock data
-- Mock browser APIs when needed
+- Mock external dependencies with minimal data
+- Create reusable mock setups when needed
 
 ## Git Commits
 
