@@ -32,7 +32,6 @@ model ForumTopic {
     posts                ForumPost[]
     usersWhoBookmarkedIt UserForumTopicFavorite[]
     upvotes              UpvoteForumTopic[]
-    downvotes            DownvoteForumTopic[]
     watchers             UserForumTopicWatch[]
 
     @@index([title(sort: Asc)])
@@ -71,20 +70,6 @@ model UserForumTopicFavorite {
 }
 
 model UpvoteForumTopic {
-    id Int @id @default(autoincrement())
-
-    // FK Keys
-    userId  Int
-    topicId Int
-
-    // Relations
-    user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-    topic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
-
-    @@unique([userId, topicId])
-}
-
-model DownvoteForumTopic {
     id Int @id @default(autoincrement())
 
     // FK Keys
