@@ -4,42 +4,52 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 import RightPanel from "@/components/admin/rightPanel/RightPanel";
 
 type RightPanelContextType = {
-    rightPanelProps: any;
-    openRightPanel: (props: any) => void;
-    closeRightPanel: () => void;
+	rightPanelProps: any;
+	openRightPanel: (props: any) => void;
+	closeRightPanel: () => void;
 };
 
 interface IRightPanelProviderProps {
-    children: ReactNode;
+	children: ReactNode;
 }
 
-const RightPanelContext = createContext<RightPanelContextType | undefined>(undefined);
+const RightPanelContext = createContext<RightPanelContextType | undefined>(
+	undefined,
+);
 
 export const useRightPanel = () => {
-    const context = useContext(RightPanelContext);
+	const context = useContext(RightPanelContext);
 
-    if (!context) {
-        throw new Error("useRightPanel must be used within a RightPanelProvider");
-    }
+	if (!context) {
+		throw new Error(
+			"useRightPanel must be used within a RightPanelProvider",
+		);
+	}
 
-    return context;
+	return context;
 };
 
-export const RightPanelProvider: React.FC<IRightPanelProviderProps> = ({ children }) => {
-    const [rightPanelProps, setRightPanelProps] = useState<any | null>(null);
+export const RightPanelProvider: React.FC<IRightPanelProviderProps> = ({
+	children,
+}) => {
+	const [rightPanelProps, setRightPanelProps] = useState<any | null>(null);
 
-    const openRightPanel = (props: any) => {
-        setRightPanelProps(props);
-    };
+	const openRightPanel = (props: any) => {
+		setRightPanelProps(props);
+	};
 
-    const closeRightPanel = () => {
-        setRightPanelProps(null);
-    };
+	const closeRightPanel = () => {
+		setRightPanelProps(null);
+	};
 
-    return (
-        <RightPanelContext.Provider value={{ rightPanelProps, openRightPanel, closeRightPanel }}>
-            {children}
-            {rightPanelProps && <RightPanel {...rightPanelProps} onClose={closeRightPanel} />}
-        </RightPanelContext.Provider>
-    );
+	return (
+		<RightPanelContext.Provider
+			value={{ rightPanelProps, openRightPanel, closeRightPanel }}
+		>
+			{children}
+			{rightPanelProps && (
+				<RightPanel {...rightPanelProps} onClose={closeRightPanel} />
+			)}
+		</RightPanelContext.Provider>
+	);
 };

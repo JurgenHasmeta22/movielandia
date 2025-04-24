@@ -6,23 +6,32 @@ import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { Suspense } from "react";
 
 interface INotificationsPageProps {
-    searchParams?: Promise<{ page?: string }>;
+	searchParams?: Promise<{ page?: string }>;
 }
 
-export default async function NotificationsPage(props: INotificationsPageProps) {
-    const session = await getServerSession(authOptions);
-    const userName = session?.user.userName;
-    const userId = Number(session?.user.id);
+export default async function NotificationsPage(
+	props: INotificationsPageProps,
+) {
+	const session = await getServerSession(authOptions);
+	const userName = session?.user.userName;
+	const userId = Number(session?.user.id);
 
-    const searchParams = await props.searchParams;
-    const searchParamsKey = JSON.stringify(searchParams);
-    const page = Number(searchParams?.page) || 1;
+	const searchParams = await props.searchParams;
+	const searchParamsKey = JSON.stringify(searchParams);
+	const page = Number(searchParams?.page) || 1;
 
-    const notifications = await getAllNotifications(Number(session?.user.id), page);
+	const notifications = await getAllNotifications(
+		Number(session?.user.id),
+		page,
+	);
 
-    return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
-            <NotificationsPageContent notifications={notifications} userName={userName!} userId={userId} />
-        </Suspense>
-    );
+	return (
+		<Suspense key={searchParamsKey} fallback={<LoadingSpinner />}>
+			<NotificationsPageContent
+				notifications={notifications}
+				userName={userName!}
+				userId={userId}
+			/>
+		</Suspense>
+	);
 }

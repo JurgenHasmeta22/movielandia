@@ -7,23 +7,23 @@ import { useRouter } from "next/navigation";
 import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 
 const ActorsAdminPage = () => {
-    const router = useRouter();
+	const router = useRouter();
 
-    function handleAddActor() {
-        router.push("/admin/actors/create");
-    }
+	function handleAddActor() {
+		router.push("/admin/actors/create");
+	}
 
-    const { table } = TableAdmin({
-        page: "actors",
-        handleAddItem: handleAddActor,
-    });
+	const { table } = TableAdmin({
+		page: "actors",
+		handleAddItem: handleAddActor,
+	});
 
-    return (
-        <Box m="20px">
-            <HeaderDashboard title="Actors" subtitle="List of actors" />
-            <MaterialReactTable table={table} />
-        </Box>
-    );
+	return (
+		<Box m="20px">
+			<HeaderDashboard title="Actors" subtitle="List of actors" />
+			<MaterialReactTable table={table} />
+		</Box>
+	);
 };
 
 export default ActorsAdminPage;

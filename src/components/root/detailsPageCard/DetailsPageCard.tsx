@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useTransition } from "react";
-import { Box, Typography, Chip, Button, useTheme, CircularProgress } from "@mui/material";
+import {
+	Box,
+	Typography,
+	Chip,
+	Button,
+	useTheme,
+	CircularProgress,
+} from "@mui/material";
 import { AccessTime, CalendarToday, Star, YouTube } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,344 +23,446 @@ import PersonRoleCard from "./PersonRoleCard";
 import PaginationPersonControl from "./PaginationPersonControl";
 
 interface IDetailsPageCardProps {
-    data: any;
-    type: string;
-    isBookmarked: boolean;
-    cast?: any[];
-    crew?: any[];
-    currentCastPage?: number;
-    currentCrewPage?: number;
-    castPageCount?: number;
-    crewPageCount?: number;
-    onBookmark: () => Promise<void>;
-    onRemoveBookmark: () => Promise<void>;
-    onGoBack?: () => void;
+	data: any;
+	type: string;
+	isBookmarked: boolean;
+	cast?: any[];
+	crew?: any[];
+	currentCastPage?: number;
+	currentCrewPage?: number;
+	castPageCount?: number;
+	crewPageCount?: number;
+	onBookmark: () => Promise<void>;
+	onRemoveBookmark: () => Promise<void>;
+	onGoBack?: () => void;
 }
 
 export function DetailsPageCard({
-    data,
-    type,
-    isBookmarked,
-    onBookmark,
-    onRemoveBookmark,
-    onGoBack,
-    cast,
-    crew,
-    currentCastPage,
-    currentCrewPage,
-    castPageCount,
-    crewPageCount,
+	data,
+	type,
+	isBookmarked,
+	onBookmark,
+	onRemoveBookmark,
+	onGoBack,
+	cast,
+	crew,
+	currentCastPage,
+	currentCrewPage,
+	castPageCount,
+	crewPageCount,
 }: IDetailsPageCardProps) {
-    const { data: session } = useSession();
+	const { data: session } = useSession();
 
-    const theme = useTheme();
-    const [isPending, startTransition] = useTransition();
+	const theme = useTheme();
+	const [isPending, startTransition] = useTransition();
 
-    const handleBookmarkAction = () => {
-        if (!session?.user || !data) return;
+	const handleBookmarkAction = () => {
+		if (!session?.user || !data) return;
 
-        startTransition(async () => {
-            if (isBookmarked) {
-                await onRemoveBookmark();
-            } else {
-                await onBookmark();
-            }
-        });
-    };
+		startTransition(async () => {
+			if (isBookmarked) {
+				await onRemoveBookmark();
+			} else {
+				await onBookmark();
+			}
+		});
+	};
 
-    return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                bgcolor: theme.vars.palette.secondary.light,
-                color: theme.vars.palette.primary.main,
-                width: "100%",
-                maxWidth: "1200px",
-                margin: "auto",
-                p: { xs: 2, sm: 3, md: 4 },
-                borderRadius: 6,
-                mt: 10,
-            }}
-        >
-            {(type === "season" || type === "episode") && (
-                <Button
-                    variant="outlined"
-                    onClick={onGoBack}
-                    sx={{ mb: 2, display: "flex", alignItems: "center", width: "fit-content" }}
-                >
-                    <ArrowBackIcon sx={{ mr: 1 }} />
-                    Go Back
-                </Button>
-            )}
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
-                    gap: 3,
-                    alignItems: { xs: "center", md: "flex-start" },
-                }}
-            >
-                <Box
-                    sx={{
-                        flexShrink: 0,
-                        width: { xs: "100%", md: "214px" },
-                        maxWidth: "214px",
-                        height: { xs: "300px", md: "317px" },
-                        position: "relative",
-                    }}
-                >
-                    <Image
-                        src={data.photoSrcProd}
-                        alt={type !== "actor" && type !== "crew" ? data.title : data.fullname}
-                        height={317}
-                        width={214}
-                        priority
-                        style={{ objectFit: "cover", borderRadius: "8px" }}
-                    />
-                </Box>
-                <Box
-                    sx={{
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "100%",
-                        pt: { xs: 0, md: 0 },
-                    }}
-                >
-                    <Typography
-                        component="h1"
-                        gutterBottom
-                        fontWeight="bold"
-                        sx={{
-                            fontSize: "2.3rem",
-                            letterSpacing: "0.1rem",
-                        }}
-                        color={theme.vars.palette.primary.main}
-                    >
-                        {type !== "actor" && type !== "crew" ? data.title : data.fullname}
-                    </Typography>
-                    <Box sx={{ mb: 2, display: "flex", flexDirection: "row", alignItems: "center" }}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                gap: 1,
-                                p: 1,
-                                borderRadius: 2,
-                            }}
-                        >
-                            {data.genres?.map((genre: any, index: number) => (
-                                <Link key={index} href={`/genres/${genre.genre.id}/${genre.genre.name}`} passHref>
-                                    <Chip
-                                        label={genre.genre.name}
-                                        clickable
-                                        sx={{
-                                            bgcolor: theme.vars.palette.secondary.main,
-                                            color: theme.vars.palette.red.main,
-                                            textDecoration: "none",
-                                            fontSize: "0.9rem",
-                                            fontWeight: "600",
-                                            padding: "12px 6px",
-                                        }}
-                                    />
-                                </Link>
-                            ))}
-                        </Box>
-                    </Box>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: 4,
-                            mb: 3,
-                            borderRadius: 2,
-                        }}
-                    >
-                        {type !== "season" && type !== "serie" && type !== "actor" && type !== "crew" && (
-                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <AccessTime fontSize="medium" color="primary" />
-                                <Typography variant="body1">{data.duration} mins</Typography>
-                            </Box>
-                        )}
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <CalendarToday fontSize="medium" color="primary" />
-                            <Typography variant="body2">
-                                {type !== "actor" && type !== "crew"
-                                    ? formatDate(new Date(data.dateAired))
-                                    : data.debut}
-                            </Typography>
-                        </Box>
-                        {type !== "actor" && type !== "crew" && (
-                            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                                <Image src={"/icons/imdb.svg"} alt={"Imdb rating"} height={28} width={28} priority />
-                                <Typography variant="body2">{data.ratingImdb}</Typography>
-                            </Box>
-                        )}
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <StarRateIcon
-                                sx={{
-                                    color: "gold",
-                                }}
-                                fontSize="medium"
-                            />
-                            <Typography variant="body2">
-                                {data.averageRating === 0 ? "N/A" : data.averageRating.toFixed(2)}
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Typography variant="body1" color={theme.vars.palette.primary.light}>
-                        {data.description}
-                    </Typography>
-                    {(type === "movie" || type === "serie") && (cast || crew) && (
-                        <Box
-                            sx={{
-                                mt: 3,
-                                mb: 3,
-                                display: "grid",
-                                gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-                                gap: 3,
-                            }}
-                        >
-                            {cast && cast.length > 0 && (
-                                <Box>
-                                    <Typography
-                                        variant="h6"
-                                        sx={{
-                                            mb: 2,
-                                            fontWeight: 600,
-                                            color: theme.vars.palette.primary.main,
-                                            fontSize: 16,
-                                        }}
-                                    >
-                                        Featured Cast
-                                    </Typography>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            gap: 2,
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexWrap: "wrap",
-                                                gap: 2,
-                                                justifyContent: { xs: "center", sm: "flex-start" },
-                                            }}
-                                        >
-                                            {cast.map((person, index) => (
-                                                <PersonRoleCard key={index} data={person.actor} type="actor" />
-                                            ))}
-                                        </Box>
-                                        <PaginationPersonControl
-                                            currentPage={currentCastPage!}
-                                            pageCount={castPageCount!}
-                                            urlParamName="castPage"
-                                        />
-                                    </Box>
-                                </Box>
-                            )}
-                            {crew && crew.length > 0 && (
-                                <Box>
-                                    <Typography
-                                        variant="h6"
-                                        sx={{
-                                            mb: 2,
-                                            fontWeight: 600,
-                                            color: theme.vars.palette.primary.main,
-                                            fontSize: 16,
-                                        }}
-                                    >
-                                        Featured Crew
-                                    </Typography>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            gap: 2,
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                flexWrap: "wrap",
-                                                gap: 2,
-                                                justifyContent: { xs: "center", sm: "flex-start" },
-                                            }}
-                                        >
-                                            {crew.map((person, index) => (
-                                                <PersonRoleCard key={index} data={person.crew} type="crew" />
-                                            ))}
-                                        </Box>
-                                        <PaginationPersonControl
-                                            currentPage={currentCrewPage!}
-                                            pageCount={crewPageCount!}
-                                            urlParamName="crewPage"
-                                        />
-                                    </Box>
-                                </Box>
-                            )}
-                        </Box>
-                    )}
-                    <Box sx={{ mt: 2, display: "flex", gap: 2, flexWrap: "wrap" }}>
-                        {type !== "actor" && (
-                            <Button
-                                variant="contained"
-                                startIcon={<YouTube />}
-                                href={data.trailerSrc}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                sx={{
-                                    bgcolor: theme.vars.palette.red.main,
-                                    color: theme.vars.palette.primary.main,
-                                    textTransform: "capitalize",
-                                    fontSize: 16,
-                                }}
-                            >
-                                Watch trailer
-                            </Button>
-                        )}
-                        {session?.user?.userName && (
-                            <Button
-                                variant="contained"
-                                onClick={handleBookmarkAction}
-                                disabled={isPending}
-                                startIcon={
-                                    isPending ? (
-                                        <CircularProgress size={20} color="inherit" />
-                                    ) : isBookmarked ? (
-                                        <BookmarkIcon color="error" />
-                                    ) : (
-                                        <BookmarkBorderIcon color="success" />
-                                    )
-                                }
-                                sx={{
-                                    color: theme.vars.palette.primary.main,
-                                    bgcolor: isBookmarked ? theme.vars.palette.red.main : theme.vars.palette.green.main,
-                                    "&:hover": {
-                                        bgcolor: theme.vars.palette.secondary.light,
-                                    },
-                                    "&:disabled": {
-                                        bgcolor: isBookmarked
-                                            ? theme.vars.palette.red.main
-                                            : theme.vars.palette.green.main,
-                                        opacity: 0.7,
-                                    },
-                                    textTransform: "capitalize",
-                                    fontSize: 16,
-                                    minWidth: 130,
-                                }}
-                            >
-                                {isBookmarked ? "Bookmarked" : "Bookmark"}
-                            </Button>
-                        )}
-                    </Box>
-                </Box>
-            </Box>
-        </Box>
-    );
+	return (
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				bgcolor: theme.vars.palette.secondary.light,
+				color: theme.vars.palette.primary.main,
+				width: "100%",
+				maxWidth: "1200px",
+				margin: "auto",
+				p: { xs: 2, sm: 3, md: 4 },
+				borderRadius: 6,
+				mt: 10,
+			}}
+		>
+			{(type === "season" || type === "episode") && (
+				<Button
+					variant="outlined"
+					onClick={onGoBack}
+					sx={{
+						mb: 2,
+						display: "flex",
+						alignItems: "center",
+						width: "fit-content",
+					}}
+				>
+					<ArrowBackIcon sx={{ mr: 1 }} />
+					Go Back
+				</Button>
+			)}
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: { xs: "column", md: "row" },
+					gap: 3,
+					alignItems: { xs: "center", md: "flex-start" },
+				}}
+			>
+				<Box
+					sx={{
+						flexShrink: 0,
+						width: { xs: "100%", md: "214px" },
+						maxWidth: "214px",
+						height: { xs: "300px", md: "317px" },
+						position: "relative",
+					}}
+				>
+					<Image
+						src={data.photoSrcProd}
+						alt={
+							type !== "actor" && type !== "crew"
+								? data.title
+								: data.fullname
+						}
+						height={317}
+						width={214}
+						priority
+						style={{ objectFit: "cover", borderRadius: "8px" }}
+					/>
+				</Box>
+				<Box
+					sx={{
+						flex: 1,
+						display: "flex",
+						flexDirection: "column",
+						width: "100%",
+						pt: { xs: 0, md: 0 },
+					}}
+				>
+					<Typography
+						component="h1"
+						gutterBottom
+						fontWeight="bold"
+						sx={{
+							fontSize: "2.3rem",
+							letterSpacing: "0.1rem",
+						}}
+						color={theme.vars.palette.primary.main}
+					>
+						{type !== "actor" && type !== "crew"
+							? data.title
+							: data.fullname}
+					</Typography>
+					<Box
+						sx={{
+							mb: 2,
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+						}}
+					>
+						<Box
+							sx={{
+								display: "flex",
+								flexWrap: "wrap",
+								gap: 1,
+								p: 1,
+								borderRadius: 2,
+							}}
+						>
+							{data.genres?.map((genre: any, index: number) => (
+								<Link
+									key={index}
+									href={`/genres/${genre.genre.id}/${genre.genre.name}`}
+									passHref
+								>
+									<Chip
+										label={genre.genre.name}
+										clickable
+										sx={{
+											bgcolor:
+												theme.vars.palette.secondary
+													.main,
+											color: theme.vars.palette.red.main,
+											textDecoration: "none",
+											fontSize: "0.9rem",
+											fontWeight: "600",
+											padding: "12px 6px",
+										}}
+									/>
+								</Link>
+							))}
+						</Box>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexWrap: "wrap",
+							gap: 4,
+							mb: 3,
+							borderRadius: 2,
+						}}
+					>
+						{type !== "season" &&
+							type !== "serie" &&
+							type !== "actor" &&
+							type !== "crew" && (
+								<Box
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										gap: 1,
+									}}
+								>
+									<AccessTime
+										fontSize="medium"
+										color="primary"
+									/>
+									<Typography variant="body1">
+										{data.duration} mins
+									</Typography>
+								</Box>
+							)}
+						<Box
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								gap: 1,
+							}}
+						>
+							<CalendarToday fontSize="medium" color="primary" />
+							<Typography variant="body2">
+								{type !== "actor" && type !== "crew"
+									? formatDate(new Date(data.dateAired))
+									: data.debut}
+							</Typography>
+						</Box>
+						{type !== "actor" && type !== "crew" && (
+							<Box
+								sx={{
+									display: "flex",
+									alignItems: "center",
+									gap: 1,
+								}}
+							>
+								<Image
+									src={"/icons/imdb.svg"}
+									alt={"Imdb rating"}
+									height={28}
+									width={28}
+									priority
+								/>
+								<Typography variant="body2">
+									{data.ratingImdb}
+								</Typography>
+							</Box>
+						)}
+						<Box
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								gap: 1,
+							}}
+						>
+							<StarRateIcon
+								sx={{
+									color: "gold",
+								}}
+								fontSize="medium"
+							/>
+							<Typography variant="body2">
+								{data.averageRating === 0
+									? "N/A"
+									: data.averageRating.toFixed(2)}
+							</Typography>
+						</Box>
+					</Box>
+					<Typography
+						variant="body1"
+						color={theme.vars.palette.primary.light}
+					>
+						{data.description}
+					</Typography>
+					{(type === "movie" || type === "serie") &&
+						(cast || crew) && (
+							<Box
+								sx={{
+									mt: 3,
+									mb: 3,
+									display: "grid",
+									gridTemplateColumns: {
+										xs: "1fr",
+										md: "1fr 1fr",
+									},
+									gap: 3,
+								}}
+							>
+								{cast && cast.length > 0 && (
+									<Box>
+										<Typography
+											variant="h6"
+											sx={{
+												mb: 2,
+												fontWeight: 600,
+												color: theme.vars.palette
+													.primary.main,
+												fontSize: 16,
+											}}
+										>
+											Featured Cast
+										</Typography>
+										<Box
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												gap: 2,
+											}}
+										>
+											<Box
+												sx={{
+													display: "flex",
+													flexWrap: "wrap",
+													gap: 2,
+													justifyContent: {
+														xs: "center",
+														sm: "flex-start",
+													},
+												}}
+											>
+												{cast.map((person, index) => (
+													<PersonRoleCard
+														key={index}
+														data={person.actor}
+														type="actor"
+													/>
+												))}
+											</Box>
+											<PaginationPersonControl
+												currentPage={currentCastPage!}
+												pageCount={castPageCount!}
+												urlParamName="castPage"
+											/>
+										</Box>
+									</Box>
+								)}
+								{crew && crew.length > 0 && (
+									<Box>
+										<Typography
+											variant="h6"
+											sx={{
+												mb: 2,
+												fontWeight: 600,
+												color: theme.vars.palette
+													.primary.main,
+												fontSize: 16,
+											}}
+										>
+											Featured Crew
+										</Typography>
+										<Box
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												gap: 2,
+											}}
+										>
+											<Box
+												sx={{
+													display: "flex",
+													flexWrap: "wrap",
+													gap: 2,
+													justifyContent: {
+														xs: "center",
+														sm: "flex-start",
+													},
+												}}
+											>
+												{crew.map((person, index) => (
+													<PersonRoleCard
+														key={index}
+														data={person.crew}
+														type="crew"
+													/>
+												))}
+											</Box>
+											<PaginationPersonControl
+												currentPage={currentCrewPage!}
+												pageCount={crewPageCount!}
+												urlParamName="crewPage"
+											/>
+										</Box>
+									</Box>
+								)}
+							</Box>
+						)}
+					<Box
+						sx={{
+							mt: 2,
+							display: "flex",
+							gap: 2,
+							flexWrap: "wrap",
+						}}
+					>
+						{type !== "actor" && (
+							<Button
+								variant="contained"
+								startIcon={<YouTube />}
+								href={data.trailerSrc}
+								target="_blank"
+								rel="noopener noreferrer"
+								sx={{
+									bgcolor: theme.vars.palette.red.main,
+									color: theme.vars.palette.primary.main,
+									textTransform: "capitalize",
+									fontSize: 16,
+								}}
+							>
+								Watch trailer
+							</Button>
+						)}
+						{session?.user?.userName && (
+							<Button
+								variant="contained"
+								onClick={handleBookmarkAction}
+								disabled={isPending}
+								startIcon={
+									isPending ? (
+										<CircularProgress
+											size={20}
+											color="inherit"
+										/>
+									) : isBookmarked ? (
+										<BookmarkIcon color="error" />
+									) : (
+										<BookmarkBorderIcon color="success" />
+									)
+								}
+								sx={{
+									color: theme.vars.palette.primary.main,
+									bgcolor: isBookmarked
+										? theme.vars.palette.red.main
+										: theme.vars.palette.green.main,
+									"&:hover": {
+										bgcolor:
+											theme.vars.palette.secondary.light,
+									},
+									"&:disabled": {
+										bgcolor: isBookmarked
+											? theme.vars.palette.red.main
+											: theme.vars.palette.green.main,
+										opacity: 0.7,
+									},
+									textTransform: "capitalize",
+									fontSize: 16,
+									minWidth: 130,
+								}}
+							>
+								{isBookmarked ? "Bookmarked" : "Bookmark"}
+							</Button>
+						)}
+					</Box>
+				</Box>
+			</Box>
+		</Box>
+	);
 }
 
 export default DetailsPageCard;

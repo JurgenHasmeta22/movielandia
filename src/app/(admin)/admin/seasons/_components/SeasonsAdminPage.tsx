@@ -7,23 +7,23 @@ import { useRouter } from "next/navigation";
 import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 
 const SeasonsAdminPage = () => {
-    const router = useRouter();
+	const router = useRouter();
 
-    function handleAddSeason() {
-        router.push("/admin/seasons/create");
-    }
+	function handleAddSeason() {
+		router.push("/admin/seasons/create");
+	}
 
-    const { table } = TableAdmin({
-        page: "seasons",
-        handleAddItem: handleAddSeason,
-    });
+	const { table } = TableAdmin({
+		page: "seasons",
+		handleAddItem: handleAddSeason,
+	});
 
-    return (
-        <Box m="20px">
-            <HeaderDashboard title="Seasons" subtitle="List of seasons" />
-            <MaterialReactTable table={table} />
-        </Box>
-    );
+	return (
+		<Box m="20px">
+			<HeaderDashboard title="Seasons" subtitle="List of seasons" />
+			<MaterialReactTable table={table} />
+		</Box>
+	);
 };
 
 export default SeasonsAdminPage;

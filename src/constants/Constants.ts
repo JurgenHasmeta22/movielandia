@@ -1,5 +1,6 @@
 export const LOGIN__SUCCESS = "You are logged in succesfully!";
-export const LOGIN__FAILURE = "Credentials are wrong, either the email or the password!";
+export const LOGIN__FAILURE =
+	"Credentials are wrong, either the email or the password!";
 
 export const UPDATE__SUCCESS = "Record is updated succesfully!";
 export const UPDATE__FAILURE = "Record is not updated succesfully!";

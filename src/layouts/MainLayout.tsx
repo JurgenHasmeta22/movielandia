@@ -6,20 +6,22 @@ import Footer from "@/components/root/footer/Footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 interface IMainLayoutProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 export default function MainLayout({ children }: Readonly<IMainLayoutProps>) {
-    return (
-        <Grid container>
-            <Grid size={{ xs: 12 }}>
-                <NuqsAdapter>
-                    <Header />
-                    <main style={{ paddingTop: 50, paddingBottom: 22 }}>{children}</main>
-                    <ScrollToTop />
-                    <Footer />
-                </NuqsAdapter>
-            </Grid>
-        </Grid>
-    );
+	return (
+		<Grid container>
+			<Grid size={{ xs: 12 }}>
+				<NuqsAdapter>
+					<Header />
+					<main style={{ paddingTop: 50, paddingBottom: 22 }}>
+						{children}
+					</main>
+					<ScrollToTop />
+					<Footer />
+				</NuqsAdapter>
+			</Grid>
+		</Grid>
+	);
 }

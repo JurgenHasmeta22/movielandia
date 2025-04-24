@@ -15,156 +15,168 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { movieSchema } from "@/schemas/movie.schema";
 
 const AddMovieAdminPage = () => {
-    const router = useRouter();
-    const formRef = useRef<any>(null);
+	const router = useRouter();
+	const formRef = useRef<any>(null);
 
-    const breadcrumbs = [
-        <Link key="1" href="/admin/movies" style={{ textDecoration: "none" }}>
-            Movies
-        </Link>,
-        <Link key="2" href={`/admin/movies/create`} style={{ textDecoration: "none" }}>
-            New Movie
-        </Link>,
-    ];
+	const breadcrumbs = [
+		<Link key="1" href="/admin/movies" style={{ textDecoration: "none" }}>
+			Movies
+		</Link>,
+		<Link
+			key="2"
+			href={`/admin/movies/create`}
+			style={{ textDecoration: "none" }}
+		>
+			New Movie
+		</Link>,
+	];
 
-    const handleResetFromParent = () => {
-        formRef.current?.reset();
-    };
+	const handleResetFromParent = () => {
+		formRef.current?.reset();
+	};
 
-    const handleFormSubmit = async (values: any) => {
-        const payload = {
-            title: values.title,
-            description: values.description,
-            duration: values.duration,
-            photoSrc: values.photoSrc,
-            photoSrcProd: values.photoSrcProd,
-            trailerSrc: values.trailerSrc,
-            ratingImdb: Number(values.ratingImdb),
-            dateAired: values.dateAired,
-        };
+	const handleFormSubmit = async (values: any) => {
+		const payload = {
+			title: values.title,
+			description: values.description,
+			duration: values.duration,
+			photoSrc: values.photoSrc,
+			photoSrcProd: values.photoSrcProd,
+			trailerSrc: values.trailerSrc,
+			ratingImdb: Number(values.ratingImdb),
+			dateAired: values.dateAired,
+		};
 
-        const response = await addMovie(payload);
+		const response = await addMovie(payload);
 
-        if (response) {
-            toast.success(CONSTANTS.UPDATE__SUCCESS);
-            router.push(`/admin/movies/${response.id}`);
-        } else {
-            toast.error(CONSTANTS.UPDATE__FAILURE);
-        }
-    };
+		if (response) {
+			toast.success(CONSTANTS.UPDATE__SUCCESS);
+			router.push(`/admin/movies/${response.id}`);
+		} else {
+			toast.error(CONSTANTS.UPDATE__FAILURE);
+		}
+	};
 
-    const formFields = [
-        {
-            key: "title",
-            name: "title",
-            label: "Title",
-            variant: "filled",
-            type: "text" as const,
-        },
-        {
-            key: "photoSrc",
-            name: "photoSrc",
-            label: "Photo src",
-            variant: "filled",
-            type: "text" as const,
-        },
-        {
-            key: "photoSrcProd",
-            name: "photoSrcProd",
-            label: "Photo src prod",
-            variant: "filled",
-            type: "text" as const,
-        },
-        {
-            key: "trailerSrc",
-            name: "trailerSrc",
-            label: "Trailer src",
-            variant: "filled",
-            type: "text" as const,
-        },
-        {
-            key: "duration",
-            name: "duration",
-            label: "Duration",
-            variant: "filled",
-            type: "number" as const,
-        },
-        {
-            key: "ratingImdb",
-            name: "ratingImdb",
-            label: "Rating imdb",
-            variant: "filled",
-            type: "number" as const,
-        },
-        {
-            key: "dateAired",
-            name: "dateAired",
-            label: "Date aired",
-            variant: "filled",
-            type: "date" as const,
-        },
-        {
-            key: "description",
-            name: "description",
-            label: "Description",
-            variant: "filled",
-            type: "textarea" as const,
-        },
-    ];
+	const formFields = [
+		{
+			key: "title",
+			name: "title",
+			label: "Title",
+			variant: "filled",
+			type: "text" as const,
+		},
+		{
+			key: "photoSrc",
+			name: "photoSrc",
+			label: "Photo src",
+			variant: "filled",
+			type: "text" as const,
+		},
+		{
+			key: "photoSrcProd",
+			name: "photoSrcProd",
+			label: "Photo src prod",
+			variant: "filled",
+			type: "text" as const,
+		},
+		{
+			key: "trailerSrc",
+			name: "trailerSrc",
+			label: "Trailer src",
+			variant: "filled",
+			type: "text" as const,
+		},
+		{
+			key: "duration",
+			name: "duration",
+			label: "Duration",
+			variant: "filled",
+			type: "number" as const,
+		},
+		{
+			key: "ratingImdb",
+			name: "ratingImdb",
+			label: "Rating imdb",
+			variant: "filled",
+			type: "number" as const,
+		},
+		{
+			key: "dateAired",
+			name: "dateAired",
+			label: "Date aired",
+			variant: "filled",
+			type: "date" as const,
+		},
+		{
+			key: "description",
+			name: "description",
+			label: "Description",
+			variant: "filled",
+			type: "textarea" as const,
+		},
+	];
 
-    return (
-        <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/movies"} />
-            <HeaderDashboard title={CONSTANTS.MOVIE__ADD__TITLE} subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE} />
-            <FormAdvanced
-                defaultValues={{
-                    title: "",
-                    photoSrc: "",
-                    photoSrcProd: "",
-                    trailerSrc: "",
-                    duration: "",
-                    ratingImdb: "",
-                    dateAired: "",
-                    description: "",
-                }}
-                fields={formFields}
-                actions={[
-                    {
-                        label: CONSTANTS.FORM__UPDATE__BUTTON,
-                        type: "submit",
-                        color: "secondary",
-                        variant: "contained",
-                        sx: {
-                            border: "1px solid #000",
-                            bgcolor: "#30969f",
-                            fontSize: "15px",
-                            fontWeight: "700",
-                        },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
-                    },
-                    {
-                        label: CONSTANTS.FORM__RESET__BUTTON,
-                        type: "reset",
-                        onClick: () => {
-                            handleResetFromParent();
-                        },
-                        color: "secondary",
-                        variant: "contained",
-                        sx: {
-                            border: "1px solid #000",
-                            bgcolor: "#ff5252",
-                            fontSize: "15px",
-                            fontWeight: "700",
-                        },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
-                    },
-                ]}
-                onSubmit={handleFormSubmit}
-                schema={movieSchema}
-                formRef={formRef}
-            />
-        </Box>
-    );
+	return (
+		<Box m="20px">
+			<Breadcrumb
+				breadcrumbs={breadcrumbs}
+				navigateTo={"/admin/movies"}
+			/>
+			<HeaderDashboard
+				title={CONSTANTS.MOVIE__ADD__TITLE}
+				subtitle={CONSTANTS.MOVIE__ADD__SUBTITLE}
+			/>
+			<FormAdvanced
+				defaultValues={{
+					title: "",
+					photoSrc: "",
+					photoSrcProd: "",
+					trailerSrc: "",
+					duration: "",
+					ratingImdb: "",
+					dateAired: "",
+					description: "",
+				}}
+				fields={formFields}
+				actions={[
+					{
+						label: CONSTANTS.FORM__UPDATE__BUTTON,
+						type: "submit",
+						color: "secondary",
+						variant: "contained",
+						sx: {
+							border: "1px solid #000",
+							bgcolor: "#30969f",
+							fontSize: "15px",
+							fontWeight: "700",
+						},
+						icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+					},
+					{
+						label: CONSTANTS.FORM__RESET__BUTTON,
+						type: "reset",
+						onClick: () => {
+							handleResetFromParent();
+						},
+						color: "secondary",
+						variant: "contained",
+						sx: {
+							border: "1px solid #000",
+							bgcolor: "#ff5252",
+							fontSize: "15px",
+							fontWeight: "700",
+						},
+						icon: (
+							<ClearAllIcon color="action" sx={{ ml: "10px" }} />
+						),
+					},
+				]}
+				onSubmit={handleFormSubmit}
+				schema={movieSchema}
+				formRef={formRef}
+			/>
+		</Box>
+	);
 };
 
 export default AddMovieAdminPage;

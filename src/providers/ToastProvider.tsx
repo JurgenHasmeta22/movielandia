@@ -5,16 +5,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { defaultToastOptions } from "@/utils/helpers/toast";
 
 interface IToastProviderProps {
-    children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const ToastProvider = ({ children }: IToastProviderProps) => {
-    return (
-        <>
-            {children}
-            <ToastContainer {...defaultToastOptions} />
-        </>
-    );
+	return (
+		<>
+			{children}
+			<ToastContainer {...defaultToastOptions} />
+		</>
+	);
 };
 
 export default ToastProvider;

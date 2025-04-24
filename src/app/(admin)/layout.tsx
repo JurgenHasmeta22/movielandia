@@ -10,52 +10,52 @@ import "../globals.css";
 import ProgressLoadingProvider from "@/providers/ProgressLoadingProvider";
 
 const montserrat = Montserrat({
-    weight: ["300", "400", "500", "700"],
-    subsets: ["latin"],
-    display: "swap",
-    fallback: ["Arial", "sans-serif"],
+	weight: ["300", "400", "500", "700"],
+	subsets: ["latin"],
+	display: "swap",
+	fallback: ["Arial", "sans-serif"],
 });
 
 export const metadata = {
-    robots: {
-        follow: false,
-        index: false,
-    },
-    title: {
-        default: "Admin Panel",
-    },
-    viewport: {
-        width: "device-width",
-        initialScale: 1,
-        maximumScale: 1,
-        userScalable: "no",
-        viewportFit: "cover",
-    },
+	robots: {
+		follow: false,
+		index: false,
+	},
+	title: {
+		default: "Admin Panel",
+	},
+	viewport: {
+		width: "device-width",
+		initialScale: 1,
+		maximumScale: 1,
+		userScalable: "no",
+		viewportFit: "cover",
+	},
 };
 
 export default function RootLayout({
-    children,
+	children,
 }: Readonly<{
-    children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-    return (
-        <html suppressHydrationWarning lang="en">
-            <body className={montserrat.className}>
-                <AuthProvider>
-                    <MUIThemeProvider>
-                        <ToastProvider>
-                            <ModalProvider>
-                                <RightPanelProvider>
-                                    <ProgressLoadingProvider>
-                                        <InitColorSchemeScript attribute="class" />
-                                        <AdminLayout>{children}</AdminLayout>
-                                    </ProgressLoadingProvider>
-                                </RightPanelProvider>
-                            </ModalProvider>
-                        </ToastProvider>
-                    </MUIThemeProvider>
-                </AuthProvider>
-            </body>
-        </html>
-    );
+	return (
+		<html suppressHydrationWarning lang="en">
+			<body className={montserrat.className}>
+				<AuthProvider>
+					<MUIThemeProvider>
+						<ToastProvider>
+							<ModalProvider>
+								<RightPanelProvider>
+									<ProgressLoadingProvider>
+										<InitColorSchemeScript attribute="class" />
+										<AdminLayout>{children}</AdminLayout>
+									</ProgressLoadingProvider>
+								</RightPanelProvider>
+							</ModalProvider>
+						</ToastProvider>
+					</MUIThemeProvider>
+				</AuthProvider>
+			</body>
+		</html>
+	);
 }

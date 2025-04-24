@@ -1,1 +1,8 @@
-export type FilterOperator = "equals" | ">" | "=" | "<" | "gt" | "lt" | "contains";
+export type FilterOperator =
+	| "equals"
+	| ">"
+	| "="
+	| "<"
+	| "gt"
+	| "lt"
+	| "contains";

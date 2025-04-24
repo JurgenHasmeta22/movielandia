@@ -8,10 +8,10 @@
  * @returns The formatted URL-friendly string
  */
 export function formatForUrl(text: string): string {
-    return text
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-");
+	return text
+		.toLowerCase()
+		.replace(/[^a-z0-9\s-]/g, "")
+		.replace(/\s+/g, "-");
 }
 
 /**
@@ -22,6 +22,6 @@ export function formatForUrl(text: string): string {
  * @returns Formatted URL path segment
  */
 export function formatTitleForUrl(id: number, title: string): string {
-    const formattedTitle = formatForUrl(title);
-    return `${id}/${formattedTitle}`;
+	const formattedTitle = formatForUrl(title);
+	return `${id}/${formattedTitle}`;
 }

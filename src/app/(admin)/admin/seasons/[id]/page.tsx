@@ -1,5 +1,5 @@
 import SeasonAdminPage from "./_components/SeasonAdminPage";
 
 export default async function SeasonAdmin() {
-    return <SeasonAdminPage />;
+	return <SeasonAdminPage />;
 }

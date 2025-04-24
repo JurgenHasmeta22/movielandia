@@ -7,7 +7,7 @@ import { SxProps, Theme } from "@mui/material";
  * Use this when you need to override the global capitalization setting
  */
 export const preserveTextTransform: SxProps<Theme> = {
-    textTransform: "none",
+	textTransform: "none",
 };
 
 /**
@@ -15,12 +15,12 @@ export const preserveTextTransform: SxProps<Theme> = {
  * This is redundant with the global setting but can be used for clarity
  */
 export const capitalizeTextTransform: SxProps<Theme> = {
-    textTransform: "capitalize",
+	textTransform: "capitalize",
 };
 
 /**
  * Utility function to set uppercase text transformation for buttons
  */
 export const uppercaseTextTransform: SxProps<Theme> = {
-    textTransform: "uppercase",
+	textTransform: "uppercase",
 };

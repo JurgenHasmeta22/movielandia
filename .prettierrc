@@ -1,9 +1,10 @@
 {
-    "semi": true,
-    "tabWidth": 4,
-    "printWidth": 120,
-    "singleQuote": false,
-    "trailingComma": "all",
-    "jsxSingleQuote": false,
-    "bracketSpacing": true
+	"semi": true,
+	"tabWidth": 4,
+	"useTabs": true,
+	"printWidth": 80,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"jsxSingleQuote": false,
+	"bracketSpacing": true
 }

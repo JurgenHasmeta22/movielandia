@@ -1,40 +1,40 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    -webkit-tap-highlight-color: transparent;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	-webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-    overflow-x: hidden;
-    -webkit-text-size-adjust: 100%;
+	overflow-x: hidden;
+	-webkit-text-size-adjust: 100%;
 }
 
 [data-mui-color-scheme="light"] {
-    color-scheme: light;
+	color-scheme: light;
 }
 
 [data-mui-color-scheme="dark"] {
-    color-scheme: dark;
+	color-scheme: dark;
 }
 
 blockquote.forum-quote {
-    background-color: var(--mui-palette-primary-main);
-    border-left: 4px solid var(--mui-palette-primary-main);
-    padding: 10px 15px;
-    margin: 10px 0;
-    border-radius: 4px;
-    font-style: italic;
+	background-color: var(--mui-palette-primary-main);
+	border-left: 4px solid var(--mui-palette-primary-main);
+	padding: 10px 15px;
+	margin: 10px 0;
+	border-radius: 4px;
+	font-style: italic;
 }
 
 blockquote.forum-quote p {
-    margin: 5px 0;
-    color: var(--mui-palette-text-primary);
+	margin: 5px 0;
+	color: var(--mui-palette-text-primary);
 }
 
 blockquote.forum-quote p:first-child {
-    color: var(--mui-palette-primary-main);
-    font-weight: 600;
-    font-style: normal;
+	color: var(--mui-palette-primary-main);
+	font-weight: 600;
+	font-style: normal;
 }

@@ -6,34 +6,48 @@ import MoviesPageContent from "./_components/MoviesPageContent";
 import LoadingSkeletonWithLatest from "@/components/root/loadingSkeleton/LoadingSkeletonWithLatest";
 
 interface IMoviesProps {
-    searchParams?: Promise<{ moviesAscOrDesc?: string; page?: string; moviesSortBy?: string }>;
+	searchParams?: Promise<{
+		moviesAscOrDesc?: string;
+		page?: string;
+		moviesSortBy?: string;
+	}>;
 }
 
 export const metadata: Metadata = {
-    title: "Movies | MovieLandia",
-    description: "Explore our vast collection of movies on MovieLandia",
-    keywords: ["movies", "watch movies", "movie streaming", "online movies", "MovieLandia movies", "latest movies"],
-    openGraph: {
-        title: "Movies | MovieLandia",
-        description: "Explore our vast collection of movies on MovieLandia",
-        type: "website",
-        locale: "en_US",
-    },
-    robots: {
-        index: true,
-        follow: true,
-    },
+	title: "Movies | MovieLandia",
+	description: "Explore our vast collection of movies on MovieLandia",
+	keywords: [
+		"movies",
+		"watch movies",
+		"movie streaming",
+		"online movies",
+		"MovieLandia movies",
+		"latest movies",
+	],
+	openGraph: {
+		title: "Movies | MovieLandia",
+		description: "Explore our vast collection of movies on MovieLandia",
+		type: "website",
+		locale: "en_US",
+	},
+	robots: {
+		index: true,
+		follow: true,
+	},
 };
 
 export default async function Movies(props: IMoviesProps) {
-    const session = await getServerSession(authOptions);
+	const session = await getServerSession(authOptions);
 
-    const searchParams = await props.searchParams;
-    const searchParamsKey = JSON.stringify(searchParams);
+	const searchParams = await props.searchParams;
+	const searchParamsKey = JSON.stringify(searchParams);
 
-    return (
-        <Suspense key={searchParamsKey} fallback={<LoadingSkeletonWithLatest />}>
-            <MoviesPageContent searchParams={searchParams} session={session} />
-        </Suspense>
-    );
+	return (
+		<Suspense
+			key={searchParamsKey}
+			fallback={<LoadingSkeletonWithLatest />}
+		>
+			<MoviesPageContent searchParams={searchParams} session={session} />
+		</Suspense>
+	);
 }

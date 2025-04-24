@@ -7,25 +7,25 @@ import { useRouter } from "next/navigation";
 import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 
 const CrewsAdminPage = () => {
-    const router = useRouter();
+	const router = useRouter();
 
-    function handleAddCrew() {
-        router.push("/admin/crews/create");
-    }
+	function handleAddCrew() {
+		router.push("/admin/crews/create");
+	}
 
-    const { table } = TableAdmin({
-        page: "crews",
-        handleAddItem: handleAddCrew,
-    });
+	const { table } = TableAdmin({
+		page: "crews",
+		handleAddItem: handleAddCrew,
+	});
 
-    return (
-        <>
-            <Box m="20px" component={"main"}>
-                <HeaderDashboard title="Crews" subtitle="List of crews" />
-                <MaterialReactTable table={table} />
-            </Box>
-        </>
-    );
+	return (
+		<>
+			<Box m="20px" component={"main"}>
+				<HeaderDashboard title="Crews" subtitle="List of crews" />
+				<MaterialReactTable table={table} />
+			</Box>
+		</>
+	);
 };
 
 export default CrewsAdminPage;

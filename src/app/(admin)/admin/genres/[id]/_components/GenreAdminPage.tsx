@@ -13,190 +13,224 @@ import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { useModal } from "@/providers/ModalProvider";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useParams, useRouter } from "next/navigation";
-import { deleteGenreById, getGenreByIdAdmin, updateGenreById } from "@/actions/genre.actions";
+import {
+	deleteGenreById,
+	getGenreByIdAdmin,
+	updateGenreById,
+} from "@/actions/genre.actions";
 import { Genre, Prisma } from "@prisma/client";
 import Link from "next/link";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
 import { genreSchema } from "@/schemas/genre.schema";
 
 interface IGenreEdit {
-    id?: string;
-    name: string;
+	id?: string;
+	name: string;
 }
 
 const GenreAdminPage = () => {
-    const [genre, setGenre] = useState<Genre | null>(null);
-    const [formData, setFormData] = useState<any>({});
-    const [loading, setLoading] = useState(true);
-    const [open, setOpen] = useState(false);
+	const [genre, setGenre] = useState<Genre | null>(null);
+	const [formData, setFormData] = useState<any>({});
+	const [loading, setLoading] = useState(true);
+	const [open, setOpen] = useState(false);
 
-    const formRef = useRef<any>(null);
+	const formRef = useRef<any>(null);
 
-    const router = useRouter();
-    const params = useParams();
-    const { openModal } = useModal();
+	const router = useRouter();
+	const params = useParams();
+	const { openModal } = useModal();
 
-    const breadcrumbs = [
-        <Link key="1" href="/admin/genres" style={{ textDecoration: "none" }}>
-            Genres
-        </Link>,
-        <Link key="2" href={`/admin/genres/${params?.id}`} style={{ textDecoration: "none" }}>
-            {genre?.name || `Genre ${params?.id}`}
-        </Link>,
-    ];
+	const breadcrumbs = [
+		<Link key="1" href="/admin/genres" style={{ textDecoration: "none" }}>
+			Genres
+		</Link>,
+		<Link
+			key="2"
+			href={`/admin/genres/${params?.id}`}
+			style={{ textDecoration: "none" }}
+		>
+			{genre?.name || `Genre ${params?.id}`}
+		</Link>,
+	];
 
-    const handleDataChange = (values: any) => {
-        setFormData(values);
-    };
+	const handleDataChange = (values: any) => {
+		setFormData(values);
+	};
 
-    const handleResetFromParent = () => {
-        if (formRef.current) {
-            formRef.current.reset();
-        }
-    };
+	const handleResetFromParent = () => {
+		if (formRef.current) {
+			formRef.current.reset();
+		}
+	};
 
-    const handleFormSubmit = async (values: IGenreEdit) => {
-        const payload: Prisma.GenreUpdateInput = {
-            name: values.name,
-        };
+	const handleFormSubmit = async (values: IGenreEdit) => {
+		const payload: Prisma.GenreUpdateInput = {
+			name: values.name,
+		};
 
-        const response: Genre | null = await updateGenreById(payload, String(genre?.id));
+		const response: Genre | null = await updateGenreById(
+			payload,
+			String(genre?.id),
+		);
 
-        if (response) {
-            toast.success(CONSTANTS.UPDATE__SUCCESS);
-            getGenre();
-        } else {
-            toast.error(CONSTANTS.UPDATE__FAILURE);
-        }
-    };
+		if (response) {
+			toast.success(CONSTANTS.UPDATE__SUCCESS);
+			getGenre();
+		} else {
+			toast.error(CONSTANTS.UPDATE__FAILURE);
+		}
+	};
 
-    async function getGenre(): Promise<void> {
-        setLoading(true);
+	async function getGenre(): Promise<void> {
+		setLoading(true);
 
-        const response: Genre | null = await getGenreByIdAdmin(Number(params?.id));
+		const response: Genre | null = await getGenreByIdAdmin(
+			Number(params?.id),
+		);
 
-        if (response) {
-            setGenre(response);
-            setLoading(false);
-        } else {
-            toast.error("Failed to fetch genre");
-        }
-    }
+		if (response) {
+			setGenre(response);
+			setLoading(false);
+		} else {
+			toast.error("Failed to fetch genre");
+		}
+	}
 
-    useEffect(() => {
-        getGenre();
-    }, []);
+	useEffect(() => {
+		getGenre();
+	}, []);
 
-    if (loading) {
-        return <LoadingSpinner />;
-    }
+	if (loading) {
+		return <LoadingSpinner />;
+	}
 
-    return (
-        <Box m="20px">
-            <Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/genres"} />
-            <HeaderDashboard title={CONSTANTS.USER__EDIT__TITLE} subtitle={CONSTANTS.USER__EDIT__SUBTITLE} />
-            <FormAdvanced
-                defaultValues={{
-                    id: genre?.id,
-                    name: genre?.name,
-                }}
-                fields={[
-                    {
-                        name: "id",
-                        label: "Genre id",
-                        disabled: true,
-                        variant: "filled",
-                        type: "text",
-                    },
-                    {
-                        name: "name",
-                        label: "Name",
-                        variant: "filled",
-                        type: "text",
-                    },
-                ]}
-                onDataChange={(values: any) => {
-                    handleDataChange(values);
-                }}
-                onSubmit={handleFormSubmit}
-                schema={genreSchema}
-                formRef={formRef}
-                actions={[
-                    {
-                        label: CONSTANTS.FORM__DELETE__BUTTON,
-                        onClick: async () => {
-                            openModal({
-                                onClose: () => setOpen(false),
-                                title: `Delete selected genre ${formData.name}`,
-                                actions: [
-                                    {
-                                        label: CONSTANTS.MODAL__DELETE__NO,
-                                        onClick: () => setOpen(false),
-                                        color: "secondary",
-                                        variant: "contained",
-                                        sx: {
-                                            bgcolor: "#ff5252",
-                                        },
-                                        icon: <WarningOutlined />,
-                                    },
-                                    {
-                                        label: CONSTANTS.MODAL__DELETE__YES,
-                                        onClick: async () => {
-                                            const response = await deleteGenreById(genre?.id);
+	return (
+		<Box m="20px">
+			<Breadcrumb
+				breadcrumbs={breadcrumbs}
+				navigateTo={"/admin/genres"}
+			/>
+			<HeaderDashboard
+				title={CONSTANTS.USER__EDIT__TITLE}
+				subtitle={CONSTANTS.USER__EDIT__SUBTITLE}
+			/>
+			<FormAdvanced
+				defaultValues={{
+					id: genre?.id,
+					name: genre?.name,
+				}}
+				fields={[
+					{
+						name: "id",
+						label: "Genre id",
+						disabled: true,
+						variant: "filled",
+						type: "text",
+					},
+					{
+						name: "name",
+						label: "Name",
+						variant: "filled",
+						type: "text",
+					},
+				]}
+				onDataChange={(values: any) => {
+					handleDataChange(values);
+				}}
+				onSubmit={handleFormSubmit}
+				schema={genreSchema}
+				formRef={formRef}
+				actions={[
+					{
+						label: CONSTANTS.FORM__DELETE__BUTTON,
+						onClick: async () => {
+							openModal({
+								onClose: () => setOpen(false),
+								title: `Delete selected genre ${formData.name}`,
+								actions: [
+									{
+										label: CONSTANTS.MODAL__DELETE__NO,
+										onClick: () => setOpen(false),
+										color: "secondary",
+										variant: "contained",
+										sx: {
+											bgcolor: "#ff5252",
+										},
+										icon: <WarningOutlined />,
+									},
+									{
+										label: CONSTANTS.MODAL__DELETE__YES,
+										onClick: async () => {
+											const response =
+												await deleteGenreById(
+													genre?.id,
+												);
 
-                                            if (response) {
-                                                toast.success(CONSTANTS.DELETE__SUCCESS);
-                                                router.push("/admin/genres");
-                                            } else {
-                                                toast.success(CONSTANTS.DELETE__FAILURE);
-                                            }
-                                        },
-                                        type: "submit",
-                                        color: "secondary",
-                                        variant: "contained",
-                                        sx: {
-                                            bgcolor: "#30969f",
-                                        },
-                                        icon: <CheckOutlined />,
-                                    },
-                                ],
-                                subTitle: "Do you want to delete selected record ?",
-                            });
-                        },
-                        color: "secondary",
-                        variant: "contained",
-                        sx: {
-                            bgcolor: "#ff5252",
-                        },
-                        icon: <ClearOutlinedIcon color="action" sx={{ ml: "10px" }} />,
-                    },
-                    {
-                        label: CONSTANTS.FORM__RESET__BUTTON,
-                        type: "reset",
-                        onClick: () => {
-                            handleResetFromParent();
-                        },
-                        color: "secondary",
-                        variant: "contained",
-                        sx: {
-                            bgcolor: "#00bfff",
-                        },
-                        icon: <ClearAllIcon color="action" sx={{ ml: "10px" }} />,
-                    },
-                    {
-                        label: CONSTANTS.FORM__UPDATE__BUTTON,
-                        type: "submit",
-                        color: "secondary",
-                        variant: "contained",
-                        sx: {
-                            bgcolor: "#30969f",
-                        },
-                        icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
-                    },
-                ]}
-            />
-        </Box>
-    );
+											if (response) {
+												toast.success(
+													CONSTANTS.DELETE__SUCCESS,
+												);
+												router.push("/admin/genres");
+											} else {
+												toast.success(
+													CONSTANTS.DELETE__FAILURE,
+												);
+											}
+										},
+										type: "submit",
+										color: "secondary",
+										variant: "contained",
+										sx: {
+											bgcolor: "#30969f",
+										},
+										icon: <CheckOutlined />,
+									},
+								],
+								subTitle:
+									"Do you want to delete selected record ?",
+							});
+						},
+						color: "secondary",
+						variant: "contained",
+						sx: {
+							bgcolor: "#ff5252",
+						},
+						icon: (
+							<ClearOutlinedIcon
+								color="action"
+								sx={{ ml: "10px" }}
+							/>
+						),
+					},
+					{
+						label: CONSTANTS.FORM__RESET__BUTTON,
+						type: "reset",
+						onClick: () => {
+							handleResetFromParent();
+						},
+						color: "secondary",
+						variant: "contained",
+						sx: {
+							bgcolor: "#00bfff",
+						},
+						icon: (
+							<ClearAllIcon color="action" sx={{ ml: "10px" }} />
+						),
+					},
+					{
+						label: CONSTANTS.FORM__UPDATE__BUTTON,
+						type: "submit",
+						color: "secondary",
+						variant: "contained",
+						sx: {
+							bgcolor: "#30969f",
+						},
+						icon: <SaveAsIcon sx={{ ml: "10px" }} color="action" />,
+					},
+				]}
+			/>
+		</Box>
+	);
 };
 
 export default GenreAdminPage;

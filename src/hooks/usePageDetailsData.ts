@@ -9,33 +9,33 @@ import { useModal } from "@/providers/ModalProvider";
     so i needed a custom hook to extract all those data
 */
 export function usePageDetailsData() {
-    const { data: session } = useSession();
+	const { data: session } = useSession();
 
-    const [review, setReview] = useState<string>("");
-    const [rating, setRating] = useState<number | null>(null);
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+	const [review, setReview] = useState<string>("");
+	const [rating, setRating] = useState<number | null>(null);
+	const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-    const [open, setOpen] = useState<boolean>(false);
-    const [openVotesModal, setIsOpenVotesModal] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
+	const [openVotesModal, setIsOpenVotesModal] = useState(false);
 
-    const { openModal } = useModal();
-    const textEditorRef = useRef<any>(null);
-    const reviewRef = useRef<any>(null);
+	const { openModal } = useModal();
+	const textEditorRef = useRef<any>(null);
+	const reviewRef = useRef<any>(null);
 
-    return {
-        session,
-        review,
-        setReview,
-        rating,
-        setRating,
-        isEditMode,
-        setIsEditMode,
-        open,
-        setOpen,
-        openVotesModal,
-        setIsOpenVotesModal,
-        openModal,
-        textEditorRef,
-        reviewRef,
-    };
+	return {
+		session,
+		review,
+		setReview,
+		rating,
+		setRating,
+		isEditMode,
+		setIsEditMode,
+		open,
+		setOpen,
+		openVotesModal,
+		setIsOpenVotesModal,
+		openModal,
+		textEditorRef,
+		reviewRef,
+	};
 }

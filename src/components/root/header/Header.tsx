@@ -5,17 +5,23 @@ import { getGenres } from "@/actions/genre.actions";
 import { getUsernameByUserId } from "@/actions/user/user.actions";
 
 const Header = async () => {
-    const session = await getServerSession(authOptions);
+	const session = await getServerSession(authOptions);
 
-    let userName: string = "";
+	let userName: string = "";
 
-    if (session && session.user && session.user.id) {
-        userName = await getUsernameByUserId(Number(session.user.id));
-    }
+	if (session && session.user && session.user.id) {
+		userName = await getUsernameByUserId(Number(session.user.id));
+	}
 
-    const genres = await getGenres();
+	const genres = await getGenres();
 
-    return <HeaderContent session={session} genres={genres || []} userName={userName} />;
+	return (
+		<HeaderContent
+			session={session}
+			genres={genres || []}
+			userName={userName}
+		/>
+	);
 };
 
 export default Header;
