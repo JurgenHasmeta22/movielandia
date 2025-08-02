@@ -36,13 +36,11 @@ export function useSorting(type: string) {
 		parse: (value) => value || defaultSortBy,
 		shallow: false,
 	});
-
 	const [sortByDefault, setSortByDefault] = useQueryState("sortBy", {
 		defaultValue: defaultSortBy,
 		parse: (value) => value || defaultSortBy,
 		shallow: false,
 	});
-
 	const [typeAscOrDesc, setTypeAscOrDesc] = useQueryState(
 		`${type}AscOrDesc`,
 		{
@@ -51,7 +49,6 @@ export function useSorting(type: string) {
 			shallow: false,
 		},
 	);
-
 	const [ascOrDescDefault, setAscOrDescDefault] = useQueryState("ascOrDesc", {
 		defaultValue: "asc",
 		parse: (value) => value || "asc",
