@@ -2,11 +2,6 @@
   <h1 align="center">🎬 MovieLandia24</h1>
 
   <p align="center">
-    <strong>Where cinema comes alive.</strong><br>
-    Discover, rate, and connect through the magic of film.
-  </p>
-
-  <p align="center">
     <a href="#tech">⚙️ Tech</a> •
     <a href="#start">🚀 Quick Start</a> •
     <a href="#structure">📂 Structure</a>
