@@ -9,11 +9,9 @@ export const userSchema = z.object({
 		.max(120, { message: "Invalid age" })
 		.optional(),
 	gender: z.enum(["Male", "Female"]).default("Male"),
-	phone: z
-		.string()
-		.regex(/^\+?[1-9]\d{1,14}$/, {
-			message: "Invalid phone number format",
-		}),
+	phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, {
+		message: "Invalid phone number format",
+	}),
 	countryFrom: z
 		.string()
 		.min(2, { message: "Country name must be at least 2 characters" }),
@@ -29,11 +27,9 @@ export const addUserSchema = z.object({
 		.max(120, { message: "Invalid age" })
 		.optional(),
 	gender: z.enum(["Male", "Female"]).default("Male"),
-	phone: z
-		.string()
-		.regex(/^\+?[1-9]\d{1,14}$/, {
-			message: "Invalid phone number format",
-		}),
+	phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, {
+		message: "Invalid phone number format",
+	}),
 	countryFrom: z
 		.string()
 		.min(2, { message: "Country name must be at least 2 characters" }),

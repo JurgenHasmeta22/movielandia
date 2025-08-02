@@ -267,8 +267,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
 																					notification.createdAt,
 																				),
 																				{
-																					addSuffix:
-																						true,
+																					addSuffix: true,
 																				},
 																			)}
 																		</Typography>
