@@ -136,6 +136,7 @@ export const theme = responsiveFontSizes(
 						dark: lightColorTokens.primary[900],
 						light: lightColorTokens.primary[200],
 					},
+					// @ts-expect-error Missing color from MUI TS interface
 					blue: {
 						main: lightColorTokens.blueAccent[700],
 					},
@@ -173,6 +174,7 @@ export const theme = responsiveFontSizes(
 						dark: darkColorTokens.primary[900],
 						light: darkColorTokens.primary[200],
 					},
+					// @ts-expect-error Missing color from MUI TS interface
 					blue: {
 						main: darkColorTokens.blueAccent[700],
 					},
