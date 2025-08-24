@@ -9,7 +9,6 @@ import { actors } from "./data/actors";
 import { crew } from "./data/crew";
 import { genres } from "./data/genres";
 import { users } from "./data/users";
-// Import relationship data from relationships.ts
 import {
     movieGenres,
     serieGenres,
@@ -98,16 +97,13 @@ async function deleteData() {
 
     // Delete forum data
     await prisma.upvoteForumReply.deleteMany();
-    await prisma.downvoteForumReply.deleteMany();
     await prisma.forumReplyHistory.deleteMany();
     await prisma.forumReply.deleteMany();
 
     await prisma.upvoteForumPost.deleteMany();
-    await prisma.downvoteForumPost.deleteMany();
     await prisma.forumPost.deleteMany();
 
     await prisma.upvoteForumTopic.deleteMany();
-    await prisma.downvoteForumTopic.deleteMany();
     await prisma.userForumTopicFavorite.deleteMany();
     await prisma.userForumTopicWatch.deleteMany();
     await prisma.forumTopic.deleteMany();
