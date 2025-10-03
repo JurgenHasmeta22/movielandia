@@ -7,16 +7,18 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
+import { useState } from "react";
 import * as CONSTANTS from "@/constants/Constants";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import { showToast } from "@/utils/helpers/toast";
 import ReviewsHeader from "@/components/root/reviewsHeader/ReviewsHeader";
 import { usePageDetailsData } from "@/hooks/usePageDetailsData";
-import { Movie } from "@prisma/client";
+import type { Movie } from "@prisma/client";
 import {
 	onBookmarkMovie,
 	onRemoveBookmarkMovie,
 } from "@/utils/features/movieFeaturesUtils";
+import TrailerModal from "@/components/root/trailerModal/TrailerModal";
 import {
 	removeDownvoteMovieReview,
 	addDownvoteMovieReview,
@@ -30,8 +32,6 @@ import {
 	removeUpvoteMovieReview,
 	addUpvoteMovieReview,
 } from "@/actions/user/userUpvotes.actions";
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface IMoviePageContentProps {
 	searchParamsValues: {
@@ -75,6 +75,7 @@ export default function MoviePageContent({
 	} = usePageDetailsData();
 
 	const theme = useTheme();
+	const [trailerOpen, setTrailerOpen] = useState(false);
 	// #endregion
 
 	// #region "Handlers functions"
@@ -290,191 +291,153 @@ export default function MoviePageContent({
 	// #endregion
 
 	return (
-		<Stack flexDirection={"column"} rowGap={4}>
-			<DetailsPageCard
-				data={movie}
-				type="movie"
-				isBookmarked={movie.isBookmarked}
-				onBookmark={() => onBookmarkMovie(session!, movie)}
-				onRemoveBookmark={() => onRemoveBookmarkMovie(session!, movie)}
-				cast={movie.cast}
-				crew={movie.crew}
-				currentCastPage={Number(searchParamsValues.castPage)!}
-				castPageCount={castPageCount}
-				currentCrewPage={Number(searchParamsValues.crewPage)!}
-				crewPageCount={crewPageCount}
-			/>
+		<>
+			{movie && (
+				<script
+					type="application/ld+json"
+					// eslint-disable-next-line react/no-danger
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							"@context": "https://schema.org",
+							"@type": "Movie",
+							name: movie.title,
+							description: movie.description,
+							image: movie.photoSrcProd || undefined,
+							director: movie.crew?.map((c: any) => ({
+								"@type": "Person",
+								name: c?.crew?.fullname,
+							})),
+							actor: movie.cast?.map((c: any) => ({
+								"@type": "Person",
+								name: c?.actor?.fullname,
+							})),
+							datePublished: movie.dateAired,
+							duration: `PT${movie.duration}M`,
+							aggregateRating: movie.totalReviews
+								? {
+										"@type": "AggregateRating",
+										ratingValue: Number(
+											movie.averageRating?.toFixed(1),
+										),
+										reviewCount: Number(movie.totalReviews),
+									}
+								: undefined,
+						}),
+					}}
+				/>
+			)}
 
-			<Box
-				component="section"
-				sx={{
-					maxWidth: "1000px",
-					width: "100%",
-					mx: "auto",
-					px: { xs: 2, sm: 3 },
-					py: 4,
-				}}
-			>
-				{/* Reviews Header Section */}
+			<Stack flexDirection={"column"} rowGap={4}>
+				<DetailsPageCard
+					data={movie}
+					type="movie"
+					isBookmarked={movie.isBookmarked}
+					onBookmark={() => onBookmarkMovie(session!, movie)}
+					onRemoveBookmark={() =>
+						onRemoveBookmarkMovie(session!, movie)
+					}
+					onPlayTrailer={() => setTrailerOpen(true)}
+					cast={movie.cast}
+					crew={movie.crew}
+					currentCastPage={Number(searchParamsValues.castPage)!}
+					castPageCount={castPageCount}
+					currentCrewPage={Number(searchParamsValues.crewPage)!}
+					crewPageCount={crewPageCount}
+				/>
+
 				<Box
+					component="section"
 					sx={{
-						display: "flex",
-						flexDirection: { xs: "column", sm: "row" },
-						justifyContent: "space-between",
-						alignItems: { xs: "flex-start", sm: "center" },
-						gap: 2,
-						mb: 4,
-						pb: 2,
-						borderBottom: `1px solid ${theme.vars.palette.divider}`,
+						maxWidth: "1000px",
+						width: "100%",
+						mx: "auto",
+						px: { xs: 2, sm: 3 },
+						py: 4,
 					}}
 				>
-					<Box>
-						<Box
-							sx={{
-								display: "flex",
-								alignItems: "baseline",
-								gap: 1.5,
-								mb: 1,
-							}}
-						>
-							<Typography
-								variant="h5"
-								sx={{
-									fontWeight: 700,
-									color: theme.vars.palette.text.primary,
-								}}
-							>
-								User Reviews
-							</Typography>
-							<Typography
-								variant="subtitle1"
-								sx={{
-									color: theme.vars.palette.text.secondary,
-									fontWeight: 500,
-								}}
-							>
-								({movie.totalReviews || 0})
-							</Typography>
-						</Box>
-						{movie.averageRating > 0 && (
+					{/* Reviews Header Section */}
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: { xs: "column", sm: "row" },
+							justifyContent: "space-between",
+							alignItems: { xs: "flex-start", sm: "center" },
+							gap: 2,
+							mb: 4,
+							pb: 2,
+							borderBottom: `1px solid ${theme.vars.palette.divider}`,
+						}}
+					>
+						<Box>
 							<Box
 								sx={{
 									display: "flex",
-									alignItems: "center",
-									gap: 1,
-									color: theme.vars.palette.text.secondary,
+									alignItems: "baseline",
+									gap: 1.5,
+									mb: 1,
 								}}
 							>
 								<Typography
-									variant="body2"
-									sx={{ fontWeight: 500 }}
+									variant="h5"
+									sx={{
+										fontWeight: 700,
+										color: theme.vars.palette.text.primary,
+									}}
 								>
-									Average Rating:{" "}
-									{movie.averageRating.toFixed(1)}/10
+									User Reviews
 								</Typography>
+								<Typography
+									variant="subtitle1"
+									sx={{
+										color: theme.vars.palette.text
+											.secondary,
+										fontWeight: 500,
+									}}
+								>
+									({movie.totalReviews || 0})
+								</Typography>
+							</Box>
+							{movie.averageRating > 0 && (
+								<Box
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										gap: 1,
+										color: theme.vars.palette.text
+											.secondary,
+									}}
+								>
+									<Typography
+										variant="body2"
+										sx={{ fontWeight: 500 }}
+									>
+										Average Rating:{" "}
+										{movie.averageRating.toFixed(1)}/10
+									</Typography>
+								</Box>
+							)}
+						</Box>
+
+						{movie.reviews && movie.reviews.length > 0 && (
+							<Box sx={{ minWidth: 200 }}>
+								<ReviewsHeader
+									data={movie}
+									sortingDataType="reviews"
+									sortBy={searchParamsValues.reviewsSortBy!}
+									ascOrDesc={
+										searchParamsValues.reviewsAscOrDesc!
+									}
+								/>
 							</Box>
 						)}
 					</Box>
 
-					{movie.reviews && movie.reviews.length > 0 && (
-						<Box sx={{ minWidth: 200 }}>
-							<ReviewsHeader
-								data={movie}
-								sortingDataType="reviews"
-								sortBy={searchParamsValues.reviewsSortBy!}
-								ascOrDesc={searchParamsValues.reviewsAscOrDesc!}
-							/>
-						</Box>
-					)}
-				</Box>
-
-				{/* Write Review Section */}
-				{session?.user && (!movie.isReviewed || isEditMode) && (
-					<Box
-						sx={{
-							mb: 4,
-							p: 3,
-							bgcolor: theme.vars.palette.background.paper,
-							borderRadius: 1,
-							border: `1px solid ${theme.vars.palette.divider}`,
-						}}
-					>
-						<Typography
-							variant="h6"
-							sx={{
-								mb: 2,
-								fontWeight: 600,
-								color: theme.vars.palette.text.primary,
-							}}
-						>
-							{isEditMode ? "Edit your review" : "Write a review"}
-						</Typography>
-						<TextEditorForm
-							review={review}
-							setReview={setReview}
-							rating={rating}
-							setRating={setRating}
-							isEditMode={isEditMode}
-							setIsEditMode={setIsEditMode}
-							setOpen={setOpen}
-							textEditorRef={textEditorRef}
-							handleFocusReview={handleFocusReview}
-							onSubmitReview={onSubmitReview}
-							onSubmitUpdateReview={onSubmitUpdateReview}
-						/>
-					</Box>
-				)}
-
-				{/* Reviews List Section */}
-				<Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-					{movie.reviews && movie.reviews.length > 0 ? (
-						movie.reviews.map(
-							(review: any, index: number) =>
-								(!isEditMode ||
-									review.user.id !==
-										Number(session?.user?.id)) && (
-									<Box
-										key={index}
-										sx={{
-											bgcolor:
-												theme.vars.palette.background
-													.paper,
-											borderRadius: 1,
-											border: `1px solid ${theme.vars.palette.divider}`,
-											p: { xs: 2, sm: 3 },
-											"&:hover": {
-												bgcolor:
-													theme.vars.palette.action
-														.hover,
-											},
-										}}
-									>
-										<Review
-											review={review}
-											handleRemoveReview={
-												onSubmitRemoveReview
-											}
-											isEditMode={isEditMode}
-											setIsEditMode={setIsEditMode}
-											setReview={setReview}
-											handleFocusTextEditor={
-												handleFocusTextEditor
-											}
-											ref={reviewRef}
-											setRating={setRating}
-											handleUpvote={onUpvoteMovie}
-											handleDownvote={onDownVoteMovie}
-											type="movie"
-											data={movie}
-										/>
-									</Box>
-								),
-						)
-					) : (
+					{/* Write Review Section */}
+					{session?.user && (!movie.isReviewed || isEditMode) && (
 						<Box
 							sx={{
-								textAlign: "center",
-								py: 6,
+								mb: 4,
+								p: 3,
 								bgcolor: theme.vars.palette.background.paper,
 								borderRadius: 1,
 								border: `1px solid ${theme.vars.palette.divider}`,
@@ -483,67 +446,165 @@ export default function MoviePageContent({
 							<Typography
 								variant="h6"
 								sx={{
-									color: theme.vars.palette.text.secondary,
-									mb: 1,
+									mb: 2,
+									fontWeight: 600,
+									color: theme.vars.palette.text.primary,
 								}}
 							>
-								No reviews yet
+								{isEditMode
+									? "Edit your review"
+									: "Write a review"}
 							</Typography>
-							<Typography
-								variant="body2"
+							<TextEditorForm
+								review={review}
+								setReview={setReview}
+								rating={rating}
+								setRating={setRating}
+								isEditMode={isEditMode}
+								setIsEditMode={setIsEditMode}
+								setOpen={setOpen}
+								textEditorRef={textEditorRef}
+								handleFocusReview={handleFocusReview}
+								onSubmitReview={onSubmitReview}
+								onSubmitUpdateReview={onSubmitUpdateReview}
+							/>
+						</Box>
+					)}
+
+					{/* Reviews List Section */}
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							gap: 3,
+						}}
+					>
+						{movie.reviews && movie.reviews.length > 0 ? (
+							movie.reviews.map(
+								(review: any, index: number) =>
+									(!isEditMode ||
+										review.user.id !==
+											Number(session?.user?.id)) && (
+										<Box
+											key={index}
+											sx={{
+												bgcolor:
+													theme.vars.palette
+														.background.paper,
+												borderRadius: 1,
+												border: `1px solid ${theme.vars.palette.divider}`,
+												p: { xs: 2, sm: 3 },
+												"&:hover": {
+													bgcolor:
+														theme.vars.palette
+															.action.hover,
+												},
+											}}
+										>
+											<Review
+												review={review}
+												handleRemoveReview={
+													onSubmitRemoveReview
+												}
+												isEditMode={isEditMode}
+												setIsEditMode={setIsEditMode}
+												setReview={setReview}
+												handleFocusTextEditor={
+													handleFocusTextEditor
+												}
+												ref={reviewRef}
+												setRating={setRating}
+												handleUpvote={onUpvoteMovie}
+												handleDownvote={onDownVoteMovie}
+												type="movie"
+												data={movie}
+											/>
+										</Box>
+									),
+							)
+						) : (
+							<Box
 								sx={{
-									color: theme.vars.palette.text.secondary,
+									textAlign: "center",
+									py: 6,
+									bgcolor:
+										theme.vars.palette.background.paper,
+									borderRadius: 1,
+									border: `1px solid ${theme.vars.palette.divider}`,
 								}}
 							>
-								Be the first to review this movie!
-							</Typography>
+								<Typography
+									variant="h6"
+									sx={{
+										color: theme.vars.palette.text
+											.secondary,
+										mb: 1,
+									}}
+								>
+									No reviews yet
+								</Typography>
+								<Typography
+									variant="body2"
+									sx={{
+										color: theme.vars.palette.text
+											.secondary,
+									}}
+								>
+									Be the first to review this movie!
+								</Typography>
+							</Box>
+						)}
+					</Box>
+
+					{/* Pagination Section */}
+					{movie.totalReviews > 0 && (
+						<Box
+							sx={{
+								mt: 4,
+								display: "flex",
+								justifyContent: "center",
+							}}
+						>
+							<PaginationControl
+								currentPage={
+									Number(searchParamsValues.reviewsPage)!
+								}
+								pageCount={reviewsPageCount}
+								urlParamName="reviewsPage"
+							/>
 						</Box>
 					)}
 				</Box>
 
-				{/* Pagination Section */}
-				{movie.totalReviews > 0 && (
-					<Box
-						sx={{
-							mt: 4,
-							display: "flex",
-							justifyContent: "center",
-						}}
-					>
-						<PaginationControl
-							currentPage={
-								Number(searchParamsValues.reviewsPage)!
-							}
-							pageCount={reviewsPageCount}
-							urlParamName="reviewsPage"
+				{/* Related Movies Section */}
+				{relatedMovies && relatedMovies.length !== 0 && (
+					<Box sx={{ mb: 6 }}>
+						<ListDetail
+							data={relatedMovies}
+							type="movie"
+							roleData="related"
 						/>
+						<Box
+							sx={{
+								mt: 2,
+								display: "flex",
+								justifyContent: "center",
+							}}
+						>
+							<PaginationControl
+								currentPage={searchParamsValues.relatedPage}
+								pageCount={relatedPageCount}
+								urlParamName="relatedPage"
+							/>
+						</Box>
 					</Box>
 				)}
-			</Box>
-
-			{/* Related Movies Section */}
-			{relatedMovies && relatedMovies.length !== 0 && (
-				<Box sx={{ mb: 6 }}>
-					<ListDetail
-						data={relatedMovies}
-						type="movie"
-						roleData="related"
-					/>
-					<Box
-						sx={{
-							mt: 2,
-							display: "flex",
-							justifyContent: "center",
-						}}
-					>
-						<PaginationControl
-							currentPage={searchParamsValues.relatedPage}
-							pageCount={relatedPageCount}
-							urlParamName="relatedPage"
-						/>
-					</Box>
-				</Box>
-			)}
-		</Stack>
+			</Stack>
+			<TrailerModal
+				open={trailerOpen}
+				onClose={() => setTrailerOpen(false)}
+				trailerSrc={movie?.trailerSrc}
+			/>
+		</>
 	);
 }

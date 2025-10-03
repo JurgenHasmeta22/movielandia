@@ -35,6 +35,7 @@ interface IDetailsPageCardProps {
 	onBookmark: () => Promise<void>;
 	onRemoveBookmark: () => Promise<void>;
 	onGoBack?: () => void;
+	onPlayTrailer?: () => void;
 }
 
 export function DetailsPageCard({
@@ -44,6 +45,7 @@ export function DetailsPageCard({
 	onBookmark,
 	onRemoveBookmark,
 	onGoBack,
+	onPlayTrailer,
 	cast,
 	crew,
 	currentCastPage,
@@ -405,9 +407,7 @@ export function DetailsPageCard({
 							<Button
 								variant="contained"
 								startIcon={<YouTube />}
-								href={data.trailerSrc}
-								target="_blank"
-								rel="noopener noreferrer"
+								onClick={onPlayTrailer}
 								sx={{
 									bgcolor: theme.vars.palette.red.main,
 									color: theme.vars.palette.primary.main,
