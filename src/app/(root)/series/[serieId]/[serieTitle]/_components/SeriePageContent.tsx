@@ -7,6 +7,7 @@ import Review from "@/components/root/review/Review";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { WarningOutlined, CheckOutlined } from "@mui/icons-material";
 import { useEffect } from "react";
+import { useState } from "react";
 import { TextEditorForm } from "@/components/root/textEditorForm/TextEditorForm";
 import * as CONSTANTS from "@/constants/Constants";
 import { showToast } from "@/utils/helpers/toast";
@@ -30,6 +31,7 @@ import {
 	removeUpvoteSerieReview,
 	addUpvoteSerieReview,
 } from "@/actions/user/userUpvotes.actions";
+import TrailerModal from "@/components/root/trailerModal/TrailerModal";
 
 interface ISeriePageContentProps {
 	searchParamsValues: {
@@ -61,6 +63,7 @@ export default function SeriePageContent({
 	relatedPageCount,
 }: ISeriePageContentProps) {
 	const theme = useTheme();
+	const [trailerOpen, setTrailerOpen] = useState(false);
 
 	// #region "Data for the page"
 	const {
@@ -298,6 +301,7 @@ export default function SeriePageContent({
 				isBookmarked={serie.isBookmarked}
 				onBookmark={() => onBookmarkSerie(session!, serie)}
 				onRemoveBookmark={() => onRemoveBookmarkSerie(session!, serie)}
+				onPlayTrailer={() => setTrailerOpen(true)}
 				cast={serie.cast}
 				crew={serie.crew}
 				currentCastPage={Number(searchParamsValues.castPage)!}
@@ -544,6 +548,8 @@ export default function SeriePageContent({
 					urlParamName="seasonsPage"
 				/>
 			</Box>
+
+			< TrailerModal open={trailerOpen} onClose={() => setTrailerOpen(false)} trailerSrc={serie?.trailerSrc} />
 		</Stack>
 	);
 }
