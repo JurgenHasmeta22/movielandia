@@ -92,19 +92,26 @@ Visit [http://localhost:4000](http://localhost:4000) to see the app in action!
 <p>Create a <code>.env.local</code> with the following variables:</p>
 <pre style="background-color:#f0f0f0; padding:10px; overflow:auto">
     <code>
-        DATABASE_URL=""
-        NEXTAUTH_URL=""
-        NEXTAUTH_SECRET=""
-        GOOGLE_CLIENT_ID=""
-        GOOGLE_CLIENT_SECRET=""
-        RESEND_API_KEY=""
-        POSTGRES_URL=""
-        POSTGRES_PRISMA_URL=""
-        POSTGRES_URL_NO_SSL=""
-        POSTGRES_URL_NON_POOLING=""
-        POSTGRES_HOST=""
-        POSTGRES_PASSWORD=""
-        POSTGRES_DATABASE=""
+        OPTIMIZE_API_KEY  = eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJ3aWQiOiJjbTdhNzd0N28wMDc0b3d1MzZ4ZDNhMG9tIiwidWlkIjoiY203YTc3dDN6MDA3MG93dTMyOWhpdDJnaSIsInRzIjoxNzM5ODY2NTM1NDcxfQ.ugkQ_di5t8SP_QB9cruDP45vSAFQpf6_jd1gIW0D3tt7uhQ3JIAM7ZRUm67HLaOqaWslKWLhUOrOqPk-f1ZJBw
+		RESEND_API_KEY = 
+		GOOGLE_CLIENT_SECRET = 
+		GOOGLE_CLIENT_ID =
+		POSTGRES_DATABASE =
+		POSTGRES_HOST = 
+		POSTGRES_PASSWORD = 
+		POSTGRES_USER = 
+		POSTGRES_PRISMA_URL = 
+		POSTGRES_URL_NO_SSL = 
+		POSTGRES_URL_NON_POOLING = 
+		POSTGRES_URL = 
+		DATABASE_URL = 
+		NEXTAUTH_SECRET =
+		NEXT_PUBLIC_PROJECT_URL=https://movielandia-avenger22s-projects.vercel.app
+		NEXTAUTH_URL = https://movielandia-avenger22s-projects.vercel.app
+		TWITTER_SITE = https://movielandia-avenger22s-projects.vercel.app
+		SITE_NAME = MovieLandia24
+		TWITTER_CREATOR = @movieLandia24
+		COMPANY_NAME = MovieLandia24
     </code>
 </pre>
 
