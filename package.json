@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev --port 4000 --turbo",
-        "build": "prisma generate && next build",
+        "build": "next build",
         "buildDev": "next build",
         "email": "email dev",
         "start": "next start",
