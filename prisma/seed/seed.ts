@@ -136,10 +136,10 @@ async function deleteData() {
 async function baseSeeding() {
 	console.log("Starting base seeding...");
 
-	for (const user of users) {
-		// @ts-ignore - Ignore TypeScript error for password field
-		await prisma.user.create({ data: user });
-	}
+	// for (const user of users) {
+	// 	// @ts-ignore - Ignore TypeScript error for password field
+	// 	await prisma.user.create({ data: user });
+	// }
 
 	// Create main entities
 	for (const genre of genres) {
@@ -229,9 +229,9 @@ async function baseSeeding() {
 // #endregion
 
 const config = {
-	useDynamicSeeding: true, // Set to false to use base seeding instead
+	useDynamicSeeding: false, // Set to false to use base seeding instead
 	deleteBeforeSeeding: false, // Set to true to delete all data before seeding
-	dynamicSeedingStartStep: SeedStep.ForumTags, // Which step to start from for dynamic seeding
+	dynamicSeedingStartStep: SeedStep.Movies, // Which step to start from for dynamic seeding
 };
 
 async function main() {

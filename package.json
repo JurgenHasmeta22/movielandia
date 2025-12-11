@@ -8,7 +8,7 @@
         "email": "email dev",
         "start": "next start",
         "startDev": "next start --port 4000",
-        "seed": "npx prisma migrate dev && tsx prisma/seed/seed.ts",
+        "seed": "tsx prisma/seed/seed.ts",
         "lint": "next lint",
         "scan": "next dev & npx react-scan@latest localhost:4000",
         "test": "vitest run",
