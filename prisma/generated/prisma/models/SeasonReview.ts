@@ -244,10 +244,10 @@ export type SeasonReviewWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"SeasonReview"> | Date | string | null
   userId?: Prisma.IntFilter<"SeasonReview"> | number
   seasonId?: Prisma.IntFilter<"SeasonReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  upvotes?: Prisma.UpvoteSeasonReviewListRelationFilter
-  downvotes?: Prisma.DownvoteSeasonReviewListRelationFilter
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewListRelationFilter
+  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewListRelationFilter
 }
 
 export type SeasonReviewOrderByWithRelationInput = {
@@ -258,10 +258,10 @@ export type SeasonReviewOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  season?: Prisma.SeasonOrderByWithRelationInput
-  upvotes?: Prisma.UpvoteSeasonReviewOrderByRelationAggregateInput
-  downvotes?: Prisma.DownvoteSeasonReviewOrderByRelationAggregateInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewOrderByRelationAggregateInput
+  Season?: Prisma.SeasonOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewOrderByRelationAggregateInput
   _relevance?: Prisma.SeasonReviewOrderByRelevanceInput
 }
 
@@ -277,10 +277,10 @@ export type SeasonReviewWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeNullableFilter<"SeasonReview"> | Date | string | null
   userId?: Prisma.IntFilter<"SeasonReview"> | number
   seasonId?: Prisma.IntFilter<"SeasonReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  upvotes?: Prisma.UpvoteSeasonReviewListRelationFilter
-  downvotes?: Prisma.DownvoteSeasonReviewListRelationFilter
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewListRelationFilter
+  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewListRelationFilter
 }, "id" | "userId_seasonId">
 
 export type SeasonReviewOrderByWithAggregationInput = {
@@ -316,10 +316,10 @@ export type SeasonReviewCreateInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutSeasonReviewsInput
-  season: Prisma.SeasonCreateNestedOneWithoutReviewsInput
-  upvotes?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
-  downvotes?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  Season: Prisma.SeasonCreateNestedOneWithoutSeasonReviewInput
+  User: Prisma.UserCreateNestedOneWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
 }
 
 export type SeasonReviewUncheckedCreateInput = {
@@ -330,8 +330,8 @@ export type SeasonReviewUncheckedCreateInput = {
   updatedAt?: Date | string | null
   userId: number
   seasonId: number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
 }
 
 export type SeasonReviewUpdateInput = {
@@ -339,10 +339,10 @@ export type SeasonReviewUpdateInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewsNestedInput
-  season?: Prisma.SeasonUpdateOneRequiredWithoutReviewsNestedInput
-  upvotes?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutSeasonReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewUncheckedUpdateInput = {
@@ -353,8 +353,8 @@ export type SeasonReviewUncheckedUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewCreateManyInput = {
@@ -382,6 +382,11 @@ export type SeasonReviewUncheckedUpdateManyInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type SeasonReviewScalarRelationFilter = {
+  is?: Prisma.SeasonReviewWhereInput
+  isNot?: Prisma.SeasonReviewWhereInput
 }
 
 export type SeasonReviewListRelationFilter = {
@@ -449,9 +454,18 @@ export type SeasonReviewSumOrderByAggregateInput = {
   seasonId?: Prisma.SortOrder
 }
 
-export type SeasonReviewNullableScalarRelationFilter = {
-  is?: Prisma.SeasonReviewWhereInput | null
-  isNot?: Prisma.SeasonReviewWhereInput | null
+export type SeasonReviewCreateNestedOneWithoutDownvoteSeasonReviewInput = {
+  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvoteSeasonReviewInput>
+  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutDownvoteSeasonReviewInput
+  connect?: Prisma.SeasonReviewWhereUniqueInput
+}
+
+export type SeasonReviewUpdateOneRequiredWithoutDownvoteSeasonReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvoteSeasonReviewInput>
+  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutDownvoteSeasonReviewInput
+  upsert?: Prisma.SeasonReviewUpsertWithoutDownvoteSeasonReviewInput
+  connect?: Prisma.SeasonReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SeasonReviewUpdateToOneWithWhereWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUpdateWithoutDownvoteSeasonReviewInput>, Prisma.SeasonReviewUncheckedUpdateWithoutDownvoteSeasonReviewInput>
 }
 
 export type SeasonReviewCreateNestedManyWithoutSeasonInput = {
@@ -496,36 +510,18 @@ export type SeasonReviewUncheckedUpdateManyWithoutSeasonNestedInput = {
   deleteMany?: Prisma.SeasonReviewScalarWhereInput | Prisma.SeasonReviewScalarWhereInput[]
 }
 
-export type SeasonReviewCreateNestedOneWithoutUpvotesInput = {
-  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvotesInput>
-  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutUpvotesInput
+export type SeasonReviewCreateNestedOneWithoutUpvoteSeasonReviewInput = {
+  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvoteSeasonReviewInput>
+  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutUpvoteSeasonReviewInput
   connect?: Prisma.SeasonReviewWhereUniqueInput
 }
 
-export type SeasonReviewUpdateOneWithoutUpvotesNestedInput = {
-  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvotesInput>
-  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutUpvotesInput
-  upsert?: Prisma.SeasonReviewUpsertWithoutUpvotesInput
-  disconnect?: Prisma.SeasonReviewWhereInput | boolean
-  delete?: Prisma.SeasonReviewWhereInput | boolean
+export type SeasonReviewUpdateOneRequiredWithoutUpvoteSeasonReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvoteSeasonReviewInput>
+  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutUpvoteSeasonReviewInput
+  upsert?: Prisma.SeasonReviewUpsertWithoutUpvoteSeasonReviewInput
   connect?: Prisma.SeasonReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SeasonReviewUpdateToOneWithWhereWithoutUpvotesInput, Prisma.SeasonReviewUpdateWithoutUpvotesInput>, Prisma.SeasonReviewUncheckedUpdateWithoutUpvotesInput>
-}
-
-export type SeasonReviewCreateNestedOneWithoutDownvotesInput = {
-  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvotesInput>
-  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutDownvotesInput
-  connect?: Prisma.SeasonReviewWhereUniqueInput
-}
-
-export type SeasonReviewUpdateOneWithoutDownvotesNestedInput = {
-  create?: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvotesInput>
-  connectOrCreate?: Prisma.SeasonReviewCreateOrConnectWithoutDownvotesInput
-  upsert?: Prisma.SeasonReviewUpsertWithoutDownvotesInput
-  disconnect?: Prisma.SeasonReviewWhereInput | boolean
-  delete?: Prisma.SeasonReviewWhereInput | boolean
-  connect?: Prisma.SeasonReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SeasonReviewUpdateToOneWithWhereWithoutDownvotesInput, Prisma.SeasonReviewUpdateWithoutDownvotesInput>, Prisma.SeasonReviewUncheckedUpdateWithoutDownvotesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SeasonReviewUpdateToOneWithWhereWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUpdateWithoutUpvoteSeasonReviewInput>, Prisma.SeasonReviewUncheckedUpdateWithoutUpvoteSeasonReviewInput>
 }
 
 export type SeasonReviewCreateNestedManyWithoutUserInput = {
@@ -570,14 +566,72 @@ export type SeasonReviewUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.SeasonReviewScalarWhereInput | Prisma.SeasonReviewScalarWhereInput[]
 }
 
+export type SeasonReviewCreateWithoutDownvoteSeasonReviewInput = {
+  content?: string | null
+  rating?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  Season: Prisma.SeasonCreateNestedOneWithoutSeasonReviewInput
+  User: Prisma.UserCreateNestedOneWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+}
+
+export type SeasonReviewUncheckedCreateWithoutDownvoteSeasonReviewInput = {
+  id?: number
+  content?: string | null
+  rating?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  userId: number
+  seasonId: number
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+}
+
+export type SeasonReviewCreateOrConnectWithoutDownvoteSeasonReviewInput = {
+  where: Prisma.SeasonReviewWhereUniqueInput
+  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvoteSeasonReviewInput>
+}
+
+export type SeasonReviewUpsertWithoutDownvoteSeasonReviewInput = {
+  update: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedUpdateWithoutDownvoteSeasonReviewInput>
+  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvoteSeasonReviewInput>
+  where?: Prisma.SeasonReviewWhereInput
+}
+
+export type SeasonReviewUpdateToOneWithWhereWithoutDownvoteSeasonReviewInput = {
+  where?: Prisma.SeasonReviewWhereInput
+  data: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutDownvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedUpdateWithoutDownvoteSeasonReviewInput>
+}
+
+export type SeasonReviewUpdateWithoutDownvoteSeasonReviewInput = {
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutSeasonReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+}
+
+export type SeasonReviewUncheckedUpdateWithoutDownvoteSeasonReviewInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+}
+
 export type SeasonReviewCreateWithoutSeasonInput = {
   content?: string | null
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutSeasonReviewsInput
-  upvotes?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
-  downvotes?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  User: Prisma.UserCreateNestedOneWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
 }
 
 export type SeasonReviewUncheckedCreateWithoutSeasonInput = {
@@ -587,8 +641,8 @@ export type SeasonReviewUncheckedCreateWithoutSeasonInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   userId: number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
 }
 
 export type SeasonReviewCreateOrConnectWithoutSeasonInput = {
@@ -630,17 +684,17 @@ export type SeasonReviewScalarWhereInput = {
   seasonId?: Prisma.IntFilter<"SeasonReview"> | number
 }
 
-export type SeasonReviewCreateWithoutUpvotesInput = {
+export type SeasonReviewCreateWithoutUpvoteSeasonReviewInput = {
   content?: string | null
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutSeasonReviewsInput
-  season: Prisma.SeasonCreateNestedOneWithoutReviewsInput
-  downvotes?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  Season: Prisma.SeasonCreateNestedOneWithoutSeasonReviewInput
+  User: Prisma.UserCreateNestedOneWithoutSeasonReviewInput
 }
 
-export type SeasonReviewUncheckedCreateWithoutUpvotesInput = {
+export type SeasonReviewUncheckedCreateWithoutUpvoteSeasonReviewInput = {
   id?: number
   content?: string | null
   rating?: number | null
@@ -648,36 +702,36 @@ export type SeasonReviewUncheckedCreateWithoutUpvotesInput = {
   updatedAt?: Date | string | null
   userId: number
   seasonId: number
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
 }
 
-export type SeasonReviewCreateOrConnectWithoutUpvotesInput = {
+export type SeasonReviewCreateOrConnectWithoutUpvoteSeasonReviewInput = {
   where: Prisma.SeasonReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvotesInput>
+  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvoteSeasonReviewInput>
 }
 
-export type SeasonReviewUpsertWithoutUpvotesInput = {
-  update: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutUpvotesInput, Prisma.SeasonReviewUncheckedUpdateWithoutUpvotesInput>
-  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvotesInput>
+export type SeasonReviewUpsertWithoutUpvoteSeasonReviewInput = {
+  update: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedUpdateWithoutUpvoteSeasonReviewInput>
+  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedCreateWithoutUpvoteSeasonReviewInput>
   where?: Prisma.SeasonReviewWhereInput
 }
 
-export type SeasonReviewUpdateToOneWithWhereWithoutUpvotesInput = {
+export type SeasonReviewUpdateToOneWithWhereWithoutUpvoteSeasonReviewInput = {
   where?: Prisma.SeasonReviewWhereInput
-  data: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutUpvotesInput, Prisma.SeasonReviewUncheckedUpdateWithoutUpvotesInput>
+  data: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutUpvoteSeasonReviewInput, Prisma.SeasonReviewUncheckedUpdateWithoutUpvoteSeasonReviewInput>
 }
 
-export type SeasonReviewUpdateWithoutUpvotesInput = {
+export type SeasonReviewUpdateWithoutUpvoteSeasonReviewInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewsNestedInput
-  season?: Prisma.SeasonUpdateOneRequiredWithoutReviewsNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutSeasonReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewNestedInput
 }
 
-export type SeasonReviewUncheckedUpdateWithoutUpvotesInput = {
+export type SeasonReviewUncheckedUpdateWithoutUpvoteSeasonReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -685,65 +739,7 @@ export type SeasonReviewUncheckedUpdateWithoutUpvotesInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
-}
-
-export type SeasonReviewCreateWithoutDownvotesInput = {
-  content?: string | null
-  rating?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutSeasonReviewsInput
-  season: Prisma.SeasonCreateNestedOneWithoutReviewsInput
-  upvotes?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
-}
-
-export type SeasonReviewUncheckedCreateWithoutDownvotesInput = {
-  id?: number
-  content?: string | null
-  rating?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  userId: number
-  seasonId: number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
-}
-
-export type SeasonReviewCreateOrConnectWithoutDownvotesInput = {
-  where: Prisma.SeasonReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvotesInput>
-}
-
-export type SeasonReviewUpsertWithoutDownvotesInput = {
-  update: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutDownvotesInput, Prisma.SeasonReviewUncheckedUpdateWithoutDownvotesInput>
-  create: Prisma.XOR<Prisma.SeasonReviewCreateWithoutDownvotesInput, Prisma.SeasonReviewUncheckedCreateWithoutDownvotesInput>
-  where?: Prisma.SeasonReviewWhereInput
-}
-
-export type SeasonReviewUpdateToOneWithWhereWithoutDownvotesInput = {
-  where?: Prisma.SeasonReviewWhereInput
-  data: Prisma.XOR<Prisma.SeasonReviewUpdateWithoutDownvotesInput, Prisma.SeasonReviewUncheckedUpdateWithoutDownvotesInput>
-}
-
-export type SeasonReviewUpdateWithoutDownvotesInput = {
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewsNestedInput
-  season?: Prisma.SeasonUpdateOneRequiredWithoutReviewsNestedInput
-  upvotes?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
-}
-
-export type SeasonReviewUncheckedUpdateWithoutDownvotesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewCreateWithoutUserInput = {
@@ -751,9 +747,9 @@ export type SeasonReviewCreateWithoutUserInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  season: Prisma.SeasonCreateNestedOneWithoutReviewsInput
-  upvotes?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
-  downvotes?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
+  Season: Prisma.SeasonCreateNestedOneWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewCreateNestedManyWithoutSeasonReviewInput
 }
 
 export type SeasonReviewUncheckedCreateWithoutUserInput = {
@@ -763,8 +759,8 @@ export type SeasonReviewUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   seasonId: number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedCreateNestedManyWithoutSeasonReviewInput
 }
 
 export type SeasonReviewCreateOrConnectWithoutUserInput = {
@@ -807,9 +803,9 @@ export type SeasonReviewUpdateWithoutSeasonInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewsNestedInput
-  upvotes?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewUncheckedUpdateWithoutSeasonInput = {
@@ -819,8 +815,8 @@ export type SeasonReviewUncheckedUpdateWithoutSeasonInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewUncheckedUpdateManyWithoutSeasonInput = {
@@ -846,9 +842,9 @@ export type SeasonReviewUpdateWithoutUserInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  season?: Prisma.SeasonUpdateOneRequiredWithoutReviewsNestedInput
-  upvotes?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewUncheckedUpdateWithoutUserInput = {
@@ -858,8 +854,8 @@ export type SeasonReviewUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
-  downvotes?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  DownvoteSeasonReview?: Prisma.DownvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
+  UpvoteSeasonReview?: Prisma.UpvoteSeasonReviewUncheckedUpdateManyWithoutSeasonReviewNestedInput
 }
 
 export type SeasonReviewUncheckedUpdateManyWithoutUserInput = {
@@ -877,13 +873,13 @@ export type SeasonReviewUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type SeasonReviewCountOutputType = {
-  upvotes: number
-  downvotes: number
+  DownvoteSeasonReview: number
+  UpvoteSeasonReview: number
 }
 
 export type SeasonReviewCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  upvotes?: boolean | SeasonReviewCountOutputTypeCountUpvotesArgs
-  downvotes?: boolean | SeasonReviewCountOutputTypeCountDownvotesArgs
+  DownvoteSeasonReview?: boolean | SeasonReviewCountOutputTypeCountDownvoteSeasonReviewArgs
+  UpvoteSeasonReview?: boolean | SeasonReviewCountOutputTypeCountUpvoteSeasonReviewArgs
 }
 
 /**
@@ -899,15 +895,15 @@ export type SeasonReviewCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * SeasonReviewCountOutputType without action
  */
-export type SeasonReviewCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UpvoteSeasonReviewWhereInput
+export type SeasonReviewCountOutputTypeCountDownvoteSeasonReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DownvoteSeasonReviewWhereInput
 }
 
 /**
  * SeasonReviewCountOutputType without action
  */
-export type SeasonReviewCountOutputTypeCountDownvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DownvoteSeasonReviewWhereInput
+export type SeasonReviewCountOutputTypeCountUpvoteSeasonReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UpvoteSeasonReviewWhereInput
 }
 
 
@@ -919,10 +915,10 @@ export type SeasonReviewSelect<ExtArgs extends runtime.Types.Extensions.Internal
   updatedAt?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  upvotes?: boolean | Prisma.SeasonReview$upvotesArgs<ExtArgs>
-  downvotes?: boolean | Prisma.SeasonReview$downvotesArgs<ExtArgs>
+  DownvoteSeasonReview?: boolean | Prisma.SeasonReview$DownvoteSeasonReviewArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  UpvoteSeasonReview?: boolean | Prisma.SeasonReview$UpvoteSeasonReviewArgs<ExtArgs>
   _count?: boolean | Prisma.SeasonReviewCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["seasonReview"]>
 
@@ -934,8 +930,8 @@ export type SeasonReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   updatedAt?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["seasonReview"]>
 
 export type SeasonReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -946,8 +942,8 @@ export type SeasonReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   updatedAt?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["seasonReview"]>
 
 export type SeasonReviewSelectScalar = {
@@ -962,28 +958,28 @@ export type SeasonReviewSelectScalar = {
 
 export type SeasonReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "rating" | "createdAt" | "updatedAt" | "userId" | "seasonId", ExtArgs["result"]["seasonReview"]>
 export type SeasonReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  upvotes?: boolean | Prisma.SeasonReview$upvotesArgs<ExtArgs>
-  downvotes?: boolean | Prisma.SeasonReview$downvotesArgs<ExtArgs>
+  DownvoteSeasonReview?: boolean | Prisma.SeasonReview$DownvoteSeasonReviewArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  UpvoteSeasonReview?: boolean | Prisma.SeasonReview$UpvoteSeasonReviewArgs<ExtArgs>
   _count?: boolean | Prisma.SeasonReviewCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SeasonReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type SeasonReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $SeasonReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SeasonReview"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    season: Prisma.$SeasonPayload<ExtArgs>
-    upvotes: Prisma.$UpvoteSeasonReviewPayload<ExtArgs>[]
-    downvotes: Prisma.$DownvoteSeasonReviewPayload<ExtArgs>[]
+    DownvoteSeasonReview: Prisma.$DownvoteSeasonReviewPayload<ExtArgs>[]
+    Season: Prisma.$SeasonPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
+    UpvoteSeasonReview: Prisma.$UpvoteSeasonReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1387,10 +1383,10 @@ readonly fields: SeasonReviewFieldRefs;
  */
 export interface Prisma__SeasonReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  upvotes<T extends Prisma.SeasonReview$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonReview$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteSeasonReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  downvotes<T extends Prisma.SeasonReview$downvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonReview$downvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteSeasonReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  DownvoteSeasonReview<T extends Prisma.SeasonReview$DownvoteSeasonReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonReview$DownvoteSeasonReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteSeasonReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  UpvoteSeasonReview<T extends Prisma.SeasonReview$UpvoteSeasonReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonReview$UpvoteSeasonReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteSeasonReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1823,33 +1819,9 @@ export type SeasonReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * SeasonReview.upvotes
+ * SeasonReview.DownvoteSeasonReview
  */
-export type SeasonReview$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UpvoteSeasonReview
-   */
-  select?: Prisma.UpvoteSeasonReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UpvoteSeasonReview
-   */
-  omit?: Prisma.UpvoteSeasonReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UpvoteSeasonReviewInclude<ExtArgs> | null
-  where?: Prisma.UpvoteSeasonReviewWhereInput
-  orderBy?: Prisma.UpvoteSeasonReviewOrderByWithRelationInput | Prisma.UpvoteSeasonReviewOrderByWithRelationInput[]
-  cursor?: Prisma.UpvoteSeasonReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UpvoteSeasonReviewScalarFieldEnum | Prisma.UpvoteSeasonReviewScalarFieldEnum[]
-}
-
-/**
- * SeasonReview.downvotes
- */
-export type SeasonReview$downvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type SeasonReview$DownvoteSeasonReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the DownvoteSeasonReview
    */
@@ -1868,6 +1840,30 @@ export type SeasonReview$downvotesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.DownvoteSeasonReviewScalarFieldEnum | Prisma.DownvoteSeasonReviewScalarFieldEnum[]
+}
+
+/**
+ * SeasonReview.UpvoteSeasonReview
+ */
+export type SeasonReview$UpvoteSeasonReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UpvoteSeasonReview
+   */
+  select?: Prisma.UpvoteSeasonReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UpvoteSeasonReview
+   */
+  omit?: Prisma.UpvoteSeasonReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UpvoteSeasonReviewInclude<ExtArgs> | null
+  where?: Prisma.UpvoteSeasonReviewWhereInput
+  orderBy?: Prisma.UpvoteSeasonReviewOrderByWithRelationInput | Prisma.UpvoteSeasonReviewOrderByWithRelationInput[]
+  cursor?: Prisma.UpvoteSeasonReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UpvoteSeasonReviewScalarFieldEnum | Prisma.UpvoteSeasonReviewScalarFieldEnum[]
 }
 
 /**

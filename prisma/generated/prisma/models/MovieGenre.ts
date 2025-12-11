@@ -208,16 +208,16 @@ export type MovieGenreWhereInput = {
   id?: Prisma.IntFilter<"MovieGenre"> | number
   movieId?: Prisma.IntFilter<"MovieGenre"> | number
   genreId?: Prisma.IntFilter<"MovieGenre"> | number
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
 }
 
 export type MovieGenreOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   genreId?: Prisma.SortOrder
-  movie?: Prisma.MovieOrderByWithRelationInput
-  genre?: Prisma.GenreOrderByWithRelationInput
+  Genre?: Prisma.GenreOrderByWithRelationInput
+  Movie?: Prisma.MovieOrderByWithRelationInput
 }
 
 export type MovieGenreWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type MovieGenreWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MovieGenreWhereInput | Prisma.MovieGenreWhereInput[]
   movieId?: Prisma.IntFilter<"MovieGenre"> | number
   genreId?: Prisma.IntFilter<"MovieGenre"> | number
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
 }, "id" | "genreId_movieId">
 
 export type MovieGenreOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type MovieGenreScalarWhereWithAggregatesInput = {
 }
 
 export type MovieGenreCreateInput = {
-  movie: Prisma.MovieCreateNestedOneWithoutGenresInput
-  genre: Prisma.GenreCreateNestedOneWithoutMoviesInput
+  Genre: Prisma.GenreCreateNestedOneWithoutMovieGenreInput
+  Movie: Prisma.MovieCreateNestedOneWithoutMovieGenreInput
 }
 
 export type MovieGenreUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type MovieGenreUncheckedCreateInput = {
 }
 
 export type MovieGenreUpdateInput = {
-  movie?: Prisma.MovieUpdateOneRequiredWithoutGenresNestedInput
-  genre?: Prisma.GenreUpdateOneRequiredWithoutMoviesNestedInput
+  Genre?: Prisma.GenreUpdateOneRequiredWithoutMovieGenreNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutMovieGenreNestedInput
 }
 
 export type MovieGenreUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type MovieGenreUncheckedUpdateManyWithoutMovieNestedInput = {
 }
 
 export type MovieGenreCreateWithoutGenreInput = {
-  movie: Prisma.MovieCreateNestedOneWithoutGenresInput
+  Movie: Prisma.MovieCreateNestedOneWithoutMovieGenreInput
 }
 
 export type MovieGenreUncheckedCreateWithoutGenreInput = {
@@ -464,7 +464,7 @@ export type MovieGenreScalarWhereInput = {
 }
 
 export type MovieGenreCreateWithoutMovieInput = {
-  genre: Prisma.GenreCreateNestedOneWithoutMoviesInput
+  Genre: Prisma.GenreCreateNestedOneWithoutMovieGenreInput
 }
 
 export type MovieGenreUncheckedCreateWithoutMovieInput = {
@@ -504,7 +504,7 @@ export type MovieGenreCreateManyGenreInput = {
 }
 
 export type MovieGenreUpdateWithoutGenreInput = {
-  movie?: Prisma.MovieUpdateOneRequiredWithoutGenresNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutMovieGenreNestedInput
 }
 
 export type MovieGenreUncheckedUpdateWithoutGenreInput = {
@@ -523,7 +523,7 @@ export type MovieGenreCreateManyMovieInput = {
 }
 
 export type MovieGenreUpdateWithoutMovieInput = {
-  genre?: Prisma.GenreUpdateOneRequiredWithoutMoviesNestedInput
+  Genre?: Prisma.GenreUpdateOneRequiredWithoutMovieGenreNestedInput
 }
 
 export type MovieGenreUncheckedUpdateWithoutMovieInput = {
@@ -542,24 +542,24 @@ export type MovieGenreSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   movieId?: boolean
   genreId?: boolean
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movieGenre"]>
 
 export type MovieGenreSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   movieId?: boolean
   genreId?: boolean
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movieGenre"]>
 
 export type MovieGenreSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   movieId?: boolean
   genreId?: boolean
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movieGenre"]>
 
 export type MovieGenreSelectScalar = {
@@ -570,23 +570,23 @@ export type MovieGenreSelectScalar = {
 
 export type MovieGenreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "movieId" | "genreId", ExtArgs["result"]["movieGenre"]>
 export type MovieGenreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
 }
 export type MovieGenreIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
 }
 export type MovieGenreIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
 }
 
 export type $MovieGenrePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MovieGenre"
   objects: {
-    movie: Prisma.$MoviePayload<ExtArgs>
-    genre: Prisma.$GenrePayload<ExtArgs>
+    Genre: Prisma.$GenrePayload<ExtArgs>
+    Movie: Prisma.$MoviePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: MovieGenreFieldRefs;
  */
 export interface Prisma__MovieGenreClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  genre<T extends Prisma.GenreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenreDefaultArgs<ExtArgs>>): Prisma.Prisma__GenreClient<runtime.Types.Result.GetResult<Prisma.$GenrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Genre<T extends Prisma.GenreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenreDefaultArgs<ExtArgs>>): Prisma.Prisma__GenreClient<runtime.Types.Result.GetResult<Prisma.$GenrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

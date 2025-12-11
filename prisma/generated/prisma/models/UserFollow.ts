@@ -40,23 +40,23 @@ export type UserFollowSumAggregateOutputType = {
 
 export type UserFollowMinAggregateOutputType = {
   id: number | null
-  state: $Enums.FollowState | null
   followerId: number | null
   followingId: number | null
+  state: $Enums.FollowState | null
 }
 
 export type UserFollowMaxAggregateOutputType = {
   id: number | null
-  state: $Enums.FollowState | null
   followerId: number | null
   followingId: number | null
+  state: $Enums.FollowState | null
 }
 
 export type UserFollowCountAggregateOutputType = {
   id: number
-  state: number
   followerId: number
   followingId: number
+  state: number
   _all: number
 }
 
@@ -75,23 +75,23 @@ export type UserFollowSumAggregateInputType = {
 
 export type UserFollowMinAggregateInputType = {
   id?: true
-  state?: true
   followerId?: true
   followingId?: true
+  state?: true
 }
 
 export type UserFollowMaxAggregateInputType = {
   id?: true
-  state?: true
   followerId?: true
   followingId?: true
+  state?: true
 }
 
 export type UserFollowCountAggregateInputType = {
   id?: true
-  state?: true
   followerId?: true
   followingId?: true
+  state?: true
   _all?: true
 }
 
@@ -183,9 +183,9 @@ export type UserFollowGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 
 export type UserFollowGroupByOutputType = {
   id: number
-  state: $Enums.FollowState
   followerId: number
   followingId: number
+  state: $Enums.FollowState
   _count: UserFollowCountAggregateOutputType | null
   _avg: UserFollowAvgAggregateOutputType | null
   _sum: UserFollowSumAggregateOutputType | null
@@ -213,20 +213,20 @@ export type UserFollowWhereInput = {
   OR?: Prisma.UserFollowWhereInput[]
   NOT?: Prisma.UserFollowWhereInput | Prisma.UserFollowWhereInput[]
   id?: Prisma.IntFilter<"UserFollow"> | number
-  state?: Prisma.EnumFollowStateFilter<"UserFollow"> | $Enums.FollowState
   followerId?: Prisma.IntFilter<"UserFollow"> | number
   followingId?: Prisma.IntFilter<"UserFollow"> | number
-  follower?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  following?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  state?: Prisma.EnumFollowStateFilter<"UserFollow"> | $Enums.FollowState
+  User_UserFollow_followerIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User_UserFollow_followingIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserFollowOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  state?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   followingId?: Prisma.SortOrder
-  follower?: Prisma.UserOrderByWithRelationInput
-  following?: Prisma.UserOrderByWithRelationInput
+  state?: Prisma.SortOrder
+  User_UserFollow_followerIdToUser?: Prisma.UserOrderByWithRelationInput
+  User_UserFollow_followingIdToUser?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserFollowWhereUniqueInput = Prisma.AtLeast<{
@@ -235,18 +235,18 @@ export type UserFollowWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserFollowWhereInput | Prisma.UserFollowWhereInput[]
   OR?: Prisma.UserFollowWhereInput[]
   NOT?: Prisma.UserFollowWhereInput | Prisma.UserFollowWhereInput[]
-  state?: Prisma.EnumFollowStateFilter<"UserFollow"> | $Enums.FollowState
   followerId?: Prisma.IntFilter<"UserFollow"> | number
   followingId?: Prisma.IntFilter<"UserFollow"> | number
-  follower?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  following?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  state?: Prisma.EnumFollowStateFilter<"UserFollow"> | $Enums.FollowState
+  User_UserFollow_followerIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User_UserFollow_followingIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "followerId_followingId">
 
 export type UserFollowOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  state?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   followingId?: Prisma.SortOrder
+  state?: Prisma.SortOrder
   _count?: Prisma.UserFollowCountOrderByAggregateInput
   _avg?: Prisma.UserFollowAvgOrderByAggregateInput
   _max?: Prisma.UserFollowMaxOrderByAggregateInput
@@ -259,42 +259,42 @@ export type UserFollowScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserFollowScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserFollowScalarWhereWithAggregatesInput | Prisma.UserFollowScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"UserFollow"> | number
-  state?: Prisma.EnumFollowStateWithAggregatesFilter<"UserFollow"> | $Enums.FollowState
   followerId?: Prisma.IntWithAggregatesFilter<"UserFollow"> | number
   followingId?: Prisma.IntWithAggregatesFilter<"UserFollow"> | number
+  state?: Prisma.EnumFollowStateWithAggregatesFilter<"UserFollow"> | $Enums.FollowState
 }
 
 export type UserFollowCreateInput = {
   state?: $Enums.FollowState
-  follower: Prisma.UserCreateNestedOneWithoutFollowingInput
-  following: Prisma.UserCreateNestedOneWithoutFollowersInput
+  User_UserFollow_followerIdToUser: Prisma.UserCreateNestedOneWithoutUserFollow_UserFollow_followerIdToUserInput
+  User_UserFollow_followingIdToUser: Prisma.UserCreateNestedOneWithoutUserFollow_UserFollow_followingIdToUserInput
 }
 
 export type UserFollowUncheckedCreateInput = {
   id?: number
-  state?: $Enums.FollowState
   followerId: number
   followingId: number
+  state?: $Enums.FollowState
 }
 
 export type UserFollowUpdateInput = {
   state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
-  follower?: Prisma.UserUpdateOneRequiredWithoutFollowingNestedInput
-  following?: Prisma.UserUpdateOneRequiredWithoutFollowersNestedInput
+  User_UserFollow_followerIdToUser?: Prisma.UserUpdateOneRequiredWithoutUserFollow_UserFollow_followerIdToUserNestedInput
+  User_UserFollow_followingIdToUser?: Prisma.UserUpdateOneRequiredWithoutUserFollow_UserFollow_followingIdToUserNestedInput
 }
 
 export type UserFollowUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
   followerId?: Prisma.IntFieldUpdateOperationsInput | number
   followingId?: Prisma.IntFieldUpdateOperationsInput | number
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
 }
 
 export type UserFollowCreateManyInput = {
   id?: number
-  state?: $Enums.FollowState
   followerId: number
   followingId: number
+  state?: $Enums.FollowState
 }
 
 export type UserFollowUpdateManyMutationInput = {
@@ -303,9 +303,9 @@ export type UserFollowUpdateManyMutationInput = {
 
 export type UserFollowUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
   followerId?: Prisma.IntFieldUpdateOperationsInput | number
   followingId?: Prisma.IntFieldUpdateOperationsInput | number
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
 }
 
 export type UserFollowListRelationFilter = {
@@ -325,9 +325,9 @@ export type UserFollowFollowerIdFollowingIdCompoundUniqueInput = {
 
 export type UserFollowCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  state?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   followingId?: Prisma.SortOrder
+  state?: Prisma.SortOrder
 }
 
 export type UserFollowAvgOrderByAggregateInput = {
@@ -338,16 +338,16 @@ export type UserFollowAvgOrderByAggregateInput = {
 
 export type UserFollowMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  state?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   followingId?: Prisma.SortOrder
+  state?: Prisma.SortOrder
 }
 
 export type UserFollowMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  state?: Prisma.SortOrder
   followerId?: Prisma.SortOrder
   followingId?: Prisma.SortOrder
+  state?: Prisma.SortOrder
 }
 
 export type UserFollowSumOrderByAggregateInput = {
@@ -356,87 +356,87 @@ export type UserFollowSumOrderByAggregateInput = {
   followingId?: Prisma.SortOrder
 }
 
-export type UserFollowCreateNestedManyWithoutFollowingInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowingInput, Prisma.UserFollowUncheckedCreateWithoutFollowingInput> | Prisma.UserFollowCreateWithoutFollowingInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowingInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowingInput | Prisma.UserFollowCreateOrConnectWithoutFollowingInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowingInputEnvelope
+export type UserFollowCreateNestedManyWithoutUser_UserFollow_followerIdToUserInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followerIdToUserInputEnvelope
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
 }
 
-export type UserFollowCreateNestedManyWithoutFollowerInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowerInput, Prisma.UserFollowUncheckedCreateWithoutFollowerInput> | Prisma.UserFollowCreateWithoutFollowerInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowerInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowerInput | Prisma.UserFollowCreateOrConnectWithoutFollowerInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowerInputEnvelope
+export type UserFollowCreateNestedManyWithoutUser_UserFollow_followingIdToUserInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followingIdToUserInputEnvelope
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
 }
 
-export type UserFollowUncheckedCreateNestedManyWithoutFollowingInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowingInput, Prisma.UserFollowUncheckedCreateWithoutFollowingInput> | Prisma.UserFollowCreateWithoutFollowingInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowingInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowingInput | Prisma.UserFollowCreateOrConnectWithoutFollowingInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowingInputEnvelope
+export type UserFollowUncheckedCreateNestedManyWithoutUser_UserFollow_followerIdToUserInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followerIdToUserInputEnvelope
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
 }
 
-export type UserFollowUncheckedCreateNestedManyWithoutFollowerInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowerInput, Prisma.UserFollowUncheckedCreateWithoutFollowerInput> | Prisma.UserFollowCreateWithoutFollowerInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowerInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowerInput | Prisma.UserFollowCreateOrConnectWithoutFollowerInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowerInputEnvelope
+export type UserFollowUncheckedCreateNestedManyWithoutUser_UserFollow_followingIdToUserInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followingIdToUserInputEnvelope
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
 }
 
-export type UserFollowUpdateManyWithoutFollowingNestedInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowingInput, Prisma.UserFollowUncheckedCreateWithoutFollowingInput> | Prisma.UserFollowCreateWithoutFollowingInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowingInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowingInput | Prisma.UserFollowCreateOrConnectWithoutFollowingInput[]
-  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowingInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowingInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowingInputEnvelope
+export type UserFollowUpdateManyWithoutUser_UserFollow_followerIdToUserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput[]
+  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followerIdToUserInputEnvelope
   set?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   disconnect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   delete?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
-  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowingInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowingInput[]
-  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutFollowingInput | Prisma.UserFollowUpdateManyWithWhereWithoutFollowingInput[]
+  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput[]
+  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followerIdToUserInput[]
   deleteMany?: Prisma.UserFollowScalarWhereInput | Prisma.UserFollowScalarWhereInput[]
 }
 
-export type UserFollowUpdateManyWithoutFollowerNestedInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowerInput, Prisma.UserFollowUncheckedCreateWithoutFollowerInput> | Prisma.UserFollowCreateWithoutFollowerInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowerInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowerInput | Prisma.UserFollowCreateOrConnectWithoutFollowerInput[]
-  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowerInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowerInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowerInputEnvelope
+export type UserFollowUpdateManyWithoutUser_UserFollow_followingIdToUserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput[]
+  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followingIdToUserInputEnvelope
   set?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   disconnect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   delete?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
-  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowerInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowerInput[]
-  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutFollowerInput | Prisma.UserFollowUpdateManyWithWhereWithoutFollowerInput[]
+  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput[]
+  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followingIdToUserInput[]
   deleteMany?: Prisma.UserFollowScalarWhereInput | Prisma.UserFollowScalarWhereInput[]
 }
 
-export type UserFollowUncheckedUpdateManyWithoutFollowingNestedInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowingInput, Prisma.UserFollowUncheckedCreateWithoutFollowingInput> | Prisma.UserFollowCreateWithoutFollowingInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowingInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowingInput | Prisma.UserFollowCreateOrConnectWithoutFollowingInput[]
-  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowingInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowingInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowingInputEnvelope
+export type UserFollowUncheckedUpdateManyWithoutUser_UserFollow_followerIdToUserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput[]
+  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followerIdToUserInputEnvelope
   set?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   disconnect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   delete?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
-  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowingInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowingInput[]
-  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutFollowingInput | Prisma.UserFollowUpdateManyWithWhereWithoutFollowingInput[]
+  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput[]
+  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followerIdToUserInput | Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followerIdToUserInput[]
   deleteMany?: Prisma.UserFollowScalarWhereInput | Prisma.UserFollowScalarWhereInput[]
 }
 
-export type UserFollowUncheckedUpdateManyWithoutFollowerNestedInput = {
-  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowerInput, Prisma.UserFollowUncheckedCreateWithoutFollowerInput> | Prisma.UserFollowCreateWithoutFollowerInput[] | Prisma.UserFollowUncheckedCreateWithoutFollowerInput[]
-  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutFollowerInput | Prisma.UserFollowCreateOrConnectWithoutFollowerInput[]
-  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowerInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutFollowerInput[]
-  createMany?: Prisma.UserFollowCreateManyFollowerInputEnvelope
+export type UserFollowUncheckedUpdateManyWithoutUser_UserFollow_followingIdToUserNestedInput = {
+  create?: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput> | Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput[] | Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput[]
+  connectOrCreate?: Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput[]
+  upsert?: Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput[]
+  createMany?: Prisma.UserFollowCreateManyUser_UserFollow_followingIdToUserInputEnvelope
   set?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   disconnect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   delete?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
   connect?: Prisma.UserFollowWhereUniqueInput | Prisma.UserFollowWhereUniqueInput[]
-  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowerInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutFollowerInput[]
-  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutFollowerInput | Prisma.UserFollowUpdateManyWithWhereWithoutFollowerInput[]
+  update?: Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput[]
+  updateMany?: Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followingIdToUserInput | Prisma.UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followingIdToUserInput[]
   deleteMany?: Prisma.UserFollowScalarWhereInput | Prisma.UserFollowScalarWhereInput[]
 }
 
@@ -444,62 +444,62 @@ export type EnumFollowStateFieldUpdateOperationsInput = {
   set?: $Enums.FollowState
 }
 
-export type UserFollowCreateWithoutFollowingInput = {
+export type UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput = {
   state?: $Enums.FollowState
-  follower: Prisma.UserCreateNestedOneWithoutFollowingInput
+  User_UserFollow_followingIdToUser: Prisma.UserCreateNestedOneWithoutUserFollow_UserFollow_followingIdToUserInput
 }
 
-export type UserFollowUncheckedCreateWithoutFollowingInput = {
+export type UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput = {
   id?: number
-  state?: $Enums.FollowState
-  followerId: number
-}
-
-export type UserFollowCreateOrConnectWithoutFollowingInput = {
-  where: Prisma.UserFollowWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowingInput, Prisma.UserFollowUncheckedCreateWithoutFollowingInput>
-}
-
-export type UserFollowCreateManyFollowingInputEnvelope = {
-  data: Prisma.UserFollowCreateManyFollowingInput | Prisma.UserFollowCreateManyFollowingInput[]
-  skipDuplicates?: boolean
-}
-
-export type UserFollowCreateWithoutFollowerInput = {
-  state?: $Enums.FollowState
-  following: Prisma.UserCreateNestedOneWithoutFollowersInput
-}
-
-export type UserFollowUncheckedCreateWithoutFollowerInput = {
-  id?: number
-  state?: $Enums.FollowState
   followingId: number
+  state?: $Enums.FollowState
 }
 
-export type UserFollowCreateOrConnectWithoutFollowerInput = {
+export type UserFollowCreateOrConnectWithoutUser_UserFollow_followerIdToUserInput = {
   where: Prisma.UserFollowWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowerInput, Prisma.UserFollowUncheckedCreateWithoutFollowerInput>
+  create: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput>
 }
 
-export type UserFollowCreateManyFollowerInputEnvelope = {
-  data: Prisma.UserFollowCreateManyFollowerInput | Prisma.UserFollowCreateManyFollowerInput[]
+export type UserFollowCreateManyUser_UserFollow_followerIdToUserInputEnvelope = {
+  data: Prisma.UserFollowCreateManyUser_UserFollow_followerIdToUserInput | Prisma.UserFollowCreateManyUser_UserFollow_followerIdToUserInput[]
   skipDuplicates?: boolean
 }
 
-export type UserFollowUpsertWithWhereUniqueWithoutFollowingInput = {
-  where: Prisma.UserFollowWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserFollowUpdateWithoutFollowingInput, Prisma.UserFollowUncheckedUpdateWithoutFollowingInput>
-  create: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowingInput, Prisma.UserFollowUncheckedCreateWithoutFollowingInput>
+export type UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput = {
+  state?: $Enums.FollowState
+  User_UserFollow_followerIdToUser: Prisma.UserCreateNestedOneWithoutUserFollow_UserFollow_followerIdToUserInput
 }
 
-export type UserFollowUpdateWithWhereUniqueWithoutFollowingInput = {
-  where: Prisma.UserFollowWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserFollowUpdateWithoutFollowingInput, Prisma.UserFollowUncheckedUpdateWithoutFollowingInput>
+export type UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput = {
+  id?: number
+  followerId: number
+  state?: $Enums.FollowState
 }
 
-export type UserFollowUpdateManyWithWhereWithoutFollowingInput = {
+export type UserFollowCreateOrConnectWithoutUser_UserFollow_followingIdToUserInput = {
+  where: Prisma.UserFollowWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput>
+}
+
+export type UserFollowCreateManyUser_UserFollow_followingIdToUserInputEnvelope = {
+  data: Prisma.UserFollowCreateManyUser_UserFollow_followingIdToUserInput | Prisma.UserFollowCreateManyUser_UserFollow_followingIdToUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput = {
+  where: Prisma.UserFollowWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserFollowUpdateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedUpdateWithoutUser_UserFollow_followerIdToUserInput>
+  create: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followerIdToUserInput>
+}
+
+export type UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followerIdToUserInput = {
+  where: Prisma.UserFollowWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserFollowUpdateWithoutUser_UserFollow_followerIdToUserInput, Prisma.UserFollowUncheckedUpdateWithoutUser_UserFollow_followerIdToUserInput>
+}
+
+export type UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followerIdToUserInput = {
   where: Prisma.UserFollowScalarWhereInput
-  data: Prisma.XOR<Prisma.UserFollowUpdateManyMutationInput, Prisma.UserFollowUncheckedUpdateManyWithoutFollowingInput>
+  data: Prisma.XOR<Prisma.UserFollowUpdateManyMutationInput, Prisma.UserFollowUncheckedUpdateManyWithoutUser_UserFollow_followerIdToUserInput>
 }
 
 export type UserFollowScalarWhereInput = {
@@ -507,134 +507,134 @@ export type UserFollowScalarWhereInput = {
   OR?: Prisma.UserFollowScalarWhereInput[]
   NOT?: Prisma.UserFollowScalarWhereInput | Prisma.UserFollowScalarWhereInput[]
   id?: Prisma.IntFilter<"UserFollow"> | number
-  state?: Prisma.EnumFollowStateFilter<"UserFollow"> | $Enums.FollowState
   followerId?: Prisma.IntFilter<"UserFollow"> | number
   followingId?: Prisma.IntFilter<"UserFollow"> | number
+  state?: Prisma.EnumFollowStateFilter<"UserFollow"> | $Enums.FollowState
 }
 
-export type UserFollowUpsertWithWhereUniqueWithoutFollowerInput = {
+export type UserFollowUpsertWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput = {
   where: Prisma.UserFollowWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserFollowUpdateWithoutFollowerInput, Prisma.UserFollowUncheckedUpdateWithoutFollowerInput>
-  create: Prisma.XOR<Prisma.UserFollowCreateWithoutFollowerInput, Prisma.UserFollowUncheckedCreateWithoutFollowerInput>
+  update: Prisma.XOR<Prisma.UserFollowUpdateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedUpdateWithoutUser_UserFollow_followingIdToUserInput>
+  create: Prisma.XOR<Prisma.UserFollowCreateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedCreateWithoutUser_UserFollow_followingIdToUserInput>
 }
 
-export type UserFollowUpdateWithWhereUniqueWithoutFollowerInput = {
+export type UserFollowUpdateWithWhereUniqueWithoutUser_UserFollow_followingIdToUserInput = {
   where: Prisma.UserFollowWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserFollowUpdateWithoutFollowerInput, Prisma.UserFollowUncheckedUpdateWithoutFollowerInput>
+  data: Prisma.XOR<Prisma.UserFollowUpdateWithoutUser_UserFollow_followingIdToUserInput, Prisma.UserFollowUncheckedUpdateWithoutUser_UserFollow_followingIdToUserInput>
 }
 
-export type UserFollowUpdateManyWithWhereWithoutFollowerInput = {
+export type UserFollowUpdateManyWithWhereWithoutUser_UserFollow_followingIdToUserInput = {
   where: Prisma.UserFollowScalarWhereInput
-  data: Prisma.XOR<Prisma.UserFollowUpdateManyMutationInput, Prisma.UserFollowUncheckedUpdateManyWithoutFollowerInput>
+  data: Prisma.XOR<Prisma.UserFollowUpdateManyMutationInput, Prisma.UserFollowUncheckedUpdateManyWithoutUser_UserFollow_followingIdToUserInput>
 }
 
-export type UserFollowCreateManyFollowingInput = {
+export type UserFollowCreateManyUser_UserFollow_followerIdToUserInput = {
   id?: number
-  state?: $Enums.FollowState
-  followerId: number
-}
-
-export type UserFollowCreateManyFollowerInput = {
-  id?: number
-  state?: $Enums.FollowState
   followingId: number
+  state?: $Enums.FollowState
 }
 
-export type UserFollowUpdateWithoutFollowingInput = {
+export type UserFollowCreateManyUser_UserFollow_followingIdToUserInput = {
+  id?: number
+  followerId: number
+  state?: $Enums.FollowState
+}
+
+export type UserFollowUpdateWithoutUser_UserFollow_followerIdToUserInput = {
   state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
-  follower?: Prisma.UserUpdateOneRequiredWithoutFollowingNestedInput
+  User_UserFollow_followingIdToUser?: Prisma.UserUpdateOneRequiredWithoutUserFollow_UserFollow_followingIdToUserNestedInput
 }
 
-export type UserFollowUncheckedUpdateWithoutFollowingInput = {
+export type UserFollowUncheckedUpdateWithoutUser_UserFollow_followerIdToUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
-  followerId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type UserFollowUncheckedUpdateManyWithoutFollowingInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
-  followerId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type UserFollowUpdateWithoutFollowerInput = {
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
-  following?: Prisma.UserUpdateOneRequiredWithoutFollowersNestedInput
-}
-
-export type UserFollowUncheckedUpdateWithoutFollowerInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
   followingId?: Prisma.IntFieldUpdateOperationsInput | number
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
 }
 
-export type UserFollowUncheckedUpdateManyWithoutFollowerInput = {
+export type UserFollowUncheckedUpdateManyWithoutUser_UserFollow_followerIdToUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
   followingId?: Prisma.IntFieldUpdateOperationsInput | number
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
+}
+
+export type UserFollowUpdateWithoutUser_UserFollow_followingIdToUserInput = {
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
+  User_UserFollow_followerIdToUser?: Prisma.UserUpdateOneRequiredWithoutUserFollow_UserFollow_followerIdToUserNestedInput
+}
+
+export type UserFollowUncheckedUpdateWithoutUser_UserFollow_followingIdToUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  followerId?: Prisma.IntFieldUpdateOperationsInput | number
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
+}
+
+export type UserFollowUncheckedUpdateManyWithoutUser_UserFollow_followingIdToUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  followerId?: Prisma.IntFieldUpdateOperationsInput | number
+  state?: Prisma.EnumFollowStateFieldUpdateOperationsInput | $Enums.FollowState
 }
 
 
 
 export type UserFollowSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  state?: boolean
   followerId?: boolean
   followingId?: boolean
-  follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  following?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  state?: boolean
+  User_UserFollow_followerIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followingIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userFollow"]>
 
 export type UserFollowSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  state?: boolean
   followerId?: boolean
   followingId?: boolean
-  follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  following?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  state?: boolean
+  User_UserFollow_followerIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followingIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userFollow"]>
 
 export type UserFollowSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  state?: boolean
   followerId?: boolean
   followingId?: boolean
-  follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  following?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  state?: boolean
+  User_UserFollow_followerIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followingIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userFollow"]>
 
 export type UserFollowSelectScalar = {
   id?: boolean
-  state?: boolean
   followerId?: boolean
   followingId?: boolean
+  state?: boolean
 }
 
-export type UserFollowOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "state" | "followerId" | "followingId", ExtArgs["result"]["userFollow"]>
+export type UserFollowOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "followerId" | "followingId" | "state", ExtArgs["result"]["userFollow"]>
 export type UserFollowInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  following?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followerIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followingIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserFollowIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  following?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followerIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followingIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserFollowIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  follower?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  following?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followerIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User_UserFollow_followingIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserFollowPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserFollow"
   objects: {
-    follower: Prisma.$UserPayload<ExtArgs>
-    following: Prisma.$UserPayload<ExtArgs>
+    User_UserFollow_followerIdToUser: Prisma.$UserPayload<ExtArgs>
+    User_UserFollow_followingIdToUser: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    state: $Enums.FollowState
     followerId: number
     followingId: number
+    state: $Enums.FollowState
   }, ExtArgs["result"]["userFollow"]>
   composites: {}
 }
@@ -1029,8 +1029,8 @@ readonly fields: UserFollowFieldRefs;
  */
 export interface Prisma__UserFollowClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  follower<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  following<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User_UserFollow_followerIdToUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User_UserFollow_followingIdToUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1061,9 +1061,9 @@ export interface Prisma__UserFollowClient<T, Null = never, ExtArgs extends runti
  */
 export interface UserFollowFieldRefs {
   readonly id: Prisma.FieldRef<"UserFollow", 'Int'>
-  readonly state: Prisma.FieldRef<"UserFollow", 'FollowState'>
   readonly followerId: Prisma.FieldRef<"UserFollow", 'Int'>
   readonly followingId: Prisma.FieldRef<"UserFollow", 'Int'>
+  readonly state: Prisma.FieldRef<"UserFollow", 'FollowState'>
 }
     
 

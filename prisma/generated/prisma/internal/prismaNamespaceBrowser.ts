@@ -51,94 +51,94 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Account: 'Account',
+  ActivateToken: 'ActivateToken',
   Actor: 'Actor',
   ActorReview: 'ActorReview',
-  UpvoteActorReview: 'UpvoteActorReview',
-  DownvoteActorReview: 'DownvoteActorReview',
-  Account: 'Account',
-  Session: 'Session',
-  VerificationToken: 'VerificationToken',
-  ActivateToken: 'ActivateToken',
-  ResetPasswordToken: 'ResetPasswordToken',
+  Attachment: 'Attachment',
+  Avatar: 'Avatar',
+  CastMovie: 'CastMovie',
+  CastSerie: 'CastSerie',
   Crew: 'Crew',
+  CrewMovie: 'CrewMovie',
   CrewReview: 'CrewReview',
-  UpvoteCrewReview: 'UpvoteCrewReview',
+  CrewSerie: 'CrewSerie',
+  DownvoteActorReview: 'DownvoteActorReview',
   DownvoteCrewReview: 'DownvoteCrewReview',
+  DownvoteEpisodeReview: 'DownvoteEpisodeReview',
+  DownvoteMovieReview: 'DownvoteMovieReview',
+  DownvoteSeasonReview: 'DownvoteSeasonReview',
+  DownvoteSerieReview: 'DownvoteSerieReview',
   Episode: 'Episode',
   EpisodeReview: 'EpisodeReview',
-  UpvoteEpisodeReview: 'UpvoteEpisodeReview',
-  DownvoteEpisodeReview: 'DownvoteEpisodeReview',
   ForumCategory: 'ForumCategory',
-  UserForumModerator: 'UserForumModerator',
   ForumPost: 'ForumPost',
-  Attachment: 'Attachment',
-  UpvoteForumPost: 'UpvoteForumPost',
   ForumPostHistory: 'ForumPostHistory',
   ForumReply: 'ForumReply',
-  UpvoteForumReply: 'UpvoteForumReply',
   ForumReplyHistory: 'ForumReplyHistory',
   ForumTag: 'ForumTag',
   ForumTopic: 'ForumTopic',
-  UserForumTopicWatch: 'UserForumTopicWatch',
-  UserForumTopicFavorite: 'UserForumTopicFavorite',
-  UpvoteForumTopic: 'UpvoteForumTopic',
+  ForumUserStats: 'ForumUserStats',
   Genre: 'Genre',
+  Inbox: 'Inbox',
   List: 'List',
-  ListShare: 'ListShare',
-  ListMovie: 'ListMovie',
-  ListSerie: 'ListSerie',
-  ListSeason: 'ListSeason',
-  ListEpisode: 'ListEpisode',
-  ListActor: 'ListActor',
-  ListCrew: 'ListCrew',
-  ListActivityMovie: 'ListActivityMovie',
-  ListActivitySerie: 'ListActivitySerie',
-  ListActivitySeason: 'ListActivitySeason',
-  ListActivityEpisode: 'ListActivityEpisode',
   ListActivityActor: 'ListActivityActor',
   ListActivityCrew: 'ListActivityCrew',
-  Inbox: 'Inbox',
+  ListActivityEpisode: 'ListActivityEpisode',
+  ListActivityMovie: 'ListActivityMovie',
+  ListActivitySeason: 'ListActivitySeason',
+  ListActivitySerie: 'ListActivitySerie',
+  ListActor: 'ListActor',
+  ListCrew: 'ListCrew',
+  ListEpisode: 'ListEpisode',
+  ListMovie: 'ListMovie',
+  ListSeason: 'ListSeason',
+  ListSerie: 'ListSerie',
+  ListShare: 'ListShare',
   Message: 'Message',
-  UserInbox: 'UserInbox',
-  ReportedContent: 'ReportedContent',
   ModerationLog: 'ModerationLog',
   Movie: 'Movie',
-  MovieReview: 'MovieReview',
-  UpvoteMovieReview: 'UpvoteMovieReview',
-  DownvoteMovieReview: 'DownvoteMovieReview',
-  CastMovie: 'CastMovie',
-  CrewMovie: 'CrewMovie',
   MovieGenre: 'MovieGenre',
+  MovieReview: 'MovieReview',
   Notification: 'Notification',
+  ReportedContent: 'ReportedContent',
+  ResetPasswordToken: 'ResetPasswordToken',
   Season: 'Season',
   SeasonReview: 'SeasonReview',
-  UpvoteSeasonReview: 'UpvoteSeasonReview',
-  DownvoteSeasonReview: 'DownvoteSeasonReview',
   Serie: 'Serie',
-  UpvoteSerieReview: 'UpvoteSerieReview',
-  DownvoteSerieReview: 'DownvoteSerieReview',
-  SerieReview: 'SerieReview',
   SerieGenre: 'SerieGenre',
-  CastSerie: 'CastSerie',
-  CrewSerie: 'CrewSerie',
+  SerieReview: 'SerieReview',
+  Session: 'Session',
+  UpvoteActorReview: 'UpvoteActorReview',
+  UpvoteCrewReview: 'UpvoteCrewReview',
+  UpvoteEpisodeReview: 'UpvoteEpisodeReview',
+  UpvoteForumPost: 'UpvoteForumPost',
+  UpvoteForumReply: 'UpvoteForumReply',
+  UpvoteForumTopic: 'UpvoteForumTopic',
+  UpvoteMovieReview: 'UpvoteMovieReview',
+  UpvoteSeasonReview: 'UpvoteSeasonReview',
+  UpvoteSerieReview: 'UpvoteSerieReview',
   User: 'User',
-  Avatar: 'Avatar',
+  UserActorFavorite: 'UserActorFavorite',
+  UserActorRating: 'UserActorRating',
+  UserCrewFavorite: 'UserCrewFavorite',
+  UserCrewRating: 'UserCrewRating',
+  UserEpisodeFavorite: 'UserEpisodeFavorite',
+  UserEpisodeRating: 'UserEpisodeRating',
   UserFollow: 'UserFollow',
-  ForumUserStats: 'ForumUserStats',
+  UserForumModerator: 'UserForumModerator',
+  UserForumTopicFavorite: 'UserForumTopicFavorite',
+  UserForumTopicWatch: 'UserForumTopicWatch',
+  UserGenreFavorite: 'UserGenreFavorite',
+  UserInbox: 'UserInbox',
   UserListStats: 'UserListStats',
   UserMovieFavorite: 'UserMovieFavorite',
-  UserGenreFavorite: 'UserGenreFavorite',
-  UserSerieFavorite: 'UserSerieFavorite',
-  UserEpisodeFavorite: 'UserEpisodeFavorite',
-  UserSeasonFavorite: 'UserSeasonFavorite',
-  UserActorFavorite: 'UserActorFavorite',
-  UserCrewFavorite: 'UserCrewFavorite',
   UserMovieRating: 'UserMovieRating',
-  UserSerieRating: 'UserSerieRating',
+  UserSeasonFavorite: 'UserSeasonFavorite',
   UserSeasonRating: 'UserSeasonRating',
-  UserEpisodeRating: 'UserEpisodeRating',
-  UserActorRating: 'UserActorRating',
-  UserCrewRating: 'UserCrewRating'
+  UserSerieFavorite: 'UserSerieFavorite',
+  UserSerieRating: 'UserSerieRating',
+  VerificationToken: 'VerificationToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -157,13 +157,42 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const ActivateTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  createdAt: 'createdAt',
+  activatedAt: 'activatedAt',
+  userId: 'userId'
+} as const
+
+export type ActivateTokenScalarFieldEnum = (typeof ActivateTokenScalarFieldEnum)[keyof typeof ActivateTokenScalarFieldEnum]
+
+
 export const ActorScalarFieldEnum = {
   id: 'id',
   fullname: 'fullname',
-  photoSrc: 'photoSrc',
-  photoSrcProd: 'photoSrcProd',
+  debut: 'debut',
   description: 'description',
-  debut: 'debut'
+  photoSrc: 'photoSrc',
+  photoSrcProd: 'photoSrcProd'
 } as const
 
 export type ActorScalarFieldEnum = (typeof ActorScalarFieldEnum)[keyof typeof ActorScalarFieldEnum]
@@ -182,83 +211,47 @@ export const ActorReviewScalarFieldEnum = {
 export type ActorReviewScalarFieldEnum = (typeof ActorReviewScalarFieldEnum)[keyof typeof ActorReviewScalarFieldEnum]
 
 
-export const UpvoteActorReviewScalarFieldEnum = {
+export const AttachmentScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  actorId: 'actorId',
-  actorReviewId: 'actorReviewId'
-} as const
-
-export type UpvoteActorReviewScalarFieldEnum = (typeof UpvoteActorReviewScalarFieldEnum)[keyof typeof UpvoteActorReviewScalarFieldEnum]
-
-
-export const DownvoteActorReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  actorId: 'actorId',
-  actorReviewId: 'actorReviewId'
-} as const
-
-export type DownvoteActorReviewScalarFieldEnum = (typeof DownvoteActorReviewScalarFieldEnum)[keyof typeof DownvoteActorReviewScalarFieldEnum]
-
-
-export const AccountScalarFieldEnum = {
-  id: 'id',
-  type: 'type',
-  provider: 'provider',
-  refresh_token: 'refresh_token',
-  access_token: 'access_token',
-  expires_at: 'expires_at',
-  token_type: 'token_type',
-  scope: 'scope',
-  id_token: 'id_token',
-  session_state: 'session_state',
-  userId: 'userId',
-  providerAccountId: 'providerAccountId'
-} as const
-
-export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
-
-
-export const SessionScalarFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken',
-  expires: 'expires',
+  filename: 'filename',
+  fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  uploadedAt: 'uploadedAt',
+  isPublic: 'isPublic',
+  description: 'description',
+  postId: 'postId',
   userId: 'userId'
 } as const
 
-export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
-export const VerificationTokenScalarFieldEnum = {
-  identifier: 'identifier',
-  token: 'token',
-  expires: 'expires'
-} as const
-
-export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
-
-
-export const ActivateTokenScalarFieldEnum = {
+export const AvatarScalarFieldEnum = {
   id: 'id',
-  token: 'token',
-  createdAt: 'createdAt',
-  activatedAt: 'activatedAt',
+  photoSrc: 'photoSrc',
   userId: 'userId'
 } as const
 
-export type ActivateTokenScalarFieldEnum = (typeof ActivateTokenScalarFieldEnum)[keyof typeof ActivateTokenScalarFieldEnum]
+export type AvatarScalarFieldEnum = (typeof AvatarScalarFieldEnum)[keyof typeof AvatarScalarFieldEnum]
 
 
-export const ResetPasswordTokenScalarFieldEnum = {
+export const CastMovieScalarFieldEnum = {
   id: 'id',
-  token: 'token',
-  createdAt: 'createdAt',
-  resetPasswordAt: 'resetPasswordAt',
-  userId: 'userId'
+  movieId: 'movieId',
+  actorId: 'actorId'
 } as const
 
-export type ResetPasswordTokenScalarFieldEnum = (typeof ResetPasswordTokenScalarFieldEnum)[keyof typeof ResetPasswordTokenScalarFieldEnum]
+export type CastMovieScalarFieldEnum = (typeof CastMovieScalarFieldEnum)[keyof typeof CastMovieScalarFieldEnum]
+
+
+export const CastSerieScalarFieldEnum = {
+  id: 'id',
+  serieId: 'serieId',
+  actorId: 'actorId'
+} as const
+
+export type CastSerieScalarFieldEnum = (typeof CastSerieScalarFieldEnum)[keyof typeof CastSerieScalarFieldEnum]
 
 
 export const CrewScalarFieldEnum = {
@@ -274,6 +267,15 @@ export const CrewScalarFieldEnum = {
 export type CrewScalarFieldEnum = (typeof CrewScalarFieldEnum)[keyof typeof CrewScalarFieldEnum]
 
 
+export const CrewMovieScalarFieldEnum = {
+  id: 'id',
+  movieId: 'movieId',
+  crewId: 'crewId'
+} as const
+
+export type CrewMovieScalarFieldEnum = (typeof CrewMovieScalarFieldEnum)[keyof typeof CrewMovieScalarFieldEnum]
+
+
 export const CrewReviewScalarFieldEnum = {
   id: 'id',
   content: 'content',
@@ -287,14 +289,23 @@ export const CrewReviewScalarFieldEnum = {
 export type CrewReviewScalarFieldEnum = (typeof CrewReviewScalarFieldEnum)[keyof typeof CrewReviewScalarFieldEnum]
 
 
-export const UpvoteCrewReviewScalarFieldEnum = {
+export const CrewSerieScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  crewId: 'crewId',
-  crewReviewId: 'crewReviewId'
+  serieId: 'serieId',
+  crewId: 'crewId'
 } as const
 
-export type UpvoteCrewReviewScalarFieldEnum = (typeof UpvoteCrewReviewScalarFieldEnum)[keyof typeof UpvoteCrewReviewScalarFieldEnum]
+export type CrewSerieScalarFieldEnum = (typeof CrewSerieScalarFieldEnum)[keyof typeof CrewSerieScalarFieldEnum]
+
+
+export const DownvoteActorReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  actorId: 'actorId',
+  actorReviewId: 'actorReviewId'
+} as const
+
+export type DownvoteActorReviewScalarFieldEnum = (typeof DownvoteActorReviewScalarFieldEnum)[keyof typeof DownvoteActorReviewScalarFieldEnum]
 
 
 export const DownvoteCrewReviewScalarFieldEnum = {
@@ -307,17 +318,57 @@ export const DownvoteCrewReviewScalarFieldEnum = {
 export type DownvoteCrewReviewScalarFieldEnum = (typeof DownvoteCrewReviewScalarFieldEnum)[keyof typeof DownvoteCrewReviewScalarFieldEnum]
 
 
+export const DownvoteEpisodeReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  episodeId: 'episodeId',
+  episodeReviewId: 'episodeReviewId'
+} as const
+
+export type DownvoteEpisodeReviewScalarFieldEnum = (typeof DownvoteEpisodeReviewScalarFieldEnum)[keyof typeof DownvoteEpisodeReviewScalarFieldEnum]
+
+
+export const DownvoteMovieReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  movieId: 'movieId',
+  movieReviewId: 'movieReviewId'
+} as const
+
+export type DownvoteMovieReviewScalarFieldEnum = (typeof DownvoteMovieReviewScalarFieldEnum)[keyof typeof DownvoteMovieReviewScalarFieldEnum]
+
+
+export const DownvoteSeasonReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  seasonId: 'seasonId',
+  seasonReviewId: 'seasonReviewId'
+} as const
+
+export type DownvoteSeasonReviewScalarFieldEnum = (typeof DownvoteSeasonReviewScalarFieldEnum)[keyof typeof DownvoteSeasonReviewScalarFieldEnum]
+
+
+export const DownvoteSerieReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serieId: 'serieId',
+  serieReviewId: 'serieReviewId'
+} as const
+
+export type DownvoteSerieReviewScalarFieldEnum = (typeof DownvoteSerieReviewScalarFieldEnum)[keyof typeof DownvoteSerieReviewScalarFieldEnum]
+
+
 export const EpisodeScalarFieldEnum = {
   id: 'id',
   title: 'title',
   photoSrc: 'photoSrc',
   photoSrcProd: 'photoSrcProd',
-  trailerSrc: 'trailerSrc',
   description: 'description',
+  seasonId: 'seasonId',
   duration: 'duration',
-  dateAired: 'dateAired',
+  trailerSrc: 'trailerSrc',
   ratingImdb: 'ratingImdb',
-  seasonId: 'seasonId'
+  dateAired: 'dateAired'
 } as const
 
 export type EpisodeScalarFieldEnum = (typeof EpisodeScalarFieldEnum)[keyof typeof EpisodeScalarFieldEnum]
@@ -334,26 +385,6 @@ export const EpisodeReviewScalarFieldEnum = {
 } as const
 
 export type EpisodeReviewScalarFieldEnum = (typeof EpisodeReviewScalarFieldEnum)[keyof typeof EpisodeReviewScalarFieldEnum]
-
-
-export const UpvoteEpisodeReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  episodeId: 'episodeId',
-  episodeReviewId: 'episodeReviewId'
-} as const
-
-export type UpvoteEpisodeReviewScalarFieldEnum = (typeof UpvoteEpisodeReviewScalarFieldEnum)[keyof typeof UpvoteEpisodeReviewScalarFieldEnum]
-
-
-export const DownvoteEpisodeReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  episodeId: 'episodeId',
-  episodeReviewId: 'episodeReviewId'
-} as const
-
-export type DownvoteEpisodeReviewScalarFieldEnum = (typeof DownvoteEpisodeReviewScalarFieldEnum)[keyof typeof DownvoteEpisodeReviewScalarFieldEnum]
 
 
 export const ForumCategoryScalarFieldEnum = {
@@ -374,16 +405,6 @@ export const ForumCategoryScalarFieldEnum = {
 export type ForumCategoryScalarFieldEnum = (typeof ForumCategoryScalarFieldEnum)[keyof typeof ForumCategoryScalarFieldEnum]
 
 
-export const UserForumModeratorScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  categoryId: 'categoryId'
-} as const
-
-export type UserForumModeratorScalarFieldEnum = (typeof UserForumModeratorScalarFieldEnum)[keyof typeof UserForumModeratorScalarFieldEnum]
-
-
 export const ForumPostScalarFieldEnum = {
   id: 'id',
   content: 'content',
@@ -394,48 +415,23 @@ export const ForumPostScalarFieldEnum = {
   slug: 'slug',
   type: 'type',
   isAnswer: 'isAnswer',
-  isDeleted: 'isDeleted',
   answeredAt: 'answeredAt',
-  deletedAt: 'deletedAt',
-  topicId: 'topicId',
-  userId: 'userId',
   answeredById: 'answeredById',
-  deletedById: 'deletedById'
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
+  deletedById: 'deletedById',
+  topicId: 'topicId',
+  userId: 'userId'
 } as const
 
 export type ForumPostScalarFieldEnum = (typeof ForumPostScalarFieldEnum)[keyof typeof ForumPostScalarFieldEnum]
 
 
-export const AttachmentScalarFieldEnum = {
-  id: 'id',
-  filename: 'filename',
-  fileUrl: 'fileUrl',
-  fileSize: 'fileSize',
-  mimeType: 'mimeType',
-  uploadedAt: 'uploadedAt',
-  isPublic: 'isPublic',
-  description: 'description',
-  postId: 'postId',
-  userId: 'userId'
-} as const
-
-export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
-
-
-export const UpvoteForumPostScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  postId: 'postId'
-} as const
-
-export type UpvoteForumPostScalarFieldEnum = (typeof UpvoteForumPostScalarFieldEnum)[keyof typeof UpvoteForumPostScalarFieldEnum]
-
-
 export const ForumPostHistoryScalarFieldEnum = {
   id: 'id',
+  postId: 'postId',
   content: 'content',
   editedAt: 'editedAt',
-  postId: 'postId',
   editedById: 'editedById'
 } as const
 
@@ -456,20 +452,11 @@ export const ForumReplyScalarFieldEnum = {
 export type ForumReplyScalarFieldEnum = (typeof ForumReplyScalarFieldEnum)[keyof typeof ForumReplyScalarFieldEnum]
 
 
-export const UpvoteForumReplyScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  replyId: 'replyId'
-} as const
-
-export type UpvoteForumReplyScalarFieldEnum = (typeof UpvoteForumReplyScalarFieldEnum)[keyof typeof UpvoteForumReplyScalarFieldEnum]
-
-
 export const ForumReplyHistoryScalarFieldEnum = {
   id: 'id',
+  replyId: 'replyId',
   content: 'content',
   editedAt: 'editedAt',
-  replyId: 'replyId',
   editedById: 'editedById'
 } as const
 
@@ -499,8 +486,8 @@ export const ForumTopicScalarFieldEnum = {
   viewCount: 'viewCount',
   lastPostAt: 'lastPostAt',
   isModerated: 'isModerated',
-  closedAt: 'closedAt',
   status: 'status',
+  closedAt: 'closedAt',
   closedById: 'closedById',
   categoryId: 'categoryId',
   userId: 'userId'
@@ -509,32 +496,18 @@ export const ForumTopicScalarFieldEnum = {
 export type ForumTopicScalarFieldEnum = (typeof ForumTopicScalarFieldEnum)[keyof typeof ForumTopicScalarFieldEnum]
 
 
-export const UserForumTopicWatchScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  topicId: 'topicId'
-} as const
-
-export type UserForumTopicWatchScalarFieldEnum = (typeof UserForumTopicWatchScalarFieldEnum)[keyof typeof UserForumTopicWatchScalarFieldEnum]
-
-
-export const UserForumTopicFavoriteScalarFieldEnum = {
+export const ForumUserStatsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  topicId: 'topicId'
+  topicCount: 'topicCount',
+  postCount: 'postCount',
+  replyCount: 'replyCount',
+  upvotesReceived: 'upvotesReceived',
+  reputation: 'reputation',
+  lastPostAt: 'lastPostAt'
 } as const
 
-export type UserForumTopicFavoriteScalarFieldEnum = (typeof UserForumTopicFavoriteScalarFieldEnum)[keyof typeof UserForumTopicFavoriteScalarFieldEnum]
-
-
-export const UpvoteForumTopicScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  topicId: 'topicId'
-} as const
-
-export type UpvoteForumTopicScalarFieldEnum = (typeof UpvoteForumTopicScalarFieldEnum)[keyof typeof UpvoteForumTopicScalarFieldEnum]
+export type ForumUserStatsScalarFieldEnum = (typeof ForumUserStatsScalarFieldEnum)[keyof typeof ForumUserStatsScalarFieldEnum]
 
 
 export const GenreScalarFieldEnum = {
@@ -545,6 +518,13 @@ export const GenreScalarFieldEnum = {
 export type GenreScalarFieldEnum = (typeof GenreScalarFieldEnum)[keyof typeof GenreScalarFieldEnum]
 
 
+export const InboxScalarFieldEnum = {
+  id: 'id'
+} as const
+
+export type InboxScalarFieldEnum = (typeof InboxScalarFieldEnum)[keyof typeof InboxScalarFieldEnum]
+
+
 export const ListScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -553,154 +533,13 @@ export const ListScalarFieldEnum = {
   isArchived: 'isArchived',
   isDefault: 'isDefault',
   createdAt: 'createdAt',
-  contentType: 'contentType',
   updatedAt: 'updatedAt',
   lastViewedAt: 'lastViewedAt',
-  userId: 'userId'
+  userId: 'userId',
+  contentType: 'contentType'
 } as const
 
 export type ListScalarFieldEnum = (typeof ListScalarFieldEnum)[keyof typeof ListScalarFieldEnum]
-
-
-export const ListShareScalarFieldEnum = {
-  id: 'id',
-  canEdit: 'canEdit',
-  sharedAt: 'sharedAt',
-  listId: 'listId',
-  userId: 'userId'
-} as const
-
-export type ListShareScalarFieldEnum = (typeof ListShareScalarFieldEnum)[keyof typeof ListShareScalarFieldEnum]
-
-
-export const ListMovieScalarFieldEnum = {
-  id: 'id',
-  addedAt: 'addedAt',
-  note: 'note',
-  orderIndex: 'orderIndex',
-  listId: 'listId',
-  movieId: 'movieId',
-  userId: 'userId'
-} as const
-
-export type ListMovieScalarFieldEnum = (typeof ListMovieScalarFieldEnum)[keyof typeof ListMovieScalarFieldEnum]
-
-
-export const ListSerieScalarFieldEnum = {
-  id: 'id',
-  addedAt: 'addedAt',
-  note: 'note',
-  orderIndex: 'orderIndex',
-  listId: 'listId',
-  serieId: 'serieId',
-  userId: 'userId'
-} as const
-
-export type ListSerieScalarFieldEnum = (typeof ListSerieScalarFieldEnum)[keyof typeof ListSerieScalarFieldEnum]
-
-
-export const ListSeasonScalarFieldEnum = {
-  id: 'id',
-  addedAt: 'addedAt',
-  note: 'note',
-  orderIndex: 'orderIndex',
-  listId: 'listId',
-  seasonId: 'seasonId',
-  userId: 'userId'
-} as const
-
-export type ListSeasonScalarFieldEnum = (typeof ListSeasonScalarFieldEnum)[keyof typeof ListSeasonScalarFieldEnum]
-
-
-export const ListEpisodeScalarFieldEnum = {
-  id: 'id',
-  addedAt: 'addedAt',
-  note: 'note',
-  orderIndex: 'orderIndex',
-  listId: 'listId',
-  episodeId: 'episodeId',
-  userId: 'userId'
-} as const
-
-export type ListEpisodeScalarFieldEnum = (typeof ListEpisodeScalarFieldEnum)[keyof typeof ListEpisodeScalarFieldEnum]
-
-
-export const ListActorScalarFieldEnum = {
-  id: 'id',
-  addedAt: 'addedAt',
-  note: 'note',
-  orderIndex: 'orderIndex',
-  listId: 'listId',
-  actorId: 'actorId',
-  userId: 'userId'
-} as const
-
-export type ListActorScalarFieldEnum = (typeof ListActorScalarFieldEnum)[keyof typeof ListActorScalarFieldEnum]
-
-
-export const ListCrewScalarFieldEnum = {
-  id: 'id',
-  addedAt: 'addedAt',
-  note: 'note',
-  orderIndex: 'orderIndex',
-  listId: 'listId',
-  crewId: 'crewId',
-  userId: 'userId'
-} as const
-
-export type ListCrewScalarFieldEnum = (typeof ListCrewScalarFieldEnum)[keyof typeof ListCrewScalarFieldEnum]
-
-
-export const ListActivityMovieScalarFieldEnum = {
-  id: 'id',
-  actionType: 'actionType',
-  metadata: 'metadata',
-  createdAt: 'createdAt',
-  listId: 'listId',
-  movieId: 'movieId',
-  userId: 'userId'
-} as const
-
-export type ListActivityMovieScalarFieldEnum = (typeof ListActivityMovieScalarFieldEnum)[keyof typeof ListActivityMovieScalarFieldEnum]
-
-
-export const ListActivitySerieScalarFieldEnum = {
-  id: 'id',
-  actionType: 'actionType',
-  metadata: 'metadata',
-  createdAt: 'createdAt',
-  listId: 'listId',
-  serieId: 'serieId',
-  userId: 'userId'
-} as const
-
-export type ListActivitySerieScalarFieldEnum = (typeof ListActivitySerieScalarFieldEnum)[keyof typeof ListActivitySerieScalarFieldEnum]
-
-
-export const ListActivitySeasonScalarFieldEnum = {
-  id: 'id',
-  actionType: 'actionType',
-  metadata: 'metadata',
-  createdAt: 'createdAt',
-  listId: 'listId',
-  seasonId: 'seasonId',
-  userId: 'userId'
-} as const
-
-export type ListActivitySeasonScalarFieldEnum = (typeof ListActivitySeasonScalarFieldEnum)[keyof typeof ListActivitySeasonScalarFieldEnum]
-
-
-export const ListActivityEpisodeScalarFieldEnum = {
-  id: 'id',
-  actionType: 'actionType',
-  metadata: 'metadata',
-  createdAt: 'createdAt',
-  listId: 'listId',
-  episodeId: 'episodeId',
-  userId: 'userId'
-} as const
-
-export type ListActivityEpisodeScalarFieldEnum = (typeof ListActivityEpisodeScalarFieldEnum)[keyof typeof ListActivityEpisodeScalarFieldEnum]
 
 
 export const ListActivityActorScalarFieldEnum = {
@@ -708,9 +547,9 @@ export const ListActivityActorScalarFieldEnum = {
   actionType: 'actionType',
   metadata: 'metadata',
   createdAt: 'createdAt',
-  listId: 'listId',
   actorId: 'actorId',
-  userId: 'userId'
+  userId: 'userId',
+  listId: 'listId'
 } as const
 
 export type ListActivityActorScalarFieldEnum = (typeof ListActivityActorScalarFieldEnum)[keyof typeof ListActivityActorScalarFieldEnum]
@@ -721,57 +560,167 @@ export const ListActivityCrewScalarFieldEnum = {
   actionType: 'actionType',
   metadata: 'metadata',
   createdAt: 'createdAt',
-  listId: 'listId',
   crewId: 'crewId',
-  userId: 'userId'
+  userId: 'userId',
+  listId: 'listId'
 } as const
 
 export type ListActivityCrewScalarFieldEnum = (typeof ListActivityCrewScalarFieldEnum)[keyof typeof ListActivityCrewScalarFieldEnum]
 
 
-export const InboxScalarFieldEnum = {
-  id: 'id'
+export const ListActivityEpisodeScalarFieldEnum = {
+  id: 'id',
+  actionType: 'actionType',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  episodeId: 'episodeId',
+  userId: 'userId',
+  listId: 'listId'
 } as const
 
-export type InboxScalarFieldEnum = (typeof InboxScalarFieldEnum)[keyof typeof InboxScalarFieldEnum]
+export type ListActivityEpisodeScalarFieldEnum = (typeof ListActivityEpisodeScalarFieldEnum)[keyof typeof ListActivityEpisodeScalarFieldEnum]
+
+
+export const ListActivityMovieScalarFieldEnum = {
+  id: 'id',
+  actionType: 'actionType',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  movieId: 'movieId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListActivityMovieScalarFieldEnum = (typeof ListActivityMovieScalarFieldEnum)[keyof typeof ListActivityMovieScalarFieldEnum]
+
+
+export const ListActivitySeasonScalarFieldEnum = {
+  id: 'id',
+  actionType: 'actionType',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  seasonId: 'seasonId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListActivitySeasonScalarFieldEnum = (typeof ListActivitySeasonScalarFieldEnum)[keyof typeof ListActivitySeasonScalarFieldEnum]
+
+
+export const ListActivitySerieScalarFieldEnum = {
+  id: 'id',
+  actionType: 'actionType',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  serieId: 'serieId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListActivitySerieScalarFieldEnum = (typeof ListActivitySerieScalarFieldEnum)[keyof typeof ListActivitySerieScalarFieldEnum]
+
+
+export const ListActorScalarFieldEnum = {
+  id: 'id',
+  addedAt: 'addedAt',
+  note: 'note',
+  orderIndex: 'orderIndex',
+  actorId: 'actorId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListActorScalarFieldEnum = (typeof ListActorScalarFieldEnum)[keyof typeof ListActorScalarFieldEnum]
+
+
+export const ListCrewScalarFieldEnum = {
+  id: 'id',
+  addedAt: 'addedAt',
+  note: 'note',
+  orderIndex: 'orderIndex',
+  crewId: 'crewId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListCrewScalarFieldEnum = (typeof ListCrewScalarFieldEnum)[keyof typeof ListCrewScalarFieldEnum]
+
+
+export const ListEpisodeScalarFieldEnum = {
+  id: 'id',
+  addedAt: 'addedAt',
+  note: 'note',
+  orderIndex: 'orderIndex',
+  episodeId: 'episodeId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListEpisodeScalarFieldEnum = (typeof ListEpisodeScalarFieldEnum)[keyof typeof ListEpisodeScalarFieldEnum]
+
+
+export const ListMovieScalarFieldEnum = {
+  id: 'id',
+  addedAt: 'addedAt',
+  note: 'note',
+  orderIndex: 'orderIndex',
+  movieId: 'movieId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListMovieScalarFieldEnum = (typeof ListMovieScalarFieldEnum)[keyof typeof ListMovieScalarFieldEnum]
+
+
+export const ListSeasonScalarFieldEnum = {
+  id: 'id',
+  addedAt: 'addedAt',
+  note: 'note',
+  orderIndex: 'orderIndex',
+  seasonId: 'seasonId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListSeasonScalarFieldEnum = (typeof ListSeasonScalarFieldEnum)[keyof typeof ListSeasonScalarFieldEnum]
+
+
+export const ListSerieScalarFieldEnum = {
+  id: 'id',
+  addedAt: 'addedAt',
+  note: 'note',
+  orderIndex: 'orderIndex',
+  serieId: 'serieId',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListSerieScalarFieldEnum = (typeof ListSerieScalarFieldEnum)[keyof typeof ListSerieScalarFieldEnum]
+
+
+export const ListShareScalarFieldEnum = {
+  id: 'id',
+  canEdit: 'canEdit',
+  sharedAt: 'sharedAt',
+  userId: 'userId',
+  listId: 'listId'
+} as const
+
+export type ListShareScalarFieldEnum = (typeof ListShareScalarFieldEnum)[keyof typeof ListShareScalarFieldEnum]
 
 
 export const MessageScalarFieldEnum = {
   id: 'id',
   text: 'text',
-  createdAt: 'createdAt',
-  read: 'read',
-  editedAt: 'editedAt',
   senderId: 'senderId',
   receiverId: 'receiverId',
-  inboxId: 'inboxId'
+  inboxId: 'inboxId',
+  createdAt: 'createdAt',
+  read: 'read',
+  editedAt: 'editedAt'
 } as const
 
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
-
-
-export const UserInboxScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  inboxId: 'inboxId'
-} as const
-
-export type UserInboxScalarFieldEnum = (typeof UserInboxScalarFieldEnum)[keyof typeof UserInboxScalarFieldEnum]
-
-
-export const ReportedContentScalarFieldEnum = {
-  id: 'id',
-  reportType: 'reportType',
-  reason: 'reason',
-  createdAt: 'createdAt',
-  status: 'status',
-  resolutionDetails: 'resolutionDetails',
-  contentId: 'contentId',
-  reportingUserId: 'reportingUserId',
-  reportedUserId: 'reportedUserId'
-} as const
-
-export type ReportedContentScalarFieldEnum = (typeof ReportedContentScalarFieldEnum)[keyof typeof ReportedContentScalarFieldEnum]
 
 
 export const ModerationLogScalarFieldEnum = {
@@ -793,13 +742,22 @@ export const MovieScalarFieldEnum = {
   photoSrc: 'photoSrc',
   photoSrcProd: 'photoSrcProd',
   trailerSrc: 'trailerSrc',
-  duration: 'duration',
   ratingImdb: 'ratingImdb',
-  dateAired: 'dateAired',
-  description: 'description'
+  description: 'description',
+  duration: 'duration',
+  dateAired: 'dateAired'
 } as const
 
 export type MovieScalarFieldEnum = (typeof MovieScalarFieldEnum)[keyof typeof MovieScalarFieldEnum]
+
+
+export const MovieGenreScalarFieldEnum = {
+  id: 'id',
+  movieId: 'movieId',
+  genreId: 'genreId'
+} as const
+
+export type MovieGenreScalarFieldEnum = (typeof MovieGenreScalarFieldEnum)[keyof typeof MovieGenreScalarFieldEnum]
 
 
 export const MovieReviewScalarFieldEnum = {
@@ -815,64 +773,43 @@ export const MovieReviewScalarFieldEnum = {
 export type MovieReviewScalarFieldEnum = (typeof MovieReviewScalarFieldEnum)[keyof typeof MovieReviewScalarFieldEnum]
 
 
-export const UpvoteMovieReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  movieId: 'movieId',
-  movieReviewId: 'movieReviewId'
-} as const
-
-export type UpvoteMovieReviewScalarFieldEnum = (typeof UpvoteMovieReviewScalarFieldEnum)[keyof typeof UpvoteMovieReviewScalarFieldEnum]
-
-
-export const DownvoteMovieReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  movieId: 'movieId',
-  movieReviewId: 'movieReviewId'
-} as const
-
-export type DownvoteMovieReviewScalarFieldEnum = (typeof DownvoteMovieReviewScalarFieldEnum)[keyof typeof DownvoteMovieReviewScalarFieldEnum]
-
-
-export const CastMovieScalarFieldEnum = {
-  id: 'id',
-  movieId: 'movieId',
-  actorId: 'actorId'
-} as const
-
-export type CastMovieScalarFieldEnum = (typeof CastMovieScalarFieldEnum)[keyof typeof CastMovieScalarFieldEnum]
-
-
-export const CrewMovieScalarFieldEnum = {
-  id: 'id',
-  movieId: 'movieId',
-  crewId: 'crewId'
-} as const
-
-export type CrewMovieScalarFieldEnum = (typeof CrewMovieScalarFieldEnum)[keyof typeof CrewMovieScalarFieldEnum]
-
-
-export const MovieGenreScalarFieldEnum = {
-  id: 'id',
-  movieId: 'movieId',
-  genreId: 'genreId'
-} as const
-
-export type MovieGenreScalarFieldEnum = (typeof MovieGenreScalarFieldEnum)[keyof typeof MovieGenreScalarFieldEnum]
-
-
 export const NotificationScalarFieldEnum = {
   id: 'id',
-  type: 'type',
   content: 'content',
-  status: 'status',
-  createdAt: 'createdAt',
   userId: 'userId',
-  senderId: 'senderId'
+  senderId: 'senderId',
+  createdAt: 'createdAt',
+  status: 'status',
+  type: 'type'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const ReportedContentScalarFieldEnum = {
+  id: 'id',
+  reportType: 'reportType',
+  reason: 'reason',
+  createdAt: 'createdAt',
+  status: 'status',
+  resolutionDetails: 'resolutionDetails',
+  contentId: 'contentId',
+  reportingUserId: 'reportingUserId',
+  reportedUserId: 'reportedUserId'
+} as const
+
+export type ReportedContentScalarFieldEnum = (typeof ReportedContentScalarFieldEnum)[keyof typeof ReportedContentScalarFieldEnum]
+
+
+export const ResetPasswordTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  createdAt: 'createdAt',
+  resetPasswordAt: 'resetPasswordAt',
+  userId: 'userId'
+} as const
+
+export type ResetPasswordTokenScalarFieldEnum = (typeof ResetPasswordTokenScalarFieldEnum)[keyof typeof ResetPasswordTokenScalarFieldEnum]
 
 
 export const SeasonScalarFieldEnum = {
@@ -880,11 +817,11 @@ export const SeasonScalarFieldEnum = {
   title: 'title',
   photoSrc: 'photoSrc',
   photoSrcProd: 'photoSrcProd',
+  ratingImdb: 'ratingImdb',
+  serieId: 'serieId',
   trailerSrc: 'trailerSrc',
   description: 'description',
-  dateAired: 'dateAired',
-  ratingImdb: 'ratingImdb',
-  serieId: 'serieId'
+  dateAired: 'dateAired'
 } as const
 
 export type SeasonScalarFieldEnum = (typeof SeasonScalarFieldEnum)[keyof typeof SeasonScalarFieldEnum]
@@ -903,26 +840,6 @@ export const SeasonReviewScalarFieldEnum = {
 export type SeasonReviewScalarFieldEnum = (typeof SeasonReviewScalarFieldEnum)[keyof typeof SeasonReviewScalarFieldEnum]
 
 
-export const UpvoteSeasonReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  seasonId: 'seasonId',
-  seasonReviewId: 'seasonReviewId'
-} as const
-
-export type UpvoteSeasonReviewScalarFieldEnum = (typeof UpvoteSeasonReviewScalarFieldEnum)[keyof typeof UpvoteSeasonReviewScalarFieldEnum]
-
-
-export const DownvoteSeasonReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  seasonId: 'seasonId',
-  seasonReviewId: 'seasonReviewId'
-} as const
-
-export type DownvoteSeasonReviewScalarFieldEnum = (typeof DownvoteSeasonReviewScalarFieldEnum)[keyof typeof DownvoteSeasonReviewScalarFieldEnum]
-
-
 export const SerieScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -930,31 +847,20 @@ export const SerieScalarFieldEnum = {
   photoSrcProd: 'photoSrcProd',
   trailerSrc: 'trailerSrc',
   description: 'description',
-  dateAired: 'dateAired',
-  ratingImdb: 'ratingImdb'
+  ratingImdb: 'ratingImdb',
+  dateAired: 'dateAired'
 } as const
 
 export type SerieScalarFieldEnum = (typeof SerieScalarFieldEnum)[keyof typeof SerieScalarFieldEnum]
 
 
-export const UpvoteSerieReviewScalarFieldEnum = {
+export const SerieGenreScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   serieId: 'serieId',
-  serieReviewId: 'serieReviewId'
+  genreId: 'genreId'
 } as const
 
-export type UpvoteSerieReviewScalarFieldEnum = (typeof UpvoteSerieReviewScalarFieldEnum)[keyof typeof UpvoteSerieReviewScalarFieldEnum]
-
-
-export const DownvoteSerieReviewScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  serieId: 'serieId',
-  serieReviewId: 'serieReviewId'
-} as const
-
-export type DownvoteSerieReviewScalarFieldEnum = (typeof DownvoteSerieReviewScalarFieldEnum)[keyof typeof DownvoteSerieReviewScalarFieldEnum]
+export type SerieGenreScalarFieldEnum = (typeof SerieGenreScalarFieldEnum)[keyof typeof SerieGenreScalarFieldEnum]
 
 
 export const SerieReviewScalarFieldEnum = {
@@ -970,31 +876,101 @@ export const SerieReviewScalarFieldEnum = {
 export type SerieReviewScalarFieldEnum = (typeof SerieReviewScalarFieldEnum)[keyof typeof SerieReviewScalarFieldEnum]
 
 
-export const SerieGenreScalarFieldEnum = {
+export const SessionScalarFieldEnum = {
   id: 'id',
-  serieId: 'serieId',
-  genreId: 'genreId'
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
 } as const
 
-export type SerieGenreScalarFieldEnum = (typeof SerieGenreScalarFieldEnum)[keyof typeof SerieGenreScalarFieldEnum]
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
-export const CastSerieScalarFieldEnum = {
+export const UpvoteActorReviewScalarFieldEnum = {
   id: 'id',
-  serieId: 'serieId',
-  actorId: 'actorId'
+  userId: 'userId',
+  actorId: 'actorId',
+  actorReviewId: 'actorReviewId'
 } as const
 
-export type CastSerieScalarFieldEnum = (typeof CastSerieScalarFieldEnum)[keyof typeof CastSerieScalarFieldEnum]
+export type UpvoteActorReviewScalarFieldEnum = (typeof UpvoteActorReviewScalarFieldEnum)[keyof typeof UpvoteActorReviewScalarFieldEnum]
 
 
-export const CrewSerieScalarFieldEnum = {
+export const UpvoteCrewReviewScalarFieldEnum = {
   id: 'id',
-  serieId: 'serieId',
-  crewId: 'crewId'
+  userId: 'userId',
+  crewId: 'crewId',
+  crewReviewId: 'crewReviewId'
 } as const
 
-export type CrewSerieScalarFieldEnum = (typeof CrewSerieScalarFieldEnum)[keyof typeof CrewSerieScalarFieldEnum]
+export type UpvoteCrewReviewScalarFieldEnum = (typeof UpvoteCrewReviewScalarFieldEnum)[keyof typeof UpvoteCrewReviewScalarFieldEnum]
+
+
+export const UpvoteEpisodeReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  episodeId: 'episodeId',
+  episodeReviewId: 'episodeReviewId'
+} as const
+
+export type UpvoteEpisodeReviewScalarFieldEnum = (typeof UpvoteEpisodeReviewScalarFieldEnum)[keyof typeof UpvoteEpisodeReviewScalarFieldEnum]
+
+
+export const UpvoteForumPostScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  postId: 'postId'
+} as const
+
+export type UpvoteForumPostScalarFieldEnum = (typeof UpvoteForumPostScalarFieldEnum)[keyof typeof UpvoteForumPostScalarFieldEnum]
+
+
+export const UpvoteForumReplyScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  replyId: 'replyId'
+} as const
+
+export type UpvoteForumReplyScalarFieldEnum = (typeof UpvoteForumReplyScalarFieldEnum)[keyof typeof UpvoteForumReplyScalarFieldEnum]
+
+
+export const UpvoteForumTopicScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  topicId: 'topicId'
+} as const
+
+export type UpvoteForumTopicScalarFieldEnum = (typeof UpvoteForumTopicScalarFieldEnum)[keyof typeof UpvoteForumTopicScalarFieldEnum]
+
+
+export const UpvoteMovieReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  movieId: 'movieId',
+  movieReviewId: 'movieReviewId'
+} as const
+
+export type UpvoteMovieReviewScalarFieldEnum = (typeof UpvoteMovieReviewScalarFieldEnum)[keyof typeof UpvoteMovieReviewScalarFieldEnum]
+
+
+export const UpvoteSeasonReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  seasonId: 'seasonId',
+  seasonReviewId: 'seasonReviewId'
+} as const
+
+export type UpvoteSeasonReviewScalarFieldEnum = (typeof UpvoteSeasonReviewScalarFieldEnum)[keyof typeof UpvoteSeasonReviewScalarFieldEnum]
+
+
+export const UpvoteSerieReviewScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serieId: 'serieId',
+  serieReviewId: 'serieReviewId'
+} as const
+
+export type UpvoteSerieReviewScalarFieldEnum = (typeof UpvoteSerieReviewScalarFieldEnum)[keyof typeof UpvoteSerieReviewScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -1002,52 +978,133 @@ export const UserScalarFieldEnum = {
   userName: 'userName',
   email: 'email',
   password: 'password',
-  role: 'role',
   bio: 'bio',
-  age: 'age',
-  birthday: 'birthday',
-  gender: 'gender',
-  phone: 'phone',
-  countryFrom: 'countryFrom',
   active: 'active',
   canResetPassword: 'canResetPassword',
-  subscribed: 'subscribed'
+  subscribed: 'subscribed',
+  role: 'role',
+  age: 'age',
+  countryFrom: 'countryFrom',
+  gender: 'gender',
+  phone: 'phone',
+  birthday: 'birthday'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const AvatarScalarFieldEnum = {
+export const UserActorFavoriteScalarFieldEnum = {
   id: 'id',
-  photoSrc: 'photoSrc',
-  userId: 'userId'
+  userId: 'userId',
+  actorId: 'actorId'
 } as const
 
-export type AvatarScalarFieldEnum = (typeof AvatarScalarFieldEnum)[keyof typeof AvatarScalarFieldEnum]
+export type UserActorFavoriteScalarFieldEnum = (typeof UserActorFavoriteScalarFieldEnum)[keyof typeof UserActorFavoriteScalarFieldEnum]
+
+
+export const UserActorRatingScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  userId: 'userId',
+  actorId: 'actorId'
+} as const
+
+export type UserActorRatingScalarFieldEnum = (typeof UserActorRatingScalarFieldEnum)[keyof typeof UserActorRatingScalarFieldEnum]
+
+
+export const UserCrewFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  crewId: 'crewId'
+} as const
+
+export type UserCrewFavoriteScalarFieldEnum = (typeof UserCrewFavoriteScalarFieldEnum)[keyof typeof UserCrewFavoriteScalarFieldEnum]
+
+
+export const UserCrewRatingScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  userId: 'userId',
+  crewId: 'crewId'
+} as const
+
+export type UserCrewRatingScalarFieldEnum = (typeof UserCrewRatingScalarFieldEnum)[keyof typeof UserCrewRatingScalarFieldEnum]
+
+
+export const UserEpisodeFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  episodeId: 'episodeId'
+} as const
+
+export type UserEpisodeFavoriteScalarFieldEnum = (typeof UserEpisodeFavoriteScalarFieldEnum)[keyof typeof UserEpisodeFavoriteScalarFieldEnum]
+
+
+export const UserEpisodeRatingScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  userId: 'userId',
+  episodeId: 'episodeId'
+} as const
+
+export type UserEpisodeRatingScalarFieldEnum = (typeof UserEpisodeRatingScalarFieldEnum)[keyof typeof UserEpisodeRatingScalarFieldEnum]
 
 
 export const UserFollowScalarFieldEnum = {
   id: 'id',
-  state: 'state',
   followerId: 'followerId',
-  followingId: 'followingId'
+  followingId: 'followingId',
+  state: 'state'
 } as const
 
 export type UserFollowScalarFieldEnum = (typeof UserFollowScalarFieldEnum)[keyof typeof UserFollowScalarFieldEnum]
 
 
-export const ForumUserStatsScalarFieldEnum = {
+export const UserForumModeratorScalarFieldEnum = {
   id: 'id',
+  createdAt: 'createdAt',
   userId: 'userId',
-  topicCount: 'topicCount',
-  postCount: 'postCount',
-  replyCount: 'replyCount',
-  upvotesReceived: 'upvotesReceived',
-  reputation: 'reputation',
-  lastPostAt: 'lastPostAt'
+  categoryId: 'categoryId'
 } as const
 
-export type ForumUserStatsScalarFieldEnum = (typeof ForumUserStatsScalarFieldEnum)[keyof typeof ForumUserStatsScalarFieldEnum]
+export type UserForumModeratorScalarFieldEnum = (typeof UserForumModeratorScalarFieldEnum)[keyof typeof UserForumModeratorScalarFieldEnum]
+
+
+export const UserForumTopicFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  topicId: 'topicId'
+} as const
+
+export type UserForumTopicFavoriteScalarFieldEnum = (typeof UserForumTopicFavoriteScalarFieldEnum)[keyof typeof UserForumTopicFavoriteScalarFieldEnum]
+
+
+export const UserForumTopicWatchScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  topicId: 'topicId'
+} as const
+
+export type UserForumTopicWatchScalarFieldEnum = (typeof UserForumTopicWatchScalarFieldEnum)[keyof typeof UserForumTopicWatchScalarFieldEnum]
+
+
+export const UserGenreFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  genreId: 'genreId'
+} as const
+
+export type UserGenreFavoriteScalarFieldEnum = (typeof UserGenreFavoriteScalarFieldEnum)[keyof typeof UserGenreFavoriteScalarFieldEnum]
+
+
+export const UserInboxScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  inboxId: 'inboxId'
+} as const
+
+export type UserInboxScalarFieldEnum = (typeof UserInboxScalarFieldEnum)[keyof typeof UserInboxScalarFieldEnum]
 
 
 export const UserListStatsScalarFieldEnum = {
@@ -1071,60 +1128,6 @@ export const UserMovieFavoriteScalarFieldEnum = {
 export type UserMovieFavoriteScalarFieldEnum = (typeof UserMovieFavoriteScalarFieldEnum)[keyof typeof UserMovieFavoriteScalarFieldEnum]
 
 
-export const UserGenreFavoriteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  genreId: 'genreId'
-} as const
-
-export type UserGenreFavoriteScalarFieldEnum = (typeof UserGenreFavoriteScalarFieldEnum)[keyof typeof UserGenreFavoriteScalarFieldEnum]
-
-
-export const UserSerieFavoriteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  serieId: 'serieId'
-} as const
-
-export type UserSerieFavoriteScalarFieldEnum = (typeof UserSerieFavoriteScalarFieldEnum)[keyof typeof UserSerieFavoriteScalarFieldEnum]
-
-
-export const UserEpisodeFavoriteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  episodeId: 'episodeId'
-} as const
-
-export type UserEpisodeFavoriteScalarFieldEnum = (typeof UserEpisodeFavoriteScalarFieldEnum)[keyof typeof UserEpisodeFavoriteScalarFieldEnum]
-
-
-export const UserSeasonFavoriteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  seasonId: 'seasonId'
-} as const
-
-export type UserSeasonFavoriteScalarFieldEnum = (typeof UserSeasonFavoriteScalarFieldEnum)[keyof typeof UserSeasonFavoriteScalarFieldEnum]
-
-
-export const UserActorFavoriteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  actorId: 'actorId'
-} as const
-
-export type UserActorFavoriteScalarFieldEnum = (typeof UserActorFavoriteScalarFieldEnum)[keyof typeof UserActorFavoriteScalarFieldEnum]
-
-
-export const UserCrewFavoriteScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  crewId: 'crewId'
-} as const
-
-export type UserCrewFavoriteScalarFieldEnum = (typeof UserCrewFavoriteScalarFieldEnum)[keyof typeof UserCrewFavoriteScalarFieldEnum]
-
-
 export const UserMovieRatingScalarFieldEnum = {
   id: 'id',
   rating: 'rating',
@@ -1135,14 +1138,13 @@ export const UserMovieRatingScalarFieldEnum = {
 export type UserMovieRatingScalarFieldEnum = (typeof UserMovieRatingScalarFieldEnum)[keyof typeof UserMovieRatingScalarFieldEnum]
 
 
-export const UserSerieRatingScalarFieldEnum = {
+export const UserSeasonFavoriteScalarFieldEnum = {
   id: 'id',
-  rating: 'rating',
   userId: 'userId',
-  serieId: 'serieId'
+  seasonId: 'seasonId'
 } as const
 
-export type UserSerieRatingScalarFieldEnum = (typeof UserSerieRatingScalarFieldEnum)[keyof typeof UserSerieRatingScalarFieldEnum]
+export type UserSeasonFavoriteScalarFieldEnum = (typeof UserSeasonFavoriteScalarFieldEnum)[keyof typeof UserSeasonFavoriteScalarFieldEnum]
 
 
 export const UserSeasonRatingScalarFieldEnum = {
@@ -1155,34 +1157,32 @@ export const UserSeasonRatingScalarFieldEnum = {
 export type UserSeasonRatingScalarFieldEnum = (typeof UserSeasonRatingScalarFieldEnum)[keyof typeof UserSeasonRatingScalarFieldEnum]
 
 
-export const UserEpisodeRatingScalarFieldEnum = {
+export const UserSerieFavoriteScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  serieId: 'serieId'
+} as const
+
+export type UserSerieFavoriteScalarFieldEnum = (typeof UserSerieFavoriteScalarFieldEnum)[keyof typeof UserSerieFavoriteScalarFieldEnum]
+
+
+export const UserSerieRatingScalarFieldEnum = {
   id: 'id',
   rating: 'rating',
   userId: 'userId',
-  episodeId: 'episodeId'
+  serieId: 'serieId'
 } as const
 
-export type UserEpisodeRatingScalarFieldEnum = (typeof UserEpisodeRatingScalarFieldEnum)[keyof typeof UserEpisodeRatingScalarFieldEnum]
+export type UserSerieRatingScalarFieldEnum = (typeof UserSerieRatingScalarFieldEnum)[keyof typeof UserSerieRatingScalarFieldEnum]
 
 
-export const UserActorRatingScalarFieldEnum = {
-  id: 'id',
-  rating: 'rating',
-  userId: 'userId',
-  actorId: 'actorId'
+export const VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
 } as const
 
-export type UserActorRatingScalarFieldEnum = (typeof UserActorRatingScalarFieldEnum)[keyof typeof UserActorRatingScalarFieldEnum]
-
-
-export const UserCrewRatingScalarFieldEnum = {
-  id: 'id',
-  rating: 'rating',
-  userId: 'userId',
-  crewId: 'crewId'
-} as const
-
-export type UserCrewRatingScalarFieldEnum = (typeof UserCrewRatingScalarFieldEnum)[keyof typeof UserCrewRatingScalarFieldEnum]
+export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1209,17 +1209,6 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-export const ActorOrderByRelevanceFieldEnum = {
-  fullname: 'fullname',
-  photoSrc: 'photoSrc',
-  photoSrcProd: 'photoSrcProd',
-  description: 'description',
-  debut: 'debut'
-} as const
-
-export type ActorOrderByRelevanceFieldEnum = (typeof ActorOrderByRelevanceFieldEnum)[keyof typeof ActorOrderByRelevanceFieldEnum]
-
-
 export const NullsOrder = {
   first: 'first',
   last: 'last'
@@ -1228,43 +1217,20 @@ export const NullsOrder = {
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-export const ActorReviewOrderByRelevanceFieldEnum = {
-  content: 'content'
-} as const
-
-export type ActorReviewOrderByRelevanceFieldEnum = (typeof ActorReviewOrderByRelevanceFieldEnum)[keyof typeof ActorReviewOrderByRelevanceFieldEnum]
-
-
 export const AccountOrderByRelevanceFieldEnum = {
   id: 'id',
   type: 'type',
   provider: 'provider',
+  providerAccountId: 'providerAccountId',
   refresh_token: 'refresh_token',
   access_token: 'access_token',
   token_type: 'token_type',
   scope: 'scope',
   id_token: 'id_token',
-  session_state: 'session_state',
-  providerAccountId: 'providerAccountId'
+  session_state: 'session_state'
 } as const
 
 export type AccountOrderByRelevanceFieldEnum = (typeof AccountOrderByRelevanceFieldEnum)[keyof typeof AccountOrderByRelevanceFieldEnum]
-
-
-export const SessionOrderByRelevanceFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken'
-} as const
-
-export type SessionOrderByRelevanceFieldEnum = (typeof SessionOrderByRelevanceFieldEnum)[keyof typeof SessionOrderByRelevanceFieldEnum]
-
-
-export const VerificationTokenOrderByRelevanceFieldEnum = {
-  identifier: 'identifier',
-  token: 'token'
-} as const
-
-export type VerificationTokenOrderByRelevanceFieldEnum = (typeof VerificationTokenOrderByRelevanceFieldEnum)[keyof typeof VerificationTokenOrderByRelevanceFieldEnum]
 
 
 export const ActivateTokenOrderByRelevanceFieldEnum = {
@@ -1274,11 +1240,39 @@ export const ActivateTokenOrderByRelevanceFieldEnum = {
 export type ActivateTokenOrderByRelevanceFieldEnum = (typeof ActivateTokenOrderByRelevanceFieldEnum)[keyof typeof ActivateTokenOrderByRelevanceFieldEnum]
 
 
-export const ResetPasswordTokenOrderByRelevanceFieldEnum = {
-  token: 'token'
+export const ActorOrderByRelevanceFieldEnum = {
+  fullname: 'fullname',
+  debut: 'debut',
+  description: 'description',
+  photoSrc: 'photoSrc',
+  photoSrcProd: 'photoSrcProd'
 } as const
 
-export type ResetPasswordTokenOrderByRelevanceFieldEnum = (typeof ResetPasswordTokenOrderByRelevanceFieldEnum)[keyof typeof ResetPasswordTokenOrderByRelevanceFieldEnum]
+export type ActorOrderByRelevanceFieldEnum = (typeof ActorOrderByRelevanceFieldEnum)[keyof typeof ActorOrderByRelevanceFieldEnum]
+
+
+export const ActorReviewOrderByRelevanceFieldEnum = {
+  content: 'content'
+} as const
+
+export type ActorReviewOrderByRelevanceFieldEnum = (typeof ActorReviewOrderByRelevanceFieldEnum)[keyof typeof ActorReviewOrderByRelevanceFieldEnum]
+
+
+export const AttachmentOrderByRelevanceFieldEnum = {
+  filename: 'filename',
+  fileUrl: 'fileUrl',
+  mimeType: 'mimeType',
+  description: 'description'
+} as const
+
+export type AttachmentOrderByRelevanceFieldEnum = (typeof AttachmentOrderByRelevanceFieldEnum)[keyof typeof AttachmentOrderByRelevanceFieldEnum]
+
+
+export const AvatarOrderByRelevanceFieldEnum = {
+  photoSrc: 'photoSrc'
+} as const
+
+export type AvatarOrderByRelevanceFieldEnum = (typeof AvatarOrderByRelevanceFieldEnum)[keyof typeof AvatarOrderByRelevanceFieldEnum]
 
 
 export const CrewOrderByRelevanceFieldEnum = {
@@ -1304,8 +1298,8 @@ export const EpisodeOrderByRelevanceFieldEnum = {
   title: 'title',
   photoSrc: 'photoSrc',
   photoSrcProd: 'photoSrcProd',
-  trailerSrc: 'trailerSrc',
-  description: 'description'
+  description: 'description',
+  trailerSrc: 'trailerSrc'
 } as const
 
 export type EpisodeOrderByRelevanceFieldEnum = (typeof EpisodeOrderByRelevanceFieldEnum)[keyof typeof EpisodeOrderByRelevanceFieldEnum]
@@ -1333,16 +1327,6 @@ export const ForumPostOrderByRelevanceFieldEnum = {
 } as const
 
 export type ForumPostOrderByRelevanceFieldEnum = (typeof ForumPostOrderByRelevanceFieldEnum)[keyof typeof ForumPostOrderByRelevanceFieldEnum]
-
-
-export const AttachmentOrderByRelevanceFieldEnum = {
-  filename: 'filename',
-  fileUrl: 'fileUrl',
-  mimeType: 'mimeType',
-  description: 'description'
-} as const
-
-export type AttachmentOrderByRelevanceFieldEnum = (typeof AttachmentOrderByRelevanceFieldEnum)[keyof typeof AttachmentOrderByRelevanceFieldEnum]
 
 
 export const ForumPostHistoryOrderByRelevanceFieldEnum = {
@@ -1399,32 +1383,13 @@ export const ListOrderByRelevanceFieldEnum = {
 export type ListOrderByRelevanceFieldEnum = (typeof ListOrderByRelevanceFieldEnum)[keyof typeof ListOrderByRelevanceFieldEnum]
 
 
-export const ListMovieOrderByRelevanceFieldEnum = {
-  note: 'note'
+export const JsonNullValueFilter = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull',
+  AnyNull: 'AnyNull'
 } as const
 
-export type ListMovieOrderByRelevanceFieldEnum = (typeof ListMovieOrderByRelevanceFieldEnum)[keyof typeof ListMovieOrderByRelevanceFieldEnum]
-
-
-export const ListSerieOrderByRelevanceFieldEnum = {
-  note: 'note'
-} as const
-
-export type ListSerieOrderByRelevanceFieldEnum = (typeof ListSerieOrderByRelevanceFieldEnum)[keyof typeof ListSerieOrderByRelevanceFieldEnum]
-
-
-export const ListSeasonOrderByRelevanceFieldEnum = {
-  note: 'note'
-} as const
-
-export type ListSeasonOrderByRelevanceFieldEnum = (typeof ListSeasonOrderByRelevanceFieldEnum)[keyof typeof ListSeasonOrderByRelevanceFieldEnum]
-
-
-export const ListEpisodeOrderByRelevanceFieldEnum = {
-  note: 'note'
-} as const
-
-export type ListEpisodeOrderByRelevanceFieldEnum = (typeof ListEpisodeOrderByRelevanceFieldEnum)[keyof typeof ListEpisodeOrderByRelevanceFieldEnum]
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 export const ListActorOrderByRelevanceFieldEnum = {
@@ -1441,13 +1406,32 @@ export const ListCrewOrderByRelevanceFieldEnum = {
 export type ListCrewOrderByRelevanceFieldEnum = (typeof ListCrewOrderByRelevanceFieldEnum)[keyof typeof ListCrewOrderByRelevanceFieldEnum]
 
 
-export const JsonNullValueFilter = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull',
-  AnyNull: 'AnyNull'
+export const ListEpisodeOrderByRelevanceFieldEnum = {
+  note: 'note'
 } as const
 
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+export type ListEpisodeOrderByRelevanceFieldEnum = (typeof ListEpisodeOrderByRelevanceFieldEnum)[keyof typeof ListEpisodeOrderByRelevanceFieldEnum]
+
+
+export const ListMovieOrderByRelevanceFieldEnum = {
+  note: 'note'
+} as const
+
+export type ListMovieOrderByRelevanceFieldEnum = (typeof ListMovieOrderByRelevanceFieldEnum)[keyof typeof ListMovieOrderByRelevanceFieldEnum]
+
+
+export const ListSeasonOrderByRelevanceFieldEnum = {
+  note: 'note'
+} as const
+
+export type ListSeasonOrderByRelevanceFieldEnum = (typeof ListSeasonOrderByRelevanceFieldEnum)[keyof typeof ListSeasonOrderByRelevanceFieldEnum]
+
+
+export const ListSerieOrderByRelevanceFieldEnum = {
+  note: 'note'
+} as const
+
+export type ListSerieOrderByRelevanceFieldEnum = (typeof ListSerieOrderByRelevanceFieldEnum)[keyof typeof ListSerieOrderByRelevanceFieldEnum]
 
 
 export const MessageOrderByRelevanceFieldEnum = {
@@ -1455,14 +1439,6 @@ export const MessageOrderByRelevanceFieldEnum = {
 } as const
 
 export type MessageOrderByRelevanceFieldEnum = (typeof MessageOrderByRelevanceFieldEnum)[keyof typeof MessageOrderByRelevanceFieldEnum]
-
-
-export const ReportedContentOrderByRelevanceFieldEnum = {
-  reason: 'reason',
-  resolutionDetails: 'resolutionDetails'
-} as const
-
-export type ReportedContentOrderByRelevanceFieldEnum = (typeof ReportedContentOrderByRelevanceFieldEnum)[keyof typeof ReportedContentOrderByRelevanceFieldEnum]
 
 
 export const ModerationLogOrderByRelevanceFieldEnum = {
@@ -1495,6 +1471,21 @@ export const NotificationOrderByRelevanceFieldEnum = {
 } as const
 
 export type NotificationOrderByRelevanceFieldEnum = (typeof NotificationOrderByRelevanceFieldEnum)[keyof typeof NotificationOrderByRelevanceFieldEnum]
+
+
+export const ReportedContentOrderByRelevanceFieldEnum = {
+  reason: 'reason',
+  resolutionDetails: 'resolutionDetails'
+} as const
+
+export type ReportedContentOrderByRelevanceFieldEnum = (typeof ReportedContentOrderByRelevanceFieldEnum)[keyof typeof ReportedContentOrderByRelevanceFieldEnum]
+
+
+export const ResetPasswordTokenOrderByRelevanceFieldEnum = {
+  token: 'token'
+} as const
+
+export type ResetPasswordTokenOrderByRelevanceFieldEnum = (typeof ResetPasswordTokenOrderByRelevanceFieldEnum)[keyof typeof ResetPasswordTokenOrderByRelevanceFieldEnum]
 
 
 export const SeasonOrderByRelevanceFieldEnum = {
@@ -1533,21 +1524,30 @@ export const SerieReviewOrderByRelevanceFieldEnum = {
 export type SerieReviewOrderByRelevanceFieldEnum = (typeof SerieReviewOrderByRelevanceFieldEnum)[keyof typeof SerieReviewOrderByRelevanceFieldEnum]
 
 
+export const SessionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken'
+} as const
+
+export type SessionOrderByRelevanceFieldEnum = (typeof SessionOrderByRelevanceFieldEnum)[keyof typeof SessionOrderByRelevanceFieldEnum]
+
+
 export const UserOrderByRelevanceFieldEnum = {
   userName: 'userName',
   email: 'email',
   password: 'password',
   bio: 'bio',
-  phone: 'phone',
-  countryFrom: 'countryFrom'
+  countryFrom: 'countryFrom',
+  phone: 'phone'
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
 
 
-export const AvatarOrderByRelevanceFieldEnum = {
-  photoSrc: 'photoSrc'
+export const VerificationTokenOrderByRelevanceFieldEnum = {
+  identifier: 'identifier',
+  token: 'token'
 } as const
 
-export type AvatarOrderByRelevanceFieldEnum = (typeof AvatarOrderByRelevanceFieldEnum)[keyof typeof AvatarOrderByRelevanceFieldEnum]
+export type VerificationTokenOrderByRelevanceFieldEnum = (typeof VerificationTokenOrderByRelevanceFieldEnum)[keyof typeof VerificationTokenOrderByRelevanceFieldEnum]
 

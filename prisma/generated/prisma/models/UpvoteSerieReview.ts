@@ -220,9 +220,9 @@ export type UpvoteSerieReviewWhereInput = {
   userId?: Prisma.IntFilter<"UpvoteSerieReview"> | number
   serieId?: Prisma.IntFilter<"UpvoteSerieReview"> | number
   serieReviewId?: Prisma.IntFilter<"UpvoteSerieReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  serieReview?: Prisma.XOR<Prisma.SerieReviewNullableScalarRelationFilter, Prisma.SerieReviewWhereInput> | null
+  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  SerieReview?: Prisma.XOR<Prisma.SerieReviewScalarRelationFilter, Prisma.SerieReviewWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UpvoteSerieReviewOrderByWithRelationInput = {
@@ -230,9 +230,9 @@ export type UpvoteSerieReviewOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   serieId?: Prisma.SortOrder
   serieReviewId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  serie?: Prisma.SerieOrderByWithRelationInput
-  serieReview?: Prisma.SerieReviewOrderByWithRelationInput
+  Serie?: Prisma.SerieOrderByWithRelationInput
+  SerieReview?: Prisma.SerieReviewOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UpvoteSerieReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -244,9 +244,9 @@ export type UpvoteSerieReviewWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.IntFilter<"UpvoteSerieReview"> | number
   serieId?: Prisma.IntFilter<"UpvoteSerieReview"> | number
   serieReviewId?: Prisma.IntFilter<"UpvoteSerieReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  serieReview?: Prisma.XOR<Prisma.SerieReviewNullableScalarRelationFilter, Prisma.SerieReviewWhereInput> | null
+  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  SerieReview?: Prisma.XOR<Prisma.SerieReviewScalarRelationFilter, Prisma.SerieReviewWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_serieId_serieReviewId">
 
 export type UpvoteSerieReviewOrderByWithAggregationInput = {
@@ -272,9 +272,9 @@ export type UpvoteSerieReviewScalarWhereWithAggregatesInput = {
 }
 
 export type UpvoteSerieReviewCreateInput = {
-  user: Prisma.UserCreateNestedOneWithoutSerieReviewsUpvotedInput
-  serie: Prisma.SerieCreateNestedOneWithoutUpvoteSerieReviewsInput
-  serieReview?: Prisma.SerieReviewCreateNestedOneWithoutUpvotesInput
+  Serie: Prisma.SerieCreateNestedOneWithoutUpvoteSerieReviewInput
+  SerieReview: Prisma.SerieReviewCreateNestedOneWithoutUpvoteSerieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutUpvoteSerieReviewInput
 }
 
 export type UpvoteSerieReviewUncheckedCreateInput = {
@@ -285,9 +285,9 @@ export type UpvoteSerieReviewUncheckedCreateInput = {
 }
 
 export type UpvoteSerieReviewUpdateInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutSerieReviewsUpvotedNestedInput
-  serie?: Prisma.SerieUpdateOneRequiredWithoutUpvoteSerieReviewsNestedInput
-  serieReview?: Prisma.SerieReviewUpdateOneWithoutUpvotesNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
+  SerieReview?: Prisma.SerieReviewUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
 }
 
 export type UpvoteSerieReviewUncheckedUpdateInput = {
@@ -493,8 +493,8 @@ export type UpvoteSerieReviewUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UpvoteSerieReviewCreateWithoutSerieInput = {
-  user: Prisma.UserCreateNestedOneWithoutSerieReviewsUpvotedInput
-  serieReview?: Prisma.SerieReviewCreateNestedOneWithoutUpvotesInput
+  SerieReview: Prisma.SerieReviewCreateNestedOneWithoutUpvoteSerieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutUpvoteSerieReviewInput
 }
 
 export type UpvoteSerieReviewUncheckedCreateWithoutSerieInput = {
@@ -540,8 +540,8 @@ export type UpvoteSerieReviewScalarWhereInput = {
 }
 
 export type UpvoteSerieReviewCreateWithoutSerieReviewInput = {
-  user: Prisma.UserCreateNestedOneWithoutSerieReviewsUpvotedInput
-  serie: Prisma.SerieCreateNestedOneWithoutUpvoteSerieReviewsInput
+  Serie: Prisma.SerieCreateNestedOneWithoutUpvoteSerieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutUpvoteSerieReviewInput
 }
 
 export type UpvoteSerieReviewUncheckedCreateWithoutSerieReviewInput = {
@@ -577,8 +577,8 @@ export type UpvoteSerieReviewUpdateManyWithWhereWithoutSerieReviewInput = {
 }
 
 export type UpvoteSerieReviewCreateWithoutUserInput = {
-  serie: Prisma.SerieCreateNestedOneWithoutUpvoteSerieReviewsInput
-  serieReview?: Prisma.SerieReviewCreateNestedOneWithoutUpvotesInput
+  Serie: Prisma.SerieCreateNestedOneWithoutUpvoteSerieReviewInput
+  SerieReview: Prisma.SerieReviewCreateNestedOneWithoutUpvoteSerieReviewInput
 }
 
 export type UpvoteSerieReviewUncheckedCreateWithoutUserInput = {
@@ -620,8 +620,8 @@ export type UpvoteSerieReviewCreateManySerieInput = {
 }
 
 export type UpvoteSerieReviewUpdateWithoutSerieInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutSerieReviewsUpvotedNestedInput
-  serieReview?: Prisma.SerieReviewUpdateOneWithoutUpvotesNestedInput
+  SerieReview?: Prisma.SerieReviewUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
 }
 
 export type UpvoteSerieReviewUncheckedUpdateWithoutSerieInput = {
@@ -643,8 +643,8 @@ export type UpvoteSerieReviewCreateManySerieReviewInput = {
 }
 
 export type UpvoteSerieReviewUpdateWithoutSerieReviewInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutSerieReviewsUpvotedNestedInput
-  serie?: Prisma.SerieUpdateOneRequiredWithoutUpvoteSerieReviewsNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
 }
 
 export type UpvoteSerieReviewUncheckedUpdateWithoutSerieReviewInput = {
@@ -666,8 +666,8 @@ export type UpvoteSerieReviewCreateManyUserInput = {
 }
 
 export type UpvoteSerieReviewUpdateWithoutUserInput = {
-  serie?: Prisma.SerieUpdateOneRequiredWithoutUpvoteSerieReviewsNestedInput
-  serieReview?: Prisma.SerieReviewUpdateOneWithoutUpvotesNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
+  SerieReview?: Prisma.SerieReviewUpdateOneRequiredWithoutUpvoteSerieReviewNestedInput
 }
 
 export type UpvoteSerieReviewUncheckedUpdateWithoutUserInput = {
@@ -689,9 +689,9 @@ export type UpvoteSerieReviewSelect<ExtArgs extends runtime.Types.Extensions.Int
   userId?: boolean
   serieId?: boolean
   serieReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  serieReview?: boolean | Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteSerieReview"]>
 
 export type UpvoteSerieReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -699,9 +699,9 @@ export type UpvoteSerieReviewSelectCreateManyAndReturn<ExtArgs extends runtime.T
   userId?: boolean
   serieId?: boolean
   serieReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  serieReview?: boolean | Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteSerieReview"]>
 
 export type UpvoteSerieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -709,9 +709,9 @@ export type UpvoteSerieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   userId?: boolean
   serieId?: boolean
   serieReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  serieReview?: boolean | Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteSerieReview"]>
 
 export type UpvoteSerieReviewSelectScalar = {
@@ -723,27 +723,27 @@ export type UpvoteSerieReviewSelectScalar = {
 
 export type UpvoteSerieReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "serieId" | "serieReviewId", ExtArgs["result"]["upvoteSerieReview"]>
 export type UpvoteSerieReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  serieReview?: boolean | Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UpvoteSerieReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  serieReview?: boolean | Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UpvoteSerieReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  serieReview?: boolean | Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UpvoteSerieReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UpvoteSerieReview"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    serie: Prisma.$SeriePayload<ExtArgs>
-    serieReview: Prisma.$SerieReviewPayload<ExtArgs> | null
+    Serie: Prisma.$SeriePayload<ExtArgs>
+    SerieReview: Prisma.$SerieReviewPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1144,9 +1144,9 @@ readonly fields: UpvoteSerieReviewFieldRefs;
  */
 export interface Prisma__UpvoteSerieReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  serieReview<T extends Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UpvoteSerieReview$serieReviewArgs<ExtArgs>>): Prisma.Prisma__SerieReviewClient<runtime.Types.Result.GetResult<Prisma.$SerieReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  Serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  SerieReview<T extends Prisma.SerieReviewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieReviewDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieReviewClient<runtime.Types.Result.GetResult<Prisma.$SerieReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1573,25 +1573,6 @@ export type UpvoteSerieReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many UpvoteSerieReviews to delete.
    */
   limit?: number
-}
-
-/**
- * UpvoteSerieReview.serieReview
- */
-export type UpvoteSerieReview$serieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SerieReview
-   */
-  select?: Prisma.SerieReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SerieReview
-   */
-  omit?: Prisma.SerieReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SerieReviewInclude<ExtArgs> | null
-  where?: Prisma.SerieReviewWhereInput
 }
 
 /**

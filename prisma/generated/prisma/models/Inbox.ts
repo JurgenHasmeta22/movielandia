@@ -184,14 +184,14 @@ export type InboxWhereInput = {
   OR?: Prisma.InboxWhereInput[]
   NOT?: Prisma.InboxWhereInput | Prisma.InboxWhereInput[]
   id?: Prisma.IntFilter<"Inbox"> | number
-  participants?: Prisma.UserInboxListRelationFilter
-  messages?: Prisma.MessageListRelationFilter
+  Message?: Prisma.MessageListRelationFilter
+  UserInbox?: Prisma.UserInboxListRelationFilter
 }
 
 export type InboxOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  participants?: Prisma.UserInboxOrderByRelationAggregateInput
-  messages?: Prisma.MessageOrderByRelationAggregateInput
+  Message?: Prisma.MessageOrderByRelationAggregateInput
+  UserInbox?: Prisma.UserInboxOrderByRelationAggregateInput
 }
 
 export type InboxWhereUniqueInput = Prisma.AtLeast<{
@@ -199,8 +199,8 @@ export type InboxWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InboxWhereInput | Prisma.InboxWhereInput[]
   OR?: Prisma.InboxWhereInput[]
   NOT?: Prisma.InboxWhereInput | Prisma.InboxWhereInput[]
-  participants?: Prisma.UserInboxListRelationFilter
-  messages?: Prisma.MessageListRelationFilter
+  Message?: Prisma.MessageListRelationFilter
+  UserInbox?: Prisma.UserInboxListRelationFilter
 }, "id">
 
 export type InboxOrderByWithAggregationInput = {
@@ -220,25 +220,25 @@ export type InboxScalarWhereWithAggregatesInput = {
 }
 
 export type InboxCreateInput = {
-  participants?: Prisma.UserInboxCreateNestedManyWithoutInboxInput
-  messages?: Prisma.MessageCreateNestedManyWithoutInboxInput
+  Message?: Prisma.MessageCreateNestedManyWithoutInboxInput
+  UserInbox?: Prisma.UserInboxCreateNestedManyWithoutInboxInput
 }
 
 export type InboxUncheckedCreateInput = {
   id?: number
-  participants?: Prisma.UserInboxUncheckedCreateNestedManyWithoutInboxInput
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInboxInput
+  Message?: Prisma.MessageUncheckedCreateNestedManyWithoutInboxInput
+  UserInbox?: Prisma.UserInboxUncheckedCreateNestedManyWithoutInboxInput
 }
 
 export type InboxUpdateInput = {
-  participants?: Prisma.UserInboxUpdateManyWithoutInboxNestedInput
-  messages?: Prisma.MessageUpdateManyWithoutInboxNestedInput
+  Message?: Prisma.MessageUpdateManyWithoutInboxNestedInput
+  UserInbox?: Prisma.UserInboxUpdateManyWithoutInboxNestedInput
 }
 
 export type InboxUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  participants?: Prisma.UserInboxUncheckedUpdateManyWithoutInboxNestedInput
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutInboxNestedInput
+  Message?: Prisma.MessageUncheckedUpdateManyWithoutInboxNestedInput
+  UserInbox?: Prisma.UserInboxUncheckedUpdateManyWithoutInboxNestedInput
 }
 
 export type InboxCreateManyInput = {
@@ -278,100 +278,100 @@ export type InboxScalarRelationFilter = {
   isNot?: Prisma.InboxWhereInput
 }
 
-export type InboxCreateNestedOneWithoutMessagesInput = {
-  create?: Prisma.XOR<Prisma.InboxCreateWithoutMessagesInput, Prisma.InboxUncheckedCreateWithoutMessagesInput>
-  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutMessagesInput
+export type InboxCreateNestedOneWithoutMessageInput = {
+  create?: Prisma.XOR<Prisma.InboxCreateWithoutMessageInput, Prisma.InboxUncheckedCreateWithoutMessageInput>
+  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutMessageInput
   connect?: Prisma.InboxWhereUniqueInput
 }
 
-export type InboxUpdateOneRequiredWithoutMessagesNestedInput = {
-  create?: Prisma.XOR<Prisma.InboxCreateWithoutMessagesInput, Prisma.InboxUncheckedCreateWithoutMessagesInput>
-  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutMessagesInput
-  upsert?: Prisma.InboxUpsertWithoutMessagesInput
+export type InboxUpdateOneRequiredWithoutMessageNestedInput = {
+  create?: Prisma.XOR<Prisma.InboxCreateWithoutMessageInput, Prisma.InboxUncheckedCreateWithoutMessageInput>
+  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutMessageInput
+  upsert?: Prisma.InboxUpsertWithoutMessageInput
   connect?: Prisma.InboxWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.InboxUpdateToOneWithWhereWithoutMessagesInput, Prisma.InboxUpdateWithoutMessagesInput>, Prisma.InboxUncheckedUpdateWithoutMessagesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InboxUpdateToOneWithWhereWithoutMessageInput, Prisma.InboxUpdateWithoutMessageInput>, Prisma.InboxUncheckedUpdateWithoutMessageInput>
 }
 
-export type InboxCreateNestedOneWithoutParticipantsInput = {
-  create?: Prisma.XOR<Prisma.InboxCreateWithoutParticipantsInput, Prisma.InboxUncheckedCreateWithoutParticipantsInput>
-  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutParticipantsInput
+export type InboxCreateNestedOneWithoutUserInboxInput = {
+  create?: Prisma.XOR<Prisma.InboxCreateWithoutUserInboxInput, Prisma.InboxUncheckedCreateWithoutUserInboxInput>
+  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutUserInboxInput
   connect?: Prisma.InboxWhereUniqueInput
 }
 
-export type InboxUpdateOneRequiredWithoutParticipantsNestedInput = {
-  create?: Prisma.XOR<Prisma.InboxCreateWithoutParticipantsInput, Prisma.InboxUncheckedCreateWithoutParticipantsInput>
-  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutParticipantsInput
-  upsert?: Prisma.InboxUpsertWithoutParticipantsInput
+export type InboxUpdateOneRequiredWithoutUserInboxNestedInput = {
+  create?: Prisma.XOR<Prisma.InboxCreateWithoutUserInboxInput, Prisma.InboxUncheckedCreateWithoutUserInboxInput>
+  connectOrCreate?: Prisma.InboxCreateOrConnectWithoutUserInboxInput
+  upsert?: Prisma.InboxUpsertWithoutUserInboxInput
   connect?: Prisma.InboxWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.InboxUpdateToOneWithWhereWithoutParticipantsInput, Prisma.InboxUpdateWithoutParticipantsInput>, Prisma.InboxUncheckedUpdateWithoutParticipantsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InboxUpdateToOneWithWhereWithoutUserInboxInput, Prisma.InboxUpdateWithoutUserInboxInput>, Prisma.InboxUncheckedUpdateWithoutUserInboxInput>
 }
 
-export type InboxCreateWithoutMessagesInput = {
-  participants?: Prisma.UserInboxCreateNestedManyWithoutInboxInput
+export type InboxCreateWithoutMessageInput = {
+  UserInbox?: Prisma.UserInboxCreateNestedManyWithoutInboxInput
 }
 
-export type InboxUncheckedCreateWithoutMessagesInput = {
+export type InboxUncheckedCreateWithoutMessageInput = {
   id?: number
-  participants?: Prisma.UserInboxUncheckedCreateNestedManyWithoutInboxInput
+  UserInbox?: Prisma.UserInboxUncheckedCreateNestedManyWithoutInboxInput
 }
 
-export type InboxCreateOrConnectWithoutMessagesInput = {
+export type InboxCreateOrConnectWithoutMessageInput = {
   where: Prisma.InboxWhereUniqueInput
-  create: Prisma.XOR<Prisma.InboxCreateWithoutMessagesInput, Prisma.InboxUncheckedCreateWithoutMessagesInput>
+  create: Prisma.XOR<Prisma.InboxCreateWithoutMessageInput, Prisma.InboxUncheckedCreateWithoutMessageInput>
 }
 
-export type InboxUpsertWithoutMessagesInput = {
-  update: Prisma.XOR<Prisma.InboxUpdateWithoutMessagesInput, Prisma.InboxUncheckedUpdateWithoutMessagesInput>
-  create: Prisma.XOR<Prisma.InboxCreateWithoutMessagesInput, Prisma.InboxUncheckedCreateWithoutMessagesInput>
+export type InboxUpsertWithoutMessageInput = {
+  update: Prisma.XOR<Prisma.InboxUpdateWithoutMessageInput, Prisma.InboxUncheckedUpdateWithoutMessageInput>
+  create: Prisma.XOR<Prisma.InboxCreateWithoutMessageInput, Prisma.InboxUncheckedCreateWithoutMessageInput>
   where?: Prisma.InboxWhereInput
 }
 
-export type InboxUpdateToOneWithWhereWithoutMessagesInput = {
+export type InboxUpdateToOneWithWhereWithoutMessageInput = {
   where?: Prisma.InboxWhereInput
-  data: Prisma.XOR<Prisma.InboxUpdateWithoutMessagesInput, Prisma.InboxUncheckedUpdateWithoutMessagesInput>
+  data: Prisma.XOR<Prisma.InboxUpdateWithoutMessageInput, Prisma.InboxUncheckedUpdateWithoutMessageInput>
 }
 
-export type InboxUpdateWithoutMessagesInput = {
-  participants?: Prisma.UserInboxUpdateManyWithoutInboxNestedInput
+export type InboxUpdateWithoutMessageInput = {
+  UserInbox?: Prisma.UserInboxUpdateManyWithoutInboxNestedInput
 }
 
-export type InboxUncheckedUpdateWithoutMessagesInput = {
+export type InboxUncheckedUpdateWithoutMessageInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  participants?: Prisma.UserInboxUncheckedUpdateManyWithoutInboxNestedInput
+  UserInbox?: Prisma.UserInboxUncheckedUpdateManyWithoutInboxNestedInput
 }
 
-export type InboxCreateWithoutParticipantsInput = {
-  messages?: Prisma.MessageCreateNestedManyWithoutInboxInput
+export type InboxCreateWithoutUserInboxInput = {
+  Message?: Prisma.MessageCreateNestedManyWithoutInboxInput
 }
 
-export type InboxUncheckedCreateWithoutParticipantsInput = {
+export type InboxUncheckedCreateWithoutUserInboxInput = {
   id?: number
-  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInboxInput
+  Message?: Prisma.MessageUncheckedCreateNestedManyWithoutInboxInput
 }
 
-export type InboxCreateOrConnectWithoutParticipantsInput = {
+export type InboxCreateOrConnectWithoutUserInboxInput = {
   where: Prisma.InboxWhereUniqueInput
-  create: Prisma.XOR<Prisma.InboxCreateWithoutParticipantsInput, Prisma.InboxUncheckedCreateWithoutParticipantsInput>
+  create: Prisma.XOR<Prisma.InboxCreateWithoutUserInboxInput, Prisma.InboxUncheckedCreateWithoutUserInboxInput>
 }
 
-export type InboxUpsertWithoutParticipantsInput = {
-  update: Prisma.XOR<Prisma.InboxUpdateWithoutParticipantsInput, Prisma.InboxUncheckedUpdateWithoutParticipantsInput>
-  create: Prisma.XOR<Prisma.InboxCreateWithoutParticipantsInput, Prisma.InboxUncheckedCreateWithoutParticipantsInput>
+export type InboxUpsertWithoutUserInboxInput = {
+  update: Prisma.XOR<Prisma.InboxUpdateWithoutUserInboxInput, Prisma.InboxUncheckedUpdateWithoutUserInboxInput>
+  create: Prisma.XOR<Prisma.InboxCreateWithoutUserInboxInput, Prisma.InboxUncheckedCreateWithoutUserInboxInput>
   where?: Prisma.InboxWhereInput
 }
 
-export type InboxUpdateToOneWithWhereWithoutParticipantsInput = {
+export type InboxUpdateToOneWithWhereWithoutUserInboxInput = {
   where?: Prisma.InboxWhereInput
-  data: Prisma.XOR<Prisma.InboxUpdateWithoutParticipantsInput, Prisma.InboxUncheckedUpdateWithoutParticipantsInput>
+  data: Prisma.XOR<Prisma.InboxUpdateWithoutUserInboxInput, Prisma.InboxUncheckedUpdateWithoutUserInboxInput>
 }
 
-export type InboxUpdateWithoutParticipantsInput = {
-  messages?: Prisma.MessageUpdateManyWithoutInboxNestedInput
+export type InboxUpdateWithoutUserInboxInput = {
+  Message?: Prisma.MessageUpdateManyWithoutInboxNestedInput
 }
 
-export type InboxUncheckedUpdateWithoutParticipantsInput = {
+export type InboxUncheckedUpdateWithoutUserInboxInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  messages?: Prisma.MessageUncheckedUpdateManyWithoutInboxNestedInput
+  Message?: Prisma.MessageUncheckedUpdateManyWithoutInboxNestedInput
 }
 
 
@@ -380,13 +380,13 @@ export type InboxUncheckedUpdateWithoutParticipantsInput = {
  */
 
 export type InboxCountOutputType = {
-  participants: number
-  messages: number
+  Message: number
+  UserInbox: number
 }
 
 export type InboxCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  participants?: boolean | InboxCountOutputTypeCountParticipantsArgs
-  messages?: boolean | InboxCountOutputTypeCountMessagesArgs
+  Message?: boolean | InboxCountOutputTypeCountMessageArgs
+  UserInbox?: boolean | InboxCountOutputTypeCountUserInboxArgs
 }
 
 /**
@@ -402,22 +402,22 @@ export type InboxCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * InboxCountOutputType without action
  */
-export type InboxCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserInboxWhereInput
+export type InboxCountOutputTypeCountMessageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
 }
 
 /**
  * InboxCountOutputType without action
  */
-export type InboxCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MessageWhereInput
+export type InboxCountOutputTypeCountUserInboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserInboxWhereInput
 }
 
 
 export type InboxSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  participants?: boolean | Prisma.Inbox$participantsArgs<ExtArgs>
-  messages?: boolean | Prisma.Inbox$messagesArgs<ExtArgs>
+  Message?: boolean | Prisma.Inbox$MessageArgs<ExtArgs>
+  UserInbox?: boolean | Prisma.Inbox$UserInboxArgs<ExtArgs>
   _count?: boolean | Prisma.InboxCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inbox"]>
 
@@ -435,8 +435,8 @@ export type InboxSelectScalar = {
 
 export type InboxOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id", ExtArgs["result"]["inbox"]>
 export type InboxInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  participants?: boolean | Prisma.Inbox$participantsArgs<ExtArgs>
-  messages?: boolean | Prisma.Inbox$messagesArgs<ExtArgs>
+  Message?: boolean | Prisma.Inbox$MessageArgs<ExtArgs>
+  UserInbox?: boolean | Prisma.Inbox$UserInboxArgs<ExtArgs>
   _count?: boolean | Prisma.InboxCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InboxIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -445,8 +445,8 @@ export type InboxIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $InboxPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Inbox"
   objects: {
-    participants: Prisma.$UserInboxPayload<ExtArgs>[]
-    messages: Prisma.$MessagePayload<ExtArgs>[]
+    Message: Prisma.$MessagePayload<ExtArgs>[]
+    UserInbox: Prisma.$UserInboxPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -844,8 +844,8 @@ readonly fields: InboxFieldRefs;
  */
 export interface Prisma__InboxClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  participants<T extends Prisma.Inbox$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inbox$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserInboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  messages<T extends Prisma.Inbox$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inbox$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Message<T extends Prisma.Inbox$MessageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inbox$MessageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  UserInbox<T extends Prisma.Inbox$UserInboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inbox$UserInboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserInboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1264,33 +1264,9 @@ export type InboxDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Inbox.participants
+ * Inbox.Message
  */
-export type Inbox$participantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UserInbox
-   */
-  select?: Prisma.UserInboxSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UserInbox
-   */
-  omit?: Prisma.UserInboxOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInboxInclude<ExtArgs> | null
-  where?: Prisma.UserInboxWhereInput
-  orderBy?: Prisma.UserInboxOrderByWithRelationInput | Prisma.UserInboxOrderByWithRelationInput[]
-  cursor?: Prisma.UserInboxWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UserInboxScalarFieldEnum | Prisma.UserInboxScalarFieldEnum[]
-}
-
-/**
- * Inbox.messages
- */
-export type Inbox$messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Inbox$MessageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Message
    */
@@ -1309,6 +1285,30 @@ export type Inbox$messagesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * Inbox.UserInbox
+ */
+export type Inbox$UserInboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserInbox
+   */
+  select?: Prisma.UserInboxSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserInbox
+   */
+  omit?: Prisma.UserInboxOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInboxInclude<ExtArgs> | null
+  where?: Prisma.UserInboxWhereInput
+  orderBy?: Prisma.UserInboxOrderByWithRelationInput | Prisma.UserInboxOrderByWithRelationInput[]
+  cursor?: Prisma.UserInboxWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserInboxScalarFieldEnum | Prisma.UserInboxScalarFieldEnum[]
 }
 
 /**

@@ -37,28 +37,28 @@ export type ActorSumAggregateOutputType = {
 export type ActorMinAggregateOutputType = {
   id: number | null
   fullname: string | null
+  debut: string | null
+  description: string | null
   photoSrc: string | null
   photoSrcProd: string | null
-  description: string | null
-  debut: string | null
 }
 
 export type ActorMaxAggregateOutputType = {
   id: number | null
   fullname: string | null
+  debut: string | null
+  description: string | null
   photoSrc: string | null
   photoSrcProd: string | null
-  description: string | null
-  debut: string | null
 }
 
 export type ActorCountAggregateOutputType = {
   id: number
   fullname: number
+  debut: number
+  description: number
   photoSrc: number
   photoSrcProd: number
-  description: number
-  debut: number
   _all: number
 }
 
@@ -74,28 +74,28 @@ export type ActorSumAggregateInputType = {
 export type ActorMinAggregateInputType = {
   id?: true
   fullname?: true
+  debut?: true
+  description?: true
   photoSrc?: true
   photoSrcProd?: true
-  description?: true
-  debut?: true
 }
 
 export type ActorMaxAggregateInputType = {
   id?: true
   fullname?: true
+  debut?: true
+  description?: true
   photoSrc?: true
   photoSrcProd?: true
-  description?: true
-  debut?: true
 }
 
 export type ActorCountAggregateInputType = {
   id?: true
   fullname?: true
+  debut?: true
+  description?: true
   photoSrc?: true
   photoSrcProd?: true
-  description?: true
-  debut?: true
   _all?: true
 }
 
@@ -188,10 +188,10 @@ export type ActorGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type ActorGroupByOutputType = {
   id: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
   _count: ActorCountAggregateOutputType | null
   _avg: ActorAvgAggregateOutputType | null
   _sum: ActorSumAggregateOutputType | null
@@ -220,37 +220,37 @@ export type ActorWhereInput = {
   NOT?: Prisma.ActorWhereInput | Prisma.ActorWhereInput[]
   id?: Prisma.IntFilter<"Actor"> | number
   fullname?: Prisma.StringFilter<"Actor"> | string
+  debut?: Prisma.StringFilter<"Actor"> | string
+  description?: Prisma.StringFilter<"Actor"> | string
   photoSrc?: Prisma.StringFilter<"Actor"> | string
   photoSrcProd?: Prisma.StringFilter<"Actor"> | string
-  description?: Prisma.StringFilter<"Actor"> | string
-  debut?: Prisma.StringFilter<"Actor"> | string
-  listItems?: Prisma.ListActorListRelationFilter
-  listActivities?: Prisma.ListActivityActorListRelationFilter
-  starredMovies?: Prisma.CastMovieListRelationFilter
-  starredSeries?: Prisma.CastSerieListRelationFilter
-  reviews?: Prisma.ActorReviewListRelationFilter
-  usersWhoRatedIt?: Prisma.UserActorRatingListRelationFilter
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteListRelationFilter
-  upvoteActorReviews?: Prisma.UpvoteActorReviewListRelationFilter
-  downvoteActorReviews?: Prisma.DownvoteActorReviewListRelationFilter
+  ActorReview?: Prisma.ActorReviewListRelationFilter
+  CastMovie?: Prisma.CastMovieListRelationFilter
+  CastSerie?: Prisma.CastSerieListRelationFilter
+  DownvoteActorReview?: Prisma.DownvoteActorReviewListRelationFilter
+  ListActivityActor?: Prisma.ListActivityActorListRelationFilter
+  ListActor?: Prisma.ListActorListRelationFilter
+  UpvoteActorReview?: Prisma.UpvoteActorReviewListRelationFilter
+  UserActorFavorite?: Prisma.UserActorFavoriteListRelationFilter
+  UserActorRating?: Prisma.UserActorRatingListRelationFilter
 }
 
 export type ActorOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   fullname?: Prisma.SortOrder
+  debut?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  debut?: Prisma.SortOrder
-  listItems?: Prisma.ListActorOrderByRelationAggregateInput
-  listActivities?: Prisma.ListActivityActorOrderByRelationAggregateInput
-  starredMovies?: Prisma.CastMovieOrderByRelationAggregateInput
-  starredSeries?: Prisma.CastSerieOrderByRelationAggregateInput
-  reviews?: Prisma.ActorReviewOrderByRelationAggregateInput
-  usersWhoRatedIt?: Prisma.UserActorRatingOrderByRelationAggregateInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteOrderByRelationAggregateInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewOrderByRelationAggregateInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewOrderByRelationAggregateInput
+  ActorReview?: Prisma.ActorReviewOrderByRelationAggregateInput
+  CastMovie?: Prisma.CastMovieOrderByRelationAggregateInput
+  CastSerie?: Prisma.CastSerieOrderByRelationAggregateInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewOrderByRelationAggregateInput
+  ListActivityActor?: Prisma.ListActivityActorOrderByRelationAggregateInput
+  ListActor?: Prisma.ListActorOrderByRelationAggregateInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewOrderByRelationAggregateInput
+  UserActorFavorite?: Prisma.UserActorFavoriteOrderByRelationAggregateInput
+  UserActorRating?: Prisma.UserActorRatingOrderByRelationAggregateInput
   _relevance?: Prisma.ActorOrderByRelevanceInput
 }
 
@@ -260,28 +260,28 @@ export type ActorWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ActorWhereInput[]
   NOT?: Prisma.ActorWhereInput | Prisma.ActorWhereInput[]
   fullname?: Prisma.StringFilter<"Actor"> | string
+  debut?: Prisma.StringFilter<"Actor"> | string
+  description?: Prisma.StringFilter<"Actor"> | string
   photoSrc?: Prisma.StringFilter<"Actor"> | string
   photoSrcProd?: Prisma.StringFilter<"Actor"> | string
-  description?: Prisma.StringFilter<"Actor"> | string
-  debut?: Prisma.StringFilter<"Actor"> | string
-  listItems?: Prisma.ListActorListRelationFilter
-  listActivities?: Prisma.ListActivityActorListRelationFilter
-  starredMovies?: Prisma.CastMovieListRelationFilter
-  starredSeries?: Prisma.CastSerieListRelationFilter
-  reviews?: Prisma.ActorReviewListRelationFilter
-  usersWhoRatedIt?: Prisma.UserActorRatingListRelationFilter
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteListRelationFilter
-  upvoteActorReviews?: Prisma.UpvoteActorReviewListRelationFilter
-  downvoteActorReviews?: Prisma.DownvoteActorReviewListRelationFilter
+  ActorReview?: Prisma.ActorReviewListRelationFilter
+  CastMovie?: Prisma.CastMovieListRelationFilter
+  CastSerie?: Prisma.CastSerieListRelationFilter
+  DownvoteActorReview?: Prisma.DownvoteActorReviewListRelationFilter
+  ListActivityActor?: Prisma.ListActivityActorListRelationFilter
+  ListActor?: Prisma.ListActorListRelationFilter
+  UpvoteActorReview?: Prisma.UpvoteActorReviewListRelationFilter
+  UserActorFavorite?: Prisma.UserActorFavoriteListRelationFilter
+  UserActorRating?: Prisma.UserActorRatingListRelationFilter
 }, "id">
 
 export type ActorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   fullname?: Prisma.SortOrder
+  debut?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  debut?: Prisma.SortOrder
   _count?: Prisma.ActorCountOrderByAggregateInput
   _avg?: Prisma.ActorAvgOrderByAggregateInput
   _max?: Prisma.ActorMaxOrderByAggregateInput
@@ -295,106 +295,106 @@ export type ActorScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ActorScalarWhereWithAggregatesInput | Prisma.ActorScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Actor"> | number
   fullname?: Prisma.StringWithAggregatesFilter<"Actor"> | string
+  debut?: Prisma.StringWithAggregatesFilter<"Actor"> | string
+  description?: Prisma.StringWithAggregatesFilter<"Actor"> | string
   photoSrc?: Prisma.StringWithAggregatesFilter<"Actor"> | string
   photoSrcProd?: Prisma.StringWithAggregatesFilter<"Actor"> | string
-  description?: Prisma.StringWithAggregatesFilter<"Actor"> | string
-  debut?: Prisma.StringWithAggregatesFilter<"Actor"> | string
 }
 
 export type ActorCreateInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
 export type ActorUncheckedCreateInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type ActorUpdateInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
 export type ActorUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type ActorCreateManyInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
 }
 
 export type ActorUpdateManyMutationInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ActorUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ActorOrderByRelevanceInput = {
@@ -406,10 +406,10 @@ export type ActorOrderByRelevanceInput = {
 export type ActorCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullname?: Prisma.SortOrder
+  debut?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  debut?: Prisma.SortOrder
 }
 
 export type ActorAvgOrderByAggregateInput = {
@@ -419,19 +419,19 @@ export type ActorAvgOrderByAggregateInput = {
 export type ActorMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullname?: Prisma.SortOrder
+  debut?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  debut?: Prisma.SortOrder
 }
 
 export type ActorMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fullname?: Prisma.SortOrder
+  debut?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  debut?: Prisma.SortOrder
 }
 
 export type ActorSumOrderByAggregateInput = {
@@ -443,880 +443,868 @@ export type ActorScalarRelationFilter = {
   isNot?: Prisma.ActorWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type ActorCreateNestedOneWithoutReviewsInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutReviewsInput, Prisma.ActorUncheckedCreateWithoutReviewsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutReviewsInput
+export type ActorCreateNestedOneWithoutActorReviewInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutActorReviewInput, Prisma.ActorUncheckedCreateWithoutActorReviewInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutActorReviewInput
   connect?: Prisma.ActorWhereUniqueInput
 }
 
-export type ActorUpdateOneRequiredWithoutReviewsNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutReviewsInput, Prisma.ActorUncheckedCreateWithoutReviewsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutReviewsInput
-  upsert?: Prisma.ActorUpsertWithoutReviewsInput
+export type ActorUpdateOneRequiredWithoutActorReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutActorReviewInput, Prisma.ActorUncheckedCreateWithoutActorReviewInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutActorReviewInput
+  upsert?: Prisma.ActorUpsertWithoutActorReviewInput
   connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutReviewsInput, Prisma.ActorUpdateWithoutReviewsInput>, Prisma.ActorUncheckedUpdateWithoutReviewsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutActorReviewInput, Prisma.ActorUpdateWithoutActorReviewInput>, Prisma.ActorUncheckedUpdateWithoutActorReviewInput>
 }
 
-export type ActorCreateNestedOneWithoutUpvoteActorReviewsInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUpvoteActorReviewsInput
-  connect?: Prisma.ActorWhereUniqueInput
-}
-
-export type ActorUpdateOneRequiredWithoutUpvoteActorReviewsNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUpvoteActorReviewsInput
-  upsert?: Prisma.ActorUpsertWithoutUpvoteActorReviewsInput
-  connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutUpvoteActorReviewsInput, Prisma.ActorUpdateWithoutUpvoteActorReviewsInput>, Prisma.ActorUncheckedUpdateWithoutUpvoteActorReviewsInput>
-}
-
-export type ActorCreateNestedOneWithoutDownvoteActorReviewsInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutDownvoteActorReviewsInput
+export type ActorCreateNestedOneWithoutCastMovieInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutCastMovieInput, Prisma.ActorUncheckedCreateWithoutCastMovieInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutCastMovieInput
   connect?: Prisma.ActorWhereUniqueInput
 }
 
-export type ActorUpdateOneRequiredWithoutDownvoteActorReviewsNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutDownvoteActorReviewsInput
-  upsert?: Prisma.ActorUpsertWithoutDownvoteActorReviewsInput
+export type ActorUpdateOneRequiredWithoutCastMovieNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutCastMovieInput, Prisma.ActorUncheckedCreateWithoutCastMovieInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutCastMovieInput
+  upsert?: Prisma.ActorUpsertWithoutCastMovieInput
   connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutDownvoteActorReviewsInput, Prisma.ActorUpdateWithoutDownvoteActorReviewsInput>, Prisma.ActorUncheckedUpdateWithoutDownvoteActorReviewsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutCastMovieInput, Prisma.ActorUpdateWithoutCastMovieInput>, Prisma.ActorUncheckedUpdateWithoutCastMovieInput>
 }
 
-export type ActorCreateNestedOneWithoutListItemsInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutListItemsInput, Prisma.ActorUncheckedCreateWithoutListItemsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListItemsInput
-  connect?: Prisma.ActorWhereUniqueInput
-}
-
-export type ActorUpdateOneRequiredWithoutListItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutListItemsInput, Prisma.ActorUncheckedCreateWithoutListItemsInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListItemsInput
-  upsert?: Prisma.ActorUpsertWithoutListItemsInput
-  connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutListItemsInput, Prisma.ActorUpdateWithoutListItemsInput>, Prisma.ActorUncheckedUpdateWithoutListItemsInput>
-}
-
-export type ActorCreateNestedOneWithoutListActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutListActivitiesInput, Prisma.ActorUncheckedCreateWithoutListActivitiesInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListActivitiesInput
+export type ActorCreateNestedOneWithoutCastSerieInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutCastSerieInput, Prisma.ActorUncheckedCreateWithoutCastSerieInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutCastSerieInput
   connect?: Prisma.ActorWhereUniqueInput
 }
 
-export type ActorUpdateOneRequiredWithoutListActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutListActivitiesInput, Prisma.ActorUncheckedCreateWithoutListActivitiesInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListActivitiesInput
-  upsert?: Prisma.ActorUpsertWithoutListActivitiesInput
+export type ActorUpdateOneRequiredWithoutCastSerieNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutCastSerieInput, Prisma.ActorUncheckedCreateWithoutCastSerieInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutCastSerieInput
+  upsert?: Prisma.ActorUpsertWithoutCastSerieInput
   connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutListActivitiesInput, Prisma.ActorUpdateWithoutListActivitiesInput>, Prisma.ActorUncheckedUpdateWithoutListActivitiesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutCastSerieInput, Prisma.ActorUpdateWithoutCastSerieInput>, Prisma.ActorUncheckedUpdateWithoutCastSerieInput>
 }
 
-export type ActorCreateNestedOneWithoutStarredMoviesInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutStarredMoviesInput, Prisma.ActorUncheckedCreateWithoutStarredMoviesInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutStarredMoviesInput
-  connect?: Prisma.ActorWhereUniqueInput
-}
-
-export type ActorUpdateOneRequiredWithoutStarredMoviesNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutStarredMoviesInput, Prisma.ActorUncheckedCreateWithoutStarredMoviesInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutStarredMoviesInput
-  upsert?: Prisma.ActorUpsertWithoutStarredMoviesInput
-  connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutStarredMoviesInput, Prisma.ActorUpdateWithoutStarredMoviesInput>, Prisma.ActorUncheckedUpdateWithoutStarredMoviesInput>
-}
-
-export type ActorCreateNestedOneWithoutStarredSeriesInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutStarredSeriesInput, Prisma.ActorUncheckedCreateWithoutStarredSeriesInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutStarredSeriesInput
+export type ActorCreateNestedOneWithoutDownvoteActorReviewInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutDownvoteActorReviewInput
   connect?: Prisma.ActorWhereUniqueInput
 }
 
-export type ActorUpdateOneRequiredWithoutStarredSeriesNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutStarredSeriesInput, Prisma.ActorUncheckedCreateWithoutStarredSeriesInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutStarredSeriesInput
-  upsert?: Prisma.ActorUpsertWithoutStarredSeriesInput
+export type ActorUpdateOneRequiredWithoutDownvoteActorReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutDownvoteActorReviewInput
+  upsert?: Prisma.ActorUpsertWithoutDownvoteActorReviewInput
   connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutStarredSeriesInput, Prisma.ActorUpdateWithoutStarredSeriesInput>, Prisma.ActorUncheckedUpdateWithoutStarredSeriesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutDownvoteActorReviewInput, Prisma.ActorUpdateWithoutDownvoteActorReviewInput>, Prisma.ActorUncheckedUpdateWithoutDownvoteActorReviewInput>
 }
 
-export type ActorCreateNestedOneWithoutUsersWhoBookmarkedItInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoBookmarkedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoBookmarkedItInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUsersWhoBookmarkedItInput
-  connect?: Prisma.ActorWhereUniqueInput
-}
-
-export type ActorUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoBookmarkedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoBookmarkedItInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUsersWhoBookmarkedItInput
-  upsert?: Prisma.ActorUpsertWithoutUsersWhoBookmarkedItInput
-  connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput, Prisma.ActorUpdateWithoutUsersWhoBookmarkedItInput>, Prisma.ActorUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
-}
-
-export type ActorCreateNestedOneWithoutUsersWhoRatedItInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoRatedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoRatedItInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUsersWhoRatedItInput
+export type ActorCreateNestedOneWithoutListActivityActorInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutListActivityActorInput, Prisma.ActorUncheckedCreateWithoutListActivityActorInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListActivityActorInput
   connect?: Prisma.ActorWhereUniqueInput
 }
 
-export type ActorUpdateOneRequiredWithoutUsersWhoRatedItNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoRatedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoRatedItInput>
-  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUsersWhoRatedItInput
-  upsert?: Prisma.ActorUpsertWithoutUsersWhoRatedItInput
+export type ActorUpdateOneRequiredWithoutListActivityActorNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutListActivityActorInput, Prisma.ActorUncheckedCreateWithoutListActivityActorInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListActivityActorInput
+  upsert?: Prisma.ActorUpsertWithoutListActivityActorInput
   connect?: Prisma.ActorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutUsersWhoRatedItInput, Prisma.ActorUpdateWithoutUsersWhoRatedItInput>, Prisma.ActorUncheckedUpdateWithoutUsersWhoRatedItInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutListActivityActorInput, Prisma.ActorUpdateWithoutListActivityActorInput>, Prisma.ActorUncheckedUpdateWithoutListActivityActorInput>
 }
 
-export type ActorCreateWithoutReviewsInput = {
+export type ActorCreateNestedOneWithoutListActorInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutListActorInput, Prisma.ActorUncheckedCreateWithoutListActorInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListActorInput
+  connect?: Prisma.ActorWhereUniqueInput
+}
+
+export type ActorUpdateOneRequiredWithoutListActorNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutListActorInput, Prisma.ActorUncheckedCreateWithoutListActorInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutListActorInput
+  upsert?: Prisma.ActorUpsertWithoutListActorInput
+  connect?: Prisma.ActorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutListActorInput, Prisma.ActorUpdateWithoutListActorInput>, Prisma.ActorUncheckedUpdateWithoutListActorInput>
+}
+
+export type ActorCreateNestedOneWithoutUpvoteActorReviewInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUpvoteActorReviewInput
+  connect?: Prisma.ActorWhereUniqueInput
+}
+
+export type ActorUpdateOneRequiredWithoutUpvoteActorReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUpvoteActorReviewInput
+  upsert?: Prisma.ActorUpsertWithoutUpvoteActorReviewInput
+  connect?: Prisma.ActorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutUpvoteActorReviewInput, Prisma.ActorUpdateWithoutUpvoteActorReviewInput>, Prisma.ActorUncheckedUpdateWithoutUpvoteActorReviewInput>
+}
+
+export type ActorCreateNestedOneWithoutUserActorFavoriteInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutUserActorFavoriteInput, Prisma.ActorUncheckedCreateWithoutUserActorFavoriteInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUserActorFavoriteInput
+  connect?: Prisma.ActorWhereUniqueInput
+}
+
+export type ActorUpdateOneRequiredWithoutUserActorFavoriteNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutUserActorFavoriteInput, Prisma.ActorUncheckedCreateWithoutUserActorFavoriteInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUserActorFavoriteInput
+  upsert?: Prisma.ActorUpsertWithoutUserActorFavoriteInput
+  connect?: Prisma.ActorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutUserActorFavoriteInput, Prisma.ActorUpdateWithoutUserActorFavoriteInput>, Prisma.ActorUncheckedUpdateWithoutUserActorFavoriteInput>
+}
+
+export type ActorCreateNestedOneWithoutUserActorRatingInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutUserActorRatingInput, Prisma.ActorUncheckedCreateWithoutUserActorRatingInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUserActorRatingInput
+  connect?: Prisma.ActorWhereUniqueInput
+}
+
+export type ActorUpdateOneRequiredWithoutUserActorRatingNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorCreateWithoutUserActorRatingInput, Prisma.ActorUncheckedCreateWithoutUserActorRatingInput>
+  connectOrCreate?: Prisma.ActorCreateOrConnectWithoutUserActorRatingInput
+  upsert?: Prisma.ActorUpsertWithoutUserActorRatingInput
+  connect?: Prisma.ActorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorUpdateToOneWithWhereWithoutUserActorRatingInput, Prisma.ActorUpdateWithoutUserActorRatingInput>, Prisma.ActorUncheckedUpdateWithoutUserActorRatingInput>
+}
+
+export type ActorCreateWithoutActorReviewInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutReviewsInput = {
+export type ActorUncheckedCreateWithoutActorReviewInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutReviewsInput = {
+export type ActorCreateOrConnectWithoutActorReviewInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutReviewsInput, Prisma.ActorUncheckedCreateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutActorReviewInput, Prisma.ActorUncheckedCreateWithoutActorReviewInput>
 }
 
-export type ActorUpsertWithoutReviewsInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutReviewsInput, Prisma.ActorUncheckedUpdateWithoutReviewsInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutReviewsInput, Prisma.ActorUncheckedCreateWithoutReviewsInput>
+export type ActorUpsertWithoutActorReviewInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutActorReviewInput, Prisma.ActorUncheckedUpdateWithoutActorReviewInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutActorReviewInput, Prisma.ActorUncheckedCreateWithoutActorReviewInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutReviewsInput = {
+export type ActorUpdateToOneWithWhereWithoutActorReviewInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutReviewsInput, Prisma.ActorUncheckedUpdateWithoutReviewsInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutActorReviewInput, Prisma.ActorUncheckedUpdateWithoutActorReviewInput>
 }
 
-export type ActorUpdateWithoutReviewsInput = {
+export type ActorUpdateWithoutActorReviewInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutReviewsInput = {
+export type ActorUncheckedUpdateWithoutActorReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutUpvoteActorReviewsInput = {
+export type ActorCreateWithoutCastMovieInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutUpvoteActorReviewsInput = {
+export type ActorUncheckedCreateWithoutCastMovieInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutUpvoteActorReviewsInput = {
+export type ActorCreateOrConnectWithoutCastMovieInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewsInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutCastMovieInput, Prisma.ActorUncheckedCreateWithoutCastMovieInput>
 }
 
-export type ActorUpsertWithoutUpvoteActorReviewsInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutUpvoteActorReviewsInput, Prisma.ActorUncheckedUpdateWithoutUpvoteActorReviewsInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewsInput>
+export type ActorUpsertWithoutCastMovieInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutCastMovieInput, Prisma.ActorUncheckedUpdateWithoutCastMovieInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutCastMovieInput, Prisma.ActorUncheckedCreateWithoutCastMovieInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutUpvoteActorReviewsInput = {
+export type ActorUpdateToOneWithWhereWithoutCastMovieInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutUpvoteActorReviewsInput, Prisma.ActorUncheckedUpdateWithoutUpvoteActorReviewsInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutCastMovieInput, Prisma.ActorUncheckedUpdateWithoutCastMovieInput>
 }
 
-export type ActorUpdateWithoutUpvoteActorReviewsInput = {
+export type ActorUpdateWithoutCastMovieInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutUpvoteActorReviewsInput = {
+export type ActorUncheckedUpdateWithoutCastMovieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutDownvoteActorReviewsInput = {
+export type ActorCreateWithoutCastSerieInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutDownvoteActorReviewsInput = {
+export type ActorUncheckedCreateWithoutCastSerieInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutDownvoteActorReviewsInput = {
+export type ActorCreateOrConnectWithoutCastSerieInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewsInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutCastSerieInput, Prisma.ActorUncheckedCreateWithoutCastSerieInput>
 }
 
-export type ActorUpsertWithoutDownvoteActorReviewsInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutDownvoteActorReviewsInput, Prisma.ActorUncheckedUpdateWithoutDownvoteActorReviewsInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewsInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewsInput>
+export type ActorUpsertWithoutCastSerieInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutCastSerieInput, Prisma.ActorUncheckedUpdateWithoutCastSerieInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutCastSerieInput, Prisma.ActorUncheckedCreateWithoutCastSerieInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutDownvoteActorReviewsInput = {
+export type ActorUpdateToOneWithWhereWithoutCastSerieInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutDownvoteActorReviewsInput, Prisma.ActorUncheckedUpdateWithoutDownvoteActorReviewsInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutCastSerieInput, Prisma.ActorUncheckedUpdateWithoutCastSerieInput>
 }
 
-export type ActorUpdateWithoutDownvoteActorReviewsInput = {
+export type ActorUpdateWithoutCastSerieInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutDownvoteActorReviewsInput = {
+export type ActorUncheckedUpdateWithoutCastSerieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutListItemsInput = {
+export type ActorCreateWithoutDownvoteActorReviewInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutListItemsInput = {
+export type ActorUncheckedCreateWithoutDownvoteActorReviewInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutListItemsInput = {
+export type ActorCreateOrConnectWithoutDownvoteActorReviewInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutListItemsInput, Prisma.ActorUncheckedCreateWithoutListItemsInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewInput>
 }
 
-export type ActorUpsertWithoutListItemsInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutListItemsInput, Prisma.ActorUncheckedUpdateWithoutListItemsInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutListItemsInput, Prisma.ActorUncheckedCreateWithoutListItemsInput>
+export type ActorUpsertWithoutDownvoteActorReviewInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutDownvoteActorReviewInput, Prisma.ActorUncheckedUpdateWithoutDownvoteActorReviewInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutDownvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutDownvoteActorReviewInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutListItemsInput = {
+export type ActorUpdateToOneWithWhereWithoutDownvoteActorReviewInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutListItemsInput, Prisma.ActorUncheckedUpdateWithoutListItemsInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutDownvoteActorReviewInput, Prisma.ActorUncheckedUpdateWithoutDownvoteActorReviewInput>
 }
 
-export type ActorUpdateWithoutListItemsInput = {
+export type ActorUpdateWithoutDownvoteActorReviewInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutListItemsInput = {
+export type ActorUncheckedUpdateWithoutDownvoteActorReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutListActivitiesInput = {
+export type ActorCreateWithoutListActivityActorInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutListActivitiesInput = {
+export type ActorUncheckedCreateWithoutListActivityActorInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutListActivitiesInput = {
+export type ActorCreateOrConnectWithoutListActivityActorInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutListActivitiesInput, Prisma.ActorUncheckedCreateWithoutListActivitiesInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutListActivityActorInput, Prisma.ActorUncheckedCreateWithoutListActivityActorInput>
 }
 
-export type ActorUpsertWithoutListActivitiesInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutListActivitiesInput, Prisma.ActorUncheckedUpdateWithoutListActivitiesInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutListActivitiesInput, Prisma.ActorUncheckedCreateWithoutListActivitiesInput>
+export type ActorUpsertWithoutListActivityActorInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutListActivityActorInput, Prisma.ActorUncheckedUpdateWithoutListActivityActorInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutListActivityActorInput, Prisma.ActorUncheckedCreateWithoutListActivityActorInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutListActivitiesInput = {
+export type ActorUpdateToOneWithWhereWithoutListActivityActorInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutListActivitiesInput, Prisma.ActorUncheckedUpdateWithoutListActivitiesInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutListActivityActorInput, Prisma.ActorUncheckedUpdateWithoutListActivityActorInput>
 }
 
-export type ActorUpdateWithoutListActivitiesInput = {
+export type ActorUpdateWithoutListActivityActorInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutListActivitiesInput = {
+export type ActorUncheckedUpdateWithoutListActivityActorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutStarredMoviesInput = {
+export type ActorCreateWithoutListActorInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutStarredMoviesInput = {
+export type ActorUncheckedCreateWithoutListActorInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutStarredMoviesInput = {
+export type ActorCreateOrConnectWithoutListActorInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutStarredMoviesInput, Prisma.ActorUncheckedCreateWithoutStarredMoviesInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutListActorInput, Prisma.ActorUncheckedCreateWithoutListActorInput>
 }
 
-export type ActorUpsertWithoutStarredMoviesInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutStarredMoviesInput, Prisma.ActorUncheckedUpdateWithoutStarredMoviesInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutStarredMoviesInput, Prisma.ActorUncheckedCreateWithoutStarredMoviesInput>
+export type ActorUpsertWithoutListActorInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutListActorInput, Prisma.ActorUncheckedUpdateWithoutListActorInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutListActorInput, Prisma.ActorUncheckedCreateWithoutListActorInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutStarredMoviesInput = {
+export type ActorUpdateToOneWithWhereWithoutListActorInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutStarredMoviesInput, Prisma.ActorUncheckedUpdateWithoutStarredMoviesInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutListActorInput, Prisma.ActorUncheckedUpdateWithoutListActorInput>
 }
 
-export type ActorUpdateWithoutStarredMoviesInput = {
+export type ActorUpdateWithoutListActorInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutStarredMoviesInput = {
+export type ActorUncheckedUpdateWithoutListActorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutStarredSeriesInput = {
+export type ActorCreateWithoutUpvoteActorReviewInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutStarredSeriesInput = {
+export type ActorUncheckedCreateWithoutUpvoteActorReviewInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutStarredSeriesInput = {
+export type ActorCreateOrConnectWithoutUpvoteActorReviewInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutStarredSeriesInput, Prisma.ActorUncheckedCreateWithoutStarredSeriesInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewInput>
 }
 
-export type ActorUpsertWithoutStarredSeriesInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutStarredSeriesInput, Prisma.ActorUncheckedUpdateWithoutStarredSeriesInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutStarredSeriesInput, Prisma.ActorUncheckedCreateWithoutStarredSeriesInput>
+export type ActorUpsertWithoutUpvoteActorReviewInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutUpvoteActorReviewInput, Prisma.ActorUncheckedUpdateWithoutUpvoteActorReviewInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutUpvoteActorReviewInput, Prisma.ActorUncheckedCreateWithoutUpvoteActorReviewInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutStarredSeriesInput = {
+export type ActorUpdateToOneWithWhereWithoutUpvoteActorReviewInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutStarredSeriesInput, Prisma.ActorUncheckedUpdateWithoutStarredSeriesInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutUpvoteActorReviewInput, Prisma.ActorUncheckedUpdateWithoutUpvoteActorReviewInput>
 }
 
-export type ActorUpdateWithoutStarredSeriesInput = {
+export type ActorUpdateWithoutUpvoteActorReviewInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutStarredSeriesInput = {
+export type ActorUncheckedUpdateWithoutUpvoteActorReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutUsersWhoBookmarkedItInput = {
+export type ActorCreateWithoutUserActorFavoriteInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutUsersWhoBookmarkedItInput = {
+export type ActorUncheckedCreateWithoutUserActorFavoriteInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutUsersWhoBookmarkedItInput = {
+export type ActorCreateOrConnectWithoutUserActorFavoriteInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoBookmarkedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutUserActorFavoriteInput, Prisma.ActorUncheckedCreateWithoutUserActorFavoriteInput>
 }
 
-export type ActorUpsertWithoutUsersWhoBookmarkedItInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutUsersWhoBookmarkedItInput, Prisma.ActorUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoBookmarkedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+export type ActorUpsertWithoutUserActorFavoriteInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutUserActorFavoriteInput, Prisma.ActorUncheckedUpdateWithoutUserActorFavoriteInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutUserActorFavoriteInput, Prisma.ActorUncheckedCreateWithoutUserActorFavoriteInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput = {
+export type ActorUpdateToOneWithWhereWithoutUserActorFavoriteInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutUsersWhoBookmarkedItInput, Prisma.ActorUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutUserActorFavoriteInput, Prisma.ActorUncheckedUpdateWithoutUserActorFavoriteInput>
 }
 
-export type ActorUpdateWithoutUsersWhoBookmarkedItInput = {
+export type ActorUpdateWithoutUserActorFavoriteInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutUsersWhoBookmarkedItInput = {
+export type ActorUncheckedUpdateWithoutUserActorFavoriteInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoRatedIt?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorRating?: Prisma.UserActorRatingUncheckedUpdateManyWithoutActorNestedInput
 }
 
-export type ActorCreateWithoutUsersWhoRatedItInput = {
+export type ActorCreateWithoutUserActorRatingInput = {
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteCreateNestedManyWithoutActorInput
 }
 
-export type ActorUncheckedCreateWithoutUsersWhoRatedItInput = {
+export type ActorUncheckedCreateWithoutUserActorRatingInput = {
   id?: number
   fullname: string
+  debut: string
+  description: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  debut: string
-  listItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
-  listActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
-  starredMovies?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
-  starredSeries?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
-  reviews?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ActorReview?: Prisma.ActorReviewUncheckedCreateNestedManyWithoutActorInput
+  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutActorInput
+  CastSerie?: Prisma.CastSerieUncheckedCreateNestedManyWithoutActorInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutActorInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutActorInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedCreateNestedManyWithoutActorInput
 }
 
-export type ActorCreateOrConnectWithoutUsersWhoRatedItInput = {
+export type ActorCreateOrConnectWithoutUserActorRatingInput = {
   where: Prisma.ActorWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoRatedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoRatedItInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutUserActorRatingInput, Prisma.ActorUncheckedCreateWithoutUserActorRatingInput>
 }
 
-export type ActorUpsertWithoutUsersWhoRatedItInput = {
-  update: Prisma.XOR<Prisma.ActorUpdateWithoutUsersWhoRatedItInput, Prisma.ActorUncheckedUpdateWithoutUsersWhoRatedItInput>
-  create: Prisma.XOR<Prisma.ActorCreateWithoutUsersWhoRatedItInput, Prisma.ActorUncheckedCreateWithoutUsersWhoRatedItInput>
+export type ActorUpsertWithoutUserActorRatingInput = {
+  update: Prisma.XOR<Prisma.ActorUpdateWithoutUserActorRatingInput, Prisma.ActorUncheckedUpdateWithoutUserActorRatingInput>
+  create: Prisma.XOR<Prisma.ActorCreateWithoutUserActorRatingInput, Prisma.ActorUncheckedCreateWithoutUserActorRatingInput>
   where?: Prisma.ActorWhereInput
 }
 
-export type ActorUpdateToOneWithWhereWithoutUsersWhoRatedItInput = {
+export type ActorUpdateToOneWithWhereWithoutUserActorRatingInput = {
   where?: Prisma.ActorWhereInput
-  data: Prisma.XOR<Prisma.ActorUpdateWithoutUsersWhoRatedItInput, Prisma.ActorUncheckedUpdateWithoutUsersWhoRatedItInput>
+  data: Prisma.XOR<Prisma.ActorUpdateWithoutUserActorRatingInput, Prisma.ActorUncheckedUpdateWithoutUserActorRatingInput>
 }
 
-export type ActorUpdateWithoutUsersWhoRatedItInput = {
+export type ActorUpdateWithoutUserActorRatingInput = {
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUpdateManyWithoutActorNestedInput
 }
 
-export type ActorUncheckedUpdateWithoutUsersWhoRatedItInput = {
+export type ActorUncheckedUpdateWithoutUserActorRatingInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   fullname?: Prisma.StringFieldUpdateOperationsInput | string
+  debut?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  debut?: Prisma.StringFieldUpdateOperationsInput | string
-  listItems?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
-  listActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
-  starredMovies?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
-  starredSeries?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
-  reviews?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  usersWhoBookmarkedIt?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
-  upvoteActorReviews?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
-  downvoteActorReviews?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ActorReview?: Prisma.ActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutActorNestedInput
+  CastSerie?: Prisma.CastSerieUncheckedUpdateManyWithoutActorNestedInput
+  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutActorNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutActorNestedInput
+  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorNestedInput
+  UserActorFavorite?: Prisma.UserActorFavoriteUncheckedUpdateManyWithoutActorNestedInput
 }
 
 
@@ -1325,27 +1313,27 @@ export type ActorUncheckedUpdateWithoutUsersWhoRatedItInput = {
  */
 
 export type ActorCountOutputType = {
-  listItems: number
-  listActivities: number
-  starredMovies: number
-  starredSeries: number
-  reviews: number
-  usersWhoRatedIt: number
-  usersWhoBookmarkedIt: number
-  upvoteActorReviews: number
-  downvoteActorReviews: number
+  ActorReview: number
+  CastMovie: number
+  CastSerie: number
+  DownvoteActorReview: number
+  ListActivityActor: number
+  ListActor: number
+  UpvoteActorReview: number
+  UserActorFavorite: number
+  UserActorRating: number
 }
 
 export type ActorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  listItems?: boolean | ActorCountOutputTypeCountListItemsArgs
-  listActivities?: boolean | ActorCountOutputTypeCountListActivitiesArgs
-  starredMovies?: boolean | ActorCountOutputTypeCountStarredMoviesArgs
-  starredSeries?: boolean | ActorCountOutputTypeCountStarredSeriesArgs
-  reviews?: boolean | ActorCountOutputTypeCountReviewsArgs
-  usersWhoRatedIt?: boolean | ActorCountOutputTypeCountUsersWhoRatedItArgs
-  usersWhoBookmarkedIt?: boolean | ActorCountOutputTypeCountUsersWhoBookmarkedItArgs
-  upvoteActorReviews?: boolean | ActorCountOutputTypeCountUpvoteActorReviewsArgs
-  downvoteActorReviews?: boolean | ActorCountOutputTypeCountDownvoteActorReviewsArgs
+  ActorReview?: boolean | ActorCountOutputTypeCountActorReviewArgs
+  CastMovie?: boolean | ActorCountOutputTypeCountCastMovieArgs
+  CastSerie?: boolean | ActorCountOutputTypeCountCastSerieArgs
+  DownvoteActorReview?: boolean | ActorCountOutputTypeCountDownvoteActorReviewArgs
+  ListActivityActor?: boolean | ActorCountOutputTypeCountListActivityActorArgs
+  ListActor?: boolean | ActorCountOutputTypeCountListActorArgs
+  UpvoteActorReview?: boolean | ActorCountOutputTypeCountUpvoteActorReviewArgs
+  UserActorFavorite?: boolean | ActorCountOutputTypeCountUserActorFavoriteArgs
+  UserActorRating?: boolean | ActorCountOutputTypeCountUserActorRatingArgs
 }
 
 /**
@@ -1361,124 +1349,124 @@ export type ActorCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * ActorCountOutputType without action
  */
-export type ActorCountOutputTypeCountListItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActorWhereInput
-}
-
-/**
- * ActorCountOutputType without action
- */
-export type ActorCountOutputTypeCountListActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivityActorWhereInput
-}
-
-/**
- * ActorCountOutputType without action
- */
-export type ActorCountOutputTypeCountStarredMoviesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CastMovieWhereInput
-}
-
-/**
- * ActorCountOutputType without action
- */
-export type ActorCountOutputTypeCountStarredSeriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CastSerieWhereInput
-}
-
-/**
- * ActorCountOutputType without action
- */
-export type ActorCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ActorCountOutputTypeCountActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ActorReviewWhereInput
 }
 
 /**
  * ActorCountOutputType without action
  */
-export type ActorCountOutputTypeCountUsersWhoRatedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserActorRatingWhereInput
+export type ActorCountOutputTypeCountCastMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CastMovieWhereInput
 }
 
 /**
  * ActorCountOutputType without action
  */
-export type ActorCountOutputTypeCountUsersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserActorFavoriteWhereInput
+export type ActorCountOutputTypeCountCastSerieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CastSerieWhereInput
 }
 
 /**
  * ActorCountOutputType without action
  */
-export type ActorCountOutputTypeCountUpvoteActorReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ActorCountOutputTypeCountDownvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DownvoteActorReviewWhereInput
+}
+
+/**
+ * ActorCountOutputType without action
+ */
+export type ActorCountOutputTypeCountListActivityActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivityActorWhereInput
+}
+
+/**
+ * ActorCountOutputType without action
+ */
+export type ActorCountOutputTypeCountListActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActorWhereInput
+}
+
+/**
+ * ActorCountOutputType without action
+ */
+export type ActorCountOutputTypeCountUpvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UpvoteActorReviewWhereInput
 }
 
 /**
  * ActorCountOutputType without action
  */
-export type ActorCountOutputTypeCountDownvoteActorReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DownvoteActorReviewWhereInput
+export type ActorCountOutputTypeCountUserActorFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserActorFavoriteWhereInput
+}
+
+/**
+ * ActorCountOutputType without action
+ */
+export type ActorCountOutputTypeCountUserActorRatingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserActorRatingWhereInput
 }
 
 
 export type ActorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   fullname?: boolean
+  debut?: boolean
+  description?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  debut?: boolean
-  listItems?: boolean | Prisma.Actor$listItemsArgs<ExtArgs>
-  listActivities?: boolean | Prisma.Actor$listActivitiesArgs<ExtArgs>
-  starredMovies?: boolean | Prisma.Actor$starredMoviesArgs<ExtArgs>
-  starredSeries?: boolean | Prisma.Actor$starredSeriesArgs<ExtArgs>
-  reviews?: boolean | Prisma.Actor$reviewsArgs<ExtArgs>
-  usersWhoRatedIt?: boolean | Prisma.Actor$usersWhoRatedItArgs<ExtArgs>
-  usersWhoBookmarkedIt?: boolean | Prisma.Actor$usersWhoBookmarkedItArgs<ExtArgs>
-  upvoteActorReviews?: boolean | Prisma.Actor$upvoteActorReviewsArgs<ExtArgs>
-  downvoteActorReviews?: boolean | Prisma.Actor$downvoteActorReviewsArgs<ExtArgs>
+  ActorReview?: boolean | Prisma.Actor$ActorReviewArgs<ExtArgs>
+  CastMovie?: boolean | Prisma.Actor$CastMovieArgs<ExtArgs>
+  CastSerie?: boolean | Prisma.Actor$CastSerieArgs<ExtArgs>
+  DownvoteActorReview?: boolean | Prisma.Actor$DownvoteActorReviewArgs<ExtArgs>
+  ListActivityActor?: boolean | Prisma.Actor$ListActivityActorArgs<ExtArgs>
+  ListActor?: boolean | Prisma.Actor$ListActorArgs<ExtArgs>
+  UpvoteActorReview?: boolean | Prisma.Actor$UpvoteActorReviewArgs<ExtArgs>
+  UserActorFavorite?: boolean | Prisma.Actor$UserActorFavoriteArgs<ExtArgs>
+  UserActorRating?: boolean | Prisma.Actor$UserActorRatingArgs<ExtArgs>
   _count?: boolean | Prisma.ActorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actor"]>
 
 export type ActorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   fullname?: boolean
+  debut?: boolean
+  description?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  debut?: boolean
 }, ExtArgs["result"]["actor"]>
 
 export type ActorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   fullname?: boolean
+  debut?: boolean
+  description?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  debut?: boolean
 }, ExtArgs["result"]["actor"]>
 
 export type ActorSelectScalar = {
   id?: boolean
   fullname?: boolean
+  debut?: boolean
+  description?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  debut?: boolean
 }
 
-export type ActorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullname" | "photoSrc" | "photoSrcProd" | "description" | "debut", ExtArgs["result"]["actor"]>
+export type ActorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullname" | "debut" | "description" | "photoSrc" | "photoSrcProd", ExtArgs["result"]["actor"]>
 export type ActorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  listItems?: boolean | Prisma.Actor$listItemsArgs<ExtArgs>
-  listActivities?: boolean | Prisma.Actor$listActivitiesArgs<ExtArgs>
-  starredMovies?: boolean | Prisma.Actor$starredMoviesArgs<ExtArgs>
-  starredSeries?: boolean | Prisma.Actor$starredSeriesArgs<ExtArgs>
-  reviews?: boolean | Prisma.Actor$reviewsArgs<ExtArgs>
-  usersWhoRatedIt?: boolean | Prisma.Actor$usersWhoRatedItArgs<ExtArgs>
-  usersWhoBookmarkedIt?: boolean | Prisma.Actor$usersWhoBookmarkedItArgs<ExtArgs>
-  upvoteActorReviews?: boolean | Prisma.Actor$upvoteActorReviewsArgs<ExtArgs>
-  downvoteActorReviews?: boolean | Prisma.Actor$downvoteActorReviewsArgs<ExtArgs>
+  ActorReview?: boolean | Prisma.Actor$ActorReviewArgs<ExtArgs>
+  CastMovie?: boolean | Prisma.Actor$CastMovieArgs<ExtArgs>
+  CastSerie?: boolean | Prisma.Actor$CastSerieArgs<ExtArgs>
+  DownvoteActorReview?: boolean | Prisma.Actor$DownvoteActorReviewArgs<ExtArgs>
+  ListActivityActor?: boolean | Prisma.Actor$ListActivityActorArgs<ExtArgs>
+  ListActor?: boolean | Prisma.Actor$ListActorArgs<ExtArgs>
+  UpvoteActorReview?: boolean | Prisma.Actor$UpvoteActorReviewArgs<ExtArgs>
+  UserActorFavorite?: boolean | Prisma.Actor$UserActorFavoriteArgs<ExtArgs>
+  UserActorRating?: boolean | Prisma.Actor$UserActorRatingArgs<ExtArgs>
   _count?: boolean | Prisma.ActorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ActorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1487,23 +1475,23 @@ export type ActorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $ActorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Actor"
   objects: {
-    listItems: Prisma.$ListActorPayload<ExtArgs>[]
-    listActivities: Prisma.$ListActivityActorPayload<ExtArgs>[]
-    starredMovies: Prisma.$CastMoviePayload<ExtArgs>[]
-    starredSeries: Prisma.$CastSeriePayload<ExtArgs>[]
-    reviews: Prisma.$ActorReviewPayload<ExtArgs>[]
-    usersWhoRatedIt: Prisma.$UserActorRatingPayload<ExtArgs>[]
-    usersWhoBookmarkedIt: Prisma.$UserActorFavoritePayload<ExtArgs>[]
-    upvoteActorReviews: Prisma.$UpvoteActorReviewPayload<ExtArgs>[]
-    downvoteActorReviews: Prisma.$DownvoteActorReviewPayload<ExtArgs>[]
+    ActorReview: Prisma.$ActorReviewPayload<ExtArgs>[]
+    CastMovie: Prisma.$CastMoviePayload<ExtArgs>[]
+    CastSerie: Prisma.$CastSeriePayload<ExtArgs>[]
+    DownvoteActorReview: Prisma.$DownvoteActorReviewPayload<ExtArgs>[]
+    ListActivityActor: Prisma.$ListActivityActorPayload<ExtArgs>[]
+    ListActor: Prisma.$ListActorPayload<ExtArgs>[]
+    UpvoteActorReview: Prisma.$UpvoteActorReviewPayload<ExtArgs>[]
+    UserActorFavorite: Prisma.$UserActorFavoritePayload<ExtArgs>[]
+    UserActorRating: Prisma.$UserActorRatingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     fullname: string
+    debut: string
+    description: string
     photoSrc: string
     photoSrcProd: string
-    description: string
-    debut: string
   }, ExtArgs["result"]["actor"]>
   composites: {}
 }
@@ -1898,15 +1886,15 @@ readonly fields: ActorFieldRefs;
  */
 export interface Prisma__ActorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  listItems<T extends Prisma.Actor$listItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$listItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  listActivities<T extends Prisma.Actor$listActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$listActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  starredMovies<T extends Prisma.Actor$starredMoviesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$starredMoviesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CastMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  starredSeries<T extends Prisma.Actor$starredSeriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$starredSeriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CastSeriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  reviews<T extends Prisma.Actor$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  usersWhoRatedIt<T extends Prisma.Actor$usersWhoRatedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$usersWhoRatedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserActorRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  usersWhoBookmarkedIt<T extends Prisma.Actor$usersWhoBookmarkedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$usersWhoBookmarkedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserActorFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  upvoteActorReviews<T extends Prisma.Actor$upvoteActorReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$upvoteActorReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  downvoteActorReviews<T extends Prisma.Actor$downvoteActorReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$downvoteActorReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ActorReview<T extends Prisma.Actor$ActorReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$ActorReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  CastMovie<T extends Prisma.Actor$CastMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$CastMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CastMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  CastSerie<T extends Prisma.Actor$CastSerieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$CastSerieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CastSeriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  DownvoteActorReview<T extends Prisma.Actor$DownvoteActorReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$DownvoteActorReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActivityActor<T extends Prisma.Actor$ListActivityActorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$ListActivityActorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActor<T extends Prisma.Actor$ListActorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$ListActorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  UpvoteActorReview<T extends Prisma.Actor$UpvoteActorReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$UpvoteActorReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  UserActorFavorite<T extends Prisma.Actor$UserActorFavoriteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$UserActorFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserActorFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  UserActorRating<T extends Prisma.Actor$UserActorRatingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Actor$UserActorRatingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserActorRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1938,10 +1926,10 @@ export interface Prisma__ActorClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface ActorFieldRefs {
   readonly id: Prisma.FieldRef<"Actor", 'Int'>
   readonly fullname: Prisma.FieldRef<"Actor", 'String'>
+  readonly debut: Prisma.FieldRef<"Actor", 'String'>
+  readonly description: Prisma.FieldRef<"Actor", 'String'>
   readonly photoSrc: Prisma.FieldRef<"Actor", 'String'>
   readonly photoSrcProd: Prisma.FieldRef<"Actor", 'String'>
-  readonly description: Prisma.FieldRef<"Actor", 'String'>
-  readonly debut: Prisma.FieldRef<"Actor", 'String'>
 }
     
 
@@ -2330,105 +2318,9 @@ export type ActorDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Actor.listItems
+ * Actor.ActorReview
  */
-export type Actor$listItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActor
-   */
-  select?: Prisma.ListActorSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActor
-   */
-  omit?: Prisma.ListActorOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActorInclude<ExtArgs> | null
-  where?: Prisma.ListActorWhereInput
-  orderBy?: Prisma.ListActorOrderByWithRelationInput | Prisma.ListActorOrderByWithRelationInput[]
-  cursor?: Prisma.ListActorWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActorScalarFieldEnum | Prisma.ListActorScalarFieldEnum[]
-}
-
-/**
- * Actor.listActivities
- */
-export type Actor$listActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivityActor
-   */
-  select?: Prisma.ListActivityActorSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivityActor
-   */
-  omit?: Prisma.ListActivityActorOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivityActorInclude<ExtArgs> | null
-  where?: Prisma.ListActivityActorWhereInput
-  orderBy?: Prisma.ListActivityActorOrderByWithRelationInput | Prisma.ListActivityActorOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivityActorWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivityActorScalarFieldEnum | Prisma.ListActivityActorScalarFieldEnum[]
-}
-
-/**
- * Actor.starredMovies
- */
-export type Actor$starredMoviesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CastMovie
-   */
-  select?: Prisma.CastMovieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the CastMovie
-   */
-  omit?: Prisma.CastMovieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CastMovieInclude<ExtArgs> | null
-  where?: Prisma.CastMovieWhereInput
-  orderBy?: Prisma.CastMovieOrderByWithRelationInput | Prisma.CastMovieOrderByWithRelationInput[]
-  cursor?: Prisma.CastMovieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.CastMovieScalarFieldEnum | Prisma.CastMovieScalarFieldEnum[]
-}
-
-/**
- * Actor.starredSeries
- */
-export type Actor$starredSeriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CastSerie
-   */
-  select?: Prisma.CastSerieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the CastSerie
-   */
-  omit?: Prisma.CastSerieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CastSerieInclude<ExtArgs> | null
-  where?: Prisma.CastSerieWhereInput
-  orderBy?: Prisma.CastSerieOrderByWithRelationInput | Prisma.CastSerieOrderByWithRelationInput[]
-  cursor?: Prisma.CastSerieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.CastSerieScalarFieldEnum | Prisma.CastSerieScalarFieldEnum[]
-}
-
-/**
- * Actor.reviews
- */
-export type Actor$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Actor$ActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ActorReview
    */
@@ -2450,57 +2342,129 @@ export type Actor$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * Actor.usersWhoRatedIt
+ * Actor.CastMovie
  */
-export type Actor$usersWhoRatedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Actor$CastMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UserActorRating
+   * Select specific fields to fetch from the CastMovie
    */
-  select?: Prisma.UserActorRatingSelect<ExtArgs> | null
+  select?: Prisma.CastMovieSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UserActorRating
+   * Omit specific fields from the CastMovie
    */
-  omit?: Prisma.UserActorRatingOmit<ExtArgs> | null
+  omit?: Prisma.CastMovieOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UserActorRatingInclude<ExtArgs> | null
-  where?: Prisma.UserActorRatingWhereInput
-  orderBy?: Prisma.UserActorRatingOrderByWithRelationInput | Prisma.UserActorRatingOrderByWithRelationInput[]
-  cursor?: Prisma.UserActorRatingWhereUniqueInput
+  include?: Prisma.CastMovieInclude<ExtArgs> | null
+  where?: Prisma.CastMovieWhereInput
+  orderBy?: Prisma.CastMovieOrderByWithRelationInput | Prisma.CastMovieOrderByWithRelationInput[]
+  cursor?: Prisma.CastMovieWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UserActorRatingScalarFieldEnum | Prisma.UserActorRatingScalarFieldEnum[]
+  distinct?: Prisma.CastMovieScalarFieldEnum | Prisma.CastMovieScalarFieldEnum[]
 }
 
 /**
- * Actor.usersWhoBookmarkedIt
+ * Actor.CastSerie
  */
-export type Actor$usersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Actor$CastSerieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UserActorFavorite
+   * Select specific fields to fetch from the CastSerie
    */
-  select?: Prisma.UserActorFavoriteSelect<ExtArgs> | null
+  select?: Prisma.CastSerieSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UserActorFavorite
+   * Omit specific fields from the CastSerie
    */
-  omit?: Prisma.UserActorFavoriteOmit<ExtArgs> | null
+  omit?: Prisma.CastSerieOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UserActorFavoriteInclude<ExtArgs> | null
-  where?: Prisma.UserActorFavoriteWhereInput
-  orderBy?: Prisma.UserActorFavoriteOrderByWithRelationInput | Prisma.UserActorFavoriteOrderByWithRelationInput[]
-  cursor?: Prisma.UserActorFavoriteWhereUniqueInput
+  include?: Prisma.CastSerieInclude<ExtArgs> | null
+  where?: Prisma.CastSerieWhereInput
+  orderBy?: Prisma.CastSerieOrderByWithRelationInput | Prisma.CastSerieOrderByWithRelationInput[]
+  cursor?: Prisma.CastSerieWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UserActorFavoriteScalarFieldEnum | Prisma.UserActorFavoriteScalarFieldEnum[]
+  distinct?: Prisma.CastSerieScalarFieldEnum | Prisma.CastSerieScalarFieldEnum[]
 }
 
 /**
- * Actor.upvoteActorReviews
+ * Actor.DownvoteActorReview
  */
-export type Actor$upvoteActorReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Actor$DownvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DownvoteActorReview
+   */
+  select?: Prisma.DownvoteActorReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DownvoteActorReview
+   */
+  omit?: Prisma.DownvoteActorReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DownvoteActorReviewInclude<ExtArgs> | null
+  where?: Prisma.DownvoteActorReviewWhereInput
+  orderBy?: Prisma.DownvoteActorReviewOrderByWithRelationInput | Prisma.DownvoteActorReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DownvoteActorReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DownvoteActorReviewScalarFieldEnum | Prisma.DownvoteActorReviewScalarFieldEnum[]
+}
+
+/**
+ * Actor.ListActivityActor
+ */
+export type Actor$ListActivityActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActivityActor
+   */
+  select?: Prisma.ListActivityActorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActivityActor
+   */
+  omit?: Prisma.ListActivityActorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActivityActorInclude<ExtArgs> | null
+  where?: Prisma.ListActivityActorWhereInput
+  orderBy?: Prisma.ListActivityActorOrderByWithRelationInput | Prisma.ListActivityActorOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivityActorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActivityActorScalarFieldEnum | Prisma.ListActivityActorScalarFieldEnum[]
+}
+
+/**
+ * Actor.ListActor
+ */
+export type Actor$ListActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActor
+   */
+  select?: Prisma.ListActorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActor
+   */
+  omit?: Prisma.ListActorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActorInclude<ExtArgs> | null
+  where?: Prisma.ListActorWhereInput
+  orderBy?: Prisma.ListActorOrderByWithRelationInput | Prisma.ListActorOrderByWithRelationInput[]
+  cursor?: Prisma.ListActorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActorScalarFieldEnum | Prisma.ListActorScalarFieldEnum[]
+}
+
+/**
+ * Actor.UpvoteActorReview
+ */
+export type Actor$UpvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UpvoteActorReview
    */
@@ -2522,27 +2486,51 @@ export type Actor$upvoteActorReviewsArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * Actor.downvoteActorReviews
+ * Actor.UserActorFavorite
  */
-export type Actor$downvoteActorReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Actor$UserActorFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the DownvoteActorReview
+   * Select specific fields to fetch from the UserActorFavorite
    */
-  select?: Prisma.DownvoteActorReviewSelect<ExtArgs> | null
+  select?: Prisma.UserActorFavoriteSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the DownvoteActorReview
+   * Omit specific fields from the UserActorFavorite
    */
-  omit?: Prisma.DownvoteActorReviewOmit<ExtArgs> | null
+  omit?: Prisma.UserActorFavoriteOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.DownvoteActorReviewInclude<ExtArgs> | null
-  where?: Prisma.DownvoteActorReviewWhereInput
-  orderBy?: Prisma.DownvoteActorReviewOrderByWithRelationInput | Prisma.DownvoteActorReviewOrderByWithRelationInput[]
-  cursor?: Prisma.DownvoteActorReviewWhereUniqueInput
+  include?: Prisma.UserActorFavoriteInclude<ExtArgs> | null
+  where?: Prisma.UserActorFavoriteWhereInput
+  orderBy?: Prisma.UserActorFavoriteOrderByWithRelationInput | Prisma.UserActorFavoriteOrderByWithRelationInput[]
+  cursor?: Prisma.UserActorFavoriteWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.DownvoteActorReviewScalarFieldEnum | Prisma.DownvoteActorReviewScalarFieldEnum[]
+  distinct?: Prisma.UserActorFavoriteScalarFieldEnum | Prisma.UserActorFavoriteScalarFieldEnum[]
+}
+
+/**
+ * Actor.UserActorRating
+ */
+export type Actor$UserActorRatingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserActorRating
+   */
+  select?: Prisma.UserActorRatingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserActorRating
+   */
+  omit?: Prisma.UserActorRatingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserActorRatingInclude<ExtArgs> | null
+  where?: Prisma.UserActorRatingWhereInput
+  orderBy?: Prisma.UserActorRatingOrderByWithRelationInput | Prisma.UserActorRatingOrderByWithRelationInput[]
+  cursor?: Prisma.UserActorRatingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserActorRatingScalarFieldEnum | Prisma.UserActorRatingScalarFieldEnum[]
 }
 
 /**

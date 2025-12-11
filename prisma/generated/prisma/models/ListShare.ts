@@ -28,76 +28,76 @@ export type AggregateListShare = {
 
 export type ListShareAvgAggregateOutputType = {
   id: number | null
-  listId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListShareSumAggregateOutputType = {
   id: number | null
-  listId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListShareMinAggregateOutputType = {
   id: number | null
   canEdit: boolean | null
   sharedAt: Date | null
-  listId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListShareMaxAggregateOutputType = {
   id: number | null
   canEdit: boolean | null
   sharedAt: Date | null
-  listId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListShareCountAggregateOutputType = {
   id: number
   canEdit: number
   sharedAt: number
-  listId: number
   userId: number
+  listId: number
   _all: number
 }
 
 
 export type ListShareAvgAggregateInputType = {
   id?: true
-  listId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListShareSumAggregateInputType = {
   id?: true
-  listId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListShareMinAggregateInputType = {
   id?: true
   canEdit?: true
   sharedAt?: true
-  listId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListShareMaxAggregateInputType = {
   id?: true
   canEdit?: true
   sharedAt?: true
-  listId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListShareCountAggregateInputType = {
   id?: true
   canEdit?: true
   sharedAt?: true
-  listId?: true
   userId?: true
+  listId?: true
   _all?: true
 }
 
@@ -191,8 +191,8 @@ export type ListShareGroupByOutputType = {
   id: number
   canEdit: boolean
   sharedAt: Date
-  listId: number
   userId: number
+  listId: number
   _count: ListShareCountAggregateOutputType | null
   _avg: ListShareAvgAggregateOutputType | null
   _sum: ListShareSumAggregateOutputType | null
@@ -222,20 +222,20 @@ export type ListShareWhereInput = {
   id?: Prisma.IntFilter<"ListShare"> | number
   canEdit?: Prisma.BoolFilter<"ListShare"> | boolean
   sharedAt?: Prisma.DateTimeFilter<"ListShare"> | Date | string
-  listId?: Prisma.IntFilter<"ListShare"> | number
   userId?: Prisma.IntFilter<"ListShare"> | number
-  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listId?: Prisma.IntFilter<"ListShare"> | number
+  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListShareOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   canEdit?: Prisma.SortOrder
   sharedAt?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  list?: Prisma.ListOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  listId?: Prisma.SortOrder
+  List?: Prisma.ListOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ListShareWhereUniqueInput = Prisma.AtLeast<{
@@ -246,18 +246,18 @@ export type ListShareWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ListShareWhereInput | Prisma.ListShareWhereInput[]
   canEdit?: Prisma.BoolFilter<"ListShare"> | boolean
   sharedAt?: Prisma.DateTimeFilter<"ListShare"> | Date | string
-  listId?: Prisma.IntFilter<"ListShare"> | number
   userId?: Prisma.IntFilter<"ListShare"> | number
-  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listId?: Prisma.IntFilter<"ListShare"> | number
+  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "listId_userId">
 
 export type ListShareOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   canEdit?: Prisma.SortOrder
   sharedAt?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   _count?: Prisma.ListShareCountOrderByAggregateInput
   _avg?: Prisma.ListShareAvgOrderByAggregateInput
   _max?: Prisma.ListShareMaxOrderByAggregateInput
@@ -272,46 +272,46 @@ export type ListShareScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"ListShare"> | number
   canEdit?: Prisma.BoolWithAggregatesFilter<"ListShare"> | boolean
   sharedAt?: Prisma.DateTimeWithAggregatesFilter<"ListShare"> | Date | string
-  listId?: Prisma.IntWithAggregatesFilter<"ListShare"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListShare"> | number
+  listId?: Prisma.IntWithAggregatesFilter<"ListShare"> | number
 }
 
 export type ListShareCreateInput = {
   canEdit?: boolean
   sharedAt?: Date | string
-  list: Prisma.ListCreateNestedOneWithoutSharedWithInput
-  user: Prisma.UserCreateNestedOneWithoutSharedListsInput
+  List: Prisma.ListCreateNestedOneWithoutListShareInput
+  User: Prisma.UserCreateNestedOneWithoutListShareInput
 }
 
 export type ListShareUncheckedCreateInput = {
   id?: number
   canEdit?: boolean
   sharedAt?: Date | string
-  listId: number
   userId: number
+  listId: number
 }
 
 export type ListShareUpdateInput = {
   canEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sharedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  list?: Prisma.ListUpdateOneRequiredWithoutSharedWithNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutSharedListsNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListShareNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListShareNestedInput
 }
 
 export type ListShareUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   canEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sharedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListShareCreateManyInput = {
   id?: number
   canEdit?: boolean
   sharedAt?: Date | string
-  listId: number
   userId: number
+  listId: number
 }
 
 export type ListShareUpdateManyMutationInput = {
@@ -323,8 +323,8 @@ export type ListShareUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   canEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sharedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListShareListRelationFilter = {
@@ -346,36 +346,36 @@ export type ListShareCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   canEdit?: Prisma.SortOrder
   sharedAt?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListShareAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListShareMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   canEdit?: Prisma.SortOrder
   sharedAt?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListShareMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   canEdit?: Prisma.SortOrder
   sharedAt?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListShareSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListShareCreateNestedManyWithoutListInput = {
@@ -465,7 +465,7 @@ export type ListShareUncheckedUpdateManyWithoutUserNestedInput = {
 export type ListShareCreateWithoutListInput = {
   canEdit?: boolean
   sharedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutSharedListsInput
+  User: Prisma.UserCreateNestedOneWithoutListShareInput
 }
 
 export type ListShareUncheckedCreateWithoutListInput = {
@@ -508,14 +508,14 @@ export type ListShareScalarWhereInput = {
   id?: Prisma.IntFilter<"ListShare"> | number
   canEdit?: Prisma.BoolFilter<"ListShare"> | boolean
   sharedAt?: Prisma.DateTimeFilter<"ListShare"> | Date | string
-  listId?: Prisma.IntFilter<"ListShare"> | number
   userId?: Prisma.IntFilter<"ListShare"> | number
+  listId?: Prisma.IntFilter<"ListShare"> | number
 }
 
 export type ListShareCreateWithoutUserInput = {
   canEdit?: boolean
   sharedAt?: Date | string
-  list: Prisma.ListCreateNestedOneWithoutSharedWithInput
+  List: Prisma.ListCreateNestedOneWithoutListShareInput
 }
 
 export type ListShareUncheckedCreateWithoutUserInput = {
@@ -561,7 +561,7 @@ export type ListShareCreateManyListInput = {
 export type ListShareUpdateWithoutListInput = {
   canEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sharedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutSharedListsNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListShareNestedInput
 }
 
 export type ListShareUncheckedUpdateWithoutListInput = {
@@ -588,7 +588,7 @@ export type ListShareCreateManyUserInput = {
 export type ListShareUpdateWithoutUserInput = {
   canEdit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sharedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  list?: Prisma.ListUpdateOneRequiredWithoutSharedWithNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListShareNestedInput
 }
 
 export type ListShareUncheckedUpdateWithoutUserInput = {
@@ -611,66 +611,66 @@ export type ListShareSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   canEdit?: boolean
   sharedAt?: boolean
-  listId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listShare"]>
 
 export type ListShareSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   canEdit?: boolean
   sharedAt?: boolean
-  listId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listShare"]>
 
 export type ListShareSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   canEdit?: boolean
   sharedAt?: boolean
-  listId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listShare"]>
 
 export type ListShareSelectScalar = {
   id?: boolean
   canEdit?: boolean
   sharedAt?: boolean
-  listId?: boolean
   userId?: boolean
+  listId?: boolean
 }
 
-export type ListShareOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "canEdit" | "sharedAt" | "listId" | "userId", ExtArgs["result"]["listShare"]>
+export type ListShareOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "canEdit" | "sharedAt" | "userId" | "listId", ExtArgs["result"]["listShare"]>
 export type ListShareInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListShareIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListShareIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListSharePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListShare"
   objects: {
-    list: Prisma.$ListPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
+    List: Prisma.$ListPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     canEdit: boolean
     sharedAt: Date
-    listId: number
     userId: number
+    listId: number
   }, ExtArgs["result"]["listShare"]>
   composites: {}
 }
@@ -1065,8 +1065,8 @@ readonly fields: ListShareFieldRefs;
  */
 export interface Prisma__ListShareClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1099,8 +1099,8 @@ export interface ListShareFieldRefs {
   readonly id: Prisma.FieldRef<"ListShare", 'Int'>
   readonly canEdit: Prisma.FieldRef<"ListShare", 'Boolean'>
   readonly sharedAt: Prisma.FieldRef<"ListShare", 'DateTime'>
-  readonly listId: Prisma.FieldRef<"ListShare", 'Int'>
   readonly userId: Prisma.FieldRef<"ListShare", 'Int'>
+  readonly listId: Prisma.FieldRef<"ListShare", 'Int'>
 }
     
 

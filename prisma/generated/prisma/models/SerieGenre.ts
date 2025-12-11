@@ -208,16 +208,16 @@ export type SerieGenreWhereInput = {
   id?: Prisma.IntFilter<"SerieGenre"> | number
   serieId?: Prisma.IntFilter<"SerieGenre"> | number
   genreId?: Prisma.IntFilter<"SerieGenre"> | number
-  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
 }
 
 export type SerieGenreOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   serieId?: Prisma.SortOrder
   genreId?: Prisma.SortOrder
-  serie?: Prisma.SerieOrderByWithRelationInput
-  genre?: Prisma.GenreOrderByWithRelationInput
+  Genre?: Prisma.GenreOrderByWithRelationInput
+  Serie?: Prisma.SerieOrderByWithRelationInput
 }
 
 export type SerieGenreWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type SerieGenreWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SerieGenreWhereInput | Prisma.SerieGenreWhereInput[]
   serieId?: Prisma.IntFilter<"SerieGenre"> | number
   genreId?: Prisma.IntFilter<"SerieGenre"> | number
-  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
 }, "id" | "serieId_genreId">
 
 export type SerieGenreOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type SerieGenreScalarWhereWithAggregatesInput = {
 }
 
 export type SerieGenreCreateInput = {
-  serie: Prisma.SerieCreateNestedOneWithoutGenresInput
-  genre: Prisma.GenreCreateNestedOneWithoutSeriesInput
+  Genre: Prisma.GenreCreateNestedOneWithoutSerieGenreInput
+  Serie: Prisma.SerieCreateNestedOneWithoutSerieGenreInput
 }
 
 export type SerieGenreUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type SerieGenreUncheckedCreateInput = {
 }
 
 export type SerieGenreUpdateInput = {
-  serie?: Prisma.SerieUpdateOneRequiredWithoutGenresNestedInput
-  genre?: Prisma.GenreUpdateOneRequiredWithoutSeriesNestedInput
+  Genre?: Prisma.GenreUpdateOneRequiredWithoutSerieGenreNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutSerieGenreNestedInput
 }
 
 export type SerieGenreUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type SerieGenreUncheckedUpdateManyWithoutSerieNestedInput = {
 }
 
 export type SerieGenreCreateWithoutGenreInput = {
-  serie: Prisma.SerieCreateNestedOneWithoutGenresInput
+  Serie: Prisma.SerieCreateNestedOneWithoutSerieGenreInput
 }
 
 export type SerieGenreUncheckedCreateWithoutGenreInput = {
@@ -464,7 +464,7 @@ export type SerieGenreScalarWhereInput = {
 }
 
 export type SerieGenreCreateWithoutSerieInput = {
-  genre: Prisma.GenreCreateNestedOneWithoutSeriesInput
+  Genre: Prisma.GenreCreateNestedOneWithoutSerieGenreInput
 }
 
 export type SerieGenreUncheckedCreateWithoutSerieInput = {
@@ -504,7 +504,7 @@ export type SerieGenreCreateManyGenreInput = {
 }
 
 export type SerieGenreUpdateWithoutGenreInput = {
-  serie?: Prisma.SerieUpdateOneRequiredWithoutGenresNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutSerieGenreNestedInput
 }
 
 export type SerieGenreUncheckedUpdateWithoutGenreInput = {
@@ -523,7 +523,7 @@ export type SerieGenreCreateManySerieInput = {
 }
 
 export type SerieGenreUpdateWithoutSerieInput = {
-  genre?: Prisma.GenreUpdateOneRequiredWithoutSeriesNestedInput
+  Genre?: Prisma.GenreUpdateOneRequiredWithoutSerieGenreNestedInput
 }
 
 export type SerieGenreUncheckedUpdateWithoutSerieInput = {
@@ -542,24 +542,24 @@ export type SerieGenreSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   serieId?: boolean
   genreId?: boolean
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["serieGenre"]>
 
 export type SerieGenreSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   serieId?: boolean
   genreId?: boolean
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["serieGenre"]>
 
 export type SerieGenreSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   serieId?: boolean
   genreId?: boolean
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["serieGenre"]>
 
 export type SerieGenreSelectScalar = {
@@ -570,23 +570,23 @@ export type SerieGenreSelectScalar = {
 
 export type SerieGenreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serieId" | "genreId", ExtArgs["result"]["serieGenre"]>
 export type SerieGenreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }
 export type SerieGenreIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }
 export type SerieGenreIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }
 
 export type $SerieGenrePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SerieGenre"
   objects: {
-    serie: Prisma.$SeriePayload<ExtArgs>
-    genre: Prisma.$GenrePayload<ExtArgs>
+    Genre: Prisma.$GenrePayload<ExtArgs>
+    Serie: Prisma.$SeriePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: SerieGenreFieldRefs;
  */
 export interface Prisma__SerieGenreClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  genre<T extends Prisma.GenreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenreDefaultArgs<ExtArgs>>): Prisma.Prisma__GenreClient<runtime.Types.Result.GetResult<Prisma.$GenrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Genre<T extends Prisma.GenreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenreDefaultArgs<ExtArgs>>): Prisma.Prisma__GenreClient<runtime.Types.Result.GetResult<Prisma.$GenrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

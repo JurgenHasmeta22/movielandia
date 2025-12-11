@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Actors
- * const actors = await prisma.actor.findMany()
+ * // Fetch zero or more Accounts
+ * const accounts = await prisma.account.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +39,16 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model ActivateToken
+ * 
+ */
+export type ActivateToken = Prisma.ActivateTokenModel
 /**
  * Model Actor
  * 
@@ -50,60 +60,75 @@ export type Actor = Prisma.ActorModel
  */
 export type ActorReview = Prisma.ActorReviewModel
 /**
- * Model UpvoteActorReview
+ * Model Attachment
  * 
  */
-export type UpvoteActorReview = Prisma.UpvoteActorReviewModel
+export type Attachment = Prisma.AttachmentModel
 /**
- * Model DownvoteActorReview
+ * Model Avatar
  * 
  */
-export type DownvoteActorReview = Prisma.DownvoteActorReviewModel
+export type Avatar = Prisma.AvatarModel
 /**
- * Model Account
+ * Model CastMovie
  * 
  */
-export type Account = Prisma.AccountModel
+export type CastMovie = Prisma.CastMovieModel
 /**
- * Model Session
+ * Model CastSerie
  * 
  */
-export type Session = Prisma.SessionModel
-/**
- * Model VerificationToken
- * 
- */
-export type VerificationToken = Prisma.VerificationTokenModel
-/**
- * Model ActivateToken
- * 
- */
-export type ActivateToken = Prisma.ActivateTokenModel
-/**
- * Model ResetPasswordToken
- * 
- */
-export type ResetPasswordToken = Prisma.ResetPasswordTokenModel
+export type CastSerie = Prisma.CastSerieModel
 /**
  * Model Crew
  * 
  */
 export type Crew = Prisma.CrewModel
 /**
+ * Model CrewMovie
+ * 
+ */
+export type CrewMovie = Prisma.CrewMovieModel
+/**
  * Model CrewReview
  * 
  */
 export type CrewReview = Prisma.CrewReviewModel
 /**
- * Model UpvoteCrewReview
+ * Model CrewSerie
  * 
  */
-export type UpvoteCrewReview = Prisma.UpvoteCrewReviewModel
+export type CrewSerie = Prisma.CrewSerieModel
+/**
+ * Model DownvoteActorReview
+ * 
+ */
+export type DownvoteActorReview = Prisma.DownvoteActorReviewModel
 /**
  * Model DownvoteCrewReview
  * 
  */
 export type DownvoteCrewReview = Prisma.DownvoteCrewReviewModel
+/**
+ * Model DownvoteEpisodeReview
+ * 
+ */
+export type DownvoteEpisodeReview = Prisma.DownvoteEpisodeReviewModel
+/**
+ * Model DownvoteMovieReview
+ * 
+ */
+export type DownvoteMovieReview = Prisma.DownvoteMovieReviewModel
+/**
+ * Model DownvoteSeasonReview
+ * 
+ */
+export type DownvoteSeasonReview = Prisma.DownvoteSeasonReviewModel
+/**
+ * Model DownvoteSerieReview
+ * 
+ */
+export type DownvoteSerieReview = Prisma.DownvoteSerieReviewModel
 /**
  * Model Episode
  * 
@@ -115,40 +140,15 @@ export type Episode = Prisma.EpisodeModel
  */
 export type EpisodeReview = Prisma.EpisodeReviewModel
 /**
- * Model UpvoteEpisodeReview
- * 
- */
-export type UpvoteEpisodeReview = Prisma.UpvoteEpisodeReviewModel
-/**
- * Model DownvoteEpisodeReview
- * 
- */
-export type DownvoteEpisodeReview = Prisma.DownvoteEpisodeReviewModel
-/**
  * Model ForumCategory
  * 
  */
 export type ForumCategory = Prisma.ForumCategoryModel
 /**
- * Model UserForumModerator
- * 
- */
-export type UserForumModerator = Prisma.UserForumModeratorModel
-/**
  * Model ForumPost
  * 
  */
 export type ForumPost = Prisma.ForumPostModel
-/**
- * Model Attachment
- * 
- */
-export type Attachment = Prisma.AttachmentModel
-/**
- * Model UpvoteForumPost
- * 
- */
-export type UpvoteForumPost = Prisma.UpvoteForumPostModel
 /**
  * Model ForumPostHistory
  * 
@@ -159,11 +159,6 @@ export type ForumPostHistory = Prisma.ForumPostHistoryModel
  * 
  */
 export type ForumReply = Prisma.ForumReplyModel
-/**
- * Model UpvoteForumReply
- * 
- */
-export type UpvoteForumReply = Prisma.UpvoteForumReplyModel
 /**
  * Model ForumReplyHistory
  * 
@@ -180,85 +175,25 @@ export type ForumTag = Prisma.ForumTagModel
  */
 export type ForumTopic = Prisma.ForumTopicModel
 /**
- * Model UserForumTopicWatch
+ * Model ForumUserStats
  * 
  */
-export type UserForumTopicWatch = Prisma.UserForumTopicWatchModel
-/**
- * Model UserForumTopicFavorite
- * 
- */
-export type UserForumTopicFavorite = Prisma.UserForumTopicFavoriteModel
-/**
- * Model UpvoteForumTopic
- * 
- */
-export type UpvoteForumTopic = Prisma.UpvoteForumTopicModel
+export type ForumUserStats = Prisma.ForumUserStatsModel
 /**
  * Model Genre
  * 
  */
 export type Genre = Prisma.GenreModel
 /**
+ * Model Inbox
+ * 
+ */
+export type Inbox = Prisma.InboxModel
+/**
  * Model List
  * 
  */
 export type List = Prisma.ListModel
-/**
- * Model ListShare
- * 
- */
-export type ListShare = Prisma.ListShareModel
-/**
- * Model ListMovie
- * 
- */
-export type ListMovie = Prisma.ListMovieModel
-/**
- * Model ListSerie
- * 
- */
-export type ListSerie = Prisma.ListSerieModel
-/**
- * Model ListSeason
- * 
- */
-export type ListSeason = Prisma.ListSeasonModel
-/**
- * Model ListEpisode
- * 
- */
-export type ListEpisode = Prisma.ListEpisodeModel
-/**
- * Model ListActor
- * 
- */
-export type ListActor = Prisma.ListActorModel
-/**
- * Model ListCrew
- * 
- */
-export type ListCrew = Prisma.ListCrewModel
-/**
- * Model ListActivityMovie
- * 
- */
-export type ListActivityMovie = Prisma.ListActivityMovieModel
-/**
- * Model ListActivitySerie
- * 
- */
-export type ListActivitySerie = Prisma.ListActivitySerieModel
-/**
- * Model ListActivitySeason
- * 
- */
-export type ListActivitySeason = Prisma.ListActivitySeasonModel
-/**
- * Model ListActivityEpisode
- * 
- */
-export type ListActivityEpisode = Prisma.ListActivityEpisodeModel
 /**
  * Model ListActivityActor
  * 
@@ -270,25 +205,65 @@ export type ListActivityActor = Prisma.ListActivityActorModel
  */
 export type ListActivityCrew = Prisma.ListActivityCrewModel
 /**
- * Model Inbox
+ * Model ListActivityEpisode
  * 
  */
-export type Inbox = Prisma.InboxModel
+export type ListActivityEpisode = Prisma.ListActivityEpisodeModel
+/**
+ * Model ListActivityMovie
+ * 
+ */
+export type ListActivityMovie = Prisma.ListActivityMovieModel
+/**
+ * Model ListActivitySeason
+ * 
+ */
+export type ListActivitySeason = Prisma.ListActivitySeasonModel
+/**
+ * Model ListActivitySerie
+ * 
+ */
+export type ListActivitySerie = Prisma.ListActivitySerieModel
+/**
+ * Model ListActor
+ * 
+ */
+export type ListActor = Prisma.ListActorModel
+/**
+ * Model ListCrew
+ * 
+ */
+export type ListCrew = Prisma.ListCrewModel
+/**
+ * Model ListEpisode
+ * 
+ */
+export type ListEpisode = Prisma.ListEpisodeModel
+/**
+ * Model ListMovie
+ * 
+ */
+export type ListMovie = Prisma.ListMovieModel
+/**
+ * Model ListSeason
+ * 
+ */
+export type ListSeason = Prisma.ListSeasonModel
+/**
+ * Model ListSerie
+ * 
+ */
+export type ListSerie = Prisma.ListSerieModel
+/**
+ * Model ListShare
+ * 
+ */
+export type ListShare = Prisma.ListShareModel
 /**
  * Model Message
  * 
  */
 export type Message = Prisma.MessageModel
-/**
- * Model UserInbox
- * 
- */
-export type UserInbox = Prisma.UserInboxModel
-/**
- * Model ReportedContent
- * 
- */
-export type ReportedContent = Prisma.ReportedContentModel
 /**
  * Model ModerationLog
  * 
@@ -300,40 +275,30 @@ export type ModerationLog = Prisma.ModerationLogModel
  */
 export type Movie = Prisma.MovieModel
 /**
- * Model MovieReview
- * 
- */
-export type MovieReview = Prisma.MovieReviewModel
-/**
- * Model UpvoteMovieReview
- * 
- */
-export type UpvoteMovieReview = Prisma.UpvoteMovieReviewModel
-/**
- * Model DownvoteMovieReview
- * 
- */
-export type DownvoteMovieReview = Prisma.DownvoteMovieReviewModel
-/**
- * Model CastMovie
- * 
- */
-export type CastMovie = Prisma.CastMovieModel
-/**
- * Model CrewMovie
- * 
- */
-export type CrewMovie = Prisma.CrewMovieModel
-/**
  * Model MovieGenre
  * 
  */
 export type MovieGenre = Prisma.MovieGenreModel
 /**
+ * Model MovieReview
+ * 
+ */
+export type MovieReview = Prisma.MovieReviewModel
+/**
  * Model Notification
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model ReportedContent
+ * 
+ */
+export type ReportedContent = Prisma.ReportedContentModel
+/**
+ * Model ResetPasswordToken
+ * 
+ */
+export type ResetPasswordToken = Prisma.ResetPasswordTokenModel
 /**
  * Model Season
  * 
@@ -345,70 +310,135 @@ export type Season = Prisma.SeasonModel
  */
 export type SeasonReview = Prisma.SeasonReviewModel
 /**
- * Model UpvoteSeasonReview
- * 
- */
-export type UpvoteSeasonReview = Prisma.UpvoteSeasonReviewModel
-/**
- * Model DownvoteSeasonReview
- * 
- */
-export type DownvoteSeasonReview = Prisma.DownvoteSeasonReviewModel
-/**
  * Model Serie
  * 
  */
 export type Serie = Prisma.SerieModel
-/**
- * Model UpvoteSerieReview
- * 
- */
-export type UpvoteSerieReview = Prisma.UpvoteSerieReviewModel
-/**
- * Model DownvoteSerieReview
- * 
- */
-export type DownvoteSerieReview = Prisma.DownvoteSerieReviewModel
-/**
- * Model SerieReview
- * 
- */
-export type SerieReview = Prisma.SerieReviewModel
 /**
  * Model SerieGenre
  * 
  */
 export type SerieGenre = Prisma.SerieGenreModel
 /**
- * Model CastSerie
+ * Model SerieReview
  * 
  */
-export type CastSerie = Prisma.CastSerieModel
+export type SerieReview = Prisma.SerieReviewModel
 /**
- * Model CrewSerie
+ * Model Session
  * 
  */
-export type CrewSerie = Prisma.CrewSerieModel
+export type Session = Prisma.SessionModel
+/**
+ * Model UpvoteActorReview
+ * 
+ */
+export type UpvoteActorReview = Prisma.UpvoteActorReviewModel
+/**
+ * Model UpvoteCrewReview
+ * 
+ */
+export type UpvoteCrewReview = Prisma.UpvoteCrewReviewModel
+/**
+ * Model UpvoteEpisodeReview
+ * 
+ */
+export type UpvoteEpisodeReview = Prisma.UpvoteEpisodeReviewModel
+/**
+ * Model UpvoteForumPost
+ * 
+ */
+export type UpvoteForumPost = Prisma.UpvoteForumPostModel
+/**
+ * Model UpvoteForumReply
+ * 
+ */
+export type UpvoteForumReply = Prisma.UpvoteForumReplyModel
+/**
+ * Model UpvoteForumTopic
+ * 
+ */
+export type UpvoteForumTopic = Prisma.UpvoteForumTopicModel
+/**
+ * Model UpvoteMovieReview
+ * 
+ */
+export type UpvoteMovieReview = Prisma.UpvoteMovieReviewModel
+/**
+ * Model UpvoteSeasonReview
+ * 
+ */
+export type UpvoteSeasonReview = Prisma.UpvoteSeasonReviewModel
+/**
+ * Model UpvoteSerieReview
+ * 
+ */
+export type UpvoteSerieReview = Prisma.UpvoteSerieReviewModel
 /**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
 /**
- * Model Avatar
+ * Model UserActorFavorite
  * 
  */
-export type Avatar = Prisma.AvatarModel
+export type UserActorFavorite = Prisma.UserActorFavoriteModel
+/**
+ * Model UserActorRating
+ * 
+ */
+export type UserActorRating = Prisma.UserActorRatingModel
+/**
+ * Model UserCrewFavorite
+ * 
+ */
+export type UserCrewFavorite = Prisma.UserCrewFavoriteModel
+/**
+ * Model UserCrewRating
+ * 
+ */
+export type UserCrewRating = Prisma.UserCrewRatingModel
+/**
+ * Model UserEpisodeFavorite
+ * 
+ */
+export type UserEpisodeFavorite = Prisma.UserEpisodeFavoriteModel
+/**
+ * Model UserEpisodeRating
+ * 
+ */
+export type UserEpisodeRating = Prisma.UserEpisodeRatingModel
 /**
  * Model UserFollow
  * 
  */
 export type UserFollow = Prisma.UserFollowModel
 /**
- * Model ForumUserStats
+ * Model UserForumModerator
  * 
  */
-export type ForumUserStats = Prisma.ForumUserStatsModel
+export type UserForumModerator = Prisma.UserForumModeratorModel
+/**
+ * Model UserForumTopicFavorite
+ * 
+ */
+export type UserForumTopicFavorite = Prisma.UserForumTopicFavoriteModel
+/**
+ * Model UserForumTopicWatch
+ * 
+ */
+export type UserForumTopicWatch = Prisma.UserForumTopicWatchModel
+/**
+ * Model UserGenreFavorite
+ * 
+ */
+export type UserGenreFavorite = Prisma.UserGenreFavoriteModel
+/**
+ * Model UserInbox
+ * 
+ */
+export type UserInbox = Prisma.UserInboxModel
 /**
  * Model UserListStats
  * 
@@ -420,62 +450,32 @@ export type UserListStats = Prisma.UserListStatsModel
  */
 export type UserMovieFavorite = Prisma.UserMovieFavoriteModel
 /**
- * Model UserGenreFavorite
+ * Model UserMovieRating
  * 
  */
-export type UserGenreFavorite = Prisma.UserGenreFavoriteModel
-/**
- * Model UserSerieFavorite
- * 
- */
-export type UserSerieFavorite = Prisma.UserSerieFavoriteModel
-/**
- * Model UserEpisodeFavorite
- * 
- */
-export type UserEpisodeFavorite = Prisma.UserEpisodeFavoriteModel
+export type UserMovieRating = Prisma.UserMovieRatingModel
 /**
  * Model UserSeasonFavorite
  * 
  */
 export type UserSeasonFavorite = Prisma.UserSeasonFavoriteModel
 /**
- * Model UserActorFavorite
+ * Model UserSeasonRating
  * 
  */
-export type UserActorFavorite = Prisma.UserActorFavoriteModel
+export type UserSeasonRating = Prisma.UserSeasonRatingModel
 /**
- * Model UserCrewFavorite
+ * Model UserSerieFavorite
  * 
  */
-export type UserCrewFavorite = Prisma.UserCrewFavoriteModel
-/**
- * Model UserMovieRating
- * 
- */
-export type UserMovieRating = Prisma.UserMovieRatingModel
+export type UserSerieFavorite = Prisma.UserSerieFavoriteModel
 /**
  * Model UserSerieRating
  * 
  */
 export type UserSerieRating = Prisma.UserSerieRatingModel
 /**
- * Model UserSeasonRating
+ * Model VerificationToken
  * 
  */
-export type UserSeasonRating = Prisma.UserSeasonRatingModel
-/**
- * Model UserEpisodeRating
- * 
- */
-export type UserEpisodeRating = Prisma.UserEpisodeRatingModel
-/**
- * Model UserActorRating
- * 
- */
-export type UserActorRating = Prisma.UserActorRatingModel
-/**
- * Model UserCrewRating
- * 
- */
-export type UserCrewRating = Prisma.UserCrewRatingModel
+export type VerificationToken = Prisma.VerificationTokenModel

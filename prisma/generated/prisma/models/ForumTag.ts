@@ -216,7 +216,7 @@ export type ForumTagWhereInput = {
   description?: Prisma.StringNullableFilter<"ForumTag"> | string | null
   color?: Prisma.StringNullableFilter<"ForumTag"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ForumTag"> | Date | string
-  topics?: Prisma.ForumTopicListRelationFilter
+  ForumTopic?: Prisma.ForumTopicListRelationFilter
 }
 
 export type ForumTagOrderByWithRelationInput = {
@@ -225,7 +225,7 @@ export type ForumTagOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   color?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  topics?: Prisma.ForumTopicOrderByRelationAggregateInput
+  ForumTopic?: Prisma.ForumTopicOrderByRelationAggregateInput
   _relevance?: Prisma.ForumTagOrderByRelevanceInput
 }
 
@@ -238,7 +238,7 @@ export type ForumTagWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"ForumTag"> | string | null
   color?: Prisma.StringNullableFilter<"ForumTag"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ForumTag"> | Date | string
-  topics?: Prisma.ForumTopicListRelationFilter
+  ForumTopic?: Prisma.ForumTopicListRelationFilter
 }, "id" | "name">
 
 export type ForumTagOrderByWithAggregationInput = {
@@ -270,7 +270,7 @@ export type ForumTagCreateInput = {
   description?: string | null
   color?: string | null
   createdAt?: Date | string
-  topics?: Prisma.ForumTopicCreateNestedManyWithoutTagsInput
+  ForumTopic?: Prisma.ForumTopicCreateNestedManyWithoutForumTagInput
 }
 
 export type ForumTagUncheckedCreateInput = {
@@ -279,7 +279,7 @@ export type ForumTagUncheckedCreateInput = {
   description?: string | null
   color?: string | null
   createdAt?: Date | string
-  topics?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutTagsInput
+  ForumTopic?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutForumTagInput
 }
 
 export type ForumTagUpdateInput = {
@@ -287,7 +287,7 @@ export type ForumTagUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  topics?: Prisma.ForumTopicUpdateManyWithoutTagsNestedInput
+  ForumTopic?: Prisma.ForumTopicUpdateManyWithoutForumTagNestedInput
 }
 
 export type ForumTagUncheckedUpdateInput = {
@@ -296,7 +296,7 @@ export type ForumTagUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  topics?: Prisma.ForumTopicUncheckedUpdateManyWithoutTagsNestedInput
+  ForumTopic?: Prisma.ForumTopicUncheckedUpdateManyWithoutForumTagNestedInput
 }
 
 export type ForumTagCreateManyInput = {
@@ -370,52 +370,52 @@ export type ForumTagOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ForumTagCreateNestedManyWithoutTopicsInput = {
-  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutTopicsInput, Prisma.ForumTagUncheckedCreateWithoutTopicsInput> | Prisma.ForumTagCreateWithoutTopicsInput[] | Prisma.ForumTagUncheckedCreateWithoutTopicsInput[]
-  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutTopicsInput | Prisma.ForumTagCreateOrConnectWithoutTopicsInput[]
+export type ForumTagCreateNestedManyWithoutForumTopicInput = {
+  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutForumTopicInput, Prisma.ForumTagUncheckedCreateWithoutForumTopicInput> | Prisma.ForumTagCreateWithoutForumTopicInput[] | Prisma.ForumTagUncheckedCreateWithoutForumTopicInput[]
+  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutForumTopicInput | Prisma.ForumTagCreateOrConnectWithoutForumTopicInput[]
   connect?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
 }
 
-export type ForumTagUncheckedCreateNestedManyWithoutTopicsInput = {
-  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutTopicsInput, Prisma.ForumTagUncheckedCreateWithoutTopicsInput> | Prisma.ForumTagCreateWithoutTopicsInput[] | Prisma.ForumTagUncheckedCreateWithoutTopicsInput[]
-  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutTopicsInput | Prisma.ForumTagCreateOrConnectWithoutTopicsInput[]
+export type ForumTagUncheckedCreateNestedManyWithoutForumTopicInput = {
+  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutForumTopicInput, Prisma.ForumTagUncheckedCreateWithoutForumTopicInput> | Prisma.ForumTagCreateWithoutForumTopicInput[] | Prisma.ForumTagUncheckedCreateWithoutForumTopicInput[]
+  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutForumTopicInput | Prisma.ForumTagCreateOrConnectWithoutForumTopicInput[]
   connect?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
 }
 
-export type ForumTagUpdateManyWithoutTopicsNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutTopicsInput, Prisma.ForumTagUncheckedCreateWithoutTopicsInput> | Prisma.ForumTagCreateWithoutTopicsInput[] | Prisma.ForumTagUncheckedCreateWithoutTopicsInput[]
-  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutTopicsInput | Prisma.ForumTagCreateOrConnectWithoutTopicsInput[]
-  upsert?: Prisma.ForumTagUpsertWithWhereUniqueWithoutTopicsInput | Prisma.ForumTagUpsertWithWhereUniqueWithoutTopicsInput[]
+export type ForumTagUpdateManyWithoutForumTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutForumTopicInput, Prisma.ForumTagUncheckedCreateWithoutForumTopicInput> | Prisma.ForumTagCreateWithoutForumTopicInput[] | Prisma.ForumTagUncheckedCreateWithoutForumTopicInput[]
+  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutForumTopicInput | Prisma.ForumTagCreateOrConnectWithoutForumTopicInput[]
+  upsert?: Prisma.ForumTagUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.ForumTagUpsertWithWhereUniqueWithoutForumTopicInput[]
   set?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
   disconnect?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
   delete?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
   connect?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
-  update?: Prisma.ForumTagUpdateWithWhereUniqueWithoutTopicsInput | Prisma.ForumTagUpdateWithWhereUniqueWithoutTopicsInput[]
-  updateMany?: Prisma.ForumTagUpdateManyWithWhereWithoutTopicsInput | Prisma.ForumTagUpdateManyWithWhereWithoutTopicsInput[]
+  update?: Prisma.ForumTagUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.ForumTagUpdateWithWhereUniqueWithoutForumTopicInput[]
+  updateMany?: Prisma.ForumTagUpdateManyWithWhereWithoutForumTopicInput | Prisma.ForumTagUpdateManyWithWhereWithoutForumTopicInput[]
   deleteMany?: Prisma.ForumTagScalarWhereInput | Prisma.ForumTagScalarWhereInput[]
 }
 
-export type ForumTagUncheckedUpdateManyWithoutTopicsNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutTopicsInput, Prisma.ForumTagUncheckedCreateWithoutTopicsInput> | Prisma.ForumTagCreateWithoutTopicsInput[] | Prisma.ForumTagUncheckedCreateWithoutTopicsInput[]
-  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutTopicsInput | Prisma.ForumTagCreateOrConnectWithoutTopicsInput[]
-  upsert?: Prisma.ForumTagUpsertWithWhereUniqueWithoutTopicsInput | Prisma.ForumTagUpsertWithWhereUniqueWithoutTopicsInput[]
+export type ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTagCreateWithoutForumTopicInput, Prisma.ForumTagUncheckedCreateWithoutForumTopicInput> | Prisma.ForumTagCreateWithoutForumTopicInput[] | Prisma.ForumTagUncheckedCreateWithoutForumTopicInput[]
+  connectOrCreate?: Prisma.ForumTagCreateOrConnectWithoutForumTopicInput | Prisma.ForumTagCreateOrConnectWithoutForumTopicInput[]
+  upsert?: Prisma.ForumTagUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.ForumTagUpsertWithWhereUniqueWithoutForumTopicInput[]
   set?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
   disconnect?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
   delete?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
   connect?: Prisma.ForumTagWhereUniqueInput | Prisma.ForumTagWhereUniqueInput[]
-  update?: Prisma.ForumTagUpdateWithWhereUniqueWithoutTopicsInput | Prisma.ForumTagUpdateWithWhereUniqueWithoutTopicsInput[]
-  updateMany?: Prisma.ForumTagUpdateManyWithWhereWithoutTopicsInput | Prisma.ForumTagUpdateManyWithWhereWithoutTopicsInput[]
+  update?: Prisma.ForumTagUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.ForumTagUpdateWithWhereUniqueWithoutForumTopicInput[]
+  updateMany?: Prisma.ForumTagUpdateManyWithWhereWithoutForumTopicInput | Prisma.ForumTagUpdateManyWithWhereWithoutForumTopicInput[]
   deleteMany?: Prisma.ForumTagScalarWhereInput | Prisma.ForumTagScalarWhereInput[]
 }
 
-export type ForumTagCreateWithoutTopicsInput = {
+export type ForumTagCreateWithoutForumTopicInput = {
   name: string
   description?: string | null
   color?: string | null
   createdAt?: Date | string
 }
 
-export type ForumTagUncheckedCreateWithoutTopicsInput = {
+export type ForumTagUncheckedCreateWithoutForumTopicInput = {
   id?: number
   name: string
   description?: string | null
@@ -423,25 +423,25 @@ export type ForumTagUncheckedCreateWithoutTopicsInput = {
   createdAt?: Date | string
 }
 
-export type ForumTagCreateOrConnectWithoutTopicsInput = {
+export type ForumTagCreateOrConnectWithoutForumTopicInput = {
   where: Prisma.ForumTagWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTagCreateWithoutTopicsInput, Prisma.ForumTagUncheckedCreateWithoutTopicsInput>
+  create: Prisma.XOR<Prisma.ForumTagCreateWithoutForumTopicInput, Prisma.ForumTagUncheckedCreateWithoutForumTopicInput>
 }
 
-export type ForumTagUpsertWithWhereUniqueWithoutTopicsInput = {
+export type ForumTagUpsertWithWhereUniqueWithoutForumTopicInput = {
   where: Prisma.ForumTagWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumTagUpdateWithoutTopicsInput, Prisma.ForumTagUncheckedUpdateWithoutTopicsInput>
-  create: Prisma.XOR<Prisma.ForumTagCreateWithoutTopicsInput, Prisma.ForumTagUncheckedCreateWithoutTopicsInput>
+  update: Prisma.XOR<Prisma.ForumTagUpdateWithoutForumTopicInput, Prisma.ForumTagUncheckedUpdateWithoutForumTopicInput>
+  create: Prisma.XOR<Prisma.ForumTagCreateWithoutForumTopicInput, Prisma.ForumTagUncheckedCreateWithoutForumTopicInput>
 }
 
-export type ForumTagUpdateWithWhereUniqueWithoutTopicsInput = {
+export type ForumTagUpdateWithWhereUniqueWithoutForumTopicInput = {
   where: Prisma.ForumTagWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumTagUpdateWithoutTopicsInput, Prisma.ForumTagUncheckedUpdateWithoutTopicsInput>
+  data: Prisma.XOR<Prisma.ForumTagUpdateWithoutForumTopicInput, Prisma.ForumTagUncheckedUpdateWithoutForumTopicInput>
 }
 
-export type ForumTagUpdateManyWithWhereWithoutTopicsInput = {
+export type ForumTagUpdateManyWithWhereWithoutForumTopicInput = {
   where: Prisma.ForumTagScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumTagUpdateManyMutationInput, Prisma.ForumTagUncheckedUpdateManyWithoutTopicsInput>
+  data: Prisma.XOR<Prisma.ForumTagUpdateManyMutationInput, Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicInput>
 }
 
 export type ForumTagScalarWhereInput = {
@@ -455,14 +455,14 @@ export type ForumTagScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ForumTag"> | Date | string
 }
 
-export type ForumTagUpdateWithoutTopicsInput = {
+export type ForumTagUpdateWithoutForumTopicInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ForumTagUncheckedUpdateWithoutTopicsInput = {
+export type ForumTagUncheckedUpdateWithoutForumTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -470,7 +470,7 @@ export type ForumTagUncheckedUpdateWithoutTopicsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ForumTagUncheckedUpdateManyWithoutTopicsInput = {
+export type ForumTagUncheckedUpdateManyWithoutForumTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -484,11 +484,11 @@ export type ForumTagUncheckedUpdateManyWithoutTopicsInput = {
  */
 
 export type ForumTagCountOutputType = {
-  topics: number
+  ForumTopic: number
 }
 
 export type ForumTagCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  topics?: boolean | ForumTagCountOutputTypeCountTopicsArgs
+  ForumTopic?: boolean | ForumTagCountOutputTypeCountForumTopicArgs
 }
 
 /**
@@ -504,7 +504,7 @@ export type ForumTagCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
 /**
  * ForumTagCountOutputType without action
  */
-export type ForumTagCountOutputTypeCountTopicsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTagCountOutputTypeCountForumTopicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ForumTopicWhereInput
 }
 
@@ -515,7 +515,7 @@ export type ForumTagSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   description?: boolean
   color?: boolean
   createdAt?: boolean
-  topics?: boolean | Prisma.ForumTag$topicsArgs<ExtArgs>
+  ForumTopic?: boolean | Prisma.ForumTag$ForumTopicArgs<ExtArgs>
   _count?: boolean | Prisma.ForumTagCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumTag"]>
 
@@ -545,7 +545,7 @@ export type ForumTagSelectScalar = {
 
 export type ForumTagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "color" | "createdAt", ExtArgs["result"]["forumTag"]>
 export type ForumTagInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  topics?: boolean | Prisma.ForumTag$topicsArgs<ExtArgs>
+  ForumTopic?: boolean | Prisma.ForumTag$ForumTopicArgs<ExtArgs>
   _count?: boolean | Prisma.ForumTagCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ForumTagIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -554,7 +554,7 @@ export type ForumTagIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $ForumTagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForumTag"
   objects: {
-    topics: Prisma.$ForumTopicPayload<ExtArgs>[]
+    ForumTopic: Prisma.$ForumTopicPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -956,7 +956,7 @@ readonly fields: ForumTagFieldRefs;
  */
 export interface Prisma__ForumTagClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  topics<T extends Prisma.ForumTag$topicsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTag$topicsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ForumTopic<T extends Prisma.ForumTag$ForumTopicArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTag$ForumTopicArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1379,9 +1379,9 @@ export type ForumTagDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * ForumTag.topics
+ * ForumTag.ForumTopic
  */
-export type ForumTag$topicsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTag$ForumTopicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ForumTopic
    */

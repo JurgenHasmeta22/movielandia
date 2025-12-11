@@ -9,24 +9,34 @@
 * 🟢 You can import this file directly.
 */
 
-export const PostType = {
-  Normal: 'Normal',
-  Announcement: 'Announcement',
-  Sticky: 'Sticky',
-  Question: 'Question',
-  Answered: 'Answered'
+export const ContentType = {
+  movie: 'movie',
+  serie: 'serie',
+  season: 'season',
+  episode: 'episode',
+  actor: 'actor',
+  crew: 'crew',
+  user: 'user'
 } as const
 
-export type PostType = (typeof PostType)[keyof typeof PostType]
+export type ContentType = (typeof ContentType)[keyof typeof ContentType]
 
 
-export const TopicStatus = {
-  Open: 'Open',
-  Closed: 'Closed',
-  Archived: 'Archived'
+export const FollowState = {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected'
 } as const
 
-export type TopicStatus = (typeof TopicStatus)[keyof typeof TopicStatus]
+export type FollowState = (typeof FollowState)[keyof typeof FollowState]
+
+
+export const Gender = {
+  Male: 'Male',
+  Female: 'Female'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
 export const ListActionType = {
@@ -42,19 +52,6 @@ export const ListActionType = {
 export type ListActionType = (typeof ListActionType)[keyof typeof ListActionType]
 
 
-export const ContentType = {
-  movie: 'movie',
-  serie: 'serie',
-  season: 'season',
-  episode: 'episode',
-  actor: 'actor',
-  crew: 'crew',
-  user: 'user'
-} as const
-
-export type ContentType = (typeof ContentType)[keyof typeof ContentType]
-
-
 export const ModerationAction = {
   DeleteReview: 'DeleteReview',
   DeleteComment: 'DeleteComment',
@@ -63,26 +60,6 @@ export const ModerationAction = {
 } as const
 
 export type ModerationAction = (typeof ModerationAction)[keyof typeof ModerationAction]
-
-
-export const ReportType = {
-  Review: 'Review',
-  Comment: 'Comment',
-  User: 'User',
-  Message: 'Message',
-  Other: 'Other'
-} as const
-
-export type ReportType = (typeof ReportType)[keyof typeof ReportType]
-
-
-export const ReportStatus = {
-  Pending: 'Pending',
-  Resolved: 'Resolved',
-  Rejected: 'Rejected'
-} as const
-
-export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
 
 
 export const NotificationStatus = {
@@ -106,26 +83,49 @@ export const NotificationType = {
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
 
 
+export const PostType = {
+  Normal: 'Normal',
+  Announcement: 'Announcement',
+  Sticky: 'Sticky',
+  Question: 'Question',
+  Answered: 'Answered'
+} as const
+
+export type PostType = (typeof PostType)[keyof typeof PostType]
+
+
+export const ReportStatus = {
+  Pending: 'Pending',
+  Resolved: 'Resolved',
+  Rejected: 'Rejected'
+} as const
+
+export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
+
+
+export const ReportType = {
+  Review: 'Review',
+  Comment: 'Comment',
+  User: 'User',
+  Message: 'Message',
+  Other: 'Other'
+} as const
+
+export type ReportType = (typeof ReportType)[keyof typeof ReportType]
+
+
+export const TopicStatus = {
+  Open: 'Open',
+  Closed: 'Closed',
+  Archived: 'Archived'
+} as const
+
+export type TopicStatus = (typeof TopicStatus)[keyof typeof TopicStatus]
+
+
 export const UserType = {
   User: 'User',
   Admin: 'Admin'
 } as const
 
 export type UserType = (typeof UserType)[keyof typeof UserType]
-
-
-export const FollowState = {
-  pending: 'pending',
-  accepted: 'accepted',
-  rejected: 'rejected'
-} as const
-
-export type FollowState = (typeof FollowState)[keyof typeof FollowState]
-
-
-export const Gender = {
-  Male: 'Male',
-  Female: 'Female'
-} as const
-
-export type Gender = (typeof Gender)[keyof typeof Gender]

@@ -208,16 +208,16 @@ export type UserSeasonFavoriteWhereInput = {
   id?: Prisma.IntFilter<"UserSeasonFavorite"> | number
   userId?: Prisma.IntFilter<"UserSeasonFavorite"> | number
   seasonId?: Prisma.IntFilter<"UserSeasonFavorite"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserSeasonFavoriteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  season?: Prisma.SeasonOrderByWithRelationInput
+  Season?: Prisma.SeasonOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserSeasonFavoriteWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserSeasonFavoriteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserSeasonFavoriteWhereInput | Prisma.UserSeasonFavoriteWhereInput[]
   userId?: Prisma.IntFilter<"UserSeasonFavorite"> | number
   seasonId?: Prisma.IntFilter<"UserSeasonFavorite"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_seasonId">
 
 export type UserSeasonFavoriteOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserSeasonFavoriteScalarWhereWithAggregatesInput = {
 }
 
 export type UserSeasonFavoriteCreateInput = {
-  user: Prisma.UserCreateNestedOneWithoutFavSeasonsInput
-  season: Prisma.SeasonCreateNestedOneWithoutUsersWhoBookmarkedItInput
+  Season: Prisma.SeasonCreateNestedOneWithoutUserSeasonFavoriteInput
+  User: Prisma.UserCreateNestedOneWithoutUserSeasonFavoriteInput
 }
 
 export type UserSeasonFavoriteUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserSeasonFavoriteUncheckedCreateInput = {
 }
 
 export type UserSeasonFavoriteUpdateInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutFavSeasonsNestedInput
-  season?: Prisma.SeasonUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutUserSeasonFavoriteNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserSeasonFavoriteNestedInput
 }
 
 export type UserSeasonFavoriteUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type UserSeasonFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UserSeasonFavoriteCreateWithoutSeasonInput = {
-  user: Prisma.UserCreateNestedOneWithoutFavSeasonsInput
+  User: Prisma.UserCreateNestedOneWithoutUserSeasonFavoriteInput
 }
 
 export type UserSeasonFavoriteUncheckedCreateWithoutSeasonInput = {
@@ -464,7 +464,7 @@ export type UserSeasonFavoriteScalarWhereInput = {
 }
 
 export type UserSeasonFavoriteCreateWithoutUserInput = {
-  season: Prisma.SeasonCreateNestedOneWithoutUsersWhoBookmarkedItInput
+  Season: Prisma.SeasonCreateNestedOneWithoutUserSeasonFavoriteInput
 }
 
 export type UserSeasonFavoriteUncheckedCreateWithoutUserInput = {
@@ -504,7 +504,7 @@ export type UserSeasonFavoriteCreateManySeasonInput = {
 }
 
 export type UserSeasonFavoriteUpdateWithoutSeasonInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutFavSeasonsNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserSeasonFavoriteNestedInput
 }
 
 export type UserSeasonFavoriteUncheckedUpdateWithoutSeasonInput = {
@@ -523,7 +523,7 @@ export type UserSeasonFavoriteCreateManyUserInput = {
 }
 
 export type UserSeasonFavoriteUpdateWithoutUserInput = {
-  season?: Prisma.SeasonUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutUserSeasonFavoriteNestedInput
 }
 
 export type UserSeasonFavoriteUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserSeasonFavoriteSelect<ExtArgs extends runtime.Types.Extensions.In
   id?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userSeasonFavorite"]>
 
 export type UserSeasonFavoriteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userSeasonFavorite"]>
 
 export type UserSeasonFavoriteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userSeasonFavorite"]>
 
 export type UserSeasonFavoriteSelectScalar = {
@@ -570,23 +570,23 @@ export type UserSeasonFavoriteSelectScalar = {
 
 export type UserSeasonFavoriteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "seasonId", ExtArgs["result"]["userSeasonFavorite"]>
 export type UserSeasonFavoriteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserSeasonFavoriteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserSeasonFavoriteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserSeasonFavoritePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserSeasonFavorite"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    season: Prisma.$SeasonPayload<ExtArgs>
+    Season: Prisma.$SeasonPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserSeasonFavoriteFieldRefs;
  */
 export interface Prisma__UserSeasonFavoriteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

@@ -1,38 +1,1408 @@
 generator client {
-    provider        = "prisma-client"
-    output          = "../generated/prisma"
-    previewFeatures = ["fullTextSearchPostgres"]
+  provider        = "prisma-client"
+  output          = "../generated/prisma"
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
-// generator erd {
-//     provider = "prisma-erd-generator"
-//     output = "Movielandia.svg"
-// }
-
-// generator dbml {
-//     provider = "prisma-dbml-generator"
-//     output = "Movielandia.dbml"
-// }
-
-// generator docs {
-//   provider = "node node_modules/prisma-docs-generator"
-// }
-
-// generator jsonSchema {
-//   provider = "prisma-json-schema-generator"
-// }
-
-// generator custom_generator {
-//     provider = "prisma-generator-fake-data"
-//     output   = "../types/fake-data.ts"
-// }
-
-// generator markdown {
-//   provider = "prisma-markdown"
-//   output   = "./movielandia.md"
-//   title    = "Movielandia24"
-// }
-
 datasource db {
-    provider = "postgresql"
+  provider = "postgresql"
+}
+
+model Account {
+  id                String  @id
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model ActivateToken {
+  id          Int       @id @default(autoincrement())
+  token       String    @unique
+  createdAt   DateTime  @default(now())
+  activatedAt DateTime?
+  userId      Int
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Actor {
+  id                  Int                   @id @default(autoincrement())
+  fullname            String
+  debut               String
+  description         String
+  photoSrc            String
+  photoSrcProd        String
+  ActorReview         ActorReview[]
+  CastMovie           CastMovie[]
+  CastSerie           CastSerie[]
+  DownvoteActorReview DownvoteActorReview[]
+  ListActivityActor   ListActivityActor[]
+  ListActor           ListActor[]
+  UpvoteActorReview   UpvoteActorReview[]
+  UserActorFavorite   UserActorFavorite[]
+  UserActorRating     UserActorRating[]
+
+  @@index([debut])
+  @@index([fullname])
+}
+
+model ActorReview {
+  id                  Int                   @id @default(autoincrement())
+  content             String?
+  rating              Float?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?
+  userId              Int
+  actorId             Int
+  Actor               Actor                 @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  User                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  DownvoteActorReview DownvoteActorReview[]
+  UpvoteActorReview   UpvoteActorReview[]
+
+  @@unique([userId, actorId])
+}
+
+model Attachment {
+  id          Int       @id @default(autoincrement())
+  filename    String
+  fileUrl     String
+  fileSize    Int
+  mimeType    String
+  uploadedAt  DateTime  @default(now())
+  isPublic    Boolean   @default(true)
+  description String?
+  postId      Int
+  userId      Int
+  ForumPost   ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([mimeType])
+  @@index([uploadedAt])
+}
+
+model Avatar {
+  id       Int    @id @default(autoincrement())
+  photoSrc String
+  userId   Int    @unique
+  User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CastMovie {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  actorId Int
+  Actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  Movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([movieId, actorId])
+}
+
+model CastSerie {
+  id      Int   @id @default(autoincrement())
+  serieId Int
+  actorId Int
+  Actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  Serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+
+  @@unique([serieId, actorId])
+}
+
+model Crew {
+  id                 Int                  @id @default(autoincrement())
+  fullname           String
+  photoSrc           String
+  role               String
+  photoSrcProd       String
+  description        String
+  debut              String
+  CrewMovie          CrewMovie[]
+  CrewReview         CrewReview[]
+  CrewSerie          CrewSerie[]
+  DownvoteCrewReview DownvoteCrewReview[]
+  ListActivityCrew   ListActivityCrew[]
+  ListCrew           ListCrew[]
+  UpvoteCrewReview   UpvoteCrewReview[]
+  UserCrewFavorite   UserCrewFavorite[]
+  UserCrewRating     UserCrewRating[]
+
+  @@index([fullname])
+}
+
+model CrewMovie {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  crewId  Int
+  Crew    Crew  @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  Movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([crewId, movieId])
+}
+
+model CrewReview {
+  id                 Int                  @id @default(autoincrement())
+  content            String?
+  rating             Float?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime?
+  userId             Int
+  crewId             Int
+  Crew               Crew                 @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  User               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  DownvoteCrewReview DownvoteCrewReview[]
+  UpvoteCrewReview   UpvoteCrewReview[]
+
+  @@unique([userId, crewId])
+}
+
+model CrewSerie {
+  id      Int   @id @default(autoincrement())
+  serieId Int
+  crewId  Int
+  Crew    Crew  @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  Serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+
+  @@unique([serieId, crewId])
+}
+
+model DownvoteActorReview {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  actorId       Int
+  actorReviewId Int
+  Actor         Actor       @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  ActorReview   ActorReview @relation(fields: [actorReviewId], references: [id], onDelete: Cascade)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, actorId, actorReviewId])
+}
+
+model DownvoteCrewReview {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  crewId       Int
+  crewReviewId Int
+  Crew         Crew       @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  CrewReview   CrewReview @relation(fields: [crewReviewId], references: [id], onDelete: Cascade)
+  User         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, crewId, crewReviewId])
+}
+
+model DownvoteEpisodeReview {
+  id              Int           @id @default(autoincrement())
+  userId          Int
+  episodeId       Int
+  episodeReviewId Int
+  Episode         Episode       @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  EpisodeReview   EpisodeReview @relation(fields: [episodeReviewId], references: [id], onDelete: Cascade)
+  User            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId, episodeReviewId])
+}
+
+model DownvoteMovieReview {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  movieId       Int
+  movieReviewId Int
+  Movie         Movie       @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  MovieReview   MovieReview @relation(fields: [movieReviewId], references: [id], onDelete: Cascade)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId, movieReviewId])
+}
+
+model DownvoteSeasonReview {
+  id             Int          @id @default(autoincrement())
+  userId         Int
+  seasonId       Int
+  seasonReviewId Int
+  Season         Season       @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  SeasonReview   SeasonReview @relation(fields: [seasonReviewId], references: [id], onDelete: Cascade)
+  User           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, seasonId, seasonReviewId])
+}
+
+model DownvoteSerieReview {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  serieId       Int
+  serieReviewId Int
+  Serie         Serie       @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  SerieReview   SerieReview @relation(fields: [serieReviewId], references: [id], onDelete: Cascade)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serieId, serieReviewId])
+}
+
+model Episode {
+  id                    Int                     @id @default(autoincrement())
+  title                 String
+  photoSrc              String
+  photoSrcProd          String
+  description           String
+  seasonId              Int
+  duration              Int
+  trailerSrc            String
+  ratingImdb            Float
+  dateAired             DateTime?
+  DownvoteEpisodeReview DownvoteEpisodeReview[]
+  Season                Season                  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  EpisodeReview         EpisodeReview[]
+  ListActivityEpisode   ListActivityEpisode[]
+  ListEpisode           ListEpisode[]
+  UpvoteEpisodeReview   UpvoteEpisodeReview[]
+  UserEpisodeFavorite   UserEpisodeFavorite[]
+  UserEpisodeRating     UserEpisodeRating[]
+
+  @@index([dateAired])
+  @@index([duration])
+  @@index([ratingImdb])
+  @@index([title])
+}
+
+model EpisodeReview {
+  id                    Int                     @id @default(autoincrement())
+  content               String?
+  rating                Float?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime?
+  userId                Int
+  episodeId             Int
+  DownvoteEpisodeReview DownvoteEpisodeReview[]
+  Episode               Episode                 @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  User                  User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  UpvoteEpisodeReview   UpvoteEpisodeReview[]
+
+  @@unique([userId, episodeId])
+}
+
+model ForumCategory {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  description        String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime
+  order              Int                  @default(0)
+  isActive           Boolean              @default(true)
+  slug               String               @unique
+  topicCount         Int                  @default(0)
+  postCount          Int                  @default(0)
+  lastPostAt         DateTime?
+  lastPostId         Int?                 @unique
+  ForumPost          ForumPost?           @relation(fields: [lastPostId], references: [id])
+  ForumTopic         ForumTopic[]
+  UserForumModerator UserForumModerator[]
+
+  @@index([isActive, order])
+  @@index([lastPostId])
+  @@index([name])
+  @@index([order])
+}
+
+model ForumPost {
+  id                                Int                @id @default(autoincrement())
+  content                           String
+  createdAt                         DateTime           @default(now())
+  updatedAt                         DateTime?
+  isEdited                          Boolean            @default(false)
+  isModerated                       Boolean            @default(false)
+  slug                              String             @unique
+  type                              PostType           @default(Normal)
+  isAnswer                          Boolean            @default(false)
+  answeredAt                        DateTime?
+  answeredById                      Int?
+  isDeleted                         Boolean            @default(false)
+  deletedAt                         DateTime?
+  deletedById                       Int?
+  topicId                           Int
+  userId                            Int
+  Attachment                        Attachment[]
+  ForumCategory                     ForumCategory?
+  User_ForumPost_answeredByIdToUser User?              @relation("ForumPost_answeredByIdToUser", fields: [answeredById], references: [id])
+  User_ForumPost_deletedByIdToUser  User?              @relation("ForumPost_deletedByIdToUser", fields: [deletedById], references: [id])
+  ForumTopic                        ForumTopic         @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  User_ForumPost_userIdToUser       User               @relation("ForumPost_userIdToUser", fields: [userId], references: [id], onDelete: Cascade)
+  ForumPostHistory                  ForumPostHistory[]
+  ForumReply                        ForumReply[]
+  UpvoteForumPost                   UpvoteForumPost[]
+
+  @@index([answeredAt])
+  @@index([createdAt])
+  @@index([isDeleted])
+  @@index([isModerated])
+  @@index([topicId])
+}
+
+model ForumPostHistory {
+  id         Int       @id @default(autoincrement())
+  postId     Int
+  content    String
+  editedAt   DateTime  @default(now())
+  editedById Int
+  User       User      @relation(fields: [editedById], references: [id])
+  ForumPost  ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model ForumReply {
+  id                Int                 @id @default(autoincrement())
+  content           String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime?
+  isEdited          Boolean             @default(false)
+  isModerated       Boolean             @default(false)
+  postId            Int
+  userId            Int
+  ForumPost         ForumPost           @relation(fields: [postId], references: [id], onDelete: Cascade)
+  User              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ForumReplyHistory ForumReplyHistory[]
+  UpvoteForumReply  UpvoteForumReply[]
+
+  @@index([createdAt])
+  @@index([isModerated])
+}
+
+model ForumReplyHistory {
+  id         Int        @id @default(autoincrement())
+  replyId    Int
+  content    String
+  editedAt   DateTime   @default(now())
+  editedById Int
+  User       User       @relation(fields: [editedById], references: [id])
+  ForumReply ForumReply @relation(fields: [replyId], references: [id], onDelete: Cascade)
+
+  @@index([editedAt])
+}
+
+model ForumTag {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  color       String?
+  createdAt   DateTime     @default(now())
+  ForumTopic  ForumTopic[]
+
+  @@index([name])
+}
+
+model ForumTopic {
+  id                               Int                      @id @default(autoincrement())
+  title                            String
+  content                          String
+  createdAt                        DateTime                 @default(now())
+  updatedAt                        DateTime
+  isPinned                         Boolean                  @default(false)
+  isLocked                         Boolean                  @default(false)
+  slug                             String                   @unique
+  viewCount                        Int                      @default(0)
+  lastPostAt                       DateTime                 @default(now())
+  isModerated                      Boolean                  @default(false)
+  status                           TopicStatus              @default(Open)
+  closedAt                         DateTime?
+  closedById                       Int?
+  categoryId                       Int
+  userId                           Int
+  ForumPost                        ForumPost[]
+  ForumCategory                    ForumCategory            @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  User_ForumTopic_closedByIdToUser User?                    @relation("ForumTopic_closedByIdToUser", fields: [closedById], references: [id])
+  User_ForumTopic_userIdToUser     User                     @relation("ForumTopic_userIdToUser", fields: [userId], references: [id], onDelete: Cascade)
+  UpvoteForumTopic                 UpvoteForumTopic[]
+  UserForumTopicFavorite           UserForumTopicFavorite[]
+  UserForumTopicWatch              UserForumTopicWatch[]
+  ForumTag                         ForumTag[]
+
+  @@index([createdAt])
+  @@index([isPinned])
+  @@index([lastPostAt])
+  @@index([title])
+}
+
+model ForumUserStats {
+  id              Int       @id @default(autoincrement())
+  userId          Int       @unique
+  topicCount      Int       @default(0)
+  postCount       Int       @default(0)
+  replyCount      Int       @default(0)
+  upvotesReceived Int       @default(0)
+  reputation      Int       @default(0)
+  lastPostAt      DateTime?
+  User            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Genre {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  MovieGenre        MovieGenre[]
+  SerieGenre        SerieGenre[]
+  UserGenreFavorite UserGenreFavorite[]
+
+  @@index([name])
+}
+
+model Inbox {
+  id        Int         @id @default(autoincrement())
+  Message   Message[]
+  UserInbox UserInbox[]
+}
+
+model List {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  description         String?
+  isPrivate           Boolean               @default(false)
+  isArchived          Boolean               @default(false)
+  isDefault           Boolean               @default(false)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime
+  lastViewedAt        DateTime?
+  userId              Int
+  contentType         ContentType?
+  User                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ListActivityActor   ListActivityActor[]
+  ListActivityCrew    ListActivityCrew[]
+  ListActivityEpisode ListActivityEpisode[]
+  ListActivityMovie   ListActivityMovie[]
+  ListActivitySeason  ListActivitySeason[]
+  ListActivitySerie   ListActivitySerie[]
+  ListActor           ListActor[]
+  ListCrew            ListCrew[]
+  ListEpisode         ListEpisode[]
+  ListMovie           ListMovie[]
+  ListSeason          ListSeason[]
+  ListSerie           ListSerie[]
+  ListShare           ListShare[]
+
+  @@index([createdAt])
+  @@index([isDefault])
+  @@index([userId])
+}
+
+model ListActivityActor {
+  id         Int            @id @default(autoincrement())
+  actionType ListActionType
+  metadata   Json?
+  createdAt  DateTime       @default(now())
+  actorId    Int
+  userId     Int
+  listId     Int
+  Actor      Actor          @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  List       List           @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([listId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ListActivityCrew {
+  id         Int            @id @default(autoincrement())
+  actionType ListActionType
+  metadata   Json?
+  createdAt  DateTime       @default(now())
+  crewId     Int
+  userId     Int
+  listId     Int
+  Crew       Crew           @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  List       List           @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([listId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ListActivityEpisode {
+  id         Int            @id @default(autoincrement())
+  actionType ListActionType
+  metadata   Json?
+  createdAt  DateTime       @default(now())
+  episodeId  Int
+  userId     Int
+  listId     Int
+  Episode    Episode        @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  List       List           @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([listId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ListActivityMovie {
+  id         Int            @id @default(autoincrement())
+  actionType ListActionType
+  metadata   Json?
+  createdAt  DateTime       @default(now())
+  movieId    Int
+  userId     Int
+  listId     Int
+  List       List           @relation(fields: [listId], references: [id], onDelete: Cascade)
+  Movie      Movie          @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  User       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([listId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ListActivitySeason {
+  id         Int            @id @default(autoincrement())
+  actionType ListActionType
+  metadata   Json?
+  createdAt  DateTime       @default(now())
+  seasonId   Int
+  userId     Int
+  listId     Int
+  List       List           @relation(fields: [listId], references: [id], onDelete: Cascade)
+  Season     Season         @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  User       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([listId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ListActivitySerie {
+  id         Int            @id @default(autoincrement())
+  actionType ListActionType
+  metadata   Json?
+  createdAt  DateTime       @default(now())
+  serieId    Int
+  userId     Int
+  listId     Int
+  List       List           @relation(fields: [listId], references: [id], onDelete: Cascade)
+  Serie      Serie          @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  User       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([listId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ListActor {
+  id         Int      @id @default(autoincrement())
+  addedAt    DateTime @default(now())
+  note       String?
+  orderIndex Int      @default(0)
+  actorId    Int
+  userId     Int
+  listId     Int
+  Actor      Actor    @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  List       List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@unique([listId, actorId])
+  @@index([listId, orderIndex])
+}
+
+model ListCrew {
+  id         Int      @id @default(autoincrement())
+  addedAt    DateTime @default(now())
+  note       String?
+  orderIndex Int      @default(0)
+  crewId     Int
+  userId     Int
+  listId     Int
+  Crew       Crew     @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  List       List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@unique([listId, crewId])
+  @@index([listId, orderIndex])
+}
+
+model ListEpisode {
+  id         Int      @id @default(autoincrement())
+  addedAt    DateTime @default(now())
+  note       String?
+  orderIndex Int      @default(0)
+  episodeId  Int
+  userId     Int
+  listId     Int
+  Episode    Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  List       List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@unique([listId, episodeId])
+  @@index([listId, orderIndex])
+}
+
+model ListMovie {
+  id         Int      @id @default(autoincrement())
+  addedAt    DateTime @default(now())
+  note       String?
+  orderIndex Int      @default(0)
+  movieId    Int
+  userId     Int
+  listId     Int
+  List       List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  Movie      Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@unique([listId, movieId])
+  @@index([listId, orderIndex])
+}
+
+model ListSeason {
+  id         Int      @id @default(autoincrement())
+  addedAt    DateTime @default(now())
+  note       String?
+  orderIndex Int      @default(0)
+  seasonId   Int
+  userId     Int
+  listId     Int
+  List       List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  Season     Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@unique([listId, seasonId])
+  @@index([listId, orderIndex])
+}
+
+model ListSerie {
+  id         Int      @id @default(autoincrement())
+  addedAt    DateTime @default(now())
+  note       String?
+  orderIndex Int      @default(0)
+  serieId    Int
+  userId     Int
+  listId     Int
+  List       List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  Serie      Serie    @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  User       User     @relation(fields: [userId], references: [id])
+
+  @@unique([listId, serieId])
+  @@index([listId, orderIndex])
+}
+
+model ListShare {
+  id       Int      @id @default(autoincrement())
+  canEdit  Boolean  @default(false)
+  sharedAt DateTime @default(now())
+  userId   Int
+  listId   Int
+  List     List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  User     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, userId])
+}
+
+model Message {
+  id                            Int       @id @default(autoincrement())
+  text                          String
+  senderId                      Int
+  receiverId                    Int
+  inboxId                       Int
+  createdAt                     DateTime  @default(now())
+  read                          Boolean   @default(false)
+  editedAt                      DateTime?
+  Inbox                         Inbox     @relation(fields: [inboxId], references: [id], onDelete: Cascade)
+  User_Message_receiverIdToUser User      @relation("Message_receiverIdToUser", fields: [receiverId], references: [id], onDelete: Cascade)
+  User_Message_senderIdToUser   User      @relation("Message_senderIdToUser", fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+model ModerationLog {
+  id                                       Int              @id @default(autoincrement())
+  actionType                               ModerationAction
+  timestamp                                DateTime         @default(now())
+  details                                  String?
+  moderatorUserId                          Int
+  targetUserId                             Int?
+  targetContentId                          Int?
+  User_ModerationLog_moderatorUserIdToUser User             @relation("ModerationLog_moderatorUserIdToUser", fields: [moderatorUserId], references: [id])
+  User_ModerationLog_targetUserIdToUser    User?            @relation("ModerationLog_targetUserIdToUser", fields: [targetUserId], references: [id])
+
+  @@index([targetContentId])
+  @@index([targetUserId])
+}
+
+model Movie {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  photoSrc            String
+  photoSrcProd        String
+  trailerSrc          String
+  ratingImdb          Float
+  description         String
+  duration            Int
+  dateAired           DateTime?
+  CastMovie           CastMovie[]
+  CrewMovie           CrewMovie[]
+  DownvoteMovieReview DownvoteMovieReview[]
+  ListActivityMovie   ListActivityMovie[]
+  ListMovie           ListMovie[]
+  MovieGenre          MovieGenre[]
+  MovieReview         MovieReview[]
+  UpvoteMovieReview   UpvoteMovieReview[]
+  UserMovieFavorite   UserMovieFavorite[]
+  UserMovieRating     UserMovieRating[]
+
+  @@index([dateAired])
+  @@index([duration])
+  @@index([ratingImdb])
+  @@index([title])
+}
+
+model MovieGenre {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  genreId Int
+  Genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  Movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([genreId, movieId])
+}
+
+model MovieReview {
+  id                  Int                   @id @default(autoincrement())
+  content             String?
+  rating              Float?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?
+  userId              Int
+  movieId             Int
+  DownvoteMovieReview DownvoteMovieReview[]
+  Movie               Movie                 @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  User                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  UpvoteMovieReview   UpvoteMovieReview[]
+}
+
+model Notification {
+  id                               Int                @id @default(autoincrement())
+  content                          String
+  userId                           Int
+  senderId                         Int
+  createdAt                        DateTime           @default(now())
+  status                           NotificationStatus @default(unread)
+  type                             NotificationType
+  User_Notification_senderIdToUser User               @relation("Notification_senderIdToUser", fields: [senderId], references: [id], onDelete: Cascade)
+  User_Notification_userIdToUser   User               @relation("Notification_userIdToUser", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ReportedContent {
+  id                                         Int          @id @default(autoincrement())
+  reportType                                 ReportType
+  reason                                     String?
+  createdAt                                  DateTime     @default(now())
+  status                                     ReportStatus @default(Pending)
+  resolutionDetails                          String?
+  contentId                                  Int
+  reportingUserId                            Int
+  reportedUserId                             Int?
+  User_ReportedContent_reportedUserIdToUser  User?        @relation("ReportedContent_reportedUserIdToUser", fields: [reportedUserId], references: [id])
+  User_ReportedContent_reportingUserIdToUser User         @relation("ReportedContent_reportingUserIdToUser", fields: [reportingUserId], references: [id])
+
+  @@index([contentId])
+}
+
+model ResetPasswordToken {
+  id              Int       @id @default(autoincrement())
+  token           String    @unique
+  createdAt       DateTime  @default(now())
+  resetPasswordAt DateTime?
+  userId          Int
+  User            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Season {
+  id                   Int                    @id @default(autoincrement())
+  title                String
+  photoSrc             String
+  photoSrcProd         String
+  ratingImdb           Float
+  serieId              Int
+  trailerSrc           String
+  description          String
+  dateAired            DateTime?
+  DownvoteSeasonReview DownvoteSeasonReview[]
+  Episode              Episode[]
+  ListActivitySeason   ListActivitySeason[]
+  ListSeason           ListSeason[]
+  Serie                Serie                  @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  SeasonReview         SeasonReview[]
+  UpvoteSeasonReview   UpvoteSeasonReview[]
+  UserSeasonFavorite   UserSeasonFavorite[]
+  UserSeasonRating     UserSeasonRating[]
+
+  @@index([dateAired])
+  @@index([ratingImdb])
+  @@index([title])
+}
+
+model SeasonReview {
+  id                   Int                    @id @default(autoincrement())
+  content              String?
+  rating               Float?
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime?
+  userId               Int
+  seasonId             Int
+  DownvoteSeasonReview DownvoteSeasonReview[]
+  Season               Season                 @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  User                 User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  UpvoteSeasonReview   UpvoteSeasonReview[]
+
+  @@unique([userId, seasonId])
+}
+
+model Serie {
+  id                  Int                   @id @default(autoincrement())
+  title               String
+  photoSrc            String
+  photoSrcProd        String
+  trailerSrc          String
+  description         String
+  ratingImdb          Float
+  dateAired           DateTime?
+  CastSerie           CastSerie[]
+  CrewSerie           CrewSerie[]
+  DownvoteSerieReview DownvoteSerieReview[]
+  ListActivitySerie   ListActivitySerie[]
+  ListSerie           ListSerie[]
+  Season              Season[]
+  SerieGenre          SerieGenre[]
+  SerieReview         SerieReview[]
+  UpvoteSerieReview   UpvoteSerieReview[]
+  UserSerieFavorite   UserSerieFavorite[]
+  UserSerieRating     UserSerieRating[]
+
+  @@index([dateAired])
+  @@index([ratingImdb])
+  @@index([title])
+}
+
+model SerieGenre {
+  id      Int   @id @default(autoincrement())
+  serieId Int
+  genreId Int
+  Genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  Serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+
+  @@unique([serieId, genreId])
+}
+
+model SerieReview {
+  id                  Int                   @id @default(autoincrement())
+  content             String?
+  rating              Float?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?
+  userId              Int
+  serieId             Int
+  DownvoteSerieReview DownvoteSerieReview[]
+  Serie               Serie                 @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  User                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  UpvoteSerieReview   UpvoteSerieReview[]
+
+  @@unique([userId, serieId])
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model UpvoteActorReview {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  actorId       Int
+  actorReviewId Int
+  Actor         Actor       @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  ActorReview   ActorReview @relation(fields: [actorReviewId], references: [id], onDelete: Cascade)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, actorId, actorReviewId])
+}
+
+model UpvoteCrewReview {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  crewId       Int
+  crewReviewId Int
+  Crew         Crew       @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  CrewReview   CrewReview @relation(fields: [crewReviewId], references: [id], onDelete: Cascade)
+  User         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, crewId, crewReviewId])
+}
+
+model UpvoteEpisodeReview {
+  id              Int           @id @default(autoincrement())
+  userId          Int
+  episodeId       Int
+  episodeReviewId Int
+  Episode         Episode       @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  EpisodeReview   EpisodeReview @relation(fields: [episodeReviewId], references: [id], onDelete: Cascade)
+  User            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId, episodeReviewId])
+}
+
+model UpvoteForumPost {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  ForumPost ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+}
+
+model UpvoteForumReply {
+  id         Int        @id @default(autoincrement())
+  userId     Int
+  replyId    Int
+  ForumReply ForumReply @relation(fields: [replyId], references: [id], onDelete: Cascade)
+  User       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, replyId])
+}
+
+model UpvoteForumTopic {
+  id         Int        @id @default(autoincrement())
+  userId     Int
+  topicId    Int
+  ForumTopic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  User       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+}
+
+model UpvoteMovieReview {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  movieId       Int
+  movieReviewId Int
+  Movie         Movie       @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  MovieReview   MovieReview @relation(fields: [movieReviewId], references: [id], onDelete: Cascade)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId, movieReviewId])
+}
+
+model UpvoteSeasonReview {
+  id             Int          @id @default(autoincrement())
+  userId         Int
+  seasonId       Int
+  seasonReviewId Int
+  Season         Season       @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  SeasonReview   SeasonReview @relation(fields: [seasonReviewId], references: [id], onDelete: Cascade)
+  User           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, seasonId, seasonReviewId])
+}
+
+model UpvoteSerieReview {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  serieId       Int
+  serieReviewId Int
+  Serie         Serie       @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  SerieReview   SerieReview @relation(fields: [serieReviewId], references: [id], onDelete: Cascade)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serieId, serieReviewId])
+}
+
+model User {
+  id                                                    Int                      @id @default(autoincrement())
+  userName                                              String                   @unique
+  email                                                 String                   @unique
+  password                                              String?
+  bio                                                   String?
+  active                                                Boolean                  @default(false)
+  canResetPassword                                      Boolean                  @default(false)
+  subscribed                                            Boolean                  @default(false)
+  role                                                  UserType                 @default(User)
+  age                                                   Int?
+  countryFrom                                           String                   @default("United States")
+  gender                                                Gender                   @default(Male)
+  phone                                                 String                   @default("+11234567890")
+  birthday                                              DateTime?
+  Account                                               Account[]
+  ActivateToken                                         ActivateToken[]
+  ActorReview                                           ActorReview[]
+  Attachment                                            Attachment[]
+  Avatar                                                Avatar?
+  CrewReview                                            CrewReview[]
+  DownvoteActorReview                                   DownvoteActorReview[]
+  DownvoteCrewReview                                    DownvoteCrewReview[]
+  DownvoteEpisodeReview                                 DownvoteEpisodeReview[]
+  DownvoteMovieReview                                   DownvoteMovieReview[]
+  DownvoteSeasonReview                                  DownvoteSeasonReview[]
+  DownvoteSerieReview                                   DownvoteSerieReview[]
+  EpisodeReview                                         EpisodeReview[]
+  ForumPost_ForumPost_answeredByIdToUser                ForumPost[]              @relation("ForumPost_answeredByIdToUser")
+  ForumPost_ForumPost_deletedByIdToUser                 ForumPost[]              @relation("ForumPost_deletedByIdToUser")
+  ForumPost_ForumPost_userIdToUser                      ForumPost[]              @relation("ForumPost_userIdToUser")
+  ForumPostHistory                                      ForumPostHistory[]
+  ForumReply                                            ForumReply[]
+  ForumReplyHistory                                     ForumReplyHistory[]
+  ForumTopic_ForumTopic_closedByIdToUser                ForumTopic[]             @relation("ForumTopic_closedByIdToUser")
+  ForumTopic_ForumTopic_userIdToUser                    ForumTopic[]             @relation("ForumTopic_userIdToUser")
+  ForumUserStats                                        ForumUserStats?
+  List                                                  List[]
+  ListActivityActor                                     ListActivityActor[]
+  ListActivityCrew                                      ListActivityCrew[]
+  ListActivityEpisode                                   ListActivityEpisode[]
+  ListActivityMovie                                     ListActivityMovie[]
+  ListActivitySeason                                    ListActivitySeason[]
+  ListActivitySerie                                     ListActivitySerie[]
+  ListActor                                             ListActor[]
+  ListCrew                                              ListCrew[]
+  ListEpisode                                           ListEpisode[]
+  ListMovie                                             ListMovie[]
+  ListSeason                                            ListSeason[]
+  ListSerie                                             ListSerie[]
+  ListShare                                             ListShare[]
+  Message_Message_receiverIdToUser                      Message[]                @relation("Message_receiverIdToUser")
+  Message_Message_senderIdToUser                        Message[]                @relation("Message_senderIdToUser")
+  ModerationLog_ModerationLog_moderatorUserIdToUser     ModerationLog[]          @relation("ModerationLog_moderatorUserIdToUser")
+  ModerationLog_ModerationLog_targetUserIdToUser        ModerationLog[]          @relation("ModerationLog_targetUserIdToUser")
+  MovieReview                                           MovieReview[]
+  Notification_Notification_senderIdToUser              Notification[]           @relation("Notification_senderIdToUser")
+  Notification_Notification_userIdToUser                Notification[]           @relation("Notification_userIdToUser")
+  ReportedContent_ReportedContent_reportedUserIdToUser  ReportedContent[]        @relation("ReportedContent_reportedUserIdToUser")
+  ReportedContent_ReportedContent_reportingUserIdToUser ReportedContent[]        @relation("ReportedContent_reportingUserIdToUser")
+  ResetPasswordToken                                    ResetPasswordToken[]
+  SeasonReview                                          SeasonReview[]
+  SerieReview                                           SerieReview[]
+  Session                                               Session[]
+  UpvoteActorReview                                     UpvoteActorReview[]
+  UpvoteCrewReview                                      UpvoteCrewReview[]
+  UpvoteEpisodeReview                                   UpvoteEpisodeReview[]
+  UpvoteForumPost                                       UpvoteForumPost[]
+  UpvoteForumReply                                      UpvoteForumReply[]
+  UpvoteForumTopic                                      UpvoteForumTopic[]
+  UpvoteMovieReview                                     UpvoteMovieReview[]
+  UpvoteSeasonReview                                    UpvoteSeasonReview[]
+  UpvoteSerieReview                                     UpvoteSerieReview[]
+  UserActorFavorite                                     UserActorFavorite[]
+  UserActorRating                                       UserActorRating[]
+  UserCrewFavorite                                      UserCrewFavorite[]
+  UserCrewRating                                        UserCrewRating[]
+  UserEpisodeFavorite                                   UserEpisodeFavorite[]
+  UserEpisodeRating                                     UserEpisodeRating[]
+  UserFollow_UserFollow_followerIdToUser                UserFollow[]             @relation("UserFollow_followerIdToUser")
+  UserFollow_UserFollow_followingIdToUser               UserFollow[]             @relation("UserFollow_followingIdToUser")
+  UserForumModerator                                    UserForumModerator[]
+  UserForumTopicFavorite                                UserForumTopicFavorite[]
+  UserForumTopicWatch                                   UserForumTopicWatch[]
+  UserGenreFavorite                                     UserGenreFavorite[]
+  UserInbox                                             UserInbox[]
+  UserListStats                                         UserListStats?
+  UserMovieFavorite                                     UserMovieFavorite[]
+  UserMovieRating                                       UserMovieRating[]
+  UserSeasonFavorite                                    UserSeasonFavorite[]
+  UserSeasonRating                                      UserSeasonRating[]
+  UserSerieFavorite                                     UserSerieFavorite[]
+  UserSerieRating                                       UserSerieRating[]
+
+  @@index([countryFrom])
+  @@index([email])
+  @@index([userName])
+}
+
+model UserActorFavorite {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  actorId Int
+  Actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, actorId])
+}
+
+model UserActorRating {
+  id      Int   @id @default(autoincrement())
+  rating  Float
+  userId  Int
+  actorId Int
+  Actor   Actor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, actorId])
+}
+
+model UserCrewFavorite {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  crewId Int
+  Crew   Crew @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, crewId])
+}
+
+model UserCrewRating {
+  id     Int   @id @default(autoincrement())
+  rating Float
+  userId Int
+  crewId Int
+  Crew   Crew  @relation(fields: [crewId], references: [id], onDelete: Cascade)
+  User   User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, crewId])
+}
+
+model UserEpisodeFavorite {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  episodeId Int
+  Episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId])
+}
+
+model UserEpisodeRating {
+  id        Int     @id @default(autoincrement())
+  rating    Float
+  userId    Int
+  episodeId Int
+  Episode   Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId])
+}
+
+model UserFollow {
+  id                                Int         @id @default(autoincrement())
+  followerId                        Int
+  followingId                       Int
+  state                             FollowState @default(pending)
+  User_UserFollow_followerIdToUser  User        @relation("UserFollow_followerIdToUser", fields: [followerId], references: [id], onDelete: Cascade)
+  User_UserFollow_followingIdToUser User        @relation("UserFollow_followingIdToUser", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+}
+
+model UserForumModerator {
+  id            Int           @id @default(autoincrement())
+  createdAt     DateTime      @default(now())
+  userId        Int
+  categoryId    Int
+  ForumCategory ForumCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  User          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, categoryId])
+}
+
+model UserForumTopicFavorite {
+  id         Int        @id @default(autoincrement())
+  userId     Int
+  topicId    Int
+  ForumTopic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  User       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+}
+
+model UserForumTopicWatch {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  userId     Int
+  topicId    Int
+  ForumTopic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  User       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+}
+
+model UserGenreFavorite {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  genreId Int
+  Genre   Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, genreId])
+}
+
+model UserInbox {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  inboxId Int
+  Inbox   Inbox @relation(fields: [inboxId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, inboxId])
+}
+
+model UserListStats {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @unique
+  totalLists  Int       @default(0)
+  totalItems  Int       @default(0)
+  sharedLists Int       @default(0)
+  lastListAt  DateTime?
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserMovieFavorite {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  movieId Int
+  Movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+}
+
+model UserMovieRating {
+  id      Int   @id @default(autoincrement())
+  rating  Float
+  userId  Int
+  movieId Int
+  Movie   Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+}
+
+model UserSeasonFavorite {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  seasonId Int
+  Season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, seasonId])
+}
+
+model UserSeasonRating {
+  id       Int    @id @default(autoincrement())
+  rating   Float
+  userId   Int
+  seasonId Int
+  Season   Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, seasonId])
+}
+
+model UserSerieFavorite {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  serieId Int
+  Serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serieId])
+}
+
+model UserSerieRating {
+  id      Int   @id @default(autoincrement())
+  rating  Float
+  userId  Int
+  serieId Int
+  Serie   Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  User    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serieId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum ContentType {
+  movie
+  serie
+  season
+  episode
+  actor
+  crew
+  user
+}
+
+enum FollowState {
+  pending
+  accepted
+  rejected
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+enum ListActionType {
+  Created
+  Updated
+  Deleted
+  ItemAdded
+  ItemRemoved
+  Shared
+  Unshared
+}
+
+enum ModerationAction {
+  DeleteReview
+  DeleteComment
+  BanUser
+  WarnUser
+}
+
+enum NotificationStatus {
+  read
+  unread
+}
+
+enum NotificationType {
+  follow_request
+  message_received
+  liked_review
+  disliked_review
+  list_shared
+  list_permission_updated
+  list_activity
+}
+
+enum PostType {
+  Normal
+  Announcement
+  Sticky
+  Question
+  Answered
+}
+
+enum ReportStatus {
+  Pending
+  Resolved
+  Rejected
+}
+
+enum ReportType {
+  Review
+  Comment
+  User
+  Message
+  Other
+}
+
+enum TopicStatus {
+  Open
+  Closed
+  Archived
+}
+
+enum UserType {
+  User
+  Admin
 }

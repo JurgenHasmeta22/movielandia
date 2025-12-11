@@ -220,8 +220,8 @@ export type UserSeasonRatingWhereInput = {
   rating?: Prisma.FloatFilter<"UserSeasonRating"> | number
   userId?: Prisma.IntFilter<"UserSeasonRating"> | number
   seasonId?: Prisma.IntFilter<"UserSeasonRating"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserSeasonRatingOrderByWithRelationInput = {
@@ -229,8 +229,8 @@ export type UserSeasonRatingOrderByWithRelationInput = {
   rating?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  season?: Prisma.SeasonOrderByWithRelationInput
+  Season?: Prisma.SeasonOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserSeasonRatingWhereUniqueInput = Prisma.AtLeast<{
@@ -242,8 +242,8 @@ export type UserSeasonRatingWhereUniqueInput = Prisma.AtLeast<{
   rating?: Prisma.FloatFilter<"UserSeasonRating"> | number
   userId?: Prisma.IntFilter<"UserSeasonRating"> | number
   seasonId?: Prisma.IntFilter<"UserSeasonRating"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_seasonId">
 
 export type UserSeasonRatingOrderByWithAggregationInput = {
@@ -270,8 +270,8 @@ export type UserSeasonRatingScalarWhereWithAggregatesInput = {
 
 export type UserSeasonRatingCreateInput = {
   rating: number
-  user: Prisma.UserCreateNestedOneWithoutRatingsInSeasonInput
-  season: Prisma.SeasonCreateNestedOneWithoutUsersWhoRatedItInput
+  Season: Prisma.SeasonCreateNestedOneWithoutUserSeasonRatingInput
+  User: Prisma.UserCreateNestedOneWithoutUserSeasonRatingInput
 }
 
 export type UserSeasonRatingUncheckedCreateInput = {
@@ -283,8 +283,8 @@ export type UserSeasonRatingUncheckedCreateInput = {
 
 export type UserSeasonRatingUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  user?: Prisma.UserUpdateOneRequiredWithoutRatingsInSeasonNestedInput
-  season?: Prisma.SeasonUpdateOneRequiredWithoutUsersWhoRatedItNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutUserSeasonRatingNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserSeasonRatingNestedInput
 }
 
 export type UserSeasonRatingUncheckedUpdateInput = {
@@ -448,7 +448,7 @@ export type UserSeasonRatingUncheckedUpdateManyWithoutUserNestedInput = {
 
 export type UserSeasonRatingCreateWithoutSeasonInput = {
   rating: number
-  user: Prisma.UserCreateNestedOneWithoutRatingsInSeasonInput
+  User: Prisma.UserCreateNestedOneWithoutUserSeasonRatingInput
 }
 
 export type UserSeasonRatingUncheckedCreateWithoutSeasonInput = {
@@ -495,7 +495,7 @@ export type UserSeasonRatingScalarWhereInput = {
 
 export type UserSeasonRatingCreateWithoutUserInput = {
   rating: number
-  season: Prisma.SeasonCreateNestedOneWithoutUsersWhoRatedItInput
+  Season: Prisma.SeasonCreateNestedOneWithoutUserSeasonRatingInput
 }
 
 export type UserSeasonRatingUncheckedCreateWithoutUserInput = {
@@ -538,7 +538,7 @@ export type UserSeasonRatingCreateManySeasonInput = {
 
 export type UserSeasonRatingUpdateWithoutSeasonInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  user?: Prisma.UserUpdateOneRequiredWithoutRatingsInSeasonNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserSeasonRatingNestedInput
 }
 
 export type UserSeasonRatingUncheckedUpdateWithoutSeasonInput = {
@@ -561,7 +561,7 @@ export type UserSeasonRatingCreateManyUserInput = {
 
 export type UserSeasonRatingUpdateWithoutUserInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  season?: Prisma.SeasonUpdateOneRequiredWithoutUsersWhoRatedItNestedInput
+  Season?: Prisma.SeasonUpdateOneRequiredWithoutUserSeasonRatingNestedInput
 }
 
 export type UserSeasonRatingUncheckedUpdateWithoutUserInput = {
@@ -583,8 +583,8 @@ export type UserSeasonRatingSelect<ExtArgs extends runtime.Types.Extensions.Inte
   rating?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userSeasonRating"]>
 
 export type UserSeasonRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -592,8 +592,8 @@ export type UserSeasonRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   rating?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userSeasonRating"]>
 
 export type UserSeasonRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -601,8 +601,8 @@ export type UserSeasonRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   rating?: boolean
   userId?: boolean
   seasonId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userSeasonRating"]>
 
 export type UserSeasonRatingSelectScalar = {
@@ -614,23 +614,23 @@ export type UserSeasonRatingSelectScalar = {
 
 export type UserSeasonRatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rating" | "userId" | "seasonId", ExtArgs["result"]["userSeasonRating"]>
 export type UserSeasonRatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserSeasonRatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserSeasonRatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserSeasonRatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserSeasonRating"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    season: Prisma.$SeasonPayload<ExtArgs>
+    Season: Prisma.$SeasonPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1031,8 +1031,8 @@ readonly fields: UserSeasonRatingFieldRefs;
  */
 export interface Prisma__UserSeasonRatingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

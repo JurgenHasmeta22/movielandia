@@ -244,10 +244,10 @@ export type MovieReviewWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"MovieReview"> | Date | string | null
   userId?: Prisma.IntFilter<"MovieReview"> | number
   movieId?: Prisma.IntFilter<"MovieReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  upvotes?: Prisma.UpvoteMovieReviewListRelationFilter
-  downvotes?: Prisma.DownvoteMovieReviewListRelationFilter
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewListRelationFilter
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewListRelationFilter
 }
 
 export type MovieReviewOrderByWithRelationInput = {
@@ -258,10 +258,10 @@ export type MovieReviewOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  movie?: Prisma.MovieOrderByWithRelationInput
-  upvotes?: Prisma.UpvoteMovieReviewOrderByRelationAggregateInput
-  downvotes?: Prisma.DownvoteMovieReviewOrderByRelationAggregateInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewOrderByRelationAggregateInput
+  Movie?: Prisma.MovieOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewOrderByRelationAggregateInput
   _relevance?: Prisma.MovieReviewOrderByRelevanceInput
 }
 
@@ -276,10 +276,10 @@ export type MovieReviewWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeNullableFilter<"MovieReview"> | Date | string | null
   userId?: Prisma.IntFilter<"MovieReview"> | number
   movieId?: Prisma.IntFilter<"MovieReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  upvotes?: Prisma.UpvoteMovieReviewListRelationFilter
-  downvotes?: Prisma.DownvoteMovieReviewListRelationFilter
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewListRelationFilter
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewListRelationFilter
 }, "id">
 
 export type MovieReviewOrderByWithAggregationInput = {
@@ -315,10 +315,10 @@ export type MovieReviewCreateInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsInput
-  movie: Prisma.MovieCreateNestedOneWithoutReviewsInput
-  upvotes?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
-  downvotes?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  Movie: Prisma.MovieCreateNestedOneWithoutMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
 }
 
 export type MovieReviewUncheckedCreateInput = {
@@ -329,8 +329,8 @@ export type MovieReviewUncheckedCreateInput = {
   updatedAt?: Date | string | null
   userId: number
   movieId: number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
 }
 
 export type MovieReviewUpdateInput = {
@@ -338,10 +338,10 @@ export type MovieReviewUpdateInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutReviewsNestedInput
-  upvotes?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewUncheckedUpdateInput = {
@@ -352,8 +352,8 @@ export type MovieReviewUncheckedUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewCreateManyInput = {
@@ -381,6 +381,11 @@ export type MovieReviewUncheckedUpdateManyInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type MovieReviewScalarRelationFilter = {
+  is?: Prisma.MovieReviewWhereInput
+  isNot?: Prisma.MovieReviewWhereInput
 }
 
 export type MovieReviewListRelationFilter = {
@@ -443,9 +448,18 @@ export type MovieReviewSumOrderByAggregateInput = {
   movieId?: Prisma.SortOrder
 }
 
-export type MovieReviewNullableScalarRelationFilter = {
-  is?: Prisma.MovieReviewWhereInput | null
-  isNot?: Prisma.MovieReviewWhereInput | null
+export type MovieReviewCreateNestedOneWithoutDownvoteMovieReviewInput = {
+  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutDownvoteMovieReviewInput>
+  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutDownvoteMovieReviewInput
+  connect?: Prisma.MovieReviewWhereUniqueInput
+}
+
+export type MovieReviewUpdateOneRequiredWithoutDownvoteMovieReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutDownvoteMovieReviewInput>
+  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutDownvoteMovieReviewInput
+  upsert?: Prisma.MovieReviewUpsertWithoutDownvoteMovieReviewInput
+  connect?: Prisma.MovieReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieReviewUpdateToOneWithWhereWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUpdateWithoutDownvoteMovieReviewInput>, Prisma.MovieReviewUncheckedUpdateWithoutDownvoteMovieReviewInput>
 }
 
 export type MovieReviewCreateNestedManyWithoutMovieInput = {
@@ -490,36 +504,18 @@ export type MovieReviewUncheckedUpdateManyWithoutMovieNestedInput = {
   deleteMany?: Prisma.MovieReviewScalarWhereInput | Prisma.MovieReviewScalarWhereInput[]
 }
 
-export type MovieReviewCreateNestedOneWithoutUpvotesInput = {
-  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvotesInput, Prisma.MovieReviewUncheckedCreateWithoutUpvotesInput>
-  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutUpvotesInput
+export type MovieReviewCreateNestedOneWithoutUpvoteMovieReviewInput = {
+  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutUpvoteMovieReviewInput>
+  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutUpvoteMovieReviewInput
   connect?: Prisma.MovieReviewWhereUniqueInput
 }
 
-export type MovieReviewUpdateOneWithoutUpvotesNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvotesInput, Prisma.MovieReviewUncheckedCreateWithoutUpvotesInput>
-  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutUpvotesInput
-  upsert?: Prisma.MovieReviewUpsertWithoutUpvotesInput
-  disconnect?: Prisma.MovieReviewWhereInput | boolean
-  delete?: Prisma.MovieReviewWhereInput | boolean
+export type MovieReviewUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutUpvoteMovieReviewInput>
+  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutUpvoteMovieReviewInput
+  upsert?: Prisma.MovieReviewUpsertWithoutUpvoteMovieReviewInput
   connect?: Prisma.MovieReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieReviewUpdateToOneWithWhereWithoutUpvotesInput, Prisma.MovieReviewUpdateWithoutUpvotesInput>, Prisma.MovieReviewUncheckedUpdateWithoutUpvotesInput>
-}
-
-export type MovieReviewCreateNestedOneWithoutDownvotesInput = {
-  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvotesInput, Prisma.MovieReviewUncheckedCreateWithoutDownvotesInput>
-  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutDownvotesInput
-  connect?: Prisma.MovieReviewWhereUniqueInput
-}
-
-export type MovieReviewUpdateOneWithoutDownvotesNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvotesInput, Prisma.MovieReviewUncheckedCreateWithoutDownvotesInput>
-  connectOrCreate?: Prisma.MovieReviewCreateOrConnectWithoutDownvotesInput
-  upsert?: Prisma.MovieReviewUpsertWithoutDownvotesInput
-  disconnect?: Prisma.MovieReviewWhereInput | boolean
-  delete?: Prisma.MovieReviewWhereInput | boolean
-  connect?: Prisma.MovieReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieReviewUpdateToOneWithWhereWithoutDownvotesInput, Prisma.MovieReviewUpdateWithoutDownvotesInput>, Prisma.MovieReviewUncheckedUpdateWithoutDownvotesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieReviewUpdateToOneWithWhereWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUpdateWithoutUpvoteMovieReviewInput>, Prisma.MovieReviewUncheckedUpdateWithoutUpvoteMovieReviewInput>
 }
 
 export type MovieReviewCreateNestedManyWithoutUserInput = {
@@ -564,14 +560,72 @@ export type MovieReviewUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.MovieReviewScalarWhereInput | Prisma.MovieReviewScalarWhereInput[]
 }
 
+export type MovieReviewCreateWithoutDownvoteMovieReviewInput = {
+  content?: string | null
+  rating?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  Movie: Prisma.MovieCreateNestedOneWithoutMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+}
+
+export type MovieReviewUncheckedCreateWithoutDownvoteMovieReviewInput = {
+  id?: number
+  content?: string | null
+  rating?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  userId: number
+  movieId: number
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+}
+
+export type MovieReviewCreateOrConnectWithoutDownvoteMovieReviewInput = {
+  where: Prisma.MovieReviewWhereUniqueInput
+  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutDownvoteMovieReviewInput>
+}
+
+export type MovieReviewUpsertWithoutDownvoteMovieReviewInput = {
+  update: Prisma.XOR<Prisma.MovieReviewUpdateWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUncheckedUpdateWithoutDownvoteMovieReviewInput>
+  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutDownvoteMovieReviewInput>
+  where?: Prisma.MovieReviewWhereInput
+}
+
+export type MovieReviewUpdateToOneWithWhereWithoutDownvoteMovieReviewInput = {
+  where?: Prisma.MovieReviewWhereInput
+  data: Prisma.XOR<Prisma.MovieReviewUpdateWithoutDownvoteMovieReviewInput, Prisma.MovieReviewUncheckedUpdateWithoutDownvoteMovieReviewInput>
+}
+
+export type MovieReviewUpdateWithoutDownvoteMovieReviewInput = {
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+}
+
+export type MovieReviewUncheckedUpdateWithoutDownvoteMovieReviewInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  movieId?: Prisma.IntFieldUpdateOperationsInput | number
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+}
+
 export type MovieReviewCreateWithoutMovieInput = {
   content?: string | null
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsInput
-  upvotes?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
-  downvotes?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
 }
 
 export type MovieReviewUncheckedCreateWithoutMovieInput = {
@@ -581,8 +635,8 @@ export type MovieReviewUncheckedCreateWithoutMovieInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   userId: number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
 }
 
 export type MovieReviewCreateOrConnectWithoutMovieInput = {
@@ -624,17 +678,17 @@ export type MovieReviewScalarWhereInput = {
   movieId?: Prisma.IntFilter<"MovieReview"> | number
 }
 
-export type MovieReviewCreateWithoutUpvotesInput = {
+export type MovieReviewCreateWithoutUpvoteMovieReviewInput = {
   content?: string | null
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsInput
-  movie: Prisma.MovieCreateNestedOneWithoutReviewsInput
-  downvotes?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  Movie: Prisma.MovieCreateNestedOneWithoutMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutMovieReviewInput
 }
 
-export type MovieReviewUncheckedCreateWithoutUpvotesInput = {
+export type MovieReviewUncheckedCreateWithoutUpvoteMovieReviewInput = {
   id?: number
   content?: string | null
   rating?: number | null
@@ -642,36 +696,36 @@ export type MovieReviewUncheckedCreateWithoutUpvotesInput = {
   updatedAt?: Date | string | null
   userId: number
   movieId: number
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
 }
 
-export type MovieReviewCreateOrConnectWithoutUpvotesInput = {
+export type MovieReviewCreateOrConnectWithoutUpvoteMovieReviewInput = {
   where: Prisma.MovieReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvotesInput, Prisma.MovieReviewUncheckedCreateWithoutUpvotesInput>
+  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutUpvoteMovieReviewInput>
 }
 
-export type MovieReviewUpsertWithoutUpvotesInput = {
-  update: Prisma.XOR<Prisma.MovieReviewUpdateWithoutUpvotesInput, Prisma.MovieReviewUncheckedUpdateWithoutUpvotesInput>
-  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvotesInput, Prisma.MovieReviewUncheckedCreateWithoutUpvotesInput>
+export type MovieReviewUpsertWithoutUpvoteMovieReviewInput = {
+  update: Prisma.XOR<Prisma.MovieReviewUpdateWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUncheckedUpdateWithoutUpvoteMovieReviewInput>
+  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUncheckedCreateWithoutUpvoteMovieReviewInput>
   where?: Prisma.MovieReviewWhereInput
 }
 
-export type MovieReviewUpdateToOneWithWhereWithoutUpvotesInput = {
+export type MovieReviewUpdateToOneWithWhereWithoutUpvoteMovieReviewInput = {
   where?: Prisma.MovieReviewWhereInput
-  data: Prisma.XOR<Prisma.MovieReviewUpdateWithoutUpvotesInput, Prisma.MovieReviewUncheckedUpdateWithoutUpvotesInput>
+  data: Prisma.XOR<Prisma.MovieReviewUpdateWithoutUpvoteMovieReviewInput, Prisma.MovieReviewUncheckedUpdateWithoutUpvoteMovieReviewInput>
 }
 
-export type MovieReviewUpdateWithoutUpvotesInput = {
+export type MovieReviewUpdateWithoutUpvoteMovieReviewInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutReviewsNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutMovieReviewNestedInput
 }
 
-export type MovieReviewUncheckedUpdateWithoutUpvotesInput = {
+export type MovieReviewUncheckedUpdateWithoutUpvoteMovieReviewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -679,65 +733,7 @@ export type MovieReviewUncheckedUpdateWithoutUpvotesInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
-}
-
-export type MovieReviewCreateWithoutDownvotesInput = {
-  content?: string | null
-  rating?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsInput
-  movie: Prisma.MovieCreateNestedOneWithoutReviewsInput
-  upvotes?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
-}
-
-export type MovieReviewUncheckedCreateWithoutDownvotesInput = {
-  id?: number
-  content?: string | null
-  rating?: number | null
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  userId: number
-  movieId: number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
-}
-
-export type MovieReviewCreateOrConnectWithoutDownvotesInput = {
-  where: Prisma.MovieReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvotesInput, Prisma.MovieReviewUncheckedCreateWithoutDownvotesInput>
-}
-
-export type MovieReviewUpsertWithoutDownvotesInput = {
-  update: Prisma.XOR<Prisma.MovieReviewUpdateWithoutDownvotesInput, Prisma.MovieReviewUncheckedUpdateWithoutDownvotesInput>
-  create: Prisma.XOR<Prisma.MovieReviewCreateWithoutDownvotesInput, Prisma.MovieReviewUncheckedCreateWithoutDownvotesInput>
-  where?: Prisma.MovieReviewWhereInput
-}
-
-export type MovieReviewUpdateToOneWithWhereWithoutDownvotesInput = {
-  where?: Prisma.MovieReviewWhereInput
-  data: Prisma.XOR<Prisma.MovieReviewUpdateWithoutDownvotesInput, Prisma.MovieReviewUncheckedUpdateWithoutDownvotesInput>
-}
-
-export type MovieReviewUpdateWithoutDownvotesInput = {
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutReviewsNestedInput
-  upvotes?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
-}
-
-export type MovieReviewUncheckedUpdateWithoutDownvotesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewCreateWithoutUserInput = {
@@ -745,9 +741,9 @@ export type MovieReviewCreateWithoutUserInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  movie: Prisma.MovieCreateNestedOneWithoutReviewsInput
-  upvotes?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
-  downvotes?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
+  Movie: Prisma.MovieCreateNestedOneWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieReviewInput
 }
 
 export type MovieReviewUncheckedCreateWithoutUserInput = {
@@ -757,8 +753,8 @@ export type MovieReviewUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   movieId: number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieReviewInput
 }
 
 export type MovieReviewCreateOrConnectWithoutUserInput = {
@@ -801,9 +797,9 @@ export type MovieReviewUpdateWithoutMovieInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsNestedInput
-  upvotes?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewUncheckedUpdateWithoutMovieInput = {
@@ -813,8 +809,8 @@ export type MovieReviewUncheckedUpdateWithoutMovieInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewUncheckedUpdateManyWithoutMovieInput = {
@@ -840,9 +836,9 @@ export type MovieReviewUpdateWithoutUserInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  movie?: Prisma.MovieUpdateOneRequiredWithoutReviewsNestedInput
-  upvotes?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewUncheckedUpdateWithoutUserInput = {
@@ -852,8 +848,8 @@ export type MovieReviewUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
-  upvotes?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
-  downvotes?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
+  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieReviewNestedInput
 }
 
 export type MovieReviewUncheckedUpdateManyWithoutUserInput = {
@@ -871,13 +867,13 @@ export type MovieReviewUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type MovieReviewCountOutputType = {
-  upvotes: number
-  downvotes: number
+  DownvoteMovieReview: number
+  UpvoteMovieReview: number
 }
 
 export type MovieReviewCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  upvotes?: boolean | MovieReviewCountOutputTypeCountUpvotesArgs
-  downvotes?: boolean | MovieReviewCountOutputTypeCountDownvotesArgs
+  DownvoteMovieReview?: boolean | MovieReviewCountOutputTypeCountDownvoteMovieReviewArgs
+  UpvoteMovieReview?: boolean | MovieReviewCountOutputTypeCountUpvoteMovieReviewArgs
 }
 
 /**
@@ -893,15 +889,15 @@ export type MovieReviewCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
 /**
  * MovieReviewCountOutputType without action
  */
-export type MovieReviewCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UpvoteMovieReviewWhereInput
+export type MovieReviewCountOutputTypeCountDownvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DownvoteMovieReviewWhereInput
 }
 
 /**
  * MovieReviewCountOutputType without action
  */
-export type MovieReviewCountOutputTypeCountDownvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DownvoteMovieReviewWhereInput
+export type MovieReviewCountOutputTypeCountUpvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UpvoteMovieReviewWhereInput
 }
 
 
@@ -913,10 +909,10 @@ export type MovieReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   userId?: boolean
   movieId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  upvotes?: boolean | Prisma.MovieReview$upvotesArgs<ExtArgs>
-  downvotes?: boolean | Prisma.MovieReview$downvotesArgs<ExtArgs>
+  DownvoteMovieReview?: boolean | Prisma.MovieReview$DownvoteMovieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  UpvoteMovieReview?: boolean | Prisma.MovieReview$UpvoteMovieReviewArgs<ExtArgs>
   _count?: boolean | Prisma.MovieReviewCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movieReview"]>
 
@@ -928,8 +924,8 @@ export type MovieReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   userId?: boolean
   movieId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movieReview"]>
 
 export type MovieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -940,8 +936,8 @@ export type MovieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   userId?: boolean
   movieId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movieReview"]>
 
 export type MovieReviewSelectScalar = {
@@ -956,28 +952,28 @@ export type MovieReviewSelectScalar = {
 
 export type MovieReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "rating" | "createdAt" | "updatedAt" | "userId" | "movieId", ExtArgs["result"]["movieReview"]>
 export type MovieReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  upvotes?: boolean | Prisma.MovieReview$upvotesArgs<ExtArgs>
-  downvotes?: boolean | Prisma.MovieReview$downvotesArgs<ExtArgs>
+  DownvoteMovieReview?: boolean | Prisma.MovieReview$DownvoteMovieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  UpvoteMovieReview?: boolean | Prisma.MovieReview$UpvoteMovieReviewArgs<ExtArgs>
   _count?: boolean | Prisma.MovieReviewCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MovieReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type MovieReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $MovieReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MovieReview"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    movie: Prisma.$MoviePayload<ExtArgs>
-    upvotes: Prisma.$UpvoteMovieReviewPayload<ExtArgs>[]
-    downvotes: Prisma.$DownvoteMovieReviewPayload<ExtArgs>[]
+    DownvoteMovieReview: Prisma.$DownvoteMovieReviewPayload<ExtArgs>[]
+    Movie: Prisma.$MoviePayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
+    UpvoteMovieReview: Prisma.$UpvoteMovieReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1381,10 +1377,10 @@ readonly fields: MovieReviewFieldRefs;
  */
 export interface Prisma__MovieReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  upvotes<T extends Prisma.MovieReview$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieReview$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  downvotes<T extends Prisma.MovieReview$downvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieReview$downvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  DownvoteMovieReview<T extends Prisma.MovieReview$DownvoteMovieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieReview$DownvoteMovieReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  UpvoteMovieReview<T extends Prisma.MovieReview$UpvoteMovieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieReview$UpvoteMovieReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1817,33 +1813,9 @@ export type MovieReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * MovieReview.upvotes
+ * MovieReview.DownvoteMovieReview
  */
-export type MovieReview$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UpvoteMovieReview
-   */
-  select?: Prisma.UpvoteMovieReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UpvoteMovieReview
-   */
-  omit?: Prisma.UpvoteMovieReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UpvoteMovieReviewInclude<ExtArgs> | null
-  where?: Prisma.UpvoteMovieReviewWhereInput
-  orderBy?: Prisma.UpvoteMovieReviewOrderByWithRelationInput | Prisma.UpvoteMovieReviewOrderByWithRelationInput[]
-  cursor?: Prisma.UpvoteMovieReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UpvoteMovieReviewScalarFieldEnum | Prisma.UpvoteMovieReviewScalarFieldEnum[]
-}
-
-/**
- * MovieReview.downvotes
- */
-export type MovieReview$downvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieReview$DownvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the DownvoteMovieReview
    */
@@ -1862,6 +1834,30 @@ export type MovieReview$downvotesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.DownvoteMovieReviewScalarFieldEnum | Prisma.DownvoteMovieReviewScalarFieldEnum[]
+}
+
+/**
+ * MovieReview.UpvoteMovieReview
+ */
+export type MovieReview$UpvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UpvoteMovieReview
+   */
+  select?: Prisma.UpvoteMovieReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UpvoteMovieReview
+   */
+  omit?: Prisma.UpvoteMovieReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UpvoteMovieReviewInclude<ExtArgs> | null
+  where?: Prisma.UpvoteMovieReviewWhereInput
+  orderBy?: Prisma.UpvoteMovieReviewOrderByWithRelationInput | Prisma.UpvoteMovieReviewOrderByWithRelationInput[]
+  cursor?: Prisma.UpvoteMovieReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UpvoteMovieReviewScalarFieldEnum | Prisma.UpvoteMovieReviewScalarFieldEnum[]
 }
 
 /**

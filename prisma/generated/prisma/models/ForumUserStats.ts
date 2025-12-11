@@ -264,7 +264,7 @@ export type ForumUserStatsWhereInput = {
   upvotesReceived?: Prisma.IntFilter<"ForumUserStats"> | number
   reputation?: Prisma.IntFilter<"ForumUserStats"> | number
   lastPostAt?: Prisma.DateTimeNullableFilter<"ForumUserStats"> | Date | string | null
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ForumUserStatsOrderByWithRelationInput = {
@@ -276,7 +276,7 @@ export type ForumUserStatsOrderByWithRelationInput = {
   upvotesReceived?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ForumUserStatsWhereUniqueInput = Prisma.AtLeast<{
@@ -291,7 +291,7 @@ export type ForumUserStatsWhereUniqueInput = Prisma.AtLeast<{
   upvotesReceived?: Prisma.IntFilter<"ForumUserStats"> | number
   reputation?: Prisma.IntFilter<"ForumUserStats"> | number
   lastPostAt?: Prisma.DateTimeNullableFilter<"ForumUserStats"> | Date | string | null
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
 export type ForumUserStatsOrderByWithAggregationInput = {
@@ -331,7 +331,7 @@ export type ForumUserStatsCreateInput = {
   upvotesReceived?: number
   reputation?: number
   lastPostAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutForumStatsInput
+  User: Prisma.UserCreateNestedOneWithoutForumUserStatsInput
 }
 
 export type ForumUserStatsUncheckedCreateInput = {
@@ -352,7 +352,7 @@ export type ForumUserStatsUpdateInput = {
   upvotesReceived?: Prisma.IntFieldUpdateOperationsInput | number
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutForumStatsNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutForumUserStatsNestedInput
 }
 
 export type ForumUserStatsUncheckedUpdateInput = {
@@ -395,11 +395,6 @@ export type ForumUserStatsUncheckedUpdateManyInput = {
   upvotesReceived?: Prisma.IntFieldUpdateOperationsInput | number
   reputation?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type ForumUserStatsNullableScalarRelationFilter = {
-  is?: Prisma.ForumUserStatsWhereInput | null
-  isNot?: Prisma.ForumUserStatsWhereInput | null
 }
 
 export type ForumUserStatsCountOrderByAggregateInput = {
@@ -453,6 +448,11 @@ export type ForumUserStatsSumOrderByAggregateInput = {
   replyCount?: Prisma.SortOrder
   upvotesReceived?: Prisma.SortOrder
   reputation?: Prisma.SortOrder
+}
+
+export type ForumUserStatsNullableScalarRelationFilter = {
+  is?: Prisma.ForumUserStatsWhereInput | null
+  isNot?: Prisma.ForumUserStatsWhereInput | null
 }
 
 export type ForumUserStatsCreateNestedOneWithoutUserInput = {
@@ -552,7 +552,7 @@ export type ForumUserStatsSelect<ExtArgs extends runtime.Types.Extensions.Intern
   upvotesReceived?: boolean
   reputation?: boolean
   lastPostAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumUserStats"]>
 
 export type ForumUserStatsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -564,7 +564,7 @@ export type ForumUserStatsSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   upvotesReceived?: boolean
   reputation?: boolean
   lastPostAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumUserStats"]>
 
 export type ForumUserStatsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -576,7 +576,7 @@ export type ForumUserStatsSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   upvotesReceived?: boolean
   reputation?: boolean
   lastPostAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumUserStats"]>
 
 export type ForumUserStatsSelectScalar = {
@@ -592,19 +592,19 @@ export type ForumUserStatsSelectScalar = {
 
 export type ForumUserStatsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "topicCount" | "postCount" | "replyCount" | "upvotesReceived" | "reputation" | "lastPostAt", ExtArgs["result"]["forumUserStats"]>
 export type ForumUserStatsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ForumUserStatsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ForumUserStatsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ForumUserStatsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForumUserStats"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1009,7 +1009,7 @@ readonly fields: ForumUserStatsFieldRefs;
  */
 export interface Prisma__ForumUserStatsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

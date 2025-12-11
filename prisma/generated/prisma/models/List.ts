@@ -44,10 +44,10 @@ export type ListMinAggregateOutputType = {
   isArchived: boolean | null
   isDefault: boolean | null
   createdAt: Date | null
-  contentType: $Enums.ContentType | null
   updatedAt: Date | null
   lastViewedAt: Date | null
   userId: number | null
+  contentType: $Enums.ContentType | null
 }
 
 export type ListMaxAggregateOutputType = {
@@ -58,10 +58,10 @@ export type ListMaxAggregateOutputType = {
   isArchived: boolean | null
   isDefault: boolean | null
   createdAt: Date | null
-  contentType: $Enums.ContentType | null
   updatedAt: Date | null
   lastViewedAt: Date | null
   userId: number | null
+  contentType: $Enums.ContentType | null
 }
 
 export type ListCountAggregateOutputType = {
@@ -72,10 +72,10 @@ export type ListCountAggregateOutputType = {
   isArchived: number
   isDefault: number
   createdAt: number
-  contentType: number
   updatedAt: number
   lastViewedAt: number
   userId: number
+  contentType: number
   _all: number
 }
 
@@ -98,10 +98,10 @@ export type ListMinAggregateInputType = {
   isArchived?: true
   isDefault?: true
   createdAt?: true
-  contentType?: true
   updatedAt?: true
   lastViewedAt?: true
   userId?: true
+  contentType?: true
 }
 
 export type ListMaxAggregateInputType = {
@@ -112,10 +112,10 @@ export type ListMaxAggregateInputType = {
   isArchived?: true
   isDefault?: true
   createdAt?: true
-  contentType?: true
   updatedAt?: true
   lastViewedAt?: true
   userId?: true
+  contentType?: true
 }
 
 export type ListCountAggregateInputType = {
@@ -126,10 +126,10 @@ export type ListCountAggregateInputType = {
   isArchived?: true
   isDefault?: true
   createdAt?: true
-  contentType?: true
   updatedAt?: true
   lastViewedAt?: true
   userId?: true
+  contentType?: true
   _all?: true
 }
 
@@ -227,10 +227,10 @@ export type ListGroupByOutputType = {
   isArchived: boolean
   isDefault: boolean
   createdAt: Date
-  contentType: $Enums.ContentType | null
   updatedAt: Date
   lastViewedAt: Date | null
   userId: number
+  contentType: $Enums.ContentType | null
   _count: ListCountAggregateOutputType | null
   _avg: ListAvgAggregateOutputType | null
   _sum: ListSumAggregateOutputType | null
@@ -264,24 +264,24 @@ export type ListWhereInput = {
   isArchived?: Prisma.BoolFilter<"List"> | boolean
   isDefault?: Prisma.BoolFilter<"List"> | boolean
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
-  contentType?: Prisma.EnumContentTypeNullableFilter<"List"> | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
   lastViewedAt?: Prisma.DateTimeNullableFilter<"List"> | Date | string | null
   userId?: Prisma.IntFilter<"List"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movieItems?: Prisma.ListMovieListRelationFilter
-  serieItems?: Prisma.ListSerieListRelationFilter
-  seasonItems?: Prisma.ListSeasonListRelationFilter
-  episodeItems?: Prisma.ListEpisodeListRelationFilter
-  actorItems?: Prisma.ListActorListRelationFilter
-  crewItems?: Prisma.ListCrewListRelationFilter
-  sharedWith?: Prisma.ListShareListRelationFilter
-  movieActivities?: Prisma.ListActivityMovieListRelationFilter
-  serieActivities?: Prisma.ListActivitySerieListRelationFilter
-  seasonActivities?: Prisma.ListActivitySeasonListRelationFilter
-  episodeActivities?: Prisma.ListActivityEpisodeListRelationFilter
-  actorActivities?: Prisma.ListActivityActorListRelationFilter
-  crewActivities?: Prisma.ListActivityCrewListRelationFilter
+  contentType?: Prisma.EnumContentTypeNullableFilter<"List"> | $Enums.ContentType | null
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  ListActivityActor?: Prisma.ListActivityActorListRelationFilter
+  ListActivityCrew?: Prisma.ListActivityCrewListRelationFilter
+  ListActivityEpisode?: Prisma.ListActivityEpisodeListRelationFilter
+  ListActivityMovie?: Prisma.ListActivityMovieListRelationFilter
+  ListActivitySeason?: Prisma.ListActivitySeasonListRelationFilter
+  ListActivitySerie?: Prisma.ListActivitySerieListRelationFilter
+  ListActor?: Prisma.ListActorListRelationFilter
+  ListCrew?: Prisma.ListCrewListRelationFilter
+  ListEpisode?: Prisma.ListEpisodeListRelationFilter
+  ListMovie?: Prisma.ListMovieListRelationFilter
+  ListSeason?: Prisma.ListSeasonListRelationFilter
+  ListSerie?: Prisma.ListSerieListRelationFilter
+  ListShare?: Prisma.ListShareListRelationFilter
 }
 
 export type ListOrderByWithRelationInput = {
@@ -292,24 +292,24 @@ export type ListOrderByWithRelationInput = {
   isArchived?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  contentType?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   lastViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  movieItems?: Prisma.ListMovieOrderByRelationAggregateInput
-  serieItems?: Prisma.ListSerieOrderByRelationAggregateInput
-  seasonItems?: Prisma.ListSeasonOrderByRelationAggregateInput
-  episodeItems?: Prisma.ListEpisodeOrderByRelationAggregateInput
-  actorItems?: Prisma.ListActorOrderByRelationAggregateInput
-  crewItems?: Prisma.ListCrewOrderByRelationAggregateInput
-  sharedWith?: Prisma.ListShareOrderByRelationAggregateInput
-  movieActivities?: Prisma.ListActivityMovieOrderByRelationAggregateInput
-  serieActivities?: Prisma.ListActivitySerieOrderByRelationAggregateInput
-  seasonActivities?: Prisma.ListActivitySeasonOrderByRelationAggregateInput
-  episodeActivities?: Prisma.ListActivityEpisodeOrderByRelationAggregateInput
-  actorActivities?: Prisma.ListActivityActorOrderByRelationAggregateInput
-  crewActivities?: Prisma.ListActivityCrewOrderByRelationAggregateInput
+  contentType?: Prisma.SortOrderInput | Prisma.SortOrder
+  User?: Prisma.UserOrderByWithRelationInput
+  ListActivityActor?: Prisma.ListActivityActorOrderByRelationAggregateInput
+  ListActivityCrew?: Prisma.ListActivityCrewOrderByRelationAggregateInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeOrderByRelationAggregateInput
+  ListActivityMovie?: Prisma.ListActivityMovieOrderByRelationAggregateInput
+  ListActivitySeason?: Prisma.ListActivitySeasonOrderByRelationAggregateInput
+  ListActivitySerie?: Prisma.ListActivitySerieOrderByRelationAggregateInput
+  ListActor?: Prisma.ListActorOrderByRelationAggregateInput
+  ListCrew?: Prisma.ListCrewOrderByRelationAggregateInput
+  ListEpisode?: Prisma.ListEpisodeOrderByRelationAggregateInput
+  ListMovie?: Prisma.ListMovieOrderByRelationAggregateInput
+  ListSeason?: Prisma.ListSeasonOrderByRelationAggregateInput
+  ListSerie?: Prisma.ListSerieOrderByRelationAggregateInput
+  ListShare?: Prisma.ListShareOrderByRelationAggregateInput
   _relevance?: Prisma.ListOrderByRelevanceInput
 }
 
@@ -324,24 +324,24 @@ export type ListWhereUniqueInput = Prisma.AtLeast<{
   isArchived?: Prisma.BoolFilter<"List"> | boolean
   isDefault?: Prisma.BoolFilter<"List"> | boolean
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
-  contentType?: Prisma.EnumContentTypeNullableFilter<"List"> | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
   lastViewedAt?: Prisma.DateTimeNullableFilter<"List"> | Date | string | null
   userId?: Prisma.IntFilter<"List"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movieItems?: Prisma.ListMovieListRelationFilter
-  serieItems?: Prisma.ListSerieListRelationFilter
-  seasonItems?: Prisma.ListSeasonListRelationFilter
-  episodeItems?: Prisma.ListEpisodeListRelationFilter
-  actorItems?: Prisma.ListActorListRelationFilter
-  crewItems?: Prisma.ListCrewListRelationFilter
-  sharedWith?: Prisma.ListShareListRelationFilter
-  movieActivities?: Prisma.ListActivityMovieListRelationFilter
-  serieActivities?: Prisma.ListActivitySerieListRelationFilter
-  seasonActivities?: Prisma.ListActivitySeasonListRelationFilter
-  episodeActivities?: Prisma.ListActivityEpisodeListRelationFilter
-  actorActivities?: Prisma.ListActivityActorListRelationFilter
-  crewActivities?: Prisma.ListActivityCrewListRelationFilter
+  contentType?: Prisma.EnumContentTypeNullableFilter<"List"> | $Enums.ContentType | null
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  ListActivityActor?: Prisma.ListActivityActorListRelationFilter
+  ListActivityCrew?: Prisma.ListActivityCrewListRelationFilter
+  ListActivityEpisode?: Prisma.ListActivityEpisodeListRelationFilter
+  ListActivityMovie?: Prisma.ListActivityMovieListRelationFilter
+  ListActivitySeason?: Prisma.ListActivitySeasonListRelationFilter
+  ListActivitySerie?: Prisma.ListActivitySerieListRelationFilter
+  ListActor?: Prisma.ListActorListRelationFilter
+  ListCrew?: Prisma.ListCrewListRelationFilter
+  ListEpisode?: Prisma.ListEpisodeListRelationFilter
+  ListMovie?: Prisma.ListMovieListRelationFilter
+  ListSeason?: Prisma.ListSeasonListRelationFilter
+  ListSerie?: Prisma.ListSerieListRelationFilter
+  ListShare?: Prisma.ListShareListRelationFilter
 }, "id">
 
 export type ListOrderByWithAggregationInput = {
@@ -352,10 +352,10 @@ export type ListOrderByWithAggregationInput = {
   isArchived?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  contentType?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   lastViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
+  contentType?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ListCountOrderByAggregateInput
   _avg?: Prisma.ListAvgOrderByAggregateInput
   _max?: Prisma.ListMaxOrderByAggregateInput
@@ -374,10 +374,10 @@ export type ListScalarWhereWithAggregatesInput = {
   isArchived?: Prisma.BoolWithAggregatesFilter<"List"> | boolean
   isDefault?: Prisma.BoolWithAggregatesFilter<"List"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"List"> | Date | string
-  contentType?: Prisma.EnumContentTypeNullableWithAggregatesFilter<"List"> | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"List"> | Date | string
   lastViewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"List"> | Date | string | null
   userId?: Prisma.IntWithAggregatesFilter<"List"> | number
+  contentType?: Prisma.EnumContentTypeNullableWithAggregatesFilter<"List"> | $Enums.ContentType | null
 }
 
 export type ListCreateInput = {
@@ -387,23 +387,23 @@ export type ListCreateInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
 export type ListUncheckedCreateInput = {
@@ -414,23 +414,23 @@ export type ListUncheckedCreateInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
 export type ListUpdateInput = {
@@ -440,23 +440,23 @@ export type ListUpdateInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
 export type ListUncheckedUpdateInput = {
@@ -467,23 +467,23 @@ export type ListUncheckedUpdateInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
 export type ListCreateManyInput = {
@@ -494,10 +494,10 @@ export type ListCreateManyInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
+  contentType?: $Enums.ContentType | null
 }
 
 export type ListUpdateManyMutationInput = {
@@ -507,9 +507,9 @@ export type ListUpdateManyMutationInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
 }
 
 export type ListUncheckedUpdateManyInput = {
@@ -520,10 +520,10 @@ export type ListUncheckedUpdateManyInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
 }
 
 export type ListOrderByRelevanceInput = {
@@ -540,10 +540,10 @@ export type ListCountOrderByAggregateInput = {
   isArchived?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  contentType?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   lastViewedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
 }
 
 export type ListAvgOrderByAggregateInput = {
@@ -559,10 +559,10 @@ export type ListMaxOrderByAggregateInput = {
   isArchived?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  contentType?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   lastViewedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
 }
 
 export type ListMinOrderByAggregateInput = {
@@ -573,10 +573,10 @@ export type ListMinOrderByAggregateInput = {
   isArchived?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  contentType?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   lastViewedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  contentType?: Prisma.SortOrder
 }
 
 export type ListSumOrderByAggregateInput = {
@@ -603,186 +603,186 @@ export type NullableEnumContentTypeFieldUpdateOperationsInput = {
   set?: $Enums.ContentType | null
 }
 
-export type ListCreateNestedOneWithoutSharedWithInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSharedWithInput, Prisma.ListUncheckedCreateWithoutSharedWithInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSharedWithInput
+export type ListCreateNestedOneWithoutListActivityActorInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityActorInput, Prisma.ListUncheckedCreateWithoutListActivityActorInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityActorInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutSharedWithNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSharedWithInput, Prisma.ListUncheckedCreateWithoutSharedWithInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSharedWithInput
-  upsert?: Prisma.ListUpsertWithoutSharedWithInput
+export type ListUpdateOneRequiredWithoutListActivityActorNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityActorInput, Prisma.ListUncheckedCreateWithoutListActivityActorInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityActorInput
+  upsert?: Prisma.ListUpsertWithoutListActivityActorInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutSharedWithInput, Prisma.ListUpdateWithoutSharedWithInput>, Prisma.ListUncheckedUpdateWithoutSharedWithInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActivityActorInput, Prisma.ListUpdateWithoutListActivityActorInput>, Prisma.ListUncheckedUpdateWithoutListActivityActorInput>
 }
 
-export type ListCreateNestedOneWithoutMovieItemsInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutMovieItemsInput, Prisma.ListUncheckedCreateWithoutMovieItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutMovieItemsInput
-  connect?: Prisma.ListWhereUniqueInput
-}
-
-export type ListUpdateOneRequiredWithoutMovieItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutMovieItemsInput, Prisma.ListUncheckedCreateWithoutMovieItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutMovieItemsInput
-  upsert?: Prisma.ListUpsertWithoutMovieItemsInput
-  connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutMovieItemsInput, Prisma.ListUpdateWithoutMovieItemsInput>, Prisma.ListUncheckedUpdateWithoutMovieItemsInput>
-}
-
-export type ListCreateNestedOneWithoutSerieItemsInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSerieItemsInput, Prisma.ListUncheckedCreateWithoutSerieItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSerieItemsInput
+export type ListCreateNestedOneWithoutListActivityCrewInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityCrewInput, Prisma.ListUncheckedCreateWithoutListActivityCrewInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityCrewInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutSerieItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSerieItemsInput, Prisma.ListUncheckedCreateWithoutSerieItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSerieItemsInput
-  upsert?: Prisma.ListUpsertWithoutSerieItemsInput
+export type ListUpdateOneRequiredWithoutListActivityCrewNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityCrewInput, Prisma.ListUncheckedCreateWithoutListActivityCrewInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityCrewInput
+  upsert?: Prisma.ListUpsertWithoutListActivityCrewInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutSerieItemsInput, Prisma.ListUpdateWithoutSerieItemsInput>, Prisma.ListUncheckedUpdateWithoutSerieItemsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActivityCrewInput, Prisma.ListUpdateWithoutListActivityCrewInput>, Prisma.ListUncheckedUpdateWithoutListActivityCrewInput>
 }
 
-export type ListCreateNestedOneWithoutSeasonItemsInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSeasonItemsInput, Prisma.ListUncheckedCreateWithoutSeasonItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSeasonItemsInput
-  connect?: Prisma.ListWhereUniqueInput
-}
-
-export type ListUpdateOneRequiredWithoutSeasonItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSeasonItemsInput, Prisma.ListUncheckedCreateWithoutSeasonItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSeasonItemsInput
-  upsert?: Prisma.ListUpsertWithoutSeasonItemsInput
-  connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutSeasonItemsInput, Prisma.ListUpdateWithoutSeasonItemsInput>, Prisma.ListUncheckedUpdateWithoutSeasonItemsInput>
-}
-
-export type ListCreateNestedOneWithoutEpisodeItemsInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutEpisodeItemsInput, Prisma.ListUncheckedCreateWithoutEpisodeItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutEpisodeItemsInput
+export type ListCreateNestedOneWithoutListActivityEpisodeInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityEpisodeInput, Prisma.ListUncheckedCreateWithoutListActivityEpisodeInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityEpisodeInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutEpisodeItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutEpisodeItemsInput, Prisma.ListUncheckedCreateWithoutEpisodeItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutEpisodeItemsInput
-  upsert?: Prisma.ListUpsertWithoutEpisodeItemsInput
+export type ListUpdateOneRequiredWithoutListActivityEpisodeNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityEpisodeInput, Prisma.ListUncheckedCreateWithoutListActivityEpisodeInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityEpisodeInput
+  upsert?: Prisma.ListUpsertWithoutListActivityEpisodeInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutEpisodeItemsInput, Prisma.ListUpdateWithoutEpisodeItemsInput>, Prisma.ListUncheckedUpdateWithoutEpisodeItemsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActivityEpisodeInput, Prisma.ListUpdateWithoutListActivityEpisodeInput>, Prisma.ListUncheckedUpdateWithoutListActivityEpisodeInput>
 }
 
-export type ListCreateNestedOneWithoutActorItemsInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutActorItemsInput, Prisma.ListUncheckedCreateWithoutActorItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutActorItemsInput
-  connect?: Prisma.ListWhereUniqueInput
-}
-
-export type ListUpdateOneRequiredWithoutActorItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutActorItemsInput, Prisma.ListUncheckedCreateWithoutActorItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutActorItemsInput
-  upsert?: Prisma.ListUpsertWithoutActorItemsInput
-  connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutActorItemsInput, Prisma.ListUpdateWithoutActorItemsInput>, Prisma.ListUncheckedUpdateWithoutActorItemsInput>
-}
-
-export type ListCreateNestedOneWithoutCrewItemsInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutCrewItemsInput, Prisma.ListUncheckedCreateWithoutCrewItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutCrewItemsInput
+export type ListCreateNestedOneWithoutListActivityMovieInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityMovieInput, Prisma.ListUncheckedCreateWithoutListActivityMovieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityMovieInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutCrewItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutCrewItemsInput, Prisma.ListUncheckedCreateWithoutCrewItemsInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutCrewItemsInput
-  upsert?: Prisma.ListUpsertWithoutCrewItemsInput
+export type ListUpdateOneRequiredWithoutListActivityMovieNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivityMovieInput, Prisma.ListUncheckedCreateWithoutListActivityMovieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivityMovieInput
+  upsert?: Prisma.ListUpsertWithoutListActivityMovieInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutCrewItemsInput, Prisma.ListUpdateWithoutCrewItemsInput>, Prisma.ListUncheckedUpdateWithoutCrewItemsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActivityMovieInput, Prisma.ListUpdateWithoutListActivityMovieInput>, Prisma.ListUncheckedUpdateWithoutListActivityMovieInput>
 }
 
-export type ListCreateNestedOneWithoutMovieActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutMovieActivitiesInput, Prisma.ListUncheckedCreateWithoutMovieActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutMovieActivitiesInput
-  connect?: Prisma.ListWhereUniqueInput
-}
-
-export type ListUpdateOneRequiredWithoutMovieActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutMovieActivitiesInput, Prisma.ListUncheckedCreateWithoutMovieActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutMovieActivitiesInput
-  upsert?: Prisma.ListUpsertWithoutMovieActivitiesInput
-  connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutMovieActivitiesInput, Prisma.ListUpdateWithoutMovieActivitiesInput>, Prisma.ListUncheckedUpdateWithoutMovieActivitiesInput>
-}
-
-export type ListCreateNestedOneWithoutSerieActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSerieActivitiesInput, Prisma.ListUncheckedCreateWithoutSerieActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSerieActivitiesInput
+export type ListCreateNestedOneWithoutListActivitySeasonInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivitySeasonInput, Prisma.ListUncheckedCreateWithoutListActivitySeasonInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivitySeasonInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutSerieActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSerieActivitiesInput, Prisma.ListUncheckedCreateWithoutSerieActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSerieActivitiesInput
-  upsert?: Prisma.ListUpsertWithoutSerieActivitiesInput
+export type ListUpdateOneRequiredWithoutListActivitySeasonNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivitySeasonInput, Prisma.ListUncheckedCreateWithoutListActivitySeasonInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivitySeasonInput
+  upsert?: Prisma.ListUpsertWithoutListActivitySeasonInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutSerieActivitiesInput, Prisma.ListUpdateWithoutSerieActivitiesInput>, Prisma.ListUncheckedUpdateWithoutSerieActivitiesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActivitySeasonInput, Prisma.ListUpdateWithoutListActivitySeasonInput>, Prisma.ListUncheckedUpdateWithoutListActivitySeasonInput>
 }
 
-export type ListCreateNestedOneWithoutSeasonActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSeasonActivitiesInput, Prisma.ListUncheckedCreateWithoutSeasonActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSeasonActivitiesInput
-  connect?: Prisma.ListWhereUniqueInput
-}
-
-export type ListUpdateOneRequiredWithoutSeasonActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutSeasonActivitiesInput, Prisma.ListUncheckedCreateWithoutSeasonActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutSeasonActivitiesInput
-  upsert?: Prisma.ListUpsertWithoutSeasonActivitiesInput
-  connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutSeasonActivitiesInput, Prisma.ListUpdateWithoutSeasonActivitiesInput>, Prisma.ListUncheckedUpdateWithoutSeasonActivitiesInput>
-}
-
-export type ListCreateNestedOneWithoutEpisodeActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutEpisodeActivitiesInput, Prisma.ListUncheckedCreateWithoutEpisodeActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutEpisodeActivitiesInput
+export type ListCreateNestedOneWithoutListActivitySerieInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivitySerieInput, Prisma.ListUncheckedCreateWithoutListActivitySerieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivitySerieInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutEpisodeActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutEpisodeActivitiesInput, Prisma.ListUncheckedCreateWithoutEpisodeActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutEpisodeActivitiesInput
-  upsert?: Prisma.ListUpsertWithoutEpisodeActivitiesInput
+export type ListUpdateOneRequiredWithoutListActivitySerieNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActivitySerieInput, Prisma.ListUncheckedCreateWithoutListActivitySerieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActivitySerieInput
+  upsert?: Prisma.ListUpsertWithoutListActivitySerieInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutEpisodeActivitiesInput, Prisma.ListUpdateWithoutEpisodeActivitiesInput>, Prisma.ListUncheckedUpdateWithoutEpisodeActivitiesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActivitySerieInput, Prisma.ListUpdateWithoutListActivitySerieInput>, Prisma.ListUncheckedUpdateWithoutListActivitySerieInput>
 }
 
-export type ListCreateNestedOneWithoutActorActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutActorActivitiesInput, Prisma.ListUncheckedCreateWithoutActorActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutActorActivitiesInput
-  connect?: Prisma.ListWhereUniqueInput
-}
-
-export type ListUpdateOneRequiredWithoutActorActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutActorActivitiesInput, Prisma.ListUncheckedCreateWithoutActorActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutActorActivitiesInput
-  upsert?: Prisma.ListUpsertWithoutActorActivitiesInput
-  connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutActorActivitiesInput, Prisma.ListUpdateWithoutActorActivitiesInput>, Prisma.ListUncheckedUpdateWithoutActorActivitiesInput>
-}
-
-export type ListCreateNestedOneWithoutCrewActivitiesInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutCrewActivitiesInput, Prisma.ListUncheckedCreateWithoutCrewActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutCrewActivitiesInput
+export type ListCreateNestedOneWithoutListActorInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActorInput, Prisma.ListUncheckedCreateWithoutListActorInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActorInput
   connect?: Prisma.ListWhereUniqueInput
 }
 
-export type ListUpdateOneRequiredWithoutCrewActivitiesNestedInput = {
-  create?: Prisma.XOR<Prisma.ListCreateWithoutCrewActivitiesInput, Prisma.ListUncheckedCreateWithoutCrewActivitiesInput>
-  connectOrCreate?: Prisma.ListCreateOrConnectWithoutCrewActivitiesInput
-  upsert?: Prisma.ListUpsertWithoutCrewActivitiesInput
+export type ListUpdateOneRequiredWithoutListActorNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListActorInput, Prisma.ListUncheckedCreateWithoutListActorInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListActorInput
+  upsert?: Prisma.ListUpsertWithoutListActorInput
   connect?: Prisma.ListWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutCrewActivitiesInput, Prisma.ListUpdateWithoutCrewActivitiesInput>, Prisma.ListUncheckedUpdateWithoutCrewActivitiesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListActorInput, Prisma.ListUpdateWithoutListActorInput>, Prisma.ListUncheckedUpdateWithoutListActorInput>
+}
+
+export type ListCreateNestedOneWithoutListCrewInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListCrewInput, Prisma.ListUncheckedCreateWithoutListCrewInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListCrewInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutListCrewNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListCrewInput, Prisma.ListUncheckedCreateWithoutListCrewInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListCrewInput
+  upsert?: Prisma.ListUpsertWithoutListCrewInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListCrewInput, Prisma.ListUpdateWithoutListCrewInput>, Prisma.ListUncheckedUpdateWithoutListCrewInput>
+}
+
+export type ListCreateNestedOneWithoutListEpisodeInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListEpisodeInput, Prisma.ListUncheckedCreateWithoutListEpisodeInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListEpisodeInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutListEpisodeNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListEpisodeInput, Prisma.ListUncheckedCreateWithoutListEpisodeInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListEpisodeInput
+  upsert?: Prisma.ListUpsertWithoutListEpisodeInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListEpisodeInput, Prisma.ListUpdateWithoutListEpisodeInput>, Prisma.ListUncheckedUpdateWithoutListEpisodeInput>
+}
+
+export type ListCreateNestedOneWithoutListMovieInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListMovieInput, Prisma.ListUncheckedCreateWithoutListMovieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListMovieInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutListMovieNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListMovieInput, Prisma.ListUncheckedCreateWithoutListMovieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListMovieInput
+  upsert?: Prisma.ListUpsertWithoutListMovieInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListMovieInput, Prisma.ListUpdateWithoutListMovieInput>, Prisma.ListUncheckedUpdateWithoutListMovieInput>
+}
+
+export type ListCreateNestedOneWithoutListSeasonInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListSeasonInput, Prisma.ListUncheckedCreateWithoutListSeasonInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListSeasonInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutListSeasonNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListSeasonInput, Prisma.ListUncheckedCreateWithoutListSeasonInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListSeasonInput
+  upsert?: Prisma.ListUpsertWithoutListSeasonInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListSeasonInput, Prisma.ListUpdateWithoutListSeasonInput>, Prisma.ListUncheckedUpdateWithoutListSeasonInput>
+}
+
+export type ListCreateNestedOneWithoutListSerieInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListSerieInput, Prisma.ListUncheckedCreateWithoutListSerieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListSerieInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutListSerieNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListSerieInput, Prisma.ListUncheckedCreateWithoutListSerieInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListSerieInput
+  upsert?: Prisma.ListUpsertWithoutListSerieInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListSerieInput, Prisma.ListUpdateWithoutListSerieInput>, Prisma.ListUncheckedUpdateWithoutListSerieInput>
+}
+
+export type ListCreateNestedOneWithoutListShareInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListShareInput, Prisma.ListUncheckedCreateWithoutListShareInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListShareInput
+  connect?: Prisma.ListWhereUniqueInput
+}
+
+export type ListUpdateOneRequiredWithoutListShareNestedInput = {
+  create?: Prisma.XOR<Prisma.ListCreateWithoutListShareInput, Prisma.ListUncheckedCreateWithoutListShareInput>
+  connectOrCreate?: Prisma.ListCreateOrConnectWithoutListShareInput
+  upsert?: Prisma.ListUpsertWithoutListShareInput
+  connect?: Prisma.ListWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListUpdateToOneWithWhereWithoutListShareInput, Prisma.ListUpdateWithoutListShareInput>, Prisma.ListUncheckedUpdateWithoutListShareInput>
 }
 
 export type ListCreateNestedManyWithoutUserInput = {
@@ -827,32 +827,32 @@ export type ListUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ListScalarWhereInput | Prisma.ListScalarWhereInput[]
 }
 
-export type ListCreateWithoutSharedWithInput = {
+export type ListCreateWithoutListActivityActorInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutSharedWithInput = {
+export type ListUncheckedCreateWithoutListActivityActorInput = {
   id?: number
   name: string
   description?: string | null
@@ -860,66 +860,66 @@ export type ListUncheckedCreateWithoutSharedWithInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutSharedWithInput = {
+export type ListCreateOrConnectWithoutListActivityActorInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutSharedWithInput, Prisma.ListUncheckedCreateWithoutSharedWithInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityActorInput, Prisma.ListUncheckedCreateWithoutListActivityActorInput>
 }
 
-export type ListUpsertWithoutSharedWithInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutSharedWithInput, Prisma.ListUncheckedUpdateWithoutSharedWithInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutSharedWithInput, Prisma.ListUncheckedCreateWithoutSharedWithInput>
+export type ListUpsertWithoutListActivityActorInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActivityActorInput, Prisma.ListUncheckedUpdateWithoutListActivityActorInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityActorInput, Prisma.ListUncheckedCreateWithoutListActivityActorInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutSharedWithInput = {
+export type ListUpdateToOneWithWhereWithoutListActivityActorInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutSharedWithInput, Prisma.ListUncheckedUpdateWithoutSharedWithInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActivityActorInput, Prisma.ListUncheckedUpdateWithoutListActivityActorInput>
 }
 
-export type ListUpdateWithoutSharedWithInput = {
+export type ListUpdateWithoutListActivityActorInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutSharedWithInput = {
+export type ListUncheckedUpdateWithoutListActivityActorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -927,50 +927,50 @@ export type ListUncheckedUpdateWithoutSharedWithInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutMovieItemsInput = {
+export type ListCreateWithoutListActivityCrewInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutMovieItemsInput = {
+export type ListUncheckedCreateWithoutListActivityCrewInput = {
   id?: number
   name: string
   description?: string | null
@@ -978,66 +978,66 @@ export type ListUncheckedCreateWithoutMovieItemsInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutMovieItemsInput = {
+export type ListCreateOrConnectWithoutListActivityCrewInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutMovieItemsInput, Prisma.ListUncheckedCreateWithoutMovieItemsInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityCrewInput, Prisma.ListUncheckedCreateWithoutListActivityCrewInput>
 }
 
-export type ListUpsertWithoutMovieItemsInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutMovieItemsInput, Prisma.ListUncheckedUpdateWithoutMovieItemsInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutMovieItemsInput, Prisma.ListUncheckedCreateWithoutMovieItemsInput>
+export type ListUpsertWithoutListActivityCrewInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActivityCrewInput, Prisma.ListUncheckedUpdateWithoutListActivityCrewInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityCrewInput, Prisma.ListUncheckedCreateWithoutListActivityCrewInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutMovieItemsInput = {
+export type ListUpdateToOneWithWhereWithoutListActivityCrewInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutMovieItemsInput, Prisma.ListUncheckedUpdateWithoutMovieItemsInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActivityCrewInput, Prisma.ListUncheckedUpdateWithoutListActivityCrewInput>
 }
 
-export type ListUpdateWithoutMovieItemsInput = {
+export type ListUpdateWithoutListActivityCrewInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutMovieItemsInput = {
+export type ListUncheckedUpdateWithoutListActivityCrewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1045,50 +1045,50 @@ export type ListUncheckedUpdateWithoutMovieItemsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutSerieItemsInput = {
+export type ListCreateWithoutListActivityEpisodeInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutSerieItemsInput = {
+export type ListUncheckedCreateWithoutListActivityEpisodeInput = {
   id?: number
   name: string
   description?: string | null
@@ -1096,66 +1096,66 @@ export type ListUncheckedCreateWithoutSerieItemsInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutSerieItemsInput = {
+export type ListCreateOrConnectWithoutListActivityEpisodeInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutSerieItemsInput, Prisma.ListUncheckedCreateWithoutSerieItemsInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityEpisodeInput, Prisma.ListUncheckedCreateWithoutListActivityEpisodeInput>
 }
 
-export type ListUpsertWithoutSerieItemsInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutSerieItemsInput, Prisma.ListUncheckedUpdateWithoutSerieItemsInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutSerieItemsInput, Prisma.ListUncheckedCreateWithoutSerieItemsInput>
+export type ListUpsertWithoutListActivityEpisodeInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActivityEpisodeInput, Prisma.ListUncheckedUpdateWithoutListActivityEpisodeInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityEpisodeInput, Prisma.ListUncheckedCreateWithoutListActivityEpisodeInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutSerieItemsInput = {
+export type ListUpdateToOneWithWhereWithoutListActivityEpisodeInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutSerieItemsInput, Prisma.ListUncheckedUpdateWithoutSerieItemsInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActivityEpisodeInput, Prisma.ListUncheckedUpdateWithoutListActivityEpisodeInput>
 }
 
-export type ListUpdateWithoutSerieItemsInput = {
+export type ListUpdateWithoutListActivityEpisodeInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutSerieItemsInput = {
+export type ListUncheckedUpdateWithoutListActivityEpisodeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1163,50 +1163,50 @@ export type ListUncheckedUpdateWithoutSerieItemsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutSeasonItemsInput = {
+export type ListCreateWithoutListActivityMovieInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutSeasonItemsInput = {
+export type ListUncheckedCreateWithoutListActivityMovieInput = {
   id?: number
   name: string
   description?: string | null
@@ -1214,66 +1214,66 @@ export type ListUncheckedCreateWithoutSeasonItemsInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutSeasonItemsInput = {
+export type ListCreateOrConnectWithoutListActivityMovieInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutSeasonItemsInput, Prisma.ListUncheckedCreateWithoutSeasonItemsInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityMovieInput, Prisma.ListUncheckedCreateWithoutListActivityMovieInput>
 }
 
-export type ListUpsertWithoutSeasonItemsInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutSeasonItemsInput, Prisma.ListUncheckedUpdateWithoutSeasonItemsInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutSeasonItemsInput, Prisma.ListUncheckedCreateWithoutSeasonItemsInput>
+export type ListUpsertWithoutListActivityMovieInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActivityMovieInput, Prisma.ListUncheckedUpdateWithoutListActivityMovieInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivityMovieInput, Prisma.ListUncheckedCreateWithoutListActivityMovieInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutSeasonItemsInput = {
+export type ListUpdateToOneWithWhereWithoutListActivityMovieInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutSeasonItemsInput, Prisma.ListUncheckedUpdateWithoutSeasonItemsInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActivityMovieInput, Prisma.ListUncheckedUpdateWithoutListActivityMovieInput>
 }
 
-export type ListUpdateWithoutSeasonItemsInput = {
+export type ListUpdateWithoutListActivityMovieInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutSeasonItemsInput = {
+export type ListUncheckedUpdateWithoutListActivityMovieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1281,50 +1281,50 @@ export type ListUncheckedUpdateWithoutSeasonItemsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutEpisodeItemsInput = {
+export type ListCreateWithoutListActivitySeasonInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutEpisodeItemsInput = {
+export type ListUncheckedCreateWithoutListActivitySeasonInput = {
   id?: number
   name: string
   description?: string | null
@@ -1332,66 +1332,66 @@ export type ListUncheckedCreateWithoutEpisodeItemsInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutEpisodeItemsInput = {
+export type ListCreateOrConnectWithoutListActivitySeasonInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutEpisodeItemsInput, Prisma.ListUncheckedCreateWithoutEpisodeItemsInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivitySeasonInput, Prisma.ListUncheckedCreateWithoutListActivitySeasonInput>
 }
 
-export type ListUpsertWithoutEpisodeItemsInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutEpisodeItemsInput, Prisma.ListUncheckedUpdateWithoutEpisodeItemsInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutEpisodeItemsInput, Prisma.ListUncheckedCreateWithoutEpisodeItemsInput>
+export type ListUpsertWithoutListActivitySeasonInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActivitySeasonInput, Prisma.ListUncheckedUpdateWithoutListActivitySeasonInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivitySeasonInput, Prisma.ListUncheckedCreateWithoutListActivitySeasonInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutEpisodeItemsInput = {
+export type ListUpdateToOneWithWhereWithoutListActivitySeasonInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutEpisodeItemsInput, Prisma.ListUncheckedUpdateWithoutEpisodeItemsInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActivitySeasonInput, Prisma.ListUncheckedUpdateWithoutListActivitySeasonInput>
 }
 
-export type ListUpdateWithoutEpisodeItemsInput = {
+export type ListUpdateWithoutListActivitySeasonInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutEpisodeItemsInput = {
+export type ListUncheckedUpdateWithoutListActivitySeasonInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1399,50 +1399,50 @@ export type ListUncheckedUpdateWithoutEpisodeItemsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutActorItemsInput = {
+export type ListCreateWithoutListActivitySerieInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutActorItemsInput = {
+export type ListUncheckedCreateWithoutListActivitySerieInput = {
   id?: number
   name: string
   description?: string | null
@@ -1450,66 +1450,66 @@ export type ListUncheckedCreateWithoutActorItemsInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutActorItemsInput = {
+export type ListCreateOrConnectWithoutListActivitySerieInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutActorItemsInput, Prisma.ListUncheckedCreateWithoutActorItemsInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivitySerieInput, Prisma.ListUncheckedCreateWithoutListActivitySerieInput>
 }
 
-export type ListUpsertWithoutActorItemsInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutActorItemsInput, Prisma.ListUncheckedUpdateWithoutActorItemsInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutActorItemsInput, Prisma.ListUncheckedCreateWithoutActorItemsInput>
+export type ListUpsertWithoutListActivitySerieInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActivitySerieInput, Prisma.ListUncheckedUpdateWithoutListActivitySerieInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActivitySerieInput, Prisma.ListUncheckedCreateWithoutListActivitySerieInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutActorItemsInput = {
+export type ListUpdateToOneWithWhereWithoutListActivitySerieInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutActorItemsInput, Prisma.ListUncheckedUpdateWithoutActorItemsInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActivitySerieInput, Prisma.ListUncheckedUpdateWithoutListActivitySerieInput>
 }
 
-export type ListUpdateWithoutActorItemsInput = {
+export type ListUpdateWithoutListActivitySerieInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutActorItemsInput = {
+export type ListUncheckedUpdateWithoutListActivitySerieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1517,50 +1517,50 @@ export type ListUncheckedUpdateWithoutActorItemsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutCrewItemsInput = {
+export type ListCreateWithoutListActorInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutCrewItemsInput = {
+export type ListUncheckedCreateWithoutListActorInput = {
   id?: number
   name: string
   description?: string | null
@@ -1568,66 +1568,66 @@ export type ListUncheckedCreateWithoutCrewItemsInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutCrewItemsInput = {
+export type ListCreateOrConnectWithoutListActorInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutCrewItemsInput, Prisma.ListUncheckedCreateWithoutCrewItemsInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActorInput, Prisma.ListUncheckedCreateWithoutListActorInput>
 }
 
-export type ListUpsertWithoutCrewItemsInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutCrewItemsInput, Prisma.ListUncheckedUpdateWithoutCrewItemsInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutCrewItemsInput, Prisma.ListUncheckedCreateWithoutCrewItemsInput>
+export type ListUpsertWithoutListActorInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListActorInput, Prisma.ListUncheckedUpdateWithoutListActorInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListActorInput, Prisma.ListUncheckedCreateWithoutListActorInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutCrewItemsInput = {
+export type ListUpdateToOneWithWhereWithoutListActorInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutCrewItemsInput, Prisma.ListUncheckedUpdateWithoutCrewItemsInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListActorInput, Prisma.ListUncheckedUpdateWithoutListActorInput>
 }
 
-export type ListUpdateWithoutCrewItemsInput = {
+export type ListUpdateWithoutListActorInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutCrewItemsInput = {
+export type ListUncheckedUpdateWithoutListActorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1635,50 +1635,50 @@ export type ListUncheckedUpdateWithoutCrewItemsInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutMovieActivitiesInput = {
+export type ListCreateWithoutListCrewInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutMovieActivitiesInput = {
+export type ListUncheckedCreateWithoutListCrewInput = {
   id?: number
   name: string
   description?: string | null
@@ -1686,66 +1686,66 @@ export type ListUncheckedCreateWithoutMovieActivitiesInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutMovieActivitiesInput = {
+export type ListCreateOrConnectWithoutListCrewInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutMovieActivitiesInput, Prisma.ListUncheckedCreateWithoutMovieActivitiesInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListCrewInput, Prisma.ListUncheckedCreateWithoutListCrewInput>
 }
 
-export type ListUpsertWithoutMovieActivitiesInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutMovieActivitiesInput, Prisma.ListUncheckedUpdateWithoutMovieActivitiesInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutMovieActivitiesInput, Prisma.ListUncheckedCreateWithoutMovieActivitiesInput>
+export type ListUpsertWithoutListCrewInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListCrewInput, Prisma.ListUncheckedUpdateWithoutListCrewInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListCrewInput, Prisma.ListUncheckedCreateWithoutListCrewInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutMovieActivitiesInput = {
+export type ListUpdateToOneWithWhereWithoutListCrewInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutMovieActivitiesInput, Prisma.ListUncheckedUpdateWithoutMovieActivitiesInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListCrewInput, Prisma.ListUncheckedUpdateWithoutListCrewInput>
 }
 
-export type ListUpdateWithoutMovieActivitiesInput = {
+export type ListUpdateWithoutListCrewInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutMovieActivitiesInput = {
+export type ListUncheckedUpdateWithoutListCrewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1753,50 +1753,50 @@ export type ListUncheckedUpdateWithoutMovieActivitiesInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutSerieActivitiesInput = {
+export type ListCreateWithoutListEpisodeInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutSerieActivitiesInput = {
+export type ListUncheckedCreateWithoutListEpisodeInput = {
   id?: number
   name: string
   description?: string | null
@@ -1804,66 +1804,66 @@ export type ListUncheckedCreateWithoutSerieActivitiesInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutSerieActivitiesInput = {
+export type ListCreateOrConnectWithoutListEpisodeInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutSerieActivitiesInput, Prisma.ListUncheckedCreateWithoutSerieActivitiesInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListEpisodeInput, Prisma.ListUncheckedCreateWithoutListEpisodeInput>
 }
 
-export type ListUpsertWithoutSerieActivitiesInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutSerieActivitiesInput, Prisma.ListUncheckedUpdateWithoutSerieActivitiesInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutSerieActivitiesInput, Prisma.ListUncheckedCreateWithoutSerieActivitiesInput>
+export type ListUpsertWithoutListEpisodeInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListEpisodeInput, Prisma.ListUncheckedUpdateWithoutListEpisodeInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListEpisodeInput, Prisma.ListUncheckedCreateWithoutListEpisodeInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutSerieActivitiesInput = {
+export type ListUpdateToOneWithWhereWithoutListEpisodeInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutSerieActivitiesInput, Prisma.ListUncheckedUpdateWithoutSerieActivitiesInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListEpisodeInput, Prisma.ListUncheckedUpdateWithoutListEpisodeInput>
 }
 
-export type ListUpdateWithoutSerieActivitiesInput = {
+export type ListUpdateWithoutListEpisodeInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutSerieActivitiesInput = {
+export type ListUncheckedUpdateWithoutListEpisodeInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1871,50 +1871,50 @@ export type ListUncheckedUpdateWithoutSerieActivitiesInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutSeasonActivitiesInput = {
+export type ListCreateWithoutListMovieInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutSeasonActivitiesInput = {
+export type ListUncheckedCreateWithoutListMovieInput = {
   id?: number
   name: string
   description?: string | null
@@ -1922,66 +1922,66 @@ export type ListUncheckedCreateWithoutSeasonActivitiesInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutSeasonActivitiesInput = {
+export type ListCreateOrConnectWithoutListMovieInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutSeasonActivitiesInput, Prisma.ListUncheckedCreateWithoutSeasonActivitiesInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListMovieInput, Prisma.ListUncheckedCreateWithoutListMovieInput>
 }
 
-export type ListUpsertWithoutSeasonActivitiesInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutSeasonActivitiesInput, Prisma.ListUncheckedUpdateWithoutSeasonActivitiesInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutSeasonActivitiesInput, Prisma.ListUncheckedCreateWithoutSeasonActivitiesInput>
+export type ListUpsertWithoutListMovieInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListMovieInput, Prisma.ListUncheckedUpdateWithoutListMovieInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListMovieInput, Prisma.ListUncheckedCreateWithoutListMovieInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutSeasonActivitiesInput = {
+export type ListUpdateToOneWithWhereWithoutListMovieInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutSeasonActivitiesInput, Prisma.ListUncheckedUpdateWithoutSeasonActivitiesInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListMovieInput, Prisma.ListUncheckedUpdateWithoutListMovieInput>
 }
 
-export type ListUpdateWithoutSeasonActivitiesInput = {
+export type ListUpdateWithoutListMovieInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutSeasonActivitiesInput = {
+export type ListUncheckedUpdateWithoutListMovieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1989,50 +1989,50 @@ export type ListUncheckedUpdateWithoutSeasonActivitiesInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutEpisodeActivitiesInput = {
+export type ListCreateWithoutListSeasonInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutEpisodeActivitiesInput = {
+export type ListUncheckedCreateWithoutListSeasonInput = {
   id?: number
   name: string
   description?: string | null
@@ -2040,66 +2040,66 @@ export type ListUncheckedCreateWithoutEpisodeActivitiesInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutEpisodeActivitiesInput = {
+export type ListCreateOrConnectWithoutListSeasonInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutEpisodeActivitiesInput, Prisma.ListUncheckedCreateWithoutEpisodeActivitiesInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListSeasonInput, Prisma.ListUncheckedCreateWithoutListSeasonInput>
 }
 
-export type ListUpsertWithoutEpisodeActivitiesInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutEpisodeActivitiesInput, Prisma.ListUncheckedUpdateWithoutEpisodeActivitiesInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutEpisodeActivitiesInput, Prisma.ListUncheckedCreateWithoutEpisodeActivitiesInput>
+export type ListUpsertWithoutListSeasonInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListSeasonInput, Prisma.ListUncheckedUpdateWithoutListSeasonInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListSeasonInput, Prisma.ListUncheckedCreateWithoutListSeasonInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutEpisodeActivitiesInput = {
+export type ListUpdateToOneWithWhereWithoutListSeasonInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutEpisodeActivitiesInput, Prisma.ListUncheckedUpdateWithoutEpisodeActivitiesInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListSeasonInput, Prisma.ListUncheckedUpdateWithoutListSeasonInput>
 }
 
-export type ListUpdateWithoutEpisodeActivitiesInput = {
+export type ListUpdateWithoutListSeasonInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutEpisodeActivitiesInput = {
+export type ListUncheckedUpdateWithoutListSeasonInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2107,50 +2107,50 @@ export type ListUncheckedUpdateWithoutEpisodeActivitiesInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutActorActivitiesInput = {
+export type ListCreateWithoutListSerieInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutActorActivitiesInput = {
+export type ListUncheckedCreateWithoutListSerieInput = {
   id?: number
   name: string
   description?: string | null
@@ -2158,66 +2158,66 @@ export type ListUncheckedCreateWithoutActorActivitiesInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutActorActivitiesInput = {
+export type ListCreateOrConnectWithoutListSerieInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutActorActivitiesInput, Prisma.ListUncheckedCreateWithoutActorActivitiesInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListSerieInput, Prisma.ListUncheckedCreateWithoutListSerieInput>
 }
 
-export type ListUpsertWithoutActorActivitiesInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutActorActivitiesInput, Prisma.ListUncheckedUpdateWithoutActorActivitiesInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutActorActivitiesInput, Prisma.ListUncheckedCreateWithoutActorActivitiesInput>
+export type ListUpsertWithoutListSerieInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListSerieInput, Prisma.ListUncheckedUpdateWithoutListSerieInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListSerieInput, Prisma.ListUncheckedCreateWithoutListSerieInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutActorActivitiesInput = {
+export type ListUpdateToOneWithWhereWithoutListSerieInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutActorActivitiesInput, Prisma.ListUncheckedUpdateWithoutActorActivitiesInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListSerieInput, Prisma.ListUncheckedUpdateWithoutListSerieInput>
 }
 
-export type ListUpdateWithoutActorActivitiesInput = {
+export type ListUpdateWithoutListSerieInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutActorActivitiesInput = {
+export type ListUncheckedUpdateWithoutListSerieInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2225,50 +2225,50 @@ export type ListUncheckedUpdateWithoutActorActivitiesInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
-export type ListCreateWithoutCrewActivitiesInput = {
+export type ListCreateWithoutListShareInput = {
   name: string
   description?: string | null
   isPrivate?: boolean
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListsInput
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  User: Prisma.UserCreateNestedOneWithoutListInput
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
 }
 
-export type ListUncheckedCreateWithoutCrewActivitiesInput = {
+export type ListUncheckedCreateWithoutListShareInput = {
   id?: number
   name: string
   description?: string | null
@@ -2276,66 +2276,66 @@ export type ListUncheckedCreateWithoutCrewActivitiesInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
   userId: number
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
 }
 
-export type ListCreateOrConnectWithoutCrewActivitiesInput = {
+export type ListCreateOrConnectWithoutListShareInput = {
   where: Prisma.ListWhereUniqueInput
-  create: Prisma.XOR<Prisma.ListCreateWithoutCrewActivitiesInput, Prisma.ListUncheckedCreateWithoutCrewActivitiesInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListShareInput, Prisma.ListUncheckedCreateWithoutListShareInput>
 }
 
-export type ListUpsertWithoutCrewActivitiesInput = {
-  update: Prisma.XOR<Prisma.ListUpdateWithoutCrewActivitiesInput, Prisma.ListUncheckedUpdateWithoutCrewActivitiesInput>
-  create: Prisma.XOR<Prisma.ListCreateWithoutCrewActivitiesInput, Prisma.ListUncheckedCreateWithoutCrewActivitiesInput>
+export type ListUpsertWithoutListShareInput = {
+  update: Prisma.XOR<Prisma.ListUpdateWithoutListShareInput, Prisma.ListUncheckedUpdateWithoutListShareInput>
+  create: Prisma.XOR<Prisma.ListCreateWithoutListShareInput, Prisma.ListUncheckedCreateWithoutListShareInput>
   where?: Prisma.ListWhereInput
 }
 
-export type ListUpdateToOneWithWhereWithoutCrewActivitiesInput = {
+export type ListUpdateToOneWithWhereWithoutListShareInput = {
   where?: Prisma.ListWhereInput
-  data: Prisma.XOR<Prisma.ListUpdateWithoutCrewActivitiesInput, Prisma.ListUncheckedUpdateWithoutCrewActivitiesInput>
+  data: Prisma.XOR<Prisma.ListUpdateWithoutListShareInput, Prisma.ListUncheckedUpdateWithoutListShareInput>
 }
 
-export type ListUpdateWithoutCrewActivitiesInput = {
+export type ListUpdateWithoutListShareInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListsNestedInput
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  User?: Prisma.UserUpdateOneRequiredWithoutListNestedInput
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
 }
 
-export type ListUncheckedUpdateWithoutCrewActivitiesInput = {
+export type ListUncheckedUpdateWithoutListShareInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2343,22 +2343,22 @@ export type ListUncheckedUpdateWithoutCrewActivitiesInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
 }
 
 export type ListCreateWithoutUserInput = {
@@ -2368,22 +2368,22 @@ export type ListCreateWithoutUserInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  movieItems?: Prisma.ListMovieCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareCreateNestedManyWithoutListInput
 }
 
 export type ListUncheckedCreateWithoutUserInput = {
@@ -2394,22 +2394,22 @@ export type ListUncheckedCreateWithoutUserInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
-  movieItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
-  serieItems?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
-  seasonItems?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
-  episodeItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorItems?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
-  crewItems?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
-  sharedWith?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
-  actorActivities?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  contentType?: $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedCreateNestedManyWithoutListInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedCreateNestedManyWithoutListInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutListInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedCreateNestedManyWithoutListInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedCreateNestedManyWithoutListInput
+  ListActor?: Prisma.ListActorUncheckedCreateNestedManyWithoutListInput
+  ListCrew?: Prisma.ListCrewUncheckedCreateNestedManyWithoutListInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutListInput
+  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutListInput
+  ListSeason?: Prisma.ListSeasonUncheckedCreateNestedManyWithoutListInput
+  ListSerie?: Prisma.ListSerieUncheckedCreateNestedManyWithoutListInput
+  ListShare?: Prisma.ListShareUncheckedCreateNestedManyWithoutListInput
 }
 
 export type ListCreateOrConnectWithoutUserInput = {
@@ -2449,10 +2449,10 @@ export type ListScalarWhereInput = {
   isArchived?: Prisma.BoolFilter<"List"> | boolean
   isDefault?: Prisma.BoolFilter<"List"> | boolean
   createdAt?: Prisma.DateTimeFilter<"List"> | Date | string
-  contentType?: Prisma.EnumContentTypeNullableFilter<"List"> | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFilter<"List"> | Date | string
   lastViewedAt?: Prisma.DateTimeNullableFilter<"List"> | Date | string | null
   userId?: Prisma.IntFilter<"List"> | number
+  contentType?: Prisma.EnumContentTypeNullableFilter<"List"> | $Enums.ContentType | null
 }
 
 export type ListCreateManyUserInput = {
@@ -2463,9 +2463,9 @@ export type ListCreateManyUserInput = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: Date | string
-  contentType?: $Enums.ContentType | null
-  updatedAt?: Date | string
+  updatedAt: Date | string
   lastViewedAt?: Date | string | null
+  contentType?: $Enums.ContentType | null
 }
 
 export type ListUpdateWithoutUserInput = {
@@ -2475,22 +2475,22 @@ export type ListUpdateWithoutUserInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  movieItems?: Prisma.ListMovieUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUpdateManyWithoutListNestedInput
 }
 
 export type ListUncheckedUpdateWithoutUserInput = {
@@ -2501,22 +2501,22 @@ export type ListUncheckedUpdateWithoutUserInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  movieItems?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
-  serieItems?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
-  seasonItems?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorItems?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
-  crewItems?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
-  sharedWith?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
-  movieActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
-  serieActivities?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
-  seasonActivities?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
-  episodeActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
-  actorActivities?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
-  crewActivities?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
+  ListActivityActor?: Prisma.ListActivityActorUncheckedUpdateManyWithoutListNestedInput
+  ListActivityCrew?: Prisma.ListActivityCrewUncheckedUpdateManyWithoutListNestedInput
+  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySeason?: Prisma.ListActivitySeasonUncheckedUpdateManyWithoutListNestedInput
+  ListActivitySerie?: Prisma.ListActivitySerieUncheckedUpdateManyWithoutListNestedInput
+  ListActor?: Prisma.ListActorUncheckedUpdateManyWithoutListNestedInput
+  ListCrew?: Prisma.ListCrewUncheckedUpdateManyWithoutListNestedInput
+  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutListNestedInput
+  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutListNestedInput
+  ListSeason?: Prisma.ListSeasonUncheckedUpdateManyWithoutListNestedInput
+  ListSerie?: Prisma.ListSerieUncheckedUpdateManyWithoutListNestedInput
+  ListShare?: Prisma.ListShareUncheckedUpdateManyWithoutListNestedInput
 }
 
 export type ListUncheckedUpdateManyWithoutUserInput = {
@@ -2527,9 +2527,9 @@ export type ListUncheckedUpdateManyWithoutUserInput = {
   isArchived?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contentType?: Prisma.NullableEnumContentTypeFieldUpdateOperationsInput | $Enums.ContentType | null
 }
 
 
@@ -2538,35 +2538,35 @@ export type ListUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type ListCountOutputType = {
-  movieItems: number
-  serieItems: number
-  seasonItems: number
-  episodeItems: number
-  actorItems: number
-  crewItems: number
-  sharedWith: number
-  movieActivities: number
-  serieActivities: number
-  seasonActivities: number
-  episodeActivities: number
-  actorActivities: number
-  crewActivities: number
+  ListActivityActor: number
+  ListActivityCrew: number
+  ListActivityEpisode: number
+  ListActivityMovie: number
+  ListActivitySeason: number
+  ListActivitySerie: number
+  ListActor: number
+  ListCrew: number
+  ListEpisode: number
+  ListMovie: number
+  ListSeason: number
+  ListSerie: number
+  ListShare: number
 }
 
 export type ListCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  movieItems?: boolean | ListCountOutputTypeCountMovieItemsArgs
-  serieItems?: boolean | ListCountOutputTypeCountSerieItemsArgs
-  seasonItems?: boolean | ListCountOutputTypeCountSeasonItemsArgs
-  episodeItems?: boolean | ListCountOutputTypeCountEpisodeItemsArgs
-  actorItems?: boolean | ListCountOutputTypeCountActorItemsArgs
-  crewItems?: boolean | ListCountOutputTypeCountCrewItemsArgs
-  sharedWith?: boolean | ListCountOutputTypeCountSharedWithArgs
-  movieActivities?: boolean | ListCountOutputTypeCountMovieActivitiesArgs
-  serieActivities?: boolean | ListCountOutputTypeCountSerieActivitiesArgs
-  seasonActivities?: boolean | ListCountOutputTypeCountSeasonActivitiesArgs
-  episodeActivities?: boolean | ListCountOutputTypeCountEpisodeActivitiesArgs
-  actorActivities?: boolean | ListCountOutputTypeCountActorActivitiesArgs
-  crewActivities?: boolean | ListCountOutputTypeCountCrewActivitiesArgs
+  ListActivityActor?: boolean | ListCountOutputTypeCountListActivityActorArgs
+  ListActivityCrew?: boolean | ListCountOutputTypeCountListActivityCrewArgs
+  ListActivityEpisode?: boolean | ListCountOutputTypeCountListActivityEpisodeArgs
+  ListActivityMovie?: boolean | ListCountOutputTypeCountListActivityMovieArgs
+  ListActivitySeason?: boolean | ListCountOutputTypeCountListActivitySeasonArgs
+  ListActivitySerie?: boolean | ListCountOutputTypeCountListActivitySerieArgs
+  ListActor?: boolean | ListCountOutputTypeCountListActorArgs
+  ListCrew?: boolean | ListCountOutputTypeCountListCrewArgs
+  ListEpisode?: boolean | ListCountOutputTypeCountListEpisodeArgs
+  ListMovie?: boolean | ListCountOutputTypeCountListMovieArgs
+  ListSeason?: boolean | ListCountOutputTypeCountListSeasonArgs
+  ListSerie?: boolean | ListCountOutputTypeCountListSerieArgs
+  ListShare?: boolean | ListCountOutputTypeCountListShareArgs
 }
 
 /**
@@ -2582,92 +2582,92 @@ export type ListCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * ListCountOutputType without action
  */
-export type ListCountOutputTypeCountMovieItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListMovieWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountSerieItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListSerieWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountSeasonItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListSeasonWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountEpisodeItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListEpisodeWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountActorItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActorWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountCrewItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListCrewWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountSharedWithArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListShareWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountMovieActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivityMovieWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountSerieActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivitySerieWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountSeasonActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivitySeasonWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountEpisodeActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivityEpisodeWhereInput
-}
-
-/**
- * ListCountOutputType without action
- */
-export type ListCountOutputTypeCountActorActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ListCountOutputTypeCountListActivityActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ListActivityActorWhereInput
 }
 
 /**
  * ListCountOutputType without action
  */
-export type ListCountOutputTypeCountCrewActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ListCountOutputTypeCountListActivityCrewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ListActivityCrewWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListActivityEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivityEpisodeWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListActivityMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivityMovieWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListActivitySeasonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivitySeasonWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListActivitySerieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivitySerieWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActorWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListCrewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListCrewWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListEpisodeWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListMovieWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListSeasonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListSeasonWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListSerieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListSerieWhereInput
+}
+
+/**
+ * ListCountOutputType without action
+ */
+export type ListCountOutputTypeCountListShareArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListShareWhereInput
 }
 
 
@@ -2679,24 +2679,24 @@ export type ListSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: boolean
-  contentType?: boolean
   updatedAt?: boolean
   lastViewedAt?: boolean
   userId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movieItems?: boolean | Prisma.List$movieItemsArgs<ExtArgs>
-  serieItems?: boolean | Prisma.List$serieItemsArgs<ExtArgs>
-  seasonItems?: boolean | Prisma.List$seasonItemsArgs<ExtArgs>
-  episodeItems?: boolean | Prisma.List$episodeItemsArgs<ExtArgs>
-  actorItems?: boolean | Prisma.List$actorItemsArgs<ExtArgs>
-  crewItems?: boolean | Prisma.List$crewItemsArgs<ExtArgs>
-  sharedWith?: boolean | Prisma.List$sharedWithArgs<ExtArgs>
-  movieActivities?: boolean | Prisma.List$movieActivitiesArgs<ExtArgs>
-  serieActivities?: boolean | Prisma.List$serieActivitiesArgs<ExtArgs>
-  seasonActivities?: boolean | Prisma.List$seasonActivitiesArgs<ExtArgs>
-  episodeActivities?: boolean | Prisma.List$episodeActivitiesArgs<ExtArgs>
-  actorActivities?: boolean | Prisma.List$actorActivitiesArgs<ExtArgs>
-  crewActivities?: boolean | Prisma.List$crewActivitiesArgs<ExtArgs>
+  contentType?: boolean
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ListActivityActor?: boolean | Prisma.List$ListActivityActorArgs<ExtArgs>
+  ListActivityCrew?: boolean | Prisma.List$ListActivityCrewArgs<ExtArgs>
+  ListActivityEpisode?: boolean | Prisma.List$ListActivityEpisodeArgs<ExtArgs>
+  ListActivityMovie?: boolean | Prisma.List$ListActivityMovieArgs<ExtArgs>
+  ListActivitySeason?: boolean | Prisma.List$ListActivitySeasonArgs<ExtArgs>
+  ListActivitySerie?: boolean | Prisma.List$ListActivitySerieArgs<ExtArgs>
+  ListActor?: boolean | Prisma.List$ListActorArgs<ExtArgs>
+  ListCrew?: boolean | Prisma.List$ListCrewArgs<ExtArgs>
+  ListEpisode?: boolean | Prisma.List$ListEpisodeArgs<ExtArgs>
+  ListMovie?: boolean | Prisma.List$ListMovieArgs<ExtArgs>
+  ListSeason?: boolean | Prisma.List$ListSeasonArgs<ExtArgs>
+  ListSerie?: boolean | Prisma.List$ListSerieArgs<ExtArgs>
+  ListShare?: boolean | Prisma.List$ListShareArgs<ExtArgs>
   _count?: boolean | Prisma.ListCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["list"]>
 
@@ -2708,11 +2708,11 @@ export type ListSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: boolean
-  contentType?: boolean
   updatedAt?: boolean
   lastViewedAt?: boolean
   userId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  contentType?: boolean
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["list"]>
 
 export type ListSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2723,11 +2723,11 @@ export type ListSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: boolean
-  contentType?: boolean
   updatedAt?: boolean
   lastViewedAt?: boolean
   userId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  contentType?: boolean
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["list"]>
 
 export type ListSelectScalar = {
@@ -2738,54 +2738,54 @@ export type ListSelectScalar = {
   isArchived?: boolean
   isDefault?: boolean
   createdAt?: boolean
-  contentType?: boolean
   updatedAt?: boolean
   lastViewedAt?: boolean
   userId?: boolean
+  contentType?: boolean
 }
 
-export type ListOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isPrivate" | "isArchived" | "isDefault" | "createdAt" | "contentType" | "updatedAt" | "lastViewedAt" | "userId", ExtArgs["result"]["list"]>
+export type ListOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isPrivate" | "isArchived" | "isDefault" | "createdAt" | "updatedAt" | "lastViewedAt" | "userId" | "contentType", ExtArgs["result"]["list"]>
 export type ListInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movieItems?: boolean | Prisma.List$movieItemsArgs<ExtArgs>
-  serieItems?: boolean | Prisma.List$serieItemsArgs<ExtArgs>
-  seasonItems?: boolean | Prisma.List$seasonItemsArgs<ExtArgs>
-  episodeItems?: boolean | Prisma.List$episodeItemsArgs<ExtArgs>
-  actorItems?: boolean | Prisma.List$actorItemsArgs<ExtArgs>
-  crewItems?: boolean | Prisma.List$crewItemsArgs<ExtArgs>
-  sharedWith?: boolean | Prisma.List$sharedWithArgs<ExtArgs>
-  movieActivities?: boolean | Prisma.List$movieActivitiesArgs<ExtArgs>
-  serieActivities?: boolean | Prisma.List$serieActivitiesArgs<ExtArgs>
-  seasonActivities?: boolean | Prisma.List$seasonActivitiesArgs<ExtArgs>
-  episodeActivities?: boolean | Prisma.List$episodeActivitiesArgs<ExtArgs>
-  actorActivities?: boolean | Prisma.List$actorActivitiesArgs<ExtArgs>
-  crewActivities?: boolean | Prisma.List$crewActivitiesArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ListActivityActor?: boolean | Prisma.List$ListActivityActorArgs<ExtArgs>
+  ListActivityCrew?: boolean | Prisma.List$ListActivityCrewArgs<ExtArgs>
+  ListActivityEpisode?: boolean | Prisma.List$ListActivityEpisodeArgs<ExtArgs>
+  ListActivityMovie?: boolean | Prisma.List$ListActivityMovieArgs<ExtArgs>
+  ListActivitySeason?: boolean | Prisma.List$ListActivitySeasonArgs<ExtArgs>
+  ListActivitySerie?: boolean | Prisma.List$ListActivitySerieArgs<ExtArgs>
+  ListActor?: boolean | Prisma.List$ListActorArgs<ExtArgs>
+  ListCrew?: boolean | Prisma.List$ListCrewArgs<ExtArgs>
+  ListEpisode?: boolean | Prisma.List$ListEpisodeArgs<ExtArgs>
+  ListMovie?: boolean | Prisma.List$ListMovieArgs<ExtArgs>
+  ListSeason?: boolean | Prisma.List$ListSeasonArgs<ExtArgs>
+  ListSerie?: boolean | Prisma.List$ListSerieArgs<ExtArgs>
+  ListShare?: boolean | Prisma.List$ListShareArgs<ExtArgs>
   _count?: boolean | Prisma.ListCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ListIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "List"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    movieItems: Prisma.$ListMoviePayload<ExtArgs>[]
-    serieItems: Prisma.$ListSeriePayload<ExtArgs>[]
-    seasonItems: Prisma.$ListSeasonPayload<ExtArgs>[]
-    episodeItems: Prisma.$ListEpisodePayload<ExtArgs>[]
-    actorItems: Prisma.$ListActorPayload<ExtArgs>[]
-    crewItems: Prisma.$ListCrewPayload<ExtArgs>[]
-    sharedWith: Prisma.$ListSharePayload<ExtArgs>[]
-    movieActivities: Prisma.$ListActivityMoviePayload<ExtArgs>[]
-    serieActivities: Prisma.$ListActivitySeriePayload<ExtArgs>[]
-    seasonActivities: Prisma.$ListActivitySeasonPayload<ExtArgs>[]
-    episodeActivities: Prisma.$ListActivityEpisodePayload<ExtArgs>[]
-    actorActivities: Prisma.$ListActivityActorPayload<ExtArgs>[]
-    crewActivities: Prisma.$ListActivityCrewPayload<ExtArgs>[]
+    User: Prisma.$UserPayload<ExtArgs>
+    ListActivityActor: Prisma.$ListActivityActorPayload<ExtArgs>[]
+    ListActivityCrew: Prisma.$ListActivityCrewPayload<ExtArgs>[]
+    ListActivityEpisode: Prisma.$ListActivityEpisodePayload<ExtArgs>[]
+    ListActivityMovie: Prisma.$ListActivityMoviePayload<ExtArgs>[]
+    ListActivitySeason: Prisma.$ListActivitySeasonPayload<ExtArgs>[]
+    ListActivitySerie: Prisma.$ListActivitySeriePayload<ExtArgs>[]
+    ListActor: Prisma.$ListActorPayload<ExtArgs>[]
+    ListCrew: Prisma.$ListCrewPayload<ExtArgs>[]
+    ListEpisode: Prisma.$ListEpisodePayload<ExtArgs>[]
+    ListMovie: Prisma.$ListMoviePayload<ExtArgs>[]
+    ListSeason: Prisma.$ListSeasonPayload<ExtArgs>[]
+    ListSerie: Prisma.$ListSeriePayload<ExtArgs>[]
+    ListShare: Prisma.$ListSharePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2795,10 +2795,10 @@ export type $ListPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isArchived: boolean
     isDefault: boolean
     createdAt: Date
-    contentType: $Enums.ContentType | null
     updatedAt: Date
     lastViewedAt: Date | null
     userId: number
+    contentType: $Enums.ContentType | null
   }, ExtArgs["result"]["list"]>
   composites: {}
 }
@@ -3193,20 +3193,20 @@ readonly fields: ListFieldRefs;
  */
 export interface Prisma__ListClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  movieItems<T extends Prisma.List$movieItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$movieItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  serieItems<T extends Prisma.List$serieItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$serieItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListSeriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  seasonItems<T extends Prisma.List$seasonItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$seasonItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListSeasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  episodeItems<T extends Prisma.List$episodeItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$episodeItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  actorItems<T extends Prisma.List$actorItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$actorItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  crewItems<T extends Prisma.List$crewItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$crewItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListCrewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sharedWith<T extends Prisma.List$sharedWithArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$sharedWithArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  movieActivities<T extends Prisma.List$movieActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$movieActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  serieActivities<T extends Prisma.List$serieActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$serieActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivitySeriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  seasonActivities<T extends Prisma.List$seasonActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$seasonActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivitySeasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  episodeActivities<T extends Prisma.List$episodeActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$episodeActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  actorActivities<T extends Prisma.List$actorActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$actorActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  crewActivities<T extends Prisma.List$crewActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$crewActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityCrewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ListActivityActor<T extends Prisma.List$ListActivityActorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActivityActorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActivityCrew<T extends Prisma.List$ListActivityCrewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActivityCrewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityCrewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActivityEpisode<T extends Prisma.List$ListActivityEpisodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActivityEpisodeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActivityMovie<T extends Prisma.List$ListActivityMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActivityMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActivitySeason<T extends Prisma.List$ListActivitySeasonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActivitySeasonArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivitySeasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActivitySerie<T extends Prisma.List$ListActivitySerieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActivitySerieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivitySeriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListActor<T extends Prisma.List$ListActorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListActorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListCrew<T extends Prisma.List$ListCrewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListCrewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListCrewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListEpisode<T extends Prisma.List$ListEpisodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListEpisodeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListMovie<T extends Prisma.List$ListMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListSeason<T extends Prisma.List$ListSeasonArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListSeasonArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListSeasonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListSerie<T extends Prisma.List$ListSerieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListSerieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListSeriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ListShare<T extends Prisma.List$ListShareArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.List$ListShareArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3243,10 +3243,10 @@ export interface ListFieldRefs {
   readonly isArchived: Prisma.FieldRef<"List", 'Boolean'>
   readonly isDefault: Prisma.FieldRef<"List", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"List", 'DateTime'>
-  readonly contentType: Prisma.FieldRef<"List", 'ContentType'>
   readonly updatedAt: Prisma.FieldRef<"List", 'DateTime'>
   readonly lastViewedAt: Prisma.FieldRef<"List", 'DateTime'>
   readonly userId: Prisma.FieldRef<"List", 'Int'>
+  readonly contentType: Prisma.FieldRef<"List", 'ContentType'>
 }
     
 
@@ -3643,273 +3643,9 @@ export type ListDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * List.movieItems
+ * List.ListActivityActor
  */
-export type List$movieItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListMovie
-   */
-  select?: Prisma.ListMovieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListMovie
-   */
-  omit?: Prisma.ListMovieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListMovieInclude<ExtArgs> | null
-  where?: Prisma.ListMovieWhereInput
-  orderBy?: Prisma.ListMovieOrderByWithRelationInput | Prisma.ListMovieOrderByWithRelationInput[]
-  cursor?: Prisma.ListMovieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListMovieScalarFieldEnum | Prisma.ListMovieScalarFieldEnum[]
-}
-
-/**
- * List.serieItems
- */
-export type List$serieItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListSerie
-   */
-  select?: Prisma.ListSerieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListSerie
-   */
-  omit?: Prisma.ListSerieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListSerieInclude<ExtArgs> | null
-  where?: Prisma.ListSerieWhereInput
-  orderBy?: Prisma.ListSerieOrderByWithRelationInput | Prisma.ListSerieOrderByWithRelationInput[]
-  cursor?: Prisma.ListSerieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListSerieScalarFieldEnum | Prisma.ListSerieScalarFieldEnum[]
-}
-
-/**
- * List.seasonItems
- */
-export type List$seasonItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListSeason
-   */
-  select?: Prisma.ListSeasonSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListSeason
-   */
-  omit?: Prisma.ListSeasonOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListSeasonInclude<ExtArgs> | null
-  where?: Prisma.ListSeasonWhereInput
-  orderBy?: Prisma.ListSeasonOrderByWithRelationInput | Prisma.ListSeasonOrderByWithRelationInput[]
-  cursor?: Prisma.ListSeasonWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListSeasonScalarFieldEnum | Prisma.ListSeasonScalarFieldEnum[]
-}
-
-/**
- * List.episodeItems
- */
-export type List$episodeItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListEpisode
-   */
-  select?: Prisma.ListEpisodeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListEpisode
-   */
-  omit?: Prisma.ListEpisodeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListEpisodeInclude<ExtArgs> | null
-  where?: Prisma.ListEpisodeWhereInput
-  orderBy?: Prisma.ListEpisodeOrderByWithRelationInput | Prisma.ListEpisodeOrderByWithRelationInput[]
-  cursor?: Prisma.ListEpisodeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListEpisodeScalarFieldEnum | Prisma.ListEpisodeScalarFieldEnum[]
-}
-
-/**
- * List.actorItems
- */
-export type List$actorItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActor
-   */
-  select?: Prisma.ListActorSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActor
-   */
-  omit?: Prisma.ListActorOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActorInclude<ExtArgs> | null
-  where?: Prisma.ListActorWhereInput
-  orderBy?: Prisma.ListActorOrderByWithRelationInput | Prisma.ListActorOrderByWithRelationInput[]
-  cursor?: Prisma.ListActorWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActorScalarFieldEnum | Prisma.ListActorScalarFieldEnum[]
-}
-
-/**
- * List.crewItems
- */
-export type List$crewItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListCrew
-   */
-  select?: Prisma.ListCrewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListCrew
-   */
-  omit?: Prisma.ListCrewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListCrewInclude<ExtArgs> | null
-  where?: Prisma.ListCrewWhereInput
-  orderBy?: Prisma.ListCrewOrderByWithRelationInput | Prisma.ListCrewOrderByWithRelationInput[]
-  cursor?: Prisma.ListCrewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListCrewScalarFieldEnum | Prisma.ListCrewScalarFieldEnum[]
-}
-
-/**
- * List.sharedWith
- */
-export type List$sharedWithArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListShare
-   */
-  select?: Prisma.ListShareSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListShare
-   */
-  omit?: Prisma.ListShareOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListShareInclude<ExtArgs> | null
-  where?: Prisma.ListShareWhereInput
-  orderBy?: Prisma.ListShareOrderByWithRelationInput | Prisma.ListShareOrderByWithRelationInput[]
-  cursor?: Prisma.ListShareWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListShareScalarFieldEnum | Prisma.ListShareScalarFieldEnum[]
-}
-
-/**
- * List.movieActivities
- */
-export type List$movieActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivityMovie
-   */
-  select?: Prisma.ListActivityMovieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivityMovie
-   */
-  omit?: Prisma.ListActivityMovieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivityMovieInclude<ExtArgs> | null
-  where?: Prisma.ListActivityMovieWhereInput
-  orderBy?: Prisma.ListActivityMovieOrderByWithRelationInput | Prisma.ListActivityMovieOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivityMovieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivityMovieScalarFieldEnum | Prisma.ListActivityMovieScalarFieldEnum[]
-}
-
-/**
- * List.serieActivities
- */
-export type List$serieActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivitySerie
-   */
-  select?: Prisma.ListActivitySerieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivitySerie
-   */
-  omit?: Prisma.ListActivitySerieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivitySerieInclude<ExtArgs> | null
-  where?: Prisma.ListActivitySerieWhereInput
-  orderBy?: Prisma.ListActivitySerieOrderByWithRelationInput | Prisma.ListActivitySerieOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivitySerieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivitySerieScalarFieldEnum | Prisma.ListActivitySerieScalarFieldEnum[]
-}
-
-/**
- * List.seasonActivities
- */
-export type List$seasonActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivitySeason
-   */
-  select?: Prisma.ListActivitySeasonSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivitySeason
-   */
-  omit?: Prisma.ListActivitySeasonOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivitySeasonInclude<ExtArgs> | null
-  where?: Prisma.ListActivitySeasonWhereInput
-  orderBy?: Prisma.ListActivitySeasonOrderByWithRelationInput | Prisma.ListActivitySeasonOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivitySeasonWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivitySeasonScalarFieldEnum | Prisma.ListActivitySeasonScalarFieldEnum[]
-}
-
-/**
- * List.episodeActivities
- */
-export type List$episodeActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivityEpisode
-   */
-  select?: Prisma.ListActivityEpisodeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivityEpisode
-   */
-  omit?: Prisma.ListActivityEpisodeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivityEpisodeInclude<ExtArgs> | null
-  where?: Prisma.ListActivityEpisodeWhereInput
-  orderBy?: Prisma.ListActivityEpisodeOrderByWithRelationInput | Prisma.ListActivityEpisodeOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivityEpisodeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivityEpisodeScalarFieldEnum | Prisma.ListActivityEpisodeScalarFieldEnum[]
-}
-
-/**
- * List.actorActivities
- */
-export type List$actorActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type List$ListActivityActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ListActivityActor
    */
@@ -3931,9 +3667,9 @@ export type List$actorActivitiesArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * List.crewActivities
+ * List.ListActivityCrew
  */
-export type List$crewActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type List$ListActivityCrewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ListActivityCrew
    */
@@ -3952,6 +3688,270 @@ export type List$crewActivitiesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ListActivityCrewScalarFieldEnum | Prisma.ListActivityCrewScalarFieldEnum[]
+}
+
+/**
+ * List.ListActivityEpisode
+ */
+export type List$ListActivityEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActivityEpisode
+   */
+  select?: Prisma.ListActivityEpisodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActivityEpisode
+   */
+  omit?: Prisma.ListActivityEpisodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActivityEpisodeInclude<ExtArgs> | null
+  where?: Prisma.ListActivityEpisodeWhereInput
+  orderBy?: Prisma.ListActivityEpisodeOrderByWithRelationInput | Prisma.ListActivityEpisodeOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivityEpisodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActivityEpisodeScalarFieldEnum | Prisma.ListActivityEpisodeScalarFieldEnum[]
+}
+
+/**
+ * List.ListActivityMovie
+ */
+export type List$ListActivityMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActivityMovie
+   */
+  select?: Prisma.ListActivityMovieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActivityMovie
+   */
+  omit?: Prisma.ListActivityMovieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActivityMovieInclude<ExtArgs> | null
+  where?: Prisma.ListActivityMovieWhereInput
+  orderBy?: Prisma.ListActivityMovieOrderByWithRelationInput | Prisma.ListActivityMovieOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivityMovieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActivityMovieScalarFieldEnum | Prisma.ListActivityMovieScalarFieldEnum[]
+}
+
+/**
+ * List.ListActivitySeason
+ */
+export type List$ListActivitySeasonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActivitySeason
+   */
+  select?: Prisma.ListActivitySeasonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActivitySeason
+   */
+  omit?: Prisma.ListActivitySeasonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActivitySeasonInclude<ExtArgs> | null
+  where?: Prisma.ListActivitySeasonWhereInput
+  orderBy?: Prisma.ListActivitySeasonOrderByWithRelationInput | Prisma.ListActivitySeasonOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivitySeasonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActivitySeasonScalarFieldEnum | Prisma.ListActivitySeasonScalarFieldEnum[]
+}
+
+/**
+ * List.ListActivitySerie
+ */
+export type List$ListActivitySerieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActivitySerie
+   */
+  select?: Prisma.ListActivitySerieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActivitySerie
+   */
+  omit?: Prisma.ListActivitySerieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActivitySerieInclude<ExtArgs> | null
+  where?: Prisma.ListActivitySerieWhereInput
+  orderBy?: Prisma.ListActivitySerieOrderByWithRelationInput | Prisma.ListActivitySerieOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivitySerieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActivitySerieScalarFieldEnum | Prisma.ListActivitySerieScalarFieldEnum[]
+}
+
+/**
+ * List.ListActor
+ */
+export type List$ListActorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActor
+   */
+  select?: Prisma.ListActorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActor
+   */
+  omit?: Prisma.ListActorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActorInclude<ExtArgs> | null
+  where?: Prisma.ListActorWhereInput
+  orderBy?: Prisma.ListActorOrderByWithRelationInput | Prisma.ListActorOrderByWithRelationInput[]
+  cursor?: Prisma.ListActorWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActorScalarFieldEnum | Prisma.ListActorScalarFieldEnum[]
+}
+
+/**
+ * List.ListCrew
+ */
+export type List$ListCrewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListCrew
+   */
+  select?: Prisma.ListCrewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListCrew
+   */
+  omit?: Prisma.ListCrewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListCrewInclude<ExtArgs> | null
+  where?: Prisma.ListCrewWhereInput
+  orderBy?: Prisma.ListCrewOrderByWithRelationInput | Prisma.ListCrewOrderByWithRelationInput[]
+  cursor?: Prisma.ListCrewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListCrewScalarFieldEnum | Prisma.ListCrewScalarFieldEnum[]
+}
+
+/**
+ * List.ListEpisode
+ */
+export type List$ListEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListEpisode
+   */
+  select?: Prisma.ListEpisodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListEpisode
+   */
+  omit?: Prisma.ListEpisodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListEpisodeInclude<ExtArgs> | null
+  where?: Prisma.ListEpisodeWhereInput
+  orderBy?: Prisma.ListEpisodeOrderByWithRelationInput | Prisma.ListEpisodeOrderByWithRelationInput[]
+  cursor?: Prisma.ListEpisodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListEpisodeScalarFieldEnum | Prisma.ListEpisodeScalarFieldEnum[]
+}
+
+/**
+ * List.ListMovie
+ */
+export type List$ListMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListMovie
+   */
+  select?: Prisma.ListMovieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListMovie
+   */
+  omit?: Prisma.ListMovieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListMovieInclude<ExtArgs> | null
+  where?: Prisma.ListMovieWhereInput
+  orderBy?: Prisma.ListMovieOrderByWithRelationInput | Prisma.ListMovieOrderByWithRelationInput[]
+  cursor?: Prisma.ListMovieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListMovieScalarFieldEnum | Prisma.ListMovieScalarFieldEnum[]
+}
+
+/**
+ * List.ListSeason
+ */
+export type List$ListSeasonArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListSeason
+   */
+  select?: Prisma.ListSeasonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListSeason
+   */
+  omit?: Prisma.ListSeasonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListSeasonInclude<ExtArgs> | null
+  where?: Prisma.ListSeasonWhereInput
+  orderBy?: Prisma.ListSeasonOrderByWithRelationInput | Prisma.ListSeasonOrderByWithRelationInput[]
+  cursor?: Prisma.ListSeasonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListSeasonScalarFieldEnum | Prisma.ListSeasonScalarFieldEnum[]
+}
+
+/**
+ * List.ListSerie
+ */
+export type List$ListSerieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListSerie
+   */
+  select?: Prisma.ListSerieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListSerie
+   */
+  omit?: Prisma.ListSerieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListSerieInclude<ExtArgs> | null
+  where?: Prisma.ListSerieWhereInput
+  orderBy?: Prisma.ListSerieOrderByWithRelationInput | Prisma.ListSerieOrderByWithRelationInput[]
+  cursor?: Prisma.ListSerieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListSerieScalarFieldEnum | Prisma.ListSerieScalarFieldEnum[]
+}
+
+/**
+ * List.ListShare
+ */
+export type List$ListShareArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListShare
+   */
+  select?: Prisma.ListShareSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListShare
+   */
+  omit?: Prisma.ListShareOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListShareInclude<ExtArgs> | null
+  where?: Prisma.ListShareWhereInput
+  orderBy?: Prisma.ListShareOrderByWithRelationInput | Prisma.ListShareOrderByWithRelationInput[]
+  cursor?: Prisma.ListShareWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListShareScalarFieldEnum | Prisma.ListShareScalarFieldEnum[]
 }
 
 /**

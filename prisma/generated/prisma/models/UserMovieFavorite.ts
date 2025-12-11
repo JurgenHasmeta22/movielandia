@@ -208,16 +208,16 @@ export type UserMovieFavoriteWhereInput = {
   id?: Prisma.IntFilter<"UserMovieFavorite"> | number
   userId?: Prisma.IntFilter<"UserMovieFavorite"> | number
   movieId?: Prisma.IntFilter<"UserMovieFavorite"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserMovieFavoriteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  movie?: Prisma.MovieOrderByWithRelationInput
+  Movie?: Prisma.MovieOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserMovieFavoriteWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserMovieFavoriteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserMovieFavoriteWhereInput | Prisma.UserMovieFavoriteWhereInput[]
   userId?: Prisma.IntFilter<"UserMovieFavorite"> | number
   movieId?: Prisma.IntFilter<"UserMovieFavorite"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_movieId">
 
 export type UserMovieFavoriteOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserMovieFavoriteScalarWhereWithAggregatesInput = {
 }
 
 export type UserMovieFavoriteCreateInput = {
-  user: Prisma.UserCreateNestedOneWithoutFavMoviesInput
-  movie: Prisma.MovieCreateNestedOneWithoutUsersWhoBookmarkedItInput
+  Movie: Prisma.MovieCreateNestedOneWithoutUserMovieFavoriteInput
+  User: Prisma.UserCreateNestedOneWithoutUserMovieFavoriteInput
 }
 
 export type UserMovieFavoriteUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserMovieFavoriteUncheckedCreateInput = {
 }
 
 export type UserMovieFavoriteUpdateInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutFavMoviesNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutUserMovieFavoriteNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserMovieFavoriteNestedInput
 }
 
 export type UserMovieFavoriteUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type UserMovieFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UserMovieFavoriteCreateWithoutMovieInput = {
-  user: Prisma.UserCreateNestedOneWithoutFavMoviesInput
+  User: Prisma.UserCreateNestedOneWithoutUserMovieFavoriteInput
 }
 
 export type UserMovieFavoriteUncheckedCreateWithoutMovieInput = {
@@ -464,7 +464,7 @@ export type UserMovieFavoriteScalarWhereInput = {
 }
 
 export type UserMovieFavoriteCreateWithoutUserInput = {
-  movie: Prisma.MovieCreateNestedOneWithoutUsersWhoBookmarkedItInput
+  Movie: Prisma.MovieCreateNestedOneWithoutUserMovieFavoriteInput
 }
 
 export type UserMovieFavoriteUncheckedCreateWithoutUserInput = {
@@ -504,7 +504,7 @@ export type UserMovieFavoriteCreateManyMovieInput = {
 }
 
 export type UserMovieFavoriteUpdateWithoutMovieInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutFavMoviesNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserMovieFavoriteNestedInput
 }
 
 export type UserMovieFavoriteUncheckedUpdateWithoutMovieInput = {
@@ -523,7 +523,7 @@ export type UserMovieFavoriteCreateManyUserInput = {
 }
 
 export type UserMovieFavoriteUpdateWithoutUserInput = {
-  movie?: Prisma.MovieUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutUserMovieFavoriteNestedInput
 }
 
 export type UserMovieFavoriteUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserMovieFavoriteSelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   userId?: boolean
   movieId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userMovieFavorite"]>
 
 export type UserMovieFavoriteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   movieId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userMovieFavorite"]>
 
 export type UserMovieFavoriteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   movieId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userMovieFavorite"]>
 
 export type UserMovieFavoriteSelectScalar = {
@@ -570,23 +570,23 @@ export type UserMovieFavoriteSelectScalar = {
 
 export type UserMovieFavoriteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "movieId", ExtArgs["result"]["userMovieFavorite"]>
 export type UserMovieFavoriteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserMovieFavoriteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserMovieFavoriteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserMovieFavoritePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserMovieFavorite"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    movie: Prisma.$MoviePayload<ExtArgs>
+    Movie: Prisma.$MoviePayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserMovieFavoriteFieldRefs;
  */
 export interface Prisma__UserMovieFavoriteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

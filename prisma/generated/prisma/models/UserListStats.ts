@@ -240,7 +240,7 @@ export type UserListStatsWhereInput = {
   totalItems?: Prisma.IntFilter<"UserListStats"> | number
   sharedLists?: Prisma.IntFilter<"UserListStats"> | number
   lastListAt?: Prisma.DateTimeNullableFilter<"UserListStats"> | Date | string | null
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserListStatsOrderByWithRelationInput = {
@@ -250,7 +250,7 @@ export type UserListStatsOrderByWithRelationInput = {
   totalItems?: Prisma.SortOrder
   sharedLists?: Prisma.SortOrder
   lastListAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserListStatsWhereUniqueInput = Prisma.AtLeast<{
@@ -263,7 +263,7 @@ export type UserListStatsWhereUniqueInput = Prisma.AtLeast<{
   totalItems?: Prisma.IntFilter<"UserListStats"> | number
   sharedLists?: Prisma.IntFilter<"UserListStats"> | number
   lastListAt?: Prisma.DateTimeNullableFilter<"UserListStats"> | Date | string | null
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
 export type UserListStatsOrderByWithAggregationInput = {
@@ -297,7 +297,7 @@ export type UserListStatsCreateInput = {
   totalItems?: number
   sharedLists?: number
   lastListAt?: Date | string | null
-  user: Prisma.UserCreateNestedOneWithoutListStatsInput
+  User: Prisma.UserCreateNestedOneWithoutUserListStatsInput
 }
 
 export type UserListStatsUncheckedCreateInput = {
@@ -314,7 +314,7 @@ export type UserListStatsUpdateInput = {
   totalItems?: Prisma.IntFieldUpdateOperationsInput | number
   sharedLists?: Prisma.IntFieldUpdateOperationsInput | number
   lastListAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  user?: Prisma.UserUpdateOneRequiredWithoutListStatsNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserListStatsNestedInput
 }
 
 export type UserListStatsUncheckedUpdateInput = {
@@ -486,7 +486,7 @@ export type UserListStatsSelect<ExtArgs extends runtime.Types.Extensions.Interna
   totalItems?: boolean
   sharedLists?: boolean
   lastListAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userListStats"]>
 
 export type UserListStatsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -496,7 +496,7 @@ export type UserListStatsSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   totalItems?: boolean
   sharedLists?: boolean
   lastListAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userListStats"]>
 
 export type UserListStatsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -506,7 +506,7 @@ export type UserListStatsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   totalItems?: boolean
   sharedLists?: boolean
   lastListAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userListStats"]>
 
 export type UserListStatsSelectScalar = {
@@ -520,19 +520,19 @@ export type UserListStatsSelectScalar = {
 
 export type UserListStatsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "totalLists" | "totalItems" | "sharedLists" | "lastListAt", ExtArgs["result"]["userListStats"]>
 export type UserListStatsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserListStatsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserListStatsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserListStatsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserListStats"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -935,7 +935,7 @@ readonly fields: UserListStatsFieldRefs;
  */
 export interface Prisma__UserListStatsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

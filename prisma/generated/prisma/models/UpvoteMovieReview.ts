@@ -220,9 +220,9 @@ export type UpvoteMovieReviewWhereInput = {
   userId?: Prisma.IntFilter<"UpvoteMovieReview"> | number
   movieId?: Prisma.IntFilter<"UpvoteMovieReview"> | number
   movieReviewId?: Prisma.IntFilter<"UpvoteMovieReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  movieReview?: Prisma.XOR<Prisma.MovieReviewNullableScalarRelationFilter, Prisma.MovieReviewWhereInput> | null
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  MovieReview?: Prisma.XOR<Prisma.MovieReviewScalarRelationFilter, Prisma.MovieReviewWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UpvoteMovieReviewOrderByWithRelationInput = {
@@ -230,9 +230,9 @@ export type UpvoteMovieReviewOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   movieReviewId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  movie?: Prisma.MovieOrderByWithRelationInput
-  movieReview?: Prisma.MovieReviewOrderByWithRelationInput
+  Movie?: Prisma.MovieOrderByWithRelationInput
+  MovieReview?: Prisma.MovieReviewOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UpvoteMovieReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -244,9 +244,9 @@ export type UpvoteMovieReviewWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.IntFilter<"UpvoteMovieReview"> | number
   movieId?: Prisma.IntFilter<"UpvoteMovieReview"> | number
   movieReviewId?: Prisma.IntFilter<"UpvoteMovieReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  movieReview?: Prisma.XOR<Prisma.MovieReviewNullableScalarRelationFilter, Prisma.MovieReviewWhereInput> | null
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  MovieReview?: Prisma.XOR<Prisma.MovieReviewScalarRelationFilter, Prisma.MovieReviewWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_movieId_movieReviewId">
 
 export type UpvoteMovieReviewOrderByWithAggregationInput = {
@@ -272,9 +272,9 @@ export type UpvoteMovieReviewScalarWhereWithAggregatesInput = {
 }
 
 export type UpvoteMovieReviewCreateInput = {
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsUpvotedInput
-  movie: Prisma.MovieCreateNestedOneWithoutUpvoteMovieReviewsInput
-  movieReview?: Prisma.MovieReviewCreateNestedOneWithoutUpvotesInput
+  Movie: Prisma.MovieCreateNestedOneWithoutUpvoteMovieReviewInput
+  MovieReview: Prisma.MovieReviewCreateNestedOneWithoutUpvoteMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutUpvoteMovieReviewInput
 }
 
 export type UpvoteMovieReviewUncheckedCreateInput = {
@@ -285,9 +285,9 @@ export type UpvoteMovieReviewUncheckedCreateInput = {
 }
 
 export type UpvoteMovieReviewUpdateInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsUpvotedNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutUpvoteMovieReviewsNestedInput
-  movieReview?: Prisma.MovieReviewUpdateOneWithoutUpvotesNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
+  MovieReview?: Prisma.MovieReviewUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
 }
 
 export type UpvoteMovieReviewUncheckedUpdateInput = {
@@ -493,8 +493,8 @@ export type UpvoteMovieReviewUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UpvoteMovieReviewCreateWithoutMovieInput = {
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsUpvotedInput
-  movieReview?: Prisma.MovieReviewCreateNestedOneWithoutUpvotesInput
+  MovieReview: Prisma.MovieReviewCreateNestedOneWithoutUpvoteMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutUpvoteMovieReviewInput
 }
 
 export type UpvoteMovieReviewUncheckedCreateWithoutMovieInput = {
@@ -540,8 +540,8 @@ export type UpvoteMovieReviewScalarWhereInput = {
 }
 
 export type UpvoteMovieReviewCreateWithoutMovieReviewInput = {
-  user: Prisma.UserCreateNestedOneWithoutMovieReviewsUpvotedInput
-  movie: Prisma.MovieCreateNestedOneWithoutUpvoteMovieReviewsInput
+  Movie: Prisma.MovieCreateNestedOneWithoutUpvoteMovieReviewInput
+  User: Prisma.UserCreateNestedOneWithoutUpvoteMovieReviewInput
 }
 
 export type UpvoteMovieReviewUncheckedCreateWithoutMovieReviewInput = {
@@ -577,8 +577,8 @@ export type UpvoteMovieReviewUpdateManyWithWhereWithoutMovieReviewInput = {
 }
 
 export type UpvoteMovieReviewCreateWithoutUserInput = {
-  movie: Prisma.MovieCreateNestedOneWithoutUpvoteMovieReviewsInput
-  movieReview?: Prisma.MovieReviewCreateNestedOneWithoutUpvotesInput
+  Movie: Prisma.MovieCreateNestedOneWithoutUpvoteMovieReviewInput
+  MovieReview: Prisma.MovieReviewCreateNestedOneWithoutUpvoteMovieReviewInput
 }
 
 export type UpvoteMovieReviewUncheckedCreateWithoutUserInput = {
@@ -620,8 +620,8 @@ export type UpvoteMovieReviewCreateManyMovieInput = {
 }
 
 export type UpvoteMovieReviewUpdateWithoutMovieInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsUpvotedNestedInput
-  movieReview?: Prisma.MovieReviewUpdateOneWithoutUpvotesNestedInput
+  MovieReview?: Prisma.MovieReviewUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
 }
 
 export type UpvoteMovieReviewUncheckedUpdateWithoutMovieInput = {
@@ -643,8 +643,8 @@ export type UpvoteMovieReviewCreateManyMovieReviewInput = {
 }
 
 export type UpvoteMovieReviewUpdateWithoutMovieReviewInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutMovieReviewsUpvotedNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutUpvoteMovieReviewsNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
 }
 
 export type UpvoteMovieReviewUncheckedUpdateWithoutMovieReviewInput = {
@@ -666,8 +666,8 @@ export type UpvoteMovieReviewCreateManyUserInput = {
 }
 
 export type UpvoteMovieReviewUpdateWithoutUserInput = {
-  movie?: Prisma.MovieUpdateOneRequiredWithoutUpvoteMovieReviewsNestedInput
-  movieReview?: Prisma.MovieReviewUpdateOneWithoutUpvotesNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
+  MovieReview?: Prisma.MovieReviewUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput
 }
 
 export type UpvoteMovieReviewUncheckedUpdateWithoutUserInput = {
@@ -689,9 +689,9 @@ export type UpvoteMovieReviewSelect<ExtArgs extends runtime.Types.Extensions.Int
   userId?: boolean
   movieId?: boolean
   movieReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  movieReview?: boolean | Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  MovieReview?: boolean | Prisma.MovieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteMovieReview"]>
 
 export type UpvoteMovieReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -699,9 +699,9 @@ export type UpvoteMovieReviewSelectCreateManyAndReturn<ExtArgs extends runtime.T
   userId?: boolean
   movieId?: boolean
   movieReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  movieReview?: boolean | Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  MovieReview?: boolean | Prisma.MovieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteMovieReview"]>
 
 export type UpvoteMovieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -709,9 +709,9 @@ export type UpvoteMovieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   userId?: boolean
   movieId?: boolean
   movieReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  movieReview?: boolean | Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  MovieReview?: boolean | Prisma.MovieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteMovieReview"]>
 
 export type UpvoteMovieReviewSelectScalar = {
@@ -723,27 +723,27 @@ export type UpvoteMovieReviewSelectScalar = {
 
 export type UpvoteMovieReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "movieId" | "movieReviewId", ExtArgs["result"]["upvoteMovieReview"]>
 export type UpvoteMovieReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  movieReview?: boolean | Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  MovieReview?: boolean | Prisma.MovieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UpvoteMovieReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  movieReview?: boolean | Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  MovieReview?: boolean | Prisma.MovieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UpvoteMovieReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  movieReview?: boolean | Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  MovieReview?: boolean | Prisma.MovieReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UpvoteMovieReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UpvoteMovieReview"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    movie: Prisma.$MoviePayload<ExtArgs>
-    movieReview: Prisma.$MovieReviewPayload<ExtArgs> | null
+    Movie: Prisma.$MoviePayload<ExtArgs>
+    MovieReview: Prisma.$MovieReviewPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1144,9 +1144,9 @@ readonly fields: UpvoteMovieReviewFieldRefs;
  */
 export interface Prisma__UpvoteMovieReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  movieReview<T extends Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UpvoteMovieReview$movieReviewArgs<ExtArgs>>): Prisma.Prisma__MovieReviewClient<runtime.Types.Result.GetResult<Prisma.$MovieReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  MovieReview<T extends Prisma.MovieReviewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieReviewDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieReviewClient<runtime.Types.Result.GetResult<Prisma.$MovieReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1573,25 +1573,6 @@ export type UpvoteMovieReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many UpvoteMovieReviews to delete.
    */
   limit?: number
-}
-
-/**
- * UpvoteMovieReview.movieReview
- */
-export type UpvoteMovieReview$movieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MovieReview
-   */
-  select?: Prisma.MovieReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MovieReview
-   */
-  omit?: Prisma.MovieReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MovieReviewInclude<ExtArgs> | null
-  where?: Prisma.MovieReviewWhereInput
 }
 
 /**

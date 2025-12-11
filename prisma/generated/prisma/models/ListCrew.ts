@@ -29,17 +29,17 @@ export type AggregateListCrew = {
 export type ListCrewAvgAggregateOutputType = {
   id: number | null
   orderIndex: number | null
-  listId: number | null
   crewId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListCrewSumAggregateOutputType = {
   id: number | null
   orderIndex: number | null
-  listId: number | null
   crewId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListCrewMinAggregateOutputType = {
@@ -47,9 +47,9 @@ export type ListCrewMinAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
-  listId: number | null
   crewId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListCrewMaxAggregateOutputType = {
@@ -57,9 +57,9 @@ export type ListCrewMaxAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
-  listId: number | null
   crewId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListCrewCountAggregateOutputType = {
@@ -67,9 +67,9 @@ export type ListCrewCountAggregateOutputType = {
   addedAt: number
   note: number
   orderIndex: number
-  listId: number
   crewId: number
   userId: number
+  listId: number
   _all: number
 }
 
@@ -77,17 +77,17 @@ export type ListCrewCountAggregateOutputType = {
 export type ListCrewAvgAggregateInputType = {
   id?: true
   orderIndex?: true
-  listId?: true
   crewId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListCrewSumAggregateInputType = {
   id?: true
   orderIndex?: true
-  listId?: true
   crewId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListCrewMinAggregateInputType = {
@@ -95,9 +95,9 @@ export type ListCrewMinAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
-  listId?: true
   crewId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListCrewMaxAggregateInputType = {
@@ -105,9 +105,9 @@ export type ListCrewMaxAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
-  listId?: true
   crewId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListCrewCountAggregateInputType = {
@@ -115,9 +115,9 @@ export type ListCrewCountAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
-  listId?: true
   crewId?: true
   userId?: true
+  listId?: true
   _all?: true
 }
 
@@ -212,9 +212,9 @@ export type ListCrewGroupByOutputType = {
   addedAt: Date
   note: string | null
   orderIndex: number
-  listId: number
   crewId: number
   userId: number
+  listId: number
   _count: ListCrewCountAggregateOutputType | null
   _avg: ListCrewAvgAggregateOutputType | null
   _sum: ListCrewSumAggregateOutputType | null
@@ -245,12 +245,12 @@ export type ListCrewWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListCrew"> | Date | string
   note?: Prisma.StringNullableFilter<"ListCrew"> | string | null
   orderIndex?: Prisma.IntFilter<"ListCrew"> | number
-  listId?: Prisma.IntFilter<"ListCrew"> | number
   crewId?: Prisma.IntFilter<"ListCrew"> | number
   userId?: Prisma.IntFilter<"ListCrew"> | number
-  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listId?: Prisma.IntFilter<"ListCrew"> | number
+  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
+  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListCrewOrderByWithRelationInput = {
@@ -258,12 +258,12 @@ export type ListCrewOrderByWithRelationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  list?: Prisma.ListOrderByWithRelationInput
-  crew?: Prisma.CrewOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  listId?: Prisma.SortOrder
+  Crew?: Prisma.CrewOrderByWithRelationInput
+  List?: Prisma.ListOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ListCrewOrderByRelevanceInput
 }
 
@@ -276,12 +276,12 @@ export type ListCrewWhereUniqueInput = Prisma.AtLeast<{
   addedAt?: Prisma.DateTimeFilter<"ListCrew"> | Date | string
   note?: Prisma.StringNullableFilter<"ListCrew"> | string | null
   orderIndex?: Prisma.IntFilter<"ListCrew"> | number
-  listId?: Prisma.IntFilter<"ListCrew"> | number
   crewId?: Prisma.IntFilter<"ListCrew"> | number
   userId?: Prisma.IntFilter<"ListCrew"> | number
-  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listId?: Prisma.IntFilter<"ListCrew"> | number
+  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
+  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "listId_crewId">
 
 export type ListCrewOrderByWithAggregationInput = {
@@ -289,9 +289,9 @@ export type ListCrewOrderByWithAggregationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   _count?: Prisma.ListCrewCountOrderByAggregateInput
   _avg?: Prisma.ListCrewAvgOrderByAggregateInput
   _max?: Prisma.ListCrewMaxOrderByAggregateInput
@@ -307,18 +307,18 @@ export type ListCrewScalarWhereWithAggregatesInput = {
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"ListCrew"> | Date | string
   note?: Prisma.StringNullableWithAggregatesFilter<"ListCrew"> | string | null
   orderIndex?: Prisma.IntWithAggregatesFilter<"ListCrew"> | number
-  listId?: Prisma.IntWithAggregatesFilter<"ListCrew"> | number
   crewId?: Prisma.IntWithAggregatesFilter<"ListCrew"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListCrew"> | number
+  listId?: Prisma.IntWithAggregatesFilter<"ListCrew"> | number
 }
 
 export type ListCrewCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  list: Prisma.ListCreateNestedOneWithoutCrewItemsInput
-  crew: Prisma.CrewCreateNestedOneWithoutListItemsInput
-  user: Prisma.UserCreateNestedOneWithoutAddedCrewItemsInput
+  Crew: Prisma.CrewCreateNestedOneWithoutListCrewInput
+  List: Prisma.ListCreateNestedOneWithoutListCrewInput
+  User: Prisma.UserCreateNestedOneWithoutListCrewInput
 }
 
 export type ListCrewUncheckedCreateInput = {
@@ -326,18 +326,18 @@ export type ListCrewUncheckedCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   crewId: number
   userId: number
+  listId: number
 }
 
 export type ListCrewUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  list?: Prisma.ListUpdateOneRequiredWithoutCrewItemsNestedInput
-  crew?: Prisma.CrewUpdateOneRequiredWithoutListItemsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutAddedCrewItemsNestedInput
+  Crew?: Prisma.CrewUpdateOneRequiredWithoutListCrewNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListCrewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListCrewNestedInput
 }
 
 export type ListCrewUncheckedUpdateInput = {
@@ -345,9 +345,9 @@ export type ListCrewUncheckedUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   crewId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListCrewCreateManyInput = {
@@ -355,9 +355,9 @@ export type ListCrewCreateManyInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   crewId: number
   userId: number
+  listId: number
 }
 
 export type ListCrewUpdateManyMutationInput = {
@@ -371,9 +371,9 @@ export type ListCrewUncheckedUpdateManyInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   crewId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListCrewListRelationFilter = {
@@ -402,17 +402,17 @@ export type ListCrewCountOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListCrewAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListCrewMaxOrderByAggregateInput = {
@@ -420,9 +420,9 @@ export type ListCrewMaxOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListCrewMinOrderByAggregateInput = {
@@ -430,17 +430,17 @@ export type ListCrewMinOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListCrewSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListCrewCreateNestedManyWithoutCrewInput = {
@@ -573,8 +573,8 @@ export type ListCrewCreateWithoutCrewInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  list: Prisma.ListCreateNestedOneWithoutCrewItemsInput
-  user: Prisma.UserCreateNestedOneWithoutAddedCrewItemsInput
+  List: Prisma.ListCreateNestedOneWithoutListCrewInput
+  User: Prisma.UserCreateNestedOneWithoutListCrewInput
 }
 
 export type ListCrewUncheckedCreateWithoutCrewInput = {
@@ -582,8 +582,8 @@ export type ListCrewUncheckedCreateWithoutCrewInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   userId: number
+  listId: number
 }
 
 export type ListCrewCreateOrConnectWithoutCrewInput = {
@@ -620,17 +620,17 @@ export type ListCrewScalarWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListCrew"> | Date | string
   note?: Prisma.StringNullableFilter<"ListCrew"> | string | null
   orderIndex?: Prisma.IntFilter<"ListCrew"> | number
-  listId?: Prisma.IntFilter<"ListCrew"> | number
   crewId?: Prisma.IntFilter<"ListCrew"> | number
   userId?: Prisma.IntFilter<"ListCrew"> | number
+  listId?: Prisma.IntFilter<"ListCrew"> | number
 }
 
 export type ListCrewCreateWithoutListInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  crew: Prisma.CrewCreateNestedOneWithoutListItemsInput
-  user: Prisma.UserCreateNestedOneWithoutAddedCrewItemsInput
+  Crew: Prisma.CrewCreateNestedOneWithoutListCrewInput
+  User: Prisma.UserCreateNestedOneWithoutListCrewInput
 }
 
 export type ListCrewUncheckedCreateWithoutListInput = {
@@ -672,8 +672,8 @@ export type ListCrewCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  list: Prisma.ListCreateNestedOneWithoutCrewItemsInput
-  crew: Prisma.CrewCreateNestedOneWithoutListItemsInput
+  Crew: Prisma.CrewCreateNestedOneWithoutListCrewInput
+  List: Prisma.ListCreateNestedOneWithoutListCrewInput
 }
 
 export type ListCrewUncheckedCreateWithoutUserInput = {
@@ -681,8 +681,8 @@ export type ListCrewUncheckedCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   crewId: number
+  listId: number
 }
 
 export type ListCrewCreateOrConnectWithoutUserInput = {
@@ -716,16 +716,16 @@ export type ListCrewCreateManyCrewInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   userId: number
+  listId: number
 }
 
 export type ListCrewUpdateWithoutCrewInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  list?: Prisma.ListUpdateOneRequiredWithoutCrewItemsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutAddedCrewItemsNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListCrewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListCrewNestedInput
 }
 
 export type ListCrewUncheckedUpdateWithoutCrewInput = {
@@ -733,8 +733,8 @@ export type ListCrewUncheckedUpdateWithoutCrewInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListCrewUncheckedUpdateManyWithoutCrewInput = {
@@ -742,8 +742,8 @@ export type ListCrewUncheckedUpdateManyWithoutCrewInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListCrewCreateManyListInput = {
@@ -759,8 +759,8 @@ export type ListCrewUpdateWithoutListInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  crew?: Prisma.CrewUpdateOneRequiredWithoutListItemsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutAddedCrewItemsNestedInput
+  Crew?: Prisma.CrewUpdateOneRequiredWithoutListCrewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListCrewNestedInput
 }
 
 export type ListCrewUncheckedUpdateWithoutListInput = {
@@ -786,16 +786,16 @@ export type ListCrewCreateManyUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   crewId: number
+  listId: number
 }
 
 export type ListCrewUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  list?: Prisma.ListUpdateOneRequiredWithoutCrewItemsNestedInput
-  crew?: Prisma.CrewUpdateOneRequiredWithoutListItemsNestedInput
+  Crew?: Prisma.CrewUpdateOneRequiredWithoutListCrewNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListCrewNestedInput
 }
 
 export type ListCrewUncheckedUpdateWithoutUserInput = {
@@ -803,8 +803,8 @@ export type ListCrewUncheckedUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   crewId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListCrewUncheckedUpdateManyWithoutUserInput = {
@@ -812,8 +812,8 @@ export type ListCrewUncheckedUpdateManyWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   crewId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -823,12 +823,12 @@ export type ListCrewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   crewId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listCrew"]>
 
 export type ListCrewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -836,12 +836,12 @@ export type ListCrewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   crewId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listCrew"]>
 
 export type ListCrewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -849,12 +849,12 @@ export type ListCrewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   crewId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listCrew"]>
 
 export type ListCrewSelectScalar = {
@@ -862,43 +862,43 @@ export type ListCrewSelectScalar = {
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   crewId?: boolean
   userId?: boolean
+  listId?: boolean
 }
 
-export type ListCrewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "listId" | "crewId" | "userId", ExtArgs["result"]["listCrew"]>
+export type ListCrewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "crewId" | "userId" | "listId", ExtArgs["result"]["listCrew"]>
 export type ListCrewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListCrewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListCrewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListCrewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListCrew"
   objects: {
-    list: Prisma.$ListPayload<ExtArgs>
-    crew: Prisma.$CrewPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
+    Crew: Prisma.$CrewPayload<ExtArgs>
+    List: Prisma.$ListPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     addedAt: Date
     note: string | null
     orderIndex: number
-    listId: number
     crewId: number
     userId: number
+    listId: number
   }, ExtArgs["result"]["listCrew"]>
   composites: {}
 }
@@ -1293,9 +1293,9 @@ readonly fields: ListCrewFieldRefs;
  */
 export interface Prisma__ListCrewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,9 +1329,9 @@ export interface ListCrewFieldRefs {
   readonly addedAt: Prisma.FieldRef<"ListCrew", 'DateTime'>
   readonly note: Prisma.FieldRef<"ListCrew", 'String'>
   readonly orderIndex: Prisma.FieldRef<"ListCrew", 'Int'>
-  readonly listId: Prisma.FieldRef<"ListCrew", 'Int'>
   readonly crewId: Prisma.FieldRef<"ListCrew", 'Int'>
   readonly userId: Prisma.FieldRef<"ListCrew", 'Int'>
+  readonly listId: Prisma.FieldRef<"ListCrew", 'Int'>
 }
     
 

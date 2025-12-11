@@ -208,16 +208,16 @@ export type CastSerieWhereInput = {
   id?: Prisma.IntFilter<"CastSerie"> | number
   serieId?: Prisma.IntFilter<"CastSerie"> | number
   actorId?: Prisma.IntFilter<"CastSerie"> | number
-  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
 }
 
 export type CastSerieOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   serieId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
-  serie?: Prisma.SerieOrderByWithRelationInput
-  actor?: Prisma.ActorOrderByWithRelationInput
+  Actor?: Prisma.ActorOrderByWithRelationInput
+  Serie?: Prisma.SerieOrderByWithRelationInput
 }
 
 export type CastSerieWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type CastSerieWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CastSerieWhereInput | Prisma.CastSerieWhereInput[]
   serieId?: Prisma.IntFilter<"CastSerie"> | number
   actorId?: Prisma.IntFilter<"CastSerie"> | number
-  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
 }, "id" | "serieId_actorId">
 
 export type CastSerieOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type CastSerieScalarWhereWithAggregatesInput = {
 }
 
 export type CastSerieCreateInput = {
-  serie: Prisma.SerieCreateNestedOneWithoutCastInput
-  actor: Prisma.ActorCreateNestedOneWithoutStarredSeriesInput
+  Actor: Prisma.ActorCreateNestedOneWithoutCastSerieInput
+  Serie: Prisma.SerieCreateNestedOneWithoutCastSerieInput
 }
 
 export type CastSerieUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type CastSerieUncheckedCreateInput = {
 }
 
 export type CastSerieUpdateInput = {
-  serie?: Prisma.SerieUpdateOneRequiredWithoutCastNestedInput
-  actor?: Prisma.ActorUpdateOneRequiredWithoutStarredSeriesNestedInput
+  Actor?: Prisma.ActorUpdateOneRequiredWithoutCastSerieNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutCastSerieNestedInput
 }
 
 export type CastSerieUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type CastSerieUncheckedUpdateManyWithoutSerieNestedInput = {
 }
 
 export type CastSerieCreateWithoutActorInput = {
-  serie: Prisma.SerieCreateNestedOneWithoutCastInput
+  Serie: Prisma.SerieCreateNestedOneWithoutCastSerieInput
 }
 
 export type CastSerieUncheckedCreateWithoutActorInput = {
@@ -464,7 +464,7 @@ export type CastSerieScalarWhereInput = {
 }
 
 export type CastSerieCreateWithoutSerieInput = {
-  actor: Prisma.ActorCreateNestedOneWithoutStarredSeriesInput
+  Actor: Prisma.ActorCreateNestedOneWithoutCastSerieInput
 }
 
 export type CastSerieUncheckedCreateWithoutSerieInput = {
@@ -504,7 +504,7 @@ export type CastSerieCreateManyActorInput = {
 }
 
 export type CastSerieUpdateWithoutActorInput = {
-  serie?: Prisma.SerieUpdateOneRequiredWithoutCastNestedInput
+  Serie?: Prisma.SerieUpdateOneRequiredWithoutCastSerieNestedInput
 }
 
 export type CastSerieUncheckedUpdateWithoutActorInput = {
@@ -523,7 +523,7 @@ export type CastSerieCreateManySerieInput = {
 }
 
 export type CastSerieUpdateWithoutSerieInput = {
-  actor?: Prisma.ActorUpdateOneRequiredWithoutStarredSeriesNestedInput
+  Actor?: Prisma.ActorUpdateOneRequiredWithoutCastSerieNestedInput
 }
 
 export type CastSerieUncheckedUpdateWithoutSerieInput = {
@@ -542,24 +542,24 @@ export type CastSerieSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   serieId?: boolean
   actorId?: boolean
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["castSerie"]>
 
 export type CastSerieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   serieId?: boolean
   actorId?: boolean
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["castSerie"]>
 
 export type CastSerieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   serieId?: boolean
   actorId?: boolean
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["castSerie"]>
 
 export type CastSerieSelectScalar = {
@@ -570,23 +570,23 @@ export type CastSerieSelectScalar = {
 
 export type CastSerieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serieId" | "actorId", ExtArgs["result"]["castSerie"]>
 export type CastSerieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }
 export type CastSerieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }
 export type CastSerieIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
 }
 
 export type $CastSeriePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CastSerie"
   objects: {
-    serie: Prisma.$SeriePayload<ExtArgs>
-    actor: Prisma.$ActorPayload<ExtArgs>
+    Actor: Prisma.$ActorPayload<ExtArgs>
+    Serie: Prisma.$SeriePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: CastSerieFieldRefs;
  */
 export interface Prisma__CastSerieClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

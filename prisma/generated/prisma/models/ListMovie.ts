@@ -29,17 +29,17 @@ export type AggregateListMovie = {
 export type ListMovieAvgAggregateOutputType = {
   id: number | null
   orderIndex: number | null
-  listId: number | null
   movieId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListMovieSumAggregateOutputType = {
   id: number | null
   orderIndex: number | null
-  listId: number | null
   movieId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListMovieMinAggregateOutputType = {
@@ -47,9 +47,9 @@ export type ListMovieMinAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
-  listId: number | null
   movieId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListMovieMaxAggregateOutputType = {
@@ -57,9 +57,9 @@ export type ListMovieMaxAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
-  listId: number | null
   movieId: number | null
   userId: number | null
+  listId: number | null
 }
 
 export type ListMovieCountAggregateOutputType = {
@@ -67,9 +67,9 @@ export type ListMovieCountAggregateOutputType = {
   addedAt: number
   note: number
   orderIndex: number
-  listId: number
   movieId: number
   userId: number
+  listId: number
   _all: number
 }
 
@@ -77,17 +77,17 @@ export type ListMovieCountAggregateOutputType = {
 export type ListMovieAvgAggregateInputType = {
   id?: true
   orderIndex?: true
-  listId?: true
   movieId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListMovieSumAggregateInputType = {
   id?: true
   orderIndex?: true
-  listId?: true
   movieId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListMovieMinAggregateInputType = {
@@ -95,9 +95,9 @@ export type ListMovieMinAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
-  listId?: true
   movieId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListMovieMaxAggregateInputType = {
@@ -105,9 +105,9 @@ export type ListMovieMaxAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
-  listId?: true
   movieId?: true
   userId?: true
+  listId?: true
 }
 
 export type ListMovieCountAggregateInputType = {
@@ -115,9 +115,9 @@ export type ListMovieCountAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
-  listId?: true
   movieId?: true
   userId?: true
+  listId?: true
   _all?: true
 }
 
@@ -212,9 +212,9 @@ export type ListMovieGroupByOutputType = {
   addedAt: Date
   note: string | null
   orderIndex: number
-  listId: number
   movieId: number
   userId: number
+  listId: number
   _count: ListMovieCountAggregateOutputType | null
   _avg: ListMovieAvgAggregateOutputType | null
   _sum: ListMovieSumAggregateOutputType | null
@@ -245,12 +245,12 @@ export type ListMovieWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListMovie"> | Date | string
   note?: Prisma.StringNullableFilter<"ListMovie"> | string | null
   orderIndex?: Prisma.IntFilter<"ListMovie"> | number
-  listId?: Prisma.IntFilter<"ListMovie"> | number
   movieId?: Prisma.IntFilter<"ListMovie"> | number
   userId?: Prisma.IntFilter<"ListMovie"> | number
-  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listId?: Prisma.IntFilter<"ListMovie"> | number
+  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListMovieOrderByWithRelationInput = {
@@ -258,12 +258,12 @@ export type ListMovieOrderByWithRelationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  list?: Prisma.ListOrderByWithRelationInput
-  movie?: Prisma.MovieOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  listId?: Prisma.SortOrder
+  List?: Prisma.ListOrderByWithRelationInput
+  Movie?: Prisma.MovieOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ListMovieOrderByRelevanceInput
 }
 
@@ -276,12 +276,12 @@ export type ListMovieWhereUniqueInput = Prisma.AtLeast<{
   addedAt?: Prisma.DateTimeFilter<"ListMovie"> | Date | string
   note?: Prisma.StringNullableFilter<"ListMovie"> | string | null
   orderIndex?: Prisma.IntFilter<"ListMovie"> | number
-  listId?: Prisma.IntFilter<"ListMovie"> | number
   movieId?: Prisma.IntFilter<"ListMovie"> | number
   userId?: Prisma.IntFilter<"ListMovie"> | number
-  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  listId?: Prisma.IntFilter<"ListMovie"> | number
+  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "listId_movieId">
 
 export type ListMovieOrderByWithAggregationInput = {
@@ -289,9 +289,9 @@ export type ListMovieOrderByWithAggregationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   _count?: Prisma.ListMovieCountOrderByAggregateInput
   _avg?: Prisma.ListMovieAvgOrderByAggregateInput
   _max?: Prisma.ListMovieMaxOrderByAggregateInput
@@ -307,18 +307,18 @@ export type ListMovieScalarWhereWithAggregatesInput = {
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"ListMovie"> | Date | string
   note?: Prisma.StringNullableWithAggregatesFilter<"ListMovie"> | string | null
   orderIndex?: Prisma.IntWithAggregatesFilter<"ListMovie"> | number
-  listId?: Prisma.IntWithAggregatesFilter<"ListMovie"> | number
   movieId?: Prisma.IntWithAggregatesFilter<"ListMovie"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListMovie"> | number
+  listId?: Prisma.IntWithAggregatesFilter<"ListMovie"> | number
 }
 
 export type ListMovieCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  list: Prisma.ListCreateNestedOneWithoutMovieItemsInput
-  movie: Prisma.MovieCreateNestedOneWithoutListItemsInput
-  user: Prisma.UserCreateNestedOneWithoutAddedMovieItemsInput
+  List: Prisma.ListCreateNestedOneWithoutListMovieInput
+  Movie: Prisma.MovieCreateNestedOneWithoutListMovieInput
+  User: Prisma.UserCreateNestedOneWithoutListMovieInput
 }
 
 export type ListMovieUncheckedCreateInput = {
@@ -326,18 +326,18 @@ export type ListMovieUncheckedCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   movieId: number
   userId: number
+  listId: number
 }
 
 export type ListMovieUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  list?: Prisma.ListUpdateOneRequiredWithoutMovieItemsNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutListItemsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutAddedMovieItemsNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListMovieNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutListMovieNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListMovieNestedInput
 }
 
 export type ListMovieUncheckedUpdateInput = {
@@ -345,9 +345,9 @@ export type ListMovieUncheckedUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListMovieCreateManyInput = {
@@ -355,9 +355,9 @@ export type ListMovieCreateManyInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   movieId: number
   userId: number
+  listId: number
 }
 
 export type ListMovieUpdateManyMutationInput = {
@@ -371,9 +371,9 @@ export type ListMovieUncheckedUpdateManyInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListMovieListRelationFilter = {
@@ -402,17 +402,17 @@ export type ListMovieCountOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListMovieAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListMovieMaxOrderByAggregateInput = {
@@ -420,9 +420,9 @@ export type ListMovieMaxOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListMovieMinOrderByAggregateInput = {
@@ -430,17 +430,17 @@ export type ListMovieMinOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListMovieSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
 }
 
 export type ListMovieCreateNestedManyWithoutListInput = {
@@ -573,8 +573,8 @@ export type ListMovieCreateWithoutListInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  movie: Prisma.MovieCreateNestedOneWithoutListItemsInput
-  user: Prisma.UserCreateNestedOneWithoutAddedMovieItemsInput
+  Movie: Prisma.MovieCreateNestedOneWithoutListMovieInput
+  User: Prisma.UserCreateNestedOneWithoutListMovieInput
 }
 
 export type ListMovieUncheckedCreateWithoutListInput = {
@@ -620,17 +620,17 @@ export type ListMovieScalarWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListMovie"> | Date | string
   note?: Prisma.StringNullableFilter<"ListMovie"> | string | null
   orderIndex?: Prisma.IntFilter<"ListMovie"> | number
-  listId?: Prisma.IntFilter<"ListMovie"> | number
   movieId?: Prisma.IntFilter<"ListMovie"> | number
   userId?: Prisma.IntFilter<"ListMovie"> | number
+  listId?: Prisma.IntFilter<"ListMovie"> | number
 }
 
 export type ListMovieCreateWithoutMovieInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  list: Prisma.ListCreateNestedOneWithoutMovieItemsInput
-  user: Prisma.UserCreateNestedOneWithoutAddedMovieItemsInput
+  List: Prisma.ListCreateNestedOneWithoutListMovieInput
+  User: Prisma.UserCreateNestedOneWithoutListMovieInput
 }
 
 export type ListMovieUncheckedCreateWithoutMovieInput = {
@@ -638,8 +638,8 @@ export type ListMovieUncheckedCreateWithoutMovieInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   userId: number
+  listId: number
 }
 
 export type ListMovieCreateOrConnectWithoutMovieInput = {
@@ -672,8 +672,8 @@ export type ListMovieCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  list: Prisma.ListCreateNestedOneWithoutMovieItemsInput
-  movie: Prisma.MovieCreateNestedOneWithoutListItemsInput
+  List: Prisma.ListCreateNestedOneWithoutListMovieInput
+  Movie: Prisma.MovieCreateNestedOneWithoutListMovieInput
 }
 
 export type ListMovieUncheckedCreateWithoutUserInput = {
@@ -681,8 +681,8 @@ export type ListMovieUncheckedCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   movieId: number
+  listId: number
 }
 
 export type ListMovieCreateOrConnectWithoutUserInput = {
@@ -724,8 +724,8 @@ export type ListMovieUpdateWithoutListInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  movie?: Prisma.MovieUpdateOneRequiredWithoutListItemsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutAddedMovieItemsNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutListMovieNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListMovieNestedInput
 }
 
 export type ListMovieUncheckedUpdateWithoutListInput = {
@@ -751,16 +751,16 @@ export type ListMovieCreateManyMovieInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   userId: number
+  listId: number
 }
 
 export type ListMovieUpdateWithoutMovieInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  list?: Prisma.ListUpdateOneRequiredWithoutMovieItemsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutAddedMovieItemsNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListMovieNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutListMovieNestedInput
 }
 
 export type ListMovieUncheckedUpdateWithoutMovieInput = {
@@ -768,8 +768,8 @@ export type ListMovieUncheckedUpdateWithoutMovieInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListMovieUncheckedUpdateManyWithoutMovieInput = {
@@ -777,8 +777,8 @@ export type ListMovieUncheckedUpdateManyWithoutMovieInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListMovieCreateManyUserInput = {
@@ -786,16 +786,16 @@ export type ListMovieCreateManyUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  listId: number
   movieId: number
+  listId: number
 }
 
 export type ListMovieUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  list?: Prisma.ListUpdateOneRequiredWithoutMovieItemsNestedInput
-  movie?: Prisma.MovieUpdateOneRequiredWithoutListItemsNestedInput
+  List?: Prisma.ListUpdateOneRequiredWithoutListMovieNestedInput
+  Movie?: Prisma.MovieUpdateOneRequiredWithoutListMovieNestedInput
 }
 
 export type ListMovieUncheckedUpdateWithoutUserInput = {
@@ -803,8 +803,8 @@ export type ListMovieUncheckedUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListMovieUncheckedUpdateManyWithoutUserInput = {
@@ -812,8 +812,8 @@ export type ListMovieUncheckedUpdateManyWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
   movieId?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -823,12 +823,12 @@ export type ListMovieSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   movieId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listMovie"]>
 
 export type ListMovieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -836,12 +836,12 @@ export type ListMovieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   movieId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listMovie"]>
 
 export type ListMovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -849,12 +849,12 @@ export type ListMovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   movieId?: boolean
   userId?: boolean
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  listId?: boolean
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listMovie"]>
 
 export type ListMovieSelectScalar = {
@@ -862,43 +862,43 @@ export type ListMovieSelectScalar = {
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
-  listId?: boolean
   movieId?: boolean
   userId?: boolean
+  listId?: boolean
 }
 
-export type ListMovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "listId" | "movieId" | "userId", ExtArgs["result"]["listMovie"]>
+export type ListMovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "movieId" | "userId" | "listId", ExtArgs["result"]["listMovie"]>
 export type ListMovieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListMovieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListMovieIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListMoviePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListMovie"
   objects: {
-    list: Prisma.$ListPayload<ExtArgs>
-    movie: Prisma.$MoviePayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
+    List: Prisma.$ListPayload<ExtArgs>
+    Movie: Prisma.$MoviePayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     addedAt: Date
     note: string | null
     orderIndex: number
-    listId: number
     movieId: number
     userId: number
+    listId: number
   }, ExtArgs["result"]["listMovie"]>
   composites: {}
 }
@@ -1293,9 +1293,9 @@ readonly fields: ListMovieFieldRefs;
  */
 export interface Prisma__ListMovieClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,9 +1329,9 @@ export interface ListMovieFieldRefs {
   readonly addedAt: Prisma.FieldRef<"ListMovie", 'DateTime'>
   readonly note: Prisma.FieldRef<"ListMovie", 'String'>
   readonly orderIndex: Prisma.FieldRef<"ListMovie", 'Int'>
-  readonly listId: Prisma.FieldRef<"ListMovie", 'Int'>
   readonly movieId: Prisma.FieldRef<"ListMovie", 'Int'>
   readonly userId: Prisma.FieldRef<"ListMovie", 'Int'>
+  readonly listId: Prisma.FieldRef<"ListMovie", 'Int'>
 }
     
 

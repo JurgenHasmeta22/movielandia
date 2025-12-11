@@ -40,25 +40,25 @@ export type ForumReplyHistorySumAggregateOutputType = {
 
 export type ForumReplyHistoryMinAggregateOutputType = {
   id: number | null
+  replyId: number | null
   content: string | null
   editedAt: Date | null
-  replyId: number | null
   editedById: number | null
 }
 
 export type ForumReplyHistoryMaxAggregateOutputType = {
   id: number | null
+  replyId: number | null
   content: string | null
   editedAt: Date | null
-  replyId: number | null
   editedById: number | null
 }
 
 export type ForumReplyHistoryCountAggregateOutputType = {
   id: number
+  replyId: number
   content: number
   editedAt: number
-  replyId: number
   editedById: number
   _all: number
 }
@@ -78,25 +78,25 @@ export type ForumReplyHistorySumAggregateInputType = {
 
 export type ForumReplyHistoryMinAggregateInputType = {
   id?: true
+  replyId?: true
   content?: true
   editedAt?: true
-  replyId?: true
   editedById?: true
 }
 
 export type ForumReplyHistoryMaxAggregateInputType = {
   id?: true
+  replyId?: true
   content?: true
   editedAt?: true
-  replyId?: true
   editedById?: true
 }
 
 export type ForumReplyHistoryCountAggregateInputType = {
   id?: true
+  replyId?: true
   content?: true
   editedAt?: true
-  replyId?: true
   editedById?: true
   _all?: true
 }
@@ -189,9 +189,9 @@ export type ForumReplyHistoryGroupByArgs<ExtArgs extends runtime.Types.Extension
 
 export type ForumReplyHistoryGroupByOutputType = {
   id: number
+  replyId: number
   content: string
   editedAt: Date
-  replyId: number
   editedById: number
   _count: ForumReplyHistoryCountAggregateOutputType | null
   _avg: ForumReplyHistoryAvgAggregateOutputType | null
@@ -220,22 +220,22 @@ export type ForumReplyHistoryWhereInput = {
   OR?: Prisma.ForumReplyHistoryWhereInput[]
   NOT?: Prisma.ForumReplyHistoryWhereInput | Prisma.ForumReplyHistoryWhereInput[]
   id?: Prisma.IntFilter<"ForumReplyHistory"> | number
+  replyId?: Prisma.IntFilter<"ForumReplyHistory"> | number
   content?: Prisma.StringFilter<"ForumReplyHistory"> | string
   editedAt?: Prisma.DateTimeFilter<"ForumReplyHistory"> | Date | string
-  replyId?: Prisma.IntFilter<"ForumReplyHistory"> | number
   editedById?: Prisma.IntFilter<"ForumReplyHistory"> | number
-  reply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
-  editedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  ForumReply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
 }
 
 export type ForumReplyHistoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  replyId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
-  replyId?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
-  reply?: Prisma.ForumReplyOrderByWithRelationInput
-  editedBy?: Prisma.UserOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
+  ForumReply?: Prisma.ForumReplyOrderByWithRelationInput
   _relevance?: Prisma.ForumReplyHistoryOrderByRelevanceInput
 }
 
@@ -244,19 +244,19 @@ export type ForumReplyHistoryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ForumReplyHistoryWhereInput | Prisma.ForumReplyHistoryWhereInput[]
   OR?: Prisma.ForumReplyHistoryWhereInput[]
   NOT?: Prisma.ForumReplyHistoryWhereInput | Prisma.ForumReplyHistoryWhereInput[]
+  replyId?: Prisma.IntFilter<"ForumReplyHistory"> | number
   content?: Prisma.StringFilter<"ForumReplyHistory"> | string
   editedAt?: Prisma.DateTimeFilter<"ForumReplyHistory"> | Date | string
-  replyId?: Prisma.IntFilter<"ForumReplyHistory"> | number
   editedById?: Prisma.IntFilter<"ForumReplyHistory"> | number
-  reply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
-  editedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  ForumReply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
 }, "id">
 
 export type ForumReplyHistoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  replyId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
-  replyId?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
   _count?: Prisma.ForumReplyHistoryCountOrderByAggregateInput
   _avg?: Prisma.ForumReplyHistoryAvgOrderByAggregateInput
@@ -270,47 +270,47 @@ export type ForumReplyHistoryScalarWhereWithAggregatesInput = {
   OR?: Prisma.ForumReplyHistoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ForumReplyHistoryScalarWhereWithAggregatesInput | Prisma.ForumReplyHistoryScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ForumReplyHistory"> | number
+  replyId?: Prisma.IntWithAggregatesFilter<"ForumReplyHistory"> | number
   content?: Prisma.StringWithAggregatesFilter<"ForumReplyHistory"> | string
   editedAt?: Prisma.DateTimeWithAggregatesFilter<"ForumReplyHistory"> | Date | string
-  replyId?: Prisma.IntWithAggregatesFilter<"ForumReplyHistory"> | number
   editedById?: Prisma.IntWithAggregatesFilter<"ForumReplyHistory"> | number
 }
 
 export type ForumReplyHistoryCreateInput = {
   content: string
   editedAt?: Date | string
-  reply: Prisma.ForumReplyCreateNestedOneWithoutHistoryInput
-  editedBy: Prisma.UserCreateNestedOneWithoutRepliesEditedInput
+  User: Prisma.UserCreateNestedOneWithoutForumReplyHistoryInput
+  ForumReply: Prisma.ForumReplyCreateNestedOneWithoutForumReplyHistoryInput
 }
 
 export type ForumReplyHistoryUncheckedCreateInput = {
   id?: number
+  replyId: number
   content: string
   editedAt?: Date | string
-  replyId: number
   editedById: number
 }
 
 export type ForumReplyHistoryUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  reply?: Prisma.ForumReplyUpdateOneRequiredWithoutHistoryNestedInput
-  editedBy?: Prisma.UserUpdateOneRequiredWithoutRepliesEditedNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutForumReplyHistoryNestedInput
+  ForumReply?: Prisma.ForumReplyUpdateOneRequiredWithoutForumReplyHistoryNestedInput
 }
 
 export type ForumReplyHistoryUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  replyId?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replyId?: Prisma.IntFieldUpdateOperationsInput | number
   editedById?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ForumReplyHistoryCreateManyInput = {
   id?: number
+  replyId: number
   content: string
   editedAt?: Date | string
-  replyId: number
   editedById: number
 }
 
@@ -321,9 +321,9 @@ export type ForumReplyHistoryUpdateManyMutationInput = {
 
 export type ForumReplyHistoryUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  replyId?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replyId?: Prisma.IntFieldUpdateOperationsInput | number
   editedById?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -345,9 +345,9 @@ export type ForumReplyHistoryOrderByRelevanceInput = {
 
 export type ForumReplyHistoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  replyId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
-  replyId?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
 }
 
@@ -359,17 +359,17 @@ export type ForumReplyHistoryAvgOrderByAggregateInput = {
 
 export type ForumReplyHistoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  replyId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
-  replyId?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
 }
 
 export type ForumReplyHistoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  replyId?: Prisma.SortOrder
   content?: Prisma.SortOrder
   editedAt?: Prisma.SortOrder
-  replyId?: Prisma.SortOrder
   editedById?: Prisma.SortOrder
 }
 
@@ -379,127 +379,127 @@ export type ForumReplyHistorySumOrderByAggregateInput = {
   editedById?: Prisma.SortOrder
 }
 
-export type ForumReplyHistoryCreateNestedManyWithoutReplyInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput> | Prisma.ForumReplyHistoryCreateWithoutReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyReplyInputEnvelope
+export type ForumReplyHistoryCreateNestedManyWithoutForumReplyInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput> | Prisma.ForumReplyHistoryCreateWithoutForumReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyForumReplyInputEnvelope
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
 }
 
-export type ForumReplyHistoryUncheckedCreateNestedManyWithoutReplyInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput> | Prisma.ForumReplyHistoryCreateWithoutReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyReplyInputEnvelope
+export type ForumReplyHistoryUncheckedCreateNestedManyWithoutForumReplyInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput> | Prisma.ForumReplyHistoryCreateWithoutForumReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyForumReplyInputEnvelope
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
 }
 
-export type ForumReplyHistoryUpdateManyWithoutReplyNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput> | Prisma.ForumReplyHistoryCreateWithoutReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput[]
-  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutReplyInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutReplyInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyReplyInputEnvelope
+export type ForumReplyHistoryUpdateManyWithoutForumReplyNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput> | Prisma.ForumReplyHistoryCreateWithoutForumReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput[]
+  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutForumReplyInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutForumReplyInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyForumReplyInputEnvelope
   set?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   disconnect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   delete?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
-  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutReplyInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutReplyInput[]
-  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutReplyInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutReplyInput[]
+  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutForumReplyInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutForumReplyInput[]
+  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutForumReplyInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutForumReplyInput[]
   deleteMany?: Prisma.ForumReplyHistoryScalarWhereInput | Prisma.ForumReplyHistoryScalarWhereInput[]
 }
 
-export type ForumReplyHistoryUncheckedUpdateManyWithoutReplyNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput> | Prisma.ForumReplyHistoryCreateWithoutReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutReplyInput[]
-  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutReplyInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutReplyInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyReplyInputEnvelope
+export type ForumReplyHistoryUncheckedUpdateManyWithoutForumReplyNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput> | Prisma.ForumReplyHistoryCreateWithoutForumReplyInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutForumReplyInput[]
+  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutForumReplyInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutForumReplyInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyForumReplyInputEnvelope
   set?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   disconnect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   delete?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
-  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutReplyInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutReplyInput[]
-  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutReplyInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutReplyInput[]
+  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutForumReplyInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutForumReplyInput[]
+  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutForumReplyInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutForumReplyInput[]
   deleteMany?: Prisma.ForumReplyHistoryScalarWhereInput | Prisma.ForumReplyHistoryScalarWhereInput[]
 }
 
-export type ForumReplyHistoryCreateNestedManyWithoutEditedByInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput> | Prisma.ForumReplyHistoryCreateWithoutEditedByInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyEditedByInputEnvelope
+export type ForumReplyHistoryCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput> | Prisma.ForumReplyHistoryCreateWithoutUserInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyUserInputEnvelope
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
 }
 
-export type ForumReplyHistoryUncheckedCreateNestedManyWithoutEditedByInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput> | Prisma.ForumReplyHistoryCreateWithoutEditedByInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyEditedByInputEnvelope
+export type ForumReplyHistoryUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput> | Prisma.ForumReplyHistoryCreateWithoutUserInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyUserInputEnvelope
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
 }
 
-export type ForumReplyHistoryUpdateManyWithoutEditedByNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput> | Prisma.ForumReplyHistoryCreateWithoutEditedByInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput[]
-  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutEditedByInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutEditedByInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyEditedByInputEnvelope
+export type ForumReplyHistoryUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput> | Prisma.ForumReplyHistoryCreateWithoutUserInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutUserInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyUserInputEnvelope
   set?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   disconnect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   delete?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
-  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutEditedByInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutEditedByInput[]
-  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutEditedByInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutEditedByInput[]
+  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutUserInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutUserInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.ForumReplyHistoryScalarWhereInput | Prisma.ForumReplyHistoryScalarWhereInput[]
 }
 
-export type ForumReplyHistoryUncheckedUpdateManyWithoutEditedByNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput> | Prisma.ForumReplyHistoryCreateWithoutEditedByInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput[]
-  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutEditedByInput[]
-  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutEditedByInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutEditedByInput[]
-  createMany?: Prisma.ForumReplyHistoryCreateManyEditedByInputEnvelope
+export type ForumReplyHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput> | Prisma.ForumReplyHistoryCreateWithoutUserInput[] | Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput | Prisma.ForumReplyHistoryCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutUserInput | Prisma.ForumReplyHistoryUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ForumReplyHistoryCreateManyUserInputEnvelope
   set?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   disconnect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   delete?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
   connect?: Prisma.ForumReplyHistoryWhereUniqueInput | Prisma.ForumReplyHistoryWhereUniqueInput[]
-  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutEditedByInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutEditedByInput[]
-  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutEditedByInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutEditedByInput[]
+  update?: Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutUserInput | Prisma.ForumReplyHistoryUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutUserInput | Prisma.ForumReplyHistoryUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.ForumReplyHistoryScalarWhereInput | Prisma.ForumReplyHistoryScalarWhereInput[]
 }
 
-export type ForumReplyHistoryCreateWithoutReplyInput = {
+export type ForumReplyHistoryCreateWithoutForumReplyInput = {
   content: string
   editedAt?: Date | string
-  editedBy: Prisma.UserCreateNestedOneWithoutRepliesEditedInput
+  User: Prisma.UserCreateNestedOneWithoutForumReplyHistoryInput
 }
 
-export type ForumReplyHistoryUncheckedCreateWithoutReplyInput = {
+export type ForumReplyHistoryUncheckedCreateWithoutForumReplyInput = {
   id?: number
   content: string
   editedAt?: Date | string
   editedById: number
 }
 
-export type ForumReplyHistoryCreateOrConnectWithoutReplyInput = {
+export type ForumReplyHistoryCreateOrConnectWithoutForumReplyInput = {
   where: Prisma.ForumReplyHistoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput>
+  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput>
 }
 
-export type ForumReplyHistoryCreateManyReplyInputEnvelope = {
-  data: Prisma.ForumReplyHistoryCreateManyReplyInput | Prisma.ForumReplyHistoryCreateManyReplyInput[]
+export type ForumReplyHistoryCreateManyForumReplyInputEnvelope = {
+  data: Prisma.ForumReplyHistoryCreateManyForumReplyInput | Prisma.ForumReplyHistoryCreateManyForumReplyInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumReplyHistoryUpsertWithWhereUniqueWithoutReplyInput = {
+export type ForumReplyHistoryUpsertWithWhereUniqueWithoutForumReplyInput = {
   where: Prisma.ForumReplyHistoryWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutReplyInput>
-  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutReplyInput>
+  update: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutForumReplyInput>
+  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutForumReplyInput>
 }
 
-export type ForumReplyHistoryUpdateWithWhereUniqueWithoutReplyInput = {
+export type ForumReplyHistoryUpdateWithWhereUniqueWithoutForumReplyInput = {
   where: Prisma.ForumReplyHistoryWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutReplyInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutReplyInput>
+  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutForumReplyInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutForumReplyInput>
 }
 
-export type ForumReplyHistoryUpdateManyWithWhereWithoutReplyInput = {
+export type ForumReplyHistoryUpdateManyWithWhereWithoutForumReplyInput = {
   where: Prisma.ForumReplyHistoryScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateManyMutationInput, Prisma.ForumReplyHistoryUncheckedUpdateManyWithoutReplyInput>
+  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateManyMutationInput, Prisma.ForumReplyHistoryUncheckedUpdateManyWithoutForumReplyInput>
 }
 
 export type ForumReplyHistoryScalarWhereInput = {
@@ -507,170 +507,170 @@ export type ForumReplyHistoryScalarWhereInput = {
   OR?: Prisma.ForumReplyHistoryScalarWhereInput[]
   NOT?: Prisma.ForumReplyHistoryScalarWhereInput | Prisma.ForumReplyHistoryScalarWhereInput[]
   id?: Prisma.IntFilter<"ForumReplyHistory"> | number
+  replyId?: Prisma.IntFilter<"ForumReplyHistory"> | number
   content?: Prisma.StringFilter<"ForumReplyHistory"> | string
   editedAt?: Prisma.DateTimeFilter<"ForumReplyHistory"> | Date | string
-  replyId?: Prisma.IntFilter<"ForumReplyHistory"> | number
   editedById?: Prisma.IntFilter<"ForumReplyHistory"> | number
 }
 
-export type ForumReplyHistoryCreateWithoutEditedByInput = {
+export type ForumReplyHistoryCreateWithoutUserInput = {
   content: string
   editedAt?: Date | string
-  reply: Prisma.ForumReplyCreateNestedOneWithoutHistoryInput
+  ForumReply: Prisma.ForumReplyCreateNestedOneWithoutForumReplyHistoryInput
 }
 
-export type ForumReplyHistoryUncheckedCreateWithoutEditedByInput = {
+export type ForumReplyHistoryUncheckedCreateWithoutUserInput = {
   id?: number
+  replyId: number
   content: string
   editedAt?: Date | string
-  replyId: number
 }
 
-export type ForumReplyHistoryCreateOrConnectWithoutEditedByInput = {
+export type ForumReplyHistoryCreateOrConnectWithoutUserInput = {
   where: Prisma.ForumReplyHistoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput>
+  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput>
 }
 
-export type ForumReplyHistoryCreateManyEditedByInputEnvelope = {
-  data: Prisma.ForumReplyHistoryCreateManyEditedByInput | Prisma.ForumReplyHistoryCreateManyEditedByInput[]
+export type ForumReplyHistoryCreateManyUserInputEnvelope = {
+  data: Prisma.ForumReplyHistoryCreateManyUserInput | Prisma.ForumReplyHistoryCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumReplyHistoryUpsertWithWhereUniqueWithoutEditedByInput = {
+export type ForumReplyHistoryUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.ForumReplyHistoryWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutEditedByInput>
-  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutEditedByInput>
+  update: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ForumReplyHistoryCreateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedCreateWithoutUserInput>
 }
 
-export type ForumReplyHistoryUpdateWithWhereUniqueWithoutEditedByInput = {
+export type ForumReplyHistoryUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.ForumReplyHistoryWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutEditedByInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutEditedByInput>
+  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateWithoutUserInput, Prisma.ForumReplyHistoryUncheckedUpdateWithoutUserInput>
 }
 
-export type ForumReplyHistoryUpdateManyWithWhereWithoutEditedByInput = {
+export type ForumReplyHistoryUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.ForumReplyHistoryScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateManyMutationInput, Prisma.ForumReplyHistoryUncheckedUpdateManyWithoutEditedByInput>
+  data: Prisma.XOR<Prisma.ForumReplyHistoryUpdateManyMutationInput, Prisma.ForumReplyHistoryUncheckedUpdateManyWithoutUserInput>
 }
 
-export type ForumReplyHistoryCreateManyReplyInput = {
+export type ForumReplyHistoryCreateManyForumReplyInput = {
   id?: number
   content: string
   editedAt?: Date | string
   editedById: number
 }
 
-export type ForumReplyHistoryUpdateWithoutReplyInput = {
+export type ForumReplyHistoryUpdateWithoutForumReplyInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  editedBy?: Prisma.UserUpdateOneRequiredWithoutRepliesEditedNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutForumReplyHistoryNestedInput
 }
 
-export type ForumReplyHistoryUncheckedUpdateWithoutReplyInput = {
+export type ForumReplyHistoryUncheckedUpdateWithoutForumReplyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   editedById?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type ForumReplyHistoryUncheckedUpdateManyWithoutReplyInput = {
+export type ForumReplyHistoryUncheckedUpdateManyWithoutForumReplyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   editedById?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type ForumReplyHistoryCreateManyEditedByInput = {
+export type ForumReplyHistoryCreateManyUserInput = {
   id?: number
+  replyId: number
   content: string
   editedAt?: Date | string
-  replyId: number
 }
 
-export type ForumReplyHistoryUpdateWithoutEditedByInput = {
+export type ForumReplyHistoryUpdateWithoutUserInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  reply?: Prisma.ForumReplyUpdateOneRequiredWithoutHistoryNestedInput
+  ForumReply?: Prisma.ForumReplyUpdateOneRequiredWithoutForumReplyHistoryNestedInput
 }
 
-export type ForumReplyHistoryUncheckedUpdateWithoutEditedByInput = {
+export type ForumReplyHistoryUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  replyId?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replyId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type ForumReplyHistoryUncheckedUpdateManyWithoutEditedByInput = {
+export type ForumReplyHistoryUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  replyId?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   editedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  replyId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
 
 export type ForumReplyHistorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  replyId?: boolean
   content?: boolean
   editedAt?: boolean
-  replyId?: boolean
   editedById?: boolean
-  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  editedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumReplyHistory"]>
 
 export type ForumReplyHistorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  replyId?: boolean
   content?: boolean
   editedAt?: boolean
-  replyId?: boolean
   editedById?: boolean
-  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  editedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumReplyHistory"]>
 
 export type ForumReplyHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  replyId?: boolean
   content?: boolean
   editedAt?: boolean
-  replyId?: boolean
   editedById?: boolean
-  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  editedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumReplyHistory"]>
 
 export type ForumReplyHistorySelectScalar = {
   id?: boolean
+  replyId?: boolean
   content?: boolean
   editedAt?: boolean
-  replyId?: boolean
   editedById?: boolean
 }
 
-export type ForumReplyHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "editedAt" | "replyId" | "editedById", ExtArgs["result"]["forumReplyHistory"]>
+export type ForumReplyHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "replyId" | "content" | "editedAt" | "editedById", ExtArgs["result"]["forumReplyHistory"]>
 export type ForumReplyHistoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  editedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }
 export type ForumReplyHistoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  editedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }
 export type ForumReplyHistoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  editedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }
 
 export type $ForumReplyHistoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForumReplyHistory"
   objects: {
-    reply: Prisma.$ForumReplyPayload<ExtArgs>
-    editedBy: Prisma.$UserPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
+    ForumReply: Prisma.$ForumReplyPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
+    replyId: number
     content: string
     editedAt: Date
-    replyId: number
     editedById: number
   }, ExtArgs["result"]["forumReplyHistory"]>
   composites: {}
@@ -1066,8 +1066,8 @@ readonly fields: ForumReplyHistoryFieldRefs;
  */
 export interface Prisma__ForumReplyHistoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  reply<T extends Prisma.ForumReplyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumReplyDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumReplyClient<runtime.Types.Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  editedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ForumReply<T extends Prisma.ForumReplyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumReplyDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumReplyClient<runtime.Types.Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1098,9 +1098,9 @@ export interface Prisma__ForumReplyHistoryClient<T, Null = never, ExtArgs extend
  */
 export interface ForumReplyHistoryFieldRefs {
   readonly id: Prisma.FieldRef<"ForumReplyHistory", 'Int'>
+  readonly replyId: Prisma.FieldRef<"ForumReplyHistory", 'Int'>
   readonly content: Prisma.FieldRef<"ForumReplyHistory", 'String'>
   readonly editedAt: Prisma.FieldRef<"ForumReplyHistory", 'DateTime'>
-  readonly replyId: Prisma.FieldRef<"ForumReplyHistory", 'Int'>
   readonly editedById: Prisma.FieldRef<"ForumReplyHistory", 'Int'>
 }
     

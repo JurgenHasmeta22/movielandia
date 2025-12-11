@@ -208,16 +208,16 @@ export type UserGenreFavoriteWhereInput = {
   id?: Prisma.IntFilter<"UserGenreFavorite"> | number
   userId?: Prisma.IntFilter<"UserGenreFavorite"> | number
   genreId?: Prisma.IntFilter<"UserGenreFavorite"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserGenreFavoriteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   genreId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  genre?: Prisma.GenreOrderByWithRelationInput
+  Genre?: Prisma.GenreOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserGenreFavoriteWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserGenreFavoriteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserGenreFavoriteWhereInput | Prisma.UserGenreFavoriteWhereInput[]
   userId?: Prisma.IntFilter<"UserGenreFavorite"> | number
   genreId?: Prisma.IntFilter<"UserGenreFavorite"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  Genre?: Prisma.XOR<Prisma.GenreScalarRelationFilter, Prisma.GenreWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_genreId">
 
 export type UserGenreFavoriteOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserGenreFavoriteScalarWhereWithAggregatesInput = {
 }
 
 export type UserGenreFavoriteCreateInput = {
-  user: Prisma.UserCreateNestedOneWithoutFavGenresInput
-  genre: Prisma.GenreCreateNestedOneWithoutUsersWhoBookmarkedItInput
+  Genre: Prisma.GenreCreateNestedOneWithoutUserGenreFavoriteInput
+  User: Prisma.UserCreateNestedOneWithoutUserGenreFavoriteInput
 }
 
 export type UserGenreFavoriteUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserGenreFavoriteUncheckedCreateInput = {
 }
 
 export type UserGenreFavoriteUpdateInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutFavGenresNestedInput
-  genre?: Prisma.GenreUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
+  Genre?: Prisma.GenreUpdateOneRequiredWithoutUserGenreFavoriteNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserGenreFavoriteNestedInput
 }
 
 export type UserGenreFavoriteUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type UserGenreFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UserGenreFavoriteCreateWithoutGenreInput = {
-  user: Prisma.UserCreateNestedOneWithoutFavGenresInput
+  User: Prisma.UserCreateNestedOneWithoutUserGenreFavoriteInput
 }
 
 export type UserGenreFavoriteUncheckedCreateWithoutGenreInput = {
@@ -464,7 +464,7 @@ export type UserGenreFavoriteScalarWhereInput = {
 }
 
 export type UserGenreFavoriteCreateWithoutUserInput = {
-  genre: Prisma.GenreCreateNestedOneWithoutUsersWhoBookmarkedItInput
+  Genre: Prisma.GenreCreateNestedOneWithoutUserGenreFavoriteInput
 }
 
 export type UserGenreFavoriteUncheckedCreateWithoutUserInput = {
@@ -504,7 +504,7 @@ export type UserGenreFavoriteCreateManyGenreInput = {
 }
 
 export type UserGenreFavoriteUpdateWithoutGenreInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutFavGenresNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserGenreFavoriteNestedInput
 }
 
 export type UserGenreFavoriteUncheckedUpdateWithoutGenreInput = {
@@ -523,7 +523,7 @@ export type UserGenreFavoriteCreateManyUserInput = {
 }
 
 export type UserGenreFavoriteUpdateWithoutUserInput = {
-  genre?: Prisma.GenreUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
+  Genre?: Prisma.GenreUpdateOneRequiredWithoutUserGenreFavoriteNestedInput
 }
 
 export type UserGenreFavoriteUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserGenreFavoriteSelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   userId?: boolean
   genreId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userGenreFavorite"]>
 
 export type UserGenreFavoriteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   genreId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userGenreFavorite"]>
 
 export type UserGenreFavoriteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   genreId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userGenreFavorite"]>
 
 export type UserGenreFavoriteSelectScalar = {
@@ -570,23 +570,23 @@ export type UserGenreFavoriteSelectScalar = {
 
 export type UserGenreFavoriteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "genreId", ExtArgs["result"]["userGenreFavorite"]>
 export type UserGenreFavoriteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserGenreFavoriteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserGenreFavoriteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  Genre?: boolean | Prisma.GenreDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserGenreFavoritePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserGenreFavorite"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    genre: Prisma.$GenrePayload<ExtArgs>
+    Genre: Prisma.$GenrePayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserGenreFavoriteFieldRefs;
  */
 export interface Prisma__UserGenreFavoriteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  genre<T extends Prisma.GenreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenreDefaultArgs<ExtArgs>>): Prisma.Prisma__GenreClient<runtime.Types.Result.GetResult<Prisma.$GenrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Genre<T extends Prisma.GenreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GenreDefaultArgs<ExtArgs>>): Prisma.Prisma__GenreClient<runtime.Types.Result.GetResult<Prisma.$GenrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

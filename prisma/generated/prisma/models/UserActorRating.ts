@@ -220,8 +220,8 @@ export type UserActorRatingWhereInput = {
   rating?: Prisma.FloatFilter<"UserActorRating"> | number
   userId?: Prisma.IntFilter<"UserActorRating"> | number
   actorId?: Prisma.IntFilter<"UserActorRating"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UserActorRatingOrderByWithRelationInput = {
@@ -229,8 +229,8 @@ export type UserActorRatingOrderByWithRelationInput = {
   rating?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  actor?: Prisma.ActorOrderByWithRelationInput
+  Actor?: Prisma.ActorOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type UserActorRatingWhereUniqueInput = Prisma.AtLeast<{
@@ -242,8 +242,8 @@ export type UserActorRatingWhereUniqueInput = Prisma.AtLeast<{
   rating?: Prisma.FloatFilter<"UserActorRating"> | number
   userId?: Prisma.IntFilter<"UserActorRating"> | number
   actorId?: Prisma.IntFilter<"UserActorRating"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_actorId">
 
 export type UserActorRatingOrderByWithAggregationInput = {
@@ -270,8 +270,8 @@ export type UserActorRatingScalarWhereWithAggregatesInput = {
 
 export type UserActorRatingCreateInput = {
   rating: number
-  user: Prisma.UserCreateNestedOneWithoutRatingsInActorInput
-  actor: Prisma.ActorCreateNestedOneWithoutUsersWhoRatedItInput
+  Actor: Prisma.ActorCreateNestedOneWithoutUserActorRatingInput
+  User: Prisma.UserCreateNestedOneWithoutUserActorRatingInput
 }
 
 export type UserActorRatingUncheckedCreateInput = {
@@ -283,8 +283,8 @@ export type UserActorRatingUncheckedCreateInput = {
 
 export type UserActorRatingUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  user?: Prisma.UserUpdateOneRequiredWithoutRatingsInActorNestedInput
-  actor?: Prisma.ActorUpdateOneRequiredWithoutUsersWhoRatedItNestedInput
+  Actor?: Prisma.ActorUpdateOneRequiredWithoutUserActorRatingNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserActorRatingNestedInput
 }
 
 export type UserActorRatingUncheckedUpdateInput = {
@@ -448,7 +448,7 @@ export type UserActorRatingUncheckedUpdateManyWithoutUserNestedInput = {
 
 export type UserActorRatingCreateWithoutActorInput = {
   rating: number
-  user: Prisma.UserCreateNestedOneWithoutRatingsInActorInput
+  User: Prisma.UserCreateNestedOneWithoutUserActorRatingInput
 }
 
 export type UserActorRatingUncheckedCreateWithoutActorInput = {
@@ -495,7 +495,7 @@ export type UserActorRatingScalarWhereInput = {
 
 export type UserActorRatingCreateWithoutUserInput = {
   rating: number
-  actor: Prisma.ActorCreateNestedOneWithoutUsersWhoRatedItInput
+  Actor: Prisma.ActorCreateNestedOneWithoutUserActorRatingInput
 }
 
 export type UserActorRatingUncheckedCreateWithoutUserInput = {
@@ -538,7 +538,7 @@ export type UserActorRatingCreateManyActorInput = {
 
 export type UserActorRatingUpdateWithoutActorInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  user?: Prisma.UserUpdateOneRequiredWithoutRatingsInActorNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutUserActorRatingNestedInput
 }
 
 export type UserActorRatingUncheckedUpdateWithoutActorInput = {
@@ -561,7 +561,7 @@ export type UserActorRatingCreateManyUserInput = {
 
 export type UserActorRatingUpdateWithoutUserInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  actor?: Prisma.ActorUpdateOneRequiredWithoutUsersWhoRatedItNestedInput
+  Actor?: Prisma.ActorUpdateOneRequiredWithoutUserActorRatingNestedInput
 }
 
 export type UserActorRatingUncheckedUpdateWithoutUserInput = {
@@ -583,8 +583,8 @@ export type UserActorRatingSelect<ExtArgs extends runtime.Types.Extensions.Inter
   rating?: boolean
   userId?: boolean
   actorId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userActorRating"]>
 
 export type UserActorRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -592,8 +592,8 @@ export type UserActorRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   rating?: boolean
   userId?: boolean
   actorId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userActorRating"]>
 
 export type UserActorRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -601,8 +601,8 @@ export type UserActorRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   rating?: boolean
   userId?: boolean
   actorId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userActorRating"]>
 
 export type UserActorRatingSelectScalar = {
@@ -614,23 +614,23 @@ export type UserActorRatingSelectScalar = {
 
 export type UserActorRatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rating" | "userId" | "actorId", ExtArgs["result"]["userActorRating"]>
 export type UserActorRatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserActorRatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type UserActorRatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $UserActorRatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserActorRating"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    actor: Prisma.$ActorPayload<ExtArgs>
+    Actor: Prisma.$ActorPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1031,8 +1031,8 @@ readonly fields: UserActorRatingFieldRefs;
  */
 export interface Prisma__UserActorRatingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  Actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

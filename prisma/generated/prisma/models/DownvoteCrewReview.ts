@@ -220,9 +220,9 @@ export type DownvoteCrewReviewWhereInput = {
   userId?: Prisma.IntFilter<"DownvoteCrewReview"> | number
   crewId?: Prisma.IntFilter<"DownvoteCrewReview"> | number
   crewReviewId?: Prisma.IntFilter<"DownvoteCrewReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  crewReview?: Prisma.XOR<Prisma.CrewReviewNullableScalarRelationFilter, Prisma.CrewReviewWhereInput> | null
+  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
+  CrewReview?: Prisma.XOR<Prisma.CrewReviewScalarRelationFilter, Prisma.CrewReviewWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type DownvoteCrewReviewOrderByWithRelationInput = {
@@ -230,9 +230,9 @@ export type DownvoteCrewReviewOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
   crewReviewId?: Prisma.SortOrder
-  user?: Prisma.UserOrderByWithRelationInput
-  crew?: Prisma.CrewOrderByWithRelationInput
-  crewReview?: Prisma.CrewReviewOrderByWithRelationInput
+  Crew?: Prisma.CrewOrderByWithRelationInput
+  CrewReview?: Prisma.CrewReviewOrderByWithRelationInput
+  User?: Prisma.UserOrderByWithRelationInput
 }
 
 export type DownvoteCrewReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -244,9 +244,9 @@ export type DownvoteCrewReviewWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.IntFilter<"DownvoteCrewReview"> | number
   crewId?: Prisma.IntFilter<"DownvoteCrewReview"> | number
   crewReviewId?: Prisma.IntFilter<"DownvoteCrewReview"> | number
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  crewReview?: Prisma.XOR<Prisma.CrewReviewNullableScalarRelationFilter, Prisma.CrewReviewWhereInput> | null
+  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
+  CrewReview?: Prisma.XOR<Prisma.CrewReviewScalarRelationFilter, Prisma.CrewReviewWhereInput>
+  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId_crewId_crewReviewId">
 
 export type DownvoteCrewReviewOrderByWithAggregationInput = {
@@ -272,9 +272,9 @@ export type DownvoteCrewReviewScalarWhereWithAggregatesInput = {
 }
 
 export type DownvoteCrewReviewCreateInput = {
-  user: Prisma.UserCreateNestedOneWithoutCrewReviewsDownvotedInput
-  crew: Prisma.CrewCreateNestedOneWithoutDownvoteCrewReviewsInput
-  crewReview?: Prisma.CrewReviewCreateNestedOneWithoutDownvotesInput
+  Crew: Prisma.CrewCreateNestedOneWithoutDownvoteCrewReviewInput
+  CrewReview: Prisma.CrewReviewCreateNestedOneWithoutDownvoteCrewReviewInput
+  User: Prisma.UserCreateNestedOneWithoutDownvoteCrewReviewInput
 }
 
 export type DownvoteCrewReviewUncheckedCreateInput = {
@@ -285,9 +285,9 @@ export type DownvoteCrewReviewUncheckedCreateInput = {
 }
 
 export type DownvoteCrewReviewUpdateInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutCrewReviewsDownvotedNestedInput
-  crew?: Prisma.CrewUpdateOneRequiredWithoutDownvoteCrewReviewsNestedInput
-  crewReview?: Prisma.CrewReviewUpdateOneWithoutDownvotesNestedInput
+  Crew?: Prisma.CrewUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
+  CrewReview?: Prisma.CrewReviewUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
 }
 
 export type DownvoteCrewReviewUncheckedUpdateInput = {
@@ -493,8 +493,8 @@ export type DownvoteCrewReviewUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type DownvoteCrewReviewCreateWithoutCrewInput = {
-  user: Prisma.UserCreateNestedOneWithoutCrewReviewsDownvotedInput
-  crewReview?: Prisma.CrewReviewCreateNestedOneWithoutDownvotesInput
+  CrewReview: Prisma.CrewReviewCreateNestedOneWithoutDownvoteCrewReviewInput
+  User: Prisma.UserCreateNestedOneWithoutDownvoteCrewReviewInput
 }
 
 export type DownvoteCrewReviewUncheckedCreateWithoutCrewInput = {
@@ -540,8 +540,8 @@ export type DownvoteCrewReviewScalarWhereInput = {
 }
 
 export type DownvoteCrewReviewCreateWithoutCrewReviewInput = {
-  user: Prisma.UserCreateNestedOneWithoutCrewReviewsDownvotedInput
-  crew: Prisma.CrewCreateNestedOneWithoutDownvoteCrewReviewsInput
+  Crew: Prisma.CrewCreateNestedOneWithoutDownvoteCrewReviewInput
+  User: Prisma.UserCreateNestedOneWithoutDownvoteCrewReviewInput
 }
 
 export type DownvoteCrewReviewUncheckedCreateWithoutCrewReviewInput = {
@@ -577,8 +577,8 @@ export type DownvoteCrewReviewUpdateManyWithWhereWithoutCrewReviewInput = {
 }
 
 export type DownvoteCrewReviewCreateWithoutUserInput = {
-  crew: Prisma.CrewCreateNestedOneWithoutDownvoteCrewReviewsInput
-  crewReview?: Prisma.CrewReviewCreateNestedOneWithoutDownvotesInput
+  Crew: Prisma.CrewCreateNestedOneWithoutDownvoteCrewReviewInput
+  CrewReview: Prisma.CrewReviewCreateNestedOneWithoutDownvoteCrewReviewInput
 }
 
 export type DownvoteCrewReviewUncheckedCreateWithoutUserInput = {
@@ -620,8 +620,8 @@ export type DownvoteCrewReviewCreateManyCrewInput = {
 }
 
 export type DownvoteCrewReviewUpdateWithoutCrewInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutCrewReviewsDownvotedNestedInput
-  crewReview?: Prisma.CrewReviewUpdateOneWithoutDownvotesNestedInput
+  CrewReview?: Prisma.CrewReviewUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
 }
 
 export type DownvoteCrewReviewUncheckedUpdateWithoutCrewInput = {
@@ -643,8 +643,8 @@ export type DownvoteCrewReviewCreateManyCrewReviewInput = {
 }
 
 export type DownvoteCrewReviewUpdateWithoutCrewReviewInput = {
-  user?: Prisma.UserUpdateOneRequiredWithoutCrewReviewsDownvotedNestedInput
-  crew?: Prisma.CrewUpdateOneRequiredWithoutDownvoteCrewReviewsNestedInput
+  Crew?: Prisma.CrewUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
+  User?: Prisma.UserUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
 }
 
 export type DownvoteCrewReviewUncheckedUpdateWithoutCrewReviewInput = {
@@ -666,8 +666,8 @@ export type DownvoteCrewReviewCreateManyUserInput = {
 }
 
 export type DownvoteCrewReviewUpdateWithoutUserInput = {
-  crew?: Prisma.CrewUpdateOneRequiredWithoutDownvoteCrewReviewsNestedInput
-  crewReview?: Prisma.CrewReviewUpdateOneWithoutDownvotesNestedInput
+  Crew?: Prisma.CrewUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
+  CrewReview?: Prisma.CrewReviewUpdateOneRequiredWithoutDownvoteCrewReviewNestedInput
 }
 
 export type DownvoteCrewReviewUncheckedUpdateWithoutUserInput = {
@@ -689,9 +689,9 @@ export type DownvoteCrewReviewSelect<ExtArgs extends runtime.Types.Extensions.In
   userId?: boolean
   crewId?: boolean
   crewReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  crewReview?: boolean | Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  CrewReview?: boolean | Prisma.CrewReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["downvoteCrewReview"]>
 
 export type DownvoteCrewReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -699,9 +699,9 @@ export type DownvoteCrewReviewSelectCreateManyAndReturn<ExtArgs extends runtime.
   userId?: boolean
   crewId?: boolean
   crewReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  crewReview?: boolean | Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  CrewReview?: boolean | Prisma.CrewReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["downvoteCrewReview"]>
 
 export type DownvoteCrewReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -709,9 +709,9 @@ export type DownvoteCrewReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.
   userId?: boolean
   crewId?: boolean
   crewReviewId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  crewReview?: boolean | Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  CrewReview?: boolean | Prisma.CrewReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["downvoteCrewReview"]>
 
 export type DownvoteCrewReviewSelectScalar = {
@@ -723,27 +723,27 @@ export type DownvoteCrewReviewSelectScalar = {
 
 export type DownvoteCrewReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "crewId" | "crewReviewId", ExtArgs["result"]["downvoteCrewReview"]>
 export type DownvoteCrewReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  crewReview?: boolean | Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  CrewReview?: boolean | Prisma.CrewReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DownvoteCrewReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  crewReview?: boolean | Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  CrewReview?: boolean | Prisma.CrewReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DownvoteCrewReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  crewReview?: boolean | Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>
+  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
+  CrewReview?: boolean | Prisma.CrewReviewDefaultArgs<ExtArgs>
+  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $DownvoteCrewReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DownvoteCrewReview"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
-    crew: Prisma.$CrewPayload<ExtArgs>
-    crewReview: Prisma.$CrewReviewPayload<ExtArgs> | null
+    Crew: Prisma.$CrewPayload<ExtArgs>
+    CrewReview: Prisma.$CrewReviewPayload<ExtArgs>
+    User: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1144,9 +1144,9 @@ readonly fields: DownvoteCrewReviewFieldRefs;
  */
 export interface Prisma__DownvoteCrewReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  crewReview<T extends Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DownvoteCrewReview$crewReviewArgs<ExtArgs>>): Prisma.Prisma__CrewReviewClient<runtime.Types.Result.GetResult<Prisma.$CrewReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  Crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  CrewReview<T extends Prisma.CrewReviewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewReviewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewReviewClient<runtime.Types.Result.GetResult<Prisma.$CrewReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1573,25 +1573,6 @@ export type DownvoteCrewReviewDeleteManyArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many DownvoteCrewReviews to delete.
    */
   limit?: number
-}
-
-/**
- * DownvoteCrewReview.crewReview
- */
-export type DownvoteCrewReview$crewReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CrewReview
-   */
-  select?: Prisma.CrewReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the CrewReview
-   */
-  omit?: Prisma.CrewReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CrewReviewInclude<ExtArgs> | null
-  where?: Prisma.CrewReviewWhereInput
 }
 
 /**
