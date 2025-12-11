@@ -1,7 +1,6 @@
 "use server";
 
 import { hashSync } from "bcrypt";
-import { User } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { redirect } from "next/navigation";
 import { randomUUID } from "crypto";
@@ -9,6 +8,7 @@ import { Resend } from "resend";
 import RegistrationEmail from "../../emails/RegistrationEmail";
 import ResetPasswordEmail from "../../emails/ResetPasswordEmail";
 import NewsletterEmail from "../../emails/NewsletterEmail";
+import { User } from "../../prisma/generated/prisma/client";
 
 interface IRegister {
 	email: string;
@@ -78,6 +78,7 @@ export async function signUp(
 					from: "MovieLandia24 <onboarding@resend.dev>",
 					to: [email],
 					subject: "Registration Verification - Movielandia24",
+					// @ts-expect-error error
 					react: RegistrationEmail({
 						userName,
 						email,

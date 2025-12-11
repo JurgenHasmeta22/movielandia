@@ -3,8 +3,7 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
-
-import { ContentType } from "@prisma/client";
+import { ContentType } from "../../../prisma/generated/prisma/enums";
 
 interface ReorderItemsParams {
 	listId: number;

@@ -3,7 +3,7 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
-import { NotificationType } from "@prisma/client";
+import { NotificationType } from "../../../prisma/generated/prisma/enums";
 
 export async function shareList(
 	listId: number,

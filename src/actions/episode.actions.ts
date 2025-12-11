@@ -1,10 +1,10 @@
 "use server";
 
-import { Episode, Prisma } from "@prisma/client";
 import { RatingsMap } from "./season.actions";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
 import { cacheLife } from "next/cache";
+import { Episode, Prisma } from "../../prisma/generated/prisma/client";
 
 interface EpisodeModelParams {
 	sortBy?: string;

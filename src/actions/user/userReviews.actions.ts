@@ -1,6 +1,5 @@
 "use server";
 
-import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../../prisma/config/prisma";
 import {
@@ -16,6 +15,7 @@ import {
 	RemoveReviewActorParams,
 	RemoveReviewCrewParams,
 } from "./user.actions";
+import { Prisma } from "../../../prisma/generated/prisma/client";
 
 // #region "Reviews"
 

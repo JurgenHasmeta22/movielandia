@@ -1,9 +1,9 @@
 "use server";
 
-import { Prisma, Serie } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
 import { cacheLife } from "next/cache";
+import { Serie, Prisma } from "../../prisma/generated/prisma/client";
 
 interface SerieModelParams {
 	sortBy?: string;

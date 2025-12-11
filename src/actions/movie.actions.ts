@@ -1,9 +1,9 @@
 "use server";
 
-import { Movie, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
 import { cacheLife } from "next/cache";
+import { Movie, Prisma } from "../../prisma/generated/prisma/client";
 
 interface MovieModelParams {
 	sortBy?: string;

@@ -3,7 +3,7 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
-import { TopicStatus } from "@prisma/client";
+import { TopicStatus } from "../../../prisma/generated/prisma/enums";
 
 export async function createTopic(
 	title: string,

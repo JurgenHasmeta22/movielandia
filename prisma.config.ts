@@ -1,10 +1,12 @@
-import { loadEnvFile } from "node:process";
+import "dotenv/config";
+import { defineConfig, env } from "prisma/config";
 
-loadEnvFile();
-
-export default {
+export default defineConfig({
 	schema: "prisma/schema/main.prisma",
 	datasource: {
 		url: process.env.POSTGRES_PRISMA_URL || "",
 	},
-};
+	migrations: {
+		path: "prisma/schema/migrations",
+	},
+});

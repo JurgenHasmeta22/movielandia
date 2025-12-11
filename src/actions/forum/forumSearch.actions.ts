@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "../../../prisma/config/prisma";
-import { TopicStatus } from "@prisma/client";
+import { TopicStatus } from "../../../prisma/generated/prisma/enums";
 
 export type ForumSearchResult = {
 	topics: {

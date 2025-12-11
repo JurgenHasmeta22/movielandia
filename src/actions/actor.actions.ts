@@ -1,7 +1,7 @@
 "use server";
 
-import { Actor, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
+import { Actor, Prisma } from "../../prisma/generated/prisma/client";
 import { RatingsMap } from "./season.actions";
 import { FilterOperator } from "@/types/filterOperators";
 import { cacheLife } from "next/cache";

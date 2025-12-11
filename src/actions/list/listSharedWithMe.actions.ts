@@ -1,8 +1,6 @@
 "use server";
 
 import { prisma } from "../../../prisma/config/prisma";
-import { revalidatePath } from "next/cache";
-import { getReferer } from "../user/user.actions";
 
 interface SharedListsParams {
 	page?: number;

@@ -1,11 +1,12 @@
 "use server";
 
-import { ContentType, List, Prisma } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { redirect } from "next/navigation";
 import { getReferer } from "../user/user.actions";
 import type { ListFormData } from "@/schemas/list.schema";
 import { revalidatePath } from "next/cache";
+import { Prisma, List } from "../../../prisma/generated/prisma/client";
+import { ContentType } from "../../../prisma/generated/prisma/enums";
 
 interface ListParams {
 	page?: number;

@@ -1,11 +1,11 @@
 "use server";
 
 import { headers } from "next/headers";
-import { Prisma, User } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { FilterOperator } from "@/types/filterOperators";
 import { cacheLife } from "next/cache";
+import { Prisma, User } from "../../../prisma/generated/prisma/client";
 
 // #region "Interfaces"
 export interface UserModelParams {

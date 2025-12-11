@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { reorderListItems } from "./listReorder.actions";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
-import { ContentType } from "@prisma/client";
+import { ContentType } from "../../../prisma/generated/prisma/enums";
 
 // Mock the prisma client
 vi.mock("../../../prisma/config/prisma", () => ({

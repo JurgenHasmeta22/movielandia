@@ -3,7 +3,7 @@
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
-import { PostType } from "@prisma/client";
+import { PostType } from "../../../prisma/generated/prisma/enums";
 
 export async function createPost(
 	content: string,
