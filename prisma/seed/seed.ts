@@ -1,4 +1,5 @@
 // #region "Imports"
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import { generateDynamicSeedData, SeedStep } from "./dynamicSeed";
 import { movies } from "./data/movies";
@@ -26,6 +27,7 @@ import {
 import { PrismaPg } from "@prisma/adapter-pg";
 // #endregion
 
+// #region "Adapter Prisma"
 const adapter = new PrismaPg({
 	connectionString: process.env.POSTGRES_PRISMA_URL,
 });
@@ -33,6 +35,7 @@ const adapter = new PrismaPg({
 export const prisma = new PrismaClient({
 	adapter,
 });
+// #endregion
 
 // #region "Delete data function"
 async function deleteData() {
@@ -129,6 +132,16 @@ async function deleteData() {
 	await prisma.user.deleteMany();
 
 	console.log("All existing data deleted successfully.");
+
+	// Reset all sequences to start from 1 so seeded numeric IDs match data files
+	try {
+		await prisma.$executeRawUnsafe(
+			`DO $$ DECLARE r record; BEGIN FOR r IN (SELECT c.relname AS sequence_name FROM pg_class c WHERE c.relkind = 'S') LOOP EXECUTE 'ALTER SEQUENCE ' || quote_ident(r.sequence_name) || ' RESTART WITH 1'; END LOOP; END$$;`,
+		);
+		console.log("Reset all sequences to 1");
+	} catch (err) {
+		console.error("Error resetting sequences:", err);
+	}
 }
 // #endregion
 
@@ -136,10 +149,18 @@ async function deleteData() {
 async function baseSeeding() {
 	console.log("Starting base seeding...");
 
-	// for (const user of users) {
-	// 	// @ts-ignore - Ignore TypeScript error for password field
-	// 	await prisma.user.create({ data: user });
-	// }
+	// Debug: list existing tables to ensure schema is present
+	try {
+		const tables =
+			await prisma.$queryRaw`SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'`;
+		console.log("Existing public tables:", tables);
+	} catch (err) {
+		console.error("Error listing tables:", err);
+	}
+	for (const user of users) {
+		// @ts-ignore - Ignore TypeScript error for password field
+		await prisma.user.create({ data: user });
+	}
 
 	// Create main entities
 	for (const genre of genres) {
@@ -228,12 +249,15 @@ async function baseSeeding() {
 }
 // #endregion
 
+// #region "Config"
 const config = {
 	useDynamicSeeding: false, // Set to false to use base seeding instead
-	deleteBeforeSeeding: false, // Set to true to delete all data before seeding
+	deleteBeforeSeeding: true, // Set to true to delete all data before seeding
 	dynamicSeedingStartStep: SeedStep.Movies, // Which step to start from for dynamic seeding
 };
+// #endregion
 
+// #region "Main Function"
 async function main() {
 	try {
 		if (config.deleteBeforeSeeding) {
@@ -259,5 +283,6 @@ async function main() {
 		process.exit(1);
 	}
 }
+// #endregion
 
 main();
