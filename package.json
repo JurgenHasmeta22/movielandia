@@ -33,7 +33,7 @@
         "@mui/styled-engine": "^7.3.6",
         "@mui/system": "^7.3.6",
         "@mui/utils": "^7.3.6",
-        "@mui/x-date-pickers": "^8.21.0",
+        "@mui/x-date-pickers": "^8.22.0",
         "@next-auth/prisma-adapter": "^1.0.7",
         "@next/bundle-analyzer": "^16.0.8",
         "@prisma/client": "^7.1.0",
