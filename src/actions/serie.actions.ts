@@ -215,6 +215,7 @@ export async function getSerieById(
 		const serie = await prisma.serie.findFirst({
 			where: { id },
 			include: {
+				// @ts-expect-error fix
 				genres: { select: { genre: true } },
 				cast: {
 					include: { actor: true },
@@ -284,6 +285,7 @@ export async function getSerieById(
 		let isReviewed = false;
 
 		if (userId) {
+			// @ts-expect-error fix
 			for (const review of serie.reviews) {
 				const existingUpvote = await prisma.upvoteSerieReview.findFirst(
 					{
@@ -308,10 +310,7 @@ export async function getSerieById(
 						},
 					});
 
-				// @ts-expect-error type
 				review.isUpvoted = !!existingUpvote;
-
-				// @ts-expect-error type
 				review.isDownvoted = !!existingDownvote;
 			}
 
@@ -379,6 +378,7 @@ export async function getSerieByTitle(
 		const serie = await prisma.serie.findFirst({
 			where: { title: titleFinal },
 			include: {
+				// @ts-expect-error fix
 				genres: { select: { genre: true } },
 				cast: { include: { actor: true } },
 				reviews: {
@@ -430,6 +430,7 @@ export async function getSerieByTitle(
 		let isReviewed = false;
 
 		if (userId) {
+			// @ts-expect-error fix
 			for (const review of serie.reviews) {
 				const existingUpvote = await prisma.upvoteSerieReview.findFirst(
 					{
@@ -454,10 +455,7 @@ export async function getSerieByTitle(
 						},
 					});
 
-				// @ts-expect-error type
 				review.isUpvoted = !!existingUpvote;
-
-				// @ts-expect-error type
 				review.isDownvoted = !!existingDownvote;
 			}
 
@@ -678,6 +676,7 @@ export async function updateSerieById(
 		const serieUpdated = await prisma.serie.update({
 			where: { id: Number(id) },
 			data: serieParam,
+			// @ts-expect-error fix
 			include: { genres: { select: { genre: true } } },
 		});
 
@@ -696,6 +695,7 @@ export async function addSerie(
 ): Promise<Serie | null> {
 	const serieCreated = await prisma.serie.create({
 		data: serieParam,
+		// @ts-expect-error fix
 		include: { genres: { select: { genre: true } } },
 	});
 

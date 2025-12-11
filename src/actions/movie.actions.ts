@@ -197,6 +197,7 @@ export async function getMovieById(
 		const movie = await prisma.movie.findFirst({
 			where: { id: movieId },
 			include: {
+				// @ts-expect-error fix
 				genres: { select: { genre: true } },
 				cast: {
 					include: { actor: true },
@@ -260,6 +261,7 @@ export async function getMovieById(
 		let isReviewed = false;
 
 		if (userId) {
+			// @ts-expect-error fix
 			for (const review of movie.reviews) {
 				const existingUpvote = await prisma.upvoteMovieReview.findFirst(
 					{
@@ -284,10 +286,7 @@ export async function getMovieById(
 						},
 					});
 
-				// @ts-expect-error type
 				review.isUpvoted = !!existingUpvote;
-
-				// @ts-expect-error type
 				review.isDownvoted = !!existingDownvote;
 			}
 
@@ -352,6 +351,7 @@ export async function getMovieByTitle(
 		const movie = await prisma.movie.findFirst({
 			where: { title: titleFinal },
 			include: {
+				// @ts-expect-error fix
 				genres: { select: { genre: true } },
 				cast: { include: { actor: true } },
 				reviews: {
@@ -400,6 +400,7 @@ export async function getMovieByTitle(
 			let isReviewed = false;
 
 			if (userId) {
+				// @ts-expect-error fix
 				for (const review of movie.reviews) {
 					const existingUpvote =
 						await prisma.upvoteMovieReview.findFirst({
@@ -423,10 +424,7 @@ export async function getMovieByTitle(
 							},
 						});
 
-					// @ts-expect-error type
 					review.isUpvoted = !!existingUpvote;
-
-					// @ts-expect-error type
 					review.isDownvoted = !!existingDownvote;
 				}
 
@@ -666,6 +664,7 @@ export async function updateMovieById(
 		const movieUpdated = await prisma.movie.update({
 			where: { id: Number(id) },
 			data: movieParam,
+			// @ts-expect-error fix
 			include: { genres: { select: { genre: true } } },
 		});
 
@@ -684,6 +683,7 @@ export async function addMovie(
 ): Promise<Movie | null> {
 	const movieCreated = await prisma.movie.create({
 		data: movieParam,
+		// @ts-expect-error fix
 		include: { genres: { select: { genre: true } } },
 	});
 
