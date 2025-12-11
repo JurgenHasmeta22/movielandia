@@ -5,7 +5,7 @@ import { Prisma, User } from "@prisma/client";
 import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { FilterOperator } from "@/types/filterOperators";
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 
 // #region "Interfaces"
 export interface UserModelParams {

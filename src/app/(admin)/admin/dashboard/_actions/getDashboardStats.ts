@@ -1,6 +1,6 @@
 "use server";
 
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 import { prisma } from "../../../../../../prisma/config/prisma";
 
 export type DashboardStats = {

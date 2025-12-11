@@ -3,7 +3,7 @@
 import { Genre, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { FilterOperator } from "@/types/filterOperators";
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 
 type RatingsMap = {
 	[key: number]: {

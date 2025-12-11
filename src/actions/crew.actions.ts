@@ -4,7 +4,7 @@ import { Crew, Prisma } from "@prisma/client";
 import { prisma } from "../../prisma/config/prisma";
 import { RatingsMap } from "./season.actions";
 import { FilterOperator } from "@/types/filterOperators";
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 
 interface CrewModelParams {
 	sortBy?: string;

@@ -1,7 +1,7 @@
 import { Stack, Box, Container } from "@mui/material";
 import { Movie, Serie } from "@prisma/client";
 import type { Metadata } from "next";
-import { unstable_cacheLife as cacheLife } from "next/cache";
+import { cacheLife } from "next/cache";
 import HomeHeroSection from "./(home)/_components/HomeHero";
 import ListHomeSection from "./(home)/_components/ListHomeSection";
 import MarketingSection from "./(home)/_components/MarketingSection";
