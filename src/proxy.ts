@@ -2,7 +2,7 @@ import { getToken } from "next-auth/jwt";
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import { NextFetchEvent, NextResponse } from "next/server";
 
-export default async function middleware(
+export default async function proxy(
 	req: NextRequestWithAuth,
 	event: NextFetchEvent,
 ) {
