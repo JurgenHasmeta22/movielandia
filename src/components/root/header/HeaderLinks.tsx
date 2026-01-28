@@ -223,12 +223,12 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 		fontSize: "0.9rem",
 		textTransform: "none",
 		color: isActive(path)
-			// @ts-expect-error Color
-			? theme.vars.palette.green.main
+			? // @ts-expect-error Color
+				theme.vars.palette.green.main
 			: theme.vars.palette.primary.main,
 		borderBottom: isActive(path)
-			// @ts-expect-error Color
-			? `2px solid ${theme.vars.palette.green.main}`
+			? // @ts-expect-error Color
+				`2px solid ${theme.vars.palette.green.main}`
 			: "none",
 		borderRadius: 0,
 		fontWeight: 500,

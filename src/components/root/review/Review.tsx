@@ -24,28 +24,7 @@ import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-interface IReviewProps {
-	review: Review;
-	setRating: React.Dispatch<React.SetStateAction<number | null>>;
-	ref: any;
-	setIsEditMode: Dispatch<SetStateAction<boolean>>;
-	isEditMode: boolean;
-	setReview: React.Dispatch<React.SetStateAction<string>>;
-	type: string;
-	data: any;
-	handleRemoveReview: () => void;
-	handleFocusTextEditor: () => void;
-	handleUpvote: (
-		reviewId: number,
-		isAlreadyUpvotedOrDownvoted: boolean,
-	) => void;
-	handleDownvote: (
-		reviewId: number,
-		isAlreadyUpvotedOrDownvoted: boolean,
-	) => void;
-}
-
-type Review = {
+type ReviewType = {
 	id: number;
 	content: string;
 	createdAt: string;
@@ -65,6 +44,27 @@ type Review = {
 		avatar: any;
 	};
 };
+
+interface IReviewProps {
+	review: ReviewType;
+	setRating: React.Dispatch<React.SetStateAction<number | null>>;
+	ref: any;
+	setIsEditMode: Dispatch<SetStateAction<boolean>>;
+	isEditMode: boolean;
+	setReview: React.Dispatch<React.SetStateAction<string>>;
+	type: string;
+	data: any;
+	handleRemoveReview: () => void;
+	handleFocusTextEditor: () => void;
+	handleUpvote: (
+		reviewId: number,
+		isAlreadyUpvotedOrDownvoted: boolean,
+	) => void;
+	handleDownvote: (
+		reviewId: number,
+		isAlreadyUpvotedOrDownvoted: boolean,
+	) => void;
+}
 
 const Review: React.FC<IReviewProps> = ({
 	review,

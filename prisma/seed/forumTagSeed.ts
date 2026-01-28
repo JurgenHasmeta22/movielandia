@@ -86,7 +86,7 @@ export async function generateForumTagData(): Promise<void> {
 	console.log("Forum tag seeding completed successfully.");
 }
 
-if (require.main === module) {
+if (process.env.npm_lifecycle_event === "seed" || process.argv[1]?.includes("forumTagSeed.ts")) {
 	generateForumTagData()
 		.then(async () => {
 			await prisma.$disconnect();

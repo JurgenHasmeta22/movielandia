@@ -240,53 +240,61 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 			};
 
 			switch (page) {
-				case "series":
+				case "series": {
 					response = await getSeriesWithFilters(queryParams);
 					const seriesCount = await getSeriesTotalCount();
 					setRows(response.rows);
 					setRowsCount(seriesCount);
 					break;
-				case "movies":
+				}
+				case "movies": {
 					response = await getMoviesWithFilters(queryParams);
 					const moviesCount = await getMoviesTotalCount();
 					setRows(response.movies);
 					setRowsCount(moviesCount);
 					break;
-				case "genres":
+				}
+				case "genres": {
 					response = await getGenresWithFilters(queryParams);
 					setRows(response.rows);
 					setRowsCount(response.count);
 					break;
-				case "users":
+				}
+				case "users": {
 					response = await getUsersWithFilters(queryParams);
 					const usersCount = await getUsersTotalCount();
 					setRows(response.users);
 					setRowsCount(usersCount);
 					break;
-				case "actors":
+				}
+				case "actors": {
 					response = await getActorsWithFilters(queryParams);
 					const actorsCount = await getActorsTotalCount();
 					setRows(response.actors);
 					setRowsCount(actorsCount);
 					break;
-				case "episodes":
+				}
+				case "episodes": {
 					response = await getEpisodesWithFilters(queryParams);
 					const episodesCount = await getEpisodesTotalCount();
 					setRows(response.episodes);
 					setRowsCount(episodesCount);
 					break;
-				case "seasons":
+				}
+				case "seasons": {
 					response = await getSeasonsWithFilters(queryParams);
 					const seasonsCount = await getSeasonsTotalCount();
 					setRows(response.seasons);
 					setRowsCount(seasonsCount);
 					break;
-				case "crews":
+				}
+				case "crews": {
 					response = await getCrewMembersWithFilters(queryParams);
 					const crewCoount = await getCrewTotalCount();
 					setRows(response.crewMembers);
 					setRowsCount(crewCoount);
 					break;
+				}
 				default:
 					response = { rows: [], count: 0 };
 			}
