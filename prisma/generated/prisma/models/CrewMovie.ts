@@ -208,16 +208,16 @@ export type CrewMovieWhereInput = {
   id?: Prisma.IntFilter<"CrewMovie"> | number
   movieId?: Prisma.IntFilter<"CrewMovie"> | number
   crewId?: Prisma.IntFilter<"CrewMovie"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }
 
 export type CrewMovieOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
-  Crew?: Prisma.CrewOrderByWithRelationInput
-  Movie?: Prisma.MovieOrderByWithRelationInput
+  movie?: Prisma.MovieOrderByWithRelationInput
+  crew?: Prisma.CrewOrderByWithRelationInput
 }
 
 export type CrewMovieWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type CrewMovieWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CrewMovieWhereInput | Prisma.CrewMovieWhereInput[]
   movieId?: Prisma.IntFilter<"CrewMovie"> | number
   crewId?: Prisma.IntFilter<"CrewMovie"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }, "id" | "crewId_movieId">
 
 export type CrewMovieOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type CrewMovieScalarWhereWithAggregatesInput = {
 }
 
 export type CrewMovieCreateInput = {
-  Crew: Prisma.CrewCreateNestedOneWithoutCrewMovieInput
-  Movie: Prisma.MovieCreateNestedOneWithoutCrewMovieInput
+  movie: Prisma.MovieCreateNestedOneWithoutCrewInput
+  crew: Prisma.CrewCreateNestedOneWithoutProducedMoviesInput
 }
 
 export type CrewMovieUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type CrewMovieUncheckedCreateInput = {
 }
 
 export type CrewMovieUpdateInput = {
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutCrewMovieNestedInput
-  Movie?: Prisma.MovieUpdateOneRequiredWithoutCrewMovieNestedInput
+  movie?: Prisma.MovieUpdateOneRequiredWithoutCrewNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutProducedMoviesNestedInput
 }
 
 export type CrewMovieUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type CrewMovieUncheckedUpdateManyWithoutMovieNestedInput = {
 }
 
 export type CrewMovieCreateWithoutCrewInput = {
-  Movie: Prisma.MovieCreateNestedOneWithoutCrewMovieInput
+  movie: Prisma.MovieCreateNestedOneWithoutCrewInput
 }
 
 export type CrewMovieUncheckedCreateWithoutCrewInput = {
@@ -464,7 +464,7 @@ export type CrewMovieScalarWhereInput = {
 }
 
 export type CrewMovieCreateWithoutMovieInput = {
-  Crew: Prisma.CrewCreateNestedOneWithoutCrewMovieInput
+  crew: Prisma.CrewCreateNestedOneWithoutProducedMoviesInput
 }
 
 export type CrewMovieUncheckedCreateWithoutMovieInput = {
@@ -504,7 +504,7 @@ export type CrewMovieCreateManyCrewInput = {
 }
 
 export type CrewMovieUpdateWithoutCrewInput = {
-  Movie?: Prisma.MovieUpdateOneRequiredWithoutCrewMovieNestedInput
+  movie?: Prisma.MovieUpdateOneRequiredWithoutCrewNestedInput
 }
 
 export type CrewMovieUncheckedUpdateWithoutCrewInput = {
@@ -523,7 +523,7 @@ export type CrewMovieCreateManyMovieInput = {
 }
 
 export type CrewMovieUpdateWithoutMovieInput = {
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutCrewMovieNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutProducedMoviesNestedInput
 }
 
 export type CrewMovieUncheckedUpdateWithoutMovieInput = {
@@ -542,24 +542,24 @@ export type CrewMovieSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   movieId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crewMovie"]>
 
 export type CrewMovieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   movieId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crewMovie"]>
 
 export type CrewMovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   movieId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crewMovie"]>
 
 export type CrewMovieSelectScalar = {
@@ -570,23 +570,23 @@ export type CrewMovieSelectScalar = {
 
 export type CrewMovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "movieId" | "crewId", ExtArgs["result"]["crewMovie"]>
 export type CrewMovieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type CrewMovieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type CrewMovieIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 
 export type $CrewMoviePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CrewMovie"
   objects: {
-    Crew: Prisma.$CrewPayload<ExtArgs>
-    Movie: Prisma.$MoviePayload<ExtArgs>
+    movie: Prisma.$MoviePayload<ExtArgs>
+    crew: Prisma.$CrewPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: CrewMovieFieldRefs;
  */
 export interface Prisma__CrewMovieClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

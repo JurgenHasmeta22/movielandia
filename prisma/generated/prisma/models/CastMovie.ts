@@ -208,16 +208,16 @@ export type CastMovieWhereInput = {
   id?: Prisma.IntFilter<"CastMovie"> | number
   movieId?: Prisma.IntFilter<"CastMovie"> | number
   actorId?: Prisma.IntFilter<"CastMovie"> | number
-  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
-  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
 }
 
 export type CastMovieOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   movieId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
-  Actor?: Prisma.ActorOrderByWithRelationInput
-  Movie?: Prisma.MovieOrderByWithRelationInput
+  movie?: Prisma.MovieOrderByWithRelationInput
+  actor?: Prisma.ActorOrderByWithRelationInput
 }
 
 export type CastMovieWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type CastMovieWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CastMovieWhereInput | Prisma.CastMovieWhereInput[]
   movieId?: Prisma.IntFilter<"CastMovie"> | number
   actorId?: Prisma.IntFilter<"CastMovie"> | number
-  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
-  Movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
+  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
 }, "id" | "movieId_actorId">
 
 export type CastMovieOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type CastMovieScalarWhereWithAggregatesInput = {
 }
 
 export type CastMovieCreateInput = {
-  Actor: Prisma.ActorCreateNestedOneWithoutCastMovieInput
-  Movie: Prisma.MovieCreateNestedOneWithoutCastMovieInput
+  movie: Prisma.MovieCreateNestedOneWithoutCastInput
+  actor: Prisma.ActorCreateNestedOneWithoutStarredMoviesInput
 }
 
 export type CastMovieUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type CastMovieUncheckedCreateInput = {
 }
 
 export type CastMovieUpdateInput = {
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutCastMovieNestedInput
-  Movie?: Prisma.MovieUpdateOneRequiredWithoutCastMovieNestedInput
+  movie?: Prisma.MovieUpdateOneRequiredWithoutCastNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutStarredMoviesNestedInput
 }
 
 export type CastMovieUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type CastMovieUncheckedUpdateManyWithoutMovieNestedInput = {
 }
 
 export type CastMovieCreateWithoutActorInput = {
-  Movie: Prisma.MovieCreateNestedOneWithoutCastMovieInput
+  movie: Prisma.MovieCreateNestedOneWithoutCastInput
 }
 
 export type CastMovieUncheckedCreateWithoutActorInput = {
@@ -464,7 +464,7 @@ export type CastMovieScalarWhereInput = {
 }
 
 export type CastMovieCreateWithoutMovieInput = {
-  Actor: Prisma.ActorCreateNestedOneWithoutCastMovieInput
+  actor: Prisma.ActorCreateNestedOneWithoutStarredMoviesInput
 }
 
 export type CastMovieUncheckedCreateWithoutMovieInput = {
@@ -504,7 +504,7 @@ export type CastMovieCreateManyActorInput = {
 }
 
 export type CastMovieUpdateWithoutActorInput = {
-  Movie?: Prisma.MovieUpdateOneRequiredWithoutCastMovieNestedInput
+  movie?: Prisma.MovieUpdateOneRequiredWithoutCastNestedInput
 }
 
 export type CastMovieUncheckedUpdateWithoutActorInput = {
@@ -523,7 +523,7 @@ export type CastMovieCreateManyMovieInput = {
 }
 
 export type CastMovieUpdateWithoutMovieInput = {
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutCastMovieNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutStarredMoviesNestedInput
 }
 
 export type CastMovieUncheckedUpdateWithoutMovieInput = {
@@ -542,24 +542,24 @@ export type CastMovieSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   movieId?: boolean
   actorId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["castMovie"]>
 
 export type CastMovieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   movieId?: boolean
   actorId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["castMovie"]>
 
 export type CastMovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   movieId?: boolean
   actorId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["castMovie"]>
 
 export type CastMovieSelectScalar = {
@@ -570,23 +570,23 @@ export type CastMovieSelectScalar = {
 
 export type CastMovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "movieId" | "actorId", ExtArgs["result"]["castMovie"]>
 export type CastMovieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 export type CastMovieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 export type CastMovieIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  Movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  movie?: boolean | Prisma.MovieDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 
 export type $CastMoviePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CastMovie"
   objects: {
-    Actor: Prisma.$ActorPayload<ExtArgs>
-    Movie: Prisma.$MoviePayload<ExtArgs>
+    movie: Prisma.$MoviePayload<ExtArgs>
+    actor: Prisma.$ActorPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: CastMovieFieldRefs;
  */
 export interface Prisma__CastMovieClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  movie<T extends Prisma.MovieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MovieDefaultArgs<ExtArgs>>): Prisma.Prisma__MovieClient<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

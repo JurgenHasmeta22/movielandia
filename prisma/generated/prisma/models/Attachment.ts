@@ -268,8 +268,8 @@ export type AttachmentWhereInput = {
   description?: Prisma.StringNullableFilter<"Attachment"> | string | null
   postId?: Prisma.IntFilter<"Attachment"> | number
   userId?: Prisma.IntFilter<"Attachment"> | number
-  ForumPost?: Prisma.XOR<Prisma.ForumPostScalarRelationFilter, Prisma.ForumPostWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  post?: Prisma.XOR<Prisma.ForumPostScalarRelationFilter, Prisma.ForumPostWhereInput>
 }
 
 export type AttachmentOrderByWithRelationInput = {
@@ -283,8 +283,8 @@ export type AttachmentOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   postId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  ForumPost?: Prisma.ForumPostOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  post?: Prisma.ForumPostOrderByWithRelationInput
   _relevance?: Prisma.AttachmentOrderByRelevanceInput
 }
 
@@ -302,8 +302,8 @@ export type AttachmentWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Attachment"> | string | null
   postId?: Prisma.IntFilter<"Attachment"> | number
   userId?: Prisma.IntFilter<"Attachment"> | number
-  ForumPost?: Prisma.XOR<Prisma.ForumPostScalarRelationFilter, Prisma.ForumPostWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  post?: Prisma.XOR<Prisma.ForumPostScalarRelationFilter, Prisma.ForumPostWhereInput>
 }, "id">
 
 export type AttachmentOrderByWithAggregationInput = {
@@ -348,8 +348,8 @@ export type AttachmentCreateInput = {
   uploadedAt?: Date | string
   isPublic?: boolean
   description?: string | null
-  ForumPost: Prisma.ForumPostCreateNestedOneWithoutAttachmentInput
-  User: Prisma.UserCreateNestedOneWithoutAttachmentInput
+  user: Prisma.UserCreateNestedOneWithoutAttachmentsInput
+  post: Prisma.ForumPostCreateNestedOneWithoutAttachmentsInput
 }
 
 export type AttachmentUncheckedCreateInput = {
@@ -373,8 +373,8 @@ export type AttachmentUpdateInput = {
   uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ForumPost?: Prisma.ForumPostUpdateOneRequiredWithoutAttachmentNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutAttachmentNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAttachmentsNestedInput
+  post?: Prisma.ForumPostUpdateOneRequiredWithoutAttachmentsNestedInput
 }
 
 export type AttachmentUncheckedUpdateInput = {
@@ -424,6 +424,16 @@ export type AttachmentUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type AttachmentListRelationFilter = {
+  every?: Prisma.AttachmentWhereInput
+  some?: Prisma.AttachmentWhereInput
+  none?: Prisma.AttachmentWhereInput
+}
+
+export type AttachmentOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type AttachmentOrderByRelevanceInput = {
@@ -485,59 +495,45 @@ export type AttachmentSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
 }
 
-export type AttachmentListRelationFilter = {
-  every?: Prisma.AttachmentWhereInput
-  some?: Prisma.AttachmentWhereInput
-  none?: Prisma.AttachmentWhereInput
-}
-
-export type AttachmentOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
-export type AttachmentCreateNestedManyWithoutForumPostInput = {
-  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutForumPostInput, Prisma.AttachmentUncheckedCreateWithoutForumPostInput> | Prisma.AttachmentCreateWithoutForumPostInput[] | Prisma.AttachmentUncheckedCreateWithoutForumPostInput[]
-  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutForumPostInput | Prisma.AttachmentCreateOrConnectWithoutForumPostInput[]
-  createMany?: Prisma.AttachmentCreateManyForumPostInputEnvelope
+export type AttachmentCreateNestedManyWithoutPostInput = {
+  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutPostInput, Prisma.AttachmentUncheckedCreateWithoutPostInput> | Prisma.AttachmentCreateWithoutPostInput[] | Prisma.AttachmentUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutPostInput | Prisma.AttachmentCreateOrConnectWithoutPostInput[]
+  createMany?: Prisma.AttachmentCreateManyPostInputEnvelope
   connect?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
 }
 
-export type AttachmentUncheckedCreateNestedManyWithoutForumPostInput = {
-  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutForumPostInput, Prisma.AttachmentUncheckedCreateWithoutForumPostInput> | Prisma.AttachmentCreateWithoutForumPostInput[] | Prisma.AttachmentUncheckedCreateWithoutForumPostInput[]
-  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutForumPostInput | Prisma.AttachmentCreateOrConnectWithoutForumPostInput[]
-  createMany?: Prisma.AttachmentCreateManyForumPostInputEnvelope
+export type AttachmentUncheckedCreateNestedManyWithoutPostInput = {
+  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutPostInput, Prisma.AttachmentUncheckedCreateWithoutPostInput> | Prisma.AttachmentCreateWithoutPostInput[] | Prisma.AttachmentUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutPostInput | Prisma.AttachmentCreateOrConnectWithoutPostInput[]
+  createMany?: Prisma.AttachmentCreateManyPostInputEnvelope
   connect?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
 }
 
-export type AttachmentUpdateManyWithoutForumPostNestedInput = {
-  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutForumPostInput, Prisma.AttachmentUncheckedCreateWithoutForumPostInput> | Prisma.AttachmentCreateWithoutForumPostInput[] | Prisma.AttachmentUncheckedCreateWithoutForumPostInput[]
-  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutForumPostInput | Prisma.AttachmentCreateOrConnectWithoutForumPostInput[]
-  upsert?: Prisma.AttachmentUpsertWithWhereUniqueWithoutForumPostInput | Prisma.AttachmentUpsertWithWhereUniqueWithoutForumPostInput[]
-  createMany?: Prisma.AttachmentCreateManyForumPostInputEnvelope
+export type AttachmentUpdateManyWithoutPostNestedInput = {
+  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutPostInput, Prisma.AttachmentUncheckedCreateWithoutPostInput> | Prisma.AttachmentCreateWithoutPostInput[] | Prisma.AttachmentUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutPostInput | Prisma.AttachmentCreateOrConnectWithoutPostInput[]
+  upsert?: Prisma.AttachmentUpsertWithWhereUniqueWithoutPostInput | Prisma.AttachmentUpsertWithWhereUniqueWithoutPostInput[]
+  createMany?: Prisma.AttachmentCreateManyPostInputEnvelope
   set?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
   disconnect?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
   delete?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
   connect?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
-  update?: Prisma.AttachmentUpdateWithWhereUniqueWithoutForumPostInput | Prisma.AttachmentUpdateWithWhereUniqueWithoutForumPostInput[]
-  updateMany?: Prisma.AttachmentUpdateManyWithWhereWithoutForumPostInput | Prisma.AttachmentUpdateManyWithWhereWithoutForumPostInput[]
+  update?: Prisma.AttachmentUpdateWithWhereUniqueWithoutPostInput | Prisma.AttachmentUpdateWithWhereUniqueWithoutPostInput[]
+  updateMany?: Prisma.AttachmentUpdateManyWithWhereWithoutPostInput | Prisma.AttachmentUpdateManyWithWhereWithoutPostInput[]
   deleteMany?: Prisma.AttachmentScalarWhereInput | Prisma.AttachmentScalarWhereInput[]
 }
 
-export type AttachmentUncheckedUpdateManyWithoutForumPostNestedInput = {
-  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutForumPostInput, Prisma.AttachmentUncheckedCreateWithoutForumPostInput> | Prisma.AttachmentCreateWithoutForumPostInput[] | Prisma.AttachmentUncheckedCreateWithoutForumPostInput[]
-  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutForumPostInput | Prisma.AttachmentCreateOrConnectWithoutForumPostInput[]
-  upsert?: Prisma.AttachmentUpsertWithWhereUniqueWithoutForumPostInput | Prisma.AttachmentUpsertWithWhereUniqueWithoutForumPostInput[]
-  createMany?: Prisma.AttachmentCreateManyForumPostInputEnvelope
+export type AttachmentUncheckedUpdateManyWithoutPostNestedInput = {
+  create?: Prisma.XOR<Prisma.AttachmentCreateWithoutPostInput, Prisma.AttachmentUncheckedCreateWithoutPostInput> | Prisma.AttachmentCreateWithoutPostInput[] | Prisma.AttachmentUncheckedCreateWithoutPostInput[]
+  connectOrCreate?: Prisma.AttachmentCreateOrConnectWithoutPostInput | Prisma.AttachmentCreateOrConnectWithoutPostInput[]
+  upsert?: Prisma.AttachmentUpsertWithWhereUniqueWithoutPostInput | Prisma.AttachmentUpsertWithWhereUniqueWithoutPostInput[]
+  createMany?: Prisma.AttachmentCreateManyPostInputEnvelope
   set?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
   disconnect?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
   delete?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
   connect?: Prisma.AttachmentWhereUniqueInput | Prisma.AttachmentWhereUniqueInput[]
-  update?: Prisma.AttachmentUpdateWithWhereUniqueWithoutForumPostInput | Prisma.AttachmentUpdateWithWhereUniqueWithoutForumPostInput[]
-  updateMany?: Prisma.AttachmentUpdateManyWithWhereWithoutForumPostInput | Prisma.AttachmentUpdateManyWithWhereWithoutForumPostInput[]
+  update?: Prisma.AttachmentUpdateWithWhereUniqueWithoutPostInput | Prisma.AttachmentUpdateWithWhereUniqueWithoutPostInput[]
+  updateMany?: Prisma.AttachmentUpdateManyWithWhereWithoutPostInput | Prisma.AttachmentUpdateManyWithWhereWithoutPostInput[]
   deleteMany?: Prisma.AttachmentScalarWhereInput | Prisma.AttachmentScalarWhereInput[]
 }
 
@@ -583,7 +579,7 @@ export type AttachmentUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.AttachmentScalarWhereInput | Prisma.AttachmentScalarWhereInput[]
 }
 
-export type AttachmentCreateWithoutForumPostInput = {
+export type AttachmentCreateWithoutPostInput = {
   filename: string
   fileUrl: string
   fileSize: number
@@ -591,10 +587,10 @@ export type AttachmentCreateWithoutForumPostInput = {
   uploadedAt?: Date | string
   isPublic?: boolean
   description?: string | null
-  User: Prisma.UserCreateNestedOneWithoutAttachmentInput
+  user: Prisma.UserCreateNestedOneWithoutAttachmentsInput
 }
 
-export type AttachmentUncheckedCreateWithoutForumPostInput = {
+export type AttachmentUncheckedCreateWithoutPostInput = {
   id?: number
   filename: string
   fileUrl: string
@@ -606,30 +602,30 @@ export type AttachmentUncheckedCreateWithoutForumPostInput = {
   userId: number
 }
 
-export type AttachmentCreateOrConnectWithoutForumPostInput = {
+export type AttachmentCreateOrConnectWithoutPostInput = {
   where: Prisma.AttachmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.AttachmentCreateWithoutForumPostInput, Prisma.AttachmentUncheckedCreateWithoutForumPostInput>
+  create: Prisma.XOR<Prisma.AttachmentCreateWithoutPostInput, Prisma.AttachmentUncheckedCreateWithoutPostInput>
 }
 
-export type AttachmentCreateManyForumPostInputEnvelope = {
-  data: Prisma.AttachmentCreateManyForumPostInput | Prisma.AttachmentCreateManyForumPostInput[]
+export type AttachmentCreateManyPostInputEnvelope = {
+  data: Prisma.AttachmentCreateManyPostInput | Prisma.AttachmentCreateManyPostInput[]
   skipDuplicates?: boolean
 }
 
-export type AttachmentUpsertWithWhereUniqueWithoutForumPostInput = {
+export type AttachmentUpsertWithWhereUniqueWithoutPostInput = {
   where: Prisma.AttachmentWhereUniqueInput
-  update: Prisma.XOR<Prisma.AttachmentUpdateWithoutForumPostInput, Prisma.AttachmentUncheckedUpdateWithoutForumPostInput>
-  create: Prisma.XOR<Prisma.AttachmentCreateWithoutForumPostInput, Prisma.AttachmentUncheckedCreateWithoutForumPostInput>
+  update: Prisma.XOR<Prisma.AttachmentUpdateWithoutPostInput, Prisma.AttachmentUncheckedUpdateWithoutPostInput>
+  create: Prisma.XOR<Prisma.AttachmentCreateWithoutPostInput, Prisma.AttachmentUncheckedCreateWithoutPostInput>
 }
 
-export type AttachmentUpdateWithWhereUniqueWithoutForumPostInput = {
+export type AttachmentUpdateWithWhereUniqueWithoutPostInput = {
   where: Prisma.AttachmentWhereUniqueInput
-  data: Prisma.XOR<Prisma.AttachmentUpdateWithoutForumPostInput, Prisma.AttachmentUncheckedUpdateWithoutForumPostInput>
+  data: Prisma.XOR<Prisma.AttachmentUpdateWithoutPostInput, Prisma.AttachmentUncheckedUpdateWithoutPostInput>
 }
 
-export type AttachmentUpdateManyWithWhereWithoutForumPostInput = {
+export type AttachmentUpdateManyWithWhereWithoutPostInput = {
   where: Prisma.AttachmentScalarWhereInput
-  data: Prisma.XOR<Prisma.AttachmentUpdateManyMutationInput, Prisma.AttachmentUncheckedUpdateManyWithoutForumPostInput>
+  data: Prisma.XOR<Prisma.AttachmentUpdateManyMutationInput, Prisma.AttachmentUncheckedUpdateManyWithoutPostInput>
 }
 
 export type AttachmentScalarWhereInput = {
@@ -656,7 +652,7 @@ export type AttachmentCreateWithoutUserInput = {
   uploadedAt?: Date | string
   isPublic?: boolean
   description?: string | null
-  ForumPost: Prisma.ForumPostCreateNestedOneWithoutAttachmentInput
+  post: Prisma.ForumPostCreateNestedOneWithoutAttachmentsInput
 }
 
 export type AttachmentUncheckedCreateWithoutUserInput = {
@@ -697,7 +693,7 @@ export type AttachmentUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.AttachmentUpdateManyMutationInput, Prisma.AttachmentUncheckedUpdateManyWithoutUserInput>
 }
 
-export type AttachmentCreateManyForumPostInput = {
+export type AttachmentCreateManyPostInput = {
   id?: number
   filename: string
   fileUrl: string
@@ -709,7 +705,7 @@ export type AttachmentCreateManyForumPostInput = {
   userId: number
 }
 
-export type AttachmentUpdateWithoutForumPostInput = {
+export type AttachmentUpdateWithoutPostInput = {
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -717,10 +713,10 @@ export type AttachmentUpdateWithoutForumPostInput = {
   uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  User?: Prisma.UserUpdateOneRequiredWithoutAttachmentNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAttachmentsNestedInput
 }
 
-export type AttachmentUncheckedUpdateWithoutForumPostInput = {
+export type AttachmentUncheckedUpdateWithoutPostInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -732,7 +728,7 @@ export type AttachmentUncheckedUpdateWithoutForumPostInput = {
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type AttachmentUncheckedUpdateManyWithoutForumPostInput = {
+export type AttachmentUncheckedUpdateManyWithoutPostInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -764,7 +760,7 @@ export type AttachmentUpdateWithoutUserInput = {
   uploadedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  ForumPost?: Prisma.ForumPostUpdateOneRequiredWithoutAttachmentNestedInput
+  post?: Prisma.ForumPostUpdateOneRequiredWithoutAttachmentsNestedInput
 }
 
 export type AttachmentUncheckedUpdateWithoutUserInput = {
@@ -804,8 +800,8 @@ export type AttachmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   description?: boolean
   postId?: boolean
   userId?: boolean
-  ForumPost?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  post?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attachment"]>
 
 export type AttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -819,8 +815,8 @@ export type AttachmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   description?: boolean
   postId?: boolean
   userId?: boolean
-  ForumPost?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  post?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attachment"]>
 
 export type AttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -834,8 +830,8 @@ export type AttachmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   description?: boolean
   postId?: boolean
   userId?: boolean
-  ForumPost?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  post?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attachment"]>
 
 export type AttachmentSelectScalar = {
@@ -853,23 +849,23 @@ export type AttachmentSelectScalar = {
 
 export type AttachmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "filename" | "fileUrl" | "fileSize" | "mimeType" | "uploadedAt" | "isPublic" | "description" | "postId" | "userId", ExtArgs["result"]["attachment"]>
 export type AttachmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  post?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
 }
 export type AttachmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  post?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
 }
 export type AttachmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  post?: boolean | Prisma.ForumPostDefaultArgs<ExtArgs>
 }
 
 export type $AttachmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Attachment"
   objects: {
-    ForumPost: Prisma.$ForumPostPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    post: Prisma.$ForumPostPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1276,8 +1272,8 @@ readonly fields: AttachmentFieldRefs;
  */
 export interface Prisma__AttachmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  ForumPost<T extends Prisma.ForumPostDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPostDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumPostClient<runtime.Types.Result.GetResult<Prisma.$ForumPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  post<T extends Prisma.ForumPostDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPostDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumPostClient<runtime.Types.Result.GetResult<Prisma.$ForumPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

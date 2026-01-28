@@ -216,8 +216,8 @@ export type UserForumTopicWatchWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"UserForumTopicWatch"> | Date | string
   userId?: Prisma.IntFilter<"UserForumTopicWatch"> | number
   topicId?: Prisma.IntFilter<"UserForumTopicWatch"> | number
-  ForumTopic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  topic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
 }
 
 export type UserForumTopicWatchOrderByWithRelationInput = {
@@ -225,8 +225,8 @@ export type UserForumTopicWatchOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
-  ForumTopic?: Prisma.ForumTopicOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  topic?: Prisma.ForumTopicOrderByWithRelationInput
 }
 
 export type UserForumTopicWatchWhereUniqueInput = Prisma.AtLeast<{
@@ -238,8 +238,8 @@ export type UserForumTopicWatchWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"UserForumTopicWatch"> | Date | string
   userId?: Prisma.IntFilter<"UserForumTopicWatch"> | number
   topicId?: Prisma.IntFilter<"UserForumTopicWatch"> | number
-  ForumTopic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  topic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
 }, "id" | "userId_topicId">
 
 export type UserForumTopicWatchOrderByWithAggregationInput = {
@@ -266,8 +266,8 @@ export type UserForumTopicWatchScalarWhereWithAggregatesInput = {
 
 export type UserForumTopicWatchCreateInput = {
   createdAt?: Date | string
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutUserForumTopicWatchInput
-  User: Prisma.UserCreateNestedOneWithoutUserForumTopicWatchInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsWatchedInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutWatchersInput
 }
 
 export type UserForumTopicWatchUncheckedCreateInput = {
@@ -279,8 +279,8 @@ export type UserForumTopicWatchUncheckedCreateInput = {
 
 export type UserForumTopicWatchUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutUserForumTopicWatchNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUserForumTopicWatchNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsWatchedNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutWatchersNestedInput
 }
 
 export type UserForumTopicWatchUncheckedUpdateInput = {
@@ -356,45 +356,45 @@ export type UserForumTopicWatchSumOrderByAggregateInput = {
   topicId?: Prisma.SortOrder
 }
 
-export type UserForumTopicWatchCreateNestedManyWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicWatchCreateWithoutForumTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicWatchCreateManyForumTopicInputEnvelope
+export type UserForumTopicWatchCreateNestedManyWithoutTopicInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicWatchCreateWithoutTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicWatchCreateManyTopicInputEnvelope
   connect?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
 }
 
-export type UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicWatchCreateWithoutForumTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicWatchCreateManyForumTopicInputEnvelope
+export type UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicWatchCreateWithoutTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicWatchCreateManyTopicInputEnvelope
   connect?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
 }
 
-export type UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicWatchCreateWithoutForumTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput[]
-  upsert?: Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicWatchCreateManyForumTopicInputEnvelope
+export type UserForumTopicWatchUpdateManyWithoutTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicWatchCreateWithoutTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput[]
+  upsert?: Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicWatchCreateManyTopicInputEnvelope
   set?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
   disconnect?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
   delete?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
   connect?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
-  update?: Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutForumTopicInput[]
-  updateMany?: Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutForumTopicInput | Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutForumTopicInput[]
+  update?: Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutTopicInput[]
+  updateMany?: Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutTopicInput | Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutTopicInput[]
   deleteMany?: Prisma.UserForumTopicWatchScalarWhereInput | Prisma.UserForumTopicWatchScalarWhereInput[]
 }
 
-export type UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicWatchCreateWithoutForumTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutForumTopicInput[]
-  upsert?: Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicWatchCreateManyForumTopicInputEnvelope
+export type UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicWatchCreateWithoutTopicInput[] | Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicWatchCreateOrConnectWithoutTopicInput[]
+  upsert?: Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicWatchUpsertWithWhereUniqueWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicWatchCreateManyTopicInputEnvelope
   set?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
   disconnect?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
   delete?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
   connect?: Prisma.UserForumTopicWatchWhereUniqueInput | Prisma.UserForumTopicWatchWhereUniqueInput[]
-  update?: Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutForumTopicInput[]
-  updateMany?: Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutForumTopicInput | Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutForumTopicInput[]
+  update?: Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicWatchUpdateWithWhereUniqueWithoutTopicInput[]
+  updateMany?: Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutTopicInput | Prisma.UserForumTopicWatchUpdateManyWithWhereWithoutTopicInput[]
   deleteMany?: Prisma.UserForumTopicWatchScalarWhereInput | Prisma.UserForumTopicWatchScalarWhereInput[]
 }
 
@@ -440,41 +440,41 @@ export type UserForumTopicWatchUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UserForumTopicWatchScalarWhereInput | Prisma.UserForumTopicWatchScalarWhereInput[]
 }
 
-export type UserForumTopicWatchCreateWithoutForumTopicInput = {
+export type UserForumTopicWatchCreateWithoutTopicInput = {
   createdAt?: Date | string
-  User: Prisma.UserCreateNestedOneWithoutUserForumTopicWatchInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsWatchedInput
 }
 
-export type UserForumTopicWatchUncheckedCreateWithoutForumTopicInput = {
+export type UserForumTopicWatchUncheckedCreateWithoutTopicInput = {
   id?: number
   createdAt?: Date | string
   userId: number
 }
 
-export type UserForumTopicWatchCreateOrConnectWithoutForumTopicInput = {
+export type UserForumTopicWatchCreateOrConnectWithoutTopicInput = {
   where: Prisma.UserForumTopicWatchWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput>
+  create: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput>
 }
 
-export type UserForumTopicWatchCreateManyForumTopicInputEnvelope = {
-  data: Prisma.UserForumTopicWatchCreateManyForumTopicInput | Prisma.UserForumTopicWatchCreateManyForumTopicInput[]
+export type UserForumTopicWatchCreateManyTopicInputEnvelope = {
+  data: Prisma.UserForumTopicWatchCreateManyTopicInput | Prisma.UserForumTopicWatchCreateManyTopicInput[]
   skipDuplicates?: boolean
 }
 
-export type UserForumTopicWatchUpsertWithWhereUniqueWithoutForumTopicInput = {
+export type UserForumTopicWatchUpsertWithWhereUniqueWithoutTopicInput = {
   where: Prisma.UserForumTopicWatchWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserForumTopicWatchUpdateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedUpdateWithoutForumTopicInput>
-  create: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutForumTopicInput>
+  update: Prisma.XOR<Prisma.UserForumTopicWatchUpdateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedUpdateWithoutTopicInput>
+  create: Prisma.XOR<Prisma.UserForumTopicWatchCreateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedCreateWithoutTopicInput>
 }
 
-export type UserForumTopicWatchUpdateWithWhereUniqueWithoutForumTopicInput = {
+export type UserForumTopicWatchUpdateWithWhereUniqueWithoutTopicInput = {
   where: Prisma.UserForumTopicWatchWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserForumTopicWatchUpdateWithoutForumTopicInput, Prisma.UserForumTopicWatchUncheckedUpdateWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.UserForumTopicWatchUpdateWithoutTopicInput, Prisma.UserForumTopicWatchUncheckedUpdateWithoutTopicInput>
 }
 
-export type UserForumTopicWatchUpdateManyWithWhereWithoutForumTopicInput = {
+export type UserForumTopicWatchUpdateManyWithWhereWithoutTopicInput = {
   where: Prisma.UserForumTopicWatchScalarWhereInput
-  data: Prisma.XOR<Prisma.UserForumTopicWatchUpdateManyMutationInput, Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.UserForumTopicWatchUpdateManyMutationInput, Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicInput>
 }
 
 export type UserForumTopicWatchScalarWhereInput = {
@@ -489,7 +489,7 @@ export type UserForumTopicWatchScalarWhereInput = {
 
 export type UserForumTopicWatchCreateWithoutUserInput = {
   createdAt?: Date | string
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutUserForumTopicWatchInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutWatchersInput
 }
 
 export type UserForumTopicWatchUncheckedCreateWithoutUserInput = {
@@ -524,24 +524,24 @@ export type UserForumTopicWatchUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.UserForumTopicWatchUpdateManyMutationInput, Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutUserInput>
 }
 
-export type UserForumTopicWatchCreateManyForumTopicInput = {
+export type UserForumTopicWatchCreateManyTopicInput = {
   id?: number
   createdAt?: Date | string
   userId: number
 }
 
-export type UserForumTopicWatchUpdateWithoutForumTopicInput = {
+export type UserForumTopicWatchUpdateWithoutTopicInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  User?: Prisma.UserUpdateOneRequiredWithoutUserForumTopicWatchNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsWatchedNestedInput
 }
 
-export type UserForumTopicWatchUncheckedUpdateWithoutForumTopicInput = {
+export type UserForumTopicWatchUncheckedUpdateWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicInput = {
+export type UserForumTopicWatchUncheckedUpdateManyWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -555,7 +555,7 @@ export type UserForumTopicWatchCreateManyUserInput = {
 
 export type UserForumTopicWatchUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutUserForumTopicWatchNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutWatchersNestedInput
 }
 
 export type UserForumTopicWatchUncheckedUpdateWithoutUserInput = {
@@ -577,8 +577,8 @@ export type UserForumTopicWatchSelect<ExtArgs extends runtime.Types.Extensions.I
   createdAt?: boolean
   userId?: boolean
   topicId?: boolean
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userForumTopicWatch"]>
 
 export type UserForumTopicWatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -586,8 +586,8 @@ export type UserForumTopicWatchSelectCreateManyAndReturn<ExtArgs extends runtime
   createdAt?: boolean
   userId?: boolean
   topicId?: boolean
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userForumTopicWatch"]>
 
 export type UserForumTopicWatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -595,8 +595,8 @@ export type UserForumTopicWatchSelectUpdateManyAndReturn<ExtArgs extends runtime
   createdAt?: boolean
   userId?: boolean
   topicId?: boolean
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userForumTopicWatch"]>
 
 export type UserForumTopicWatchSelectScalar = {
@@ -608,23 +608,23 @@ export type UserForumTopicWatchSelectScalar = {
 
 export type UserForumTopicWatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "userId" | "topicId", ExtArgs["result"]["userForumTopicWatch"]>
 export type UserForumTopicWatchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }
 export type UserForumTopicWatchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }
 export type UserForumTopicWatchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }
 
 export type $UserForumTopicWatchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserForumTopicWatch"
   objects: {
-    ForumTopic: Prisma.$ForumTopicPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    topic: Prisma.$ForumTopicPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1025,8 +1025,8 @@ readonly fields: UserForumTopicWatchFieldRefs;
  */
 export interface Prisma__UserForumTopicWatchClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  ForumTopic<T extends Prisma.ForumTopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopicDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumTopicClient<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  topic<T extends Prisma.ForumTopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopicDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumTopicClient<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

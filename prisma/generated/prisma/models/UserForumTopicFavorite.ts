@@ -208,16 +208,16 @@ export type UserForumTopicFavoriteWhereInput = {
   id?: Prisma.IntFilter<"UserForumTopicFavorite"> | number
   userId?: Prisma.IntFilter<"UserForumTopicFavorite"> | number
   topicId?: Prisma.IntFilter<"UserForumTopicFavorite"> | number
-  ForumTopic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  topic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
 }
 
 export type UserForumTopicFavoriteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
-  ForumTopic?: Prisma.ForumTopicOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  topic?: Prisma.ForumTopicOrderByWithRelationInput
 }
 
 export type UserForumTopicFavoriteWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserForumTopicFavoriteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserForumTopicFavoriteWhereInput | Prisma.UserForumTopicFavoriteWhereInput[]
   userId?: Prisma.IntFilter<"UserForumTopicFavorite"> | number
   topicId?: Prisma.IntFilter<"UserForumTopicFavorite"> | number
-  ForumTopic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  topic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
 }, "id" | "userId_topicId">
 
 export type UserForumTopicFavoriteOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserForumTopicFavoriteScalarWhereWithAggregatesInput = {
 }
 
 export type UserForumTopicFavoriteCreateInput = {
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutUserForumTopicFavoriteInput
-  User: Prisma.UserCreateNestedOneWithoutUserForumTopicFavoriteInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsBookmarkedInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutUsersWhoBookmarkedItInput
 }
 
 export type UserForumTopicFavoriteUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserForumTopicFavoriteUncheckedCreateInput = {
 }
 
 export type UserForumTopicFavoriteUpdateInput = {
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutUserForumTopicFavoriteNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUserForumTopicFavoriteNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsBookmarkedNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
 }
 
 export type UserForumTopicFavoriteUncheckedUpdateInput = {
@@ -335,45 +335,45 @@ export type UserForumTopicFavoriteSumOrderByAggregateInput = {
   topicId?: Prisma.SortOrder
 }
 
-export type UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicFavoriteCreateManyForumTopicInputEnvelope
+export type UserForumTopicFavoriteCreateNestedManyWithoutTopicInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicFavoriteCreateManyTopicInputEnvelope
   connect?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
 }
 
-export type UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicFavoriteCreateManyForumTopicInputEnvelope
+export type UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicFavoriteCreateManyTopicInputEnvelope
   connect?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
 }
 
-export type UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput[]
-  upsert?: Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicFavoriteCreateManyForumTopicInputEnvelope
+export type UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput[]
+  upsert?: Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicFavoriteCreateManyTopicInputEnvelope
   set?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
   disconnect?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
   delete?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
   connect?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
-  update?: Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutForumTopicInput[]
-  updateMany?: Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutForumTopicInput | Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutForumTopicInput[]
+  update?: Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutTopicInput[]
+  updateMany?: Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutTopicInput | Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutTopicInput[]
   deleteMany?: Prisma.UserForumTopicFavoriteScalarWhereInput | Prisma.UserForumTopicFavoriteScalarWhereInput[]
 }
 
-export type UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput[]
-  upsert?: Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutForumTopicInput[]
-  createMany?: Prisma.UserForumTopicFavoriteCreateManyForumTopicInputEnvelope
+export type UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput> | Prisma.UserForumTopicFavoriteCreateWithoutTopicInput[] | Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput | Prisma.UserForumTopicFavoriteCreateOrConnectWithoutTopicInput[]
+  upsert?: Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicFavoriteUpsertWithWhereUniqueWithoutTopicInput[]
+  createMany?: Prisma.UserForumTopicFavoriteCreateManyTopicInputEnvelope
   set?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
   disconnect?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
   delete?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
   connect?: Prisma.UserForumTopicFavoriteWhereUniqueInput | Prisma.UserForumTopicFavoriteWhereUniqueInput[]
-  update?: Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutForumTopicInput[]
-  updateMany?: Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutForumTopicInput | Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutForumTopicInput[]
+  update?: Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutTopicInput | Prisma.UserForumTopicFavoriteUpdateWithWhereUniqueWithoutTopicInput[]
+  updateMany?: Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutTopicInput | Prisma.UserForumTopicFavoriteUpdateManyWithWhereWithoutTopicInput[]
   deleteMany?: Prisma.UserForumTopicFavoriteScalarWhereInput | Prisma.UserForumTopicFavoriteScalarWhereInput[]
 }
 
@@ -419,39 +419,39 @@ export type UserForumTopicFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UserForumTopicFavoriteScalarWhereInput | Prisma.UserForumTopicFavoriteScalarWhereInput[]
 }
 
-export type UserForumTopicFavoriteCreateWithoutForumTopicInput = {
-  User: Prisma.UserCreateNestedOneWithoutUserForumTopicFavoriteInput
+export type UserForumTopicFavoriteCreateWithoutTopicInput = {
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsBookmarkedInput
 }
 
-export type UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput = {
+export type UserForumTopicFavoriteUncheckedCreateWithoutTopicInput = {
   id?: number
   userId: number
 }
 
-export type UserForumTopicFavoriteCreateOrConnectWithoutForumTopicInput = {
+export type UserForumTopicFavoriteCreateOrConnectWithoutTopicInput = {
   where: Prisma.UserForumTopicFavoriteWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput>
+  create: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput>
 }
 
-export type UserForumTopicFavoriteCreateManyForumTopicInputEnvelope = {
-  data: Prisma.UserForumTopicFavoriteCreateManyForumTopicInput | Prisma.UserForumTopicFavoriteCreateManyForumTopicInput[]
+export type UserForumTopicFavoriteCreateManyTopicInputEnvelope = {
+  data: Prisma.UserForumTopicFavoriteCreateManyTopicInput | Prisma.UserForumTopicFavoriteCreateManyTopicInput[]
   skipDuplicates?: boolean
 }
 
-export type UserForumTopicFavoriteUpsertWithWhereUniqueWithoutForumTopicInput = {
+export type UserForumTopicFavoriteUpsertWithWhereUniqueWithoutTopicInput = {
   where: Prisma.UserForumTopicFavoriteWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedUpdateWithoutForumTopicInput>
-  create: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutForumTopicInput>
+  update: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedUpdateWithoutTopicInput>
+  create: Prisma.XOR<Prisma.UserForumTopicFavoriteCreateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedCreateWithoutTopicInput>
 }
 
-export type UserForumTopicFavoriteUpdateWithWhereUniqueWithoutForumTopicInput = {
+export type UserForumTopicFavoriteUpdateWithWhereUniqueWithoutTopicInput = {
   where: Prisma.UserForumTopicFavoriteWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateWithoutForumTopicInput, Prisma.UserForumTopicFavoriteUncheckedUpdateWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateWithoutTopicInput, Prisma.UserForumTopicFavoriteUncheckedUpdateWithoutTopicInput>
 }
 
-export type UserForumTopicFavoriteUpdateManyWithWhereWithoutForumTopicInput = {
+export type UserForumTopicFavoriteUpdateManyWithWhereWithoutTopicInput = {
   where: Prisma.UserForumTopicFavoriteScalarWhereInput
-  data: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateManyMutationInput, Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateManyMutationInput, Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicInput>
 }
 
 export type UserForumTopicFavoriteScalarWhereInput = {
@@ -464,7 +464,7 @@ export type UserForumTopicFavoriteScalarWhereInput = {
 }
 
 export type UserForumTopicFavoriteCreateWithoutUserInput = {
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutUserForumTopicFavoriteInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutUsersWhoBookmarkedItInput
 }
 
 export type UserForumTopicFavoriteUncheckedCreateWithoutUserInput = {
@@ -498,21 +498,21 @@ export type UserForumTopicFavoriteUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.UserForumTopicFavoriteUpdateManyMutationInput, Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutUserInput>
 }
 
-export type UserForumTopicFavoriteCreateManyForumTopicInput = {
+export type UserForumTopicFavoriteCreateManyTopicInput = {
   id?: number
   userId: number
 }
 
-export type UserForumTopicFavoriteUpdateWithoutForumTopicInput = {
-  User?: Prisma.UserUpdateOneRequiredWithoutUserForumTopicFavoriteNestedInput
+export type UserForumTopicFavoriteUpdateWithoutTopicInput = {
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsBookmarkedNestedInput
 }
 
-export type UserForumTopicFavoriteUncheckedUpdateWithoutForumTopicInput = {
+export type UserForumTopicFavoriteUncheckedUpdateWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicInput = {
+export type UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -523,7 +523,7 @@ export type UserForumTopicFavoriteCreateManyUserInput = {
 }
 
 export type UserForumTopicFavoriteUpdateWithoutUserInput = {
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutUserForumTopicFavoriteNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
 }
 
 export type UserForumTopicFavoriteUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserForumTopicFavoriteSelect<ExtArgs extends runtime.Types.Extension
   id?: boolean
   userId?: boolean
   topicId?: boolean
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userForumTopicFavorite"]>
 
 export type UserForumTopicFavoriteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   topicId?: boolean
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userForumTopicFavorite"]>
 
 export type UserForumTopicFavoriteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   topicId?: boolean
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userForumTopicFavorite"]>
 
 export type UserForumTopicFavoriteSelectScalar = {
@@ -570,23 +570,23 @@ export type UserForumTopicFavoriteSelectScalar = {
 
 export type UserForumTopicFavoriteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "topicId", ExtArgs["result"]["userForumTopicFavorite"]>
 export type UserForumTopicFavoriteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }
 export type UserForumTopicFavoriteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }
 export type UserForumTopicFavoriteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
 }
 
 export type $UserForumTopicFavoritePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserForumTopicFavorite"
   objects: {
-    ForumTopic: Prisma.$ForumTopicPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    topic: Prisma.$ForumTopicPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserForumTopicFavoriteFieldRefs;
  */
 export interface Prisma__UserForumTopicFavoriteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  ForumTopic<T extends Prisma.ForumTopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopicDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumTopicClient<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  topic<T extends Prisma.ForumTopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopicDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumTopicClient<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

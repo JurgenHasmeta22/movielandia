@@ -208,16 +208,16 @@ export type CrewSerieWhereInput = {
   id?: Prisma.IntFilter<"CrewSerie"> | number
   serieId?: Prisma.IntFilter<"CrewSerie"> | number
   crewId?: Prisma.IntFilter<"CrewSerie"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }
 
 export type CrewSerieOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   serieId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
-  Crew?: Prisma.CrewOrderByWithRelationInput
-  Serie?: Prisma.SerieOrderByWithRelationInput
+  serie?: Prisma.SerieOrderByWithRelationInput
+  crew?: Prisma.CrewOrderByWithRelationInput
 }
 
 export type CrewSerieWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type CrewSerieWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CrewSerieWhereInput | Prisma.CrewSerieWhereInput[]
   serieId?: Prisma.IntFilter<"CrewSerie"> | number
   crewId?: Prisma.IntFilter<"CrewSerie"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }, "id" | "serieId_crewId">
 
 export type CrewSerieOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type CrewSerieScalarWhereWithAggregatesInput = {
 }
 
 export type CrewSerieCreateInput = {
-  Crew: Prisma.CrewCreateNestedOneWithoutCrewSerieInput
-  Serie: Prisma.SerieCreateNestedOneWithoutCrewSerieInput
+  serie: Prisma.SerieCreateNestedOneWithoutCrewInput
+  crew: Prisma.CrewCreateNestedOneWithoutProducedSeriesInput
 }
 
 export type CrewSerieUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type CrewSerieUncheckedCreateInput = {
 }
 
 export type CrewSerieUpdateInput = {
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutCrewSerieNestedInput
-  Serie?: Prisma.SerieUpdateOneRequiredWithoutCrewSerieNestedInput
+  serie?: Prisma.SerieUpdateOneRequiredWithoutCrewNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutProducedSeriesNestedInput
 }
 
 export type CrewSerieUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type CrewSerieUncheckedUpdateManyWithoutSerieNestedInput = {
 }
 
 export type CrewSerieCreateWithoutCrewInput = {
-  Serie: Prisma.SerieCreateNestedOneWithoutCrewSerieInput
+  serie: Prisma.SerieCreateNestedOneWithoutCrewInput
 }
 
 export type CrewSerieUncheckedCreateWithoutCrewInput = {
@@ -464,7 +464,7 @@ export type CrewSerieScalarWhereInput = {
 }
 
 export type CrewSerieCreateWithoutSerieInput = {
-  Crew: Prisma.CrewCreateNestedOneWithoutCrewSerieInput
+  crew: Prisma.CrewCreateNestedOneWithoutProducedSeriesInput
 }
 
 export type CrewSerieUncheckedCreateWithoutSerieInput = {
@@ -504,7 +504,7 @@ export type CrewSerieCreateManyCrewInput = {
 }
 
 export type CrewSerieUpdateWithoutCrewInput = {
-  Serie?: Prisma.SerieUpdateOneRequiredWithoutCrewSerieNestedInput
+  serie?: Prisma.SerieUpdateOneRequiredWithoutCrewNestedInput
 }
 
 export type CrewSerieUncheckedUpdateWithoutCrewInput = {
@@ -523,7 +523,7 @@ export type CrewSerieCreateManySerieInput = {
 }
 
 export type CrewSerieUpdateWithoutSerieInput = {
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutCrewSerieNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutProducedSeriesNestedInput
 }
 
 export type CrewSerieUncheckedUpdateWithoutSerieInput = {
@@ -542,24 +542,24 @@ export type CrewSerieSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   serieId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crewSerie"]>
 
 export type CrewSerieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   serieId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crewSerie"]>
 
 export type CrewSerieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   serieId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crewSerie"]>
 
 export type CrewSerieSelectScalar = {
@@ -570,23 +570,23 @@ export type CrewSerieSelectScalar = {
 
 export type CrewSerieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serieId" | "crewId", ExtArgs["result"]["crewSerie"]>
 export type CrewSerieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type CrewSerieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type CrewSerieIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 
 export type $CrewSeriePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CrewSerie"
   objects: {
-    Crew: Prisma.$CrewPayload<ExtArgs>
-    Serie: Prisma.$SeriePayload<ExtArgs>
+    serie: Prisma.$SeriePayload<ExtArgs>
+    crew: Prisma.$CrewPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: CrewSerieFieldRefs;
  */
 export interface Prisma__CrewSerieClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

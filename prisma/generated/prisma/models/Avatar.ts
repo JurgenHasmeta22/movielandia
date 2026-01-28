@@ -204,14 +204,14 @@ export type AvatarWhereInput = {
   id?: Prisma.IntFilter<"Avatar"> | number
   photoSrc?: Prisma.StringFilter<"Avatar"> | string
   userId?: Prisma.IntFilter<"Avatar"> | number
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type AvatarOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.AvatarOrderByRelevanceInput
 }
 
@@ -222,7 +222,7 @@ export type AvatarWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AvatarWhereInput[]
   NOT?: Prisma.AvatarWhereInput | Prisma.AvatarWhereInput[]
   photoSrc?: Prisma.StringFilter<"Avatar"> | string
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
 export type AvatarOrderByWithAggregationInput = {
@@ -247,7 +247,7 @@ export type AvatarScalarWhereWithAggregatesInput = {
 
 export type AvatarCreateInput = {
   photoSrc: string
-  User: Prisma.UserCreateNestedOneWithoutAvatarInput
+  user: Prisma.UserCreateNestedOneWithoutAvatarInput
 }
 
 export type AvatarUncheckedCreateInput = {
@@ -258,7 +258,7 @@ export type AvatarUncheckedCreateInput = {
 
 export type AvatarUpdateInput = {
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  User?: Prisma.UserUpdateOneRequiredWithoutAvatarNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAvatarNestedInput
 }
 
 export type AvatarUncheckedUpdateInput = {
@@ -281,6 +281,11 @@ export type AvatarUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type AvatarNullableScalarRelationFilter = {
+  is?: Prisma.AvatarWhereInput | null
+  isNot?: Prisma.AvatarWhereInput | null
 }
 
 export type AvatarOrderByRelevanceInput = {
@@ -315,11 +320,6 @@ export type AvatarMinOrderByAggregateInput = {
 export type AvatarSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-}
-
-export type AvatarNullableScalarRelationFilter = {
-  is?: Prisma.AvatarWhereInput | null
-  isNot?: Prisma.AvatarWhereInput | null
 }
 
 export type AvatarCreateNestedOneWithoutUserInput = {
@@ -394,21 +394,21 @@ export type AvatarSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   photoSrc?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["avatar"]>
 
 export type AvatarSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   photoSrc?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["avatar"]>
 
 export type AvatarSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   photoSrc?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["avatar"]>
 
 export type AvatarSelectScalar = {
@@ -419,19 +419,19 @@ export type AvatarSelectScalar = {
 
 export type AvatarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "photoSrc" | "userId", ExtArgs["result"]["avatar"]>
 export type AvatarInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AvatarIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type AvatarIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $AvatarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Avatar"
   objects: {
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -831,7 +831,7 @@ readonly fields: AvatarFieldRefs;
  */
 export interface Prisma__AvatarClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

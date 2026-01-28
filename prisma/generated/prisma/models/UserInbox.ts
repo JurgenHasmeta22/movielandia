@@ -208,16 +208,16 @@ export type UserInboxWhereInput = {
   id?: Prisma.IntFilter<"UserInbox"> | number
   userId?: Prisma.IntFilter<"UserInbox"> | number
   inboxId?: Prisma.IntFilter<"UserInbox"> | number
-  Inbox?: Prisma.XOR<Prisma.InboxScalarRelationFilter, Prisma.InboxWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  inbox?: Prisma.XOR<Prisma.InboxScalarRelationFilter, Prisma.InboxWhereInput>
 }
 
 export type UserInboxOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   inboxId?: Prisma.SortOrder
-  Inbox?: Prisma.InboxOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  inbox?: Prisma.InboxOrderByWithRelationInput
 }
 
 export type UserInboxWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserInboxWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserInboxWhereInput | Prisma.UserInboxWhereInput[]
   userId?: Prisma.IntFilter<"UserInbox"> | number
   inboxId?: Prisma.IntFilter<"UserInbox"> | number
-  Inbox?: Prisma.XOR<Prisma.InboxScalarRelationFilter, Prisma.InboxWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  inbox?: Prisma.XOR<Prisma.InboxScalarRelationFilter, Prisma.InboxWhereInput>
 }, "id" | "userId_inboxId">
 
 export type UserInboxOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserInboxScalarWhereWithAggregatesInput = {
 }
 
 export type UserInboxCreateInput = {
-  Inbox: Prisma.InboxCreateNestedOneWithoutUserInboxInput
-  User: Prisma.UserCreateNestedOneWithoutUserInboxInput
+  user: Prisma.UserCreateNestedOneWithoutInboxesInput
+  inbox: Prisma.InboxCreateNestedOneWithoutParticipantsInput
 }
 
 export type UserInboxUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserInboxUncheckedCreateInput = {
 }
 
 export type UserInboxUpdateInput = {
-  Inbox?: Prisma.InboxUpdateOneRequiredWithoutUserInboxNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUserInboxNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutInboxesNestedInput
+  inbox?: Prisma.InboxUpdateOneRequiredWithoutParticipantsNestedInput
 }
 
 export type UserInboxUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type UserInboxUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UserInboxCreateWithoutInboxInput = {
-  User: Prisma.UserCreateNestedOneWithoutUserInboxInput
+  user: Prisma.UserCreateNestedOneWithoutInboxesInput
 }
 
 export type UserInboxUncheckedCreateWithoutInboxInput = {
@@ -464,7 +464,7 @@ export type UserInboxScalarWhereInput = {
 }
 
 export type UserInboxCreateWithoutUserInput = {
-  Inbox: Prisma.InboxCreateNestedOneWithoutUserInboxInput
+  inbox: Prisma.InboxCreateNestedOneWithoutParticipantsInput
 }
 
 export type UserInboxUncheckedCreateWithoutUserInput = {
@@ -504,7 +504,7 @@ export type UserInboxCreateManyInboxInput = {
 }
 
 export type UserInboxUpdateWithoutInboxInput = {
-  User?: Prisma.UserUpdateOneRequiredWithoutUserInboxNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutInboxesNestedInput
 }
 
 export type UserInboxUncheckedUpdateWithoutInboxInput = {
@@ -523,7 +523,7 @@ export type UserInboxCreateManyUserInput = {
 }
 
 export type UserInboxUpdateWithoutUserInput = {
-  Inbox?: Prisma.InboxUpdateOneRequiredWithoutUserInboxNestedInput
+  inbox?: Prisma.InboxUpdateOneRequiredWithoutParticipantsNestedInput
 }
 
 export type UserInboxUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserInboxSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   userId?: boolean
   inboxId?: boolean
-  Inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userInbox"]>
 
 export type UserInboxSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   inboxId?: boolean
-  Inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userInbox"]>
 
 export type UserInboxSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   inboxId?: boolean
-  Inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userInbox"]>
 
 export type UserInboxSelectScalar = {
@@ -570,23 +570,23 @@ export type UserInboxSelectScalar = {
 
 export type UserInboxOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "inboxId", ExtArgs["result"]["userInbox"]>
 export type UserInboxInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
 }
 export type UserInboxIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
 }
 export type UserInboxIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  inbox?: boolean | Prisma.InboxDefaultArgs<ExtArgs>
 }
 
 export type $UserInboxPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserInbox"
   objects: {
-    Inbox: Prisma.$InboxPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    inbox: Prisma.$InboxPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserInboxFieldRefs;
  */
 export interface Prisma__UserInboxClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Inbox<T extends Prisma.InboxDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InboxDefaultArgs<ExtArgs>>): Prisma.Prisma__InboxClient<runtime.Types.Result.GetResult<Prisma.$InboxPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  inbox<T extends Prisma.InboxDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InboxDefaultArgs<ExtArgs>>): Prisma.Prisma__InboxClient<runtime.Types.Result.GetResult<Prisma.$InboxPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

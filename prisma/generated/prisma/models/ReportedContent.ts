@@ -260,8 +260,8 @@ export type ReportedContentWhereInput = {
   contentId?: Prisma.IntFilter<"ReportedContent"> | number
   reportingUserId?: Prisma.IntFilter<"ReportedContent"> | number
   reportedUserId?: Prisma.IntNullableFilter<"ReportedContent"> | number | null
-  User_ReportedContent_reportedUserIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  User_ReportedContent_reportingUserIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reportingUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reportedUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ReportedContentOrderByWithRelationInput = {
@@ -274,8 +274,8 @@ export type ReportedContentOrderByWithRelationInput = {
   contentId?: Prisma.SortOrder
   reportingUserId?: Prisma.SortOrder
   reportedUserId?: Prisma.SortOrderInput | Prisma.SortOrder
-  User_ReportedContent_reportedUserIdToUser?: Prisma.UserOrderByWithRelationInput
-  User_ReportedContent_reportingUserIdToUser?: Prisma.UserOrderByWithRelationInput
+  reportingUser?: Prisma.UserOrderByWithRelationInput
+  reportedUser?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ReportedContentOrderByRelevanceInput
 }
 
@@ -292,8 +292,8 @@ export type ReportedContentWhereUniqueInput = Prisma.AtLeast<{
   contentId?: Prisma.IntFilter<"ReportedContent"> | number
   reportingUserId?: Prisma.IntFilter<"ReportedContent"> | number
   reportedUserId?: Prisma.IntNullableFilter<"ReportedContent"> | number | null
-  User_ReportedContent_reportedUserIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  User_ReportedContent_reportingUserIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reportingUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reportedUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type ReportedContentOrderByWithAggregationInput = {
@@ -335,8 +335,8 @@ export type ReportedContentCreateInput = {
   status?: $Enums.ReportStatus
   resolutionDetails?: string | null
   contentId: number
-  User_ReportedContent_reportedUserIdToUser?: Prisma.UserCreateNestedOneWithoutReportedContent_ReportedContent_reportedUserIdToUserInput
-  User_ReportedContent_reportingUserIdToUser: Prisma.UserCreateNestedOneWithoutReportedContent_ReportedContent_reportingUserIdToUserInput
+  reportingUser: Prisma.UserCreateNestedOneWithoutReportedContentCreatedInput
+  reportedUser?: Prisma.UserCreateNestedOneWithoutReportedContentReceivedInput
 }
 
 export type ReportedContentUncheckedCreateInput = {
@@ -358,8 +358,8 @@ export type ReportedContentUpdateInput = {
   status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
   resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.IntFieldUpdateOperationsInput | number
-  User_ReportedContent_reportedUserIdToUser?: Prisma.UserUpdateOneWithoutReportedContent_ReportedContent_reportedUserIdToUserNestedInput
-  User_ReportedContent_reportingUserIdToUser?: Prisma.UserUpdateOneRequiredWithoutReportedContent_ReportedContent_reportingUserIdToUserNestedInput
+  reportingUser?: Prisma.UserUpdateOneRequiredWithoutReportedContentCreatedNestedInput
+  reportedUser?: Prisma.UserUpdateOneWithoutReportedContentReceivedNestedInput
 }
 
 export type ReportedContentUncheckedUpdateInput = {
@@ -481,132 +481,101 @@ export type EnumReportStatusFieldUpdateOperationsInput = {
   set?: $Enums.ReportStatus
 }
 
-export type ReportedContentCreateNestedManyWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInputEnvelope
+export type ReportedContentCreateNestedManyWithoutReportingUserInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportingUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput> | Prisma.ReportedContentCreateWithoutReportingUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportingUserInputEnvelope
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
 }
 
-export type ReportedContentCreateNestedManyWithoutUser_ReportedContent_reportingUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInputEnvelope
+export type ReportedContentCreateNestedManyWithoutReportedUserInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportedUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput> | Prisma.ReportedContentCreateWithoutReportedUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportedUserInputEnvelope
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
 }
 
-export type ReportedContentUncheckedCreateNestedManyWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInputEnvelope
+export type ReportedContentUncheckedCreateNestedManyWithoutReportingUserInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportingUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput> | Prisma.ReportedContentCreateWithoutReportingUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportingUserInputEnvelope
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
 }
 
-export type ReportedContentUncheckedCreateNestedManyWithoutUser_ReportedContent_reportingUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInputEnvelope
+export type ReportedContentUncheckedCreateNestedManyWithoutReportedUserInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportedUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput> | Prisma.ReportedContentCreateWithoutReportedUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportedUserInputEnvelope
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
 }
 
-export type ReportedContentUpdateManyWithoutUser_ReportedContent_reportedUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInputEnvelope
+export type ReportedContentUpdateManyWithoutReportingUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportingUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput> | Prisma.ReportedContentCreateWithoutReportingUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput[]
+  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportingUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportingUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportingUserInputEnvelope
   set?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   disconnect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   delete?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
-  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportedUserIdToUserInput[]
+  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportingUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportingUserInput[]
+  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutReportingUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutReportingUserInput[]
   deleteMany?: Prisma.ReportedContentScalarWhereInput | Prisma.ReportedContentScalarWhereInput[]
 }
 
-export type ReportedContentUpdateManyWithoutUser_ReportedContent_reportingUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInputEnvelope
+export type ReportedContentUpdateManyWithoutReportedUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportedUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput> | Prisma.ReportedContentCreateWithoutReportedUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput[]
+  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportedUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportedUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportedUserInputEnvelope
   set?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   disconnect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   delete?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
-  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportingUserIdToUserInput[]
+  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportedUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportedUserInput[]
+  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutReportedUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutReportedUserInput[]
   deleteMany?: Prisma.ReportedContentScalarWhereInput | Prisma.ReportedContentScalarWhereInput[]
 }
 
-export type ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_reportedUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInputEnvelope
+export type ReportedContentUncheckedUpdateManyWithoutReportingUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportingUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput> | Prisma.ReportedContentCreateWithoutReportingUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportingUserInput[]
+  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportingUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportingUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportingUserInputEnvelope
   set?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   disconnect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   delete?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
-  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput[]
-  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportedUserIdToUserInput[]
+  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportingUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportingUserInput[]
+  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutReportingUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutReportingUserInput[]
   deleteMany?: Prisma.ReportedContentScalarWhereInput | Prisma.ReportedContentScalarWhereInput[]
 }
 
-export type ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_reportingUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput> | Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  createMany?: Prisma.ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInputEnvelope
+export type ReportedContentUncheckedUpdateManyWithoutReportedUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportedUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput> | Prisma.ReportedContentCreateWithoutReportedUserInput[] | Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput[]
+  connectOrCreate?: Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput | Prisma.ReportedContentCreateOrConnectWithoutReportedUserInput[]
+  upsert?: Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportedUserInput | Prisma.ReportedContentUpsertWithWhereUniqueWithoutReportedUserInput[]
+  createMany?: Prisma.ReportedContentCreateManyReportedUserInputEnvelope
   set?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   disconnect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   delete?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
   connect?: Prisma.ReportedContentWhereUniqueInput | Prisma.ReportedContentWhereUniqueInput[]
-  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput[]
-  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportingUserIdToUserInput[]
+  update?: Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportedUserInput | Prisma.ReportedContentUpdateWithWhereUniqueWithoutReportedUserInput[]
+  updateMany?: Prisma.ReportedContentUpdateManyWithWhereWithoutReportedUserInput | Prisma.ReportedContentUpdateManyWithWhereWithoutReportedUserInput[]
   deleteMany?: Prisma.ReportedContentScalarWhereInput | Prisma.ReportedContentScalarWhereInput[]
 }
 
-export type ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput = {
+export type ReportedContentCreateWithoutReportingUserInput = {
   reportType: $Enums.ReportType
   reason?: string | null
   createdAt?: Date | string
   status?: $Enums.ReportStatus
   resolutionDetails?: string | null
   contentId: number
-  User_ReportedContent_reportingUserIdToUser: Prisma.UserCreateNestedOneWithoutReportedContent_ReportedContent_reportingUserIdToUserInput
+  reportedUser?: Prisma.UserCreateNestedOneWithoutReportedContentReceivedInput
 }
 
-export type ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  id?: number
-  reportType: $Enums.ReportType
-  reason?: string | null
-  createdAt?: Date | string
-  status?: $Enums.ReportStatus
-  resolutionDetails?: string | null
-  contentId: number
-  reportingUserId: number
-}
-
-export type ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  where: Prisma.ReportedContentWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput>
-}
-
-export type ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInputEnvelope = {
-  data: Prisma.ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInput | Prisma.ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput = {
-  reportType: $Enums.ReportType
-  reason?: string | null
-  createdAt?: Date | string
-  status?: $Enums.ReportStatus
-  resolutionDetails?: string | null
-  contentId: number
-  User_ReportedContent_reportedUserIdToUser?: Prisma.UserCreateNestedOneWithoutReportedContent_ReportedContent_reportedUserIdToUserInput
-}
-
-export type ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentUncheckedCreateWithoutReportingUserInput = {
   id?: number
   reportType: $Enums.ReportType
   reason?: string | null
@@ -617,30 +586,61 @@ export type ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingU
   reportedUserId?: number | null
 }
 
-export type ReportedContentCreateOrConnectWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentCreateOrConnectWithoutReportingUserInput = {
   where: Prisma.ReportedContentWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput>
+  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportingUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput>
 }
 
-export type ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInputEnvelope = {
-  data: Prisma.ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInput | Prisma.ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInput[]
+export type ReportedContentCreateManyReportingUserInputEnvelope = {
+  data: Prisma.ReportedContentCreateManyReportingUserInput | Prisma.ReportedContentCreateManyReportingUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  where: Prisma.ReportedContentWhereUniqueInput
-  update: Prisma.XOR<Prisma.ReportedContentUpdateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportedUserIdToUserInput>
-  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportedUserIdToUserInput>
+export type ReportedContentCreateWithoutReportedUserInput = {
+  reportType: $Enums.ReportType
+  reason?: string | null
+  createdAt?: Date | string
+  status?: $Enums.ReportStatus
+  resolutionDetails?: string | null
+  contentId: number
+  reportingUser: Prisma.UserCreateNestedOneWithoutReportedContentCreatedInput
 }
 
-export type ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  where: Prisma.ReportedContentWhereUniqueInput
-  data: Prisma.XOR<Prisma.ReportedContentUpdateWithoutUser_ReportedContent_reportedUserIdToUserInput, Prisma.ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportedUserIdToUserInput>
+export type ReportedContentUncheckedCreateWithoutReportedUserInput = {
+  id?: number
+  reportType: $Enums.ReportType
+  reason?: string | null
+  createdAt?: Date | string
+  status?: $Enums.ReportStatus
+  resolutionDetails?: string | null
+  contentId: number
+  reportingUserId: number
 }
 
-export type ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportedUserIdToUserInput = {
+export type ReportedContentCreateOrConnectWithoutReportedUserInput = {
+  where: Prisma.ReportedContentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportedUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput>
+}
+
+export type ReportedContentCreateManyReportedUserInputEnvelope = {
+  data: Prisma.ReportedContentCreateManyReportedUserInput | Prisma.ReportedContentCreateManyReportedUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type ReportedContentUpsertWithWhereUniqueWithoutReportingUserInput = {
+  where: Prisma.ReportedContentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReportedContentUpdateWithoutReportingUserInput, Prisma.ReportedContentUncheckedUpdateWithoutReportingUserInput>
+  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportingUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportingUserInput>
+}
+
+export type ReportedContentUpdateWithWhereUniqueWithoutReportingUserInput = {
+  where: Prisma.ReportedContentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReportedContentUpdateWithoutReportingUserInput, Prisma.ReportedContentUncheckedUpdateWithoutReportingUserInput>
+}
+
+export type ReportedContentUpdateManyWithWhereWithoutReportingUserInput = {
   where: Prisma.ReportedContentScalarWhereInput
-  data: Prisma.XOR<Prisma.ReportedContentUpdateManyMutationInput, Prisma.ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_reportedUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ReportedContentUpdateManyMutationInput, Prisma.ReportedContentUncheckedUpdateManyWithoutReportingUserInput>
 }
 
 export type ReportedContentScalarWhereInput = {
@@ -658,34 +658,23 @@ export type ReportedContentScalarWhereInput = {
   reportedUserId?: Prisma.IntNullableFilter<"ReportedContent"> | number | null
 }
 
-export type ReportedContentUpsertWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentUpsertWithWhereUniqueWithoutReportedUserInput = {
   where: Prisma.ReportedContentWhereUniqueInput
-  update: Prisma.XOR<Prisma.ReportedContentUpdateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportingUserIdToUserInput>
-  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedCreateWithoutUser_ReportedContent_reportingUserIdToUserInput>
+  update: Prisma.XOR<Prisma.ReportedContentUpdateWithoutReportedUserInput, Prisma.ReportedContentUncheckedUpdateWithoutReportedUserInput>
+  create: Prisma.XOR<Prisma.ReportedContentCreateWithoutReportedUserInput, Prisma.ReportedContentUncheckedCreateWithoutReportedUserInput>
 }
 
-export type ReportedContentUpdateWithWhereUniqueWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentUpdateWithWhereUniqueWithoutReportedUserInput = {
   where: Prisma.ReportedContentWhereUniqueInput
-  data: Prisma.XOR<Prisma.ReportedContentUpdateWithoutUser_ReportedContent_reportingUserIdToUserInput, Prisma.ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportingUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ReportedContentUpdateWithoutReportedUserInput, Prisma.ReportedContentUncheckedUpdateWithoutReportedUserInput>
 }
 
-export type ReportedContentUpdateManyWithWhereWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentUpdateManyWithWhereWithoutReportedUserInput = {
   where: Prisma.ReportedContentScalarWhereInput
-  data: Prisma.XOR<Prisma.ReportedContentUpdateManyMutationInput, Prisma.ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_reportingUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ReportedContentUpdateManyMutationInput, Prisma.ReportedContentUncheckedUpdateManyWithoutReportedUserInput>
 }
 
-export type ReportedContentCreateManyUser_ReportedContent_reportedUserIdToUserInput = {
-  id?: number
-  reportType: $Enums.ReportType
-  reason?: string | null
-  createdAt?: Date | string
-  status?: $Enums.ReportStatus
-  resolutionDetails?: string | null
-  contentId: number
-  reportingUserId: number
-}
-
-export type ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentCreateManyReportingUserInput = {
   id?: number
   reportType: $Enums.ReportType
   reason?: string | null
@@ -696,49 +685,28 @@ export type ReportedContentCreateManyUser_ReportedContent_reportingUserIdToUserI
   reportedUserId?: number | null
 }
 
-export type ReportedContentUpdateWithoutUser_ReportedContent_reportedUserIdToUserInput = {
+export type ReportedContentCreateManyReportedUserInput = {
+  id?: number
+  reportType: $Enums.ReportType
+  reason?: string | null
+  createdAt?: Date | string
+  status?: $Enums.ReportStatus
+  resolutionDetails?: string | null
+  contentId: number
+  reportingUserId: number
+}
+
+export type ReportedContentUpdateWithoutReportingUserInput = {
   reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
   resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.IntFieldUpdateOperationsInput | number
-  User_ReportedContent_reportingUserIdToUser?: Prisma.UserUpdateOneRequiredWithoutReportedContent_ReportedContent_reportingUserIdToUserNestedInput
+  reportedUser?: Prisma.UserUpdateOneWithoutReportedContentReceivedNestedInput
 }
 
-export type ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
-  resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contentId?: Prisma.IntFieldUpdateOperationsInput | number
-  reportingUserId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_reportedUserIdToUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
-  resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contentId?: Prisma.IntFieldUpdateOperationsInput | number
-  reportingUserId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ReportedContentUpdateWithoutUser_ReportedContent_reportingUserIdToUserInput = {
-  reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
-  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
-  resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contentId?: Prisma.IntFieldUpdateOperationsInput | number
-  User_ReportedContent_reportedUserIdToUser?: Prisma.UserUpdateOneWithoutReportedContent_ReportedContent_reportedUserIdToUserNestedInput
-}
-
-export type ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentUncheckedUpdateWithoutReportingUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -749,7 +717,7 @@ export type ReportedContentUncheckedUpdateWithoutUser_ReportedContent_reportingU
   reportedUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_reportingUserIdToUserInput = {
+export type ReportedContentUncheckedUpdateManyWithoutReportingUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -758,6 +726,38 @@ export type ReportedContentUncheckedUpdateManyWithoutUser_ReportedContent_report
   resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contentId?: Prisma.IntFieldUpdateOperationsInput | number
   reportedUserId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ReportedContentUpdateWithoutReportedUserInput = {
+  reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+  resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.IntFieldUpdateOperationsInput | number
+  reportingUser?: Prisma.UserUpdateOneRequiredWithoutReportedContentCreatedNestedInput
+}
+
+export type ReportedContentUncheckedUpdateWithoutReportedUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+  resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.IntFieldUpdateOperationsInput | number
+  reportingUserId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ReportedContentUncheckedUpdateManyWithoutReportedUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  reportType?: Prisma.EnumReportTypeFieldUpdateOperationsInput | $Enums.ReportType
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+  resolutionDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.IntFieldUpdateOperationsInput | number
+  reportingUserId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -772,8 +772,8 @@ export type ReportedContentSelect<ExtArgs extends runtime.Types.Extensions.Inter
   contentId?: boolean
   reportingUserId?: boolean
   reportedUserId?: boolean
-  User_ReportedContent_reportedUserIdToUser?: boolean | Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>
-  User_ReportedContent_reportingUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportingUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportedUser?: boolean | Prisma.ReportedContent$reportedUserArgs<ExtArgs>
 }, ExtArgs["result"]["reportedContent"]>
 
 export type ReportedContentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -786,8 +786,8 @@ export type ReportedContentSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   contentId?: boolean
   reportingUserId?: boolean
   reportedUserId?: boolean
-  User_ReportedContent_reportedUserIdToUser?: boolean | Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>
-  User_ReportedContent_reportingUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportingUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportedUser?: boolean | Prisma.ReportedContent$reportedUserArgs<ExtArgs>
 }, ExtArgs["result"]["reportedContent"]>
 
 export type ReportedContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -800,8 +800,8 @@ export type ReportedContentSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   contentId?: boolean
   reportingUserId?: boolean
   reportedUserId?: boolean
-  User_ReportedContent_reportedUserIdToUser?: boolean | Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>
-  User_ReportedContent_reportingUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportingUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportedUser?: boolean | Prisma.ReportedContent$reportedUserArgs<ExtArgs>
 }, ExtArgs["result"]["reportedContent"]>
 
 export type ReportedContentSelectScalar = {
@@ -818,23 +818,23 @@ export type ReportedContentSelectScalar = {
 
 export type ReportedContentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reportType" | "reason" | "createdAt" | "status" | "resolutionDetails" | "contentId" | "reportingUserId" | "reportedUserId", ExtArgs["result"]["reportedContent"]>
 export type ReportedContentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ReportedContent_reportedUserIdToUser?: boolean | Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>
-  User_ReportedContent_reportingUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportingUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportedUser?: boolean | Prisma.ReportedContent$reportedUserArgs<ExtArgs>
 }
 export type ReportedContentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ReportedContent_reportedUserIdToUser?: boolean | Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>
-  User_ReportedContent_reportingUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportingUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportedUser?: boolean | Prisma.ReportedContent$reportedUserArgs<ExtArgs>
 }
 export type ReportedContentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ReportedContent_reportedUserIdToUser?: boolean | Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>
-  User_ReportedContent_reportingUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportingUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reportedUser?: boolean | Prisma.ReportedContent$reportedUserArgs<ExtArgs>
 }
 
 export type $ReportedContentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ReportedContent"
   objects: {
-    User_ReportedContent_reportedUserIdToUser: Prisma.$UserPayload<ExtArgs> | null
-    User_ReportedContent_reportingUserIdToUser: Prisma.$UserPayload<ExtArgs>
+    reportingUser: Prisma.$UserPayload<ExtArgs>
+    reportedUser: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1240,8 +1240,8 @@ readonly fields: ReportedContentFieldRefs;
  */
 export interface Prisma__ReportedContentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  User_ReportedContent_reportedUserIdToUser<T extends Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  User_ReportedContent_reportingUserIdToUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reportingUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reportedUser<T extends Prisma.ReportedContent$reportedUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReportedContent$reportedUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1676,9 +1676,9 @@ export type ReportedContentDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
- * ReportedContent.User_ReportedContent_reportedUserIdToUser
+ * ReportedContent.reportedUser
  */
-export type ReportedContent$User_ReportedContent_reportedUserIdToUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ReportedContent$reportedUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */

@@ -220,9 +220,9 @@ export type DownvoteSerieReviewWhereInput = {
   userId?: Prisma.IntFilter<"DownvoteSerieReview"> | number
   serieId?: Prisma.IntFilter<"DownvoteSerieReview"> | number
   serieReviewId?: Prisma.IntFilter<"DownvoteSerieReview"> | number
-  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  SerieReview?: Prisma.XOR<Prisma.SerieReviewScalarRelationFilter, Prisma.SerieReviewWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  serieReview?: Prisma.XOR<Prisma.SerieReviewNullableScalarRelationFilter, Prisma.SerieReviewWhereInput> | null
 }
 
 export type DownvoteSerieReviewOrderByWithRelationInput = {
@@ -230,9 +230,9 @@ export type DownvoteSerieReviewOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   serieId?: Prisma.SortOrder
   serieReviewId?: Prisma.SortOrder
-  Serie?: Prisma.SerieOrderByWithRelationInput
-  SerieReview?: Prisma.SerieReviewOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  serie?: Prisma.SerieOrderByWithRelationInput
+  serieReview?: Prisma.SerieReviewOrderByWithRelationInput
 }
 
 export type DownvoteSerieReviewWhereUniqueInput = Prisma.AtLeast<{
@@ -244,9 +244,9 @@ export type DownvoteSerieReviewWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.IntFilter<"DownvoteSerieReview"> | number
   serieId?: Prisma.IntFilter<"DownvoteSerieReview"> | number
   serieReviewId?: Prisma.IntFilter<"DownvoteSerieReview"> | number
-  Serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
-  SerieReview?: Prisma.XOR<Prisma.SerieReviewScalarRelationFilter, Prisma.SerieReviewWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  serie?: Prisma.XOR<Prisma.SerieScalarRelationFilter, Prisma.SerieWhereInput>
+  serieReview?: Prisma.XOR<Prisma.SerieReviewNullableScalarRelationFilter, Prisma.SerieReviewWhereInput> | null
 }, "id" | "userId_serieId_serieReviewId">
 
 export type DownvoteSerieReviewOrderByWithAggregationInput = {
@@ -272,9 +272,9 @@ export type DownvoteSerieReviewScalarWhereWithAggregatesInput = {
 }
 
 export type DownvoteSerieReviewCreateInput = {
-  Serie: Prisma.SerieCreateNestedOneWithoutDownvoteSerieReviewInput
-  SerieReview: Prisma.SerieReviewCreateNestedOneWithoutDownvoteSerieReviewInput
-  User: Prisma.UserCreateNestedOneWithoutDownvoteSerieReviewInput
+  user: Prisma.UserCreateNestedOneWithoutSerieReviewsDownvotedInput
+  serie: Prisma.SerieCreateNestedOneWithoutDownvoteSerieReviewsInput
+  serieReview?: Prisma.SerieReviewCreateNestedOneWithoutDownvotesInput
 }
 
 export type DownvoteSerieReviewUncheckedCreateInput = {
@@ -285,9 +285,9 @@ export type DownvoteSerieReviewUncheckedCreateInput = {
 }
 
 export type DownvoteSerieReviewUpdateInput = {
-  Serie?: Prisma.SerieUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
-  SerieReview?: Prisma.SerieReviewUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSerieReviewsDownvotedNestedInput
+  serie?: Prisma.SerieUpdateOneRequiredWithoutDownvoteSerieReviewsNestedInput
+  serieReview?: Prisma.SerieReviewUpdateOneWithoutDownvotesNestedInput
 }
 
 export type DownvoteSerieReviewUncheckedUpdateInput = {
@@ -313,6 +313,16 @@ export type DownvoteSerieReviewUncheckedUpdateManyInput = {
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   serieId?: Prisma.IntFieldUpdateOperationsInput | number
   serieReviewId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type DownvoteSerieReviewListRelationFilter = {
+  every?: Prisma.DownvoteSerieReviewWhereInput
+  some?: Prisma.DownvoteSerieReviewWhereInput
+  none?: Prisma.DownvoteSerieReviewWhereInput
+}
+
+export type DownvoteSerieReviewOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type DownvoteSerieReviewUserIdSerieIdSerieReviewIdCompoundUniqueInput = {
@@ -354,16 +364,6 @@ export type DownvoteSerieReviewSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   serieId?: Prisma.SortOrder
   serieReviewId?: Prisma.SortOrder
-}
-
-export type DownvoteSerieReviewListRelationFilter = {
-  every?: Prisma.DownvoteSerieReviewWhereInput
-  some?: Prisma.DownvoteSerieReviewWhereInput
-  none?: Prisma.DownvoteSerieReviewWhereInput
-}
-
-export type DownvoteSerieReviewOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type DownvoteSerieReviewCreateNestedManyWithoutSerieInput = {
@@ -493,8 +493,8 @@ export type DownvoteSerieReviewUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type DownvoteSerieReviewCreateWithoutSerieInput = {
-  SerieReview: Prisma.SerieReviewCreateNestedOneWithoutDownvoteSerieReviewInput
-  User: Prisma.UserCreateNestedOneWithoutDownvoteSerieReviewInput
+  user: Prisma.UserCreateNestedOneWithoutSerieReviewsDownvotedInput
+  serieReview?: Prisma.SerieReviewCreateNestedOneWithoutDownvotesInput
 }
 
 export type DownvoteSerieReviewUncheckedCreateWithoutSerieInput = {
@@ -540,8 +540,8 @@ export type DownvoteSerieReviewScalarWhereInput = {
 }
 
 export type DownvoteSerieReviewCreateWithoutSerieReviewInput = {
-  Serie: Prisma.SerieCreateNestedOneWithoutDownvoteSerieReviewInput
-  User: Prisma.UserCreateNestedOneWithoutDownvoteSerieReviewInput
+  user: Prisma.UserCreateNestedOneWithoutSerieReviewsDownvotedInput
+  serie: Prisma.SerieCreateNestedOneWithoutDownvoteSerieReviewsInput
 }
 
 export type DownvoteSerieReviewUncheckedCreateWithoutSerieReviewInput = {
@@ -577,8 +577,8 @@ export type DownvoteSerieReviewUpdateManyWithWhereWithoutSerieReviewInput = {
 }
 
 export type DownvoteSerieReviewCreateWithoutUserInput = {
-  Serie: Prisma.SerieCreateNestedOneWithoutDownvoteSerieReviewInput
-  SerieReview: Prisma.SerieReviewCreateNestedOneWithoutDownvoteSerieReviewInput
+  serie: Prisma.SerieCreateNestedOneWithoutDownvoteSerieReviewsInput
+  serieReview?: Prisma.SerieReviewCreateNestedOneWithoutDownvotesInput
 }
 
 export type DownvoteSerieReviewUncheckedCreateWithoutUserInput = {
@@ -620,8 +620,8 @@ export type DownvoteSerieReviewCreateManySerieInput = {
 }
 
 export type DownvoteSerieReviewUpdateWithoutSerieInput = {
-  SerieReview?: Prisma.SerieReviewUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSerieReviewsDownvotedNestedInput
+  serieReview?: Prisma.SerieReviewUpdateOneWithoutDownvotesNestedInput
 }
 
 export type DownvoteSerieReviewUncheckedUpdateWithoutSerieInput = {
@@ -643,8 +643,8 @@ export type DownvoteSerieReviewCreateManySerieReviewInput = {
 }
 
 export type DownvoteSerieReviewUpdateWithoutSerieReviewInput = {
-  Serie?: Prisma.SerieUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSerieReviewsDownvotedNestedInput
+  serie?: Prisma.SerieUpdateOneRequiredWithoutDownvoteSerieReviewsNestedInput
 }
 
 export type DownvoteSerieReviewUncheckedUpdateWithoutSerieReviewInput = {
@@ -666,8 +666,8 @@ export type DownvoteSerieReviewCreateManyUserInput = {
 }
 
 export type DownvoteSerieReviewUpdateWithoutUserInput = {
-  Serie?: Prisma.SerieUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
-  SerieReview?: Prisma.SerieReviewUpdateOneRequiredWithoutDownvoteSerieReviewNestedInput
+  serie?: Prisma.SerieUpdateOneRequiredWithoutDownvoteSerieReviewsNestedInput
+  serieReview?: Prisma.SerieReviewUpdateOneWithoutDownvotesNestedInput
 }
 
 export type DownvoteSerieReviewUncheckedUpdateWithoutUserInput = {
@@ -689,9 +689,9 @@ export type DownvoteSerieReviewSelect<ExtArgs extends runtime.Types.Extensions.I
   userId?: boolean
   serieId?: boolean
   serieReviewId?: boolean
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serieReview?: boolean | Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>
 }, ExtArgs["result"]["downvoteSerieReview"]>
 
 export type DownvoteSerieReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -699,9 +699,9 @@ export type DownvoteSerieReviewSelectCreateManyAndReturn<ExtArgs extends runtime
   userId?: boolean
   serieId?: boolean
   serieReviewId?: boolean
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serieReview?: boolean | Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>
 }, ExtArgs["result"]["downvoteSerieReview"]>
 
 export type DownvoteSerieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -709,9 +709,9 @@ export type DownvoteSerieReviewSelectUpdateManyAndReturn<ExtArgs extends runtime
   userId?: boolean
   serieId?: boolean
   serieReviewId?: boolean
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serieReview?: boolean | Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>
 }, ExtArgs["result"]["downvoteSerieReview"]>
 
 export type DownvoteSerieReviewSelectScalar = {
@@ -723,27 +723,27 @@ export type DownvoteSerieReviewSelectScalar = {
 
 export type DownvoteSerieReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "serieId" | "serieReviewId", ExtArgs["result"]["downvoteSerieReview"]>
 export type DownvoteSerieReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serieReview?: boolean | Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>
 }
 export type DownvoteSerieReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serieReview?: boolean | Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>
 }
 export type DownvoteSerieReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
-  SerieReview?: boolean | Prisma.SerieReviewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  serie?: boolean | Prisma.SerieDefaultArgs<ExtArgs>
+  serieReview?: boolean | Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>
 }
 
 export type $DownvoteSerieReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DownvoteSerieReview"
   objects: {
-    Serie: Prisma.$SeriePayload<ExtArgs>
-    SerieReview: Prisma.$SerieReviewPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    serie: Prisma.$SeriePayload<ExtArgs>
+    serieReview: Prisma.$SerieReviewPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1144,9 +1144,9 @@ readonly fields: DownvoteSerieReviewFieldRefs;
  */
 export interface Prisma__DownvoteSerieReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  SerieReview<T extends Prisma.SerieReviewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieReviewDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieReviewClient<runtime.Types.Result.GetResult<Prisma.$SerieReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  serie<T extends Prisma.SerieDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SerieDefaultArgs<ExtArgs>>): Prisma.Prisma__SerieClient<runtime.Types.Result.GetResult<Prisma.$SeriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  serieReview<T extends Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DownvoteSerieReview$serieReviewArgs<ExtArgs>>): Prisma.Prisma__SerieReviewClient<runtime.Types.Result.GetResult<Prisma.$SerieReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1573,6 +1573,25 @@ export type DownvoteSerieReviewDeleteManyArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many DownvoteSerieReviews to delete.
    */
   limit?: number
+}
+
+/**
+ * DownvoteSerieReview.serieReview
+ */
+export type DownvoteSerieReview$serieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SerieReview
+   */
+  select?: Prisma.SerieReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SerieReview
+   */
+  omit?: Prisma.SerieReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SerieReviewInclude<ExtArgs> | null
+  where?: Prisma.SerieReviewWhereInput
 }
 
 /**

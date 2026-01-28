@@ -208,16 +208,16 @@ export type UserEpisodeFavoriteWhereInput = {
   id?: Prisma.IntFilter<"UserEpisodeFavorite"> | number
   userId?: Prisma.IntFilter<"UserEpisodeFavorite"> | number
   episodeId?: Prisma.IntFilter<"UserEpisodeFavorite"> | number
-  Episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
 }
 
 export type UserEpisodeFavoriteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
-  Episode?: Prisma.EpisodeOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  episode?: Prisma.EpisodeOrderByWithRelationInput
 }
 
 export type UserEpisodeFavoriteWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserEpisodeFavoriteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserEpisodeFavoriteWhereInput | Prisma.UserEpisodeFavoriteWhereInput[]
   userId?: Prisma.IntFilter<"UserEpisodeFavorite"> | number
   episodeId?: Prisma.IntFilter<"UserEpisodeFavorite"> | number
-  Episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
 }, "id" | "userId_episodeId">
 
 export type UserEpisodeFavoriteOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserEpisodeFavoriteScalarWhereWithAggregatesInput = {
 }
 
 export type UserEpisodeFavoriteCreateInput = {
-  Episode: Prisma.EpisodeCreateNestedOneWithoutUserEpisodeFavoriteInput
-  User: Prisma.UserCreateNestedOneWithoutUserEpisodeFavoriteInput
+  user: Prisma.UserCreateNestedOneWithoutFavEpisodesInput
+  episode: Prisma.EpisodeCreateNestedOneWithoutUsersWhoBookmarkedItInput
 }
 
 export type UserEpisodeFavoriteUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserEpisodeFavoriteUncheckedCreateInput = {
 }
 
 export type UserEpisodeFavoriteUpdateInput = {
-  Episode?: Prisma.EpisodeUpdateOneRequiredWithoutUserEpisodeFavoriteNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUserEpisodeFavoriteNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutFavEpisodesNestedInput
+  episode?: Prisma.EpisodeUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
 }
 
 export type UserEpisodeFavoriteUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type UserEpisodeFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UserEpisodeFavoriteCreateWithoutEpisodeInput = {
-  User: Prisma.UserCreateNestedOneWithoutUserEpisodeFavoriteInput
+  user: Prisma.UserCreateNestedOneWithoutFavEpisodesInput
 }
 
 export type UserEpisodeFavoriteUncheckedCreateWithoutEpisodeInput = {
@@ -464,7 +464,7 @@ export type UserEpisodeFavoriteScalarWhereInput = {
 }
 
 export type UserEpisodeFavoriteCreateWithoutUserInput = {
-  Episode: Prisma.EpisodeCreateNestedOneWithoutUserEpisodeFavoriteInput
+  episode: Prisma.EpisodeCreateNestedOneWithoutUsersWhoBookmarkedItInput
 }
 
 export type UserEpisodeFavoriteUncheckedCreateWithoutUserInput = {
@@ -504,7 +504,7 @@ export type UserEpisodeFavoriteCreateManyEpisodeInput = {
 }
 
 export type UserEpisodeFavoriteUpdateWithoutEpisodeInput = {
-  User?: Prisma.UserUpdateOneRequiredWithoutUserEpisodeFavoriteNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutFavEpisodesNestedInput
 }
 
 export type UserEpisodeFavoriteUncheckedUpdateWithoutEpisodeInput = {
@@ -523,7 +523,7 @@ export type UserEpisodeFavoriteCreateManyUserInput = {
 }
 
 export type UserEpisodeFavoriteUpdateWithoutUserInput = {
-  Episode?: Prisma.EpisodeUpdateOneRequiredWithoutUserEpisodeFavoriteNestedInput
+  episode?: Prisma.EpisodeUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
 }
 
 export type UserEpisodeFavoriteUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserEpisodeFavoriteSelect<ExtArgs extends runtime.Types.Extensions.I
   id?: boolean
   userId?: boolean
   episodeId?: boolean
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userEpisodeFavorite"]>
 
 export type UserEpisodeFavoriteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   episodeId?: boolean
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userEpisodeFavorite"]>
 
 export type UserEpisodeFavoriteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   episodeId?: boolean
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userEpisodeFavorite"]>
 
 export type UserEpisodeFavoriteSelectScalar = {
@@ -570,23 +570,23 @@ export type UserEpisodeFavoriteSelectScalar = {
 
 export type UserEpisodeFavoriteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "episodeId", ExtArgs["result"]["userEpisodeFavorite"]>
 export type UserEpisodeFavoriteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
 }
 export type UserEpisodeFavoriteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
 }
 export type UserEpisodeFavoriteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
 }
 
 export type $UserEpisodeFavoritePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserEpisodeFavorite"
   objects: {
-    Episode: Prisma.$EpisodePayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    episode: Prisma.$EpisodePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserEpisodeFavoriteFieldRefs;
  */
 export interface Prisma__UserEpisodeFavoriteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Episode<T extends Prisma.EpisodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EpisodeDefaultArgs<ExtArgs>>): Prisma.Prisma__EpisodeClient<runtime.Types.Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  episode<T extends Prisma.EpisodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EpisodeDefaultArgs<ExtArgs>>): Prisma.Prisma__EpisodeClient<runtime.Types.Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

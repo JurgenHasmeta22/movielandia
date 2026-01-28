@@ -288,9 +288,9 @@ export type ForumCategoryWhereInput = {
   postCount?: Prisma.IntFilter<"ForumCategory"> | number
   lastPostAt?: Prisma.DateTimeNullableFilter<"ForumCategory"> | Date | string | null
   lastPostId?: Prisma.IntNullableFilter<"ForumCategory"> | number | null
-  ForumPost?: Prisma.XOR<Prisma.ForumPostNullableScalarRelationFilter, Prisma.ForumPostWhereInput> | null
-  ForumTopic?: Prisma.ForumTopicListRelationFilter
-  UserForumModerator?: Prisma.UserForumModeratorListRelationFilter
+  lastPost?: Prisma.XOR<Prisma.ForumPostNullableScalarRelationFilter, Prisma.ForumPostWhereInput> | null
+  topics?: Prisma.ForumTopicListRelationFilter
+  moderators?: Prisma.UserForumModeratorListRelationFilter
 }
 
 export type ForumCategoryOrderByWithRelationInput = {
@@ -306,9 +306,9 @@ export type ForumCategoryOrderByWithRelationInput = {
   postCount?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrderInput | Prisma.SortOrder
   lastPostId?: Prisma.SortOrderInput | Prisma.SortOrder
-  ForumPost?: Prisma.ForumPostOrderByWithRelationInput
-  ForumTopic?: Prisma.ForumTopicOrderByRelationAggregateInput
-  UserForumModerator?: Prisma.UserForumModeratorOrderByRelationAggregateInput
+  lastPost?: Prisma.ForumPostOrderByWithRelationInput
+  topics?: Prisma.ForumTopicOrderByRelationAggregateInput
+  moderators?: Prisma.UserForumModeratorOrderByRelationAggregateInput
   _relevance?: Prisma.ForumCategoryOrderByRelevanceInput
 }
 
@@ -328,9 +328,9 @@ export type ForumCategoryWhereUniqueInput = Prisma.AtLeast<{
   topicCount?: Prisma.IntFilter<"ForumCategory"> | number
   postCount?: Prisma.IntFilter<"ForumCategory"> | number
   lastPostAt?: Prisma.DateTimeNullableFilter<"ForumCategory"> | Date | string | null
-  ForumPost?: Prisma.XOR<Prisma.ForumPostNullableScalarRelationFilter, Prisma.ForumPostWhereInput> | null
-  ForumTopic?: Prisma.ForumTopicListRelationFilter
-  UserForumModerator?: Prisma.UserForumModeratorListRelationFilter
+  lastPost?: Prisma.XOR<Prisma.ForumPostNullableScalarRelationFilter, Prisma.ForumPostWhereInput> | null
+  topics?: Prisma.ForumTopicListRelationFilter
+  moderators?: Prisma.UserForumModeratorListRelationFilter
 }, "id" | "slug" | "lastPostId">
 
 export type ForumCategoryOrderByWithAggregationInput = {
@@ -375,16 +375,16 @@ export type ForumCategoryCreateInput = {
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
   topicCount?: number
   postCount?: number
   lastPostAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedOneWithoutForumCategoryInput
-  ForumTopic?: Prisma.ForumTopicCreateNestedManyWithoutForumCategoryInput
-  UserForumModerator?: Prisma.UserForumModeratorCreateNestedManyWithoutForumCategoryInput
+  lastPost?: Prisma.ForumPostCreateNestedOneWithoutLastPostCategoryInput
+  topics?: Prisma.ForumTopicCreateNestedManyWithoutCategoryInput
+  moderators?: Prisma.UserForumModeratorCreateNestedManyWithoutCategoryInput
 }
 
 export type ForumCategoryUncheckedCreateInput = {
@@ -392,7 +392,7 @@ export type ForumCategoryUncheckedCreateInput = {
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
@@ -400,8 +400,8 @@ export type ForumCategoryUncheckedCreateInput = {
   postCount?: number
   lastPostAt?: Date | string | null
   lastPostId?: number | null
-  ForumTopic?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutForumCategoryInput
-  UserForumModerator?: Prisma.UserForumModeratorUncheckedCreateNestedManyWithoutForumCategoryInput
+  topics?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutCategoryInput
+  moderators?: Prisma.UserForumModeratorUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type ForumCategoryUpdateInput = {
@@ -415,9 +415,9 @@ export type ForumCategoryUpdateInput = {
   topicCount?: Prisma.IntFieldUpdateOperationsInput | number
   postCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateOneWithoutForumCategoryNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateManyWithoutForumCategoryNestedInput
-  UserForumModerator?: Prisma.UserForumModeratorUpdateManyWithoutForumCategoryNestedInput
+  lastPost?: Prisma.ForumPostUpdateOneWithoutLastPostCategoryNestedInput
+  topics?: Prisma.ForumTopicUpdateManyWithoutCategoryNestedInput
+  moderators?: Prisma.UserForumModeratorUpdateManyWithoutCategoryNestedInput
 }
 
 export type ForumCategoryUncheckedUpdateInput = {
@@ -433,8 +433,8 @@ export type ForumCategoryUncheckedUpdateInput = {
   postCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ForumTopic?: Prisma.ForumTopicUncheckedUpdateManyWithoutForumCategoryNestedInput
-  UserForumModerator?: Prisma.UserForumModeratorUncheckedUpdateManyWithoutForumCategoryNestedInput
+  topics?: Prisma.ForumTopicUncheckedUpdateManyWithoutCategoryNestedInput
+  moderators?: Prisma.UserForumModeratorUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type ForumCategoryCreateManyInput = {
@@ -442,7 +442,7 @@ export type ForumCategoryCreateManyInput = {
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
@@ -547,175 +547,101 @@ export type ForumCategorySumOrderByAggregateInput = {
   lastPostId?: Prisma.SortOrder
 }
 
-export type ForumCategoryNullableScalarRelationFilter = {
-  is?: Prisma.ForumCategoryWhereInput | null
-  isNot?: Prisma.ForumCategoryWhereInput | null
-}
-
 export type ForumCategoryScalarRelationFilter = {
   is?: Prisma.ForumCategoryWhereInput
   isNot?: Prisma.ForumCategoryWhereInput
 }
 
-export type ForumCategoryCreateNestedOneWithoutForumPostInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumPostInput, Prisma.ForumCategoryUncheckedCreateWithoutForumPostInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutForumPostInput
+export type ForumCategoryNullableScalarRelationFilter = {
+  is?: Prisma.ForumCategoryWhereInput | null
+  isNot?: Prisma.ForumCategoryWhereInput | null
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type ForumCategoryCreateNestedOneWithoutModeratorsInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutModeratorsInput, Prisma.ForumCategoryUncheckedCreateWithoutModeratorsInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutModeratorsInput
   connect?: Prisma.ForumCategoryWhereUniqueInput
 }
 
-export type ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumPostInput, Prisma.ForumCategoryUncheckedCreateWithoutForumPostInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutForumPostInput
+export type ForumCategoryUpdateOneRequiredWithoutModeratorsNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutModeratorsInput, Prisma.ForumCategoryUncheckedCreateWithoutModeratorsInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutModeratorsInput
+  upsert?: Prisma.ForumCategoryUpsertWithoutModeratorsInput
+  connect?: Prisma.ForumCategoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutModeratorsInput, Prisma.ForumCategoryUpdateWithoutModeratorsInput>, Prisma.ForumCategoryUncheckedUpdateWithoutModeratorsInput>
+}
+
+export type ForumCategoryCreateNestedOneWithoutLastPostInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutLastPostInput, Prisma.ForumCategoryUncheckedCreateWithoutLastPostInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutLastPostInput
   connect?: Prisma.ForumCategoryWhereUniqueInput
 }
 
-export type ForumCategoryUpdateOneWithoutForumPostNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumPostInput, Prisma.ForumCategoryUncheckedCreateWithoutForumPostInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutForumPostInput
-  upsert?: Prisma.ForumCategoryUpsertWithoutForumPostInput
+export type ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutLastPostInput, Prisma.ForumCategoryUncheckedCreateWithoutLastPostInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutLastPostInput
+  connect?: Prisma.ForumCategoryWhereUniqueInput
+}
+
+export type ForumCategoryUpdateOneWithoutLastPostNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutLastPostInput, Prisma.ForumCategoryUncheckedCreateWithoutLastPostInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutLastPostInput
+  upsert?: Prisma.ForumCategoryUpsertWithoutLastPostInput
   disconnect?: Prisma.ForumCategoryWhereInput | boolean
   delete?: Prisma.ForumCategoryWhereInput | boolean
   connect?: Prisma.ForumCategoryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutForumPostInput, Prisma.ForumCategoryUpdateWithoutForumPostInput>, Prisma.ForumCategoryUncheckedUpdateWithoutForumPostInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutLastPostInput, Prisma.ForumCategoryUpdateWithoutLastPostInput>, Prisma.ForumCategoryUncheckedUpdateWithoutLastPostInput>
 }
 
-export type ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumPostInput, Prisma.ForumCategoryUncheckedCreateWithoutForumPostInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutForumPostInput
-  upsert?: Prisma.ForumCategoryUpsertWithoutForumPostInput
+export type ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutLastPostInput, Prisma.ForumCategoryUncheckedCreateWithoutLastPostInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutLastPostInput
+  upsert?: Prisma.ForumCategoryUpsertWithoutLastPostInput
   disconnect?: Prisma.ForumCategoryWhereInput | boolean
   delete?: Prisma.ForumCategoryWhereInput | boolean
   connect?: Prisma.ForumCategoryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutForumPostInput, Prisma.ForumCategoryUpdateWithoutForumPostInput>, Prisma.ForumCategoryUncheckedUpdateWithoutForumPostInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutLastPostInput, Prisma.ForumCategoryUpdateWithoutLastPostInput>, Prisma.ForumCategoryUncheckedUpdateWithoutLastPostInput>
 }
 
-export type ForumCategoryCreateNestedOneWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumTopicInput, Prisma.ForumCategoryUncheckedCreateWithoutForumTopicInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutForumTopicInput
+export type ForumCategoryCreateNestedOneWithoutTopicsInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutTopicsInput, Prisma.ForumCategoryUncheckedCreateWithoutTopicsInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutTopicsInput
   connect?: Prisma.ForumCategoryWhereUniqueInput
 }
 
-export type ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumTopicInput, Prisma.ForumCategoryUncheckedCreateWithoutForumTopicInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutForumTopicInput
-  upsert?: Prisma.ForumCategoryUpsertWithoutForumTopicInput
+export type ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutTopicsInput, Prisma.ForumCategoryUncheckedCreateWithoutTopicsInput>
+  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutTopicsInput
+  upsert?: Prisma.ForumCategoryUpsertWithoutTopicsInput
   connect?: Prisma.ForumCategoryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutForumTopicInput, Prisma.ForumCategoryUpdateWithoutForumTopicInput>, Prisma.ForumCategoryUncheckedUpdateWithoutForumTopicInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutTopicsInput, Prisma.ForumCategoryUpdateWithoutTopicsInput>, Prisma.ForumCategoryUncheckedUpdateWithoutTopicsInput>
 }
 
-export type ForumCategoryCreateNestedOneWithoutUserForumModeratorInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutUserForumModeratorInput, Prisma.ForumCategoryUncheckedCreateWithoutUserForumModeratorInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutUserForumModeratorInput
-  connect?: Prisma.ForumCategoryWhereUniqueInput
-}
-
-export type ForumCategoryUpdateOneRequiredWithoutUserForumModeratorNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumCategoryCreateWithoutUserForumModeratorInput, Prisma.ForumCategoryUncheckedCreateWithoutUserForumModeratorInput>
-  connectOrCreate?: Prisma.ForumCategoryCreateOrConnectWithoutUserForumModeratorInput
-  upsert?: Prisma.ForumCategoryUpsertWithoutUserForumModeratorInput
-  connect?: Prisma.ForumCategoryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumCategoryUpdateToOneWithWhereWithoutUserForumModeratorInput, Prisma.ForumCategoryUpdateWithoutUserForumModeratorInput>, Prisma.ForumCategoryUncheckedUpdateWithoutUserForumModeratorInput>
-}
-
-export type ForumCategoryCreateWithoutForumPostInput = {
+export type ForumCategoryCreateWithoutModeratorsInput = {
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
   topicCount?: number
   postCount?: number
   lastPostAt?: Date | string | null
-  ForumTopic?: Prisma.ForumTopicCreateNestedManyWithoutForumCategoryInput
-  UserForumModerator?: Prisma.UserForumModeratorCreateNestedManyWithoutForumCategoryInput
+  lastPost?: Prisma.ForumPostCreateNestedOneWithoutLastPostCategoryInput
+  topics?: Prisma.ForumTopicCreateNestedManyWithoutCategoryInput
 }
 
-export type ForumCategoryUncheckedCreateWithoutForumPostInput = {
+export type ForumCategoryUncheckedCreateWithoutModeratorsInput = {
   id?: number
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
-  order?: number
-  isActive?: boolean
-  slug: string
-  topicCount?: number
-  postCount?: number
-  lastPostAt?: Date | string | null
-  ForumTopic?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutForumCategoryInput
-  UserForumModerator?: Prisma.UserForumModeratorUncheckedCreateNestedManyWithoutForumCategoryInput
-}
-
-export type ForumCategoryCreateOrConnectWithoutForumPostInput = {
-  where: Prisma.ForumCategoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumPostInput, Prisma.ForumCategoryUncheckedCreateWithoutForumPostInput>
-}
-
-export type ForumCategoryUpsertWithoutForumPostInput = {
-  update: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutForumPostInput, Prisma.ForumCategoryUncheckedUpdateWithoutForumPostInput>
-  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumPostInput, Prisma.ForumCategoryUncheckedCreateWithoutForumPostInput>
-  where?: Prisma.ForumCategoryWhereInput
-}
-
-export type ForumCategoryUpdateToOneWithWhereWithoutForumPostInput = {
-  where?: Prisma.ForumCategoryWhereInput
-  data: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutForumPostInput, Prisma.ForumCategoryUncheckedUpdateWithoutForumPostInput>
-}
-
-export type ForumCategoryUpdateWithoutForumPostInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  topicCount?: Prisma.IntFieldUpdateOperationsInput | number
-  postCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumTopic?: Prisma.ForumTopicUpdateManyWithoutForumCategoryNestedInput
-  UserForumModerator?: Prisma.UserForumModeratorUpdateManyWithoutForumCategoryNestedInput
-}
-
-export type ForumCategoryUncheckedUpdateWithoutForumPostInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  topicCount?: Prisma.IntFieldUpdateOperationsInput | number
-  postCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumTopic?: Prisma.ForumTopicUncheckedUpdateManyWithoutForumCategoryNestedInput
-  UserForumModerator?: Prisma.UserForumModeratorUncheckedUpdateManyWithoutForumCategoryNestedInput
-}
-
-export type ForumCategoryCreateWithoutForumTopicInput = {
-  name: string
-  description: string
-  createdAt?: Date | string
-  updatedAt: Date | string
-  order?: number
-  isActive?: boolean
-  slug: string
-  topicCount?: number
-  postCount?: number
-  lastPostAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedOneWithoutForumCategoryInput
-  UserForumModerator?: Prisma.UserForumModeratorCreateNestedManyWithoutForumCategoryInput
-}
-
-export type ForumCategoryUncheckedCreateWithoutForumTopicInput = {
-  id?: number
-  name: string
-  description: string
-  createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
@@ -723,26 +649,26 @@ export type ForumCategoryUncheckedCreateWithoutForumTopicInput = {
   postCount?: number
   lastPostAt?: Date | string | null
   lastPostId?: number | null
-  UserForumModerator?: Prisma.UserForumModeratorUncheckedCreateNestedManyWithoutForumCategoryInput
+  topics?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutCategoryInput
 }
 
-export type ForumCategoryCreateOrConnectWithoutForumTopicInput = {
+export type ForumCategoryCreateOrConnectWithoutModeratorsInput = {
   where: Prisma.ForumCategoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumTopicInput, Prisma.ForumCategoryUncheckedCreateWithoutForumTopicInput>
+  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutModeratorsInput, Prisma.ForumCategoryUncheckedCreateWithoutModeratorsInput>
 }
 
-export type ForumCategoryUpsertWithoutForumTopicInput = {
-  update: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutForumTopicInput, Prisma.ForumCategoryUncheckedUpdateWithoutForumTopicInput>
-  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutForumTopicInput, Prisma.ForumCategoryUncheckedCreateWithoutForumTopicInput>
+export type ForumCategoryUpsertWithoutModeratorsInput = {
+  update: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutModeratorsInput, Prisma.ForumCategoryUncheckedUpdateWithoutModeratorsInput>
+  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutModeratorsInput, Prisma.ForumCategoryUncheckedCreateWithoutModeratorsInput>
   where?: Prisma.ForumCategoryWhereInput
 }
 
-export type ForumCategoryUpdateToOneWithWhereWithoutForumTopicInput = {
+export type ForumCategoryUpdateToOneWithWhereWithoutModeratorsInput = {
   where?: Prisma.ForumCategoryWhereInput
-  data: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutForumTopicInput, Prisma.ForumCategoryUncheckedUpdateWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutModeratorsInput, Prisma.ForumCategoryUncheckedUpdateWithoutModeratorsInput>
 }
 
-export type ForumCategoryUpdateWithoutForumTopicInput = {
+export type ForumCategoryUpdateWithoutModeratorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -753,11 +679,11 @@ export type ForumCategoryUpdateWithoutForumTopicInput = {
   topicCount?: Prisma.IntFieldUpdateOperationsInput | number
   postCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateOneWithoutForumCategoryNestedInput
-  UserForumModerator?: Prisma.UserForumModeratorUpdateManyWithoutForumCategoryNestedInput
+  lastPost?: Prisma.ForumPostUpdateOneWithoutLastPostCategoryNestedInput
+  topics?: Prisma.ForumTopicUpdateManyWithoutCategoryNestedInput
 }
 
-export type ForumCategoryUncheckedUpdateWithoutForumTopicInput = {
+export type ForumCategoryUncheckedUpdateWithoutModeratorsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
@@ -770,57 +696,57 @@ export type ForumCategoryUncheckedUpdateWithoutForumTopicInput = {
   postCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  UserForumModerator?: Prisma.UserForumModeratorUncheckedUpdateManyWithoutForumCategoryNestedInput
+  topics?: Prisma.ForumTopicUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
-export type ForumCategoryCreateWithoutUserForumModeratorInput = {
+export type ForumCategoryCreateWithoutLastPostInput = {
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
   topicCount?: number
   postCount?: number
   lastPostAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedOneWithoutForumCategoryInput
-  ForumTopic?: Prisma.ForumTopicCreateNestedManyWithoutForumCategoryInput
+  topics?: Prisma.ForumTopicCreateNestedManyWithoutCategoryInput
+  moderators?: Prisma.UserForumModeratorCreateNestedManyWithoutCategoryInput
 }
 
-export type ForumCategoryUncheckedCreateWithoutUserForumModeratorInput = {
+export type ForumCategoryUncheckedCreateWithoutLastPostInput = {
   id?: number
   name: string
   description: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   order?: number
   isActive?: boolean
   slug: string
   topicCount?: number
   postCount?: number
   lastPostAt?: Date | string | null
-  lastPostId?: number | null
-  ForumTopic?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutForumCategoryInput
+  topics?: Prisma.ForumTopicUncheckedCreateNestedManyWithoutCategoryInput
+  moderators?: Prisma.UserForumModeratorUncheckedCreateNestedManyWithoutCategoryInput
 }
 
-export type ForumCategoryCreateOrConnectWithoutUserForumModeratorInput = {
+export type ForumCategoryCreateOrConnectWithoutLastPostInput = {
   where: Prisma.ForumCategoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutUserForumModeratorInput, Prisma.ForumCategoryUncheckedCreateWithoutUserForumModeratorInput>
+  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutLastPostInput, Prisma.ForumCategoryUncheckedCreateWithoutLastPostInput>
 }
 
-export type ForumCategoryUpsertWithoutUserForumModeratorInput = {
-  update: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutUserForumModeratorInput, Prisma.ForumCategoryUncheckedUpdateWithoutUserForumModeratorInput>
-  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutUserForumModeratorInput, Prisma.ForumCategoryUncheckedCreateWithoutUserForumModeratorInput>
+export type ForumCategoryUpsertWithoutLastPostInput = {
+  update: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutLastPostInput, Prisma.ForumCategoryUncheckedUpdateWithoutLastPostInput>
+  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutLastPostInput, Prisma.ForumCategoryUncheckedCreateWithoutLastPostInput>
   where?: Prisma.ForumCategoryWhereInput
 }
 
-export type ForumCategoryUpdateToOneWithWhereWithoutUserForumModeratorInput = {
+export type ForumCategoryUpdateToOneWithWhereWithoutLastPostInput = {
   where?: Prisma.ForumCategoryWhereInput
-  data: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutUserForumModeratorInput, Prisma.ForumCategoryUncheckedUpdateWithoutUserForumModeratorInput>
+  data: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutLastPostInput, Prisma.ForumCategoryUncheckedUpdateWithoutLastPostInput>
 }
 
-export type ForumCategoryUpdateWithoutUserForumModeratorInput = {
+export type ForumCategoryUpdateWithoutLastPostInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -831,11 +757,89 @@ export type ForumCategoryUpdateWithoutUserForumModeratorInput = {
   topicCount?: Prisma.IntFieldUpdateOperationsInput | number
   postCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateOneWithoutForumCategoryNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateManyWithoutForumCategoryNestedInput
+  topics?: Prisma.ForumTopicUpdateManyWithoutCategoryNestedInput
+  moderators?: Prisma.UserForumModeratorUpdateManyWithoutCategoryNestedInput
 }
 
-export type ForumCategoryUncheckedUpdateWithoutUserForumModeratorInput = {
+export type ForumCategoryUncheckedUpdateWithoutLastPostInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  topicCount?: Prisma.IntFieldUpdateOperationsInput | number
+  postCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topics?: Prisma.ForumTopicUncheckedUpdateManyWithoutCategoryNestedInput
+  moderators?: Prisma.UserForumModeratorUncheckedUpdateManyWithoutCategoryNestedInput
+}
+
+export type ForumCategoryCreateWithoutTopicsInput = {
+  name: string
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  order?: number
+  isActive?: boolean
+  slug: string
+  topicCount?: number
+  postCount?: number
+  lastPostAt?: Date | string | null
+  lastPost?: Prisma.ForumPostCreateNestedOneWithoutLastPostCategoryInput
+  moderators?: Prisma.UserForumModeratorCreateNestedManyWithoutCategoryInput
+}
+
+export type ForumCategoryUncheckedCreateWithoutTopicsInput = {
+  id?: number
+  name: string
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  order?: number
+  isActive?: boolean
+  slug: string
+  topicCount?: number
+  postCount?: number
+  lastPostAt?: Date | string | null
+  lastPostId?: number | null
+  moderators?: Prisma.UserForumModeratorUncheckedCreateNestedManyWithoutCategoryInput
+}
+
+export type ForumCategoryCreateOrConnectWithoutTopicsInput = {
+  where: Prisma.ForumCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutTopicsInput, Prisma.ForumCategoryUncheckedCreateWithoutTopicsInput>
+}
+
+export type ForumCategoryUpsertWithoutTopicsInput = {
+  update: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutTopicsInput, Prisma.ForumCategoryUncheckedUpdateWithoutTopicsInput>
+  create: Prisma.XOR<Prisma.ForumCategoryCreateWithoutTopicsInput, Prisma.ForumCategoryUncheckedCreateWithoutTopicsInput>
+  where?: Prisma.ForumCategoryWhereInput
+}
+
+export type ForumCategoryUpdateToOneWithWhereWithoutTopicsInput = {
+  where?: Prisma.ForumCategoryWhereInput
+  data: Prisma.XOR<Prisma.ForumCategoryUpdateWithoutTopicsInput, Prisma.ForumCategoryUncheckedUpdateWithoutTopicsInput>
+}
+
+export type ForumCategoryUpdateWithoutTopicsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  topicCount?: Prisma.IntFieldUpdateOperationsInput | number
+  postCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastPost?: Prisma.ForumPostUpdateOneWithoutLastPostCategoryNestedInput
+  moderators?: Prisma.UserForumModeratorUpdateManyWithoutCategoryNestedInput
+}
+
+export type ForumCategoryUncheckedUpdateWithoutTopicsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
@@ -848,7 +852,7 @@ export type ForumCategoryUncheckedUpdateWithoutUserForumModeratorInput = {
   postCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastPostId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  ForumTopic?: Prisma.ForumTopicUncheckedUpdateManyWithoutForumCategoryNestedInput
+  moderators?: Prisma.UserForumModeratorUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 
@@ -857,13 +861,13 @@ export type ForumCategoryUncheckedUpdateWithoutUserForumModeratorInput = {
  */
 
 export type ForumCategoryCountOutputType = {
-  ForumTopic: number
-  UserForumModerator: number
+  topics: number
+  moderators: number
 }
 
 export type ForumCategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumTopic?: boolean | ForumCategoryCountOutputTypeCountForumTopicArgs
-  UserForumModerator?: boolean | ForumCategoryCountOutputTypeCountUserForumModeratorArgs
+  topics?: boolean | ForumCategoryCountOutputTypeCountTopicsArgs
+  moderators?: boolean | ForumCategoryCountOutputTypeCountModeratorsArgs
 }
 
 /**
@@ -879,14 +883,14 @@ export type ForumCategoryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
 /**
  * ForumCategoryCountOutputType without action
  */
-export type ForumCategoryCountOutputTypeCountForumTopicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumCategoryCountOutputTypeCountTopicsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ForumTopicWhereInput
 }
 
 /**
  * ForumCategoryCountOutputType without action
  */
-export type ForumCategoryCountOutputTypeCountUserForumModeratorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumCategoryCountOutputTypeCountModeratorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserForumModeratorWhereInput
 }
 
@@ -904,9 +908,9 @@ export type ForumCategorySelect<ExtArgs extends runtime.Types.Extensions.Interna
   postCount?: boolean
   lastPostAt?: boolean
   lastPostId?: boolean
-  ForumPost?: boolean | Prisma.ForumCategory$ForumPostArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumCategory$ForumTopicArgs<ExtArgs>
-  UserForumModerator?: boolean | Prisma.ForumCategory$UserForumModeratorArgs<ExtArgs>
+  lastPost?: boolean | Prisma.ForumCategory$lastPostArgs<ExtArgs>
+  topics?: boolean | Prisma.ForumCategory$topicsArgs<ExtArgs>
+  moderators?: boolean | Prisma.ForumCategory$moderatorsArgs<ExtArgs>
   _count?: boolean | Prisma.ForumCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumCategory"]>
 
@@ -923,7 +927,7 @@ export type ForumCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types
   postCount?: boolean
   lastPostAt?: boolean
   lastPostId?: boolean
-  ForumPost?: boolean | Prisma.ForumCategory$ForumPostArgs<ExtArgs>
+  lastPost?: boolean | Prisma.ForumCategory$lastPostArgs<ExtArgs>
 }, ExtArgs["result"]["forumCategory"]>
 
 export type ForumCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -939,7 +943,7 @@ export type ForumCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   postCount?: boolean
   lastPostAt?: boolean
   lastPostId?: boolean
-  ForumPost?: boolean | Prisma.ForumCategory$ForumPostArgs<ExtArgs>
+  lastPost?: boolean | Prisma.ForumCategory$lastPostArgs<ExtArgs>
 }, ExtArgs["result"]["forumCategory"]>
 
 export type ForumCategorySelectScalar = {
@@ -959,24 +963,24 @@ export type ForumCategorySelectScalar = {
 
 export type ForumCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "order" | "isActive" | "slug" | "topicCount" | "postCount" | "lastPostAt" | "lastPostId", ExtArgs["result"]["forumCategory"]>
 export type ForumCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumCategory$ForumPostArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumCategory$ForumTopicArgs<ExtArgs>
-  UserForumModerator?: boolean | Prisma.ForumCategory$UserForumModeratorArgs<ExtArgs>
+  lastPost?: boolean | Prisma.ForumCategory$lastPostArgs<ExtArgs>
+  topics?: boolean | Prisma.ForumCategory$topicsArgs<ExtArgs>
+  moderators?: boolean | Prisma.ForumCategory$moderatorsArgs<ExtArgs>
   _count?: boolean | Prisma.ForumCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ForumCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumCategory$ForumPostArgs<ExtArgs>
+  lastPost?: boolean | Prisma.ForumCategory$lastPostArgs<ExtArgs>
 }
 export type ForumCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumCategory$ForumPostArgs<ExtArgs>
+  lastPost?: boolean | Prisma.ForumCategory$lastPostArgs<ExtArgs>
 }
 
 export type $ForumCategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForumCategory"
   objects: {
-    ForumPost: Prisma.$ForumPostPayload<ExtArgs> | null
-    ForumTopic: Prisma.$ForumTopicPayload<ExtArgs>[]
-    UserForumModerator: Prisma.$UserForumModeratorPayload<ExtArgs>[]
+    lastPost: Prisma.$ForumPostPayload<ExtArgs> | null
+    topics: Prisma.$ForumTopicPayload<ExtArgs>[]
+    moderators: Prisma.$UserForumModeratorPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1385,9 +1389,9 @@ readonly fields: ForumCategoryFieldRefs;
  */
 export interface Prisma__ForumCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  ForumPost<T extends Prisma.ForumCategory$ForumPostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategory$ForumPostArgs<ExtArgs>>): Prisma.Prisma__ForumPostClient<runtime.Types.Result.GetResult<Prisma.$ForumPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  ForumTopic<T extends Prisma.ForumCategory$ForumTopicArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategory$ForumTopicArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserForumModerator<T extends Prisma.ForumCategory$UserForumModeratorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategory$UserForumModeratorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserForumModeratorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  lastPost<T extends Prisma.ForumCategory$lastPostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategory$lastPostArgs<ExtArgs>>): Prisma.Prisma__ForumPostClient<runtime.Types.Result.GetResult<Prisma.$ForumPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  topics<T extends Prisma.ForumCategory$topicsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategory$topicsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  moderators<T extends Prisma.ForumCategory$moderatorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategory$moderatorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserForumModeratorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1825,9 +1829,9 @@ export type ForumCategoryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * ForumCategory.ForumPost
+ * ForumCategory.lastPost
  */
-export type ForumCategory$ForumPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumCategory$lastPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ForumPost
    */
@@ -1844,9 +1848,9 @@ export type ForumCategory$ForumPostArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * ForumCategory.ForumTopic
+ * ForumCategory.topics
  */
-export type ForumCategory$ForumTopicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumCategory$topicsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ForumTopic
    */
@@ -1868,9 +1872,9 @@ export type ForumCategory$ForumTopicArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * ForumCategory.UserForumModerator
+ * ForumCategory.moderators
  */
-export type ForumCategory$UserForumModeratorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumCategory$moderatorsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserForumModerator
    */

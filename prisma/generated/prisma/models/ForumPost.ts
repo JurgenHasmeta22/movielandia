@@ -28,18 +28,18 @@ export type AggregateForumPost = {
 
 export type ForumPostAvgAggregateOutputType = {
   id: number | null
-  answeredById: number | null
-  deletedById: number | null
   topicId: number | null
   userId: number | null
+  answeredById: number | null
+  deletedById: number | null
 }
 
 export type ForumPostSumAggregateOutputType = {
   id: number | null
-  answeredById: number | null
-  deletedById: number | null
   topicId: number | null
   userId: number | null
+  answeredById: number | null
+  deletedById: number | null
 }
 
 export type ForumPostMinAggregateOutputType = {
@@ -52,13 +52,13 @@ export type ForumPostMinAggregateOutputType = {
   slug: string | null
   type: $Enums.PostType | null
   isAnswer: boolean | null
-  answeredAt: Date | null
-  answeredById: number | null
   isDeleted: boolean | null
+  answeredAt: Date | null
   deletedAt: Date | null
-  deletedById: number | null
   topicId: number | null
   userId: number | null
+  answeredById: number | null
+  deletedById: number | null
 }
 
 export type ForumPostMaxAggregateOutputType = {
@@ -71,13 +71,13 @@ export type ForumPostMaxAggregateOutputType = {
   slug: string | null
   type: $Enums.PostType | null
   isAnswer: boolean | null
-  answeredAt: Date | null
-  answeredById: number | null
   isDeleted: boolean | null
+  answeredAt: Date | null
   deletedAt: Date | null
-  deletedById: number | null
   topicId: number | null
   userId: number | null
+  answeredById: number | null
+  deletedById: number | null
 }
 
 export type ForumPostCountAggregateOutputType = {
@@ -90,31 +90,31 @@ export type ForumPostCountAggregateOutputType = {
   slug: number
   type: number
   isAnswer: number
-  answeredAt: number
-  answeredById: number
   isDeleted: number
+  answeredAt: number
   deletedAt: number
-  deletedById: number
   topicId: number
   userId: number
+  answeredById: number
+  deletedById: number
   _all: number
 }
 
 
 export type ForumPostAvgAggregateInputType = {
   id?: true
-  answeredById?: true
-  deletedById?: true
   topicId?: true
   userId?: true
+  answeredById?: true
+  deletedById?: true
 }
 
 export type ForumPostSumAggregateInputType = {
   id?: true
-  answeredById?: true
-  deletedById?: true
   topicId?: true
   userId?: true
+  answeredById?: true
+  deletedById?: true
 }
 
 export type ForumPostMinAggregateInputType = {
@@ -127,13 +127,13 @@ export type ForumPostMinAggregateInputType = {
   slug?: true
   type?: true
   isAnswer?: true
-  answeredAt?: true
-  answeredById?: true
   isDeleted?: true
+  answeredAt?: true
   deletedAt?: true
-  deletedById?: true
   topicId?: true
   userId?: true
+  answeredById?: true
+  deletedById?: true
 }
 
 export type ForumPostMaxAggregateInputType = {
@@ -146,13 +146,13 @@ export type ForumPostMaxAggregateInputType = {
   slug?: true
   type?: true
   isAnswer?: true
-  answeredAt?: true
-  answeredById?: true
   isDeleted?: true
+  answeredAt?: true
   deletedAt?: true
-  deletedById?: true
   topicId?: true
   userId?: true
+  answeredById?: true
+  deletedById?: true
 }
 
 export type ForumPostCountAggregateInputType = {
@@ -165,13 +165,13 @@ export type ForumPostCountAggregateInputType = {
   slug?: true
   type?: true
   isAnswer?: true
-  answeredAt?: true
-  answeredById?: true
   isDeleted?: true
+  answeredAt?: true
   deletedAt?: true
-  deletedById?: true
   topicId?: true
   userId?: true
+  answeredById?: true
+  deletedById?: true
   _all?: true
 }
 
@@ -271,13 +271,13 @@ export type ForumPostGroupByOutputType = {
   slug: string
   type: $Enums.PostType
   isAnswer: boolean
-  answeredAt: Date | null
-  answeredById: number | null
   isDeleted: boolean
+  answeredAt: Date | null
   deletedAt: Date | null
-  deletedById: number | null
   topicId: number
   userId: number
+  answeredById: number | null
+  deletedById: number | null
   _count: ForumPostCountAggregateOutputType | null
   _avg: ForumPostAvgAggregateOutputType | null
   _sum: ForumPostSumAggregateOutputType | null
@@ -313,22 +313,22 @@ export type ForumPostWhereInput = {
   slug?: Prisma.StringFilter<"ForumPost"> | string
   type?: Prisma.EnumPostTypeFilter<"ForumPost"> | $Enums.PostType
   isAnswer?: Prisma.BoolFilter<"ForumPost"> | boolean
-  answeredAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
-  answeredById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
   isDeleted?: Prisma.BoolFilter<"ForumPost"> | boolean
+  answeredAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
-  deletedById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
   topicId?: Prisma.IntFilter<"ForumPost"> | number
   userId?: Prisma.IntFilter<"ForumPost"> | number
-  Attachment?: Prisma.AttachmentListRelationFilter
-  ForumCategory?: Prisma.XOR<Prisma.ForumCategoryNullableScalarRelationFilter, Prisma.ForumCategoryWhereInput> | null
-  User_ForumPost_answeredByIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  User_ForumPost_deletedByIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  ForumTopic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
-  User_ForumPost_userIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  ForumPostHistory?: Prisma.ForumPostHistoryListRelationFilter
-  ForumReply?: Prisma.ForumReplyListRelationFilter
-  UpvoteForumPost?: Prisma.UpvoteForumPostListRelationFilter
+  answeredById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
+  deletedById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
+  topic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  answeredBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  attachments?: Prisma.AttachmentListRelationFilter
+  replies?: Prisma.ForumReplyListRelationFilter
+  upvotes?: Prisma.UpvoteForumPostListRelationFilter
+  history?: Prisma.ForumPostHistoryListRelationFilter
+  lastPostCategory?: Prisma.XOR<Prisma.ForumCategoryNullableScalarRelationFilter, Prisma.ForumCategoryWhereInput> | null
 }
 
 export type ForumPostOrderByWithRelationInput = {
@@ -341,22 +341,22 @@ export type ForumPostOrderByWithRelationInput = {
   slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isAnswer?: Prisma.SortOrder
-  answeredAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  answeredById?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  answeredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  Attachment?: Prisma.AttachmentOrderByRelationAggregateInput
-  ForumCategory?: Prisma.ForumCategoryOrderByWithRelationInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserOrderByWithRelationInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserOrderByWithRelationInput
-  ForumTopic?: Prisma.ForumTopicOrderByWithRelationInput
-  User_ForumPost_userIdToUser?: Prisma.UserOrderByWithRelationInput
-  ForumPostHistory?: Prisma.ForumPostHistoryOrderByRelationAggregateInput
-  ForumReply?: Prisma.ForumReplyOrderByRelationAggregateInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostOrderByRelationAggregateInput
+  answeredById?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  topic?: Prisma.ForumTopicOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  answeredBy?: Prisma.UserOrderByWithRelationInput
+  deletedBy?: Prisma.UserOrderByWithRelationInput
+  attachments?: Prisma.AttachmentOrderByRelationAggregateInput
+  replies?: Prisma.ForumReplyOrderByRelationAggregateInput
+  upvotes?: Prisma.UpvoteForumPostOrderByRelationAggregateInput
+  history?: Prisma.ForumPostHistoryOrderByRelationAggregateInput
+  lastPostCategory?: Prisma.ForumCategoryOrderByWithRelationInput
   _relevance?: Prisma.ForumPostOrderByRelevanceInput
 }
 
@@ -373,22 +373,22 @@ export type ForumPostWhereUniqueInput = Prisma.AtLeast<{
   isModerated?: Prisma.BoolFilter<"ForumPost"> | boolean
   type?: Prisma.EnumPostTypeFilter<"ForumPost"> | $Enums.PostType
   isAnswer?: Prisma.BoolFilter<"ForumPost"> | boolean
-  answeredAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
-  answeredById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
   isDeleted?: Prisma.BoolFilter<"ForumPost"> | boolean
+  answeredAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
-  deletedById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
   topicId?: Prisma.IntFilter<"ForumPost"> | number
   userId?: Prisma.IntFilter<"ForumPost"> | number
-  Attachment?: Prisma.AttachmentListRelationFilter
-  ForumCategory?: Prisma.XOR<Prisma.ForumCategoryNullableScalarRelationFilter, Prisma.ForumCategoryWhereInput> | null
-  User_ForumPost_answeredByIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  User_ForumPost_deletedByIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  ForumTopic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
-  User_ForumPost_userIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  ForumPostHistory?: Prisma.ForumPostHistoryListRelationFilter
-  ForumReply?: Prisma.ForumReplyListRelationFilter
-  UpvoteForumPost?: Prisma.UpvoteForumPostListRelationFilter
+  answeredById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
+  deletedById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
+  topic?: Prisma.XOR<Prisma.ForumTopicScalarRelationFilter, Prisma.ForumTopicWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  answeredBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  attachments?: Prisma.AttachmentListRelationFilter
+  replies?: Prisma.ForumReplyListRelationFilter
+  upvotes?: Prisma.UpvoteForumPostListRelationFilter
+  history?: Prisma.ForumPostHistoryListRelationFilter
+  lastPostCategory?: Prisma.XOR<Prisma.ForumCategoryNullableScalarRelationFilter, Prisma.ForumCategoryWhereInput> | null
 }, "id" | "slug">
 
 export type ForumPostOrderByWithAggregationInput = {
@@ -401,13 +401,13 @@ export type ForumPostOrderByWithAggregationInput = {
   slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isAnswer?: Prisma.SortOrder
-  answeredAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  answeredById?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  answeredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  answeredById?: Prisma.SortOrderInput | Prisma.SortOrder
+  deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ForumPostCountOrderByAggregateInput
   _avg?: Prisma.ForumPostAvgOrderByAggregateInput
   _max?: Prisma.ForumPostMaxOrderByAggregateInput
@@ -428,13 +428,13 @@ export type ForumPostScalarWhereWithAggregatesInput = {
   slug?: Prisma.StringWithAggregatesFilter<"ForumPost"> | string
   type?: Prisma.EnumPostTypeWithAggregatesFilter<"ForumPost"> | $Enums.PostType
   isAnswer?: Prisma.BoolWithAggregatesFilter<"ForumPost"> | boolean
-  answeredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ForumPost"> | Date | string | null
-  answeredById?: Prisma.IntNullableWithAggregatesFilter<"ForumPost"> | number | null
   isDeleted?: Prisma.BoolWithAggregatesFilter<"ForumPost"> | boolean
+  answeredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ForumPost"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ForumPost"> | Date | string | null
-  deletedById?: Prisma.IntNullableWithAggregatesFilter<"ForumPost"> | number | null
   topicId?: Prisma.IntWithAggregatesFilter<"ForumPost"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ForumPost"> | number
+  answeredById?: Prisma.IntNullableWithAggregatesFilter<"ForumPost"> | number | null
+  deletedById?: Prisma.IntNullableWithAggregatesFilter<"ForumPost"> | number | null
 }
 
 export type ForumPostCreateInput = {
@@ -446,18 +446,18 @@ export type ForumPostCreateInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
 export type ForumPostUncheckedCreateInput = {
@@ -470,18 +470,18 @@ export type ForumPostUncheckedCreateInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
   userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  answeredById?: number | null
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
 export type ForumPostUpdateInput = {
@@ -493,18 +493,18 @@ export type ForumPostUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
 }
 
 export type ForumPostUncheckedUpdateInput = {
@@ -517,18 +517,18 @@ export type ForumPostUncheckedUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
 export type ForumPostCreateManyInput = {
@@ -541,13 +541,13 @@ export type ForumPostCreateManyInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
   userId: number
+  answeredById?: number | null
+  deletedById?: number | null
 }
 
 export type ForumPostUpdateManyMutationInput = {
@@ -559,8 +559,8 @@ export type ForumPostUpdateManyMutationInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -574,18 +574,13 @@ export type ForumPostUncheckedUpdateManyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ForumPostScalarRelationFilter = {
-  is?: Prisma.ForumPostWhereInput
-  isNot?: Prisma.ForumPostWhereInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ForumPostNullableScalarRelationFilter = {
@@ -609,21 +604,21 @@ export type ForumPostCountOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isAnswer?: Prisma.SortOrder
-  answeredAt?: Prisma.SortOrder
-  answeredById?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  answeredAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  answeredById?: Prisma.SortOrder
+  deletedById?: Prisma.SortOrder
 }
 
 export type ForumPostAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  answeredById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  answeredById?: Prisma.SortOrder
+  deletedById?: Prisma.SortOrder
 }
 
 export type ForumPostMaxOrderByAggregateInput = {
@@ -636,13 +631,13 @@ export type ForumPostMaxOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isAnswer?: Prisma.SortOrder
-  answeredAt?: Prisma.SortOrder
-  answeredById?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  answeredAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  answeredById?: Prisma.SortOrder
+  deletedById?: Prisma.SortOrder
 }
 
 export type ForumPostMinOrderByAggregateInput = {
@@ -655,21 +650,26 @@ export type ForumPostMinOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   type?: Prisma.SortOrder
   isAnswer?: Prisma.SortOrder
-  answeredAt?: Prisma.SortOrder
-  answeredById?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
+  answeredAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  answeredById?: Prisma.SortOrder
+  deletedById?: Prisma.SortOrder
 }
 
 export type ForumPostSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  answeredById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  answeredById?: Prisma.SortOrder
+  deletedById?: Prisma.SortOrder
+}
+
+export type ForumPostScalarRelationFilter = {
+  is?: Prisma.ForumPostWhereInput
+  isNot?: Prisma.ForumPostWhereInput
 }
 
 export type ForumPostListRelationFilter = {
@@ -682,251 +682,251 @@ export type ForumPostOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ForumPostCreateNestedOneWithoutAttachmentInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAttachmentInput
+export type ForumPostCreateNestedOneWithoutLastPostCategoryInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutLastPostCategoryInput, Prisma.ForumPostUncheckedCreateWithoutLastPostCategoryInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutLastPostCategoryInput
   connect?: Prisma.ForumPostWhereUniqueInput
 }
 
-export type ForumPostUpdateOneRequiredWithoutAttachmentNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAttachmentInput
-  upsert?: Prisma.ForumPostUpsertWithoutAttachmentInput
-  connect?: Prisma.ForumPostWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutAttachmentInput, Prisma.ForumPostUpdateWithoutAttachmentInput>, Prisma.ForumPostUncheckedUpdateWithoutAttachmentInput>
-}
-
-export type ForumPostCreateNestedOneWithoutForumCategoryInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumCategoryInput, Prisma.ForumPostUncheckedCreateWithoutForumCategoryInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumCategoryInput
-  connect?: Prisma.ForumPostWhereUniqueInput
-}
-
-export type ForumPostUpdateOneWithoutForumCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumCategoryInput, Prisma.ForumPostUncheckedCreateWithoutForumCategoryInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumCategoryInput
-  upsert?: Prisma.ForumPostUpsertWithoutForumCategoryInput
+export type ForumPostUpdateOneWithoutLastPostCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutLastPostCategoryInput, Prisma.ForumPostUncheckedCreateWithoutLastPostCategoryInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutLastPostCategoryInput
+  upsert?: Prisma.ForumPostUpsertWithoutLastPostCategoryInput
   disconnect?: Prisma.ForumPostWhereInput | boolean
   delete?: Prisma.ForumPostWhereInput | boolean
   connect?: Prisma.ForumPostWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutForumCategoryInput, Prisma.ForumPostUpdateWithoutForumCategoryInput>, Prisma.ForumPostUncheckedUpdateWithoutForumCategoryInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutLastPostCategoryInput, Prisma.ForumPostUpdateWithoutLastPostCategoryInput>, Prisma.ForumPostUncheckedUpdateWithoutLastPostCategoryInput>
 }
 
 export type EnumPostTypeFieldUpdateOperationsInput = {
   set?: $Enums.PostType
 }
 
-export type ForumPostCreateNestedOneWithoutForumPostHistoryInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumPostHistoryInput, Prisma.ForumPostUncheckedCreateWithoutForumPostHistoryInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumPostHistoryInput
+export type ForumPostCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentsInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAttachmentsInput
   connect?: Prisma.ForumPostWhereUniqueInput
 }
 
-export type ForumPostUpdateOneRequiredWithoutForumPostHistoryNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumPostHistoryInput, Prisma.ForumPostUncheckedCreateWithoutForumPostHistoryInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumPostHistoryInput
-  upsert?: Prisma.ForumPostUpsertWithoutForumPostHistoryInput
+export type ForumPostUpdateOneRequiredWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentsInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.ForumPostUpsertWithoutAttachmentsInput
   connect?: Prisma.ForumPostWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutForumPostHistoryInput, Prisma.ForumPostUpdateWithoutForumPostHistoryInput>, Prisma.ForumPostUncheckedUpdateWithoutForumPostHistoryInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.ForumPostUpdateWithoutAttachmentsInput>, Prisma.ForumPostUncheckedUpdateWithoutAttachmentsInput>
 }
 
-export type ForumPostCreateNestedOneWithoutForumReplyInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumReplyInput, Prisma.ForumPostUncheckedCreateWithoutForumReplyInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumReplyInput
-  connect?: Prisma.ForumPostWhereUniqueInput
-}
-
-export type ForumPostUpdateOneRequiredWithoutForumReplyNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumReplyInput, Prisma.ForumPostUncheckedCreateWithoutForumReplyInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumReplyInput
-  upsert?: Prisma.ForumPostUpsertWithoutForumReplyInput
-  connect?: Prisma.ForumPostWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutForumReplyInput, Prisma.ForumPostUpdateWithoutForumReplyInput>, Prisma.ForumPostUncheckedUpdateWithoutForumReplyInput>
-}
-
-export type ForumPostCreateNestedManyWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumTopicInput, Prisma.ForumPostUncheckedCreateWithoutForumTopicInput> | Prisma.ForumPostCreateWithoutForumTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumTopicInput | Prisma.ForumPostCreateOrConnectWithoutForumTopicInput[]
-  createMany?: Prisma.ForumPostCreateManyForumTopicInputEnvelope
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-}
-
-export type ForumPostUncheckedCreateNestedManyWithoutForumTopicInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumTopicInput, Prisma.ForumPostUncheckedCreateWithoutForumTopicInput> | Prisma.ForumPostCreateWithoutForumTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumTopicInput | Prisma.ForumPostCreateOrConnectWithoutForumTopicInput[]
-  createMany?: Prisma.ForumPostCreateManyForumTopicInputEnvelope
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-}
-
-export type ForumPostUpdateManyWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumTopicInput, Prisma.ForumPostUncheckedCreateWithoutForumTopicInput> | Prisma.ForumPostCreateWithoutForumTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumTopicInput | Prisma.ForumPostCreateOrConnectWithoutForumTopicInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutForumTopicInput[]
-  createMany?: Prisma.ForumPostCreateManyForumTopicInputEnvelope
-  set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutForumTopicInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutForumTopicInput | Prisma.ForumPostUpdateManyWithWhereWithoutForumTopicInput[]
-  deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
-}
-
-export type ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutForumTopicInput, Prisma.ForumPostUncheckedCreateWithoutForumTopicInput> | Prisma.ForumPostCreateWithoutForumTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutForumTopicInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutForumTopicInput | Prisma.ForumPostCreateOrConnectWithoutForumTopicInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutForumTopicInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutForumTopicInput[]
-  createMany?: Prisma.ForumPostCreateManyForumTopicInputEnvelope
-  set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutForumTopicInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutForumTopicInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutForumTopicInput | Prisma.ForumPostUpdateManyWithWhereWithoutForumTopicInput[]
-  deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
-}
-
-export type ForumPostCreateNestedOneWithoutUpvoteForumPostInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvoteForumPostInput, Prisma.ForumPostUncheckedCreateWithoutUpvoteForumPostInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUpvoteForumPostInput
+export type ForumPostCreateNestedOneWithoutUpvotesInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvotesInput, Prisma.ForumPostUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUpvotesInput
   connect?: Prisma.ForumPostWhereUniqueInput
 }
 
-export type ForumPostUpdateOneRequiredWithoutUpvoteForumPostNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvoteForumPostInput, Prisma.ForumPostUncheckedCreateWithoutUpvoteForumPostInput>
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUpvoteForumPostInput
-  upsert?: Prisma.ForumPostUpsertWithoutUpvoteForumPostInput
+export type ForumPostUpdateOneRequiredWithoutUpvotesNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvotesInput, Prisma.ForumPostUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUpvotesInput
+  upsert?: Prisma.ForumPostUpsertWithoutUpvotesInput
   connect?: Prisma.ForumPostWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutUpvoteForumPostInput, Prisma.ForumPostUpdateWithoutUpvoteForumPostInput>, Prisma.ForumPostUncheckedUpdateWithoutUpvoteForumPostInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutUpvotesInput, Prisma.ForumPostUpdateWithoutUpvotesInput>, Prisma.ForumPostUncheckedUpdateWithoutUpvotesInput>
 }
 
-export type ForumPostCreateNestedManyWithoutUser_ForumPost_answeredByIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_answeredByIdToUserInputEnvelope
+export type ForumPostCreateNestedOneWithoutHistoryInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutHistoryInput, Prisma.ForumPostUncheckedCreateWithoutHistoryInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutHistoryInput
+  connect?: Prisma.ForumPostWhereUniqueInput
+}
+
+export type ForumPostUpdateOneRequiredWithoutHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutHistoryInput, Prisma.ForumPostUncheckedCreateWithoutHistoryInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutHistoryInput
+  upsert?: Prisma.ForumPostUpsertWithoutHistoryInput
+  connect?: Prisma.ForumPostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutHistoryInput, Prisma.ForumPostUpdateWithoutHistoryInput>, Prisma.ForumPostUncheckedUpdateWithoutHistoryInput>
+}
+
+export type ForumPostCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutRepliesInput, Prisma.ForumPostUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.ForumPostWhereUniqueInput
+}
+
+export type ForumPostUpdateOneRequiredWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutRepliesInput, Prisma.ForumPostUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.ForumPostUpsertWithoutRepliesInput
+  connect?: Prisma.ForumPostWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumPostUpdateToOneWithWhereWithoutRepliesInput, Prisma.ForumPostUpdateWithoutRepliesInput>, Prisma.ForumPostUncheckedUpdateWithoutRepliesInput>
+}
+
+export type ForumPostCreateNestedManyWithoutTopicInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutTopicInput, Prisma.ForumPostUncheckedCreateWithoutTopicInput> | Prisma.ForumPostCreateWithoutTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutTopicInput | Prisma.ForumPostCreateOrConnectWithoutTopicInput[]
+  createMany?: Prisma.ForumPostCreateManyTopicInputEnvelope
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
 }
 
-export type ForumPostCreateNestedManyWithoutUser_ForumPost_deletedByIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_deletedByIdToUserInputEnvelope
+export type ForumPostUncheckedCreateNestedManyWithoutTopicInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutTopicInput, Prisma.ForumPostUncheckedCreateWithoutTopicInput> | Prisma.ForumPostCreateWithoutTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutTopicInput | Prisma.ForumPostCreateOrConnectWithoutTopicInput[]
+  createMany?: Prisma.ForumPostCreateManyTopicInputEnvelope
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
 }
 
-export type ForumPostCreateNestedManyWithoutUser_ForumPost_userIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_userIdToUserInputEnvelope
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-}
-
-export type ForumPostUncheckedCreateNestedManyWithoutUser_ForumPost_answeredByIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_answeredByIdToUserInputEnvelope
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-}
-
-export type ForumPostUncheckedCreateNestedManyWithoutUser_ForumPost_deletedByIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_deletedByIdToUserInputEnvelope
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-}
-
-export type ForumPostUncheckedCreateNestedManyWithoutUser_ForumPost_userIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_userIdToUserInputEnvelope
-  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-}
-
-export type ForumPostUpdateManyWithoutUser_ForumPost_answeredByIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_answeredByIdToUserInputEnvelope
+export type ForumPostUpdateManyWithoutTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutTopicInput, Prisma.ForumPostUncheckedCreateWithoutTopicInput> | Prisma.ForumPostCreateWithoutTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutTopicInput | Prisma.ForumPostCreateOrConnectWithoutTopicInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutTopicInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutTopicInput[]
+  createMany?: Prisma.ForumPostCreateManyTopicInputEnvelope
   set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_answeredByIdToUserInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutTopicInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutTopicInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutTopicInput | Prisma.ForumPostUpdateManyWithWhereWithoutTopicInput[]
   deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
 }
 
-export type ForumPostUpdateManyWithoutUser_ForumPost_deletedByIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_deletedByIdToUserInputEnvelope
+export type ForumPostUncheckedUpdateManyWithoutTopicNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutTopicInput, Prisma.ForumPostUncheckedCreateWithoutTopicInput> | Prisma.ForumPostCreateWithoutTopicInput[] | Prisma.ForumPostUncheckedCreateWithoutTopicInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutTopicInput | Prisma.ForumPostCreateOrConnectWithoutTopicInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutTopicInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutTopicInput[]
+  createMany?: Prisma.ForumPostCreateManyTopicInputEnvelope
   set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_deletedByIdToUserInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutTopicInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutTopicInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutTopicInput | Prisma.ForumPostUpdateManyWithWhereWithoutTopicInput[]
   deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
 }
 
-export type ForumPostUpdateManyWithoutUser_ForumPost_userIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_userIdToUserInputEnvelope
+export type ForumPostCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUserInput, Prisma.ForumPostUncheckedCreateWithoutUserInput> | Prisma.ForumPostCreateWithoutUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUserInput | Prisma.ForumPostCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ForumPostCreateManyUserInputEnvelope
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+}
+
+export type ForumPostCreateNestedManyWithoutAnsweredByInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAnsweredByInput, Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput> | Prisma.ForumPostCreateWithoutAnsweredByInput[] | Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput | Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput[]
+  createMany?: Prisma.ForumPostCreateManyAnsweredByInputEnvelope
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+}
+
+export type ForumPostCreateNestedManyWithoutDeletedByInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutDeletedByInput, Prisma.ForumPostUncheckedCreateWithoutDeletedByInput> | Prisma.ForumPostCreateWithoutDeletedByInput[] | Prisma.ForumPostUncheckedCreateWithoutDeletedByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutDeletedByInput | Prisma.ForumPostCreateOrConnectWithoutDeletedByInput[]
+  createMany?: Prisma.ForumPostCreateManyDeletedByInputEnvelope
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+}
+
+export type ForumPostUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUserInput, Prisma.ForumPostUncheckedCreateWithoutUserInput> | Prisma.ForumPostCreateWithoutUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUserInput | Prisma.ForumPostCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ForumPostCreateManyUserInputEnvelope
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+}
+
+export type ForumPostUncheckedCreateNestedManyWithoutAnsweredByInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAnsweredByInput, Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput> | Prisma.ForumPostCreateWithoutAnsweredByInput[] | Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput | Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput[]
+  createMany?: Prisma.ForumPostCreateManyAnsweredByInputEnvelope
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+}
+
+export type ForumPostUncheckedCreateNestedManyWithoutDeletedByInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutDeletedByInput, Prisma.ForumPostUncheckedCreateWithoutDeletedByInput> | Prisma.ForumPostCreateWithoutDeletedByInput[] | Prisma.ForumPostUncheckedCreateWithoutDeletedByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutDeletedByInput | Prisma.ForumPostCreateOrConnectWithoutDeletedByInput[]
+  createMany?: Prisma.ForumPostCreateManyDeletedByInputEnvelope
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+}
+
+export type ForumPostUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUserInput, Prisma.ForumPostUncheckedCreateWithoutUserInput> | Prisma.ForumPostCreateWithoutUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUserInput | Prisma.ForumPostCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ForumPostCreateManyUserInputEnvelope
   set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_userIdToUserInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
 }
 
-export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_answeredByIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_answeredByIdToUserInputEnvelope
+export type ForumPostUpdateManyWithoutAnsweredByNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAnsweredByInput, Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput> | Prisma.ForumPostCreateWithoutAnsweredByInput[] | Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput | Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutAnsweredByInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutAnsweredByInput[]
+  createMany?: Prisma.ForumPostCreateManyAnsweredByInputEnvelope
   set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_answeredByIdToUserInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutAnsweredByInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutAnsweredByInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutAnsweredByInput | Prisma.ForumPostUpdateManyWithWhereWithoutAnsweredByInput[]
   deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
 }
 
-export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_deletedByIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_deletedByIdToUserInputEnvelope
+export type ForumPostUpdateManyWithoutDeletedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutDeletedByInput, Prisma.ForumPostUncheckedCreateWithoutDeletedByInput> | Prisma.ForumPostCreateWithoutDeletedByInput[] | Prisma.ForumPostUncheckedCreateWithoutDeletedByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutDeletedByInput | Prisma.ForumPostCreateOrConnectWithoutDeletedByInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutDeletedByInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutDeletedByInput[]
+  createMany?: Prisma.ForumPostCreateManyDeletedByInputEnvelope
   set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_deletedByIdToUserInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutDeletedByInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutDeletedByInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutDeletedByInput | Prisma.ForumPostUpdateManyWithWhereWithoutDeletedByInput[]
   deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
 }
 
-export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_userIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput> | Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput[]
-  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput[]
-  createMany?: Prisma.ForumPostCreateManyUser_ForumPost_userIdToUserInputEnvelope
+export type ForumPostUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutUserInput, Prisma.ForumPostUncheckedCreateWithoutUserInput> | Prisma.ForumPostCreateWithoutUserInput[] | Prisma.ForumPostUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutUserInput | Prisma.ForumPostCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutUserInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ForumPostCreateManyUserInputEnvelope
   set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
   connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
-  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput[]
-  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_userIdToUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUser_ForumPost_userIdToUserInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutUserInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutUserInput | Prisma.ForumPostUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
 }
 
-export type ForumPostCreateWithoutAttachmentInput = {
+export type ForumPostUncheckedUpdateManyWithoutAnsweredByNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutAnsweredByInput, Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput> | Prisma.ForumPostCreateWithoutAnsweredByInput[] | Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput | Prisma.ForumPostCreateOrConnectWithoutAnsweredByInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutAnsweredByInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutAnsweredByInput[]
+  createMany?: Prisma.ForumPostCreateManyAnsweredByInputEnvelope
+  set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutAnsweredByInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutAnsweredByInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutAnsweredByInput | Prisma.ForumPostUpdateManyWithWhereWithoutAnsweredByInput[]
+  deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
+}
+
+export type ForumPostUncheckedUpdateManyWithoutDeletedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumPostCreateWithoutDeletedByInput, Prisma.ForumPostUncheckedCreateWithoutDeletedByInput> | Prisma.ForumPostCreateWithoutDeletedByInput[] | Prisma.ForumPostUncheckedCreateWithoutDeletedByInput[]
+  connectOrCreate?: Prisma.ForumPostCreateOrConnectWithoutDeletedByInput | Prisma.ForumPostCreateOrConnectWithoutDeletedByInput[]
+  upsert?: Prisma.ForumPostUpsertWithWhereUniqueWithoutDeletedByInput | Prisma.ForumPostUpsertWithWhereUniqueWithoutDeletedByInput[]
+  createMany?: Prisma.ForumPostCreateManyDeletedByInputEnvelope
+  set?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  disconnect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  delete?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  connect?: Prisma.ForumPostWhereUniqueInput | Prisma.ForumPostWhereUniqueInput[]
+  update?: Prisma.ForumPostUpdateWithWhereUniqueWithoutDeletedByInput | Prisma.ForumPostUpdateWithWhereUniqueWithoutDeletedByInput[]
+  updateMany?: Prisma.ForumPostUpdateManyWithWhereWithoutDeletedByInput | Prisma.ForumPostUpdateManyWithWhereWithoutDeletedByInput[]
+  deleteMany?: Prisma.ForumPostScalarWhereInput | Prisma.ForumPostScalarWhereInput[]
+}
+
+export type ForumPostCreateWithoutLastPostCategoryInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -935,20 +935,20 @@ export type ForumPostCreateWithoutAttachmentInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutAttachmentInput = {
+export type ForumPostUncheckedCreateWithoutLastPostCategoryInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -958,36 +958,36 @@ export type ForumPostUncheckedCreateWithoutAttachmentInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
   userId: number
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  answeredById?: number | null
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutAttachmentInput = {
+export type ForumPostCreateOrConnectWithoutLastPostCategoryInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutLastPostCategoryInput, Prisma.ForumPostUncheckedCreateWithoutLastPostCategoryInput>
 }
 
-export type ForumPostUpsertWithoutAttachmentInput = {
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutAttachmentInput, Prisma.ForumPostUncheckedUpdateWithoutAttachmentInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentInput>
+export type ForumPostUpsertWithoutLastPostCategoryInput = {
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutLastPostCategoryInput, Prisma.ForumPostUncheckedUpdateWithoutLastPostCategoryInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutLastPostCategoryInput, Prisma.ForumPostUncheckedCreateWithoutLastPostCategoryInput>
   where?: Prisma.ForumPostWhereInput
 }
 
-export type ForumPostUpdateToOneWithWhereWithoutAttachmentInput = {
+export type ForumPostUpdateToOneWithWhereWithoutLastPostCategoryInput = {
   where?: Prisma.ForumPostWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutAttachmentInput, Prisma.ForumPostUncheckedUpdateWithoutAttachmentInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutLastPostCategoryInput, Prisma.ForumPostUncheckedUpdateWithoutLastPostCategoryInput>
 }
 
-export type ForumPostUpdateWithoutAttachmentInput = {
+export type ForumPostUpdateWithoutLastPostCategoryInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -996,20 +996,20 @@ export type ForumPostUpdateWithoutAttachmentInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateWithoutAttachmentInput = {
+export type ForumPostUncheckedUpdateWithoutLastPostCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1019,20 +1019,20 @@ export type ForumPostUncheckedUpdateWithoutAttachmentInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
 }
 
-export type ForumPostCreateWithoutForumCategoryInput = {
+export type ForumPostCreateWithoutAttachmentsInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1041,20 +1041,20 @@ export type ForumPostCreateWithoutForumCategoryInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutForumCategoryInput = {
+export type ForumPostUncheckedCreateWithoutAttachmentsInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1064,36 +1064,36 @@ export type ForumPostUncheckedCreateWithoutForumCategoryInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
   userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  answeredById?: number | null
+  deletedById?: number | null
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutForumCategoryInput = {
+export type ForumPostCreateOrConnectWithoutAttachmentsInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumCategoryInput, Prisma.ForumPostUncheckedCreateWithoutForumCategoryInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentsInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentsInput>
 }
 
-export type ForumPostUpsertWithoutForumCategoryInput = {
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumCategoryInput, Prisma.ForumPostUncheckedUpdateWithoutForumCategoryInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumCategoryInput, Prisma.ForumPostUncheckedCreateWithoutForumCategoryInput>
+export type ForumPostUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutAttachmentsInput, Prisma.ForumPostUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutAttachmentsInput, Prisma.ForumPostUncheckedCreateWithoutAttachmentsInput>
   where?: Prisma.ForumPostWhereInput
 }
 
-export type ForumPostUpdateToOneWithWhereWithoutForumCategoryInput = {
+export type ForumPostUpdateToOneWithWhereWithoutAttachmentsInput = {
   where?: Prisma.ForumPostWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumCategoryInput, Prisma.ForumPostUncheckedUpdateWithoutForumCategoryInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutAttachmentsInput, Prisma.ForumPostUncheckedUpdateWithoutAttachmentsInput>
 }
 
-export type ForumPostUpdateWithoutForumCategoryInput = {
+export type ForumPostUpdateWithoutAttachmentsInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1102,20 +1102,20 @@ export type ForumPostUpdateWithoutForumCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateWithoutForumCategoryInput = {
+export type ForumPostUncheckedUpdateWithoutAttachmentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1125,20 +1125,20 @@ export type ForumPostUncheckedUpdateWithoutForumCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostCreateWithoutForumPostHistoryInput = {
+export type ForumPostCreateWithoutUpvotesInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1147,20 +1147,20 @@ export type ForumPostCreateWithoutForumPostHistoryInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutForumPostHistoryInput = {
+export type ForumPostUncheckedCreateWithoutUpvotesInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1170,36 +1170,36 @@ export type ForumPostUncheckedCreateWithoutForumPostHistoryInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
   userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  answeredById?: number | null
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutForumPostHistoryInput = {
+export type ForumPostCreateOrConnectWithoutUpvotesInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumPostHistoryInput, Prisma.ForumPostUncheckedCreateWithoutForumPostHistoryInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvotesInput, Prisma.ForumPostUncheckedCreateWithoutUpvotesInput>
 }
 
-export type ForumPostUpsertWithoutForumPostHistoryInput = {
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumPostHistoryInput, Prisma.ForumPostUncheckedUpdateWithoutForumPostHistoryInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumPostHistoryInput, Prisma.ForumPostUncheckedCreateWithoutForumPostHistoryInput>
+export type ForumPostUpsertWithoutUpvotesInput = {
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutUpvotesInput, Prisma.ForumPostUncheckedUpdateWithoutUpvotesInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvotesInput, Prisma.ForumPostUncheckedCreateWithoutUpvotesInput>
   where?: Prisma.ForumPostWhereInput
 }
 
-export type ForumPostUpdateToOneWithWhereWithoutForumPostHistoryInput = {
+export type ForumPostUpdateToOneWithWhereWithoutUpvotesInput = {
   where?: Prisma.ForumPostWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumPostHistoryInput, Prisma.ForumPostUncheckedUpdateWithoutForumPostHistoryInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutUpvotesInput, Prisma.ForumPostUncheckedUpdateWithoutUpvotesInput>
 }
 
-export type ForumPostUpdateWithoutForumPostHistoryInput = {
+export type ForumPostUpdateWithoutUpvotesInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1208,20 +1208,20 @@ export type ForumPostUpdateWithoutForumPostHistoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateWithoutForumPostHistoryInput = {
+export type ForumPostUncheckedUpdateWithoutUpvotesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1231,20 +1231,20 @@ export type ForumPostUncheckedUpdateWithoutForumPostHistoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostCreateWithoutForumReplyInput = {
+export type ForumPostCreateWithoutHistoryInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1253,20 +1253,20 @@ export type ForumPostCreateWithoutForumReplyInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutForumReplyInput = {
+export type ForumPostUncheckedCreateWithoutHistoryInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1276,36 +1276,36 @@ export type ForumPostUncheckedCreateWithoutForumReplyInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
   userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  answeredById?: number | null
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutForumReplyInput = {
+export type ForumPostCreateOrConnectWithoutHistoryInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumReplyInput, Prisma.ForumPostUncheckedCreateWithoutForumReplyInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutHistoryInput, Prisma.ForumPostUncheckedCreateWithoutHistoryInput>
 }
 
-export type ForumPostUpsertWithoutForumReplyInput = {
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumReplyInput, Prisma.ForumPostUncheckedUpdateWithoutForumReplyInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumReplyInput, Prisma.ForumPostUncheckedCreateWithoutForumReplyInput>
+export type ForumPostUpsertWithoutHistoryInput = {
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutHistoryInput, Prisma.ForumPostUncheckedUpdateWithoutHistoryInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutHistoryInput, Prisma.ForumPostUncheckedCreateWithoutHistoryInput>
   where?: Prisma.ForumPostWhereInput
 }
 
-export type ForumPostUpdateToOneWithWhereWithoutForumReplyInput = {
+export type ForumPostUpdateToOneWithWhereWithoutHistoryInput = {
   where?: Prisma.ForumPostWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumReplyInput, Prisma.ForumPostUncheckedUpdateWithoutForumReplyInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutHistoryInput, Prisma.ForumPostUncheckedUpdateWithoutHistoryInput>
 }
 
-export type ForumPostUpdateWithoutForumReplyInput = {
+export type ForumPostUpdateWithoutHistoryInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1314,20 +1314,20 @@ export type ForumPostUpdateWithoutForumReplyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateWithoutForumReplyInput = {
+export type ForumPostUncheckedUpdateWithoutHistoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1337,20 +1337,20 @@ export type ForumPostUncheckedUpdateWithoutForumReplyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostCreateWithoutForumTopicInput = {
+export type ForumPostCreateWithoutRepliesInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1359,20 +1359,20 @@ export type ForumPostCreateWithoutForumTopicInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutForumTopicInput = {
+export type ForumPostUncheckedCreateWithoutRepliesInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1382,43 +1382,149 @@ export type ForumPostUncheckedCreateWithoutForumTopicInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
+  topicId: number
   userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  answeredById?: number | null
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutForumTopicInput = {
+export type ForumPostCreateOrConnectWithoutRepliesInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumTopicInput, Prisma.ForumPostUncheckedCreateWithoutForumTopicInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutRepliesInput, Prisma.ForumPostUncheckedCreateWithoutRepliesInput>
 }
 
-export type ForumPostCreateManyForumTopicInputEnvelope = {
-  data: Prisma.ForumPostCreateManyForumTopicInput | Prisma.ForumPostCreateManyForumTopicInput[]
+export type ForumPostUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutRepliesInput, Prisma.ForumPostUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutRepliesInput, Prisma.ForumPostUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.ForumPostWhereInput
+}
+
+export type ForumPostUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.ForumPostWhereInput
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutRepliesInput, Prisma.ForumPostUncheckedUpdateWithoutRepliesInput>
+}
+
+export type ForumPostUpdateWithoutRepliesInput = {
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
+  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
+}
+
+export type ForumPostUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
+  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topicId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
+}
+
+export type ForumPostCreateWithoutTopicInput = {
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  isEdited?: boolean
+  isModerated?: boolean
+  slug: string
+  type?: $Enums.PostType
+  isAnswer?: boolean
+  isDeleted?: boolean
+  answeredAt?: Date | string | null
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
+}
+
+export type ForumPostUncheckedCreateWithoutTopicInput = {
+  id?: number
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  isEdited?: boolean
+  isModerated?: boolean
+  slug: string
+  type?: $Enums.PostType
+  isAnswer?: boolean
+  isDeleted?: boolean
+  answeredAt?: Date | string | null
+  deletedAt?: Date | string | null
+  userId: number
+  answeredById?: number | null
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
+}
+
+export type ForumPostCreateOrConnectWithoutTopicInput = {
+  where: Prisma.ForumPostWhereUniqueInput
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutTopicInput, Prisma.ForumPostUncheckedCreateWithoutTopicInput>
+}
+
+export type ForumPostCreateManyTopicInputEnvelope = {
+  data: Prisma.ForumPostCreateManyTopicInput | Prisma.ForumPostCreateManyTopicInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumPostUpsertWithWhereUniqueWithoutForumTopicInput = {
+export type ForumPostUpsertWithWhereUniqueWithoutTopicInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumTopicInput, Prisma.ForumPostUncheckedUpdateWithoutForumTopicInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutForumTopicInput, Prisma.ForumPostUncheckedCreateWithoutForumTopicInput>
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutTopicInput, Prisma.ForumPostUncheckedUpdateWithoutTopicInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutTopicInput, Prisma.ForumPostUncheckedCreateWithoutTopicInput>
 }
 
-export type ForumPostUpdateWithWhereUniqueWithoutForumTopicInput = {
+export type ForumPostUpdateWithWhereUniqueWithoutTopicInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutForumTopicInput, Prisma.ForumPostUncheckedUpdateWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutTopicInput, Prisma.ForumPostUncheckedUpdateWithoutTopicInput>
 }
 
-export type ForumPostUpdateManyWithWhereWithoutForumTopicInput = {
+export type ForumPostUpdateManyWithWhereWithoutTopicInput = {
   where: Prisma.ForumPostScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutTopicInput>
 }
 
 export type ForumPostScalarWhereInput = {
@@ -1434,16 +1540,16 @@ export type ForumPostScalarWhereInput = {
   slug?: Prisma.StringFilter<"ForumPost"> | string
   type?: Prisma.EnumPostTypeFilter<"ForumPost"> | $Enums.PostType
   isAnswer?: Prisma.BoolFilter<"ForumPost"> | boolean
-  answeredAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
-  answeredById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
   isDeleted?: Prisma.BoolFilter<"ForumPost"> | boolean
+  answeredAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"ForumPost"> | Date | string | null
-  deletedById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
   topicId?: Prisma.IntFilter<"ForumPost"> | number
   userId?: Prisma.IntFilter<"ForumPost"> | number
+  answeredById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
+  deletedById?: Prisma.IntNullableFilter<"ForumPost"> | number | null
 }
 
-export type ForumPostCreateWithoutUpvoteForumPostInput = {
+export type ForumPostCreateWithoutUserInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1452,20 +1558,20 @@ export type ForumPostCreateWithoutUpvoteForumPostInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutUpvoteForumPostInput = {
+export type ForumPostUncheckedCreateWithoutUserInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1475,136 +1581,30 @@ export type ForumPostUncheckedCreateWithoutUpvoteForumPostInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
+  isDeleted?: boolean
   answeredAt?: Date | string | null
+  deletedAt?: Date | string | null
+  topicId: number
   answeredById?: number | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   deletedById?: number | null
-  topicId: number
-  userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutUpvoteForumPostInput = {
+export type ForumPostCreateOrConnectWithoutUserInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvoteForumPostInput, Prisma.ForumPostUncheckedCreateWithoutUpvoteForumPostInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUserInput, Prisma.ForumPostUncheckedCreateWithoutUserInput>
 }
 
-export type ForumPostUpsertWithoutUpvoteForumPostInput = {
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutUpvoteForumPostInput, Prisma.ForumPostUncheckedUpdateWithoutUpvoteForumPostInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUpvoteForumPostInput, Prisma.ForumPostUncheckedCreateWithoutUpvoteForumPostInput>
-  where?: Prisma.ForumPostWhereInput
-}
-
-export type ForumPostUpdateToOneWithWhereWithoutUpvoteForumPostInput = {
-  where?: Prisma.ForumPostWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutUpvoteForumPostInput, Prisma.ForumPostUncheckedUpdateWithoutUpvoteForumPostInput>
-}
-
-export type ForumPostUpdateWithoutUpvoteForumPostInput = {
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
-  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-}
-
-export type ForumPostUncheckedUpdateWithoutUpvoteForumPostInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
-  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  topicId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-}
-
-export type ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput = {
-  content: string
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  isEdited?: boolean
-  isModerated?: boolean
-  slug: string
-  type?: $Enums.PostType
-  isAnswer?: boolean
-  answeredAt?: Date | string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
-}
-
-export type ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput = {
-  id?: number
-  content: string
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  isEdited?: boolean
-  isModerated?: boolean
-  slug: string
-  type?: $Enums.PostType
-  isAnswer?: boolean
-  answeredAt?: Date | string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
-  deletedById?: number | null
-  topicId: number
-  userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
-}
-
-export type ForumPostCreateOrConnectWithoutUser_ForumPost_answeredByIdToUserInput = {
-  where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput>
-}
-
-export type ForumPostCreateManyUser_ForumPost_answeredByIdToUserInputEnvelope = {
-  data: Prisma.ForumPostCreateManyUser_ForumPost_answeredByIdToUserInput | Prisma.ForumPostCreateManyUser_ForumPost_answeredByIdToUserInput[]
+export type ForumPostCreateManyUserInputEnvelope = {
+  data: Prisma.ForumPostCreateManyUserInput | Prisma.ForumPostCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostCreateWithoutAnsweredByInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1613,20 +1613,20 @@ export type ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  User_ForumPost_userIdToUser: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_userIdToUserInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutPostsDeletedInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostUncheckedCreateWithoutAnsweredByInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1636,30 +1636,30 @@ export type ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
   topicId: number
   userId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  deletedById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostCreateOrConnectWithoutAnsweredByInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutAnsweredByInput, Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput>
 }
 
-export type ForumPostCreateManyUser_ForumPost_deletedByIdToUserInputEnvelope = {
-  data: Prisma.ForumPostCreateManyUser_ForumPost_deletedByIdToUserInput | Prisma.ForumPostCreateManyUser_ForumPost_deletedByIdToUserInput[]
+export type ForumPostCreateManyAnsweredByInputEnvelope = {
+  data: Prisma.ForumPostCreateManyAnsweredByInput | Prisma.ForumPostCreateManyAnsweredByInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumPostCreateWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostCreateWithoutDeletedByInput = {
   content: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
@@ -1668,20 +1668,20 @@ export type ForumPostCreateWithoutUser_ForumPost_userIdToUserInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  Attachment?: Prisma.AttachmentCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryCreateNestedOneWithoutForumPostInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_answeredByIdToUserInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumPost_ForumPost_deletedByIdToUserInput
-  ForumTopic: Prisma.ForumTopicCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostCreateNestedManyWithoutForumPostInput
+  topic: Prisma.ForumTopicCreateNestedOneWithoutPostsInput
+  user: Prisma.UserCreateNestedOneWithoutForumPostsInput
+  answeredBy?: Prisma.UserCreateNestedOneWithoutPostsAnsweredInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostUncheckedCreateWithoutDeletedByInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1691,78 +1691,78 @@ export type ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
-  Attachment?: Prisma.AttachmentUncheckedCreateNestedManyWithoutForumPostInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutForumPostInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutForumPostInput
-  ForumReply?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutForumPostInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutForumPostInput
+  userId: number
+  answeredById?: number | null
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutPostInput
+  replies?: Prisma.ForumReplyUncheckedCreateNestedManyWithoutPostInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedCreateNestedManyWithoutPostInput
+  history?: Prisma.ForumPostHistoryUncheckedCreateNestedManyWithoutPostInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedCreateNestedOneWithoutLastPostInput
 }
 
-export type ForumPostCreateOrConnectWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostCreateOrConnectWithoutDeletedByInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutDeletedByInput, Prisma.ForumPostUncheckedCreateWithoutDeletedByInput>
 }
 
-export type ForumPostCreateManyUser_ForumPost_userIdToUserInputEnvelope = {
-  data: Prisma.ForumPostCreateManyUser_ForumPost_userIdToUserInput | Prisma.ForumPostCreateManyUser_ForumPost_userIdToUserInput[]
+export type ForumPostCreateManyDeletedByInputEnvelope = {
+  data: Prisma.ForumPostCreateManyDeletedByInput | Prisma.ForumPostCreateManyDeletedByInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput = {
+export type ForumPostUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedUpdateWithoutUser_ForumPost_answeredByIdToUserInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_answeredByIdToUserInput>
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutUserInput, Prisma.ForumPostUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUserInput, Prisma.ForumPostUncheckedCreateWithoutUserInput>
 }
 
-export type ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_answeredByIdToUserInput = {
+export type ForumPostUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutUser_ForumPost_answeredByIdToUserInput, Prisma.ForumPostUncheckedUpdateWithoutUser_ForumPost_answeredByIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutUserInput, Prisma.ForumPostUncheckedUpdateWithoutUserInput>
 }
 
-export type ForumPostUpdateManyWithWhereWithoutUser_ForumPost_answeredByIdToUserInput = {
+export type ForumPostUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.ForumPostScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutUser_ForumPost_answeredByIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutUserInput>
 }
 
-export type ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostUpsertWithWhereUniqueWithoutAnsweredByInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedUpdateWithoutUser_ForumPost_deletedByIdToUserInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_deletedByIdToUserInput>
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutAnsweredByInput, Prisma.ForumPostUncheckedUpdateWithoutAnsweredByInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutAnsweredByInput, Prisma.ForumPostUncheckedCreateWithoutAnsweredByInput>
 }
 
-export type ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostUpdateWithWhereUniqueWithoutAnsweredByInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutUser_ForumPost_deletedByIdToUserInput, Prisma.ForumPostUncheckedUpdateWithoutUser_ForumPost_deletedByIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutAnsweredByInput, Prisma.ForumPostUncheckedUpdateWithoutAnsweredByInput>
 }
 
-export type ForumPostUpdateManyWithWhereWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostUpdateManyWithWhereWithoutAnsweredByInput = {
   where: Prisma.ForumPostScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutUser_ForumPost_deletedByIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutAnsweredByInput>
 }
 
-export type ForumPostUpsertWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostUpsertWithWhereUniqueWithoutDeletedByInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedUpdateWithoutUser_ForumPost_userIdToUserInput>
-  create: Prisma.XOR<Prisma.ForumPostCreateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedCreateWithoutUser_ForumPost_userIdToUserInput>
+  update: Prisma.XOR<Prisma.ForumPostUpdateWithoutDeletedByInput, Prisma.ForumPostUncheckedUpdateWithoutDeletedByInput>
+  create: Prisma.XOR<Prisma.ForumPostCreateWithoutDeletedByInput, Prisma.ForumPostUncheckedCreateWithoutDeletedByInput>
 }
 
-export type ForumPostUpdateWithWhereUniqueWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostUpdateWithWhereUniqueWithoutDeletedByInput = {
   where: Prisma.ForumPostWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutUser_ForumPost_userIdToUserInput, Prisma.ForumPostUncheckedUpdateWithoutUser_ForumPost_userIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateWithoutDeletedByInput, Prisma.ForumPostUncheckedUpdateWithoutDeletedByInput>
 }
 
-export type ForumPostUpdateManyWithWhereWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostUpdateManyWithWhereWithoutDeletedByInput = {
   where: Prisma.ForumPostScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutUser_ForumPost_userIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumPostUpdateManyMutationInput, Prisma.ForumPostUncheckedUpdateManyWithoutDeletedByInput>
 }
 
-export type ForumPostCreateManyForumTopicInput = {
+export type ForumPostCreateManyTopicInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1772,15 +1772,15 @@ export type ForumPostCreateManyForumTopicInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   userId: number
+  answeredById?: number | null
+  deletedById?: number | null
 }
 
-export type ForumPostUpdateWithoutForumTopicInput = {
+export type ForumPostUpdateWithoutTopicInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1789,20 +1789,20 @@ export type ForumPostUpdateWithoutForumTopicInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateWithoutForumTopicInput = {
+export type ForumPostUncheckedUpdateWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1812,20 +1812,20 @@ export type ForumPostUncheckedUpdateWithoutForumTopicInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateManyWithoutForumTopicInput = {
+export type ForumPostUncheckedUpdateManyWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1835,15 +1835,15 @@ export type ForumPostUncheckedUpdateManyWithoutForumTopicInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type ForumPostCreateManyUser_ForumPost_answeredByIdToUserInput = {
+export type ForumPostCreateManyUserInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1853,33 +1853,15 @@ export type ForumPostCreateManyUser_ForumPost_answeredByIdToUserInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
   isDeleted?: boolean
-  deletedAt?: Date | string | null
-  deletedById?: number | null
-  topicId: number
-  userId: number
-}
-
-export type ForumPostCreateManyUser_ForumPost_deletedByIdToUserInput = {
-  id?: number
-  content: string
-  createdAt?: Date | string
-  updatedAt?: Date | string | null
-  isEdited?: boolean
-  isModerated?: boolean
-  slug: string
-  type?: $Enums.PostType
-  isAnswer?: boolean
   answeredAt?: Date | string | null
-  answeredById?: number | null
-  isDeleted?: boolean
   deletedAt?: Date | string | null
   topicId: number
-  userId: number
+  answeredById?: number | null
+  deletedById?: number | null
 }
 
-export type ForumPostCreateManyUser_ForumPost_userIdToUserInput = {
+export type ForumPostCreateManyAnsweredByInput = {
   id?: number
   content: string
   createdAt?: Date | string
@@ -1889,15 +1871,33 @@ export type ForumPostCreateManyUser_ForumPost_userIdToUserInput = {
   slug: string
   type?: $Enums.PostType
   isAnswer?: boolean
-  answeredAt?: Date | string | null
-  answeredById?: number | null
   isDeleted?: boolean
+  answeredAt?: Date | string | null
   deletedAt?: Date | string | null
-  deletedById?: number | null
   topicId: number
+  userId: number
+  deletedById?: number | null
 }
 
-export type ForumPostUpdateWithoutUser_ForumPost_answeredByIdToUserInput = {
+export type ForumPostCreateManyDeletedByInput = {
+  id?: number
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  isEdited?: boolean
+  isModerated?: boolean
+  slug: string
+  type?: $Enums.PostType
+  isAnswer?: boolean
+  isDeleted?: boolean
+  answeredAt?: Date | string | null
+  deletedAt?: Date | string | null
+  topicId: number
+  userId: number
+  answeredById?: number | null
+}
+
+export type ForumPostUpdateWithoutUserInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1906,20 +1906,20 @@ export type ForumPostUpdateWithoutUser_ForumPost_answeredByIdToUserInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateWithoutUser_ForumPost_answeredByIdToUserInput = {
+export type ForumPostUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1929,83 +1929,20 @@ export type ForumPostUncheckedUpdateWithoutUser_ForumPost_answeredByIdToUserInpu
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
-}
-
-export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_answeredByIdToUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
-  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  topicId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ForumPostUpdateWithoutUser_ForumPost_deletedByIdToUserInput = {
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
-  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  User_ForumPost_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumPost_ForumPost_userIdToUserNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
-}
-
-export type ForumPostUncheckedUpdateWithoutUser_ForumPost_deletedByIdToUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
-  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  topicId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_deletedByIdToUserInput = {
+export type ForumPostUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2015,37 +1952,60 @@ export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_deletedByIdToUserI
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topicId?: Prisma.IntFieldUpdateOperationsInput | number
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ForumPostUpdateWithoutAnsweredByInput = {
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
+  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutPostsDeletedNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
+}
+
+export type ForumPostUncheckedUpdateWithoutAnsweredByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
+  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
 }
 
-export type ForumPostUpdateWithoutUser_ForumPost_userIdToUserInput = {
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
-  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Attachment?: Prisma.AttachmentUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneWithoutForumPostNestedInput
-  User_ForumPost_answeredByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_answeredByIdToUserNestedInput
-  User_ForumPost_deletedByIdToUser?: Prisma.UserUpdateOneWithoutForumPost_ForumPost_deletedByIdToUserNestedInput
-  ForumTopic?: Prisma.ForumTopicUpdateOneRequiredWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUpdateManyWithoutForumPostNestedInput
-}
-
-export type ForumPostUncheckedUpdateWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostUncheckedUpdateManyWithoutAnsweredByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2055,20 +2015,37 @@ export type ForumPostUncheckedUpdateWithoutUser_ForumPost_userIdToUserInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
-  Attachment?: Prisma.AttachmentUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutForumPostNestedInput
-  ForumPostHistory?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutForumPostNestedInput
-  ForumReply?: Prisma.ForumReplyUncheckedUpdateManyWithoutForumPostNestedInput
-  UpvoteForumPost?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutForumPostNestedInput
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_userIdToUserInput = {
+export type ForumPostUpdateWithoutDeletedByInput = {
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
+  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topic?: Prisma.ForumTopicUpdateOneRequiredWithoutPostsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumPostsNestedInput
+  answeredBy?: Prisma.UserUpdateOneWithoutPostsAnsweredNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUpdateOneWithoutLastPostNestedInput
+}
+
+export type ForumPostUncheckedUpdateWithoutDeletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2078,12 +2055,35 @@ export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_userIdToUserInput 
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
   isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   topicId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutPostNestedInput
+  replies?: Prisma.ForumReplyUncheckedUpdateManyWithoutPostNestedInput
+  upvotes?: Prisma.UpvoteForumPostUncheckedUpdateManyWithoutPostNestedInput
+  history?: Prisma.ForumPostHistoryUncheckedUpdateManyWithoutPostNestedInput
+  lastPostCategory?: Prisma.ForumCategoryUncheckedUpdateOneWithoutLastPostNestedInput
+}
+
+export type ForumPostUncheckedUpdateManyWithoutDeletedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isEdited?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPostTypeFieldUpdateOperationsInput | $Enums.PostType
+  isAnswer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  answeredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topicId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  answeredById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -2092,17 +2092,17 @@ export type ForumPostUncheckedUpdateManyWithoutUser_ForumPost_userIdToUserInput 
  */
 
 export type ForumPostCountOutputType = {
-  Attachment: number
-  ForumPostHistory: number
-  ForumReply: number
-  UpvoteForumPost: number
+  attachments: number
+  replies: number
+  upvotes: number
+  history: number
 }
 
 export type ForumPostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Attachment?: boolean | ForumPostCountOutputTypeCountAttachmentArgs
-  ForumPostHistory?: boolean | ForumPostCountOutputTypeCountForumPostHistoryArgs
-  ForumReply?: boolean | ForumPostCountOutputTypeCountForumReplyArgs
-  UpvoteForumPost?: boolean | ForumPostCountOutputTypeCountUpvoteForumPostArgs
+  attachments?: boolean | ForumPostCountOutputTypeCountAttachmentsArgs
+  replies?: boolean | ForumPostCountOutputTypeCountRepliesArgs
+  upvotes?: boolean | ForumPostCountOutputTypeCountUpvotesArgs
+  history?: boolean | ForumPostCountOutputTypeCountHistoryArgs
 }
 
 /**
@@ -2118,29 +2118,29 @@ export type ForumPostCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * ForumPostCountOutputType without action
  */
-export type ForumPostCountOutputTypeCountAttachmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumPostCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AttachmentWhereInput
 }
 
 /**
  * ForumPostCountOutputType without action
  */
-export type ForumPostCountOutputTypeCountForumPostHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ForumPostHistoryWhereInput
-}
-
-/**
- * ForumPostCountOutputType without action
- */
-export type ForumPostCountOutputTypeCountForumReplyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumPostCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ForumReplyWhereInput
 }
 
 /**
  * ForumPostCountOutputType without action
  */
-export type ForumPostCountOutputTypeCountUpvoteForumPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumPostCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UpvoteForumPostWhereInput
+}
+
+/**
+ * ForumPostCountOutputType without action
+ */
+export type ForumPostCountOutputTypeCountHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ForumPostHistoryWhereInput
 }
 
 
@@ -2154,22 +2154,22 @@ export type ForumPostSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   slug?: boolean
   type?: boolean
   isAnswer?: boolean
-  answeredAt?: boolean
-  answeredById?: boolean
   isDeleted?: boolean
+  answeredAt?: boolean
   deletedAt?: boolean
-  deletedById?: boolean
   topicId?: boolean
   userId?: boolean
-  Attachment?: boolean | Prisma.ForumPost$AttachmentArgs<ExtArgs>
-  ForumCategory?: boolean | Prisma.ForumPost$ForumCategoryArgs<ExtArgs>
-  User_ForumPost_answeredByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>
-  User_ForumPost_deletedByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User_ForumPost_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  ForumPostHistory?: boolean | Prisma.ForumPost$ForumPostHistoryArgs<ExtArgs>
-  ForumReply?: boolean | Prisma.ForumPost$ForumReplyArgs<ExtArgs>
-  UpvoteForumPost?: boolean | Prisma.ForumPost$UpvoteForumPostArgs<ExtArgs>
+  answeredById?: boolean
+  deletedById?: boolean
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredBy?: boolean | Prisma.ForumPost$answeredByArgs<ExtArgs>
+  deletedBy?: boolean | Prisma.ForumPost$deletedByArgs<ExtArgs>
+  attachments?: boolean | Prisma.ForumPost$attachmentsArgs<ExtArgs>
+  replies?: boolean | Prisma.ForumPost$repliesArgs<ExtArgs>
+  upvotes?: boolean | Prisma.ForumPost$upvotesArgs<ExtArgs>
+  history?: boolean | Prisma.ForumPost$historyArgs<ExtArgs>
+  lastPostCategory?: boolean | Prisma.ForumPost$lastPostCategoryArgs<ExtArgs>
   _count?: boolean | Prisma.ForumPostCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumPost"]>
 
@@ -2183,17 +2183,17 @@ export type ForumPostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   slug?: boolean
   type?: boolean
   isAnswer?: boolean
-  answeredAt?: boolean
-  answeredById?: boolean
   isDeleted?: boolean
+  answeredAt?: boolean
   deletedAt?: boolean
-  deletedById?: boolean
   topicId?: boolean
   userId?: boolean
-  User_ForumPost_answeredByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>
-  User_ForumPost_deletedByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User_ForumPost_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredById?: boolean
+  deletedById?: boolean
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredBy?: boolean | Prisma.ForumPost$answeredByArgs<ExtArgs>
+  deletedBy?: boolean | Prisma.ForumPost$deletedByArgs<ExtArgs>
 }, ExtArgs["result"]["forumPost"]>
 
 export type ForumPostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2206,17 +2206,17 @@ export type ForumPostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   slug?: boolean
   type?: boolean
   isAnswer?: boolean
-  answeredAt?: boolean
-  answeredById?: boolean
   isDeleted?: boolean
+  answeredAt?: boolean
   deletedAt?: boolean
-  deletedById?: boolean
   topicId?: boolean
   userId?: boolean
-  User_ForumPost_answeredByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>
-  User_ForumPost_deletedByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User_ForumPost_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredById?: boolean
+  deletedById?: boolean
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredBy?: boolean | Prisma.ForumPost$answeredByArgs<ExtArgs>
+  deletedBy?: boolean | Prisma.ForumPost$deletedByArgs<ExtArgs>
 }, ExtArgs["result"]["forumPost"]>
 
 export type ForumPostSelectScalar = {
@@ -2229,53 +2229,53 @@ export type ForumPostSelectScalar = {
   slug?: boolean
   type?: boolean
   isAnswer?: boolean
-  answeredAt?: boolean
-  answeredById?: boolean
   isDeleted?: boolean
+  answeredAt?: boolean
   deletedAt?: boolean
-  deletedById?: boolean
   topicId?: boolean
   userId?: boolean
+  answeredById?: boolean
+  deletedById?: boolean
 }
 
-export type ForumPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "createdAt" | "updatedAt" | "isEdited" | "isModerated" | "slug" | "type" | "isAnswer" | "answeredAt" | "answeredById" | "isDeleted" | "deletedAt" | "deletedById" | "topicId" | "userId", ExtArgs["result"]["forumPost"]>
+export type ForumPostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "createdAt" | "updatedAt" | "isEdited" | "isModerated" | "slug" | "type" | "isAnswer" | "isDeleted" | "answeredAt" | "deletedAt" | "topicId" | "userId" | "answeredById" | "deletedById", ExtArgs["result"]["forumPost"]>
 export type ForumPostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Attachment?: boolean | Prisma.ForumPost$AttachmentArgs<ExtArgs>
-  ForumCategory?: boolean | Prisma.ForumPost$ForumCategoryArgs<ExtArgs>
-  User_ForumPost_answeredByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>
-  User_ForumPost_deletedByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User_ForumPost_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  ForumPostHistory?: boolean | Prisma.ForumPost$ForumPostHistoryArgs<ExtArgs>
-  ForumReply?: boolean | Prisma.ForumPost$ForumReplyArgs<ExtArgs>
-  UpvoteForumPost?: boolean | Prisma.ForumPost$UpvoteForumPostArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredBy?: boolean | Prisma.ForumPost$answeredByArgs<ExtArgs>
+  deletedBy?: boolean | Prisma.ForumPost$deletedByArgs<ExtArgs>
+  attachments?: boolean | Prisma.ForumPost$attachmentsArgs<ExtArgs>
+  replies?: boolean | Prisma.ForumPost$repliesArgs<ExtArgs>
+  upvotes?: boolean | Prisma.ForumPost$upvotesArgs<ExtArgs>
+  history?: boolean | Prisma.ForumPost$historyArgs<ExtArgs>
+  lastPostCategory?: boolean | Prisma.ForumPost$lastPostCategoryArgs<ExtArgs>
   _count?: boolean | Prisma.ForumPostCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ForumPostIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ForumPost_answeredByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>
-  User_ForumPost_deletedByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User_ForumPost_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredBy?: boolean | Prisma.ForumPost$answeredByArgs<ExtArgs>
+  deletedBy?: boolean | Prisma.ForumPost$deletedByArgs<ExtArgs>
 }
 export type ForumPostIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ForumPost_answeredByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>
-  User_ForumPost_deletedByIdToUser?: boolean | Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>
-  ForumTopic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
-  User_ForumPost_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.ForumTopicDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  answeredBy?: boolean | Prisma.ForumPost$answeredByArgs<ExtArgs>
+  deletedBy?: boolean | Prisma.ForumPost$deletedByArgs<ExtArgs>
 }
 
 export type $ForumPostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForumPost"
   objects: {
-    Attachment: Prisma.$AttachmentPayload<ExtArgs>[]
-    ForumCategory: Prisma.$ForumCategoryPayload<ExtArgs> | null
-    User_ForumPost_answeredByIdToUser: Prisma.$UserPayload<ExtArgs> | null
-    User_ForumPost_deletedByIdToUser: Prisma.$UserPayload<ExtArgs> | null
-    ForumTopic: Prisma.$ForumTopicPayload<ExtArgs>
-    User_ForumPost_userIdToUser: Prisma.$UserPayload<ExtArgs>
-    ForumPostHistory: Prisma.$ForumPostHistoryPayload<ExtArgs>[]
-    ForumReply: Prisma.$ForumReplyPayload<ExtArgs>[]
-    UpvoteForumPost: Prisma.$UpvoteForumPostPayload<ExtArgs>[]
+    topic: Prisma.$ForumTopicPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    answeredBy: Prisma.$UserPayload<ExtArgs> | null
+    deletedBy: Prisma.$UserPayload<ExtArgs> | null
+    attachments: Prisma.$AttachmentPayload<ExtArgs>[]
+    replies: Prisma.$ForumReplyPayload<ExtArgs>[]
+    upvotes: Prisma.$UpvoteForumPostPayload<ExtArgs>[]
+    history: Prisma.$ForumPostHistoryPayload<ExtArgs>[]
+    lastPostCategory: Prisma.$ForumCategoryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2287,13 +2287,13 @@ export type $ForumPostPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     slug: string
     type: $Enums.PostType
     isAnswer: boolean
-    answeredAt: Date | null
-    answeredById: number | null
     isDeleted: boolean
+    answeredAt: Date | null
     deletedAt: Date | null
-    deletedById: number | null
     topicId: number
     userId: number
+    answeredById: number | null
+    deletedById: number | null
   }, ExtArgs["result"]["forumPost"]>
   composites: {}
 }
@@ -2688,15 +2688,15 @@ readonly fields: ForumPostFieldRefs;
  */
 export interface Prisma__ForumPostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Attachment<T extends Prisma.ForumPost$AttachmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$AttachmentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ForumCategory<T extends Prisma.ForumPost$ForumCategoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$ForumCategoryArgs<ExtArgs>>): Prisma.Prisma__ForumCategoryClient<runtime.Types.Result.GetResult<Prisma.$ForumCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  User_ForumPost_answeredByIdToUser<T extends Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  User_ForumPost_deletedByIdToUser<T extends Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  ForumTopic<T extends Prisma.ForumTopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopicDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumTopicClient<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User_ForumPost_userIdToUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  ForumPostHistory<T extends Prisma.ForumPost$ForumPostHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$ForumPostHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumPostHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ForumReply<T extends Prisma.ForumPost$ForumReplyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$ForumReplyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UpvoteForumPost<T extends Prisma.ForumPost$UpvoteForumPostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$UpvoteForumPostArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteForumPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  topic<T extends Prisma.ForumTopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopicDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumTopicClient<runtime.Types.Result.GetResult<Prisma.$ForumTopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  answeredBy<T extends Prisma.ForumPost$answeredByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$answeredByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  deletedBy<T extends Prisma.ForumPost$deletedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$deletedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  attachments<T extends Prisma.ForumPost$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  replies<T extends Prisma.ForumPost$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  upvotes<T extends Prisma.ForumPost$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteForumPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  history<T extends Prisma.ForumPost$historyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$historyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumPostHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  lastPostCategory<T extends Prisma.ForumPost$lastPostCategoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumPost$lastPostCategoryArgs<ExtArgs>>): Prisma.Prisma__ForumCategoryClient<runtime.Types.Result.GetResult<Prisma.$ForumCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2735,13 +2735,13 @@ export interface ForumPostFieldRefs {
   readonly slug: Prisma.FieldRef<"ForumPost", 'String'>
   readonly type: Prisma.FieldRef<"ForumPost", 'PostType'>
   readonly isAnswer: Prisma.FieldRef<"ForumPost", 'Boolean'>
-  readonly answeredAt: Prisma.FieldRef<"ForumPost", 'DateTime'>
-  readonly answeredById: Prisma.FieldRef<"ForumPost", 'Int'>
   readonly isDeleted: Prisma.FieldRef<"ForumPost", 'Boolean'>
+  readonly answeredAt: Prisma.FieldRef<"ForumPost", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"ForumPost", 'DateTime'>
-  readonly deletedById: Prisma.FieldRef<"ForumPost", 'Int'>
   readonly topicId: Prisma.FieldRef<"ForumPost", 'Int'>
   readonly userId: Prisma.FieldRef<"ForumPost", 'Int'>
+  readonly answeredById: Prisma.FieldRef<"ForumPost", 'Int'>
+  readonly deletedById: Prisma.FieldRef<"ForumPost", 'Int'>
 }
     
 
@@ -3138,9 +3138,47 @@ export type ForumPostDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * ForumPost.Attachment
+ * ForumPost.answeredBy
  */
-export type ForumPost$AttachmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumPost$answeredByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * ForumPost.deletedBy
+ */
+export type ForumPost$deletedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * ForumPost.attachments
+ */
+export type ForumPost$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Attachment
    */
@@ -3162,90 +3200,9 @@ export type ForumPost$AttachmentArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * ForumPost.ForumCategory
+ * ForumPost.replies
  */
-export type ForumPost$ForumCategoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ForumCategory
-   */
-  select?: Prisma.ForumCategorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ForumCategory
-   */
-  omit?: Prisma.ForumCategoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ForumCategoryInclude<ExtArgs> | null
-  where?: Prisma.ForumCategoryWhereInput
-}
-
-/**
- * ForumPost.User_ForumPost_answeredByIdToUser
- */
-export type ForumPost$User_ForumPost_answeredByIdToUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
- * ForumPost.User_ForumPost_deletedByIdToUser
- */
-export type ForumPost$User_ForumPost_deletedByIdToUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
- * ForumPost.ForumPostHistory
- */
-export type ForumPost$ForumPostHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ForumPostHistory
-   */
-  select?: Prisma.ForumPostHistorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ForumPostHistory
-   */
-  omit?: Prisma.ForumPostHistoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ForumPostHistoryInclude<ExtArgs> | null
-  where?: Prisma.ForumPostHistoryWhereInput
-  orderBy?: Prisma.ForumPostHistoryOrderByWithRelationInput | Prisma.ForumPostHistoryOrderByWithRelationInput[]
-  cursor?: Prisma.ForumPostHistoryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ForumPostHistoryScalarFieldEnum | Prisma.ForumPostHistoryScalarFieldEnum[]
-}
-
-/**
- * ForumPost.ForumReply
- */
-export type ForumPost$ForumReplyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumPost$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ForumReply
    */
@@ -3267,9 +3224,9 @@ export type ForumPost$ForumReplyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * ForumPost.UpvoteForumPost
+ * ForumPost.upvotes
  */
-export type ForumPost$UpvoteForumPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumPost$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UpvoteForumPost
    */
@@ -3288,6 +3245,49 @@ export type ForumPost$UpvoteForumPostArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.UpvoteForumPostScalarFieldEnum | Prisma.UpvoteForumPostScalarFieldEnum[]
+}
+
+/**
+ * ForumPost.history
+ */
+export type ForumPost$historyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ForumPostHistory
+   */
+  select?: Prisma.ForumPostHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ForumPostHistory
+   */
+  omit?: Prisma.ForumPostHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForumPostHistoryInclude<ExtArgs> | null
+  where?: Prisma.ForumPostHistoryWhereInput
+  orderBy?: Prisma.ForumPostHistoryOrderByWithRelationInput | Prisma.ForumPostHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.ForumPostHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ForumPostHistoryScalarFieldEnum | Prisma.ForumPostHistoryScalarFieldEnum[]
+}
+
+/**
+ * ForumPost.lastPostCategory
+ */
+export type ForumPost$lastPostCategoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ForumCategory
+   */
+  select?: Prisma.ForumCategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ForumCategory
+   */
+  omit?: Prisma.ForumCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForumCategoryInclude<ExtArgs> | null
+  where?: Prisma.ForumCategoryWhereInput
 }
 
 /**

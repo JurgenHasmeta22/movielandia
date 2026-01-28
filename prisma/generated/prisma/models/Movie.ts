@@ -28,14 +28,14 @@ export type AggregateMovie = {
 
 export type MovieAvgAggregateOutputType = {
   id: number | null
-  ratingImdb: number | null
   duration: number | null
+  ratingImdb: number | null
 }
 
 export type MovieSumAggregateOutputType = {
   id: number | null
-  ratingImdb: number | null
   duration: number | null
+  ratingImdb: number | null
 }
 
 export type MovieMinAggregateOutputType = {
@@ -44,10 +44,10 @@ export type MovieMinAggregateOutputType = {
   photoSrc: string | null
   photoSrcProd: string | null
   trailerSrc: string | null
-  ratingImdb: number | null
-  description: string | null
   duration: number | null
+  ratingImdb: number | null
   dateAired: Date | null
+  description: string | null
 }
 
 export type MovieMaxAggregateOutputType = {
@@ -56,10 +56,10 @@ export type MovieMaxAggregateOutputType = {
   photoSrc: string | null
   photoSrcProd: string | null
   trailerSrc: string | null
-  ratingImdb: number | null
-  description: string | null
   duration: number | null
+  ratingImdb: number | null
   dateAired: Date | null
+  description: string | null
 }
 
 export type MovieCountAggregateOutputType = {
@@ -68,24 +68,24 @@ export type MovieCountAggregateOutputType = {
   photoSrc: number
   photoSrcProd: number
   trailerSrc: number
-  ratingImdb: number
-  description: number
   duration: number
+  ratingImdb: number
   dateAired: number
+  description: number
   _all: number
 }
 
 
 export type MovieAvgAggregateInputType = {
   id?: true
-  ratingImdb?: true
   duration?: true
+  ratingImdb?: true
 }
 
 export type MovieSumAggregateInputType = {
   id?: true
-  ratingImdb?: true
   duration?: true
+  ratingImdb?: true
 }
 
 export type MovieMinAggregateInputType = {
@@ -94,10 +94,10 @@ export type MovieMinAggregateInputType = {
   photoSrc?: true
   photoSrcProd?: true
   trailerSrc?: true
-  ratingImdb?: true
-  description?: true
   duration?: true
+  ratingImdb?: true
   dateAired?: true
+  description?: true
 }
 
 export type MovieMaxAggregateInputType = {
@@ -106,10 +106,10 @@ export type MovieMaxAggregateInputType = {
   photoSrc?: true
   photoSrcProd?: true
   trailerSrc?: true
-  ratingImdb?: true
-  description?: true
   duration?: true
+  ratingImdb?: true
   dateAired?: true
+  description?: true
 }
 
 export type MovieCountAggregateInputType = {
@@ -118,10 +118,10 @@ export type MovieCountAggregateInputType = {
   photoSrc?: true
   photoSrcProd?: true
   trailerSrc?: true
-  ratingImdb?: true
-  description?: true
   duration?: true
+  ratingImdb?: true
   dateAired?: true
+  description?: true
   _all?: true
 }
 
@@ -217,10 +217,10 @@ export type MovieGroupByOutputType = {
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired: Date | null
+  description: string
   _count: MovieCountAggregateOutputType | null
   _avg: MovieAvgAggregateOutputType | null
   _sum: MovieSumAggregateOutputType | null
@@ -252,20 +252,20 @@ export type MovieWhereInput = {
   photoSrc?: Prisma.StringFilter<"Movie"> | string
   photoSrcProd?: Prisma.StringFilter<"Movie"> | string
   trailerSrc?: Prisma.StringFilter<"Movie"> | string
-  ratingImdb?: Prisma.FloatFilter<"Movie"> | number
-  description?: Prisma.StringFilter<"Movie"> | string
   duration?: Prisma.IntFilter<"Movie"> | number
+  ratingImdb?: Prisma.FloatFilter<"Movie"> | number
   dateAired?: Prisma.DateTimeNullableFilter<"Movie"> | Date | string | null
-  CastMovie?: Prisma.CastMovieListRelationFilter
-  CrewMovie?: Prisma.CrewMovieListRelationFilter
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewListRelationFilter
-  ListActivityMovie?: Prisma.ListActivityMovieListRelationFilter
-  ListMovie?: Prisma.ListMovieListRelationFilter
-  MovieGenre?: Prisma.MovieGenreListRelationFilter
-  MovieReview?: Prisma.MovieReviewListRelationFilter
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewListRelationFilter
-  UserMovieFavorite?: Prisma.UserMovieFavoriteListRelationFilter
-  UserMovieRating?: Prisma.UserMovieRatingListRelationFilter
+  description?: Prisma.StringFilter<"Movie"> | string
+  cast?: Prisma.CastMovieListRelationFilter
+  crew?: Prisma.CrewMovieListRelationFilter
+  genres?: Prisma.MovieGenreListRelationFilter
+  reviews?: Prisma.MovieReviewListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteListRelationFilter
+  usersWhoRatedIt?: Prisma.UserMovieRatingListRelationFilter
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewListRelationFilter
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewListRelationFilter
+  listItems?: Prisma.ListMovieListRelationFilter
+  listActivities?: Prisma.ListActivityMovieListRelationFilter
 }
 
 export type MovieOrderByWithRelationInput = {
@@ -274,20 +274,20 @@ export type MovieOrderByWithRelationInput = {
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
   dateAired?: Prisma.SortOrderInput | Prisma.SortOrder
-  CastMovie?: Prisma.CastMovieOrderByRelationAggregateInput
-  CrewMovie?: Prisma.CrewMovieOrderByRelationAggregateInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewOrderByRelationAggregateInput
-  ListActivityMovie?: Prisma.ListActivityMovieOrderByRelationAggregateInput
-  ListMovie?: Prisma.ListMovieOrderByRelationAggregateInput
-  MovieGenre?: Prisma.MovieGenreOrderByRelationAggregateInput
-  MovieReview?: Prisma.MovieReviewOrderByRelationAggregateInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewOrderByRelationAggregateInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteOrderByRelationAggregateInput
-  UserMovieRating?: Prisma.UserMovieRatingOrderByRelationAggregateInput
+  description?: Prisma.SortOrder
+  cast?: Prisma.CastMovieOrderByRelationAggregateInput
+  crew?: Prisma.CrewMovieOrderByRelationAggregateInput
+  genres?: Prisma.MovieGenreOrderByRelationAggregateInput
+  reviews?: Prisma.MovieReviewOrderByRelationAggregateInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteOrderByRelationAggregateInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingOrderByRelationAggregateInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewOrderByRelationAggregateInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewOrderByRelationAggregateInput
+  listItems?: Prisma.ListMovieOrderByRelationAggregateInput
+  listActivities?: Prisma.ListActivityMovieOrderByRelationAggregateInput
   _relevance?: Prisma.MovieOrderByRelevanceInput
 }
 
@@ -300,20 +300,20 @@ export type MovieWhereUniqueInput = Prisma.AtLeast<{
   photoSrc?: Prisma.StringFilter<"Movie"> | string
   photoSrcProd?: Prisma.StringFilter<"Movie"> | string
   trailerSrc?: Prisma.StringFilter<"Movie"> | string
-  ratingImdb?: Prisma.FloatFilter<"Movie"> | number
-  description?: Prisma.StringFilter<"Movie"> | string
   duration?: Prisma.IntFilter<"Movie"> | number
+  ratingImdb?: Prisma.FloatFilter<"Movie"> | number
   dateAired?: Prisma.DateTimeNullableFilter<"Movie"> | Date | string | null
-  CastMovie?: Prisma.CastMovieListRelationFilter
-  CrewMovie?: Prisma.CrewMovieListRelationFilter
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewListRelationFilter
-  ListActivityMovie?: Prisma.ListActivityMovieListRelationFilter
-  ListMovie?: Prisma.ListMovieListRelationFilter
-  MovieGenre?: Prisma.MovieGenreListRelationFilter
-  MovieReview?: Prisma.MovieReviewListRelationFilter
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewListRelationFilter
-  UserMovieFavorite?: Prisma.UserMovieFavoriteListRelationFilter
-  UserMovieRating?: Prisma.UserMovieRatingListRelationFilter
+  description?: Prisma.StringFilter<"Movie"> | string
+  cast?: Prisma.CastMovieListRelationFilter
+  crew?: Prisma.CrewMovieListRelationFilter
+  genres?: Prisma.MovieGenreListRelationFilter
+  reviews?: Prisma.MovieReviewListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteListRelationFilter
+  usersWhoRatedIt?: Prisma.UserMovieRatingListRelationFilter
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewListRelationFilter
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewListRelationFilter
+  listItems?: Prisma.ListMovieListRelationFilter
+  listActivities?: Prisma.ListActivityMovieListRelationFilter
 }, "id">
 
 export type MovieOrderByWithAggregationInput = {
@@ -322,10 +322,10 @@ export type MovieOrderByWithAggregationInput = {
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
   dateAired?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
   _count?: Prisma.MovieCountOrderByAggregateInput
   _avg?: Prisma.MovieAvgOrderByAggregateInput
   _max?: Prisma.MovieMaxOrderByAggregateInput
@@ -342,10 +342,10 @@ export type MovieScalarWhereWithAggregatesInput = {
   photoSrc?: Prisma.StringWithAggregatesFilter<"Movie"> | string
   photoSrcProd?: Prisma.StringWithAggregatesFilter<"Movie"> | string
   trailerSrc?: Prisma.StringWithAggregatesFilter<"Movie"> | string
-  ratingImdb?: Prisma.FloatWithAggregatesFilter<"Movie"> | number
-  description?: Prisma.StringWithAggregatesFilter<"Movie"> | string
   duration?: Prisma.IntWithAggregatesFilter<"Movie"> | number
+  ratingImdb?: Prisma.FloatWithAggregatesFilter<"Movie"> | number
   dateAired?: Prisma.DateTimeNullableWithAggregatesFilter<"Movie"> | Date | string | null
+  description?: Prisma.StringWithAggregatesFilter<"Movie"> | string
 }
 
 export type MovieCreateInput = {
@@ -353,20 +353,20 @@ export type MovieCreateInput = {
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
 export type MovieUncheckedCreateInput = {
@@ -375,20 +375,20 @@ export type MovieUncheckedCreateInput = {
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
 export type MovieUpdateInput = {
@@ -396,20 +396,20 @@ export type MovieUpdateInput = {
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
 export type MovieUncheckedUpdateInput = {
@@ -418,20 +418,20 @@ export type MovieUncheckedUpdateInput = {
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
 export type MovieCreateManyInput = {
@@ -440,10 +440,10 @@ export type MovieCreateManyInput = {
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
+  description: string
 }
 
 export type MovieUpdateManyMutationInput = {
@@ -451,10 +451,10 @@ export type MovieUpdateManyMutationInput = {
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MovieUncheckedUpdateManyInput = {
@@ -463,10 +463,10 @@ export type MovieUncheckedUpdateManyInput = {
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type MovieScalarRelationFilter = {
@@ -486,16 +486,16 @@ export type MovieCountOrderByAggregateInput = {
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
   dateAired?: Prisma.SortOrder
+  description?: Prisma.SortOrder
 }
 
 export type MovieAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
 }
 
 export type MovieMaxOrderByAggregateInput = {
@@ -504,10 +504,10 @@ export type MovieMaxOrderByAggregateInput = {
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
   dateAired?: Prisma.SortOrder
+  description?: Prisma.SortOrder
 }
 
 export type MovieMinOrderByAggregateInput = {
@@ -516,1136 +516,1136 @@ export type MovieMinOrderByAggregateInput = {
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
-  description?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
   dateAired?: Prisma.SortOrder
+  description?: Prisma.SortOrder
 }
 
 export type MovieSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
   duration?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
 }
 
-export type MovieCreateNestedOneWithoutCastMovieInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutCastMovieInput, Prisma.MovieUncheckedCreateWithoutCastMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCastMovieInput
+export type MovieCreateNestedOneWithoutListItemsInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutListItemsInput, Prisma.MovieUncheckedCreateWithoutListItemsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListItemsInput
   connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUpdateOneRequiredWithoutCastMovieNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutCastMovieInput, Prisma.MovieUncheckedCreateWithoutCastMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCastMovieInput
-  upsert?: Prisma.MovieUpsertWithoutCastMovieInput
+export type MovieUpdateOneRequiredWithoutListItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutListItemsInput, Prisma.MovieUncheckedCreateWithoutListItemsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListItemsInput
+  upsert?: Prisma.MovieUpsertWithoutListItemsInput
   connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutCastMovieInput, Prisma.MovieUpdateWithoutCastMovieInput>, Prisma.MovieUncheckedUpdateWithoutCastMovieInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutListItemsInput, Prisma.MovieUpdateWithoutListItemsInput>, Prisma.MovieUncheckedUpdateWithoutListItemsInput>
 }
 
-export type MovieCreateNestedOneWithoutCrewMovieInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutCrewMovieInput, Prisma.MovieUncheckedCreateWithoutCrewMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCrewMovieInput
-  connect?: Prisma.MovieWhereUniqueInput
-}
-
-export type MovieUpdateOneRequiredWithoutCrewMovieNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutCrewMovieInput, Prisma.MovieUncheckedCreateWithoutCrewMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCrewMovieInput
-  upsert?: Prisma.MovieUpsertWithoutCrewMovieInput
-  connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutCrewMovieInput, Prisma.MovieUpdateWithoutCrewMovieInput>, Prisma.MovieUncheckedUpdateWithoutCrewMovieInput>
-}
-
-export type MovieCreateNestedOneWithoutDownvoteMovieReviewInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutDownvoteMovieReviewInput
+export type MovieCreateNestedOneWithoutListActivitiesInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutListActivitiesInput, Prisma.MovieUncheckedCreateWithoutListActivitiesInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListActivitiesInput
   connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUpdateOneRequiredWithoutDownvoteMovieReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutDownvoteMovieReviewInput
-  upsert?: Prisma.MovieUpsertWithoutDownvoteMovieReviewInput
+export type MovieUpdateOneRequiredWithoutListActivitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutListActivitiesInput, Prisma.MovieUncheckedCreateWithoutListActivitiesInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListActivitiesInput
+  upsert?: Prisma.MovieUpsertWithoutListActivitiesInput
   connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutDownvoteMovieReviewInput, Prisma.MovieUpdateWithoutDownvoteMovieReviewInput>, Prisma.MovieUncheckedUpdateWithoutDownvoteMovieReviewInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutListActivitiesInput, Prisma.MovieUpdateWithoutListActivitiesInput>, Prisma.MovieUncheckedUpdateWithoutListActivitiesInput>
 }
 
-export type MovieCreateNestedOneWithoutListActivityMovieInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutListActivityMovieInput, Prisma.MovieUncheckedCreateWithoutListActivityMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListActivityMovieInput
-  connect?: Prisma.MovieWhereUniqueInput
-}
-
-export type MovieUpdateOneRequiredWithoutListActivityMovieNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutListActivityMovieInput, Prisma.MovieUncheckedCreateWithoutListActivityMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListActivityMovieInput
-  upsert?: Prisma.MovieUpsertWithoutListActivityMovieInput
-  connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutListActivityMovieInput, Prisma.MovieUpdateWithoutListActivityMovieInput>, Prisma.MovieUncheckedUpdateWithoutListActivityMovieInput>
-}
-
-export type MovieCreateNestedOneWithoutListMovieInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutListMovieInput, Prisma.MovieUncheckedCreateWithoutListMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListMovieInput
+export type MovieCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutReviewsInput, Prisma.MovieUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutReviewsInput
   connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUpdateOneRequiredWithoutListMovieNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutListMovieInput, Prisma.MovieUncheckedCreateWithoutListMovieInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutListMovieInput
-  upsert?: Prisma.MovieUpsertWithoutListMovieInput
+export type MovieUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutReviewsInput, Prisma.MovieUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.MovieUpsertWithoutReviewsInput
   connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutListMovieInput, Prisma.MovieUpdateWithoutListMovieInput>, Prisma.MovieUncheckedUpdateWithoutListMovieInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutReviewsInput, Prisma.MovieUpdateWithoutReviewsInput>, Prisma.MovieUncheckedUpdateWithoutReviewsInput>
 }
 
-export type MovieCreateNestedOneWithoutMovieGenreInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutMovieGenreInput, Prisma.MovieUncheckedCreateWithoutMovieGenreInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutMovieGenreInput
-  connect?: Prisma.MovieWhereUniqueInput
-}
-
-export type MovieUpdateOneRequiredWithoutMovieGenreNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutMovieGenreInput, Prisma.MovieUncheckedCreateWithoutMovieGenreInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutMovieGenreInput
-  upsert?: Prisma.MovieUpsertWithoutMovieGenreInput
-  connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutMovieGenreInput, Prisma.MovieUpdateWithoutMovieGenreInput>, Prisma.MovieUncheckedUpdateWithoutMovieGenreInput>
-}
-
-export type MovieCreateNestedOneWithoutMovieReviewInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutMovieReviewInput, Prisma.MovieUncheckedCreateWithoutMovieReviewInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutMovieReviewInput
+export type MovieCreateNestedOneWithoutUpvoteMovieReviewsInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUpvoteMovieReviewsInput
   connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUpdateOneRequiredWithoutMovieReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutMovieReviewInput, Prisma.MovieUncheckedCreateWithoutMovieReviewInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutMovieReviewInput
-  upsert?: Prisma.MovieUpsertWithoutMovieReviewInput
+export type MovieUpdateOneRequiredWithoutUpvoteMovieReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUpvoteMovieReviewsInput
+  upsert?: Prisma.MovieUpsertWithoutUpvoteMovieReviewsInput
   connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutMovieReviewInput, Prisma.MovieUpdateWithoutMovieReviewInput>, Prisma.MovieUncheckedUpdateWithoutMovieReviewInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutUpvoteMovieReviewsInput, Prisma.MovieUpdateWithoutUpvoteMovieReviewsInput>, Prisma.MovieUncheckedUpdateWithoutUpvoteMovieReviewsInput>
 }
 
-export type MovieCreateNestedOneWithoutUpvoteMovieReviewInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUpvoteMovieReviewInput
-  connect?: Prisma.MovieWhereUniqueInput
-}
-
-export type MovieUpdateOneRequiredWithoutUpvoteMovieReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUpvoteMovieReviewInput
-  upsert?: Prisma.MovieUpsertWithoutUpvoteMovieReviewInput
-  connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutUpvoteMovieReviewInput, Prisma.MovieUpdateWithoutUpvoteMovieReviewInput>, Prisma.MovieUncheckedUpdateWithoutUpvoteMovieReviewInput>
-}
-
-export type MovieCreateNestedOneWithoutUserMovieFavoriteInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieFavoriteInput, Prisma.MovieUncheckedCreateWithoutUserMovieFavoriteInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUserMovieFavoriteInput
+export type MovieCreateNestedOneWithoutDownvoteMovieReviewsInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutDownvoteMovieReviewsInput
   connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUpdateOneRequiredWithoutUserMovieFavoriteNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieFavoriteInput, Prisma.MovieUncheckedCreateWithoutUserMovieFavoriteInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUserMovieFavoriteInput
-  upsert?: Prisma.MovieUpsertWithoutUserMovieFavoriteInput
+export type MovieUpdateOneRequiredWithoutDownvoteMovieReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewsInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutDownvoteMovieReviewsInput
+  upsert?: Prisma.MovieUpsertWithoutDownvoteMovieReviewsInput
   connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutUserMovieFavoriteInput, Prisma.MovieUpdateWithoutUserMovieFavoriteInput>, Prisma.MovieUncheckedUpdateWithoutUserMovieFavoriteInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutDownvoteMovieReviewsInput, Prisma.MovieUpdateWithoutDownvoteMovieReviewsInput>, Prisma.MovieUncheckedUpdateWithoutDownvoteMovieReviewsInput>
 }
 
-export type MovieCreateNestedOneWithoutUserMovieRatingInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieRatingInput, Prisma.MovieUncheckedCreateWithoutUserMovieRatingInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUserMovieRatingInput
+export type MovieCreateNestedOneWithoutCastInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutCastInput, Prisma.MovieUncheckedCreateWithoutCastInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCastInput
   connect?: Prisma.MovieWhereUniqueInput
 }
 
-export type MovieUpdateOneRequiredWithoutUserMovieRatingNestedInput = {
-  create?: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieRatingInput, Prisma.MovieUncheckedCreateWithoutUserMovieRatingInput>
-  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUserMovieRatingInput
-  upsert?: Prisma.MovieUpsertWithoutUserMovieRatingInput
+export type MovieUpdateOneRequiredWithoutCastNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutCastInput, Prisma.MovieUncheckedCreateWithoutCastInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCastInput
+  upsert?: Prisma.MovieUpsertWithoutCastInput
   connect?: Prisma.MovieWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutUserMovieRatingInput, Prisma.MovieUpdateWithoutUserMovieRatingInput>, Prisma.MovieUncheckedUpdateWithoutUserMovieRatingInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutCastInput, Prisma.MovieUpdateWithoutCastInput>, Prisma.MovieUncheckedUpdateWithoutCastInput>
 }
 
-export type MovieCreateWithoutCastMovieInput = {
+export type MovieCreateNestedOneWithoutCrewInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutCrewInput, Prisma.MovieUncheckedCreateWithoutCrewInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCrewInput
+  connect?: Prisma.MovieWhereUniqueInput
+}
+
+export type MovieUpdateOneRequiredWithoutCrewNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutCrewInput, Prisma.MovieUncheckedCreateWithoutCrewInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutCrewInput
+  upsert?: Prisma.MovieUpsertWithoutCrewInput
+  connect?: Prisma.MovieWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutCrewInput, Prisma.MovieUpdateWithoutCrewInput>, Prisma.MovieUncheckedUpdateWithoutCrewInput>
+}
+
+export type MovieCreateNestedOneWithoutGenresInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutGenresInput, Prisma.MovieUncheckedCreateWithoutGenresInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutGenresInput
+  connect?: Prisma.MovieWhereUniqueInput
+}
+
+export type MovieUpdateOneRequiredWithoutGenresNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutGenresInput, Prisma.MovieUncheckedCreateWithoutGenresInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutGenresInput
+  upsert?: Prisma.MovieUpsertWithoutGenresInput
+  connect?: Prisma.MovieWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutGenresInput, Prisma.MovieUpdateWithoutGenresInput>, Prisma.MovieUncheckedUpdateWithoutGenresInput>
+}
+
+export type MovieCreateNestedOneWithoutUsersWhoBookmarkedItInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoBookmarkedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  connect?: Prisma.MovieWhereUniqueInput
+}
+
+export type MovieUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoBookmarkedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  upsert?: Prisma.MovieUpsertWithoutUsersWhoBookmarkedItInput
+  connect?: Prisma.MovieWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput, Prisma.MovieUpdateWithoutUsersWhoBookmarkedItInput>, Prisma.MovieUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+}
+
+export type MovieCreateNestedOneWithoutUsersWhoRatedItInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoRatedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoRatedItInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUsersWhoRatedItInput
+  connect?: Prisma.MovieWhereUniqueInput
+}
+
+export type MovieUpdateOneRequiredWithoutUsersWhoRatedItNestedInput = {
+  create?: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoRatedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoRatedItInput>
+  connectOrCreate?: Prisma.MovieCreateOrConnectWithoutUsersWhoRatedItInput
+  upsert?: Prisma.MovieUpsertWithoutUsersWhoRatedItInput
+  connect?: Prisma.MovieWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MovieUpdateToOneWithWhereWithoutUsersWhoRatedItInput, Prisma.MovieUpdateWithoutUsersWhoRatedItInput>, Prisma.MovieUncheckedUpdateWithoutUsersWhoRatedItInput>
+}
+
+export type MovieCreateWithoutListItemsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutCastMovieInput = {
+export type MovieUncheckedCreateWithoutListItemsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutCastMovieInput = {
+export type MovieCreateOrConnectWithoutListItemsInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutCastMovieInput, Prisma.MovieUncheckedCreateWithoutCastMovieInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutListItemsInput, Prisma.MovieUncheckedCreateWithoutListItemsInput>
 }
 
-export type MovieUpsertWithoutCastMovieInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutCastMovieInput, Prisma.MovieUncheckedUpdateWithoutCastMovieInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutCastMovieInput, Prisma.MovieUncheckedCreateWithoutCastMovieInput>
+export type MovieUpsertWithoutListItemsInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutListItemsInput, Prisma.MovieUncheckedUpdateWithoutListItemsInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutListItemsInput, Prisma.MovieUncheckedCreateWithoutListItemsInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutCastMovieInput = {
+export type MovieUpdateToOneWithWhereWithoutListItemsInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutCastMovieInput, Prisma.MovieUncheckedUpdateWithoutCastMovieInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutListItemsInput, Prisma.MovieUncheckedUpdateWithoutListItemsInput>
 }
 
-export type MovieUpdateWithoutCastMovieInput = {
+export type MovieUpdateWithoutListItemsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutCastMovieInput = {
+export type MovieUncheckedUpdateWithoutListItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutCrewMovieInput = {
+export type MovieCreateWithoutListActivitiesInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutCrewMovieInput = {
+export type MovieUncheckedCreateWithoutListActivitiesInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutCrewMovieInput = {
+export type MovieCreateOrConnectWithoutListActivitiesInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutCrewMovieInput, Prisma.MovieUncheckedCreateWithoutCrewMovieInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutListActivitiesInput, Prisma.MovieUncheckedCreateWithoutListActivitiesInput>
 }
 
-export type MovieUpsertWithoutCrewMovieInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutCrewMovieInput, Prisma.MovieUncheckedUpdateWithoutCrewMovieInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutCrewMovieInput, Prisma.MovieUncheckedCreateWithoutCrewMovieInput>
+export type MovieUpsertWithoutListActivitiesInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutListActivitiesInput, Prisma.MovieUncheckedUpdateWithoutListActivitiesInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutListActivitiesInput, Prisma.MovieUncheckedCreateWithoutListActivitiesInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutCrewMovieInput = {
+export type MovieUpdateToOneWithWhereWithoutListActivitiesInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutCrewMovieInput, Prisma.MovieUncheckedUpdateWithoutCrewMovieInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutListActivitiesInput, Prisma.MovieUncheckedUpdateWithoutListActivitiesInput>
 }
 
-export type MovieUpdateWithoutCrewMovieInput = {
+export type MovieUpdateWithoutListActivitiesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutCrewMovieInput = {
+export type MovieUncheckedUpdateWithoutListActivitiesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutDownvoteMovieReviewInput = {
+export type MovieCreateWithoutReviewsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutDownvoteMovieReviewInput = {
+export type MovieUncheckedCreateWithoutReviewsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutDownvoteMovieReviewInput = {
+export type MovieCreateOrConnectWithoutReviewsInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutReviewsInput, Prisma.MovieUncheckedCreateWithoutReviewsInput>
 }
 
-export type MovieUpsertWithoutDownvoteMovieReviewInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutDownvoteMovieReviewInput, Prisma.MovieUncheckedUpdateWithoutDownvoteMovieReviewInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewInput>
+export type MovieUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutReviewsInput, Prisma.MovieUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutReviewsInput, Prisma.MovieUncheckedCreateWithoutReviewsInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutDownvoteMovieReviewInput = {
+export type MovieUpdateToOneWithWhereWithoutReviewsInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutDownvoteMovieReviewInput, Prisma.MovieUncheckedUpdateWithoutDownvoteMovieReviewInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutReviewsInput, Prisma.MovieUncheckedUpdateWithoutReviewsInput>
 }
 
-export type MovieUpdateWithoutDownvoteMovieReviewInput = {
+export type MovieUpdateWithoutReviewsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutDownvoteMovieReviewInput = {
+export type MovieUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutListActivityMovieInput = {
+export type MovieCreateWithoutUpvoteMovieReviewsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutListActivityMovieInput = {
+export type MovieUncheckedCreateWithoutUpvoteMovieReviewsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutListActivityMovieInput = {
+export type MovieCreateOrConnectWithoutUpvoteMovieReviewsInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutListActivityMovieInput, Prisma.MovieUncheckedCreateWithoutListActivityMovieInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewsInput>
 }
 
-export type MovieUpsertWithoutListActivityMovieInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutListActivityMovieInput, Prisma.MovieUncheckedUpdateWithoutListActivityMovieInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutListActivityMovieInput, Prisma.MovieUncheckedCreateWithoutListActivityMovieInput>
+export type MovieUpsertWithoutUpvoteMovieReviewsInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutUpvoteMovieReviewsInput, Prisma.MovieUncheckedUpdateWithoutUpvoteMovieReviewsInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewsInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutListActivityMovieInput = {
+export type MovieUpdateToOneWithWhereWithoutUpvoteMovieReviewsInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutListActivityMovieInput, Prisma.MovieUncheckedUpdateWithoutListActivityMovieInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutUpvoteMovieReviewsInput, Prisma.MovieUncheckedUpdateWithoutUpvoteMovieReviewsInput>
 }
 
-export type MovieUpdateWithoutListActivityMovieInput = {
+export type MovieUpdateWithoutUpvoteMovieReviewsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutListActivityMovieInput = {
+export type MovieUncheckedUpdateWithoutUpvoteMovieReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutListMovieInput = {
+export type MovieCreateWithoutDownvoteMovieReviewsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutListMovieInput = {
+export type MovieUncheckedCreateWithoutDownvoteMovieReviewsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutListMovieInput = {
+export type MovieCreateOrConnectWithoutDownvoteMovieReviewsInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutListMovieInput, Prisma.MovieUncheckedCreateWithoutListMovieInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewsInput>
 }
 
-export type MovieUpsertWithoutListMovieInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutListMovieInput, Prisma.MovieUncheckedUpdateWithoutListMovieInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutListMovieInput, Prisma.MovieUncheckedCreateWithoutListMovieInput>
+export type MovieUpsertWithoutDownvoteMovieReviewsInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutDownvoteMovieReviewsInput, Prisma.MovieUncheckedUpdateWithoutDownvoteMovieReviewsInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutDownvoteMovieReviewsInput, Prisma.MovieUncheckedCreateWithoutDownvoteMovieReviewsInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutListMovieInput = {
+export type MovieUpdateToOneWithWhereWithoutDownvoteMovieReviewsInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutListMovieInput, Prisma.MovieUncheckedUpdateWithoutListMovieInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutDownvoteMovieReviewsInput, Prisma.MovieUncheckedUpdateWithoutDownvoteMovieReviewsInput>
 }
 
-export type MovieUpdateWithoutListMovieInput = {
+export type MovieUpdateWithoutDownvoteMovieReviewsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutListMovieInput = {
+export type MovieUncheckedUpdateWithoutDownvoteMovieReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutMovieGenreInput = {
+export type MovieCreateWithoutCastInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutMovieGenreInput = {
+export type MovieUncheckedCreateWithoutCastInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutMovieGenreInput = {
+export type MovieCreateOrConnectWithoutCastInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutMovieGenreInput, Prisma.MovieUncheckedCreateWithoutMovieGenreInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutCastInput, Prisma.MovieUncheckedCreateWithoutCastInput>
 }
 
-export type MovieUpsertWithoutMovieGenreInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutMovieGenreInput, Prisma.MovieUncheckedUpdateWithoutMovieGenreInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutMovieGenreInput, Prisma.MovieUncheckedCreateWithoutMovieGenreInput>
+export type MovieUpsertWithoutCastInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutCastInput, Prisma.MovieUncheckedUpdateWithoutCastInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutCastInput, Prisma.MovieUncheckedCreateWithoutCastInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutMovieGenreInput = {
+export type MovieUpdateToOneWithWhereWithoutCastInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutMovieGenreInput, Prisma.MovieUncheckedUpdateWithoutMovieGenreInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutCastInput, Prisma.MovieUncheckedUpdateWithoutCastInput>
 }
 
-export type MovieUpdateWithoutMovieGenreInput = {
+export type MovieUpdateWithoutCastInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutMovieGenreInput = {
+export type MovieUncheckedUpdateWithoutCastInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutMovieReviewInput = {
+export type MovieCreateWithoutCrewInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutMovieReviewInput = {
+export type MovieUncheckedCreateWithoutCrewInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutMovieReviewInput = {
+export type MovieCreateOrConnectWithoutCrewInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutMovieReviewInput, Prisma.MovieUncheckedCreateWithoutMovieReviewInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutCrewInput, Prisma.MovieUncheckedCreateWithoutCrewInput>
 }
 
-export type MovieUpsertWithoutMovieReviewInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutMovieReviewInput, Prisma.MovieUncheckedUpdateWithoutMovieReviewInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutMovieReviewInput, Prisma.MovieUncheckedCreateWithoutMovieReviewInput>
+export type MovieUpsertWithoutCrewInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutCrewInput, Prisma.MovieUncheckedUpdateWithoutCrewInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutCrewInput, Prisma.MovieUncheckedCreateWithoutCrewInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutMovieReviewInput = {
+export type MovieUpdateToOneWithWhereWithoutCrewInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutMovieReviewInput, Prisma.MovieUncheckedUpdateWithoutMovieReviewInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutCrewInput, Prisma.MovieUncheckedUpdateWithoutCrewInput>
 }
 
-export type MovieUpdateWithoutMovieReviewInput = {
+export type MovieUpdateWithoutCrewInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutMovieReviewInput = {
+export type MovieUncheckedUpdateWithoutCrewInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutUpvoteMovieReviewInput = {
+export type MovieCreateWithoutGenresInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutUpvoteMovieReviewInput = {
+export type MovieUncheckedCreateWithoutGenresInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutUpvoteMovieReviewInput = {
+export type MovieCreateOrConnectWithoutGenresInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutGenresInput, Prisma.MovieUncheckedCreateWithoutGenresInput>
 }
 
-export type MovieUpsertWithoutUpvoteMovieReviewInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutUpvoteMovieReviewInput, Prisma.MovieUncheckedUpdateWithoutUpvoteMovieReviewInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutUpvoteMovieReviewInput, Prisma.MovieUncheckedCreateWithoutUpvoteMovieReviewInput>
+export type MovieUpsertWithoutGenresInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutGenresInput, Prisma.MovieUncheckedUpdateWithoutGenresInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutGenresInput, Prisma.MovieUncheckedCreateWithoutGenresInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutUpvoteMovieReviewInput = {
+export type MovieUpdateToOneWithWhereWithoutGenresInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutUpvoteMovieReviewInput, Prisma.MovieUncheckedUpdateWithoutUpvoteMovieReviewInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutGenresInput, Prisma.MovieUncheckedUpdateWithoutGenresInput>
 }
 
-export type MovieUpdateWithoutUpvoteMovieReviewInput = {
+export type MovieUpdateWithoutGenresInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutUpvoteMovieReviewInput = {
+export type MovieUncheckedUpdateWithoutGenresInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutUserMovieFavoriteInput = {
+export type MovieCreateWithoutUsersWhoBookmarkedItInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutUserMovieFavoriteInput = {
+export type MovieUncheckedCreateWithoutUsersWhoBookmarkedItInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutUserMovieFavoriteInput = {
+export type MovieCreateOrConnectWithoutUsersWhoBookmarkedItInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieFavoriteInput, Prisma.MovieUncheckedCreateWithoutUserMovieFavoriteInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoBookmarkedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type MovieUpsertWithoutUserMovieFavoriteInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutUserMovieFavoriteInput, Prisma.MovieUncheckedUpdateWithoutUserMovieFavoriteInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieFavoriteInput, Prisma.MovieUncheckedCreateWithoutUserMovieFavoriteInput>
+export type MovieUpsertWithoutUsersWhoBookmarkedItInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutUsersWhoBookmarkedItInput, Prisma.MovieUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoBookmarkedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoBookmarkedItInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutUserMovieFavoriteInput = {
+export type MovieUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutUserMovieFavoriteInput, Prisma.MovieUncheckedUpdateWithoutUserMovieFavoriteInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutUsersWhoBookmarkedItInput, Prisma.MovieUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type MovieUpdateWithoutUserMovieFavoriteInput = {
+export type MovieUpdateWithoutUsersWhoBookmarkedItInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutUserMovieFavoriteInput = {
+export type MovieUncheckedUpdateWithoutUsersWhoBookmarkedItInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieRating?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoRatedIt?: Prisma.UserMovieRatingUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieCreateWithoutUserMovieRatingInput = {
+export type MovieCreateWithoutUsersWhoRatedItInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieCreateNestedManyWithoutMovieInput
 }
 
-export type MovieUncheckedCreateWithoutUserMovieRatingInput = {
+export type MovieUncheckedCreateWithoutUsersWhoRatedItInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
   trailerSrc: string
-  ratingImdb: number
-  description: string
   duration: number
+  ratingImdb: number
   dateAired?: Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
-  CrewMovie?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
-  ListMovie?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
-  MovieReview?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  description: string
+  cast?: Prisma.CastMovieUncheckedCreateNestedManyWithoutMovieInput
+  crew?: Prisma.CrewMovieUncheckedCreateNestedManyWithoutMovieInput
+  genres?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutMovieInput
+  reviews?: Prisma.MovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedCreateNestedManyWithoutMovieInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedCreateNestedManyWithoutMovieInput
+  listItems?: Prisma.ListMovieUncheckedCreateNestedManyWithoutMovieInput
+  listActivities?: Prisma.ListActivityMovieUncheckedCreateNestedManyWithoutMovieInput
 }
 
-export type MovieCreateOrConnectWithoutUserMovieRatingInput = {
+export type MovieCreateOrConnectWithoutUsersWhoRatedItInput = {
   where: Prisma.MovieWhereUniqueInput
-  create: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieRatingInput, Prisma.MovieUncheckedCreateWithoutUserMovieRatingInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoRatedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoRatedItInput>
 }
 
-export type MovieUpsertWithoutUserMovieRatingInput = {
-  update: Prisma.XOR<Prisma.MovieUpdateWithoutUserMovieRatingInput, Prisma.MovieUncheckedUpdateWithoutUserMovieRatingInput>
-  create: Prisma.XOR<Prisma.MovieCreateWithoutUserMovieRatingInput, Prisma.MovieUncheckedCreateWithoutUserMovieRatingInput>
+export type MovieUpsertWithoutUsersWhoRatedItInput = {
+  update: Prisma.XOR<Prisma.MovieUpdateWithoutUsersWhoRatedItInput, Prisma.MovieUncheckedUpdateWithoutUsersWhoRatedItInput>
+  create: Prisma.XOR<Prisma.MovieCreateWithoutUsersWhoRatedItInput, Prisma.MovieUncheckedCreateWithoutUsersWhoRatedItInput>
   where?: Prisma.MovieWhereInput
 }
 
-export type MovieUpdateToOneWithWhereWithoutUserMovieRatingInput = {
+export type MovieUpdateToOneWithWhereWithoutUsersWhoRatedItInput = {
   where?: Prisma.MovieWhereInput
-  data: Prisma.XOR<Prisma.MovieUpdateWithoutUserMovieRatingInput, Prisma.MovieUncheckedUpdateWithoutUserMovieRatingInput>
+  data: Prisma.XOR<Prisma.MovieUpdateWithoutUsersWhoRatedItInput, Prisma.MovieUncheckedUpdateWithoutUsersWhoRatedItInput>
 }
 
-export type MovieUpdateWithoutUserMovieRatingInput = {
+export type MovieUpdateWithoutUsersWhoRatedItInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUpdateManyWithoutMovieNestedInput
 }
 
-export type MovieUncheckedUpdateWithoutUserMovieRatingInput = {
+export type MovieUncheckedUpdateWithoutUsersWhoRatedItInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  CastMovie?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
-  CrewMovie?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
-  DownvoteMovieReview?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  ListActivityMovie?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
-  ListMovie?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
-  MovieReview?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UpvoteMovieReview?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
-  UserMovieFavorite?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  cast?: Prisma.CastMovieUncheckedUpdateManyWithoutMovieNestedInput
+  crew?: Prisma.CrewMovieUncheckedUpdateManyWithoutMovieNestedInput
+  genres?: Prisma.MovieGenreUncheckedUpdateManyWithoutMovieNestedInput
+  reviews?: Prisma.MovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserMovieFavoriteUncheckedUpdateManyWithoutMovieNestedInput
+  upvoteMovieReviews?: Prisma.UpvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  downvoteMovieReviews?: Prisma.DownvoteMovieReviewUncheckedUpdateManyWithoutMovieNestedInput
+  listItems?: Prisma.ListMovieUncheckedUpdateManyWithoutMovieNestedInput
+  listActivities?: Prisma.ListActivityMovieUncheckedUpdateManyWithoutMovieNestedInput
 }
 
 
@@ -1654,29 +1654,29 @@ export type MovieUncheckedUpdateWithoutUserMovieRatingInput = {
  */
 
 export type MovieCountOutputType = {
-  CastMovie: number
-  CrewMovie: number
-  DownvoteMovieReview: number
-  ListActivityMovie: number
-  ListMovie: number
-  MovieGenre: number
-  MovieReview: number
-  UpvoteMovieReview: number
-  UserMovieFavorite: number
-  UserMovieRating: number
+  cast: number
+  crew: number
+  genres: number
+  reviews: number
+  usersWhoBookmarkedIt: number
+  usersWhoRatedIt: number
+  upvoteMovieReviews: number
+  downvoteMovieReviews: number
+  listItems: number
+  listActivities: number
 }
 
 export type MovieCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  CastMovie?: boolean | MovieCountOutputTypeCountCastMovieArgs
-  CrewMovie?: boolean | MovieCountOutputTypeCountCrewMovieArgs
-  DownvoteMovieReview?: boolean | MovieCountOutputTypeCountDownvoteMovieReviewArgs
-  ListActivityMovie?: boolean | MovieCountOutputTypeCountListActivityMovieArgs
-  ListMovie?: boolean | MovieCountOutputTypeCountListMovieArgs
-  MovieGenre?: boolean | MovieCountOutputTypeCountMovieGenreArgs
-  MovieReview?: boolean | MovieCountOutputTypeCountMovieReviewArgs
-  UpvoteMovieReview?: boolean | MovieCountOutputTypeCountUpvoteMovieReviewArgs
-  UserMovieFavorite?: boolean | MovieCountOutputTypeCountUserMovieFavoriteArgs
-  UserMovieRating?: boolean | MovieCountOutputTypeCountUserMovieRatingArgs
+  cast?: boolean | MovieCountOutputTypeCountCastArgs
+  crew?: boolean | MovieCountOutputTypeCountCrewArgs
+  genres?: boolean | MovieCountOutputTypeCountGenresArgs
+  reviews?: boolean | MovieCountOutputTypeCountReviewsArgs
+  usersWhoBookmarkedIt?: boolean | MovieCountOutputTypeCountUsersWhoBookmarkedItArgs
+  usersWhoRatedIt?: boolean | MovieCountOutputTypeCountUsersWhoRatedItArgs
+  upvoteMovieReviews?: boolean | MovieCountOutputTypeCountUpvoteMovieReviewsArgs
+  downvoteMovieReviews?: boolean | MovieCountOutputTypeCountDownvoteMovieReviewsArgs
+  listItems?: boolean | MovieCountOutputTypeCountListItemsArgs
+  listActivities?: boolean | MovieCountOutputTypeCountListActivitiesArgs
 }
 
 /**
@@ -1692,71 +1692,71 @@ export type MovieCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * MovieCountOutputType without action
  */
-export type MovieCountOutputTypeCountCastMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieCountOutputTypeCountCastArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CastMovieWhereInput
 }
 
 /**
  * MovieCountOutputType without action
  */
-export type MovieCountOutputTypeCountCrewMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieCountOutputTypeCountCrewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CrewMovieWhereInput
 }
 
 /**
  * MovieCountOutputType without action
  */
-export type MovieCountOutputTypeCountDownvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DownvoteMovieReviewWhereInput
-}
-
-/**
- * MovieCountOutputType without action
- */
-export type MovieCountOutputTypeCountListActivityMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivityMovieWhereInput
-}
-
-/**
- * MovieCountOutputType without action
- */
-export type MovieCountOutputTypeCountListMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListMovieWhereInput
-}
-
-/**
- * MovieCountOutputType without action
- */
-export type MovieCountOutputTypeCountMovieGenreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieCountOutputTypeCountGenresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MovieGenreWhereInput
 }
 
 /**
  * MovieCountOutputType without action
  */
-export type MovieCountOutputTypeCountMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MovieReviewWhereInput
 }
 
 /**
  * MovieCountOutputType without action
  */
-export type MovieCountOutputTypeCountUpvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UpvoteMovieReviewWhereInput
-}
-
-/**
- * MovieCountOutputType without action
- */
-export type MovieCountOutputTypeCountUserMovieFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieCountOutputTypeCountUsersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserMovieFavoriteWhereInput
 }
 
 /**
  * MovieCountOutputType without action
  */
-export type MovieCountOutputTypeCountUserMovieRatingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type MovieCountOutputTypeCountUsersWhoRatedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserMovieRatingWhereInput
+}
+
+/**
+ * MovieCountOutputType without action
+ */
+export type MovieCountOutputTypeCountUpvoteMovieReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UpvoteMovieReviewWhereInput
+}
+
+/**
+ * MovieCountOutputType without action
+ */
+export type MovieCountOutputTypeCountDownvoteMovieReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DownvoteMovieReviewWhereInput
+}
+
+/**
+ * MovieCountOutputType without action
+ */
+export type MovieCountOutputTypeCountListItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListMovieWhereInput
+}
+
+/**
+ * MovieCountOutputType without action
+ */
+export type MovieCountOutputTypeCountListActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivityMovieWhereInput
 }
 
 
@@ -1766,20 +1766,20 @@ export type MovieSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   photoSrc?: boolean
   photoSrcProd?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
-  description?: boolean
   duration?: boolean
+  ratingImdb?: boolean
   dateAired?: boolean
-  CastMovie?: boolean | Prisma.Movie$CastMovieArgs<ExtArgs>
-  CrewMovie?: boolean | Prisma.Movie$CrewMovieArgs<ExtArgs>
-  DownvoteMovieReview?: boolean | Prisma.Movie$DownvoteMovieReviewArgs<ExtArgs>
-  ListActivityMovie?: boolean | Prisma.Movie$ListActivityMovieArgs<ExtArgs>
-  ListMovie?: boolean | Prisma.Movie$ListMovieArgs<ExtArgs>
-  MovieGenre?: boolean | Prisma.Movie$MovieGenreArgs<ExtArgs>
-  MovieReview?: boolean | Prisma.Movie$MovieReviewArgs<ExtArgs>
-  UpvoteMovieReview?: boolean | Prisma.Movie$UpvoteMovieReviewArgs<ExtArgs>
-  UserMovieFavorite?: boolean | Prisma.Movie$UserMovieFavoriteArgs<ExtArgs>
-  UserMovieRating?: boolean | Prisma.Movie$UserMovieRatingArgs<ExtArgs>
+  description?: boolean
+  cast?: boolean | Prisma.Movie$castArgs<ExtArgs>
+  crew?: boolean | Prisma.Movie$crewArgs<ExtArgs>
+  genres?: boolean | Prisma.Movie$genresArgs<ExtArgs>
+  reviews?: boolean | Prisma.Movie$reviewsArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.Movie$usersWhoBookmarkedItArgs<ExtArgs>
+  usersWhoRatedIt?: boolean | Prisma.Movie$usersWhoRatedItArgs<ExtArgs>
+  upvoteMovieReviews?: boolean | Prisma.Movie$upvoteMovieReviewsArgs<ExtArgs>
+  downvoteMovieReviews?: boolean | Prisma.Movie$downvoteMovieReviewsArgs<ExtArgs>
+  listItems?: boolean | Prisma.Movie$listItemsArgs<ExtArgs>
+  listActivities?: boolean | Prisma.Movie$listActivitiesArgs<ExtArgs>
   _count?: boolean | Prisma.MovieCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["movie"]>
 
@@ -1789,10 +1789,10 @@ export type MovieSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   photoSrc?: boolean
   photoSrcProd?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
-  description?: boolean
   duration?: boolean
+  ratingImdb?: boolean
   dateAired?: boolean
+  description?: boolean
 }, ExtArgs["result"]["movie"]>
 
 export type MovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1801,10 +1801,10 @@ export type MovieSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   photoSrc?: boolean
   photoSrcProd?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
-  description?: boolean
   duration?: boolean
+  ratingImdb?: boolean
   dateAired?: boolean
+  description?: boolean
 }, ExtArgs["result"]["movie"]>
 
 export type MovieSelectScalar = {
@@ -1813,24 +1813,24 @@ export type MovieSelectScalar = {
   photoSrc?: boolean
   photoSrcProd?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
-  description?: boolean
   duration?: boolean
+  ratingImdb?: boolean
   dateAired?: boolean
+  description?: boolean
 }
 
-export type MovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "photoSrc" | "photoSrcProd" | "trailerSrc" | "ratingImdb" | "description" | "duration" | "dateAired", ExtArgs["result"]["movie"]>
+export type MovieOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "photoSrc" | "photoSrcProd" | "trailerSrc" | "duration" | "ratingImdb" | "dateAired" | "description", ExtArgs["result"]["movie"]>
 export type MovieInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  CastMovie?: boolean | Prisma.Movie$CastMovieArgs<ExtArgs>
-  CrewMovie?: boolean | Prisma.Movie$CrewMovieArgs<ExtArgs>
-  DownvoteMovieReview?: boolean | Prisma.Movie$DownvoteMovieReviewArgs<ExtArgs>
-  ListActivityMovie?: boolean | Prisma.Movie$ListActivityMovieArgs<ExtArgs>
-  ListMovie?: boolean | Prisma.Movie$ListMovieArgs<ExtArgs>
-  MovieGenre?: boolean | Prisma.Movie$MovieGenreArgs<ExtArgs>
-  MovieReview?: boolean | Prisma.Movie$MovieReviewArgs<ExtArgs>
-  UpvoteMovieReview?: boolean | Prisma.Movie$UpvoteMovieReviewArgs<ExtArgs>
-  UserMovieFavorite?: boolean | Prisma.Movie$UserMovieFavoriteArgs<ExtArgs>
-  UserMovieRating?: boolean | Prisma.Movie$UserMovieRatingArgs<ExtArgs>
+  cast?: boolean | Prisma.Movie$castArgs<ExtArgs>
+  crew?: boolean | Prisma.Movie$crewArgs<ExtArgs>
+  genres?: boolean | Prisma.Movie$genresArgs<ExtArgs>
+  reviews?: boolean | Prisma.Movie$reviewsArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.Movie$usersWhoBookmarkedItArgs<ExtArgs>
+  usersWhoRatedIt?: boolean | Prisma.Movie$usersWhoRatedItArgs<ExtArgs>
+  upvoteMovieReviews?: boolean | Prisma.Movie$upvoteMovieReviewsArgs<ExtArgs>
+  downvoteMovieReviews?: boolean | Prisma.Movie$downvoteMovieReviewsArgs<ExtArgs>
+  listItems?: boolean | Prisma.Movie$listItemsArgs<ExtArgs>
+  listActivities?: boolean | Prisma.Movie$listActivitiesArgs<ExtArgs>
   _count?: boolean | Prisma.MovieCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MovieIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1839,16 +1839,16 @@ export type MovieIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $MoviePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Movie"
   objects: {
-    CastMovie: Prisma.$CastMoviePayload<ExtArgs>[]
-    CrewMovie: Prisma.$CrewMoviePayload<ExtArgs>[]
-    DownvoteMovieReview: Prisma.$DownvoteMovieReviewPayload<ExtArgs>[]
-    ListActivityMovie: Prisma.$ListActivityMoviePayload<ExtArgs>[]
-    ListMovie: Prisma.$ListMoviePayload<ExtArgs>[]
-    MovieGenre: Prisma.$MovieGenrePayload<ExtArgs>[]
-    MovieReview: Prisma.$MovieReviewPayload<ExtArgs>[]
-    UpvoteMovieReview: Prisma.$UpvoteMovieReviewPayload<ExtArgs>[]
-    UserMovieFavorite: Prisma.$UserMovieFavoritePayload<ExtArgs>[]
-    UserMovieRating: Prisma.$UserMovieRatingPayload<ExtArgs>[]
+    cast: Prisma.$CastMoviePayload<ExtArgs>[]
+    crew: Prisma.$CrewMoviePayload<ExtArgs>[]
+    genres: Prisma.$MovieGenrePayload<ExtArgs>[]
+    reviews: Prisma.$MovieReviewPayload<ExtArgs>[]
+    usersWhoBookmarkedIt: Prisma.$UserMovieFavoritePayload<ExtArgs>[]
+    usersWhoRatedIt: Prisma.$UserMovieRatingPayload<ExtArgs>[]
+    upvoteMovieReviews: Prisma.$UpvoteMovieReviewPayload<ExtArgs>[]
+    downvoteMovieReviews: Prisma.$DownvoteMovieReviewPayload<ExtArgs>[]
+    listItems: Prisma.$ListMoviePayload<ExtArgs>[]
+    listActivities: Prisma.$ListActivityMoviePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1856,10 +1856,10 @@ export type $MoviePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     photoSrc: string
     photoSrcProd: string
     trailerSrc: string
-    ratingImdb: number
-    description: string
     duration: number
+    ratingImdb: number
     dateAired: Date | null
+    description: string
   }, ExtArgs["result"]["movie"]>
   composites: {}
 }
@@ -2254,16 +2254,16 @@ readonly fields: MovieFieldRefs;
  */
 export interface Prisma__MovieClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  CastMovie<T extends Prisma.Movie$CastMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$CastMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CastMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  CrewMovie<T extends Prisma.Movie$CrewMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$CrewMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrewMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  DownvoteMovieReview<T extends Prisma.Movie$DownvoteMovieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$DownvoteMovieReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ListActivityMovie<T extends Prisma.Movie$ListActivityMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$ListActivityMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ListMovie<T extends Prisma.Movie$ListMovieArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$ListMovieArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  MovieGenre<T extends Prisma.Movie$MovieGenreArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$MovieGenreArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovieGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  MovieReview<T extends Prisma.Movie$MovieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$MovieReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UpvoteMovieReview<T extends Prisma.Movie$UpvoteMovieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$UpvoteMovieReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserMovieFavorite<T extends Prisma.Movie$UserMovieFavoriteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$UserMovieFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMovieFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserMovieRating<T extends Prisma.Movie$UserMovieRatingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$UserMovieRatingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMovieRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cast<T extends Prisma.Movie$castArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$castArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CastMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  crew<T extends Prisma.Movie$crewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$crewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CrewMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  genres<T extends Prisma.Movie$genresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$genresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovieGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Movie$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usersWhoBookmarkedIt<T extends Prisma.Movie$usersWhoBookmarkedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$usersWhoBookmarkedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMovieFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usersWhoRatedIt<T extends Prisma.Movie$usersWhoRatedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$usersWhoRatedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMovieRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  upvoteMovieReviews<T extends Prisma.Movie$upvoteMovieReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$upvoteMovieReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  downvoteMovieReviews<T extends Prisma.Movie$downvoteMovieReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$downvoteMovieReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteMovieReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  listItems<T extends Prisma.Movie$listItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$listItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  listActivities<T extends Prisma.Movie$listActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Movie$listActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityMoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2298,10 +2298,10 @@ export interface MovieFieldRefs {
   readonly photoSrc: Prisma.FieldRef<"Movie", 'String'>
   readonly photoSrcProd: Prisma.FieldRef<"Movie", 'String'>
   readonly trailerSrc: Prisma.FieldRef<"Movie", 'String'>
-  readonly ratingImdb: Prisma.FieldRef<"Movie", 'Float'>
-  readonly description: Prisma.FieldRef<"Movie", 'String'>
   readonly duration: Prisma.FieldRef<"Movie", 'Int'>
+  readonly ratingImdb: Prisma.FieldRef<"Movie", 'Float'>
   readonly dateAired: Prisma.FieldRef<"Movie", 'DateTime'>
+  readonly description: Prisma.FieldRef<"Movie", 'String'>
 }
     
 
@@ -2690,9 +2690,9 @@ export type MovieDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Movie.CastMovie
+ * Movie.cast
  */
-export type Movie$CastMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Movie$castArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the CastMovie
    */
@@ -2714,9 +2714,9 @@ export type Movie$CastMovieArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Movie.CrewMovie
+ * Movie.crew
  */
-export type Movie$CrewMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Movie$crewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the CrewMovie
    */
@@ -2738,81 +2738,9 @@ export type Movie$CrewMovieArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Movie.DownvoteMovieReview
+ * Movie.genres
  */
-export type Movie$DownvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DownvoteMovieReview
-   */
-  select?: Prisma.DownvoteMovieReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DownvoteMovieReview
-   */
-  omit?: Prisma.DownvoteMovieReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DownvoteMovieReviewInclude<ExtArgs> | null
-  where?: Prisma.DownvoteMovieReviewWhereInput
-  orderBy?: Prisma.DownvoteMovieReviewOrderByWithRelationInput | Prisma.DownvoteMovieReviewOrderByWithRelationInput[]
-  cursor?: Prisma.DownvoteMovieReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DownvoteMovieReviewScalarFieldEnum | Prisma.DownvoteMovieReviewScalarFieldEnum[]
-}
-
-/**
- * Movie.ListActivityMovie
- */
-export type Movie$ListActivityMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivityMovie
-   */
-  select?: Prisma.ListActivityMovieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivityMovie
-   */
-  omit?: Prisma.ListActivityMovieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivityMovieInclude<ExtArgs> | null
-  where?: Prisma.ListActivityMovieWhereInput
-  orderBy?: Prisma.ListActivityMovieOrderByWithRelationInput | Prisma.ListActivityMovieOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivityMovieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivityMovieScalarFieldEnum | Prisma.ListActivityMovieScalarFieldEnum[]
-}
-
-/**
- * Movie.ListMovie
- */
-export type Movie$ListMovieArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListMovie
-   */
-  select?: Prisma.ListMovieSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListMovie
-   */
-  omit?: Prisma.ListMovieOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListMovieInclude<ExtArgs> | null
-  where?: Prisma.ListMovieWhereInput
-  orderBy?: Prisma.ListMovieOrderByWithRelationInput | Prisma.ListMovieOrderByWithRelationInput[]
-  cursor?: Prisma.ListMovieWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListMovieScalarFieldEnum | Prisma.ListMovieScalarFieldEnum[]
-}
-
-/**
- * Movie.MovieGenre
- */
-export type Movie$MovieGenreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Movie$genresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the MovieGenre
    */
@@ -2834,9 +2762,9 @@ export type Movie$MovieGenreArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Movie.MovieReview
+ * Movie.reviews
  */
-export type Movie$MovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Movie$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the MovieReview
    */
@@ -2858,33 +2786,9 @@ export type Movie$MovieReviewArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Movie.UpvoteMovieReview
+ * Movie.usersWhoBookmarkedIt
  */
-export type Movie$UpvoteMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UpvoteMovieReview
-   */
-  select?: Prisma.UpvoteMovieReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UpvoteMovieReview
-   */
-  omit?: Prisma.UpvoteMovieReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UpvoteMovieReviewInclude<ExtArgs> | null
-  where?: Prisma.UpvoteMovieReviewWhereInput
-  orderBy?: Prisma.UpvoteMovieReviewOrderByWithRelationInput | Prisma.UpvoteMovieReviewOrderByWithRelationInput[]
-  cursor?: Prisma.UpvoteMovieReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UpvoteMovieReviewScalarFieldEnum | Prisma.UpvoteMovieReviewScalarFieldEnum[]
-}
-
-/**
- * Movie.UserMovieFavorite
- */
-export type Movie$UserMovieFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Movie$usersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserMovieFavorite
    */
@@ -2906,9 +2810,9 @@ export type Movie$UserMovieFavoriteArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * Movie.UserMovieRating
+ * Movie.usersWhoRatedIt
  */
-export type Movie$UserMovieRatingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Movie$usersWhoRatedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserMovieRating
    */
@@ -2927,6 +2831,102 @@ export type Movie$UserMovieRatingArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.UserMovieRatingScalarFieldEnum | Prisma.UserMovieRatingScalarFieldEnum[]
+}
+
+/**
+ * Movie.upvoteMovieReviews
+ */
+export type Movie$upvoteMovieReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UpvoteMovieReview
+   */
+  select?: Prisma.UpvoteMovieReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UpvoteMovieReview
+   */
+  omit?: Prisma.UpvoteMovieReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UpvoteMovieReviewInclude<ExtArgs> | null
+  where?: Prisma.UpvoteMovieReviewWhereInput
+  orderBy?: Prisma.UpvoteMovieReviewOrderByWithRelationInput | Prisma.UpvoteMovieReviewOrderByWithRelationInput[]
+  cursor?: Prisma.UpvoteMovieReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UpvoteMovieReviewScalarFieldEnum | Prisma.UpvoteMovieReviewScalarFieldEnum[]
+}
+
+/**
+ * Movie.downvoteMovieReviews
+ */
+export type Movie$downvoteMovieReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DownvoteMovieReview
+   */
+  select?: Prisma.DownvoteMovieReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DownvoteMovieReview
+   */
+  omit?: Prisma.DownvoteMovieReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DownvoteMovieReviewInclude<ExtArgs> | null
+  where?: Prisma.DownvoteMovieReviewWhereInput
+  orderBy?: Prisma.DownvoteMovieReviewOrderByWithRelationInput | Prisma.DownvoteMovieReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DownvoteMovieReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DownvoteMovieReviewScalarFieldEnum | Prisma.DownvoteMovieReviewScalarFieldEnum[]
+}
+
+/**
+ * Movie.listItems
+ */
+export type Movie$listItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListMovie
+   */
+  select?: Prisma.ListMovieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListMovie
+   */
+  omit?: Prisma.ListMovieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListMovieInclude<ExtArgs> | null
+  where?: Prisma.ListMovieWhereInput
+  orderBy?: Prisma.ListMovieOrderByWithRelationInput | Prisma.ListMovieOrderByWithRelationInput[]
+  cursor?: Prisma.ListMovieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListMovieScalarFieldEnum | Prisma.ListMovieScalarFieldEnum[]
+}
+
+/**
+ * Movie.listActivities
+ */
+export type Movie$listActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ListActivityMovie
+   */
+  select?: Prisma.ListActivityMovieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ListActivityMovie
+   */
+  omit?: Prisma.ListActivityMovieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ListActivityMovieInclude<ExtArgs> | null
+  where?: Prisma.ListActivityMovieWhereInput
+  orderBy?: Prisma.ListActivityMovieOrderByWithRelationInput | Prisma.ListActivityMovieOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivityMovieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ListActivityMovieScalarFieldEnum | Prisma.ListActivityMovieScalarFieldEnum[]
 }
 
 /**

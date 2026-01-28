@@ -192,17 +192,17 @@ export type GenreWhereInput = {
   NOT?: Prisma.GenreWhereInput | Prisma.GenreWhereInput[]
   id?: Prisma.IntFilter<"Genre"> | number
   name?: Prisma.StringFilter<"Genre"> | string
-  MovieGenre?: Prisma.MovieGenreListRelationFilter
-  SerieGenre?: Prisma.SerieGenreListRelationFilter
-  UserGenreFavorite?: Prisma.UserGenreFavoriteListRelationFilter
+  movies?: Prisma.MovieGenreListRelationFilter
+  series?: Prisma.SerieGenreListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteListRelationFilter
 }
 
 export type GenreOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  MovieGenre?: Prisma.MovieGenreOrderByRelationAggregateInput
-  SerieGenre?: Prisma.SerieGenreOrderByRelationAggregateInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteOrderByRelationAggregateInput
+  movies?: Prisma.MovieGenreOrderByRelationAggregateInput
+  series?: Prisma.SerieGenreOrderByRelationAggregateInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteOrderByRelationAggregateInput
   _relevance?: Prisma.GenreOrderByRelevanceInput
 }
 
@@ -212,9 +212,9 @@ export type GenreWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.GenreWhereInput[]
   NOT?: Prisma.GenreWhereInput | Prisma.GenreWhereInput[]
   name?: Prisma.StringFilter<"Genre"> | string
-  MovieGenre?: Prisma.MovieGenreListRelationFilter
-  SerieGenre?: Prisma.SerieGenreListRelationFilter
-  UserGenreFavorite?: Prisma.UserGenreFavoriteListRelationFilter
+  movies?: Prisma.MovieGenreListRelationFilter
+  series?: Prisma.SerieGenreListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteListRelationFilter
 }, "id">
 
 export type GenreOrderByWithAggregationInput = {
@@ -237,32 +237,32 @@ export type GenreScalarWhereWithAggregatesInput = {
 
 export type GenreCreateInput = {
   name: string
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutGenreInput
-  SerieGenre?: Prisma.SerieGenreCreateNestedManyWithoutGenreInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteCreateNestedManyWithoutGenreInput
+  movies?: Prisma.MovieGenreCreateNestedManyWithoutGenreInput
+  series?: Prisma.SerieGenreCreateNestedManyWithoutGenreInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteCreateNestedManyWithoutGenreInput
 }
 
 export type GenreUncheckedCreateInput = {
   id?: number
   name: string
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutGenreInput
-  SerieGenre?: Prisma.SerieGenreUncheckedCreateNestedManyWithoutGenreInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUncheckedCreateNestedManyWithoutGenreInput
+  movies?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutGenreInput
+  series?: Prisma.SerieGenreUncheckedCreateNestedManyWithoutGenreInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUncheckedCreateNestedManyWithoutGenreInput
 }
 
 export type GenreUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutGenreNestedInput
-  SerieGenre?: Prisma.SerieGenreUpdateManyWithoutGenreNestedInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUpdateManyWithoutGenreNestedInput
+  movies?: Prisma.MovieGenreUpdateManyWithoutGenreNestedInput
+  series?: Prisma.SerieGenreUpdateManyWithoutGenreNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUpdateManyWithoutGenreNestedInput
 }
 
 export type GenreUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutGenreNestedInput
-  SerieGenre?: Prisma.SerieGenreUncheckedUpdateManyWithoutGenreNestedInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUncheckedUpdateManyWithoutGenreNestedInput
+  movies?: Prisma.MovieGenreUncheckedUpdateManyWithoutGenreNestedInput
+  series?: Prisma.SerieGenreUncheckedUpdateManyWithoutGenreNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUncheckedUpdateManyWithoutGenreNestedInput
 }
 
 export type GenreCreateManyInput = {
@@ -313,172 +313,172 @@ export type GenreScalarRelationFilter = {
   isNot?: Prisma.GenreWhereInput
 }
 
-export type GenreCreateNestedOneWithoutMovieGenreInput = {
-  create?: Prisma.XOR<Prisma.GenreCreateWithoutMovieGenreInput, Prisma.GenreUncheckedCreateWithoutMovieGenreInput>
-  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutMovieGenreInput
+export type GenreCreateNestedOneWithoutMoviesInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutMoviesInput, Prisma.GenreUncheckedCreateWithoutMoviesInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutMoviesInput
   connect?: Prisma.GenreWhereUniqueInput
 }
 
-export type GenreUpdateOneRequiredWithoutMovieGenreNestedInput = {
-  create?: Prisma.XOR<Prisma.GenreCreateWithoutMovieGenreInput, Prisma.GenreUncheckedCreateWithoutMovieGenreInput>
-  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutMovieGenreInput
-  upsert?: Prisma.GenreUpsertWithoutMovieGenreInput
+export type GenreUpdateOneRequiredWithoutMoviesNestedInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutMoviesInput, Prisma.GenreUncheckedCreateWithoutMoviesInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutMoviesInput
+  upsert?: Prisma.GenreUpsertWithoutMoviesInput
   connect?: Prisma.GenreWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutMovieGenreInput, Prisma.GenreUpdateWithoutMovieGenreInput>, Prisma.GenreUncheckedUpdateWithoutMovieGenreInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutMoviesInput, Prisma.GenreUpdateWithoutMoviesInput>, Prisma.GenreUncheckedUpdateWithoutMoviesInput>
 }
 
-export type GenreCreateNestedOneWithoutSerieGenreInput = {
-  create?: Prisma.XOR<Prisma.GenreCreateWithoutSerieGenreInput, Prisma.GenreUncheckedCreateWithoutSerieGenreInput>
-  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutSerieGenreInput
-  connect?: Prisma.GenreWhereUniqueInput
-}
-
-export type GenreUpdateOneRequiredWithoutSerieGenreNestedInput = {
-  create?: Prisma.XOR<Prisma.GenreCreateWithoutSerieGenreInput, Prisma.GenreUncheckedCreateWithoutSerieGenreInput>
-  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutSerieGenreInput
-  upsert?: Prisma.GenreUpsertWithoutSerieGenreInput
-  connect?: Prisma.GenreWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutSerieGenreInput, Prisma.GenreUpdateWithoutSerieGenreInput>, Prisma.GenreUncheckedUpdateWithoutSerieGenreInput>
-}
-
-export type GenreCreateNestedOneWithoutUserGenreFavoriteInput = {
-  create?: Prisma.XOR<Prisma.GenreCreateWithoutUserGenreFavoriteInput, Prisma.GenreUncheckedCreateWithoutUserGenreFavoriteInput>
-  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutUserGenreFavoriteInput
+export type GenreCreateNestedOneWithoutSeriesInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutSeriesInput, Prisma.GenreUncheckedCreateWithoutSeriesInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutSeriesInput
   connect?: Prisma.GenreWhereUniqueInput
 }
 
-export type GenreUpdateOneRequiredWithoutUserGenreFavoriteNestedInput = {
-  create?: Prisma.XOR<Prisma.GenreCreateWithoutUserGenreFavoriteInput, Prisma.GenreUncheckedCreateWithoutUserGenreFavoriteInput>
-  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutUserGenreFavoriteInput
-  upsert?: Prisma.GenreUpsertWithoutUserGenreFavoriteInput
+export type GenreUpdateOneRequiredWithoutSeriesNestedInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutSeriesInput, Prisma.GenreUncheckedCreateWithoutSeriesInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutSeriesInput
+  upsert?: Prisma.GenreUpsertWithoutSeriesInput
   connect?: Prisma.GenreWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutUserGenreFavoriteInput, Prisma.GenreUpdateWithoutUserGenreFavoriteInput>, Prisma.GenreUncheckedUpdateWithoutUserGenreFavoriteInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutSeriesInput, Prisma.GenreUpdateWithoutSeriesInput>, Prisma.GenreUncheckedUpdateWithoutSeriesInput>
 }
 
-export type GenreCreateWithoutMovieGenreInput = {
+export type GenreCreateNestedOneWithoutUsersWhoBookmarkedItInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutUsersWhoBookmarkedItInput, Prisma.GenreUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  connect?: Prisma.GenreWhereUniqueInput
+}
+
+export type GenreUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput = {
+  create?: Prisma.XOR<Prisma.GenreCreateWithoutUsersWhoBookmarkedItInput, Prisma.GenreUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.GenreCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  upsert?: Prisma.GenreUpsertWithoutUsersWhoBookmarkedItInput
+  connect?: Prisma.GenreWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GenreUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput, Prisma.GenreUpdateWithoutUsersWhoBookmarkedItInput>, Prisma.GenreUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+}
+
+export type GenreCreateWithoutMoviesInput = {
   name: string
-  SerieGenre?: Prisma.SerieGenreCreateNestedManyWithoutGenreInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteCreateNestedManyWithoutGenreInput
+  series?: Prisma.SerieGenreCreateNestedManyWithoutGenreInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteCreateNestedManyWithoutGenreInput
 }
 
-export type GenreUncheckedCreateWithoutMovieGenreInput = {
+export type GenreUncheckedCreateWithoutMoviesInput = {
   id?: number
   name: string
-  SerieGenre?: Prisma.SerieGenreUncheckedCreateNestedManyWithoutGenreInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUncheckedCreateNestedManyWithoutGenreInput
+  series?: Prisma.SerieGenreUncheckedCreateNestedManyWithoutGenreInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUncheckedCreateNestedManyWithoutGenreInput
 }
 
-export type GenreCreateOrConnectWithoutMovieGenreInput = {
+export type GenreCreateOrConnectWithoutMoviesInput = {
   where: Prisma.GenreWhereUniqueInput
-  create: Prisma.XOR<Prisma.GenreCreateWithoutMovieGenreInput, Prisma.GenreUncheckedCreateWithoutMovieGenreInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutMoviesInput, Prisma.GenreUncheckedCreateWithoutMoviesInput>
 }
 
-export type GenreUpsertWithoutMovieGenreInput = {
-  update: Prisma.XOR<Prisma.GenreUpdateWithoutMovieGenreInput, Prisma.GenreUncheckedUpdateWithoutMovieGenreInput>
-  create: Prisma.XOR<Prisma.GenreCreateWithoutMovieGenreInput, Prisma.GenreUncheckedCreateWithoutMovieGenreInput>
+export type GenreUpsertWithoutMoviesInput = {
+  update: Prisma.XOR<Prisma.GenreUpdateWithoutMoviesInput, Prisma.GenreUncheckedUpdateWithoutMoviesInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutMoviesInput, Prisma.GenreUncheckedCreateWithoutMoviesInput>
   where?: Prisma.GenreWhereInput
 }
 
-export type GenreUpdateToOneWithWhereWithoutMovieGenreInput = {
+export type GenreUpdateToOneWithWhereWithoutMoviesInput = {
   where?: Prisma.GenreWhereInput
-  data: Prisma.XOR<Prisma.GenreUpdateWithoutMovieGenreInput, Prisma.GenreUncheckedUpdateWithoutMovieGenreInput>
+  data: Prisma.XOR<Prisma.GenreUpdateWithoutMoviesInput, Prisma.GenreUncheckedUpdateWithoutMoviesInput>
 }
 
-export type GenreUpdateWithoutMovieGenreInput = {
+export type GenreUpdateWithoutMoviesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  SerieGenre?: Prisma.SerieGenreUpdateManyWithoutGenreNestedInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUpdateManyWithoutGenreNestedInput
+  series?: Prisma.SerieGenreUpdateManyWithoutGenreNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUpdateManyWithoutGenreNestedInput
 }
 
-export type GenreUncheckedUpdateWithoutMovieGenreInput = {
+export type GenreUncheckedUpdateWithoutMoviesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  SerieGenre?: Prisma.SerieGenreUncheckedUpdateManyWithoutGenreNestedInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUncheckedUpdateManyWithoutGenreNestedInput
+  series?: Prisma.SerieGenreUncheckedUpdateManyWithoutGenreNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUncheckedUpdateManyWithoutGenreNestedInput
 }
 
-export type GenreCreateWithoutSerieGenreInput = {
+export type GenreCreateWithoutSeriesInput = {
   name: string
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutGenreInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteCreateNestedManyWithoutGenreInput
+  movies?: Prisma.MovieGenreCreateNestedManyWithoutGenreInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteCreateNestedManyWithoutGenreInput
 }
 
-export type GenreUncheckedCreateWithoutSerieGenreInput = {
+export type GenreUncheckedCreateWithoutSeriesInput = {
   id?: number
   name: string
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutGenreInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUncheckedCreateNestedManyWithoutGenreInput
+  movies?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutGenreInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUncheckedCreateNestedManyWithoutGenreInput
 }
 
-export type GenreCreateOrConnectWithoutSerieGenreInput = {
+export type GenreCreateOrConnectWithoutSeriesInput = {
   where: Prisma.GenreWhereUniqueInput
-  create: Prisma.XOR<Prisma.GenreCreateWithoutSerieGenreInput, Prisma.GenreUncheckedCreateWithoutSerieGenreInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutSeriesInput, Prisma.GenreUncheckedCreateWithoutSeriesInput>
 }
 
-export type GenreUpsertWithoutSerieGenreInput = {
-  update: Prisma.XOR<Prisma.GenreUpdateWithoutSerieGenreInput, Prisma.GenreUncheckedUpdateWithoutSerieGenreInput>
-  create: Prisma.XOR<Prisma.GenreCreateWithoutSerieGenreInput, Prisma.GenreUncheckedCreateWithoutSerieGenreInput>
+export type GenreUpsertWithoutSeriesInput = {
+  update: Prisma.XOR<Prisma.GenreUpdateWithoutSeriesInput, Prisma.GenreUncheckedUpdateWithoutSeriesInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutSeriesInput, Prisma.GenreUncheckedCreateWithoutSeriesInput>
   where?: Prisma.GenreWhereInput
 }
 
-export type GenreUpdateToOneWithWhereWithoutSerieGenreInput = {
+export type GenreUpdateToOneWithWhereWithoutSeriesInput = {
   where?: Prisma.GenreWhereInput
-  data: Prisma.XOR<Prisma.GenreUpdateWithoutSerieGenreInput, Prisma.GenreUncheckedUpdateWithoutSerieGenreInput>
+  data: Prisma.XOR<Prisma.GenreUpdateWithoutSeriesInput, Prisma.GenreUncheckedUpdateWithoutSeriesInput>
 }
 
-export type GenreUpdateWithoutSerieGenreInput = {
+export type GenreUpdateWithoutSeriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutGenreNestedInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUpdateManyWithoutGenreNestedInput
+  movies?: Prisma.MovieGenreUpdateManyWithoutGenreNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUpdateManyWithoutGenreNestedInput
 }
 
-export type GenreUncheckedUpdateWithoutSerieGenreInput = {
+export type GenreUncheckedUpdateWithoutSeriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutGenreNestedInput
-  UserGenreFavorite?: Prisma.UserGenreFavoriteUncheckedUpdateManyWithoutGenreNestedInput
+  movies?: Prisma.MovieGenreUncheckedUpdateManyWithoutGenreNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserGenreFavoriteUncheckedUpdateManyWithoutGenreNestedInput
 }
 
-export type GenreCreateWithoutUserGenreFavoriteInput = {
+export type GenreCreateWithoutUsersWhoBookmarkedItInput = {
   name: string
-  MovieGenre?: Prisma.MovieGenreCreateNestedManyWithoutGenreInput
-  SerieGenre?: Prisma.SerieGenreCreateNestedManyWithoutGenreInput
+  movies?: Prisma.MovieGenreCreateNestedManyWithoutGenreInput
+  series?: Prisma.SerieGenreCreateNestedManyWithoutGenreInput
 }
 
-export type GenreUncheckedCreateWithoutUserGenreFavoriteInput = {
+export type GenreUncheckedCreateWithoutUsersWhoBookmarkedItInput = {
   id?: number
   name: string
-  MovieGenre?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutGenreInput
-  SerieGenre?: Prisma.SerieGenreUncheckedCreateNestedManyWithoutGenreInput
+  movies?: Prisma.MovieGenreUncheckedCreateNestedManyWithoutGenreInput
+  series?: Prisma.SerieGenreUncheckedCreateNestedManyWithoutGenreInput
 }
 
-export type GenreCreateOrConnectWithoutUserGenreFavoriteInput = {
+export type GenreCreateOrConnectWithoutUsersWhoBookmarkedItInput = {
   where: Prisma.GenreWhereUniqueInput
-  create: Prisma.XOR<Prisma.GenreCreateWithoutUserGenreFavoriteInput, Prisma.GenreUncheckedCreateWithoutUserGenreFavoriteInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutUsersWhoBookmarkedItInput, Prisma.GenreUncheckedCreateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type GenreUpsertWithoutUserGenreFavoriteInput = {
-  update: Prisma.XOR<Prisma.GenreUpdateWithoutUserGenreFavoriteInput, Prisma.GenreUncheckedUpdateWithoutUserGenreFavoriteInput>
-  create: Prisma.XOR<Prisma.GenreCreateWithoutUserGenreFavoriteInput, Prisma.GenreUncheckedCreateWithoutUserGenreFavoriteInput>
+export type GenreUpsertWithoutUsersWhoBookmarkedItInput = {
+  update: Prisma.XOR<Prisma.GenreUpdateWithoutUsersWhoBookmarkedItInput, Prisma.GenreUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+  create: Prisma.XOR<Prisma.GenreCreateWithoutUsersWhoBookmarkedItInput, Prisma.GenreUncheckedCreateWithoutUsersWhoBookmarkedItInput>
   where?: Prisma.GenreWhereInput
 }
 
-export type GenreUpdateToOneWithWhereWithoutUserGenreFavoriteInput = {
+export type GenreUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput = {
   where?: Prisma.GenreWhereInput
-  data: Prisma.XOR<Prisma.GenreUpdateWithoutUserGenreFavoriteInput, Prisma.GenreUncheckedUpdateWithoutUserGenreFavoriteInput>
+  data: Prisma.XOR<Prisma.GenreUpdateWithoutUsersWhoBookmarkedItInput, Prisma.GenreUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type GenreUpdateWithoutUserGenreFavoriteInput = {
+export type GenreUpdateWithoutUsersWhoBookmarkedItInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  MovieGenre?: Prisma.MovieGenreUpdateManyWithoutGenreNestedInput
-  SerieGenre?: Prisma.SerieGenreUpdateManyWithoutGenreNestedInput
+  movies?: Prisma.MovieGenreUpdateManyWithoutGenreNestedInput
+  series?: Prisma.SerieGenreUpdateManyWithoutGenreNestedInput
 }
 
-export type GenreUncheckedUpdateWithoutUserGenreFavoriteInput = {
+export type GenreUncheckedUpdateWithoutUsersWhoBookmarkedItInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  MovieGenre?: Prisma.MovieGenreUncheckedUpdateManyWithoutGenreNestedInput
-  SerieGenre?: Prisma.SerieGenreUncheckedUpdateManyWithoutGenreNestedInput
+  movies?: Prisma.MovieGenreUncheckedUpdateManyWithoutGenreNestedInput
+  series?: Prisma.SerieGenreUncheckedUpdateManyWithoutGenreNestedInput
 }
 
 
@@ -487,15 +487,15 @@ export type GenreUncheckedUpdateWithoutUserGenreFavoriteInput = {
  */
 
 export type GenreCountOutputType = {
-  MovieGenre: number
-  SerieGenre: number
-  UserGenreFavorite: number
+  movies: number
+  series: number
+  usersWhoBookmarkedIt: number
 }
 
 export type GenreCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  MovieGenre?: boolean | GenreCountOutputTypeCountMovieGenreArgs
-  SerieGenre?: boolean | GenreCountOutputTypeCountSerieGenreArgs
-  UserGenreFavorite?: boolean | GenreCountOutputTypeCountUserGenreFavoriteArgs
+  movies?: boolean | GenreCountOutputTypeCountMoviesArgs
+  series?: boolean | GenreCountOutputTypeCountSeriesArgs
+  usersWhoBookmarkedIt?: boolean | GenreCountOutputTypeCountUsersWhoBookmarkedItArgs
 }
 
 /**
@@ -511,21 +511,21 @@ export type GenreCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * GenreCountOutputType without action
  */
-export type GenreCountOutputTypeCountMovieGenreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GenreCountOutputTypeCountMoviesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.MovieGenreWhereInput
 }
 
 /**
  * GenreCountOutputType without action
  */
-export type GenreCountOutputTypeCountSerieGenreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GenreCountOutputTypeCountSeriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SerieGenreWhereInput
 }
 
 /**
  * GenreCountOutputType without action
  */
-export type GenreCountOutputTypeCountUserGenreFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GenreCountOutputTypeCountUsersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserGenreFavoriteWhereInput
 }
 
@@ -533,9 +533,9 @@ export type GenreCountOutputTypeCountUserGenreFavoriteArgs<ExtArgs extends runti
 export type GenreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  MovieGenre?: boolean | Prisma.Genre$MovieGenreArgs<ExtArgs>
-  SerieGenre?: boolean | Prisma.Genre$SerieGenreArgs<ExtArgs>
-  UserGenreFavorite?: boolean | Prisma.Genre$UserGenreFavoriteArgs<ExtArgs>
+  movies?: boolean | Prisma.Genre$moviesArgs<ExtArgs>
+  series?: boolean | Prisma.Genre$seriesArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.Genre$usersWhoBookmarkedItArgs<ExtArgs>
   _count?: boolean | Prisma.GenreCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["genre"]>
 
@@ -556,9 +556,9 @@ export type GenreSelectScalar = {
 
 export type GenreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["genre"]>
 export type GenreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  MovieGenre?: boolean | Prisma.Genre$MovieGenreArgs<ExtArgs>
-  SerieGenre?: boolean | Prisma.Genre$SerieGenreArgs<ExtArgs>
-  UserGenreFavorite?: boolean | Prisma.Genre$UserGenreFavoriteArgs<ExtArgs>
+  movies?: boolean | Prisma.Genre$moviesArgs<ExtArgs>
+  series?: boolean | Prisma.Genre$seriesArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.Genre$usersWhoBookmarkedItArgs<ExtArgs>
   _count?: boolean | Prisma.GenreCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GenreIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -567,9 +567,9 @@ export type GenreIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $GenrePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Genre"
   objects: {
-    MovieGenre: Prisma.$MovieGenrePayload<ExtArgs>[]
-    SerieGenre: Prisma.$SerieGenrePayload<ExtArgs>[]
-    UserGenreFavorite: Prisma.$UserGenreFavoritePayload<ExtArgs>[]
+    movies: Prisma.$MovieGenrePayload<ExtArgs>[]
+    series: Prisma.$SerieGenrePayload<ExtArgs>[]
+    usersWhoBookmarkedIt: Prisma.$UserGenreFavoritePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -968,9 +968,9 @@ readonly fields: GenreFieldRefs;
  */
 export interface Prisma__GenreClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  MovieGenre<T extends Prisma.Genre$MovieGenreArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$MovieGenreArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovieGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  SerieGenre<T extends Prisma.Genre$SerieGenreArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$SerieGenreArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SerieGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserGenreFavorite<T extends Prisma.Genre$UserGenreFavoriteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$UserGenreFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserGenreFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  movies<T extends Prisma.Genre$moviesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$moviesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MovieGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  series<T extends Prisma.Genre$seriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$seriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SerieGenrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usersWhoBookmarkedIt<T extends Prisma.Genre$usersWhoBookmarkedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Genre$usersWhoBookmarkedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserGenreFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1390,9 +1390,9 @@ export type GenreDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Genre.MovieGenre
+ * Genre.movies
  */
-export type Genre$MovieGenreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Genre$moviesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the MovieGenre
    */
@@ -1414,9 +1414,9 @@ export type Genre$MovieGenreArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Genre.SerieGenre
+ * Genre.series
  */
-export type Genre$SerieGenreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Genre$seriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the SerieGenre
    */
@@ -1438,9 +1438,9 @@ export type Genre$SerieGenreArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Genre.UserGenreFavorite
+ * Genre.usersWhoBookmarkedIt
  */
-export type Genre$UserGenreFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Genre$usersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserGenreFavorite
    */

@@ -29,17 +29,17 @@ export type AggregateListEpisode = {
 export type ListEpisodeAvgAggregateOutputType = {
   id: number | null
   orderIndex: number | null
+  listId: number | null
   episodeId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListEpisodeSumAggregateOutputType = {
   id: number | null
   orderIndex: number | null
+  listId: number | null
   episodeId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListEpisodeMinAggregateOutputType = {
@@ -47,9 +47,9 @@ export type ListEpisodeMinAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
+  listId: number | null
   episodeId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListEpisodeMaxAggregateOutputType = {
@@ -57,9 +57,9 @@ export type ListEpisodeMaxAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
+  listId: number | null
   episodeId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListEpisodeCountAggregateOutputType = {
@@ -67,9 +67,9 @@ export type ListEpisodeCountAggregateOutputType = {
   addedAt: number
   note: number
   orderIndex: number
+  listId: number
   episodeId: number
   userId: number
-  listId: number
   _all: number
 }
 
@@ -77,17 +77,17 @@ export type ListEpisodeCountAggregateOutputType = {
 export type ListEpisodeAvgAggregateInputType = {
   id?: true
   orderIndex?: true
+  listId?: true
   episodeId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListEpisodeSumAggregateInputType = {
   id?: true
   orderIndex?: true
+  listId?: true
   episodeId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListEpisodeMinAggregateInputType = {
@@ -95,9 +95,9 @@ export type ListEpisodeMinAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   episodeId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListEpisodeMaxAggregateInputType = {
@@ -105,9 +105,9 @@ export type ListEpisodeMaxAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   episodeId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListEpisodeCountAggregateInputType = {
@@ -115,9 +115,9 @@ export type ListEpisodeCountAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   episodeId?: true
   userId?: true
-  listId?: true
   _all?: true
 }
 
@@ -212,9 +212,9 @@ export type ListEpisodeGroupByOutputType = {
   addedAt: Date
   note: string | null
   orderIndex: number
+  listId: number
   episodeId: number
   userId: number
-  listId: number
   _count: ListEpisodeCountAggregateOutputType | null
   _avg: ListEpisodeAvgAggregateOutputType | null
   _sum: ListEpisodeSumAggregateOutputType | null
@@ -245,12 +245,12 @@ export type ListEpisodeWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListEpisode"> | Date | string
   note?: Prisma.StringNullableFilter<"ListEpisode"> | string | null
   orderIndex?: Prisma.IntFilter<"ListEpisode"> | number
+  listId?: Prisma.IntFilter<"ListEpisode"> | number
   episodeId?: Prisma.IntFilter<"ListEpisode"> | number
   userId?: Prisma.IntFilter<"ListEpisode"> | number
-  listId?: Prisma.IntFilter<"ListEpisode"> | number
-  Episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListEpisodeOrderByWithRelationInput = {
@@ -258,12 +258,12 @@ export type ListEpisodeOrderByWithRelationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
-  Episode?: Prisma.EpisodeOrderByWithRelationInput
-  List?: Prisma.ListOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  list?: Prisma.ListOrderByWithRelationInput
+  episode?: Prisma.EpisodeOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ListEpisodeOrderByRelevanceInput
 }
 
@@ -276,12 +276,12 @@ export type ListEpisodeWhereUniqueInput = Prisma.AtLeast<{
   addedAt?: Prisma.DateTimeFilter<"ListEpisode"> | Date | string
   note?: Prisma.StringNullableFilter<"ListEpisode"> | string | null
   orderIndex?: Prisma.IntFilter<"ListEpisode"> | number
+  listId?: Prisma.IntFilter<"ListEpisode"> | number
   episodeId?: Prisma.IntFilter<"ListEpisode"> | number
   userId?: Prisma.IntFilter<"ListEpisode"> | number
-  listId?: Prisma.IntFilter<"ListEpisode"> | number
-  Episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  episode?: Prisma.XOR<Prisma.EpisodeScalarRelationFilter, Prisma.EpisodeWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "listId_episodeId">
 
 export type ListEpisodeOrderByWithAggregationInput = {
@@ -289,9 +289,9 @@ export type ListEpisodeOrderByWithAggregationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   _count?: Prisma.ListEpisodeCountOrderByAggregateInput
   _avg?: Prisma.ListEpisodeAvgOrderByAggregateInput
   _max?: Prisma.ListEpisodeMaxOrderByAggregateInput
@@ -307,18 +307,18 @@ export type ListEpisodeScalarWhereWithAggregatesInput = {
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"ListEpisode"> | Date | string
   note?: Prisma.StringNullableWithAggregatesFilter<"ListEpisode"> | string | null
   orderIndex?: Prisma.IntWithAggregatesFilter<"ListEpisode"> | number
+  listId?: Prisma.IntWithAggregatesFilter<"ListEpisode"> | number
   episodeId?: Prisma.IntWithAggregatesFilter<"ListEpisode"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListEpisode"> | number
-  listId?: Prisma.IntWithAggregatesFilter<"ListEpisode"> | number
 }
 
 export type ListEpisodeCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Episode: Prisma.EpisodeCreateNestedOneWithoutListEpisodeInput
-  List: Prisma.ListCreateNestedOneWithoutListEpisodeInput
-  User: Prisma.UserCreateNestedOneWithoutListEpisodeInput
+  list: Prisma.ListCreateNestedOneWithoutEpisodeItemsInput
+  episode: Prisma.EpisodeCreateNestedOneWithoutListItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedEpisodeItemsInput
 }
 
 export type ListEpisodeUncheckedCreateInput = {
@@ -326,18 +326,18 @@ export type ListEpisodeUncheckedCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
+  listId: number
   episodeId: number
   userId: number
-  listId: number
 }
 
 export type ListEpisodeUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Episode?: Prisma.EpisodeUpdateOneRequiredWithoutListEpisodeNestedInput
-  List?: Prisma.ListUpdateOneRequiredWithoutListEpisodeNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListEpisodeNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutEpisodeItemsNestedInput
+  episode?: Prisma.EpisodeUpdateOneRequiredWithoutListItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedEpisodeItemsNestedInput
 }
 
 export type ListEpisodeUncheckedUpdateInput = {
@@ -345,9 +345,9 @@ export type ListEpisodeUncheckedUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   episodeId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListEpisodeCreateManyInput = {
@@ -355,9 +355,9 @@ export type ListEpisodeCreateManyInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
+  listId: number
   episodeId: number
   userId: number
-  listId: number
 }
 
 export type ListEpisodeUpdateManyMutationInput = {
@@ -371,9 +371,9 @@ export type ListEpisodeUncheckedUpdateManyInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   episodeId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListEpisodeListRelationFilter = {
@@ -402,17 +402,17 @@ export type ListEpisodeCountOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListEpisodeAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListEpisodeMaxOrderByAggregateInput = {
@@ -420,9 +420,9 @@ export type ListEpisodeMaxOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListEpisodeMinOrderByAggregateInput = {
@@ -430,17 +430,17 @@ export type ListEpisodeMinOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListEpisodeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   episodeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListEpisodeCreateNestedManyWithoutEpisodeInput = {
@@ -573,8 +573,8 @@ export type ListEpisodeCreateWithoutEpisodeInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  List: Prisma.ListCreateNestedOneWithoutListEpisodeInput
-  User: Prisma.UserCreateNestedOneWithoutListEpisodeInput
+  list: Prisma.ListCreateNestedOneWithoutEpisodeItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedEpisodeItemsInput
 }
 
 export type ListEpisodeUncheckedCreateWithoutEpisodeInput = {
@@ -582,8 +582,8 @@ export type ListEpisodeUncheckedCreateWithoutEpisodeInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListEpisodeCreateOrConnectWithoutEpisodeInput = {
@@ -620,17 +620,17 @@ export type ListEpisodeScalarWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListEpisode"> | Date | string
   note?: Prisma.StringNullableFilter<"ListEpisode"> | string | null
   orderIndex?: Prisma.IntFilter<"ListEpisode"> | number
+  listId?: Prisma.IntFilter<"ListEpisode"> | number
   episodeId?: Prisma.IntFilter<"ListEpisode"> | number
   userId?: Prisma.IntFilter<"ListEpisode"> | number
-  listId?: Prisma.IntFilter<"ListEpisode"> | number
 }
 
 export type ListEpisodeCreateWithoutListInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Episode: Prisma.EpisodeCreateNestedOneWithoutListEpisodeInput
-  User: Prisma.UserCreateNestedOneWithoutListEpisodeInput
+  episode: Prisma.EpisodeCreateNestedOneWithoutListItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedEpisodeItemsInput
 }
 
 export type ListEpisodeUncheckedCreateWithoutListInput = {
@@ -672,8 +672,8 @@ export type ListEpisodeCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Episode: Prisma.EpisodeCreateNestedOneWithoutListEpisodeInput
-  List: Prisma.ListCreateNestedOneWithoutListEpisodeInput
+  list: Prisma.ListCreateNestedOneWithoutEpisodeItemsInput
+  episode: Prisma.EpisodeCreateNestedOneWithoutListItemsInput
 }
 
 export type ListEpisodeUncheckedCreateWithoutUserInput = {
@@ -681,8 +681,8 @@ export type ListEpisodeUncheckedCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  episodeId: number
   listId: number
+  episodeId: number
 }
 
 export type ListEpisodeCreateOrConnectWithoutUserInput = {
@@ -716,16 +716,16 @@ export type ListEpisodeCreateManyEpisodeInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListEpisodeUpdateWithoutEpisodeInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  List?: Prisma.ListUpdateOneRequiredWithoutListEpisodeNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListEpisodeNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutEpisodeItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedEpisodeItemsNestedInput
 }
 
 export type ListEpisodeUncheckedUpdateWithoutEpisodeInput = {
@@ -733,8 +733,8 @@ export type ListEpisodeUncheckedUpdateWithoutEpisodeInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListEpisodeUncheckedUpdateManyWithoutEpisodeInput = {
@@ -742,8 +742,8 @@ export type ListEpisodeUncheckedUpdateManyWithoutEpisodeInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListEpisodeCreateManyListInput = {
@@ -759,8 +759,8 @@ export type ListEpisodeUpdateWithoutListInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Episode?: Prisma.EpisodeUpdateOneRequiredWithoutListEpisodeNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListEpisodeNestedInput
+  episode?: Prisma.EpisodeUpdateOneRequiredWithoutListItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedEpisodeItemsNestedInput
 }
 
 export type ListEpisodeUncheckedUpdateWithoutListInput = {
@@ -786,16 +786,16 @@ export type ListEpisodeCreateManyUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  episodeId: number
   listId: number
+  episodeId: number
 }
 
 export type ListEpisodeUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Episode?: Prisma.EpisodeUpdateOneRequiredWithoutListEpisodeNestedInput
-  List?: Prisma.ListUpdateOneRequiredWithoutListEpisodeNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutEpisodeItemsNestedInput
+  episode?: Prisma.EpisodeUpdateOneRequiredWithoutListItemsNestedInput
 }
 
 export type ListEpisodeUncheckedUpdateWithoutUserInput = {
@@ -803,8 +803,8 @@ export type ListEpisodeUncheckedUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  episodeId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  episodeId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListEpisodeUncheckedUpdateManyWithoutUserInput = {
@@ -812,8 +812,8 @@ export type ListEpisodeUncheckedUpdateManyWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  episodeId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  episodeId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -823,12 +823,12 @@ export type ListEpisodeSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   episodeId?: boolean
   userId?: boolean
-  listId?: boolean
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listEpisode"]>
 
 export type ListEpisodeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -836,12 +836,12 @@ export type ListEpisodeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   episodeId?: boolean
   userId?: boolean
-  listId?: boolean
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listEpisode"]>
 
 export type ListEpisodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -849,12 +849,12 @@ export type ListEpisodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   episodeId?: boolean
   userId?: boolean
-  listId?: boolean
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listEpisode"]>
 
 export type ListEpisodeSelectScalar = {
@@ -862,43 +862,43 @@ export type ListEpisodeSelectScalar = {
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   episodeId?: boolean
   userId?: boolean
-  listId?: boolean
 }
 
-export type ListEpisodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "episodeId" | "userId" | "listId", ExtArgs["result"]["listEpisode"]>
+export type ListEpisodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "listId" | "episodeId" | "userId", ExtArgs["result"]["listEpisode"]>
 export type ListEpisodeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListEpisodeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListEpisodeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  episode?: boolean | Prisma.EpisodeDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListEpisodePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListEpisode"
   objects: {
-    Episode: Prisma.$EpisodePayload<ExtArgs>
-    List: Prisma.$ListPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    list: Prisma.$ListPayload<ExtArgs>
+    episode: Prisma.$EpisodePayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     addedAt: Date
     note: string | null
     orderIndex: number
+    listId: number
     episodeId: number
     userId: number
-    listId: number
   }, ExtArgs["result"]["listEpisode"]>
   composites: {}
 }
@@ -1293,9 +1293,9 @@ readonly fields: ListEpisodeFieldRefs;
  */
 export interface Prisma__ListEpisodeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Episode<T extends Prisma.EpisodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EpisodeDefaultArgs<ExtArgs>>): Prisma.Prisma__EpisodeClient<runtime.Types.Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  episode<T extends Prisma.EpisodeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EpisodeDefaultArgs<ExtArgs>>): Prisma.Prisma__EpisodeClient<runtime.Types.Result.GetResult<Prisma.$EpisodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,9 +1329,9 @@ export interface ListEpisodeFieldRefs {
   readonly addedAt: Prisma.FieldRef<"ListEpisode", 'DateTime'>
   readonly note: Prisma.FieldRef<"ListEpisode", 'String'>
   readonly orderIndex: Prisma.FieldRef<"ListEpisode", 'Int'>
+  readonly listId: Prisma.FieldRef<"ListEpisode", 'Int'>
   readonly episodeId: Prisma.FieldRef<"ListEpisode", 'Int'>
   readonly userId: Prisma.FieldRef<"ListEpisode", 'Int'>
-  readonly listId: Prisma.FieldRef<"ListEpisode", 'Int'>
 }
     
 

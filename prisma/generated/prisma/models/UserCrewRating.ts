@@ -220,8 +220,8 @@ export type UserCrewRatingWhereInput = {
   rating?: Prisma.FloatFilter<"UserCrewRating"> | number
   userId?: Prisma.IntFilter<"UserCrewRating"> | number
   crewId?: Prisma.IntFilter<"UserCrewRating"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }
 
 export type UserCrewRatingOrderByWithRelationInput = {
@@ -229,8 +229,8 @@ export type UserCrewRatingOrderByWithRelationInput = {
   rating?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
-  Crew?: Prisma.CrewOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  crew?: Prisma.CrewOrderByWithRelationInput
 }
 
 export type UserCrewRatingWhereUniqueInput = Prisma.AtLeast<{
@@ -242,8 +242,8 @@ export type UserCrewRatingWhereUniqueInput = Prisma.AtLeast<{
   rating?: Prisma.FloatFilter<"UserCrewRating"> | number
   userId?: Prisma.IntFilter<"UserCrewRating"> | number
   crewId?: Prisma.IntFilter<"UserCrewRating"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }, "id" | "userId_crewId">
 
 export type UserCrewRatingOrderByWithAggregationInput = {
@@ -270,8 +270,8 @@ export type UserCrewRatingScalarWhereWithAggregatesInput = {
 
 export type UserCrewRatingCreateInput = {
   rating: number
-  Crew: Prisma.CrewCreateNestedOneWithoutUserCrewRatingInput
-  User: Prisma.UserCreateNestedOneWithoutUserCrewRatingInput
+  user: Prisma.UserCreateNestedOneWithoutRatingsInCrewInput
+  crew: Prisma.CrewCreateNestedOneWithoutUsersWhoRatedItInput
 }
 
 export type UserCrewRatingUncheckedCreateInput = {
@@ -283,8 +283,8 @@ export type UserCrewRatingUncheckedCreateInput = {
 
 export type UserCrewRatingUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutUserCrewRatingNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUserCrewRatingNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutRatingsInCrewNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutUsersWhoRatedItNestedInput
 }
 
 export type UserCrewRatingUncheckedUpdateInput = {
@@ -448,7 +448,7 @@ export type UserCrewRatingUncheckedUpdateManyWithoutUserNestedInput = {
 
 export type UserCrewRatingCreateWithoutCrewInput = {
   rating: number
-  User: Prisma.UserCreateNestedOneWithoutUserCrewRatingInput
+  user: Prisma.UserCreateNestedOneWithoutRatingsInCrewInput
 }
 
 export type UserCrewRatingUncheckedCreateWithoutCrewInput = {
@@ -495,7 +495,7 @@ export type UserCrewRatingScalarWhereInput = {
 
 export type UserCrewRatingCreateWithoutUserInput = {
   rating: number
-  Crew: Prisma.CrewCreateNestedOneWithoutUserCrewRatingInput
+  crew: Prisma.CrewCreateNestedOneWithoutUsersWhoRatedItInput
 }
 
 export type UserCrewRatingUncheckedCreateWithoutUserInput = {
@@ -538,7 +538,7 @@ export type UserCrewRatingCreateManyCrewInput = {
 
 export type UserCrewRatingUpdateWithoutCrewInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  User?: Prisma.UserUpdateOneRequiredWithoutUserCrewRatingNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutRatingsInCrewNestedInput
 }
 
 export type UserCrewRatingUncheckedUpdateWithoutCrewInput = {
@@ -561,7 +561,7 @@ export type UserCrewRatingCreateManyUserInput = {
 
 export type UserCrewRatingUpdateWithoutUserInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutUserCrewRatingNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutUsersWhoRatedItNestedInput
 }
 
 export type UserCrewRatingUncheckedUpdateWithoutUserInput = {
@@ -583,8 +583,8 @@ export type UserCrewRatingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   rating?: boolean
   userId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCrewRating"]>
 
 export type UserCrewRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -592,8 +592,8 @@ export type UserCrewRatingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   rating?: boolean
   userId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCrewRating"]>
 
 export type UserCrewRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -601,8 +601,8 @@ export type UserCrewRatingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   rating?: boolean
   userId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCrewRating"]>
 
 export type UserCrewRatingSelectScalar = {
@@ -614,23 +614,23 @@ export type UserCrewRatingSelectScalar = {
 
 export type UserCrewRatingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rating" | "userId" | "crewId", ExtArgs["result"]["userCrewRating"]>
 export type UserCrewRatingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type UserCrewRatingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type UserCrewRatingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 
 export type $UserCrewRatingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserCrewRating"
   objects: {
-    Crew: Prisma.$CrewPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    crew: Prisma.$CrewPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1031,8 +1031,8 @@ readonly fields: UserCrewRatingFieldRefs;
  */
 export interface Prisma__UserCrewRatingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

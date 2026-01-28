@@ -29,17 +29,17 @@ export type AggregateListActor = {
 export type ListActorAvgAggregateOutputType = {
   id: number | null
   orderIndex: number | null
+  listId: number | null
   actorId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActorSumAggregateOutputType = {
   id: number | null
   orderIndex: number | null
+  listId: number | null
   actorId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActorMinAggregateOutputType = {
@@ -47,9 +47,9 @@ export type ListActorMinAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
+  listId: number | null
   actorId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActorMaxAggregateOutputType = {
@@ -57,9 +57,9 @@ export type ListActorMaxAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
+  listId: number | null
   actorId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActorCountAggregateOutputType = {
@@ -67,9 +67,9 @@ export type ListActorCountAggregateOutputType = {
   addedAt: number
   note: number
   orderIndex: number
+  listId: number
   actorId: number
   userId: number
-  listId: number
   _all: number
 }
 
@@ -77,17 +77,17 @@ export type ListActorCountAggregateOutputType = {
 export type ListActorAvgAggregateInputType = {
   id?: true
   orderIndex?: true
+  listId?: true
   actorId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActorSumAggregateInputType = {
   id?: true
   orderIndex?: true
+  listId?: true
   actorId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActorMinAggregateInputType = {
@@ -95,9 +95,9 @@ export type ListActorMinAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   actorId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActorMaxAggregateInputType = {
@@ -105,9 +105,9 @@ export type ListActorMaxAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   actorId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActorCountAggregateInputType = {
@@ -115,9 +115,9 @@ export type ListActorCountAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   actorId?: true
   userId?: true
-  listId?: true
   _all?: true
 }
 
@@ -212,9 +212,9 @@ export type ListActorGroupByOutputType = {
   addedAt: Date
   note: string | null
   orderIndex: number
+  listId: number
   actorId: number
   userId: number
-  listId: number
   _count: ListActorCountAggregateOutputType | null
   _avg: ListActorAvgAggregateOutputType | null
   _sum: ListActorSumAggregateOutputType | null
@@ -245,12 +245,12 @@ export type ListActorWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListActor"> | Date | string
   note?: Prisma.StringNullableFilter<"ListActor"> | string | null
   orderIndex?: Prisma.IntFilter<"ListActor"> | number
+  listId?: Prisma.IntFilter<"ListActor"> | number
   actorId?: Prisma.IntFilter<"ListActor"> | number
   userId?: Prisma.IntFilter<"ListActor"> | number
-  listId?: Prisma.IntFilter<"ListActor"> | number
-  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListActorOrderByWithRelationInput = {
@@ -258,12 +258,12 @@ export type ListActorOrderByWithRelationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
-  Actor?: Prisma.ActorOrderByWithRelationInput
-  List?: Prisma.ListOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  list?: Prisma.ListOrderByWithRelationInput
+  actor?: Prisma.ActorOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ListActorOrderByRelevanceInput
 }
 
@@ -276,12 +276,12 @@ export type ListActorWhereUniqueInput = Prisma.AtLeast<{
   addedAt?: Prisma.DateTimeFilter<"ListActor"> | Date | string
   note?: Prisma.StringNullableFilter<"ListActor"> | string | null
   orderIndex?: Prisma.IntFilter<"ListActor"> | number
+  listId?: Prisma.IntFilter<"ListActor"> | number
   actorId?: Prisma.IntFilter<"ListActor"> | number
   userId?: Prisma.IntFilter<"ListActor"> | number
-  listId?: Prisma.IntFilter<"ListActor"> | number
-  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "listId_actorId">
 
 export type ListActorOrderByWithAggregationInput = {
@@ -289,9 +289,9 @@ export type ListActorOrderByWithAggregationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   _count?: Prisma.ListActorCountOrderByAggregateInput
   _avg?: Prisma.ListActorAvgOrderByAggregateInput
   _max?: Prisma.ListActorMaxOrderByAggregateInput
@@ -307,18 +307,18 @@ export type ListActorScalarWhereWithAggregatesInput = {
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"ListActor"> | Date | string
   note?: Prisma.StringNullableWithAggregatesFilter<"ListActor"> | string | null
   orderIndex?: Prisma.IntWithAggregatesFilter<"ListActor"> | number
+  listId?: Prisma.IntWithAggregatesFilter<"ListActor"> | number
   actorId?: Prisma.IntWithAggregatesFilter<"ListActor"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListActor"> | number
-  listId?: Prisma.IntWithAggregatesFilter<"ListActor"> | number
 }
 
 export type ListActorCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Actor: Prisma.ActorCreateNestedOneWithoutListActorInput
-  List: Prisma.ListCreateNestedOneWithoutListActorInput
-  User: Prisma.UserCreateNestedOneWithoutListActorInput
+  list: Prisma.ListCreateNestedOneWithoutActorItemsInput
+  actor: Prisma.ActorCreateNestedOneWithoutListItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedActorItemsInput
 }
 
 export type ListActorUncheckedCreateInput = {
@@ -326,18 +326,18 @@ export type ListActorUncheckedCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
+  listId: number
   actorId: number
   userId: number
-  listId: number
 }
 
 export type ListActorUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutListActorNestedInput
-  List?: Prisma.ListUpdateOneRequiredWithoutListActorNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListActorNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutActorItemsNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutListItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedActorItemsNestedInput
 }
 
 export type ListActorUncheckedUpdateInput = {
@@ -345,9 +345,9 @@ export type ListActorUncheckedUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   actorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActorCreateManyInput = {
@@ -355,9 +355,9 @@ export type ListActorCreateManyInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
+  listId: number
   actorId: number
   userId: number
-  listId: number
 }
 
 export type ListActorUpdateManyMutationInput = {
@@ -371,9 +371,9 @@ export type ListActorUncheckedUpdateManyInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   actorId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActorListRelationFilter = {
@@ -402,17 +402,17 @@ export type ListActorCountOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActorAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActorMaxOrderByAggregateInput = {
@@ -420,9 +420,9 @@ export type ListActorMaxOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActorMinOrderByAggregateInput = {
@@ -430,17 +430,17 @@ export type ListActorMinOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActorSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActorCreateNestedManyWithoutActorInput = {
@@ -573,8 +573,8 @@ export type ListActorCreateWithoutActorInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  List: Prisma.ListCreateNestedOneWithoutListActorInput
-  User: Prisma.UserCreateNestedOneWithoutListActorInput
+  list: Prisma.ListCreateNestedOneWithoutActorItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedActorItemsInput
 }
 
 export type ListActorUncheckedCreateWithoutActorInput = {
@@ -582,8 +582,8 @@ export type ListActorUncheckedCreateWithoutActorInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListActorCreateOrConnectWithoutActorInput = {
@@ -620,17 +620,17 @@ export type ListActorScalarWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListActor"> | Date | string
   note?: Prisma.StringNullableFilter<"ListActor"> | string | null
   orderIndex?: Prisma.IntFilter<"ListActor"> | number
+  listId?: Prisma.IntFilter<"ListActor"> | number
   actorId?: Prisma.IntFilter<"ListActor"> | number
   userId?: Prisma.IntFilter<"ListActor"> | number
-  listId?: Prisma.IntFilter<"ListActor"> | number
 }
 
 export type ListActorCreateWithoutListInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Actor: Prisma.ActorCreateNestedOneWithoutListActorInput
-  User: Prisma.UserCreateNestedOneWithoutListActorInput
+  actor: Prisma.ActorCreateNestedOneWithoutListItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedActorItemsInput
 }
 
 export type ListActorUncheckedCreateWithoutListInput = {
@@ -672,8 +672,8 @@ export type ListActorCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Actor: Prisma.ActorCreateNestedOneWithoutListActorInput
-  List: Prisma.ListCreateNestedOneWithoutListActorInput
+  list: Prisma.ListCreateNestedOneWithoutActorItemsInput
+  actor: Prisma.ActorCreateNestedOneWithoutListItemsInput
 }
 
 export type ListActorUncheckedCreateWithoutUserInput = {
@@ -681,8 +681,8 @@ export type ListActorUncheckedCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  actorId: number
   listId: number
+  actorId: number
 }
 
 export type ListActorCreateOrConnectWithoutUserInput = {
@@ -716,16 +716,16 @@ export type ListActorCreateManyActorInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListActorUpdateWithoutActorInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  List?: Prisma.ListUpdateOneRequiredWithoutListActorNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListActorNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutActorItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedActorItemsNestedInput
 }
 
 export type ListActorUncheckedUpdateWithoutActorInput = {
@@ -733,8 +733,8 @@ export type ListActorUncheckedUpdateWithoutActorInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActorUncheckedUpdateManyWithoutActorInput = {
@@ -742,8 +742,8 @@ export type ListActorUncheckedUpdateManyWithoutActorInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActorCreateManyListInput = {
@@ -759,8 +759,8 @@ export type ListActorUpdateWithoutListInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutListActorNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListActorNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutListItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedActorItemsNestedInput
 }
 
 export type ListActorUncheckedUpdateWithoutListInput = {
@@ -786,16 +786,16 @@ export type ListActorCreateManyUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  actorId: number
   listId: number
+  actorId: number
 }
 
 export type ListActorUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutListActorNestedInput
-  List?: Prisma.ListUpdateOneRequiredWithoutListActorNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutActorItemsNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutListItemsNestedInput
 }
 
 export type ListActorUncheckedUpdateWithoutUserInput = {
@@ -803,8 +803,8 @@ export type ListActorUncheckedUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  actorId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  actorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActorUncheckedUpdateManyWithoutUserInput = {
@@ -812,8 +812,8 @@ export type ListActorUncheckedUpdateManyWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  actorId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  actorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -823,12 +823,12 @@ export type ListActorSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   actorId?: boolean
   userId?: boolean
-  listId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listActor"]>
 
 export type ListActorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -836,12 +836,12 @@ export type ListActorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   actorId?: boolean
   userId?: boolean
-  listId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listActor"]>
 
 export type ListActorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -849,12 +849,12 @@ export type ListActorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   actorId?: boolean
   userId?: boolean
-  listId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listActor"]>
 
 export type ListActorSelectScalar = {
@@ -862,43 +862,43 @@ export type ListActorSelectScalar = {
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   actorId?: boolean
   userId?: boolean
-  listId?: boolean
 }
 
-export type ListActorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "actorId" | "userId" | "listId", ExtArgs["result"]["listActor"]>
+export type ListActorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "listId" | "actorId" | "userId", ExtArgs["result"]["listActor"]>
 export type ListActorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListActorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListActorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListActorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListActor"
   objects: {
-    Actor: Prisma.$ActorPayload<ExtArgs>
-    List: Prisma.$ListPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    list: Prisma.$ListPayload<ExtArgs>
+    actor: Prisma.$ActorPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     addedAt: Date
     note: string | null
     orderIndex: number
+    listId: number
     actorId: number
     userId: number
-    listId: number
   }, ExtArgs["result"]["listActor"]>
   composites: {}
 }
@@ -1293,9 +1293,9 @@ readonly fields: ListActorFieldRefs;
  */
 export interface Prisma__ListActorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,9 +1329,9 @@ export interface ListActorFieldRefs {
   readonly addedAt: Prisma.FieldRef<"ListActor", 'DateTime'>
   readonly note: Prisma.FieldRef<"ListActor", 'String'>
   readonly orderIndex: Prisma.FieldRef<"ListActor", 'Int'>
+  readonly listId: Prisma.FieldRef<"ListActor", 'Int'>
   readonly actorId: Prisma.FieldRef<"ListActor", 'Int'>
   readonly userId: Prisma.FieldRef<"ListActor", 'Int'>
-  readonly listId: Prisma.FieldRef<"ListActor", 'Int'>
 }
     
 

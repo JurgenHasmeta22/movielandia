@@ -28,16 +28,16 @@ export type AggregateEpisode = {
 
 export type EpisodeAvgAggregateOutputType = {
   id: number | null
-  seasonId: number | null
   duration: number | null
   ratingImdb: number | null
+  seasonId: number | null
 }
 
 export type EpisodeSumAggregateOutputType = {
   id: number | null
-  seasonId: number | null
   duration: number | null
   ratingImdb: number | null
+  seasonId: number | null
 }
 
 export type EpisodeMinAggregateOutputType = {
@@ -45,12 +45,12 @@ export type EpisodeMinAggregateOutputType = {
   title: string | null
   photoSrc: string | null
   photoSrcProd: string | null
-  description: string | null
-  seasonId: number | null
-  duration: number | null
   trailerSrc: string | null
-  ratingImdb: number | null
+  description: string | null
+  duration: number | null
   dateAired: Date | null
+  ratingImdb: number | null
+  seasonId: number | null
 }
 
 export type EpisodeMaxAggregateOutputType = {
@@ -58,12 +58,12 @@ export type EpisodeMaxAggregateOutputType = {
   title: string | null
   photoSrc: string | null
   photoSrcProd: string | null
-  description: string | null
-  seasonId: number | null
-  duration: number | null
   trailerSrc: string | null
-  ratingImdb: number | null
+  description: string | null
+  duration: number | null
   dateAired: Date | null
+  ratingImdb: number | null
+  seasonId: number | null
 }
 
 export type EpisodeCountAggregateOutputType = {
@@ -71,28 +71,28 @@ export type EpisodeCountAggregateOutputType = {
   title: number
   photoSrc: number
   photoSrcProd: number
-  description: number
-  seasonId: number
-  duration: number
   trailerSrc: number
-  ratingImdb: number
+  description: number
+  duration: number
   dateAired: number
+  ratingImdb: number
+  seasonId: number
   _all: number
 }
 
 
 export type EpisodeAvgAggregateInputType = {
   id?: true
-  seasonId?: true
   duration?: true
   ratingImdb?: true
+  seasonId?: true
 }
 
 export type EpisodeSumAggregateInputType = {
   id?: true
-  seasonId?: true
   duration?: true
   ratingImdb?: true
+  seasonId?: true
 }
 
 export type EpisodeMinAggregateInputType = {
@@ -100,12 +100,12 @@ export type EpisodeMinAggregateInputType = {
   title?: true
   photoSrc?: true
   photoSrcProd?: true
-  description?: true
-  seasonId?: true
-  duration?: true
   trailerSrc?: true
-  ratingImdb?: true
+  description?: true
+  duration?: true
   dateAired?: true
+  ratingImdb?: true
+  seasonId?: true
 }
 
 export type EpisodeMaxAggregateInputType = {
@@ -113,12 +113,12 @@ export type EpisodeMaxAggregateInputType = {
   title?: true
   photoSrc?: true
   photoSrcProd?: true
-  description?: true
-  seasonId?: true
-  duration?: true
   trailerSrc?: true
-  ratingImdb?: true
+  description?: true
+  duration?: true
   dateAired?: true
+  ratingImdb?: true
+  seasonId?: true
 }
 
 export type EpisodeCountAggregateInputType = {
@@ -126,12 +126,12 @@ export type EpisodeCountAggregateInputType = {
   title?: true
   photoSrc?: true
   photoSrcProd?: true
-  description?: true
-  seasonId?: true
-  duration?: true
   trailerSrc?: true
-  ratingImdb?: true
+  description?: true
+  duration?: true
   dateAired?: true
+  ratingImdb?: true
+  seasonId?: true
   _all?: true
 }
 
@@ -226,12 +226,12 @@ export type EpisodeGroupByOutputType = {
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired: Date | null
+  ratingImdb: number
+  seasonId: number
   _count: EpisodeCountAggregateOutputType | null
   _avg: EpisodeAvgAggregateOutputType | null
   _sum: EpisodeSumAggregateOutputType | null
@@ -262,20 +262,20 @@ export type EpisodeWhereInput = {
   title?: Prisma.StringFilter<"Episode"> | string
   photoSrc?: Prisma.StringFilter<"Episode"> | string
   photoSrcProd?: Prisma.StringFilter<"Episode"> | string
-  description?: Prisma.StringFilter<"Episode"> | string
-  seasonId?: Prisma.IntFilter<"Episode"> | number
-  duration?: Prisma.IntFilter<"Episode"> | number
   trailerSrc?: Prisma.StringFilter<"Episode"> | string
-  ratingImdb?: Prisma.FloatFilter<"Episode"> | number
+  description?: Prisma.StringFilter<"Episode"> | string
+  duration?: Prisma.IntFilter<"Episode"> | number
   dateAired?: Prisma.DateTimeNullableFilter<"Episode"> | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewListRelationFilter
-  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  EpisodeReview?: Prisma.EpisodeReviewListRelationFilter
-  ListActivityEpisode?: Prisma.ListActivityEpisodeListRelationFilter
-  ListEpisode?: Prisma.ListEpisodeListRelationFilter
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewListRelationFilter
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteListRelationFilter
-  UserEpisodeRating?: Prisma.UserEpisodeRatingListRelationFilter
+  ratingImdb?: Prisma.FloatFilter<"Episode"> | number
+  seasonId?: Prisma.IntFilter<"Episode"> | number
+  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  listItems?: Prisma.ListEpisodeListRelationFilter
+  listActivities?: Prisma.ListActivityEpisodeListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteListRelationFilter
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingListRelationFilter
+  reviews?: Prisma.EpisodeReviewListRelationFilter
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewListRelationFilter
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewListRelationFilter
 }
 
 export type EpisodeOrderByWithRelationInput = {
@@ -283,20 +283,20 @@ export type EpisodeOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
-  duration?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   dateAired?: Prisma.SortOrderInput | Prisma.SortOrder
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewOrderByRelationAggregateInput
-  Season?: Prisma.SeasonOrderByWithRelationInput
-  EpisodeReview?: Prisma.EpisodeReviewOrderByRelationAggregateInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeOrderByRelationAggregateInput
-  ListEpisode?: Prisma.ListEpisodeOrderByRelationAggregateInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewOrderByRelationAggregateInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteOrderByRelationAggregateInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingOrderByRelationAggregateInput
+  ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
+  season?: Prisma.SeasonOrderByWithRelationInput
+  listItems?: Prisma.ListEpisodeOrderByRelationAggregateInput
+  listActivities?: Prisma.ListActivityEpisodeOrderByRelationAggregateInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteOrderByRelationAggregateInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingOrderByRelationAggregateInput
+  reviews?: Prisma.EpisodeReviewOrderByRelationAggregateInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewOrderByRelationAggregateInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewOrderByRelationAggregateInput
   _relevance?: Prisma.EpisodeOrderByRelevanceInput
 }
 
@@ -308,20 +308,20 @@ export type EpisodeWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Episode"> | string
   photoSrc?: Prisma.StringFilter<"Episode"> | string
   photoSrcProd?: Prisma.StringFilter<"Episode"> | string
-  description?: Prisma.StringFilter<"Episode"> | string
-  seasonId?: Prisma.IntFilter<"Episode"> | number
-  duration?: Prisma.IntFilter<"Episode"> | number
   trailerSrc?: Prisma.StringFilter<"Episode"> | string
-  ratingImdb?: Prisma.FloatFilter<"Episode"> | number
+  description?: Prisma.StringFilter<"Episode"> | string
+  duration?: Prisma.IntFilter<"Episode"> | number
   dateAired?: Prisma.DateTimeNullableFilter<"Episode"> | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewListRelationFilter
-  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  EpisodeReview?: Prisma.EpisodeReviewListRelationFilter
-  ListActivityEpisode?: Prisma.ListActivityEpisodeListRelationFilter
-  ListEpisode?: Prisma.ListEpisodeListRelationFilter
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewListRelationFilter
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteListRelationFilter
-  UserEpisodeRating?: Prisma.UserEpisodeRatingListRelationFilter
+  ratingImdb?: Prisma.FloatFilter<"Episode"> | number
+  seasonId?: Prisma.IntFilter<"Episode"> | number
+  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  listItems?: Prisma.ListEpisodeListRelationFilter
+  listActivities?: Prisma.ListActivityEpisodeListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteListRelationFilter
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingListRelationFilter
+  reviews?: Prisma.EpisodeReviewListRelationFilter
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewListRelationFilter
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewListRelationFilter
 }, "id">
 
 export type EpisodeOrderByWithAggregationInput = {
@@ -329,12 +329,12 @@ export type EpisodeOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
-  duration?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   dateAired?: Prisma.SortOrderInput | Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
   _count?: Prisma.EpisodeCountOrderByAggregateInput
   _avg?: Prisma.EpisodeAvgOrderByAggregateInput
   _max?: Prisma.EpisodeMaxOrderByAggregateInput
@@ -350,31 +350,31 @@ export type EpisodeScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Episode"> | string
   photoSrc?: Prisma.StringWithAggregatesFilter<"Episode"> | string
   photoSrcProd?: Prisma.StringWithAggregatesFilter<"Episode"> | string
-  description?: Prisma.StringWithAggregatesFilter<"Episode"> | string
-  seasonId?: Prisma.IntWithAggregatesFilter<"Episode"> | number
-  duration?: Prisma.IntWithAggregatesFilter<"Episode"> | number
   trailerSrc?: Prisma.StringWithAggregatesFilter<"Episode"> | string
-  ratingImdb?: Prisma.FloatWithAggregatesFilter<"Episode"> | number
+  description?: Prisma.StringWithAggregatesFilter<"Episode"> | string
+  duration?: Prisma.IntWithAggregatesFilter<"Episode"> | number
   dateAired?: Prisma.DateTimeNullableWithAggregatesFilter<"Episode"> | Date | string | null
+  ratingImdb?: Prisma.FloatWithAggregatesFilter<"Episode"> | number
+  seasonId?: Prisma.IntWithAggregatesFilter<"Episode"> | number
 }
 
 export type EpisodeCreateInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
 export type EpisodeUncheckedCreateInput = {
@@ -382,38 +382,38 @@ export type EpisodeUncheckedCreateInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
 export type EpisodeUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
 export type EpisodeUncheckedUpdateInput = {
@@ -421,19 +421,19 @@ export type EpisodeUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
 export type EpisodeCreateManyInput = {
@@ -441,23 +441,23 @@ export type EpisodeCreateManyInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
+  ratingImdb: number
+  seasonId: number
 }
 
 export type EpisodeUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type EpisodeUncheckedUpdateManyInput = {
@@ -465,17 +465,12 @@ export type EpisodeUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-}
-
-export type EpisodeScalarRelationFilter = {
-  is?: Prisma.EpisodeWhereInput
-  isNot?: Prisma.EpisodeWhereInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type EpisodeOrderByRelevanceInput = {
@@ -489,19 +484,19 @@ export type EpisodeCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
-  duration?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   dateAired?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
 }
 
 export type EpisodeAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
 }
 
 export type EpisodeMaxOrderByAggregateInput = {
@@ -509,12 +504,12 @@ export type EpisodeMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
-  duration?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   dateAired?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
 }
 
 export type EpisodeMinOrderByAggregateInput = {
@@ -522,19 +517,24 @@ export type EpisodeMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   photoSrc?: Prisma.SortOrder
   photoSrcProd?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
-  duration?: Prisma.SortOrder
   trailerSrc?: Prisma.SortOrder
-  ratingImdb?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   dateAired?: Prisma.SortOrder
+  ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
 }
 
 export type EpisodeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  seasonId?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   ratingImdb?: Prisma.SortOrder
+  seasonId?: Prisma.SortOrder
+}
+
+export type EpisodeScalarRelationFilter = {
+  is?: Prisma.EpisodeWhereInput
+  isNot?: Prisma.EpisodeWhereInput
 }
 
 export type EpisodeListRelationFilter = {
@@ -547,20 +547,6 @@ export type EpisodeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type EpisodeCreateNestedOneWithoutDownvoteEpisodeReviewInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutDownvoteEpisodeReviewInput
-  connect?: Prisma.EpisodeWhereUniqueInput
-}
-
-export type EpisodeUpdateOneRequiredWithoutDownvoteEpisodeReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutDownvoteEpisodeReviewInput
-  upsert?: Prisma.EpisodeUpsertWithoutDownvoteEpisodeReviewInput
-  connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUpdateWithoutDownvoteEpisodeReviewInput>, Prisma.EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewInput>
-}
-
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -569,46 +555,74 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type EpisodeCreateNestedOneWithoutEpisodeReviewInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutEpisodeReviewInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutEpisodeReviewInput
+export type EpisodeCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutReviewsInput, Prisma.EpisodeUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutReviewsInput
   connect?: Prisma.EpisodeWhereUniqueInput
 }
 
-export type EpisodeUpdateOneRequiredWithoutEpisodeReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutEpisodeReviewInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutEpisodeReviewInput
-  upsert?: Prisma.EpisodeUpsertWithoutEpisodeReviewInput
+export type EpisodeUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutReviewsInput, Prisma.EpisodeUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.EpisodeUpsertWithoutReviewsInput
   connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutEpisodeReviewInput, Prisma.EpisodeUpdateWithoutEpisodeReviewInput>, Prisma.EpisodeUncheckedUpdateWithoutEpisodeReviewInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutReviewsInput, Prisma.EpisodeUpdateWithoutReviewsInput>, Prisma.EpisodeUncheckedUpdateWithoutReviewsInput>
 }
 
-export type EpisodeCreateNestedOneWithoutListActivityEpisodeInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivityEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListActivityEpisodeInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListActivityEpisodeInput
-  connect?: Prisma.EpisodeWhereUniqueInput
-}
-
-export type EpisodeUpdateOneRequiredWithoutListActivityEpisodeNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivityEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListActivityEpisodeInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListActivityEpisodeInput
-  upsert?: Prisma.EpisodeUpsertWithoutListActivityEpisodeInput
-  connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutListActivityEpisodeInput, Prisma.EpisodeUpdateWithoutListActivityEpisodeInput>, Prisma.EpisodeUncheckedUpdateWithoutListActivityEpisodeInput>
-}
-
-export type EpisodeCreateNestedOneWithoutListEpisodeInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListEpisodeInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListEpisodeInput
+export type EpisodeCreateNestedOneWithoutUpvoteEpisodeReviewsInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUpvoteEpisodeReviewsInput
   connect?: Prisma.EpisodeWhereUniqueInput
 }
 
-export type EpisodeUpdateOneRequiredWithoutListEpisodeNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListEpisodeInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListEpisodeInput
-  upsert?: Prisma.EpisodeUpsertWithoutListEpisodeInput
+export type EpisodeUpdateOneRequiredWithoutUpvoteEpisodeReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUpvoteEpisodeReviewsInput
+  upsert?: Prisma.EpisodeUpsertWithoutUpvoteEpisodeReviewsInput
   connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutListEpisodeInput, Prisma.EpisodeUpdateWithoutListEpisodeInput>, Prisma.EpisodeUncheckedUpdateWithoutListEpisodeInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUpdateWithoutUpvoteEpisodeReviewsInput>, Prisma.EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewsInput>
+}
+
+export type EpisodeCreateNestedOneWithoutDownvoteEpisodeReviewsInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutDownvoteEpisodeReviewsInput
+  connect?: Prisma.EpisodeWhereUniqueInput
+}
+
+export type EpisodeUpdateOneRequiredWithoutDownvoteEpisodeReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutDownvoteEpisodeReviewsInput
+  upsert?: Prisma.EpisodeUpsertWithoutDownvoteEpisodeReviewsInput
+  connect?: Prisma.EpisodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUpdateWithoutDownvoteEpisodeReviewsInput>, Prisma.EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewsInput>
+}
+
+export type EpisodeCreateNestedOneWithoutListItemsInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListItemsInput, Prisma.EpisodeUncheckedCreateWithoutListItemsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListItemsInput
+  connect?: Prisma.EpisodeWhereUniqueInput
+}
+
+export type EpisodeUpdateOneRequiredWithoutListItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListItemsInput, Prisma.EpisodeUncheckedCreateWithoutListItemsInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListItemsInput
+  upsert?: Prisma.EpisodeUpsertWithoutListItemsInput
+  connect?: Prisma.EpisodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutListItemsInput, Prisma.EpisodeUpdateWithoutListItemsInput>, Prisma.EpisodeUncheckedUpdateWithoutListItemsInput>
+}
+
+export type EpisodeCreateNestedOneWithoutListActivitiesInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivitiesInput, Prisma.EpisodeUncheckedCreateWithoutListActivitiesInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListActivitiesInput
+  connect?: Prisma.EpisodeWhereUniqueInput
+}
+
+export type EpisodeUpdateOneRequiredWithoutListActivitiesNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivitiesInput, Prisma.EpisodeUncheckedCreateWithoutListActivitiesInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutListActivitiesInput
+  upsert?: Prisma.EpisodeUpsertWithoutListActivitiesInput
+  connect?: Prisma.EpisodeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutListActivitiesInput, Prisma.EpisodeUpdateWithoutListActivitiesInput>, Prisma.EpisodeUncheckedUpdateWithoutListActivitiesInput>
 }
 
 export type EpisodeCreateNestedManyWithoutSeasonInput = {
@@ -653,424 +667,500 @@ export type EpisodeUncheckedUpdateManyWithoutSeasonNestedInput = {
   deleteMany?: Prisma.EpisodeScalarWhereInput | Prisma.EpisodeScalarWhereInput[]
 }
 
-export type EpisodeCreateNestedOneWithoutUpvoteEpisodeReviewInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUpvoteEpisodeReviewInput
+export type EpisodeCreateNestedOneWithoutUsersWhoBookmarkedItInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUsersWhoBookmarkedItInput
   connect?: Prisma.EpisodeWhereUniqueInput
 }
 
-export type EpisodeUpdateOneRequiredWithoutUpvoteEpisodeReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUpvoteEpisodeReviewInput
-  upsert?: Prisma.EpisodeUpsertWithoutUpvoteEpisodeReviewInput
+export type EpisodeUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  upsert?: Prisma.EpisodeUpsertWithoutUsersWhoBookmarkedItInput
   connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUpdateWithoutUpvoteEpisodeReviewInput>, Prisma.EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUpdateWithoutUsersWhoBookmarkedItInput>, Prisma.EpisodeUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type EpisodeCreateNestedOneWithoutUserEpisodeFavoriteInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeFavoriteInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUserEpisodeFavoriteInput
-  connect?: Prisma.EpisodeWhereUniqueInput
-}
-
-export type EpisodeUpdateOneRequiredWithoutUserEpisodeFavoriteNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeFavoriteInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUserEpisodeFavoriteInput
-  upsert?: Prisma.EpisodeUpsertWithoutUserEpisodeFavoriteInput
-  connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUpdateWithoutUserEpisodeFavoriteInput>, Prisma.EpisodeUncheckedUpdateWithoutUserEpisodeFavoriteInput>
-}
-
-export type EpisodeCreateNestedOneWithoutUserEpisodeRatingInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeRatingInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeRatingInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUserEpisodeRatingInput
+export type EpisodeCreateNestedOneWithoutUsersWhoRatedItInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoRatedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoRatedItInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUsersWhoRatedItInput
   connect?: Prisma.EpisodeWhereUniqueInput
 }
 
-export type EpisodeUpdateOneRequiredWithoutUserEpisodeRatingNestedInput = {
-  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeRatingInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeRatingInput>
-  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUserEpisodeRatingInput
-  upsert?: Prisma.EpisodeUpsertWithoutUserEpisodeRatingInput
+export type EpisodeUpdateOneRequiredWithoutUsersWhoRatedItNestedInput = {
+  create?: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoRatedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoRatedItInput>
+  connectOrCreate?: Prisma.EpisodeCreateOrConnectWithoutUsersWhoRatedItInput
+  upsert?: Prisma.EpisodeUpsertWithoutUsersWhoRatedItInput
   connect?: Prisma.EpisodeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutUserEpisodeRatingInput, Prisma.EpisodeUpdateWithoutUserEpisodeRatingInput>, Prisma.EpisodeUncheckedUpdateWithoutUserEpisodeRatingInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EpisodeUpdateToOneWithWhereWithoutUsersWhoRatedItInput, Prisma.EpisodeUpdateWithoutUsersWhoRatedItInput>, Prisma.EpisodeUncheckedUpdateWithoutUsersWhoRatedItInput>
 }
 
-export type EpisodeCreateWithoutDownvoteEpisodeReviewInput = {
+export type EpisodeCreateWithoutReviewsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewInput = {
+export type EpisodeUncheckedCreateWithoutReviewsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeCreateOrConnectWithoutDownvoteEpisodeReviewInput = {
+export type EpisodeCreateOrConnectWithoutReviewsInput = {
   where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutReviewsInput, Prisma.EpisodeUncheckedCreateWithoutReviewsInput>
 }
 
-export type EpisodeUpsertWithoutDownvoteEpisodeReviewInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewInput>
+export type EpisodeUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutReviewsInput, Prisma.EpisodeUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutReviewsInput, Prisma.EpisodeUncheckedCreateWithoutReviewsInput>
   where?: Prisma.EpisodeWhereInput
 }
 
-export type EpisodeUpdateToOneWithWhereWithoutDownvoteEpisodeReviewInput = {
+export type EpisodeUpdateToOneWithWhereWithoutReviewsInput = {
   where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutDownvoteEpisodeReviewInput, Prisma.EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewInput>
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutReviewsInput, Prisma.EpisodeUncheckedUpdateWithoutReviewsInput>
 }
 
-export type EpisodeUpdateWithoutDownvoteEpisodeReviewInput = {
+export type EpisodeUpdateWithoutReviewsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewInput = {
+export type EpisodeUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeCreateWithoutEpisodeReviewInput = {
+export type EpisodeCreateWithoutUpvoteEpisodeReviewsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeUncheckedCreateWithoutEpisodeReviewInput = {
+export type EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeCreateOrConnectWithoutEpisodeReviewInput = {
+export type EpisodeCreateOrConnectWithoutUpvoteEpisodeReviewsInput = {
   where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutEpisodeReviewInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewsInput>
 }
 
-export type EpisodeUpsertWithoutEpisodeReviewInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutEpisodeReviewInput, Prisma.EpisodeUncheckedUpdateWithoutEpisodeReviewInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutEpisodeReviewInput>
+export type EpisodeUpsertWithoutUpvoteEpisodeReviewsInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewsInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewsInput>
   where?: Prisma.EpisodeWhereInput
 }
 
-export type EpisodeUpdateToOneWithWhereWithoutEpisodeReviewInput = {
+export type EpisodeUpdateToOneWithWhereWithoutUpvoteEpisodeReviewsInput = {
   where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutEpisodeReviewInput, Prisma.EpisodeUncheckedUpdateWithoutEpisodeReviewInput>
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutUpvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewsInput>
 }
 
-export type EpisodeUpdateWithoutEpisodeReviewInput = {
+export type EpisodeUpdateWithoutUpvoteEpisodeReviewsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeUncheckedUpdateWithoutEpisodeReviewInput = {
+export type EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeCreateWithoutListActivityEpisodeInput = {
+export type EpisodeCreateWithoutDownvoteEpisodeReviewsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeUncheckedCreateWithoutListActivityEpisodeInput = {
+export type EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeCreateOrConnectWithoutListActivityEpisodeInput = {
+export type EpisodeCreateOrConnectWithoutDownvoteEpisodeReviewsInput = {
   where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivityEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListActivityEpisodeInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewsInput>
 }
 
-export type EpisodeUpsertWithoutListActivityEpisodeInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutListActivityEpisodeInput, Prisma.EpisodeUncheckedUpdateWithoutListActivityEpisodeInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivityEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListActivityEpisodeInput>
+export type EpisodeUpsertWithoutDownvoteEpisodeReviewsInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewsInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedCreateWithoutDownvoteEpisodeReviewsInput>
   where?: Prisma.EpisodeWhereInput
 }
 
-export type EpisodeUpdateToOneWithWhereWithoutListActivityEpisodeInput = {
+export type EpisodeUpdateToOneWithWhereWithoutDownvoteEpisodeReviewsInput = {
   where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutListActivityEpisodeInput, Prisma.EpisodeUncheckedUpdateWithoutListActivityEpisodeInput>
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutDownvoteEpisodeReviewsInput, Prisma.EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewsInput>
 }
 
-export type EpisodeUpdateWithoutListActivityEpisodeInput = {
+export type EpisodeUpdateWithoutDownvoteEpisodeReviewsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeUncheckedUpdateWithoutListActivityEpisodeInput = {
+export type EpisodeUncheckedUpdateWithoutDownvoteEpisodeReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeCreateWithoutListEpisodeInput = {
+export type EpisodeCreateWithoutListItemsInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeUncheckedCreateWithoutListEpisodeInput = {
+export type EpisodeUncheckedCreateWithoutListItemsInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeCreateOrConnectWithoutListEpisodeInput = {
+export type EpisodeCreateOrConnectWithoutListItemsInput = {
   where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListEpisodeInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListItemsInput, Prisma.EpisodeUncheckedCreateWithoutListItemsInput>
 }
 
-export type EpisodeUpsertWithoutListEpisodeInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutListEpisodeInput, Prisma.EpisodeUncheckedUpdateWithoutListEpisodeInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListEpisodeInput, Prisma.EpisodeUncheckedCreateWithoutListEpisodeInput>
+export type EpisodeUpsertWithoutListItemsInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutListItemsInput, Prisma.EpisodeUncheckedUpdateWithoutListItemsInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListItemsInput, Prisma.EpisodeUncheckedCreateWithoutListItemsInput>
   where?: Prisma.EpisodeWhereInput
 }
 
-export type EpisodeUpdateToOneWithWhereWithoutListEpisodeInput = {
+export type EpisodeUpdateToOneWithWhereWithoutListItemsInput = {
   where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutListEpisodeInput, Prisma.EpisodeUncheckedUpdateWithoutListEpisodeInput>
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutListItemsInput, Prisma.EpisodeUncheckedUpdateWithoutListItemsInput>
 }
 
-export type EpisodeUpdateWithoutListEpisodeInput = {
+export type EpisodeUpdateWithoutListItemsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeUncheckedUpdateWithoutListEpisodeInput = {
+export type EpisodeUncheckedUpdateWithoutListItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+}
+
+export type EpisodeCreateWithoutListActivitiesInput = {
+  title: string
+  photoSrc: string
+  photoSrcProd: string
+  trailerSrc: string
+  description: string
+  duration: number
+  dateAired?: Date | string | null
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+}
+
+export type EpisodeUncheckedCreateWithoutListActivitiesInput = {
+  id?: number
+  title: string
+  photoSrc: string
+  photoSrcProd: string
+  trailerSrc: string
+  description: string
+  duration: number
+  dateAired?: Date | string | null
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+}
+
+export type EpisodeCreateOrConnectWithoutListActivitiesInput = {
+  where: Prisma.EpisodeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivitiesInput, Prisma.EpisodeUncheckedCreateWithoutListActivitiesInput>
+}
+
+export type EpisodeUpsertWithoutListActivitiesInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutListActivitiesInput, Prisma.EpisodeUncheckedUpdateWithoutListActivitiesInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutListActivitiesInput, Prisma.EpisodeUncheckedCreateWithoutListActivitiesInput>
+  where?: Prisma.EpisodeWhereInput
+}
+
+export type EpisodeUpdateToOneWithWhereWithoutListActivitiesInput = {
+  where?: Prisma.EpisodeWhereInput
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutListActivitiesInput, Prisma.EpisodeUncheckedUpdateWithoutListActivitiesInput>
+}
+
+export type EpisodeUpdateWithoutListActivitiesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
+  photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+}
+
+export type EpisodeUncheckedUpdateWithoutListActivitiesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
+  photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
 export type EpisodeCreateWithoutSeasonInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
 export type EpisodeUncheckedCreateWithoutSeasonInput = {
@@ -1078,18 +1168,18 @@ export type EpisodeUncheckedCreateWithoutSeasonInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
 export type EpisodeCreateOrConnectWithoutSeasonInput = {
@@ -1126,282 +1216,192 @@ export type EpisodeScalarWhereInput = {
   title?: Prisma.StringFilter<"Episode"> | string
   photoSrc?: Prisma.StringFilter<"Episode"> | string
   photoSrcProd?: Prisma.StringFilter<"Episode"> | string
-  description?: Prisma.StringFilter<"Episode"> | string
-  seasonId?: Prisma.IntFilter<"Episode"> | number
-  duration?: Prisma.IntFilter<"Episode"> | number
   trailerSrc?: Prisma.StringFilter<"Episode"> | string
-  ratingImdb?: Prisma.FloatFilter<"Episode"> | number
+  description?: Prisma.StringFilter<"Episode"> | string
+  duration?: Prisma.IntFilter<"Episode"> | number
   dateAired?: Prisma.DateTimeNullableFilter<"Episode"> | Date | string | null
+  ratingImdb?: Prisma.FloatFilter<"Episode"> | number
+  seasonId?: Prisma.IntFilter<"Episode"> | number
 }
 
-export type EpisodeCreateWithoutUpvoteEpisodeReviewInput = {
+export type EpisodeCreateWithoutUsersWhoBookmarkedItInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewInput = {
+export type EpisodeUncheckedCreateWithoutUsersWhoBookmarkedItInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeCreateOrConnectWithoutUpvoteEpisodeReviewInput = {
+export type EpisodeCreateOrConnectWithoutUsersWhoBookmarkedItInput = {
   where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type EpisodeUpsertWithoutUpvoteEpisodeReviewInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUncheckedCreateWithoutUpvoteEpisodeReviewInput>
+export type EpisodeUpsertWithoutUsersWhoBookmarkedItInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoBookmarkedItInput>
   where?: Prisma.EpisodeWhereInput
 }
 
-export type EpisodeUpdateToOneWithWhereWithoutUpvoteEpisodeReviewInput = {
+export type EpisodeUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput = {
   where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutUpvoteEpisodeReviewInput, Prisma.EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewInput>
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutUsersWhoBookmarkedItInput, Prisma.EpisodeUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type EpisodeUpdateWithoutUpvoteEpisodeReviewInput = {
+export type EpisodeUpdateWithoutUsersWhoBookmarkedItInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeUncheckedUpdateWithoutUpvoteEpisodeReviewInput = {
+export type EpisodeUncheckedUpdateWithoutUsersWhoBookmarkedItInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
   trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeCreateWithoutUserEpisodeFavoriteInput = {
+export type EpisodeCreateWithoutUsersWhoRatedItInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  season: Prisma.SeasonCreateNestedOneWithoutEpisodesInput
+  listItems?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeUncheckedCreateWithoutUserEpisodeFavoriteInput = {
+export type EpisodeUncheckedCreateWithoutUsersWhoRatedItInput = {
   id?: number
   title: string
   photoSrc: string
   photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
   trailerSrc: string
-  ratingImdb: number
+  description: string
+  duration: number
   dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedCreateNestedManyWithoutEpisodeInput
+  ratingImdb: number
+  seasonId: number
+  listItems?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
+  reviews?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
 }
 
-export type EpisodeCreateOrConnectWithoutUserEpisodeFavoriteInput = {
+export type EpisodeCreateOrConnectWithoutUsersWhoRatedItInput = {
   where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeFavoriteInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoRatedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoRatedItInput>
 }
 
-export type EpisodeUpsertWithoutUserEpisodeFavoriteInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUncheckedUpdateWithoutUserEpisodeFavoriteInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeFavoriteInput>
+export type EpisodeUpsertWithoutUsersWhoRatedItInput = {
+  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutUsersWhoRatedItInput, Prisma.EpisodeUncheckedUpdateWithoutUsersWhoRatedItInput>
+  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUsersWhoRatedItInput, Prisma.EpisodeUncheckedCreateWithoutUsersWhoRatedItInput>
   where?: Prisma.EpisodeWhereInput
 }
 
-export type EpisodeUpdateToOneWithWhereWithoutUserEpisodeFavoriteInput = {
+export type EpisodeUpdateToOneWithWhereWithoutUsersWhoRatedItInput = {
   where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutUserEpisodeFavoriteInput, Prisma.EpisodeUncheckedUpdateWithoutUserEpisodeFavoriteInput>
+  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutUsersWhoRatedItInput, Prisma.EpisodeUncheckedUpdateWithoutUsersWhoRatedItInput>
 }
 
-export type EpisodeUpdateWithoutUserEpisodeFavoriteInput = {
+export type EpisodeUpdateWithoutUsersWhoRatedItInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodesNestedInput
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
-export type EpisodeUncheckedUpdateWithoutUserEpisodeFavoriteInput = {
+export type EpisodeUncheckedUpdateWithoutUsersWhoRatedItInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
-}
-
-export type EpisodeCreateWithoutUserEpisodeRatingInput = {
-  title: string
-  photoSrc: string
-  photoSrcProd: string
-  description: string
-  duration: number
-  trailerSrc: string
-  ratingImdb: number
-  dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  Season: Prisma.SeasonCreateNestedOneWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteCreateNestedManyWithoutEpisodeInput
-}
-
-export type EpisodeUncheckedCreateWithoutUserEpisodeRatingInput = {
-  id?: number
-  title: string
-  photoSrc: string
-  photoSrcProd: string
-  description: string
-  seasonId: number
-  duration: number
-  trailerSrc: string
-  ratingImdb: number
-  dateAired?: Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedCreateNestedManyWithoutEpisodeInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedCreateNestedManyWithoutEpisodeInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedCreateNestedManyWithoutEpisodeInput
-}
-
-export type EpisodeCreateOrConnectWithoutUserEpisodeRatingInput = {
-  where: Prisma.EpisodeWhereUniqueInput
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeRatingInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeRatingInput>
-}
-
-export type EpisodeUpsertWithoutUserEpisodeRatingInput = {
-  update: Prisma.XOR<Prisma.EpisodeUpdateWithoutUserEpisodeRatingInput, Prisma.EpisodeUncheckedUpdateWithoutUserEpisodeRatingInput>
-  create: Prisma.XOR<Prisma.EpisodeCreateWithoutUserEpisodeRatingInput, Prisma.EpisodeUncheckedCreateWithoutUserEpisodeRatingInput>
-  where?: Prisma.EpisodeWhereInput
-}
-
-export type EpisodeUpdateToOneWithWhereWithoutUserEpisodeRatingInput = {
-  where?: Prisma.EpisodeWhereInput
-  data: Prisma.XOR<Prisma.EpisodeUpdateWithoutUserEpisodeRatingInput, Prisma.EpisodeUncheckedUpdateWithoutUserEpisodeRatingInput>
-}
-
-export type EpisodeUpdateWithoutUserEpisodeRatingInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-}
-
-export type EpisodeUncheckedUpdateWithoutUserEpisodeRatingInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
-  dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
 export type EpisodeCreateManySeasonInput = {
@@ -1409,29 +1409,29 @@ export type EpisodeCreateManySeasonInput = {
   title: string
   photoSrc: string
   photoSrcProd: string
+  trailerSrc: string
   description: string
   duration: number
-  trailerSrc: string
-  ratingImdb: number
   dateAired?: Date | string | null
+  ratingImdb: number
 }
 
 export type EpisodeUpdateWithoutSeasonInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUpdateManyWithoutEpisodeNestedInput
 }
 
 export type EpisodeUncheckedUpdateWithoutSeasonInput = {
@@ -1439,18 +1439,18 @@ export type EpisodeUncheckedUpdateWithoutSeasonInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  DownvoteEpisodeReview?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  EpisodeReview?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListActivityEpisode?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  ListEpisode?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
-  UpvoteEpisodeReview?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeFavorite?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
-  UserEpisodeRating?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
+  listItems?: Prisma.ListEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  listActivities?: Prisma.ListActivityEpisodeUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserEpisodeFavoriteUncheckedUpdateManyWithoutEpisodeNestedInput
+  usersWhoRatedIt?: Prisma.UserEpisodeRatingUncheckedUpdateManyWithoutEpisodeNestedInput
+  reviews?: Prisma.EpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  upvoteEpisodeReviews?: Prisma.UpvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
+  downvoteEpisodeReviews?: Prisma.DownvoteEpisodeReviewUncheckedUpdateManyWithoutEpisodeNestedInput
 }
 
 export type EpisodeUncheckedUpdateManyWithoutSeasonInput = {
@@ -1458,11 +1458,11 @@ export type EpisodeUncheckedUpdateManyWithoutSeasonInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrc?: Prisma.StringFieldUpdateOperationsInput | string
   photoSrcProd?: Prisma.StringFieldUpdateOperationsInput | string
+  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
-  trailerSrc?: Prisma.StringFieldUpdateOperationsInput | string
-  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
   dateAired?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ratingImdb?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -1471,23 +1471,23 @@ export type EpisodeUncheckedUpdateManyWithoutSeasonInput = {
  */
 
 export type EpisodeCountOutputType = {
-  DownvoteEpisodeReview: number
-  EpisodeReview: number
-  ListActivityEpisode: number
-  ListEpisode: number
-  UpvoteEpisodeReview: number
-  UserEpisodeFavorite: number
-  UserEpisodeRating: number
+  listItems: number
+  listActivities: number
+  usersWhoBookmarkedIt: number
+  usersWhoRatedIt: number
+  reviews: number
+  upvoteEpisodeReviews: number
+  downvoteEpisodeReviews: number
 }
 
 export type EpisodeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  DownvoteEpisodeReview?: boolean | EpisodeCountOutputTypeCountDownvoteEpisodeReviewArgs
-  EpisodeReview?: boolean | EpisodeCountOutputTypeCountEpisodeReviewArgs
-  ListActivityEpisode?: boolean | EpisodeCountOutputTypeCountListActivityEpisodeArgs
-  ListEpisode?: boolean | EpisodeCountOutputTypeCountListEpisodeArgs
-  UpvoteEpisodeReview?: boolean | EpisodeCountOutputTypeCountUpvoteEpisodeReviewArgs
-  UserEpisodeFavorite?: boolean | EpisodeCountOutputTypeCountUserEpisodeFavoriteArgs
-  UserEpisodeRating?: boolean | EpisodeCountOutputTypeCountUserEpisodeRatingArgs
+  listItems?: boolean | EpisodeCountOutputTypeCountListItemsArgs
+  listActivities?: boolean | EpisodeCountOutputTypeCountListActivitiesArgs
+  usersWhoBookmarkedIt?: boolean | EpisodeCountOutputTypeCountUsersWhoBookmarkedItArgs
+  usersWhoRatedIt?: boolean | EpisodeCountOutputTypeCountUsersWhoRatedItArgs
+  reviews?: boolean | EpisodeCountOutputTypeCountReviewsArgs
+  upvoteEpisodeReviews?: boolean | EpisodeCountOutputTypeCountUpvoteEpisodeReviewsArgs
+  downvoteEpisodeReviews?: boolean | EpisodeCountOutputTypeCountDownvoteEpisodeReviewsArgs
 }
 
 /**
@@ -1503,50 +1503,50 @@ export type EpisodeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * EpisodeCountOutputType without action
  */
-export type EpisodeCountOutputTypeCountDownvoteEpisodeReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DownvoteEpisodeReviewWhereInput
-}
-
-/**
- * EpisodeCountOutputType without action
- */
-export type EpisodeCountOutputTypeCountEpisodeReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EpisodeReviewWhereInput
-}
-
-/**
- * EpisodeCountOutputType without action
- */
-export type EpisodeCountOutputTypeCountListActivityEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ListActivityEpisodeWhereInput
-}
-
-/**
- * EpisodeCountOutputType without action
- */
-export type EpisodeCountOutputTypeCountListEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type EpisodeCountOutputTypeCountListItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ListEpisodeWhereInput
 }
 
 /**
  * EpisodeCountOutputType without action
  */
-export type EpisodeCountOutputTypeCountUpvoteEpisodeReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UpvoteEpisodeReviewWhereInput
+export type EpisodeCountOutputTypeCountListActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ListActivityEpisodeWhereInput
 }
 
 /**
  * EpisodeCountOutputType without action
  */
-export type EpisodeCountOutputTypeCountUserEpisodeFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type EpisodeCountOutputTypeCountUsersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserEpisodeFavoriteWhereInput
 }
 
 /**
  * EpisodeCountOutputType without action
  */
-export type EpisodeCountOutputTypeCountUserEpisodeRatingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type EpisodeCountOutputTypeCountUsersWhoRatedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserEpisodeRatingWhereInput
+}
+
+/**
+ * EpisodeCountOutputType without action
+ */
+export type EpisodeCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EpisodeReviewWhereInput
+}
+
+/**
+ * EpisodeCountOutputType without action
+ */
+export type EpisodeCountOutputTypeCountUpvoteEpisodeReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UpvoteEpisodeReviewWhereInput
+}
+
+/**
+ * EpisodeCountOutputType without action
+ */
+export type EpisodeCountOutputTypeCountDownvoteEpisodeReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DownvoteEpisodeReviewWhereInput
 }
 
 
@@ -1555,20 +1555,20 @@ export type EpisodeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   title?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  seasonId?: boolean
-  duration?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
+  description?: boolean
+  duration?: boolean
   dateAired?: boolean
-  DownvoteEpisodeReview?: boolean | Prisma.Episode$DownvoteEpisodeReviewArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  EpisodeReview?: boolean | Prisma.Episode$EpisodeReviewArgs<ExtArgs>
-  ListActivityEpisode?: boolean | Prisma.Episode$ListActivityEpisodeArgs<ExtArgs>
-  ListEpisode?: boolean | Prisma.Episode$ListEpisodeArgs<ExtArgs>
-  UpvoteEpisodeReview?: boolean | Prisma.Episode$UpvoteEpisodeReviewArgs<ExtArgs>
-  UserEpisodeFavorite?: boolean | Prisma.Episode$UserEpisodeFavoriteArgs<ExtArgs>
-  UserEpisodeRating?: boolean | Prisma.Episode$UserEpisodeRatingArgs<ExtArgs>
+  ratingImdb?: boolean
+  seasonId?: boolean
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  listItems?: boolean | Prisma.Episode$listItemsArgs<ExtArgs>
+  listActivities?: boolean | Prisma.Episode$listActivitiesArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.Episode$usersWhoBookmarkedItArgs<ExtArgs>
+  usersWhoRatedIt?: boolean | Prisma.Episode$usersWhoRatedItArgs<ExtArgs>
+  reviews?: boolean | Prisma.Episode$reviewsArgs<ExtArgs>
+  upvoteEpisodeReviews?: boolean | Prisma.Episode$upvoteEpisodeReviewsArgs<ExtArgs>
+  downvoteEpisodeReviews?: boolean | Prisma.Episode$downvoteEpisodeReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.EpisodeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["episode"]>
 
@@ -1577,13 +1577,13 @@ export type EpisodeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  seasonId?: boolean
-  duration?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
+  description?: boolean
+  duration?: boolean
   dateAired?: boolean
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  ratingImdb?: boolean
+  seasonId?: boolean
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["episode"]>
 
 export type EpisodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1591,13 +1591,13 @@ export type EpisodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  seasonId?: boolean
-  duration?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
+  description?: boolean
+  duration?: boolean
   dateAired?: boolean
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  ratingImdb?: boolean
+  seasonId?: boolean
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["episode"]>
 
 export type EpisodeSelectScalar = {
@@ -1605,56 +1605,56 @@ export type EpisodeSelectScalar = {
   title?: boolean
   photoSrc?: boolean
   photoSrcProd?: boolean
-  description?: boolean
-  seasonId?: boolean
-  duration?: boolean
   trailerSrc?: boolean
-  ratingImdb?: boolean
+  description?: boolean
+  duration?: boolean
   dateAired?: boolean
+  ratingImdb?: boolean
+  seasonId?: boolean
 }
 
-export type EpisodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "photoSrc" | "photoSrcProd" | "description" | "seasonId" | "duration" | "trailerSrc" | "ratingImdb" | "dateAired", ExtArgs["result"]["episode"]>
+export type EpisodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "photoSrc" | "photoSrcProd" | "trailerSrc" | "description" | "duration" | "dateAired" | "ratingImdb" | "seasonId", ExtArgs["result"]["episode"]>
 export type EpisodeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  DownvoteEpisodeReview?: boolean | Prisma.Episode$DownvoteEpisodeReviewArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  EpisodeReview?: boolean | Prisma.Episode$EpisodeReviewArgs<ExtArgs>
-  ListActivityEpisode?: boolean | Prisma.Episode$ListActivityEpisodeArgs<ExtArgs>
-  ListEpisode?: boolean | Prisma.Episode$ListEpisodeArgs<ExtArgs>
-  UpvoteEpisodeReview?: boolean | Prisma.Episode$UpvoteEpisodeReviewArgs<ExtArgs>
-  UserEpisodeFavorite?: boolean | Prisma.Episode$UserEpisodeFavoriteArgs<ExtArgs>
-  UserEpisodeRating?: boolean | Prisma.Episode$UserEpisodeRatingArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  listItems?: boolean | Prisma.Episode$listItemsArgs<ExtArgs>
+  listActivities?: boolean | Prisma.Episode$listActivitiesArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.Episode$usersWhoBookmarkedItArgs<ExtArgs>
+  usersWhoRatedIt?: boolean | Prisma.Episode$usersWhoRatedItArgs<ExtArgs>
+  reviews?: boolean | Prisma.Episode$reviewsArgs<ExtArgs>
+  upvoteEpisodeReviews?: boolean | Prisma.Episode$upvoteEpisodeReviewsArgs<ExtArgs>
+  downvoteEpisodeReviews?: boolean | Prisma.Episode$downvoteEpisodeReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.EpisodeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EpisodeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
 }
 export type EpisodeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
 }
 
 export type $EpisodePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Episode"
   objects: {
-    DownvoteEpisodeReview: Prisma.$DownvoteEpisodeReviewPayload<ExtArgs>[]
-    Season: Prisma.$SeasonPayload<ExtArgs>
-    EpisodeReview: Prisma.$EpisodeReviewPayload<ExtArgs>[]
-    ListActivityEpisode: Prisma.$ListActivityEpisodePayload<ExtArgs>[]
-    ListEpisode: Prisma.$ListEpisodePayload<ExtArgs>[]
-    UpvoteEpisodeReview: Prisma.$UpvoteEpisodeReviewPayload<ExtArgs>[]
-    UserEpisodeFavorite: Prisma.$UserEpisodeFavoritePayload<ExtArgs>[]
-    UserEpisodeRating: Prisma.$UserEpisodeRatingPayload<ExtArgs>[]
+    season: Prisma.$SeasonPayload<ExtArgs>
+    listItems: Prisma.$ListEpisodePayload<ExtArgs>[]
+    listActivities: Prisma.$ListActivityEpisodePayload<ExtArgs>[]
+    usersWhoBookmarkedIt: Prisma.$UserEpisodeFavoritePayload<ExtArgs>[]
+    usersWhoRatedIt: Prisma.$UserEpisodeRatingPayload<ExtArgs>[]
+    reviews: Prisma.$EpisodeReviewPayload<ExtArgs>[]
+    upvoteEpisodeReviews: Prisma.$UpvoteEpisodeReviewPayload<ExtArgs>[]
+    downvoteEpisodeReviews: Prisma.$DownvoteEpisodeReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
     photoSrc: string
     photoSrcProd: string
-    description: string
-    seasonId: number
-    duration: number
     trailerSrc: string
-    ratingImdb: number
+    description: string
+    duration: number
     dateAired: Date | null
+    ratingImdb: number
+    seasonId: number
   }, ExtArgs["result"]["episode"]>
   composites: {}
 }
@@ -2049,14 +2049,14 @@ readonly fields: EpisodeFieldRefs;
  */
 export interface Prisma__EpisodeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  DownvoteEpisodeReview<T extends Prisma.Episode$DownvoteEpisodeReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$DownvoteEpisodeReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteEpisodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  Season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  EpisodeReview<T extends Prisma.Episode$EpisodeReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$EpisodeReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EpisodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ListActivityEpisode<T extends Prisma.Episode$ListActivityEpisodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$ListActivityEpisodeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ListEpisode<T extends Prisma.Episode$ListEpisodeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$ListEpisodeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UpvoteEpisodeReview<T extends Prisma.Episode$UpvoteEpisodeReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$UpvoteEpisodeReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteEpisodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserEpisodeFavorite<T extends Prisma.Episode$UserEpisodeFavoriteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$UserEpisodeFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEpisodeFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserEpisodeRating<T extends Prisma.Episode$UserEpisodeRatingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$UserEpisodeRatingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEpisodeRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  listItems<T extends Prisma.Episode$listItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$listItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  listActivities<T extends Prisma.Episode$listActivitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$listActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListActivityEpisodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usersWhoBookmarkedIt<T extends Prisma.Episode$usersWhoBookmarkedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$usersWhoBookmarkedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEpisodeFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usersWhoRatedIt<T extends Prisma.Episode$usersWhoRatedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$usersWhoRatedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserEpisodeRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Episode$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EpisodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  upvoteEpisodeReviews<T extends Prisma.Episode$upvoteEpisodeReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$upvoteEpisodeReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteEpisodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  downvoteEpisodeReviews<T extends Prisma.Episode$downvoteEpisodeReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Episode$downvoteEpisodeReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteEpisodeReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2090,12 +2090,12 @@ export interface EpisodeFieldRefs {
   readonly title: Prisma.FieldRef<"Episode", 'String'>
   readonly photoSrc: Prisma.FieldRef<"Episode", 'String'>
   readonly photoSrcProd: Prisma.FieldRef<"Episode", 'String'>
-  readonly description: Prisma.FieldRef<"Episode", 'String'>
-  readonly seasonId: Prisma.FieldRef<"Episode", 'Int'>
-  readonly duration: Prisma.FieldRef<"Episode", 'Int'>
   readonly trailerSrc: Prisma.FieldRef<"Episode", 'String'>
-  readonly ratingImdb: Prisma.FieldRef<"Episode", 'Float'>
+  readonly description: Prisma.FieldRef<"Episode", 'String'>
+  readonly duration: Prisma.FieldRef<"Episode", 'Int'>
   readonly dateAired: Prisma.FieldRef<"Episode", 'DateTime'>
+  readonly ratingImdb: Prisma.FieldRef<"Episode", 'Float'>
+  readonly seasonId: Prisma.FieldRef<"Episode", 'Int'>
 }
     
 
@@ -2492,81 +2492,9 @@ export type EpisodeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Episode.DownvoteEpisodeReview
+ * Episode.listItems
  */
-export type Episode$DownvoteEpisodeReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DownvoteEpisodeReview
-   */
-  select?: Prisma.DownvoteEpisodeReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DownvoteEpisodeReview
-   */
-  omit?: Prisma.DownvoteEpisodeReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DownvoteEpisodeReviewInclude<ExtArgs> | null
-  where?: Prisma.DownvoteEpisodeReviewWhereInput
-  orderBy?: Prisma.DownvoteEpisodeReviewOrderByWithRelationInput | Prisma.DownvoteEpisodeReviewOrderByWithRelationInput[]
-  cursor?: Prisma.DownvoteEpisodeReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DownvoteEpisodeReviewScalarFieldEnum | Prisma.DownvoteEpisodeReviewScalarFieldEnum[]
-}
-
-/**
- * Episode.EpisodeReview
- */
-export type Episode$EpisodeReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the EpisodeReview
-   */
-  select?: Prisma.EpisodeReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the EpisodeReview
-   */
-  omit?: Prisma.EpisodeReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EpisodeReviewInclude<ExtArgs> | null
-  where?: Prisma.EpisodeReviewWhereInput
-  orderBy?: Prisma.EpisodeReviewOrderByWithRelationInput | Prisma.EpisodeReviewOrderByWithRelationInput[]
-  cursor?: Prisma.EpisodeReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EpisodeReviewScalarFieldEnum | Prisma.EpisodeReviewScalarFieldEnum[]
-}
-
-/**
- * Episode.ListActivityEpisode
- */
-export type Episode$ListActivityEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ListActivityEpisode
-   */
-  select?: Prisma.ListActivityEpisodeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ListActivityEpisode
-   */
-  omit?: Prisma.ListActivityEpisodeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ListActivityEpisodeInclude<ExtArgs> | null
-  where?: Prisma.ListActivityEpisodeWhereInput
-  orderBy?: Prisma.ListActivityEpisodeOrderByWithRelationInput | Prisma.ListActivityEpisodeOrderByWithRelationInput[]
-  cursor?: Prisma.ListActivityEpisodeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ListActivityEpisodeScalarFieldEnum | Prisma.ListActivityEpisodeScalarFieldEnum[]
-}
-
-/**
- * Episode.ListEpisode
- */
-export type Episode$ListEpisodeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Episode$listItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ListEpisode
    */
@@ -2588,33 +2516,33 @@ export type Episode$ListEpisodeArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * Episode.UpvoteEpisodeReview
+ * Episode.listActivities
  */
-export type Episode$UpvoteEpisodeReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Episode$listActivitiesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UpvoteEpisodeReview
+   * Select specific fields to fetch from the ListActivityEpisode
    */
-  select?: Prisma.UpvoteEpisodeReviewSelect<ExtArgs> | null
+  select?: Prisma.ListActivityEpisodeSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UpvoteEpisodeReview
+   * Omit specific fields from the ListActivityEpisode
    */
-  omit?: Prisma.UpvoteEpisodeReviewOmit<ExtArgs> | null
+  omit?: Prisma.ListActivityEpisodeOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UpvoteEpisodeReviewInclude<ExtArgs> | null
-  where?: Prisma.UpvoteEpisodeReviewWhereInput
-  orderBy?: Prisma.UpvoteEpisodeReviewOrderByWithRelationInput | Prisma.UpvoteEpisodeReviewOrderByWithRelationInput[]
-  cursor?: Prisma.UpvoteEpisodeReviewWhereUniqueInput
+  include?: Prisma.ListActivityEpisodeInclude<ExtArgs> | null
+  where?: Prisma.ListActivityEpisodeWhereInput
+  orderBy?: Prisma.ListActivityEpisodeOrderByWithRelationInput | Prisma.ListActivityEpisodeOrderByWithRelationInput[]
+  cursor?: Prisma.ListActivityEpisodeWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UpvoteEpisodeReviewScalarFieldEnum | Prisma.UpvoteEpisodeReviewScalarFieldEnum[]
+  distinct?: Prisma.ListActivityEpisodeScalarFieldEnum | Prisma.ListActivityEpisodeScalarFieldEnum[]
 }
 
 /**
- * Episode.UserEpisodeFavorite
+ * Episode.usersWhoBookmarkedIt
  */
-export type Episode$UserEpisodeFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Episode$usersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserEpisodeFavorite
    */
@@ -2636,9 +2564,9 @@ export type Episode$UserEpisodeFavoriteArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
- * Episode.UserEpisodeRating
+ * Episode.usersWhoRatedIt
  */
-export type Episode$UserEpisodeRatingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Episode$usersWhoRatedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserEpisodeRating
    */
@@ -2657,6 +2585,78 @@ export type Episode$UserEpisodeRatingArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.UserEpisodeRatingScalarFieldEnum | Prisma.UserEpisodeRatingScalarFieldEnum[]
+}
+
+/**
+ * Episode.reviews
+ */
+export type Episode$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EpisodeReview
+   */
+  select?: Prisma.EpisodeReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EpisodeReview
+   */
+  omit?: Prisma.EpisodeReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EpisodeReviewInclude<ExtArgs> | null
+  where?: Prisma.EpisodeReviewWhereInput
+  orderBy?: Prisma.EpisodeReviewOrderByWithRelationInput | Prisma.EpisodeReviewOrderByWithRelationInput[]
+  cursor?: Prisma.EpisodeReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EpisodeReviewScalarFieldEnum | Prisma.EpisodeReviewScalarFieldEnum[]
+}
+
+/**
+ * Episode.upvoteEpisodeReviews
+ */
+export type Episode$upvoteEpisodeReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UpvoteEpisodeReview
+   */
+  select?: Prisma.UpvoteEpisodeReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UpvoteEpisodeReview
+   */
+  omit?: Prisma.UpvoteEpisodeReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UpvoteEpisodeReviewInclude<ExtArgs> | null
+  where?: Prisma.UpvoteEpisodeReviewWhereInput
+  orderBy?: Prisma.UpvoteEpisodeReviewOrderByWithRelationInput | Prisma.UpvoteEpisodeReviewOrderByWithRelationInput[]
+  cursor?: Prisma.UpvoteEpisodeReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UpvoteEpisodeReviewScalarFieldEnum | Prisma.UpvoteEpisodeReviewScalarFieldEnum[]
+}
+
+/**
+ * Episode.downvoteEpisodeReviews
+ */
+export type Episode$downvoteEpisodeReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DownvoteEpisodeReview
+   */
+  select?: Prisma.DownvoteEpisodeReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DownvoteEpisodeReview
+   */
+  omit?: Prisma.DownvoteEpisodeReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DownvoteEpisodeReviewInclude<ExtArgs> | null
+  where?: Prisma.DownvoteEpisodeReviewWhereInput
+  orderBy?: Prisma.DownvoteEpisodeReviewOrderByWithRelationInput | Prisma.DownvoteEpisodeReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DownvoteEpisodeReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DownvoteEpisodeReviewScalarFieldEnum | Prisma.DownvoteEpisodeReviewScalarFieldEnum[]
 }
 
 /**

@@ -22,7 +22,6 @@ export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const urls: any[] = [];
-
 	const movies = await getMovies();
 	const series = await getSeries();
 	const genres = await getGenres();

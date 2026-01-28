@@ -549,7 +549,11 @@ export default function SeriePageContent({
 				/>
 			</Box>
 
-			< TrailerModal open={trailerOpen} onClose={() => setTrailerOpen(false)} trailerSrc={serie?.trailerSrc} />
+			<TrailerModal
+				open={trailerOpen}
+				onClose={() => setTrailerOpen(false)}
+				trailerSrc={serie?.trailerSrc}
+			/>
 		</Stack>
 	);
 }

@@ -501,7 +501,7 @@ export async function getRelatedSeasons(
 			averageRating: 0,
 			totalReviews: 0,
 		};
-		
+
 		return { ...seasonDetails, episodes, ...ratingsInfo };
 	});
 

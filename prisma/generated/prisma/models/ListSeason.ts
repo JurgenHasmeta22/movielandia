@@ -29,17 +29,17 @@ export type AggregateListSeason = {
 export type ListSeasonAvgAggregateOutputType = {
   id: number | null
   orderIndex: number | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListSeasonSumAggregateOutputType = {
   id: number | null
   orderIndex: number | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListSeasonMinAggregateOutputType = {
@@ -47,9 +47,9 @@ export type ListSeasonMinAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListSeasonMaxAggregateOutputType = {
@@ -57,9 +57,9 @@ export type ListSeasonMaxAggregateOutputType = {
   addedAt: Date | null
   note: string | null
   orderIndex: number | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListSeasonCountAggregateOutputType = {
@@ -67,9 +67,9 @@ export type ListSeasonCountAggregateOutputType = {
   addedAt: number
   note: number
   orderIndex: number
+  listId: number
   seasonId: number
   userId: number
-  listId: number
   _all: number
 }
 
@@ -77,17 +77,17 @@ export type ListSeasonCountAggregateOutputType = {
 export type ListSeasonAvgAggregateInputType = {
   id?: true
   orderIndex?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListSeasonSumAggregateInputType = {
   id?: true
   orderIndex?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListSeasonMinAggregateInputType = {
@@ -95,9 +95,9 @@ export type ListSeasonMinAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListSeasonMaxAggregateInputType = {
@@ -105,9 +105,9 @@ export type ListSeasonMaxAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListSeasonCountAggregateInputType = {
@@ -115,9 +115,9 @@ export type ListSeasonCountAggregateInputType = {
   addedAt?: true
   note?: true
   orderIndex?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
   _all?: true
 }
 
@@ -212,9 +212,9 @@ export type ListSeasonGroupByOutputType = {
   addedAt: Date
   note: string | null
   orderIndex: number
+  listId: number
   seasonId: number
   userId: number
-  listId: number
   _count: ListSeasonCountAggregateOutputType | null
   _avg: ListSeasonAvgAggregateOutputType | null
   _sum: ListSeasonSumAggregateOutputType | null
@@ -245,12 +245,12 @@ export type ListSeasonWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListSeason"> | Date | string
   note?: Prisma.StringNullableFilter<"ListSeason"> | string | null
   orderIndex?: Prisma.IntFilter<"ListSeason"> | number
+  listId?: Prisma.IntFilter<"ListSeason"> | number
   seasonId?: Prisma.IntFilter<"ListSeason"> | number
   userId?: Prisma.IntFilter<"ListSeason"> | number
-  listId?: Prisma.IntFilter<"ListSeason"> | number
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListSeasonOrderByWithRelationInput = {
@@ -258,12 +258,12 @@ export type ListSeasonOrderByWithRelationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
-  List?: Prisma.ListOrderByWithRelationInput
-  Season?: Prisma.SeasonOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  list?: Prisma.ListOrderByWithRelationInput
+  season?: Prisma.SeasonOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ListSeasonOrderByRelevanceInput
 }
 
@@ -276,12 +276,12 @@ export type ListSeasonWhereUniqueInput = Prisma.AtLeast<{
   addedAt?: Prisma.DateTimeFilter<"ListSeason"> | Date | string
   note?: Prisma.StringNullableFilter<"ListSeason"> | string | null
   orderIndex?: Prisma.IntFilter<"ListSeason"> | number
+  listId?: Prisma.IntFilter<"ListSeason"> | number
   seasonId?: Prisma.IntFilter<"ListSeason"> | number
   userId?: Prisma.IntFilter<"ListSeason"> | number
-  listId?: Prisma.IntFilter<"ListSeason"> | number
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "listId_seasonId">
 
 export type ListSeasonOrderByWithAggregationInput = {
@@ -289,9 +289,9 @@ export type ListSeasonOrderByWithAggregationInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   _count?: Prisma.ListSeasonCountOrderByAggregateInput
   _avg?: Prisma.ListSeasonAvgOrderByAggregateInput
   _max?: Prisma.ListSeasonMaxOrderByAggregateInput
@@ -307,18 +307,18 @@ export type ListSeasonScalarWhereWithAggregatesInput = {
   addedAt?: Prisma.DateTimeWithAggregatesFilter<"ListSeason"> | Date | string
   note?: Prisma.StringNullableWithAggregatesFilter<"ListSeason"> | string | null
   orderIndex?: Prisma.IntWithAggregatesFilter<"ListSeason"> | number
+  listId?: Prisma.IntWithAggregatesFilter<"ListSeason"> | number
   seasonId?: Prisma.IntWithAggregatesFilter<"ListSeason"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListSeason"> | number
-  listId?: Prisma.IntWithAggregatesFilter<"ListSeason"> | number
 }
 
 export type ListSeasonCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  List: Prisma.ListCreateNestedOneWithoutListSeasonInput
-  Season: Prisma.SeasonCreateNestedOneWithoutListSeasonInput
-  User: Prisma.UserCreateNestedOneWithoutListSeasonInput
+  list: Prisma.ListCreateNestedOneWithoutSeasonItemsInput
+  season: Prisma.SeasonCreateNestedOneWithoutListItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedSeasonItemsInput
 }
 
 export type ListSeasonUncheckedCreateInput = {
@@ -326,18 +326,18 @@ export type ListSeasonUncheckedCreateInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
+  listId: number
   seasonId: number
   userId: number
-  listId: number
 }
 
 export type ListSeasonUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  List?: Prisma.ListUpdateOneRequiredWithoutListSeasonNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutListSeasonNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListSeasonNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutSeasonItemsNestedInput
+  season?: Prisma.SeasonUpdateOneRequiredWithoutListItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedSeasonItemsNestedInput
 }
 
 export type ListSeasonUncheckedUpdateInput = {
@@ -345,9 +345,9 @@ export type ListSeasonUncheckedUpdateInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListSeasonCreateManyInput = {
@@ -355,9 +355,9 @@ export type ListSeasonCreateManyInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
+  listId: number
   seasonId: number
   userId: number
-  listId: number
 }
 
 export type ListSeasonUpdateManyMutationInput = {
@@ -371,9 +371,9 @@ export type ListSeasonUncheckedUpdateManyInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListSeasonListRelationFilter = {
@@ -402,17 +402,17 @@ export type ListSeasonCountOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListSeasonAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListSeasonMaxOrderByAggregateInput = {
@@ -420,9 +420,9 @@ export type ListSeasonMaxOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListSeasonMinOrderByAggregateInput = {
@@ -430,17 +430,17 @@ export type ListSeasonMinOrderByAggregateInput = {
   addedAt?: Prisma.SortOrder
   note?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListSeasonSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   orderIndex?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListSeasonCreateNestedManyWithoutListInput = {
@@ -573,8 +573,8 @@ export type ListSeasonCreateWithoutListInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  Season: Prisma.SeasonCreateNestedOneWithoutListSeasonInput
-  User: Prisma.UserCreateNestedOneWithoutListSeasonInput
+  season: Prisma.SeasonCreateNestedOneWithoutListItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedSeasonItemsInput
 }
 
 export type ListSeasonUncheckedCreateWithoutListInput = {
@@ -620,17 +620,17 @@ export type ListSeasonScalarWhereInput = {
   addedAt?: Prisma.DateTimeFilter<"ListSeason"> | Date | string
   note?: Prisma.StringNullableFilter<"ListSeason"> | string | null
   orderIndex?: Prisma.IntFilter<"ListSeason"> | number
+  listId?: Prisma.IntFilter<"ListSeason"> | number
   seasonId?: Prisma.IntFilter<"ListSeason"> | number
   userId?: Prisma.IntFilter<"ListSeason"> | number
-  listId?: Prisma.IntFilter<"ListSeason"> | number
 }
 
 export type ListSeasonCreateWithoutSeasonInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  List: Prisma.ListCreateNestedOneWithoutListSeasonInput
-  User: Prisma.UserCreateNestedOneWithoutListSeasonInput
+  list: Prisma.ListCreateNestedOneWithoutSeasonItemsInput
+  user: Prisma.UserCreateNestedOneWithoutAddedSeasonItemsInput
 }
 
 export type ListSeasonUncheckedCreateWithoutSeasonInput = {
@@ -638,8 +638,8 @@ export type ListSeasonUncheckedCreateWithoutSeasonInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListSeasonCreateOrConnectWithoutSeasonInput = {
@@ -672,8 +672,8 @@ export type ListSeasonCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  List: Prisma.ListCreateNestedOneWithoutListSeasonInput
-  Season: Prisma.SeasonCreateNestedOneWithoutListSeasonInput
+  list: Prisma.ListCreateNestedOneWithoutSeasonItemsInput
+  season: Prisma.SeasonCreateNestedOneWithoutListItemsInput
 }
 
 export type ListSeasonUncheckedCreateWithoutUserInput = {
@@ -681,8 +681,8 @@ export type ListSeasonUncheckedCreateWithoutUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  seasonId: number
   listId: number
+  seasonId: number
 }
 
 export type ListSeasonCreateOrConnectWithoutUserInput = {
@@ -724,8 +724,8 @@ export type ListSeasonUpdateWithoutListInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutListSeasonNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListSeasonNestedInput
+  season?: Prisma.SeasonUpdateOneRequiredWithoutListItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedSeasonItemsNestedInput
 }
 
 export type ListSeasonUncheckedUpdateWithoutListInput = {
@@ -751,16 +751,16 @@ export type ListSeasonCreateManySeasonInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListSeasonUpdateWithoutSeasonInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  List?: Prisma.ListUpdateOneRequiredWithoutListSeasonNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListSeasonNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutSeasonItemsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutAddedSeasonItemsNestedInput
 }
 
 export type ListSeasonUncheckedUpdateWithoutSeasonInput = {
@@ -768,8 +768,8 @@ export type ListSeasonUncheckedUpdateWithoutSeasonInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListSeasonUncheckedUpdateManyWithoutSeasonInput = {
@@ -777,8 +777,8 @@ export type ListSeasonUncheckedUpdateManyWithoutSeasonInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListSeasonCreateManyUserInput = {
@@ -786,16 +786,16 @@ export type ListSeasonCreateManyUserInput = {
   addedAt?: Date | string
   note?: string | null
   orderIndex?: number
-  seasonId: number
   listId: number
+  seasonId: number
 }
 
 export type ListSeasonUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  List?: Prisma.ListUpdateOneRequiredWithoutListSeasonNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutListSeasonNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutSeasonItemsNestedInput
+  season?: Prisma.SeasonUpdateOneRequiredWithoutListItemsNestedInput
 }
 
 export type ListSeasonUncheckedUpdateWithoutUserInput = {
@@ -803,8 +803,8 @@ export type ListSeasonUncheckedUpdateWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListSeasonUncheckedUpdateManyWithoutUserInput = {
@@ -812,8 +812,8 @@ export type ListSeasonUncheckedUpdateManyWithoutUserInput = {
   addedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderIndex?: Prisma.IntFieldUpdateOperationsInput | number
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -823,12 +823,12 @@ export type ListSeasonSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listSeason"]>
 
 export type ListSeasonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -836,12 +836,12 @@ export type ListSeasonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listSeason"]>
 
 export type ListSeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -849,12 +849,12 @@ export type ListSeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listSeason"]>
 
 export type ListSeasonSelectScalar = {
@@ -862,43 +862,43 @@ export type ListSeasonSelectScalar = {
   addedAt?: boolean
   note?: boolean
   orderIndex?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
 }
 
-export type ListSeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "seasonId" | "userId" | "listId", ExtArgs["result"]["listSeason"]>
+export type ListSeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "addedAt" | "note" | "orderIndex" | "listId" | "seasonId" | "userId", ExtArgs["result"]["listSeason"]>
 export type ListSeasonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListSeasonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListSeasonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListSeasonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListSeason"
   objects: {
-    List: Prisma.$ListPayload<ExtArgs>
-    Season: Prisma.$SeasonPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    list: Prisma.$ListPayload<ExtArgs>
+    season: Prisma.$SeasonPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     addedAt: Date
     note: string | null
     orderIndex: number
+    listId: number
     seasonId: number
     userId: number
-    listId: number
   }, ExtArgs["result"]["listSeason"]>
   composites: {}
 }
@@ -1293,9 +1293,9 @@ readonly fields: ListSeasonFieldRefs;
  */
 export interface Prisma__ListSeasonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1329,9 +1329,9 @@ export interface ListSeasonFieldRefs {
   readonly addedAt: Prisma.FieldRef<"ListSeason", 'DateTime'>
   readonly note: Prisma.FieldRef<"ListSeason", 'String'>
   readonly orderIndex: Prisma.FieldRef<"ListSeason", 'Int'>
+  readonly listId: Prisma.FieldRef<"ListSeason", 'Int'>
   readonly seasonId: Prisma.FieldRef<"ListSeason", 'Int'>
   readonly userId: Prisma.FieldRef<"ListSeason", 'Int'>
-  readonly listId: Prisma.FieldRef<"ListSeason", 'Int'>
 }
     
 

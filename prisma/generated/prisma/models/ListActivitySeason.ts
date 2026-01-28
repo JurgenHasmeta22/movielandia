@@ -28,34 +28,34 @@ export type AggregateListActivitySeason = {
 
 export type ListActivitySeasonAvgAggregateOutputType = {
   id: number | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActivitySeasonSumAggregateOutputType = {
   id: number | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActivitySeasonMinAggregateOutputType = {
   id: number | null
   actionType: $Enums.ListActionType | null
   createdAt: Date | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActivitySeasonMaxAggregateOutputType = {
   id: number | null
   actionType: $Enums.ListActionType | null
   createdAt: Date | null
+  listId: number | null
   seasonId: number | null
   userId: number | null
-  listId: number | null
 }
 
 export type ListActivitySeasonCountAggregateOutputType = {
@@ -63,43 +63,43 @@ export type ListActivitySeasonCountAggregateOutputType = {
   actionType: number
   metadata: number
   createdAt: number
+  listId: number
   seasonId: number
   userId: number
-  listId: number
   _all: number
 }
 
 
 export type ListActivitySeasonAvgAggregateInputType = {
   id?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActivitySeasonSumAggregateInputType = {
   id?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActivitySeasonMinAggregateInputType = {
   id?: true
   actionType?: true
   createdAt?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActivitySeasonMaxAggregateInputType = {
   id?: true
   actionType?: true
   createdAt?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
 }
 
 export type ListActivitySeasonCountAggregateInputType = {
@@ -107,9 +107,9 @@ export type ListActivitySeasonCountAggregateInputType = {
   actionType?: true
   metadata?: true
   createdAt?: true
+  listId?: true
   seasonId?: true
   userId?: true
-  listId?: true
   _all?: true
 }
 
@@ -204,9 +204,9 @@ export type ListActivitySeasonGroupByOutputType = {
   actionType: $Enums.ListActionType
   metadata: runtime.JsonValue | null
   createdAt: Date
+  listId: number
   seasonId: number
   userId: number
-  listId: number
   _count: ListActivitySeasonCountAggregateOutputType | null
   _avg: ListActivitySeasonAvgAggregateOutputType | null
   _sum: ListActivitySeasonSumAggregateOutputType | null
@@ -237,12 +237,12 @@ export type ListActivitySeasonWhereInput = {
   actionType?: Prisma.EnumListActionTypeFilter<"ListActivitySeason"> | $Enums.ListActionType
   metadata?: Prisma.JsonNullableFilter<"ListActivitySeason">
   createdAt?: Prisma.DateTimeFilter<"ListActivitySeason"> | Date | string
+  listId?: Prisma.IntFilter<"ListActivitySeason"> | number
   seasonId?: Prisma.IntFilter<"ListActivitySeason"> | number
   userId?: Prisma.IntFilter<"ListActivitySeason"> | number
-  listId?: Prisma.IntFilter<"ListActivitySeason"> | number
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ListActivitySeasonOrderByWithRelationInput = {
@@ -250,12 +250,12 @@ export type ListActivitySeasonOrderByWithRelationInput = {
   actionType?: Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
-  List?: Prisma.ListOrderByWithRelationInput
-  Season?: Prisma.SeasonOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  list?: Prisma.ListOrderByWithRelationInput
+  season?: Prisma.SeasonOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ListActivitySeasonWhereUniqueInput = Prisma.AtLeast<{
@@ -266,12 +266,12 @@ export type ListActivitySeasonWhereUniqueInput = Prisma.AtLeast<{
   actionType?: Prisma.EnumListActionTypeFilter<"ListActivitySeason"> | $Enums.ListActionType
   metadata?: Prisma.JsonNullableFilter<"ListActivitySeason">
   createdAt?: Prisma.DateTimeFilter<"ListActivitySeason"> | Date | string
+  listId?: Prisma.IntFilter<"ListActivitySeason"> | number
   seasonId?: Prisma.IntFilter<"ListActivitySeason"> | number
   userId?: Prisma.IntFilter<"ListActivitySeason"> | number
-  listId?: Prisma.IntFilter<"ListActivitySeason"> | number
-  List?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
-  Season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  list?: Prisma.XOR<Prisma.ListScalarRelationFilter, Prisma.ListWhereInput>
+  season?: Prisma.XOR<Prisma.SeasonScalarRelationFilter, Prisma.SeasonWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type ListActivitySeasonOrderByWithAggregationInput = {
@@ -279,9 +279,9 @@ export type ListActivitySeasonOrderByWithAggregationInput = {
   actionType?: Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
   _count?: Prisma.ListActivitySeasonCountOrderByAggregateInput
   _avg?: Prisma.ListActivitySeasonAvgOrderByAggregateInput
   _max?: Prisma.ListActivitySeasonMaxOrderByAggregateInput
@@ -297,18 +297,18 @@ export type ListActivitySeasonScalarWhereWithAggregatesInput = {
   actionType?: Prisma.EnumListActionTypeWithAggregatesFilter<"ListActivitySeason"> | $Enums.ListActionType
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"ListActivitySeason">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ListActivitySeason"> | Date | string
+  listId?: Prisma.IntWithAggregatesFilter<"ListActivitySeason"> | number
   seasonId?: Prisma.IntWithAggregatesFilter<"ListActivitySeason"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ListActivitySeason"> | number
-  listId?: Prisma.IntWithAggregatesFilter<"ListActivitySeason"> | number
 }
 
 export type ListActivitySeasonCreateInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  List: Prisma.ListCreateNestedOneWithoutListActivitySeasonInput
-  Season: Prisma.SeasonCreateNestedOneWithoutListActivitySeasonInput
-  User: Prisma.UserCreateNestedOneWithoutListActivitySeasonInput
+  list: Prisma.ListCreateNestedOneWithoutSeasonActivitiesInput
+  season: Prisma.SeasonCreateNestedOneWithoutListActivitiesInput
+  user: Prisma.UserCreateNestedOneWithoutSeasonActivitiesInput
 }
 
 export type ListActivitySeasonUncheckedCreateInput = {
@@ -316,18 +316,18 @@ export type ListActivitySeasonUncheckedCreateInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  listId: number
   seasonId: number
   userId: number
-  listId: number
 }
 
 export type ListActivitySeasonUpdateInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  List?: Prisma.ListUpdateOneRequiredWithoutListActivitySeasonNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutListActivitySeasonNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListActivitySeasonNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutSeasonActivitiesNestedInput
+  season?: Prisma.SeasonUpdateOneRequiredWithoutListActivitiesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSeasonActivitiesNestedInput
 }
 
 export type ListActivitySeasonUncheckedUpdateInput = {
@@ -335,9 +335,9 @@ export type ListActivitySeasonUncheckedUpdateInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActivitySeasonCreateManyInput = {
@@ -345,9 +345,9 @@ export type ListActivitySeasonCreateManyInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
+  listId: number
   seasonId: number
   userId: number
-  listId: number
 }
 
 export type ListActivitySeasonUpdateManyMutationInput = {
@@ -361,9 +361,9 @@ export type ListActivitySeasonUncheckedUpdateManyInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  listId?: Prisma.IntFieldUpdateOperationsInput | number
   seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  listId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActivitySeasonListRelationFilter = {
@@ -381,41 +381,41 @@ export type ListActivitySeasonCountOrderByAggregateInput = {
   actionType?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActivitySeasonAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActivitySeasonMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   actionType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActivitySeasonMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   actionType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActivitySeasonSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  listId?: Prisma.SortOrder
   seasonId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  listId?: Prisma.SortOrder
 }
 
 export type ListActivitySeasonCreateNestedManyWithoutListInput = {
@@ -548,8 +548,8 @@ export type ListActivitySeasonCreateWithoutListInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  Season: Prisma.SeasonCreateNestedOneWithoutListActivitySeasonInput
-  User: Prisma.UserCreateNestedOneWithoutListActivitySeasonInput
+  season: Prisma.SeasonCreateNestedOneWithoutListActivitiesInput
+  user: Prisma.UserCreateNestedOneWithoutSeasonActivitiesInput
 }
 
 export type ListActivitySeasonUncheckedCreateWithoutListInput = {
@@ -595,17 +595,17 @@ export type ListActivitySeasonScalarWhereInput = {
   actionType?: Prisma.EnumListActionTypeFilter<"ListActivitySeason"> | $Enums.ListActionType
   metadata?: Prisma.JsonNullableFilter<"ListActivitySeason">
   createdAt?: Prisma.DateTimeFilter<"ListActivitySeason"> | Date | string
+  listId?: Prisma.IntFilter<"ListActivitySeason"> | number
   seasonId?: Prisma.IntFilter<"ListActivitySeason"> | number
   userId?: Prisma.IntFilter<"ListActivitySeason"> | number
-  listId?: Prisma.IntFilter<"ListActivitySeason"> | number
 }
 
 export type ListActivitySeasonCreateWithoutSeasonInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  List: Prisma.ListCreateNestedOneWithoutListActivitySeasonInput
-  User: Prisma.UserCreateNestedOneWithoutListActivitySeasonInput
+  list: Prisma.ListCreateNestedOneWithoutSeasonActivitiesInput
+  user: Prisma.UserCreateNestedOneWithoutSeasonActivitiesInput
 }
 
 export type ListActivitySeasonUncheckedCreateWithoutSeasonInput = {
@@ -613,8 +613,8 @@ export type ListActivitySeasonUncheckedCreateWithoutSeasonInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListActivitySeasonCreateOrConnectWithoutSeasonInput = {
@@ -647,8 +647,8 @@ export type ListActivitySeasonCreateWithoutUserInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  List: Prisma.ListCreateNestedOneWithoutListActivitySeasonInput
-  Season: Prisma.SeasonCreateNestedOneWithoutListActivitySeasonInput
+  list: Prisma.ListCreateNestedOneWithoutSeasonActivitiesInput
+  season: Prisma.SeasonCreateNestedOneWithoutListActivitiesInput
 }
 
 export type ListActivitySeasonUncheckedCreateWithoutUserInput = {
@@ -656,8 +656,8 @@ export type ListActivitySeasonUncheckedCreateWithoutUserInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  seasonId: number
   listId: number
+  seasonId: number
 }
 
 export type ListActivitySeasonCreateOrConnectWithoutUserInput = {
@@ -699,8 +699,8 @@ export type ListActivitySeasonUpdateWithoutListInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutListActivitySeasonNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListActivitySeasonNestedInput
+  season?: Prisma.SeasonUpdateOneRequiredWithoutListActivitiesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSeasonActivitiesNestedInput
 }
 
 export type ListActivitySeasonUncheckedUpdateWithoutListInput = {
@@ -726,16 +726,16 @@ export type ListActivitySeasonCreateManySeasonInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  userId: number
   listId: number
+  userId: number
 }
 
 export type ListActivitySeasonUpdateWithoutSeasonInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  List?: Prisma.ListUpdateOneRequiredWithoutListActivitySeasonNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutListActivitySeasonNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutSeasonActivitiesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSeasonActivitiesNestedInput
 }
 
 export type ListActivitySeasonUncheckedUpdateWithoutSeasonInput = {
@@ -743,8 +743,8 @@ export type ListActivitySeasonUncheckedUpdateWithoutSeasonInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActivitySeasonUncheckedUpdateManyWithoutSeasonInput = {
@@ -752,8 +752,8 @@ export type ListActivitySeasonUncheckedUpdateManyWithoutSeasonInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActivitySeasonCreateManyUserInput = {
@@ -761,16 +761,16 @@ export type ListActivitySeasonCreateManyUserInput = {
   actionType: $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  seasonId: number
   listId: number
+  seasonId: number
 }
 
 export type ListActivitySeasonUpdateWithoutUserInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  List?: Prisma.ListUpdateOneRequiredWithoutListActivitySeasonNestedInput
-  Season?: Prisma.SeasonUpdateOneRequiredWithoutListActivitySeasonNestedInput
+  list?: Prisma.ListUpdateOneRequiredWithoutSeasonActivitiesNestedInput
+  season?: Prisma.SeasonUpdateOneRequiredWithoutListActivitiesNestedInput
 }
 
 export type ListActivitySeasonUncheckedUpdateWithoutUserInput = {
@@ -778,8 +778,8 @@ export type ListActivitySeasonUncheckedUpdateWithoutUserInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ListActivitySeasonUncheckedUpdateManyWithoutUserInput = {
@@ -787,8 +787,8 @@ export type ListActivitySeasonUncheckedUpdateManyWithoutUserInput = {
   actionType?: Prisma.EnumListActionTypeFieldUpdateOperationsInput | $Enums.ListActionType
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
   listId?: Prisma.IntFieldUpdateOperationsInput | number
+  seasonId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -798,12 +798,12 @@ export type ListActivitySeasonSelect<ExtArgs extends runtime.Types.Extensions.In
   actionType?: boolean
   metadata?: boolean
   createdAt?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listActivitySeason"]>
 
 export type ListActivitySeasonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -811,12 +811,12 @@ export type ListActivitySeasonSelectCreateManyAndReturn<ExtArgs extends runtime.
   actionType?: boolean
   metadata?: boolean
   createdAt?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listActivitySeason"]>
 
 export type ListActivitySeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -824,12 +824,12 @@ export type ListActivitySeasonSelectUpdateManyAndReturn<ExtArgs extends runtime.
   actionType?: boolean
   metadata?: boolean
   createdAt?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listActivitySeason"]>
 
 export type ListActivitySeasonSelectScalar = {
@@ -837,43 +837,43 @@ export type ListActivitySeasonSelectScalar = {
   actionType?: boolean
   metadata?: boolean
   createdAt?: boolean
+  listId?: boolean
   seasonId?: boolean
   userId?: boolean
-  listId?: boolean
 }
 
-export type ListActivitySeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "actionType" | "metadata" | "createdAt" | "seasonId" | "userId" | "listId", ExtArgs["result"]["listActivitySeason"]>
+export type ListActivitySeasonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "actionType" | "metadata" | "createdAt" | "listId" | "seasonId" | "userId", ExtArgs["result"]["listActivitySeason"]>
 export type ListActivitySeasonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListActivitySeasonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ListActivitySeasonIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  List?: boolean | Prisma.ListDefaultArgs<ExtArgs>
-  Season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
+  season?: boolean | Prisma.SeasonDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ListActivitySeasonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ListActivitySeason"
   objects: {
-    List: Prisma.$ListPayload<ExtArgs>
-    Season: Prisma.$SeasonPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    list: Prisma.$ListPayload<ExtArgs>
+    season: Prisma.$SeasonPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     actionType: $Enums.ListActionType
     metadata: runtime.JsonValue | null
     createdAt: Date
+    listId: number
     seasonId: number
     userId: number
-    listId: number
   }, ExtArgs["result"]["listActivitySeason"]>
   composites: {}
 }
@@ -1268,9 +1268,9 @@ readonly fields: ListActivitySeasonFieldRefs;
  */
 export interface Prisma__ListActivitySeasonClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  List<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  Season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  list<T extends Prisma.ListDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ListDefaultArgs<ExtArgs>>): Prisma.Prisma__ListClient<runtime.Types.Result.GetResult<Prisma.$ListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  season<T extends Prisma.SeasonDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SeasonDefaultArgs<ExtArgs>>): Prisma.Prisma__SeasonClient<runtime.Types.Result.GetResult<Prisma.$SeasonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1304,9 +1304,9 @@ export interface ListActivitySeasonFieldRefs {
   readonly actionType: Prisma.FieldRef<"ListActivitySeason", 'ListActionType'>
   readonly metadata: Prisma.FieldRef<"ListActivitySeason", 'Json'>
   readonly createdAt: Prisma.FieldRef<"ListActivitySeason", 'DateTime'>
+  readonly listId: Prisma.FieldRef<"ListActivitySeason", 'Int'>
   readonly seasonId: Prisma.FieldRef<"ListActivitySeason", 'Int'>
   readonly userId: Prisma.FieldRef<"ListActivitySeason", 'Int'>
-  readonly listId: Prisma.FieldRef<"ListActivitySeason", 'Int'>
 }
     
 

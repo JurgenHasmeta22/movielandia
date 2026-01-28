@@ -208,16 +208,16 @@ export type UserCrewFavoriteWhereInput = {
   id?: Prisma.IntFilter<"UserCrewFavorite"> | number
   userId?: Prisma.IntFilter<"UserCrewFavorite"> | number
   crewId?: Prisma.IntFilter<"UserCrewFavorite"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }
 
 export type UserCrewFavoriteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   crewId?: Prisma.SortOrder
-  Crew?: Prisma.CrewOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  crew?: Prisma.CrewOrderByWithRelationInput
 }
 
 export type UserCrewFavoriteWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UserCrewFavoriteWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserCrewFavoriteWhereInput | Prisma.UserCrewFavoriteWhereInput[]
   userId?: Prisma.IntFilter<"UserCrewFavorite"> | number
   crewId?: Prisma.IntFilter<"UserCrewFavorite"> | number
-  Crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  crew?: Prisma.XOR<Prisma.CrewScalarRelationFilter, Prisma.CrewWhereInput>
 }, "id" | "userId_crewId">
 
 export type UserCrewFavoriteOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UserCrewFavoriteScalarWhereWithAggregatesInput = {
 }
 
 export type UserCrewFavoriteCreateInput = {
-  Crew: Prisma.CrewCreateNestedOneWithoutUserCrewFavoriteInput
-  User: Prisma.UserCreateNestedOneWithoutUserCrewFavoriteInput
+  user: Prisma.UserCreateNestedOneWithoutFavCrewInput
+  crew: Prisma.CrewCreateNestedOneWithoutUsersWhoBookmarkedItInput
 }
 
 export type UserCrewFavoriteUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UserCrewFavoriteUncheckedCreateInput = {
 }
 
 export type UserCrewFavoriteUpdateInput = {
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutUserCrewFavoriteNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUserCrewFavoriteNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutFavCrewNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
 }
 
 export type UserCrewFavoriteUncheckedUpdateInput = {
@@ -420,7 +420,7 @@ export type UserCrewFavoriteUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type UserCrewFavoriteCreateWithoutCrewInput = {
-  User: Prisma.UserCreateNestedOneWithoutUserCrewFavoriteInput
+  user: Prisma.UserCreateNestedOneWithoutFavCrewInput
 }
 
 export type UserCrewFavoriteUncheckedCreateWithoutCrewInput = {
@@ -464,7 +464,7 @@ export type UserCrewFavoriteScalarWhereInput = {
 }
 
 export type UserCrewFavoriteCreateWithoutUserInput = {
-  Crew: Prisma.CrewCreateNestedOneWithoutUserCrewFavoriteInput
+  crew: Prisma.CrewCreateNestedOneWithoutUsersWhoBookmarkedItInput
 }
 
 export type UserCrewFavoriteUncheckedCreateWithoutUserInput = {
@@ -504,7 +504,7 @@ export type UserCrewFavoriteCreateManyCrewInput = {
 }
 
 export type UserCrewFavoriteUpdateWithoutCrewInput = {
-  User?: Prisma.UserUpdateOneRequiredWithoutUserCrewFavoriteNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutFavCrewNestedInput
 }
 
 export type UserCrewFavoriteUncheckedUpdateWithoutCrewInput = {
@@ -523,7 +523,7 @@ export type UserCrewFavoriteCreateManyUserInput = {
 }
 
 export type UserCrewFavoriteUpdateWithoutUserInput = {
-  Crew?: Prisma.CrewUpdateOneRequiredWithoutUserCrewFavoriteNestedInput
+  crew?: Prisma.CrewUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput
 }
 
 export type UserCrewFavoriteUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UserCrewFavoriteSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   userId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCrewFavorite"]>
 
 export type UserCrewFavoriteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCrewFavorite"]>
 
 export type UserCrewFavoriteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   crewId?: boolean
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userCrewFavorite"]>
 
 export type UserCrewFavoriteSelectScalar = {
@@ -570,23 +570,23 @@ export type UserCrewFavoriteSelectScalar = {
 
 export type UserCrewFavoriteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "crewId", ExtArgs["result"]["userCrewFavorite"]>
 export type UserCrewFavoriteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type UserCrewFavoriteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 export type UserCrewFavoriteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  crew?: boolean | Prisma.CrewDefaultArgs<ExtArgs>
 }
 
 export type $UserCrewFavoritePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserCrewFavorite"
   objects: {
-    Crew: Prisma.$CrewPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    crew: Prisma.$CrewPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UserCrewFavoriteFieldRefs;
  */
 export interface Prisma__UserCrewFavoriteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crew<T extends Prisma.CrewDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrewDefaultArgs<ExtArgs>>): Prisma.Prisma__CrewClient<runtime.Types.Result.GetResult<Prisma.$CrewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

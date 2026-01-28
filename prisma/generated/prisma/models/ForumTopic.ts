@@ -54,8 +54,8 @@ export type ForumTopicMinAggregateOutputType = {
   viewCount: number | null
   lastPostAt: Date | null
   isModerated: boolean | null
-  status: $Enums.TopicStatus | null
   closedAt: Date | null
+  status: $Enums.TopicStatus | null
   closedById: number | null
   categoryId: number | null
   userId: number | null
@@ -73,8 +73,8 @@ export type ForumTopicMaxAggregateOutputType = {
   viewCount: number | null
   lastPostAt: Date | null
   isModerated: boolean | null
-  status: $Enums.TopicStatus | null
   closedAt: Date | null
+  status: $Enums.TopicStatus | null
   closedById: number | null
   categoryId: number | null
   userId: number | null
@@ -92,8 +92,8 @@ export type ForumTopicCountAggregateOutputType = {
   viewCount: number
   lastPostAt: number
   isModerated: number
-  status: number
   closedAt: number
+  status: number
   closedById: number
   categoryId: number
   userId: number
@@ -129,8 +129,8 @@ export type ForumTopicMinAggregateInputType = {
   viewCount?: true
   lastPostAt?: true
   isModerated?: true
-  status?: true
   closedAt?: true
+  status?: true
   closedById?: true
   categoryId?: true
   userId?: true
@@ -148,8 +148,8 @@ export type ForumTopicMaxAggregateInputType = {
   viewCount?: true
   lastPostAt?: true
   isModerated?: true
-  status?: true
   closedAt?: true
+  status?: true
   closedById?: true
   categoryId?: true
   userId?: true
@@ -167,8 +167,8 @@ export type ForumTopicCountAggregateInputType = {
   viewCount?: true
   lastPostAt?: true
   isModerated?: true
-  status?: true
   closedAt?: true
+  status?: true
   closedById?: true
   categoryId?: true
   userId?: true
@@ -273,8 +273,8 @@ export type ForumTopicGroupByOutputType = {
   viewCount: number
   lastPostAt: Date
   isModerated: boolean
-  status: $Enums.TopicStatus
   closedAt: Date | null
+  status: $Enums.TopicStatus
   closedById: number | null
   categoryId: number
   userId: number
@@ -315,19 +315,19 @@ export type ForumTopicWhereInput = {
   viewCount?: Prisma.IntFilter<"ForumTopic"> | number
   lastPostAt?: Prisma.DateTimeFilter<"ForumTopic"> | Date | string
   isModerated?: Prisma.BoolFilter<"ForumTopic"> | boolean
-  status?: Prisma.EnumTopicStatusFilter<"ForumTopic"> | $Enums.TopicStatus
   closedAt?: Prisma.DateTimeNullableFilter<"ForumTopic"> | Date | string | null
+  status?: Prisma.EnumTopicStatusFilter<"ForumTopic"> | $Enums.TopicStatus
   closedById?: Prisma.IntNullableFilter<"ForumTopic"> | number | null
   categoryId?: Prisma.IntFilter<"ForumTopic"> | number
   userId?: Prisma.IntFilter<"ForumTopic"> | number
-  ForumPost?: Prisma.ForumPostListRelationFilter
-  ForumCategory?: Prisma.XOR<Prisma.ForumCategoryScalarRelationFilter, Prisma.ForumCategoryWhereInput>
-  User_ForumTopic_closedByIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  User_ForumTopic_userIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicListRelationFilter
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteListRelationFilter
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchListRelationFilter
-  ForumTag?: Prisma.ForumTagListRelationFilter
+  closedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  tags?: Prisma.ForumTagListRelationFilter
+  category?: Prisma.XOR<Prisma.ForumCategoryScalarRelationFilter, Prisma.ForumCategoryWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  posts?: Prisma.ForumPostListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteListRelationFilter
+  upvotes?: Prisma.UpvoteForumTopicListRelationFilter
+  watchers?: Prisma.UserForumTopicWatchListRelationFilter
 }
 
 export type ForumTopicOrderByWithRelationInput = {
@@ -342,19 +342,19 @@ export type ForumTopicOrderByWithRelationInput = {
   viewCount?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrder
   isModerated?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   closedById?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  ForumPost?: Prisma.ForumPostOrderByRelationAggregateInput
-  ForumCategory?: Prisma.ForumCategoryOrderByWithRelationInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserOrderByWithRelationInput
-  User_ForumTopic_userIdToUser?: Prisma.UserOrderByWithRelationInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicOrderByRelationAggregateInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteOrderByRelationAggregateInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchOrderByRelationAggregateInput
-  ForumTag?: Prisma.ForumTagOrderByRelationAggregateInput
+  closedBy?: Prisma.UserOrderByWithRelationInput
+  tags?: Prisma.ForumTagOrderByRelationAggregateInput
+  category?: Prisma.ForumCategoryOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  posts?: Prisma.ForumPostOrderByRelationAggregateInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteOrderByRelationAggregateInput
+  upvotes?: Prisma.UpvoteForumTopicOrderByRelationAggregateInput
+  watchers?: Prisma.UserForumTopicWatchOrderByRelationAggregateInput
   _relevance?: Prisma.ForumTopicOrderByRelevanceInput
 }
 
@@ -373,19 +373,19 @@ export type ForumTopicWhereUniqueInput = Prisma.AtLeast<{
   viewCount?: Prisma.IntFilter<"ForumTopic"> | number
   lastPostAt?: Prisma.DateTimeFilter<"ForumTopic"> | Date | string
   isModerated?: Prisma.BoolFilter<"ForumTopic"> | boolean
-  status?: Prisma.EnumTopicStatusFilter<"ForumTopic"> | $Enums.TopicStatus
   closedAt?: Prisma.DateTimeNullableFilter<"ForumTopic"> | Date | string | null
+  status?: Prisma.EnumTopicStatusFilter<"ForumTopic"> | $Enums.TopicStatus
   closedById?: Prisma.IntNullableFilter<"ForumTopic"> | number | null
   categoryId?: Prisma.IntFilter<"ForumTopic"> | number
   userId?: Prisma.IntFilter<"ForumTopic"> | number
-  ForumPost?: Prisma.ForumPostListRelationFilter
-  ForumCategory?: Prisma.XOR<Prisma.ForumCategoryScalarRelationFilter, Prisma.ForumCategoryWhereInput>
-  User_ForumTopic_closedByIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  User_ForumTopic_userIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicListRelationFilter
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteListRelationFilter
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchListRelationFilter
-  ForumTag?: Prisma.ForumTagListRelationFilter
+  closedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  tags?: Prisma.ForumTagListRelationFilter
+  category?: Prisma.XOR<Prisma.ForumCategoryScalarRelationFilter, Prisma.ForumCategoryWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  posts?: Prisma.ForumPostListRelationFilter
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteListRelationFilter
+  upvotes?: Prisma.UpvoteForumTopicListRelationFilter
+  watchers?: Prisma.UserForumTopicWatchListRelationFilter
 }, "id" | "slug">
 
 export type ForumTopicOrderByWithAggregationInput = {
@@ -400,8 +400,8 @@ export type ForumTopicOrderByWithAggregationInput = {
   viewCount?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrder
   isModerated?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   closedById?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -427,8 +427,8 @@ export type ForumTopicScalarWhereWithAggregatesInput = {
   viewCount?: Prisma.IntWithAggregatesFilter<"ForumTopic"> | number
   lastPostAt?: Prisma.DateTimeWithAggregatesFilter<"ForumTopic"> | Date | string
   isModerated?: Prisma.BoolWithAggregatesFilter<"ForumTopic"> | boolean
-  status?: Prisma.EnumTopicStatusWithAggregatesFilter<"ForumTopic"> | $Enums.TopicStatus
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ForumTopic"> | Date | string | null
+  status?: Prisma.EnumTopicStatusWithAggregatesFilter<"ForumTopic"> | $Enums.TopicStatus
   closedById?: Prisma.IntNullableWithAggregatesFilter<"ForumTopic"> | number | null
   categoryId?: Prisma.IntWithAggregatesFilter<"ForumTopic"> | number
   userId?: Prisma.IntWithAggregatesFilter<"ForumTopic"> | number
@@ -438,23 +438,23 @@ export type ForumTopicCreateInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
 }
 
 export type ForumTopicUncheckedCreateInput = {
@@ -462,23 +462,23 @@ export type ForumTopicUncheckedCreateInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
   closedById?: number | null
   categoryId: number
   userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type ForumTopicUpdateInput = {
@@ -492,16 +492,16 @@ export type ForumTopicUpdateInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
 }
 
 export type ForumTopicUncheckedUpdateInput = {
@@ -516,16 +516,16 @@ export type ForumTopicUncheckedUpdateInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type ForumTopicCreateManyInput = {
@@ -533,15 +533,15 @@ export type ForumTopicCreateManyInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
   closedById?: number | null
   categoryId: number
   userId: number
@@ -558,8 +558,8 @@ export type ForumTopicUpdateManyMutationInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
 }
 
 export type ForumTopicUncheckedUpdateManyInput = {
@@ -574,8 +574,8 @@ export type ForumTopicUncheckedUpdateManyInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -614,8 +614,8 @@ export type ForumTopicCountOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrder
   isModerated?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   closedById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -641,8 +641,8 @@ export type ForumTopicMaxOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrder
   isModerated?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   closedById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -660,8 +660,8 @@ export type ForumTopicMinOrderByAggregateInput = {
   viewCount?: Prisma.SortOrder
   lastPostAt?: Prisma.SortOrder
   isModerated?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   closedAt?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   closedById?: Prisma.SortOrder
   categoryId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -675,97 +675,97 @@ export type ForumTopicSumOrderByAggregateInput = {
   userId?: Prisma.SortOrder
 }
 
-export type ForumTopicCreateNestedManyWithoutForumCategoryInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput> | Prisma.ForumTopicCreateWithoutForumCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput[]
-  createMany?: Prisma.ForumTopicCreateManyForumCategoryInputEnvelope
+export type ForumTopicCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutCategoryInput> | Prisma.ForumTopicCreateWithoutCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.ForumTopicCreateManyCategoryInputEnvelope
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUncheckedCreateNestedManyWithoutForumCategoryInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput> | Prisma.ForumTopicCreateWithoutForumCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput[]
-  createMany?: Prisma.ForumTopicCreateManyForumCategoryInputEnvelope
+export type ForumTopicUncheckedCreateNestedManyWithoutCategoryInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutCategoryInput> | Prisma.ForumTopicCreateWithoutCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutCategoryInput[]
+  createMany?: Prisma.ForumTopicCreateManyCategoryInputEnvelope
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUpdateManyWithoutForumCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput> | Prisma.ForumTopicCreateWithoutForumCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumCategoryInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumCategoryInput[]
-  createMany?: Prisma.ForumTopicCreateManyForumCategoryInputEnvelope
+export type ForumTopicUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutCategoryInput> | Prisma.ForumTopicCreateWithoutCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutCategoryInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.ForumTopicCreateManyCategoryInputEnvelope
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumCategoryInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumCategoryInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutForumCategoryInput | Prisma.ForumTopicUpdateManyWithWhereWithoutForumCategoryInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutCategoryInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutCategoryInput | Prisma.ForumTopicUpdateManyWithWhereWithoutCategoryInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicUncheckedUpdateManyWithoutForumCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput> | Prisma.ForumTopicCreateWithoutForumCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutForumCategoryInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumCategoryInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumCategoryInput[]
-  createMany?: Prisma.ForumTopicCreateManyForumCategoryInputEnvelope
+export type ForumTopicUncheckedUpdateManyWithoutCategoryNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutCategoryInput> | Prisma.ForumTopicCreateWithoutCategoryInput[] | Prisma.ForumTopicUncheckedCreateWithoutCategoryInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutCategoryInput | Prisma.ForumTopicCreateOrConnectWithoutCategoryInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutCategoryInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutCategoryInput[]
+  createMany?: Prisma.ForumTopicCreateManyCategoryInputEnvelope
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumCategoryInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumCategoryInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutForumCategoryInput | Prisma.ForumTopicUpdateManyWithWhereWithoutForumCategoryInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutCategoryInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutCategoryInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutCategoryInput | Prisma.ForumTopicUpdateManyWithWhereWithoutCategoryInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicCreateNestedOneWithoutForumPostInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumPostInput, Prisma.ForumTopicUncheckedCreateWithoutForumPostInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumPostInput
+export type ForumTopicCreateNestedOneWithoutPostsInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutPostsInput, Prisma.ForumTopicUncheckedCreateWithoutPostsInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutPostsInput
   connect?: Prisma.ForumTopicWhereUniqueInput
 }
 
-export type ForumTopicUpdateOneRequiredWithoutForumPostNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumPostInput, Prisma.ForumTopicUncheckedCreateWithoutForumPostInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumPostInput
-  upsert?: Prisma.ForumTopicUpsertWithoutForumPostInput
+export type ForumTopicUpdateOneRequiredWithoutPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutPostsInput, Prisma.ForumTopicUncheckedCreateWithoutPostsInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutPostsInput
+  upsert?: Prisma.ForumTopicUpsertWithoutPostsInput
   connect?: Prisma.ForumTopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutForumPostInput, Prisma.ForumTopicUpdateWithoutForumPostInput>, Prisma.ForumTopicUncheckedUpdateWithoutForumPostInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutPostsInput, Prisma.ForumTopicUpdateWithoutPostsInput>, Prisma.ForumTopicUncheckedUpdateWithoutPostsInput>
 }
 
-export type ForumTopicCreateNestedManyWithoutForumTagInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumTagInput, Prisma.ForumTopicUncheckedCreateWithoutForumTagInput> | Prisma.ForumTopicCreateWithoutForumTagInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumTagInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumTagInput | Prisma.ForumTopicCreateOrConnectWithoutForumTagInput[]
+export type ForumTopicCreateNestedManyWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutTagsInput, Prisma.ForumTopicUncheckedCreateWithoutTagsInput> | Prisma.ForumTopicCreateWithoutTagsInput[] | Prisma.ForumTopicUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutTagsInput | Prisma.ForumTopicCreateOrConnectWithoutTagsInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUncheckedCreateNestedManyWithoutForumTagInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumTagInput, Prisma.ForumTopicUncheckedCreateWithoutForumTagInput> | Prisma.ForumTopicCreateWithoutForumTagInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumTagInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumTagInput | Prisma.ForumTopicCreateOrConnectWithoutForumTagInput[]
+export type ForumTopicUncheckedCreateNestedManyWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutTagsInput, Prisma.ForumTopicUncheckedCreateWithoutTagsInput> | Prisma.ForumTopicCreateWithoutTagsInput[] | Prisma.ForumTopicUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutTagsInput | Prisma.ForumTopicCreateOrConnectWithoutTagsInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUpdateManyWithoutForumTagNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumTagInput, Prisma.ForumTopicUncheckedCreateWithoutForumTagInput> | Prisma.ForumTopicCreateWithoutForumTagInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumTagInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumTagInput | Prisma.ForumTopicCreateOrConnectWithoutForumTagInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumTagInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumTagInput[]
+export type ForumTopicUpdateManyWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutTagsInput, Prisma.ForumTopicUncheckedCreateWithoutTagsInput> | Prisma.ForumTopicCreateWithoutTagsInput[] | Prisma.ForumTopicUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutTagsInput | Prisma.ForumTopicCreateOrConnectWithoutTagsInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutTagsInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutTagsInput[]
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumTagInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumTagInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutForumTagInput | Prisma.ForumTopicUpdateManyWithWhereWithoutForumTagInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutTagsInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutTagsInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutTagsInput | Prisma.ForumTopicUpdateManyWithWhereWithoutTagsInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicUncheckedUpdateManyWithoutForumTagNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumTagInput, Prisma.ForumTopicUncheckedCreateWithoutForumTagInput> | Prisma.ForumTopicCreateWithoutForumTagInput[] | Prisma.ForumTopicUncheckedCreateWithoutForumTagInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutForumTagInput | Prisma.ForumTopicCreateOrConnectWithoutForumTagInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumTagInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutForumTagInput[]
+export type ForumTopicUncheckedUpdateManyWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutTagsInput, Prisma.ForumTopicUncheckedCreateWithoutTagsInput> | Prisma.ForumTopicCreateWithoutTagsInput[] | Prisma.ForumTopicUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutTagsInput | Prisma.ForumTopicCreateOrConnectWithoutTagsInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutTagsInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutTagsInput[]
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumTagInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutForumTagInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutForumTagInput | Prisma.ForumTopicUpdateManyWithWhereWithoutForumTagInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutTagsInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutTagsInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutTagsInput | Prisma.ForumTopicUpdateManyWithWhereWithoutTagsInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
@@ -773,201 +773,201 @@ export type EnumTopicStatusFieldUpdateOperationsInput = {
   set?: $Enums.TopicStatus
 }
 
-export type ForumTopicCreateNestedOneWithoutUpvoteForumTopicInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvoteForumTopicInput, Prisma.ForumTopicUncheckedCreateWithoutUpvoteForumTopicInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUpvoteForumTopicInput
+export type ForumTopicCreateNestedOneWithoutWatchersInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutWatchersInput, Prisma.ForumTopicUncheckedCreateWithoutWatchersInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutWatchersInput
   connect?: Prisma.ForumTopicWhereUniqueInput
 }
 
-export type ForumTopicUpdateOneRequiredWithoutUpvoteForumTopicNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvoteForumTopicInput, Prisma.ForumTopicUncheckedCreateWithoutUpvoteForumTopicInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUpvoteForumTopicInput
-  upsert?: Prisma.ForumTopicUpsertWithoutUpvoteForumTopicInput
+export type ForumTopicUpdateOneRequiredWithoutWatchersNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutWatchersInput, Prisma.ForumTopicUncheckedCreateWithoutWatchersInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutWatchersInput
+  upsert?: Prisma.ForumTopicUpsertWithoutWatchersInput
   connect?: Prisma.ForumTopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutUpvoteForumTopicInput, Prisma.ForumTopicUpdateWithoutUpvoteForumTopicInput>, Prisma.ForumTopicUncheckedUpdateWithoutUpvoteForumTopicInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutWatchersInput, Prisma.ForumTopicUpdateWithoutWatchersInput>, Prisma.ForumTopicUncheckedUpdateWithoutWatchersInput>
 }
 
-export type ForumTopicCreateNestedManyWithoutUser_ForumTopic_closedByIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInputEnvelope
+export type ForumTopicCreateNestedOneWithoutUsersWhoBookmarkedItInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  connect?: Prisma.ForumTopicWhereUniqueInput
+}
+
+export type ForumTopicUpdateOneRequiredWithoutUsersWhoBookmarkedItNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUsersWhoBookmarkedItInput
+  upsert?: Prisma.ForumTopicUpsertWithoutUsersWhoBookmarkedItInput
+  connect?: Prisma.ForumTopicWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUpdateWithoutUsersWhoBookmarkedItInput>, Prisma.ForumTopicUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+}
+
+export type ForumTopicCreateNestedOneWithoutUpvotesInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvotesInput, Prisma.ForumTopicUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUpvotesInput
+  connect?: Prisma.ForumTopicWhereUniqueInput
+}
+
+export type ForumTopicUpdateOneRequiredWithoutUpvotesNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvotesInput, Prisma.ForumTopicUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUpvotesInput
+  upsert?: Prisma.ForumTopicUpsertWithoutUpvotesInput
+  connect?: Prisma.ForumTopicWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutUpvotesInput, Prisma.ForumTopicUpdateWithoutUpvotesInput>, Prisma.ForumTopicUncheckedUpdateWithoutUpvotesInput>
+}
+
+export type ForumTopicCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserInput, Prisma.ForumTopicUncheckedCreateWithoutUserInput> | Prisma.ForumTopicCreateWithoutUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserInput | Prisma.ForumTopicCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ForumTopicCreateManyUserInputEnvelope
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicCreateNestedManyWithoutUser_ForumTopic_userIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_userIdToUserInputEnvelope
+export type ForumTopicCreateNestedManyWithoutClosedByInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutClosedByInput, Prisma.ForumTopicUncheckedCreateWithoutClosedByInput> | Prisma.ForumTopicCreateWithoutClosedByInput[] | Prisma.ForumTopicUncheckedCreateWithoutClosedByInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutClosedByInput | Prisma.ForumTopicCreateOrConnectWithoutClosedByInput[]
+  createMany?: Prisma.ForumTopicCreateManyClosedByInputEnvelope
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUncheckedCreateNestedManyWithoutUser_ForumTopic_closedByIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInputEnvelope
+export type ForumTopicUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserInput, Prisma.ForumTopicUncheckedCreateWithoutUserInput> | Prisma.ForumTopicCreateWithoutUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserInput | Prisma.ForumTopicCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ForumTopicCreateManyUserInputEnvelope
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUncheckedCreateNestedManyWithoutUser_ForumTopic_userIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_userIdToUserInputEnvelope
+export type ForumTopicUncheckedCreateNestedManyWithoutClosedByInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutClosedByInput, Prisma.ForumTopicUncheckedCreateWithoutClosedByInput> | Prisma.ForumTopicCreateWithoutClosedByInput[] | Prisma.ForumTopicUncheckedCreateWithoutClosedByInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutClosedByInput | Prisma.ForumTopicCreateOrConnectWithoutClosedByInput[]
+  createMany?: Prisma.ForumTopicCreateManyClosedByInputEnvelope
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
 }
 
-export type ForumTopicUpdateManyWithoutUser_ForumTopic_closedByIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInputEnvelope
+export type ForumTopicUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserInput, Prisma.ForumTopicUncheckedCreateWithoutUserInput> | Prisma.ForumTopicCreateWithoutUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserInput | Prisma.ForumTopicCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutUserInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ForumTopicCreateManyUserInputEnvelope
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_closedByIdToUserInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutUserInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutUserInput | Prisma.ForumTopicUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicUpdateManyWithoutUser_ForumTopic_userIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_userIdToUserInputEnvelope
+export type ForumTopicUpdateManyWithoutClosedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutClosedByInput, Prisma.ForumTopicUncheckedCreateWithoutClosedByInput> | Prisma.ForumTopicCreateWithoutClosedByInput[] | Prisma.ForumTopicUncheckedCreateWithoutClosedByInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutClosedByInput | Prisma.ForumTopicCreateOrConnectWithoutClosedByInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutClosedByInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutClosedByInput[]
+  createMany?: Prisma.ForumTopicCreateManyClosedByInputEnvelope
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_userIdToUserInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutClosedByInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutClosedByInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutClosedByInput | Prisma.ForumTopicUpdateManyWithWhereWithoutClosedByInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_closedByIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInputEnvelope
+export type ForumTopicUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserInput, Prisma.ForumTopicUncheckedCreateWithoutUserInput> | Prisma.ForumTopicCreateWithoutUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserInput | Prisma.ForumTopicCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutUserInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ForumTopicCreateManyUserInputEnvelope
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_closedByIdToUserInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutUserInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutUserInput | Prisma.ForumTopicUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_userIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput> | Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput[] | Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput[]
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput[]
-  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput[]
-  createMany?: Prisma.ForumTopicCreateManyUser_ForumTopic_userIdToUserInputEnvelope
+export type ForumTopicUncheckedUpdateManyWithoutClosedByNestedInput = {
+  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutClosedByInput, Prisma.ForumTopicUncheckedCreateWithoutClosedByInput> | Prisma.ForumTopicCreateWithoutClosedByInput[] | Prisma.ForumTopicUncheckedCreateWithoutClosedByInput[]
+  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutClosedByInput | Prisma.ForumTopicCreateOrConnectWithoutClosedByInput[]
+  upsert?: Prisma.ForumTopicUpsertWithWhereUniqueWithoutClosedByInput | Prisma.ForumTopicUpsertWithWhereUniqueWithoutClosedByInput[]
+  createMany?: Prisma.ForumTopicCreateManyClosedByInputEnvelope
   set?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   disconnect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   delete?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
   connect?: Prisma.ForumTopicWhereUniqueInput | Prisma.ForumTopicWhereUniqueInput[]
-  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput[]
-  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_userIdToUserInput[]
+  update?: Prisma.ForumTopicUpdateWithWhereUniqueWithoutClosedByInput | Prisma.ForumTopicUpdateWithWhereUniqueWithoutClosedByInput[]
+  updateMany?: Prisma.ForumTopicUpdateManyWithWhereWithoutClosedByInput | Prisma.ForumTopicUpdateManyWithWhereWithoutClosedByInput[]
   deleteMany?: Prisma.ForumTopicScalarWhereInput | Prisma.ForumTopicScalarWhereInput[]
 }
 
-export type ForumTopicCreateNestedOneWithoutUserForumTopicFavoriteInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicFavoriteInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserForumTopicFavoriteInput
-  connect?: Prisma.ForumTopicWhereUniqueInput
-}
-
-export type ForumTopicUpdateOneRequiredWithoutUserForumTopicFavoriteNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicFavoriteInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserForumTopicFavoriteInput
-  upsert?: Prisma.ForumTopicUpsertWithoutUserForumTopicFavoriteInput
-  connect?: Prisma.ForumTopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUpdateWithoutUserForumTopicFavoriteInput>, Prisma.ForumTopicUncheckedUpdateWithoutUserForumTopicFavoriteInput>
-}
-
-export type ForumTopicCreateNestedOneWithoutUserForumTopicWatchInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicWatchInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicWatchInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserForumTopicWatchInput
-  connect?: Prisma.ForumTopicWhereUniqueInput
-}
-
-export type ForumTopicUpdateOneRequiredWithoutUserForumTopicWatchNestedInput = {
-  create?: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicWatchInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicWatchInput>
-  connectOrCreate?: Prisma.ForumTopicCreateOrConnectWithoutUserForumTopicWatchInput
-  upsert?: Prisma.ForumTopicUpsertWithoutUserForumTopicWatchInput
-  connect?: Prisma.ForumTopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ForumTopicUpdateToOneWithWhereWithoutUserForumTopicWatchInput, Prisma.ForumTopicUpdateWithoutUserForumTopicWatchInput>, Prisma.ForumTopicUncheckedUpdateWithoutUserForumTopicWatchInput>
-}
-
-export type ForumTopicCreateWithoutForumCategoryInput = {
+export type ForumTopicCreateWithoutCategoryInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicUncheckedCreateWithoutForumCategoryInput = {
+export type ForumTopicUncheckedCreateWithoutCategoryInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
   closedById?: number | null
   userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicCreateOrConnectWithoutForumCategoryInput = {
+export type ForumTopicCreateOrConnectWithoutCategoryInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutCategoryInput>
 }
 
-export type ForumTopicCreateManyForumCategoryInputEnvelope = {
-  data: Prisma.ForumTopicCreateManyForumCategoryInput | Prisma.ForumTopicCreateManyForumCategoryInput[]
+export type ForumTopicCreateManyCategoryInputEnvelope = {
+  data: Prisma.ForumTopicCreateManyCategoryInput | Prisma.ForumTopicCreateManyCategoryInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumTopicUpsertWithWhereUniqueWithoutForumCategoryInput = {
+export type ForumTopicUpsertWithWhereUniqueWithoutCategoryInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedUpdateWithoutForumCategoryInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutForumCategoryInput>
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutCategoryInput, Prisma.ForumTopicUncheckedUpdateWithoutCategoryInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutCategoryInput, Prisma.ForumTopicUncheckedCreateWithoutCategoryInput>
 }
 
-export type ForumTopicUpdateWithWhereUniqueWithoutForumCategoryInput = {
+export type ForumTopicUpdateWithWhereUniqueWithoutCategoryInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutForumCategoryInput, Prisma.ForumTopicUncheckedUpdateWithoutForumCategoryInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutCategoryInput, Prisma.ForumTopicUncheckedUpdateWithoutCategoryInput>
 }
 
-export type ForumTopicUpdateManyWithWhereWithoutForumCategoryInput = {
+export type ForumTopicUpdateManyWithWhereWithoutCategoryInput = {
   where: Prisma.ForumTopicScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutForumCategoryInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutCategoryInput>
 }
 
 export type ForumTopicScalarWhereInput = {
@@ -985,75 +985,75 @@ export type ForumTopicScalarWhereInput = {
   viewCount?: Prisma.IntFilter<"ForumTopic"> | number
   lastPostAt?: Prisma.DateTimeFilter<"ForumTopic"> | Date | string
   isModerated?: Prisma.BoolFilter<"ForumTopic"> | boolean
-  status?: Prisma.EnumTopicStatusFilter<"ForumTopic"> | $Enums.TopicStatus
   closedAt?: Prisma.DateTimeNullableFilter<"ForumTopic"> | Date | string | null
+  status?: Prisma.EnumTopicStatusFilter<"ForumTopic"> | $Enums.TopicStatus
   closedById?: Prisma.IntNullableFilter<"ForumTopic"> | number | null
   categoryId?: Prisma.IntFilter<"ForumTopic"> | number
   userId?: Prisma.IntFilter<"ForumTopic"> | number
 }
 
-export type ForumTopicCreateWithoutForumPostInput = {
+export type ForumTopicCreateWithoutPostsInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicUncheckedCreateWithoutForumPostInput = {
+export type ForumTopicUncheckedCreateWithoutPostsInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
   closedById?: number | null
   categoryId: number
   userId: number
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicCreateOrConnectWithoutForumPostInput = {
+export type ForumTopicCreateOrConnectWithoutPostsInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumPostInput, Prisma.ForumTopicUncheckedCreateWithoutForumPostInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutPostsInput, Prisma.ForumTopicUncheckedCreateWithoutPostsInput>
 }
 
-export type ForumTopicUpsertWithoutForumPostInput = {
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutForumPostInput, Prisma.ForumTopicUncheckedUpdateWithoutForumPostInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumPostInput, Prisma.ForumTopicUncheckedCreateWithoutForumPostInput>
+export type ForumTopicUpsertWithoutPostsInput = {
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutPostsInput, Prisma.ForumTopicUncheckedUpdateWithoutPostsInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutPostsInput, Prisma.ForumTopicUncheckedCreateWithoutPostsInput>
   where?: Prisma.ForumTopicWhereInput
 }
 
-export type ForumTopicUpdateToOneWithWhereWithoutForumPostInput = {
+export type ForumTopicUpdateToOneWithWhereWithoutPostsInput = {
   where?: Prisma.ForumTopicWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutForumPostInput, Prisma.ForumTopicUncheckedUpdateWithoutForumPostInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutPostsInput, Prisma.ForumTopicUncheckedUpdateWithoutPostsInput>
 }
 
-export type ForumTopicUpdateWithoutForumPostInput = {
+export type ForumTopicUpdateWithoutPostsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1064,18 +1064,18 @@ export type ForumTopicUpdateWithoutForumPostInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateWithoutForumPostInput = {
+export type ForumTopicUncheckedUpdateWithoutPostsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1087,145 +1087,145 @@ export type ForumTopicUncheckedUpdateWithoutForumPostInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicCreateWithoutForumTagInput = {
+export type ForumTopicCreateWithoutTagsInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicUncheckedCreateWithoutForumTagInput = {
+export type ForumTopicUncheckedCreateWithoutTagsInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
   closedById?: number | null
   categoryId: number
   userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicCreateOrConnectWithoutForumTagInput = {
+export type ForumTopicCreateOrConnectWithoutTagsInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumTagInput, Prisma.ForumTopicUncheckedCreateWithoutForumTagInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutTagsInput, Prisma.ForumTopicUncheckedCreateWithoutTagsInput>
 }
 
-export type ForumTopicUpsertWithWhereUniqueWithoutForumTagInput = {
+export type ForumTopicUpsertWithWhereUniqueWithoutTagsInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutForumTagInput, Prisma.ForumTopicUncheckedUpdateWithoutForumTagInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutForumTagInput, Prisma.ForumTopicUncheckedCreateWithoutForumTagInput>
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutTagsInput, Prisma.ForumTopicUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutTagsInput, Prisma.ForumTopicUncheckedCreateWithoutTagsInput>
 }
 
-export type ForumTopicUpdateWithWhereUniqueWithoutForumTagInput = {
+export type ForumTopicUpdateWithWhereUniqueWithoutTagsInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutForumTagInput, Prisma.ForumTopicUncheckedUpdateWithoutForumTagInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutTagsInput, Prisma.ForumTopicUncheckedUpdateWithoutTagsInput>
 }
 
-export type ForumTopicUpdateManyWithWhereWithoutForumTagInput = {
+export type ForumTopicUpdateManyWithWhereWithoutTagsInput = {
   where: Prisma.ForumTopicScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutForumTagInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutTagsInput>
 }
 
-export type ForumTopicCreateWithoutUpvoteForumTopicInput = {
+export type ForumTopicCreateWithoutWatchersInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicUncheckedCreateWithoutUpvoteForumTopicInput = {
+export type ForumTopicUncheckedCreateWithoutWatchersInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
   closedById?: number | null
   categoryId: number
   userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicCreateOrConnectWithoutUpvoteForumTopicInput = {
+export type ForumTopicCreateOrConnectWithoutWatchersInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvoteForumTopicInput, Prisma.ForumTopicUncheckedCreateWithoutUpvoteForumTopicInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutWatchersInput, Prisma.ForumTopicUncheckedCreateWithoutWatchersInput>
 }
 
-export type ForumTopicUpsertWithoutUpvoteForumTopicInput = {
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUpvoteForumTopicInput, Prisma.ForumTopicUncheckedUpdateWithoutUpvoteForumTopicInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvoteForumTopicInput, Prisma.ForumTopicUncheckedCreateWithoutUpvoteForumTopicInput>
+export type ForumTopicUpsertWithoutWatchersInput = {
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutWatchersInput, Prisma.ForumTopicUncheckedUpdateWithoutWatchersInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutWatchersInput, Prisma.ForumTopicUncheckedCreateWithoutWatchersInput>
   where?: Prisma.ForumTopicWhereInput
 }
 
-export type ForumTopicUpdateToOneWithWhereWithoutUpvoteForumTopicInput = {
+export type ForumTopicUpdateToOneWithWhereWithoutWatchersInput = {
   where?: Prisma.ForumTopicWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUpvoteForumTopicInput, Prisma.ForumTopicUncheckedUpdateWithoutUpvoteForumTopicInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutWatchersInput, Prisma.ForumTopicUncheckedUpdateWithoutWatchersInput>
 }
 
-export type ForumTopicUpdateWithoutUpvoteForumTopicInput = {
+export type ForumTopicUpdateWithoutWatchersInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1236,18 +1236,18 @@ export type ForumTopicUpdateWithoutUpvoteForumTopicInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateWithoutUpvoteForumTopicInput = {
+export type ForumTopicUncheckedUpdateWithoutWatchersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1259,390 +1259,390 @@ export type ForumTopicUncheckedUpdateWithoutUpvoteForumTopicInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicCreateWithoutUsersWhoBookmarkedItInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicUncheckedCreateWithoutUsersWhoBookmarkedItInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
+  closedById?: number | null
   categoryId: number
   userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicCreateOrConnectWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicCreateOrConnectWithoutUsersWhoBookmarkedItInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUncheckedCreateWithoutUsersWhoBookmarkedItInput>
 }
 
-export type ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInputEnvelope = {
-  data: Prisma.ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInput | Prisma.ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInput[]
+export type ForumTopicUpsertWithoutUsersWhoBookmarkedItInput = {
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUncheckedCreateWithoutUsersWhoBookmarkedItInput>
+  where?: Prisma.ForumTopicWhereInput
+}
+
+export type ForumTopicUpdateToOneWithWhereWithoutUsersWhoBookmarkedItInput = {
+  where?: Prisma.ForumTopicWhereInput
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUsersWhoBookmarkedItInput, Prisma.ForumTopicUncheckedUpdateWithoutUsersWhoBookmarkedItInput>
+}
+
+export type ForumTopicUpdateWithoutUsersWhoBookmarkedItInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
+}
+
+export type ForumTopicUncheckedUpdateWithoutUsersWhoBookmarkedItInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
+}
+
+export type ForumTopicCreateWithoutUpvotesInput = {
+  title: string
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isPinned?: boolean
+  isLocked?: boolean
+  slug: string
+  viewCount?: number
+  lastPostAt?: Date | string
+  isModerated?: boolean
+  closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
+}
+
+export type ForumTopicUncheckedCreateWithoutUpvotesInput = {
+  id?: number
+  title: string
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isPinned?: boolean
+  isLocked?: boolean
+  slug: string
+  viewCount?: number
+  lastPostAt?: Date | string
+  isModerated?: boolean
+  closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
+  closedById?: number | null
+  categoryId: number
+  userId: number
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
+}
+
+export type ForumTopicCreateOrConnectWithoutUpvotesInput = {
+  where: Prisma.ForumTopicWhereUniqueInput
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvotesInput, Prisma.ForumTopicUncheckedCreateWithoutUpvotesInput>
+}
+
+export type ForumTopicUpsertWithoutUpvotesInput = {
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUpvotesInput, Prisma.ForumTopicUncheckedUpdateWithoutUpvotesInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUpvotesInput, Prisma.ForumTopicUncheckedCreateWithoutUpvotesInput>
+  where?: Prisma.ForumTopicWhereInput
+}
+
+export type ForumTopicUpdateToOneWithWhereWithoutUpvotesInput = {
+  where?: Prisma.ForumTopicWhereInput
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUpvotesInput, Prisma.ForumTopicUncheckedUpdateWithoutUpvotesInput>
+}
+
+export type ForumTopicUpdateWithoutUpvotesInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
+}
+
+export type ForumTopicUncheckedUpdateWithoutUpvotesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
+}
+
+export type ForumTopicCreateWithoutUserInput = {
+  title: string
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isPinned?: boolean
+  isLocked?: boolean
+  slug: string
+  viewCount?: number
+  lastPostAt?: Date | string
+  isModerated?: boolean
+  closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
+  closedBy?: Prisma.UserCreateNestedOneWithoutTopicsClosedInput
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
+}
+
+export type ForumTopicUncheckedCreateWithoutUserInput = {
+  id?: number
+  title: string
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isPinned?: boolean
+  isLocked?: boolean
+  slug: string
+  viewCount?: number
+  lastPostAt?: Date | string
+  isModerated?: boolean
+  closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
+  closedById?: number | null
+  categoryId: number
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
+}
+
+export type ForumTopicCreateOrConnectWithoutUserInput = {
+  where: Prisma.ForumTopicWhereUniqueInput
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserInput, Prisma.ForumTopicUncheckedCreateWithoutUserInput>
+}
+
+export type ForumTopicCreateManyUserInputEnvelope = {
+  data: Prisma.ForumTopicCreateManyUserInput | Prisma.ForumTopicCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicCreateWithoutClosedByInput = {
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
+  status?: $Enums.TopicStatus
+  tags?: Prisma.ForumTagCreateNestedManyWithoutTopicsInput
+  category: Prisma.ForumCategoryCreateNestedOneWithoutTopicsInput
+  user: Prisma.UserCreateNestedOneWithoutForumTopicsInput
+  posts?: Prisma.ForumPostCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicUncheckedCreateWithoutClosedByInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  closedById?: number | null
+  status?: $Enums.TopicStatus
   categoryId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
+  userId: number
+  tags?: Prisma.ForumTagUncheckedCreateNestedManyWithoutTopicsInput
+  posts?: Prisma.ForumPostUncheckedCreateNestedManyWithoutTopicInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutTopicInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutTopicInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutTopicInput
 }
 
-export type ForumTopicCreateOrConnectWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicCreateOrConnectWithoutClosedByInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutClosedByInput, Prisma.ForumTopicUncheckedCreateWithoutClosedByInput>
 }
 
-export type ForumTopicCreateManyUser_ForumTopic_userIdToUserInputEnvelope = {
-  data: Prisma.ForumTopicCreateManyUser_ForumTopic_userIdToUserInput | Prisma.ForumTopicCreateManyUser_ForumTopic_userIdToUserInput[]
+export type ForumTopicCreateManyClosedByInputEnvelope = {
+  data: Prisma.ForumTopicCreateManyClosedByInput | Prisma.ForumTopicCreateManyClosedByInput[]
   skipDuplicates?: boolean
 }
 
-export type ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedUpdateWithoutUser_ForumTopic_closedByIdToUserInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_closedByIdToUserInput>
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUserInput, Prisma.ForumTopicUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserInput, Prisma.ForumTopicUncheckedCreateWithoutUserInput>
 }
 
-export type ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUser_ForumTopic_closedByIdToUserInput, Prisma.ForumTopicUncheckedUpdateWithoutUser_ForumTopic_closedByIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUserInput, Prisma.ForumTopicUncheckedUpdateWithoutUserInput>
 }
 
-export type ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.ForumTopicScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_closedByIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutUserInput>
 }
 
-export type ForumTopicUpsertWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicUpsertWithWhereUniqueWithoutClosedByInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedUpdateWithoutUser_ForumTopic_userIdToUserInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedCreateWithoutUser_ForumTopic_userIdToUserInput>
+  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutClosedByInput, Prisma.ForumTopicUncheckedUpdateWithoutClosedByInput>
+  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutClosedByInput, Prisma.ForumTopicUncheckedCreateWithoutClosedByInput>
 }
 
-export type ForumTopicUpdateWithWhereUniqueWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicUpdateWithWhereUniqueWithoutClosedByInput = {
   where: Prisma.ForumTopicWhereUniqueInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUser_ForumTopic_userIdToUserInput, Prisma.ForumTopicUncheckedUpdateWithoutUser_ForumTopic_userIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutClosedByInput, Prisma.ForumTopicUncheckedUpdateWithoutClosedByInput>
 }
 
-export type ForumTopicUpdateManyWithWhereWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicUpdateManyWithWhereWithoutClosedByInput = {
   where: Prisma.ForumTopicScalarWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_userIdToUserInput>
+  data: Prisma.XOR<Prisma.ForumTopicUpdateManyMutationInput, Prisma.ForumTopicUncheckedUpdateManyWithoutClosedByInput>
 }
 
-export type ForumTopicCreateWithoutUserForumTopicFavoriteInput = {
-  title: string
-  content: string
-  createdAt?: Date | string
-  updatedAt: Date | string
-  isPinned?: boolean
-  isLocked?: boolean
-  slug: string
-  viewCount?: number
-  lastPostAt?: Date | string
-  isModerated?: boolean
-  status?: $Enums.TopicStatus
-  closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
-}
-
-export type ForumTopicUncheckedCreateWithoutUserForumTopicFavoriteInput = {
+export type ForumTopicCreateManyCategoryInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  closedById?: number | null
-  categoryId: number
-  userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
-}
-
-export type ForumTopicCreateOrConnectWithoutUserForumTopicFavoriteInput = {
-  where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicFavoriteInput>
-}
-
-export type ForumTopicUpsertWithoutUserForumTopicFavoriteInput = {
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUncheckedUpdateWithoutUserForumTopicFavoriteInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicFavoriteInput>
-  where?: Prisma.ForumTopicWhereInput
-}
-
-export type ForumTopicUpdateToOneWithWhereWithoutUserForumTopicFavoriteInput = {
-  where?: Prisma.ForumTopicWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUserForumTopicFavoriteInput, Prisma.ForumTopicUncheckedUpdateWithoutUserForumTopicFavoriteInput>
-}
-
-export type ForumTopicUpdateWithoutUserForumTopicFavoriteInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicUncheckedUpdateWithoutUserForumTopicFavoriteInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicCreateWithoutUserForumTopicWatchInput = {
-  title: string
-  content: string
-  createdAt?: Date | string
-  updatedAt: Date | string
-  isPinned?: boolean
-  isLocked?: boolean
-  slug: string
-  viewCount?: number
-  lastPostAt?: Date | string
-  isModerated?: boolean
   status?: $Enums.TopicStatus
-  closedAt?: Date | string | null
-  ForumPost?: Prisma.ForumPostCreateNestedManyWithoutForumTopicInput
-  ForumCategory: Prisma.ForumCategoryCreateNestedOneWithoutForumTopicInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_closedByIdToUserInput
-  User_ForumTopic_userIdToUser: Prisma.UserCreateNestedOneWithoutForumTopic_ForumTopic_userIdToUserInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagCreateNestedManyWithoutForumTopicInput
-}
-
-export type ForumTopicUncheckedCreateWithoutUserForumTopicWatchInput = {
-  id?: number
-  title: string
-  content: string
-  createdAt?: Date | string
-  updatedAt: Date | string
-  isPinned?: boolean
-  isLocked?: boolean
-  slug: string
-  viewCount?: number
-  lastPostAt?: Date | string
-  isModerated?: boolean
-  status?: $Enums.TopicStatus
-  closedAt?: Date | string | null
-  closedById?: number | null
-  categoryId: number
-  userId: number
-  ForumPost?: Prisma.ForumPostUncheckedCreateNestedManyWithoutForumTopicInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedCreateNestedManyWithoutForumTopicInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedCreateNestedManyWithoutForumTopicInput
-  ForumTag?: Prisma.ForumTagUncheckedCreateNestedManyWithoutForumTopicInput
-}
-
-export type ForumTopicCreateOrConnectWithoutUserForumTopicWatchInput = {
-  where: Prisma.ForumTopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicWatchInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicWatchInput>
-}
-
-export type ForumTopicUpsertWithoutUserForumTopicWatchInput = {
-  update: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUserForumTopicWatchInput, Prisma.ForumTopicUncheckedUpdateWithoutUserForumTopicWatchInput>
-  create: Prisma.XOR<Prisma.ForumTopicCreateWithoutUserForumTopicWatchInput, Prisma.ForumTopicUncheckedCreateWithoutUserForumTopicWatchInput>
-  where?: Prisma.ForumTopicWhereInput
-}
-
-export type ForumTopicUpdateToOneWithWhereWithoutUserForumTopicWatchInput = {
-  where?: Prisma.ForumTopicWhereInput
-  data: Prisma.XOR<Prisma.ForumTopicUpdateWithoutUserForumTopicWatchInput, Prisma.ForumTopicUncheckedUpdateWithoutUserForumTopicWatchInput>
-}
-
-export type ForumTopicUpdateWithoutUserForumTopicWatchInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicUncheckedUpdateWithoutUserForumTopicWatchInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicCreateManyForumCategoryInput = {
-  id?: number
-  title: string
-  content: string
-  createdAt?: Date | string
-  updatedAt: Date | string
-  isPinned?: boolean
-  isLocked?: boolean
-  slug: string
-  viewCount?: number
-  lastPostAt?: Date | string
-  isModerated?: boolean
-  status?: $Enums.TopicStatus
-  closedAt?: Date | string | null
   closedById?: number | null
   userId: number
 }
 
-export type ForumTopicUpdateWithoutForumCategoryInput = {
+export type ForumTopicUpdateWithoutCategoryInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1653,18 +1653,18 @@ export type ForumTopicUpdateWithoutForumCategoryInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateWithoutForumCategoryInput = {
+export type ForumTopicUncheckedUpdateWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1676,18 +1676,18 @@ export type ForumTopicUncheckedUpdateWithoutForumCategoryInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateManyWithoutForumCategoryInput = {
+export type ForumTopicUncheckedUpdateManyWithoutCategoryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1699,13 +1699,13 @@ export type ForumTopicUncheckedUpdateManyWithoutForumCategoryInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type ForumTopicUpdateWithoutForumTagInput = {
+export type ForumTopicUpdateWithoutTagsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1716,18 +1716,18 @@ export type ForumTopicUpdateWithoutForumTagInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateWithoutForumTagInput = {
+export type ForumTopicUncheckedUpdateWithoutTagsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1739,73 +1739,73 @@ export type ForumTopicUncheckedUpdateWithoutForumTagInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicUncheckedUpdateManyWithoutForumTagInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicCreateManyUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicUncheckedUpdateManyWithoutTagsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ForumTopicCreateManyUserInput = {
   id?: number
   title: string
   content: string
   createdAt?: Date | string
-  updatedAt: Date | string
+  updatedAt?: Date | string
   isPinned?: boolean
   isLocked?: boolean
   slug: string
   viewCount?: number
   lastPostAt?: Date | string
   isModerated?: boolean
-  status?: $Enums.TopicStatus
   closedAt?: Date | string | null
-  categoryId: number
-  userId: number
-}
-
-export type ForumTopicCreateManyUser_ForumTopic_userIdToUserInput = {
-  id?: number
-  title: string
-  content: string
-  createdAt?: Date | string
-  updatedAt: Date | string
-  isPinned?: boolean
-  isLocked?: boolean
-  slug: string
-  viewCount?: number
-  lastPostAt?: Date | string
-  isModerated?: boolean
   status?: $Enums.TopicStatus
-  closedAt?: Date | string | null
   closedById?: number | null
   categoryId: number
 }
 
-export type ForumTopicUpdateWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicCreateManyClosedByInput = {
+  id?: number
+  title: string
+  content: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  isPinned?: boolean
+  isLocked?: boolean
+  slug: string
+  viewCount?: number
+  lastPostAt?: Date | string
+  isModerated?: boolean
+  closedAt?: Date | string | null
+  status?: $Enums.TopicStatus
+  categoryId: number
+  userId: number
+}
+
+export type ForumTopicUpdateWithoutUserInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1816,18 +1816,18 @@ export type ForumTopicUpdateWithoutUser_ForumTopic_closedByIdToUserInput = {
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_userIdToUser?: Prisma.UserUpdateOneRequiredWithoutForumTopic_ForumTopic_userIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  closedBy?: Prisma.UserUpdateOneWithoutTopicsClosedNestedInput
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateWithoutUser_ForumTopic_closedByIdToUserInput = {
+export type ForumTopicUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1839,81 +1839,18 @@ export type ForumTopicUncheckedUpdateWithoutUser_ForumTopic_closedByIdToUserInpu
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_closedByIdToUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ForumTopicUpdateWithoutUser_ForumTopic_userIdToUserInput = {
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  ForumPost?: Prisma.ForumPostUpdateManyWithoutForumTopicNestedInput
-  ForumCategory?: Prisma.ForumCategoryUpdateOneRequiredWithoutForumTopicNestedInput
-  User_ForumTopic_closedByIdToUser?: Prisma.UserUpdateOneWithoutForumTopic_ForumTopic_closedByIdToUserNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUpdateManyWithoutForumTopicNestedInput
-}
-
-export type ForumTopicUncheckedUpdateWithoutUser_ForumTopic_userIdToUserInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
-  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
-  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
-  ForumPost?: Prisma.ForumPostUncheckedUpdateManyWithoutForumTopicNestedInput
-  UpvoteForumTopic?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicFavorite?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutForumTopicNestedInput
-  UserForumTopicWatch?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutForumTopicNestedInput
-  ForumTag?: Prisma.ForumTagUncheckedUpdateManyWithoutForumTopicNestedInput
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
 }
 
-export type ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_userIdToUserInput = {
+export type ForumTopicUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1925,10 +1862,73 @@ export type ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_userIdToUserInpu
   viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
   closedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type ForumTopicUpdateWithoutClosedByInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  tags?: Prisma.ForumTagUpdateManyWithoutTopicsNestedInput
+  category?: Prisma.ForumCategoryUpdateOneRequiredWithoutTopicsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumTopicsNestedInput
+  posts?: Prisma.ForumPostUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUpdateManyWithoutTopicNestedInput
+}
+
+export type ForumTopicUncheckedUpdateWithoutClosedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  tags?: Prisma.ForumTagUncheckedUpdateManyWithoutTopicsNestedInput
+  posts?: Prisma.ForumPostUncheckedUpdateManyWithoutTopicNestedInput
+  usersWhoBookmarkedIt?: Prisma.UserForumTopicFavoriteUncheckedUpdateManyWithoutTopicNestedInput
+  upvotes?: Prisma.UpvoteForumTopicUncheckedUpdateManyWithoutTopicNestedInput
+  watchers?: Prisma.UserForumTopicWatchUncheckedUpdateManyWithoutTopicNestedInput
+}
+
+export type ForumTopicUncheckedUpdateManyWithoutClosedByInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lastPostAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isModerated?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumTopicStatusFieldUpdateOperationsInput | $Enums.TopicStatus
+  categoryId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -1937,19 +1937,19 @@ export type ForumTopicUncheckedUpdateManyWithoutUser_ForumTopic_userIdToUserInpu
  */
 
 export type ForumTopicCountOutputType = {
-  ForumPost: number
-  UpvoteForumTopic: number
-  UserForumTopicFavorite: number
-  UserForumTopicWatch: number
-  ForumTag: number
+  tags: number
+  posts: number
+  usersWhoBookmarkedIt: number
+  upvotes: number
+  watchers: number
 }
 
 export type ForumTopicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | ForumTopicCountOutputTypeCountForumPostArgs
-  UpvoteForumTopic?: boolean | ForumTopicCountOutputTypeCountUpvoteForumTopicArgs
-  UserForumTopicFavorite?: boolean | ForumTopicCountOutputTypeCountUserForumTopicFavoriteArgs
-  UserForumTopicWatch?: boolean | ForumTopicCountOutputTypeCountUserForumTopicWatchArgs
-  ForumTag?: boolean | ForumTopicCountOutputTypeCountForumTagArgs
+  tags?: boolean | ForumTopicCountOutputTypeCountTagsArgs
+  posts?: boolean | ForumTopicCountOutputTypeCountPostsArgs
+  usersWhoBookmarkedIt?: boolean | ForumTopicCountOutputTypeCountUsersWhoBookmarkedItArgs
+  upvotes?: boolean | ForumTopicCountOutputTypeCountUpvotesArgs
+  watchers?: boolean | ForumTopicCountOutputTypeCountWatchersArgs
 }
 
 /**
@@ -1965,36 +1965,36 @@ export type ForumTopicCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
 /**
  * ForumTopicCountOutputType without action
  */
-export type ForumTopicCountOutputTypeCountForumPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTopicCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ForumTagWhereInput
+}
+
+/**
+ * ForumTopicCountOutputType without action
+ */
+export type ForumTopicCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ForumPostWhereInput
 }
 
 /**
  * ForumTopicCountOutputType without action
  */
-export type ForumTopicCountOutputTypeCountUpvoteForumTopicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UpvoteForumTopicWhereInput
-}
-
-/**
- * ForumTopicCountOutputType without action
- */
-export type ForumTopicCountOutputTypeCountUserForumTopicFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTopicCountOutputTypeCountUsersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserForumTopicFavoriteWhereInput
 }
 
 /**
  * ForumTopicCountOutputType without action
  */
-export type ForumTopicCountOutputTypeCountUserForumTopicWatchArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserForumTopicWatchWhereInput
+export type ForumTopicCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UpvoteForumTopicWhereInput
 }
 
 /**
  * ForumTopicCountOutputType without action
  */
-export type ForumTopicCountOutputTypeCountForumTagArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ForumTagWhereInput
+export type ForumTopicCountOutputTypeCountWatchersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserForumTopicWatchWhereInput
 }
 
 
@@ -2010,19 +2010,19 @@ export type ForumTopicSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   viewCount?: boolean
   lastPostAt?: boolean
   isModerated?: boolean
-  status?: boolean
   closedAt?: boolean
+  status?: boolean
   closedById?: boolean
   categoryId?: boolean
   userId?: boolean
-  ForumPost?: boolean | Prisma.ForumTopic$ForumPostArgs<ExtArgs>
-  ForumCategory?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
-  User_ForumTopic_closedByIdToUser?: boolean | Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>
-  User_ForumTopic_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  UpvoteForumTopic?: boolean | Prisma.ForumTopic$UpvoteForumTopicArgs<ExtArgs>
-  UserForumTopicFavorite?: boolean | Prisma.ForumTopic$UserForumTopicFavoriteArgs<ExtArgs>
-  UserForumTopicWatch?: boolean | Prisma.ForumTopic$UserForumTopicWatchArgs<ExtArgs>
-  ForumTag?: boolean | Prisma.ForumTopic$ForumTagArgs<ExtArgs>
+  closedBy?: boolean | Prisma.ForumTopic$closedByArgs<ExtArgs>
+  tags?: boolean | Prisma.ForumTopic$tagsArgs<ExtArgs>
+  category?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  posts?: boolean | Prisma.ForumTopic$postsArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.ForumTopic$usersWhoBookmarkedItArgs<ExtArgs>
+  upvotes?: boolean | Prisma.ForumTopic$upvotesArgs<ExtArgs>
+  watchers?: boolean | Prisma.ForumTopic$watchersArgs<ExtArgs>
   _count?: boolean | Prisma.ForumTopicCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumTopic"]>
 
@@ -2038,14 +2038,14 @@ export type ForumTopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   viewCount?: boolean
   lastPostAt?: boolean
   isModerated?: boolean
-  status?: boolean
   closedAt?: boolean
+  status?: boolean
   closedById?: boolean
   categoryId?: boolean
   userId?: boolean
-  ForumCategory?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
-  User_ForumTopic_closedByIdToUser?: boolean | Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>
-  User_ForumTopic_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  closedBy?: boolean | Prisma.ForumTopic$closedByArgs<ExtArgs>
+  category?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumTopic"]>
 
 export type ForumTopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2060,14 +2060,14 @@ export type ForumTopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   viewCount?: boolean
   lastPostAt?: boolean
   isModerated?: boolean
-  status?: boolean
   closedAt?: boolean
+  status?: boolean
   closedById?: boolean
   categoryId?: boolean
   userId?: boolean
-  ForumCategory?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
-  User_ForumTopic_closedByIdToUser?: boolean | Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>
-  User_ForumTopic_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  closedBy?: boolean | Prisma.ForumTopic$closedByArgs<ExtArgs>
+  category?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["forumTopic"]>
 
 export type ForumTopicSelectScalar = {
@@ -2082,47 +2082,47 @@ export type ForumTopicSelectScalar = {
   viewCount?: boolean
   lastPostAt?: boolean
   isModerated?: boolean
-  status?: boolean
   closedAt?: boolean
+  status?: boolean
   closedById?: boolean
   categoryId?: boolean
   userId?: boolean
 }
 
-export type ForumTopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "createdAt" | "updatedAt" | "isPinned" | "isLocked" | "slug" | "viewCount" | "lastPostAt" | "isModerated" | "status" | "closedAt" | "closedById" | "categoryId" | "userId", ExtArgs["result"]["forumTopic"]>
+export type ForumTopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "createdAt" | "updatedAt" | "isPinned" | "isLocked" | "slug" | "viewCount" | "lastPostAt" | "isModerated" | "closedAt" | "status" | "closedById" | "categoryId" | "userId", ExtArgs["result"]["forumTopic"]>
 export type ForumTopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumPost?: boolean | Prisma.ForumTopic$ForumPostArgs<ExtArgs>
-  ForumCategory?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
-  User_ForumTopic_closedByIdToUser?: boolean | Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>
-  User_ForumTopic_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  UpvoteForumTopic?: boolean | Prisma.ForumTopic$UpvoteForumTopicArgs<ExtArgs>
-  UserForumTopicFavorite?: boolean | Prisma.ForumTopic$UserForumTopicFavoriteArgs<ExtArgs>
-  UserForumTopicWatch?: boolean | Prisma.ForumTopic$UserForumTopicWatchArgs<ExtArgs>
-  ForumTag?: boolean | Prisma.ForumTopic$ForumTagArgs<ExtArgs>
+  closedBy?: boolean | Prisma.ForumTopic$closedByArgs<ExtArgs>
+  tags?: boolean | Prisma.ForumTopic$tagsArgs<ExtArgs>
+  category?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  posts?: boolean | Prisma.ForumTopic$postsArgs<ExtArgs>
+  usersWhoBookmarkedIt?: boolean | Prisma.ForumTopic$usersWhoBookmarkedItArgs<ExtArgs>
+  upvotes?: boolean | Prisma.ForumTopic$upvotesArgs<ExtArgs>
+  watchers?: boolean | Prisma.ForumTopic$watchersArgs<ExtArgs>
   _count?: boolean | Prisma.ForumTopicCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ForumTopicIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumCategory?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
-  User_ForumTopic_closedByIdToUser?: boolean | Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>
-  User_ForumTopic_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  closedBy?: boolean | Prisma.ForumTopic$closedByArgs<ExtArgs>
+  category?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ForumTopicIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumCategory?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
-  User_ForumTopic_closedByIdToUser?: boolean | Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>
-  User_ForumTopic_userIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  closedBy?: boolean | Prisma.ForumTopic$closedByArgs<ExtArgs>
+  category?: boolean | Prisma.ForumCategoryDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ForumTopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForumTopic"
   objects: {
-    ForumPost: Prisma.$ForumPostPayload<ExtArgs>[]
-    ForumCategory: Prisma.$ForumCategoryPayload<ExtArgs>
-    User_ForumTopic_closedByIdToUser: Prisma.$UserPayload<ExtArgs> | null
-    User_ForumTopic_userIdToUser: Prisma.$UserPayload<ExtArgs>
-    UpvoteForumTopic: Prisma.$UpvoteForumTopicPayload<ExtArgs>[]
-    UserForumTopicFavorite: Prisma.$UserForumTopicFavoritePayload<ExtArgs>[]
-    UserForumTopicWatch: Prisma.$UserForumTopicWatchPayload<ExtArgs>[]
-    ForumTag: Prisma.$ForumTagPayload<ExtArgs>[]
+    closedBy: Prisma.$UserPayload<ExtArgs> | null
+    tags: Prisma.$ForumTagPayload<ExtArgs>[]
+    category: Prisma.$ForumCategoryPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    posts: Prisma.$ForumPostPayload<ExtArgs>[]
+    usersWhoBookmarkedIt: Prisma.$UserForumTopicFavoritePayload<ExtArgs>[]
+    upvotes: Prisma.$UpvoteForumTopicPayload<ExtArgs>[]
+    watchers: Prisma.$UserForumTopicWatchPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2136,8 +2136,8 @@ export type $ForumTopicPayload<ExtArgs extends runtime.Types.Extensions.Internal
     viewCount: number
     lastPostAt: Date
     isModerated: boolean
-    status: $Enums.TopicStatus
     closedAt: Date | null
+    status: $Enums.TopicStatus
     closedById: number | null
     categoryId: number
     userId: number
@@ -2535,14 +2535,14 @@ readonly fields: ForumTopicFieldRefs;
  */
 export interface Prisma__ForumTopicClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  ForumPost<T extends Prisma.ForumTopic$ForumPostArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$ForumPostArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ForumCategory<T extends Prisma.ForumCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumCategoryClient<runtime.Types.Result.GetResult<Prisma.$ForumCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User_ForumTopic_closedByIdToUser<T extends Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  User_ForumTopic_userIdToUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  UpvoteForumTopic<T extends Prisma.ForumTopic$UpvoteForumTopicArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$UpvoteForumTopicArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteForumTopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserForumTopicFavorite<T extends Prisma.ForumTopic$UserForumTopicFavoriteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$UserForumTopicFavoriteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserForumTopicFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UserForumTopicWatch<T extends Prisma.ForumTopic$UserForumTopicWatchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$UserForumTopicWatchArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserForumTopicWatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  ForumTag<T extends Prisma.ForumTopic$ForumTagArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$ForumTagArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  closedBy<T extends Prisma.ForumTopic$closedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$closedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tags<T extends Prisma.ForumTopic$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  category<T extends Prisma.ForumCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumCategoryClient<runtime.Types.Result.GetResult<Prisma.$ForumCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  posts<T extends Prisma.ForumTopic$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForumPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usersWhoBookmarkedIt<T extends Prisma.ForumTopic$usersWhoBookmarkedItArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$usersWhoBookmarkedItArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserForumTopicFavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  upvotes<T extends Prisma.ForumTopic$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteForumTopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  watchers<T extends Prisma.ForumTopic$watchersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumTopic$watchersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserForumTopicWatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2583,8 +2583,8 @@ export interface ForumTopicFieldRefs {
   readonly viewCount: Prisma.FieldRef<"ForumTopic", 'Int'>
   readonly lastPostAt: Prisma.FieldRef<"ForumTopic", 'DateTime'>
   readonly isModerated: Prisma.FieldRef<"ForumTopic", 'Boolean'>
-  readonly status: Prisma.FieldRef<"ForumTopic", 'TopicStatus'>
   readonly closedAt: Prisma.FieldRef<"ForumTopic", 'DateTime'>
+  readonly status: Prisma.FieldRef<"ForumTopic", 'TopicStatus'>
   readonly closedById: Prisma.FieldRef<"ForumTopic", 'Int'>
   readonly categoryId: Prisma.FieldRef<"ForumTopic", 'Int'>
   readonly userId: Prisma.FieldRef<"ForumTopic", 'Int'>
@@ -2984,9 +2984,52 @@ export type ForumTopicDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * ForumTopic.ForumPost
+ * ForumTopic.closedBy
  */
-export type ForumTopic$ForumPostArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTopic$closedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * ForumTopic.tags
+ */
+export type ForumTopic$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ForumTag
+   */
+  select?: Prisma.ForumTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ForumTag
+   */
+  omit?: Prisma.ForumTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForumTagInclude<ExtArgs> | null
+  where?: Prisma.ForumTagWhereInput
+  orderBy?: Prisma.ForumTagOrderByWithRelationInput | Prisma.ForumTagOrderByWithRelationInput[]
+  cursor?: Prisma.ForumTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ForumTagScalarFieldEnum | Prisma.ForumTagScalarFieldEnum[]
+}
+
+/**
+ * ForumTopic.posts
+ */
+export type ForumTopic$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the ForumPost
    */
@@ -3008,52 +3051,9 @@ export type ForumTopic$ForumPostArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * ForumTopic.User_ForumTopic_closedByIdToUser
+ * ForumTopic.usersWhoBookmarkedIt
  */
-export type ForumTopic$User_ForumTopic_closedByIdToUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
- * ForumTopic.UpvoteForumTopic
- */
-export type ForumTopic$UpvoteForumTopicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UpvoteForumTopic
-   */
-  select?: Prisma.UpvoteForumTopicSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UpvoteForumTopic
-   */
-  omit?: Prisma.UpvoteForumTopicOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UpvoteForumTopicInclude<ExtArgs> | null
-  where?: Prisma.UpvoteForumTopicWhereInput
-  orderBy?: Prisma.UpvoteForumTopicOrderByWithRelationInput | Prisma.UpvoteForumTopicOrderByWithRelationInput[]
-  cursor?: Prisma.UpvoteForumTopicWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UpvoteForumTopicScalarFieldEnum | Prisma.UpvoteForumTopicScalarFieldEnum[]
-}
-
-/**
- * ForumTopic.UserForumTopicFavorite
- */
-export type ForumTopic$UserForumTopicFavoriteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTopic$usersWhoBookmarkedItArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserForumTopicFavorite
    */
@@ -3075,9 +3075,33 @@ export type ForumTopic$UserForumTopicFavoriteArgs<ExtArgs extends runtime.Types.
 }
 
 /**
- * ForumTopic.UserForumTopicWatch
+ * ForumTopic.upvotes
  */
-export type ForumTopic$UserForumTopicWatchArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ForumTopic$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UpvoteForumTopic
+   */
+  select?: Prisma.UpvoteForumTopicSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UpvoteForumTopic
+   */
+  omit?: Prisma.UpvoteForumTopicOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UpvoteForumTopicInclude<ExtArgs> | null
+  where?: Prisma.UpvoteForumTopicWhereInput
+  orderBy?: Prisma.UpvoteForumTopicOrderByWithRelationInput | Prisma.UpvoteForumTopicOrderByWithRelationInput[]
+  cursor?: Prisma.UpvoteForumTopicWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UpvoteForumTopicScalarFieldEnum | Prisma.UpvoteForumTopicScalarFieldEnum[]
+}
+
+/**
+ * ForumTopic.watchers
+ */
+export type ForumTopic$watchersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserForumTopicWatch
    */
@@ -3096,30 +3120,6 @@ export type ForumTopic$UserForumTopicWatchArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.UserForumTopicWatchScalarFieldEnum | Prisma.UserForumTopicWatchScalarFieldEnum[]
-}
-
-/**
- * ForumTopic.ForumTag
- */
-export type ForumTopic$ForumTagArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ForumTag
-   */
-  select?: Prisma.ForumTagSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ForumTag
-   */
-  omit?: Prisma.ForumTagOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ForumTagInclude<ExtArgs> | null
-  where?: Prisma.ForumTagWhereInput
-  orderBy?: Prisma.ForumTagOrderByWithRelationInput | Prisma.ForumTagOrderByWithRelationInput[]
-  cursor?: Prisma.ForumTagWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ForumTagScalarFieldEnum | Prisma.ForumTagScalarFieldEnum[]
 }
 
 /**

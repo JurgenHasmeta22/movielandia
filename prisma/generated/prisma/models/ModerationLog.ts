@@ -244,8 +244,8 @@ export type ModerationLogWhereInput = {
   moderatorUserId?: Prisma.IntFilter<"ModerationLog"> | number
   targetUserId?: Prisma.IntNullableFilter<"ModerationLog"> | number | null
   targetContentId?: Prisma.IntNullableFilter<"ModerationLog"> | number | null
-  User_ModerationLog_moderatorUserIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  User_ModerationLog_targetUserIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  moderatorUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  targetUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ModerationLogOrderByWithRelationInput = {
@@ -256,8 +256,8 @@ export type ModerationLogOrderByWithRelationInput = {
   moderatorUserId?: Prisma.SortOrder
   targetUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   targetContentId?: Prisma.SortOrderInput | Prisma.SortOrder
-  User_ModerationLog_moderatorUserIdToUser?: Prisma.UserOrderByWithRelationInput
-  User_ModerationLog_targetUserIdToUser?: Prisma.UserOrderByWithRelationInput
+  moderatorUser?: Prisma.UserOrderByWithRelationInput
+  targetUser?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ModerationLogOrderByRelevanceInput
 }
 
@@ -272,8 +272,8 @@ export type ModerationLogWhereUniqueInput = Prisma.AtLeast<{
   moderatorUserId?: Prisma.IntFilter<"ModerationLog"> | number
   targetUserId?: Prisma.IntNullableFilter<"ModerationLog"> | number | null
   targetContentId?: Prisma.IntNullableFilter<"ModerationLog"> | number | null
-  User_ModerationLog_moderatorUserIdToUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  User_ModerationLog_targetUserIdToUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  moderatorUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  targetUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type ModerationLogOrderByWithAggregationInput = {
@@ -309,8 +309,8 @@ export type ModerationLogCreateInput = {
   timestamp?: Date | string
   details?: string | null
   targetContentId?: number | null
-  User_ModerationLog_moderatorUserIdToUser: Prisma.UserCreateNestedOneWithoutModerationLog_ModerationLog_moderatorUserIdToUserInput
-  User_ModerationLog_targetUserIdToUser?: Prisma.UserCreateNestedOneWithoutModerationLog_ModerationLog_targetUserIdToUserInput
+  moderatorUser: Prisma.UserCreateNestedOneWithoutModerationLogsCreatedInput
+  targetUser?: Prisma.UserCreateNestedOneWithoutModerationLogsTargetedInput
 }
 
 export type ModerationLogUncheckedCreateInput = {
@@ -328,8 +328,8 @@ export type ModerationLogUpdateInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetContentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  User_ModerationLog_moderatorUserIdToUser?: Prisma.UserUpdateOneRequiredWithoutModerationLog_ModerationLog_moderatorUserIdToUserNestedInput
-  User_ModerationLog_targetUserIdToUser?: Prisma.UserUpdateOneWithoutModerationLog_ModerationLog_targetUserIdToUserNestedInput
+  moderatorUser?: Prisma.UserUpdateOneRequiredWithoutModerationLogsCreatedNestedInput
+  targetUser?: Prisma.UserUpdateOneWithoutModerationLogsTargetedNestedInput
 }
 
 export type ModerationLogUncheckedUpdateInput = {
@@ -433,99 +433,99 @@ export type EnumModerationActionFieldUpdateOperationsInput = {
   set?: $Enums.ModerationAction
 }
 
-export type ModerationLogCreateNestedManyWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInputEnvelope
+export type ModerationLogCreateNestedManyWithoutModeratorUserInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput> | Prisma.ModerationLogCreateWithoutModeratorUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput | Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyModeratorUserInputEnvelope
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
 }
 
-export type ModerationLogCreateNestedManyWithoutUser_ModerationLog_targetUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInputEnvelope
+export type ModerationLogCreateNestedManyWithoutTargetUserInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutTargetUserInput, Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput> | Prisma.ModerationLogCreateWithoutTargetUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput | Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyTargetUserInputEnvelope
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
 }
 
-export type ModerationLogUncheckedCreateNestedManyWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInputEnvelope
+export type ModerationLogUncheckedCreateNestedManyWithoutModeratorUserInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput> | Prisma.ModerationLogCreateWithoutModeratorUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput | Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyModeratorUserInputEnvelope
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
 }
 
-export type ModerationLogUncheckedCreateNestedManyWithoutUser_ModerationLog_targetUserIdToUserInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInputEnvelope
+export type ModerationLogUncheckedCreateNestedManyWithoutTargetUserInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutTargetUserInput, Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput> | Prisma.ModerationLogCreateWithoutTargetUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput | Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyTargetUserInputEnvelope
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
 }
 
-export type ModerationLogUpdateManyWithoutUser_ModerationLog_moderatorUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInputEnvelope
+export type ModerationLogUpdateManyWithoutModeratorUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput> | Prisma.ModerationLogCreateWithoutModeratorUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput | Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput[]
+  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutModeratorUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutModeratorUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyModeratorUserInputEnvelope
   set?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   disconnect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   delete?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
-  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
+  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutModeratorUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutModeratorUserInput[]
+  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutModeratorUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutModeratorUserInput[]
   deleteMany?: Prisma.ModerationLogScalarWhereInput | Prisma.ModerationLogScalarWhereInput[]
 }
 
-export type ModerationLogUpdateManyWithoutUser_ModerationLog_targetUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInputEnvelope
+export type ModerationLogUpdateManyWithoutTargetUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutTargetUserInput, Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput> | Prisma.ModerationLogCreateWithoutTargetUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput | Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput[]
+  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutTargetUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutTargetUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyTargetUserInputEnvelope
   set?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   disconnect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   delete?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
-  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_targetUserIdToUserInput[]
+  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutTargetUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutTargetUserInput[]
+  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutTargetUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutTargetUserInput[]
   deleteMany?: Prisma.ModerationLogScalarWhereInput | Prisma.ModerationLogScalarWhereInput[]
 }
 
-export type ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_moderatorUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInputEnvelope
+export type ModerationLogUncheckedUpdateManyWithoutModeratorUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput> | Prisma.ModerationLogCreateWithoutModeratorUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput | Prisma.ModerationLogCreateOrConnectWithoutModeratorUserInput[]
+  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutModeratorUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutModeratorUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyModeratorUserInputEnvelope
   set?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   disconnect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   delete?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
-  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
-  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_moderatorUserIdToUserInput[]
+  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutModeratorUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutModeratorUserInput[]
+  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutModeratorUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutModeratorUserInput[]
   deleteMany?: Prisma.ModerationLogScalarWhereInput | Prisma.ModerationLogScalarWhereInput[]
 }
 
-export type ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_targetUserIdToUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput> | Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  createMany?: Prisma.ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInputEnvelope
+export type ModerationLogUncheckedUpdateManyWithoutTargetUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ModerationLogCreateWithoutTargetUserInput, Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput> | Prisma.ModerationLogCreateWithoutTargetUserInput[] | Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput[]
+  connectOrCreate?: Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput | Prisma.ModerationLogCreateOrConnectWithoutTargetUserInput[]
+  upsert?: Prisma.ModerationLogUpsertWithWhereUniqueWithoutTargetUserInput | Prisma.ModerationLogUpsertWithWhereUniqueWithoutTargetUserInput[]
+  createMany?: Prisma.ModerationLogCreateManyTargetUserInputEnvelope
   set?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   disconnect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   delete?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
   connect?: Prisma.ModerationLogWhereUniqueInput | Prisma.ModerationLogWhereUniqueInput[]
-  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput[]
-  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_targetUserIdToUserInput[]
+  update?: Prisma.ModerationLogUpdateWithWhereUniqueWithoutTargetUserInput | Prisma.ModerationLogUpdateWithWhereUniqueWithoutTargetUserInput[]
+  updateMany?: Prisma.ModerationLogUpdateManyWithWhereWithoutTargetUserInput | Prisma.ModerationLogUpdateManyWithWhereWithoutTargetUserInput[]
   deleteMany?: Prisma.ModerationLogScalarWhereInput | Prisma.ModerationLogScalarWhereInput[]
 }
 
-export type ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogCreateWithoutModeratorUserInput = {
   actionType: $Enums.ModerationAction
   timestamp?: Date | string
   details?: string | null
   targetContentId?: number | null
-  User_ModerationLog_targetUserIdToUser?: Prisma.UserCreateNestedOneWithoutModerationLog_ModerationLog_targetUserIdToUserInput
+  targetUser?: Prisma.UserCreateNestedOneWithoutModerationLogsTargetedInput
 }
 
-export type ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUncheckedCreateWithoutModeratorUserInput = {
   id?: number
   actionType: $Enums.ModerationAction
   timestamp?: Date | string
@@ -534,25 +534,25 @@ export type ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserI
   targetContentId?: number | null
 }
 
-export type ModerationLogCreateOrConnectWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogCreateOrConnectWithoutModeratorUserInput = {
   where: Prisma.ModerationLogWhereUniqueInput
-  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput>
+  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput>
 }
 
-export type ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInputEnvelope = {
-  data: Prisma.ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInput | Prisma.ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInput[]
+export type ModerationLogCreateManyModeratorUserInputEnvelope = {
+  data: Prisma.ModerationLogCreateManyModeratorUserInput | Prisma.ModerationLogCreateManyModeratorUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogCreateWithoutTargetUserInput = {
   actionType: $Enums.ModerationAction
   timestamp?: Date | string
   details?: string | null
   targetContentId?: number | null
-  User_ModerationLog_moderatorUserIdToUser: Prisma.UserCreateNestedOneWithoutModerationLog_ModerationLog_moderatorUserIdToUserInput
+  moderatorUser: Prisma.UserCreateNestedOneWithoutModerationLogsCreatedInput
 }
 
-export type ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUncheckedCreateWithoutTargetUserInput = {
   id?: number
   actionType: $Enums.ModerationAction
   timestamp?: Date | string
@@ -561,30 +561,30 @@ export type ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdTo
   targetContentId?: number | null
 }
 
-export type ModerationLogCreateOrConnectWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogCreateOrConnectWithoutTargetUserInput = {
   where: Prisma.ModerationLogWhereUniqueInput
-  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput>
+  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutTargetUserInput, Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput>
 }
 
-export type ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInputEnvelope = {
-  data: Prisma.ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInput | Prisma.ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInput[]
+export type ModerationLogCreateManyTargetUserInputEnvelope = {
+  data: Prisma.ModerationLogCreateManyTargetUserInput | Prisma.ModerationLogCreateManyTargetUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUpsertWithWhereUniqueWithoutModeratorUserInput = {
   where: Prisma.ModerationLogWhereUniqueInput
-  update: Prisma.XOR<Prisma.ModerationLogUpdateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedUpdateWithoutUser_ModerationLog_moderatorUserIdToUserInput>
-  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_moderatorUserIdToUserInput>
+  update: Prisma.XOR<Prisma.ModerationLogUpdateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedUpdateWithoutModeratorUserInput>
+  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedCreateWithoutModeratorUserInput>
 }
 
-export type ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUpdateWithWhereUniqueWithoutModeratorUserInput = {
   where: Prisma.ModerationLogWhereUniqueInput
-  data: Prisma.XOR<Prisma.ModerationLogUpdateWithoutUser_ModerationLog_moderatorUserIdToUserInput, Prisma.ModerationLogUncheckedUpdateWithoutUser_ModerationLog_moderatorUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ModerationLogUpdateWithoutModeratorUserInput, Prisma.ModerationLogUncheckedUpdateWithoutModeratorUserInput>
 }
 
-export type ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUpdateManyWithWhereWithoutModeratorUserInput = {
   where: Prisma.ModerationLogScalarWhereInput
-  data: Prisma.XOR<Prisma.ModerationLogUpdateManyMutationInput, Prisma.ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_moderatorUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ModerationLogUpdateManyMutationInput, Prisma.ModerationLogUncheckedUpdateManyWithoutModeratorUserInput>
 }
 
 export type ModerationLogScalarWhereInput = {
@@ -600,23 +600,23 @@ export type ModerationLogScalarWhereInput = {
   targetContentId?: Prisma.IntNullableFilter<"ModerationLog"> | number | null
 }
 
-export type ModerationLogUpsertWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUpsertWithWhereUniqueWithoutTargetUserInput = {
   where: Prisma.ModerationLogWhereUniqueInput
-  update: Prisma.XOR<Prisma.ModerationLogUpdateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedUpdateWithoutUser_ModerationLog_targetUserIdToUserInput>
-  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedCreateWithoutUser_ModerationLog_targetUserIdToUserInput>
+  update: Prisma.XOR<Prisma.ModerationLogUpdateWithoutTargetUserInput, Prisma.ModerationLogUncheckedUpdateWithoutTargetUserInput>
+  create: Prisma.XOR<Prisma.ModerationLogCreateWithoutTargetUserInput, Prisma.ModerationLogUncheckedCreateWithoutTargetUserInput>
 }
 
-export type ModerationLogUpdateWithWhereUniqueWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUpdateWithWhereUniqueWithoutTargetUserInput = {
   where: Prisma.ModerationLogWhereUniqueInput
-  data: Prisma.XOR<Prisma.ModerationLogUpdateWithoutUser_ModerationLog_targetUserIdToUserInput, Prisma.ModerationLogUncheckedUpdateWithoutUser_ModerationLog_targetUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ModerationLogUpdateWithoutTargetUserInput, Prisma.ModerationLogUncheckedUpdateWithoutTargetUserInput>
 }
 
-export type ModerationLogUpdateManyWithWhereWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUpdateManyWithWhereWithoutTargetUserInput = {
   where: Prisma.ModerationLogScalarWhereInput
-  data: Prisma.XOR<Prisma.ModerationLogUpdateManyMutationInput, Prisma.ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_targetUserIdToUserInput>
+  data: Prisma.XOR<Prisma.ModerationLogUpdateManyMutationInput, Prisma.ModerationLogUncheckedUpdateManyWithoutTargetUserInput>
 }
 
-export type ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogCreateManyModeratorUserInput = {
   id?: number
   actionType: $Enums.ModerationAction
   timestamp?: Date | string
@@ -625,7 +625,7 @@ export type ModerationLogCreateManyUser_ModerationLog_moderatorUserIdToUserInput
   targetContentId?: number | null
 }
 
-export type ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogCreateManyTargetUserInput = {
   id?: number
   actionType: $Enums.ModerationAction
   timestamp?: Date | string
@@ -634,15 +634,15 @@ export type ModerationLogCreateManyUser_ModerationLog_targetUserIdToUserInput = 
   targetContentId?: number | null
 }
 
-export type ModerationLogUpdateWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUpdateWithoutModeratorUserInput = {
   actionType?: Prisma.EnumModerationActionFieldUpdateOperationsInput | $Enums.ModerationAction
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetContentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  User_ModerationLog_targetUserIdToUser?: Prisma.UserUpdateOneWithoutModerationLog_ModerationLog_targetUserIdToUserNestedInput
+  targetUser?: Prisma.UserUpdateOneWithoutModerationLogsTargetedNestedInput
 }
 
-export type ModerationLogUncheckedUpdateWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUncheckedUpdateWithoutModeratorUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   actionType?: Prisma.EnumModerationActionFieldUpdateOperationsInput | $Enums.ModerationAction
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -651,7 +651,7 @@ export type ModerationLogUncheckedUpdateWithoutUser_ModerationLog_moderatorUserI
   targetContentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_moderatorUserIdToUserInput = {
+export type ModerationLogUncheckedUpdateManyWithoutModeratorUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   actionType?: Prisma.EnumModerationActionFieldUpdateOperationsInput | $Enums.ModerationAction
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -660,15 +660,15 @@ export type ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_moderatorU
   targetContentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type ModerationLogUpdateWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUpdateWithoutTargetUserInput = {
   actionType?: Prisma.EnumModerationActionFieldUpdateOperationsInput | $Enums.ModerationAction
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   details?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetContentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  User_ModerationLog_moderatorUserIdToUser?: Prisma.UserUpdateOneRequiredWithoutModerationLog_ModerationLog_moderatorUserIdToUserNestedInput
+  moderatorUser?: Prisma.UserUpdateOneRequiredWithoutModerationLogsCreatedNestedInput
 }
 
-export type ModerationLogUncheckedUpdateWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUncheckedUpdateWithoutTargetUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   actionType?: Prisma.EnumModerationActionFieldUpdateOperationsInput | $Enums.ModerationAction
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -677,7 +677,7 @@ export type ModerationLogUncheckedUpdateWithoutUser_ModerationLog_targetUserIdTo
   targetContentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type ModerationLogUncheckedUpdateManyWithoutUser_ModerationLog_targetUserIdToUserInput = {
+export type ModerationLogUncheckedUpdateManyWithoutTargetUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   actionType?: Prisma.EnumModerationActionFieldUpdateOperationsInput | $Enums.ModerationAction
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -696,8 +696,8 @@ export type ModerationLogSelect<ExtArgs extends runtime.Types.Extensions.Interna
   moderatorUserId?: boolean
   targetUserId?: boolean
   targetContentId?: boolean
-  User_ModerationLog_moderatorUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  User_ModerationLog_targetUserIdToUser?: boolean | Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>
+  moderatorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  targetUser?: boolean | Prisma.ModerationLog$targetUserArgs<ExtArgs>
 }, ExtArgs["result"]["moderationLog"]>
 
 export type ModerationLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -708,8 +708,8 @@ export type ModerationLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   moderatorUserId?: boolean
   targetUserId?: boolean
   targetContentId?: boolean
-  User_ModerationLog_moderatorUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  User_ModerationLog_targetUserIdToUser?: boolean | Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>
+  moderatorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  targetUser?: boolean | Prisma.ModerationLog$targetUserArgs<ExtArgs>
 }, ExtArgs["result"]["moderationLog"]>
 
 export type ModerationLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -720,8 +720,8 @@ export type ModerationLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   moderatorUserId?: boolean
   targetUserId?: boolean
   targetContentId?: boolean
-  User_ModerationLog_moderatorUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  User_ModerationLog_targetUserIdToUser?: boolean | Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>
+  moderatorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  targetUser?: boolean | Prisma.ModerationLog$targetUserArgs<ExtArgs>
 }, ExtArgs["result"]["moderationLog"]>
 
 export type ModerationLogSelectScalar = {
@@ -736,23 +736,23 @@ export type ModerationLogSelectScalar = {
 
 export type ModerationLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "actionType" | "timestamp" | "details" | "moderatorUserId" | "targetUserId" | "targetContentId", ExtArgs["result"]["moderationLog"]>
 export type ModerationLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ModerationLog_moderatorUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  User_ModerationLog_targetUserIdToUser?: boolean | Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>
+  moderatorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  targetUser?: boolean | Prisma.ModerationLog$targetUserArgs<ExtArgs>
 }
 export type ModerationLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ModerationLog_moderatorUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  User_ModerationLog_targetUserIdToUser?: boolean | Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>
+  moderatorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  targetUser?: boolean | Prisma.ModerationLog$targetUserArgs<ExtArgs>
 }
 export type ModerationLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User_ModerationLog_moderatorUserIdToUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  User_ModerationLog_targetUserIdToUser?: boolean | Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>
+  moderatorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  targetUser?: boolean | Prisma.ModerationLog$targetUserArgs<ExtArgs>
 }
 
 export type $ModerationLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ModerationLog"
   objects: {
-    User_ModerationLog_moderatorUserIdToUser: Prisma.$UserPayload<ExtArgs>
-    User_ModerationLog_targetUserIdToUser: Prisma.$UserPayload<ExtArgs> | null
+    moderatorUser: Prisma.$UserPayload<ExtArgs>
+    targetUser: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1156,8 +1156,8 @@ readonly fields: ModerationLogFieldRefs;
  */
 export interface Prisma__ModerationLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  User_ModerationLog_moderatorUserIdToUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User_ModerationLog_targetUserIdToUser<T extends Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  moderatorUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  targetUser<T extends Prisma.ModerationLog$targetUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ModerationLog$targetUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1590,9 +1590,9 @@ export type ModerationLogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * ModerationLog.User_ModerationLog_targetUserIdToUser
+ * ModerationLog.targetUser
  */
-export type ModerationLog$User_ModerationLog_targetUserIdToUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ModerationLog$targetUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */

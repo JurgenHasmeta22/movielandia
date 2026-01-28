@@ -208,16 +208,16 @@ export type UpvoteForumReplyWhereInput = {
   id?: Prisma.IntFilter<"UpvoteForumReply"> | number
   userId?: Prisma.IntFilter<"UpvoteForumReply"> | number
   replyId?: Prisma.IntFilter<"UpvoteForumReply"> | number
-  ForumReply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
 }
 
 export type UpvoteForumReplyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   replyId?: Prisma.SortOrder
-  ForumReply?: Prisma.ForumReplyOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
+  reply?: Prisma.ForumReplyOrderByWithRelationInput
 }
 
 export type UpvoteForumReplyWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type UpvoteForumReplyWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UpvoteForumReplyWhereInput | Prisma.UpvoteForumReplyWhereInput[]
   userId?: Prisma.IntFilter<"UpvoteForumReply"> | number
   replyId?: Prisma.IntFilter<"UpvoteForumReply"> | number
-  ForumReply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reply?: Prisma.XOR<Prisma.ForumReplyScalarRelationFilter, Prisma.ForumReplyWhereInput>
 }, "id" | "userId_replyId">
 
 export type UpvoteForumReplyOrderByWithAggregationInput = {
@@ -253,8 +253,8 @@ export type UpvoteForumReplyScalarWhereWithAggregatesInput = {
 }
 
 export type UpvoteForumReplyCreateInput = {
-  ForumReply: Prisma.ForumReplyCreateNestedOneWithoutUpvoteForumReplyInput
-  User: Prisma.UserCreateNestedOneWithoutUpvoteForumReplyInput
+  user: Prisma.UserCreateNestedOneWithoutForumReplyUpvotesInput
+  reply: Prisma.ForumReplyCreateNestedOneWithoutUpvotesInput
 }
 
 export type UpvoteForumReplyUncheckedCreateInput = {
@@ -264,8 +264,8 @@ export type UpvoteForumReplyUncheckedCreateInput = {
 }
 
 export type UpvoteForumReplyUpdateInput = {
-  ForumReply?: Prisma.ForumReplyUpdateOneRequiredWithoutUpvoteForumReplyNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteForumReplyNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutForumReplyUpvotesNestedInput
+  reply?: Prisma.ForumReplyUpdateOneRequiredWithoutUpvotesNestedInput
 }
 
 export type UpvoteForumReplyUncheckedUpdateInput = {
@@ -335,45 +335,45 @@ export type UpvoteForumReplySumOrderByAggregateInput = {
   replyId?: Prisma.SortOrder
 }
 
-export type UpvoteForumReplyCreateNestedManyWithoutForumReplyInput = {
-  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput> | Prisma.UpvoteForumReplyCreateWithoutForumReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput[]
-  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput[]
-  createMany?: Prisma.UpvoteForumReplyCreateManyForumReplyInputEnvelope
+export type UpvoteForumReplyCreateNestedManyWithoutReplyInput = {
+  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput> | Prisma.UpvoteForumReplyCreateWithoutReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput[]
+  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput[]
+  createMany?: Prisma.UpvoteForumReplyCreateManyReplyInputEnvelope
   connect?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
 }
 
-export type UpvoteForumReplyUncheckedCreateNestedManyWithoutForumReplyInput = {
-  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput> | Prisma.UpvoteForumReplyCreateWithoutForumReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput[]
-  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput[]
-  createMany?: Prisma.UpvoteForumReplyCreateManyForumReplyInputEnvelope
+export type UpvoteForumReplyUncheckedCreateNestedManyWithoutReplyInput = {
+  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput> | Prisma.UpvoteForumReplyCreateWithoutReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput[]
+  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput[]
+  createMany?: Prisma.UpvoteForumReplyCreateManyReplyInputEnvelope
   connect?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
 }
 
-export type UpvoteForumReplyUpdateManyWithoutForumReplyNestedInput = {
-  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput> | Prisma.UpvoteForumReplyCreateWithoutForumReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput[]
-  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput[]
-  upsert?: Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutForumReplyInput | Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutForumReplyInput[]
-  createMany?: Prisma.UpvoteForumReplyCreateManyForumReplyInputEnvelope
+export type UpvoteForumReplyUpdateManyWithoutReplyNestedInput = {
+  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput> | Prisma.UpvoteForumReplyCreateWithoutReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput[]
+  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput[]
+  upsert?: Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutReplyInput | Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutReplyInput[]
+  createMany?: Prisma.UpvoteForumReplyCreateManyReplyInputEnvelope
   set?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
   disconnect?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
   delete?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
   connect?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
-  update?: Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutForumReplyInput | Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutForumReplyInput[]
-  updateMany?: Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutForumReplyInput | Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutForumReplyInput[]
+  update?: Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutReplyInput | Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutReplyInput[]
+  updateMany?: Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutReplyInput | Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutReplyInput[]
   deleteMany?: Prisma.UpvoteForumReplyScalarWhereInput | Prisma.UpvoteForumReplyScalarWhereInput[]
 }
 
-export type UpvoteForumReplyUncheckedUpdateManyWithoutForumReplyNestedInput = {
-  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput> | Prisma.UpvoteForumReplyCreateWithoutForumReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput[]
-  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutForumReplyInput[]
-  upsert?: Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutForumReplyInput | Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutForumReplyInput[]
-  createMany?: Prisma.UpvoteForumReplyCreateManyForumReplyInputEnvelope
+export type UpvoteForumReplyUncheckedUpdateManyWithoutReplyNestedInput = {
+  create?: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput> | Prisma.UpvoteForumReplyCreateWithoutReplyInput[] | Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput[]
+  connectOrCreate?: Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput | Prisma.UpvoteForumReplyCreateOrConnectWithoutReplyInput[]
+  upsert?: Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutReplyInput | Prisma.UpvoteForumReplyUpsertWithWhereUniqueWithoutReplyInput[]
+  createMany?: Prisma.UpvoteForumReplyCreateManyReplyInputEnvelope
   set?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
   disconnect?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
   delete?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
   connect?: Prisma.UpvoteForumReplyWhereUniqueInput | Prisma.UpvoteForumReplyWhereUniqueInput[]
-  update?: Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutForumReplyInput | Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutForumReplyInput[]
-  updateMany?: Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutForumReplyInput | Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutForumReplyInput[]
+  update?: Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutReplyInput | Prisma.UpvoteForumReplyUpdateWithWhereUniqueWithoutReplyInput[]
+  updateMany?: Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutReplyInput | Prisma.UpvoteForumReplyUpdateManyWithWhereWithoutReplyInput[]
   deleteMany?: Prisma.UpvoteForumReplyScalarWhereInput | Prisma.UpvoteForumReplyScalarWhereInput[]
 }
 
@@ -419,39 +419,39 @@ export type UpvoteForumReplyUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.UpvoteForumReplyScalarWhereInput | Prisma.UpvoteForumReplyScalarWhereInput[]
 }
 
-export type UpvoteForumReplyCreateWithoutForumReplyInput = {
-  User: Prisma.UserCreateNestedOneWithoutUpvoteForumReplyInput
+export type UpvoteForumReplyCreateWithoutReplyInput = {
+  user: Prisma.UserCreateNestedOneWithoutForumReplyUpvotesInput
 }
 
-export type UpvoteForumReplyUncheckedCreateWithoutForumReplyInput = {
+export type UpvoteForumReplyUncheckedCreateWithoutReplyInput = {
   id?: number
   userId: number
 }
 
-export type UpvoteForumReplyCreateOrConnectWithoutForumReplyInput = {
+export type UpvoteForumReplyCreateOrConnectWithoutReplyInput = {
   where: Prisma.UpvoteForumReplyWhereUniqueInput
-  create: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput>
+  create: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput>
 }
 
-export type UpvoteForumReplyCreateManyForumReplyInputEnvelope = {
-  data: Prisma.UpvoteForumReplyCreateManyForumReplyInput | Prisma.UpvoteForumReplyCreateManyForumReplyInput[]
+export type UpvoteForumReplyCreateManyReplyInputEnvelope = {
+  data: Prisma.UpvoteForumReplyCreateManyReplyInput | Prisma.UpvoteForumReplyCreateManyReplyInput[]
   skipDuplicates?: boolean
 }
 
-export type UpvoteForumReplyUpsertWithWhereUniqueWithoutForumReplyInput = {
+export type UpvoteForumReplyUpsertWithWhereUniqueWithoutReplyInput = {
   where: Prisma.UpvoteForumReplyWhereUniqueInput
-  update: Prisma.XOR<Prisma.UpvoteForumReplyUpdateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedUpdateWithoutForumReplyInput>
-  create: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutForumReplyInput>
+  update: Prisma.XOR<Prisma.UpvoteForumReplyUpdateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedUpdateWithoutReplyInput>
+  create: Prisma.XOR<Prisma.UpvoteForumReplyCreateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedCreateWithoutReplyInput>
 }
 
-export type UpvoteForumReplyUpdateWithWhereUniqueWithoutForumReplyInput = {
+export type UpvoteForumReplyUpdateWithWhereUniqueWithoutReplyInput = {
   where: Prisma.UpvoteForumReplyWhereUniqueInput
-  data: Prisma.XOR<Prisma.UpvoteForumReplyUpdateWithoutForumReplyInput, Prisma.UpvoteForumReplyUncheckedUpdateWithoutForumReplyInput>
+  data: Prisma.XOR<Prisma.UpvoteForumReplyUpdateWithoutReplyInput, Prisma.UpvoteForumReplyUncheckedUpdateWithoutReplyInput>
 }
 
-export type UpvoteForumReplyUpdateManyWithWhereWithoutForumReplyInput = {
+export type UpvoteForumReplyUpdateManyWithWhereWithoutReplyInput = {
   where: Prisma.UpvoteForumReplyScalarWhereInput
-  data: Prisma.XOR<Prisma.UpvoteForumReplyUpdateManyMutationInput, Prisma.UpvoteForumReplyUncheckedUpdateManyWithoutForumReplyInput>
+  data: Prisma.XOR<Prisma.UpvoteForumReplyUpdateManyMutationInput, Prisma.UpvoteForumReplyUncheckedUpdateManyWithoutReplyInput>
 }
 
 export type UpvoteForumReplyScalarWhereInput = {
@@ -464,7 +464,7 @@ export type UpvoteForumReplyScalarWhereInput = {
 }
 
 export type UpvoteForumReplyCreateWithoutUserInput = {
-  ForumReply: Prisma.ForumReplyCreateNestedOneWithoutUpvoteForumReplyInput
+  reply: Prisma.ForumReplyCreateNestedOneWithoutUpvotesInput
 }
 
 export type UpvoteForumReplyUncheckedCreateWithoutUserInput = {
@@ -498,21 +498,21 @@ export type UpvoteForumReplyUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.UpvoteForumReplyUpdateManyMutationInput, Prisma.UpvoteForumReplyUncheckedUpdateManyWithoutUserInput>
 }
 
-export type UpvoteForumReplyCreateManyForumReplyInput = {
+export type UpvoteForumReplyCreateManyReplyInput = {
   id?: number
   userId: number
 }
 
-export type UpvoteForumReplyUpdateWithoutForumReplyInput = {
-  User?: Prisma.UserUpdateOneRequiredWithoutUpvoteForumReplyNestedInput
+export type UpvoteForumReplyUpdateWithoutReplyInput = {
+  user?: Prisma.UserUpdateOneRequiredWithoutForumReplyUpvotesNestedInput
 }
 
-export type UpvoteForumReplyUncheckedUpdateWithoutForumReplyInput = {
+export type UpvoteForumReplyUncheckedUpdateWithoutReplyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type UpvoteForumReplyUncheckedUpdateManyWithoutForumReplyInput = {
+export type UpvoteForumReplyUncheckedUpdateManyWithoutReplyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -523,7 +523,7 @@ export type UpvoteForumReplyCreateManyUserInput = {
 }
 
 export type UpvoteForumReplyUpdateWithoutUserInput = {
-  ForumReply?: Prisma.ForumReplyUpdateOneRequiredWithoutUpvoteForumReplyNestedInput
+  reply?: Prisma.ForumReplyUpdateOneRequiredWithoutUpvotesNestedInput
 }
 
 export type UpvoteForumReplyUncheckedUpdateWithoutUserInput = {
@@ -542,24 +542,24 @@ export type UpvoteForumReplySelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   userId?: boolean
   replyId?: boolean
-  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteForumReply"]>
 
 export type UpvoteForumReplySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   replyId?: boolean
-  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteForumReply"]>
 
 export type UpvoteForumReplySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   replyId?: boolean
-  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["upvoteForumReply"]>
 
 export type UpvoteForumReplySelectScalar = {
@@ -570,23 +570,23 @@ export type UpvoteForumReplySelectScalar = {
 
 export type UpvoteForumReplyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "replyId", ExtArgs["result"]["upvoteForumReply"]>
 export type UpvoteForumReplyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }
 export type UpvoteForumReplyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }
 export type UpvoteForumReplyIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  ForumReply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reply?: boolean | Prisma.ForumReplyDefaultArgs<ExtArgs>
 }
 
 export type $UpvoteForumReplyPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UpvoteForumReply"
   objects: {
-    ForumReply: Prisma.$ForumReplyPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
+    reply: Prisma.$ForumReplyPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -986,8 +986,8 @@ readonly fields: UpvoteForumReplyFieldRefs;
  */
 export interface Prisma__UpvoteForumReplyClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  ForumReply<T extends Prisma.ForumReplyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumReplyDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumReplyClient<runtime.Types.Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reply<T extends Prisma.ForumReplyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForumReplyDefaultArgs<ExtArgs>>): Prisma.Prisma__ForumReplyClient<runtime.Types.Result.GetResult<Prisma.$ForumReplyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

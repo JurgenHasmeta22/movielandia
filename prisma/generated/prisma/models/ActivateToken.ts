@@ -220,7 +220,7 @@ export type ActivateTokenWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ActivateToken"> | Date | string
   activatedAt?: Prisma.DateTimeNullableFilter<"ActivateToken"> | Date | string | null
   userId?: Prisma.IntFilter<"ActivateToken"> | number
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ActivateTokenOrderByWithRelationInput = {
@@ -229,7 +229,7 @@ export type ActivateTokenOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   activatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ActivateTokenOrderByRelevanceInput
 }
 
@@ -242,7 +242,7 @@ export type ActivateTokenWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"ActivateToken"> | Date | string
   activatedAt?: Prisma.DateTimeNullableFilter<"ActivateToken"> | Date | string | null
   userId?: Prisma.IntFilter<"ActivateToken"> | number
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "token">
 
 export type ActivateTokenOrderByWithAggregationInput = {
@@ -273,7 +273,7 @@ export type ActivateTokenCreateInput = {
   token: string
   createdAt?: Date | string
   activatedAt?: Date | string | null
-  User: Prisma.UserCreateNestedOneWithoutActivateTokenInput
+  user: Prisma.UserCreateNestedOneWithoutActivateTokensInput
 }
 
 export type ActivateTokenUncheckedCreateInput = {
@@ -288,7 +288,7 @@ export type ActivateTokenUpdateInput = {
   token?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  User?: Prisma.UserUpdateOneRequiredWithoutActivateTokenNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutActivateTokensNestedInput
 }
 
 export type ActivateTokenUncheckedUpdateInput = {
@@ -369,14 +369,6 @@ export type ActivateTokenListRelationFilter = {
 
 export type ActivateTokenOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type ActivateTokenCreateNestedManyWithoutUserInput = {
@@ -506,7 +498,7 @@ export type ActivateTokenSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   activatedAt?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["activateToken"]>
 
 export type ActivateTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -515,7 +507,7 @@ export type ActivateTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   activatedAt?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["activateToken"]>
 
 export type ActivateTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -524,7 +516,7 @@ export type ActivateTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   activatedAt?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["activateToken"]>
 
 export type ActivateTokenSelectScalar = {
@@ -537,19 +529,19 @@ export type ActivateTokenSelectScalar = {
 
 export type ActivateTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "createdAt" | "activatedAt" | "userId", ExtArgs["result"]["activateToken"]>
 export type ActivateTokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ActivateTokenIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ActivateTokenIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ActivateTokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ActivateToken"
   objects: {
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -951,7 +943,7 @@ readonly fields: ActivateTokenFieldRefs;
  */
 export interface Prisma__ActivateTokenClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

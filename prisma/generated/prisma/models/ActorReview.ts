@@ -244,10 +244,10 @@ export type ActorReviewWhereInput = {
   updatedAt?: Prisma.DateTimeNullableFilter<"ActorReview"> | Date | string | null
   userId?: Prisma.IntFilter<"ActorReview"> | number
   actorId?: Prisma.IntFilter<"ActorReview"> | number
-  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  DownvoteActorReview?: Prisma.DownvoteActorReviewListRelationFilter
-  UpvoteActorReview?: Prisma.UpvoteActorReviewListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  upvotes?: Prisma.UpvoteActorReviewListRelationFilter
+  downvotes?: Prisma.DownvoteActorReviewListRelationFilter
 }
 
 export type ActorReviewOrderByWithRelationInput = {
@@ -258,10 +258,10 @@ export type ActorReviewOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   actorId?: Prisma.SortOrder
-  Actor?: Prisma.ActorOrderByWithRelationInput
-  User?: Prisma.UserOrderByWithRelationInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewOrderByRelationAggregateInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
+  actor?: Prisma.ActorOrderByWithRelationInput
+  upvotes?: Prisma.UpvoteActorReviewOrderByRelationAggregateInput
+  downvotes?: Prisma.DownvoteActorReviewOrderByRelationAggregateInput
   _relevance?: Prisma.ActorReviewOrderByRelevanceInput
 }
 
@@ -277,10 +277,10 @@ export type ActorReviewWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeNullableFilter<"ActorReview"> | Date | string | null
   userId?: Prisma.IntFilter<"ActorReview"> | number
   actorId?: Prisma.IntFilter<"ActorReview"> | number
-  Actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  DownvoteActorReview?: Prisma.DownvoteActorReviewListRelationFilter
-  UpvoteActorReview?: Prisma.UpvoteActorReviewListRelationFilter
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  actor?: Prisma.XOR<Prisma.ActorScalarRelationFilter, Prisma.ActorWhereInput>
+  upvotes?: Prisma.UpvoteActorReviewListRelationFilter
+  downvotes?: Prisma.DownvoteActorReviewListRelationFilter
 }, "id" | "userId_actorId">
 
 export type ActorReviewOrderByWithAggregationInput = {
@@ -316,10 +316,10 @@ export type ActorReviewCreateInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  Actor: Prisma.ActorCreateNestedOneWithoutActorReviewInput
-  User: Prisma.UserCreateNestedOneWithoutActorReviewInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  user: Prisma.UserCreateNestedOneWithoutActorReviewsInput
+  actor: Prisma.ActorCreateNestedOneWithoutReviewsInput
+  upvotes?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
 }
 
 export type ActorReviewUncheckedCreateInput = {
@@ -330,8 +330,8 @@ export type ActorReviewUncheckedCreateInput = {
   updatedAt?: Date | string | null
   userId: number
   actorId: number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
 }
 
 export type ActorReviewUpdateInput = {
@@ -339,10 +339,10 @@ export type ActorReviewUpdateInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutActorReviewNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutActorReviewNestedInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutActorReviewsNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutReviewsNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewUncheckedUpdateInput = {
@@ -353,8 +353,8 @@ export type ActorReviewUncheckedUpdateInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   actorId?: Prisma.IntFieldUpdateOperationsInput | number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewCreateManyInput = {
@@ -449,9 +449,9 @@ export type ActorReviewSumOrderByAggregateInput = {
   actorId?: Prisma.SortOrder
 }
 
-export type ActorReviewScalarRelationFilter = {
-  is?: Prisma.ActorReviewWhereInput
-  isNot?: Prisma.ActorReviewWhereInput
+export type ActorReviewNullableScalarRelationFilter = {
+  is?: Prisma.ActorReviewWhereInput | null
+  isNot?: Prisma.ActorReviewWhereInput | null
 }
 
 export type ActorReviewCreateNestedManyWithoutActorInput = {
@@ -496,6 +496,10 @@ export type ActorReviewUncheckedUpdateManyWithoutActorNestedInput = {
   deleteMany?: Prisma.ActorReviewScalarWhereInput | Prisma.ActorReviewScalarWhereInput[]
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type NullableFloatFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -504,32 +508,44 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type ActorReviewCreateNestedOneWithoutDownvoteActorReviewInput = {
-  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutDownvoteActorReviewInput>
-  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutDownvoteActorReviewInput
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type ActorReviewCreateNestedOneWithoutUpvotesInput = {
+  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvotesInput, Prisma.ActorReviewUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutUpvotesInput
   connect?: Prisma.ActorReviewWhereUniqueInput
 }
 
-export type ActorReviewUpdateOneRequiredWithoutDownvoteActorReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutDownvoteActorReviewInput>
-  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutDownvoteActorReviewInput
-  upsert?: Prisma.ActorReviewUpsertWithoutDownvoteActorReviewInput
+export type ActorReviewUpdateOneWithoutUpvotesNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvotesInput, Prisma.ActorReviewUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutUpvotesInput
+  upsert?: Prisma.ActorReviewUpsertWithoutUpvotesInput
+  disconnect?: Prisma.ActorReviewWhereInput | boolean
+  delete?: Prisma.ActorReviewWhereInput | boolean
   connect?: Prisma.ActorReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorReviewUpdateToOneWithWhereWithoutDownvoteActorReviewInput, Prisma.ActorReviewUpdateWithoutDownvoteActorReviewInput>, Prisma.ActorReviewUncheckedUpdateWithoutDownvoteActorReviewInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorReviewUpdateToOneWithWhereWithoutUpvotesInput, Prisma.ActorReviewUpdateWithoutUpvotesInput>, Prisma.ActorReviewUncheckedUpdateWithoutUpvotesInput>
 }
 
-export type ActorReviewCreateNestedOneWithoutUpvoteActorReviewInput = {
-  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutUpvoteActorReviewInput>
-  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutUpvoteActorReviewInput
+export type ActorReviewCreateNestedOneWithoutDownvotesInput = {
+  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvotesInput, Prisma.ActorReviewUncheckedCreateWithoutDownvotesInput>
+  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutDownvotesInput
   connect?: Prisma.ActorReviewWhereUniqueInput
 }
 
-export type ActorReviewUpdateOneRequiredWithoutUpvoteActorReviewNestedInput = {
-  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutUpvoteActorReviewInput>
-  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutUpvoteActorReviewInput
-  upsert?: Prisma.ActorReviewUpsertWithoutUpvoteActorReviewInput
+export type ActorReviewUpdateOneWithoutDownvotesNestedInput = {
+  create?: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvotesInput, Prisma.ActorReviewUncheckedCreateWithoutDownvotesInput>
+  connectOrCreate?: Prisma.ActorReviewCreateOrConnectWithoutDownvotesInput
+  upsert?: Prisma.ActorReviewUpsertWithoutDownvotesInput
+  disconnect?: Prisma.ActorReviewWhereInput | boolean
+  delete?: Prisma.ActorReviewWhereInput | boolean
   connect?: Prisma.ActorReviewWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorReviewUpdateToOneWithWhereWithoutUpvoteActorReviewInput, Prisma.ActorReviewUpdateWithoutUpvoteActorReviewInput>, Prisma.ActorReviewUncheckedUpdateWithoutUpvoteActorReviewInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ActorReviewUpdateToOneWithWhereWithoutDownvotesInput, Prisma.ActorReviewUpdateWithoutDownvotesInput>, Prisma.ActorReviewUncheckedUpdateWithoutDownvotesInput>
 }
 
 export type ActorReviewCreateNestedManyWithoutUserInput = {
@@ -579,9 +595,9 @@ export type ActorReviewCreateWithoutActorInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  User: Prisma.UserCreateNestedOneWithoutActorReviewInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  user: Prisma.UserCreateNestedOneWithoutActorReviewsInput
+  upvotes?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
 }
 
 export type ActorReviewUncheckedCreateWithoutActorInput = {
@@ -591,8 +607,8 @@ export type ActorReviewUncheckedCreateWithoutActorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   userId: number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
 }
 
 export type ActorReviewCreateOrConnectWithoutActorInput = {
@@ -634,17 +650,17 @@ export type ActorReviewScalarWhereInput = {
   actorId?: Prisma.IntFilter<"ActorReview"> | number
 }
 
-export type ActorReviewCreateWithoutDownvoteActorReviewInput = {
+export type ActorReviewCreateWithoutUpvotesInput = {
   content?: string | null
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  Actor: Prisma.ActorCreateNestedOneWithoutActorReviewInput
-  User: Prisma.UserCreateNestedOneWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  user: Prisma.UserCreateNestedOneWithoutActorReviewsInput
+  actor: Prisma.ActorCreateNestedOneWithoutReviewsInput
+  downvotes?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
 }
 
-export type ActorReviewUncheckedCreateWithoutDownvoteActorReviewInput = {
+export type ActorReviewUncheckedCreateWithoutUpvotesInput = {
   id?: number
   content?: string | null
   rating?: number | null
@@ -652,36 +668,36 @@ export type ActorReviewUncheckedCreateWithoutDownvoteActorReviewInput = {
   updatedAt?: Date | string | null
   userId: number
   actorId: number
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
 }
 
-export type ActorReviewCreateOrConnectWithoutDownvoteActorReviewInput = {
+export type ActorReviewCreateOrConnectWithoutUpvotesInput = {
   where: Prisma.ActorReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutDownvoteActorReviewInput>
+  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvotesInput, Prisma.ActorReviewUncheckedCreateWithoutUpvotesInput>
 }
 
-export type ActorReviewUpsertWithoutDownvoteActorReviewInput = {
-  update: Prisma.XOR<Prisma.ActorReviewUpdateWithoutDownvoteActorReviewInput, Prisma.ActorReviewUncheckedUpdateWithoutDownvoteActorReviewInput>
-  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutDownvoteActorReviewInput>
+export type ActorReviewUpsertWithoutUpvotesInput = {
+  update: Prisma.XOR<Prisma.ActorReviewUpdateWithoutUpvotesInput, Prisma.ActorReviewUncheckedUpdateWithoutUpvotesInput>
+  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvotesInput, Prisma.ActorReviewUncheckedCreateWithoutUpvotesInput>
   where?: Prisma.ActorReviewWhereInput
 }
 
-export type ActorReviewUpdateToOneWithWhereWithoutDownvoteActorReviewInput = {
+export type ActorReviewUpdateToOneWithWhereWithoutUpvotesInput = {
   where?: Prisma.ActorReviewWhereInput
-  data: Prisma.XOR<Prisma.ActorReviewUpdateWithoutDownvoteActorReviewInput, Prisma.ActorReviewUncheckedUpdateWithoutDownvoteActorReviewInput>
+  data: Prisma.XOR<Prisma.ActorReviewUpdateWithoutUpvotesInput, Prisma.ActorReviewUncheckedUpdateWithoutUpvotesInput>
 }
 
-export type ActorReviewUpdateWithoutDownvoteActorReviewInput = {
+export type ActorReviewUpdateWithoutUpvotesInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutActorReviewNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutActorReviewsNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutReviewsNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
 }
 
-export type ActorReviewUncheckedUpdateWithoutDownvoteActorReviewInput = {
+export type ActorReviewUncheckedUpdateWithoutUpvotesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -689,20 +705,20 @@ export type ActorReviewUncheckedUpdateWithoutDownvoteActorReviewInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   actorId?: Prisma.IntFieldUpdateOperationsInput | number
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
 }
 
-export type ActorReviewCreateWithoutUpvoteActorReviewInput = {
+export type ActorReviewCreateWithoutDownvotesInput = {
   content?: string | null
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  Actor: Prisma.ActorCreateNestedOneWithoutActorReviewInput
-  User: Prisma.UserCreateNestedOneWithoutActorReviewInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  user: Prisma.UserCreateNestedOneWithoutActorReviewsInput
+  actor: Prisma.ActorCreateNestedOneWithoutReviewsInput
+  upvotes?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
 }
 
-export type ActorReviewUncheckedCreateWithoutUpvoteActorReviewInput = {
+export type ActorReviewUncheckedCreateWithoutDownvotesInput = {
   id?: number
   content?: string | null
   rating?: number | null
@@ -710,36 +726,36 @@ export type ActorReviewUncheckedCreateWithoutUpvoteActorReviewInput = {
   updatedAt?: Date | string | null
   userId: number
   actorId: number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
 }
 
-export type ActorReviewCreateOrConnectWithoutUpvoteActorReviewInput = {
+export type ActorReviewCreateOrConnectWithoutDownvotesInput = {
   where: Prisma.ActorReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutUpvoteActorReviewInput>
+  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvotesInput, Prisma.ActorReviewUncheckedCreateWithoutDownvotesInput>
 }
 
-export type ActorReviewUpsertWithoutUpvoteActorReviewInput = {
-  update: Prisma.XOR<Prisma.ActorReviewUpdateWithoutUpvoteActorReviewInput, Prisma.ActorReviewUncheckedUpdateWithoutUpvoteActorReviewInput>
-  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutUpvoteActorReviewInput, Prisma.ActorReviewUncheckedCreateWithoutUpvoteActorReviewInput>
+export type ActorReviewUpsertWithoutDownvotesInput = {
+  update: Prisma.XOR<Prisma.ActorReviewUpdateWithoutDownvotesInput, Prisma.ActorReviewUncheckedUpdateWithoutDownvotesInput>
+  create: Prisma.XOR<Prisma.ActorReviewCreateWithoutDownvotesInput, Prisma.ActorReviewUncheckedCreateWithoutDownvotesInput>
   where?: Prisma.ActorReviewWhereInput
 }
 
-export type ActorReviewUpdateToOneWithWhereWithoutUpvoteActorReviewInput = {
+export type ActorReviewUpdateToOneWithWhereWithoutDownvotesInput = {
   where?: Prisma.ActorReviewWhereInput
-  data: Prisma.XOR<Prisma.ActorReviewUpdateWithoutUpvoteActorReviewInput, Prisma.ActorReviewUncheckedUpdateWithoutUpvoteActorReviewInput>
+  data: Prisma.XOR<Prisma.ActorReviewUpdateWithoutDownvotesInput, Prisma.ActorReviewUncheckedUpdateWithoutDownvotesInput>
 }
 
-export type ActorReviewUpdateWithoutUpvoteActorReviewInput = {
+export type ActorReviewUpdateWithoutDownvotesInput = {
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutActorReviewNestedInput
-  User?: Prisma.UserUpdateOneRequiredWithoutActorReviewNestedInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutActorReviewsNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutReviewsNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
 }
 
-export type ActorReviewUncheckedUpdateWithoutUpvoteActorReviewInput = {
+export type ActorReviewUncheckedUpdateWithoutDownvotesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -747,7 +763,7 @@ export type ActorReviewUncheckedUpdateWithoutUpvoteActorReviewInput = {
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   actorId?: Prisma.IntFieldUpdateOperationsInput | number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewCreateWithoutUserInput = {
@@ -755,9 +771,9 @@ export type ActorReviewCreateWithoutUserInput = {
   rating?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string | null
-  Actor: Prisma.ActorCreateNestedOneWithoutActorReviewInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  actor: Prisma.ActorCreateNestedOneWithoutReviewsInput
+  upvotes?: Prisma.UpvoteActorReviewCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewCreateNestedManyWithoutActorReviewInput
 }
 
 export type ActorReviewUncheckedCreateWithoutUserInput = {
@@ -767,8 +783,8 @@ export type ActorReviewUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string | null
   actorId: number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedCreateNestedManyWithoutActorReviewInput
 }
 
 export type ActorReviewCreateOrConnectWithoutUserInput = {
@@ -811,9 +827,9 @@ export type ActorReviewUpdateWithoutActorInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  User?: Prisma.UserUpdateOneRequiredWithoutActorReviewNestedInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutActorReviewsNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewUncheckedUpdateWithoutActorInput = {
@@ -823,8 +839,8 @@ export type ActorReviewUncheckedUpdateWithoutActorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.IntFieldUpdateOperationsInput | number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewUncheckedUpdateManyWithoutActorInput = {
@@ -850,9 +866,9 @@ export type ActorReviewUpdateWithoutUserInput = {
   rating?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  Actor?: Prisma.ActorUpdateOneRequiredWithoutActorReviewNestedInput
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  actor?: Prisma.ActorUpdateOneRequiredWithoutReviewsNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewUncheckedUpdateWithoutUserInput = {
@@ -862,8 +878,8 @@ export type ActorReviewUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   actorId?: Prisma.IntFieldUpdateOperationsInput | number
-  DownvoteActorReview?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
-  UpvoteActorReview?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  upvotes?: Prisma.UpvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
+  downvotes?: Prisma.DownvoteActorReviewUncheckedUpdateManyWithoutActorReviewNestedInput
 }
 
 export type ActorReviewUncheckedUpdateManyWithoutUserInput = {
@@ -881,13 +897,13 @@ export type ActorReviewUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type ActorReviewCountOutputType = {
-  DownvoteActorReview: number
-  UpvoteActorReview: number
+  upvotes: number
+  downvotes: number
 }
 
 export type ActorReviewCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  DownvoteActorReview?: boolean | ActorReviewCountOutputTypeCountDownvoteActorReviewArgs
-  UpvoteActorReview?: boolean | ActorReviewCountOutputTypeCountUpvoteActorReviewArgs
+  upvotes?: boolean | ActorReviewCountOutputTypeCountUpvotesArgs
+  downvotes?: boolean | ActorReviewCountOutputTypeCountDownvotesArgs
 }
 
 /**
@@ -903,15 +919,15 @@ export type ActorReviewCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
 /**
  * ActorReviewCountOutputType without action
  */
-export type ActorReviewCountOutputTypeCountDownvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DownvoteActorReviewWhereInput
+export type ActorReviewCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UpvoteActorReviewWhereInput
 }
 
 /**
  * ActorReviewCountOutputType without action
  */
-export type ActorReviewCountOutputTypeCountUpvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UpvoteActorReviewWhereInput
+export type ActorReviewCountOutputTypeCountDownvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DownvoteActorReviewWhereInput
 }
 
 
@@ -923,10 +939,10 @@ export type ActorReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   userId?: boolean
   actorId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  DownvoteActorReview?: boolean | Prisma.ActorReview$DownvoteActorReviewArgs<ExtArgs>
-  UpvoteActorReview?: boolean | Prisma.ActorReview$UpvoteActorReviewArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  upvotes?: boolean | Prisma.ActorReview$upvotesArgs<ExtArgs>
+  downvotes?: boolean | Prisma.ActorReview$downvotesArgs<ExtArgs>
   _count?: boolean | Prisma.ActorReviewCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actorReview"]>
 
@@ -938,8 +954,8 @@ export type ActorReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   userId?: boolean
   actorId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actorReview"]>
 
 export type ActorReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -950,8 +966,8 @@ export type ActorReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   updatedAt?: boolean
   userId?: boolean
   actorId?: boolean
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["actorReview"]>
 
 export type ActorReviewSelectScalar = {
@@ -966,28 +982,28 @@ export type ActorReviewSelectScalar = {
 
 export type ActorReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "rating" | "createdAt" | "updatedAt" | "userId" | "actorId", ExtArgs["result"]["actorReview"]>
 export type ActorReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  DownvoteActorReview?: boolean | Prisma.ActorReview$DownvoteActorReviewArgs<ExtArgs>
-  UpvoteActorReview?: boolean | Prisma.ActorReview$UpvoteActorReviewArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
+  upvotes?: boolean | Prisma.ActorReview$upvotesArgs<ExtArgs>
+  downvotes?: boolean | Prisma.ActorReview$downvotesArgs<ExtArgs>
   _count?: boolean | Prisma.ActorReviewCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ActorReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 export type ActorReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  Actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  actor?: boolean | Prisma.ActorDefaultArgs<ExtArgs>
 }
 
 export type $ActorReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ActorReview"
   objects: {
-    Actor: Prisma.$ActorPayload<ExtArgs>
-    User: Prisma.$UserPayload<ExtArgs>
-    DownvoteActorReview: Prisma.$DownvoteActorReviewPayload<ExtArgs>[]
-    UpvoteActorReview: Prisma.$UpvoteActorReviewPayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs>
+    actor: Prisma.$ActorPayload<ExtArgs>
+    upvotes: Prisma.$UpvoteActorReviewPayload<ExtArgs>[]
+    downvotes: Prisma.$DownvoteActorReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1391,10 +1407,10 @@ readonly fields: ActorReviewFieldRefs;
  */
 export interface Prisma__ActorReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  Actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  DownvoteActorReview<T extends Prisma.ActorReview$DownvoteActorReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorReview$DownvoteActorReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  UpvoteActorReview<T extends Prisma.ActorReview$UpvoteActorReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorReview$UpvoteActorReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  actor<T extends Prisma.ActorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorDefaultArgs<ExtArgs>>): Prisma.Prisma__ActorClient<runtime.Types.Result.GetResult<Prisma.$ActorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  upvotes<T extends Prisma.ActorReview$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorReview$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UpvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  downvotes<T extends Prisma.ActorReview$downvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ActorReview$downvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DownvoteActorReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1827,33 +1843,9 @@ export type ActorReviewDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * ActorReview.DownvoteActorReview
+ * ActorReview.upvotes
  */
-export type ActorReview$DownvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DownvoteActorReview
-   */
-  select?: Prisma.DownvoteActorReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DownvoteActorReview
-   */
-  omit?: Prisma.DownvoteActorReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DownvoteActorReviewInclude<ExtArgs> | null
-  where?: Prisma.DownvoteActorReviewWhereInput
-  orderBy?: Prisma.DownvoteActorReviewOrderByWithRelationInput | Prisma.DownvoteActorReviewOrderByWithRelationInput[]
-  cursor?: Prisma.DownvoteActorReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DownvoteActorReviewScalarFieldEnum | Prisma.DownvoteActorReviewScalarFieldEnum[]
-}
-
-/**
- * ActorReview.UpvoteActorReview
- */
-export type ActorReview$UpvoteActorReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ActorReview$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UpvoteActorReview
    */
@@ -1872,6 +1864,30 @@ export type ActorReview$UpvoteActorReviewArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.UpvoteActorReviewScalarFieldEnum | Prisma.UpvoteActorReviewScalarFieldEnum[]
+}
+
+/**
+ * ActorReview.downvotes
+ */
+export type ActorReview$downvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DownvoteActorReview
+   */
+  select?: Prisma.DownvoteActorReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DownvoteActorReview
+   */
+  omit?: Prisma.DownvoteActorReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DownvoteActorReviewInclude<ExtArgs> | null
+  where?: Prisma.DownvoteActorReviewWhereInput
+  orderBy?: Prisma.DownvoteActorReviewOrderByWithRelationInput | Prisma.DownvoteActorReviewOrderByWithRelationInput[]
+  cursor?: Prisma.DownvoteActorReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DownvoteActorReviewScalarFieldEnum | Prisma.DownvoteActorReviewScalarFieldEnum[]
 }
 
 /**

@@ -220,7 +220,7 @@ export type ResetPasswordTokenWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"ResetPasswordToken"> | Date | string
   resetPasswordAt?: Prisma.DateTimeNullableFilter<"ResetPasswordToken"> | Date | string | null
   userId?: Prisma.IntFilter<"ResetPasswordToken"> | number
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ResetPasswordTokenOrderByWithRelationInput = {
@@ -229,7 +229,7 @@ export type ResetPasswordTokenOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   resetPasswordAt?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
-  User?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.ResetPasswordTokenOrderByRelevanceInput
 }
 
@@ -242,7 +242,7 @@ export type ResetPasswordTokenWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"ResetPasswordToken"> | Date | string
   resetPasswordAt?: Prisma.DateTimeNullableFilter<"ResetPasswordToken"> | Date | string | null
   userId?: Prisma.IntFilter<"ResetPasswordToken"> | number
-  User?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "token">
 
 export type ResetPasswordTokenOrderByWithAggregationInput = {
@@ -273,7 +273,7 @@ export type ResetPasswordTokenCreateInput = {
   token: string
   createdAt?: Date | string
   resetPasswordAt?: Date | string | null
-  User: Prisma.UserCreateNestedOneWithoutResetPasswordTokenInput
+  user: Prisma.UserCreateNestedOneWithoutResetPasswordTokensInput
 }
 
 export type ResetPasswordTokenUncheckedCreateInput = {
@@ -288,7 +288,7 @@ export type ResetPasswordTokenUpdateInput = {
   token?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resetPasswordAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  User?: Prisma.UserUpdateOneRequiredWithoutResetPasswordTokenNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutResetPasswordTokensNestedInput
 }
 
 export type ResetPasswordTokenUncheckedUpdateInput = {
@@ -498,7 +498,7 @@ export type ResetPasswordTokenSelect<ExtArgs extends runtime.Types.Extensions.In
   createdAt?: boolean
   resetPasswordAt?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resetPasswordToken"]>
 
 export type ResetPasswordTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -507,7 +507,7 @@ export type ResetPasswordTokenSelectCreateManyAndReturn<ExtArgs extends runtime.
   createdAt?: boolean
   resetPasswordAt?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resetPasswordToken"]>
 
 export type ResetPasswordTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -516,7 +516,7 @@ export type ResetPasswordTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.
   createdAt?: boolean
   resetPasswordAt?: boolean
   userId?: boolean
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resetPasswordToken"]>
 
 export type ResetPasswordTokenSelectScalar = {
@@ -529,19 +529,19 @@ export type ResetPasswordTokenSelectScalar = {
 
 export type ResetPasswordTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "createdAt" | "resetPasswordAt" | "userId", ExtArgs["result"]["resetPasswordToken"]>
 export type ResetPasswordTokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ResetPasswordTokenIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ResetPasswordTokenIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  User?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ResetPasswordTokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ResetPasswordToken"
   objects: {
-    User: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -943,7 +943,7 @@ readonly fields: ResetPasswordTokenFieldRefs;
  */
 export interface Prisma__ResetPasswordTokenClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  User<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
