@@ -9,7 +9,7 @@
         "start": "next start",
         "startDev": "next start --port 4000",
         "seed": "tsx prisma/seed/seed.ts",
-        "lint": "next lint",
+        "lint": "eslint . --max-warnings=0",
         "scan": "next dev & npx react-scan@latest localhost:4000",
         "test": "vitest run",
         "test:watch": "vitest",

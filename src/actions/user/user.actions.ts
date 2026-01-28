@@ -8,17 +8,6 @@ import { cacheLife } from "next/cache";
 import { Prisma, User } from "../../../prisma/generated/prisma/client";
 
 // #region "Interfaces"
-export interface UserModelParams {
-	sortBy?: string;
-	ascOrDesc?: string;
-	perPage?: number;
-	page?: number;
-	title?: string | null;
-	filterValue?: number | string;
-	filterNameString?: string | null;
-	filterOperatorString?: FilterOperator;
-}
-
 export interface AddReviewMovieParams {
 	content: string;
 	createdAt?: Date;

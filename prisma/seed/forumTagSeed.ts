@@ -39,7 +39,6 @@ export async function generateForumTagData(): Promise<void> {
 
 	const topicsWithTags = await prisma.forumTopic.findMany({
 		where: {
-			// @ts-expect-error fix
 			tags: {
 				some: {},
 			},
@@ -70,7 +69,6 @@ export async function generateForumTagData(): Promise<void> {
 		await prisma.forumTopic.update({
 			where: { id: topic.id },
 			data: {
-				// @ts-expect-error fix
 				tags: {
 					connect: selectedTagIds.map((id) => ({ id })),
 				},

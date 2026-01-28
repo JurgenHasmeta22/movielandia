@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import {
 	Box,
 	List,
@@ -143,15 +143,18 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 					>
 						<ListItemButton
 							sx={{
+								// @ts-expect-error Color
 								color: theme.vars.palette.greyAccent.main,
 								"&:hover": {
 									backgroundColor:
 										theme.vars.palette.secondary.light,
 									"& .MuiListItemIcon-root": {
+										// @ts-expect-error Color
 										color: theme.vars.palette.greyAccent
 											.light,
 									},
 									"& .MuiListItemText-primary": {
+										// @ts-expect-error Color
 										color: theme.vars.palette.greyAccent
 											.light,
 									},

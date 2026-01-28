@@ -95,6 +95,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 	// @ts-expect-error no parameters
 	const hoverTimeoutRef = useRef<NodeJS.Timeout>();
 	const currentTargetRef = useRef<HTMLElement | null>(null);
+
 	// @ts-expect-error no parameters
 	const subMenuTimeoutRef = useRef<NodeJS.Timeout>();
 	const menuPaperRef = useRef<HTMLDivElement | null>(null);
@@ -222,9 +223,11 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 		fontSize: "0.9rem",
 		textTransform: "none",
 		color: isActive(path)
+			// @ts-expect-error Color
 			? theme.vars.palette.green.main
 			: theme.vars.palette.primary.main,
 		borderBottom: isActive(path)
+			// @ts-expect-error Color
 			? `2px solid ${theme.vars.palette.green.main}`
 			: "none",
 		borderRadius: 0,
@@ -235,6 +238,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 		minWidth: "auto",
 		"&:hover": {
 			backgroundColor: "transparent",
+			// @ts-expect-error Color
 			color: theme.vars.palette.green.main,
 		},
 	});
