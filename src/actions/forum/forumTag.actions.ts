@@ -122,7 +122,6 @@ export async function addTagsToTopic(
 	tagIds: number[],
 ): Promise<void> {
 	try {
-		// First, disconnect all existing tags
 		await prisma.forumTopic.update({
 			where: { id: topicId },
 			data: {
@@ -132,7 +131,6 @@ export async function addTagsToTopic(
 			},
 		});
 
-		// Then, connect the new tags
 		await prisma.forumTopic.update({
 			where: { id: topicId },
 			data: {

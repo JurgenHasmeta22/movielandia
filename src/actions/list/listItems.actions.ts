@@ -810,7 +810,6 @@ export async function addItemsToList({
 
 export async function removeAllItemsFromList(listId: number, userId: number) {
 	try {
-		// First check if the user has permission to edit the list
 		const list = await prisma.list.findFirst({
 			where: {
 				id: listId,
@@ -831,7 +830,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Get counts for each type of item to determine if we need to delete anything
 		const [
 			movieCount,
 			serieCount,
@@ -848,10 +846,8 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			prisma.listCrew.count({ where: { listId } }),
 		]);
 
-		// Create transaction operations for each type of item
 		const operations = [];
 
-		// Delete all movie items if any exist
 		if (movieCount > 0) {
 			operations.push(
 				prisma.listMovie.deleteMany({
@@ -860,7 +856,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Delete all serie items if any exist
 		if (serieCount > 0) {
 			operations.push(
 				prisma.listSerie.deleteMany({
@@ -869,7 +864,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Delete all season items if any exist
 		if (seasonCount > 0) {
 			operations.push(
 				prisma.listSeason.deleteMany({
@@ -878,7 +872,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Delete all episode items if any exist
 		if (episodeCount > 0) {
 			operations.push(
 				prisma.listEpisode.deleteMany({
@@ -887,7 +880,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Delete all actor items if any exist
 		if (actorCount > 0) {
 			operations.push(
 				prisma.listActor.deleteMany({
@@ -896,7 +888,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Delete all crew items if any exist
 		if (crewCount > 0) {
 			operations.push(
 				prisma.listCrew.deleteMany({
@@ -905,7 +896,6 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			);
 		}
 
-		// Add operation to reset content type
 		operations.push(
 			prisma.list.update({
 				where: { id: listId },
@@ -913,12 +903,9 @@ export async function removeAllItemsFromList(listId: number, userId: number) {
 			}),
 		);
 
-		// Execute all operations in a transaction
 		await prisma.$transaction(operations);
-
 		const referer = getReferer();
 		revalidatePath(`${referer}`, "page");
-
 		return { success: true };
 	} catch (error) {
 		console.error("Failed to remove all items from list:", error);

@@ -67,14 +67,14 @@ export default async function GenrePage(
 	props: IGenreProps,
 ): Promise<React.JSX.Element> {
 	const session = await getServerSession(authOptions);
-
+	const params = await props.params;
 	const searchParams = await props.searchParams;
 	const searchParamsKey = JSON.stringify(searchParams);
 
 	return (
 		<Suspense key={searchParamsKey} fallback={<LoadingSkeletonGenre />}>
 			<GenrePageContent
-				params={props.params}
+				params={params}
 				searchParams={searchParams}
 				session={session}
 			/>

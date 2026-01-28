@@ -5,6 +5,16 @@ import { revalidatePath } from "next/cache";
 import { getReferer } from "../user/user.actions";
 import { TopicStatus } from "../../../prisma/generated/prisma/enums";
 
+interface TopicsParams {
+	categoryId?: number;
+	page?: number;
+	limit?: number;
+	tagIds?: number[];
+	status?: TopicStatus;
+	topicsSortBy?: string;
+	topicsAscOrDesc?: string;
+}
+
 export async function createTopic(
 	title: string,
 	content: string,
@@ -97,14 +107,45 @@ export async function updateTopic(
 	}
 }
 
-interface TopicsParams {
-	categoryId?: number;
-	page?: number;
-	limit?: number;
-	tagIds?: number[];
-	status?: TopicStatus;
-	topicsSortBy?: string;
-	topicsAscOrDesc?: string;
+export async function deleteTopic(
+	topicId: number,
+	userId: number,
+): Promise<void> {
+	try {
+		const topic = await prisma.forumTopic.findFirst({
+			where: {
+				id: topicId,
+				userId,
+			},
+		});
+
+		if (!topic) {
+			throw new Error(
+				"Topic not found or you don't have permission to delete.",
+			);
+		}
+
+		await prisma.forumPost.deleteMany({
+			where: { topicId },
+		});
+
+		const result = await prisma.forumTopic.delete({
+			where: { id: topicId },
+		});
+
+		if (!result) {
+			throw new Error("Failed to delete topic.");
+		}
+
+		const referer = getReferer();
+		revalidatePath(`${referer}`, "page");
+	} catch (error) {
+		throw new Error(
+			error instanceof Error
+				? error.message
+				: "An unexpected error occurred.",
+		);
+	}
 }
 
 export async function getTopics(params: TopicsParams) {
@@ -211,7 +252,6 @@ export async function getTopicById(
 	topicId: number,
 	includeViews: boolean = false,
 ) {
-	// If includeViews is true, increment the view count
 	if (includeViews) {
 		await prisma.forumTopic.update({
 			where: { id: topicId },
@@ -304,47 +344,6 @@ export async function toggleTopicLock(
 			const referer = getReferer();
 			revalidatePath(`${referer}`, "page");
 		}
-	} catch (error) {
-		throw new Error(
-			error instanceof Error
-				? error.message
-				: "An unexpected error occurred.",
-		);
-	}
-}
-
-export async function deleteTopic(
-	topicId: number,
-	userId: number,
-): Promise<void> {
-	try {
-		const topic = await prisma.forumTopic.findFirst({
-			where: {
-				id: topicId,
-				userId,
-			},
-		});
-
-		if (!topic) {
-			throw new Error(
-				"Topic not found or you don't have permission to delete.",
-			);
-		}
-
-		await prisma.forumPost.deleteMany({
-			where: { topicId },
-		});
-
-		const result = await prisma.forumTopic.delete({
-			where: { id: topicId },
-		});
-
-		if (!result) {
-			throw new Error("Failed to delete topic.");
-		}
-
-		const referer = getReferer();
-		revalidatePath(`${referer}`, "page");
 	} catch (error) {
 		throw new Error(
 			error instanceof Error

@@ -176,7 +176,6 @@ export async function reorderListItems({
 				});
 				break;
 			case "user":
-				// No activity logging for user lists
 				break;
 		}
 

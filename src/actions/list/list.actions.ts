@@ -34,7 +34,6 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
 	let where: Prisma.ListWhereInput;
 
 	if (sharedWithMe) {
-		// Get lists shared with the user
 		where = {
 			sharedWith: {
 				some: {
@@ -44,7 +43,6 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
 			...(typeof isArchived === "boolean" && { isArchived }),
 		};
 	} else {
-		// Get lists owned by the user
 		where = {
 			userId,
 			...(typeof isPrivate === "boolean" && { isPrivate }),
@@ -52,7 +50,6 @@ export async function getUserLists(userId: number, params: ListParams = {}) {
 		};
 	}
 
-	// For shared lists, we need to include the permission level
 	const sharedWithInclude = sharedWithMe
 		? {
 				where: {
@@ -714,53 +711,53 @@ export async function detectAndUpdateListContentType(
 	userId: number,
 ): Promise<ContentType | null> {
 	try {
-		// Check for movies
 		const { total: movieTotal } = await getListMovies(listId, userId, 1, 1);
+
 		if (movieTotal > 0) {
 			await updateListContentType(listId, userId, "movie");
 			return "movie";
 		}
 
-		// Check for series
 		const { total: serieTotal } = await getListSeries(listId, userId, 1, 1);
+
 		if (serieTotal > 0) {
 			await updateListContentType(listId, userId, "serie");
 			return "serie";
 		}
 
-		// Check for seasons
 		const { total: seasonTotal } = await getListSeasons(
 			listId,
 			userId,
 			1,
 			1,
 		);
+
 		if (seasonTotal > 0) {
 			await updateListContentType(listId, userId, "season");
 			return "season";
 		}
 
-		// Check for episodes
 		const { total: episodeTotal } = await getListEpisodes(
 			listId,
 			userId,
 			1,
 			1,
 		);
+
 		if (episodeTotal > 0) {
 			await updateListContentType(listId, userId, "episode");
 			return "episode";
 		}
 
-		// Check for actors
 		const { total: actorTotal } = await getListActors(listId, userId, 1, 1);
+
 		if (actorTotal > 0) {
 			await updateListContentType(listId, userId, "actor");
 			return "actor";
 		}
 
-		// Check for crew
 		const { total: crewTotal } = await getListCrew(listId, userId, 1, 1);
+
 		if (crewTotal > 0) {
 			await updateListContentType(listId, userId, "crew");
 			return "crew";
