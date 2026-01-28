@@ -30,7 +30,7 @@ interface ISerieProps {
 export async function generateMetadata({
 	params,
 }: ISerieProps): Promise<Metadata> {
-	const { serieId } = params;
+	const { serieId } = await params;
 
 	let serie: Serie;
 

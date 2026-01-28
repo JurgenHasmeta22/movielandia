@@ -213,7 +213,7 @@ export async function getSerieById(
 
 	try {
 		const serie = await prisma.serie.findFirst({
-			where: { id },
+			where: { id: Number(id) },
 			include: {
 				genres: { select: { genre: true } },
 				cast: {
