@@ -178,7 +178,6 @@ export async function getActorById(
 				id: actorId,
 			},
 			include: {
-				// @ts-expect-error fix
 				starredMovies: {
 					include: { movie: true },
 					skip: starredMoviesPage ? (starredMoviesPage - 1) * 6 : 0,
@@ -235,7 +234,6 @@ export async function getActorById(
 			let isReviewed = false;
 
 			if (userId) {
-				// @ts-expect-error fix
 				for (const review of actor.reviews) {
 					const existingUpvote =
 						await prisma.upvoteActorReview.findFirst({
@@ -259,7 +257,9 @@ export async function getActorById(
 							},
 						});
 
+					// @ts-expect-error fix
 					review.isUpvoted = !!existingUpvote;
+					// @ts-expect-error fix
 					review.isDownvoted = !!existingDownvote;
 				}
 

@@ -12,11 +12,10 @@ export async function shareList(
 	canEdit: boolean = false,
 ) {
 	try {
-		// Check if list exists and user is the owner
 		const list = await prisma.list.findFirst({
 			where: {
 				id: listId,
-				userId, // Only owner can share
+				userId,
 			},
 		});
 
@@ -26,7 +25,6 @@ export async function shareList(
 			);
 		}
 
-		// Check if share already exists
 		const existingShare = await prisma.listShare.findUnique({
 			where: {
 				listId_userId: {
@@ -40,14 +38,11 @@ export async function shareList(
 			throw new Error("List is already shared with this user");
 		}
 
-		// Get list details for notification
 		const listDetails = await prisma.list.findUnique({
 			where: { id: listId },
 			select: { name: true },
 		});
 
-		// Create share and notification separately to avoid transaction issues
-		// First, create the share
 		await prisma.listShare.create({
 			data: {
 				listId,
@@ -56,7 +51,6 @@ export async function shareList(
 			},
 		});
 
-		// Then, update user stats
 		await prisma.userListStats.upsert({
 			where: { userId },
 			create: {
@@ -69,7 +63,6 @@ export async function shareList(
 			},
 		});
 
-		// Finally, create notification
 		await prisma.notification.create({
 			data: {
 				type: NotificationType.list_shared,
@@ -95,11 +88,10 @@ export async function unshareList(
 	targetUserId: number,
 ) {
 	try {
-		// Check if list exists and user is the owner
 		const list = await prisma.list.findFirst({
 			where: {
 				id: listId,
-				userId, // Only owner can unshare
+				userId,
 			},
 		});
 
@@ -109,7 +101,6 @@ export async function unshareList(
 			);
 		}
 
-		// Check if share exists
 		const existingShare = await prisma.listShare.findUnique({
 			where: {
 				listId_userId: {
@@ -123,14 +114,11 @@ export async function unshareList(
 			throw new Error("List is not shared with this user");
 		}
 
-		// Get list details for notification
 		const listDetails = await prisma.list.findUnique({
 			where: { id: listId },
 			select: { name: true },
 		});
 
-		// Remove share and create notification separately to avoid transaction issues
-		// First, delete the share
 		await prisma.listShare.delete({
 			where: {
 				listId_userId: {
@@ -140,7 +128,6 @@ export async function unshareList(
 			},
 		});
 
-		// Then, update user stats
 		await prisma.userListStats.update({
 			where: { userId },
 			data: {
@@ -148,7 +135,6 @@ export async function unshareList(
 			},
 		});
 
-		// Finally, create notification
 		await prisma.notification.create({
 			data: {
 				type: NotificationType.list_shared,
@@ -175,11 +161,10 @@ export async function updateSharePermission(
 	canEdit: boolean,
 ) {
 	try {
-		// Check if list exists and user is the owner
 		const list = await prisma.list.findFirst({
 			where: {
 				id: listId,
-				userId, // Only owner can update permissions
+				userId,
 			},
 		});
 
@@ -189,7 +174,6 @@ export async function updateSharePermission(
 			);
 		}
 
-		// Check if share exists
 		const existingShare = await prisma.listShare.findUnique({
 			where: {
 				listId_userId: {
@@ -203,14 +187,11 @@ export async function updateSharePermission(
 			throw new Error("List is not shared with this user");
 		}
 
-		// Get list details for notification
 		const listDetails = await prisma.list.findUnique({
 			where: { id: listId },
 			select: { name: true },
 		});
 
-		// Update share permissions and create notification separately to avoid transaction issues
-		// First, update the share permissions
 		await prisma.listShare.update({
 			where: {
 				listId_userId: {
@@ -223,7 +204,6 @@ export async function updateSharePermission(
 			},
 		});
 
-		// Then, create notification
 		await prisma.notification.create({
 			data: {
 				type: NotificationType.list_permission_updated,

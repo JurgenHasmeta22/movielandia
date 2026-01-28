@@ -38,7 +38,6 @@ export async function getUserForumTopics(
 						select: {
 							posts: true,
 							upvotes: true,
-							downvotes: true,
 						},
 					},
 				},
@@ -118,7 +117,6 @@ export async function getUserForumReplies(
 					_count: {
 						select: {
 							upvotes: true,
-							downvotes: true,
 						},
 					},
 				},

@@ -168,7 +168,6 @@ export async function getCrewMemberById(
 				id: crewId,
 			},
 			include: {
-				// @ts-expect-error fix
 				producedMovies: {
 					include: { movie: true },
 					skip: producedMoviesPage ? (producedMoviesPage - 1) * 6 : 0,
@@ -225,7 +224,6 @@ export async function getCrewMemberById(
 			let isReviewed = false;
 
 			if (userId) {
-				// @ts-expect-error fix
 				for (const review of crewMember.reviews) {
 					const existingUpvote =
 						await prisma.upvoteCrewReview.findFirst({
@@ -249,7 +247,9 @@ export async function getCrewMemberById(
 							},
 						});
 
+					// @ts-expect-error fix
 					review.isUpvoted = !!existingUpvote;
+					// @ts-expect-error fix
 					review.isDownvoted = !!existingDownvote;
 				}
 
@@ -318,7 +318,6 @@ export async function getCrewMemberByFullname(
 				fullname: fullnameFinal,
 			},
 			include: {
-				// @ts-expect-error fix
 				producedMovies: { include: { movie: true } },
 				producedSeries: { include: { serie: true } },
 				reviews: {
@@ -367,7 +366,6 @@ export async function getCrewMemberByFullname(
 			let isReviewed = false;
 
 			if (userId) {
-				// @ts-expect-error fix
 				for (const review of crewMember.reviews) {
 					const existingUpvote =
 						await prisma.upvoteCrewReview.findFirst({
@@ -391,7 +389,9 @@ export async function getCrewMemberByFullname(
 							},
 						});
 
+					// @ts-expect-error fix
 					review.isUpvoted = !!existingUpvote;
+					// @ts-expect-error fix
 					review.isDownvoted = !!existingDownvote;
 				}
 

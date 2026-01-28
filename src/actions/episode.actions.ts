@@ -124,7 +124,6 @@ export async function getEpisodeById(
 		const episode = await prisma.episode.findFirst({
 			where: { id: episodeId },
 			include: {
-				// @ts-expect-error fix
 				season: true,
 				reviews: {
 					include: {
@@ -174,7 +173,6 @@ export async function getEpisodeById(
 		let isReviewed = false;
 
 		if (userId) {
-			// @ts-expect-error fix
 			for (const review of episode.reviews) {
 				const existingUpvote =
 					await prisma.upvoteEpisodeReview.findFirst({
@@ -198,7 +196,9 @@ export async function getEpisodeById(
 						},
 					});
 
+				// @ts-expect-error fix
 				review.isUpvoted = !!existingUpvote;
+				// @ts-expect-error fix
 				review.isDownvoted = !!existingDownvote;
 			}
 
@@ -261,7 +261,6 @@ export async function getEpisodeByTitle(
 				AND: [{ title: titleFinal }, { seasonId }],
 			},
 			include: {
-				// @ts-expect-error fix
 				season: true,
 				reviews: {
 					include: {
@@ -309,7 +308,6 @@ export async function getEpisodeByTitle(
 			let isReviewed = false;
 
 			if (userId) {
-				// @ts-expect-error fix
 				for (const review of episode.reviews) {
 					const existingUpvote =
 						await prisma.upvoteEpisodeReview.findFirst({
@@ -333,7 +331,9 @@ export async function getEpisodeByTitle(
 							},
 						});
 
+					// @ts-expect-error fix
 					review.isUpvoted = !!existingUpvote;
+					// @ts-expect-error fix
 					review.isDownvoted = !!existingDownvote;
 				}
 
@@ -375,7 +375,6 @@ export async function getLatestEpisodes(
 			dateAired: "desc",
 		},
 		take: 10,
-		// @ts-expect-error fix
 		include: { season: true },
 		where: { seasonId },
 	});
@@ -406,7 +405,6 @@ export async function getLatestEpisodes(
 	);
 
 	const episodes = episodesWithEpisodes.map((episode) => {
-		// @ts-expect-error fix
 		const { season, ...properties } = episode;
 		const ratingsInfo = episodeRatingsMap[episode.id] || {
 			averageRating: 0,
@@ -430,11 +428,9 @@ export async function getRelatedEpisodes(
 	perPage: number = 6,
 ): Promise<{ episodes: Episode[] | null; count: number }> {
 	"use cache";
-
 	cacheLife("days");
 
 	const skip = (page - 1) * perPage;
-
 	const episode = await prisma.episode.findFirst({
 		where: {
 			AND: [{ id }, { seasonId }],
@@ -443,7 +439,6 @@ export async function getRelatedEpisodes(
 
 	const episodes = await prisma.episode.findMany({
 		where: { NOT: { id: episode?.id }, AND: [{ seasonId }] },
-		// @ts-expect-error fix
 		include: { season: true },
 		skip,
 		take: perPage,
@@ -485,7 +480,6 @@ export async function getRelatedEpisodes(
 	);
 
 	const episodesFinal = episodes.map((relatedEpisode) => {
-		// @ts-expect-error fix
 		const { season, ...episodeDetails } = relatedEpisode;
 		const ratingsInfo = ratingsMap[relatedEpisode.id] || {
 			averageRating: 0,

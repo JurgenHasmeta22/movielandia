@@ -221,7 +221,6 @@ export async function getUserById(
 	const user = await prisma.user.findUnique({
 		where: { id: userId },
 		include: {
-			// @ts-expect-error fix
 			avatar: true,
 		},
 	});
@@ -281,7 +280,6 @@ export async function getUserByUsername(
 	const user = await prisma.user.findFirst({
 		where: { userName },
 		include: {
-			// @ts-expect-error fix
 			avatar: true,
 		},
 	});

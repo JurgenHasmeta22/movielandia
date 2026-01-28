@@ -4,7 +4,6 @@ import { prisma } from "../../../prisma/config/prisma";
 import { revalidatePath } from "next/cache";
 import { ContentType } from "../../../prisma/generated/prisma/enums";
 
-// Mock the prisma client
 vi.mock("../../../prisma/config/prisma", () => ({
 	prisma: {
 		list: {
@@ -52,12 +51,10 @@ vi.mock("../../../prisma/config/prisma", () => ({
 	},
 }));
 
-// Mock the next/cache module
 vi.mock("next/cache", () => ({
 	revalidatePath: vi.fn(),
 }));
 
-// Mock the getReferer function
 vi.mock("../user/user.actions", () => ({
 	getReferer: vi.fn().mockReturnValue("/test-path"),
 }));
@@ -66,7 +63,6 @@ describe("reorderListItems", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 
-		// Mock the list findFirst to return a valid list
 		(prisma.list.findFirst as any).mockResolvedValue({
 			id: 1,
 			name: "Test List",
@@ -87,7 +83,6 @@ describe("reorderListItems", () => {
 
 		await reorderListItems(params);
 
-		// Check if the list was found
 		expect(prisma.list.findFirst).toHaveBeenCalledWith({
 			where: {
 				id: 1,
@@ -98,10 +93,7 @@ describe("reorderListItems", () => {
 			},
 		});
 
-		// Check if the transaction was called with the correct updates
 		expect(prisma.$transaction).toHaveBeenCalled();
-
-		// Check if the movie items were updated
 		expect(prisma.listMovie.update).toHaveBeenCalledTimes(2);
 		expect(prisma.listMovie.update).toHaveBeenCalledWith({
 			where: {
@@ -126,7 +118,6 @@ describe("reorderListItems", () => {
 			},
 		});
 
-		// Check if the activity was logged
 		expect(prisma.listActivityMovie.create).toHaveBeenCalledWith({
 			data: {
 				listId: 1,
@@ -137,12 +128,10 @@ describe("reorderListItems", () => {
 			},
 		});
 
-		// Check if the path was revalidated
 		expect(revalidatePath).toHaveBeenCalledWith("/test-path", "page");
 	});
 
 	it("should throw an error if the list is not found", async () => {
-		// Mock the list findFirst to return null
 		(prisma.list.findFirst as any).mockResolvedValue(null);
 
 		const params = {
