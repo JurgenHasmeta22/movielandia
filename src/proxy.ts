@@ -1,11 +1,8 @@
 import { getToken } from "next-auth/jwt";
-import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
-import { NextFetchEvent, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default async function proxy(
-	req: NextRequestWithAuth,
-	event: NextFetchEvent,
-) {
+export async function proxy(req: NextRequest) {
 	const token = await getToken({ req });
 	const isAuthenticated = !!token;
 	const userRole = token?.role;
@@ -41,13 +38,7 @@ export default async function proxy(
 		return NextResponse.redirect(new URL("/", req.url));
 	}
 
-	const authMiddleware = await withAuth({
-		pages: {
-			signIn: req.nextUrl.pathname,
-		},
-	});
-
-	return authMiddleware(req, event);
+	return NextResponse.next();
 }
 
 export const config = {

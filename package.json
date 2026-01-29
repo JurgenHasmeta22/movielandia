@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --port 4000 --turbo",
+        "dev": "next dev --port 4000",
         "build": "next build",
         "email": "email dev",
         "start": "next start",
@@ -15,6 +15,10 @@
         "test:watch": "vitest",
         "test:ui": "vitest --ui",
         "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss,prisma} --config ./.prettierrc"
+    },
+    "engines": {
+        "node": ">=20.9.0",
+        "npm": ">=10.0.0"
     },
     "dependencies": {
         "@bprogress/next": "^3.2.12",
