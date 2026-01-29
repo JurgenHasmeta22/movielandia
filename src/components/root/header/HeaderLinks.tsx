@@ -93,10 +93,12 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 
 	// #region Refs
 	// @ts-expect-error no parameters
+	// eslint-disable-next-line no-undef
 	const hoverTimeoutRef = useRef<NodeJS.Timeout>();
 	const currentTargetRef = useRef<HTMLElement | null>(null);
 
 	// @ts-expect-error no parameters
+	// eslint-disable-next-line no-undef
 	const subMenuTimeoutRef = useRef<NodeJS.Timeout>();
 	const menuPaperRef = useRef<HTMLDivElement | null>(null);
 	// #endregion

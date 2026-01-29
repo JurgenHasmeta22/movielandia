@@ -46,8 +46,6 @@ export const addReviewMovie = async ({
 				throw new Error("Movie not found.");
 			}
 
-			// console.log(content, createdAt, rating, userId, movieId);
-
 			const reviewAdded = await prisma.movieReview.create({
 				data: {
 					content,

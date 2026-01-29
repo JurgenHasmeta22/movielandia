@@ -11,7 +11,6 @@ import HowItWorksSection from "./(home)/_components/HowItWorksSection";
 import { getMoviesForHomePage } from "@/actions/movie.actions";
 import { getSeriesForHomePage } from "@/actions/serie.actions";
 
-
 export const metadata: Metadata = {
 	title: "MovieLandia24 - Your Ultimate Destination for Movies",
 	description:

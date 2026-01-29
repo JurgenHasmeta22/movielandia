@@ -84,7 +84,6 @@ export default async function CategoryPage(props: ICategoryPageProps) {
 	if (searchParams?.status && searchParams.status !== "all") {
 		if (["Open", "Closed", "Archived"].includes(searchParams.status)) {
 			status = searchParams.status as TopicStatus;
-			console.log(`Using status filter: ${status}`);
 		} else {
 			console.warn(
 				`Invalid status value received: ${searchParams.status}`,
