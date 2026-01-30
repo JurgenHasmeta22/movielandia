@@ -5,6 +5,11 @@ import { compare } from "bcrypt";
 import { prisma } from "../../../../../prisma/config/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
+process.env.NEXTAUTH_URL =
+	process.env.NODE_ENV === "production"
+		? "https://movielandia-avenger22s-projects.vercel.app"
+		: "http://localhost:4000";
+
 export const authOptions: NextAuthOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
@@ -106,7 +111,6 @@ export const authOptions: NextAuthOptions = {
 						return true;
 					}
 
-					// If user exists but no account is linked
 					if (existingUser && !existingUser.accounts.length) {
 						await prisma.account.create({
 							data: {
@@ -158,6 +162,7 @@ export const authOptions: NextAuthOptions = {
 				session.user.userName = token.userName as string;
 				session.user.role = token.role as string;
 			}
+
 			return session;
 		},
 	},
