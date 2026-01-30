@@ -179,6 +179,15 @@ export default function TopicPageContent({
 						>
 							{topic.title}
 						</Typography>
+						{topic.isLocked && (
+							<LockIcon
+								sx={{
+									color: "error.main",
+									fontSize: 28,
+								}}
+								titleAccess="This topic is locked"
+							/>
+						)}
 					</Box>
 					{session?.user &&
 						Number(session.user.id) === topic.userId && (
@@ -246,6 +255,21 @@ export default function TopicPageContent({
 							fontSize: "0.7rem",
 						}}
 					/>
+					{topic.isLocked && (
+						<Chip
+							icon={<LockIcon />}
+							label="Locked"
+							size="small"
+							variant="outlined"
+							color="error"
+							sx={{
+								fontWeight: 600,
+								borderWidth: 2,
+								textTransform: "uppercase",
+								fontSize: "0.7rem",
+							}}
+						/>
+					)}
 					<Typography variant="body2" color="text.secondary">
 						{topic.viewCount}{" "}
 						{topic.viewCount === 1 ? "view" : "views"}
@@ -295,6 +319,36 @@ export default function TopicPageContent({
 				userLoggedIn={session?.user}
 				topicLocked={topic.isLocked}
 			/>
+			{topic.isLocked && (
+				<Paper
+					elevation={0}
+					sx={{
+						p: 3,
+						mt: 4,
+						borderRadius: 2,
+						backgroundColor: (theme) =>
+							theme.vars.palette.error.light,
+						border: (theme) =>
+							`1px solid ${theme.vars.palette.error.main}`,
+						textAlign: "center",
+					}}
+				>
+					<LockIcon
+						sx={{
+							fontSize: 40,
+							color: "error.main",
+							mb: 2,
+							opacity: 0.7,
+						}}
+					/>
+					<Typography variant="h6" gutterBottom color="error">
+						This topic is locked
+					</Typography>
+					<Typography variant="body2" color="text.secondary">
+						You cannot create new posts in this topic.
+					</Typography>
+				</Paper>
+			)}
 			{session?.user && !topic.isLocked && (
 				<Box sx={{ mt: 4 }}>
 					<Typography

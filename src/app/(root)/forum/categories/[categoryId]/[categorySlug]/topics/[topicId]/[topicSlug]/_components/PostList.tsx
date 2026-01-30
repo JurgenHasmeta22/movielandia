@@ -282,25 +282,29 @@ export default function PostList({
 				<Typography variant="h6" gutterBottom>
 					No posts yet
 				</Typography>
-				<Typography
-					variant="body2"
-					color="text.secondary"
-					sx={{ mb: 3 }}
-				>
-					Be the first to post in this topic!
-				</Typography>
-				{userLoggedIn && !topicLocked && (
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={() =>
-							document
-								.getElementById("post-form")
-								?.scrollIntoView({ behavior: "smooth" })
-						}
-					>
-						Create a Post
-					</Button>
+				{!topicLocked && (
+					<>
+						<Typography
+							variant="body2"
+							color="text.secondary"
+							sx={{ mb: 3 }}
+						>
+							Be the first to post in this topic!
+						</Typography>
+						{userLoggedIn && (
+							<Button
+								variant="contained"
+								color="secondary"
+								onClick={() =>
+									document
+										.getElementById("post-form")
+										?.scrollIntoView({ behavior: "smooth" })
+								}
+							>
+								Create a Post
+							</Button>
+						)}
+					</>
 				)}
 			</Paper>
 		);

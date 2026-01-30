@@ -38,10 +38,21 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({
 					sx={{
 						backgroundColor:
 							section === "inbox"
-								? theme.palette.secondary.light
+								? theme.vars.palette.primary.dark
 								: "transparent",
+						color:
+							section === "inbox"
+								? theme.vars.palette.common.white
+								: theme.vars.palette.text.primary,
 						"&:hover": {
-							backgroundColor: theme.palette.secondary.light,
+							backgroundColor: theme.vars.palette.primary.main,
+							color: theme.vars.palette.common.white,
+						},
+						"& .MuiListItemIcon-root": {
+							color:
+								section === "inbox"
+									? theme.vars.palette.common.white
+									: theme.vars.palette.text.primary,
 						},
 					}}
 				>
@@ -55,10 +66,21 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({
 					sx={{
 						backgroundColor:
 							section === "sent"
-								? theme.palette.secondary.light
+								? theme.vars.palette.primary.dark
 								: "transparent",
+						color:
+							section === "sent"
+								? theme.vars.palette.common.white
+								: theme.vars.palette.text.primary,
 						"&:hover": {
-							backgroundColor: theme.palette.secondary.light,
+							backgroundColor: theme.vars.palette.primary.main,
+							color: theme.vars.palette.common.white,
+						},
+						"& .MuiListItemIcon-root": {
+							color:
+								section === "sent"
+									? theme.vars.palette.common.white
+									: theme.vars.palette.text.primary,
 						},
 					}}
 				>
@@ -72,10 +94,21 @@ const MessagedSidebar: React.FC<MessagedSidebarProps> = ({
 					sx={{
 						backgroundColor:
 							section === "compose"
-								? theme.palette.secondary.light
+								? theme.vars.palette.primary.dark
 								: "transparent",
+						color:
+							section === "compose"
+								? theme.vars.palette.common.white
+								: theme.vars.palette.text.primary,
 						"&:hover": {
-							backgroundColor: theme.palette.secondary.light,
+							backgroundColor: theme.vars.palette.primary.main,
+							color: theme.vars.palette.common.white,
+						},
+						"& .MuiListItemIcon-root": {
+							color:
+								section === "compose"
+									? theme.vars.palette.common.white
+									: theme.vars.palette.text.primary,
 						},
 					}}
 				>

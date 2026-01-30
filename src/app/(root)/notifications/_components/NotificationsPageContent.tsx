@@ -186,11 +186,21 @@ export default function NotificationsPageContent({
 					</Box>
 				)}
 			</Stack>
-			<Box
-				sx={{ display: "flex", justifyContent: "center", mt: 4, mb: 2 }}
-			>
-				<PaginationControl currentPage={page} pageCount={totalPages} />
-			</Box>
+			{notifications.items.length > 0 && (
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						mt: 4,
+						mb: 2,
+					}}
+				>
+					<PaginationControl
+						currentPage={page}
+						pageCount={totalPages}
+					/>
+				</Box>
+			)}
 		</Container>
 	);
 }
