@@ -60,7 +60,7 @@ const AuthButtons = ({
 						onClick={openMenuProfile}
 						sx={{
 							color: theme.vars.palette.primary.main,
-							fontSize: "1.75rem", // Changed from 32 to match other icons
+							fontSize: "1.75rem",
 							cursor: "pointer",
 							"&:hover": {
 								color: theme.vars.palette.green.main,
@@ -71,6 +71,7 @@ const AuthButtons = ({
 						anchorEl={anchorElProfile}
 						open={Boolean(anchorElProfile)}
 						onClose={closeMenuProfile}
+						disableScrollLock
 						anchorOrigin={{
 							vertical: "bottom",
 							horizontal: "left",
@@ -91,7 +92,7 @@ const AuthButtons = ({
 										alignItems: "center",
 										gap: 1.5,
 										"& .MuiSvgIcon-root": {
-											fontSize: "1.25rem", // Consistent icon size in menu
+											fontSize: "1.25rem",
 											color: theme.vars.palette.primary
 												.main,
 										},
@@ -193,7 +194,7 @@ const AuthButtons = ({
 						variant="text"
 						startIcon={
 							<PersonAddIcon sx={{ fontSize: "1.25rem" }} />
-						} // Consistent icon size
+						}
 						sx={{
 							display: "flex",
 							alignItems: "center",

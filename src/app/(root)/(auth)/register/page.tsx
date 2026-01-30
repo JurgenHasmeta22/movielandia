@@ -16,6 +16,9 @@ export default async function Register() {
 				display: "flex",
 				placeContent: "center",
 				placeItems: "center",
+				minHeight: "100vh",
+				marginTop: "-50px",
+				marginBottom: "-22px",
 				paddingTop: 10,
 				paddingBottom: 10,
 			}}
