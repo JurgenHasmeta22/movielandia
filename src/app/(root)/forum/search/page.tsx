@@ -5,6 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { searchForumContent } from "@/actions/forum/forumSearch.actions";
 import { getAllTags } from "@/actions/forum/forumTag.actions";
 import { getCategoryById } from "@/actions/forum/forumCategory.actions";
+import { getCategories } from "@/actions/forum/forumCategory.actions";
 import { TopicStatus } from "@prisma/client";
 import ForumSearchPageContent from "./_components/ForumSearchPageContent";
 import LoadingSpinner from "@/components/root/loadingSpinner/LoadingSpinner";
@@ -75,6 +76,8 @@ export default async function SearchPage(props: ISearchPageProps) {
 			};
 
 	const allTags = await getAllTags();
+	const allCategoriesResult = await getCategories(1, 1000);
+	const allCategories = allCategoriesResult.items;
 
 	let category = null;
 
@@ -91,6 +94,7 @@ export default async function SearchPage(props: ISearchPageProps) {
 				currentTab={currentTab}
 				session={session}
 				allTags={allTags}
+				allCategories={allCategories}
 				category={category}
 				filters={filters}
 			/>

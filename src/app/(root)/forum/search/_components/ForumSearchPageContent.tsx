@@ -38,6 +38,7 @@ interface SearchPageContentProps {
 	currentTab?: string;
 	session: any;
 	allTags: ForumTag[];
+	allCategories: ForumCategory[];
 	category: ForumCategory | null;
 	filters: {
 		categoryId?: number;
@@ -54,6 +55,7 @@ export default function ForumSearchPageContent({
 	searchResults,
 	currentPage,
 	currentTab = "all",
+	allCategories,
 	category,
 	filters,
 }: SearchPageContentProps) {
@@ -235,6 +237,11 @@ export default function ForumSearchPageContent({
 							variant="contained"
 							color="primary"
 							startIcon={<SearchIcon />}
+							sx={{
+								"&:hover": {
+									backgroundColor: (theme) => theme.vars.palette.primary.dark,
+								},
+							}}
 						>
 							Search
 						</Button>
@@ -266,13 +273,11 @@ export default function ForumSearchPageContent({
 											<MenuItem value="">
 												All Categories
 											</MenuItem>
-											{category && (
-												<MenuItem
-													value={category.id.toString()}
-												>
-													{category.name}
+											{allCategories.map((cat) => (
+												<MenuItem key={cat.id} value={cat.id.toString()}>
+													{cat.name}
 												</MenuItem>
-											)}
+											))}
 										</Select>
 									</FormControl>
 								</Box>

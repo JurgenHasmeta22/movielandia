@@ -115,7 +115,7 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 										color="primary"
 									/>
 								)}
-								{topic.isLocked && (
+								{topic.isLocked && topic.status !== "Open" && (
 									<LockIcon fontSize="small" color="error" />
 								)}
 								<Link
@@ -192,6 +192,7 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 								<Chip
 									label={topic.status}
 									size="small"
+									variant="outlined"
 									color={
 										topic.status === "Closed"
 											? "error"
@@ -199,13 +200,21 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 												? "warning"
 												: "success"
 									}
-									sx={{ mr: 1 }}
+									sx={{
+										mr: 1,
+										fontWeight: 600,
+										borderWidth: 2,
+										textTransform: "uppercase",
+										fontSize: "0.7rem",
+									}}
 								/>
 								{topic.tags && topic.tags.length > 0 && (
 									<TagDisplay
 										tags={topic.tags}
 										size="small"
 										wrap={false}
+										categoryId={topic.categoryId}
+										categorySlug={topic.category?.slug}
 									/>
 								)}
 							</Box>

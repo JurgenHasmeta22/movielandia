@@ -172,12 +172,6 @@ export default function TopicPageContent({
 					}}
 				>
 					<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-						{topic.isPinned && (
-							<PushPinIcon fontSize="small" color="primary" />
-						)}
-						{topic.isLocked && (
-							<LockIcon fontSize="small" color="error" />
-						)}
 						<Typography
 							variant="h4"
 							component="h1"
@@ -232,22 +226,40 @@ export default function TopicPageContent({
 						</Link>{" "}
 						{format(new Date(topic.createdAt), "PPP")}
 					</Typography>
-					{topic.status !== "Open" && (
-						<Chip
-							label={topic.status}
-							size="small"
-							color={
-								topic.status === "Closed" ? "error" : "warning"
-							}
-							sx={{ ml: 2 }}
-						/>
-					)}
+				</Box>
+				<Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+					<Chip
+						label={topic.status}
+						size="small"
+						variant="outlined"
+						color={
+							topic.status === "Closed"
+								? "error"
+								: topic.status === "Archived"
+									? "warning"
+									: "success"
+						}
+						sx={{ 
+							fontWeight: 600,
+							borderWidth: 2,
+							textTransform: "uppercase",
+							fontSize: "0.7rem",
+						}}
+					/>
+					<Typography variant="body2" color="text.secondary">
+						{topic.viewCount} {topic.viewCount === 1 ? "view" : "views"}
+					</Typography>
 				</Box>
 				<Box sx={{ mb: 3 }}>
 					<RichTextDisplay content={topic.content} type="topic" />
 				</Box>
 				{topic.tags && topic.tags.length > 0 && (
-					<TagDisplay tags={topic.tags} label="Tags" size="medium" />
+				<TagDisplay 
+					tags={topic.tags} 
+					size="medium"
+					categoryId={category.id}
+					categorySlug={category.slug}
+				/>
 				)}
 				<Box
 					sx={{

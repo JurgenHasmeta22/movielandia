@@ -2,6 +2,7 @@
 
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Tag {
 	id: number;
@@ -15,6 +16,8 @@ interface TagDisplayProps {
 	clickable?: boolean;
 	wrap?: boolean;
 	label?: string;
+	categoryId?: number;
+	categorySlug?: string;
 }
 
 export default function TagDisplay({
@@ -23,10 +26,19 @@ export default function TagDisplay({
 	clickable = true,
 	wrap = true,
 	label,
+	categoryId,
+	categorySlug,
 }: TagDisplayProps) {
+	const router = useRouter();
+
 	if (!tags || tags.length === 0) {
 		return null;
 	}
+
+	const handleTagClick = (tagId: number) => {
+		if (!clickable || !categoryId || !categorySlug) return;
+		router.push(`/forum/categories/${categoryId}/${categorySlug}?tags=${tagId}`);
+	};
 
 	return (
 		<Box sx={{ mt: 1, mb: 1 }}>
@@ -53,13 +65,14 @@ export default function TagDisplay({
 							key={tag.id}
 							label={tag.name}
 							size={size}
+							onClick={() => handleTagClick(tag.id)}
 							sx={{
 								backgroundColor: tag.color || undefined,
 								color: tag.color ? "white" : undefined,
-								cursor: "pointer",
+								cursor: categoryId && categorySlug ? "pointer" : "default",
 								mb: wrap ? 0.5 : 0,
 								"&:hover": {
-									opacity: 0.9,
+									opacity: categoryId && categorySlug ? 0.9 : 1,
 								},
 							}}
 						/>
