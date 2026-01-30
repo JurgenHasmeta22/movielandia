@@ -26,9 +26,6 @@ export default function TagSelector({
 	disabled = false,
 }: TagSelectorProps) {
 	const [tags, setTags] = useState<TagOption[]>([]);
-	const [selectedTagObjects, setSelectedTagObjects] = useState<TagOption[]>(
-		[],
-	);
 	const [loading, setLoading] = useState(true);
 	const [inputValue, setInputValue] = useState("");
 	const [isOpen, setIsOpen] = useState(false);
@@ -38,11 +35,6 @@ export default function TagSelector({
 			try {
 				const allTags = await getAllTags();
 				setTags(allTags);
-
-				const selected = allTags.filter((tag) =>
-					selectedTags.includes(tag.id),
-				);
-				setSelectedTagObjects(selected);
 				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching tags:", error);
@@ -51,36 +43,32 @@ export default function TagSelector({
 		};
 
 		fetchTags();
-	}, [selectedTags]);
+	}, []);
+
+	const selectedTagObjects = tags.filter((tag) =>
+		selectedTags.includes(tag.id),
+	);
 
 	const handleTagSelect = (tagId: number) => {
-		if (!selectedTagObjects.some((tag) => tag.id === tagId)) {
-			const tagToAdd = tags.find((tag) => tag.id === tagId);
-
-			if (tagToAdd) {
-				const newSelectedTags = [...selectedTagObjects, tagToAdd];
-
-				setSelectedTagObjects(newSelectedTags);
-				onChange(newSelectedTags.map((tag) => tag.id));
-			}
+		if (!selectedTags.includes(tagId)) {
+			const newSelectedTags = [...selectedTags, tagId];
+			onChange(newSelectedTags);
 		}
-
 		setInputValue("");
 		setIsOpen(false);
 	};
 
 	const handleDelete = (tagToDelete: TagOption) => {
-		const newSelectedTags = selectedTagObjects.filter(
-			(tag) => tag.id !== tagToDelete.id,
+		const newSelectedTags = selectedTags.filter(
+			(tagId) => tagId !== tagToDelete.id,
 		);
-		setSelectedTagObjects(newSelectedTags);
-		onChange(newSelectedTags.map((tag) => tag.id));
+		onChange(newSelectedTags);
 	};
 
 	const filteredTags = tags.filter(
 		(tag) =>
 			tag.name.toLowerCase().includes(inputValue.toLowerCase()) &&
-			!selectedTagObjects.some((selected) => selected.id === tag.id),
+			!selectedTags.includes(tag.id),
 	);
 
 	return (

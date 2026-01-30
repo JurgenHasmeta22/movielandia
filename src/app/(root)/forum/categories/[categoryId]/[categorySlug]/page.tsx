@@ -111,6 +111,8 @@ export default async function CategoryPage(props: ICategoryPageProps) {
 				currentPage={currentPage}
 				currentSortBy={currentSortBy}
 				currentOrder={currentOrder}
+				currentTags={searchParams?.tags}
+				currentStatus={searchParams?.status}
 			/>
 		</Suspense>
 	);

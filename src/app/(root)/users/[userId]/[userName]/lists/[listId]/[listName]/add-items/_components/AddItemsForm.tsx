@@ -157,7 +157,9 @@ export default function AddItemsForm({
 					<Select
 						value={type}
 						onChange={handleTypeChange}
-						label="Content Type"						disabled={!!initialContentType}					>
+						label="Content Type"
+						disabled={!!initialContentType}
+					>
 						{CONTENT_TYPES.map(({ label, value }) => (
 							<MenuItem key={value} value={value}>
 								{label}
