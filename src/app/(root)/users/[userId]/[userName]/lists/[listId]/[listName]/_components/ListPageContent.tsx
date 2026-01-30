@@ -15,6 +15,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
+import CloseIcon from "@mui/icons-material/Close";
 import ShareIcon from "@mui/icons-material/Share";
 import ShareListModal from "./ShareListModal";
 import ListDetailCardItem from "@/components/root/listDetailCardItem/ListDetailCardItem";
@@ -151,6 +152,12 @@ export default function ListPageContent({
 		}
 	};
 
+	const cancelReorder = () => {
+		setItems(content);
+		setIsEditMode(false);
+		showToast("info", "Reorder cancelled");
+	};
+
 	const saveOrder = () => {
 		startTransition(async () => {
 			try {
@@ -183,6 +190,10 @@ export default function ListPageContent({
 		if (isEditMode) {
 			saveOrder();
 		} else {
+			if (totalItems === 0) {
+				showToast("info", "There are no items to reorder");
+				return;
+			}
 			setIsEditMode(true);
 		}
 	};
@@ -226,6 +237,7 @@ export default function ListPageContent({
 					userId={list.userId}
 					listTitle={list.name}
 					currentUserId={currentUserId}
+					totalItems={totalItems}
 				/>
 				<Stack spacing={2}>
 					<Stack
@@ -275,23 +287,40 @@ export default function ListPageContent({
 										share.user.id === currentUserId &&
 										share.canEdit,
 								)) && (
-								<Button
-									variant="outlined"
-									color={isEditMode ? "success" : "primary"}
-									startIcon={
-										isEditMode ? <SaveIcon /> : <EditIcon />
-									}
-									onClick={toggleEditMode}
-									disabled={isPending}
-									sx={{
-										textTransform: "none",
-										fontWeight: 600,
-									}}
-								>
-									{isEditMode
-										? "Save Order"
-										: "Reorder Items"}
-								</Button>
+								<>
+									{isEditMode && (
+										<Button
+											variant="outlined"
+											color="error"
+											startIcon={<CloseIcon />}
+											onClick={cancelReorder}
+											disabled={isPending}
+											sx={{
+												textTransform: "none",
+												fontWeight: 600,
+											}}
+										>
+											Cancel
+										</Button>
+									)}
+									<Button
+										variant="outlined"
+										color={isEditMode ? "success" : "primary"}
+										startIcon={
+											isEditMode ? <SaveIcon /> : <EditIcon />
+										}
+										onClick={toggleEditMode}
+										disabled={isPending}
+										sx={{
+											textTransform: "none",
+											fontWeight: 600,
+										}}
+									>
+										{isEditMode
+											? "Save Order"
+											: "Reorder Items"}
+									</Button>
+								</>
 							)}
 						</Stack>
 					</Stack>
@@ -417,16 +446,17 @@ export default function ListPageContent({
 						))}
 					</Box>
 				)}
-				<Box sx={{ display: "flex", justifyContent: "center" }}>
-					<PaginationControl
-						currentPage={currentPage}
-						pageCount={pageCount}
-						urlParamName="page"
-					/>
-				</Box>
+				{totalItems > 0 && (
+					<Box sx={{ display: "flex", justifyContent: "center" }}>
+						<PaginationControl
+							currentPage={currentPage}
+							pageCount={pageCount}
+							urlParamName="page"
+						/>
+					</Box>
+				)}
 			</Stack>
 
-			{/* Share List Modal */}
 			<ShareListModal
 				open={isShareModalOpen}
 				onClose={() => setIsShareModalOpen(false)}

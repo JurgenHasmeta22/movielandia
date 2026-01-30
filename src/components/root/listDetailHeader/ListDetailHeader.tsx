@@ -20,6 +20,7 @@ interface ListDetailHeaderProps {
 	userId: number;
 	listTitle: string;
 	currentUserId?: number;
+	totalItems: number;
 }
 
 export default function ListDetailHeader({
@@ -27,6 +28,7 @@ export default function ListDetailHeader({
 	userId,
 	listTitle,
 	currentUserId,
+	totalItems,
 }: ListDetailHeaderProps) {
 	const router = useRouter();
 	const pathname = usePathname();
@@ -72,6 +74,11 @@ export default function ListDetailHeader({
 	};
 
 	const handleDeleteAllItems = () => {
+		if (totalItems === 0) {
+			showToast("info", "There are no items in this list");
+			return;
+		}
+
 		startTransition(async () => {
 			try {
 				await removeAllItemsFromList(listId, userId);
