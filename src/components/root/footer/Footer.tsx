@@ -369,7 +369,7 @@ const Footer = (): React.JSX.Element => {
 							textAlign: { xs: "center", sm: "left" },
 						}}
 					>
-						© 2025 MovieLandia24. All rights reserved.
+						© 2026 MovieLandia24. All rights reserved.
 					</Typography>
 					<Stack
 						direction="row"
