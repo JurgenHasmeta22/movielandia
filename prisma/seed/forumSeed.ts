@@ -38,19 +38,19 @@ export async function generateForumData(): Promise<void> {
 	}
 
 	const categories = await prisma.forumCategory.findMany();
-
 	console.log("Generating forum topics...");
 
 	for (const category of categories) {
-		const topicCount = Math.floor(Math.random() * 8) + 3; // 3-10 topics per category
+		const topicCount = Math.floor(Math.random() * 8) + 3;
 
 		for (let i = 0; i < topicCount; i++) {
 			const userId = faker.helpers.arrayElement(users).id;
-			const isPinned = Math.random() < 0.2; // 20% chance of being pinned
-			const isLocked = Math.random() < 0.1; // 10% chance of being locked
+			const isPinned = Math.random() < 0.2;
+			const isLocked = Math.random() < 0.1;
 
 			const title = faker.lorem.sentence().replace(/\\.$/, "");
 			const content = `<p>${faker.lorem.paragraphs(3).replace(/\\n/g, "</p><p>")}</p>`;
+
 			const slug = title
 				.toLowerCase()
 				.replace(/[^a-z0-9]+/g, "-")
@@ -70,13 +70,12 @@ export async function generateForumData(): Promise<void> {
 					},
 				});
 
-				// Generate posts for each topic
-				const postCount = Math.floor(Math.random() * 15) + 2; // 2-16 posts per topic
+				const postCount = Math.floor(Math.random() * 15) + 2;
 
 				for (let j = 0; j < postCount; j++) {
 					const postUserId = faker.helpers.arrayElement(users).id;
 					const postContent = `<p>${faker.lorem.paragraphs(2).replace(/\\n/g, "</p><p>")}</p>`;
-					const isEdited = Math.random() < 0.3; // 30% chance of being edited
+					const isEdited = Math.random() < 0.3;
 
 					try {
 						const post = await prisma.forumPost.create({
@@ -95,10 +94,10 @@ export async function generateForumData(): Promise<void> {
 						});
 
 						const upvoteCount = Math.floor(Math.random() * 5);
-						const downvoteCount = Math.floor(Math.random() * 3);
 						const availableUsers = users.filter(
 							(u) => u.id !== postUserId,
 						);
+
 						const upvoters = faker.helpers.arrayElements(
 							availableUsers,
 							upvoteCount,
@@ -108,27 +107,6 @@ export async function generateForumData(): Promise<void> {
 							await prisma.upvoteForumPost.create({
 								data: {
 									userId: upvoter.id,
-									postId: post.id,
-								},
-							});
-						}
-
-						const remainingUsers = availableUsers.filter(
-							(u) =>
-								!upvoters.some(
-									(upvoter) => upvoter.id === u.id,
-								),
-						);
-						const downvoters = faker.helpers.arrayElements(
-							remainingUsers,
-							downvoteCount,
-						);
-
-						for (const downvoter of downvoters) {
-							// @ts-expect-error bug
-							await prisma.downvoteForumPost.create({
-								data: {
-									userId: downvoter.id,
 									postId: post.id,
 								},
 							});

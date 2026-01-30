@@ -23,9 +23,10 @@ interface ICategoryPageProps {
 	}>;
 }
 
-export async function generateMetadata({
-	params,
-}: ICategoryPageProps): Promise<Metadata> {
+export async function generateMetadata(
+	props: ICategoryPageProps,
+): Promise<Metadata> {
+	const params = await props.params;
 	const category = await getCategoryById(Number(params.categoryId));
 
 	if (!category) {

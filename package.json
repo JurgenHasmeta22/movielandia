@@ -9,6 +9,8 @@
         "start": "next start",
         "startDev": "next start --port 4000",
         "seed": "tsx prisma/seed/seed.ts",
+        "seed:forum": "tsx prisma/seed/forumOnlySeed.ts",
+        "seed:forum-basic": "tsx prisma/seed/forumCategoriesAndTagsSeed.ts",
         "lint": "eslint . --max-warnings=0",
         "scan": "next dev & npx react-scan@latest localhost:4000",
         "test": "vitest run",

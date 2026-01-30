@@ -26,7 +26,7 @@ interface ITopicPageProps {
 export async function generateMetadata(
 	props: ITopicPageProps,
 ): Promise<Metadata> {
-	const params = props.params;
+	const params = await props.params;
 	const topic = await getTopicById(Number(params.topicId));
 
 	if (!topic) {
