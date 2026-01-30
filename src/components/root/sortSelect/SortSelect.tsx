@@ -20,7 +20,7 @@ export default function SortSelect({
 	type,
 	dataType,
 }: ISortSelectProps) {
-	const handleChangeSorting = useSorting(dataType);
+	const { handleChangeSorting, isPending } = useSorting(dataType);
 	const sortOptions = getSortOptions(type, dataType);
 
 	const getDefaultSortByField = (typeEntity: string): string => {
@@ -60,7 +60,7 @@ export default function SortSelect({
 	};
 
 	return (
-		<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+		<Box sx={{ display: "flex", alignItems: "center", gap: 2, position: "relative", opacity: isPending ? 0.6 : 1, pointerEvents: isPending ? "none" : "auto" }}>
 			<FormControl size="small" sx={{ minWidth: 150 }}>
 				<InputLabel id="sort-by-label">Sort By</InputLabel>
 				<Select

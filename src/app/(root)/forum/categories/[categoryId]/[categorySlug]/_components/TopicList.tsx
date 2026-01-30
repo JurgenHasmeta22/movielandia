@@ -189,18 +189,18 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 							}}
 						>
 							<Box>
-								{topic.status !== "Open" && (
-									<Chip
-										label={topic.status}
-										size="small"
-										color={
-											topic.status === "Closed"
-												? "error"
-												: "warning"
-										}
-										sx={{ mr: 1 }}
-									/>
-								)}
+								<Chip
+									label={topic.status}
+									size="small"
+									color={
+										topic.status === "Closed"
+											? "error"
+											: topic.status === "Archived"
+												? "warning"
+												: "success"
+									}
+									sx={{ mr: 1 }}
+								/>
 								{topic.tags && topic.tags.length > 0 && (
 									<TagDisplay
 										tags={topic.tags}

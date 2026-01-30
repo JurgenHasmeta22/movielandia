@@ -231,13 +231,22 @@ export default function CategoryPageContent({
 							alignItems: "center",
 						}}
 					>
-						<SortSelect
-							sortBy={currentSortBy}
-							ascOrDesc={currentOrder}
-							type="list"
-							dataType="topics"
-						/>
-						<FormControl size="small" sx={{ minWidth: 150 }}>
+						<Box sx={{ position: "relative" }}>
+							<SortSelect
+								sortBy={currentSortBy}
+								ascOrDesc={currentOrder}
+								type="list"
+								dataType="topics"
+							/>
+						</Box>
+					<FormControl 
+						size="small" 
+						sx={{ 
+							minWidth: 150,
+							opacity: isPending ? 0.6 : 1,
+							pointerEvents: isPending ? "none" : "auto"
+						}}
+					>
 							<InputLabel id="status-label">Status</InputLabel>
 							<Select
 								labelId="status-label"

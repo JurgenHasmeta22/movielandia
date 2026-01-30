@@ -1,6 +1,7 @@
 "use client";
 
 import { useQueryState } from "nuqs";
+import { useTransition } from "react";
 
 type SortingOptions = {
 	sortBy: string;
@@ -30,16 +31,19 @@ const getDefaultSortByField = (type: string): string => {
 
 export function useSorting(type: string) {
 	const defaultSortBy = getDefaultSortByField(type);
+	const [isPending, startTransition] = useTransition();
 
 	const [typeSortBy, setTypeSortBy] = useQueryState(`${type}SortBy`, {
 		defaultValue: defaultSortBy,
 		parse: (value) => value || defaultSortBy,
 		shallow: false,
+		startTransition,
 	});
 	const [sortByDefault, setSortByDefault] = useQueryState("sortBy", {
 		defaultValue: defaultSortBy,
 		parse: (value) => value || defaultSortBy,
 		shallow: false,
+		startTransition,
 	});
 	const [typeAscOrDesc, setTypeAscOrDesc] = useQueryState(
 		`${type}AscOrDesc`,
@@ -47,12 +51,14 @@ export function useSorting(type: string) {
 			defaultValue: "asc",
 			parse: (value) => value || "asc",
 			shallow: false,
+			startTransition,
 		},
 	);
 	const [ascOrDescDefault, setAscOrDescDefault] = useQueryState("ascOrDesc", {
 		defaultValue: "asc",
 		parse: (value) => value || "asc",
 		shallow: false,
+		startTransition,
 	});
 
 	function handleChangeSorting({ sortBy, ascOrDesc }: SortingOptions) {
@@ -67,5 +73,5 @@ export function useSorting(type: string) {
 		}
 	}
 
-	return handleChangeSorting;
+	return { handleChangeSorting, isPending };
 }
