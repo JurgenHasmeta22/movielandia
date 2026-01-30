@@ -37,7 +37,9 @@ export default function TagDisplay({
 
 	const handleTagClick = (tagId: number) => {
 		if (!clickable || !categoryId || !categorySlug) return;
-		router.push(`/forum/categories/${categoryId}/${categorySlug}?tags=${tagId}`);
+		router.push(
+			`/forum/categories/${categoryId}/${categorySlug}?tags=${tagId}`,
+		);
 	};
 
 	return (
@@ -69,10 +71,14 @@ export default function TagDisplay({
 							sx={{
 								backgroundColor: tag.color || undefined,
 								color: tag.color ? "white" : undefined,
-								cursor: categoryId && categorySlug ? "pointer" : "default",
+								cursor:
+									categoryId && categorySlug
+										? "pointer"
+										: "default",
 								mb: wrap ? 0.5 : 0,
 								"&:hover": {
-									opacity: categoryId && categorySlug ? 0.9 : 1,
+									opacity:
+										categoryId && categorySlug ? 0.9 : 1,
 								},
 							}}
 						/>

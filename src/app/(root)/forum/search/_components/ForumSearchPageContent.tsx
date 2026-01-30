@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQueryState } from "nuqs";
 import {
 	Box,
@@ -77,14 +77,44 @@ export default function ForumSearchPageContent({
 		shallow: false,
 		defaultValue: currentTab,
 	});
-	const [showFilters, setShowFilters] = useState(false);
+	const hasFilters = Boolean(
+		filters.categoryId ||
+		filters.status ||
+		filters.tagIds?.length ||
+		filters.dateFrom ||
+		filters.dateTo,
+	);
+	const [showFilters, setShowFilters] = useState(hasFilters);
 	const [selectedTags, setSelectedTags] = useState<number[]>(
 		filters.tagIds || [],
 	);
+	const [localCategoryId, setLocalCategoryId] = useState<string>(
+		categoryId || "",
+	);
+	const [localStatus, setLocalStatus] = useState<string>(status || "all");
+	const [localDateFrom, setLocalDateFrom] = useState<string>(dateFrom || "");
+	const [localDateTo, setLocalDateTo] = useState<string>(dateTo || "");
+
+	useEffect(() => {
+		if (hasFilters) {
+			setShowFilters(true);
+		}
+	}, [hasFilters]);
+
+	useEffect(() => {
+		if (query) {
+			setSearchQuery(query);
+		}
+	}, [query]);
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
 		setQ(searchQuery || null);
+		setCategoryId(localCategoryId === "" ? null : localCategoryId);
+		setStatus(localStatus === "all" ? null : localStatus);
+		setTags(selectedTags.length > 0 ? selectedTags.join(",") : null);
+		setDateFrom(localDateFrom || null);
+		setDateTo(localDateTo || null);
 		setPage(null);
 	};
 
@@ -104,41 +134,39 @@ export default function ForumSearchPageContent({
 	};
 
 	const handleCategoryChange = (event: SelectChangeEvent) => {
-		setCategoryId(event.target.value === "" ? null : event.target.value);
-		setPage(null);
+		setLocalCategoryId(event.target.value);
 	};
 
 	const handleStatusChange = (event: SelectChangeEvent) => {
-		setStatus(event.target.value === "all" ? null : event.target.value);
-		setPage(null);
+		setLocalStatus(event.target.value);
 	};
 
 	const handleTagChange = (newTagIds: number[]) => {
 		setSelectedTags(newTagIds);
-		setTags(newTagIds.length > 0 ? newTagIds.join(",") : null);
-		setPage(null);
 	};
 
 	const handleDateFromChange = (
 		event: React.ChangeEvent<HTMLInputElement>,
 	) => {
-		setDateFrom(event.target.value || null);
-		setPage(null);
+		setLocalDateFrom(event.target.value);
 	};
 
 	const handleDateToChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setDateTo(event.target.value || null);
-		setPage(null);
+		setLocalDateTo(event.target.value);
 	};
 
 	const clearFilters = () => {
+		setLocalCategoryId("");
+		setLocalStatus("all");
+		setLocalDateFrom("");
+		setLocalDateTo("");
+		setSelectedTags([]);
 		setCategoryId(null);
 		setUserId(null);
 		setTags(null);
 		setStatus(null);
 		setDateFrom(null);
 		setDateTo(null);
-		setSelectedTags([]);
 		setPage(null);
 	};
 
@@ -235,11 +263,12 @@ export default function ForumSearchPageContent({
 						<Button
 							type="submit"
 							variant="contained"
-							color="primary"
+							color="secondary"
 							startIcon={<SearchIcon />}
 							sx={{
 								"&:hover": {
-									backgroundColor: (theme) => theme.vars.palette.primary.dark,
+									backgroundColor: (theme) =>
+										theme.vars.palette.primary.dark,
 								},
 							}}
 						>
@@ -266,18 +295,36 @@ export default function ForumSearchPageContent({
 										</InputLabel>
 										<Select
 											labelId="category-label"
-											value={categoryId || ""}
+											value={localCategoryId}
 											label="Category"
 											onChange={handleCategoryChange}
 										>
-											<MenuItem value="">
-												All Categories
-											</MenuItem>
-											{allCategories.map((cat) => (
-												<MenuItem key={cat.id} value={cat.id.toString()}>
-													{cat.name}
+											{category ? (
+												<MenuItem
+													value={category.id.toString()}
+												>
+													{category.name}
 												</MenuItem>
-											))}
+											) : (
+												[
+													<MenuItem
+														key="all"
+														value=""
+													>
+														All Categories
+													</MenuItem>,
+													...allCategories.map(
+														(cat) => (
+															<MenuItem
+																key={cat.id}
+																value={cat.id.toString()}
+															>
+																{cat.name}
+															</MenuItem>
+														),
+													),
+												]
+											)}
 										</Select>
 									</FormControl>
 								</Box>
@@ -288,7 +335,7 @@ export default function ForumSearchPageContent({
 										</InputLabel>
 										<Select
 											labelId="status-label"
-											value={status || "all"}
+											value={localStatus}
 											label="Topic Status"
 											onChange={handleStatusChange}
 										>
@@ -321,7 +368,7 @@ export default function ForumSearchPageContent({
 										fullWidth
 										label="From Date"
 										type="date"
-										value={dateFrom || ""}
+										value={localDateFrom}
 										onChange={handleDateFromChange}
 										InputLabelProps={{ shrink: true }}
 										size="small"
@@ -332,7 +379,7 @@ export default function ForumSearchPageContent({
 										fullWidth
 										label="To Date"
 										type="date"
-										value={dateTo || ""}
+										value={localDateTo}
 										onChange={handleDateToChange}
 										InputLabelProps={{ shrink: true }}
 										size="small"
@@ -354,7 +401,7 @@ export default function ForumSearchPageContent({
 							>
 								<Button
 									variant="outlined"
-									color="secondary"
+									color="primary"
 									onClick={clearFilters}
 								>
 									Clear All Filters

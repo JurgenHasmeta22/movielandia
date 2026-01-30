@@ -239,7 +239,7 @@ export default function TopicPageContent({
 									? "warning"
 									: "success"
 						}
-						sx={{ 
+						sx={{
 							fontWeight: 600,
 							borderWidth: 2,
 							textTransform: "uppercase",
@@ -247,19 +247,20 @@ export default function TopicPageContent({
 						}}
 					/>
 					<Typography variant="body2" color="text.secondary">
-						{topic.viewCount} {topic.viewCount === 1 ? "view" : "views"}
+						{topic.viewCount}{" "}
+						{topic.viewCount === 1 ? "view" : "views"}
 					</Typography>
 				</Box>
 				<Box sx={{ mb: 3 }}>
 					<RichTextDisplay content={topic.content} type="topic" />
 				</Box>
 				{topic.tags && topic.tags.length > 0 && (
-				<TagDisplay 
-					tags={topic.tags} 
-					size="medium"
-					categoryId={category.id}
-					categorySlug={category.slug}
-				/>
+					<TagDisplay
+						tags={topic.tags}
+						size="medium"
+						categoryId={category.id}
+						categorySlug={category.slug}
+					/>
 				)}
 				<Box
 					sx={{

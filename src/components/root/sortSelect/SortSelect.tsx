@@ -60,7 +60,16 @@ export default function SortSelect({
 	};
 
 	return (
-		<Box sx={{ display: "flex", alignItems: "center", gap: 2, position: "relative", opacity: isPending ? 0.6 : 1, pointerEvents: isPending ? "none" : "auto" }}>
+		<Box
+			sx={{
+				display: "flex",
+				alignItems: "center",
+				gap: 2,
+				position: "relative",
+				opacity: isPending ? 0.6 : 1,
+				pointerEvents: isPending ? "none" : "auto",
+			}}
+		>
 			<FormControl size="small" sx={{ minWidth: 150 }}>
 				<InputLabel id="sort-by-label">Sort By</InputLabel>
 				<Select

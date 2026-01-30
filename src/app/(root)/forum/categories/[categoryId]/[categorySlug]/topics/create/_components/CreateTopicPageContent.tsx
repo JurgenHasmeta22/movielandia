@@ -181,7 +181,7 @@ export default function CreateTopicPageContent({
 					>
 						<Button
 							variant="outlined"
-							color="secondary"
+							color="primary"
 							onClick={() =>
 								router.push(
 									`/forum/categories/${category.id}/${category.slug}`,
@@ -194,6 +194,7 @@ export default function CreateTopicPageContent({
 						<Button
 							type="submit"
 							variant="contained"
+							color="secondary"
 							disabled={
 								isPending || !title.trim() || !content.trim()
 							}
