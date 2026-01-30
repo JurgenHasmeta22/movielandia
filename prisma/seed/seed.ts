@@ -17,12 +17,12 @@ import {
 	castSeries,
 	crewMovies,
 	crewSeries,
-	movieReviews,
-	upvoteMovieReviews,
-	downvoteMovieReviews,
-	crewReviews,
-	upvoteCrewReviews,
-	downvoteCrewReviews,
+	// movieReviews,
+	// upvoteMovieReviews,
+	// downvoteMovieReviews,
+	// crewReviews,
+	// upvoteCrewReviews,
+	// downvoteCrewReviews,
 } from "./data/relationships";
 import { PrismaPg } from "@prisma/adapter-pg";
 // #endregion
@@ -217,33 +217,33 @@ async function baseSeeding() {
 	}
 
 	// Create reviews and interactions
-	for (const movieReviewsData of movieReviews) {
-		await prisma.movieReview.create({ data: movieReviewsData });
-	}
+	// for (const movieReviewsData of movieReviews) {
+	// 	await prisma.movieReview.create({ data: movieReviewsData });
+	// }
 
-	for (const upvoteMovieReviewsData of upvoteMovieReviews) {
-		await prisma.upvoteMovieReview.create({ data: upvoteMovieReviewsData });
-	}
+	// for (const upvoteMovieReviewsData of upvoteMovieReviews) {
+	// 	await prisma.upvoteMovieReview.create({ data: upvoteMovieReviewsData });
+	// }
 
-	for (const downvoteMovieReviewsData of downvoteMovieReviews) {
-		await prisma.downvoteMovieReview.create({
-			data: downvoteMovieReviewsData,
-		});
-	}
+	// for (const downvoteMovieReviewsData of downvoteMovieReviews) {
+	// 	await prisma.downvoteMovieReview.create({
+	// 		data: downvoteMovieReviewsData,
+	// 	});
+	// }
 
-	for (const crewReviewsData of crewReviews) {
-		await prisma.crewReview.create({ data: crewReviewsData });
-	}
+	// for (const crewReviewsData of crewReviews) {
+	// 	await prisma.crewReview.create({ data: crewReviewsData });
+	// }
 
-	for (const upvoteCrewReviewsData of upvoteCrewReviews) {
-		await prisma.upvoteCrewReview.create({ data: upvoteCrewReviewsData });
-	}
+	// for (const upvoteCrewReviewsData of upvoteCrewReviews) {
+	// 	await prisma.upvoteCrewReview.create({ data: upvoteCrewReviewsData });
+	// }
 
-	for (const downvoteCrewReviewsData of downvoteCrewReviews) {
-		await prisma.downvoteCrewReview.create({
-			data: downvoteCrewReviewsData,
-		});
-	}
+	// for (const downvoteCrewReviewsData of downvoteCrewReviews) {
+	// 	await prisma.downvoteCrewReview.create({
+	// 		data: downvoteCrewReviewsData,
+	// 	});
+	// }
 
 	console.log("Base seeding completed successfully.");
 }

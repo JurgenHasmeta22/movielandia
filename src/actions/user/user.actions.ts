@@ -24,6 +24,38 @@ export interface AddReviewSerieParams {
 	serieId: number;
 }
 
+export interface AddReviewSeasonParams {
+	content: string;
+	createdAt?: Date;
+	rating: number;
+	userId: number;
+	seasonId: number;
+}
+
+export interface AddReviewEpisodeParams {
+	content: string;
+	createdAt?: Date;
+	rating: number;
+	userId: number;
+	episodeId: number;
+}
+
+export interface AddReviewActorParams {
+	content: string;
+	createdAt?: Date;
+	rating: number;
+	userId: number;
+	actorId: number;
+}
+
+export interface AddReviewCrewParams {
+	content: string;
+	createdAt?: Date;
+	rating: number;
+	userId: number;
+	crewId: number;
+}
+
 export interface UpdateReviewMovieParams {
 	content: string;
 	rating: number;

@@ -267,6 +267,7 @@ export type MovieReviewOrderByWithRelationInput = {
 
 export type MovieReviewWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  userId_movieId?: Prisma.MovieReviewUserIdMovieIdCompoundUniqueInput
   AND?: Prisma.MovieReviewWhereInput | Prisma.MovieReviewWhereInput[]
   OR?: Prisma.MovieReviewWhereInput[]
   NOT?: Prisma.MovieReviewWhereInput | Prisma.MovieReviewWhereInput[]
@@ -280,7 +281,7 @@ export type MovieReviewWhereUniqueInput = Prisma.AtLeast<{
   movie?: Prisma.XOR<Prisma.MovieScalarRelationFilter, Prisma.MovieWhereInput>
   upvotes?: Prisma.UpvoteMovieReviewListRelationFilter
   downvotes?: Prisma.DownvoteMovieReviewListRelationFilter
-}, "id">
+}, "id" | "userId_movieId">
 
 export type MovieReviewOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -397,6 +398,11 @@ export type MovieReviewOrderByRelevanceInput = {
   fields: Prisma.MovieReviewOrderByRelevanceFieldEnum | Prisma.MovieReviewOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type MovieReviewUserIdMovieIdCompoundUniqueInput = {
+  userId: number
+  movieId: number
 }
 
 export type MovieReviewCountOrderByAggregateInput = {

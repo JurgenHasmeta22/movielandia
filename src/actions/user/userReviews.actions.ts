@@ -6,6 +6,10 @@ import {
 	AddReviewMovieParams,
 	getReferer,
 	AddReviewSerieParams,
+	AddReviewSeasonParams,
+	AddReviewEpisodeParams,
+	AddReviewActorParams,
+	AddReviewCrewParams,
 	UpdateReviewMovieParams,
 	UpdateReviewSerieParams,
 	RemoveReviewMovieParams,
@@ -134,7 +138,7 @@ export const addReviewSeason = async ({
 	rating,
 	userId,
 	seasonId,
-}: Prisma.SeasonReviewCreateManyInput): Promise<void> => {
+}: AddReviewSeasonParams): Promise<void> => {
 	try {
 		const existingReview = await prisma.seasonReview.findFirst({
 			where: {
@@ -188,7 +192,7 @@ export const addReviewEpisode = async ({
 	rating,
 	userId,
 	episodeId,
-}: Prisma.EpisodeReviewCreateManyInput): Promise<void> => {
+}: AddReviewEpisodeParams): Promise<void> => {
 	try {
 		const existingReview = await prisma.episodeReview.findFirst({
 			where: {
@@ -242,7 +246,7 @@ export const addReviewActor = async ({
 	rating,
 	userId,
 	actorId,
-}: Prisma.ActorReviewCreateManyInput): Promise<void> => {
+}: AddReviewActorParams): Promise<void> => {
 	try {
 		const existingReview = await prisma.actorReview.findFirst({
 			where: {
@@ -296,7 +300,7 @@ export const addReviewCrew = async ({
 	rating,
 	userId,
 	crewId,
-}: Prisma.CrewReviewCreateManyInput): Promise<void> => {
+}: AddReviewCrewParams): Promise<void> => {
 	try {
 		const existingReview = await prisma.crewReview.findFirst({
 			where: {
