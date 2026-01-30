@@ -21,6 +21,7 @@ interface ListDetailHeaderProps {
 	listTitle: string;
 	currentUserId?: number;
 	totalItems: number;
+	userName: string;
 }
 
 export default function ListDetailHeader({
@@ -29,6 +30,7 @@ export default function ListDetailHeader({
 	listTitle,
 	currentUserId,
 	totalItems,
+	userName,
 }: ListDetailHeaderProps) {
 	const router = useRouter();
 	const pathname = usePathname();
@@ -99,16 +101,6 @@ export default function ListDetailHeader({
 		startTransition(async () => {
 			try {
 				await deleteList(listId, userId);
-
-				const pathParts = pathname.split("/");
-				const userIdIndex = pathParts.findIndex(
-					(part) => part === userId.toString(),
-				);
-				const userName =
-					userIdIndex >= 0 && userIdIndex + 1 < pathParts.length
-						? pathParts[userIdIndex + 1]
-						: "user";
-
 				showToast("success", "List deleted successfully");
 				router.push(`/users/${userId}/${userName}/lists`);
 				router.refresh();

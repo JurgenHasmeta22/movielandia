@@ -207,6 +207,11 @@ export default function AddItemsForm({
 						fontWeight: 600,
 						textTransform: "none",
 						minWidth: { xs: "100%", sm: "300px" },
+						backgroundColor: "primary.main",
+						color: "primary.contrastText",
+						"&:hover": {
+							backgroundColor: "primary.light",
+						},
 					}}
 				>
 					Save Selected Items

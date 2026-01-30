@@ -238,6 +238,7 @@ export default function ListPageContent({
 					listTitle={list.name}
 					currentUserId={currentUserId}
 					totalItems={totalItems}
+					userName={userName}
 				/>
 				<Stack spacing={2}>
 					<Stack
