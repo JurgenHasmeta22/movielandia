@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
 import ShareIcon from "@mui/icons-material/Share";
+import AddIcon from "@mui/icons-material/Add";
 import ShareListModal from "./ShareListModal";
 import ListDetailCardItem from "@/components/root/listDetailCardItem/ListDetailCardItem";
 import DraggableListItem from "@/components/root/draggableListItem/DraggableListItem";
@@ -280,8 +281,30 @@ export default function ListPageContent({
 									Share List
 								</Button>
 							)}
+							{(list.userId === currentUserId ||
+								list.sharedWith?.some(
+									(share) =>
+										share.user.id === currentUserId &&
+										share.canEdit,
+								)) && (
+								<Button
+									variant="outlined"
+									color="primary"
+									startIcon={<AddIcon />}
+									onClick={() =>
+										router.push(
+											`/users/${list.userId}/${userName}/lists/${list.id}/${list.name}/add-items`,
+										)
+									}
+									sx={{
+										textTransform: "none",
+										fontWeight: 600,
+									}}
+								>
+									Add Items
+								</Button>
+							)}
 
-							{/* Reorder button - only visible to list owner or users with edit permissions */}
 							{(list.userId === currentUserId ||
 								list.sharedWith?.some(
 									(share) =>
@@ -306,9 +329,15 @@ export default function ListPageContent({
 									)}
 									<Button
 										variant="outlined"
-										color={isEditMode ? "success" : "primary"}
+										color={
+											isEditMode ? "success" : "primary"
+										}
 										startIcon={
-											isEditMode ? <SaveIcon /> : <EditIcon />
+											isEditMode ? (
+												<SaveIcon />
+											) : (
+												<EditIcon />
+											)
 										}
 										onClick={toggleEditMode}
 										disabled={isPending}

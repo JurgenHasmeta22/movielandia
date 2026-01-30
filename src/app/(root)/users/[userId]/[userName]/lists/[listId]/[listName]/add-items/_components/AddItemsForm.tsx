@@ -13,7 +13,7 @@ import {
 	Container,
 	Typography,
 } from "@mui/material";
-import { SaveOutlined } from "@mui/icons-material";
+import { SaveOutlined, ArrowBackOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
 import { formatTitleForUrl } from "@/utils/helpers/formatUrl";
@@ -29,6 +29,7 @@ interface AddItemsFormProps {
 	listId: number;
 	userId: number;
 	listName: string;
+	initialContentType?: string;
 }
 
 const CONTENT_TYPES = [
@@ -47,12 +48,13 @@ export default function AddItemsForm({
 	listId,
 	userId,
 	listName,
+	initialContentType,
 }: AddItemsFormProps) {
 	const router = useRouter();
 	const pathname = usePathname();
 
 	const [type, setType] = useQueryState("type", {
-		defaultValue: "",
+		defaultValue: initialContentType || "",
 		parse: (value) => value || "",
 		history: "push",
 		shallow: false,
@@ -97,9 +99,11 @@ export default function AddItemsForm({
 
 	async function onSave() {
 		try {
-			await updateList(listId, userId, {
-				contentType: type.slice(0, -1) as any,
-			});
+			if (!initialContentType) {
+				await updateList(listId, userId, {
+					contentType: type.slice(0, -1) as any,
+				});
+			}
 
 			await addItemsToList({
 				listId,
@@ -130,13 +134,30 @@ export default function AddItemsForm({
 	return (
 		<Container maxWidth="md" sx={{ py: 2 }}>
 			<Stack spacing={4} alignItems="center">
+				<Box sx={{ width: "100%", mb: 2 }}>
+					<Button
+						variant="outlined"
+						startIcon={<ArrowBackOutlined />}
+						onClick={() => router.back()}
+						sx={{
+							textTransform: "uppercase",
+							fontWeight: 600,
+							color: "text.primary",
+							borderColor: "divider",
+							"&:hover": {
+								borderColor: "primary.main",
+							},
+						}}
+					>
+						Go Back
+					</Button>
+				</Box>
 				<FormControl sx={{ width: { xs: "100%", sm: "400px" } }}>
 					<InputLabel>Content Type</InputLabel>
 					<Select
 						value={type}
 						onChange={handleTypeChange}
-						label="Content Type"
-					>
+						label="Content Type"						disabled={!!initialContentType}					>
 						{CONTENT_TYPES.map(({ label, value }) => (
 							<MenuItem key={value} value={value}>
 								{label}
@@ -183,19 +204,21 @@ export default function AddItemsForm({
 						</Typography>
 					)}
 				</Box>
-				<Box
-					sx={{
-						width: "100%",
-						display: "flex",
-						justifyContent: "center",
-						mt: 2,
-					}}
-				>
-					<PaginationControl
-						currentPage={currentPage}
-						pageCount={Math.max(1, totalPages)}
-					/>
-				</Box>
+				{items && items.length > 0 && (
+					<Box
+						sx={{
+							width: "100%",
+							display: "flex",
+							justifyContent: "center",
+							mt: 2,
+						}}
+					>
+						<PaginationControl
+							currentPage={currentPage}
+							pageCount={Math.max(1, totalPages)}
+						/>
+					</Box>
+				)}
 				<Button
 					variant="contained"
 					onClick={onSave}

@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import AddItemsForm from "./AddItemsForm";
-import { getUserFavorites } from "@/actions/user/userProfile.actions";
+import {
+	getUserFavorites,
+	getAvailableItemsForList,
+} from "@/actions/user/userProfile.actions";
+import { getListById } from "@/actions/list/list.actions";
 import { notFound } from "next/navigation";
 
 interface AddItemsPageContentProps {
@@ -26,16 +30,42 @@ export default async function AddItemsPageContent({
 	const currentPage = searchParams?.page ? Number(searchParams.page) : 1;
 	const type = searchParams?.type;
 
+	let list;
+
+	try {
+		list = await getListById(Number(listId), Number(userId));
+		if (!list) {
+			return notFound();
+		}
+	} catch (error) {
+		return notFound();
+	}
+
+	const initialContentType = list.contentType
+		? `${list.contentType.toLowerCase()}s`
+		: undefined;
+
+	const effectiveType = type || initialContentType;
+
 	let data: any = { items: [], total: 0 };
 	let pageCount = 1;
 
 	try {
-		if (type) {
-			data = await getUserFavorites(
-				Number(userId),
-				type.toLowerCase() as any,
-				currentPage,
-			);
+		if (effectiveType) {
+			if (initialContentType) {
+				data = await getAvailableItemsForList(
+					Number(userId),
+					Number(listId),
+					effectiveType.toLowerCase() as any,
+					currentPage,
+				);
+			} else {
+				data = await getUserFavorites(
+					Number(userId),
+					effectiveType.toLowerCase() as any,
+					currentPage,
+				);
+			}
 			pageCount = Math.ceil((data.total || 0) / 12);
 		}
 	} catch (error) {
@@ -54,6 +84,7 @@ export default async function AddItemsPageContent({
 				listId={Number(listId)}
 				userId={Number(userId)}
 				listName={listName}
+				initialContentType={initialContentType}
 			/>
 		</Box>
 	);
