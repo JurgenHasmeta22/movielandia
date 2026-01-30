@@ -32,7 +32,6 @@ export async function generateForumDataMinimal(): Promise<void> {
 
 		for (const category of forumCategories) {
 			await prisma.forumCategory.create({
-				// @ts-expect-error fix
 				data: category,
 			});
 		}
@@ -40,14 +39,10 @@ export async function generateForumDataMinimal(): Promise<void> {
 		console.log(`Created ${forumCategories.length} forum categories.`);
 	}
 
-	// Get all categories
 	const categories = await prisma.forumCategory.findMany();
-
-	// Generate minimal topics for each category
 	console.log("Generating minimal forum topics for testing...");
 
 	for (const category of categories) {
-		// Create just 1-2 topics per category
 		const topicCount = Math.floor(Math.random() * 2) + 1;
 
 		for (let i = 0; i < topicCount; i++) {
@@ -56,6 +51,7 @@ export async function generateForumDataMinimal(): Promise<void> {
 			const isLocked = i === 1; // Second topic is locked (if it exists)
 
 			const title = `${category.name} - Topic ${i + 1}`;
+
 			const content = `<p>This is a test topic for the ${category.name} category.</p><p>It contains some basic content for testing purposes.</p>`;
 			const slug = title
 				.toLowerCase()
@@ -64,7 +60,6 @@ export async function generateForumDataMinimal(): Promise<void> {
 
 			try {
 				const topic = await prisma.forumTopic.create({
-					// @ts-expect-error fix
 					data: {
 						title,
 						content,
@@ -181,7 +176,6 @@ export async function generateForumDataMinimal(): Promise<void> {
 		if (topicCount > 0 || postCount > 0 || replyCount > 0) {
 			const upvotesReceived = await prisma.upvoteForumPost.count({
 				where: {
-					// @ts-expect-error fix
 					post: {
 						userId: user.id,
 					},

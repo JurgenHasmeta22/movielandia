@@ -9,6 +9,7 @@ const adapter = new PrismaPg({
 export const prisma = new PrismaClient({
 	adapter,
 });
+
 async function main() {
 	try {
 		console.log("Starting forum tag seeding...");

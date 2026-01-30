@@ -30,7 +30,6 @@ export async function generateForumData(): Promise<void> {
 
 		for (const category of forumCategories) {
 			await prisma.forumCategory.create({
-				// @ts-expect-error fix
 				data: category,
 			});
 		}
@@ -59,7 +58,6 @@ export async function generateForumData(): Promise<void> {
 
 			try {
 				const topic = await prisma.forumTopic.create({
-					// @ts-expect-error fix
 					data: {
 						title,
 						content,
@@ -194,7 +192,6 @@ export async function generateForumData(): Promise<void> {
 
 		const upvotesReceived = await prisma.upvoteForumPost.count({
 			where: {
-				// @ts-expect-error fix
 				post: {
 					userId: user.id,
 				},

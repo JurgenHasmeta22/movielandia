@@ -149,7 +149,6 @@ async function deleteData() {
 async function baseSeeding() {
 	console.log("Starting base seeding...");
 
-	// Debug: list existing tables to ensure schema is present
 	try {
 		const tables =
 			await prisma.$queryRaw`SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'`;
@@ -157,12 +156,12 @@ async function baseSeeding() {
 	} catch (err) {
 		console.error("Error listing tables:", err);
 	}
+
 	for (const user of users) {
 		// @ts-ignore - Ignore TypeScript error for password field
 		await prisma.user.create({ data: user });
 	}
 
-	// Create main entities
 	for (const genre of genres) {
 		await prisma.genre.create({ data: genre });
 	}
@@ -191,7 +190,6 @@ async function baseSeeding() {
 		await prisma.crew.create({ data: crewMember });
 	}
 
-	// Create relationships
 	for (const movieGenre of movieGenres) {
 		await prisma.movieGenre.create({ data: movieGenre });
 	}
@@ -251,9 +249,9 @@ async function baseSeeding() {
 
 // #region "Config"
 const config = {
-	useDynamicSeeding: false, // Set to false to use base seeding instead
-	deleteBeforeSeeding: false, // Set to true to delete all data before seeding
-	dynamicSeedingStartStep: SeedStep.Movies, // Which step to start from for dynamic seeding
+	useDynamicSeeding: false,
+	deleteBeforeSeeding: false,
+	dynamicSeedingStartStep: SeedStep.Movies,
 };
 // #endregion
 
@@ -268,11 +266,15 @@ async function main() {
 			console.log(
 				`Starting dynamic seeding from ${SeedStep[config.dynamicSeedingStartStep]} step...`,
 			);
+
 			await generateDynamicSeedData(config.dynamicSeedingStartStep);
+
 			console.log("Dynamic database seeding completed successfully.");
 		} else {
 			console.log("Using base seeding...");
+
 			await baseSeeding();
+
 			console.log("Base database seeding completed successfully.");
 		}
 

@@ -47,9 +47,11 @@ export async function generateForumTagData(): Promise<void> {
 	});
 
 	const topicsWithTagsIds = new Set(topicsWithTags.map((topic) => topic.id));
+
 	console.log(
 		`Found ${topics.length} topics, ${topicsWithTagsIds.size} already have tags.`,
 	);
+
 	console.log("Assigning tags to topics...");
 	let assignedCount = 0;
 
@@ -86,7 +88,10 @@ export async function generateForumTagData(): Promise<void> {
 	console.log("Forum tag seeding completed successfully.");
 }
 
-if (process.env.npm_lifecycle_event === "seed" || process.argv[1]?.includes("forumTagSeed.ts")) {
+if (
+	process.env.npm_lifecycle_event === "seed" ||
+	process.argv[1]?.includes("forumTagSeed.ts")
+) {
 	generateForumTagData()
 		.then(async () => {
 			await prisma.$disconnect();

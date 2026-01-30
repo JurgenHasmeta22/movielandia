@@ -21,6 +21,7 @@ function getRandomDate(): Date {
 	const start = new Date(1950, 0, 1).getTime();
 	const end = new Date().getTime();
 	const randomTimestamp = Math.floor(Math.random() * (end - start) + start);
+
 	return new Date(randomTimestamp);
 }
 
@@ -56,7 +57,6 @@ async function generateMovies(count: number, startId: number): Promise<void> {
 
 	const genres = await prisma.genre.findMany();
 	const genreIds = genres.map((genre) => genre.id);
-
 	const movieBatch = [];
 
 	for (let i = 0; i < count; i++) {
@@ -79,9 +79,11 @@ async function generateMovies(count: number, startId: number): Promise<void> {
 
 	for (let i = 0; i < movieBatch.length; i += 10) {
 		const batch = movieBatch.slice(i, i + 10);
+
 		await Promise.all(
 			batch.map((movie) => prisma.movie.create({ data: movie })),
 		);
+
 		console.log(
 			`Created movies ${i + 1} to ${Math.min(i + 10, movieBatch.length)} of ${movieBatch.length}`,
 		);
@@ -121,7 +123,6 @@ async function generateActors(count: number, startId: number): Promise<void> {
 
 	for (let i = 0; i < count; i++) {
 		const actorId = startId + i + 1;
-
 		const actor = {
 			id: actorId,
 			fullname: faker.person.fullName(),
@@ -139,9 +140,11 @@ async function generateActors(count: number, startId: number): Promise<void> {
 
 	for (let i = 0; i < actorBatch.length; i += 10) {
 		const batch = actorBatch.slice(i, i + 10);
+
 		await Promise.all(
 			batch.map((actor) => prisma.actor.create({ data: actor })),
 		);
+
 		console.log(
 			`Created actors ${i + 1} to ${Math.min(i + 10, actorBatch.length)} of ${actorBatch.length}`,
 		);
@@ -172,7 +175,6 @@ async function generateCrew(count: number, startId: number): Promise<void> {
 
 	for (let i = 0; i < count; i++) {
 		const crewId = startId + i + 1;
-
 		const crew = {
 			id: crewId,
 			fullname: faker.person.fullName(),
@@ -191,9 +193,11 @@ async function generateCrew(count: number, startId: number): Promise<void> {
 
 	for (let i = 0; i < crewBatch.length; i += 10) {
 		const batch = crewBatch.slice(i, i + 10);
+
 		await Promise.all(
 			batch.map((crew) => prisma.crew.create({ data: crew })),
 		);
+
 		console.log(
 			`Created crew members ${i + 1} to ${Math.min(i + 10, crewBatch.length)} of ${crewBatch.length}`,
 		);
@@ -213,14 +217,12 @@ async function generateSeries(
 
 	const genres = await prisma.genre.findMany();
 	const genreIds = genres.map((genre) => genre.id);
-
 	const serieBatch = [];
 	let currentSeasonId = startSeasonId;
 	let currentEpisodeId = await prisma.episode.count();
 
 	for (let i = 0; i < count; i++) {
 		const serieId = startSeriesId + i + 1;
-
 		const serie = {
 			id: serieId,
 			title: faker.word.adjective() + " " + faker.word.noun(),
@@ -237,9 +239,11 @@ async function generateSeries(
 
 	for (let i = 0; i < serieBatch.length; i += 10) {
 		const batch = serieBatch.slice(i, i + 10);
+
 		await Promise.all(
 			batch.map((serie) => prisma.serie.create({ data: serie })),
 		);
+
 		console.log(
 			`Created series ${i + 1} to ${Math.min(i + 10, serieBatch.length)} of ${serieBatch.length}`,
 		);
@@ -272,7 +276,7 @@ async function generateSeries(
 
 	for (const serie of serieBatch) {
 		const serieId = serie.id;
-		const seasonCount = Math.floor(Math.random() * 3) + 1; // 1-3 seasons per serie
+		const seasonCount = Math.floor(Math.random() * 3) + 1;
 
 		for (let s = 0; s < seasonCount; s++) {
 			currentSeasonId++;
@@ -1101,12 +1105,12 @@ export async function generateDynamicSeedData(
 			console.log("Skipping relationships generation...");
 		}
 
-		if (startFromStep <= SeedStep.Reviews) {
-			console.log("Generating reviews and ratings...");
-			await generateReviewsAndRatings();
-		} else {
-			console.log("Skipping reviews and ratings generation...");
-		}
+		// if (startFromStep <= SeedStep.Reviews) {
+		// 	console.log("Generating reviews and ratings...");
+		// 	await generateReviewsAndRatings();
+		// } else {
+		// 	console.log("Skipping reviews and ratings generation...");
+		// }
 
 		if (startFromStep <= SeedStep.Forum) {
 			console.log("Generating forum data...");
