@@ -130,6 +130,7 @@ export async function getPostsByTopicId(
 	topicId: number,
 	page: number = 1,
 	limit: number = 10,
+	userId?: number,
 ) {
 	const skip = (page - 1) * limit;
 
@@ -158,6 +159,21 @@ export async function getPostsByTopicId(
 								slug: true,
 							},
 						},
+					},
+				},
+				upvotes: userId
+					? {
+							where: {
+								userId: userId,
+							},
+							select: {
+								userId: true,
+							},
+						}
+					: false,
+				_count: {
+					select: {
+						upvotes: true,
 					},
 				},
 			},
@@ -215,6 +231,44 @@ export async function markPostAsAnswer(
 			const referer = getReferer();
 			revalidatePath(`${referer}`, "page");
 		}
+	} catch (error) {
+		throw new Error(
+			error instanceof Error
+				? error.message
+				: "An unexpected error occurred.",
+		);
+	}
+}
+
+export async function upvotePost(
+	postId: number,
+	userId: number,
+): Promise<void> {
+	try {
+		const existingUpvote = await prisma.upvoteForumPost.findFirst({
+			where: {
+				userId,
+				postId,
+			},
+		});
+
+		if (existingUpvote) {
+			await prisma.upvoteForumPost.delete({
+				where: {
+					id: existingUpvote.id,
+				},
+			});
+		} else {
+			await prisma.upvoteForumPost.create({
+				data: {
+					userId,
+					postId,
+				},
+			});
+		}
+
+		const referer = getReferer();
+		revalidatePath(`${referer}`, "page");
 	} catch (error) {
 		throw new Error(
 			error instanceof Error

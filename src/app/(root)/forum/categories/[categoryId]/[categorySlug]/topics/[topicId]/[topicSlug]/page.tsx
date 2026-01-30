@@ -90,16 +90,15 @@ export default async function TopicPage(props: ITopicPageProps) {
 
 	const currentPage = searchParams?.page ? parseInt(searchParams.page) : 1;
 	const limit = 10;
+	const userId = session?.user?.id ? Number(session.user.id) : undefined;
 
-	const posts = await getPostsByTopicId(topic.id, currentPage, limit);
+	const posts = await getPostsByTopicId(topic.id, currentPage, limit, userId);
 
 	const postsWithReplies = await Promise.all(
 		posts.items.map(async (post) => {
 			const replyPageParam = searchParams?.[`replyPage_${post.id}`];
 			const replyPage = replyPageParam ? parseInt(replyPageParam) : 1;
-			const userId = session?.user?.id
-				? Number(session.user.id)
-				: undefined;
+
 			const replies = await getRepliesByPostId(
 				post.id,
 				replyPage,

@@ -211,7 +211,7 @@ export default function ReplyForm({
 				<Button
 					size="medium"
 					variant="contained"
-					color="primary"
+					color="secondary"
 					onClick={handleSubmit}
 					disabled={isPending || !content.trim()}
 					startIcon={<ReplyIcon />}

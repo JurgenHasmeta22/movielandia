@@ -23,8 +23,9 @@ import React, { useState, useRef, useTransition } from "react";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { useModal } from "@/providers/ModalProvider";
-import { deletePost, updatePost } from "@/actions/forum/forumPost.actions";
+import { deletePost, updatePost, upvotePost } from "@/actions/forum/forumPost.actions";
 import { showToast } from "@/utils/helpers/toast";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import * as CONSTANTS from "@/constants/Constants";
 import {
 	WarningOutlined,
@@ -69,6 +70,7 @@ export default function PostList({
 	const [originalContent, setOriginalContent] = useState("");
 	const [isPending, startUpdatePostTransition] = useTransition();
 	const [isDeleting, startDeleteTransition] = useTransition();
+	const [isUpvoting, startUpvoteTransition] = useTransition();
 
 	const [replyingTo, setReplyingTo] = useState<{
 		id: number;
@@ -232,6 +234,24 @@ export default function PostList({
 			type: "reply",
 		});
 	};
+
+	function handleUpvote(postId: number) {
+		if (!userLoggedIn) return;
+
+		startUpvoteTransition(async () => {
+			try {
+				await upvotePost(postId, Number(userLoggedIn.id));
+				showToast("success", "Vote updated successfully");
+			} catch (error) {
+				showToast(
+					"error",
+					error instanceof Error
+						? error.message
+						: "Failed to upvote post",
+				);
+			}
+		});
+	}
 
 	const handleCancelReply = () => {
 		setReplyingTo(null);
@@ -462,55 +482,99 @@ export default function PostList({
 										gap: 1,
 									}}
 								>
-									{userLoggedIn && !topicLocked && (
-										<Button
-											variant="outlined"
-											size="small"
-											startIcon={<ReplyIcon />}
-											onClick={() =>
-												handleReplyToPost(post)
-											}
-										>
-											Reply
-										</Button>
-									)}
+													<Box
+														sx={{
+															display: "flex",
+															alignItems: "center",
+															gap: 2,
+														}}
+													>
+														<Box
+															sx={{
+																display: "flex",
+																alignItems: "center",
+																gap: 0.5,
+															}}
+														>
+															<Button
+																size="small"
+																onClick={() => handleUpvote(post.id)}
+																disabled={isUpvoting || !userLoggedIn}
+																sx={{
+																	minWidth: "auto",
+																	p: 0.5,
+																	color: post.upvotes?.some(
+																		(u: any) =>
+																			u.userId ===
+																			Number(userLoggedIn?.id),
+																	)
+																		? "success.main"
+																		: "inherit",
+																}}
+															>
+																{isUpvoting ? (
+																	<CircularProgress
+																		size={16}
+																		color="inherit"
+																	/>
+																) : (
+																	<ThumbUpIcon fontSize="small" />
+																)}
+															</Button>
+															<Typography variant="body2">
+																{post._count.upvotes}
+															</Typography>
+														</Box>
+														{userLoggedIn && !topicLocked && (
+															<Button
+																variant="outlined"
+																size="small"
+																startIcon={<ReplyIcon />}
+																onClick={() =>
+																	handleReplyToPost(post)
+																}
+															>
+																Reply
+															</Button>
+														)}
+													</Box>
 
-									{userLoggedIn &&
-										Number(userLoggedIn.id) ===
-											post.user.id &&
-										!topicLocked && (
-											<Box
-												sx={{ display: "flex", gap: 1 }}
-											>
-												<Button
-													variant="outlined"
-													size="small"
-													startIcon={<EditIcon />}
-													onClick={() =>
-														handleStartEditing({
-															id: post.id,
-															content:
-																post.content,
-														})
-													}
-												>
-													Edit
-												</Button>
-												<Button
-													variant="outlined"
-													size="small"
-													color="error"
-													startIcon={<DeleteIcon />}
-													onClick={() =>
-														handleDeletePost(
-															post.id,
-														)
-													}
-												>
-													Delete
-												</Button>
-											</Box>
-										)}
+													{userLoggedIn &&
+														Number(userLoggedIn.id) ===
+															post.user.id &&
+														!topicLocked && (
+															<Box
+																sx={{ display: "flex", gap: 1 }}
+															>
+																<Button
+																	variant="outlined"
+																	size="small"
+																	startIcon={<EditIcon />}
+																	onClick={() =>
+																		handleStartEditing({
+																			id: post.id,
+																			content:
+																				post.content,
+																		})
+																	}
+																>
+																	Edit
+																</Button>
+																<Button
+																	variant="outlined"
+																	size="small"
+																	color="error"
+																	startIcon={<DeleteIcon />}
+																	onClick={() =>
+																		handleDeletePost(
+																			post.id,
+																		)
+																	}
+																>
+																	Delete
+																</Button>
+															</Box>
+														)}
 								</Box>
 								{replyingTo &&
 									replyingTo.type === "post" &&

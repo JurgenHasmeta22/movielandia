@@ -221,6 +221,7 @@ export default function ReplyItem({
 		startUpvoteTransition(async () => {
 			try {
 				await upvoteReply(replyId, Number(userLoggedIn.id));
+				showToast("success", "Vote updated successfully");
 			} catch (error) {
 				showToast(
 					"error",
@@ -331,6 +332,7 @@ export default function ReplyItem({
 						<Button
 							variant="contained"
 							size="small"
+							color="secondary"
 							startIcon={<SaveOutlined />}
 							onClick={handleSaveEditing}
 							disabled={isPending || editContent.trim() === ""}
