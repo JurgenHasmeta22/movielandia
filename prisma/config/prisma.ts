@@ -11,13 +11,12 @@ if (!connectionString) {
 	);
 }
 
-const adapter = new PrismaPg({
-	connectionString,
-});
+const createPrismaClient = () => {
+	const adapter = new PrismaPg({
+		connectionString: connectionString!,
+	});
 
-export const prisma =
-	globalForPrisma.prisma ||
-	new PrismaClient({
+	return new PrismaClient({
 		adapter,
 		log:
 			process.env.NODE_ENV === "development"
@@ -25,5 +24,8 @@ export const prisma =
 				: ["warn", "error"],
 		errorFormat: "pretty",
 	});
+};
+
+export const prisma = globalForPrisma.prisma || createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
