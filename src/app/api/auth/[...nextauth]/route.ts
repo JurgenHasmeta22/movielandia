@@ -5,6 +5,8 @@ import { compare } from "bcrypt";
 import { prisma } from "../../../../../prisma/config/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
+export const dynamic = "force-dynamic";
+
 process.env.NEXTAUTH_URL =
 	process.env.NODE_ENV === "production"
 		? "https://movielandia-avenger22s-projects.vercel.app"
