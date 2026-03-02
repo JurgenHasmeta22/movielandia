@@ -7,6 +7,17 @@ const nextConfig: NextConfig = {
 		},
 		useCache: true,
 	},
+	outputFileTracingExcludes: {
+		"*": [
+			"@faker-js/faker",
+			"faker",
+			"xlsx",
+			"jspdf",
+			"jspdf-autotable",
+			"react-quill-new",
+			"quill-resize-image",
+		],
+	},
 	images: {
 		remotePatterns: [
 			{
