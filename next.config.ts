@@ -3,20 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
 	experimental: {
 		serverActions: {
-			bodySizeLimit: "50mb",
+			bodySizeLimit: "200mb",
 		},
 		useCache: true,
-	},
-	outputFileTracingExcludes: {
-		"*": [
-			"@faker-js/faker",
-			"faker",
-			"xlsx",
-			"jspdf",
-			"jspdf-autotable",
-			"react-quill-new",
-			"quill-resize-image",
-		],
 	},
 	images: {
 		remotePatterns: [
