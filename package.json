@@ -8,7 +8,6 @@
         "email": "email dev",
         "start": "next start",
         "startDev": "next start --port 4000",
-        "postinstall": "prisma generate",
         "seed": "tsx prisma/seed/seed.ts",
         "seed:forum": "tsx prisma/seed/forumOnlySeed.ts",
         "seed:forum-basic": "tsx prisma/seed/forumCategoriesAndTagsSeed.ts",
