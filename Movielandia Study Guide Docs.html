@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MovieLandia24 — Study Guide</title>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151820;
+    --surface2: #1c212e;
+    --border: #2a3040;
+    --accent: #6c63ff;
+    --accent2: #e040fb;
+    --green: #43d97b;
+    --orange: #ff9800;
+    --red: #f44336;
+    --blue: #29b6f6;
+    --yellow: #ffd740;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --code-bg: #0a0c12;
+    --radius: 10px;
+    --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.65; }
+
+  /* Layout */
+  #app { display: flex; min-height: 100vh; }
+  nav#sidebar {
+    width: 240px; min-height: 100vh; background: var(--surface);
+    border-right: 1px solid var(--border); position: sticky; top: 0;
+    height: 100vh; overflow-y: auto; padding: 24px 0; flex-shrink: 0;
+  }
+  nav#sidebar .brand {
+    padding: 0 20px 20px; border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  nav#sidebar .brand span { font-size: 18px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  nav#sidebar .brand small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  nav#sidebar a {
+    display: block; padding: 6px 20px; color: var(--muted); text-decoration: none;
+    font-size: 12.5px; border-left: 2px solid transparent; transition: all .15s;
+  }
+  nav#sidebar a:hover, nav#sidebar a.active { color: var(--text); border-left-color: var(--accent); background: rgba(108,99,255,.08); }
+  nav#sidebar .nav-section { padding: 14px 20px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 600; }
+
+  main { flex: 1; padding: 40px 48px; max-width: 1100px; }
+  section { margin-bottom: 56px; }
+
+  h1 { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+  h2 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15px; font-weight: 600; color: var(--blue); margin: 20px 0 10px; }
+  h4 { font-size: 13px; font-weight: 600; color: var(--yellow); margin: 14px 0 6px; }
+  p { color: var(--muted); margin-bottom: 10px; }
+  a { color: var(--accent); }
+  strong { color: var(--text); }
+
+  /* Cards */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .mini-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .mini-card .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+  .mini-card .value { font-size: 15px; font-weight: 700; color: var(--text); }
+  .mini-card .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-purple { background: rgba(108,99,255,.18); color: var(--accent); }
+  .badge-green { background: rgba(67,217,123,.15); color: var(--green); }
+  .badge-orange { background: rgba(255,152,0,.15); color: var(--orange); }
+  .badge-blue { background: rgba(41,182,246,.15); color: var(--blue); }
+  .badge-red { background: rgba(244,67,54,.15); color: var(--red); }
+  .badge-pink { background: rgba(224,64,251,.15); color: var(--accent2); }
+
+  /* Code */
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px; overflow-x: auto; margin: 10px 0 16px; position: relative;
+  }
+  code { font-family: var(--font-mono); font-size: 12.5px; color: #c9d1d9; }
+  .lang-tag { position: absolute; top: 8px; right: 10px; font-size: 10px; color: var(--muted); font-family: var(--font-mono); }
+  .kw { color: #ff79c6; } .fn { color: #50fa7b; } .str { color: #f1fa8c; }
+  .cm { color: #6272a4; font-style: italic; } .type { color: #8be9fd; }
+  .num { color: #bd93f9; } .tag { color: #ff79c6; } .attr { color: #50fa7b; }
+  .jsx { color: #8be9fd; }
+  code.inline { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--yellow); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+  th { background: var(--surface2); color: var(--text); padding: 9px 12px; text-align: left; font-weight: 600; font-size: 12px; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--muted); }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  /* Tag list */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+
+  /* Flow */
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+  .flow-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 12px; color: var(--text); }
+  .flow-arrow { color: var(--muted); font-size: 16px; }
+
+  /* Cheat sheet */
+  .cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .cheat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .cheat-card h4 { margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+  .cheat-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.03); font-size: 12px; }
+  .cheat-row:last-child { border-bottom: none; }
+  .cheat-row .key { color: var(--muted); }
+  .cheat-row .val { font-family: var(--font-mono); color: var(--yellow); font-size: 11px; }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* Tip box */
+  .tip { background: rgba(108,99,255,.08); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: var(--text); }
+  .warn { background: rgba(255,152,0,.08); border-left: 3px solid var(--orange); border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: var(--text); }
+
+  /* Tree */
+  .tree { font-family: var(--font-mono); font-size: 12px; color: var(--muted); line-height: 1.8; background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .tree .dir { color: var(--blue); }
+  .tree .file { color: var(--text); }
+  .tree .desc { color: var(--muted); }
+
+  /* Hero */
+  .hero { background: linear-gradient(135deg, rgba(108,99,255,.12), rgba(224,64,251,.06)); border: 1px solid rgba(108,99,255,.2); border-radius: 12px; padding: 28px; margin-bottom: 32px; }
+  .hero p { color: var(--text); font-size: 15px; margin-bottom: 12px; }
+
+  /* Scroll */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  @media (max-width: 768px) {
+    nav#sidebar { display: none; }
+    main { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ─── SIDEBAR ─────────────────────────────────────────────── -->
+<nav id="sidebar">
+  <div class="brand">
+    <span>MovieLandia24</span>
+    <small>Developer Study Guide</small>
+  </div>
+  <a class="nav-section">Overview</a>
+  <a href="#intro">Introduction</a>
+  <a href="#stack">Tech Stack</a>
+  <a href="#structure">Project Structure</a>
+
+  <a class="nav-section">Core Systems</a>
+  <a href="#data-models">Data Models</a>
+  <a href="#prisma-queries">Prisma Query Patterns</a>
+  <a href="#server-actions">Server Actions</a>
+  <a href="#routing">Routing & Pages</a>
+  <a href="#api-routes">API Routes</a>
+  <a href="#nextauth">NextAuth Config</a>
+  <a href="#email">Email System</a>
+
+  <a class="nav-section">Patterns</a>
+  <a href="#providers">Providers</a>
+  <a href="#state">State Management</a>
+  <a href="#forms">Forms & Validation</a>
+  <a href="#utils">Utilities</a>
+  <a href="#hooks">Custom Hooks</a>
+  <a href="#testing">Testing</a>
+
+  <a class="nav-section">Features</a>
+  <a href="#forum">Forum System</a>
+  <a href="#admin">Admin Panel</a>
+  <a href="#env">Environment Variables</a>
+
+  <a class="nav-section">UI System</a>
+  <a href="#components">Components</a>
+  <a href="#theming">Theming / MUI</a>
+
+  <a class="nav-section">Reference</a>
+  <a href="#cheatsheet">⚡ Cheat Sheet</a>
+</nav>
+
+<!-- ─── MAIN ─────────────────────────────────────────────────── -->
+<main>
+
+<!-- INTRO -->
+<section id="intro">
+  <h1>MovieLandia24</h1>
+  <div class="hero">
+    <p>Full-stack cinema platform built with <strong>Next.js 15 App Router</strong>, <strong>React 19</strong>, <strong>TypeScript</strong>, <strong>Material UI 7</strong>, and <strong>Prisma ORM</strong> on PostgreSQL.</p>
+    <div class="tag-list">
+      <span class="badge badge-purple">Next.js 16</span>
+      <span class="badge badge-blue">React 19</span>
+      <span class="badge badge-green">TypeScript</span>
+      <span class="badge badge-orange">MUI 7</span>
+      <span class="badge badge-pink">Prisma 7</span>
+      <span class="badge badge-red">PostgreSQL</span>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="mini-card"><div class="label">Dev Port</div><div class="value">4000</div><div class="sub">next dev --port 4000</div></div>
+    <div class="mini-card"><div class="label">Build</div><div class="value">prisma generate + next build</div><div class="sub">auto Prisma client gen</div></div>
+    <div class="mini-card"><div class="label">Test Runner</div><div class="value">Vitest + Playwright</div><div class="sub">unit + e2e</div></div>
+    <div class="mini-card"><div class="label">Email</div><div class="value">Resend + React Email</div><div class="sub">transactional emails</div></div>
+  </div>
+
+  <h3>Key npm Scripts</h3>
+  <table>
+    <tr><th>Script</th><th>What it does</th></tr>
+    <tr><td><code class="inline">npm run dev</code></td><td>Next.js dev server on :4000</td></tr>
+    <tr><td><code class="inline">npm run build</code></td><td>Prisma generate → Next build</td></tr>
+    <tr><td><code class="inline">npm run seed</code></td><td>Full database seed (tsx)</td></tr>
+    <tr><td><code class="inline">npm run seed:forum</code></td><td>Forum-only seed</td></tr>
+    <tr><td><code class="inline">npm run test</code></td><td>Vitest run (once)</td></tr>
+    <tr><td><code class="inline">npm run test:ui</code></td><td>Vitest with UI dashboard</td></tr>
+    <tr><td><code class="inline">npm run email</code></td><td>React Email dev server</td></tr>
+    <tr><td><code class="inline">npm run format</code></td><td>Prettier across src/</td></tr>
+    <tr><td><code class="inline">npm run scan</code></td><td>react-scan performance profiler</td></tr>
+  </table>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <h2>Tech Stack & Key Dependencies</h2>
+
+  <h3>Frontend</h3>
+  <table>
+    <tr><th>Package</th><th>Purpose</th><th>Notes</th></tr>
+    <tr><td><strong>next 16</strong></td><td>Framework</td><td>App Router, Server Components, Server Actions</td></tr>
+    <tr><td><strong>react 19</strong></td><td>UI library</td><td>use() hook, compiler RC, concurrent features</td></tr>
+    <tr><td><strong>@mui/material 7</strong></td><td>Component library</td><td>sx props, theme.vars, CSS vars mode</td></tr>
+    <tr><td><strong>framer-motion 12</strong></td><td>Animations</td><td>Page transitions, list animations</td></tr>
+    <tr><td><strong>nuqs 2</strong></td><td>URL state</td><td>Replaces useState for search/filter/sort params</td></tr>
+    <tr><td><strong>react-hook-form 7</strong></td><td>Forms</td><td>+ @hookform/resolvers + zod</td></tr>
+    <tr><td><strong>zod 4</strong></td><td>Schema validation</td><td>All form schemas in src/schemas/</td></tr>
+    <tr><td><strong>zustand 5</strong></td><td>Global state</td><td>+ devtools middleware, tiny store</td></tr>
+    <tr><td><strong>react-quill-new</strong></td><td>Rich text editor</td><td>Review/forum post content</td></tr>
+    <tr><td><strong>@dnd-kit/core</strong></td><td>Drag & drop</td><td>List item reordering</td></tr>
+    <tr><td><strong>material-react-table 3</strong></td><td>Admin tables</td><td>Full-featured data grid</td></tr>
+    <tr><td><strong>react-slick</strong></td><td>Carousels</td><td>Home page movie/series sliders</td></tr>
+    <tr><td><strong>react-toastify 11</strong></td><td>Notifications</td><td>Wrapped in showToast() helper</td></tr>
+    <tr><td><strong>date-fns 4</strong></td><td>Date formatting</td><td>formatDate() utility</td></tr>
+  </table>
+
+  <h3>Backend / Data</h3>
+  <table>
+    <tr><th>Package</th><th>Purpose</th></tr>
+    <tr><td><strong>prisma 7 + @prisma/client</strong></td><td>ORM — split schema in prisma/schema/models/</td></tr>
+    <tr><td><strong>next-auth 4</strong></td><td>Authentication — credentials + OAuth</td></tr>
+    <tr><td><strong>bcrypt 6</strong></td><td>Password hashing in auth.actions.ts</td></tr>
+    <tr><td><strong>resend 6</strong></td><td>Email sending (register, reset-password, newsletter)</td></tr>
+    <tr><td><strong>@react-email/components</strong></td><td>Email templates (emails/ folder)</td></tr>
+    <tr><td><strong>@prisma/adapter-pg</strong></td><td>PostgreSQL Prisma driver</td></tr>
+    <tr><td><strong>neverthrow 8</strong></td><td>Result type (Ok/Err) — supplemental error flow</td></tr>
+    <tr><td><strong>sharp</strong></td><td>Image processing / optimization</td></tr>
+    <tr><td><strong>imagekit + imagekitio-next</strong></td><td>CDN image storage</td></tr>
+    <tr><td><strong>jspdf + jspdf-autotable</strong></td><td>PDF export in admin</td></tr>
+    <tr><td><strong>xlsx</strong></td><td>Excel export in admin</td></tr>
+  </table>
+
+  <h3>Dev / Testing</h3>
+  <div class="tag-list">
+    <span class="badge badge-green">vitest</span>
+    <span class="badge badge-green">@playwright/test</span>
+    <span class="badge badge-blue">@testing-library/react</span>
+    <span class="badge badge-blue">@testing-library/jest-dom</span>
+    <span class="badge badge-orange">@faker-js/faker</span>
+    <span class="badge badge-purple">eslint</span>
+    <span class="badge badge-purple">prettier</span>
+    <span class="badge badge-purple">@next/bundle-analyzer</span>
+    <span class="badge badge-pink">babel-plugin-react-compiler</span>
+  </div>
+</section>
+
+<!-- PROJECT STRUCTURE -->
+<section id="structure">
+  <h2>Project Structure</h2>
+  <div class="tree">
+<span class="dir">movielandia/</span><br>
+├─ <span class="dir">emails/</span>           <span class="desc">React Email templates (Registration, ResetPassword, Newsletter)</span><br>
+├─ <span class="dir">prisma/</span><br>
+│  ├─ <span class="dir">config/prisma.ts</span>   <span class="desc">Prisma client singleton</span><br>
+│  ├─ <span class="dir">schema/</span><br>
+│  │  ├─ main.prisma        <span class="desc">generator + datasource</span><br>
+│  │  └─ <span class="dir">models/</span>       <span class="desc">One .prisma file per entity</span><br>
+│  └─ <span class="dir">seed/</span>           <span class="desc">Multiple seed scripts (full, forum, tags…)</span><br>
+├─ <span class="dir">src/</span><br>
+│  ├─ <span class="dir">actions/</span>        <span class="desc">"use server" Server Actions (movie, auth, forum, list, review, user…)</span><br>
+│  ├─ <span class="dir">app/</span><br>
+│  │  ├─ <span class="dir">(root)/</span>     <span class="desc">Public-facing pages (movies, series, actors, forum, dashboard…)</span><br>
+│  │  ├─ <span class="dir">(admin)/</span>    <span class="desc">Admin panel pages</span><br>
+│  │  └─ <span class="dir">api/</span>        <span class="desc">Route Handlers (auth, search, genres, notifications…)</span><br>
+│  ├─ <span class="dir">components/</span><br>
+│  │  ├─ <span class="dir">root/</span>       <span class="desc">Shared UI (header, footer, cards, pagination, review…)</span><br>
+│  │  └─ <span class="dir">admin/</span>      <span class="desc">Admin-only components (modal, tables…)</span><br>
+│  ├─ <span class="dir">hooks/</span>          <span class="desc">useDebounce, useSorting, usePageDetailsData</span><br>
+│  ├─ <span class="dir">layouts/</span>        <span class="desc">MainLayout, AdminLayout</span><br>
+│  ├─ <span class="dir">providers/</span>      <span class="desc">Auth, Theme, Modal, Toast, RightPanel, ProgressLoading</span><br>
+│  ├─ <span class="dir">schemas/</span>        <span class="desc">Zod schemas per entity (movie, actor, auth, user…)</span><br>
+│  ├─ <span class="dir">store/store.ts</span>  <span class="desc">Zustand global store</span><br>
+│  ├─ <span class="dir">types/</span>          <span class="desc">IStore, next-auth.d.ts, filterOperators</span><br>
+│  └─ <span class="dir">utils/</span><br>
+│     ├─ <span class="dir">features/</span>   <span class="desc">Entity bookmark/interaction helpers (movie, actor, serie…)</span><br>
+│     ├─ <span class="dir">helpers/</span>    <span class="desc">toast, tryCatch, formatUrl, utils</span><br>
+│     └─ <span class="dir">theme/</span>      <span class="desc">MUI theme config</span><br>
+└─ <span class="dir">tests/</span>            <span class="desc">Playwright e2e tests</span>
+  </div>
+
+  <div class="tip">Convention: route groups use parentheses <code class="inline">(root)</code> / <code class="inline">(admin)</code> — they don't affect URLs. Dynamic segments use brackets <code class="inline">[movieId]</code>.</div>
+</section>
+
+<!-- DATA MODELS -->
+<section id="data-models">
+  <h2>Data Models (Prisma)</h2>
+
+  <p>Schema is split across <code class="inline">prisma/schema/models/*.prisma</code>. Each major entity has its own file.</p>
+
+  <h3>Core Entities</h3>
+  <div class="card-grid">
+    <div class="mini-card"><div class="label">Content</div><div class="value" style="font-size:13px">Movie, Serie, Season, Episode</div></div>
+    <div class="mini-card"><div class="label">People</div><div class="value" style="font-size:13px">Actor, Crew</div></div>
+    <div class="mini-card"><div class="label">Categorization</div><div class="value" style="font-size:13px">Genre, MovieGenre, SerieGenre</div></div>
+    <div class="mini-card"><div class="label">Community</div><div class="value" style="font-size:13px">ForumCategory, Topic, Post, Reply, Tag</div></div>
+    <div class="mini-card"><div class="label">Social</div><div class="value" style="font-size:13px">Message, Notification, Moderation</div></div>
+    <div class="mini-card"><div class="label">User System</div><div class="value" style="font-size:13px">User, Favorites, Ratings, Reviews, Lists</div></div>
+  </div>
+
+  <h3>Movie Model (example)</h3>
+  <pre><code><span class="kw">model</span> <span class="type">Movie</span> {
+  id           Int       <span class="attr">@id @default(autoincrement())</span>
+  title        String
+  photoSrc     String
+  photoSrcProd String
+  trailerSrc   String
+  duration     Int
+  ratingImdb   Float
+  dateAired    DateTime?
+  description  String    <span class="attr">@db.Text()</span>
+
+  <span class="cm">// Relations</span>
+  cast                 CastMovie[]
+  genres               MovieGenre[]
+  reviews              MovieReview[]       <span class="cm">// one review per user (@@unique)</span>
+  usersWhoBookmarkedIt UserMovieFavorite[]
+  usersWhoRatedIt      UserMovieRating[]
+  upvoteMovieReviews   UpvoteMovieReview[]
+  listItems            ListMovie[]
+
+  <span class="attr">@@index([title(sort: Asc)])</span>
+  <span class="attr">@@index([ratingImdb])</span>
+  <span class="attr">@@index([dateAired])</span>
+}</code></pre>
+
+  <h3>User Model (abbreviated)</h3>
+  <pre><code><span class="kw">enum</span> <span class="type">UserType</span> { User  Admin }
+<span class="kw">enum</span> <span class="type">Gender</span>   { Male  Female }
+
+<span class="kw">model</span> <span class="type">User</span> {
+  id           Int      <span class="attr">@id @default(autoincrement())</span>
+  userName     String   <span class="attr">@unique</span>
+  email        String   <span class="attr">@unique</span>
+  password     String?
+  role         UserType <span class="attr">@default(User)</span>
+  active       Boolean  <span class="attr">@default(false)</span>  <span class="cm">// email verified</span>
+  subscribed   Boolean  <span class="attr">@default(false)</span>
+
+  favMovies    UserMovieFavorite[]
+  ratingsInMovie UserMovieRating[]
+  movieReviews   MovieReview[]
+  lists          List[]
+  followers      Follow[] <span class="attr">@relation("Follower")</span>
+  following      Follow[] <span class="attr">@relation("Following")</span>
+  <span class="cm">// + forum posts, messages, notifications…</span>
+}</code></pre>
+
+  <h3>Serie Model (abbreviated)</h3>
+  <pre><code><span class="kw">model</span> <span class="type">Serie</span> {
+  id           Int    <span class="attr">@id @default(autoincrement())</span>
+  title        String
+  photoSrc     String
+  ratingImdb   Float
+  dateAired    DateTime?
+  description  String <span class="attr">@db.Text()</span>
+
+  seasons      Season[]
+  cast         CastSerie[]
+  genres       SerieGenre[]
+  reviews      SerieReview[]
+  <span class="cm">// same favorites/ratings/upvotes pattern as Movie</span>
+}
+
+<span class="kw">model</span> <span class="type">Season</span> {
+  id          Int    <span class="attr">@id @default(autoincrement())</span>
+  title       String
+  seasonNumber Int
+  serieId     Int
+  serie       Serie  <span class="attr">@relation(fields: [serieId], references: [id], onDelete: Cascade)</span>
+  episodes    Episode[]
+  reviews     SeasonReview[]
+}
+
+<span class="kw">model</span> <span class="type">Episode</span> {
+  id            Int    <span class="attr">@id @default(autoincrement())</span>
+  title         String
+  episodeNumber Int
+  ratingImdb    Float
+  seasonId      Int
+  season        Season <span class="attr">@relation(fields: [seasonId], references: [id], onDelete: Cascade)</span>
+  reviews       EpisodeReview[]
+}</code></pre>
+
+  <h3>Forum Models</h3>
+  <pre><code><span class="kw">model</span> <span class="type">ForumCategory</span> {
+  id          Int          <span class="attr">@id @default(autoincrement())</span>
+  name        String       <span class="attr">@unique</span>
+  description String?
+  topics      ForumTopic[]
+}
+
+<span class="kw">model</span> <span class="type">ForumTopic</span> {
+  id         Int           <span class="attr">@id @default(autoincrement())</span>
+  title      String
+  views      Int           <span class="attr">@default(0)</span>
+  isPinned   Boolean       <span class="attr">@default(false)</span>
+  isLocked   Boolean       <span class="attr">@default(false)</span>
+  categoryId Int
+  userId     Int
+  category   ForumCategory <span class="attr">@relation(fields: [categoryId], references: [id])</span>
+  user       User          <span class="attr">@relation(fields: [userId], references: [id])</span>
+  posts      ForumPost[]
+  tags       ForumTopicTag[]
+}
+
+<span class="kw">model</span> <span class="type">ForumPost</span> {
+  id        Int     <span class="attr">@id @default(autoincrement())</span>
+  content   String  <span class="attr">@db.Text()</span>  <span class="cm">// Quill rich-text HTML</span>
+  isEdited  Boolean <span class="attr">@default(false)</span>
+  topicId   Int
+  userId    Int
+  replies   ForumReply[]
+}</code></pre>
+
+  <h3>List System Enums</h3>
+  <pre><code><span class="kw">enum</span> <span class="type">ListActionType</span> { Created Updated Deleted ItemAdded ItemRemoved Shared Unshared }
+<span class="kw">enum</span> <span class="type">ContentType</span>    { movie serie season episode actor crew user }</code></pre>
+
+  <h3>Relationship Map</h3>
+  <table>
+    <tr><th>From</th><th>To</th><th>Type</th><th>Key detail</th></tr>
+    <tr><td>Movie</td><td>Actor</td><td>M:M via CastMovie</td><td>role field</td></tr>
+    <tr><td>Movie</td><td>Genre</td><td>M:M via MovieGenre</td><td>—</td></tr>
+    <tr><td>Movie</td><td>MovieReview</td><td>1:M</td><td>@@unique([userId, movieId])</td></tr>
+    <tr><td>Serie</td><td>Season</td><td>1:M</td><td>onDelete: Cascade</td></tr>
+    <tr><td>Season</td><td>Episode</td><td>1:M</td><td>onDelete: Cascade</td></tr>
+    <tr><td>User</td><td>List</td><td>1:M</td><td>shared via ListShare</td></tr>
+    <tr><td>ForumTopic</td><td>ForumPost</td><td>1:M</td><td>rich-text content</td></tr>
+    <tr><td>User</td><td>User (Follow)</td><td>M:M self-ref</td><td>FollowState enum</td></tr>
+  </table>
+
+  <div class="tip">Each Review model has <code class="inline">@@unique([userId, entityId])</code> — one review per user per entity. Up/down-votes reference the review + entity + user as a composite.</div>
+</section>
+
+<!-- SERVER ACTIONS -->
+<section id="server-actions">
+  <h2>Server Actions</h2>
+
+  <p>All mutations and data fetching live in <code class="inline">src/actions/</code>. Marked with <code class="inline">"use server"</code> at the top.</p>
+
+  <div class="flow">
+    <div class="flow-item">Client calls action</div><div class="flow-arrow">→</div>
+    <div class="flow-item">Server Action runs</div><div class="flow-arrow">→</div>
+    <div class="flow-item">prisma.query()</div><div class="flow-arrow">→</div>
+    <div class="flow-item">returns data / revalidates</div>
+  </div>
+
+  <h3>Action Files</h3>
+  <table>
+    <tr><th>File</th><th>Covers</th></tr>
+    <tr><td>movie.actions.ts</td><td>CRUD movies, filters, ratings, related, homepage</td></tr>
+    <tr><td>serie.actions.ts</td><td>CRUD series, episodes, seasons</td></tr>
+    <tr><td>actor.actions.ts</td><td>CRUD actors, cast lookup</td></tr>
+    <tr><td>crew.actions.ts</td><td>CRUD crew members</td></tr>
+    <tr><td>genre.actions.ts</td><td>Genre listings</td></tr>
+    <tr><td>episode.actions.ts</td><td>Episode CRUD, season relation</td></tr>
+    <tr><td>season.actions.ts</td><td>Season CRUD</td></tr>
+    <tr><td>auth.actions.ts</td><td>signUp, resetPassword, newsletter via Resend</td></tr>
+    <tr><td>forum/</td><td>Categories, topics, posts, replies</td></tr>
+    <tr><td>list/</td><td>List CRUD, item add/remove, sharing</td></tr>
+    <tr><td>review/</td><td>Review upsert, delete, upvote/downvote</td></tr>
+    <tr><td>user/</td><td>Profile, bookmarks, ratings, follow, notifications</td></tr>
+  </table>
+
+  <h3>getMoviesWithFilters — Pattern</h3>
+  <pre><code><span class="str">"use server"</span>;
+<span class="kw">import</span> { prisma } <span class="kw">from</span> <span class="str">"../../prisma/config/prisma"</span>;
+
+<span class="kw">export async function</span> <span class="fn">getMoviesWithFilters</span>(
+  { sortBy, ascOrDesc, perPage = <span class="num">12</span>, page = <span class="num">1</span>, title, filterValue,
+    filterNameString, filterOperatorString }: <span class="type">MovieModelParams</span>,
+  userId?: <span class="type">number</span>,
+) {
+  <span class="kw">const</span> skip = (page - <span class="num">1</span>) * perPage;
+  <span class="kw">const</span> filters: <span class="type">any</span> = {};
+
+  <span class="kw">if</span> (title) filters.title = { contains: title };
+
+  <span class="kw">if</span> (filterValue &amp;&amp; filterNameString &amp;&amp; filterOperatorString) {
+    <span class="kw">const</span> operator = filterOperatorString === <span class="str">"&gt;"</span> ? <span class="str">"gt"</span>
+                   : filterOperatorString === <span class="str">"&lt;"</span> ? <span class="str">"lt"</span> : <span class="str">"equals"</span>;
+    filters[filterNameString] = { [operator]: filterValue };
+  }
+
+  <span class="kw">const</span> movies = <span class="kw">await</span> prisma.movie.findMany({
+    where: filters,
+    orderBy: { [sortBy || <span class="str">"title"</span>]: ascOrDesc || <span class="str">"asc"</span> },
+    skip, take: perPage,
+  });
+  <span class="cm">// … aggregate ratings, merge, return</span>
+}</code></pre>
+
+  <h3>Auth Action — signUp</h3>
+  <pre><code><span class="str">"use server"</span>;
+<span class="kw">import</span> { hashSync } <span class="kw">from</span> <span class="str">"bcrypt"</span>;
+<span class="kw">import</span> { Resend } <span class="kw">from</span> <span class="str">"resend"</span>;
+<span class="kw">import</span> RegistrationEmail <span class="kw">from</span> <span class="str">"../../emails/RegistrationEmail"</span>;
+
+<span class="kw">const</span> resend = <span class="kw">new</span> <span class="fn">Resend</span>(process.env.<span class="type">RESEND_API_KEY</span>);
+
+<span class="kw">export async function</span> <span class="fn">signUp</span>(userData: <span class="type">IRegister</span>) {
+  <span class="kw">const</span> existing = <span class="kw">await</span> prisma.user.findUnique({ where: { email } });
+  <span class="kw">if</span> (existing) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Email already registered"</span>);
+
+  <span class="kw">const</span> hashed = <span class="fn">hashSync</span>(password, <span class="num">10</span>);
+  <span class="kw">await</span> prisma.user.create({ data: { ...userData, password: hashed, active: <span class="kw">false</span> } });
+  <span class="kw">await</span> resend.emails.send({ to: email, subject: <span class="str">"Verify your account"</span>,
+    react: <span class="tag">&lt;RegistrationEmail</span> <span class="attr">token</span>=<span class="str">{token}</span> <span class="tag">/&gt;</span> });
+}</code></pre>
+
+  <h3>Review Upsert Action</h3>
+  <pre><code><span class="str">"use server"</span>;
+<span class="kw">import</span> { revalidatePath } <span class="kw">from</span> <span class="str">"next/cache"</span>;
+
+<span class="kw">export async function</span> <span class="fn">upsertMovieReview</span>(
+  movieId: <span class="type">number</span>, userId: <span class="type">number</span>,
+  content: <span class="type">string</span>, rating: <span class="type">number</span>
+) {
+  <span class="kw">await</span> prisma.movieReview.upsert({
+    where:  { userId_movieId: { userId, movieId } },
+    update: { content, rating, updatedAt: <span class="kw">new</span> <span class="fn">Date</span>() },
+    create: { userId, movieId, content, rating },
+  });
+  <span class="fn">revalidatePath</span>(<span class="str">`/movies/</span><span class="str">${movieId}`</span>); <span class="cm">// bust Next.js cache for the page</span>
+}</code></pre>
+
+  <h3>Upvote / Downvote Action Pattern</h3>
+  <pre><code><span class="kw">export async function</span> <span class="fn">addUpvoteMovieReview</span>(
+  userId: <span class="type">number</span>, movieId: <span class="type">number</span>, movieReviewId: <span class="type">number</span>
+) {
+  <span class="kw">const</span> existing = <span class="kw">await</span> prisma.upvoteMovieReview.findFirst({
+    where: { userId, movieId, movieReviewId }
+  });
+  <span class="kw">if</span> (existing) {
+    <span class="kw">await</span> prisma.upvoteMovieReview.delete({ where: { id: existing.id } });
+  } <span class="kw">else</span> {
+    <span class="kw">await</span> prisma.upvoteMovieReview.create({ data: { userId, movieId, movieReviewId } });
+    <span class="cm">// also remove any existing downvote for this user/review</span>
+    <span class="kw">await</span> prisma.downvoteMovieReview.deleteMany({ where: { userId, movieReviewId } });
+  }
+  <span class="fn">revalidatePath</span>(<span class="str">`/movies/</span><span class="str">${movieId}`</span>);
+}</code></pre>
+
+  <h3>Cache Revalidation Patterns</h3>
+  <table>
+    <tr><th>Method</th><th>When to use</th><th>Example</th></tr>
+    <tr><td><code class="inline">revalidatePath(path)</code></td><td>After any mutation on a specific page</td><td>revalidatePath('/movies/42')</td></tr>
+    <tr><td><code class="inline">revalidateTag(tag)</code></td><td>When multiple pages share the same data</td><td>revalidateTag('movies')</td></tr>
+    <tr><td><code class="inline">cacheLife()</code></td><td>Set cache duration on a fetch</td><td>cacheLife('hours')</td></tr>
+    <tr><td><code class="inline">redirect()</code></td><td>After form submissions that navigate</td><td>redirect('/dashboard')</td></tr>
+  </table>
+</section>
+
+<!-- ROUTING -->
+<section id="routing">
+  <h2>Routing & Pages</h2>
+
+  <h3>Public Routes <code class="inline">(root)</code></h3>
+  <table>
+    <tr><th>Route</th><th>Page</th><th>Auth?</th></tr>
+    <tr><td>/</td><td>Home — hero, movie/series carousels, marketing</td><td>No</td></tr>
+    <tr><td>/movies</td><td>Movie listing with filter/sort</td><td>No</td></tr>
+    <tr><td>/movies/[movieId]/[movieTitle]</td><td>Movie detail — reviews, cast, crew, related</td><td>No</td></tr>
+    <tr><td>/series / /series/[serieId]/[serieTitle]</td><td>Series + detail</td><td>No</td></tr>
+    <tr><td>/actors / /actors/[actorId]/[actorName]</td><td>Actors + detail</td><td>No</td></tr>
+    <tr><td>/crew / /crew/[crewId]/[crewName]</td><td>Crew + detail</td><td>No</td></tr>
+    <tr><td>/genres / /genres/[genreId]/[genreName]</td><td>Genres + detail</td><td>No</td></tr>
+    <tr><td>/search</td><td>Multi-entity search (movies, series, actors…)</td><td>No</td></tr>
+    <tr><td>/forum</td><td>Forum — categories, topics, posts, replies</td><td>Partial</td></tr>
+    <tr><td>/dashboard</td><td>User dashboard — lists, favorites, reviews</td><td>Yes</td></tr>
+    <tr><td>/messages</td><td>User messaging</td><td>Yes</td></tr>
+    <tr><td>/notifications</td><td>Notification center</td><td>Yes</td></tr>
+    <tr><td>/users/[userId]/[userName]</td><td>Public user profile</td><td>No</td></tr>
+    <tr><td>/auth/(signin|register…)</td><td>Auth flow pages</td><td>No</td></tr>
+  </table>
+
+  <h3>Dynamic Metadata Pattern</h3>
+  <pre><code><span class="kw">export async function</span> <span class="fn">generateMetadata</span>(props: <span class="type">IMoviePageProps</span>): <span class="type">Promise&lt;Metadata&gt;</span> {
+  <span class="kw">const</span> { movieId } = <span class="kw">await</span> props.params;
+  <span class="kw">const</span> movie = <span class="kw">await</span> <span class="fn">getMovieById</span>(Number(movieId), {});
+  <span class="kw">if</span> (!movie) <span class="kw">return</span> <span class="fn">notFound</span>();
+
+  <span class="kw">return</span> {
+    title: <span class="str">`</span><span class="str">${movie.title} | Movie`</span>,
+    openGraph: { type: <span class="str">"video.other"</span>, images: [{ url: movie.photoSrcProd }] },
+    twitter: { card: <span class="str">"summary_large_image"</span> },
+  };
+}</code></pre>
+
+  <h3>Protected Server Component</h3>
+  <pre><code><span class="kw">export default async function</span> <span class="fn">DashboardPage</span>() {
+  <span class="kw">const</span> session = <span class="kw">await</span> <span class="fn">getServerSession</span>(authOptions);
+  <span class="kw">if</span> (!session?.user) <span class="fn">redirect</span>(<span class="str">"/auth/signin"</span>);
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Suspense</span> <span class="attr">fallback</span>=<span class="jsx">{&lt;LoadingSpinner /&gt;}</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;DashboardContent</span> <span class="attr">userId</span>=<span class="jsx">{Number(session.user.id)}</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/Suspense&gt;</span>
+  );
+}</code></pre>
+
+  <h3>Loading + Suspense Pattern</h3>
+  <p>Each route segment can have a co-located <code class="inline">loading.tsx</code> that Next.js automatically wraps in a Suspense boundary.</p>
+  <pre><code><span class="cm">// app/(root)/movies/loading.tsx — auto Suspense fallback</span>
+<span class="kw">import</span> LoadingSkeletonMovieList <span class="kw">from</span> <span class="str">"@/components/root/loadingSkeleton/LoadingSkeletonMovieList"</span>;
+
+<span class="kw">export default function</span> <span class="fn">Loading</span>() {
+  <span class="kw">return</span> <span class="tag">&lt;LoadingSkeletonMovieList /&gt;</span>;
+}
+
+<span class="cm">// For sub-sections, wrap manually:</span>
+<span class="tag">&lt;Suspense</span> <span class="attr">fallback</span>=<span class="jsx">{&lt;LoadingSkeletonSearch /&gt;}</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;SearchPageContent</span> <span class="attr">session</span>=<span class="jsx">{session}</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/Suspense&gt;</span></code></pre>
+
+  <h3>Nested Content Route: Movie → Detail</h3>
+  <pre><code><span class="cm">// /movies/[movieId]/[movieTitle]/page.tsx</span>
+<span class="cm">// params.movieId = "42", params.movieTitle = "the-dark-knight"</span>
+
+<span class="kw">const</span> movie   = <span class="kw">await</span> <span class="fn">getMovieById</span>(Number(movieId), { userId });
+<span class="kw">const</span> related = <span class="kw">await</span> <span class="fn">getRelatedMovies</span>(movie.genres);
+<span class="kw">const</span> latest  = <span class="kw">await</span> <span class="fn">getLatestMovies</span>();</code></pre>
+
+  <h3>Error Boundary</h3>
+  <pre><code><span class="cm">// app/(root)/error.tsx — catches runtime errors in the segment tree</span>
+<span class="str">"use client"</span>;
+
+<span class="kw">export default function</span> <span class="fn">Error</span>({ error, reset }: { error: <span class="type">Error</span>; reset: () => <span class="type">void</span> }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Box</span> <span class="attr">sx</span>=<span class="jsx">{{ textAlign: "center", py: 8 }}</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;Typography&gt;</span>{error.message}<span class="tag">&lt;/Typography&gt;</span>
+      <span class="tag">&lt;Button</span> <span class="attr">onClick</span>=<span class="jsx">{reset}</span><span class="tag">&gt;</span>Try again<span class="tag">&lt;/Button&gt;</span>
+    <span class="tag">&lt;/Box&gt;</span>
+  );
+}</code></pre>
+
+  <h3>not-found.tsx Pattern</h3>
+  <pre><code><span class="cm">// app/(root)/not-found.tsx</span>
+<span class="kw">export default function</span> <span class="fn">NotFound</span>() {
+  <span class="kw">return</span> <span class="tag">&lt;NotFoundContent /&gt;</span>;
+}
+
+<span class="cm">// In any Server Component / Server Action:</span>
+<span class="kw">import</span> { notFound } <span class="kw">from</span> <span class="str">"next/navigation"</span>;
+<span class="kw">if</span> (!movie) <span class="fn">notFound</span>(); <span class="cm">// renders the nearest not-found.tsx</span></code></pre>
+</section>
+
+<!-- API ROUTES -->
+<section id="api-routes">
+  <h2>API Routes <code class="inline">src/app/api/</code></h2>
+  <table>
+    <tr><th>Route</th><th>Purpose</th></tr>
+    <tr><td>/api/auth/[...nextauth]</td><td>NextAuth handler (credentials + OAuth)</td></tr>
+    <tr><td>/api/search</td><td>Full-text search endpoint</td></tr>
+    <tr><td>/api/genres</td><td>Genre listing for client components</td></tr>
+    <tr><td>/api/notifications</td><td>Notification fetching/marking</td></tr>
+    <tr><td>/api/changePassword</td><td>Authenticated password change</td></tr>
+    <tr><td>/api/verifyRegister</td><td>Email verification token handler</td></tr>
+    <tr><td>/api/verifyResetPassword</td><td>Reset password token handler</td></tr>
+  </table>
+
+  <h3>Route Handler Example</h3>
+  <pre><code><span class="cm">// app/api/search/route.ts</span>
+<span class="kw">import</span> { NextRequest, NextResponse } <span class="kw">from</span> <span class="str">"next/server"</span>;
+<span class="kw">import</span> { getServerSession } <span class="kw">from</span> <span class="str">"next-auth"</span>;
+
+<span class="kw">export async function</span> <span class="fn">GET</span>(req: <span class="type">NextRequest</span>) {
+  <span class="kw">const</span> term = req.nextUrl.searchParams.<span class="fn">get</span>(<span class="str">"term"</span>) ?? <span class="str">""</span>;
+  <span class="kw">if</span> (!term) <span class="kw">return</span> NextResponse.<span class="fn">json</span>([]);
+
+  <span class="kw">const</span> results = <span class="kw">await</span> prisma.movie.<span class="fn">findMany</span>({
+    where: { title: { contains: term, mode: <span class="str">"insensitive"</span> } },
+    take: <span class="num">5</span>,
+    select: { id: <span class="kw">true</span>, title: <span class="kw">true</span>, photoSrc: <span class="kw">true</span> },
+  });
+  <span class="kw">return</span> NextResponse.<span class="fn">json</span>(results);
+}
+
+<span class="cm">// Client-side fetch:</span>
+<span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/search?term=</span><span class="str">${encodeURIComponent(q)}`</span>);
+<span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();</code></pre>
+
+  <div class="tip">Prefer Server Actions for mutations. Route Handlers are used only when a client component needs to call an API endpoint directly (e.g. autocomplete search).</div>
+</section>
+
+<!-- PROVIDERS -->
+<section id="providers">
+  <h2>Providers</h2>
+  <p>Wrapped in <code class="inline">src/app/(root)/layout.tsx</code> in this order:</p>
+  <div class="flow">
+    <div class="flow-item">AuthProvider</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">MUIThemeProvider</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">ModalProvider</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">RightPanelProvider</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">ToastProvider</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">ProgressLoadingProvider</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="mini-card">
+      <div class="label">AuthProvider</div>
+      <div class="value" style="font-size:12px">SessionProvider</div>
+      <div class="sub">Wraps next-auth's SessionProvider</div>
+    </div>
+    <div class="mini-card">
+      <div class="label">MUIThemeProvider</div>
+      <div class="value" style="font-size:12px">AppRouterCacheProvider</div>
+      <div class="sub">MUI + Emotion SSR cache, dark default</div>
+    </div>
+    <div class="mini-card">
+      <div class="label">ModalProvider</div>
+      <div class="value" style="font-size:12px">openModal(props)</div>
+      <div class="sub">Global modal via Context + useModal()</div>
+    </div>
+    <div class="mini-card">
+      <div class="label">ProgressLoadingProvider</div>
+      <div class="value" style="font-size:12px">@bprogress/next</div>
+      <div class="sub">Top loading bar on navigation</div>
+    </div>
+  </div>
+
+  <h3>ModalProvider Pattern</h3>
+  <pre><code><span class="cm">// Open a modal from anywhere:</span>
+<span class="kw">const</span> { openModal } = <span class="fn">useModal</span>();
+
+<span class="fn">openModal</span>({
+  title: <span class="str">"Delete Movie"</span>,
+  content: <span class="str">"Are you sure?"</span>,
+  onConfirm: () => <span class="fn">deleteMovie</span>(id),
+});</code></pre>
+</section>
+
+<!-- STATE -->
+<section id="state">
+  <h2>State Management</h2>
+
+  <h3>Zustand Store</h3>
+  <pre><code><span class="cm">// src/store/store.ts</span>
+<span class="kw">export const</span> useStore = <span class="fn">create</span>&lt;<span class="type">AppStoreState</span>&gt;()(
+  <span class="fn">devtools</span>((set) => ({
+    isOpenSidebarAdmin: <span class="kw">true</span>,
+    <span class="fn">setIsOpenSidebarAdmin</span>: (val) => <span class="fn">set</span>({ isOpenSidebarAdmin: val }),
+    isDrawerOpen: <span class="kw">false</span>,
+    <span class="fn">setIsDrawerOpen</span>: (val) => <span class="fn">set</span>({ isDrawerOpen: val }),
+    isEditModeReview: <span class="kw">false</span>,
+    <span class="fn">setIsEditModeReview</span>: (val) => <span class="fn">set</span>({ isEditModeReview: val }),
+  }))
+);</code></pre>
+
+  <h3>nuqs — URL State (sorting/filtering)</h3>
+  <pre><code><span class="cm">// useSorting.ts — syncs sort state to URL query params</span>
+<span class="kw">const</span> [typeSortBy, setTypeSortBy] = <span class="fn">useQueryState</span>(<span class="str">`</span><span class="str">${type}SortBy`</span>, {
+  defaultValue: defaultSortBy,
+  shallow: <span class="kw">false</span>,         <span class="cm">// triggers server re-render</span>
+  startTransition,         <span class="cm">// wraps in React transition</span>
+});
+
+<span class="cm">// URL changes: /movies?moviesSortBy=ratingImdb&amp;moviesAscOrDesc=desc</span></code></pre>
+
+  <div class="tip"><strong>Rule:</strong> Use <code class="inline">nuqs</code> for anything that should be shareable / bookmarkable (filters, sort, pagination). Use <code class="inline">zustand</code> for ephemeral UI state (sidebar open, drawer, edit mode).</div>
+</section>
+
+<!-- FORMS -->
+<section id="forms">
+  <h2>Forms & Validation</h2>
+
+  <h3>Zod Schema Example</h3>
+  <pre><code><span class="cm">// src/schemas/movie.schema.ts</span>
+<span class="kw">const</span> movieSchema = z.object({
+  title:       z.string().<span class="fn">min</span>(<span class="num">1</span>, { message: <span class="str">"required"</span> }),
+  photoSrc:    z.string().<span class="fn">min</span>(<span class="num">1</span>),
+  trailerSrc:  z.string().<span class="fn">min</span>(<span class="num">1</span>),
+  duration:    z.coerce.number().<span class="fn">min</span>(<span class="num">1</span>),
+  dateAired:   z.coerce.date(),
+  ratingImdb:  z.coerce.number().<span class="fn">min</span>(<span class="num">1</span>),
+  description: z.string().<span class="fn">min</span>(<span class="num">1</span>),
+});</code></pre>
+
+  <h3>React Hook Form + Zod</h3>
+  <pre><code><span class="kw">const</span> { register, handleSubmit, formState: { errors } } = <span class="fn">useForm</span>({
+  resolver: <span class="fn">zodResolver</span>(movieSchema),
+});
+
+<span class="kw">const</span> onSubmit = <span class="kw">async</span> (data: <span class="type">MovieFormData</span>) => {
+  <span class="kw">await</span> <span class="fn">createMovie</span>(data);   <span class="cm">// Server Action</span>
+};</code></pre>
+
+  <h3>Other schemas</h3>
+  <div class="tag-list">
+    <span class="badge badge-purple">auth.schema.ts</span>
+    <span class="badge badge-purple">actor.schema.ts</span>
+    <span class="badge badge-purple">crew.schema.ts</span>
+    <span class="badge badge-purple">episode.schema.ts</span>
+    <span class="badge badge-purple">genre.schema.ts</span>
+    <span class="badge badge-purple">list.schema.ts</span>
+    <span class="badge badge-purple">season.schema.ts</span>
+    <span class="badge badge-purple">serie.schema.ts</span>
+    <span class="badge badge-purple">user.schema.ts</span>
+  </div>
+
+  <h3>Full Form with Error Display</h3>
+  <pre><code><span class="str">"use client"</span>;
+<span class="kw">import</span> { useForm } <span class="kw">from</span> <span class="str">"react-hook-form"</span>;
+<span class="kw">import</span> { zodResolver } <span class="kw">from</span> <span class="str">"@hookform/resolvers/zod"</span>;
+<span class="kw">import</span> { movieSchema } <span class="kw">from</span> <span class="str">"@/schemas/movie.schema"</span>;
+
+<span class="kw">export default function</span> <span class="fn">MovieForm</span>({ onSave }: { onSave: (<span class="type">data: MovieFormData</span>) => <span class="type">Promise&lt;void&gt;</span> }) {
+  <span class="kw">const</span> { register, handleSubmit, formState: { errors, isSubmitting } }
+    = <span class="fn">useForm</span>({ resolver: <span class="fn">zodResolver</span>(movieSchema) });
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Box</span> <span class="attr">component</span>=<span class="str">"form"</span> <span class="attr">onSubmit</span>=<span class="jsx">{handleSubmit(onSave)}</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;TextField</span>
+        <span class="attr">label</span>=<span class="str">"Title"</span>
+        <span class="attr">{...register("title")}</span>
+        <span class="attr">error</span>=<span class="jsx">{!!errors.title}</span>
+        <span class="attr">helperText</span>=<span class="jsx">{errors.title?.message}</span>
+      <span class="tag">/&gt;</span>
+      <span class="tag">&lt;TextField</span>
+        <span class="attr">label</span>=<span class="str">"IMDB Rating"</span>
+        <span class="attr">type</span>=<span class="str">"number"</span>
+        <span class="attr">{...register("ratingImdb")}</span>
+        <span class="attr">error</span>=<span class="jsx">{!!errors.ratingImdb}</span>
+        <span class="attr">helperText</span>=<span class="jsx">{errors.ratingImdb?.message}</span>
+      <span class="tag">/&gt;</span>
+      <span class="tag">&lt;Button</span> <span class="attr">type</span>=<span class="str">"submit"</span> <span class="attr">disabled</span>=<span class="jsx">{isSubmitting}</span> <span class="attr">variant</span>=<span class="str">"contained"</span><span class="tag">&gt;</span>
+        {isSubmitting ? <span class="str">"Saving…"</span> : <span class="str">"Save Movie"</span>}
+      <span class="tag">&lt;/Button&gt;</span>
+    <span class="tag">&lt;/Box&gt;</span>
+  );
+}</code></pre>
+
+  <h3>Auth Schema (register)</h3>
+  <pre><code><span class="cm">// src/schemas/auth.schema.ts</span>
+<span class="kw">const</span> registerSchema = z.object({
+  userName:    z.string().<span class="fn">min</span>(<span class="num">3</span>).<span class="fn">max</span>(<span class="num">20</span>),
+  email:       z.string().<span class="fn">email</span>(),
+  password:    z.string().<span class="fn">min</span>(<span class="num">8</span>),
+  birthday:    z.coerce.date(),
+  gender:      z.<span class="fn">enum</span>([<span class="str">"Male"</span>, <span class="str">"Female"</span>]),
+  phone:       z.string().<span class="fn">min</span>(<span class="num">10</span>),
+  countryFrom: z.string().<span class="fn">min</span>(<span class="num">2</span>),
+});
+
+<span class="kw">export type</span> <span class="type">RegisterFormData</span> = z.<span class="fn">infer</span>&lt;<span class="kw">typeof</span> registerSchema&gt;;</code></pre>
+</section>
+
+<!-- UTILS -->
+<section id="utils">
+  <h2>Utility Helpers</h2>
+
+  <h3>tryCatch — Async Error Wrapper</h3>
+  <pre><code><span class="cm">// src/utils/helpers/tryCatch.ts</span>
+<span class="kw">export async function</span> <span class="fn">tryCatch</span>&lt;<span class="type">T, E = Error</span>&gt;(
+  promise: <span class="type">Promise&lt;T&gt;</span>
+): <span class="type">Promise&lt;Result&lt;T, E&gt;&gt;</span> {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> data = <span class="kw">await</span> promise;
+    <span class="kw">return</span> { data, error: <span class="kw">null</span> };
+  } <span class="kw">catch</span> (error) {
+    <span class="kw">return</span> { data: <span class="kw">null</span>, error: error <span class="kw">as</span> E };
+  }
+}
+
+<span class="cm">// Usage:</span>
+<span class="kw">const</span> { data, error } = <span class="kw">await</span> <span class="fn">tryCatch</span>(getMovieById(id));
+<span class="kw">if</span> (error) <span class="kw">return</span> <span class="fn">notFound</span>();</code></pre>
+
+  <h3>showToast</h3>
+  <pre><code><span class="fn">showToast</span>(<span class="str">"success"</span>, <span class="str">"Movie added to favorites!"</span>);
+<span class="fn">showToast</span>(<span class="str">"error"</span>, <span class="str">`An error occurred: </span><span class="str">${error.message}`</span>);
+<span class="fn">showToast</span>(<span class="str">"info"</span>, <span class="str">"Processing…"</span>);
+<span class="cm">// types: "success" | "error" | "info" | "warning" | "default"
+// Slide transition, top-right, 3500ms autoClose</span></code></pre>
+
+  <h3>URL Helpers</h3>
+  <pre><code><span class="fn">formatForUrl</span>(<span class="str">"The Dark Knight!"</span>)           <span class="cm">// → "the-dark-knight"</span>
+<span class="fn">formatTitleForUrl</span>(<span class="num">42</span>, <span class="str">"The Dark Knight"</span>) <span class="cm">// → "42/the-dark-knight"</span>
+<span class="cm">// Used for: /movies/42/the-dark-knight</span></code></pre>
+
+  <h3>Feature Utils (per entity)</h3>
+  <pre><code><span class="cm">// src/utils/features/movieFeaturesUtils.ts</span>
+<span class="kw">export async function</span> <span class="fn">onBookmarkMovie</span>(session: <span class="type">Session</span>, movie: <span class="type">Movie</span>) {
+  <span class="kw">if</span> (!session?.user) <span class="kw">return</span>;
+  <span class="kw">try</span> {
+    <span class="kw">await</span> <span class="fn">addFavoriteMovieToUser</span>(Number(session.user.id), movie.id);
+    <span class="fn">showToast</span>(<span class="str">"success"</span>, <span class="str">"Movie added to favorites!"</span>);
+  } <span class="kw">catch</span> (error) {
+    <span class="fn">showToast</span>(<span class="str">"error"</span>, <span class="str">`An error occurred: </span><span class="str">${error.message}`</span>);
+  }
+}
+<span class="cm">// Mirrors exist for: serie, actor, crew, season, episode</span></code></pre>
+</section>
+
+<!-- HOOKS -->
+<section id="hooks">
+  <h2>Custom Hooks</h2>
+
+  <h3>usePageDetailsData</h3>
+  <p>Shared hook used across all detail pages (movie, serie, actor, season, episode, crew). Bundles common detail-page state.</p>
+  <pre><code><span class="kw">const</span> {
+  session,              <span class="cm">// next-auth session</span>
+  review, setReview,    <span class="cm">// rich text content</span>
+  rating, setRating,    <span class="cm">// star rating</span>
+  isEditMode, setIsEditMode,
+  open, setOpen,        <span class="cm">// dialog open state</span>
+  openVotesModal, setIsOpenVotesModal,
+  openModal,            <span class="cm">// from ModalProvider</span>
+  textEditorRef, reviewRef,
+} = <span class="fn">usePageDetailsData</span>();</code></pre>
+
+  <h3>useSorting</h3>
+  <pre><code><span class="kw">const</span> { typeSortBy, setTypeSortBy, typeAscOrDesc, setTypeAscOrDesc, isPending }
+  = <span class="fn">useSorting</span>(<span class="str">"movie"</span>);
+<span class="cm">// Syncs to ?movieSortBy=title&amp;movieAscOrDesc=asc in URL</span></code></pre>
+
+  <h3>useDebounce</h3>
+  <pre><code><span class="kw">const</span> debouncedSearch = <span class="fn">useDebounce</span>(searchTerm, <span class="num">300</span>);
+<span class="cm">// delays value update — used for search inputs</span></code></pre>
+
+  <h3>useDebounce — Implementation</h3>
+  <pre><code><span class="str">"use client"</span>;
+<span class="kw">import</span> { useState, useEffect } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">export function</span> <span class="fn">useDebounce</span>&lt;<span class="type">T</span>&gt;(value: <span class="type">T</span>, delay: <span class="type">number</span>): <span class="type">T</span> {
+  <span class="kw">const</span> [debouncedValue, setDebouncedValue] = <span class="fn">useState</span>(value);
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="kw">const</span> timer = <span class="fn">setTimeout</span>(() => <span class="fn">setDebouncedValue</span>(value), delay);
+    <span class="kw">return</span> () => <span class="fn">clearTimeout</span>(timer);
+  }, [value, delay]);
+
+  <span class="kw">return</span> debouncedValue;
+}
+
+<span class="cm">// Usage in search component:</span>
+<span class="kw">const</span> [query, setQuery] = <span class="fn">useState</span>(<span class="str">""</span>);
+<span class="kw">const</span> debouncedQuery = <span class="fn">useDebounce</span>(query, <span class="num">300</span>);
+
+<span class="fn">useEffect</span>(() => {
+  <span class="kw">if</span> (debouncedQuery) <span class="fn">fetchResults</span>(debouncedQuery);
+}, [debouncedQuery]);</code></pre>
+
+  <h3>Hook Decision Guide</h3>
+  <table>
+    <tr><th>Hook</th><th>Use when</th><th>Backed by</th></tr>
+    <tr><td>usePageDetailsData</td><td>Any entity detail page needing review/session state</td><td>useState + useRef + useSession</td></tr>
+    <tr><td>useSorting(type)</td><td>Any listing page with sortable columns</td><td>nuqs useQueryState</td></tr>
+    <tr><td>useDebounce(val, ms)</td><td>Search inputs, autocomplete fields</td><td>useEffect + setTimeout</td></tr>
+    <tr><td>useStore()</td><td>Admin sidebar, drawer, review edit mode</td><td>Zustand devtools store</td></tr>
+    <tr><td>useModal()</td><td>Confirm dialogs, delete prompts</td><td>React Context</td></tr>
+    <tr><td>useSession()</td><td>Client components needing auth state</td><td>next-auth SessionProvider</td></tr>
+  </table>
+</section>
+
+<!-- TESTING -->
+<section id="testing">
+  <h2>Testing</h2>
+
+  <h3>Unit Tests (Vitest)</h3>
+  <p>Co-located as <code class="inline">.test.ts</code> / <code class="inline">.test.tsx</code> next to source files. Structure: <code class="inline">describe → it → expect</code>.</p>
+  <pre><code><span class="cm">// movieFeaturesUtils.test.ts</span>
+<span class="fn">vi.mock</span>(<span class="str">"@/actions/user/userBookmarks.actions"</span>, () => ({
+  <span class="fn">addFavoriteMovieToUser</span>: vi.fn(),
+  <span class="fn">removeFavoriteMovieToUser</span>: vi.fn(),
+}));
+<span class="fn">vi.mock</span>(<span class="str">"@/utils/helpers/toast"</span>, () => ({ showToast: vi.fn() }));
+
+<span class="fn">describe</span>(<span class="str">"Movie Features Utils"</span>, () => {
+  <span class="fn">it</span>(<span class="str">"adds movie to favorites and shows success toast"</span>, <span class="kw">async</span> () => {
+    <span class="kw">await</span> <span class="fn">onBookmarkMovie</span>(mockSession, mockMovie);
+    <span class="fn">expect</span>(<span class="fn">addFavoriteMovieToUser</span>).<span class="fn">toHaveBeenCalledWith</span>(<span class="num">1</span>, mockMovie.id);
+    <span class="fn">expect</span>(<span class="fn">showToast</span>).<span class="fn">toHaveBeenCalledWith</span>(<span class="str">"success"</span>, <span class="str">"Movie added to favorites!"</span>);
+  });
+});</code></pre>
+
+  <h3>Tested Modules</h3>
+  <div class="tag-list">
+    <span class="badge badge-green">movieFeaturesUtils.test.ts</span>
+    <span class="badge badge-green">actorFeaturesUtils.test.ts</span>
+    <span class="badge badge-green">crewFeaturesUtils.test.ts</span>
+    <span class="badge badge-green">episodeFeaturesUtils.test.ts</span>
+    <span class="badge badge-green">seasonFeaturesUtils.test.ts</span>
+    <span class="badge badge-green">serieFeaturesUtils.test.ts</span>
+    <span class="badge badge-green">toast.test.ts</span>
+    <span class="badge badge-green">tryCatch.test.ts</span>
+    <span class="badge badge-green">utils.test.ts</span>
+  </div>
+
+  <h3>E2E (Playwright)</h3>
+  <pre><code><span class="cm">// tests/example.spec.ts</span>
+<span class="kw">import</span> { test, expect } <span class="kw">from</span> <span class="str">"@playwright/test"</span>;
+
+<span class="fn">test</span>(<span class="str">"homepage has title"</span>, <span class="kw">async</span> ({ page }) => {
+  <span class="kw">await</span> page.<span class="fn">goto</span>(<span class="str">"/"</span>);
+  <span class="kw">await</span> <span class="fn">expect</span>(page).<span class="fn">toHaveTitle</span>(<span class="str">/MovieLandia24/</span>);
+});</code></pre>
+
+  <h3>Testing Error Paths</h3>
+  <pre><code><span class="fn">it</span>(<span class="str">"shows error toast when bookmark fails"</span>, <span class="kw">async</span> () => {
+  <span class="fn">vi.mocked</span>(addFavoriteMovieToUser).<span class="fn">mockRejectedValue</span>(<span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"DB error"</span>));
+
+  <span class="kw">await</span> <span class="fn">onBookmarkMovie</span>(mockSession, mockMovie);
+  <span class="fn">expect</span>(<span class="fn">showToast</span>).<span class="fn">toHaveBeenCalledWith</span>(
+    <span class="str">"error"</span>,
+    <span class="fn">expect</span>.<span class="fn">stringContaining</span>(<span class="str">"DB error"</span>)
+  );
+});</code></pre>
+
+  <h3>React Testing Library (Component Test)</h3>
+  <pre><code><span class="kw">import</span> { render, screen, fireEvent } <span class="kw">from</span> <span class="str">"@testing-library/react"</span>;
+<span class="kw">import</span> { describe, it, expect } <span class="kw">from</span> <span class="str">"vitest"</span>;
+
+<span class="fn">describe</span>(<span class="str">"SortSelect"</span>, () => {
+  <span class="fn">it</span>(<span class="str">"calls onChange with selected value"</span>, () => {
+    <span class="kw">const</span> onChange = <span class="fn">vi.fn</span>();
+    <span class="fn">render</span>(<span class="tag">&lt;SortSelect</span> <span class="attr">value</span>=<span class="str">"title"</span> <span class="attr">onChange</span>=<span class="jsx">{onChange}</span> <span class="tag">/&gt;</span>);
+
+    <span class="fn">fireEvent</span>.<span class="fn">change</span>(screen.<span class="fn">getByRole</span>(<span class="str">"combobox"</span>), {
+      target: { value: <span class="str">"ratingImdb"</span> }
+    });
+
+    <span class="fn">expect</span>(onChange).<span class="fn">toHaveBeenCalledWith</span>(<span class="str">"ratingImdb"</span>);
+  });
+});</code></pre>
+
+  <h3>Vitest Config Highlights</h3>
+  <pre><code><span class="cm">// vitest.config.ts</span>
+<span class="kw">export default</span> <span class="fn">defineConfig</span>({
+  test: {
+    environment: <span class="str">"jsdom"</span>,        <span class="cm">// browser-like DOM</span>
+    globals: <span class="kw">true</span>,               <span class="cm">// no need to import describe/it/expect</span>
+    setupFiles: [<span class="str">"./vitest.setup.ts"</span>],
+    include: [<span class="str">"src/**/*.test.{ts,tsx}"</span>],
+  }
+});</code></pre>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+  <h2>Shared Components <code class="inline">src/components/root/</code></h2>
+  <div class="card-grid">
+    <div class="mini-card"><div class="label">Layout</div><div class="value" style="font-size:12px">header, headerMobile, footer, tabPanel</div></div>
+    <div class="mini-card"><div class="label">Content</div><div class="value" style="font-size:12px">cardItem, detailsPageCard, genreItem, latestList</div></div>
+    <div class="mini-card"><div class="label">Lists</div><div class="value" style="font-size:12px">listCard, listDetail, listDetailCardItem, listDetailHeader, selectableListCard, sharedListsSection</div></div>
+    <div class="mini-card"><div class="label">Reviews</div><div class="value" style="font-size:12px">review, reviewsHeader, richTextDisplay, textEditor, textEditorButtons, textEditorForm</div></div>
+    <div class="mini-card"><div class="label">Navigation</div><div class="value" style="font-size:12px">paginationControl, scrollToTop, sortSelect, searchField, carousel</div></div>
+    <div class="mini-card"><div class="label">UI Misc</div><div class="value" style="font-size:12px">loadingSkeleton, loadingSpinner, trailerModal, notificationMenu, themeToggleButton, muiNextLink, verificationLayout, draggableListItem, contentTypeLabel, buttonStyles, authButtons</div></div>
+  </div>
+
+  <h3>PaginationControl Usage</h3>
+  <pre><code><span class="tag">&lt;PaginationControl</span>
+  <span class="attr">currentPage</span>=<span class="jsx">{page}</span>
+  <span class="attr">pageCount</span>=<span class="jsx">{Math.ceil(totalMovies / perPage)}</span>
+  <span class="attr">urlParamName</span>=<span class="str">"page"</span>     <span class="cm">// nuqs param name to update</span>
+<span class="tag">/&gt;</span></code></pre>
+
+  <h3>TextEditor (Quill) Usage</h3>
+  <pre><code><span class="tag">&lt;TextEditor</span>
+  <span class="attr">value</span>=<span class="jsx">{review}</span>
+  <span class="attr">onChange</span>=<span class="jsx">{setReview}</span>
+  <span class="attr">ref</span>=<span class="jsx">{textEditorRef}</span>
+  <span class="attr">placeholder</span>=<span class="str">"Write your review..."</span>
+<span class="tag">/&gt;</span>
+<span class="cm">// Outputs HTML string stored in MovieReview.content (@db.Text)</span>
+<span class="cm">// Displayed back via &lt;RichTextDisplay html={review.content} /&gt;</span></code></pre>
+
+  <h3>SortSelect Usage</h3>
+  <pre><code><span class="tag">&lt;SortSelect</span>
+  <span class="attr">sortBy</span>=<span class="jsx">{typeSortBy}</span>
+  <span class="attr">ascOrDesc</span>=<span class="jsx">{typeAscOrDesc}</span>
+  <span class="attr">onChange</span>=<span class="jsx">{(field, dir) => { setTypeSortBy(field); setTypeAscOrDesc(dir); }}</span>
+  <span class="attr">options</span>=<span class="jsx">{[
+    { label: "Title", value: "title" },
+    { label: "Rating", value: "ratingImdb" },
+    { label: "Date Aired", value: "dateAired" },
+  ]}</span>
+<span class="tag">/&gt;</span></code></pre>
+
+  <h3>TrailerModal Usage</h3>
+  <pre><code><span class="tag">&lt;TrailerModal</span>
+  <span class="attr">open</span>=<span class="jsx">{open}</span>
+  <span class="attr">onClose</span>=<span class="jsx">{() => setOpen(false)}</span>
+  <span class="attr">trailerSrc</span>=<span class="jsx">{movie.trailerSrc}</span>  <span class="cm">// YouTube embed URL</span>
+<span class="tag">/&gt;</span></code></pre>
+
+  <h3>DraggableListItem (dnd-kit)</h3>
+  <pre><code><span class="tag">&lt;DndContext</span> <span class="attr">onDragEnd</span>=<span class="jsx">{handleDragEnd}</span> <span class="attr">sensors</span>=<span class="jsx">{sensors}</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;SortableContext</span> <span class="attr">items</span>=<span class="jsx">{listItems.map(i => i.id)}</span><span class="tag">&gt;</span>
+    {listItems.<span class="fn">map</span>((item) => (
+      <span class="tag">&lt;DraggableListItem</span> <span class="attr">key</span>=<span class="jsx">{item.id}</span> <span class="attr">item</span>=<span class="jsx">{item}</span> <span class="tag">/&gt;</span>
+    ))}
+  <span class="tag">&lt;/SortableContext&gt;</span>
+<span class="tag">&lt;/DndContext&gt;</span></code></pre>
+</section>
+
+<!-- THEMING -->
+<section id="theming">
+  <h2>Theming & MUI Guidelines</h2>
+
+  <pre><code><span class="cm">// MUIThemeProvider wraps all pages</span>
+<span class="tag">&lt;ThemeProvider</span> <span class="attr">theme</span>=<span class="jsx">{theme}</span> <span class="attr">defaultMode</span>=<span class="str">"dark"</span> <span class="attr">disableTransitionOnChange</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;CssBaseline /&gt;</span>
+  {children}
+<span class="tag">&lt;/ThemeProvider&gt;</span></code></pre>
+
+  <h4>Styling Rules</h4>
+  <table>
+    <tr><th>Do</th><th>Don't</th></tr>
+    <tr><td>Use <code class="inline">sx</code> prop for all styles</td><td>Use CSS modules or styled-components</td></tr>
+    <tr><td>Use <code class="inline">theme.vars.palette.*</code> tokens</td><td>Hardcode hex colors</td></tr>
+    <tr><td>Use <code class="inline">Box</code> / <code class="inline">Stack</code> for layout</td><td>Use raw divs for layout</td></tr>
+    <tr><td>Mobile-first: <code class="inline">xs → xl</code> breakpoints</td><td>Desktop-first media queries</td></tr>
+  </table>
+
+  <h3>Breakpoint Reference</h3>
+  <table>
+    <tr><th>Key</th><th>Min Width</th><th>Typical target</th></tr>
+    <tr><td><code class="inline">xs</code></td><td>0px</td><td>Mobile (base default)</td></tr>
+    <tr><td><code class="inline">sm</code></td><td>600px</td><td>Tablet portrait</td></tr>
+    <tr><td><code class="inline">md</code></td><td>900px</td><td>Tablet landscape / small laptop</td></tr>
+    <tr><td><code class="inline">lg</code></td><td>1200px</td><td>Desktop</td></tr>
+    <tr><td><code class="inline">xl</code></td><td>1536px</td><td>Large desktop</td></tr>
+  </table>
+
+  <pre><code><span class="tag">&lt;Box</span> <span class="attr">sx</span>=<span class="jsx">{{</span>
+  <span class="cm">// Responsive spacing</span>
+  <span class="jsx">p: { xs: 2, sm: 3, md: 4 },</span>
+  <span class="cm">// Responsive columns</span>
+  <span class="jsx">gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(3,1fr)" },</span>
+  <span class="cm">// Show/hide</span>
+  <span class="jsx">display: { xs: "none", md: "flex" },</span>
+  <span class="cm">// Typography scale</span>
+  <span class="jsx">fontSize: { xs: 14, md: 16, lg: 18 },</span>
+<span class="jsx">}}</span><span class="tag">&gt;</span></code></pre>
+
+  <h3>Common MUI Palette Tokens</h3>
+  <pre><code><span class="cm">// Access via sx prop (CSS vars mode — SSR safe)</span>
+color: <span class="str">"text.primary"</span>         <span class="cm">// main body text</span>
+color: <span class="str">"text.secondary"</span>       <span class="cm">// muted / label text</span>
+bgcolor: <span class="str">"background.paper"</span>   <span class="cm">// card backgrounds</span>
+bgcolor: <span class="str">"background.default"</span> <span class="cm">// page background</span>
+borderColor: <span class="str">"divider"</span>         <span class="cm">// borders and dividers</span>
+color: <span class="str">"primary.main"</span>         <span class="cm">// accent / brand color</span>
+color: <span class="str">"error.main"</span>           <span class="cm">// error states</span></code></pre>
+</section>
+
+<!-- PRISMA QUERY PATTERNS -->
+<section id="prisma-queries">
+  <h2>Prisma Query Patterns</h2>
+
+  <h3>Pagination + Sorting (standard pattern)</h3>
+  <pre><code><span class="kw">const</span> skip = (page - <span class="num">1</span>) * perPage;
+
+<span class="kw">const</span> [items, total] = <span class="kw">await</span> prisma.<span class="fn">$transaction</span>([
+  prisma.movie.<span class="fn">findMany</span>({
+    where: filters,
+    orderBy: { [sortBy]: ascOrDesc },
+    skip,
+    take: perPage,
+    include: { genres: <span class="kw">true</span>, reviews: <span class="kw">true</span> },
+  }),
+  prisma.movie.<span class="fn">count</span>({ where: filters }),
+]);</code></pre>
+
+  <h3>Aggregate Ratings (groupBy)</h3>
+  <pre><code><span class="kw">const</span> ratings = <span class="kw">await</span> prisma.movieReview.<span class="fn">groupBy</span>({
+  by: [<span class="str">"movieId"</span>],
+  where: { movieId: { in: movieIds } },
+  _avg: { rating: <span class="kw">true</span> },
+  _count: { rating: <span class="kw">true</span> },
+});
+
+<span class="cm">// Build a lookup map for O(1) merge:</span>
+<span class="kw">const</span> ratingsMap = ratings.<span class="fn">reduce</span>((acc, r) => {
+  acc[r.movieId] = {
+    averageRating: r._avg.rating ?? <span class="num">0</span>,
+    totalReviews:  r._count.rating,
+  };
+  <span class="kw">return</span> acc;
+}, {} <span class="kw">as</span> <span class="type">RatingsMap</span>);
+
+<span class="cm">// Merge into movie objects:</span>
+<span class="kw">const</span> moviesWithRatings = movies.<span class="fn">map</span>((m) => ({
+  ...m,
+  ...ratingsMap[m.id],
+}));</code></pre>
+
+  <h3>Include Relations (deep select)</h3>
+  <pre><code><span class="kw">const</span> movie = <span class="kw">await</span> prisma.movie.<span class="fn">findUnique</span>({
+  where: { id: movieId },
+  include: {
+    genres: { include: { genre: <span class="kw">true</span> } },
+    cast:   { include: { actor: <span class="kw">true</span> }, take: <span class="num">10</span> },
+    crew:   { include: { crew:  <span class="kw">true</span> }, take: <span class="num">10</span> },
+    reviews: {
+      include: {
+        user: { select: { userName: <span class="kw">true</span>, photoSrc: <span class="kw">true</span> } },
+        upvotes: <span class="kw">true</span>,
+        downvotes: <span class="kw">true</span>,
+      },
+      orderBy: { createdAt: <span class="str">"desc"</span> },
+      take: <span class="num">10</span>,
+    },
+  },
+});</code></pre>
+
+  <h3>Upsert Pattern</h3>
+  <pre><code><span class="cm">// Favorite toggle — add if absent, else remove</span>
+<span class="kw">const</span> existing = <span class="kw">await</span> prisma.userMovieFavorite.<span class="fn">findUnique</span>({
+  where: { userId_movieId: { userId, movieId } }
+});
+
+<span class="kw">if</span> (existing) {
+  <span class="kw">await</span> prisma.userMovieFavorite.<span class="fn">delete</span>({ where: { id: existing.id } });
+} <span class="kw">else</span> {
+  <span class="kw">await</span> prisma.userMovieFavorite.<span class="fn">create</span>({ data: { userId, movieId } });
+}</code></pre>
+
+  <h3>Full-Text Search (PostgreSQL)</h3>
+  <pre><code><span class="cm">// Requires previewFeatures = ["fullTextSearchPostgres"] in schema</span>
+<span class="kw">const</span> movies = <span class="kw">await</span> prisma.movie.<span class="fn">findMany</span>({
+  where: {
+    OR: [
+      { title:       { search: term } },
+      { description: { search: term } },
+    ]
+  }
+});
+
+<span class="cm">// Also used in /api/search route for cross-entity results</span></code></pre>
+
+  <h3>Select vs Include</h3>
+  <table>
+    <tr><th>Keyword</th><th>Use for</th><th>Note</th></tr>
+    <tr><td><code class="inline">select</code></td><td>Pick only specific scalar fields</td><td>Cannot be combined with include at same level</td></tr>
+    <tr><td><code class="inline">include</code></td><td>Eager-load full relations</td><td>Returns all scalar fields + relation</td></tr>
+    <tr><td><code class="inline">take / skip</code></td><td>Pagination</td><td>Always pair with orderBy for deterministic results</td></tr>
+    <tr><td><code class="inline">$transaction</code></td><td>Atomic batch queries</td><td>Used for count + findMany pairs</td></tr>
+  </table>
+</section>
+
+<!-- NEXTAUTH CONFIG -->
+<section id="nextauth">
+  <h2>NextAuth Configuration</h2>
+
+  <p>Auth lives at <code class="inline">src/app/api/auth/[...nextauth]/route.ts</code>. Uses <code class="inline">next-auth v4</code> with <code class="inline">@next-auth/prisma-adapter</code>.</p>
+
+  <h3>authOptions Structure</h3>
+  <pre><code><span class="kw">import</span> { PrismaAdapter } <span class="kw">from</span> <span class="str">"@next-auth/prisma-adapter"</span>;
+<span class="kw">import</span> CredentialsProvider <span class="kw">from</span> <span class="str">"next-auth/providers/credentials"</span>;
+<span class="kw">import</span> { compareSync } <span class="kw">from</span> <span class="str">"bcrypt"</span>;
+
+<span class="kw">export const</span> authOptions: <span class="type">NextAuthOptions</span> = {
+  adapter: <span class="fn">PrismaAdapter</span>(prisma),
+  providers: [
+    <span class="fn">CredentialsProvider</span>({
+      name: <span class="str">"credentials"</span>,
+      credentials: {
+        email:    { label: <span class="str">"Email"</span>,    type: <span class="str">"email"</span>    },
+        password: { label: <span class="str">"Password"</span>, type: <span class="str">"password"</span> },
+      },
+      <span class="kw">async</span> <span class="fn">authorize</span>(credentials) {
+        <span class="kw">const</span> user = <span class="kw">await</span> prisma.user.<span class="fn">findUnique</span>({
+          where: { email: credentials?.email }
+        });
+        <span class="kw">if</span> (!user || !user.password) <span class="kw">return null</span>;
+        <span class="kw">if</span> (!user.active) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Email not verified"</span>);
+        <span class="kw">const</span> valid = <span class="fn">compareSync</span>(credentials!.password, user.password);
+        <span class="kw">return</span> valid ? user : <span class="kw">null</span>;
+      },
+    }),
+  ],
+  session:  { strategy: <span class="str">"jwt"</span> },
+  callbacks: {
+    <span class="kw">async</span> <span class="fn">jwt</span>({ token, user }) {
+      <span class="kw">if</span> (user) {
+        token.id       = user.id;
+        token.role     = user.role;
+        token.userName = user.userName;
+      }
+      <span class="kw">return</span> token;
+    },
+    <span class="kw">async</span> <span class="fn">session</span>({ session, token }) {
+      session.user.id       = token.id <span class="kw">as string</span>;
+      session.user.role     = token.role <span class="kw">as string</span>;
+      session.user.userName = token.userName <span class="kw">as string</span>;
+      <span class="kw">return</span> session;
+    },
+  },
+  pages: {
+    signIn:  <span class="str">"/auth/signin"</span>,
+    error:   <span class="str">"/auth/error"</span>,
+  },
+};</code></pre>
+
+  <h3>Session Type Extension</h3>
+  <pre><code><span class="cm">// src/types/next-auth.d.ts</span>
+<span class="kw">declare module</span> <span class="str">"next-auth"</span> {
+  <span class="kw">interface</span> <span class="type">Session</span> {
+    user: {
+      id:       <span class="type">string</span>;
+      email:    <span class="type">string</span>;
+      userName: <span class="type">string</span>;
+      role:     <span class="type">"User"</span> | <span class="type">"Admin"</span>;
+    };
+  }
+}
+
+<span class="cm">// Now session.user.role and session.user.userName are typed everywhere</span></code></pre>
+
+  <h3>Session Usage Patterns</h3>
+  <table>
+    <tr><th>Context</th><th>How to get session</th></tr>
+    <tr><td>Server Component / Page</td><td><code class="inline">getServerSession(authOptions)</code></td></tr>
+    <tr><td>Client Component</td><td><code class="inline">useSession()</code> from next-auth/react</td></tr>
+    <tr><td>Server Action</td><td><code class="inline">getServerSession(authOptions)</code></td></tr>
+    <tr><td>Route Handler</td><td><code class="inline">getServerSession(authOptions)</code></td></tr>
+    <tr><td>Middleware</td><td><code class="inline">getToken()</code> from next-auth/jwt</td></tr>
+  </table>
+</section>
+
+<!-- EMAIL SYSTEM -->
+<section id="email">
+  <h2>Email System</h2>
+
+  <p>Emails are React components in <code class="inline">emails/</code>, sent via <strong>Resend</strong>, previewed with <code class="inline">npm run email</code> (React Email dev server).</p>
+
+  <h3>Email Templates</h3>
+  <table>
+    <tr><th>File</th><th>Triggered by</th><th>Key data</th></tr>
+    <tr><td>RegistrationEmail.tsx</td><td>signUp() action</td><td>verification token → /api/verifyRegister?token=...</td></tr>
+    <tr><td>ResetPasswordEmail.tsx</td><td>resetPassword() action</td><td>reset token → /api/verifyResetPassword?token=...</td></tr>
+    <tr><td>NewsletterEmail.tsx</td><td>newsletter subscribe action</td><td>unsubscribe link</td></tr>
+  </table>
+
+  <h3>Template Example</h3>
+  <pre><code><span class="cm">// emails/RegistrationEmail.tsx</span>
+<span class="kw">import</span> { Html, Button, Text, Heading, Section } <span class="kw">from</span> <span class="str">"@react-email/components"</span>;
+
+<span class="kw">interface</span> <span class="type">Props</span> { token: <span class="type">string</span>; }
+
+<span class="kw">export default function</span> <span class="fn">RegistrationEmail</span>({ token }: <span class="type">Props</span>) {
+  <span class="kw">const</span> verifyUrl = <span class="str">`</span><span class="str">${process.env.NEXT_PUBLIC_PROJECT_URL}/api/verifyRegister?token=${token}`</span>;
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Html&gt;</span>
+      <span class="tag">&lt;Section&gt;</span>
+        <span class="tag">&lt;Heading&gt;</span>Welcome to MovieLandia24!<span class="tag">&lt;/Heading&gt;</span>
+        <span class="tag">&lt;Text&gt;</span>Click below to verify your email address.<span class="tag">&lt;/Text&gt;</span>
+        <span class="tag">&lt;Button</span> <span class="attr">href</span>=<span class="jsx">{verifyUrl}</span><span class="tag">&gt;</span>Verify Email<span class="tag">&lt;/Button&gt;</span>
+      <span class="tag">&lt;/Section&gt;</span>
+    <span class="tag">&lt;/Html&gt;</span>
+  );
+}</code></pre>
+
+  <h3>Sending via Resend</h3>
+  <pre><code><span class="kw">const</span> resend = <span class="kw">new</span> <span class="fn">Resend</span>(process.env.<span class="type">RESEND_API_KEY</span>);
+
+<span class="kw">await</span> resend.emails.<span class="fn">send</span>({
+  from:    <span class="str">"noreply@movielandia24.com"</span>,
+  to:      userEmail,
+  subject: <span class="str">"Verify your account"</span>,
+  react:   <span class="tag">&lt;RegistrationEmail</span> <span class="attr">token</span>=<span class="jsx">{token}</span> <span class="tag">/&gt;</span>,
+});</code></pre>
+
+  <h3>Token Flow</h3>
+  <div class="flow">
+    <div class="flow-item">User registers</div><div class="flow-arrow">→</div>
+    <div class="flow-item">Create ActivateToken in DB</div><div class="flow-arrow">→</div>
+    <div class="flow-item">Send email with token</div><div class="flow-arrow">→</div>
+    <div class="flow-item">User clicks link</div><div class="flow-arrow">→</div>
+    <div class="flow-item">/api/verifyRegister?token=…</div><div class="flow-arrow">→</div>
+    <div class="flow-item">Set user.active = true</div>
+  </div>
+</section>
+
+<!-- FORUM SYSTEM -->
+<section id="forum">
+  <h2>Forum System</h2>
+
+  <p>Located at <code class="inline">/forum</code>. Categories → Topics → Posts → Replies. Tags on Topics. Rich text via Quill.</p>
+
+  <h3>Data Hierarchy</h3>
+  <div class="flow">
+    <div class="flow-item">ForumCategory</div><div class="flow-arrow">→</div>
+    <div class="flow-item">ForumTopic</div><div class="flow-arrow">→</div>
+    <div class="flow-item">ForumPost</div><div class="flow-arrow">→</div>
+    <div class="flow-item">ForumReply</div>
+  </div>
+
+  <h3>Forum File Structure</h3>
+  <div class="tree">
+<span class="dir">src/app/(root)/forum/</span><br>
+├─ page.tsx                 <span class="desc">Category listing</span><br>
+├─ <span class="dir">categories/</span><br>
+│  └─ [categoryId]/[categoryName]/  <span class="desc">Topics in category</span><br>
+├─ <span class="dir">posts/</span><br>
+│  └─ [postId]/[postTitle]/         <span class="desc">Full post thread with replies</span><br>
+└─ <span class="dir">search/</span>                 <span class="desc">Forum search page</span>
+  </div>
+
+  <h3>Forum Actions</h3>
+  <table>
+    <tr><th>Action File</th><th>Functions</th></tr>
+    <tr><td>forum/forumCategory.actions.ts</td><td>getCategories, getCategoryById</td></tr>
+    <tr><td>forum/forumTopic.actions.ts</td><td>getTopicsByCategory, createTopic, deleteTopic</td></tr>
+    <tr><td>forum/forumPost.actions.ts</td><td>getPostsByTopic, createPost, updatePost, deletePost</td></tr>
+    <tr><td>forum/forumReply.actions.ts</td><td>getRepliesByPost, createReply, deleteReply</td></tr>
+    <tr><td>forum/forumTag.actions.ts</td><td>getAllTags, addTagToTopic</td></tr>
+  </table>
+
+  <h3>Topic Features</h3>
+  <div class="card-grid">
+    <div class="mini-card"><div class="label">Pinned</div><div class="value" style="font-size:12px">isPinned flag</div><div class="sub">Admin can pin topics</div></div>
+    <div class="mini-card"><div class="label">Locked</div><div class="value" style="font-size:12px">isLocked flag</div><div class="sub">Prevent new posts</div></div>
+    <div class="mini-card"><div class="label">Views</div><div class="value" style="font-size:12px">views counter</div><div class="sub">Incremented on visit</div></div>
+    <div class="mini-card"><div class="label">Tags</div><div class="value" style="font-size:12px">ForumTopicTag M:M</div><div class="sub">Filter by topic</div></div>
+  </div>
+</section>
+
+<!-- ADMIN PANEL -->
+<section id="admin">
+  <h2>Admin Panel</h2>
+
+  <p>Located at <code class="inline">src/app/(admin)/</code>. Protected by role check — only <code class="inline">UserType.Admin</code> can access.</p>
+
+  <h3>Admin Features</h3>
+  <div class="card-grid">
+    <div class="mini-card"><div class="label">CRUD</div><div class="value" style="font-size:12px">Movies, Series, Seasons, Episodes</div></div>
+    <div class="mini-card"><div class="label">People</div><div class="value" style="font-size:12px">Actors, Crew management</div></div>
+    <div class="mini-card"><div class="label">Content</div><div class="value" style="font-size:12px">Genres, Reviews moderation</div></div>
+    <div class="mini-card"><div class="label">Users</div><div class="value" style="font-size:12px">User management, role changes</div></div>
+    <div class="mini-card"><div class="label">Export</div><div class="value" style="font-size:12px">PDF (jspdf) + Excel (xlsx)</div></div>
+    <div class="mini-card"><div class="label">Tables</div><div class="value" style="font-size:12px">material-react-table with sort/filter/pagination</div></div>
+  </div>
+
+  <h3>Admin Route Guard</h3>
+  <pre><code><span class="cm">// src/app/(admin)/layout.tsx</span>
+<span class="kw">export default async function</span> <span class="fn">AdminLayout</span>({ children }) {
+  <span class="kw">const</span> session = <span class="kw">await</span> <span class="fn">getServerSession</span>(authOptions);
+
+  <span class="kw">if</span> (!session?.user)         <span class="fn">redirect</span>(<span class="str">"/auth/signin"</span>);
+  <span class="kw">if</span> (session.user.role !== <span class="str">"Admin"</span>) <span class="fn">redirect</span>(<span class="str">"/"</span>);
+
+  <span class="kw">return</span> <span class="tag">&lt;AdminLayout&gt;</span>{children}<span class="tag">&lt;/AdminLayout&gt;</span>;
+}</code></pre>
+
+  <h3>Material React Table (admin table)</h3>
+  <pre><code><span class="str">"use client"</span>;\n<span class="kw">import</span> { useMaterialReactTable, MaterialReactTable } <span class="kw">from</span> <span class="str">"material-react-table"</span>;
+
+<span class="kw">const</span> table = <span class="fn">useMaterialReactTable</span>({
+  columns,
+  data: movies,
+  enableSorting: <span class="kw">true</span>,
+  enablePagination: <span class="kw">true</span>,
+  enableRowActions: <span class="kw">true</span>,
+  renderRowActions: ({ row }) => (
+    <span class="tag">&lt;Box&gt;</span>
+      <span class="tag">&lt;IconButton</span> <span class="attr">onClick</span>=<span class="jsx">{() => openModal({ onConfirm: () => deleteMovie(row.original.id) })}</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;DeleteIcon /&gt;</span>
+      <span class="tag">&lt;/IconButton&gt;</span>
+    <span class="tag">&lt;/Box&gt;</span>
+  ),
+});
+
+<span class="kw">return</span> <span class="tag">&lt;MaterialReactTable</span> <span class="attr">table</span>=<span class="jsx">{table}</span> <span class="tag">/&gt;</span>;</code></pre>
+
+  <h3>PDF Export Pattern</h3>
+  <pre><code><span class="kw">import</span> jsPDF <span class="kw">from</span> <span class="str">"jspdf"</span>;
+<span class="kw">import</span> autoTable <span class="kw">from</span> <span class="str">"jspdf-autotable"</span>;
+
+<span class="kw">const</span> doc = <span class="kw">new</span> <span class="fn">jsPDF</span>();
+<span class="fn">autoTable</span>(doc, {
+  head: [[<span class="str">"Title"</span>, <span class="str">"Rating"</span>, <span class="str">"Duration"</span>]],
+  body: movies.<span class="fn">map</span>((m) => [m.title, m.ratingImdb, m.duration]),
+});
+doc.<span class="fn">save</span>(<span class="str">"movies.pdf"</span>);</code></pre>
+</section>
+
+<!-- ENVIRONMENT VARIABLES -->
+<section id="env">
+  <h2>Environment Variables</h2>
+
+  <div class="warn">Never commit <code class="inline">.env</code> to git. Never overwrite it without confirmation.</div>
+
+  <h3>Required Variables</h3>
+  <table>
+    <tr><th>Variable</th><th>Used by</th><th>Example</th></tr>
+    <tr><td><code class="inline">DATABASE_URL</code></td><td>Prisma datasource</td><td>postgresql://user:pass@host:5432/movielandia</td></tr>
+    <tr><td><code class="inline">NEXTAUTH_SECRET</code></td><td>NextAuth JWT signing</td><td>random 32+ char string</td></tr>
+    <tr><td><code class="inline">NEXTAUTH_URL</code></td><td>NextAuth redirect base</td><td>http://localhost:4000</td></tr>
+    <tr><td><code class="inline">NEXT_PUBLIC_PROJECT_URL</code></td><td>OG meta, email links, sitemap</td><td>https://movielandia24.com</td></tr>
+    <tr><td><code class="inline">RESEND_API_KEY</code></td><td>Resend email sending</td><td>re_xxxxxxxxxxxxxxxxxx</td></tr>
+    <tr><td><code class="inline">SITE_NAME</code></td><td>Metadata title template</td><td>MovieLandia24</td></tr>
+    <tr><td><code class="inline">TWITTER_CREATOR</code></td><td>Twitter OG card</td><td>@movieLandia24</td></tr>
+    <tr><td><code class="inline">TWITTER_SITE</code></td><td>Twitter OG card</td><td>https://movielandia24.com</td></tr>
+  </table>
+
+  <h3>Optional Variables</h3>
+  <table>
+    <tr><th>Variable</th><th>Used by</th></tr>
+    <tr><td><code class="inline">NEXT_PUBLIC_PUBLIC_KEY</code></td><td>ImageKit CDN public key</td></tr>
+    <tr><td><code class="inline">PRIVATE_KEY</code></td><td>ImageKit CDN private key</td></tr>
+    <tr><td><code class="inline">NEXT_PUBLIC_URL_ENDPOINT</code></td><td>ImageKit URL endpoint</td></tr>
+    <tr><td><code class="inline">GOOGLE_CLIENT_ID</code></td><td>NextAuth Google OAuth provider</td></tr>
+    <tr><td><code class="inline">GOOGLE_CLIENT_SECRET</code></td><td>NextAuth Google OAuth provider</td></tr>
+  </table>
+
+  <h3>Accessing Env Vars</h3>
+  <pre><code><span class="cm">// Server-side only (Server Components, Server Actions, Route Handlers):</span>
+process.env.<span class="type">RESEND_API_KEY</span>
+
+<span class="cm">// Accessible on client too (must prefix NEXT_PUBLIC_):</span>
+process.env.<span class="type">NEXT_PUBLIC_PROJECT_URL</span>
+
+<span class="cm">// Type-safe access via dotenv in seed scripts:</span>
+<span class="kw">import</span> { config } <span class="kw">from</span> <span class="str">"dotenv"</span>;
+<span class="fn">config</span>();  <span class="cm">// loads .env for tsx scripts</span></code></pre>
+</section>
+
+<!-- CHEAT SHEET -->
+<section id="cheatsheet">
+  <h2>⚡ Cheat Sheet</h2>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h4 style="color:var(--accent)">Dev Commands</h4>
+      <div class="cheat-row"><span class="key">Start dev</span><span class="val">npm run dev</span></div>
+      <div class="cheat-row"><span class="key">Build</span><span class="val">npm run build</span></div>
+      <div class="cheat-row"><span class="key">Unit tests</span><span class="val">npm test</span></div>
+      <div class="cheat-row"><span class="key">Test UI</span><span class="val">npm run test:ui</span></div>
+      <div class="cheat-row"><span class="key">Email dev</span><span class="val">npm run email</span></div>
+      <div class="cheat-row"><span class="key">Seed DB</span><span class="val">npm run seed</span></div>
+      <div class="cheat-row"><span class="key">Format</span><span class="val">npm run format</span></div>
+      <div class="cheat-row"><span class="key">Perf scan</span><span class="val">npm run scan</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--green)">File Conventions</h4>
+      <div class="cheat-row"><span class="key">Server Action</span><span class="val">"use server" at top</span></div>
+      <div class="cheat-row"><span class="key">Client component</span><span class="val">"use client" at top</span></div>
+      <div class="cheat-row"><span class="key">Route group</span><span class="val">(folder)</span></div>
+      <div class="cheat-row"><span class="key">Dynamic segment</span><span class="val">[param]</span></div>
+      <div class="cheat-row"><span class="key">Catch-all</span><span class="val">[...slug]</span></div>
+      <div class="cheat-row"><span class="key">Unit test file</span><span class="val">*.test.ts(x)</span></div>
+      <div class="cheat-row"><span class="key">E2E test</span><span class="val">tests/*.spec.ts</span></div>
+      <div class="cheat-row"><span class="key">Schema file</span><span class="val">src/schemas/*.schema.ts</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--blue)">Key Imports</h4>
+      <div class="cheat-row"><span class="key">Prisma client</span><span class="val">prisma/config/prisma</span></div>
+      <div class="cheat-row"><span class="key">Zustand store</span><span class="val">@/store/store</span></div>
+      <div class="cheat-row"><span class="key">Toast helper</span><span class="val">@/utils/helpers/toast</span></div>
+      <div class="cheat-row"><span class="key">tryCatch</span><span class="val">@/utils/helpers/tryCatch</span></div>
+      <div class="cheat-row"><span class="key">formatForUrl</span><span class="val">@/utils/helpers/formatUrl</span></div>
+      <div class="cheat-row"><span class="key">authOptions</span><span class="val">@/app/api/auth/[...nextauth]/route</span></div>
+      <div class="cheat-row"><span class="key">useModal</span><span class="val">@/providers/ModalProvider</span></div>
+      <div class="cheat-row"><span class="key">useSorting</span><span class="val">@/hooks/useSorting</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--orange)">URL State (nuqs)</h4>
+      <div class="cheat-row"><span class="key">Sort field</span><span class="val">?{type}SortBy=title</span></div>
+      <div class="cheat-row"><span class="key">Sort dir</span><span class="val">?{type}AscOrDesc=asc</span></div>
+      <div class="cheat-row"><span class="key">Page</span><span class="val">?page=2</span></div>
+      <div class="cheat-row"><span class="key">Search term</span><span class="val">?term=batman</span></div>
+      <div class="cheat-row"><span class="key">shallow: false</span><span class="val">triggers server render</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--accent2)">Data Model Quick Ref</h4>
+      <div class="cheat-row"><span class="key">Movie review key</span><span class="val">@@unique([userId, movieId])</span></div>
+      <div class="cheat-row"><span class="key">Auth token</span><span class="val">ActivateToken, ResetPasswordToken</span></div>
+      <div class="cheat-row"><span class="key">User roles</span><span class="val">User | Admin</span></div>
+      <div class="cheat-row"><span class="key">Follow state</span><span class="val">pending | accepted | rejected</span></div>
+      <div class="cheat-row"><span class="key">List actions</span><span class="val">Created…Unshared (7 types)</span></div>
+      <div class="cheat-row"><span class="key">Content types</span><span class="val">movie serie season episode actor crew user</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--yellow)">Pattern Rules</h4>
+      <div class="cheat-row"><span class="key">Default to</span><span class="val">Server Components</span></div>
+      <div class="cheat-row"><span class="key">Mutations via</span><span class="val">Server Actions</span></div>
+      <div class="cheat-row"><span class="key">Client API calls via</span><span class="val">Route Handlers</span></div>
+      <div class="cheat-row"><span class="key">Styling via</span><span class="val">sx prop only</span></div>
+      <div class="cheat-row"><span class="key">Validate with</span><span class="val">Zod + react-hook-form</span></div>
+      <div class="cheat-row"><span class="key">URL state</span><span class="val">nuqs useQueryState</span></div>
+      <div class="cheat-row"><span class="key">UI state</span><span class="val">zustand useStore</span></div>
+      <div class="cheat-row"><span class="key">No comments in code</span><span class="val">self-documenting names</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--red)">Auth Flow</h4>
+      <div class="cheat-row"><span class="key">Register</span><span class="val">signUp() → email verify</span></div>
+      <div class="cheat-row"><span class="key">Verify</span><span class="val">/api/verifyRegister?token=...</span></div>
+      <div class="cheat-row"><span class="key">Reset PW</span><span class="val">resetPassword() → email → /api/verifyResetPassword</span></div>
+      <div class="cheat-row"><span class="key">Session check</span><span class="val">getServerSession(authOptions)</span></div>
+      <div class="cheat-row"><span class="key">Client session</span><span class="val">useSession()</span></div>
+      <div class="cheat-row"><span class="key">Redirect if unauth</span><span class="val">redirect("/auth/signin")</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--green)">Testing Checklist</h4>
+      <div class="cheat-row"><span class="key">Mock actions</span><span class="val">vi.mock("@/actions/...")</span></div>
+      <div class="cheat-row"><span class="key">Mock toast</span><span class="val">vi.mock("@/utils/helpers/toast")</span></div>
+      <div class="cheat-row"><span class="key">Use data-testid</span><span class="val">for queries</span></div>
+      <div class="cheat-row"><span class="key">Test success + error</span><span class="val">both paths</span></div>
+      <div class="cheat-row"><span class="key">No prod mocks</span><span class="val">only in test files</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--blue)">Prisma Quick Ref</h4>
+      <div class="cheat-row"><span class="key">Paginate</span><span class="val">skip + take</span></div>
+      <div class="cheat-row"><span class="key">Atomic batch</span><span class="val">prisma.$transaction([])</span></div>
+      <div class="cheat-row"><span class="key">Avg rating</span><span class="val">groupBy + _avg</span></div>
+      <div class="cheat-row"><span class="key">Upsert review</span><span class="val">prisma.movieReview.upsert()</span></div>
+      <div class="cheat-row"><span class="key">Bust cache</span><span class="val">revalidatePath(path)</span></div>
+      <div class="cheat-row"><span class="key">Full-text</span><span class="val">{ search: term } mode</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--orange)">Email System</h4>
+      <div class="cheat-row"><span class="key">Send</span><span class="val">resend.emails.send({ react: &lt;Email/&gt; })</span></div>
+      <div class="cheat-row"><span class="key">Preview</span><span class="val">npm run email</span></div>
+      <div class="cheat-row"><span class="key">Templates</span><span class="val">emails/*.tsx</span></div>
+      <div class="cheat-row"><span class="key">Verify flow</span><span class="val">ActivateToken → /api/verifyRegister</span></div>
+      <div class="cheat-row"><span class="key">Reset flow</span><span class="val">ResetPasswordToken → /api/verifyResetPassword</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--accent2)">MUI Breakpoints</h4>
+      <div class="cheat-row"><span class="key">xs</span><span class="val">0px — mobile base</span></div>
+      <div class="cheat-row"><span class="key">sm</span><span class="val">600px — tablet</span></div>
+      <div class="cheat-row"><span class="key">md</span><span class="val">900px — laptop</span></div>
+      <div class="cheat-row"><span class="key">lg</span><span class="val">1200px — desktop</span></div>
+      <div class="cheat-row"><span class="key">xl</span><span class="val">1536px — large</span></div>
+      <div class="cheat-row"><span class="key">Syntax</span><span class="val">sx={{ p: { xs:1, md:3 } }}</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h4 style="color:var(--red)">Admin Panel</h4>
+      <div class="cheat-row"><span class="key">Route guard</span><span class="val">role !== "Admin" → redirect("/")</span></div>
+      <div class="cheat-row"><span class="key">Table lib</span><span class="val">material-react-table</span></div>
+      <div class="cheat-row"><span class="key">PDF export</span><span class="val">jspdf + autoTable</span></div>
+      <div class="cheat-row"><span class="key">Excel export</span><span class="val">xlsx</span></div>
+      <div class="cheat-row"><span class="key">Sidebar state</span><span class="val">isOpenSidebarAdmin (zustand)</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="warn">Files &gt; 400–500 lines should be refactored into smaller modules. No comments in JSX/code — use descriptive names instead. Never overwrite <code class="inline">.env</code> without confirmation.</div>
+</section>
+
+</main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('nav a[href^="#"]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
