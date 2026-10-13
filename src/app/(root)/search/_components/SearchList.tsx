@@ -33,13 +33,7 @@ interface MediaListProps {
 		| "Users"
 		| "Crew";
 	cardType:
-		| "movie"
-		| "serie"
-		| "actor"
-		| "season"
-		| "episode"
-		| "user"
-		| "crew";
+		"movie" | "serie" | "actor" | "season" | "episode" | "user" | "crew";
 	path?: PathType;
 }
 

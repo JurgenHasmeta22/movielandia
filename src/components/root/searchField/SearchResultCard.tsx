@@ -7,13 +7,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 type ResultType =
-	| "movie"
-	| "serie"
-	| "season"
-	| "episode"
-	| "actor"
-	| "crew"
-	| "user";
+	"movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
 type PathType = "movies" | "actors" | "crew" | null;
 
 interface BaseResultData {

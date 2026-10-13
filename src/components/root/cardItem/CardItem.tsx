@@ -45,13 +45,7 @@ import {
 
 // #region "Types and Interfaces"
 export type CardItemType =
-	| "movie"
-	| "serie"
-	| "season"
-	| "episode"
-	| "actor"
-	| "crew"
-	| "user";
+	"movie" | "serie" | "season" | "episode" | "actor" | "crew" | "user";
 
 export type PathType = "movies" | "actors" | "crew" | null;
 
@@ -264,10 +258,7 @@ const CardItem: React.FC<ICardItemProps> = ({
 		}
 
 		const mediaData = data as
-			| MovieCardData
-			| SerieCardData
-			| SeasonCardData
-			| EpisodeCardData;
+			MovieCardData | SerieCardData | SeasonCardData | EpisodeCardData;
 		const year = mediaData.dateAired
 			? new Date(mediaData.dateAired).getFullYear()
 			: "N/A";

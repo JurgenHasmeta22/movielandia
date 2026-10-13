@@ -32,12 +32,7 @@ import {
 } from "@/actions/user/userBookmarks.actions";
 
 export type FavoriteType =
-	| "Movies"
-	| "Series"
-	| "Actors"
-	| "Crew"
-	| "Seasons"
-	| "Episodes";
+	"Movies" | "Series" | "Actors" | "Crew" | "Seasons" | "Episodes";
 
 interface FavoriteMovie {
 	id: number;

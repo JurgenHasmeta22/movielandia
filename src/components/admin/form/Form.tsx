@@ -136,8 +136,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
 						{fields.map((field: FieldConfig, index: number) => {
 							const error = !!errors[field.name];
 							const helperText = errors[field.name]?.message as
-								| string
-								| undefined;
+								string | undefined;
 
 							switch (field.type) {
 								case "select":
