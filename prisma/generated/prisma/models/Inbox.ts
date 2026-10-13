@@ -164,7 +164,7 @@ export type InboxGroupByOutputType = {
   _max: InboxMaxAggregateOutputType | null
 }
 
-type GetInboxGroupByPayload<T extends InboxGroupByArgs> = Prisma.PrismaPromise<
+export type GetInboxGroupByPayload<T extends InboxGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<InboxGroupByOutputType, T['by']> &
       {
@@ -1072,6 +1072,11 @@ export type InboxFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Inboxes.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Inboxes.
+   */
   distinct?: Prisma.InboxScalarFieldEnum | Prisma.InboxScalarFieldEnum[]
 }
 

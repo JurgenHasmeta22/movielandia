@@ -8,7 +8,7 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { subscribeNewsletter } from "../../../../actions/auth.actions";
@@ -102,7 +102,7 @@ const NewsletterSection = () => {
 									mb: 3,
 								}}
 							>
-								<MailOutlineIcon sx={{ mr: 1, fontSize: 20 }} />
+								<MailOutlineOutlinedIcon sx={{ mr: 1, fontSize: 20 }} />
 								<Typography
 									variant="subtitle2"
 									sx={{ fontWeight: 600, fontSize: 14 }}

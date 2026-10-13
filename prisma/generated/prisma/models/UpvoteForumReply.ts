@@ -186,7 +186,7 @@ export type UpvoteForumReplyGroupByOutputType = {
   _max: UpvoteForumReplyMaxAggregateOutputType | null
 }
 
-type GetUpvoteForumReplyGroupByPayload<T extends UpvoteForumReplyGroupByArgs> = Prisma.PrismaPromise<
+export type GetUpvoteForumReplyGroupByPayload<T extends UpvoteForumReplyGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UpvoteForumReplyGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type UpvoteForumReplyFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` UpvoteForumReplies.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UpvoteForumReplies.
+   */
   distinct?: Prisma.UpvoteForumReplyScalarFieldEnum | Prisma.UpvoteForumReplyScalarFieldEnum[]
 }
 

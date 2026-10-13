@@ -186,7 +186,7 @@ export type UserEpisodeFavoriteGroupByOutputType = {
   _max: UserEpisodeFavoriteMaxAggregateOutputType | null
 }
 
-type GetUserEpisodeFavoriteGroupByPayload<T extends UserEpisodeFavoriteGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserEpisodeFavoriteGroupByPayload<T extends UserEpisodeFavoriteGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserEpisodeFavoriteGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type UserEpisodeFavoriteFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` UserEpisodeFavorites.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserEpisodeFavorites.
+   */
   distinct?: Prisma.UserEpisodeFavoriteScalarFieldEnum | Prisma.UserEpisodeFavoriteScalarFieldEnum[]
 }
 

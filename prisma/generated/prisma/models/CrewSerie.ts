@@ -186,7 +186,7 @@ export type CrewSerieGroupByOutputType = {
   _max: CrewSerieMaxAggregateOutputType | null
 }
 
-type GetCrewSerieGroupByPayload<T extends CrewSerieGroupByArgs> = Prisma.PrismaPromise<
+export type GetCrewSerieGroupByPayload<T extends CrewSerieGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CrewSerieGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type CrewSerieFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` CrewSeries.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CrewSeries.
+   */
   distinct?: Prisma.CrewSerieScalarFieldEnum | Prisma.CrewSerieScalarFieldEnum[]
 }
 

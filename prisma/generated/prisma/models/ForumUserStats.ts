@@ -237,7 +237,7 @@ export type ForumUserStatsGroupByOutputType = {
   _max: ForumUserStatsMaxAggregateOutputType | null
 }
 
-type GetForumUserStatsGroupByPayload<T extends ForumUserStatsGroupByArgs> = Prisma.PrismaPromise<
+export type GetForumUserStatsGroupByPayload<T extends ForumUserStatsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ForumUserStatsGroupByOutputType, T['by']> &
       {
@@ -1243,6 +1243,11 @@ export type ForumUserStatsFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` ForumUserStats.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ForumUserStats.
+   */
   distinct?: Prisma.ForumUserStatsScalarFieldEnum | Prisma.ForumUserStatsScalarFieldEnum[]
 }
 

@@ -222,7 +222,7 @@ export type ListEpisodeGroupByOutputType = {
   _max: ListEpisodeMaxAggregateOutputType | null
 }
 
-type GetListEpisodeGroupByPayload<T extends ListEpisodeGroupByArgs> = Prisma.PrismaPromise<
+export type GetListEpisodeGroupByPayload<T extends ListEpisodeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ListEpisodeGroupByOutputType, T['by']> &
       {
@@ -1528,6 +1528,11 @@ export type ListEpisodeFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` ListEpisodes.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ListEpisodes.
+   */
   distinct?: Prisma.ListEpisodeScalarFieldEnum | Prisma.ListEpisodeScalarFieldEnum[]
 }
 

@@ -186,7 +186,7 @@ export type UserCrewFavoriteGroupByOutputType = {
   _max: UserCrewFavoriteMaxAggregateOutputType | null
 }
 
-type GetUserCrewFavoriteGroupByPayload<T extends UserCrewFavoriteGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserCrewFavoriteGroupByPayload<T extends UserCrewFavoriteGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserCrewFavoriteGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type UserCrewFavoriteFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` UserCrewFavorites.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserCrewFavorites.
+   */
   distinct?: Prisma.UserCrewFavoriteScalarFieldEnum | Prisma.UserCrewFavoriteScalarFieldEnum[]
 }
 

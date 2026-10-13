@@ -10,7 +10,7 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
 import ForumIcon from "@mui/icons-material/Forum";
@@ -125,7 +125,7 @@ export default function UserPageContent({
 			case "seasons":
 				return <PlaylistPlayIcon />;
 			case "episodes":
-				return <PlayCircleOutlineIcon />;
+				return <PlayCircleOutlineOutlinedIcon />;
 			case "actors":
 				return <PersonIcon />;
 			case "crew":

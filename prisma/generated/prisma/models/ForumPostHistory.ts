@@ -200,7 +200,7 @@ export type ForumPostHistoryGroupByOutputType = {
   _max: ForumPostHistoryMaxAggregateOutputType | null
 }
 
-type GetForumPostHistoryGroupByPayload<T extends ForumPostHistoryGroupByArgs> = Prisma.PrismaPromise<
+export type GetForumPostHistoryGroupByPayload<T extends ForumPostHistoryGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ForumPostHistoryGroupByOutputType, T['by']> &
       {
@@ -1298,6 +1298,11 @@ export type ForumPostHistoryFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Skip the first `n` ForumPostHistories.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ForumPostHistories.
+   */
   distinct?: Prisma.ForumPostHistoryScalarFieldEnum | Prisma.ForumPostHistoryScalarFieldEnum[]
 }
 

@@ -6,7 +6,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ShareIcon from "@mui/icons-material/Share";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { motion } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
@@ -89,7 +89,7 @@ const HowItWorksSection = () => {
 									mb: 2,
 								}}
 							>
-								<HelpOutlineIcon sx={{ mr: 1, fontSize: 20 }} />
+								<HelpOutlineOutlinedIcon sx={{ mr: 1, fontSize: 20 }} />
 								<Typography
 									variant="subtitle2"
 									sx={{ fontWeight: 600, fontSize: 14 }}

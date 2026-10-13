@@ -193,7 +193,7 @@ export type UserForumModeratorGroupByOutputType = {
   _max: UserForumModeratorMaxAggregateOutputType | null
 }
 
-type GetUserForumModeratorGroupByPayload<T extends UserForumModeratorGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserForumModeratorGroupByPayload<T extends UserForumModeratorGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserForumModeratorGroupByOutputType, T['by']> &
       {
@@ -1256,6 +1256,11 @@ export type UserForumModeratorFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` UserForumModerators.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserForumModerators.
+   */
   distinct?: Prisma.UserForumModeratorScalarFieldEnum | Prisma.UserForumModeratorScalarFieldEnum[]
 }
 

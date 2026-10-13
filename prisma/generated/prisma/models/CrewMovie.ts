@@ -186,7 +186,7 @@ export type CrewMovieGroupByOutputType = {
   _max: CrewMovieMaxAggregateOutputType | null
 }
 
-type GetCrewMovieGroupByPayload<T extends CrewMovieGroupByArgs> = Prisma.PrismaPromise<
+export type GetCrewMovieGroupByPayload<T extends CrewMovieGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CrewMovieGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type CrewMovieFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` CrewMovies.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CrewMovies.
+   */
   distinct?: Prisma.CrewMovieScalarFieldEnum | Prisma.CrewMovieScalarFieldEnum[]
 }
 

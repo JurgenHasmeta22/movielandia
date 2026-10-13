@@ -218,7 +218,7 @@ export type EpisodeReviewGroupByOutputType = {
   _max: EpisodeReviewMaxAggregateOutputType | null
 }
 
-type GetEpisodeReviewGroupByPayload<T extends EpisodeReviewGroupByArgs> = Prisma.PrismaPromise<
+export type GetEpisodeReviewGroupByPayload<T extends EpisodeReviewGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EpisodeReviewGroupByOutputType, T['by']> &
       {
@@ -1623,6 +1623,11 @@ export type EpisodeReviewFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Skip the first `n` EpisodeReviews.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EpisodeReviews.
+   */
   distinct?: Prisma.EpisodeReviewScalarFieldEnum | Prisma.EpisodeReviewScalarFieldEnum[]
 }
 

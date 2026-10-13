@@ -4,10 +4,10 @@ import { Box, Typography } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import { JSX } from "react";
 import { useQueryState } from "nuqs";
@@ -23,10 +23,10 @@ const tabOptions: TabOption[] = [
 	{ label: "Movies", icon: <LocalMoviesIcon />, value: "movies" },
 	{ label: "Series", icon: <LiveTvIcon />, value: "series" },
 	{ label: "Seasons", icon: <PlaylistPlayIcon />, value: "seasons" },
-	{ label: "Episodes", icon: <PlayCircleOutlineIcon />, value: "episodes" },
+	{ label: "Episodes", icon: <PlayCircleOutlineOutlinedIcon />, value: "episodes" },
 	{ label: "Actors", icon: <PersonIcon />, value: "actors" },
 	{ label: "Crew", icon: <GroupWorkIcon />, value: "crew" },
-	{ label: "Users", icon: <PersonOutlineIcon />, value: "users" },
+	{ label: "Users", icon: <PersonOutlineOutlinedIcon />, value: "users" },
 ];
 
 export default function SearchTabs() {

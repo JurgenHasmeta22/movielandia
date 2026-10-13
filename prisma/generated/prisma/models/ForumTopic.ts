@@ -285,7 +285,7 @@ export type ForumTopicGroupByOutputType = {
   _max: ForumTopicMaxAggregateOutputType | null
 }
 
-type GetForumTopicGroupByPayload<T extends ForumTopicGroupByArgs> = Prisma.PrismaPromise<
+export type GetForumTopicGroupByPayload<T extends ForumTopicGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ForumTopicGroupByOutputType, T['by']> &
       {
@@ -2784,6 +2784,11 @@ export type ForumTopicFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` ForumTopics.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ForumTopics.
+   */
   distinct?: Prisma.ForumTopicScalarFieldEnum | Prisma.ForumTopicScalarFieldEnum[]
 }
 

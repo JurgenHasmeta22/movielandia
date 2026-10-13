@@ -197,7 +197,7 @@ export type DownvoteSeasonReviewGroupByOutputType = {
   _max: DownvoteSeasonReviewMaxAggregateOutputType | null
 }
 
-type GetDownvoteSeasonReviewGroupByPayload<T extends DownvoteSeasonReviewGroupByArgs> = Prisma.PrismaPromise<
+export type GetDownvoteSeasonReviewGroupByPayload<T extends DownvoteSeasonReviewGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<DownvoteSeasonReviewGroupByOutputType, T['by']> &
       {
@@ -1376,6 +1376,11 @@ export type DownvoteSeasonReviewFindManyArgs<ExtArgs extends runtime.Types.Exten
    * Skip the first `n` DownvoteSeasonReviews.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of DownvoteSeasonReviews.
+   */
   distinct?: Prisma.DownvoteSeasonReviewScalarFieldEnum | Prisma.DownvoteSeasonReviewScalarFieldEnum[]
 }
 

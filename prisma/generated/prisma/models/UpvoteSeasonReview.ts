@@ -197,7 +197,7 @@ export type UpvoteSeasonReviewGroupByOutputType = {
   _max: UpvoteSeasonReviewMaxAggregateOutputType | null
 }
 
-type GetUpvoteSeasonReviewGroupByPayload<T extends UpvoteSeasonReviewGroupByArgs> = Prisma.PrismaPromise<
+export type GetUpvoteSeasonReviewGroupByPayload<T extends UpvoteSeasonReviewGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UpvoteSeasonReviewGroupByOutputType, T['by']> &
       {
@@ -1376,6 +1376,11 @@ export type UpvoteSeasonReviewFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` UpvoteSeasonReviews.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UpvoteSeasonReviews.
+   */
   distinct?: Prisma.UpvoteSeasonReviewScalarFieldEnum | Prisma.UpvoteSeasonReviewScalarFieldEnum[]
 }
 

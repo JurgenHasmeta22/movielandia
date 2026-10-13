@@ -232,7 +232,7 @@ export type ReportedContentGroupByOutputType = {
   _max: ReportedContentMaxAggregateOutputType | null
 }
 
-type GetReportedContentGroupByPayload<T extends ReportedContentGroupByArgs> = Prisma.PrismaPromise<
+export type GetReportedContentGroupByPayload<T extends ReportedContentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ReportedContentGroupByOutputType, T['by']> &
       {
@@ -1476,6 +1476,11 @@ export type ReportedContentFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` ReportedContents.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ReportedContents.
+   */
   distinct?: Prisma.ReportedContentScalarFieldEnum | Prisma.ReportedContentScalarFieldEnum[]
 }
 

@@ -15,7 +15,7 @@ import {
 import { createList } from "@/actions/list/list.actions";
 import { showToast } from "@/utils/helpers/toast";
 import { listSchema, type ListFormData } from "@/schemas/list.schema";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useRouter, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { formatTitleForUrl } from "@/utils/helpers/formatUrl";
@@ -147,7 +147,7 @@ export default function CreateListForm({ userId }: CreateListFormProps) {
 						color="secondary"
 						fullWidth
 						disabled={isSubmitting}
-						startIcon={<AddCircleOutlineIcon />}
+						startIcon={<AddCircleOutlineOutlinedIcon />}
 						sx={{
 							textTransform: "none",
 							transition: "all 0.2s ease-in-out",

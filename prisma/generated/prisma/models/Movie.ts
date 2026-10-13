@@ -228,7 +228,7 @@ export type MovieGroupByOutputType = {
   _max: MovieMaxAggregateOutputType | null
 }
 
-type GetMovieGroupByPayload<T extends MovieGroupByArgs> = Prisma.PrismaPromise<
+export type GetMovieGroupByPayload<T extends MovieGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MovieGroupByOutputType, T['by']> &
       {
@@ -2498,6 +2498,11 @@ export type MovieFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Skip the first `n` Movies.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Movies.
+   */
   distinct?: Prisma.MovieScalarFieldEnum | Prisma.MovieScalarFieldEnum[]
 }
 

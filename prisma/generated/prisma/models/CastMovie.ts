@@ -186,7 +186,7 @@ export type CastMovieGroupByOutputType = {
   _max: CastMovieMaxAggregateOutputType | null
 }
 
-type GetCastMovieGroupByPayload<T extends CastMovieGroupByArgs> = Prisma.PrismaPromise<
+export type GetCastMovieGroupByPayload<T extends CastMovieGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CastMovieGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type CastMovieFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` CastMovies.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CastMovies.
+   */
   distinct?: Prisma.CastMovieScalarFieldEnum | Prisma.CastMovieScalarFieldEnum[]
 }
 

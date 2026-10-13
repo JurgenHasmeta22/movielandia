@@ -197,7 +197,7 @@ export type UserCrewRatingGroupByOutputType = {
   _max: UserCrewRatingMaxAggregateOutputType | null
 }
 
-type GetUserCrewRatingGroupByPayload<T extends UserCrewRatingGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserCrewRatingGroupByPayload<T extends UserCrewRatingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserCrewRatingGroupByOutputType, T['by']> &
       {
@@ -1262,6 +1262,11 @@ export type UserCrewRatingFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Skip the first `n` UserCrewRatings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserCrewRatings.
+   */
   distinct?: Prisma.UserCrewRatingScalarFieldEnum | Prisma.UserCrewRatingScalarFieldEnum[]
 }
 

@@ -15,7 +15,7 @@ import PaginationControl from "@/components/root/paginationControl/PaginationCon
 import SortSelect from "@/components/root/sortSelect/SortSelect";
 import ListCard from "@/components/root/listCard/ListCard";
 import { useRouter } from "next/navigation";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import ShareIcon from "@mui/icons-material/Share";
 import { useQueryState } from "nuqs";
 import { useState, useEffect } from "react";
@@ -127,7 +127,7 @@ export default function ListsPageContent({
 						<Button
 							variant="contained"
 							color="primary"
-							startIcon={<AddCircleOutlineIcon />}
+							startIcon={<AddCircleOutlineOutlinedIcon />}
 							onClick={() =>
 								router.push(
 									`/users/${userId}/${userName}/lists/create`,
@@ -223,7 +223,7 @@ export default function ListsPageContent({
 						<Button
 							variant="contained"
 							color="primary"
-							startIcon={<AddCircleOutlineIcon />}
+							startIcon={<AddCircleOutlineOutlinedIcon />}
 							onClick={() =>
 								router.push(
 									`/users/${userId}/${userName}/lists/create`,

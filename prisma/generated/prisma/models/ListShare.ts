@@ -200,7 +200,7 @@ export type ListShareGroupByOutputType = {
   _max: ListShareMaxAggregateOutputType | null
 }
 
-type GetListShareGroupByPayload<T extends ListShareGroupByArgs> = Prisma.PrismaPromise<
+export type GetListShareGroupByPayload<T extends ListShareGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ListShareGroupByOutputType, T['by']> &
       {
@@ -1297,6 +1297,11 @@ export type ListShareFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Skip the first `n` ListShares.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ListShares.
+   */
   distinct?: Prisma.ListShareScalarFieldEnum | Prisma.ListShareScalarFieldEnum[]
 }
 

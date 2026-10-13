@@ -186,7 +186,7 @@ export type UserForumTopicFavoriteGroupByOutputType = {
   _max: UserForumTopicFavoriteMaxAggregateOutputType | null
 }
 
-type GetUserForumTopicFavoriteGroupByPayload<T extends UserForumTopicFavoriteGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserForumTopicFavoriteGroupByPayload<T extends UserForumTopicFavoriteGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserForumTopicFavoriteGroupByOutputType, T['by']> &
       {
@@ -1216,6 +1216,11 @@ export type UserForumTopicFavoriteFindManyArgs<ExtArgs extends runtime.Types.Ext
    * Skip the first `n` UserForumTopicFavorites.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserForumTopicFavorites.
+   */
   distinct?: Prisma.UserForumTopicFavoriteScalarFieldEnum | Prisma.UserForumTopicFavoriteScalarFieldEnum[]
 }
 

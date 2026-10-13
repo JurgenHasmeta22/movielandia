@@ -222,7 +222,7 @@ export type ListSeasonGroupByOutputType = {
   _max: ListSeasonMaxAggregateOutputType | null
 }
 
-type GetListSeasonGroupByPayload<T extends ListSeasonGroupByArgs> = Prisma.PrismaPromise<
+export type GetListSeasonGroupByPayload<T extends ListSeasonGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ListSeasonGroupByOutputType, T['by']> &
       {
@@ -1528,6 +1528,11 @@ export type ListSeasonFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Skip the first `n` ListSeasons.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ListSeasons.
+   */
   distinct?: Prisma.ListSeasonScalarFieldEnum | Prisma.ListSeasonScalarFieldEnum[]
 }
 

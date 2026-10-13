@@ -192,7 +192,7 @@ export type ForumTagGroupByOutputType = {
   _max: ForumTagMaxAggregateOutputType | null
 }
 
-type GetForumTagGroupByPayload<T extends ForumTagGroupByArgs> = Prisma.PrismaPromise<
+export type GetForumTagGroupByPayload<T extends ForumTagGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ForumTagGroupByOutputType, T['by']> &
       {
@@ -1187,6 +1187,11 @@ export type ForumTagFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Skip the first `n` ForumTags.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ForumTags.
+   */
   distinct?: Prisma.ForumTagScalarFieldEnum | Prisma.ForumTagScalarFieldEnum[]
 }
 

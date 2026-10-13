@@ -197,7 +197,7 @@ export type UserSerieRatingGroupByOutputType = {
   _max: UserSerieRatingMaxAggregateOutputType | null
 }
 
-type GetUserSerieRatingGroupByPayload<T extends UserSerieRatingGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserSerieRatingGroupByPayload<T extends UserSerieRatingGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserSerieRatingGroupByOutputType, T['by']> &
       {
@@ -1262,6 +1262,11 @@ export type UserSerieRatingFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` UserSerieRatings.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserSerieRatings.
+   */
   distinct?: Prisma.UserSerieRatingScalarFieldEnum | Prisma.UserSerieRatingScalarFieldEnum[]
 }
 

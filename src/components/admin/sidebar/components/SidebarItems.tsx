@@ -4,7 +4,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import MovieIcon from "@mui/icons-material/Movie";
 import PersonIcon from "@mui/icons-material/Person";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import PlayCircleOutlineOutlinedIcon from "@mui/icons-material/PlayCircleOutlineOutlined";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import GroupWorkIcon from "@mui/icons-material/GroupWork";
 import ForumIcon from "@mui/icons-material/Forum";
@@ -43,7 +43,7 @@ export const SidebarItems = [
 	{
 		label: "Episodes",
 		to: "/admin/episodes",
-		icon: <PlayCircleOutlineIcon />,
+		icon: <PlayCircleOutlineOutlinedIcon />,
 		index: 5,
 	},
 	{

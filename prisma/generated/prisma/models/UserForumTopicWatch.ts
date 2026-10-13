@@ -193,7 +193,7 @@ export type UserForumTopicWatchGroupByOutputType = {
   _max: UserForumTopicWatchMaxAggregateOutputType | null
 }
 
-type GetUserForumTopicWatchGroupByPayload<T extends UserForumTopicWatchGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserForumTopicWatchGroupByPayload<T extends UserForumTopicWatchGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserForumTopicWatchGroupByOutputType, T['by']> &
       {
@@ -1256,6 +1256,11 @@ export type UserForumTopicWatchFindManyArgs<ExtArgs extends runtime.Types.Extens
    * Skip the first `n` UserForumTopicWatches.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of UserForumTopicWatches.
+   */
   distinct?: Prisma.UserForumTopicWatchScalarFieldEnum | Prisma.UserForumTopicWatchScalarFieldEnum[]
 }
 

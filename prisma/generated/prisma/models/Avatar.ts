@@ -182,7 +182,7 @@ export type AvatarGroupByOutputType = {
   _max: AvatarMaxAggregateOutputType | null
 }
 
-type GetAvatarGroupByPayload<T extends AvatarGroupByArgs> = Prisma.PrismaPromise<
+export type GetAvatarGroupByPayload<T extends AvatarGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<AvatarGroupByOutputType, T['by']> &
       {
@@ -1060,6 +1060,11 @@ export type AvatarFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Skip the first `n` Avatars.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of Avatars.
+   */
   distinct?: Prisma.AvatarScalarFieldEnum | Prisma.AvatarScalarFieldEnum[]
 }
 

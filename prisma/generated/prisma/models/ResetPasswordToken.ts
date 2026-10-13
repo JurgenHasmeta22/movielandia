@@ -196,7 +196,7 @@ export type ResetPasswordTokenGroupByOutputType = {
   _max: ResetPasswordTokenMaxAggregateOutputType | null
 }
 
-type GetResetPasswordTokenGroupByPayload<T extends ResetPasswordTokenGroupByArgs> = Prisma.PrismaPromise<
+export type GetResetPasswordTokenGroupByPayload<T extends ResetPasswordTokenGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<ResetPasswordTokenGroupByOutputType, T['by']> &
       {
@@ -1174,6 +1174,11 @@ export type ResetPasswordTokenFindManyArgs<ExtArgs extends runtime.Types.Extensi
    * Skip the first `n` ResetPasswordTokens.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of ResetPasswordTokens.
+   */
   distinct?: Prisma.ResetPasswordTokenScalarFieldEnum | Prisma.ResetPasswordTokenScalarFieldEnum[]
 }
 
