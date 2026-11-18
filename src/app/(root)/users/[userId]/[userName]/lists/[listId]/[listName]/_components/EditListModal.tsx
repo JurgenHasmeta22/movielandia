@@ -164,6 +164,7 @@ export default function EditListModal({
 							<Typography
 								variant="subtitle2"
 								component="label"
+								htmlFor="list-name"
 								sx={{
 									display: "block",
 									mb: 1,
@@ -180,6 +181,7 @@ export default function EditListModal({
 								render={({ field }) => (
 									<TextField
 										{...field}
+										id="list-name"
 										placeholder="Enter list name"
 										error={!!errors.name}
 										helperText={errors.name?.message}
@@ -230,6 +232,7 @@ export default function EditListModal({
 							<Typography
 								variant="subtitle2"
 								component="label"
+								htmlFor="list-description"
 								sx={{
 									display: "block",
 									mb: 1,
@@ -246,6 +249,7 @@ export default function EditListModal({
 								render={({ field }) => (
 									<TextField
 										{...field}
+										id="list-description"
 										placeholder="Add a description (optional)"
 										multiline
 										rows={3}
@@ -302,19 +306,17 @@ export default function EditListModal({
 						</Box>
 
 						<Box>
-							<Typography
-								variant="subtitle2"
-								component="label"
+							<InputLabel
+								id="privacy-setting-label"
 								sx={{
-									display: "block",
 									mb: 1,
 									color: "rgba(255, 255, 255, 0.7)",
 									fontWeight: 400,
 									fontSize: "0.9rem",
 								}}
 							>
-								Privacy Setting
-							</Typography>
+								Privacy
+							</InputLabel>
 							<Controller
 								name="isPrivate"
 								control={control}
@@ -327,6 +329,9 @@ export default function EditListModal({
 									>
 										<Select
 											{...field}
+											id="privacy-setting"
+											labelId="privacy-setting-label"
+											label="Privacy"
 											value={value ? "private" : "public"}
 											onChange={(e) =>
 												onChange(
@@ -427,6 +432,18 @@ export default function EditListModal({
 							pr: 2,
 						}}
 					>
+						<Button
+							type="button"
+							onClick={onClose}
+							sx={{
+								textTransform: "none",
+								borderRadius: 1,
+								fontWeight: 500,
+								px: 2,
+							}}
+						>
+							Cancel
+						</Button>
 						<Button
 							type="submit"
 							variant="contained"

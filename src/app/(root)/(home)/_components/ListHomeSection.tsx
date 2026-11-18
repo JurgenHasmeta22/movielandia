@@ -262,6 +262,7 @@ const ListHomeSection = ({
 					dots={false}
 					infinite={data.length > 6}
 					speed={600}
+					autoplay
 					slidesToShow={slidesPerView}
 					slidesToScroll={slidesPerView}
 					cssEase="cubic-bezier(0.23, 1, 0.32, 1)"

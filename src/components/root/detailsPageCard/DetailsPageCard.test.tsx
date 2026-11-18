@@ -60,7 +60,9 @@ vi.mock("./PaginationPersonControl", () => ({
 }));
 
 describe("DetailsPageCard", () => {
-	const mockStartTransition = vi.fn();
+	const mockStartTransition = vi.fn((callback: () => void) => {
+		callback();
+	});
 	const mockOnBookmark = vi.fn();
 	const mockOnRemoveBookmark = vi.fn();
 	const mockOnGoBack = vi.fn();

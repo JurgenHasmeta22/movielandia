@@ -93,6 +93,7 @@
         "prisma-erd-generator": "^3.2.1",
         "tsx": "^4.23.15",
         "typescript": "^7.0.2",
+        "vite": "^8.3.8",
         "vite-tsconfig-paths": "^6.1.1",
         "vitest": "^5.1.1"
     }

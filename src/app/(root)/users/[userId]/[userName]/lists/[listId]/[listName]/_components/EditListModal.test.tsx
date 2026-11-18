@@ -45,7 +45,9 @@ describe("EditListModal", () => {
 		expect(screen.getByLabelText("Description")).toHaveValue(
 			"Test Description",
 		);
-		expect(screen.getByLabelText("Privacy")).toHaveValue("public");
+		expect(
+			screen.getByRole("combobox", { name: "Privacy" }),
+		).toHaveTextContent("Public");
 	});
 
 	it("updates list when form is submitted", async () => {

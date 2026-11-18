@@ -95,11 +95,12 @@ const Carousel = ({ data, type }: CarouselProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 
 	const settings = {
-		dots: false,
+		dots: true,
 		infinite: true,
 		speed: 800,
 		slidesToShow: 1,
 		slidesToScroll: 1,
+		autoplay: true,
 		nextArrow: <CustomNextArrow />,
 		prevArrow: <CustomPrevArrow />,
 		fade: true,
