@@ -56,10 +56,12 @@ const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
 			}}
 		>
 			<Box
-				display="flex"
-				justifyContent="space-between"
-				alignItems="center"
-				mb={4}
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "center",
+					mb: 4,
+				}}
 			>
 				<HeaderDashboard
 					title="Dashboard"

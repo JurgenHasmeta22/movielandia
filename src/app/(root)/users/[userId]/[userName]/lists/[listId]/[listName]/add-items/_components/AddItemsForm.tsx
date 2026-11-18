@@ -133,7 +133,7 @@ export default function AddItemsForm({
 
 	return (
 		<Container maxWidth="md" sx={{ py: 2 }}>
-			<Stack spacing={4} alignItems="center">
+			<Stack spacing={4} sx={{ alignItems: "center" }}>
 				<Box sx={{ width: "100%", mb: 2 }}>
 					<Button
 						variant="outlined"

@@ -20,7 +20,7 @@ const CrewsAdminPage = () => {
 
 	return (
 		<>
-			<Box m="20px" component={"main"}>
+			<Box component={"main"} sx={{ m: "20px" }}>
 				<HeaderDashboard title="Crews" subtitle="List of crews" />
 				<MaterialReactTable table={table} />
 			</Box>

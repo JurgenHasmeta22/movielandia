@@ -128,10 +128,12 @@ const FormAdvanced: React.FC<IFormProps> = ({
 			>
 				<Grid container alignItems={"center"}>
 					<Stack
-						rowGap={4}
-						columnGap={2}
-						flexDirection={"row"}
-						flexWrap={"wrap"}
+						sx={{
+							rowGap: 4,
+							columnGap: 2,
+							flexDirection: "row",
+							flexWrap: "wrap",
+						}}
 					>
 						{fields.map((field: FieldConfig, index: number) => {
 							const error = !!errors[field.name];
@@ -225,10 +227,12 @@ const FormAdvanced: React.FC<IFormProps> = ({
 								case "date":
 									return (
 										<Box
-											display={"flex"}
-											flexDirection={"column"}
-											rowGap={1}
 											key={index}
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												rowGap: 1,
+											}}
 										>
 											<FormLabel>{field.label}</FormLabel>
 											<Controller
@@ -257,10 +261,12 @@ const FormAdvanced: React.FC<IFormProps> = ({
 								case "password":
 									return (
 										<Box
-											display={"flex"}
-											flexDirection={"column"}
-											rowGap={1}
 											key={index}
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												rowGap: 1,
+											}}
 										>
 											<FormLabel>{field.label}</FormLabel>
 											<Controller
@@ -314,10 +320,12 @@ const FormAdvanced: React.FC<IFormProps> = ({
 								default:
 									return (
 										<Box
-											display={"flex"}
-											flexDirection={"column"}
-											rowGap={1}
 											key={index}
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												rowGap: 1,
+											}}
 										>
 											<FormLabel>{field.label}</FormLabel>
 											<Controller
@@ -355,11 +363,11 @@ const FormAdvanced: React.FC<IFormProps> = ({
 					}}
 				>
 					<Stack
-						columnGap={2}
-						flexDirection={"row"}
-						flexWrap={"wrap"}
 						sx={{
 							mt: "20px",
+							columnGap: 2,
+							flexDirection: "row",
+							flexWrap: "wrap",
 						}}
 					>
 						{actions?.map((action, index) => (

@@ -356,8 +356,10 @@ export default function TabContent({
 				{totalItems > 0 && (
 					<Stack
 						spacing={2}
-						alignItems="center"
-						sx={{ mt: { xs: 1, sm: 2 } }}
+						sx={{
+							alignItems: "center",
+							mt: { xs: 1, sm: 2 },
+						}}
 					>
 						<Pagination
 							count={Math.max(1, totalPages)}

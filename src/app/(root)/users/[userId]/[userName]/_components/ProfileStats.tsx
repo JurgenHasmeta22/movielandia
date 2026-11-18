@@ -24,7 +24,7 @@ export default function ProfileStats({
 	const router = useRouter();
 
 	return (
-		<Stack spacing={2} alignItems="flex-end" sx={{ ml: "auto", mr: 2 }}>
+		<Stack spacing={2} sx={{ alignItems: "flex-end", ml: "auto", mr: 2 }}>
 			<Box
 				onClick={() => {
 					if (canClickFollow) {

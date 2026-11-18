@@ -20,7 +20,7 @@ const MoviesAdminPage = () => {
 
 	return (
 		<>
-			<Box m="20px" component={"main"}>
+			<Box component={"main"} sx={{ m: "20px" }}>
 				<HeaderDashboard title="Movies" subtitle="List of Movies" />
 				<MaterialReactTable table={table} />
 			</Box>

@@ -116,11 +116,17 @@ export default function ForumReplyItemProfile({
 			<Stack
 				direction="row"
 				spacing={2}
-				alignItems="center"
-				justifyContent="space-between"
-				sx={{ mt: "auto" }}
+				sx={{
+					alignItems: "center",
+					justifyContent: "space-between",
+					mt: "auto",
+				}}
 			>
-				<Stack direction="row" spacing={1} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={1}
+					sx={{ alignItems: "center" }}
+				>
 					<Typography variant="caption" color="text.secondary">
 						{formatDistanceToNow(new Date(reply.createdAt), {
 							addSuffix: true,
@@ -144,7 +150,11 @@ export default function ForumReplyItemProfile({
 					)}
 				</Stack>
 
-				<Stack direction="row" spacing={1.5} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={1.5}
+					sx={{ alignItems: "center" }}
+				>
 					<Tooltip title="Upvotes">
 						<Box sx={{ display: "flex", alignItems: "center" }}>
 							<ThumbUpIcon

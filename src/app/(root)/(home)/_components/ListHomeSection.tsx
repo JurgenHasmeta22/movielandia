@@ -165,9 +165,11 @@ const ListHomeSection = ({
 		>
 			<Stack
 				direction="row"
-				justifyContent="space-between"
-				alignItems="center"
-				sx={{ mb: { xs: 1, md: 2 } }}
+				sx={{
+					justifyContent: "space-between",
+					alignItems: "center",
+					mb: { xs: 1, md: 2 },
+				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
 					<Typography

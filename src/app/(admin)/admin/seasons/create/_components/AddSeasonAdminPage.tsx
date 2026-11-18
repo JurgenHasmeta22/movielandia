@@ -131,7 +131,7 @@ const AddSeasonAdminPage = () => {
 	];
 
 	return (
-		<Box m="20px">
+		<Box sx={{ m: "20px" }}>
 			<Breadcrumb breadcrumbs={breadcrumbs} navigateTo="/admin/seasons" />
 			<HeaderDashboard title="Season" subtitle="Add a new season" />
 			<FormAdvanced

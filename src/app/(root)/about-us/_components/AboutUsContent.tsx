@@ -65,7 +65,7 @@ const AboutUsContent = () => {
 						<Stack
 							direction={{ xs: "column", md: "row" }}
 							spacing={4}
-							alignItems="center"
+							sx={{ alignItems: "center" }}
 							component={motion.div}
 							initial={{ opacity: 0, x: -20 }}
 							animate={{ opacity: 1, x: 0 }}
@@ -104,7 +104,7 @@ const AboutUsContent = () => {
 						<Stack
 							direction={{ xs: "column", md: "row" }}
 							spacing={4}
-							alignItems="center"
+							sx={{ alignItems: "center" }}
 							component={motion.div}
 							initial={{ opacity: 0, x: 20 }}
 							animate={{ opacity: 1, x: 0 }}
@@ -144,7 +144,7 @@ const AboutUsContent = () => {
 						<Stack
 							direction={{ xs: "column", md: "row" }}
 							spacing={4}
-							alignItems="center"
+							sx={{ alignItems: "center" }}
 							component={motion.div}
 							initial={{ opacity: 0, x: -20 }}
 							animate={{ opacity: 1, x: 0 }}

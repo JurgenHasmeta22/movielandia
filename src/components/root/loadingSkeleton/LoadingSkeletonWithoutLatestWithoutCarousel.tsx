@@ -52,9 +52,11 @@ export default function LoadingSkeletonWithoutLatestWithoutCarousel() {
 			{/* Section 3: Pagination */}
 			<Stack
 				direction="row"
-				alignItems="center"
-				justifyContent="center"
-				sx={{ mb: 4 }}
+				sx={{
+					alignItems: "center",
+					justifyContent: "center",
+					mb: 4,
+				}}
 			>
 				<Skeleton
 					variant="rectangular"

@@ -35,8 +35,8 @@ export function TextEditorForm({
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	return (
-		<Box marginTop={4} px={4}>
-			<Box marginBottom={1}>
+		<Box sx={{ marginTop: 4, px: 4 }}>
+			<Box sx={{ marginBottom: 1 }}>
 				<TextEditor
 					value={review}
 					onChange={setReview}

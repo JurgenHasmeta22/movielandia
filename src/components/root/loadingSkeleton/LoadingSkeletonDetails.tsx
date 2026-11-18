@@ -15,7 +15,11 @@ export default function LoadingSkeletonDetails() {
 			}}
 		>
 			{/* Movie header: Poster and details */}
-			<Stack direction={{ xs: "column", md: "row" }} spacing={3} mb={4}>
+			<Stack
+				direction={{ xs: "column", md: "row" }}
+				spacing={3}
+				sx={{ mb: 4 }}
+			>
 				{/* Poster Skeleton */}
 				<Skeleton
 					variant="rectangular"
@@ -27,7 +31,7 @@ export default function LoadingSkeletonDetails() {
 				/>
 
 				{/* Details Skeleton */}
-				<Stack spacing={2} flex={1}>
+				<Stack spacing={2} sx={{ flex: 1 }}>
 					{/* Title Skeleton */}
 					<Skeleton
 						variant="text"
@@ -62,9 +66,9 @@ export default function LoadingSkeletonDetails() {
 			</Stack>
 
 			{/* Reviews Section Skeleton */}
-			<Box mb={4}>
+			<Box sx={{ mb: 4 }}>
 				<Skeleton variant="text" sx={{ width: "40%", height: 30 }} />
-				<Stack spacing={2} mt={2}>
+				<Stack spacing={2} sx={{ mt: 2 }}>
 					{Array.from(new Array(3)).map((_, index) => (
 						<Box
 							key={index}
@@ -106,9 +110,11 @@ export default function LoadingSkeletonDetails() {
 			{/* Section 4: Pagination */}
 			<Stack
 				direction="row"
-				alignItems="center"
-				justifyContent="center"
-				sx={{ mb: 4 }}
+				sx={{
+					alignItems: "center",
+					justifyContent: "center",
+					mb: 4,
+				}}
 			>
 				<Skeleton
 					variant="rectangular"

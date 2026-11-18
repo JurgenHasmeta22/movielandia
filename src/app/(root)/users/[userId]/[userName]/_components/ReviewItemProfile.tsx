@@ -135,9 +135,9 @@ export default function ReviewItemProfile({
 						<Stack
 							direction="row"
 							spacing={2}
-							alignItems="center"
 							sx={{
 								width: "100%",
+								alignItems: "center",
 								justifyContent: "space-between",
 								flexWrap: "wrap",
 								gap: 2,
@@ -172,7 +172,7 @@ export default function ReviewItemProfile({
 								<Stack
 									direction="row"
 									spacing={0.5}
-									alignItems="center"
+									sx={{ alignItems: "center" }}
 								>
 									<ThumbUpIcon
 										sx={{
@@ -190,7 +190,7 @@ export default function ReviewItemProfile({
 								<Stack
 									direction="row"
 									spacing={0.5}
-									alignItems="center"
+									sx={{ alignItems: "center" }}
 								>
 									<ThumbDownIcon
 										sx={{
@@ -210,8 +210,10 @@ export default function ReviewItemProfile({
 						<Stack
 							direction="row"
 							spacing={1}
-							alignItems="center"
-							sx={{ color: "text.secondary" }}
+							sx={{
+								alignItems: "center",
+								color: "text.secondary",
+							}}
 						>
 							<Avatar
 								src={
@@ -224,7 +226,7 @@ export default function ReviewItemProfile({
 							<Stack
 								direction="row"
 								spacing={0.5}
-								alignItems="center"
+								sx={{ alignItems: "center" }}
 							>
 								<Typography variant="body2">
 									{review.user?.userName || "Anonymous"}

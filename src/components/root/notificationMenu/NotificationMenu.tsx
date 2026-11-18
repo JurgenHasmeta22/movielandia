@@ -110,9 +110,11 @@ export default function NotificationMenu({ session }: INotificationMenu) {
 									<Box sx={{ p: 2 }}>
 										<Stack
 											direction="row"
-											alignItems="center"
-											justifyContent="space-between"
-											sx={{ mb: 2 }}
+											sx={{
+												alignItems: "center",
+												justifyContent: "space-between",
+												mb: 2,
+											}}
 										>
 											<Typography variant="h6">
 												Notifications
@@ -120,7 +122,7 @@ export default function NotificationMenu({ session }: INotificationMenu) {
 											<Stack
 												direction="row"
 												spacing={2}
-												alignItems="center"
+												sx={{ alignItems: "center" }}
 											>
 												<Button
 													size="small"
@@ -196,7 +198,10 @@ export default function NotificationMenu({ session }: INotificationMenu) {
 																<Stack
 																	direction="row"
 																	spacing={2}
-																	alignItems="flex-start"
+																	sx={{
+																		alignItems:
+																			"flex-start",
+																	}}
 																>
 																	<Avatar
 																		src={

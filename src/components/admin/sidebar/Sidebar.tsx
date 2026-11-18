@@ -89,10 +89,10 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 				}}
 			>
 				<Box
-					display="flex"
-					justifyContent="end"
-					alignItems="center"
 					sx={{
+						display: "flex",
+						justifyContent: "end",
+						alignItems: "center",
 						mb: 1,
 					}}
 				>
@@ -101,9 +101,9 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 					</IconButton>
 				</Box>
 				<Box
-					display="flex"
-					alignItems="center"
 					sx={{
+						display: "flex",
+						alignItems: "center",
 						mb: 1,
 						ml: 1,
 					}}

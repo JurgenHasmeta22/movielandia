@@ -19,7 +19,7 @@ const SeriesAdminPage = () => {
 	});
 
 	return (
-		<Box m="20px">
+		<Box sx={{ m: "20px" }}>
 			<HeaderDashboard title="Series" subtitle="List of Series" />
 			<MaterialReactTable table={table} />
 		</Box>

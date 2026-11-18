@@ -19,7 +19,7 @@ const GenresAdminPage = () => {
 	});
 
 	return (
-		<Box m="20px">
+		<Box sx={{ m: "20px" }}>
 			<HeaderDashboard title="Genres" subtitle="List of Genres" />
 			<MaterialReactTable table={table} />
 		</Box>

@@ -59,11 +59,11 @@ export default async function Genres() {
 			</Typography>
 			<Stack
 				direction="row"
-				flexWrap="wrap"
-				alignItems={"start"}
-				rowGap={5}
-				columnGap={5}
 				sx={{
+					flexWrap: "wrap",
+					alignItems: "start",
+					rowGap: 5,
+					columnGap: 5,
 					pl: 3,
 					mt: 3,
 					mb: 4,

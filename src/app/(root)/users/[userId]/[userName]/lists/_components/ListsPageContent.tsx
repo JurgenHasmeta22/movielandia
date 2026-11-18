@@ -256,8 +256,8 @@ export default function ListsPageContent({
 			<Box sx={{ flex: 1, overflow: "visible" }}>
 				<Stack
 					direction="row"
-					flexWrap="wrap"
 					sx={{
+						flexWrap: "wrap",
 						columnGap: { xs: 2, sm: 3 },
 						rowGap: { xs: 3, sm: 4 },
 						justifyContent: {

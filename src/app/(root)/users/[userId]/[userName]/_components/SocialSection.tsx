@@ -127,7 +127,11 @@ export default function SocialSection({
 	return (
 		<Box>
 			{userLoggedIn && userLoggedIn.id !== userInPage.id && (
-				<Stack direction="row" spacing={1} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={1}
+					sx={{ alignItems: "center" }}
+				>
 					<Button
 						variant={
 							userInPage.isFollowed ? "outlined" : "contained"

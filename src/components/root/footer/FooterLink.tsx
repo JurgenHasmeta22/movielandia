@@ -35,9 +35,8 @@ export const FooterLink = ({ href, text, icon }: FooterLinkProps) => {
 		>
 			<Stack
 				direction="row"
-				alignItems="center"
 				spacing={1.5}
-				sx={{ width: "100%" }}
+				sx={{ alignItems: "center", width: "100%" }}
 			>
 				{icon && (
 					<Icon

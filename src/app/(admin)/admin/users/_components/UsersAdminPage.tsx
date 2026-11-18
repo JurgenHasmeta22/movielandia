@@ -19,7 +19,7 @@ const UsersAdminPage = () => {
 	});
 
 	return (
-		<Box m="20px" component={"main"}>
+		<Box component={"main"} sx={{ m: "20px" }}>
 			<HeaderDashboard title="Users" subtitle="List of Users" />
 			<MaterialReactTable table={table} />
 		</Box>

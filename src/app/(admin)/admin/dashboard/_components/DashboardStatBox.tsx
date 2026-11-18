@@ -22,16 +22,20 @@ export const DashboardStatBox = ({
 
 	return (
 		<Box
-			width="100%"
-			height="100%"
-			display="flex"
-			flexDirection="column"
-			justifyContent="space-between"
+			sx={{
+				width: "100%",
+				height: "100%",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "space-between",
+			}}
 		>
 			<Box
-				display="flex"
-				justifyContent="space-between"
-				alignItems="flex-start"
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "flex-start",
+				}}
 			>
 				<Box>
 					<Box
@@ -64,11 +68,11 @@ export const DashboardStatBox = ({
 				</Box>
 			</Box>
 			<Box
-				display="flex"
-				justifyContent="space-between"
-				alignItems="center"
-				mt={2}
 				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "center",
+					mt: 2,
 					borderTop: `1px solid ${theme.vars.palette.stats.borderColor}`,
 					pt: 2,
 				}}

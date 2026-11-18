@@ -212,7 +212,11 @@ export default function ListPageContent({
 			}}
 		>
 			<Stack spacing={4}>
-				<Stack direction="row" alignItems="center" spacing={3}>
+				<Stack
+					direction="row"
+					spacing={3}
+					sx={{ alignItems: "center" }}
+				>
 					<Button
 						variant="outlined"
 						startIcon={<ArrowBackIcon />}
@@ -244,8 +248,10 @@ export default function ListPageContent({
 				<Stack spacing={2}>
 					<Stack
 						direction="row"
-						justifyContent="space-between"
-						alignItems="flex-start"
+						sx={{
+							justifyContent: "space-between",
+							alignItems: "flex-start",
+						}}
 					>
 						<Stack direction="row" spacing={1}>
 							{list.isPrivate && (
@@ -358,7 +364,7 @@ export default function ListPageContent({
 						<Stack
 							direction="row"
 							spacing={1}
-							alignItems="flex-start"
+							sx={{ alignItems: "flex-start" }}
 						>
 							<Typography
 								variant="body2"
@@ -379,8 +385,10 @@ export default function ListPageContent({
 					<Stack
 						direction="row"
 						spacing={2}
-						alignItems="center"
-						sx={{ color: "text.secondary" }}
+						sx={{
+							alignItems: "center",
+							color: "text.secondary",
+						}}
 					>
 						<Stack direction="row" spacing={1}>
 							<Typography variant="body2" fontWeight="bold">

@@ -76,7 +76,13 @@ export function TextEditorButtons({
 	return (
 		<>
 			{!isEditMode ? (
-				<Box display={"flex"} justifyContent={"end"} marginTop={2}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "end",
+						marginTop: 2,
+					}}
+				>
 					<Button
 						onClick={handleSubmit}
 						variant="contained"
@@ -121,12 +127,14 @@ export function TextEditorButtons({
 				</Box>
 			) : (
 				<Box
-					display={"flex"}
-					flexDirection={"row"}
-					columnGap={1}
-					justifyContent={"end"}
-					alignItems={"center"}
-					marginTop={2}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						columnGap: 1,
+						justifyContent: "end",
+						alignItems: "center",
+						marginTop: 2,
+					}}
 				>
 					<Button
 						onClick={() => {

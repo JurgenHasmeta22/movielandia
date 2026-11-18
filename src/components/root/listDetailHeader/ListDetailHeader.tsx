@@ -125,7 +125,11 @@ export default function ListDetailHeader({
 					mb: 4,
 				}}
 			>
-				<Stack direction="row" spacing={2} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={2}
+					sx={{ alignItems: "center" }}
+				>
 					<Typography
 						variant="h1"
 						sx={{ fontSize: "1.5rem", fontWeight: 500 }}

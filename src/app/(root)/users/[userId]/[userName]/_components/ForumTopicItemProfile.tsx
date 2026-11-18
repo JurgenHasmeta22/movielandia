@@ -130,16 +130,22 @@ export default function ForumTopicItemProfile({
 			<Stack
 				direction="row"
 				spacing={2}
-				alignItems="center"
-				justifyContent="space-between"
-				sx={{ mt: "auto" }}
+				sx={{
+					alignItems: "center",
+					justifyContent: "space-between",
+					mt: "auto",
+				}}
 			>
 				<Typography variant="caption" color="text.secondary">
 					{formatDistanceToNow(new Date(topic.createdAt), {
 						addSuffix: true,
 					})}
 				</Typography>
-				<Stack direction="row" spacing={1.5} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={1.5}
+					sx={{ alignItems: "center" }}
+				>
 					<Tooltip title="Views">
 						<Box sx={{ display: "flex", alignItems: "center" }}>
 							<VisibilityIcon

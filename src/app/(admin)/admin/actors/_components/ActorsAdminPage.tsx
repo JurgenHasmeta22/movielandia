@@ -19,7 +19,7 @@ const ActorsAdminPage = () => {
 	});
 
 	return (
-		<Box m="20px">
+		<Box sx={{ m: "20px" }}>
 			<HeaderDashboard title="Actors" subtitle="List of actors" />
 			<MaterialReactTable table={table} />
 		</Box>

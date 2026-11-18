@@ -171,7 +171,7 @@ function FollowRequestItem({
 	};
 
 	return (
-		<Stack direction="row" spacing={2} alignItems="center">
+		<Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
 			<Avatar
 				src={follow.follower.avatar?.photoSrc}
 				alt={follow.follower.userName}

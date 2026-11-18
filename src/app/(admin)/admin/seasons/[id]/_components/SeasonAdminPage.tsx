@@ -106,7 +106,7 @@ const SeasonAdminPage = () => {
 	}
 
 	return (
-		<Box m="20px">
+		<Box sx={{ m: "20px" }}>
 			<Breadcrumb
 				breadcrumbs={breadcrumbs}
 				navigateTo={"/admin/seasons"}

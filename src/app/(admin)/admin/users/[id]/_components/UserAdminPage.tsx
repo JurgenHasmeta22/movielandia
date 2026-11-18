@@ -96,7 +96,7 @@ const UserAdmin = () => {
 	}
 
 	return (
-		<Box m="20px">
+		<Box sx={{ m: "20px" }}>
 			<Breadcrumb breadcrumbs={breadcrumbs} navigateTo={"/admin/users"} />
 			<HeaderDashboard
 				title={CONSTANTS.USER__EDIT__TITLE}

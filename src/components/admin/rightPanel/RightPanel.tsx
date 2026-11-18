@@ -145,10 +145,10 @@ const RightPanel: React.FC<IDrawerProps> = ({
 				}}
 			>
 				<Box
-					display="flex"
-					justifyContent="space-between"
-					alignItems="center"
 					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
 						mb: 2,
 					}}
 				>
@@ -233,9 +233,11 @@ const RightPanel: React.FC<IDrawerProps> = ({
 										</FormControl>
 									) : field.type === "password" ? (
 										<Box
-											display={"flex"}
-											flexDirection={"column"}
-											rowGap={1}
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												rowGap: 1,
+											}}
 										>
 											<FormLabel>{field.label}</FormLabel>
 											<Controller
@@ -293,9 +295,11 @@ const RightPanel: React.FC<IDrawerProps> = ({
 										</Box>
 									) : (
 										<Box
-											display={"flex"}
-											flexDirection={"column"}
-											rowGap={1}
+											sx={{
+												display: "flex",
+												flexDirection: "column",
+												rowGap: 1,
+											}}
 										>
 											<FormLabel>{field.label}</FormLabel>
 											<Controller
@@ -332,10 +336,10 @@ const RightPanel: React.FC<IDrawerProps> = ({
 						)}
 					</Grid>
 					<Box
-						display={"flex"}
-						gap={"10px"}
-						justifyContent={"end"}
 						sx={{
+							display: "flex",
+							gap: "10px",
+							justifyContent: "end",
 							mt: 3,
 						}}
 					>
@@ -371,9 +375,9 @@ const RightPanel: React.FC<IDrawerProps> = ({
 					</Box>
 					{steps && (
 						<Box
-							display="flex"
-							justifyContent="space-between"
 							sx={{
+								display: "flex",
+								justifyContent: "space-between",
 								mt: 12,
 							}}
 						>

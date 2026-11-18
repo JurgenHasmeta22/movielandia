@@ -293,7 +293,7 @@ export default function SeasonPageContent({
 	// #endregion
 
 	return (
-		<Stack flexDirection={"column"} rowGap={4}>
+		<Stack sx={{ flexDirection: "column", rowGap: 4 }}>
 			<DetailsPageCard
 				data={season}
 				type="season"

@@ -326,7 +326,7 @@ export default function MoviePageContent({
 				/>
 			)}
 
-			<Stack flexDirection={"column"} rowGap={4}>
+			<Stack sx={{ flexDirection: "column", rowGap: 4 }}>
 				<DetailsPageCard
 					data={movie}
 					type="movie"

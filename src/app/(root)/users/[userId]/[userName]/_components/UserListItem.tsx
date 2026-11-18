@@ -142,7 +142,7 @@ export default function UserListItem({
 				},
 			}}
 		>
-			<Stack direction="row" spacing={2} alignItems="center">
+			<Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
 				<Link
 					href={`/users/${user.id}/${user.userName}`}
 					style={{ textDecoration: "none" }}

@@ -52,7 +52,11 @@ export default function MessagePageContent({ message }: { message: any }) {
 					Message Details
 				</Typography>
 				<Divider />
-				<Stack direction="row" spacing={2} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={2}
+					sx={{ alignItems: "center" }}
+				>
 					<Avatar
 						alt={message.sender.userName}
 						src={message.sender.avatar?.photoSrc || undefined}
@@ -75,7 +79,11 @@ export default function MessagePageContent({ message }: { message: any }) {
 						</Link>
 					</Typography>
 				</Stack>
-				<Stack direction="row" spacing={2} alignItems="center">
+				<Stack
+					direction="row"
+					spacing={2}
+					sx={{ alignItems: "center" }}
+				>
 					<Avatar
 						alt={message.receiver.userName}
 						src={message.receiver.avatar?.photoSrc || undefined}

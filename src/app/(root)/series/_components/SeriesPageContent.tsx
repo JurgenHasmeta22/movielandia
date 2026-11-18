@@ -140,8 +140,8 @@ export default async function SeriesPageContent({
 				>
 					<Stack
 						direction="row"
-						flexWrap="wrap"
 						sx={{
+							flexWrap: "wrap",
 							columnGap: { xs: 1, sm: 2, md: 3 },
 							rowGap: { xs: 3, sm: 4, md: 5 },
 							justifyContent: {

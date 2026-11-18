@@ -73,9 +73,11 @@ export default function ListCard({
 					>
 						<Stack
 							direction="row"
-							alignItems="center"
-							justifyContent="space-between"
-							mb={1}
+							sx={{
+								alignItems: "center",
+								justifyContent: "space-between",
+								mb: 1,
+							}}
 						>
 							<Typography
 								variant="h6"
@@ -166,9 +168,9 @@ export default function ListCard({
 
 						<Stack
 							direction="row"
-							justifyContent="space-between"
-							alignItems="center"
 							sx={{
+								justifyContent: "space-between",
+								alignItems: "center",
 								mt: 2,
 								pt: 1,
 								borderTop: "1px solid",

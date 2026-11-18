@@ -294,7 +294,7 @@ export default function SeriePageContent({
 	// #endregion
 
 	return (
-		<Stack flexDirection={"column"} rowGap={4}>
+		<Stack sx={{ flexDirection: "column", rowGap: 4 }}>
 			<DetailsPageCard
 				data={serie}
 				type="serie"

@@ -102,13 +102,12 @@ const ContactUsContent = () => {
 				<Stack
 					direction={{ xs: "column", md: "row" }}
 					spacing={{ xs: 4, md: 6 }}
-					alignItems="stretch"
+					sx={{ alignItems: "stretch" }}
 				>
-					<Box flex={1}>
+					<Box sx={{ flex: 1 }}>
 						<Stack
 							spacing={4}
-							height="100%"
-							justifyContent="center"
+							sx={{ height: "100%", justifyContent: "center" }}
 						>
 							<Box
 								component={motion.div}
@@ -119,7 +118,7 @@ const ContactUsContent = () => {
 								<Stack
 									direction="row"
 									spacing={2}
-									alignItems="center"
+									sx={{ alignItems: "center" }}
 								>
 									<EmailIcon
 										sx={{
@@ -159,7 +158,7 @@ const ContactUsContent = () => {
 								<Stack
 									direction="row"
 									spacing={2}
-									alignItems="center"
+									sx={{ alignItems: "center" }}
 								>
 									<PhoneIcon
 										sx={{
@@ -199,7 +198,7 @@ const ContactUsContent = () => {
 								<Stack
 									direction="row"
 									spacing={2}
-									alignItems="center"
+									sx={{ alignItems: "center" }}
 								>
 									<LocationOnIcon
 										sx={{
@@ -235,11 +234,11 @@ const ContactUsContent = () => {
 					</Box>
 
 					<Box
-						flex={2}
 						component={motion.div}
 						initial={{ opacity: 0, x: 20 }}
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.3, delay: 0.2 }}
+						sx={{ flex: 2 }}
 					>
 						<Paper
 							elevation={0}
@@ -254,7 +253,7 @@ const ContactUsContent = () => {
 								onSubmit={handleSubmit(onSubmit)}
 								style={{ height: "100%" }}
 							>
-								<Stack spacing={3} height="100%">
+								<Stack spacing={3} sx={{ height: "100%" }}>
 									<Controller
 										name="name"
 										control={control}

@@ -126,14 +126,22 @@ export default function ProfileInfo({
 
 	if (!userLoggedIn || userLoggedIn.id !== userInPage.id) {
 		return (
-			<Stack spacing={1} alignItems="center">
-				<Stack direction="row" alignItems="center" spacing={1}>
+			<Stack spacing={1} sx={{ alignItems: "center" }}>
+				<Stack
+					direction="row"
+					spacing={1}
+					sx={{ alignItems: "center" }}
+				>
 					<PersonIcon color="action" />
 					<Typography variant="h6" fontWeight={500} align="center">
 						{userInPage.userName}
 					</Typography>
 				</Stack>
-				<Stack direction="row" alignItems="center" spacing={1}>
+				<Stack
+					direction="row"
+					spacing={1}
+					sx={{ alignItems: "center" }}
+				>
 					<InfoIcon color="action" />
 					<Typography
 						variant="body2"
@@ -148,8 +156,8 @@ export default function ProfileInfo({
 	}
 
 	return (
-		<Stack spacing={1} alignItems="center">
-			<Stack direction="row" alignItems="center" spacing={1}>
+		<Stack spacing={1} sx={{ alignItems: "center" }}>
+			<Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
 				<PersonIcon color="action" />
 				{isEditingUserName ? (
 					<motion.div
@@ -236,7 +244,7 @@ export default function ProfileInfo({
 					</Stack>
 				)}
 			</Stack>
-			<Stack direction="row" alignItems="center" spacing={1}>
+			<Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
 				<InfoIcon color="action" />
 				{isEditingBio ? (
 					<motion.div

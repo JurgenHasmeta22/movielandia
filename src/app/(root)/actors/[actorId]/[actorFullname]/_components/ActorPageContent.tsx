@@ -285,7 +285,7 @@ export default function ActorPageContent({
 	// #endregion
 
 	return (
-		<Stack flexDirection={"column"} rowGap={4}>
+		<Stack sx={{ flexDirection: "column", rowGap: 4 }}>
 			<DetailsPageCard
 				data={actor}
 				type="actor"

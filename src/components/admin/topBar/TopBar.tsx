@@ -108,7 +108,7 @@ const TopBar = () => {
 						</IconButton>
 					</Box>
 				</Box>
-				<Box display={"flex"} flexDirection={"row"}>
+				<Box sx={{ display: "flex", flexDirection: "row" }}>
 					<SwitchThemeButton />
 					<IconButton
 						id="buttonProfile"

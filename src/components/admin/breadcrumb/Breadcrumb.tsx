@@ -17,12 +17,12 @@ const Breadcrumb = ({ breadcrumbs, navigateTo }: IBreadcrumbProps) => {
 
 	return (
 		<Box
-			display={"flex"}
 			component={"nav"}
-			flexDirection={"row"}
-			alignItems={"center"}
-			gap={"20px"}
 			sx={{
+				display: "flex",
+				flexDirection: "row",
+				alignItems: "center",
+				gap: "20px",
 				mb: "30px",
 			}}
 		>

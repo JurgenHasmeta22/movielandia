@@ -5,7 +5,7 @@ import { Box, Skeleton, Stack, Paper, Divider } from "@mui/material";
 
 export default function LoadingSkeletonUserProfile() {
 	return (
-		<Stack spacing={6} alignItems="center" sx={{ mt: 6, py: 6 }}>
+		<Stack spacing={6} sx={{ alignItems: "center", mt: 6, py: 6 }}>
 			{/* Updated Profile Header mimicking actual layout: Avatar & ProfileInfo in center, Stats bottom right */}
 			<Paper
 				elevation={3}
@@ -51,7 +51,7 @@ export default function LoadingSkeletonUserProfile() {
 				</Box>
 				{/* Stats Skeleton positioned at bottom right with increased padding-top */}
 				<Box sx={{ position: "absolute", bottom: 16, right: 16 }}>
-					<Stack spacing={2} alignItems="flex-end">
+					<Stack spacing={2} sx={{ alignItems: "flex-end" }}>
 						<Skeleton
 							variant="text"
 							sx={{ width: 100, height: 30 }}
@@ -87,7 +87,11 @@ export default function LoadingSkeletonUserProfile() {
 			{/* Tabs: Main & Subtabs Skeleton */}
 			<Box sx={{ width: "100%", maxWidth: 800, mb: 4 }}>
 				{/* Main Tabs */}
-				<Stack direction="row" spacing={0} justifyContent="center">
+				<Stack
+					direction="row"
+					spacing={0}
+					sx={{ justifyContent: "center" }}
+				>
 					{Array.from(new Array(6)).map((_, index) => (
 						<Skeleton
 							key={index}
@@ -100,8 +104,7 @@ export default function LoadingSkeletonUserProfile() {
 				<Stack
 					direction="row"
 					spacing={0}
-					justifyContent="center"
-					sx={{ mt: 1 }}
+					sx={{ justifyContent: "center", mt: 1 }}
 				>
 					{Array.from(new Array(6)).map((_, index) => (
 						<Skeleton

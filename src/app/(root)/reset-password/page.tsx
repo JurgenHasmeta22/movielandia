@@ -39,7 +39,13 @@ export default function ResetPasswordPage() {
 		<VerificationLayout title="Reset Password">
 			<form onSubmit={handleSubmit(handleSubmitResetPassword)}>
 				<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-					<Box display="flex" alignItems="center" gap={1}>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							gap: 1,
+						}}
+					>
 						<EmailIcon color="primary" />
 						<FormLabel>Email</FormLabel>
 					</Box>

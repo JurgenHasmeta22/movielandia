@@ -119,19 +119,39 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
 				}}
 			>
 				<Box
-					display={"flex"}
-					flexDirection="row"
-					columnGap={1}
-					sx={{ pb: 4 }}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						columnGap: 1,
+						pb: 4,
+					}}
 				>
 					<LockOutlinedIcon fontSize="large" />
 					<Typography variant="h2" textAlign={"center"}>
 						Change Password
 					</Typography>
 				</Box>
-				<Box display={"flex"} flexDirection={"row"} columnGap={3}>
-					<Box display={"flex"} flexDirection={"column"} rowGap={1}>
-						<Box display={"flex"} flexDirection="row" columnGap={1}>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						columnGap: 3,
+					}}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							rowGap: 1,
+						}}
+					>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								columnGap: 1,
+							}}
+						>
 							<PasswordIcon />
 							<FormLabel component={"label"}>
 								New Password
@@ -188,8 +208,20 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
 							</Box>
 						</FormControl>
 					</Box>
-					<Box display={"flex"} flexDirection={"column"} rowGap={1}>
-						<Box display={"flex"} flexDirection="row" columnGap={1}>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							rowGap: 1,
+						}}
+					>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								columnGap: 1,
+							}}
+						>
 							<PasswordIcon />
 							<FormLabel component={"label"}>
 								Confirm New Password

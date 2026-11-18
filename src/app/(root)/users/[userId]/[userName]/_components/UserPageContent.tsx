@@ -192,9 +192,7 @@ export default function UserPageContent({
 	return (
 		<Stack
 			spacing={4}
-			width="100%"
-			alignItems="center"
-			sx={{ mt: 8, py: 4 }}
+			sx={{ width: "100%", alignItems: "center", mt: 8, py: 4 }}
 		>
 			<Paper
 				elevation={3}
@@ -203,7 +201,7 @@ export default function UserPageContent({
 				<Stack
 					direction="column"
 					spacing={{ xs: 3, sm: 4 }}
-					alignItems="center"
+					sx={{ alignItems: "center" }}
 				>
 					<ProfileHeader
 						avatar={userInPage.avatar}
@@ -216,10 +214,12 @@ export default function UserPageContent({
 					<Stack
 						direction="row"
 						spacing={2}
-						alignItems="flex-start"
-						justifyContent="space-between"
-						width="100%"
-						sx={{ mt: 2 }}
+						sx={{
+							alignItems: "flex-start",
+							justifyContent: "space-between",
+							width: "100%",
+							mt: 2,
+						}}
 					>
 						<SocialSection
 							userLoggedIn={userLoggedIn}

@@ -118,7 +118,7 @@ export default function NotificationsPageContent({
 									<Stack
 										direction="row"
 										spacing={2}
-										alignItems="center"
+										sx={{ alignItems: "center" }}
 									>
 										<Avatar
 											src={

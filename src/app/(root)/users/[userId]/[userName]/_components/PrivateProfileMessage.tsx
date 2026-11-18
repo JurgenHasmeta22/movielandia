@@ -15,7 +15,7 @@ export default function PrivateProfileMessage() {
 				bgcolor: (theme) => theme.vars.palette.background.paper,
 			}}
 		>
-			<Stack spacing={3} alignItems="center">
+			<Stack spacing={3} sx={{ alignItems: "center" }}>
 				<LockIcon sx={{ fontSize: 48, color: "text.secondary" }} />
 				<Box>
 					<Typography variant="h6" gutterBottom>
