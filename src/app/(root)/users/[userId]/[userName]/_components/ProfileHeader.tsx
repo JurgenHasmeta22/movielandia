@@ -21,7 +21,7 @@ export default function ProfileHeader({
 			}}
 		>
 			<Avatar
-				src={avatar?.photoSrc || "/images/default-avatar.png"}
+				src={avatar?.photoSrc}
 				alt={userName}
 				sx={{
 					width: "100%",

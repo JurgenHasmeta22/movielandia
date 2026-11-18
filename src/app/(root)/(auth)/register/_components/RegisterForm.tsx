@@ -34,7 +34,6 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { signIn } from "next-auth/react";
 import { registerSchema } from "@/schemas/auth.schema";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import CakeIcon from "@mui/icons-material/Cake";
 import { z } from "zod";
 
@@ -94,20 +93,34 @@ export default function RegisterForm() {
 			throw new Error("Gender is required");
 		}
 
-		await signUp({
-			userName: values.userName,
-			email: values.email,
-			gender: values.gender,
-			phone: values.phone,
-			birthday: new Date(values.birthday),
-			password: values.password,
-			countryFrom: values.countryFrom,
-		});
+		try {
+			const result = await signUp({
+				userName: values.userName,
+				email: values.email,
+				gender: values.gender,
+				phone: values.phone,
+				birthday: new Date(values.birthday),
+				password: values.password,
+				countryFrom: values.countryFrom,
+			});
 
-		showToast(
-			"success",
-			"Registration successful! Please check your email to activate your account.",
-		);
+			if ("error" in result) {
+				showToast("error", result.error);
+				return;
+			}
+
+			showToast(
+				"success",
+				"Registration successful! Please check your email to activate your account.",
+			);
+		} catch (error) {
+			showToast(
+				"error",
+				error instanceof Error
+					? error.message
+					: "An unexpected error occurred.",
+			);
+		}
 	}
 
 	return (

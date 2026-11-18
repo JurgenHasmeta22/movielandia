@@ -16,7 +16,6 @@ import {
 import { SaveOutlined, ArrowBackOutlined } from "@mui/icons-material";
 import { useQueryState } from "nuqs";
 import { showToast } from "@/utils/helpers/toast";
-import { formatTitleForUrl } from "@/utils/helpers/formatUrl";
 import { addItemsToList } from "@/actions/list/listItems.actions";
 import SelectableListCard from "@/components/root/selectableListCard/SelectableListCard";
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
@@ -28,7 +27,6 @@ interface AddItemsFormProps {
 	currentPage: number;
 	listId: number;
 	userId: number;
-	listName: string;
 	initialContentType?: string;
 }
 
@@ -47,7 +45,6 @@ export default function AddItemsForm({
 	currentPage,
 	listId,
 	userId,
-	listName,
 	initialContentType,
 }: AddItemsFormProps) {
 	const router = useRouter();
@@ -112,20 +109,8 @@ export default function AddItemsForm({
 				itemIds: Array.from(selectedItems),
 			});
 
-			// Extract the username from the pathname
-			const pathParts = pathname.split("/");
-			const userIdIndex = pathParts.findIndex(
-				(part) => part === userId.toString(),
-			);
-			const userName =
-				userIdIndex >= 0 && userIdIndex + 1 < pathParts.length
-					? pathParts[userIdIndex + 1]
-					: "user";
-
 			showToast("success", "Items added successfully");
-			router.push(
-				`/users/${userId}/${userName}/lists/${formatTitleForUrl(listId, listName)}`,
-			);
+			router.push(pathname.slice(0, pathname.lastIndexOf("/")));
 		} catch (error) {
 			showToast("error", "Failed to add items to list");
 		}

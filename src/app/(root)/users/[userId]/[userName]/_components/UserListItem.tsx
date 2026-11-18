@@ -148,10 +148,7 @@ export default function UserListItem({
 					style={{ textDecoration: "none" }}
 				>
 					<Avatar
-						src={
-							user.avatar?.photoSrc ||
-							"/images/default-avatar.png"
-						}
+						src={user.avatar?.photoSrc}
 						alt={user.userName}
 						sx={{
 							width: 50,

@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import FormAdvanced from "@/components/admin/form/Form";
 import { signUp } from "@/actions/auth.actions";
-import { User } from "@prisma/client";
 import Link from "next/link";
 import Breadcrumb from "@/components/admin/breadcrumb/Breadcrumb";
 import { addUserSchema } from "@/schemas/user.schema";
@@ -37,7 +36,7 @@ const AddUserAdminPage = () => {
 	};
 
 	const handleFormSubmit = async (values: any) => {
-		const response: User | null | undefined = await signUp({
+		const response = await signUp({
 			userName: values.userName,
 			email: values.email,
 			password: values.password,
@@ -46,6 +45,11 @@ const AddUserAdminPage = () => {
 			phone: values.phone,
 			countryFrom: values.countryFrom,
 		});
+
+		if ("error" in response) {
+			toast.error(response.error);
+			return;
+		}
 
 		if (response) {
 			toast.success(CONSTANTS.ADD__SUCCESS);

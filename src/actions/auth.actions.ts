@@ -32,74 +32,62 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function signUp(
 	userData: IRegister,
-): Promise<User | null | undefined> {
-	try {
-		const {
+): Promise<User | { error: string }> {
+	const {
+		email,
+		password,
+		userName,
+		birthday,
+		gender,
+		phone,
+		countryFrom,
+	} = userData;
+
+	const existingUser = await prisma.user.findUnique({
+		where: { email },
+	});
+
+	if (existingUser) {
+		return { error: "An account with this email already exists." };
+	}
+
+	const hash = hashSync(password, 7);
+
+	const user = await prisma.user.create({
+		data: {
 			email,
-			password,
+			password: hash,
 			userName,
 			birthday,
+			active: false,
 			gender,
 			phone,
 			countryFrom,
-		} = userData;
+		},
+	});
 
-		const existingUser: User | null = await prisma.user.findUnique({
-			where: { email },
-		});
+	const token = await prisma.activateToken.create({
+		data: {
+			userId: user.id,
+			token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ""),
+		},
+	});
 
-		if (existingUser) {
-			throw new Error("User already exists.");
-		} else {
-			const hash = hashSync(password, 7);
+	await resend.emails.send({
+		from: "MovieLandia24 <onboarding@resend.dev>",
+		to: [email],
+		subject: "Registration Verification - Movielandia24",
+		// @ts-expect-error error
+		react: RegistrationEmail({
+			userName,
+			email,
+			token: token.token,
+		}),
+	});
 
-			const user: User | null = await prisma.user.create({
-				data: {
-					email,
-					password: hash,
-					userName,
-					birthday,
-					active: false,
-					gender,
-					phone,
-					countryFrom,
-				},
-			});
-
-			const token = await prisma.activateToken.create({
-				data: {
-					userId: user.id,
-					token: `${randomUUID()}${randomUUID()}`.replace(/-/g, ""),
-				},
-			});
-
-			if (user && token) {
-				await resend.emails.send({
-					from: "MovieLandia24 <onboarding@resend.dev>",
-					to: [email],
-					subject: "Registration Verification - Movielandia24",
-					// @ts-expect-error error
-					react: RegistrationEmail({
-						userName,
-						email,
-						token: token.token,
-					}),
-				});
-
-				redirect(
-					`/register-verification-sent?email=${encodeURIComponent(email)}`,
-				);
-			} else {
-				throw new Error("Failed to register user.");
-			}
-		}
-	} catch (error) {
-		throw new Error(
-			error instanceof Error
-				? error.message
-				: "An unexpected error occurred.",
-		);
-	}
+	redirect(
+		`/register-verification-sent?email=${encodeURIComponent(email)}`,
+	);
 }
 
 export async function resetPassword(userData: IResetPassword): Promise<any> {

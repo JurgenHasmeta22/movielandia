@@ -216,10 +216,7 @@ export default function ReviewItemProfile({
 							}}
 						>
 							<Avatar
-								src={
-									review.user?.avatar?.photoSrc ||
-									"/default-avatar.jpg"
-								}
+								src={review.user?.avatar?.photoSrc}
 								alt={review.user?.userName || "User"}
 								sx={{ width: 24, height: 24 }}
 							/>

@@ -25,7 +25,7 @@ export default async function AddItemsPageContent({
 	params,
 	searchParams,
 }: AddItemsPageContentProps) {
-	const { userId, listId, listName } = params;
+	const { userId, listId } = params;
 
 	const currentPage = searchParams?.page ? Number(searchParams.page) : 1;
 	const type = searchParams?.type;
@@ -83,7 +83,6 @@ export default async function AddItemsPageContent({
 				currentPage={currentPage}
 				listId={Number(listId)}
 				userId={Number(userId)}
-				listName={listName}
 				initialContentType={initialContentType}
 			/>
 		</Box>

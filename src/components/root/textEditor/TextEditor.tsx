@@ -20,6 +20,8 @@ interface ITextEditorProps {
 
 // Custom Blot for @mentions that are non-deletable and clickable
 const configureMentionBlot = (Quill: any) => {
+	if (Quill.imports["formats/mention"]) return;
+
 	const Embed = Quill.import("blots/embed");
 
 	class MentionBlot extends Embed {
@@ -84,12 +86,6 @@ const getModulesConfig = () => ({
 	],
 	clipboard: {
 		matchVisual: false,
-	},
-	keyboard: {
-		bindings: {
-			tab: false,
-			"list autofill": true,
-		},
 	},
 });
 
