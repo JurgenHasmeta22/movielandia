@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "../../../../prisma/config/prisma";
 import { hashSync } from "bcrypt";
 
-export const dynamic = "force-dynamic";
-
 export async function POST(request: Request) {
 	const { newPassword, email } = await request.json();
 

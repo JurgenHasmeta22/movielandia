@@ -169,7 +169,7 @@ const PrivacyContentPage = () => {
 						mb: 2,
 					}}
 				>
-					Last updated: {new Date().toLocaleDateString()}
+					Last updated: November 18, 2026
 				</Typography>
 				<Divider sx={{ my: 3 }} />
 				<Typography

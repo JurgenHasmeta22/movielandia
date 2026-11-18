@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
 		},
 		useCache: true,
 	},
+	reactCompiler: true,
 	images: {
 		remotePatterns: [
 			{

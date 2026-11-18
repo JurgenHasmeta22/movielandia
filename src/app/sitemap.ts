@@ -18,8 +18,6 @@ import { MetadataRoute } from "next";
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL;
 
-export const dynamic = "force-dynamic";
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const urls: any[] = [];
 	const movies = await getMovies();
