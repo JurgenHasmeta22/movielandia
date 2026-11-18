@@ -18,7 +18,7 @@ import {
 	FormHelperText,
 	Link,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { showToast } from "@/utils/helpers/toast";
 import { signUp } from "@/actions/auth.actions";
 import EmailIcon from "@mui/icons-material/Email";
@@ -79,11 +79,11 @@ export default function RegisterForm() {
 	});
 
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
-	const handleMouseDownPassword = () => setShowPassword(!showPassword);
+	const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+	};
 
 	const handleClickShowPasswordConfirm = () =>
-		setShowPasswordConfirm(!showPasswordConfirm);
-	const handleMouseDownPasswordConfirm = () =>
 		setShowPasswordConfirm(!showPasswordConfirm);
 
 	async function handleSubmitRegister(values: RegisterFormOutput) {
@@ -111,18 +111,25 @@ export default function RegisterForm() {
 	}
 
 	return (
-		<Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 2 }}>
+		<Box
+			sx={{
+				width: "100%",
+				maxWidth: "440px",
+				margin: "0 auto",
+				"& .MuiOutlinedInput-root": { borderRadius: 1.5 },
+			}}
+		>
 			<form onSubmit={handleSubmit(handleSubmitRegister)}>
 				<Box
 					sx={{
 						display: "flex",
 						flexDirection: "column",
-						rowGap: 2.5,
+						rowGap: 2,
 					}}
 				>
 					<Box
 						sx={{
-							mb: 6,
+							mb: 4,
 							display: "flex",
 							justifyContent: "center",
 						}}
@@ -146,6 +153,8 @@ export default function RegisterForm() {
 								<TextField
 									{...field}
 									placeholder="Username"
+									autoComplete="username"
+									spellCheck={false}
 									size="small"
 									fullWidth
 									error={!!errors.userName}
@@ -157,6 +166,9 @@ export default function RegisterForm() {
 													<PersonIcon />
 												</InputAdornment>
 											),
+										},
+										htmlInput: {
+											"aria-label": "Username",
 										},
 									}}
 									sx={{
@@ -176,6 +188,8 @@ export default function RegisterForm() {
 								<TextField
 									{...field}
 									placeholder="Email"
+									autoComplete="email"
+									spellCheck={false}
 									size="small"
 									fullWidth
 									error={!!errors.email}
@@ -187,6 +201,9 @@ export default function RegisterForm() {
 													<EmailIcon />
 												</InputAdornment>
 											),
+										},
+										htmlInput: {
+											"aria-label": "Email",
 										},
 									}}
 									sx={{
@@ -206,6 +223,7 @@ export default function RegisterForm() {
 								<TextField
 									{...field}
 									type="date"
+									autoComplete="bday"
 									size="small"
 									fullWidth
 									label="Birthday"
@@ -296,6 +314,7 @@ export default function RegisterForm() {
 								<TextField
 									{...field}
 									placeholder="Phone Number"
+									autoComplete="tel"
 									size="small"
 									fullWidth
 									error={!!errors.phone}
@@ -307,6 +326,9 @@ export default function RegisterForm() {
 													<PhoneIcon />
 												</InputAdornment>
 											),
+										},
+										htmlInput: {
+											"aria-label": "Phone Number",
 										},
 									}}
 									sx={{
@@ -413,6 +435,7 @@ export default function RegisterForm() {
 									{...field}
 									type={showPassword ? "text" : "password"}
 									placeholder="Password"
+									autoComplete="new-password"
 									size="small"
 									fullWidth
 									error={!!errors.password}
@@ -427,6 +450,11 @@ export default function RegisterForm() {
 											endAdornment: (
 												<InputAdornment position="end">
 													<IconButton
+														aria-label={
+															showPassword
+																? "Hide password"
+																: "Show password"
+														}
 														onClick={
 															handleClickShowPassword
 														}
@@ -442,6 +470,9 @@ export default function RegisterForm() {
 													</IconButton>
 												</InputAdornment>
 											),
+										},
+										htmlInput: {
+											"aria-label": "Password",
 										},
 									}}
 									sx={{
@@ -474,6 +505,7 @@ export default function RegisterForm() {
 											: "password"
 									}
 									placeholder="Confirm Password"
+									autoComplete="new-password"
 									size="small"
 									fullWidth
 									error={!!errors.confirmPassword}
@@ -488,11 +520,16 @@ export default function RegisterForm() {
 											endAdornment: (
 												<InputAdornment position="end">
 													<IconButton
+														aria-label={
+															showPasswordConfirm
+																? "Hide confirm password"
+																: "Show confirm password"
+														}
 														onClick={
 															handleClickShowPasswordConfirm
 														}
 														onMouseDown={
-															handleMouseDownPasswordConfirm
+															handleMouseDownPassword
 														}
 													>
 														{showPasswordConfirm ? (
@@ -503,6 +540,9 @@ export default function RegisterForm() {
 													</IconButton>
 												</InputAdornment>
 											),
+										},
+										htmlInput: {
+											"aria-label": "Confirm Password",
 										},
 									}}
 									sx={{
@@ -572,8 +612,10 @@ export default function RegisterForm() {
 							disabled={isSubmitting}
 							sx={{
 								fontWeight: 600,
-								py: 1,
+								py: 1.25,
 								px: 4,
+								borderRadius: 1.5,
+								textTransform: "none",
 							}}
 						>
 							<LockOutlinedIcon />
@@ -618,7 +660,13 @@ export default function RegisterForm() {
 								signIn("google", { callbackUrl: "/" })
 							}
 							variant="outlined"
-							sx={{ fontWeight: 600, py: 1 }}
+							fullWidth
+							sx={{
+								fontWeight: 600,
+								py: 1.25,
+								borderRadius: 1.5,
+								textTransform: "none",
+							}}
 						>
 							<GoogleIcon />
 							<Typography

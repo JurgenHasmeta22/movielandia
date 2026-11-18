@@ -1,6 +1,6 @@
 import GenreItem from "@/components/root/genreItem/GenreItem";
 import { getGenres } from "@/actions/genre.actions";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Genre } from "@prisma/client";
 import type { Metadata } from "next";
 
@@ -38,41 +38,37 @@ export default async function Genres() {
 	return (
 		<Box
 			sx={{
-				display: "flex",
-				flexDirection: "column",
-				placeItems: "center",
-				pt: 4,
-				mt: 4,
-				mb: 4,
-				mr: 3,
-				ml: 3,
+				maxWidth: "1320px",
+				mx: "auto",
+				px: { xs: 2, sm: 3, md: 4 },
+				pt: { xs: 4, md: 7 },
+				pb: { xs: 6, md: 9 },
 			}}
-			component={"section"}
+			component="section"
 		>
 			<Typography
+				component="h1"
+				variant="h2"
 				sx={{
-					mt: 4,
-					fontSize: "26px",
+					mb: 1.5,
+					fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+					fontWeight: 700,
+					letterSpacing: "-0.05em",
 				}}
 			>
 				Choose your favorite genre
 			</Typography>
-			<Stack
-				direction="row"
+			<Box
 				sx={{
-					flexWrap: "wrap",
-					alignItems: "start",
-					rowGap: 5,
-					columnGap: 5,
-					pl: 3,
-					mt: 3,
-					mb: 4,
-					justifyContent: {
-						xs: "center",
-						sm: "center",
-						md: "start",
-						lg: "start",
+					display: "grid",
+					gridTemplateColumns: {
+						xs: "repeat(2, minmax(0, 1fr))",
+						sm: "repeat(3, minmax(0, 1fr))",
+						md: "repeat(4, minmax(0, 1fr))",
+						lg: "repeat(5, minmax(0, 1fr))",
 					},
+					gap: { xs: 1.5, sm: 2, md: 2.5 },
+					mt: { xs: 3, md: 4 },
 				}}
 			>
 				{genres?.length! > 0 ? (
@@ -82,7 +78,7 @@ export default async function Genres() {
 				) : (
 					<Typography>No genres available.</Typography>
 				)}
-			</Stack>
+			</Box>
 		</Box>
 	);
 }

@@ -123,7 +123,7 @@ const TestimonialsSection = () => {
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 6, md: 8 },
+				py: { xs: 7, md: 10 },
 				backgroundColor: theme.vars.palette.background.default,
 				position: "relative",
 				width: "100%",
@@ -137,18 +137,14 @@ const TestimonialsSection = () => {
 					viewport={{ once: true, amount: 0.3 }}
 					variants={containerVariants}
 				>
-					<Box sx={{ textAlign: "center", mb: 5 }}>
+					<Box sx={{ textAlign: "left", mb: { xs: 4, md: 6 } }}>
 						<motion.div variants={itemVariants}>
 							<Box
 								sx={{
 									display: "inline-flex",
 									alignItems: "center",
-									backgroundColor: `${theme.vars.palette.primary.main}15`,
-									color: theme.vars.palette.primary.main,
-									px: 2,
-									py: 1,
-									borderRadius: 2,
-									mb: 2,
+									color: theme.vars.palette.green.light,
+									mb: 1.5,
 								}}
 							>
 								<PeopleAltIcon sx={{ mr: 1, fontSize: 20 }} />
@@ -165,11 +161,12 @@ const TestimonialsSection = () => {
 								variant="h3"
 								sx={{
 									fontWeight: 700,
-									mb: 2,
+									mb: 1.5,
+									letterSpacing: "-0.04em",
 									fontSize: {
-										xs: "1.75rem",
-										sm: "2rem",
-										md: "2.5rem",
+										xs: "1.8rem",
+										sm: "2.2rem",
+										md: "2.6rem",
 									},
 								}}
 							>
@@ -181,9 +178,9 @@ const TestimonialsSection = () => {
 								variant="body1"
 								sx={{
 									color: theme.vars.palette.text.secondary,
-									maxWidth: "800px",
-									mx: "auto",
+									maxWidth: "680px",
 									fontSize: { xs: "0.9rem", sm: "1rem" },
+									lineHeight: 1.7,
 								}}
 							>
 								Join thousands of satisfied users who have
@@ -200,23 +197,16 @@ const TestimonialsSection = () => {
 									<Paper
 										elevation={0}
 										sx={{
-											p: 3,
+											px: 2,
+											py: 3,
 											height: "100%",
-											borderRadius: 3,
+											borderRadius: 0,
 											display: "flex",
 											flexDirection: "column",
-											border: "1px solid",
+											border: 0,
+											borderTop: "1px solid",
 											borderColor: "divider",
-											backgroundColor:
-												theme.vars.palette.background
-													.paper,
-											transition:
-												"transform 0.3s ease, box-shadow 0.3s ease",
-											"&:hover": {
-												transform: "translateY(-5px)",
-												boxShadow:
-													"0 10px 30px rgba(0,0,0,0.1)",
-											},
+											backgroundColor: "transparent",
 										}}
 									>
 										<Box sx={{ mb: 2 }}>
@@ -224,8 +214,8 @@ const TestimonialsSection = () => {
 												sx={{
 													fontSize: 40,
 													color: theme.vars.palette
-														.primary.main,
-													opacity: 0.3,
+														.green.light,
+													opacity: 0.8,
 												}}
 											/>
 										</Box>

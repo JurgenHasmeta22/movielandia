@@ -69,7 +69,7 @@ const FaqSection = () => {
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 6, md: 8 },
+				py: { xs: 7, md: 10 },
 				backgroundColor: theme.vars.palette.background.default,
 				position: "relative",
 				width: "100%",
@@ -83,18 +83,14 @@ const FaqSection = () => {
 					viewport={{ once: true, amount: 0.3 }}
 					variants={containerVariants}
 				>
-					<Box sx={{ textAlign: "center", mb: 5 }}>
+					<Box sx={{ textAlign: "left", mb: { xs: 4, md: 6 } }}>
 						<motion.div variants={itemVariants}>
 							<Box
 								sx={{
 									display: "inline-flex",
 									alignItems: "center",
-									backgroundColor: `${theme.vars.palette.primary.main}15`,
-									color: theme.vars.palette.primary.main,
-									px: 2,
-									py: 1,
-									borderRadius: 2,
-									mb: 2,
+									color: theme.vars.palette.green.light,
+									mb: 1.5,
 								}}
 							>
 								<QuestionAnswerIcon
@@ -113,11 +109,12 @@ const FaqSection = () => {
 								variant="h3"
 								sx={{
 									fontWeight: 700,
-									mb: 2,
+									mb: 1.5,
+									letterSpacing: "-0.04em",
 									fontSize: {
-										xs: "1.75rem",
-										sm: "2rem",
-										md: "2.5rem",
+										xs: "1.8rem",
+										sm: "2.2rem",
+										md: "2.6rem",
 									},
 								}}
 							>
@@ -129,9 +126,9 @@ const FaqSection = () => {
 								variant="body1"
 								sx={{
 									color: theme.vars.palette.text.secondary,
-									maxWidth: "800px",
-									mx: "auto",
+									maxWidth: "680px",
 									fontSize: { xs: "0.9rem", sm: "1rem" },
+									lineHeight: 1.7,
 								}}
 							>
 								Find answers to the most common questions about
@@ -152,18 +149,17 @@ const FaqSection = () => {
 									expanded={expanded === `panel${index}`}
 									onChange={handleChange(`panel${index}`)}
 									sx={{
-										mb: 2,
-										borderRadius: "8px",
+										mb: 0,
+										borderRadius: 0,
 										overflow: "hidden",
-										boxShadow:
-											"0 4px 12px rgba(0,0,0,0.05)",
-										border: "1px solid",
+										boxShadow: "none",
+										border: 0,
+										borderTop: "1px solid",
 										borderColor: "divider",
 										"&:before": {
 											display: "none",
 										},
-										backgroundColor:
-											theme.vars.palette.background.paper,
+										backgroundColor: "transparent",
 									}}
 								>
 									<AccordionSummary
@@ -171,17 +167,20 @@ const FaqSection = () => {
 											<ExpandMoreIcon
 												sx={{
 													color: theme.vars.palette
-														.primary.main,
+														.green.light,
 												}}
 											/>
 										}
 										sx={{
-											px: 3,
-											py: 1.5,
+											px: { xs: 1, sm: 2 },
+											py: 1.25,
 											"&:hover": {
 												backgroundColor:
 													theme.vars.palette.action
 														.hover,
+											},
+											"&.Mui-expanded": {
+												minHeight: "unset",
 											},
 										}}
 									>
@@ -199,11 +198,12 @@ const FaqSection = () => {
 									</AccordionSummary>
 									<AccordionDetails
 										sx={{
-											px: 3,
-											py: 2,
-											backgroundColor:
-												theme.vars.palette.action
-													.selected,
+											px: { xs: 1, sm: 2 },
+											py: 0,
+											pb: 2.5,
+											borderTop: "1px solid",
+											borderColor: "divider",
+											backgroundColor: "transparent",
 										}}
 									>
 										<Typography

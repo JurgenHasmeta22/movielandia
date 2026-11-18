@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Crew } from "@prisma/client";
 import {
 	getCrewMembersWithFilters,
@@ -56,11 +56,11 @@ export default async function CrewAllPageContent({
 			<Box
 				component="section"
 				sx={{
-					maxWidth: "1200px",
+					maxWidth: "1320px",
 					margin: "0 auto",
 					width: "100%",
 					mt: 8,
-					px: { xs: 2, sm: 3, md: 4 },
+					px: { xs: 2, sm: 3, md: 4, xl: 0 },
 				}}
 			>
 				<Box
@@ -130,31 +130,36 @@ export default async function CrewAllPageContent({
 				<Box
 					sx={{
 						width: "100%",
-						overflow: "hidden",
+						overflow: "visible",
 						mt: { xs: 4, md: 5 },
 						mb: 4,
 					}}
 				>
-					<Stack
-						direction="row"
+					<Box
 						sx={{
-							flexWrap: "wrap",
-							columnGap: { xs: 1, sm: 2, md: 3 },
-							rowGap: { xs: 3, sm: 4, md: 5 },
-							justifyContent: { xs: "center", md: "flex-start" },
-							mx: { xs: 1, sm: 2 },
+							display: "grid",
+							gridTemplateColumns: {
+								xs: "repeat(2, minmax(0, 1fr))",
+								sm: "repeat(3, minmax(0, 1fr))",
+								md: "repeat(4, minmax(0, 1fr))",
+								lg: "repeat(5, minmax(0, 1fr))",
+								xl: "repeat(6, minmax(0, 1fr))",
+							},
+							gap: { xs: 1.5, sm: 2.5, md: 3 },
 							mb: { xs: 3, md: 4 },
 						}}
 					>
-						{crewMembers.map((crewMember: Crew) => (
+						{crewMembers.map((crewMember: Crew, index: number) => (
 							<CardItem
 								key={crewMember.id}
 								data={crewMember}
 								type="crew"
 								path="crew"
+								isPriority={index === 0}
+								presentation="poster"
 							/>
 						))}
-					</Stack>
+					</Box>
 					<PaginationControl
 						currentPage={Number(page)}
 						pageCount={pageCount}

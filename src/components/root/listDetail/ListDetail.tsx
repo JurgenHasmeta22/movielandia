@@ -73,38 +73,27 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				gap: 4,
+				gap: { xs: 3, md: 4 },
 				width: "100%",
-				maxWidth: "1200px",
+				maxWidth: "1320px",
 				margin: "0 auto",
-				px: { xs: 2, sm: 3, md: 4 },
+				px: { xs: 2, sm: 3, md: 4, xl: 0 },
 			}}
 		>
 			<Box
 				sx={{
-					mb: { xs: 1, md: 2 },
+					mb: { xs: 0.5, md: 1 },
 					display: "flex",
-					justifyContent: { xs: "center", md: "flex-start" },
+					justifyContent: "flex-start",
 				}}
 			>
 				<Typography
 					variant="h2"
 					sx={{
 						fontSize: { xs: 24, sm: 28, md: 32 },
-						fontWeight: 800,
+						fontWeight: 700,
 						color: theme.vars.palette.text.primary,
-						position: "relative",
-						display: "inline-block",
-						"&::after": {
-							content: '""',
-							position: "absolute",
-							bottom: -8,
-							left: 0,
-							width: "100%",
-							height: 3,
-							bgcolor: theme.vars.palette.primary.main,
-							borderRadius: 1,
-						},
+						letterSpacing: "-0.04em",
 					}}
 				>
 					{getTitle()}
@@ -114,14 +103,14 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
 				sx={{
 					display: "grid",
 					gridTemplateColumns: {
-						xs: "repeat(auto-fill, minmax(120px, 1fr))",
-						sm: "repeat(auto-fill, minmax(140px, 1fr))",
-						md: "repeat(auto-fill, minmax(150px, 1fr))",
-						lg: "repeat(auto-fill, minmax(160px, 1fr))",
+						xs: "repeat(2, minmax(0, 1fr))",
+						sm: "repeat(3, minmax(0, 1fr))",
+						md: "repeat(4, minmax(0, 1fr))",
+						lg: "repeat(5, minmax(0, 1fr))",
+						xl: "repeat(6, minmax(0, 1fr))",
 					},
-					gap: { xs: 1, sm: 2, md: 3 },
+					gap: { xs: 1.5, sm: 2.5, md: 3 },
 					width: "100%",
-					justifyItems: { xs: "center", md: "start" },
 				}}
 			>
 				{data.map((item: any, index: number) => (
@@ -130,6 +119,7 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
 						data={getItemData(item)}
 						type={type}
 						path={getItemPath()!}
+						presentation="poster"
 					/>
 				))}
 			</Box>

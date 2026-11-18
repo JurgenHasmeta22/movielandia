@@ -90,8 +90,8 @@ export default function ForumSearchResultsList({
 					p: 4,
 					textAlign: "center",
 					borderRadius: 2,
-					backgroundColor: theme.vars.palette.secondary.light,
-					border: `1px solid ${theme.vars.palette.primary.light}`,
+					backgroundColor: theme.vars.palette.background.paper,
+					border: `1px solid ${theme.vars.palette.divider}`,
 				}}
 			>
 				<Typography variant="h6" gutterBottom>
@@ -112,10 +112,11 @@ export default function ForumSearchResultsList({
 						key={`${item.type}-${item.id}-${index}`}
 						elevation={0}
 						sx={{
-							p: 3,
+							p: { xs: 2, sm: 3 },
 							borderRadius: 2,
-							backgroundColor: theme.vars.palette.secondary.light,
-							border: `1px solid ${theme.vars.palette.primary.light}`,
+							backgroundColor:
+								theme.vars.palette.background.paper,
+							border: `1px solid ${theme.vars.palette.divider}`,
 						}}
 					>
 						{item.type === "topic" && (
@@ -140,7 +141,10 @@ export default function ForumSearchResultsList({
 										<Typography
 											variant="h6"
 											color="primary"
-											sx={{ fontWeight: "bold" }}
+											sx={{
+												fontWeight: 650,
+												letterSpacing: "-0.02em",
+											}}
 										>
 											{item.title}
 										</Typography>
@@ -224,7 +228,10 @@ export default function ForumSearchResultsList({
 										<Typography
 											variant="h6"
 											color="primary"
-											sx={{ fontWeight: "bold" }}
+											sx={{
+												fontWeight: 650,
+												letterSpacing: "-0.02em",
+											}}
 										>
 											Re: {item.topic.title}
 										</Typography>
@@ -305,7 +312,10 @@ export default function ForumSearchResultsList({
 										<Typography
 											variant="h6"
 											color="primary"
-											sx={{ fontWeight: "bold" }}
+											sx={{
+												fontWeight: 650,
+												letterSpacing: "-0.02em",
+											}}
 										>
 											Re: {item.post.topic.title}
 										</Typography>

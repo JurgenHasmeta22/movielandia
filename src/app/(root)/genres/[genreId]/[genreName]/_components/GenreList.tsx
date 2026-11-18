@@ -50,7 +50,7 @@ const GenreList = ({
 				width: "100%",
 				bgcolor: "background.paper",
 				borderRadius: 2,
-				boxShadow: theme.vars.shadows[1],
+				boxShadow: "none",
 				overflow: "hidden",
 				border: "1px solid",
 				borderColor: "divider",
@@ -60,7 +60,7 @@ const GenreList = ({
 				sx={{
 					p: { xs: 2, sm: 3 },
 					borderBottom: `1px solid ${theme.vars.palette.divider}`,
-					bgcolor: "background.paper",
+					bgcolor: "transparent",
 				}}
 			>
 				<Box
@@ -76,10 +76,11 @@ const GenreList = ({
 						<Typography
 							variant="h2"
 							sx={{
-								fontSize: { xs: 20, sm: 24 },
+								fontSize: { xs: 19, sm: 22 },
 								fontWeight: 700,
 								color: "text.primary",
 								mb: 0.5,
+								letterSpacing: "-0.03em",
 							}}
 						>
 							{title}
@@ -94,7 +95,7 @@ const GenreList = ({
 							{dataType.toLowerCase()}
 						</Typography>
 					</Box>
-					<Box sx={{ minWidth: 200 }}>
+					<Box sx={{ minWidth: { xs: "100%", sm: 200 } }}>
 						<SortSelect
 							sortBy={sortBy}
 							ascOrDesc={ascOrDesc}
@@ -104,28 +105,26 @@ const GenreList = ({
 					</Box>
 				</Box>
 			</Box>
-			<Box sx={{ p: { xs: 2, sm: 3 }, bgcolor: "background.paper" }}>
+			<Box sx={{ p: { xs: 2, sm: 3 }, bgcolor: "transparent" }}>
 				<Box
 					sx={{
-						display: "flex",
-						flexWrap: "wrap",
-						columnGap: { xs: 2, sm: 3 },
-						rowGap: { xs: 3, sm: 4 },
-						justifyContent: "flex-start",
+						display: "grid",
+						gridTemplateColumns: {
+							xs: "repeat(2, minmax(0, 1fr))",
+							sm: "repeat(3, minmax(0, 1fr))",
+							md: "repeat(4, minmax(0, 1fr))",
+							lg: "repeat(5, minmax(0, 1fr))",
+						},
+						gap: { xs: 1.5, sm: 2.5, md: 3 },
 					}}
 				>
 					{data.map((item) => (
-						<Box
+						<CardItem
 							key={item.id}
-							sx={{
-								display: "flex",
-								columnGap: { xs: 1, sm: 2, md: 3 },
-								paddingLeft: 1,
-								rowGap: { xs: 3, sm: 4, md: 5 },
-							}}
-						>
-							<CardItem data={item} type={cardType} />
-						</Box>
+							data={item}
+							type={cardType}
+							presentation="poster"
+						/>
 					))}
 				</Box>
 				<Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>

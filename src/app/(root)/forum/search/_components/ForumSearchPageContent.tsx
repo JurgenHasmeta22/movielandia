@@ -176,11 +176,11 @@ export default function ForumSearchPageContent({
 		searchResults.replies.total;
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
+		<Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 }, mt: 2 }}>
 			<Breadcrumbs
 				separator={<NavigateNextIcon fontSize="small" />}
 				aria-label="breadcrumb"
-				sx={{ mb: 3 }}
+				sx={{ mb: { xs: 3, md: 4 } }}
 			>
 				<MuiLink
 					component={Link}
@@ -193,12 +193,16 @@ export default function ForumSearchPageContent({
 				<Typography color="text.primary">Search</Typography>
 			</Breadcrumbs>
 
-			<Box sx={{ mb: 4 }}>
+			<Box sx={{ mb: { xs: 3, md: 4 } }}>
 				<Typography
-					variant="h4"
+					variant="h2"
 					component="h1"
 					gutterBottom
-					sx={{ fontWeight: "bold" }}
+					sx={{
+						fontWeight: 700,
+						fontSize: { xs: "2rem", sm: "2.75rem" },
+						letterSpacing: "-0.05em",
+					}}
 				>
 					Forum Search
 				</Typography>
@@ -210,13 +214,13 @@ export default function ForumSearchPageContent({
 			<Paper
 				elevation={0}
 				sx={{
-					p: 3,
+					p: { xs: 2, sm: 3 },
 					mb: 4,
 					borderRadius: 2,
 					backgroundColor: (theme) =>
-						theme.vars.palette.secondary.light,
+						theme.vars.palette.background.paper,
 					border: (theme) =>
-						`1px solid ${theme.vars.palette.primary.light}`,
+						`1px solid ${theme.vars.palette.divider}`,
 				}}
 			>
 				<Box component="form" onSubmit={handleSearch}>
@@ -247,6 +251,8 @@ export default function ForumSearchPageContent({
 						sx={{
 							display: "flex",
 							justifyContent: "space-between",
+							gap: 1,
+							flexWrap: "wrap",
 							mb: 2,
 						}}
 					>
@@ -256,6 +262,7 @@ export default function ForumSearchPageContent({
 							startIcon={<FilterAltIcon />}
 							sx={{
 								textTransform: "capitalize",
+								borderRadius: 1.5,
 							}}
 							onClick={() => setShowFilters(!showFilters)}
 						>
@@ -268,6 +275,7 @@ export default function ForumSearchPageContent({
 							color="secondary"
 							startIcon={<SearchIcon />}
 							sx={{
+								borderRadius: 1.5,
 								"&:hover": {
 									backgroundColor: (theme) =>
 										theme.vars.palette.primary.dark,
@@ -278,7 +286,14 @@ export default function ForumSearchPageContent({
 						</Button>
 					</Box>
 					{showFilters && (
-						<Box sx={{ mt: 3 }}>
+						<Box
+							sx={{
+								mt: 3,
+								pt: 3,
+								borderTop: 1,
+								borderColor: "divider",
+							}}
+						>
 							<Typography variant="h6" gutterBottom>
 								Search Filters
 							</Typography>
@@ -420,7 +435,15 @@ export default function ForumSearchPageContent({
 			{query && (
 				<>
 					<Box sx={{ mb: 3 }}>
-						<Typography variant="h5" component="h2" gutterBottom>
+						<Typography
+							variant="h5"
+							component="h2"
+							gutterBottom
+							sx={{
+								fontWeight: 650,
+								letterSpacing: "-0.025em",
+							}}
+						>
 							Search Results {query && `for "${query}"`}
 						</Typography>
 						<Typography variant="body2" color="text.secondary">
@@ -442,6 +465,8 @@ export default function ForumSearchPageContent({
 							})()}
 							onChange={handleTabChange}
 							aria-label="search results tabs"
+							variant="scrollable"
+							scrollButtons="auto"
 						>
 							<Tab label={`All (${totalResults})`} />
 							<Tab

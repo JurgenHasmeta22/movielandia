@@ -44,7 +44,7 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 				<TopicIcon
 					sx={{
 						fontSize: 60,
-						color: theme.vars.palette.primary.main,
+						color: theme.vars.palette.green.main,
 						mb: 2,
 						opacity: 0.7,
 					}}
@@ -87,11 +87,11 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 							backgroundColor:
 								theme.vars.palette.background.paper,
 							border: `1px solid ${theme.vars.palette.divider}`,
-							transition: "all 0.2s ease-in-out",
+							transition:
+								"border-color 180ms ease, transform 180ms ease",
 							"&:hover": {
-								borderColor: theme.vars.palette.primary.main,
+								borderColor: theme.vars.palette.green.main,
 								transform: "translateY(-2px)",
-								boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
 							},
 						}}
 					>
@@ -99,7 +99,10 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 							sx={{
 								display: "flex",
 								justifyContent: "space-between",
+								alignItems: "flex-start",
+								gap: 2,
 								mb: 2,
+								flexWrap: "wrap",
 							}}
 						>
 							<Box
@@ -124,8 +127,11 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 								>
 									<Typography
 										variant="h6"
-										color="primary"
-										sx={{ fontWeight: "bold" }}
+										color="text.primary"
+										sx={{
+											fontWeight: 650,
+											letterSpacing: "-0.02em",
+										}}
 									>
 										{topic.title}
 									</Typography>
@@ -186,6 +192,8 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 								justifyContent: "space-between",
 								alignItems: "center",
 								mt: 2,
+								gap: 1,
+								flexWrap: "wrap",
 							}}
 						>
 							<Box>

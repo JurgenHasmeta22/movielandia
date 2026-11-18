@@ -23,8 +23,8 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 			sx={{
 				p: 3,
 				borderRadius: 2,
-				backgroundColor: theme.vars.palette.secondary.light,
-				border: `1px solid ${theme.vars.palette.primary.light}`,
+				backgroundColor: theme.vars.palette.background.paper,
+				border: `1px solid ${theme.vars.palette.divider}`,
 			}}
 		>
 			<Box
@@ -46,13 +46,13 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 					<ForumIcon
 						sx={{
 							fontSize: 40,
-							color: theme.vars.palette.primary.main,
+							color: theme.vars.palette.green.main,
 							mb: 1,
 						}}
 					/>
 					<Typography
 						variant="h6"
-						color="primary"
+						color="text.primary"
 						sx={{ fontWeight: "bold" }}
 					>
 						{stats.categoriesCount}
@@ -73,13 +73,13 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 					<TopicIcon
 						sx={{
 							fontSize: 40,
-							color: theme.vars.palette.primary.main,
+							color: theme.vars.palette.green.main,
 							mb: 1,
 						}}
 					/>
 					<Typography
 						variant="h6"
-						color="primary"
+						color="text.primary"
 						sx={{ fontWeight: "bold" }}
 					>
 						{stats.topicsCount}
@@ -100,13 +100,13 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 					<ChatIcon
 						sx={{
 							fontSize: 40,
-							color: theme.vars.palette.primary.main,
+							color: theme.vars.palette.green.main,
 							mb: 1,
 						}}
 					/>
 					<Typography
 						variant="h6"
-						color="primary"
+						color="text.primary"
 						sx={{ fontWeight: "bold" }}
 					>
 						{stats.postsCount}

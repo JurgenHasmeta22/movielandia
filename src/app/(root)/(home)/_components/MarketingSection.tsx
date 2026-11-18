@@ -59,7 +59,7 @@ const MarketingSection = () => {
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 4, md: 5 },
+				py: { xs: 7, md: 10 },
 				backgroundColor: theme.vars.palette.background.default,
 				position: "relative",
 				width: "100%",
@@ -68,7 +68,7 @@ const MarketingSection = () => {
 			<Container
 				maxWidth="lg"
 				sx={{
-					px: { xs: 2, sm: 3, md: 4 },
+					px: { xs: 2, sm: 3 },
 				}}
 			>
 				<motion.div
@@ -80,23 +80,18 @@ const MarketingSection = () => {
 					<motion.div variants={itemVariants}>
 						<Box
 							sx={{
-								textAlign: "center",
-								mb: { xs: 5, md: 8 },
-								maxWidth: "800px",
-								mx: "auto",
+								textAlign: "left",
+								mb: { xs: 4, md: 6 },
+								maxWidth: "760px",
 							}}
 						>
 							<Typography
 								variant="h2"
 								sx={{
-									fontSize: { xs: 28, sm: 32, md: 40 },
-									fontWeight: 800,
-									mb: 2,
-									background: `linear-gradient(45deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.secondary.main})`,
-									backgroundClip: "text",
-									WebkitBackgroundClip: "text",
-									color: "transparent",
-									WebkitTextFillColor: "transparent",
+									fontSize: { xs: 28, sm: 34, md: 40 },
+									fontWeight: 700,
+									letterSpacing: "-0.04em",
+									mb: 1.5,
 								}}
 							>
 								Welcome to MovieLandia24
@@ -104,9 +99,9 @@ const MarketingSection = () => {
 							<Typography
 								variant="h3"
 								sx={{
-									fontSize: { xs: 16, sm: 18, md: 20 },
+									fontSize: { xs: 15, sm: 16, md: 17 },
 									color: "text.secondary",
-									lineHeight: 1.6,
+									lineHeight: 1.75,
 								}}
 							>
 								Your premier destination for cinematic
@@ -120,14 +115,15 @@ const MarketingSection = () => {
 					<Box
 						sx={{
 							maxWidth: "1200px",
-							mx: "auto",
+							mx: 0,
 							display: "grid",
 							gridTemplateColumns: {
 								xs: "1fr",
 								sm: "repeat(2, 1fr)",
 								md: "repeat(4, 1fr)",
 							},
-							gap: 4,
+							columnGap: { xs: 3, md: 4 },
+							rowGap: { xs: 3, md: 4 },
 						}}
 					>
 						{features.map((feature, index) => (
@@ -138,21 +134,20 @@ const MarketingSection = () => {
 							>
 								<Box
 									sx={{
-										textAlign: "center",
-										p: 3,
-										borderRadius: 4,
-										backgroundColor:
-											theme.vars.palette.background.paper,
+										textAlign: "left",
+										pt: 2.5,
+										borderTop: "1px solid",
+										borderColor: theme.vars.palette.divider,
 										height: "100%",
 									}}
 								>
 									<Box
 										sx={{
-											color: theme.vars.palette.primary
+											color: theme.vars.palette.green
 												.main,
-											mb: 2,
+											mb: 1.5,
 											display: "flex",
-											justifyContent: "center",
+											justifyContent: "flex-start",
 										}}
 									>
 										{feature.icon}
@@ -161,8 +156,8 @@ const MarketingSection = () => {
 										variant="h6"
 										sx={{
 											fontWeight: 700,
-											mb: 1,
-											fontSize: { xs: 18, md: 20 },
+											mb: 0.75,
+											fontSize: { xs: 17, md: 18 },
 										}}
 									>
 										{feature.title}

@@ -127,11 +127,11 @@ export default function CategoryPageContent({
 			>
 				<CircularProgress color="inherit" />
 			</Backdrop>
-			<Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
+			<Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 }, mt: 2 }}>
 				<Breadcrumbs
 					separator={<NavigateNextIcon fontSize="small" />}
 					aria-label="breadcrumb"
-					sx={{ mb: 3 }}
+					sx={{ mb: { xs: 3, md: 4 } }}
 				>
 					<MuiLink
 						component={Link}
@@ -153,12 +153,16 @@ export default function CategoryPageContent({
 						{category.name}
 					</Typography>
 				</Breadcrumbs>
-				<Box sx={{ mb: 4 }}>
+				<Box sx={{ mb: { xs: 3, md: 4 } }}>
 					<Typography
-						variant="h4"
+						variant="h2"
 						component="h1"
 						gutterBottom
-						sx={{ fontWeight: "bold" }}
+						sx={{
+							fontWeight: 700,
+							fontSize: { xs: "2rem", sm: "2.75rem" },
+							letterSpacing: "-0.05em",
+						}}
 					>
 						{category.name}
 					</Typography>
@@ -166,6 +170,7 @@ export default function CategoryPageContent({
 						variant="body1"
 						color="text.secondary"
 						gutterBottom
+						sx={{ maxWidth: "75ch", lineHeight: 1.7 }}
 					>
 						{category.description}
 					</Typography>
@@ -173,7 +178,7 @@ export default function CategoryPageContent({
 				<Paper
 					elevation={0}
 					sx={{
-						p: 3,
+						p: { xs: 2, sm: 3 },
 						mb: 3,
 						borderRadius: 2,
 						backgroundColor: (theme) =>
@@ -185,19 +190,31 @@ export default function CategoryPageContent({
 					<Box
 						sx={{
 							display: "flex",
+							flexWrap: "wrap",
 							justifyContent: "space-between",
 							alignItems: "center",
+							gap: 2,
 							mb: 3,
 						}}
 					>
 						<Typography
 							variant="h5"
 							component="h2"
-							sx={{ fontWeight: "bold" }}
+							sx={{ fontWeight: 650, letterSpacing: "-0.025em" }}
 						>
 							Topics
 						</Typography>
-						<Box sx={{ display: "flex", gap: 2 }}>
+						<Box
+							sx={{
+								display: "flex",
+								gap: 1,
+								flexWrap: "wrap",
+								width: { xs: "100%", sm: "auto" },
+								"& .MuiButton-root": {
+									flex: { xs: 1, sm: "initial" },
+								},
+							}}
+						>
 							<Button
 								variant="contained"
 								color="secondary"
@@ -206,6 +223,7 @@ export default function CategoryPageContent({
 								component={Link}
 								sx={{
 									textTransform: "capitalize",
+									borderRadius: 1.5,
 								}}
 							>
 								Search in Category
@@ -228,7 +246,7 @@ export default function CategoryPageContent({
 							flexDirection: { xs: "column", md: "row" },
 							gap: 2,
 							mb: 3,
-							alignItems: "center",
+							alignItems: { xs: "stretch", md: "center" },
 						}}
 					>
 						<Box sx={{ position: "relative" }}>

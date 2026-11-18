@@ -68,7 +68,7 @@ export default function ReplyList({
 
 	// #region "Render"
 	return (
-		<Box sx={{ mt: 2 }}>
+		<Box sx={{ mt: 2, pl: { xs: 0, sm: 1 } }}>
 			<Button
 				variant="text"
 				onClick={toggleExpanded}
@@ -126,7 +126,7 @@ export default function ReplyList({
 					<Typography
 						variant="body2"
 						color="text.secondary"
-						sx={{ ml: 4, mb: 2 }}
+						sx={{ ml: { xs: 0, sm: 4 }, mb: 2 }}
 					>
 						No replies yet.
 					</Typography>

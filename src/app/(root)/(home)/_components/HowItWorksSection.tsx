@@ -61,32 +61,28 @@ const HowItWorksSection = () => {
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 6, md: 8 },
-				backgroundColor: theme.vars.palette.background.default,
+				py: { xs: 7, md: 10 },
+				backgroundColor: theme.vars.palette.background.paper,
 				position: "relative",
 				width: "100%",
 				overflow: "hidden",
 			}}
 		>
-			<Container maxWidth="lg">
+			<Container maxWidth="xl">
 				<motion.div
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.3 }}
 					variants={containerVariants}
 				>
-					<Box sx={{ textAlign: "center", mb: 5 }}>
+					<Box sx={{ textAlign: "left", mb: { xs: 4, md: 6 } }}>
 						<motion.div variants={itemVariants}>
 							<Box
 								sx={{
 									display: "inline-flex",
 									alignItems: "center",
-									backgroundColor: `${theme.vars.palette.primary.main}15`,
-									color: theme.vars.palette.primary.main,
-									px: 2,
-									py: 1,
-									borderRadius: 2,
-									mb: 2,
+									color: theme.vars.palette.green.light,
+									mb: 1.5,
 								}}
 							>
 								<HelpOutlineOutlinedIcon
@@ -105,11 +101,12 @@ const HowItWorksSection = () => {
 								variant="h3"
 								sx={{
 									fontWeight: 700,
-									mb: 2,
+									mb: 1.5,
+									letterSpacing: "-0.04em",
 									fontSize: {
-										xs: "1.75rem",
-										sm: "2rem",
-										md: "2.5rem",
+										xs: "1.8rem",
+										sm: "2.2rem",
+										md: "2.6rem",
 									},
 								}}
 							>
@@ -121,9 +118,9 @@ const HowItWorksSection = () => {
 								variant="body1"
 								sx={{
 									color: theme.vars.palette.text.secondary,
-									maxWidth: "800px",
-									mx: "auto",
+									maxWidth: "680px",
 									fontSize: { xs: "0.9rem", sm: "1rem" },
+									lineHeight: 1.7,
 								}}
 							>
 								Get started with MovieLandia24 in just a few
@@ -141,8 +138,8 @@ const HowItWorksSection = () => {
 								sm: "repeat(2, 1fr)",
 								md: "repeat(4, 1fr)",
 							},
-							gap: 3,
-							mt: 2,
+							gap: { xs: 2, md: 3 },
+							mt: 3,
 						}}
 					>
 						{steps.map((step, index) => (
@@ -159,42 +156,31 @@ const HowItWorksSection = () => {
 								<Paper
 									elevation={0}
 									sx={{
-										p: 3,
+										px: { xs: 0, sm: 2 },
+										py: { xs: 2.5, md: 3 },
 										height: "100%",
-										borderRadius: 3,
-										textAlign: "center",
-										border: "1px solid",
+										borderRadius: 0,
+										textAlign: "left",
+										border: 0,
+										borderTop: "1px solid",
 										borderColor: "divider",
-										backgroundColor:
-											theme.vars.palette.background.paper,
+										backgroundColor: "transparent",
 										position: "relative",
 										overflow: "hidden",
 										display: "flex",
 										flexDirection: "column",
-										"&::before": {
-											content: '""',
-											position: "absolute",
-											top: 0,
-											left: 0,
-											width: "100%",
-											height: "4px",
-											background: `linear-gradient(90deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.primary.light})`,
-										},
 									}}
 								>
 									<Box
 										sx={{
 											display: "flex",
 											alignItems: "center",
-											justifyContent: "center",
-											width: 70,
-											height: 70,
-											borderRadius: "50%",
-											backgroundColor: `${theme.vars.palette.primary.main}15`,
-											color: theme.vars.palette.primary
+											justifyContent: "flex-start",
+											width: 44,
+											height: 44,
+											color: theme.vars.palette.green
 												.main,
-											mx: "auto",
-											mb: 2,
+											mb: 1.5,
 										}}
 									>
 										{step.icon}
@@ -204,6 +190,7 @@ const HowItWorksSection = () => {
 										sx={{
 											fontWeight: 700,
 											mb: 1.5,
+											letterSpacing: "-0.02em",
 											fontSize: {
 												xs: "1.1rem",
 												sm: "1.25rem",
@@ -217,11 +204,11 @@ const HowItWorksSection = () => {
 										sx={{
 											color: theme.vars.palette.text
 												.secondary,
-											lineHeight: 1.6,
 											fontSize: {
 												xs: "0.85rem",
 												sm: "0.9rem",
 											},
+											lineHeight: 1.7,
 											flexGrow: 1,
 										}}
 									>
@@ -229,20 +216,18 @@ const HowItWorksSection = () => {
 									</Typography>
 									<Box
 										sx={{
-											position: "absolute",
-											top: 15,
-											right: 15,
-											width: 24,
-											height: 24,
-											borderRadius: "50%",
-											backgroundColor:
-												theme.vars.palette.primary.main,
-											color: "#fff",
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											fontSize: "0.8rem",
+											position: "static",
+											order: -1,
+											width: "auto",
+											height: "auto",
+											borderRadius: 0,
+											backgroundColor: "transparent",
+											color: theme.vars.palette.green
+												.main,
+											display: "block",
+											fontSize: "0.75rem",
 											fontWeight: 700,
+											mb: 1,
 										}}
 									>
 										{index + 1}

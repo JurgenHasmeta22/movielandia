@@ -33,13 +33,17 @@ export default function ForumPageContent({
 	const router = useRouter();
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
-			<Box sx={{ mb: 4, mt: 1 }}>
+		<Container maxWidth="lg" sx={{ py: { xs: 4, md: 7 }, mt: 2 }}>
+			<Box sx={{ mb: { xs: 3, md: 4 } }}>
 				<Typography
-					variant="h4"
+					variant="h2"
 					component="h1"
 					gutterBottom
-					sx={{ fontWeight: "bold" }}
+					sx={{
+						fontWeight: 700,
+						fontSize: { xs: "2rem", sm: "2.75rem" },
+						letterSpacing: "-0.05em",
+					}}
 				>
 					Community Forum
 				</Typography>
@@ -52,21 +56,29 @@ export default function ForumPageContent({
 			<Box
 				sx={{
 					display: "flex",
+					flexWrap: "wrap",
 					justifyContent: "space-between",
 					alignItems: "center",
+					gap: 2,
 					mb: 2,
-					mt: 4,
+					mt: { xs: 4, md: 5 },
 				}}
 			>
 				<Typography
 					variant="h5"
 					component="h2"
-					sx={{ fontWeight: "bold" }}
+					sx={{ fontWeight: 650, letterSpacing: "-0.025em" }}
 				>
 					Categories
 				</Typography>
-				<Box>
-					<ButtonGroup variant="contained" sx={{ mr: 2 }}>
+				<Box
+					sx={{
+						display: "flex",
+						flexWrap: "wrap",
+						gap: 1,
+					}}
+				>
+					<ButtonGroup variant="outlined" sx={{ mr: 1 }}>
 						<Button
 							color="secondary"
 							startIcon={<SearchIcon />}

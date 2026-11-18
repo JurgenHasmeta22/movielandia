@@ -239,12 +239,12 @@ export default function ReplyItem({
 		<Paper
 			elevation={0}
 			sx={{
-				p: 3,
+				p: { xs: 2, sm: 2.5 },
 				borderRadius: 2,
 				backgroundColor: theme.vars.palette.background.paper,
 				border: `1px solid ${theme.vars.palette.divider}`,
 				position: "relative",
-				ml: 4,
+				ml: { xs: 0, sm: 4 },
 				mb: 2,
 			}}
 		>
@@ -268,7 +268,12 @@ export default function ReplyItem({
 				</Box>
 			)}
 			<Box
-				sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					gap: 2,
+					mb: 3,
+				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
 					<Avatar
@@ -283,8 +288,8 @@ export default function ReplyItem({
 						>
 							<Typography
 								variant="subtitle2"
-								color="primary"
-								sx={{ fontWeight: "bold" }}
+								color="text.primary"
+								sx={{ fontWeight: 650 }}
 							>
 								{reply.user.userName}
 							</Typography>

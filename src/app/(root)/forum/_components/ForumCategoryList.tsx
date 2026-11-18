@@ -32,14 +32,14 @@ export default function ForumCategoryList({
 					p: 4,
 					textAlign: "center",
 					borderRadius: 2,
-					backgroundColor: theme.vars.palette.secondary.light,
-					border: `1px solid ${theme.vars.palette.primary.light}`,
+					backgroundColor: theme.vars.palette.background.paper,
+					border: `1px solid ${theme.vars.palette.divider}`,
 				}}
 			>
 				<ForumIcon
 					sx={{
 						fontSize: 60,
-						color: theme.vars.palette.primary.main,
+						color: theme.vars.palette.green.main,
 						mb: 2,
 						opacity: 0.7,
 					}}
@@ -68,13 +68,14 @@ export default function ForumCategoryList({
 						sx={{
 							p: 3,
 							borderRadius: 2,
-							backgroundColor: theme.vars.palette.secondary.light,
-							border: `1px solid ${theme.vars.palette.primary.light}`,
-							transition: "all 0.2s ease-in-out",
+							backgroundColor:
+								theme.vars.palette.background.paper,
+							border: `1px solid ${theme.vars.palette.divider}`,
+							transition:
+								"border-color 180ms ease, transform 180ms ease",
 							"&:hover": {
-								borderColor: theme.vars.palette.primary.main,
+								borderColor: theme.vars.palette.green.main,
 								transform: "translateY(-2px)",
-								boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
 							},
 						}}
 					>
@@ -82,7 +83,10 @@ export default function ForumCategoryList({
 							sx={{
 								display: "flex",
 								justifyContent: "space-between",
+								alignItems: "flex-start",
+								gap: 2,
 								mb: 2,
+								flexWrap: "wrap",
 							}}
 						>
 							<Link
@@ -91,8 +95,11 @@ export default function ForumCategoryList({
 							>
 								<Typography
 									variant="h6"
-									color="primary"
-									sx={{ fontWeight: "bold" }}
+									color="text.primary"
+									sx={{
+										fontWeight: 650,
+										letterSpacing: "-0.02em",
+									}}
 								>
 									{category.name}
 								</Typography>
@@ -121,7 +128,7 @@ export default function ForumCategoryList({
 						<Typography
 							variant="body2"
 							color="text.secondary"
-							sx={{ mb: 2 }}
+							sx={{ mb: 2, maxWidth: "75ch", lineHeight: 1.65 }}
 						>
 							{category.description}
 						</Typography>
@@ -131,6 +138,8 @@ export default function ForumCategoryList({
 									display: "flex",
 									justifyContent: "space-between",
 									alignItems: "center",
+									gap: 2,
+									flexWrap: "wrap",
 									mt: 2,
 								}}
 							>

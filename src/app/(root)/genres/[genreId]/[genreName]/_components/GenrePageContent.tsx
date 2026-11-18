@@ -139,26 +139,26 @@ export default async function GenrePageContent({
 	return (
 		<Box
 			sx={{
-				maxWidth: "1400px",
+				maxWidth: "1320px",
 				margin: "0 auto",
 				px: { xs: 2, sm: 3, md: 4 },
-				py: { xs: 3, md: 4 },
+				py: { xs: 4, md: 6 },
 			}}
 		>
 			<Box
 				sx={{
-					mb: { xs: 4, md: 6 },
-					mt: { xs: 4, md: 6 },
-					textAlign: "center",
+					mb: { xs: 3, md: 4 },
+					mt: { xs: 1, md: 2 },
+					textAlign: "left",
 				}}
 			>
 				<Typography
 					variant="h1"
 					sx={{
-						fontSize: { xs: 28, sm: 32, md: 40 },
-						fontWeight: 800,
-						mb: 2,
-						mt: 12,
+						fontSize: { xs: 30, sm: 38, md: 46 },
+						fontWeight: 700,
+						letterSpacing: "-0.05em",
+						mb: 1,
 					}}
 				>
 					All Movies of Genre {genre.name}
@@ -167,9 +167,9 @@ export default async function GenrePageContent({
 					variant="body1"
 					sx={{
 						color: "text.secondary",
-						fontSize: { xs: 16, sm: 18 },
-						maxWidth: "600px",
-						margin: "0 auto",
+						fontSize: { xs: 14, sm: 16 },
+						maxWidth: "720px",
+						lineHeight: 1.7,
 					}}
 				>
 					{getSubtitleText()}
@@ -180,7 +180,7 @@ export default async function GenrePageContent({
 				sx={{
 					display: "flex",
 					flexDirection: "column",
-					gap: { xs: 6, md: 8 },
+					gap: { xs: 4, md: 6 },
 				}}
 			>
 				{shouldShowSection("movies") && (

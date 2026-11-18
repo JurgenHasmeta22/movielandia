@@ -46,11 +46,11 @@ const CustomNextArrow = ({ onClick }: ArrowProps) => {
 				height: { xs: 32, sm: 36, md: 40 },
 				transition: "all 0.2s ease-in-out",
 				"&:hover": {
-					backgroundColor: "#4cceac",
+					backgroundColor: "#70d8bd",
 					transform: "translateY(-50%) scale(1.05)",
 				},
 				"&:focus-visible": {
-					outline: "2px solid #4cceac",
+					outline: "2px solid #70d8bd",
 					outlineOffset: 2,
 				},
 			}}
@@ -77,11 +77,11 @@ const CustomPrevArrow = ({ onClick }: ArrowProps) => {
 				height: { xs: 32, sm: 36, md: 40 },
 				transition: "all 0.2s ease-in-out",
 				"&:hover": {
-					backgroundColor: "#4cceac",
+					backgroundColor: "#70d8bd",
 					transform: "translateY(-50%) scale(1.05)",
 				},
 				"&:focus-visible": {
-					outline: "2px solid #4cceac",
+					outline: "2px solid #70d8bd",
 					outlineOffset: 2,
 				},
 			}}
@@ -138,19 +138,12 @@ const Carousel = ({ data, type }: CarouselProps) => {
 		<Box
 			sx={{
 				position: "relative",
-				height: {
-					xs: "100vh",
-					sm: "90vh",
-					md: "80vh",
-				},
+				height: { xs: "520px", sm: "min(64vh, 640px)" },
 				overflow: "hidden",
-				mt: 4,
-				mb: 2,
-				borderRadius: { xs: 0, sm: 2 },
-				boxShadow: {
-					xs: "none",
-					sm: "rgba(0, 0, 0, 0.1) 0px 8px 24px",
-				},
+				mt: 1,
+				mb: 0,
+				background:
+					"linear-gradient(115deg, #080b12 0%, #141b2d 58%, #1f2a40 100%)",
 				"& .slick-slider": {
 					height: "100%",
 				},
@@ -167,7 +160,10 @@ const Carousel = ({ data, type }: CarouselProps) => {
 					},
 				},
 				"& .slick-dots": {
-					bottom: { xs: "32px", sm: "40px", md: "48px" },
+					bottom: { xs: "12px", sm: "16px", md: "20px" },
+					"& li button:before": {
+						color: "#70d8bd",
+					},
 				},
 			}}
 		>
@@ -177,16 +173,12 @@ const Carousel = ({ data, type }: CarouselProps) => {
 						key={index}
 						sx={{
 							position: "relative",
-							height: {
-								xs: "100vh",
-								sm: "90vh",
-								md: "80vh",
-							},
+							height: { xs: "520px", sm: "min(64vh, 640px)" },
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
-							p: { xs: 2, sm: 3, md: 4 },
-							backgroundColor: "rgba(20, 20, 20, 0.05)",
+							px: { xs: 2, sm: 4, md: 8 },
+							py: { xs: 3, sm: 4 },
 						}}
 					>
 						<Box
@@ -195,14 +187,12 @@ const Carousel = ({ data, type }: CarouselProps) => {
 								width: "100%",
 								height: "100%",
 								display: "flex",
-								flexDirection: { xs: "column", md: "row" },
+								flexDirection: "row",
 								alignItems: "center",
-								justifyContent: {
-									xs: "flex-start",
-									md: "center",
-								},
-								gap: { xs: 3, sm: 4, md: 6 },
-								pt: { xs: 4, sm: 0 },
+								justifyContent: "space-between",
+								gap: { xs: 2, sm: 4, md: 7 },
+								maxWidth: "1320px",
+								mx: "auto",
 							}}
 						>
 							<Box
@@ -210,6 +200,8 @@ const Carousel = ({ data, type }: CarouselProps) => {
 									position: "relative",
 									zIndex: 2,
 									flexShrink: 0,
+									display: "flex",
+									alignItems: "center",
 								}}
 							>
 								<Image
@@ -221,9 +213,12 @@ const Carousel = ({ data, type }: CarouselProps) => {
 									style={{
 										objectFit: "cover",
 										objectPosition: "center",
-										borderRadius: "16px",
+										borderRadius: "8px",
 										boxShadow:
-											"0 16px 32px rgba(20, 20, 20, 0.25)",
+											"0 22px 48px rgba(0, 0, 0, 0.38)",
+										width: "clamp(116px, 22vw, 252px)",
+										height: "auto",
+										maxHeight: "min(42vh, 360px)",
 									}}
 								/>
 							</Box>
@@ -233,8 +228,8 @@ const Carousel = ({ data, type }: CarouselProps) => {
 									position: { xs: "relative", md: "static" },
 									zIndex: 2,
 									width: "100%",
-									maxWidth: { xs: "100%", md: "50%" },
-									px: { xs: 2, sm: 3, md: 0 },
+									maxWidth: { xs: "62%", md: "54%" },
+									px: 0,
 								}}
 							>
 								<motion.div
@@ -254,15 +249,15 @@ const Carousel = ({ data, type }: CarouselProps) => {
 										gutterBottom
 										sx={{
 											fontSize: {
-												xs: "2rem",
-												sm: "2.5rem",
-												md: "3rem",
+												xs: "1.5rem",
+												sm: "2.25rem",
+												md: "3.25rem",
 											},
 											fontWeight: 700,
-											color: "#e0e0e0",
-											textShadow:
-												"1px 1px 2px rgba(20, 20, 20, 0.3)",
-											mb: 2,
+											color: "#eef0ef",
+											letterSpacing: "-0.05em",
+											lineHeight: 1.05,
+											mb: 1.5,
 										}}
 									>
 										{getTitleOrName(type, element)}
@@ -273,16 +268,16 @@ const Carousel = ({ data, type }: CarouselProps) => {
 											mb: 3,
 											maxWidth: "800px",
 											fontSize: {
-												xs: "0.9rem",
-												sm: "1rem",
-												md: "1.1rem",
+												xs: "0.8rem",
+												sm: "0.95rem",
+												md: "1rem",
 											},
-											lineHeight: 1.6,
-											color: "rgba(224, 224, 224, 0.9)",
+											lineHeight: 1.7,
+											color: "rgba(238, 240, 239, 0.78)",
 											display: "-webkit-box",
 											WebkitLineClamp: {
-												xs: 3,
-												sm: 4,
+												xs: 4,
+												sm: 5,
 												md: 5,
 											},
 											WebkitBoxOrient: "vertical",
@@ -300,31 +295,24 @@ const Carousel = ({ data, type }: CarouselProps) => {
 											variant="contained"
 											aria-label={`See details for ${getTitleOrName(type, element)}`}
 											sx={{
-												bgcolor: "#db4f4a",
-												color: "#e0e0e0",
+												bgcolor: "#4cceac",
+												color: "#080b12",
 												fontSize: { xs: 14, sm: 16 },
 												fontWeight: 600,
 												px: { xs: 3, sm: 4 },
-												py: 1.5,
-												borderRadius: "8px",
-												boxShadow:
-													"0 4px 12px rgba(20, 20, 20, 0.2)",
+												py: 1.25,
+												borderRadius: "6px",
+												boxShadow: "none",
 												textTransform: "none",
-												transition: "all 0.3s ease",
+												transition:
+													"background-color 180ms ease",
 												"&:hover": {
-													bgcolor: "#4cceac",
-													color: "#040509",
-													transform:
-														"translateY(-2px)",
-													boxShadow:
-														"0 6px 16px rgba(20, 20, 20, 0.3)",
-												},
-												"&:active": {
-													transform: "translateY(0)",
+													bgcolor: "#70d8bd",
+													boxShadow: "none",
 												},
 												"&:focus-visible": {
 													outline:
-														"2px solid #4cceac",
+														"2px solid #70d8bd",
 													outlineOffset: 2,
 												},
 											}}
@@ -334,21 +322,6 @@ const Carousel = ({ data, type }: CarouselProps) => {
 									</Link>
 								</motion.div>
 							</Box>
-							<Box
-								sx={{
-									position: "absolute",
-									top: 0,
-									left: 0,
-									right: 0,
-									bottom: 0,
-									zIndex: 1,
-									background: {
-										xs: "linear-gradient(to bottom, rgba(20, 20, 20, 0.1), rgba(20, 20, 20, 0.4))",
-										md: "linear-gradient(to right, rgba(20, 20, 20, 0.1), rgba(20, 20, 20, 0.4))",
-									},
-									pointerEvents: "none",
-								}}
-							/>
 						</Box>
 					</Box>
 				))}

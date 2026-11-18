@@ -165,8 +165,8 @@ const ListHomeSection = ({
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 3, md: 4 },
-				px: { xs: 2, sm: 3, md: 4 },
+				py: { xs: 4, md: 5 },
+				px: { xs: 0, sm: 1 },
 			}}
 		>
 			<Stack
@@ -174,29 +174,18 @@ const ListHomeSection = ({
 				sx={{
 					justifyContent: "space-between",
 					alignItems: "center",
-					mb: { xs: 1, md: 2 },
+					mb: { xs: 0, md: 1 },
+					gap: 2,
 				}}
 			>
-				<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+				<Box sx={{ display: "flex", alignItems: "center" }}>
 					<Typography
 						variant="h2"
 						sx={{
 							fontWeight: 800,
-							fontSize: { xs: 24, sm: 28, md: 32 },
+							fontSize: { xs: 22, sm: 26, md: 30 },
 							color: theme.vars.palette.text.primary,
-							position: "relative",
-							display: "inline-block",
-							"&::after": {
-								content: '""',
-								position: "absolute",
-								bottom: -8,
-								left: 0,
-								width: "100%",
-								height: 3,
-								backgroundColor:
-									theme.vars.palette.primary.main,
-								borderRadius: 1,
-							},
+							letterSpacing: "-0.04em",
 						}}
 					>
 						{getSectionTitle()}
@@ -209,18 +198,18 @@ const ListHomeSection = ({
 						color: "inherit",
 						display: "flex",
 						alignItems: "center",
-						gap: "4px",
-						transition: "all 0.2s ease",
+						gap: "6px",
+						whiteSpace: "nowrap",
 					}}
 				>
 					<Typography
 						sx={{
 							fontWeight: 700,
 							fontSize: { xs: 14, sm: 16 },
-							color: theme.vars.palette.primary.main,
-							transition: "opacity 0.2s ease",
+							color: theme.vars.palette.green.light,
+							transition: "color 0.2s ease",
 							"&:hover": {
-								opacity: 0.8,
+								color: theme.vars.palette.green.light,
 							},
 						}}
 					>
@@ -232,29 +221,18 @@ const ListHomeSection = ({
 				sx={{
 					width: "100%",
 					overflow: "visible",
-					mt: { xs: 4, md: 5 },
-					px: { xs: 6, sm: 8, md: 10 },
+					mt: { xs: 2.5, md: 3.5 },
+					px: { xs: 4, sm: 5, md: 6 },
 					position: "relative",
 					"& .slick-track": {
 						display: "flex",
-						margin: "0 -8px",
+						margin: "0 -6px",
 					},
 					"& .slick-slide": {
 						height: "auto",
-						opacity: 0.85,
-						transition: "all 0.3s ease",
-						transform: "scale(0.95)",
 						"& > div": {
 							height: "100%",
 						},
-					},
-					"& .slick-active": {
-						opacity: 1,
-						transform: "scale(1)",
-					},
-					"& .slick-current": {
-						opacity: 1,
-						transform: "scale(1.02)",
 					},
 				}}
 			>
@@ -318,13 +296,14 @@ const ListHomeSection = ({
 							<Box
 								key={index}
 								sx={{
-									px: 1,
+									px: 0.75,
 								}}
 							>
 								<CardItem
 									data={cardData}
 									type={type}
 									path={path}
+									presentation="poster"
 								/>
 							</Box>
 						);

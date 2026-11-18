@@ -80,11 +80,11 @@ export default function CreateTopicPageContent({
 	};
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
+		<Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 }, mt: 2 }}>
 			<Breadcrumbs
 				separator={<NavigateNextIcon fontSize="small" />}
 				aria-label="breadcrumb"
-				sx={{ mb: 3 }}
+				sx={{ mb: { xs: 3, md: 4 } }}
 			>
 				<MuiLink
 					component={Link}
@@ -114,10 +114,14 @@ export default function CreateTopicPageContent({
 			</Breadcrumbs>
 			<Box sx={{ mb: 4 }}>
 				<Typography
-					variant="h4"
+					variant="h2"
 					component="h1"
 					gutterBottom
-					sx={{ fontWeight: "bold" }}
+					sx={{
+						fontWeight: 700,
+						fontSize: { xs: "2rem", sm: "2.75rem" },
+						letterSpacing: "-0.05em",
+					}}
 				>
 					Create New Topic
 				</Typography>
@@ -128,12 +132,12 @@ export default function CreateTopicPageContent({
 			<Paper
 				elevation={0}
 				sx={{
-					p: 3,
+					p: { xs: 2, sm: 3, md: 4 },
 					borderRadius: 2,
 					backgroundColor: (theme) =>
-						theme.vars.palette.secondary.light,
+						theme.vars.palette.background.paper,
 					border: (theme) =>
-						`1px solid ${theme.vars.palette.primary.light}`,
+						`1px solid ${theme.vars.palette.divider}`,
 				}}
 			>
 				<Box component="form" onSubmit={handleSubmit}>
@@ -150,13 +154,24 @@ export default function CreateTopicPageContent({
 						value={title}
 						onChange={(e) => setTitle(e.target.value)}
 						required
-						sx={{ mb: 3 }}
+						sx={{
+							mb: 3,
+							"& .MuiOutlinedInput-root": { borderRadius: 1.5 },
+						}}
 						disabled={isPending}
 					/>
 					<Typography variant="subtitle1" gutterBottom>
 						Content
 					</Typography>
-					<Box sx={{ mb: 5 }}>
+					<Box
+						sx={{
+							mb: 4,
+							border: "1px solid",
+							borderColor: "divider",
+							borderRadius: 2,
+							overflow: "hidden",
+						}}
+					>
 						<TextEditor
 							value={content}
 							onChange={setContent}
@@ -176,6 +191,8 @@ export default function CreateTopicPageContent({
 						sx={{
 							display: "flex",
 							justifyContent: "space-between",
+							gap: 1,
+							flexWrap: "wrap",
 							mt: 4,
 						}}
 					>

@@ -106,6 +106,8 @@ interface ICardItemProps {
 	type: CardItemType;
 	path?: string;
 	isAutocomplete?: boolean;
+	isPriority?: boolean;
+	presentation?: "poster";
 }
 // #endregion
 
@@ -114,6 +116,8 @@ const CardItem: React.FC<ICardItemProps> = ({
 	type,
 	path,
 	isAutocomplete = false,
+	isPriority = false,
+	presentation,
 }): React.JSX.Element => {
 	const { data: session } = useSession();
 
@@ -267,31 +271,64 @@ const CardItem: React.FC<ICardItemProps> = ({
 	};
 
 	return (
-		<Link href={getPath()} tabIndex={0} aria-label={getDisplayTitle()}>
+		<Link
+			href={getPath()}
+			tabIndex={0}
+			aria-label={getDisplayTitle()}
+			style={{
+				display: presentation === "poster" ? "block" : undefined,
+				width: presentation === "poster" ? "100%" : undefined,
+				textDecoration: presentation === "poster" ? "none" : undefined,
+				color: presentation === "poster" ? "inherit" : undefined,
+			}}
+		>
 			<Card
 				sx={{
 					display: "flex",
 					flexDirection: "column",
-					width: isAutocomplete
-						? { xs: "120px", sm: "140px" }
-						: { xs: "140px", sm: "160px" },
+					width:
+						presentation === "poster"
+							? "100%"
+							: isAutocomplete
+								? { xs: "120px", sm: "140px" }
+								: { xs: "140px", sm: "160px" },
 					height: "100%",
 					position: "relative",
-					borderRadius: 2,
+					borderRadius: presentation === "poster" ? 1.5 : 2,
 					overflow: "hidden",
-					boxShadow: theme.shadows[4],
-					transition: "box-shadow 0.3s ease-in-out",
+					border: presentation === "poster" ? "1px solid" : "none",
+					borderColor: "divider",
+					backgroundColor:
+						presentation === "poster"
+							? theme.vars.palette.background.paper
+							: undefined,
+					boxShadow:
+						presentation === "poster" ? "none" : theme.shadows[4],
+					transition:
+						presentation === "poster"
+							? "border-color 180ms ease, transform 180ms ease"
+							: "box-shadow 0.3s ease-in-out",
 					"&:hover": {
-						boxShadow: theme.shadows[8],
+						boxShadow:
+							presentation === "poster"
+								? "none"
+								: theme.shadows[8],
+						borderColor:
+							presentation === "poster"
+								? theme.vars.palette.green.main
+								: undefined,
 					},
 				}}
 			>
 				<Box
 					sx={{
 						position: "relative",
-						height: isAutocomplete
-							? { xs: "180px", sm: "210px" }
-							: { xs: "210px", sm: "240px" },
+						height:
+							presentation === "poster"
+								? { xs: "220px", sm: "270px", md: "300px" }
+								: isAutocomplete
+									? { xs: "180px", sm: "210px" }
+									: { xs: "210px", sm: "240px" },
 						width: "100%",
 						overflow: "hidden",
 						"&:hover .hoverOverlay": {
@@ -305,7 +342,7 @@ const CardItem: React.FC<ICardItemProps> = ({
 						fill
 						sizes="(max-width: 600px) 140px, 160px"
 						style={{ objectFit: "cover" }}
-						priority={false}
+						loading={isPriority ? "eager" : undefined}
 					/>
 					<Box
 						className="hoverOverlay"
@@ -483,6 +520,42 @@ const CardItem: React.FC<ICardItemProps> = ({
 						)}
 					</Box>
 				</Box>
+				{presentation === "poster" && (
+					<Box sx={{ px: 1.25, py: 1.5 }}>
+						<Typography
+							component="span"
+							sx={{
+								display: "-webkit-box",
+								overflow: "hidden",
+								WebkitBoxOrient: "vertical",
+								WebkitLineClamp: 1,
+								fontSize: { xs: "0.8rem", sm: "0.875rem" },
+								fontWeight: 600,
+								lineHeight: 1.4,
+								color: "text.primary",
+							}}
+						>
+							{path === "actors" || path === "crew"
+								? (data as ActorCardData | CrewCardData)
+										.fullname
+								: getDisplayTitle()}
+						</Typography>
+						{(path === "actors" || path === "crew") && (
+							<Typography
+								component="span"
+								variant="caption"
+								sx={{
+									display: "block",
+									mt: 0.25,
+									color: "text.secondary",
+								}}
+							>
+								Debut Year: (
+								{(data as ActorCardData | CrewCardData).debut})
+							</Typography>
+						)}
+					</Box>
+				)}
 			</Card>
 		</Link>
 	);

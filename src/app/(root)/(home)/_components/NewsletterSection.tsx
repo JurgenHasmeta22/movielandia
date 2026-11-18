@@ -62,20 +62,7 @@ const NewsletterSection = () => {
 				overflow: "hidden",
 			}}
 		>
-			<Box
-				sx={{
-					position: "absolute",
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-					opacity: 0.03,
-					backgroundImage:
-						"radial-gradient(circle at 1px 1px, #fff 1px, transparent 0)",
-					backgroundSize: "40px 40px",
-				}}
-			/>
-			<Container maxWidth="md">
+			<Container maxWidth="xl">
 				<motion.div
 					initial="hidden"
 					whileInView="visible"
@@ -84,148 +71,162 @@ const NewsletterSection = () => {
 				>
 					<Box
 						sx={{
-							textAlign: "center",
+							textAlign: "left",
 							position: "relative",
 							zIndex: 1,
+							display: "grid",
+							gridTemplateColumns: {
+								xs: "1fr",
+								md: "minmax(0, 1fr) minmax(320px, 0.8fr)",
+							},
+							alignItems: "center",
+							gap: { xs: 3, md: 6 },
+							p: { xs: 3, sm: 4, md: 6 },
+							border: "1px solid",
+							borderColor: "divider",
+							borderRadius: 2,
+							backgroundColor:
+								theme.vars.palette.background.paper,
 						}}
 					>
-						<motion.div variants={itemVariants}>
-							<Box
-								sx={{
-									display: "inline-flex",
-									alignItems: "center",
-									backgroundColor: `${theme.vars.palette.primary.main}15`,
-									color: theme.vars.palette.primary.main,
-									px: 2,
-									py: 1,
-									borderRadius: 2,
-									mb: 3,
-								}}
-							>
-								<MailOutlineOutlinedIcon
-									sx={{ mr: 1, fontSize: 20 }}
-								/>
-								<Typography
-									variant="subtitle2"
-									sx={{ fontWeight: 600, fontSize: 14 }}
+						<Box>
+							<motion.div variants={itemVariants}>
+								<Box
+									sx={{
+										display: "inline-flex",
+										alignItems: "center",
+										color: theme.vars.palette.green.light,
+										mb: 1.5,
+									}}
 								>
-									Stay Updated
-								</Typography>
-							</Box>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="h2"
-								sx={{
-									fontSize: { xs: 28, sm: 32, md: 40 },
-									fontWeight: 800,
-									mb: 2,
-									background: `linear-gradient(45deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.secondary.main})`,
-									backgroundClip: "text",
-									WebkitBackgroundClip: "text",
-									color: "transparent",
-									WebkitTextFillColor: "transparent",
-								}}
-							>
-								Subscribe to Our Newsletter
-							</Typography>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="h3"
-								sx={{
-									fontSize: { xs: 16, sm: 18 },
-									color: theme.vars.palette.text.secondary,
-									mb: 4,
-									maxWidth: "600px",
-									mx: "auto",
-								}}
-							>
-								Get notified about new releases, exclusive
-								content, and special events. Join our community
-								of movie enthusiasts!
-							</Typography>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Box
-								component="form"
-								sx={{
-									display: "flex",
-									flexDirection: { xs: "column", sm: "row" },
-									gap: 2,
-									maxWidth: "500px",
-									mx: "auto",
-								}}
-								noValidate
-							>
-								<motion.div
-									variants={itemVariants}
-									style={{ width: "100%" }}
-								>
-									<TextField
-										fullWidth
-										placeholder="Enter your email"
-										variant="outlined"
-										onChange={(e) =>
-											setEmail(e.target.value)
-										}
-										type="email"
-										sx={{
-											"& .MuiOutlinedInput-root": {
-												backgroundColor:
-													theme.vars.palette
-														.background.paper,
-												height: 56,
-											},
-										}}
+									<MailOutlineOutlinedIcon
+										sx={{ mr: 1, fontSize: 20 }}
 									/>
-								</motion.div>
-								<motion.div variants={itemVariants}>
-									<Button
-										variant="contained"
-										size="large"
-										onClick={handleSubscribe}
-										sx={{
-											minWidth: { xs: "100%", sm: 180 },
-											height: 56,
-											textTransform: "none",
-											fontSize: 16,
-											fontWeight: 600,
-											color: theme.vars.palette.background
-												.default,
-											background: `linear-gradient(45deg, ${theme.vars.palette.secondary.main}, ${theme.vars.palette.primary.main})`,
-											boxShadow:
-												"0 8px 16px rgba(0, 0, 0, 0.1)",
-											transition: "all 0.2s ease-in-out",
-											"&:hover": {
-												transform: "translateY(-2px)",
-												boxShadow:
-													"0 12px 20px rgba(0, 0, 0, 0.15)",
-												background: `linear-gradient(45deg, ${theme.vars.palette.primary.main}, ${theme.vars.palette.secondary.main})`,
-											},
-											"&:active": {
-												transform: "translateY(0)",
-											},
-										}}
+									<Typography
+										variant="subtitle2"
+										sx={{ fontWeight: 600, fontSize: 14 }}
 									>
-										Subscribe
-									</Button>
-								</motion.div>
-							</Box>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="caption"
-								sx={{
-									display: "block",
-									mt: 2,
-									color: theme.vars.palette.text.secondary,
-								}}
-							>
-								By subscribing, you agree to our Privacy Policy
-								and Terms of Service.
-							</Typography>
-						</motion.div>
+										Stay Updated
+									</Typography>
+								</Box>
+							</motion.div>
+							<motion.div variants={itemVariants}>
+								<Typography
+									variant="h2"
+									sx={{
+										fontSize: { xs: 28, sm: 34, md: 40 },
+										fontWeight: 700,
+										letterSpacing: "-0.04em",
+										mb: 1.5,
+									}}
+								>
+									Subscribe to Our Newsletter
+								</Typography>
+							</motion.div>
+							<motion.div variants={itemVariants}>
+								<Typography
+									variant="h3"
+									sx={{
+										fontSize: { xs: 15, sm: 16 },
+										color: theme.vars.palette.text
+											.secondary,
+										mb: 0,
+										maxWidth: "560px",
+										lineHeight: 1.7,
+									}}
+								>
+									Get notified about new releases, exclusive
+									content, and special events. Join our
+									community of movie enthusiasts!
+								</Typography>
+							</motion.div>
+						</Box>
+						<Box>
+							<motion.div variants={itemVariants}>
+								<Box
+									component="form"
+									sx={{
+										display: "flex",
+										flexDirection: {
+											xs: "column",
+											sm: "row",
+										},
+										gap: 1.5,
+										width: "100%",
+									}}
+									noValidate
+								>
+									<motion.div
+										variants={itemVariants}
+										style={{ width: "100%" }}
+									>
+										<TextField
+											fullWidth
+											placeholder="Enter your email"
+											variant="outlined"
+											onChange={(e) =>
+												setEmail(e.target.value)
+											}
+											type="email"
+											sx={{
+												"& .MuiOutlinedInput-root": {
+													backgroundColor:
+														theme.vars.palette
+															.background.paper,
+													height: 52,
+												},
+											}}
+										/>
+									</motion.div>
+									<motion.div variants={itemVariants}>
+										<Button
+											variant="contained"
+											size="large"
+											onClick={handleSubscribe}
+											sx={{
+												minWidth: {
+													xs: "100%",
+													sm: 180,
+												},
+												height: 52,
+												textTransform: "none",
+												fontSize: 16,
+												fontWeight: 600,
+												color: "#080b12",
+												backgroundColor:
+													theme.vars.palette.green
+														.main,
+												boxShadow: "none",
+												transition:
+													"background-color 180ms ease",
+												"&:hover": {
+													backgroundColor:
+														theme.vars.palette.green
+															.light,
+												},
+											}}
+										>
+											Subscribe
+										</Button>
+									</motion.div>
+								</Box>
+							</motion.div>
+							<motion.div variants={itemVariants}>
+								<Typography
+									variant="caption"
+									sx={{
+										display: "block",
+										mt: 2,
+										color: theme.vars.palette.text
+											.secondary,
+										lineHeight: 1.6,
+									}}
+								>
+									By subscribing, you agree to our Privacy
+									Policy and Terms of Service.
+								</Typography>
+							</motion.div>
+						</Box>
 					</Box>
 				</motion.div>
 			</Container>

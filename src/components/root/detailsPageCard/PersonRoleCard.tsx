@@ -23,61 +23,61 @@ const PersonRoleCard = ({ data, type }: PersonRoleCardProps) => {
 			>
 				<Box
 					sx={{
-						position: "relative",
-						width: { xs: "60px", sm: "70px" },
-						height: { xs: "60px", sm: "70px" },
-						borderRadius: "50%",
-						overflow: "hidden",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						gap: 0.75,
+						width: { xs: 76, sm: 88 },
 						cursor: "pointer",
-						boxShadow: theme.shadows[4],
-						"&:hover": {
-							boxShadow: theme.shadows[8],
-							"& .overlay": {
-								opacity: 1,
-							},
-						},
 					}}
 				>
-					<Image
-						src={data.photoSrcProd || "/images/placeholder.jpg"}
-						alt={data.fullname}
-						fill
-						sizes="(max-width: 600px) 60px, 70px"
-						style={{
-							objectFit: "cover",
-						}}
-					/>
 					<Box
-						className="overlay"
 						sx={{
-							position: "absolute",
-							inset: 0,
-							bgcolor: "rgba(0, 0, 0, 0.7)",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							padding: 1,
-							opacity: 0,
-							transition: "opacity 0.3s ease-in-out",
+							position: "relative",
+							width: { xs: 64, sm: 72 },
+							height: { xs: 76, sm: 86 },
+							borderRadius: 1.5,
+							overflow: "hidden",
+							border: "1px solid",
+							borderColor: theme.vars.palette.divider,
+							bgcolor: theme.vars.palette.action.hover,
 						}}
 					>
+						<Image
+							src={data.photoSrcProd || "/images/placeholder.jpg"}
+							alt={data.fullname}
+							fill
+							sizes="(max-width: 600px) 64px, 72px"
+							style={{ objectFit: "cover" }}
+						/>
+					</Box>
+					<Typography
+						variant="caption"
+						sx={{
+							width: "100%",
+							color: theme.vars.palette.text.primary,
+							fontWeight: 600,
+							textAlign: "center",
+							display: "-webkit-box",
+							WebkitLineClamp: 2,
+							WebkitBoxOrient: "vertical",
+							overflow: "hidden",
+							lineHeight: 1.25,
+						}}
+					>
+						{data.fullname}
+					</Typography>
+					{data.debut && (
 						<Typography
 							variant="caption"
 							sx={{
-								color: "white",
-								textAlign: "center",
-								fontSize: { xs: "0.6rem", sm: "0.7rem" },
-								fontWeight: 500,
-								display: "-webkit-box",
-								WebkitLineClamp: 2,
-								WebkitBoxOrient: "vertical",
-								overflow: "hidden",
+								color: theme.vars.palette.text.secondary,
+								fontSize: "0.65rem",
 							}}
 						>
-							{data.fullname}
-							{data.debut && ` (${data.debut})`}
+							{data.debut}
 						</Typography>
-					</Box>
+					)}
 				</Box>
 			</Link>
 		</motion.div>

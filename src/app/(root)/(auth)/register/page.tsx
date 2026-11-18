@@ -14,13 +14,14 @@ export default async function Register() {
 			sx={{
 				position: "relative",
 				display: "flex",
-				placeContent: "center",
-				placeItems: "center",
+				justifyContent: "center",
+				alignItems: "center",
 				minHeight: "100vh",
 				marginTop: "-50px",
 				marginBottom: "-22px",
-				paddingTop: 10,
-				paddingBottom: 10,
+				px: 2,
+				py: { xs: 6, md: 10 },
+				isolation: "isolate",
 			}}
 			component="section"
 		>
@@ -32,6 +33,7 @@ export default async function Register() {
 					right: 0,
 					bottom: 0,
 					zIndex: -1,
+					overflow: "hidden",
 				}}
 			>
 				<Image
@@ -50,19 +52,24 @@ export default async function Register() {
 						left: 0,
 						right: 0,
 						bottom: 0,
-						backgroundColor: "rgba(0, 0, 0, 0.6)",
-						filter: "blur(2px)",
+						background:
+							"linear-gradient(110deg, rgba(7, 11, 20, 0.82), rgba(7, 11, 20, 0.42))",
 					}}
 				/>
 			</Box>
 
 			<Paper
 				sx={{
-					px: 8,
-					py: 4,
-					borderRadius: 4,
+					width: "100%",
+					maxWidth: 560,
+					px: { xs: 2.5, sm: 4, md: 5 },
+					py: { xs: 3, sm: 4.5 },
+					borderRadius: { xs: 2, sm: 3 },
 					position: "relative",
 					zIndex: 1,
+					border: "1px solid",
+					borderColor: "divider",
+					boxShadow: "0 30px 90px rgba(0, 0, 0, 0.3)",
 				}}
 			>
 				<RegisterForm />

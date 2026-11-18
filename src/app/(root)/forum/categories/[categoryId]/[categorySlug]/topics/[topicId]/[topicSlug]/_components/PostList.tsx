@@ -271,8 +271,8 @@ export default function PostList({
 					p: 4,
 					textAlign: "center",
 					borderRadius: 2,
-					backgroundColor: theme.vars.palette.secondary.light,
-					border: `1px solid ${theme.vars.palette.primary.light}`,
+					backgroundColor: theme.vars.palette.background.paper,
+					border: `1px solid ${theme.vars.palette.divider}`,
 				}}
 			>
 				<ChatIcon
@@ -323,18 +323,18 @@ export default function PostList({
 						key={post.id}
 						elevation={0}
 						sx={{
-							p: 3,
+							p: { xs: 2, sm: 3 },
 							borderRadius: 2,
 							backgroundColor:
 								userLoggedIn &&
 								Number(userLoggedIn.id) === post.user.id
-									? "rgba(25, 118, 210, 0.05)"
-									: theme.vars.palette.secondary.light,
+									? theme.vars.palette.action.hover
+									: theme.vars.palette.background.paper,
 							border:
 								userLoggedIn &&
 								Number(userLoggedIn.id) === post.user.id
-									? "1px solid rgba(25, 118, 210, 0.3)"
-									: `1px solid ${theme.vars.palette.primary.light}`,
+									? `1px solid ${theme.vars.palette.green.main}`
+									: `1px solid ${theme.vars.palette.divider}`,
 							position: "relative",
 						}}
 					>
@@ -362,6 +362,8 @@ export default function PostList({
 							sx={{
 								display: "flex",
 								justifyContent: "space-between",
+								alignItems: "flex-start",
+								gap: 2,
 								mb: 2,
 							}}
 						>
@@ -384,8 +386,8 @@ export default function PostList({
 									>
 										<Typography
 											variant="subtitle1"
-											color="primary"
-											sx={{ fontWeight: "bold" }}
+											color="text.primary"
+											sx={{ fontWeight: 650 }}
 										>
 											{post.user.userName}
 										</Typography>
@@ -488,6 +490,7 @@ export default function PostList({
 										justifyContent: "space-between",
 										mt: 2,
 										gap: 1,
+										flexWrap: "wrap",
 									}}
 								>
 									<Box

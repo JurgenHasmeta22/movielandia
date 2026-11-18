@@ -118,11 +118,11 @@ export default function TopicPageContent({
 	}
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 4, mt: 4 }}>
+		<Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 }, mt: 2 }}>
 			<Breadcrumbs
 				separator={<NavigateNextIcon fontSize="small" />}
 				aria-label="breadcrumb"
-				sx={{ mb: 3 }}
+				sx={{ mb: { xs: 3, md: 4 } }}
 			>
 				<MuiLink
 					component={Link}
@@ -153,29 +153,42 @@ export default function TopicPageContent({
 			<Paper
 				elevation={0}
 				sx={{
-					p: 3,
+					p: { xs: 2, sm: 3, md: 4 },
 					mb: 4,
 					borderRadius: 2,
 					backgroundColor: (theme) =>
-						theme.vars.palette.secondary.light,
+						theme.vars.palette.background.paper,
 					border: (theme) =>
-						`1px solid ${theme.vars.palette.primary.light}`,
+						`1px solid ${theme.vars.palette.divider}`,
 				}}
 			>
 				<Box
 					sx={{
 						display: "flex",
-						alignItems: "center",
-						gap: 1,
+						alignItems: { xs: "flex-start", sm: "center" },
+						flexDirection: { xs: "column", sm: "row" },
+						gap: 2,
 						mb: 2,
 						justifyContent: "space-between",
 					}}
 				>
-					<Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							gap: 1,
+							minWidth: 0,
+						}}
+					>
 						<Typography
 							variant="h4"
 							component="h1"
-							sx={{ fontWeight: "bold" }}
+							sx={{
+								fontWeight: 700,
+								fontSize: { xs: "1.65rem", sm: "2.125rem" },
+								letterSpacing: "-0.04em",
+								overflowWrap: "anywhere",
+							}}
 						>
 							{topic.title}
 						</Typography>
@@ -191,7 +204,13 @@ export default function TopicPageContent({
 					</Box>
 					{session?.user &&
 						Number(session.user.id) === topic.userId && (
-							<Box sx={{ display: "flex", gap: 1 }}>
+							<Box
+								sx={{
+									display: "flex",
+									flexWrap: "wrap",
+									gap: 1,
+								}}
+							>
 								<Button
 									variant="outlined"
 									size="medium"
@@ -216,8 +235,9 @@ export default function TopicPageContent({
 					sx={{
 						display: "flex",
 						alignItems: "center",
-						gap: 1,
+						gap: 1.5,
 						mb: 3,
+						flexWrap: "wrap",
 					}}
 				>
 					<Avatar
@@ -275,7 +295,7 @@ export default function TopicPageContent({
 						{topic.viewCount === 1 ? "view" : "views"}
 					</Typography>
 				</Box>
-				<Box sx={{ mb: 3 }}>
+				<Box sx={{ mb: 3, maxWidth: "82ch", lineHeight: 1.75 }}>
 					<RichTextDisplay content={topic.content} type="topic" />
 				</Box>
 				{topic.tags && topic.tags.length > 0 && (
@@ -291,6 +311,8 @@ export default function TopicPageContent({
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
+						gap: 1,
+						flexWrap: "wrap",
 					}}
 				>
 					<Typography variant="body2" color="text.secondary">
@@ -307,7 +329,11 @@ export default function TopicPageContent({
 			<Typography
 				variant="h5"
 				component="h2"
-				sx={{ mb: 3, fontWeight: "bold" }}
+				sx={{
+					mb: 3,
+					fontWeight: 650,
+					letterSpacing: "-0.025em",
+				}}
 			>
 				Posts
 			</Typography>

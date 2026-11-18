@@ -107,7 +107,12 @@ export default function ReplyForm({
 
 	// #region "Render"
 	return (
-		<Box sx={{ mt: 2, ml: replyingTo?.type === "reply" ? 4 : 0 }}>
+		<Box
+			sx={{
+				mt: 2,
+				ml: replyingTo?.type === "reply" ? { xs: 0, sm: 4 } : 0,
+			}}
+		>
 			{replyingTo && (
 				<Paper
 					elevation={0}
@@ -116,9 +121,9 @@ export default function ReplyForm({
 						mb: 3,
 						borderRadius: 2,
 						backgroundColor: (theme) =>
-							theme.vars.palette.secondary.light,
+							theme.vars.palette.background.paper,
 						border: (theme) =>
-							`1px solid ${theme.vars.palette.primary.light}`,
+							`1px solid ${theme.vars.palette.divider}`,
 						position: "relative",
 						"&::before": {
 							content: '""',
@@ -128,7 +133,7 @@ export default function ReplyForm({
 							bottom: 0,
 							width: "4px",
 							backgroundColor: (theme) =>
-								theme.vars.palette.primary.main,
+								theme.vars.palette.green.main,
 							borderTopLeftRadius: 2,
 							borderBottomLeftRadius: 2,
 						},
@@ -137,8 +142,8 @@ export default function ReplyForm({
 					<Typography
 						variant="subtitle1"
 						gutterBottom
-						color="primary"
-						sx={{ mb: 2, fontWeight: "bold" }}
+						color="text.primary"
+						sx={{ mb: 2, fontWeight: 650 }}
 					>
 						Replying to {replyingTo.userName}:
 					</Typography>

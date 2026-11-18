@@ -260,6 +260,28 @@ describe("CardItem Component", () => {
 			expect(screen.getByText("A test actor description")).toBeDefined();
 		});
 
+		it("should show actor name and debut year on poster cards", () => {
+			vi.mocked(useSession).mockReturnValue({
+				data: null,
+				status: "unauthenticated",
+				update: vi.fn(),
+			} as any);
+
+			render(
+				<ThemeProvider theme={theme}>
+					<CardItem
+						data={actorData}
+						type="actor"
+						path="actors"
+						presentation="poster"
+					/>
+				</ThemeProvider>,
+			);
+
+			expect(screen.getByText("Test Actor")).toBeDefined();
+			expect(screen.getByText("Debut Year: (2010)")).toBeDefined();
+		});
+
 		it("should render a user card correctly", () => {
 			vi.mocked(useSession).mockReturnValue({
 				data: null,

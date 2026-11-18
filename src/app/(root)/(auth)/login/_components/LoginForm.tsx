@@ -12,7 +12,7 @@ import {
 	Link as MuiLink,
 	Divider,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,9 @@ export default function LoginForm() {
 	});
 
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
-	const handleMouseDownPassword = () => setShowPassword(!showPassword);
+	const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+	};
 
 	async function handleSubmitLogin(values: {
 		emailOrUsername: string;
@@ -67,14 +69,21 @@ export default function LoginForm() {
 	}
 
 	return (
-		<Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", px: 2 }}>
+		<Box
+			sx={{
+				width: "100%",
+				maxWidth: "400px",
+				margin: "0 auto",
+				"& .MuiOutlinedInput-root": { borderRadius: 1.5 },
+			}}
+		>
 			<form onSubmit={handleSubmit(handleSubmitLogin)}>
 				<Box
 					sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}
 				>
 					<Box
 						sx={{
-							mb: 6,
+							mb: 4,
 							display: "flex",
 							justifyContent: "center",
 						}}
@@ -106,6 +115,7 @@ export default function LoginForm() {
 										{...field}
 										placeholder="Email or Username"
 										autoComplete="username"
+										spellCheck={false}
 										size="small"
 										fullWidth
 										error={!!errors.emailOrUsername}
@@ -119,6 +129,10 @@ export default function LoginForm() {
 														<AlternateEmailIcon />
 													</InputAdornment>
 												),
+											},
+											htmlInput: {
+												"aria-label":
+													"Email or Username",
 											},
 										}}
 										sx={{
@@ -164,6 +178,11 @@ export default function LoginForm() {
 												endAdornment: (
 													<InputAdornment position="end">
 														<IconButton
+															aria-label={
+																showPassword
+																	? "Hide password"
+																	: "Show password"
+															}
 															onClick={
 																handleClickShowPassword
 															}
@@ -180,6 +199,9 @@ export default function LoginForm() {
 														</IconButton>
 													</InputAdornment>
 												),
+											},
+											htmlInput: {
+												"aria-label": "Password",
 											},
 										}}
 										sx={{
@@ -212,7 +234,13 @@ export default function LoginForm() {
 						<Button
 							type="submit"
 							variant="outlined"
-							sx={{ fontWeight: 600, py: 1, px: 4 }}
+							fullWidth
+							sx={{
+								fontWeight: 600,
+								py: 1.25,
+								borderRadius: 1.5,
+								textTransform: "none",
+							}}
 							disabled={isSubmitting}
 						>
 							<LockOutlinedIcon />
@@ -255,7 +283,13 @@ export default function LoginForm() {
 								signIn("google", { callbackUrl: "/" })
 							}
 							variant="outlined"
-							sx={{ fontWeight: 600, py: 1 }}
+							fullWidth
+							sx={{
+								fontWeight: 600,
+								py: 1.25,
+								borderRadius: 1.5,
+								textTransform: "none",
+							}}
 						>
 							<GoogleIcon />
 							<Typography

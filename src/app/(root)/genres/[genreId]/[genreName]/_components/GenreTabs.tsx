@@ -96,28 +96,23 @@ const GenreTabs = () => {
 							cursor: "pointer",
 							transition: "all 0.2s",
 							bgcolor: selectedFilters.includes(tab.value)
-								? "primary.main"
+								? "green.main"
 								: "transparent",
 							color: selectedFilters.includes(tab.value)
-								? "primary.contrastText"
+								? "text.primary"
 								: "text.primary",
 							"&:hover": {
 								bgcolor: selectedFilters.includes(tab.value)
-									? "primary.light"
+									? "green.light"
 									: "action.hover",
 							},
 							"& .MuiSvgIcon-root": {
 								fontSize: { xs: "1.1rem", sm: "1.25rem" },
 							},
-							boxShadow: selectedFilters.includes(tab.value)
-								? 1
-								: "none",
-							transform: selectedFilters.includes(tab.value)
-								? "scale(1.02)"
-								: "scale(1)",
-							"&:active": {
-								transform: "scale(0.98)",
-							},
+							border: "1px solid",
+							borderColor: selectedFilters.includes(tab.value)
+								? "green.main"
+								: "divider",
 						}}
 					>
 						{tab.icon}

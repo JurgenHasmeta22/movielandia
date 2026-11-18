@@ -39,6 +39,8 @@ export default function PaginationControl({
 		}
 	};
 
+	if (pageCount <= 1) return null;
+
 	return (
 		<Box sx={{ display: "flex", justifyContent: "center" }}>
 			<Pagination

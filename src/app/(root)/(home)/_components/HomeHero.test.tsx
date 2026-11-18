@@ -41,6 +41,13 @@ vi.mock("@mui/material", async () => {
 					common: {
 						white: "#ffffff",
 					},
+					green: {
+						main: "#4cceac",
+						light: "#70d8bd",
+					},
+					primary: {
+						dark: "#040509",
+					},
 				},
 			},
 			shadows: ["none", "1px 1px 1px rgba(0,0,0,0.1)"],

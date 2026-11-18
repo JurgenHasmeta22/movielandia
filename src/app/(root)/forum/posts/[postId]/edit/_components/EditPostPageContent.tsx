@@ -70,11 +70,11 @@ export default function EditPostPageContent({
 	};
 
 	return (
-		<Container maxWidth="xl" sx={{ py: 4 }}>
+		<Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
 			<Breadcrumbs
 				separator={<NavigateNextIcon fontSize="small" />}
 				aria-label="breadcrumb"
-				sx={{ mb: 3 }}
+				sx={{ mb: { xs: 3, md: 4 } }}
 			>
 				<MuiLink
 					component={Link}
@@ -99,7 +99,11 @@ export default function EditPostPageContent({
 				variant="h4"
 				component="h1"
 				gutterBottom
-				sx={{ fontWeight: "bold" }}
+				sx={{
+					fontWeight: 700,
+					fontSize: { xs: "2rem", sm: "2.75rem" },
+					letterSpacing: "-0.05em",
+				}}
 			>
 				Edit Post
 			</Typography>
@@ -114,13 +118,14 @@ export default function EditPostPageContent({
 				<Paper
 					elevation={0}
 					sx={{
-						p: 3,
+						p: { xs: 1, sm: 2 },
 						mb: 3,
 						borderRadius: 2,
 						backgroundColor: (theme) =>
-							theme.vars.palette.secondary.light,
+							theme.vars.palette.background.paper,
 						border: (theme) =>
-							`1px solid ${theme.vars.palette.primary.light}`,
+							`1px solid ${theme.vars.palette.divider}`,
+						overflow: "hidden",
 					}}
 				>
 					<TextEditor
@@ -132,7 +137,13 @@ export default function EditPostPageContent({
 					/>
 				</Paper>
 
-				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						gap: 1,
+					}}
+				>
 					<Button
 						variant="outlined"
 						onClick={() => router.back()}

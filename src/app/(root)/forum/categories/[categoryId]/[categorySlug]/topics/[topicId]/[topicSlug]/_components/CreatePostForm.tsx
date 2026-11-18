@@ -54,7 +54,10 @@ export default function CreatePostForm({
 				sx={{
 					p: 0,
 					mb: 2,
-					borderRadius: 1,
+					borderRadius: 2,
+					overflow: "hidden",
+					border: "1px solid",
+					borderColor: "divider",
 				}}
 			>
 				<Box>
@@ -75,11 +78,13 @@ export default function CreatePostForm({
 					color="primary"
 					disabled={isPending || !content.trim()}
 					sx={{
-						borderRadius: 1,
 						textTransform: "none",
 						fontWeight: 500,
 						backgroundColor: (theme) =>
 							theme.vars.palette.primary.main,
+						px: 3,
+						py: 1.25,
+						borderRadius: 1.5,
 					}}
 				>
 					{isPending ? "Creating..." : "Create Post"}

@@ -75,14 +75,16 @@ export function DetailsPageCard({
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				bgcolor: theme.vars.palette.secondary.light,
-				color: theme.vars.palette.primary.main,
+				bgcolor: theme.vars.palette.background.paper,
+				color: theme.vars.palette.text.primary,
 				width: "100%",
-				maxWidth: "1200px",
+				maxWidth: "1280px",
 				margin: "auto",
-				p: { xs: 2, sm: 3, md: 4 },
-				borderRadius: 6,
-				mt: 10,
+				p: { xs: 2, sm: 3, md: 4.5 },
+				border: "1px solid",
+				borderColor: theme.vars.palette.divider,
+				borderRadius: { xs: 2, md: 3 },
+				mt: { xs: 2, md: 4 },
 			}}
 		>
 			{(type === "season" || type === "episode") && (
@@ -104,17 +106,21 @@ export function DetailsPageCard({
 				sx={{
 					display: "flex",
 					flexDirection: { xs: "column", md: "row" },
-					gap: 3,
+					gap: { xs: 3, md: 5 },
 					alignItems: { xs: "center", md: "flex-start" },
 				}}
 			>
 				<Box
 					sx={{
 						flexShrink: 0,
-						width: { xs: "100%", md: "214px" },
-						maxWidth: "214px",
-						height: { xs: "300px", md: "317px" },
+						width: { xs: "min(100%, 250px)", md: "250px" },
+						maxWidth: "250px",
+						height: { xs: "auto", md: "370px" },
+						aspectRatio: "2 / 3",
 						position: "relative",
+						overflow: "hidden",
+						borderRadius: 2,
+						bgcolor: theme.vars.palette.action.hover,
 					}}
 				>
 					<Image
@@ -127,7 +133,12 @@ export function DetailsPageCard({
 						height={317}
 						width={214}
 						priority
-						style={{ objectFit: "cover", borderRadius: "8px" }}
+						style={{
+							objectFit: "cover",
+							borderRadius: "inherit",
+							width: "100%",
+							height: "100%",
+						}}
 					/>
 				</Box>
 				<Box
@@ -143,11 +154,16 @@ export function DetailsPageCard({
 						component="h1"
 						gutterBottom
 						sx={{
-							fontSize: "2.3rem",
-							letterSpacing: "0.1rem",
-							fontWeight: "bold",
+							fontSize: {
+								xs: "2rem",
+								sm: "2.6rem",
+								md: "3.25rem",
+							},
+							letterSpacing: "-0.055em",
+							lineHeight: 1.05,
+							fontWeight: 700,
 						}}
-						color={theme.vars.palette.primary.main}
+						color={theme.vars.palette.text.primary}
 					>
 						{type !== "actor" && type !== "crew"
 							? data.title
@@ -157,7 +173,7 @@ export function DetailsPageCard({
 						sx={{
 							mb: 2,
 							display: "flex",
-							flexDirection: "row",
+							flexWrap: "wrap",
 							alignItems: "center",
 						}}
 					>
@@ -166,7 +182,7 @@ export function DetailsPageCard({
 								display: "flex",
 								flexWrap: "wrap",
 								gap: 1,
-								p: 1,
+								p: 0,
 								borderRadius: 2,
 							}}
 						>
@@ -181,13 +197,15 @@ export function DetailsPageCard({
 										clickable
 										sx={{
 											bgcolor:
-												theme.vars.palette.secondary
-													.main,
-											color: theme.vars.palette.red.main,
+												theme.vars.palette.action.hover,
+											color: theme.vars.palette.text
+												.primary,
 											textDecoration: "none",
-											fontSize: "0.9rem",
-											fontWeight: "600",
-											padding: "12px 6px",
+											fontSize: "0.8rem",
+											fontWeight: 600,
+											border: "1px solid",
+											borderColor:
+												theme.vars.palette.divider,
 										}}
 									/>
 								</Link>
@@ -198,9 +216,8 @@ export function DetailsPageCard({
 						sx={{
 							display: "flex",
 							flexWrap: "wrap",
-							gap: 4,
+							gap: { xs: 1.5, sm: 2.5 },
 							mb: 3,
-							borderRadius: 2,
 						}}
 					>
 						{type !== "season" &&
@@ -212,6 +229,11 @@ export function DetailsPageCard({
 										display: "flex",
 										alignItems: "center",
 										gap: 1,
+										px: 1.25,
+										py: 0.75,
+										borderRadius: 1.5,
+										bgcolor:
+											theme.vars.palette.action.hover,
 									}}
 								>
 									<AccessTime
@@ -228,6 +250,10 @@ export function DetailsPageCard({
 								display: "flex",
 								alignItems: "center",
 								gap: 1,
+								px: 1.25,
+								py: 0.75,
+								borderRadius: 1.5,
+								bgcolor: theme.vars.palette.action.hover,
 							}}
 						>
 							<CalendarToday fontSize="medium" color="primary" />
@@ -243,6 +269,10 @@ export function DetailsPageCard({
 									display: "flex",
 									alignItems: "center",
 									gap: 1,
+									px: 1.25,
+									py: 0.75,
+									borderRadius: 1.5,
+									bgcolor: theme.vars.palette.action.hover,
 								}}
 							>
 								<Image
@@ -279,7 +309,8 @@ export function DetailsPageCard({
 					</Box>
 					<Typography
 						variant="body1"
-						color={theme.vars.palette.primary.light}
+						color={theme.vars.palette.text.secondary}
+						sx={{ maxWidth: "78ch", lineHeight: 1.75 }}
 					>
 						{data.description}
 					</Typography>
@@ -287,8 +318,8 @@ export function DetailsPageCard({
 						(cast || crew) && (
 							<Box
 								sx={{
-									mt: 3,
-									mb: 3,
+									mt: 4,
+									mb: 2,
 									display: "grid",
 									gridTemplateColumns: {
 										xs: "1fr",
@@ -304,8 +335,8 @@ export function DetailsPageCard({
 											sx={{
 												mb: 2,
 												fontWeight: 600,
-												color: theme.vars.palette
-													.primary.main,
+												color: theme.vars.palette.text
+													.primary,
 												fontSize: 16,
 											}}
 										>
@@ -352,8 +383,8 @@ export function DetailsPageCard({
 											sx={{
 												mb: 2,
 												fontWeight: 600,
-												color: theme.vars.palette
-													.primary.main,
+												color: theme.vars.palette.text
+													.primary,
 												fontSize: 16,
 											}}
 										>
@@ -410,9 +441,10 @@ export function DetailsPageCard({
 								onClick={onPlayTrailer}
 								sx={{
 									bgcolor: theme.vars.palette.red.main,
-									color: theme.vars.palette.primary.main,
+									color: theme.vars.palette.text.primary,
 									textTransform: "capitalize",
 									fontSize: 16,
+									borderRadius: 1.5,
 								}}
 							>
 								Watch trailer
@@ -436,13 +468,12 @@ export function DetailsPageCard({
 									)
 								}
 								sx={{
-									color: theme.vars.palette.primary.main,
+									color: theme.vars.palette.text.primary,
 									bgcolor: isBookmarked
 										? theme.vars.palette.red.main
 										: theme.vars.palette.green.main,
 									"&:hover": {
-										bgcolor:
-											theme.vars.palette.secondary.light,
+										bgcolor: theme.vars.palette.green.light,
 									},
 									"&:disabled": {
 										bgcolor: isBookmarked
@@ -453,6 +484,7 @@ export function DetailsPageCard({
 									textTransform: "capitalize",
 									fontSize: 16,
 									minWidth: 130,
+									borderRadius: 1.5,
 								}}
 							>
 								{isBookmarked ? "Bookmarked" : "Bookmark"}

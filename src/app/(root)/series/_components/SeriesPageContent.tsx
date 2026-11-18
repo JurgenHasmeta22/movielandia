@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Serie } from "@prisma/client";
 import {
 	getLatestSeries,
@@ -53,7 +53,7 @@ export default async function SeriesPageContent({
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				gap: { xs: 3, sm: 4, md: 5 },
+				gap: { xs: 2, sm: 3, md: 4 },
 			}}
 		>
 			<Box component="section">
@@ -62,67 +62,56 @@ export default async function SeriesPageContent({
 			<Box
 				component="section"
 				sx={{
-					maxWidth: "1200px",
+					maxWidth: "1320px",
 					margin: "0 auto",
 					width: "100%",
-					px: { xs: 2, sm: 3, md: 4 },
+					px: { xs: 2, sm: 3, md: 4, xl: 0 },
 				}}
 			>
 				<Box
 					sx={{
 						display: "flex",
 						justifyContent: "space-between",
-						alignItems: "flex-start",
+						alignItems: { xs: "flex-start", sm: "center" },
 						flexDirection: { xs: "column", sm: "row" },
 						gap: { xs: 2, sm: 3 },
-						mb: { xs: 3, md: 4 },
+						mb: { xs: 2.5, md: 3 },
+						pb: { xs: 2, md: 2.5 },
+						borderBottom: "1px solid",
+						borderColor: "divider",
 					}}
 				>
 					<Box
 						sx={{
 							display: "flex",
-							flexDirection: { xs: "column", sm: "row" },
-							alignItems: { xs: "flex-start", sm: "baseline" },
-							gap: { xs: 1, sm: 2 },
+							flexDirection: "column",
+							alignItems: "flex-start",
+							gap: 0.75,
 						}}
 					>
 						<Typography
 							variant="h2"
+							component="h1"
 							sx={{
-								fontSize: { xs: 24, sm: 28, md: 32 },
-								fontWeight: 800,
+								fontSize: { xs: 30, sm: 36, md: 42 },
+								fontWeight: 700,
 								color: "text.primary",
-								position: "relative",
-								display: "inline-block",
-								"&::after": {
-									content: '""',
-									position: "absolute",
-									bottom: -8,
-									left: 0,
-									width: "100%",
-									height: 3,
-									bgcolor: "primary.main",
-									borderRadius: 1,
-								},
+								letterSpacing: "-0.05em",
 							}}
 						>
 							Series
 						</Typography>
 						<Typography
-							variant="h5"
+							variant="body2"
 							sx={{
-								fontSize: { xs: 16, sm: 18 },
+								fontSize: { xs: 14, sm: 15 },
 								color: "text.secondary",
-								mt: { xs: 2, sm: 0 },
-								ml: { sm: 1 },
-								position: "relative",
-								top: { sm: 2 },
 							}}
 						>
 							{startIndex} – {endIndex} of {seriesCount} series
 						</Typography>
 					</Box>
-					<Box>
+					<Box sx={{ alignSelf: { xs: "stretch", sm: "center" } }}>
 						<SortSelect
 							sortBy={sortBy}
 							ascOrDesc={ascOrDesc}
@@ -134,21 +123,21 @@ export default async function SeriesPageContent({
 				<Box
 					sx={{
 						width: "100%",
-						overflow: "hidden",
-						mt: { xs: 4, md: 5 },
+						overflow: "visible",
+						mt: { xs: 2.5, md: 3.5 },
 					}}
 				>
-					<Stack
-						direction="row"
+					<Box
 						sx={{
-							flexWrap: "wrap",
-							columnGap: { xs: 1, sm: 2, md: 3 },
-							rowGap: { xs: 3, sm: 4, md: 5 },
-							justifyContent: {
-								xs: "center",
-								md: "flex-start",
+							display: "grid",
+							gridTemplateColumns: {
+								xs: "repeat(2, minmax(0, 1fr))",
+								sm: "repeat(3, minmax(0, 1fr))",
+								md: "repeat(4, minmax(0, 1fr))",
+								lg: "repeat(5, minmax(0, 1fr))",
+								xl: "repeat(6, minmax(0, 1fr))",
 							},
-							mx: { xs: 1, sm: 2 },
+							gap: { xs: 1.5, sm: 2.5, md: 3 },
 							mb: { xs: 3, md: 4 },
 						}}
 					>
@@ -157,9 +146,10 @@ export default async function SeriesPageContent({
 								key={serie.id}
 								data={serie}
 								type="serie"
+								presentation="poster"
 							/>
 						))}
-					</Stack>
+					</Box>
 					<PaginationControl
 						currentPage={Number(page)}
 						pageCount={pageCount}
