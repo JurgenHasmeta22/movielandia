@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -102,7 +102,7 @@ const TestimonialsSection = () => {
 		],
 	};
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -110,7 +110,7 @@ const TestimonialsSection = () => {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { opacity: 0, y: 20 },
 		visible: {
 			opacity: 1,

@@ -175,7 +175,7 @@ export default function TopicPageContent({
 						<Typography
 							variant="h4"
 							component="h1"
-							fontWeight="bold"
+							sx={{ fontWeight: "bold" }}
 						>
 							{topic.title}
 						</Typography>
@@ -307,8 +307,7 @@ export default function TopicPageContent({
 			<Typography
 				variant="h5"
 				component="h2"
-				fontWeight="bold"
-				sx={{ mb: 3 }}
+				sx={{ mb: 3, fontWeight: "bold" }}
 			>
 				Posts
 			</Typography>
@@ -354,8 +353,7 @@ export default function TopicPageContent({
 					<Typography
 						variant="h6"
 						component="h3"
-						fontWeight="bold"
-						sx={{ mb: 2 }}
+						sx={{ mb: 2, fontWeight: "bold" }}
 					>
 						Create a Post
 					</Typography>

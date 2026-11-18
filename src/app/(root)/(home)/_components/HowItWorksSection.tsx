@@ -7,7 +7,7 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ShareIcon from "@mui/icons-material/Share";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const steps = [
@@ -40,7 +40,7 @@ const steps = [
 const HowItWorksSection = () => {
 	const theme = useTheme();
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -48,7 +48,7 @@ const HowItWorksSection = () => {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { opacity: 0, y: 30 },
 		visible: {
 			opacity: 1,
@@ -89,7 +89,9 @@ const HowItWorksSection = () => {
 									mb: 2,
 								}}
 							>
-								<HelpOutlineOutlinedIcon sx={{ mr: 1, fontSize: 20 }} />
+								<HelpOutlineOutlinedIcon
+									sx={{ mr: 1, fontSize: 20 }}
+								/>
 								<Typography
 									variant="subtitle2"
 									sx={{ fontWeight: 600, fontSize: 14 }}

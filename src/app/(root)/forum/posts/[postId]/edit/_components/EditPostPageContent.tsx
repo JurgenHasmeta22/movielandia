@@ -99,7 +99,7 @@ export default function EditPostPageContent({
 				variant="h4"
 				component="h1"
 				gutterBottom
-				fontWeight="bold"
+				sx={{ fontWeight: "bold" }}
 			>
 				Edit Post
 			</Typography>

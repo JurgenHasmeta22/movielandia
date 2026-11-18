@@ -4,7 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Box, IconButton } from "@mui/material";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import { forwardRef } from "react";
+import { forwardRef, type CSSProperties } from "react";
 import ListDetailCardItem from "../listDetailCardItem/ListDetailCardItem";
 import { CardItemType } from "../cardItem/CardItem";
 import { ContentType } from "@prisma/client";
@@ -32,7 +32,7 @@ const DraggableListItem = forwardRef<HTMLDivElement, DraggableListItemProps>(
 			isDragging,
 		} = useSortable({ id });
 
-		const style = {
+		const style: CSSProperties = {
 			transform: CSS.Transform.toString(transform),
 			transition,
 			opacity: isDragging ? 0.5 : 1,
@@ -42,7 +42,7 @@ const DraggableListItem = forwardRef<HTMLDivElement, DraggableListItemProps>(
 
 		return (
 			<Box
-				ref={(node) => {
+				ref={(node: HTMLDivElement | null) => {
 					// Forward the ref to both the parent component and dnd-kit
 					if (typeof ref === "function") {
 						ref(node);

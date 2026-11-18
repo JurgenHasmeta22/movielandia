@@ -198,7 +198,7 @@ export default function ForumSearchPageContent({
 					variant="h4"
 					component="h1"
 					gutterBottom
-					fontWeight="bold"
+					sx={{ fontWeight: "bold" }}
 				>
 					Forum Search
 				</Typography>
@@ -226,18 +226,20 @@ export default function ForumSearchPageContent({
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
 						sx={{ mb: 2 }}
-						InputProps={{
-							endAdornment: searchQuery ? (
-								<InputAdornment position="end">
-									<IconButton
-										aria-label="clear search"
-										onClick={() => setSearchQuery("")}
-										edge="end"
-									>
-										<ClearIcon />
-									</IconButton>
-								</InputAdornment>
-							) : null,
+						slotProps={{
+							input: {
+								endAdornment: searchQuery ? (
+									<InputAdornment position="end">
+										<IconButton
+											aria-label="clear search"
+											onClick={() => setSearchQuery("")}
+											edge="end"
+										>
+											<ClearIcon />
+										</IconButton>
+									</InputAdornment>
+								) : null,
+							},
 						}}
 					/>
 
@@ -370,7 +372,9 @@ export default function ForumSearchPageContent({
 										type="date"
 										value={localDateFrom}
 										onChange={handleDateFromChange}
-										InputLabelProps={{ shrink: true }}
+										slotProps={{
+											inputLabel: { shrink: true },
+										}}
 										size="small"
 									/>
 								</Box>
@@ -381,7 +385,9 @@ export default function ForumSearchPageContent({
 										type="date"
 										value={localDateTo}
 										onChange={handleDateToChange}
-										InputLabelProps={{ shrink: true }}
+										slotProps={{
+											inputLabel: { shrink: true },
+										}}
 										size="small"
 									/>
 								</Box>

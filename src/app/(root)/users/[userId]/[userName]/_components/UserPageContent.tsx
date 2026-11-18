@@ -290,8 +290,6 @@ export default function UserPageContent({
 						getSubTabIcon={getSubTabIcon}
 						currentMainTab={getCurrentMainTabIndex()}
 						currentSubTab={getCurrentSubTabIndex()}
-						setMainTab={setMainTab}
-						setSubTab={setSubTab}
 					/>
 					<motion.div
 						key={`${mainTab}-${subTab}`}

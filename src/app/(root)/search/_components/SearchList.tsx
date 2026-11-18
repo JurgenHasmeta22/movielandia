@@ -2,7 +2,7 @@
 
 import PaginationControl from "@/components/root/paginationControl/PaginationControl";
 import SortSelect from "@/components/root/sortSelect/SortSelect";
-import CardItem, { PathType } from "@/components/root/cardItem/CardItem";
+import CardItem from "@/components/root/cardItem/CardItem";
 import { Box, Typography, useTheme } from "@mui/material";
 import {
 	Actor,
@@ -34,7 +34,7 @@ interface MediaListProps {
 		| "Crew";
 	cardType:
 		"movie" | "serie" | "actor" | "season" | "episode" | "user" | "crew";
-	path?: PathType;
+	path?: string;
 }
 
 const SearchList = ({
@@ -47,7 +47,7 @@ const SearchList = ({
 	pageCount,
 	dataType,
 	cardType,
-	path = null,
+	path,
 }: MediaListProps) => {
 	const theme = useTheme();
 

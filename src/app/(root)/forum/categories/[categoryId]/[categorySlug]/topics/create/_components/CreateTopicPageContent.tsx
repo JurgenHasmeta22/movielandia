@@ -117,7 +117,7 @@ export default function CreateTopicPageContent({
 					variant="h4"
 					component="h1"
 					gutterBottom
-					fontWeight="bold"
+					sx={{ fontWeight: "bold" }}
 				>
 					Create New Topic
 				</Typography>

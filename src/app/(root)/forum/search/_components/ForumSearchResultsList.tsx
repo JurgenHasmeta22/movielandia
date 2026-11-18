@@ -140,7 +140,7 @@ export default function ForumSearchResultsList({
 										<Typography
 											variant="h6"
 											color="primary"
-											fontWeight="bold"
+											sx={{ fontWeight: "bold" }}
 										>
 											{item.title}
 										</Typography>
@@ -224,7 +224,7 @@ export default function ForumSearchResultsList({
 										<Typography
 											variant="h6"
 											color="primary"
-											fontWeight="bold"
+											sx={{ fontWeight: "bold" }}
 										>
 											Re: {item.topic.title}
 										</Typography>
@@ -305,7 +305,7 @@ export default function ForumSearchResultsList({
 										<Typography
 											variant="h6"
 											color="primary"
-											fontWeight="bold"
+											sx={{ fontWeight: "bold" }}
 										>
 											Re: {item.post.topic.title}
 										</Typography>

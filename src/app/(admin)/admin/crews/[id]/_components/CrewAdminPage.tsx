@@ -161,10 +161,16 @@ const CrewAdminPage = () => {
 									{
 										label: CONSTANTS.MODAL__DELETE__YES,
 										onClick: async () => {
-											const response =
-												await deleteCrewMemberById(
-													crew?.id,
+											const id = crew?.id;
+											if (id === undefined) {
+												toast.error(
+													CONSTANTS.DELETE__FAILURE,
 												);
+												return;
+											}
+
+											const response =
+												await deleteCrewMemberById(id);
 
 											if (response) {
 												toast.success(

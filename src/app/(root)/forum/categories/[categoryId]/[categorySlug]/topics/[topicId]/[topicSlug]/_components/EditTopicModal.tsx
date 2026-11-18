@@ -91,12 +91,14 @@ export default function EditTopicModal({
 			onClose={onClose}
 			fullWidth
 			maxWidth="md"
-			PaperProps={{
-				sx: {
-					borderRadius: 1,
-					bgcolor: "#1e2330",
-					boxShadow: 3,
-					overflow: "hidden",
+			slotProps={{
+				paper: {
+					sx: {
+						borderRadius: 1,
+						bgcolor: "#1e2330",
+						boxShadow: 3,
+						overflow: "hidden",
+					},
 				},
 			}}
 		>

@@ -12,11 +12,17 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from "react";
 
-type MovieWithBookmark = Movie & {
+type MovieWithBookmark = Pick<
+	Movie,
+	"id" | "title" | "photoSrcProd" | "description" | "ratingImdb" | "dateAired"
+> & {
 	isBookmarked?: boolean;
 };
 
-type SerieWithBookmark = Serie & {
+type SerieWithBookmark = Pick<
+	Serie,
+	"id" | "title" | "photoSrcProd" | "description" | "ratingImdb" | "dateAired"
+> & {
 	isBookmarked?: boolean;
 };
 

@@ -125,7 +125,7 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 									<Typography
 										variant="h6"
 										color="primary"
-										fontWeight="bold"
+										sx={{ fontWeight: "bold" }}
 									>
 										{topic.title}
 									</Typography>

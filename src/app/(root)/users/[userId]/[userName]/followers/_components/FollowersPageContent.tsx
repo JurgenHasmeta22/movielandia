@@ -20,7 +20,7 @@ interface FollowersContentProps {
 		email: string;
 		password: string | null;
 		role: string;
-		bio: string;
+		bio: string | null;
 		active: boolean;
 		canResetPassword: boolean;
 		avatar?: { photoSrc: string } | null;
@@ -42,7 +42,7 @@ interface FollowersContentProps {
 			follower: {
 				id: number;
 				userName: string;
-				bio: string;
+				bio: string | null;
 				avatar?: { photoSrc: string } | null;
 				followStatus?: {
 					isFollowing: boolean;
@@ -103,7 +103,10 @@ export default function FollowersContent({
 						/>
 					))
 				) : (
-					<Typography color="text.secondary" textAlign="center">
+					<Typography
+						color="text.secondary"
+						sx={{ textAlign: "center" }}
+					>
 						No followers yet
 					</Typography>
 				)}

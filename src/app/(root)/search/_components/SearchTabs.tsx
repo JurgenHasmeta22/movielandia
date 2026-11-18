@@ -23,7 +23,11 @@ const tabOptions: TabOption[] = [
 	{ label: "Movies", icon: <LocalMoviesIcon />, value: "movies" },
 	{ label: "Series", icon: <LiveTvIcon />, value: "series" },
 	{ label: "Seasons", icon: <PlaylistPlayIcon />, value: "seasons" },
-	{ label: "Episodes", icon: <PlayCircleOutlineOutlinedIcon />, value: "episodes" },
+	{
+		label: "Episodes",
+		icon: <PlayCircleOutlineOutlinedIcon />,
+		value: "episodes",
+	},
 	{ label: "Actors", icon: <PersonIcon />, value: "actors" },
 	{ label: "Crew", icon: <GroupWorkIcon />, value: "crew" },
 	{ label: "Users", icon: <PersonOutlineOutlinedIcon />, value: "users" },

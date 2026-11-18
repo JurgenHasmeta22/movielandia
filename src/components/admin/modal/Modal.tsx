@@ -31,7 +31,7 @@ interface IModalProps {
 	open: boolean;
 	initialValues?: any;
 	fields?: FieldConfig[];
-	validationSchema?: z.ZodSchema<any>;
+	validationSchema?: z.ZodType<any, any, any>;
 	title: string;
 	actions?: ActionConfig[];
 	subTitle?: string;
@@ -80,7 +80,7 @@ const Modal: React.FC<IModalProps> = ({
 		handleSubmit,
 		watch,
 		formState: { errors },
-	} = useForm({
+	} = useForm<any>({
 		defaultValues: initialValues || {},
 		resolver: validationSchema ? zodResolver(validationSchema) : undefined,
 	});
@@ -104,7 +104,7 @@ const Modal: React.FC<IModalProps> = ({
 
 	return (
 		<Dialog open={true} onClose={onClose || (() => {})} fullWidth>
-			<DialogTitle fontSize={"22px"}>
+			<DialogTitle sx={{ fontSize: "22px" }}>
 				{title}
 				<IconButton
 					style={{ position: "absolute", right: 2, top: 2 }}
@@ -114,7 +114,7 @@ const Modal: React.FC<IModalProps> = ({
 				</IconButton>
 			</DialogTitle>
 			<DialogContent>
-				<DialogContentText fontSize={"16px"}>
+				<DialogContentText sx={{ fontSize: "16px" }}>
 					{subTitle}
 				</DialogContentText>
 				{fields ? (

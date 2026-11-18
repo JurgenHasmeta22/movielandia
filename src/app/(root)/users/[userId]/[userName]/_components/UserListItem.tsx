@@ -14,7 +14,7 @@ interface UserListItemProps {
 	user: {
 		id: number;
 		userName: string;
-		bio: string;
+		bio: string | null;
 		avatar?: { photoSrc: string } | null;
 		followStatus?: {
 			isFollowing: boolean;

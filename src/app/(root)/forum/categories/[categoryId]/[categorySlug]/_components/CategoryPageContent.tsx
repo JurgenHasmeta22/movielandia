@@ -158,7 +158,7 @@ export default function CategoryPageContent({
 						variant="h4"
 						component="h1"
 						gutterBottom
-						fontWeight="bold"
+						sx={{ fontWeight: "bold" }}
 					>
 						{category.name}
 					</Typography>
@@ -193,7 +193,7 @@ export default function CategoryPageContent({
 						<Typography
 							variant="h5"
 							component="h2"
-							fontWeight="bold"
+							sx={{ fontWeight: "bold" }}
 						>
 							Topics
 						</Typography>

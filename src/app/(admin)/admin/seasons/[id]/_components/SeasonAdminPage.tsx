@@ -205,10 +205,16 @@ const SeasonAdminPage = () => {
 									{
 										label: CONSTANTS.MODAL__DELETE__YES,
 										onClick: async () => {
-											const response =
-												await deleteSeasonById(
-													season?.id,
+											const id = season?.id;
+											if (id === undefined) {
+												toast.error(
+													CONSTANTS.DELETE__FAILURE,
 												);
+												return;
+											}
+
+											const response =
+												await deleteSeasonById(id);
 
 											if (response) {
 												toast.success(

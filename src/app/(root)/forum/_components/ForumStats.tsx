@@ -50,7 +50,11 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 							mb: 1,
 						}}
 					/>
-					<Typography variant="h6" fontWeight="bold" color="primary">
+					<Typography
+						variant="h6"
+						color="primary"
+						sx={{ fontWeight: "bold" }}
+					>
 						{stats.categoriesCount}
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
@@ -73,7 +77,11 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 							mb: 1,
 						}}
 					/>
-					<Typography variant="h6" fontWeight="bold" color="primary">
+					<Typography
+						variant="h6"
+						color="primary"
+						sx={{ fontWeight: "bold" }}
+					>
 						{stats.topicsCount}
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
@@ -96,7 +104,11 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 							mb: 1,
 						}}
 					/>
-					<Typography variant="h6" fontWeight="bold" color="primary">
+					<Typography
+						variant="h6"
+						color="primary"
+						sx={{ fontWeight: "bold" }}
+					>
 						{stats.postsCount}
 					</Typography>
 					<Typography variant="body2" color="text.secondary">

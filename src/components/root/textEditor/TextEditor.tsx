@@ -340,10 +340,10 @@ const TextEditor = React.forwardRef<any, ITextEditorProps>(
 						/>
 						<Typography
 							variant="body2"
-							fontSize={16}
-							fontWeight={700}
 							sx={{
 								ml: 1,
+								fontSize: 16,
+								fontWeight: 700,
 								color: theme.vars.palette.primary.main,
 							}}
 						>

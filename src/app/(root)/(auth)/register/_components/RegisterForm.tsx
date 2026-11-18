@@ -38,17 +38,8 @@ import { useRouter } from "next/navigation";
 import CakeIcon from "@mui/icons-material/Cake";
 import { z } from "zod";
 
-interface RegisterFormValues {
-	userName: string;
-	email: string;
-	password: string;
-	confirmPassword: string;
-	gender: string;
-	birthday: string;
-	phone: string;
-	countryFrom: string;
-	acceptTerms: boolean;
-}
+type RegisterFormValues = z.input<typeof registerSchema>;
+type RegisterFormOutput = z.output<typeof registerSchema>;
 
 const countries = [
 	"United States",
@@ -71,14 +62,14 @@ export default function RegisterForm() {
 		control,
 		handleSubmit,
 		formState: { errors, isSubmitting },
-	} = useForm<RegisterFormValues>({
-		resolver: zodResolver(registerSchema as z.ZodType<RegisterFormValues>),
+	} = useForm<RegisterFormValues, unknown, RegisterFormOutput>({
+		resolver: zodResolver(registerSchema),
 		defaultValues: {
 			userName: "",
 			email: "",
 			password: "",
 			confirmPassword: "",
-			gender: "",
+			gender: null,
 			birthday: "",
 			phone: "",
 			countryFrom: "",
@@ -95,15 +86,18 @@ export default function RegisterForm() {
 	const handleMouseDownPasswordConfirm = () =>
 		setShowPasswordConfirm(!showPasswordConfirm);
 
-	async function handleSubmitRegister(values: RegisterFormValues) {
+	async function handleSubmitRegister(values: RegisterFormOutput) {
 		if (!values.birthday) {
 			throw new Error("Birthday is required");
+		}
+		if (!values.gender) {
+			throw new Error("Gender is required");
 		}
 
 		await signUp({
 			userName: values.userName,
 			email: values.email,
-			gender: values.gender as "Male" | "Female",
+			gender: values.gender,
 			phone: values.phone,
 			birthday: new Date(values.birthday),
 			password: values.password,
@@ -264,8 +258,10 @@ export default function RegisterForm() {
 												vertical: "top",
 												horizontal: "right",
 											},
-											PaperProps: {
-												sx: { mt: 1 },
+											slotProps: {
+												paper: {
+													sx: { mt: 1 },
+												},
 											},
 										}}
 										sx={{
@@ -349,29 +345,33 @@ export default function RegisterForm() {
 												vertical: "top",
 												horizontal: "left",
 											},
-											PaperProps: {
-												sx: {
-													mt: 1,
-													maxHeight: "300px",
-													"&::-webkit-scrollbar": {
-														width: "8px",
+											slotProps: {
+												paper: {
+													sx: {
+														mt: 1,
+														maxHeight: "300px",
+														"&::-webkit-scrollbar":
+															{
+																width: "8px",
+															},
+														"&::-webkit-scrollbar-track":
+															{
+																background:
+																	"transparent",
+															},
+														"&::-webkit-scrollbar-thumb":
+															{
+																backgroundColor:
+																	"primary.main",
+																borderRadius:
+																	"4px",
+															},
+														"&::-webkit-scrollbar-thumb:hover":
+															{
+																backgroundColor:
+																	"primary.dark",
+															},
 													},
-													"&::-webkit-scrollbar-track":
-														{
-															background:
-																"transparent",
-														},
-													"&::-webkit-scrollbar-thumb":
-														{
-															backgroundColor:
-																"primary.main",
-															borderRadius: "4px",
-														},
-													"&::-webkit-scrollbar-thumb:hover":
-														{
-															backgroundColor:
-																"primary.dark",
-														},
 												},
 											},
 										}}

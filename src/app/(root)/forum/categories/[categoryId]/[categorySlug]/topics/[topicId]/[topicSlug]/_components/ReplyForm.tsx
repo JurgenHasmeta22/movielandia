@@ -136,10 +136,9 @@ export default function ReplyForm({
 				>
 					<Typography
 						variant="subtitle1"
-						fontWeight="bold"
 						gutterBottom
 						color="primary"
-						sx={{ mb: 2 }}
+						sx={{ mb: 2, fontWeight: "bold" }}
 					>
 						Replying to {replyingTo.userName}:
 					</Typography>

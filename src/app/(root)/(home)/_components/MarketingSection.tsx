@@ -5,7 +5,7 @@ import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import UpdateIcon from "@mui/icons-material/Update";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import DevicesIcon from "@mui/icons-material/Devices";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const features = [
@@ -35,7 +35,7 @@ const features = [
 	},
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
 	hidden: { opacity: 0 },
 	visible: {
 		opacity: 1,
@@ -43,7 +43,7 @@ const containerVariants = {
 	},
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
 	hidden: { opacity: 0, y: 50 },
 	visible: {
 		opacity: 1,

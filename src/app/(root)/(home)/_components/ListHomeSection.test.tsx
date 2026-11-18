@@ -109,7 +109,7 @@ const mockSeries = [
 
 const renderListHomeSection = (
 	data = mockMovies,
-	type = "movie",
+	type: "movie" | "serie" = "movie",
 	link = "/movies",
 	linkText = "View All Movies",
 	path = "movies",

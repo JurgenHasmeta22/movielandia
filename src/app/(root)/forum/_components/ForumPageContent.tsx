@@ -39,7 +39,7 @@ export default function ForumPageContent({
 					variant="h4"
 					component="h1"
 					gutterBottom
-					fontWeight="bold"
+					sx={{ fontWeight: "bold" }}
 				>
 					Community Forum
 				</Typography>
@@ -58,7 +58,11 @@ export default function ForumPageContent({
 					mt: 4,
 				}}
 			>
-				<Typography variant="h5" component="h2" fontWeight="bold">
+				<Typography
+					variant="h5"
+					component="h2"
+					sx={{ fontWeight: "bold" }}
+				>
 					Categories
 				</Typography>
 				<Box>

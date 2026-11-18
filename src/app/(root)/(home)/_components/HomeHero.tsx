@@ -13,13 +13,13 @@ import TvIcon from "@mui/icons-material/Tv";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const HomeHeroSection = () => {
 	const theme = useTheme();
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -27,7 +27,7 @@ const HomeHeroSection = () => {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { opacity: 0, y: 50 },
 		visible: {
 			opacity: 1,

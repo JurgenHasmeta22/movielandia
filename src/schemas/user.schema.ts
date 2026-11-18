@@ -21,6 +21,7 @@ export const addUserSchema = z.object({
 	userName: z.string().min(1, { message: "required" }),
 	email: z.string().min(1, { message: "required" }),
 	password: z.string().min(1, { message: "required" }),
+	birthday: z.string().min(1, { message: "required" }),
 	age: z
 		.number()
 		.min(13, { message: "Must be at least 13 years old" })

@@ -21,8 +21,7 @@ const HeaderDashboard = ({ title, subtitle }: IHeaderDashboard) => {
 			<Typography
 				variant="h2"
 				color={theme.vars.palette.greyAccent.main}
-				fontWeight="bold"
-				sx={{ m: "0 0 5px 0" }}
+				sx={{ m: "0 0 5px 0", fontWeight: "bold" }}
 			>
 				{title}
 			</Typography>

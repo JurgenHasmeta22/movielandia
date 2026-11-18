@@ -75,11 +75,13 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 			open={isOpenSidebarAdmin}
 			component={"aside"}
 			onClose={onClose}
-			PaperProps={{
-				sx: {
-					backgroundColor: theme.vars.palette.primary.dark,
-					paddingLeft: 1,
-					paddingRight: 1,
+			slotProps={{
+				paper: {
+					sx: {
+						backgroundColor: theme.vars.palette.primary.dark,
+						paddingLeft: 1,
+						paddingRight: 1,
+					},
 				},
 			}}
 		>
@@ -143,18 +145,15 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 					>
 						<ListItemButton
 							sx={{
-								// @ts-expect-error Color
 								color: theme.vars.palette.greyAccent.main,
 								"&:hover": {
 									backgroundColor:
 										theme.vars.palette.secondary.light,
 									"& .MuiListItemIcon-root": {
-										// @ts-expect-error Color
 										color: theme.vars.palette.greyAccent
 											.light,
 									},
 									"& .MuiListItemText-primary": {
-										// @ts-expect-error Color
 										color: theme.vars.palette.greyAccent
 											.light,
 									},

@@ -96,14 +96,16 @@ export default function EditListModal({
 			onClose={onClose}
 			fullWidth
 			maxWidth="sm"
-			PaperProps={{
-				sx: {
-					borderRadius: 1,
-					bgcolor: "#1e2330", // Dark background matching the screenshot
-					boxShadow: 3,
-					overflow: "hidden",
-					"& .MuiDialogContent-root": {
-						p: 3,
+			slotProps={{
+				paper: {
+					sx: {
+						borderRadius: 1,
+						bgcolor: "#1e2330",
+						boxShadow: 3,
+						overflow: "hidden",
+						"& .MuiDialogContent-root": {
+							p: 3,
+						},
 					},
 				},
 			}}
@@ -126,8 +128,7 @@ export default function EditListModal({
 					<Typography
 						variant="h6"
 						component="span"
-						fontWeight={500}
-						fontSize="1.1rem"
+						sx={{ fontWeight: 500, fontSize: "1.1rem" }}
 					>
 						Edit List
 					</Typography>
@@ -184,17 +185,19 @@ export default function EditListModal({
 										helperText={errors.name?.message}
 										fullWidth
 										variant="outlined"
-										InputProps={{
-											startAdornment: (
-												<InputAdornment position="start">
-													<TitleIcon
-														sx={{
-															color: "rgba(255, 255, 255, 0.7)",
-														}}
-														fontSize="small"
-													/>
-												</InputAdornment>
-											),
+										slotProps={{
+											input: {
+												startAdornment: (
+													<InputAdornment position="start">
+														<TitleIcon
+															sx={{
+																color: "rgba(255, 255, 255, 0.7)",
+															}}
+															fontSize="small"
+														/>
+													</InputAdornment>
+												),
+											},
 										}}
 										sx={{
 											"& .MuiOutlinedInput-root": {
@@ -250,23 +253,26 @@ export default function EditListModal({
 										helperText={errors.description?.message}
 										fullWidth
 										variant="outlined"
-										InputProps={{
-											startAdornment: (
-												<InputAdornment
-													position="start"
-													sx={{
-														alignSelf: "flex-start",
-														mt: 1,
-													}}
-												>
-													<DescriptionIcon
+										slotProps={{
+											input: {
+												startAdornment: (
+													<InputAdornment
+														position="start"
 														sx={{
-															color: "rgba(255, 255, 255, 0.7)",
+															alignSelf:
+																"flex-start",
+															mt: 1,
 														}}
-														fontSize="small"
-													/>
-												</InputAdornment>
-											),
+													>
+														<DescriptionIcon
+															sx={{
+																color: "rgba(255, 255, 255, 0.7)",
+															}}
+															fontSize="small"
+														/>
+													</InputAdornment>
+												),
+											},
 										}}
 										sx={{
 											"& .MuiOutlinedInput-root": {

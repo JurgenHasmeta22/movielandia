@@ -92,7 +92,7 @@ export default function ForumCategoryList({
 								<Typography
 									variant="h6"
 									color="primary"
-									fontWeight="bold"
+									sx={{ fontWeight: "bold" }}
 								>
 									{category.name}
 								</Typography>

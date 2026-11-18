@@ -385,7 +385,7 @@ export default function PostList({
 										<Typography
 											variant="subtitle1"
 											color="primary"
-											fontWeight="bold"
+											sx={{ fontWeight: "bold" }}
 										>
 											{post.user.userName}
 										</Typography>

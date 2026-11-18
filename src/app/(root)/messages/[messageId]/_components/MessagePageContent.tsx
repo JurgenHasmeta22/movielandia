@@ -13,7 +13,8 @@ import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import PersonIcon from "@mui/icons-material/Person";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Link from "next/link";
+import MuiLink from "@mui/material/Link";
+import NextLink from "next/link";
 
 export default function MessagePageContent({ message }: { message: any }) {
 	const router = useRouter();
@@ -66,17 +67,21 @@ export default function MessagePageContent({ message }: { message: any }) {
 					</Avatar>
 					<Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
 						From:{" "}
-						<Link
+						<MuiLink
+							component={NextLink}
 							href={`/users/${message.sender.id}/${message.sender.userName}`}
-							style={{
+							sx={{
 								fontWeight: 400,
 								color: "text.secondary",
 								textDecoration: "none",
+								"&:hover": {
+									textDecoration: "underline",
+								},
 							}}
 							onClick={(e) => e.stopPropagation()}
 						>
 							{message.sender.userName}
-						</Link>
+						</MuiLink>
 					</Typography>
 				</Stack>
 				<Stack
@@ -93,9 +98,10 @@ export default function MessagePageContent({ message }: { message: any }) {
 					</Avatar>
 					<Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
 						To:{" "}
-						<Link
+						<MuiLink
+							component={NextLink}
 							href={`/users/${message.receiver.id}/${message.receiver.userName}`}
-							style={{
+							sx={{
 								fontWeight: 400,
 								color: "text.secondary",
 								textDecoration: "none",
@@ -106,7 +112,7 @@ export default function MessagePageContent({ message }: { message: any }) {
 							onClick={(e) => e.stopPropagation()}
 						>
 							{message.receiver.userName}
-						</Link>
+						</MuiLink>
 					</Typography>
 				</Stack>
 				<Box

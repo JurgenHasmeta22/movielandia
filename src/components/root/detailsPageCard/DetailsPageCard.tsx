@@ -142,10 +142,10 @@ export function DetailsPageCard({
 					<Typography
 						component="h1"
 						gutterBottom
-						fontWeight="bold"
 						sx={{
 							fontSize: "2.3rem",
 							letterSpacing: "0.1rem",
+							fontWeight: "bold",
 						}}
 						color={theme.vars.palette.primary.main}
 					>

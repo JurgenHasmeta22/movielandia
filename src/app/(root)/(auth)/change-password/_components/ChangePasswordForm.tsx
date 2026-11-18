@@ -127,7 +127,7 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
 					}}
 				>
 					<LockOutlinedIcon fontSize="large" />
-					<Typography variant="h2" textAlign={"center"}>
+					<Typography variant="h2" sx={{ textAlign: "center" }}>
 						Change Password
 					</Typography>
 				</Box>

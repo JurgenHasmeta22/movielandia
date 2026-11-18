@@ -52,8 +52,8 @@ export default async function Genres() {
 			<Typography
 				sx={{
 					mt: 4,
+					fontSize: "26px",
 				}}
-				fontSize={"26px"}
 			>
 				Choose your favorite genre
 			</Typography>

@@ -25,7 +25,7 @@ import * as CONSTANTS from "@/constants/Constants";
 
 interface IFormProps {
 	defaultValues: any;
-	schema: z.ZodSchema<any>;
+	schema: z.ZodType<any, any, any>;
 	fields: FieldConfig[];
 	actions?: ActionConfig[];
 	formRef: any;
@@ -41,14 +41,7 @@ type FieldOption = {
 type FieldConfig = {
 	name: string;
 	label: string;
-	type:
-		| "text"
-		| "number"
-		| "date"
-		| "select"
-		| "password"
-		| "textarea"
-		| "multiselect";
+	type: string;
 	required?: boolean;
 	options?: { value: string | number; label: string }[];
 	multiline?: boolean;
@@ -96,7 +89,7 @@ const FormAdvanced: React.FC<IFormProps> = ({
 		watch,
 		reset,
 		formState: { errors, isDirty },
-	} = useForm({
+	} = useForm<any>({
 		values: defaultValues,
 		resolver: zodResolver(schema),
 		mode: "onChange",
@@ -123,10 +116,10 @@ const FormAdvanced: React.FC<IFormProps> = ({
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Grid
 				container
-				direction="column"
 				rowSpacing={{ xs: 4, md: 6, lg: 8 }}
+				sx={{ flexDirection: "column" }}
 			>
-				<Grid container alignItems={"center"}>
+				<Grid container sx={{ alignItems: "center" }}>
 					<Stack
 						sx={{
 							rowGap: 4,
@@ -248,8 +241,10 @@ const FormAdvanced: React.FC<IFormProps> = ({
 														variant={field.variant}
 														size="small"
 														sx={{ ...field.sx }}
-														InputLabelProps={{
-															shrink: true,
+														slotProps={{
+															inputLabel: {
+																shrink: true,
+															},
 														}}
 														helperText={helperText}
 														error={error}
@@ -357,9 +352,9 @@ const FormAdvanced: React.FC<IFormProps> = ({
 				</Grid>
 				<Grid
 					container
-					justifyContent={"end"}
 					sx={{
 						mt: 2,
+						justifyContent: "flex-end",
 					}}
 				>
 					<Stack
@@ -387,9 +382,11 @@ const FormAdvanced: React.FC<IFormProps> = ({
 								}
 							>
 								<Typography
-									fontSize={16}
-									fontWeight={500}
-									sx={{ textTransform: "capitalize" }}
+									sx={{
+										fontSize: 16,
+										fontWeight: 500,
+										textTransform: "capitalize",
+									}}
 								>
 									{action.label}
 								</Typography>

@@ -133,7 +133,11 @@ export default function ProfileInfo({
 					sx={{ alignItems: "center" }}
 				>
 					<PersonIcon color="action" />
-					<Typography variant="h6" fontWeight={500} align="center">
+					<Typography
+						variant="h6"
+						align="center"
+						sx={{ fontWeight: 500 }}
+					>
 						{userInPage.userName}
 					</Typography>
 				</Stack>
@@ -188,8 +192,8 @@ export default function ProfileInfo({
 						</Typography>
 						<Typography
 							variant="h6"
-							fontWeight={500}
 							align="center"
+							sx={{ fontWeight: 500 }}
 						>
 							{userInPage.userName}
 						</Typography>

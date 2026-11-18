@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 const faqs = [
@@ -48,7 +48,7 @@ const FaqSection = () => {
 			setExpanded(isExpanded ? panel : false);
 		};
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -56,7 +56,7 @@ const FaqSection = () => {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { opacity: 0, y: 20 },
 		visible: {
 			opacity: 1,

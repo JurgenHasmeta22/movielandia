@@ -336,7 +336,7 @@ export default function TabContent({
 							<Typography
 								variant="h6"
 								color="text.secondary"
-								textAlign="center"
+								sx={{ textAlign: "center" }}
 							>
 								{getEmptyStateMessage()}
 							</Typography>
@@ -344,7 +344,7 @@ export default function TabContent({
 								<Typography
 									variant="body2"
 									color="text.secondary"
-									textAlign="center"
+									sx={{ textAlign: "center" }}
 								>
 									Try adjusting your search to find what
 									you&apos;re looking for

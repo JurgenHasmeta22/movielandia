@@ -284,7 +284,7 @@ export default function ReplyItem({
 							<Typography
 								variant="subtitle2"
 								color="primary"
-								fontWeight="bold"
+								sx={{ fontWeight: "bold" }}
 							>
 								{reply.user.userName}
 							</Typography>

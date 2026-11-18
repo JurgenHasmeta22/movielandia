@@ -12,7 +12,11 @@ export default function ResetPasswordVerifyPageContent({
 	if (!email) {
 		return (
 			<VerificationLayout title="Error">
-				<Typography variant="body1" textAlign="center" color="error">
+				<Typography
+					variant="body1"
+					sx={{ textAlign: "center" }}
+					color="error"
+				>
 					Email not provided
 				</Typography>
 			</VerificationLayout>

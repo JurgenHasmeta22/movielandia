@@ -23,7 +23,7 @@ interface IAddSeason {
 	description: string;
 	dateAired: string;
 	ratingImdb: number;
-	serieId: number;
+	serie: { connect: { id: number } };
 }
 
 const AddSeasonAdminPage = () => {
@@ -58,7 +58,7 @@ const AddSeasonAdminPage = () => {
 			description: values.description,
 			dateAired: values.dateAired,
 			ratingImdb: values.ratingImdb,
-			serieId: values.serieId,
+			serie: { connect: { id: Number(values.serieId) } },
 		};
 
 		const response: Season | null = await addSeason(payload);

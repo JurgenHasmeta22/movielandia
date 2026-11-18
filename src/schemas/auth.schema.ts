@@ -41,7 +41,10 @@ export const registerSchema = z
 				const minDate = new Date(1900, 0, 1);
 				return birthDate >= minDate && birthDate <= today;
 			}, "Please enter a valid date between 1900 and today"),
-		gender: z.enum(["Male", "Female"]).nullable(),
+		gender: z
+			.enum(["Male", "Female"])
+			.nullable()
+			.refine((gender) => gender !== null, "Please select a gender"),
 		phone: z
 			.string()
 			.regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format"),

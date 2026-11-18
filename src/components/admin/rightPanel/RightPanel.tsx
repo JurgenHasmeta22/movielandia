@@ -363,9 +363,11 @@ const RightPanel: React.FC<IDrawerProps> = ({
 									}
 								>
 									<Typography
-										fontSize={16}
-										fontWeight={500}
-										sx={{ textTransform: "capitalize" }}
+										sx={{
+											fontSize: 16,
+											fontWeight: 500,
+											textTransform: "capitalize",
+										}}
 									>
 										{action.label}
 									</Typography>

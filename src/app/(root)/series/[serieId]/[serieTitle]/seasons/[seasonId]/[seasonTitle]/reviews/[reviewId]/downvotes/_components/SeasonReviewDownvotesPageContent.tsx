@@ -83,7 +83,10 @@ export default function DownvotesContent({
 						/>
 					))
 				) : (
-					<Typography color="text.secondary" textAlign="center">
+					<Typography
+						color="text.secondary"
+						sx={{ textAlign: "center" }}
+					>
 						No downvotes yet
 					</Typography>
 				)}

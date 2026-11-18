@@ -58,8 +58,8 @@ describe("ContentTypeLabel", () => {
 		expect(chip?.className).toContain("MuiChip-sizeSmall");
 	});
 
-	it("applies large size with custom styling", () => {
-		renderWithTheme(<ContentTypeLabel contentType="movie" size="large" />);
+	it("applies medium size with custom styling", () => {
+		renderWithTheme(<ContentTypeLabel contentType="movie" size="medium" />);
 		const chip = screen.getByText("Movies").closest(".MuiChip-root");
 		expect(chip).toBeDefined();
 	});

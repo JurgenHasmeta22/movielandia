@@ -27,9 +27,11 @@ export default function NotFoundGlobalPage() {
 				<Box>
 					<Typography
 						component="h1"
-						fontSize={60}
-						sx={{ color: theme.vars.palette.primary.main }}
-						textAlign={"center"}
+						sx={{
+							color: theme.vars.palette.primary.main,
+							fontSize: 60,
+							textAlign: "center",
+						}}
 					>
 						404
 					</Typography>

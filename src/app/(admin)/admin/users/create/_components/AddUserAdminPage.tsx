@@ -41,6 +41,10 @@ const AddUserAdminPage = () => {
 			userName: values.userName,
 			email: values.email,
 			password: values.password,
+			birthday: new Date(values.birthday),
+			gender: values.gender,
+			phone: values.phone,
+			countryFrom: values.countryFrom,
 		});
 
 		if (response) {
@@ -66,6 +70,10 @@ const AddUserAdminPage = () => {
 					userName: "",
 					email: "",
 					password: "",
+					birthday: "",
+					gender: "Male",
+					phone: "",
+					countryFrom: "",
 				}}
 				fields={[
 					{
@@ -83,6 +91,34 @@ const AddUserAdminPage = () => {
 					{
 						name: "password",
 						label: "Password",
+						variant: "filled",
+						type: "text",
+					},
+					{
+						name: "birthday",
+						label: "Birthday",
+						variant: "filled",
+						type: "date",
+					},
+					{
+						name: "gender",
+						label: "Gender",
+						variant: "filled",
+						type: "select",
+						options: [
+							{ value: "Male", label: "Male" },
+							{ value: "Female", label: "Female" },
+						],
+					},
+					{
+						name: "phone",
+						label: "Phone",
+						variant: "filled",
+						type: "text",
+					},
+					{
+						name: "countryFrom",
+						label: "Country",
 						variant: "filled",
 						type: "text",
 					},

@@ -44,11 +44,11 @@ export default function VerificationLayout({
 						variant="h4"
 						component="h1"
 						gutterBottom
-						textAlign="center"
 						sx={{
 							mb: 4,
 							color: theme.vars.palette.primary.main,
 							fontWeight: 700,
+							textAlign: "center",
 						}}
 					>
 						{title}

@@ -137,8 +137,10 @@ const TopBar = () => {
 						anchorEl={anchorEl}
 						open={open}
 						onClose={handleClose}
-						MenuListProps={{
-							"aria-labelledby": "buttonProfile",
+						slotProps={{
+							list: {
+								"aria-labelledby": "buttonProfile",
+							},
 						}}
 					>
 						<MenuItem

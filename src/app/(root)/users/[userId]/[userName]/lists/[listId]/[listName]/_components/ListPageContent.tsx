@@ -368,8 +368,8 @@ export default function ListPageContent({
 						>
 							<Typography
 								variant="body2"
-								fontWeight="bold"
 								color="text.secondary"
+								sx={{ fontWeight: "bold" }}
 							>
 								Description:
 							</Typography>
@@ -391,14 +391,20 @@ export default function ListPageContent({
 						}}
 					>
 						<Stack direction="row" spacing={1}>
-							<Typography variant="body2" fontWeight="bold">
+							<Typography
+								variant="body2"
+								sx={{ fontWeight: "bold" }}
+							>
 								Owner:
 							</Typography>
 							<Typography variant="body2">{userName}</Typography>
 						</Stack>
 						<Divider orientation="vertical" flexItem />
 						<Stack direction="row" spacing={1}>
-							<Typography variant="body2" fontWeight="bold">
+							<Typography
+								variant="body2"
+								sx={{ fontWeight: "bold" }}
+							>
 								Updated:
 							</Typography>
 							<Typography variant="body2">
@@ -407,7 +413,10 @@ export default function ListPageContent({
 						</Stack>
 						<Divider orientation="vertical" flexItem />
 						<Stack direction="row" spacing={1}>
-							<Typography variant="body2" fontWeight="bold">
+							<Typography
+								variant="body2"
+								sx={{ fontWeight: "bold" }}
+							>
 								Items:
 							</Typography>
 							<Typography variant="body2">

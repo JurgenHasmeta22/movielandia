@@ -60,7 +60,7 @@ export default function CreateListForm({ userId }: CreateListFormProps) {
 			const userName =
 				userIdIndex >= 0 && userIdIndex + 1 < pathParts.length
 					? pathParts[userIdIndex + 1]
-					: session?.user?.name?.replace(/\s+/g, "") || "user";
+					: session?.user?.userName || "user";
 
 			showToast("success", "List created successfully!");
 			router.push(

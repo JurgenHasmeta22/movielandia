@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { subscribeNewsletter } from "../../../../actions/auth.actions";
 import { showToast } from "@/utils/helpers/toast";
 
@@ -34,7 +34,7 @@ const NewsletterSection = () => {
 		}
 	};
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -42,7 +42,7 @@ const NewsletterSection = () => {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { opacity: 0, y: 50 },
 		visible: {
 			opacity: 1,
@@ -102,7 +102,9 @@ const NewsletterSection = () => {
 									mb: 3,
 								}}
 							>
-								<MailOutlineOutlinedIcon sx={{ mr: 1, fontSize: 20 }} />
+								<MailOutlineOutlinedIcon
+									sx={{ mr: 1, fontSize: 20 }}
+								/>
 								<Typography
 									variant="subtitle2"
 									sx={{ fontWeight: 600, fontSize: 14 }}

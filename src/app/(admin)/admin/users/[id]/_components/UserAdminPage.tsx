@@ -156,9 +156,17 @@ const UserAdmin = () => {
 									{
 										label: CONSTANTS.MODAL__DELETE__YES,
 										onClick: async () => {
+											const id = user?.id;
+											if (id === undefined) {
+												toast.error(
+													CONSTANTS.DELETE__FAILURE,
+												);
+												return;
+											}
+
 											setOpen(false);
 											const response =
-												await deleteUserById(user?.id);
+												await deleteUserById(id);
 
 											if (response) {
 												toast.success(

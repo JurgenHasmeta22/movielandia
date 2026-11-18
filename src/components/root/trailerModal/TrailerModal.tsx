@@ -31,13 +31,15 @@ export default function TrailerModal({
 			onClose={onClose}
 			maxWidth="lg"
 			fullWidth
-			PaperProps={{
-				sx: {
-					borderRadius: 2,
-					overflow: "hidden",
-					boxShadow: (theme) =>
-						theme.shadows[12] ?? "0 10px 40px rgba(0,0,0,0.6)",
-					backgroundColor: "transparent",
+			slotProps={{
+				paper: {
+					sx: {
+						borderRadius: 2,
+						overflow: "hidden",
+						boxShadow: (theme) =>
+							theme.shadows[12] ?? "0 10px 40px rgba(0,0,0,0.6)",
+						backgroundColor: "transparent",
+					},
 				},
 			}}
 		>

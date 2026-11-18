@@ -52,12 +52,12 @@ export const DashboardStatBox = ({
 					</Box>
 					<Typography
 						variant="h4"
-						fontWeight="bold"
 						sx={{
 							color: theme.vars.palette.text.primary,
 							mt: 2,
 							mb: 1,
 							fontSize: "2rem",
+							fontWeight: "bold",
 						}}
 					>
 						{title}

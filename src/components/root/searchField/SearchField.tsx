@@ -334,51 +334,55 @@ const SearchField = ({
 											pr: 1,
 										},
 									}}
-									InputProps={{
-										startAdornment: (
-											<InputAdornment position="start">
-												<Search
-													sx={{
-														color: "text.secondary",
-													}}
-												/>
-											</InputAdornment>
-										),
-										endAdornment: (
-											<InputAdornment position="end">
-												{isFocused && (
-													<Box
+									slotProps={{
+										input: {
+											startAdornment: (
+												<InputAdornment position="start">
+													<Search
 														sx={{
-															display: "flex",
-															gap: "4px",
+															color: "text.secondary",
 														}}
-													>
-														{inputValue && (
+													/>
+												</InputAdornment>
+											),
+											endAdornment: (
+												<InputAdornment position="end">
+													{isFocused && (
+														<Box
+															sx={{
+																display: "flex",
+																gap: "4px",
+															}}
+														>
+															{inputValue && (
+																<IconButton
+																	size="small"
+																	onClick={
+																		handleClear
+																	}
+																	sx={{
+																		mr: 0.5,
+																	}}
+																	aria-label="clear search"
+																>
+																	<Clear fontSize="small" />
+																</IconButton>
+															)}
 															<IconButton
 																size="small"
 																onClick={
-																	handleClear
+																	handleClose
 																}
 																sx={{ mr: 0.5 }}
-																aria-label="clear search"
+																aria-label="collapse search"
 															>
-																<Clear fontSize="small" />
+																<KeyboardReturn fontSize="small" />
 															</IconButton>
-														)}
-														<IconButton
-															size="small"
-															onClick={
-																handleClose
-															}
-															sx={{ mr: 0.5 }}
-															aria-label="collapse search"
-														>
-															<KeyboardReturn fontSize="small" />
-														</IconButton>
-													</Box>
-												)}
-											</InputAdornment>
-										),
+														</Box>
+													)}
+												</InputAdornment>
+											),
+										},
 									}}
 								/>
 							</form>
