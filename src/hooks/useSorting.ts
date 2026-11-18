@@ -31,6 +31,7 @@ const getDefaultSortByField = (type: string): string => {
 
 export function useSorting(type: string) {
 	const defaultSortBy = getDefaultSortByField(type);
+	const defaultAscOrDesc = type === "lists" ? "desc" : "asc";
 	const [isPending, startTransition] = useTransition();
 
 	const [typeSortBy, setTypeSortBy] = useQueryState(`${type}SortBy`, {
@@ -48,8 +49,8 @@ export function useSorting(type: string) {
 	const [typeAscOrDesc, setTypeAscOrDesc] = useQueryState(
 		`${type}AscOrDesc`,
 		{
-			defaultValue: "asc",
-			parse: (value) => value || "asc",
+			defaultValue: defaultAscOrDesc,
+			parse: (value) => value || defaultAscOrDesc,
 			shallow: false,
 			startTransition,
 		},

@@ -35,9 +35,9 @@ export default async function ListsPage(props: PageProps) {
 	const userId = Number(params.userId);
 
 	const { ascOrDesc, page, sortBy, type, view } = {
-		ascOrDesc: searchParams?.listsAscOrDesc ?? "desc",
+		ascOrDesc: searchParams?.listsAscOrDesc === "asc" ? "asc" : "desc",
 		page: searchParams?.pageLists ? Number(searchParams.pageLists) : 1,
-		sortBy: searchParams?.listsSortBy ?? "createdAt",
+		sortBy: searchParams?.listsSortBy === "name" ? "name" : "createdAt",
 		type: searchParams?.listsType,
 		view: searchParams?.listsView,
 	};

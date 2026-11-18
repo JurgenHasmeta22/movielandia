@@ -111,6 +111,7 @@ export const sendMessage = async (
 				senderId: userLoggedInId,
 				receiverId,
 				inboxId: inbox.id,
+				editedAt: null,
 			},
 			include: {
 				sender: {

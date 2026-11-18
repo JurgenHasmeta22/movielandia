@@ -21,6 +21,13 @@ export const getSortOptions = (
 		];
 	}
 
+	if (dataType === "lists") {
+		return [
+			{ value: "createdAt", label: "Created At" },
+			{ value: "name", label: "Name" },
+		];
+	}
+
 	if (dataType === "seasons") {
 		return [
 			{ value: "title", label: "Title" },

@@ -10,6 +10,7 @@ import {
 } from "@/actions/user/userMessages.actions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 interface IMessagesPageProps {
 	searchParams?: {
@@ -23,6 +24,10 @@ interface IMessagesPageProps {
 
 export default async function MessagesPage(props: IMessagesPageProps) {
 	const session = await getServerSession(authOptions);
+
+	if (!session?.user) {
+		redirect("/login");
+	}
 
 	const searchParams = await props.searchParams;
 	const section = searchParams?.section || "inbox";
@@ -38,15 +43,15 @@ export default async function MessagesPage(props: IMessagesPageProps) {
 	};
 
 	if (section === "inbox") {
-		messages = await getUserInbox(page, Number(session?.user.id));
+		messages = await getUserInbox(page, Number(session.user.id));
 	} else if (section === "sent") {
-		messages = await getSentMessages(page, Number(session?.user.id));
+		messages = await getSentMessages(page, Number(session.user.id));
 	} else {
-		messages = await getUserInbox(page, Number(session?.user.id));
+		messages = await getUserInbox(page, Number(session.user.id));
 	}
 
 	const searchResults = searchQuery
-		? await searchUsers(searchQuery, Number(session?.user.id))
+		? await searchUsers(searchQuery, Number(session.user.id))
 		: [];
 	const selectedUser = selectedUserId
 		? await getUserById(Number(selectedUserId))
@@ -63,7 +68,7 @@ export default async function MessagesPage(props: IMessagesPageProps) {
 				searchResults={searchResults}
 				currentSection={section as "inbox" | "sent"}
 				currentPage={page}
-				userLoggedIn={session?.user}
+				userLoggedIn={session.user}
 				initialSelectedUser={selectedUser}
 				messagesPageCount={messagesPageCount}
 				initialMessageToEdit={messageToEdit}

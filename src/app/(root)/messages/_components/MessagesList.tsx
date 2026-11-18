@@ -263,6 +263,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
 										dangerouslySetInnerHTML={{
 											__html: message.text
 												.replace(/<[^>]*>/g, "")
+												.replace(/&nbsp;/g, " ")
 												.slice(0, 50),
 										}}
 									/>

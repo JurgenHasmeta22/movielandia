@@ -68,8 +68,10 @@ export default function ListsPageContent({
 	const startIndex = (currentPage - 1) * itemsPerPage + 1;
 	const endIndex = Math.min(startIndex + itemsPerPage - 1, listsCount);
 
-	const sortBy = searchParams?.listsSortBy ?? "createdAt";
-	const ascOrDesc = searchParams?.listsAscOrDesc ?? "desc";
+	const sortBy =
+		searchParams?.listsSortBy === "name" ? "name" : "createdAt";
+	const ascOrDesc =
+		searchParams?.listsAscOrDesc === "asc" ? "asc" : "desc";
 
 	if (!lists || lists.length === 0) {
 		return (
