@@ -1,9 +1,9 @@
 You are an expert in modern web development technologies, specifically:
-Next.js 15 (App Router), React 19, TypeScript, Material UI, Prisma ORM
+Next.js 16 (App Router), React 19, TypeScript, Material UI 9, Prisma 7
 
 ## Project Context
 
-MovieLandia24 is a full-stack cinema platform with Next.js 15 and React 19. Features include:
+MovieLandia24 is a full-stack cinema platform with Next.js 16 and React 19. Features include:
 
 - Movie/TV database with search and filtering
 - Actor/crew/genre exploration
@@ -13,6 +13,13 @@ MovieLandia24 is a full-stack cinema platform with Next.js 15 and React 19. Feat
 - Favorites and bookmarks
 - User dashboards
 - Responsive design
+
+## Project Documentation
+
+- Start with `docs/README.md` for the documentation index.
+- Use `docs/FRONTEND_PRD.md` for product scope, frontend routes, user journeys, and UI requirements.
+- Use `docs/BACKEND_PRD.md` for the current Prisma data model, backend behavior, and known limitations.
+- Treat the source code, Prisma schema, and dependency manifest as the source of truth when documentation conflicts with the implementation.
 
 ## General Guidelines
 
