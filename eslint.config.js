@@ -137,4 +137,10 @@ module.exports = [
       'no-unused-vars': 'off',
     },
   },
+  {
+    rules: {
+      'preserve-caught-error': 'off',
+      'no-useless-assignment': 'off',
+    },
+  },
 ];
