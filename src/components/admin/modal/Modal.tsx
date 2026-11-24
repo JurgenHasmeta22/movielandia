@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import {
 	Button,
+	ButtonProps,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -60,6 +61,21 @@ type ActionConfig = {
 	variant?: "text" | "outlined" | "contained";
 	icon?: React.ReactNode;
 	sx?: SxProps;
+};
+
+const getActionButtonProps = (action: ActionConfig) => {
+	const { bgcolor: _legacyBackground, ...sx } = (action.sx ?? {}) as Record<
+		string,
+		unknown
+	>;
+
+	return {
+		color: (action.type === "submit"
+			? "primary"
+			: action.color || "secondary") as ButtonProps["color"],
+		variant: action.variant || "text",
+		sx: sx as SxProps,
+	};
 };
 
 const Modal: React.FC<IModalProps> = ({
@@ -186,12 +202,8 @@ const Modal: React.FC<IModalProps> = ({
 								<Button
 									key={index}
 									onClick={action.onClick}
-									// @ts-expect-error color
-
-									color={action.color || "secondary"}
-									variant={action.variant || "text"}
-									sx={action.sx}
-									type={action.type}
+									{...getActionButtonProps(action)}
+									type={action.type as ButtonProps["type"]}
 									endIcon={action.icon}
 								>
 									<Typography
@@ -212,16 +224,12 @@ const Modal: React.FC<IModalProps> = ({
 									action.onClick();
 									onClose && onClose();
 								}}
-								// @ts-expect-error color
-
-								color={action.color || "secondary"}
-								variant={action.variant || "text"}
-								sx={action.sx}
+								{...getActionButtonProps(action)}
 								type={
 									action.type === "submit" ||
 									action.type === "reset"
 										? action.type
-										: ""
+										: "button"
 								}
 								endIcon={action.icon}
 							>

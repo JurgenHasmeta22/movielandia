@@ -347,7 +347,7 @@ export default function MoviePageContent({
 				<Box
 					component="section"
 					sx={{
-						maxWidth: "1000px",
+						maxWidth: "1320px",
 						width: "100%",
 						mx: "auto",
 						px: { xs: 2, sm: 3 },

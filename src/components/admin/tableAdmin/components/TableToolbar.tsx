@@ -140,7 +140,7 @@ export const TableToolbar = ({
 				overflow: "linebreak",
 			},
 			headStyles: {
-				fillColor: [48, 150, 159],
+				fillColor: [179, 95, 0],
 				textColor: 255,
 				fontSize: 8,
 				fontStyle: "bold",
@@ -180,7 +180,7 @@ export const TableToolbar = ({
 			tableWidth: "auto",
 			didParseCell: function (data) {
 				if (data.section === "head") {
-					data.cell.styles.fillColor = [48, 150, 159];
+					data.cell.styles.fillColor = [179, 95, 0];
 					data.cell.styles.textColor = 255;
 					data.cell.styles.fontSize = 8;
 					data.cell.styles.fontStyle = "bold";

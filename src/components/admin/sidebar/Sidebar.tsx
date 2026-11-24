@@ -1,27 +1,30 @@
 "use client";
 
-import { JSX, useEffect, useState } from "react";
+import { JSX, useEffect } from "react";
 import {
-	Box,
-	List,
-	Typography,
 	Avatar,
+	Box,
+	Divider,
 	Drawer,
 	IconButton,
-	useTheme,
+	List,
 	ListItem,
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
+	Typography,
+	useMediaQuery,
+	useTheme,
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import { useStore } from "@/store/store";
 import { SidebarItem } from "./components/SidebarItem";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { IS_BROWSER } from "@/utils/helpers/utils";
+import { ADMIN_SIDEBAR_WIDTH } from "./constants";
+import MuiNextLink from "@/components/root/muiNextLink/MuiNextLink";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
 interface ISidebarItem {
@@ -36,19 +39,25 @@ interface ISidebarProps {
 }
 
 const Sidebar = ({ sidebarItems }: ISidebarProps) => {
-	const [selectedLabel, setSelectedLabel] = useState("");
-	const [height, setHeight] = useState(0);
-
 	const { data: session } = useSession();
 	const { isOpenSidebarAdmin, setIsOpenSidebarAdmin } = useStore();
 	const router = useRouter();
+	const pathname = usePathname();
 	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up("md"), {
+		noSsr: true,
+	});
 
-	const handleItemClick = (title: string, to: string) => {
-		setSelectedLabel(title);
+	useEffect(() => {
+		if (!isDesktop) {
+			setIsOpenSidebarAdmin(false);
+		}
+	}, [pathname]);
+
+	const handleItemClick = (to: string) => {
 		router.push(to);
 
-		if (height < 768) {
+		if (!isDesktop) {
 			setIsOpenSidebarAdmin(false);
 		}
 	};
@@ -62,114 +71,156 @@ const Sidebar = ({ sidebarItems }: ISidebarProps) => {
 		router.push("/login");
 	}
 
-	useEffect(() => {
-		if (IS_BROWSER) {
-			setHeight(window.innerWidth);
-		}
-	}, []);
-
-	return (
-		<Drawer
-			variant={"persistent"}
-			anchor={"left"}
-			open={isOpenSidebarAdmin}
-			component={"aside"}
-			onClose={onClose}
-			slotProps={{
-				paper: {
-					sx: {
-						backgroundColor: theme.vars.palette.primary.dark,
-						paddingLeft: 1,
-						paddingRight: 1,
-					},
-				},
+	const content = (
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				height: "100%",
+				px: 1.5,
+				py: 1.5,
 			}}
 		>
 			<Box
 				sx={{
-					mt: 1,
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "center",
+					px: 0.5,
 				}}
 			>
-				<Box
+				<IconButton
+					LinkComponent={MuiNextLink}
+					href="/admin"
+					aria-label="MovieLandia24 Admin"
 					sx={{
-						display: "flex",
-						justifyContent: "end",
-						alignItems: "center",
-						mb: 1,
+						p: 0,
+						borderRadius: 2,
+						"&:hover": { backgroundColor: "transparent" },
 					}}
 				>
-					<IconButton onClick={onClose}>
-						<CloseIcon color="action" />
-					</IconButton>
-				</Box>
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						mb: 1,
-						ml: 1,
-					}}
-				>
-					<Avatar>
-						<AccountCircleIcon />
-					</Avatar>
-					<Box
-						sx={{
-							ml: 2,
-						}}
-					>
-						<Typography
-							variant="body2"
-							sx={{ color: theme.vars.palette.primary.main }}
-						>
-							{session?.user && `@${session?.user?.userName}`}
-						</Typography>
-					</Box>
-				</Box>
-				<List disablePadding>
-					{sidebarItems?.map((item: any, index: number) => (
-						<SidebarItem
-							key={index}
-							item={item}
-							index={index}
-							selectedLabel={selectedLabel}
-							handleItemClick={handleItemClick}
-						/>
-					))}
-					<ListItem
-						value={"logout"}
-						sx={{
-							py: 3,
-							px: 3,
-						}}
-					>
-						<ListItemButton
-							sx={{
-								color: theme.vars.palette.greyAccent.main,
-								"&:hover": {
-									backgroundColor:
-										theme.vars.palette.secondary.light,
-									"& .MuiListItemIcon-root": {
-										color: theme.vars.palette.greyAccent
-											.light,
-									},
-									"& .MuiListItemText-primary": {
-										color: theme.vars.palette.greyAccent
-											.light,
-									},
-								},
-							}}
-							onClick={onLogout}
-						>
-							<ListItemIcon>
-								<LogoutIcon />
-							</ListItemIcon>
-							<ListItemText primary={"Logout"} />
-						</ListItemButton>
-					</ListItem>
-				</List>
+					<Image
+						src="/icons/movielandia24-logo.png"
+						alt="MovieLandia24 Admin"
+						height={48}
+						width={150}
+						priority
+						style={{ objectFit: "contain" }}
+					/>
+				</IconButton>
+				<IconButton onClick={onClose} aria-label="Close sidebar">
+					<CloseIcon color="action" />
+				</IconButton>
 			</Box>
-		</Drawer>
+
+			<Box
+				sx={{
+					display: "flex",
+					alignItems: "center",
+					gap: 1.5,
+					mt: 2,
+					mb: 2,
+					p: 1.5,
+					borderRadius: "14px",
+					border: `1px solid ${theme.vars.palette.divider}`,
+					backgroundColor: `rgba(${theme.vars.palette.accent.mainChannel} / 0.08)`,
+				}}
+			>
+				<Avatar
+					sx={{
+						width: 36,
+						height: 36,
+						bgcolor: theme.vars.palette.accent.main,
+						color: theme.vars.palette.accent.contrastText,
+						fontWeight: 700,
+					}}
+				>
+					{session?.user?.userName?.charAt(0).toUpperCase()}
+				</Avatar>
+				<Typography
+					variant="body2"
+					noWrap
+					sx={{ fontWeight: 600, color: "text.primary" }}
+				>
+					{session?.user && `@${session?.user?.userName}`}
+				</Typography>
+			</Box>
+
+			<Divider sx={{ mb: 1.5 }} />
+
+			<List
+				disablePadding
+				sx={{ flex: 1, overflowY: "auto", mx: -1.5, px: 1.5 }}
+			>
+				{sidebarItems?.map((item) => (
+					<SidebarItem
+						key={item.label}
+						item={item}
+						selected={pathname.startsWith(item.to)}
+						handleItemClick={handleItemClick}
+					/>
+				))}
+			</List>
+
+			<Divider sx={{ my: 1.5 }} />
+
+			<ListItem disablePadding>
+				<ListItemButton
+					onClick={onLogout}
+					sx={{
+						color: "text.secondary",
+						"&:hover": {
+							color: theme.vars.palette.red.main,
+							backgroundColor: `rgba(${theme.vars.palette.red.mainChannel} / 0.1)`,
+						},
+					}}
+				>
+					<ListItemIcon sx={{ color: "inherit", minWidth: 40 }}>
+						<LogoutIcon />
+					</ListItemIcon>
+					<ListItemText
+						primary="Logout"
+						slotProps={{ primary: { sx: { fontWeight: 600 } } }}
+					/>
+				</ListItemButton>
+			</ListItem>
+		</Box>
+	);
+
+	const paperSx = {
+		width: ADMIN_SIDEBAR_WIDTH,
+		boxSizing: "border-box",
+		backgroundColor: theme.vars.palette.background.paper,
+	};
+
+	return (
+		<>
+			<Drawer
+				variant="persistent"
+				anchor="left"
+				open={isOpenSidebarAdmin}
+				component="aside"
+				sx={{
+					display: { xs: "none", md: "block" },
+					"& .MuiDrawer-paper": paperSx,
+				}}
+			>
+				{content}
+			</Drawer>
+			<Drawer
+				variant="temporary"
+				anchor="left"
+				open={isOpenSidebarAdmin && !isDesktop}
+				onClose={onClose}
+				component="aside"
+				sx={{
+					display: { xs: "block", md: "none" },
+					"& .MuiDrawer-paper": { ...paperSx, maxWidth: "85vw" },
+				}}
+			>
+				{content}
+			</Drawer>
+		</>
 	);
 };
 

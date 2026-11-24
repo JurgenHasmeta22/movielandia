@@ -175,7 +175,6 @@ export const theme = createTheme({
 		MuiCssBaseline: {
 			styleOverrides: (theme) => ({
 				html: {
-					scrollBehavior: "smooth",
 					WebkitFontSmoothing: "antialiased",
 					MozOsxFontSmoothing: "grayscale",
 				},
@@ -474,6 +473,30 @@ export const theme = createTheme({
 					"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
 						borderColor: theme.vars.palette.accent.main,
 						borderWidth: 1,
+					},
+				}),
+			},
+		},
+		MuiFilledInput: {
+			defaultProps: { disableUnderline: true },
+			styleOverrides: {
+				root: ({ theme }) => ({
+					borderRadius: 14,
+					border: `1px solid ${theme.vars.palette.divider}`,
+					backgroundColor: alpha("#8C7FA3", 0.08),
+					transition:
+						"background-color 200ms ease, box-shadow 200ms ease, border-color 200ms ease",
+					"&:hover": {
+						backgroundColor: alpha("#8C7FA3", 0.12),
+						borderColor: alpha("#A79DB4", 0.5),
+					},
+					"&.Mui-focused": {
+						backgroundColor: alpha("#8C7FA3", 0.12),
+						borderColor: theme.vars.palette.accent.main,
+						boxShadow: `0 0 0 4px ${alpha(marqueeGold, 0.16)}`,
+					},
+					"&.Mui-disabled": {
+						backgroundColor: alpha("#8C7FA3", 0.04),
 					},
 				}),
 			},

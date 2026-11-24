@@ -84,20 +84,27 @@ export function ListDetail({ data, type, roleData }: IListDetailProps) {
 				sx={{
 					mb: { xs: 0.5, md: 1 },
 					display: "flex",
-					justifyContent: "flex-start",
+					alignItems: "center",
+					gap: 3,
 				}}
 			>
 				<Typography
 					variant="h2"
 					sx={{
-						fontSize: { xs: 24, sm: 28, md: 32 },
-						fontWeight: 700,
+						fontSize: { xs: 26, sm: 32, md: 38 },
 						color: theme.vars.palette.text.primary,
-						letterSpacing: "-0.04em",
 					}}
 				>
 					{getTitle()}
 				</Typography>
+				<Box
+					aria-hidden
+					sx={{
+						flex: 1,
+						height: "1px",
+						background: `linear-gradient(90deg, ${theme.vars.palette.divider}, transparent)`,
+					}}
+				/>
 			</Box>
 			<Box
 				sx={{

@@ -8,7 +8,7 @@ interface IDashboardProgressCircleProps {
 
 export const DashboardProgressCircle = ({
 	progress = 0.75,
-	size = "40",
+	size = "44",
 }: IDashboardProgressCircleProps) => {
 	const theme = useTheme();
 
@@ -17,9 +17,8 @@ export const DashboardProgressCircle = ({
 	return (
 		<Box
 			sx={{
-				background: `radial-gradient(${theme.vars.palette.background.default} 55%, transparent 56%),
-            conic-gradient(transparent 0deg ${angle}deg, ${theme.vars.palette.blue.main} ${angle}deg 360deg),
-            ${theme.vars.palette.green.light}`,
+				background: `radial-gradient(${theme.vars.palette.background.paper} 58%, transparent 59%),
+            conic-gradient(${theme.vars.palette.accent.main} 0deg ${angle}deg, ${theme.vars.palette.stats.borderColor} ${angle}deg 360deg)`,
 				borderRadius: "50%",
 				width: `${size}px`,
 				height: `${size}px`,

@@ -51,9 +51,8 @@ export default async function Genres() {
 				variant="h2"
 				sx={{
 					mb: 1.5,
-					fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-					fontWeight: 700,
-					letterSpacing: "-0.05em",
+					fontSize: { xs: "2.4rem", sm: "3.2rem", md: "4.2rem" },
+					textWrap: "balance",
 				}}
 			>
 				Choose your favorite genre

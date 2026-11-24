@@ -72,6 +72,16 @@ type ActionConfig = {
 	onClick?: () => void;
 };
 
+const formatDateInputValue = (value: unknown): string => {
+	if (value instanceof Date) {
+		return Number.isNaN(value.getTime())
+			? ""
+			: value.toISOString().split("T")[0];
+	}
+
+	return typeof value === "string" ? value.slice(0, 10) : "";
+};
+
 const FormAdvanced: React.FC<IFormProps> = ({
 	defaultValues,
 	schema,
@@ -237,6 +247,9 @@ const FormAdvanced: React.FC<IFormProps> = ({
 												}) => (
 													<TextField
 														{...controllerField}
+														value={formatDateInputValue(
+															controllerField.value,
+														)}
 														type="date"
 														variant={field.variant}
 														size="small"

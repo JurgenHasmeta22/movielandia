@@ -4,16 +4,17 @@ import { Box } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 import { useRouter } from "next/navigation";
-import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
+import useTableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 
 const MoviesAdminPage = () => {
+	"use no memo";
 	const router = useRouter();
 
 	function handleAddMovie() {
 		router.push("/admin/movies/create");
 	}
 
-	const { table } = TableAdmin({
+	const { table } = useTableAdmin({
 		page: "movies",
 		handleAddItem: handleAddMovie,
 	});

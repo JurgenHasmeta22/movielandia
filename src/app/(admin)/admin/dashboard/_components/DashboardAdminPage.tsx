@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MovieIcon from "@mui/icons-material/Movie";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
@@ -17,34 +17,93 @@ interface DashboardAdminPageProps {
 	stats: DashboardStats;
 }
 
-const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
-	const theme = useTheme();
+const statIconSx = { color: "accent.main", fontSize: 28 };
 
-	const StatBoxWrapper = ({ children }: { children: React.ReactNode }) => (
-		<Box
-			sx={{
-				backgroundColor: theme.vars.palette.background.paper,
-				borderRadius: 2,
-				p: 3,
-				boxShadow: theme.vars.palette.stats.boxShadow,
-				transition: "all 0.3s ease-in-out",
-				"&:hover": {
-					transform: "translateY(-4px)",
-					boxShadow: theme.vars.palette.stats.hoverShadow,
-					"& .stat-icon": {
-						transform: "scale(1.1)",
-					},
+const StatBoxWrapper = ({ children }: { children: React.ReactNode }) => (
+	<Box
+		sx={{
+			position: "relative",
+			overflow: "hidden",
+			backgroundColor: "background.paper",
+			border: "1px solid",
+			borderColor: "divider",
+			borderRadius: "20px",
+			p: 3,
+			transition: "transform 0.25s ease, border-color 0.25s ease",
+			"&::after": {
+				content: '""',
+				position: "absolute",
+				top: 0,
+				right: 0,
+				width: 140,
+				height: 140,
+				background:
+					"radial-gradient(circle at 100% 0%, rgba(255, 178, 36, 0.14), transparent 70%)",
+				pointerEvents: "none",
+			},
+			"&:hover": {
+				transform: "translateY(-4px)",
+				borderColor: "accent.main",
+				"& .stat-icon": {
+					transform: "scale(1.1)",
 				},
-				minHeight: "200px",
-				width: "100%",
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "space-between",
-			}}
-		>
-			{children}
-		</Box>
-	);
+			},
+			minHeight: "200px",
+			width: "100%",
+			display: "flex",
+			flexDirection: "column",
+			justifyContent: "space-between",
+		}}
+	>
+		{children}
+	</Box>
+);
+
+const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
+	const items = [
+		{
+			title: stats.totalMovies,
+			subtitle: "Movies",
+			progress: 0.75,
+			icon: <MovieIcon sx={statIconSx} />,
+		},
+		{
+			title: stats.totalSeries,
+			subtitle: "TV Series",
+			progress: 0.65,
+			icon: <LiveTvIcon sx={statIconSx} />,
+		},
+		{
+			title: stats.totalUsers,
+			subtitle: "Users",
+			progress: 0.5,
+			icon: <PersonAddIcon sx={statIconSx} />,
+		},
+		{
+			title: stats.totalGenres,
+			subtitle: "Genres",
+			progress: 0.8,
+			icon: <CategoryIcon sx={statIconSx} />,
+		},
+		{
+			title: stats.totalActors,
+			subtitle: "Actors",
+			progress: 0.7,
+			icon: <PersonIcon sx={statIconSx} />,
+		},
+		{
+			title: stats.totalEpisodes,
+			subtitle: "Episodes",
+			progress: 0.6,
+			icon: <PlaylistPlayIcon sx={statIconSx} />,
+		},
+		{
+			title: stats.totalSeasons,
+			subtitle: "Seasons",
+			progress: 0.55,
+			icon: <VideoLibraryIcon sx={statIconSx} />,
+		},
+	];
 
 	return (
 		<Box
@@ -60,7 +119,6 @@ const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
 					display: "flex",
 					justifyContent: "space-between",
 					alignItems: "center",
-					mb: 4,
 				}}
 			>
 				<HeaderDashboard
@@ -82,131 +140,17 @@ const DashboardAdminPage = ({ stats }: DashboardAdminPageProps) => {
 					width: "100%",
 				}}
 			>
-				{/* Movies */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalMovies.toString()}
-						subtitle="Movies"
-						progress={0.75}
-						increase="Total"
-						icon={
-							<MovieIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
-
-				{/* TV Series */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalSeries.toString()}
-						subtitle="TV Series"
-						progress={0.65}
-						increase="Total"
-						icon={
-							<LiveTvIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
-
-				{/* Users */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalUsers.toString()}
-						subtitle="Users"
-						progress={0.5}
-						increase="Total"
-						icon={
-							<PersonAddIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
-
-				{/* Genres */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalGenres.toString()}
-						subtitle="Genres"
-						progress={0.8}
-						increase="Total"
-						icon={
-							<CategoryIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
-
-				{/* Actors */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalActors.toString()}
-						subtitle="Actors"
-						progress={0.7}
-						increase="Total"
-						icon={
-							<PersonIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
-
-				{/* Episodes */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalEpisodes.toString()}
-						subtitle="Episodes"
-						progress={0.6}
-						increase="Total"
-						icon={
-							<PlaylistPlayIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
-
-				{/* Seasons */}
-				<StatBoxWrapper>
-					<DashboardStatBox
-						title={stats.totalSeasons.toString()}
-						subtitle="Seasons"
-						progress={0.55}
-						increase="Total"
-						icon={
-							<VideoLibraryIcon
-								sx={{
-									color: theme.vars.palette.primary.main,
-									fontSize: 32,
-								}}
-							/>
-						}
-					/>
-				</StatBoxWrapper>
+				{items.map((item) => (
+					<StatBoxWrapper key={item.subtitle}>
+						<DashboardStatBox
+							title={item.title.toString()}
+							subtitle={item.subtitle}
+							progress={item.progress}
+							increase="Total"
+							icon={item.icon}
+						/>
+					</StatBoxWrapper>
+				))}
 			</Box>
 		</Box>
 	);

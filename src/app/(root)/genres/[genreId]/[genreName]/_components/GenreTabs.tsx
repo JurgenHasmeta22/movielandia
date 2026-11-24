@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import { ButtonBase, Box } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import LiveTvIcon from "@mui/icons-material/LiveTv";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
@@ -46,7 +46,6 @@ const GenreTabs = () => {
 				}
 			}
 
-			// If both Movies and Series are selected, set to "all"
 			const nonAll = newFilters.filter((f) => f !== "all");
 
 			if (
@@ -63,73 +62,56 @@ const GenreTabs = () => {
 
 	return (
 		<Box
+			role="group"
+			aria-label="Filter by type"
 			sx={{
-				width: "100%",
-				borderBottom: 1,
+				display: "inline-flex",
+				gap: 0.5,
+				p: 0.5,
+				mb: { xs: 4, md: 5 },
+				borderRadius: 999,
+				border: "1px solid",
 				borderColor: "divider",
-				position: "relative",
-				mb: 4,
+				backgroundColor: "background.paper",
 			}}
 		>
-			<Box
-				sx={{
-					display: "flex",
-					flexWrap: "wrap",
-					gap: 1,
-					p: { xs: 1, sm: 1.5 },
-					pb: { xs: 2, sm: 2.5 },
-					mx: -1,
-					justifyContent: { xs: "center", sm: "flex-start" },
-				}}
-			>
-				{tabOptions.map((tab) => (
-					<Box
+			{tabOptions.map((tab) => {
+				const isSelected = selectedFilters.includes(tab.value);
+
+				return (
+					<ButtonBase
 						key={tab.value}
 						onClick={() => handleTabClick(tab.value)}
+						aria-pressed={isSelected}
 						sx={{
 							display: "flex",
 							alignItems: "center",
 							gap: 0.75,
-							px: { xs: 1.25, sm: 1.5 },
-							py: { xs: 0.75, sm: 1 },
-							borderRadius: 1,
-							cursor: "pointer",
-							transition: "all 0.2s",
-							bgcolor: selectedFilters.includes(tab.value)
-								? "green.main"
-								: "transparent",
-							color: selectedFilters.includes(tab.value)
-								? "text.primary"
-								: "text.primary",
+							px: { xs: 1.75, sm: 2.25 },
+							py: { xs: 0.9, sm: 1 },
+							borderRadius: 999,
+							fontFamily: "inherit",
+							fontWeight: 600,
+							fontSize: { xs: "0.85rem", sm: "0.9rem" },
+							lineHeight: 1,
+							transition: "all 0.2s ease",
+							bgcolor: isSelected ? "#FFB224" : "transparent",
+							color: isSelected ? "#1A1100" : "text.primary",
 							"&:hover": {
-								bgcolor: selectedFilters.includes(tab.value)
-									? "green.light"
-									: "action.hover",
+								bgcolor: isSelected
+									? "#FFCB6B"
+									: "rgba(255, 178, 36, 0.12)",
 							},
 							"& .MuiSvgIcon-root": {
-								fontSize: { xs: "1.1rem", sm: "1.25rem" },
+								fontSize: { xs: "1.1rem", sm: "1.2rem" },
 							},
-							border: "1px solid",
-							borderColor: selectedFilters.includes(tab.value)
-								? "green.main"
-								: "divider",
 						}}
 					>
 						{tab.icon}
-						<Typography
-							sx={{
-								fontSize: { xs: "0.8125rem", sm: "0.875rem" },
-								fontWeight: selectedFilters.includes(tab.value)
-									? 600
-									: 400,
-								lineHeight: 1,
-							}}
-						>
-							{tab.label}
-						</Typography>
-					</Box>
-				))}
-			</Box>
+						{tab.label}
+					</ButtonBase>
+				);
+			})}
 		</Box>
 	);
 };

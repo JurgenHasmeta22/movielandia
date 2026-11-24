@@ -5,16 +5,19 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const createPrismaClient = () => {
 	const connectionString =
-		process.env.MOV_PRISMA_DATABASE_UR || process.env.MOV_POSTGRES_URL;
+		process.env.MOV_DATABASE_URL_POOLED ||
+		process.env.MOV_PRISMA_DATABASE_URL ||
+		process.env.MOV_POSTGRES_URL;
 
 	if (!connectionString) {
 		throw new Error(
-			"MOV_POSTGRES_URL or MOV_PRISMA_DATABASE_UR environment variable is not set",
+			"MOV_DATABASE_URL_POOLED, MOV_PRISMA_DATABASE_URL or MOV_POSTGRES_URL environment variable is not set",
 		);
 	}
 
 	const adapter = new PrismaPg({
 		connectionString,
+		max: 5,
 	});
 
 	return new PrismaClient({

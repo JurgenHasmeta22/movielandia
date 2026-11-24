@@ -3,17 +3,18 @@
 import { Box } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
 import { useRouter } from "next/navigation";
-import TableAdmin from "@/components/admin/tableAdmin/TableAdmin";
+import useTableAdmin from "@/components/admin/tableAdmin/TableAdmin";
 import HeaderDashboard from "@/components/admin/headerDashboard/HeaderDashboard";
 
 const GenresAdminPage = () => {
+	"use no memo";
 	const router = useRouter();
 
 	function handleAddGenre() {
 		router.push("/admin/genres/create");
 	}
 
-	const { table } = TableAdmin({
+	const { table } = useTableAdmin({
 		page: "genres",
 		handleAddItem: handleAddGenre,
 	});

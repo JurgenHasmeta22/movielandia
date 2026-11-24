@@ -4,6 +4,7 @@ import { getGenreById } from "@/actions/genre.actions";
 import { notFound } from "next/navigation";
 import GenreList from "./GenreList";
 import GenreTabs from "./GenreTabs";
+import { getGenreGradient } from "@/components/root/genreItem/genreGradient";
 
 interface GenrePageContentProps {
 	params: {
@@ -136,44 +137,78 @@ export default async function GenrePageContent({
 		return `Found ${totalCount} titles in ${genre.name} genre`;
 	};
 
+	const heroGradient = getGenreGradient(genre.id);
+
 	return (
 		<Box
 			sx={{
 				maxWidth: "1320px",
 				margin: "0 auto",
 				px: { xs: 2, sm: 3, md: 4 },
-				py: { xs: 4, md: 6 },
+				py: { xs: 3, md: 5 },
 			}}
 		>
 			<Box
 				sx={{
+					position: "relative",
+					overflow: "hidden",
 					mb: { xs: 3, md: 4 },
-					mt: { xs: 1, md: 2 },
-					textAlign: "left",
+					p: { xs: 3, sm: 5, md: 7 },
+					borderRadius: { xs: "24px", md: "32px" },
+					background: heroGradient.background,
+					border: "1px solid rgba(243, 238, 230, 0.14)",
+					boxShadow: `0 30px 70px ${heroGradient.from}44`,
+					"&::before": {
+						content: '""',
+						position: "absolute",
+						inset: 0,
+						background:
+							"radial-gradient(circle at 90% 0%, rgba(255,255,255,0.24), transparent 55%)",
+						pointerEvents: "none",
+					},
 				}}
 			>
 				<Typography
-					variant="h1"
+					aria-hidden
 					sx={{
-						fontSize: { xs: 30, sm: 38, md: 46 },
-						fontWeight: 700,
+						position: "absolute",
+						right: { xs: -10, md: 30 },
+						bottom: { xs: -30, md: -60 },
+						fontFamily: "var(--font-display)",
+						fontSize: { xs: "9rem", sm: "13rem", md: "18rem" },
+						fontWeight: 800,
+						lineHeight: 1,
 						letterSpacing: "-0.05em",
-						mb: 1,
+						color: "rgba(255, 255, 255, 0.12)",
+						userSelect: "none",
+						whiteSpace: "nowrap",
 					}}
 				>
-					All Movies of Genre {genre.name}
+					{genre.name}
 				</Typography>
-				<Typography
-					variant="body1"
-					sx={{
-						color: "text.secondary",
-						fontSize: { xs: 14, sm: 16 },
-						maxWidth: "720px",
-						lineHeight: 1.7,
-					}}
-				>
-					{getSubtitleText()}
-				</Typography>
+				<Box sx={{ position: "relative", maxWidth: "820px" }}>
+					<Typography
+						variant="h1"
+						sx={{
+							fontSize: { xs: "2.2rem", sm: "3rem", md: "4rem" },
+							color: "#FFFFFF",
+							textWrap: "balance",
+							mb: 1.5,
+						}}
+					>
+						All Movies of Genre {genre.name}
+					</Typography>
+					<Typography
+						variant="body1"
+						sx={{
+							color: "rgba(255, 255, 255, 0.82)",
+							fontSize: { xs: 15, sm: 17 },
+							lineHeight: 1.7,
+						}}
+					>
+						{getSubtitleText()}
+					</Typography>
+				</Box>
 			</Box>
 			<GenreTabs />
 			<Box

@@ -2,6 +2,7 @@
 
 import {
 	AppBar,
+	Avatar,
 	Box,
 	IconButton,
 	Menu,
@@ -11,7 +12,6 @@ import {
 	useTheme,
 } from "@mui/material";
 import { useState } from "react";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useStore } from "@/store/store";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/navigation";
@@ -59,12 +59,23 @@ const TopBar = () => {
 	};
 
 	return (
-		<AppBar position="static" component={"header"}>
+		<AppBar
+			position="sticky"
+			component={"header"}
+			sx={{
+				top: 0,
+				backgroundColor: `rgba(${theme.vars.palette.background.defaultChannel} / 0.72)`,
+				backdropFilter: "blur(18px) saturate(1.4)",
+				WebkitBackdropFilter: "blur(18px) saturate(1.4)",
+				borderBottom: `1px solid ${theme.vars.palette.divider}`,
+			}}
+		>
 			<Toolbar
 				sx={{
 					display: "flex",
 					justifyContent: "space-between",
-					backgroundColor: theme.vars.palette.primary.dark,
+					minHeight: { xs: 60, sm: 68 },
+					px: { xs: 1.5, sm: 3 },
 				}}
 				component={"nav"}
 			>
@@ -72,43 +83,55 @@ const TopBar = () => {
 					sx={{
 						display: "flex",
 						alignItems: "center",
-						gap: 2,
+						gap: 1.5,
 					}}
 				>
-					{!isOpenSidebarAdmin && (
-						<IconButton
-							onClick={() => {
-								setIsOpenSidebarAdmin(true);
-							}}
-						>
-							<MenuIcon fontSize="medium" />
-						</IconButton>
-					)}
-					<Box
+					<IconButton
+						aria-label="Open sidebar"
+						onClick={() => {
+							setIsOpenSidebarAdmin(true);
+						}}
 						sx={{
-							paddingLeft: 3,
+							display: {
+								xs: "inline-flex",
+								md: isOpenSidebarAdmin ? "none" : "inline-flex",
+							},
 						}}
 					>
-						<IconButton
-							LinkComponent={MuiNextLink}
-							href={"/admin"}
-							sx={{
-								padding: 0,
-								minWidth: "auto",
-								"&:hover": { backgroundColor: "transparent" },
-							}}
-						>
-							<Image
-								src="/icons/movielandia24-logo.png"
-								alt="MovieLandia24 Admin"
-								height={55}
-								width={170}
-								priority
-							/>
-						</IconButton>
-					</Box>
+						<MenuIcon fontSize="medium" />
+					</IconButton>
+					<IconButton
+						LinkComponent={MuiNextLink}
+						href={"/admin"}
+						aria-label="MovieLandia24 Admin"
+						sx={{
+							display: {
+								xs: "inline-flex",
+								md: isOpenSidebarAdmin ? "none" : "inline-flex",
+							},
+							padding: 0,
+							minWidth: "auto",
+							"&:hover": { backgroundColor: "transparent" },
+						}}
+					>
+						<Image
+							src="/icons/movielandia24-logo.png"
+							alt="MovieLandia24 Admin"
+							height={48}
+							width={150}
+							priority
+							style={{ objectFit: "contain" }}
+						/>
+					</IconButton>
 				</Box>
-				<Box sx={{ display: "flex", flexDirection: "row" }}>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						alignItems: "center",
+						gap: 0.5,
+					}}
+				>
 					<SwitchThemeButton />
 					<IconButton
 						id="buttonProfile"
@@ -119,14 +142,30 @@ const TopBar = () => {
 						sx={{
 							display: "flex",
 							flexDirection: "row",
-							gap: "10px",
+							gap: 1,
+							borderRadius: 999,
+							pl: 0.5,
+							pr: 1.5,
 						}}
 					>
-						<PersonOutlinedIcon color="action" fontSize="medium" />
+						<Avatar
+							sx={{
+								width: 30,
+								height: 30,
+								fontSize: "0.9rem",
+								fontWeight: 700,
+								bgcolor: theme.vars.palette.accent.main,
+								color: theme.vars.palette.accent.contrastText,
+							}}
+						>
+							{session?.user?.userName?.charAt(0).toUpperCase()}
+						</Avatar>
 						<Typography
 							component={"span"}
-							style={{
-								fontSize: 16,
+							sx={{
+								fontSize: 15,
+								fontWeight: 600,
+								color: "text.primary",
 							}}
 						>
 							{session?.user?.userName}
@@ -143,30 +182,19 @@ const TopBar = () => {
 							},
 						}}
 					>
-						<MenuItem
-							onClick={handleRedirectToProfile}
-							style={{ color: theme.vars.palette.primary.main }}
-						>
+						<MenuItem onClick={handleRedirectToProfile}>
 							{session?.user?.role === "Admin"
 								? "Go to Dashboard"
 								: "My Profile"}
 						</MenuItem>
 						{session?.user?.role === "Admin" && (
-							<MenuItem
-								onClick={handleGoToHome}
-								sx={{ color: theme.vars.palette.primary.main }}
-							>
+							<MenuItem onClick={handleGoToHome}>
 								<Typography variant="inherit">
 									Go To Home
 								</Typography>
 							</MenuItem>
 						)}
-						<MenuItem
-							onClick={handleLogout}
-							style={{ color: theme.vars.palette.primary.main }}
-						>
-							Log out
-						</MenuItem>
+						<MenuItem onClick={handleLogout}>Log out</MenuItem>
 					</Menu>
 				</Box>
 			</Toolbar>

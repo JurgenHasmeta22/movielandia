@@ -23,6 +23,8 @@ export const DashboardStatBox = ({
 	return (
 		<Box
 			sx={{
+				position: "relative",
+				zIndex: 1,
 				width: "100%",
 				height: "100%",
 				display: "flex",
@@ -42,8 +44,8 @@ export const DashboardStatBox = ({
 						className="stat-icon"
 						sx={{
 							backgroundColor: theme.vars.palette.stats.iconBg,
-							p: 1,
-							borderRadius: 2,
+							p: 1.25,
+							borderRadius: "14px",
 							display: "inline-flex",
 							transition: "transform 0.3s ease-in-out",
 						}}
@@ -51,13 +53,14 @@ export const DashboardStatBox = ({
 						{icon}
 					</Box>
 					<Typography
-						variant="h4"
+						variant="h3"
 						sx={{
 							color: theme.vars.palette.text.primary,
 							mt: 2,
 							mb: 1,
-							fontSize: "2rem",
-							fontWeight: "bold",
+							fontSize: "2.6rem",
+							fontWeight: 800,
+							lineHeight: 1,
 						}}
 					>
 						{title}
@@ -89,13 +92,13 @@ export const DashboardStatBox = ({
 				<Typography
 					variant="body2"
 					sx={{
-						color: theme.vars.palette.primary.main,
+						color: theme.vars.palette.accent.main,
 						backgroundColor: theme.vars.palette.stats.iconBg,
 						px: 2,
 						py: 0.75,
-						borderRadius: 2,
+						borderRadius: 999,
 						fontWeight: 600,
-						fontSize: "0.875rem",
+						fontSize: "0.85rem",
 					}}
 				>
 					{increase}

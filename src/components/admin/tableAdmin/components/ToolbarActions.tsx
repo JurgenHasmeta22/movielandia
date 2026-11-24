@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import { MRT_TableInstance } from "material-react-table";
 
@@ -17,21 +17,21 @@ export const ToolbarActions = ({
 }: ToolbarActionsProps) => (
 	<Box sx={{ display: "flex", gap: "1rem" }}>
 		<Button
-			color="success"
+			color="primary"
 			onClick={handleAddItem}
 			variant="contained"
 			startIcon={<Add />}
 		>
-			<Typography sx={{ textTransform: "capitalize" }}>Add</Typography>
+			Add
 		</Button>
 		<Button
 			color="error"
 			disabled={Object.keys(table.getState().rowSelection).length === 0}
 			onClick={handleMassiveDelete}
-			variant="contained"
+			variant="outlined"
 			startIcon={<Delete />}
 		>
-			<Typography sx={{ textTransform: "capitalize" }}>Delete</Typography>
+			Delete
 		</Button>
 	</Box>
 );

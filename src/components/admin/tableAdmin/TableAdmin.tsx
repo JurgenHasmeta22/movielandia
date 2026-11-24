@@ -7,7 +7,7 @@ import {
 	MRT_SortingState,
 	useMaterialReactTable,
 } from "material-react-table";
-import { ListItemIcon, MenuItem, Typography } from "@mui/material";
+import { ListItemIcon, MenuItem, Typography, useColorScheme } from "@mui/material";
 import {
 	Edit,
 	Delete,
@@ -60,8 +60,7 @@ interface ITableAdminProps {
 
 // #endregion
 
-const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
-	// #region "State Management, Hooks"
+const useTableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {	// #region "State Management, Hooks"
 	const [rows, setRows] = useState<any[]>([]);
 	const [rowsCount, setRowsCount] = useState<number>(0);
 	const [rowSelection, setRowSelection] = useState<any>({});
@@ -83,6 +82,8 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 	const [open, setOpen] = useState(false);
 	const router = useRouter();
 	const { openModal } = useModal();
+	const { colorScheme } = useColorScheme();
+	const isDarkMode = colorScheme !== "light";
 	// #endregion
 
 	// #region "Delete methods"
@@ -341,6 +342,23 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 		enableClickToCopy: true,
 		enableStickyHeader: true,
 		enableStickyFooter: true,
+		mrtTheme: isDarkMode
+			? {
+					baseBackgroundColor: "#161120",
+					menuBackgroundColor: "#161120",
+					pinnedRowBackgroundColor: "#161120",
+					draggingBorderColor: "#FFB224",
+					matchHighlightColor: "rgba(255, 178, 36, 0.3)",
+					selectedRowBackgroundColor: "rgba(255, 178, 36, 0.12)",
+				}
+			: {
+					baseBackgroundColor: "#FFFFFF",
+					menuBackgroundColor: "#FFFFFF",
+					pinnedRowBackgroundColor: "#FFFFFF",
+					draggingBorderColor: "#B35F00",
+					matchHighlightColor: "rgba(179, 95, 0, 0.3)",
+					selectedRowBackgroundColor: "rgba(179, 95, 0, 0.12)",
+				},
 		manualFiltering: true,
 		manualPagination: true,
 		manualSorting: true,
@@ -420,32 +438,19 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 			variant: "outlined",
 		},
 		muiTablePaperProps: {
-			style: {
-				padding: 18,
+			sx: {
+				p: 2.5,
+				borderRadius: "20px",
+				backgroundImage: "none",
 			},
 		},
 		muiPaginationProps: {
-			color: "secondary",
 			rowsPerPageOptions: [5, 10, 15, 20],
 			shape: "rounded",
 			size: "small",
 			variant: "outlined",
-			style: {
-				paddingTop: 6,
-			},
 			sx: {
-				".MuiPaginationItem-root": {
-					"&:hover": {
-						backgroundColor: "#30969f33",
-					},
-					"&.Mui-selected": {
-						backgroundColor: "#30969f",
-						color: "white",
-						"&:hover": {
-							backgroundColor: "#30969fcc",
-						},
-					},
-				},
+				pt: 0.75,
 			},
 		},
 		renderRowActionMenuItems: ({ closeMenu, row }) => [
@@ -495,4 +500,4 @@ const TableAdmin = ({ page, handleAddItem }: ITableAdminProps) => {
 	};
 };
 
-export default TableAdmin;
+export default useTableAdmin;
