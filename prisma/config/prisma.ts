@@ -5,11 +5,11 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const createPrismaClient = () => {
 	const connectionString =
-		process.env.POSTGRES_PRISMA_URL || process.env.DATABASE_URL;
+		process.env.MOV_PRISMA_DATABASE_UR || process.env.MOV_POSTGRES_URL;
 
 	if (!connectionString) {
 		throw new Error(
-			"DATABASE_URL or POSTGRES_PRISMA_URL environment variable is not set",
+			"MOV_POSTGRES_URL or MOV_PRISMA_DATABASE_UR environment variable is not set",
 		);
 	}
 

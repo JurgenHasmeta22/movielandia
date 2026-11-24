@@ -6,7 +6,7 @@ import { forumCategories } from "./data/forumData";
 import { forumTags } from "./data/forumTagData";
 
 const adapter = new PrismaPg({
-	connectionString: process.env.POSTGRES_PRISMA_URL,
+	connectionString: process.env.MOV_PRISMA_DATABASE_URL,
 });
 
 export const prisma = new PrismaClient({

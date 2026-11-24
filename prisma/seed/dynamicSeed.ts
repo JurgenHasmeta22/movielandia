@@ -5,7 +5,7 @@ import { generateForumTagData } from "./forumTagSeed";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({
-	connectionString: process.env.POSTGRES_PRISMA_URL,
+	connectionString: process.env.MOV_PRISMA_DATABASE_URL,
 });
 
 export const prisma = new PrismaClient({
