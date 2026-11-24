@@ -250,7 +250,7 @@ async function baseSeeding() {
 // #region "Config"
 const config = {
 	useDynamicSeeding: false,
-	deleteBeforeSeeding: false,
+	deleteBeforeSeeding: true,
 	dynamicSeedingStartStep: SeedStep.Movies,
 };
 // #endregion
