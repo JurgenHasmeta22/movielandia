@@ -97,32 +97,10 @@ export function TextEditorButtons({
 						sx={{
 							display: "flex",
 							placeSelf: "end",
-							fontSize: 18,
-							fontWeight: 900,
-							padding: 1.5,
-							textTransform: "capitalize",
-							border: "none",
-							backgroundColor: theme.vars.palette.green.light,
-							color: theme.vars.palette.primary.dark,
-							"&:hover": {
-								backgroundColor: theme.vars.palette.green.main,
-								color: theme.vars.palette.greyAccent.main,
-							},
-							"&:disabled": {
-								backgroundColor: theme.vars.palette.green.light,
-								opacity: 0.7,
-							},
 							minWidth: 150,
 						}}
 					>
-						<Typography
-							component={"span"}
-							sx={{
-								color: theme.vars.palette.primary.dark,
-							}}
-						>
-							{isPending ? "Submitting..." : "Submit Review"}
-						</Typography>
+						{isPending ? "Submitting..." : "Submit Review"}
 					</Button>
 				</Box>
 			) : (

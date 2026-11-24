@@ -1,32 +1,34 @@
 "use client";
 
-import { IconButton, useTheme } from "@mui/material";
-import type {} from "@mui/material/themeCssVarsAugmentation";
+import { IconButton } from "@mui/material";
 
 interface SocialButtonProps {
 	href: string;
 	icon: React.ElementType;
+	label: string;
 }
 
-export const SocialButton = ({ href, icon: Icon }: SocialButtonProps) => {
-	const theme = useTheme();
-
+export const SocialButton = ({
+	href,
+	icon: Icon,
+	label,
+}: SocialButtonProps) => {
 	return (
 		<IconButton
 			href={href}
 			target="_blank"
 			rel="noopener"
+			aria-label={label}
 			sx={{
-				color: theme.vars.palette.primary.main,
-				transition: "all 0.2s ease-in-out",
+				color: "text.primary",
 				padding: "10px",
-				borderRadius: "8px",
-				opacity: 0.85,
+				border: "1px solid",
+				borderColor: "divider",
 				"&:hover": {
-					color: theme.vars.palette.red.main,
-					backgroundColor: "rgba(255, 255, 255, 0.08)",
+					color: "accent.contrastText",
+					backgroundColor: "accent.main",
+					borderColor: "accent.main",
 					transform: "translateY(-3px)",
-					opacity: 1,
 				},
 			}}
 		>

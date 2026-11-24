@@ -6,16 +6,9 @@ import ToastProvider from "@/providers/ToastProvider";
 import { MUIThemeProvider } from "@/providers/ThemeProvider";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import MainLayout from "@/layouts/MainLayout";
-import { Montserrat } from "next/font/google";
+import { fontClassNames } from "@/utils/theme/fonts";
 import "../globals.css";
 import ProgressLoadingProvider from "@/providers/ProgressLoadingProvider";
-
-const montserrat = Montserrat({
-	weight: ["300", "400", "500", "700"],
-	subsets: ["latin"],
-	display: "swap",
-	fallback: ["Arial", "sans-serif"],
-});
 
 const baseUrl = process.env.NEXT_PUBLIC_PROJECT_URL!;
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -60,7 +53,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html suppressHydrationWarning lang="en">
-			<body className={montserrat.className}>
+			<body className={fontClassNames}>
 				<AuthProvider>
 					<MUIThemeProvider>
 						<ToastProvider>

@@ -34,58 +34,55 @@ interface IListHomeSectionProps {
 	path?: string;
 }
 
+const arrowSx = {
+	position: "absolute",
+	top: "42%",
+	zIndex: 2,
+	color: "#F3EEE6",
+	backgroundColor: "rgba(13, 10, 18, 0.78)",
+	backdropFilter: "blur(8px)",
+	border: "1px solid rgba(243, 238, 230, 0.18)",
+	width: { xs: 30, sm: 36, md: 42 },
+	height: { xs: 30, sm: 36, md: 42 },
+	boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
+	"&:hover": {
+		backgroundColor: "#FFB224",
+		color: "#1A1100",
+	},
+};
+
 const CustomNextArrow = (props: any) => {
 	const { onClick } = props;
-	const theme = useTheme();
 
 	return (
 		<IconButton
 			onClick={onClick}
+			aria-label="Next titles"
 			sx={{
-				position: "absolute",
-				top: "50%",
-				right: { xs: "-12px", sm: "-15px", md: "-18px" },
+				...arrowSx,
+				right: { xs: "-8px", sm: "-12px", md: "-16px" },
 				transform: "translateY(-50%)",
-				zIndex: 2,
-				color: theme.vars.palette.common.white,
-				backgroundColor: "rgba(0, 0, 0, 0.7)",
-				width: { xs: 24, sm: 28, md: 32 },
-				height: { xs: 24, sm: 28, md: 32 },
-				boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
-				"&:hover": {
-					backgroundColor: theme.vars.palette.primary.main,
-				},
 			}}
 		>
-			<NavigateNextIcon sx={{ fontSize: { xs: 16, sm: 18, md: 20 } }} />
+			<NavigateNextIcon sx={{ fontSize: { xs: 18, sm: 20, md: 24 } }} />
 		</IconButton>
 	);
 };
 
 const CustomPrevArrow = (props: any) => {
 	const { onClick } = props;
-	const theme = useTheme();
 
 	return (
 		<IconButton
 			onClick={onClick}
+			aria-label="Previous titles"
 			sx={{
-				position: "absolute",
-				top: "50%",
-				left: { xs: "-12px", sm: "-15px", md: "-18px" },
+				...arrowSx,
+				left: { xs: "-8px", sm: "-12px", md: "-16px" },
 				transform: "translateY(-50%)",
-				zIndex: 2,
-				color: theme.vars.palette.common.white,
-				backgroundColor: "rgba(0, 0, 0, 0.7)",
-				width: { xs: 24, sm: 28, md: 32 },
-				height: { xs: 24, sm: 28, md: 32 },
-				boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
-				"&:hover": {
-					backgroundColor: theme.vars.palette.primary.main,
-				},
 			}}
 		>
-			<NavigateBeforeIcon sx={{ fontSize: { xs: 16, sm: 18, md: 20 } }} />
+			<NavigateBeforeIcon sx={{ fontSize: { xs: 18, sm: 20, md: 24 } }} />
 		</IconButton>
 	);
 };
@@ -182,10 +179,8 @@ const ListHomeSection = ({
 					<Typography
 						variant="h2"
 						sx={{
-							fontWeight: 800,
-							fontSize: { xs: 22, sm: 26, md: 30 },
+							fontSize: { xs: 26, sm: 32, md: 40 },
 							color: theme.vars.palette.text.primary,
-							letterSpacing: "-0.04em",
 						}}
 					>
 						{getSectionTitle()}
@@ -204,12 +199,19 @@ const ListHomeSection = ({
 				>
 					<Typography
 						sx={{
-							fontWeight: 700,
-							fontSize: { xs: 14, sm: 16 },
-							color: theme.vars.palette.green.light,
-							transition: "color 0.2s ease",
+							fontWeight: 600,
+							fontSize: { xs: 14, sm: 15 },
+							color: theme.vars.palette.accent.main,
+							px: 2,
+							py: 0.75,
+							borderRadius: 999,
+							border: "1px solid",
+							borderColor: "divider",
+							transition:
+								"background-color 0.2s ease, border-color 0.2s ease",
 							"&:hover": {
-								color: theme.vars.palette.green.light,
+								backgroundColor: "rgba(255, 178, 36, 0.12)",
+								borderColor: theme.vars.palette.accent.main,
 							},
 						}}
 					>

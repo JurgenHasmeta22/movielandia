@@ -33,7 +33,7 @@ export default function GenreItem({ genre }: IGenreItemProps) {
 						position: "relative",
 						overflow: "hidden",
 						cursor: "pointer",
-						borderRadius: 2,
+						borderRadius: "20px",
 						backgroundColor: theme.vars.palette.background.paper,
 						border: "1px solid",
 						borderColor: theme.vars.palette.divider,
@@ -47,10 +47,10 @@ export default function GenreItem({ genre }: IGenreItemProps) {
 							left: 0,
 							width: 36,
 							height: 3,
-							backgroundColor: theme.vars.palette.green.main,
+							backgroundColor: theme.vars.palette.accent.main,
 						},
 						"&:hover": {
-							borderColor: theme.vars.palette.green.main,
+							borderColor: theme.vars.palette.accent.main,
 							transform: "translateY(-3px)",
 							backgroundColor:
 								theme.vars.palette.background.default,
@@ -62,8 +62,9 @@ export default function GenreItem({ genre }: IGenreItemProps) {
 						sx={{
 							textDecoration: "none",
 							color: theme.vars.palette.text.primary,
-							fontSize: { xs: "1rem", sm: "1.25rem" },
-							fontWeight: 600,
+							fontFamily: "var(--font-display)",
+							fontSize: { xs: "1.1rem", sm: "1.4rem" },
+							fontWeight: 650,
 							letterSpacing: "-0.025em",
 						}}
 					>

@@ -333,7 +333,7 @@ export default function PostList({
 							border:
 								userLoggedIn &&
 								Number(userLoggedIn.id) === post.user.id
-									? `1px solid ${theme.vars.palette.green.main}`
+									? `1px solid ${theme.vars.palette.accent.main}`
 									: `1px solid ${theme.vars.palette.divider}`,
 							position: "relative",
 						}}

@@ -620,7 +620,7 @@ export default function RegisterForm() {
 					>
 						<Button
 							type="submit"
-							variant="outlined"
+							variant="contained"
 							fullWidth
 							disabled={isSubmitting}
 							sx={{

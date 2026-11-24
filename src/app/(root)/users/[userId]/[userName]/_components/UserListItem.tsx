@@ -38,18 +38,18 @@ const getButtonColors = (
 	switch (type) {
 		case "follow":
 			return {
-				main: "#4cceac",
-				hover: "#3da58a",
+				main: "#FFB224",
+				hover: "#E58F00",
 			};
 		case "unfollow":
 			return {
-				main: "#db4f4a",
-				hover: "#af3f3b",
+				main: "#D6294A",
+				hover: "#A81C37",
 			};
 		case "pending":
 			return {
-				main: "#6870fa",
-				hover: "#535ac8",
+				main: "#4B5BD6",
+				hover: "#3541A8",
 			};
 	}
 };

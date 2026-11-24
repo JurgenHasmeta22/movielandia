@@ -1,34 +1,34 @@
 "use client";
 
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
 import UpdateIcon from "@mui/icons-material/Update";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import DevicesIcon from "@mui/icons-material/Devices";
 import { motion, type Variants } from "framer-motion";
-import type {} from "@mui/material/themeCssVarsAugmentation";
+import SectionHeading from "@/components/root/sectionHeading/SectionHeading";
 
 const features = [
 	{
-		icon: <CollectionsIcon sx={{ fontSize: 40 }} />,
+		icon: <CollectionsIcon sx={{ fontSize: 28 }} />,
 		title: "Extensive Library",
 		description:
 			"Access thousands of movies and TV shows, from latest releases to timeless classics.",
 	},
 	{
-		icon: <LocalMoviesIcon sx={{ fontSize: 40 }} />,
+		icon: <LocalMoviesIcon sx={{ fontSize: 28 }} />,
 		title: "Curated Collections",
 		description:
 			"Discover handpicked selections organized by genre, mood, and themes.",
 	},
 	{
-		icon: <UpdateIcon sx={{ fontSize: 40 }} />,
+		icon: <UpdateIcon sx={{ fontSize: 28 }} />,
 		title: "Regular Updates",
 		description:
 			"New content added weekly to keep you entertained with fresh releases.",
 	},
 	{
-		icon: <DevicesIcon sx={{ fontSize: 40 }} />,
+		icon: <DevicesIcon sx={{ fontSize: 28 }} />,
 		title: "Cross-Platform Support",
 		description:
 			"Watch seamlessly across all your devices, anytime and anywhere.",
@@ -39,38 +39,30 @@ const containerVariants: Variants = {
 	hidden: { opacity: 0 },
 	visible: {
 		opacity: 1,
-		transition: { staggerChildren: 0.2, ease: "easeOut" },
+		transition: { staggerChildren: 0.12, ease: "easeOut" },
 	},
 };
 
 const itemVariants: Variants = {
-	hidden: { opacity: 0, y: 50 },
+	hidden: { opacity: 0, y: 32 },
 	visible: {
 		opacity: 1,
 		y: 0,
-		transition: { duration: 0.7, ease: "easeOut" },
+		transition: { duration: 0.6, ease: "easeOut" },
 	},
 };
 
 const MarketingSection = () => {
-	const theme = useTheme();
-
 	return (
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 7, md: 10 },
-				backgroundColor: theme.vars.palette.background.default,
+				py: { xs: 8, md: 12 },
 				position: "relative",
 				width: "100%",
 			}}
 		>
-			<Container
-				maxWidth="lg"
-				sx={{
-					px: { xs: 2, sm: 3 },
-				}}
-			>
+			<Container maxWidth="xl" sx={{ px: { xs: 2.5, sm: 4, md: 6 } }}>
 				<motion.div
 					initial="hidden"
 					whileInView="visible"
@@ -78,96 +70,73 @@ const MarketingSection = () => {
 					variants={containerVariants}
 				>
 					<motion.div variants={itemVariants}>
-						<Box
-							sx={{
-								textAlign: "left",
-								mb: { xs: 4, md: 6 },
-								maxWidth: "760px",
-							}}
-						>
-							<Typography
-								variant="h2"
-								sx={{
-									fontSize: { xs: 28, sm: 34, md: 40 },
-									fontWeight: 700,
-									letterSpacing: "-0.04em",
-									mb: 1.5,
-								}}
-							>
-								Welcome to MovieLandia24
-							</Typography>
-							<Typography
-								variant="h3"
-								sx={{
-									fontSize: { xs: 15, sm: 16, md: 17 },
-									color: "text.secondary",
-									lineHeight: 1.75,
-								}}
-							>
-								Your premier destination for cinematic
-								entertainment. We bring you a vast collection of
-								movies and series, carefully curated to provide
-								the best streaming experience.
-							</Typography>
-						</Box>
+						<SectionHeading
+							title="Welcome to MovieLandia24"
+							description="Your premier destination for cinematic entertainment. We bring you a vast collection of movies and series, carefully curated to provide the best streaming experience."
+							maxWidth="760px"
+						/>
 					</motion.div>
 
 					<Box
 						sx={{
-							maxWidth: "1200px",
-							mx: 0,
 							display: "grid",
 							gridTemplateColumns: {
 								xs: "1fr",
 								sm: "repeat(2, 1fr)",
-								md: "repeat(4, 1fr)",
+								lg: "repeat(4, 1fr)",
 							},
-							columnGap: { xs: 3, md: 4 },
-							rowGap: { xs: 3, md: 4 },
+							gap: { xs: 2, md: 3 },
 						}}
 					>
-						{features.map((feature, index) => (
+						{features.map((feature) => (
 							<motion.div
-								key={index}
+								key={feature.title}
 								variants={itemVariants}
 								style={{ height: "100%" }}
 							>
 								<Box
 									sx={{
-										textAlign: "left",
-										pt: 2.5,
-										borderTop: "1px solid",
-										borderColor: theme.vars.palette.divider,
 										height: "100%",
+										p: 3,
+										borderRadius: "20px",
+										border: "1px solid",
+										borderColor: "divider",
+										backgroundColor: "background.paper",
+										transition:
+											"border-color 240ms ease, transform 240ms ease",
+										"&:hover": {
+											borderColor: "accent.main",
+											transform: "translateY(-4px)",
+										},
 									}}
 								>
 									<Box
 										sx={{
-											color: theme.vars.palette.green
-												.main,
-											mb: 1.5,
-											display: "flex",
-											justifyContent: "flex-start",
+											display: "grid",
+											placeItems: "center",
+											width: 52,
+											height: 52,
+											mb: 2.5,
+											borderRadius: "14px",
+											color: "accent.main",
+											backgroundColor:
+												"rgba(255, 178, 36, 0.12)",
 										}}
 									>
 										{feature.icon}
 									</Box>
 									<Typography
-										variant="h6"
-										sx={{
-											fontWeight: 700,
-											mb: 0.75,
-											fontSize: { xs: 17, md: 18 },
-										}}
+										variant="h5"
+										component="h3"
+										sx={{ mb: 1 }}
 									>
 										{feature.title}
 									</Typography>
 									<Typography
-										variant="body1"
 										sx={{
 											color: "text.secondary",
-											fontSize: { xs: 14, md: 16 },
-											lineHeight: 1.6,
+											fontSize: "0.95rem",
+											lineHeight: 1.65,
 										}}
 									>
 										{feature.description}

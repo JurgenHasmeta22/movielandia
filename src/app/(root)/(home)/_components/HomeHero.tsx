@@ -1,75 +1,67 @@
 "use client";
 
-import {
-	Typography,
-	Button,
-	Box,
-	Container,
-	Stack,
-	useTheme,
-} from "@mui/material";
+import { Typography, Button, Box, Container, Stack } from "@mui/material";
 import TvIcon from "@mui/icons-material/Tv";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import type {} from "@mui/material/themeCssVarsAugmentation";
+import MarqueeBulbs from "@/components/root/marqueeBulbs/MarqueeBulbs";
+
+const containerVariants: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: { staggerChildren: 0.14, delayChildren: 0.15 },
+	},
+};
+
+const itemVariants: Variants = {
+	hidden: { opacity: 0, y: 36 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+	},
+};
+
+const ghostButtonSx = {
+	color: "#F3EEE6",
+	borderColor: "rgba(243, 238, 230, 0.35)",
+	backgroundColor: "rgba(13, 10, 18, 0.35)",
+	backdropFilter: "blur(10px)",
+	"&:hover": {
+		color: "#F3EEE6",
+		borderColor: "rgba(243, 238, 230, 0.8)",
+		backgroundColor: "rgba(243, 238, 230, 0.1)",
+	},
+};
 
 const HomeHeroSection = () => {
-	const theme = useTheme();
-
-	const containerVariants: Variants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: { staggerChildren: 0.2, ease: "easeOut" },
-		},
-	};
-
-	const itemVariants: Variants = {
-		hidden: { opacity: 0, y: 50 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.7, ease: "easeOut" },
-		},
-	};
-
-	const buttonHoverVariants = {
-		hover: {
-			scale: 1.05,
-			transition: { duration: 0.3, ease: "easeInOut" },
-		},
-	};
-
 	return (
 		<Box
+			component="section"
+			className="film-grain"
 			sx={{
 				position: "relative",
-				minHeight: { xs: "620px", sm: "min(76vh, 760px)" },
+				isolation: "isolate",
 				overflow: "hidden",
+				mt: { xs: -8, sm: -9 },
+				minHeight: { xs: "680px", md: "min(92vh, 860px)" },
 				display: "flex",
 				alignItems: "center",
+				backgroundColor: "#0D0A12",
 			}}
 		>
 			<Box
+				aria-hidden
 				sx={{
 					position: "absolute",
-					top: 0,
-					left: 0,
-					width: "100%",
-					height: "100%",
-					zIndex: -1,
-					"&::after": {
-						content: '""',
-						position: "absolute",
-						top: 0,
-						left: 0,
-						width: "100%",
-						height: "100%",
-						background:
-							"linear-gradient(90deg, rgba(4,5,9,0.94) 0%, rgba(8,11,18,0.82) 48%, rgba(8,11,18,0.28) 100%), linear-gradient(0deg, rgba(8,11,18,0.5), transparent 55%)",
-					},
+					inset: 0,
+					zIndex: -3,
+					animation: "poster-wall-drift 48s ease-in-out infinite alternate",
+					transformOrigin: "70% 40%",
+					filter: "saturate(0.9) contrast(1.05)",
 				}}
 			>
 				<Image
@@ -81,12 +73,44 @@ const HomeHeroSection = () => {
 				/>
 			</Box>
 
+			<Box
+				aria-hidden
+				sx={{
+					position: "absolute",
+					inset: 0,
+					zIndex: -2,
+					background:
+						"linear-gradient(95deg, rgba(13,10,18,0.97) 0%, rgba(13,10,18,0.86) 38%, rgba(13,10,18,0.35) 72%, rgba(13,10,18,0.6) 100%), linear-gradient(0deg, #0D0A12 0%, rgba(13,10,18,0) 38%), linear-gradient(180deg, rgba(13,10,18,0.85) 0%, rgba(13,10,18,0) 24%)",
+				}}
+			/>
+
+			<Box
+				aria-hidden
+				sx={{
+					position: "absolute",
+					top: "-8%",
+					right: "-6%",
+					width: { xs: "120%", md: "62%" },
+					height: "128%",
+					zIndex: -1,
+					pointerEvents: "none",
+					background:
+						"linear-gradient(200deg, rgba(255,203,107,0.42) 0%, rgba(255,178,36,0.14) 38%, rgba(255,178,36,0) 78%)",
+					clipPath: "polygon(78% 0, 100% 0, 100% 100%, 0 100%)",
+					mixBlendMode: "screen",
+					filter: "blur(28px)",
+					opacity: 0.85,
+					transformOrigin: "100% 0",
+					animation: "projector-flicker 7s ease-in-out infinite",
+				}}
+			/>
+
 			<Container
 				maxWidth="xl"
 				sx={{
 					position: "relative",
-					zIndex: 2,
-					py: { xs: 7, sm: 8, md: 10 },
+					py: { xs: 14, md: 16 },
+					px: { xs: 2.5, sm: 4, md: 6 },
 				}}
 			>
 				<motion.div
@@ -95,30 +119,26 @@ const HomeHeroSection = () => {
 					variants={containerVariants}
 				>
 					<Stack
-						spacing={{ xs: 2, sm: 2.5, md: 3 }}
-						sx={{
-							maxWidth: { xs: "100%", md: "680px" },
-							textAlign: "left",
-							mx: 0,
-							py: { xs: 4, md: 0 },
-						}}
+						spacing={{ xs: 2.5, md: 3 }}
+						sx={{ maxWidth: { xs: "100%", md: "760px" } }}
 					>
 						<motion.div variants={itemVariants}>
 							<Typography
 								component="h1"
 								sx={{
+									fontFamily: "var(--font-display)",
 									fontSize: {
-										xs: "2.75rem",
-										sm: "3.5rem",
-										md: "4.5rem",
-										lg: "5rem",
+										xs: "3.1rem",
+										sm: "4.6rem",
+										md: "6.4rem",
+										lg: "7.4rem",
 									},
-									fontWeight: 700,
-									letterSpacing: { xs: "-1.5px", md: "-3px" },
-									lineHeight: 1.02,
-									color: theme.vars.palette.common.white,
-									textShadow: "0 3px 24px rgba(0,0,0,0.35)",
-									mb: { xs: 0.5, md: 1 },
+									fontWeight: 800,
+									letterSpacing: { xs: "-0.04em", md: "-0.055em" },
+									lineHeight: 0.94,
+									color: "#F3EEE6",
+									textWrap: "balance",
+									textShadow: "0 6px 40px rgba(0,0,0,0.5)",
 								}}
 							>
 								Dive into MovieLandia24
@@ -130,14 +150,13 @@ const HomeHeroSection = () => {
 								component="h2"
 								sx={{
 									fontSize: {
-										xs: "1.125rem",
-										sm: "1.25rem",
-										md: "1.5rem",
+										xs: "1.2rem",
+										sm: "1.4rem",
+										md: "1.65rem",
 									},
-									fontWeight: 500,
-									color: theme.vars.palette.green.light,
-									lineHeight: 1.4,
-									mb: { xs: 0.5, md: 1 },
+									fontWeight: 600,
+									color: "#FFCB6B",
+									lineHeight: 1.3,
 								}}
 							>
 								Your Gateway to the World of Cinema!
@@ -147,16 +166,10 @@ const HomeHeroSection = () => {
 						<motion.div variants={itemVariants}>
 							<Typography
 								sx={{
-									fontSize: {
-										xs: "0.95rem",
-										sm: "1rem",
-										md: "1.05rem",
-									},
-									fontWeight: 400,
-									color: "rgba(255,255,255,0.8)",
-									maxWidth: { xs: "100%", md: "90%" },
-									lineHeight: 1.75,
-									mb: { xs: 1, md: 2 },
+									fontSize: { xs: "1rem", md: "1.1rem" },
+									color: "rgba(243, 238, 230, 0.78)",
+									maxWidth: "56ch",
+									lineHeight: 1.7,
 								}}
 							>
 								Explore the latest blockbusters and timeless
@@ -168,75 +181,32 @@ const HomeHeroSection = () => {
 
 						<Stack
 							direction={{ xs: "column", sm: "row" }}
-							spacing={{ xs: 2, sm: 3 }}
-							sx={{
-								justifyContent: "flex-start",
-								mt: { xs: 0.5, md: 1 },
-							}}
+							spacing={{ xs: 1.5, sm: 2 }}
+							sx={{ pt: 1 }}
 						>
-							<motion.div
-								variants={itemVariants}
-								whileHover="hover"
-							>
+							<motion.div variants={itemVariants}>
 								<Button
 									component={Link}
 									href="/movies"
 									variant="contained"
+									size="large"
 									startIcon={<PlayArrowIcon />}
-									sx={{
-										px: { xs: 2.5, md: 3.5 },
-										py: { xs: 1.25, md: 1.5 },
-										fontSize: { xs: "0.9rem", md: "1rem" },
-										fontWeight: 600,
-										borderRadius: "8px",
-										textTransform: "none",
-										boxShadow: "none",
-										backgroundColor:
-											theme.vars.palette.green.main,
-										color: "#080b12",
-										transition:
-											"background-color 180ms ease, transform 180ms ease",
-										width: { xs: "100%", sm: "auto" },
-										"&:hover": {
-											transform: "translateY(-2px)",
-											backgroundColor:
-												theme.vars.palette.green.light,
-											boxShadow: "none",
-										},
-									}}
+									sx={{ width: { xs: "100%", sm: "auto" } }}
 								>
 									Explore Movies
 								</Button>
 							</motion.div>
 
-							<motion.div
-								variants={itemVariants}
-								whileHover="hover"
-							>
+							<motion.div variants={itemVariants}>
 								<Button
 									component={Link}
 									href="/series"
 									variant="outlined"
+									size="large"
 									startIcon={<TvIcon />}
 									sx={{
-										px: { xs: 2.5, md: 3.5 },
-										py: { xs: 1.25, md: 1.5 },
-										fontSize: { xs: "0.9rem", md: "1rem" },
-										fontWeight: 600,
-										borderRadius: "8px",
-										textTransform: "none",
-										color: theme.vars.palette.common.white,
-										borderColor: "rgba(255,255,255,0.7)",
-										backgroundColor: "rgba(8,11,18,0.3)",
-										transition:
-											"background-color 180ms ease, border-color 180ms ease",
+										...ghostButtonSx,
 										width: { xs: "100%", sm: "auto" },
-										"&:hover": {
-											borderColor:
-												theme.vars.palette.common.white,
-											backgroundColor:
-												"rgba(255,255,255,0.08)",
-										},
 									}}
 								>
 									Browse Series
@@ -244,27 +214,38 @@ const HomeHeroSection = () => {
 							</motion.div>
 						</Stack>
 
-						<motion.div
-							variants={itemVariants}
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 1.2, duration: 1 }}
-						>
+						<motion.div variants={itemVariants}>
 							<Box
 								sx={{
-									display: { xs: "none", sm: "flex" },
+									display: { xs: "none", sm: "inline-flex" },
 									alignItems: "center",
-									gap: 1.5,
 									mt: 2,
-									pl: 1.5,
-									borderLeft: "2px solid",
-									borderColor: theme.vars.palette.green.main,
+									px: 2.5,
+									py: 1,
+									position: "relative",
+									border: "1px dashed rgba(243, 238, 230, 0.4)",
+									borderRadius: "10px",
+									backgroundColor: "rgba(13, 10, 18, 0.45)",
+									backdropFilter: "blur(8px)",
+									"&::before, &::after": {
+										content: '""',
+										position: "absolute",
+										top: "50%",
+										width: 12,
+										height: 12,
+										borderRadius: "50%",
+										backgroundColor: "#0D0A12",
+										border: "1px dashed rgba(243, 238, 230, 0.4)",
+										transform: "translateY(-50%)",
+									},
+									"&::before": { left: -7 },
+									"&::after": { right: -7 },
 								}}
 							>
 								<Typography
 									sx={{
-										fontSize: "0.875rem",
-										color: "rgba(255,255,255,0.75)",
+										fontSize: "0.9rem",
+										color: "rgba(243, 238, 230, 0.85)",
 									}}
 								>
 									Featuring thousands of titles across all
@@ -275,6 +256,8 @@ const HomeHeroSection = () => {
 					</Stack>
 				</motion.div>
 			</Container>
+
+			<MarqueeBulbs />
 		</Box>
 	);
 };

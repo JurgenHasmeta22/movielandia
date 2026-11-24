@@ -44,7 +44,7 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 				<TopicIcon
 					sx={{
 						fontSize: 60,
-						color: theme.vars.palette.green.main,
+						color: theme.vars.palette.accent.main,
 						mb: 2,
 						opacity: 0.7,
 					}}
@@ -90,7 +90,7 @@ export default function TopicList({ topics, userLoggedIn }: TopicListProps) {
 							transition:
 								"border-color 180ms ease, transform 180ms ease",
 							"&:hover": {
-								borderColor: theme.vars.palette.green.main,
+								borderColor: theme.vars.palette.accent.main,
 								transform: "translateY(-2px)",
 							},
 						}}

@@ -35,8 +35,12 @@ function ScrollToTop() {
 					size="large"
 					aria-label="Scroll back to top"
 					sx={{
-						color: theme.vars.palette.green.main,
-						backgroundColor: theme.vars.palette.primary.main,
+						color: theme.vars.palette.accent.contrastText,
+						backgroundColor: theme.vars.palette.accent.main,
+						boxShadow: "0 10px 28px rgba(255, 178, 36, 0.35)",
+						"&:hover": {
+							backgroundColor: theme.vars.palette.accent.light,
+						},
 					}}
 				>
 					<KeyboardArrowUp fontSize="large" />

@@ -46,7 +46,7 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 					<ForumIcon
 						sx={{
 							fontSize: 40,
-							color: theme.vars.palette.green.main,
+							color: theme.vars.palette.accent.main,
 							mb: 1,
 						}}
 					/>
@@ -73,7 +73,7 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 					<TopicIcon
 						sx={{
 							fontSize: 40,
-							color: theme.vars.palette.green.main,
+							color: theme.vars.palette.accent.main,
 							mb: 1,
 						}}
 					/>
@@ -100,7 +100,7 @@ export default function ForumStats({ stats }: ForumStatsProps) {
 					<ChatIcon
 						sx={{
 							fontSize: 40,
-							color: theme.vars.palette.green.main,
+							color: theme.vars.palette.accent.main,
 							mb: 1,
 						}}
 					/>

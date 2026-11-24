@@ -222,23 +222,27 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 		display: "flex",
 		alignItems: "center",
 		gap: 0.5,
-		fontSize: "0.9rem",
+		fontSize: "0.92rem",
 		textTransform: "none",
 		color: isActive(path)
-			? theme.vars.palette.green.main
-			: theme.vars.palette.primary.main,
-		borderBottom: isActive(path)
-			? `2px solid ${theme.vars.palette.green.main}`
-			: "none",
-		borderRadius: 0,
-		fontWeight: 500,
-		letterSpacing: "0.01em",
-		height: 42,
-		px: 1.5,
+			? theme.vars.palette.accent.main
+			: theme.vars.palette.text.primary,
+		backgroundColor: isActive(path)
+			? `rgba(${theme.vars.palette.accent.mainChannel} / 0.12)`
+			: "transparent",
+		borderRadius: "999px",
+		fontWeight: 600,
+		letterSpacing: "0.005em",
+		height: 40,
+		px: 1.75,
 		minWidth: "auto",
+		"& .MuiButton-startIcon": {
+			marginRight: 0.75,
+			"& > *:nth-of-type(1)": { fontSize: 18 },
+		},
 		"&:hover": {
-			backgroundColor: "transparent",
-			color: theme.vars.palette.green.main,
+			backgroundColor: `rgba(${theme.vars.palette.accent.mainChannel} / 0.12)`,
+			color: theme.vars.palette.accent.main,
 		},
 	});
 
@@ -350,7 +354,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 					display: "flex",
 					alignItems: "center",
 					flex: "0 0 auto",
-					flexWrap: { xs: "wrap", md: "nowrap" },
+					flexWrap: { xs: "wrap", nav: "nowrap" },
 				}}
 			>
 				{
@@ -360,7 +364,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 					sx={{
 						display: "flex",
 						flexDirection: "row",
-						flexWrap: { xs: "wrap", md: "nowrap" },
+						flexWrap: { xs: "wrap", nav: "nowrap" },
 						gap: { xs: 0.5, sm: 1 },
 						m: 0,
 						p: 0,
@@ -376,29 +380,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 							LinkComponent={MuiNextLink}
 							href="/movies"
 							variant="text"
-							sx={{
-								display: "flex",
-								alignItems: "center",
-								gap: 0.5,
-								fontSize: "0.9rem",
-								textTransform: "none",
-								color: isActive("/movies")
-									? "#4caf50"
-									: theme.vars.palette.primary.main,
-								borderBottom: isActive("/movies")
-									? `2px solid #4caf50`
-									: "none",
-								borderRadius: 0,
-								fontWeight: 500,
-								letterSpacing: "0.01em",
-								height: 42,
-								px: 1.5,
-								minWidth: "auto",
-								"&:hover": {
-									backgroundColor: "transparent",
-									color: "#4caf50",
-								},
-							}}
+							sx={getButtonStyle("/movies")}
 							onClick={() => {
 								if (isDrawerOpen) setIsDrawerOpen(false);
 							}}
@@ -421,29 +403,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 							LinkComponent={MuiNextLink}
 							href="/series"
 							variant="text"
-							sx={{
-								display: "flex",
-								alignItems: "center",
-								gap: 0.5,
-								fontSize: "0.9rem",
-								textTransform: "none",
-								color: isActive("/series")
-									? "#4caf50"
-									: theme.vars.palette.primary.main,
-								borderBottom: isActive("/series")
-									? `2px solid #4caf50`
-									: "none",
-								borderRadius: 0,
-								fontWeight: 500,
-								letterSpacing: "0.01em",
-								height: 42,
-								px: 1.5,
-								minWidth: "auto",
-								"&:hover": {
-									backgroundColor: "transparent",
-									color: "#4caf50",
-								},
-							}}
+							sx={getButtonStyle("/series")}
 							onClick={() => {
 								if (isDrawerOpen) setIsDrawerOpen(false);
 							}}
@@ -466,29 +426,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 							LinkComponent={MuiNextLink}
 							href="/forum"
 							variant="text"
-							sx={{
-								display: "flex",
-								alignItems: "center",
-								gap: 0.5,
-								fontSize: "0.9rem",
-								textTransform: "none",
-								color: isActive("/forum")
-									? "#4caf50"
-									: theme.vars.palette.primary.main,
-								borderBottom: isActive("/forum")
-									? `2px solid #4caf50`
-									: "none",
-								borderRadius: 0,
-								fontWeight: 500,
-								letterSpacing: "0.01em",
-								height: 42,
-								px: 1.5,
-								minWidth: "auto",
-								"&:hover": {
-									backgroundColor: "transparent",
-									color: "#4caf50",
-								},
-							}}
+							sx={getButtonStyle("/forum")}
 							onClick={() => {
 								if (isDrawerOpen) setIsDrawerOpen(false);
 							}}
@@ -1007,7 +945,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 																							.palette
 																							.action
 																							.hover,
-																					color: "#4caf50",
+																					color: theme.vars.palette.accent.main,
 																				},
 																		}}
 																	>
@@ -1056,7 +994,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 																						.palette
 																						.action
 																						.hover,
-																				color: "#4caf50",
+																				color: theme.vars.palette.accent.main,
 																			},
 																	}}
 																>
@@ -1171,7 +1109,7 @@ export function HeaderLinks({ genres }: IHeaderLinksProps) {
 																									.palette
 																									.action
 																									.hover,
-																							color: "#4caf50",
+																							color: theme.vars.palette.accent.main,
 																						},
 																				}}
 																			>

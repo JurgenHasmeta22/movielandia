@@ -281,7 +281,7 @@ export default function ChangePasswordForm({ email }: IChangePassword) {
 				</Box>
 				<Button
 					type="submit"
-					variant="outlined"
+					variant="contained"
 					sx={{ fontWeight: 600, py: 1 }}
 					disabled={isSubmitting}
 				>

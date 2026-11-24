@@ -12,7 +12,11 @@ interface StatsPalette {
 }
 
 declare module "@mui/material/styles" {
+	interface BreakpointOverrides {
+		nav: true;
+	}
 	interface Palette {
+		accent: PaletteColor;
 		blue: PaletteColor;
 		green: PaletteColor;
 		greyAccent: PaletteColor;
@@ -21,6 +25,7 @@ declare module "@mui/material/styles" {
 	}
 
 	interface PaletteOptions {
+		accent?: PaletteColorOptions;
 		blue?: PaletteColorOptions;
 		green?: PaletteColorOptions;
 		greyAccent?: PaletteColorOptions;
@@ -29,6 +34,7 @@ declare module "@mui/material/styles" {
 	}
 
 	interface CssVarsPalette {
+		accent: PaletteColorChannel;
 		blue: PaletteColorChannel;
 		green: PaletteColorChannel;
 		greyAccent: PaletteColorChannel;

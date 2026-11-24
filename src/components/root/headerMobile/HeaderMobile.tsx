@@ -45,7 +45,7 @@ export default function HeaderMobile({
 	const { isDrawerOpen, setIsDrawerOpen } = useStore();
 
 	const theme = useTheme();
-	const isFullScreen = useMediaQuery(theme.breakpoints.up("md"));
+	const isFullScreen = useMediaQuery(theme.breakpoints.up("nav"));
 
 	useEffect(() => {
 		if (isFullScreen && isDrawerOpen) {
@@ -68,7 +68,7 @@ export default function HeaderMobile({
 				onClose={() => setIsDrawerOpen(false)}
 				onOpen={() => setIsDrawerOpen(true)}
 				sx={{
-					display: { xs: "block", md: "none" },
+					display: { xs: "block", nav: "none" },
 					"& .MuiDrawer-paper": {
 						width: { xs: "85%", sm: 320 },
 						boxSizing: "border-box",
@@ -106,7 +106,7 @@ export default function HeaderMobile({
 								sx={{
 									color: theme.vars.palette.primary.main,
 									"&:hover": {
-										color: theme.vars.palette.green.main,
+										color: theme.vars.palette.accent.main,
 									},
 								}}
 							>

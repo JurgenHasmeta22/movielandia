@@ -1,15 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-	Box,
-	Typography,
-	Stack,
-	Button,
-	useTheme,
-	Container,
-	Paper,
-} from "@mui/material";
+import { Box, Typography, Stack, Button, Container } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -27,13 +19,23 @@ import EmailIcon from "@mui/icons-material/Email";
 import ForumIcon from "@mui/icons-material/Forum";
 import { subscribeNewsletter } from "@/actions/auth.actions";
 import { showToast } from "@/utils/helpers/toast";
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import Link from "next/link";
 import { FooterLink } from "./FooterLink";
 import { SocialButton } from "./SocialButton";
 
+const columnTitleSx = {
+	mb: { xs: 1.5, md: 2.5 },
+	fontSize: { xs: "1rem", md: "1.1rem" },
+	color: "text.primary",
+};
+
+const legalLinkSx = {
+	color: "text.secondary",
+	transition: "color 0.2s ease",
+	"&:hover": { color: "accent.main" },
+};
+
 const Footer = (): React.JSX.Element => {
-	const theme = useTheme();
 	const [email, setEmail] = useState("");
 
 	const handleSubscribe = async () => {
@@ -54,41 +56,37 @@ const Footer = (): React.JSX.Element => {
 
 	return (
 		<Box
+			component="footer"
 			sx={{
-				backgroundColor: theme.vars.palette.primary.dark,
-				color: theme.vars.palette.primary.main,
-				pt: { xs: 6, md: 8 },
-				pb: { xs: 4, md: 6 },
-				borderTop: `1px solid ${theme.vars.palette.divider}`,
-				"& a": {
-					textDecoration: "none !important",
-				},
 				position: "relative",
-				overflow: "hidden",
+				pt: { xs: 7, md: 9 },
+				pb: { xs: 4, md: 5 },
+				backgroundColor: "background.paper",
+				borderTop: "1px solid",
+				borderColor: "divider",
+				"& a": { textDecoration: "none !important" },
 				"&::before": {
 					content: '""',
 					position: "absolute",
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-					backgroundImage:
-						"radial-gradient(circle at 20% 150%, rgba(255, 255, 255, 0.03) 0%, transparent 60%)",
-					zIndex: 0,
+					top: -1,
+					left: "50%",
+					width: "min(720px, 80%)",
+					height: 2,
+					transform: "translateX(-50%)",
+					background:
+						"linear-gradient(90deg, transparent, #FFB224, transparent)",
 				},
 			}}
-			component="footer"
 		>
-			<Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+			<Container maxWidth="xl" sx={{ px: { xs: 2.5, sm: 4, md: 6 } }}>
 				<Box
 					sx={{
 						display: "flex",
 						flexDirection: { xs: "column", md: "row" },
-						gap: { xs: 4, md: 6 },
+						gap: { xs: 5, md: 8 },
 						mb: 6,
 					}}
 				>
-					{/* Left column - Navigation links */}
 					<Box sx={{ flex: "1 1 auto", maxWidth: { md: "58%" } }}>
 						<Box
 							sx={{
@@ -100,18 +98,12 @@ const Footer = (): React.JSX.Element => {
 							<Box sx={{ flex: "1 1 0" }}>
 								<Typography
 									variant="h6"
-									sx={{
-										mb: { xs: 1.5, md: 2.5 },
-										fontSize: { xs: "1rem", md: "1.1rem" },
-										fontWeight: 700,
-										color: "#f44336",
-										position: "relative",
-										display: "inline-block",
-									}}
+									component="h2"
+									sx={columnTitleSx}
 								>
 									Movies & TV
 								</Typography>
-								<Stack spacing={1}>
+								<Stack spacing={0.5}>
 									<FooterLink
 										href="/movies"
 										text="Movies"
@@ -137,18 +129,12 @@ const Footer = (): React.JSX.Element => {
 							<Box sx={{ flex: "1 1 0" }}>
 								<Typography
 									variant="h6"
-									sx={{
-										mb: { xs: 1.5, md: 2.5 },
-										fontSize: { xs: "1rem", md: "1.1rem" },
-										fontWeight: 700,
-										color: "#f44336",
-										position: "relative",
-										display: "inline-block",
-									}}
+									component="h2"
+									sx={columnTitleSx}
 								>
 									Cast & Crew
 								</Typography>
-								<Stack spacing={1}>
+								<Stack spacing={0.5}>
 									<FooterLink
 										href="/actors"
 										text="Actors"
@@ -164,18 +150,12 @@ const Footer = (): React.JSX.Element => {
 							<Box sx={{ flex: "1 1 0" }}>
 								<Typography
 									variant="h6"
-									sx={{
-										mb: { xs: 1.5, md: 2.5 },
-										fontSize: { xs: "1rem", md: "1.1rem" },
-										fontWeight: 700,
-										color: "#f44336",
-										position: "relative",
-										display: "inline-block",
-									}}
+									component="h2"
+									sx={columnTitleSx}
 								>
 									Other
 								</Typography>
-								<Stack spacing={1}>
+								<Stack spacing={0.5}>
 									<FooterLink
 										href="/about-us"
 										text="About Us"
@@ -201,157 +181,128 @@ const Footer = (): React.JSX.Element => {
 						</Box>
 					</Box>
 
-					{/* Right column - Social and Newsletter */}
 					<Box sx={{ flex: "1 1 auto", maxWidth: { md: "42%" } }}>
-						<Paper
-							elevation={0}
+						<Box
 							sx={{
 								p: { xs: 3, md: 4 },
-								backgroundColor: "rgba(255, 255, 255, 0.03)",
-								borderRadius: 2,
-								border: "1px solid rgba(255, 255, 255, 0.05)",
+								borderRadius: "24px",
+								border: "1px solid",
+								borderColor: "divider",
+								backgroundColor: "background.default",
+								backgroundImage:
+									"radial-gradient(420px 220px at 100% 0%, rgba(255, 178, 36, 0.13), transparent 70%)",
 							}}
 						>
 							<Typography
-								variant="h6"
-								sx={{
-									mb: 3,
-									fontSize: { xs: "1.1rem", md: "1.2rem" },
-									fontWeight: 700,
-									color: "#f44336",
-								}}
+								variant="h5"
+								component="h2"
+								sx={{ mb: 1.5 }}
 							>
 								Stay Connected
 							</Typography>
 
-							<Box sx={{ mb: 3 }}>
-								<Typography
-									variant="body2"
-									sx={{ mb: 2, opacity: 0.9 }}
+							<Typography
+								variant="body2"
+								sx={{ mb: 2.5, color: "text.secondary" }}
+							>
+								Subscribe to our newsletter for updates on new
+								releases, features, and promotions.
+							</Typography>
+							<Stack direction="row" spacing={1}>
+								<Box
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										flex: 1,
+										px: 2,
+										borderRadius: 999,
+										border: "1px solid",
+										borderColor: "divider",
+										backgroundColor: "background.paper",
+										transition:
+											"border-color 0.2s ease, box-shadow 0.2s ease",
+										"&:hover": {
+											borderColor: "text.secondary",
+										},
+										"&:focus-within": {
+											borderColor: "accent.main",
+											boxShadow:
+												"0 0 0 4px rgba(255, 178, 36, 0.16)",
+										},
+									}}
 								>
-									Subscribe to our newsletter for updates on
-									new releases, features, and promotions.
-								</Typography>
-								<Stack direction="row" spacing={1}>
+									<EmailIcon
+										sx={{
+											color: "text.secondary",
+											mr: 1.25,
+											fontSize: 20,
+											flexShrink: 0,
+										}}
+									/>
 									<Box
-										component="div"
+										component="input"
+										type="email"
+										aria-label="Email address"
+										placeholder="Enter your email"
+										value={email}
+										onChange={(e) =>
+											setEmail(e.target.value)
+										}
 										sx={{
-											display: "flex",
-											alignItems: "center",
-											backgroundColor:
-												"rgba(0, 0, 0, 0.2)",
-											borderRadius: 1,
-											border: "1px solid rgba(255, 255, 255, 0.1)",
-											px: 1.5,
-											"&:hover": {
-												borderColor: "primary.main",
-											},
-											flex: 1,
-										}}
-									>
-										<EmailIcon
-											sx={{
-												color: "rgba(255, 255, 255, 0.5)",
-												mr: 1.5,
-												flexShrink: 0,
-											}}
-										/>
-										<Box
-											component="input"
-											type="email"
-											placeholder="Enter your email"
-											value={email}
-											onChange={(e) =>
-												setEmail(e.target.value)
-											}
-											sx={{
-												background: "transparent",
-												border: "none",
-												outline: "none",
-												color: "white",
-												width: "100%",
-												py: 1.25,
-												fontSize: "0.875rem",
-												fontFamily: "inherit",
-											}}
-										/>
-									</Box>
-									<Button
-										variant="contained"
-										onClick={handleSubscribe}
-										sx={{
-											bgcolor: "#f44336",
-											color: "white",
-											minWidth: "120px",
-											"&:hover": {
-												bgcolor: "#d32f2f",
+											background: "transparent",
+											border: "none",
+											outline: "none !important",
+											color: "text.primary",
+											width: "100%",
+											py: 1.5,
+											fontSize: "0.9rem",
+											fontFamily: "inherit",
+											"&::placeholder": {
+												color: "text.secondary",
 											},
 										}}
-									>
-										Subscribe
-									</Button>
-								</Stack>
-							</Box>
-
-							<Box
-								sx={{
-									width: "100%",
-									height: "1px",
-									backgroundColor:
-										"rgba(255, 255, 255, 0.05)",
-									my: 3,
-								}}
-							/>
+									/>
+								</Box>
+								<Button
+									variant="contained"
+									onClick={handleSubscribe}
+									sx={{ minWidth: "120px" }}
+								>
+									Subscribe
+								</Button>
+							</Stack>
 
 							<Typography
 								variant="subtitle2"
-								sx={{
-									mb: 2,
-									fontWeight: 600,
-									color: theme.vars.palette.primary.main,
-								}}
+								sx={{ mt: 4, mb: 1.5 }}
 							>
 								Follow us on social media
 							</Typography>
-							<Stack
-								direction="row"
-								spacing={1}
-								sx={{
-									"& .MuiIconButton-root": {
-										backgroundColor:
-											"rgba(255, 255, 255, 0.03)",
-									},
-								}}
-							>
+							<Stack direction="row" spacing={1}>
 								<SocialButton
 									href="https://facebook.com"
 									icon={FacebookIcon}
+									label="Facebook"
 								/>
 								<SocialButton
 									href="https://twitter.com"
 									icon={TwitterIcon}
+									label="Twitter"
 								/>
 								<SocialButton
 									href="https://instagram.com"
 									icon={InstagramIcon}
+									label="Instagram"
 								/>
 								<SocialButton
 									href="https://youtube.com"
 									icon={YouTubeIcon}
+									label="YouTube"
 								/>
 							</Stack>
-						</Paper>
+						</Box>
 					</Box>
 				</Box>
-
-				<Box
-					sx={{
-						width: "100%",
-						height: "1px",
-						backgroundColor: "rgba(255, 255, 255, 0.05)",
-						my: 3,
-					}}
-				/>
 
 				<Box
 					sx={{
@@ -360,12 +311,15 @@ const Footer = (): React.JSX.Element => {
 						alignItems: "center",
 						justifyContent: "space-between",
 						gap: 2,
+						pt: 3,
+						borderTop: "1px solid",
+						borderColor: "divider",
 					}}
 				>
 					<Typography
 						variant="body2"
 						sx={{
-							opacity: 0.7,
+							color: "text.secondary",
 							textAlign: { xs: "center", sm: "left" },
 						}}
 					>
@@ -379,32 +333,12 @@ const Footer = (): React.JSX.Element => {
 						}}
 					>
 						<Link href="/privacy">
-							<Typography
-								variant="body2"
-								sx={{
-									opacity: 0.7,
-									transition: "color 0.2s ease",
-									"&:hover": {
-										color: "#f44336",
-										opacity: 1,
-									},
-								}}
-							>
+							<Typography variant="body2" sx={legalLinkSx}>
 								Privacy Policy
 							</Typography>
 						</Link>
 						<Link href="/terms">
-							<Typography
-								variant="body2"
-								sx={{
-									opacity: 0.7,
-									transition: "color 0.2s ease",
-									"&:hover": {
-										color: "#f44336",
-										opacity: 1,
-									},
-								}}
-							>
+							<Typography variant="body2" sx={legalLinkSx}>
 								Terms of Service
 							</Typography>
 						</Link>

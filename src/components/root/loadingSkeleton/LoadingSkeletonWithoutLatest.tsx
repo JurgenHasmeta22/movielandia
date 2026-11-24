@@ -126,7 +126,7 @@ export default function LoadingSkeletonWithoutLatest() {
 											height: { xs: 10, sm: 12 },
 											bgcolor:
 												index === 0
-													? "#4cceac"
+													? "#FFB224"
 													: "rgba(224, 224, 224, 0.5)",
 										}}
 									/>

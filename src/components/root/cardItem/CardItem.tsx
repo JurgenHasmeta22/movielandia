@@ -294,54 +294,57 @@ const CardItem: React.FC<ICardItemProps> = ({
 								: { xs: "140px", sm: "160px" },
 					height: "100%",
 					position: "relative",
-					borderRadius: presentation === "poster" ? 1.5 : 2,
-					overflow: "hidden",
-					border: presentation === "poster" ? "1px solid" : "none",
-					borderColor: "divider",
-					backgroundColor:
-						presentation === "poster"
-							? theme.vars.palette.background.paper
-							: undefined,
-					boxShadow:
-						presentation === "poster" ? "none" : theme.shadows[4],
-					transition:
-						presentation === "poster"
-							? "border-color 180ms ease, transform 180ms ease"
-							: "box-shadow 0.3s ease-in-out",
-					"&:hover": {
-						boxShadow:
-							presentation === "poster"
-								? "none"
-								: theme.shadows[8],
-						borderColor:
-							presentation === "poster"
-								? theme.vars.palette.green.main
-								: undefined,
+					overflow: "visible",
+					border: "none",
+					borderRadius: 0,
+					backgroundColor: "transparent",
+					boxShadow: "none",
+					"& .posterFrame": {
+						transition:
+							"transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease",
+					},
+					"&:hover .posterFrame": {
+						transform: "translateY(-6px)",
+						boxShadow: `0 0 0 2px ${theme.vars.palette.accent.main}, 0 24px 40px rgba(5, 2, 12, 0.5)`,
+					},
+					"&:hover .posterImage": {
+						transform: "scale(1.06)",
+					},
+					"&:hover .posterTitle": {
+						color: theme.vars.palette.accent.main,
 					},
 				}}
 			>
 				<Box
+					className="posterFrame"
 					sx={{
 						position: "relative",
 						height:
 							presentation === "poster"
-								? { xs: "220px", sm: "270px", md: "300px" }
+								? { xs: "240px", sm: "290px", md: "320px" }
 								: isAutocomplete
 									? { xs: "180px", sm: "210px" }
 									: { xs: "210px", sm: "240px" },
 						width: "100%",
 						overflow: "hidden",
+						borderRadius: "14px",
+						backgroundColor: theme.vars.palette.background.paper,
+						boxShadow: "0 10px 24px rgba(5, 2, 12, 0.3)",
 						"&:hover .hoverOverlay": {
 							opacity: 1,
 						},
 					}}
 				>
 					<Image
+						className="posterImage"
 						src={data.photoSrcProd || "/images/placeholder.jpg"}
 						alt={data.description || "No description available"}
 						fill
 						sizes="(max-width: 600px) 140px, 160px"
-						style={{ objectFit: "cover" }}
+						style={{
+							objectFit: "cover",
+							transition: "transform 500ms cubic-bezier(0.22, 1, 0.36, 1)",
+						}}
 						loading={isPriority ? "eager" : undefined}
 					/>
 					<Box
@@ -349,7 +352,8 @@ const CardItem: React.FC<ICardItemProps> = ({
 						sx={{
 							position: "absolute",
 							inset: 0,
-							bgcolor: "rgba(0, 0, 0, 0.7)",
+							background:
+								"linear-gradient(0deg, rgba(13, 10, 18, 0.96) 0%, rgba(13, 10, 18, 0.82) 55%, rgba(13, 10, 18, 0.55) 100%)",
 							opacity: isHovered ? 1 : 0,
 							transition: "opacity 0.3s ease-in-out",
 							display: "flex",
@@ -420,7 +424,7 @@ const CardItem: React.FC<ICardItemProps> = ({
 									>
 										<StarRateIcon
 											sx={{
-												color: "#FFD700",
+												color: "#FFB224",
 												fontSize: "1rem",
 											}}
 										/>
@@ -521,18 +525,22 @@ const CardItem: React.FC<ICardItemProps> = ({
 					</Box>
 				</Box>
 				{presentation === "poster" && (
-					<Box sx={{ px: 1.25, py: 1.5 }}>
+					<Box sx={{ px: 0.5, pt: 1.5, pb: 0.5 }}>
 						<Typography
 							component="span"
+							className="posterTitle"
 							sx={{
 								display: "-webkit-box",
 								overflow: "hidden",
 								WebkitBoxOrient: "vertical",
 								WebkitLineClamp: 1,
-								fontSize: { xs: "0.8rem", sm: "0.875rem" },
+								fontFamily: "var(--font-display)",
+								fontSize: { xs: "0.9rem", sm: "1rem" },
 								fontWeight: 600,
+								letterSpacing: "-0.01em",
 								lineHeight: 1.4,
 								color: "text.primary",
+								transition: "color 200ms ease",
 							}}
 						>
 							{path === "actors" || path === "crew"

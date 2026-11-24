@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Icon, Stack, Typography, useTheme } from "@mui/material";
-import type {} from "@mui/material/themeCssVarsAugmentation";
+import { Button, Icon, Stack, Typography } from "@mui/material";
 
 interface FooterLinkProps {
 	href: string;
@@ -10,26 +9,20 @@ interface FooterLinkProps {
 }
 
 export const FooterLink = ({ href, text, icon }: FooterLinkProps) => {
-	const theme = useTheme();
-
 	return (
 		<Button
 			href={href}
 			sx={{
 				textDecoration: "none",
-				textTransform: "capitalize",
-				color: theme.vars.palette.primary.main,
-				transition: "all 0.2s ease-in-out",
+				color: "text.secondary",
 				minWidth: "auto",
-				padding: "6px 8px",
-				borderRadius: "8px",
+				padding: "6px 10px",
+				borderRadius: "10px",
 				justifyContent: "flex-start",
-				opacity: 0.85,
 				"&:hover": {
-					backgroundColor: "rgba(255, 255, 255, 0.03)",
-					transform: "translateX(5px)",
-					color: theme.vars.palette.red.main,
-					opacity: 1,
+					backgroundColor: "rgba(255, 178, 36, 0.1)",
+					transform: "translateX(4px)",
+					color: "accent.main",
 				},
 			}}
 		>
@@ -45,7 +38,6 @@ export const FooterLink = ({ href, text, icon }: FooterLinkProps) => {
 							fontSize: 18,
 							minWidth: "20px",
 							color: "inherit",
-							opacity: 0.9,
 						}}
 					/>
 				)}

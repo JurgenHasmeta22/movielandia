@@ -83,7 +83,9 @@ export function DetailsPageCard({
 				p: { xs: 2, sm: 3, md: 4.5 },
 				border: "1px solid",
 				borderColor: theme.vars.palette.divider,
-				borderRadius: { xs: 2, md: 3 },
+				borderRadius: { xs: "20px", md: "28px" },
+				backgroundImage:
+					"radial-gradient(700px 320px at 100% 0%, rgba(255, 178, 36, 0.1), transparent 70%)",
 				mt: { xs: 2, md: 4 },
 			}}
 		>
@@ -119,7 +121,8 @@ export function DetailsPageCard({
 						aspectRatio: "2 / 3",
 						position: "relative",
 						overflow: "hidden",
-						borderRadius: 2,
+						borderRadius: "16px",
+						boxShadow: "0 24px 50px rgba(5, 2, 12, 0.45)",
 						bgcolor: theme.vars.palette.action.hover,
 					}}
 				>
@@ -159,9 +162,10 @@ export function DetailsPageCard({
 								sm: "2.6rem",
 								md: "3.25rem",
 							},
-							letterSpacing: "-0.055em",
-							lineHeight: 1.05,
-							fontWeight: 700,
+							letterSpacing: "-0.04em",
+							lineHeight: 1.02,
+							fontWeight: 800,
+							fontFamily: "var(--font-display)",
 						}}
 						color={theme.vars.palette.text.primary}
 					>
@@ -437,15 +441,10 @@ export function DetailsPageCard({
 						{type !== "actor" && (
 							<Button
 								variant="contained"
-								startIcon={<YouTube />}
+								color="secondary"
+								size="large"
+								startIcon={<YouTube sx={{ color: "red.main" }} />}
 								onClick={onPlayTrailer}
-								sx={{
-									bgcolor: theme.vars.palette.red.main,
-									color: theme.vars.palette.text.primary,
-									textTransform: "capitalize",
-									fontSize: 16,
-									borderRadius: 1.5,
-								}}
 							>
 								Watch trailer
 							</Button>
@@ -453,6 +452,8 @@ export function DetailsPageCard({
 						{session?.user?.userName && (
 							<Button
 								variant="contained"
+								color={isBookmarked ? "secondary" : "primary"}
+								size="large"
 								onClick={handleBookmarkAction}
 								disabled={isPending}
 								startIcon={
@@ -462,30 +463,12 @@ export function DetailsPageCard({
 											color="inherit"
 										/>
 									) : isBookmarked ? (
-										<BookmarkIcon color="error" />
+										<BookmarkIcon sx={{ color: "red.main" }} />
 									) : (
-										<BookmarkBorderIcon color="success" />
+										<BookmarkBorderIcon />
 									)
 								}
-								sx={{
-									color: theme.vars.palette.text.primary,
-									bgcolor: isBookmarked
-										? theme.vars.palette.red.main
-										: theme.vars.palette.green.main,
-									"&:hover": {
-										bgcolor: theme.vars.palette.green.light,
-									},
-									"&:disabled": {
-										bgcolor: isBookmarked
-											? theme.vars.palette.red.main
-											: theme.vars.palette.green.main,
-										opacity: 0.7,
-									},
-									textTransform: "capitalize",
-									fontSize: 16,
-									minWidth: 130,
-									borderRadius: 1.5,
-								}}
+								sx={{ minWidth: 150 }}
 							>
 								{isBookmarked ? "Bookmarked" : "Bookmark"}
 							</Button>

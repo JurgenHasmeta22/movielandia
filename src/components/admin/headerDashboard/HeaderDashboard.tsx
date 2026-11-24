@@ -25,7 +25,7 @@ const HeaderDashboard = ({ title, subtitle }: IHeaderDashboard) => {
 			>
 				{title}
 			</Typography>
-			<Typography variant="h5" color={theme.vars.palette.green.light}>
+			<Typography variant="h5" color={theme.vars.palette.accent.main}>
 				{subtitle}
 			</Typography>
 		</Box>

@@ -133,7 +133,7 @@ export default function ReplyForm({
 							bottom: 0,
 							width: "4px",
 							backgroundColor: (theme) =>
-								theme.vars.palette.green.main,
+								theme.vars.palette.accent.main,
 							borderTopLeftRadius: 2,
 							borderBottomLeftRadius: 2,
 						},

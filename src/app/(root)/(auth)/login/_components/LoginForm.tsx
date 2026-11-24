@@ -233,7 +233,7 @@ export default function LoginForm() {
 					>
 						<Button
 							type="submit"
-							variant="outlined"
+							variant="contained"
 							fullWidth
 							sx={{
 								fontWeight: 600,

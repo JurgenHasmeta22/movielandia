@@ -59,11 +59,13 @@ const AuthButtons = ({
 					<AccountCircleOutlinedIcon
 						onClick={openMenuProfile}
 						sx={{
-							color: theme.vars.palette.primary.main,
-							fontSize: "1.75rem",
+							color: theme.vars.palette.text.primary,
+							fontSize: "1.9rem",
 							cursor: "pointer",
+							borderRadius: "50%",
+							transition: "color 200ms ease",
 							"&:hover": {
-								color: theme.vars.palette.green.main,
+								color: theme.vars.palette.accent.main,
 							},
 						}}
 					/>
@@ -100,11 +102,11 @@ const AuthButtons = ({
 											backgroundColor:
 												theme.vars.palette.action.hover,
 											"& .MuiSvgIcon-root": {
-												color: theme.vars.palette.green
+												color: theme.vars.palette.accent
 													.main,
 											},
 											"& .MuiTypography-root": {
-												color: theme.vars.palette.green
+												color: theme.vars.palette.accent
 													.main,
 											},
 										},
@@ -160,26 +162,9 @@ const AuthButtons = ({
 						LinkComponent={MuiNextLink}
 						href="/login"
 						variant="text"
-						startIcon={<LoginIcon sx={{ fontSize: "1.25rem" }} />} // Consistent icon size
-						sx={{
-							display: "flex",
-							alignItems: "center",
-							gap: 0.75,
-							px: 2,
-							color: theme.vars.palette.primary.main,
-							textTransform: "none",
-							flexShrink: 0,
-							fontSize: "0.95rem",
-							fontWeight: 500,
-							letterSpacing: "0.02em",
-							"& .MuiSvgIcon-root": {
-								fontSize: "1.25rem",
-							},
-							"&:hover": {
-								backgroundColor: theme.vars.palette.green.main,
-								color: theme.vars.palette.greyAccent.main,
-							},
-						}}
+						color="primary"
+						startIcon={<LoginIcon />}
+						sx={{ flexShrink: 0 }}
 						onClick={() => {
 							if (isDrawerOpen) {
 								setIsDrawerOpen(false);
@@ -191,29 +176,10 @@ const AuthButtons = ({
 					<Button
 						LinkComponent={MuiNextLink}
 						href="/register"
-						variant="text"
-						startIcon={
-							<PersonAddIcon sx={{ fontSize: "1.25rem" }} />
-						}
-						sx={{
-							display: "flex",
-							alignItems: "center",
-							gap: 0.75,
-							px: 2,
-							color: theme.vars.palette.primary.main,
-							textTransform: "none",
-							flexShrink: 0,
-							fontSize: "0.95rem",
-							fontWeight: 500,
-							letterSpacing: "0.02em",
-							"& .MuiSvgIcon-root": {
-								fontSize: "1.25rem",
-							},
-							"&:hover": {
-								backgroundColor: theme.vars.palette.green.main,
-								color: theme.vars.palette.greyAccent.main,
-							},
-						}}
+						variant="contained"
+						color="primary"
+						startIcon={<PersonAddIcon />}
+						sx={{ flexShrink: 0 }}
 						onClick={() => {
 							if (isDrawerOpen) {
 								setIsDrawerOpen(false);

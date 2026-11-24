@@ -41,16 +41,19 @@ const CustomNextArrow = ({ onClick }: ArrowProps) => {
 				transform: "translateY(-50%)",
 				zIndex: 2,
 				color: "white",
-				backgroundColor: "rgba(0, 0, 0, 0.7)",
-				width: { xs: 32, sm: 36, md: 40 },
-				height: { xs: 32, sm: 36, md: 40 },
+				backgroundColor: "rgba(13, 10, 18, 0.65)",
+				backdropFilter: "blur(8px)",
+				border: "1px solid rgba(243, 238, 230, 0.16)",
+				width: { xs: 32, sm: 36, md: 44 },
+				height: { xs: 32, sm: 36, md: 44 },
 				transition: "all 0.2s ease-in-out",
 				"&:hover": {
-					backgroundColor: "#70d8bd",
+					backgroundColor: "#FFB224",
+					color: "#1A1100",
 					transform: "translateY(-50%) scale(1.05)",
 				},
 				"&:focus-visible": {
-					outline: "2px solid #70d8bd",
+					outline: "2px solid #FFB224",
 					outlineOffset: 2,
 				},
 			}}
@@ -72,16 +75,19 @@ const CustomPrevArrow = ({ onClick }: ArrowProps) => {
 				transform: "translateY(-50%)",
 				zIndex: 2,
 				color: "white",
-				backgroundColor: "rgba(0, 0, 0, 0.7)",
-				width: { xs: 32, sm: 36, md: 40 },
-				height: { xs: 32, sm: 36, md: 40 },
+				backgroundColor: "rgba(13, 10, 18, 0.65)",
+				backdropFilter: "blur(8px)",
+				border: "1px solid rgba(243, 238, 230, 0.16)",
+				width: { xs: 32, sm: 36, md: 44 },
+				height: { xs: 32, sm: 36, md: 44 },
 				transition: "all 0.2s ease-in-out",
 				"&:hover": {
-					backgroundColor: "#70d8bd",
+					backgroundColor: "#FFB224",
+					color: "#1A1100",
 					transform: "translateY(-50%) scale(1.05)",
 				},
 				"&:focus-visible": {
-					outline: "2px solid #70d8bd",
+					outline: "2px solid #FFB224",
 					outlineOffset: 2,
 				},
 			}}
@@ -143,7 +149,7 @@ const Carousel = ({ data, type }: CarouselProps) => {
 				mt: 1,
 				mb: 0,
 				background:
-					"linear-gradient(115deg, #080b12 0%, #141b2d 58%, #1f2a40 100%)",
+					"radial-gradient(900px 480px at 80% 10%, rgba(255,178,36,0.14), transparent 70%), linear-gradient(115deg, #0D0A12 0%, #161120 58%, #241B30 100%)",
 				"& .slick-slider": {
 					height: "100%",
 				},
@@ -162,7 +168,7 @@ const Carousel = ({ data, type }: CarouselProps) => {
 				"& .slick-dots": {
 					bottom: { xs: "12px", sm: "16px", md: "20px" },
 					"& li button:before": {
-						color: "#70d8bd",
+						color: "#FFB224",
 					},
 				},
 			}}
@@ -213,9 +219,9 @@ const Carousel = ({ data, type }: CarouselProps) => {
 									style={{
 										objectFit: "cover",
 										objectPosition: "center",
-										borderRadius: "8px",
+										borderRadius: "14px",
 										boxShadow:
-											"0 22px 48px rgba(0, 0, 0, 0.38)",
+											"0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(243, 238, 230, 0.1)",
 										width: "clamp(116px, 22vw, 252px)",
 										height: "auto",
 										maxHeight: "min(42vh, 360px)",
@@ -294,28 +300,7 @@ const Carousel = ({ data, type }: CarouselProps) => {
 										<Button
 											variant="contained"
 											aria-label={`See details for ${getTitleOrName(type, element)}`}
-											sx={{
-												bgcolor: "#4cceac",
-												color: "#080b12",
-												fontSize: { xs: 14, sm: 16 },
-												fontWeight: 600,
-												px: { xs: 3, sm: 4 },
-												py: 1.25,
-												borderRadius: "6px",
-												boxShadow: "none",
-												textTransform: "none",
-												transition:
-													"background-color 180ms ease",
-												"&:hover": {
-													bgcolor: "#70d8bd",
-													boxShadow: "none",
-												},
-												"&:focus-visible": {
-													outline:
-														"2px solid #70d8bd",
-													outlineOffset: 2,
-												},
-											}}
+											size="large"
 										>
 											See Details
 										</Button>

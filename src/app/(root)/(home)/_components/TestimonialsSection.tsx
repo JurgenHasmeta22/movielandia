@@ -1,22 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-	Box,
-	Container,
-	Typography,
-	Avatar,
-	Rating,
-	useTheme,
-	Paper,
-} from "@mui/material";
+import { Box, Container, Typography, Avatar, Rating } from "@mui/material";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { motion, type Variants } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import type {} from "@mui/material/themeCssVarsAugmentation";
+import SectionHeading from "@/components/root/sectionHeading/SectionHeading";
 
 const testimonials = [
 	{
@@ -56,8 +47,24 @@ const testimonials = [
 	},
 ];
 
+const containerVariants: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: { staggerChildren: 0.1, ease: "easeOut" },
+	},
+};
+
+const itemVariants: Variants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.5, ease: "easeOut" },
+	},
+};
+
 const TestimonialsSection = () => {
-	const theme = useTheme();
 	const [slidesToShow, setSlidesToShow] = useState(3);
 
 	useEffect(() => {
@@ -82,7 +89,7 @@ const TestimonialsSection = () => {
 		autoplay: true,
 		autoplaySpeed: 5000,
 		pauseOnHover: true,
-		arrows: true,
+		arrows: false,
 		adaptiveHeight: false,
 		responsive: [
 			{
@@ -102,130 +109,73 @@ const TestimonialsSection = () => {
 		],
 	};
 
-	const containerVariants: Variants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: { staggerChildren: 0.1, ease: "easeOut" },
-		},
-	};
-
-	const itemVariants: Variants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.5, ease: "easeOut" },
-		},
-	};
-
 	return (
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 7, md: 10 },
-				backgroundColor: theme.vars.palette.background.default,
+				py: { xs: 8, md: 12 },
 				position: "relative",
 				width: "100%",
 				overflow: "hidden",
 			}}
 		>
-			<Container maxWidth="xl">
+			<Container maxWidth="xl" sx={{ px: { xs: 2.5, sm: 4, md: 6 } }}>
 				<motion.div
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.3 }}
 					variants={containerVariants}
 				>
-					<Box sx={{ textAlign: "left", mb: { xs: 4, md: 6 } }}>
-						<motion.div variants={itemVariants}>
-							<Box
-								sx={{
-									display: "inline-flex",
-									alignItems: "center",
-									color: theme.vars.palette.green.light,
-									mb: 1.5,
-								}}
-							>
-								<PeopleAltIcon sx={{ mr: 1, fontSize: 20 }} />
-								<Typography
-									variant="subtitle2"
-									sx={{ fontWeight: 600, fontSize: 14 }}
-								>
-									User Testimonials
-								</Typography>
-							</Box>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="h3"
-								sx={{
-									fontWeight: 700,
-									mb: 1.5,
-									letterSpacing: "-0.04em",
-									fontSize: {
-										xs: "1.8rem",
-										sm: "2.2rem",
-										md: "2.6rem",
-									},
-								}}
-							>
-								What Our Community Says
-							</Typography>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="body1"
-								sx={{
-									color: theme.vars.palette.text.secondary,
-									maxWidth: "680px",
-									fontSize: { xs: "0.9rem", sm: "1rem" },
-									lineHeight: 1.7,
-								}}
-							>
-								Join thousands of satisfied users who have
-								discovered their next favorite movies and shows
-								through MovieLandia24.
-							</Typography>
-						</motion.div>
-					</Box>
+					<motion.div variants={itemVariants}>
+						<SectionHeading
+							eyebrow="User Testimonials"
+							title="What Our Community Says"
+							description="Join thousands of satisfied users who have discovered their next favorite movies and shows through MovieLandia24."
+						/>
+					</motion.div>
 
-					<Box sx={{ mt: 4, px: { xs: 1, md: 2 } }}>
+					<Box
+						sx={{
+							mx: -1.5,
+							"& .slick-slide > div": { height: "100%" },
+							"& .slick-track": { display: "flex" },
+							"& .slick-slide": { height: "auto" },
+							"& .slick-dots li button:before": {
+								color: "var(--mui-palette-accent-main)",
+							},
+							"& .slick-dots": { bottom: -36 },
+						}}
+					>
 						<Slider {...settings}>
-							{testimonials.map((testimonial, index) => (
-								<Box key={index} sx={{ px: 2, height: "100%" }}>
-									<Paper
-										elevation={0}
+							{testimonials.map((testimonial) => (
+								<Box
+									key={testimonial.name}
+									sx={{ px: 1.5, pb: 1, height: "100%" }}
+								>
+									<Box
 										sx={{
-											px: 2,
-											py: 3,
+											p: 3.5,
 											height: "100%",
-											borderRadius: 0,
 											display: "flex",
 											flexDirection: "column",
-											border: 0,
-											borderTop: "1px solid",
+											borderRadius: "24px",
+											border: "1px solid",
 											borderColor: "divider",
-											backgroundColor: "transparent",
+											backgroundColor: "background.paper",
 										}}
 									>
-										<Box sx={{ mb: 2 }}>
-											<FormatQuoteIcon
-												sx={{
-													fontSize: 40,
-													color: theme.vars.palette
-														.green.light,
-													opacity: 0.8,
-												}}
-											/>
-										</Box>
+										<FormatQuoteIcon
+											sx={{
+												fontSize: 44,
+												mb: 1,
+												color: "accent.main",
+											}}
+										/>
 										<Typography
 											sx={{
-												fontSize: "0.95rem",
-												fontStyle: "italic",
-												color: theme.vars.palette.text
-													.secondary,
-												lineHeight: 1.6,
+												fontSize: "1rem",
+												color: "text.primary",
+												lineHeight: 1.7,
 												mb: 3,
 												flexGrow: 1,
 												minHeight: {
@@ -242,15 +192,20 @@ const TestimonialsSection = () => {
 												display: "flex",
 												alignItems: "center",
 												mt: "auto",
+												pt: 2.5,
+												borderTop: "1px solid",
+												borderColor: "divider",
 											}}
 										>
 											<Avatar
 												src={testimonial.avatar}
 												alt={testimonial.name}
 												sx={{
-													width: 50,
-													height: 50,
+													width: 48,
+													height: 48,
 													mr: 2,
+													border: "2px solid",
+													borderColor: "accent.main",
 												}}
 											/>
 											<Box>
@@ -264,9 +219,7 @@ const TestimonialsSection = () => {
 												</Typography>
 												<Typography
 													sx={{
-														color: theme.vars
-															.palette.text
-															.secondary,
+														color: "text.secondary",
 														fontSize: "0.85rem",
 													}}
 												>
@@ -277,11 +230,17 @@ const TestimonialsSection = () => {
 													precision={0.5}
 													readOnly
 													size="small"
-													sx={{ mt: 0.5 }}
+													sx={{
+														mt: 0.5,
+														"& .MuiRating-iconFilled":
+															{
+																color: "accent.main",
+															},
+													}}
 												/>
 											</Box>
 										</Box>
-									</Paper>
+									</Box>
 								</Box>
 							))}
 						</Slider>

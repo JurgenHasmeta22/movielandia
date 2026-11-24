@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import ScrollToTop from "@/components/root/scrollToTop/ScrollToTop";
 import Header from "@/components/root/header/Header";
 import Footer from "@/components/root/footer/Footer";
@@ -15,8 +15,8 @@ export default function MainLayout({ children }: Readonly<IMainLayoutProps>) {
 			<Grid size={{ xs: 12 }}>
 				<NuqsAdapter>
 					<Header />
-					<main style={{ paddingTop: 50, paddingBottom: 22 }}>
-						{children}
+					<main style={{ paddingBottom: 22 }}>
+						<Box sx={{ pt: { xs: 8, sm: 9 } }}>{children}</Box>
 					</main>
 					<ScrollToTop />
 					<Footer />

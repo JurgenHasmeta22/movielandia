@@ -8,12 +8,10 @@ import {
 	Accordion,
 	AccordionSummary,
 	AccordionDetails,
-	useTheme,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import { motion, type Variants } from "framer-motion";
-import type {} from "@mui/material/themeCssVarsAugmentation";
+import SectionHeading from "@/components/root/sectionHeading/SectionHeading";
 
 const faqs = [
 	{
@@ -38,8 +36,24 @@ const faqs = [
 	},
 ];
 
+const containerVariants: Variants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: { staggerChildren: 0.1, ease: "easeOut" },
+	},
+};
+
+const itemVariants: Variants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.5, ease: "easeOut" },
+	},
+};
+
 const FaqSection = () => {
-	const theme = useTheme();
 	const [expanded, setExpanded] = useState<string | false>(false);
 
 	const handleChange =
@@ -48,148 +62,57 @@ const FaqSection = () => {
 			setExpanded(isExpanded ? panel : false);
 		};
 
-	const containerVariants: Variants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: { staggerChildren: 0.1, ease: "easeOut" },
-		},
-	};
-
-	const itemVariants: Variants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.5, ease: "easeOut" },
-		},
-	};
-
 	return (
 		<Box
 			component="section"
 			sx={{
-				py: { xs: 7, md: 10 },
-				backgroundColor: theme.vars.palette.background.default,
+				py: { xs: 8, md: 12 },
 				position: "relative",
 				width: "100%",
 				overflow: "hidden",
 			}}
 		>
-			<Container maxWidth="lg">
+			<Container maxWidth="lg" sx={{ px: { xs: 2.5, sm: 4 } }}>
 				<motion.div
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.3 }}
 					variants={containerVariants}
 				>
-					<Box sx={{ textAlign: "left", mb: { xs: 4, md: 6 } }}>
-						<motion.div variants={itemVariants}>
-							<Box
-								sx={{
-									display: "inline-flex",
-									alignItems: "center",
-									color: theme.vars.palette.green.light,
-									mb: 1.5,
-								}}
-							>
-								<QuestionAnswerIcon
-									sx={{ mr: 1, fontSize: 20 }}
-								/>
-								<Typography
-									variant="subtitle2"
-									sx={{ fontWeight: 600, fontSize: 14 }}
-								>
-									Frequently Asked Questions
-								</Typography>
-							</Box>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="h3"
-								sx={{
-									fontWeight: 700,
-									mb: 1.5,
-									letterSpacing: "-0.04em",
-									fontSize: {
-										xs: "1.8rem",
-										sm: "2.2rem",
-										md: "2.6rem",
-									},
-								}}
-							>
-								Got Questions? We&apos;ve Got Answers
-							</Typography>
-						</motion.div>
-						<motion.div variants={itemVariants}>
-							<Typography
-								variant="body1"
-								sx={{
-									color: theme.vars.palette.text.secondary,
-									maxWidth: "680px",
-									fontSize: { xs: "0.9rem", sm: "1rem" },
-									lineHeight: 1.7,
-								}}
-							>
-								Find answers to the most common questions about
-								MovieLandia24 and how to make the most of your
-								experience.
-							</Typography>
-						</motion.div>
-					</Box>
+					<motion.div variants={itemVariants}>
+						<SectionHeading
+							eyebrow="Frequently Asked Questions"
+							title="Got Questions? We've Got Answers"
+							description="Find answers to the most common questions about MovieLandia24 and how to make the most of your experience."
+						/>
+					</motion.div>
 
-					<Box sx={{ mt: 4 }}>
+					<Box>
 						{faqs.map((faq, index) => (
 							<motion.div
-								key={index}
+								key={faq.question}
 								variants={itemVariants}
-								custom={index}
 							>
 								<Accordion
 									expanded={expanded === `panel${index}`}
 									onChange={handleChange(`panel${index}`)}
-									sx={{
-										mb: 0,
-										borderRadius: 0,
-										overflow: "hidden",
-										boxShadow: "none",
-										border: 0,
-										borderTop: "1px solid",
-										borderColor: "divider",
-										"&:before": {
-											display: "none",
-										},
-										backgroundColor: "transparent",
-									}}
+									sx={{ mb: 1.5, backgroundColor: "background.paper" }}
 								>
 									<AccordionSummary
 										expandIcon={
 											<ExpandMoreIcon
-												sx={{
-													color: theme.vars.palette
-														.green.light,
-												}}
+												sx={{ color: "accent.main" }}
 											/>
 										}
-										sx={{
-											px: { xs: 1, sm: 2 },
-											py: 1.25,
-											"&:hover": {
-												backgroundColor:
-													theme.vars.palette.action
-														.hover,
-											},
-											"&.Mui-expanded": {
-												minHeight: "unset",
-											},
-										}}
+										sx={{ px: { xs: 2, sm: 3 }, py: 0.75 }}
 									>
 										<Typography
+											variant="h6"
+											component="h3"
 											sx={{
-												fontWeight: 600,
 												fontSize: {
-													xs: "0.95rem",
-													sm: "1.05rem",
+													xs: "1rem",
+													sm: "1.1rem",
 												},
 											}}
 										>
@@ -197,24 +120,13 @@ const FaqSection = () => {
 										</Typography>
 									</AccordionSummary>
 									<AccordionDetails
-										sx={{
-											px: { xs: 1, sm: 2 },
-											py: 0,
-											pb: 2.5,
-											borderTop: "1px solid",
-											borderColor: "divider",
-											backgroundColor: "transparent",
-										}}
+										sx={{ px: { xs: 2, sm: 3 }, pb: 3 }}
 									>
 										<Typography
 											sx={{
-												color: theme.vars.palette.text
-													.secondary,
-												lineHeight: 1.6,
-												fontSize: {
-													xs: "0.9rem",
-													sm: "1rem",
-												},
+												color: "text.secondary",
+												lineHeight: 1.7,
+												maxWidth: "70ch",
 											}}
 										>
 											{faq.answer}

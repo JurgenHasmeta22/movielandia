@@ -69,7 +69,16 @@ export function HeaderContent({
 
 	return (
 		<>
-			<AppBar position="fixed" component={"header"}>
+			<AppBar
+				position="fixed"
+				component={"header"}
+				sx={{
+					backgroundColor: `rgba(${theme.vars.palette.background.defaultChannel} / 0.72)`,
+					backdropFilter: "blur(18px) saturate(1.4)",
+					WebkitBackdropFilter: "blur(18px) saturate(1.4)",
+					borderBottom: `1px solid ${theme.vars.palette.divider}`,
+				}}
+			>
 				<Toolbar
 					sx={{
 						display: "flex",
@@ -77,17 +86,17 @@ export function HeaderContent({
 						justifyContent: "space-between",
 						flexWrap: "nowrap",
 						py: 1.5,
-						backgroundColor: theme.vars.palette.primary.dark,
+						backgroundColor: "transparent",
 						minHeight: { xs: 64, sm: 72 },
-						px: { xs: 1, sm: 2 },
+						px: { xs: 1, sm: 2, md: 3 },
 					}}
 					component={"nav"}
 				>
 					{/* Mobile Menu Button - Only show on mobile */}
 					<Box
 						sx={{
-							display: { xs: "block", md: "none" },
-							order: { xs: 1, md: 0 },
+							display: { xs: "block", nav: "none" },
+							order: { xs: 1, nav: 0 },
 						}}
 					>
 						<IconButton
@@ -97,7 +106,7 @@ export function HeaderContent({
 							sx={{
 								color: theme.vars.palette.primary.main,
 								"&:hover": {
-									color: theme.vars.palette.green.main,
+									color: theme.vars.palette.accent.main,
 								},
 							}}
 						>
@@ -108,7 +117,7 @@ export function HeaderContent({
 					{/* Desktop Navigation */}
 					<Box
 						sx={{
-							display: { xs: "none", md: "flex" },
+							display: { xs: "none", nav: "flex" },
 							width: "100%",
 							alignItems: "center",
 						}}
